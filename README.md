@@ -6,7 +6,9 @@
 
 ## About
 
-Lookbook provides a _ready-to-go_ UI to browse, inspect and preview your ViewComponent components. It uses (and extends) ViewComponent's in-built [component preview functionality](https://viewcomponent.org/guide/previews.html) so should integrate seamlessly with any existing components.
+Lookbook provides a _ready-to-go_ UI to browse, inspect and preview your ViewComponent components. It uses (and extends) ViewComponent's in-built [component preview functionality](https://viewcomponent.org/guide/previews.html) and is intended to integrate seamlessly with existing component libraries.
+
+![Lookbook UI](.github/assets/lookbook_screenshot.png)
 
 ## Installing
 
