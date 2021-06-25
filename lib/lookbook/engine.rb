@@ -18,7 +18,7 @@ module Lookbook
   
     config.app_middleware.use(
       Rack::Static,
-      urls: ["/lookbook"], root: Lookbook::Engine.root.join("public").to_s
+      urls: ["/lookbook-assets"], root: Lookbook::Engine.root.join("public").to_s
     )
 
     ActiveSupport.on_load(:view_component) do
