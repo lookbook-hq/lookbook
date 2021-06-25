@@ -1,0 +1,24 @@
+<div class="bg-gray-50 h-full flex flex-col" x-data="{viewportHeight: 0, viewportWidth: 0}">
+
+  <header class="py-2 px-4 w-full flex-none bg-white border-b border-gray-300 flex items-center h-10">
+    <div class="flex items-center space-x-1">
+      <strong><%= @preview.label %></strong>
+      <span>/</span>
+      <span><%= @example_name.titleize %></span>
+    </div>
+    <div class="ml-auto flex text-xs font-monospace text-gray-700 space-x-1">
+      <span x-text="`${viewportWidth}px`"></span>
+      <span class="text-gray-500">x</span>
+      <span x-text="`${viewportHeight}px`"></span>
+    </div>
+  </header>
+
+  <div class="grid h-full" x-data :style="`grid-template-rows: 1fr 1px ${$store.inspector.height}px`">
+    <%= render "partials/preview" %>
+    <div class="w-full gutter border-t border-gray-300 relative" x-init="split({el: $el, direction: 'vertical', minSize: 200, onDrag: (splits) => { $store.inspector.height = splits[2] }})">
+      <div class="h-[11px] w-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute left-0 right-0 transform -translate-y-1/2 cursor-[row-resize]"></div>
+    </div>
+    <%= render "partials/inspector" %>
+  </div>
+    
+</div>

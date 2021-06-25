@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    [
+      "prismjs",
+      {
+        "languages": ["ruby", "css", "markup", "javascript", "erb", "json"],
+        "plugins": [],
+        "theme": "coy",
+        "css": true
+      }
+    ]
+  ]
+}

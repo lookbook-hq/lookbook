@@ -1,0 +1,20 @@
+<div class="h-screen overflow-hidden" x-data="{open: $store.nav.open}" @popstate.window="$store.nav.active = document.location.pathname">
+  <div class="bg-white h-10 border-b border-gray-300 flex items-center relative">
+    <input type="text"
+      class="text-sm px-4 h-10 w-full border-0 bg-transparent focus:outline-none outline-none focus:ring-0"
+      x-model="$store.nav.filter"
+      @keyup.stop="if ($event.key === 'Escape') $store.nav.filter = ''"
+      placeholder="Filter components&hellip;">
+    <button class="text-gray-400 hover:text-indigo-500 focus:ring-0 focus:outline-none absolute top-1/2 right-2 transform -translate-y-1/2" @click="$store.nav.filter = ''">
+      <i data-feather="x" class="w-3 h-3"></i>
+    </button>
+  </div>
+  <div class="bg-gray-100 relative overflow-auto" style="height: calc(100% - 40px)" @scroll.passive="$store.nav.scrollTop = $event.currentTarget.scrollTop;" x-init="setTimeout(() => {$el.scrollTop = $store.nav.scrollTop}, 30)">
+    <nav class="pb-6 h-full" x-show="$store.nav.filter != ''">
+      <%= render "partials/nav", @nav[:flat] %>
+    </nav>
+    <nav class="pb-6 h-full" x-show="$store.nav.filter == ''">
+      <%= render "partials/nav", @nav[:nested] %>
+    </nav>
+  </div> 
+</div>

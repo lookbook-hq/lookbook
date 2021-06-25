@@ -1,0 +1,44 @@
+<% flat ||= false %>
+<ul class="select-none <%= "divide-y divide-gray-300" if depth == 0 %>">
+  <% items.each do |item| %>
+    <li
+      class="<%= "py-2" if depth == 0 %>"
+      x-data="{id: '<%= item[:name] %>'}"
+      <% if item[:type] == :preview %>x-show="!$store.nav.filter || id.toLowerCase().includes($store.nav.filter.toLowerCase())"<% end %>>
+      <div class="flex items-center cursor-pointer pr-3 py-[3px]" @click="open[id] = !open[id]" style="padding-left: calc((<%= depth %> * 12px) + 0.5rem)">
+        <i data-feather="chevron-down" class="w-3 mr-1 text-gray-500 flex-none" x-show="open[id]" x-cloak></i>
+        <i data-feather="chevron-right" class="w-3 mr-1 text-gray-500 flex-none" x-show="!open[id]"></i>
+        <i data-feather="<%= item[:type] == :group ? 'folder' : 'layers' %>" class="w-4 h-4 mr-1.5 flex-none text-indigo-600"></i>
+        <div class="truncate whitespace-nowrap text-left <%= "font-bold" if item[:type] == :preview %>"<% if flat %> style="direction: rtl;"<% end %>>
+          <%= item[:label] %>
+        </div>
+      </div>
+      <div x-show="open[id]" x-cloak>
+        <% if item[:type] == :group %>
+          <%= render "partials/nav", item %>
+        <% else %>
+          <ul class="mb-1">
+            <% item[:examples].each do |example| %>
+              <li x-data="{path: '<%= preview_path(example[:path]) %>'}"<% if example[:active] %>x-init="$store.nav.active = '<%= preview_path(example[:path]) %>'"<% end %>>
+                <a
+                  :href="path"
+                  class="pr-3 py-[3px] flex items-center w-full group transition hover:bg-gray-200 hover:bg-opacity-50"
+                  :class="{'!bg-indigo-100': $store.nav.active === path}"
+                  style="padding-left: calc((<%= depth %> * 12px) + 2rem)"
+                  @click.stop.prevent="history.pushState({}, null, $event.currentTarget.href); $dispatch('popstate');"
+                  >
+                  <div :class="{'text-gray-900': $store.nav.active === path, 'text-indigo-500': $store.nav.active !== path}">
+                    <i data-feather="eye" class="w-4 h-4 mr-1.5 flex-none group-hover:text-indigo-800 transition"></i>
+                  </div>
+                  <div class="truncate whitespace-nowrap">
+                    <%= example[:label] %>
+                  </div>
+                </a>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </li>
+  <% end %>
+</ul>

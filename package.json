@@ -1,0 +1,37 @@
+{
+  "name": "lookbook",
+  "version": "0.1.0",
+  "description": "Supercharge your ViewComponent development",
+  "pre-commit": [
+    "build"
+  ],
+  "precommit-msg": "echo 'Building production assets...' && exit 0",
+  "scripts": {
+    "css:watch": "npx tailwindcss -i ./app/assets/lookbook/css/app.css -o ./public/lookbook-assets/app.css --watch --postcss",
+    "css:build": "NODE_ENV=production npx tailwindcss -i ./app/assets/lookbook/css/app.css -o ./public/lookbook-assets/app.css --postcss",
+    "js:watch": "NODE_ENV=development node esbuild.config.js",
+    "js:build": "NODE_ENV=production node esbuild.config.js",
+    "dev": "concurrently \"npm:css:watch\" \"npm:js:watch\"",
+    "build": "concurrently \"npm:css:build\" \"npm:js:build\""
+  },
+  "author": "Mark Perkins",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^10.2.6",
+    "concurrently": "^6.2.0",
+    "esbuild": "^0.12.9",
+    "postcss-import": "^14.0.2",
+    "pre-commit": "^1.2.2"
+  },
+  "dependencies": {
+    "@ryangjchandler/alpine-clipboard": "^2.0.0",
+    "@ryangjchandler/alpine-tooltip": "^0.1.2",
+    "@ryangjchandler/fern": "^0.1.0",
+    "@tailwindcss/forms": "^0.3.3",
+    "@tailwindcss/typography": "^0.4.1",
+    "alpinejs": "^3.0.7",
+    "feather-icons": "^4.28.0",
+    "split-grid": "^1.0.11",
+    "tailwindcss": "^2.2.4"
+  }
+}

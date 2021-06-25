@@ -1,0 +1,28 @@
+<div id="inspector" x-data="{counter: 0}" x-init="$nextTick(() => {})" class="bg-white w-full overflow-hidden flex flex-col">
+   <div class="px-4 border-b border-gray-200 flex items-center flex-none select-none  cursor-[ns-resize]" @pointerdown="onResizeStart">
+    <nav class="-mb-px flex space-x-8 cursor-auto" @pointerdown.stop>
+      <% @info.each do |key, props| %>
+        <a
+          href="#<%= key %>"
+          class="whitespace-nowrap py-2 px-1 border-b-2 cursor-pointer <%= "!text-gray-300" if props[:disabled] %>"
+          :class="{
+            'border-indigo-400 ': $store.inspector.active === '<%= key %>',
+            'border-transparent text-gray-500 hover:text-gray-700': $store.inspector.active !== '<%= key %>'
+          }"
+          @click.stop.prevent="$store.inspector.active = '<%= key %>'"
+        >
+          <%== props[:label] %>
+        </a>
+      <% end %>
+    </nav>
+  </div>
+  <div class="flex-auto overflow-auto">
+    <% @info.each do |key, props| %>
+      <div
+        class="flex flex-col h-full overflow-auto bg-gray-50"
+        x-show="$store.inspector.active === '<%= key %>'" x-cloak>
+        <%= render props[:template], props %>
+      </div>
+    <% end %>
+  </div>
+</div>
