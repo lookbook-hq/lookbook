@@ -19,7 +19,7 @@ If you wish to play with it in it's current state you can include it directly fr
 In your `Gemfile` add:
 
 ```ruby
-gem "lookbook", git: "https://github.com/allmarkedup/lookbook", branch: "main
+gem "lookbook", git: "https://github.com/allmarkedup/lookbook", branch: "main"
 ```
 
 This line should be placed <strong>below</strong> where you have specified the `view_component` gem.
