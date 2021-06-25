@@ -24,9 +24,7 @@ gem "lookbook", git: "https://github.com/allmarkedup/lookbook", branch: "main"
 
 This line should be placed <strong>below</strong> where you have specified the `view_component` gem.
 
-## Installation
-
-To use the component browser, you need to mount it (at a path of your choosing) in your `routes.rb` file:
+You then need to mount the Lookbook engine (at a path of your choosing) in your `routes.rb` file:
 
 ```ruby
 Rails.application.routes.draw do
