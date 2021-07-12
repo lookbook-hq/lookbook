@@ -1,6 +1,6 @@
-<div id="inspector" x-data="{counter: 0}" x-init="$nextTick(() => {})" class="bg-white w-full overflow-hidden flex flex-col">
-   <div class="px-4 border-b border-gray-200 flex items-center flex-none select-none  cursor-[ns-resize]" @pointerdown="onResizeStart">
-    <nav class="-mb-px flex space-x-8 cursor-auto" @pointerdown.stop>
+<div id="inspector" class="bg-white w-full overflow-hidden flex flex-col">
+   <div class="px-4 border-b border-gray-200 flex items-center flex-none select-none cursor-[ns-resize]">
+    <nav class="-mb-px flex space-x-8 cursor-auto">
       <% @info.each do |key, props| %>
         <a
           href="#<%= key %>"

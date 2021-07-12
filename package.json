@@ -29,7 +29,7 @@
     "@ryangjchandler/fern": "^0.1.0",
     "@tailwindcss/forms": "^0.3.3",
     "@tailwindcss/typography": "^0.4.1",
-    "alpinejs": "^3.0.7",
+    "alpinejs": "^3.2.1",
     "feather-icons": "^4.28.0",
     "split-grid": "^1.0.11",
     "tailwindcss": "^2.2.4"

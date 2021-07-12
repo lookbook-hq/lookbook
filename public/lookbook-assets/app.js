@@ -2560,7 +2560,7 @@
       return createRef(value, true);
     }
     var RefImpl = class {
-      constructor(_rawValue, _shallow = false) {
+      constructor(_rawValue, _shallow) {
         this._rawValue = _rawValue;
         this._shallow = _shallow;
         this.__v_isRef = true;
@@ -3298,17 +3298,24 @@ Expression: "${expression}"
       directives(el, attrs).forEach((handle) => handle());
     });
     let outNestedComponents = (el) => !closestRoot(el.parentNode || closestRoot(el));
-    Array.from(document.querySelectorAll(rootSelectors())).filter(outNestedComponents).forEach((el) => {
+    Array.from(document.querySelectorAll(allSelectors())).filter(outNestedComponents).forEach((el) => {
       initTree(el);
     });
     dispatch(document, "alpine:initialized");
   }
   var rootSelectorCallbacks = [];
+  var initSelectorCallbacks = [];
   function rootSelectors() {
     return rootSelectorCallbacks.map((fn) => fn());
   }
+  function allSelectors() {
+    return rootSelectorCallbacks.concat(initSelectorCallbacks).map((fn) => fn());
+  }
   function addRootSelector(selectorCallback) {
     rootSelectorCallbacks.push(selectorCallback);
+  }
+  function addInitSelector(selectorCallback) {
+    initSelectorCallbacks.push(selectorCallback);
   }
   function closestRoot(el) {
     if (rootSelectors().some((selector) => el.matches(selector)))
@@ -3391,8 +3398,18 @@ Expression: "${expression}"
   function data(name, callback) {
     datas[name] = callback;
   }
-  function getNamedDataProvider(name) {
-    return datas[name];
+  function injectDataProviders(obj, context) {
+    Object.entries(datas).forEach(([name, callback]) => {
+      Object.defineProperty(obj, name, {
+        get() {
+          return (...args) => {
+            return callback.bind(context)(...args);
+          };
+        },
+        enumerable: false
+      });
+    });
+    return obj;
   }
   var Alpine2 = {
     get reactive() {
@@ -3407,7 +3424,7 @@ Expression: "${expression}"
     get raw() {
       return raw;
     },
-    version: "3.1.1",
+    version: "3.2.0",
     disableEffectScheduling,
     setReactivityEngine,
     addRootSelector,
@@ -3419,6 +3436,7 @@ Expression: "${expression}"
     mutateDom,
     directive,
     evaluate,
+    initTree,
     nextTick,
     prefix: setPrefix,
     plugin,
@@ -3439,9 +3457,14 @@ Expression: "${expression}"
     effect(() => evaluate2((value) => {
       let div = document.createElement("div");
       div.dataset.throwAway = value;
-      if (!firstTime)
-        callback(value, oldValue);
-      oldValue = value;
+      if (!firstTime) {
+        queueMicrotask(() => {
+          callback(value, oldValue);
+          oldValue = value;
+        });
+      } else {
+        oldValue = value;
+      }
       firstTime = false;
     }));
   });
@@ -3453,6 +3476,8 @@ Expression: "${expression}"
       return setClassesFromString(el, value.join(" "));
     } else if (typeof value === "object" && value !== null) {
       return setClassesFromObject(el, value);
+    } else if (typeof value === "function") {
+      return setClasses(el, value());
     }
     return setClassesFromString(el, value);
   }
@@ -4141,7 +4166,7 @@ Expression: "${expression}"
     return !Array.isArray(subject) && !isNaN(subject);
   }
   directive("cloak", (el) => queueMicrotask(() => mutateDom(() => el.removeAttribute(prefix("cloak")))));
-  addRootSelector(() => `[${prefix("init")}]`);
+  addInitSelector(() => `[${prefix("init")}]`);
   directive("init", skipDuringClone((el, { expression }) => evaluate(el, expression, {}, false)));
   directive("text", (el, { expression }, { effect: effect3, evaluateLater: evaluateLater2 }) => {
     let evaluate2 = evaluateLater2(expression);
@@ -4157,9 +4182,7 @@ Expression: "${expression}"
     let evaluate2 = evaluateLater2(expression);
     effect3(() => {
       evaluate2((value) => {
-        mutateDom(() => {
-          el.innerHTML = value;
-        });
+        el.innerHTML = value;
       });
     });
   });
@@ -4197,14 +4220,11 @@ Expression: "${expression}"
   addRootSelector(() => `[${prefix("data")}]`);
   directive("data", skipDuringClone((el, { expression }, { cleanup: cleanup2 }) => {
     expression = expression === "" ? "{}" : expression;
-    let dataProvider = getNamedDataProvider(expression);
-    let data2 = {};
-    if (dataProvider) {
-      let magics2 = injectMagics({}, el);
-      data2 = dataProvider.bind(magics2)();
-    } else {
-      data2 = evaluate(el, expression);
-    }
+    let magicContext = {};
+    injectMagics(magicContext, el);
+    let dataProviderContext = {};
+    injectDataProviders(dataProviderContext, magicContext);
+    let data2 = evaluate(el, expression, { scope: dataProviderContext });
     injectMagics(data2, el);
     let reactiveData = reactive(data2);
     initInterceptors(reactiveData);
@@ -4345,6 +4365,9 @@ Expression: "${expression}"
           lastEl.after(clone2);
           initTree(clone2);
         });
+        if (typeof key === "object") {
+          warn("x-for key cannot be an object, it must be a string or an integer", templateEl);
+        }
         lookup[key] = clone2;
       }
       for (let i = 0; i < sames.length; i++) {
@@ -8359,24 +8382,28 @@ Expression: "${expression}"
   // app/assets/lookbook/js/split.js
   function split_default(props) {
     const app = Alpine.store("app");
-    split_grid_default({
-      [`${props.direction === "vertical" ? "row" : "column"}Gutters`]: [
-        { track: 1, element: props.el }
-      ],
-      minSize: props.minSize,
-      writeStyle() {
-      },
-      onDrag(dir, track, style) {
-        splits = style.split(" ").map((num) => parseInt(num));
-        props.onDrag(splits);
-      },
-      onDragStart() {
-        app.reflowing = true;
-      },
-      onDragEnd() {
-        app.reflowing = false;
+    return {
+      init() {
+        split_grid_default({
+          [`${props.direction === "vertical" ? "row" : "column"}Gutters`]: [
+            { track: 1, element: this.$el }
+          ],
+          minSize: props.minSize,
+          writeStyle() {
+          },
+          onDrag(dir, track, style) {
+            splits = style.split(" ").map((num) => parseInt(num));
+            props.onDrag(splits);
+          },
+          onDragStart() {
+            app.reflowing = true;
+          },
+          onDragEnd() {
+            app.reflowing = false;
+          }
+        });
       }
-    });
+    };
   }
 
   // app/assets/lookbook/js/preview.js
@@ -8446,8 +8473,8 @@ Expression: "${expression}"
   module_default.plugin(module_default2);
   module_default.plugin(module_default3);
   module_default.data("preview", preview);
-  module_default.data("size-observer", size_observer_default);
-  window.split = split_default;
+  module_default.data("sizeObserver", size_observer_default);
+  module_default.data("split", split_default);
   module_default.store("app", { reflowing: false });
   module_default.persistedStore("nav", {
     width: 280,

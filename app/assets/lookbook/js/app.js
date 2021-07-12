@@ -15,8 +15,8 @@ Alpine.plugin(Tooltip);
 // Data
 
 Alpine.data("preview", preview);
-Alpine.data("size-observer", observeSize);
-window.split = split; // move into data component once Alpine supports passing arguments
+Alpine.data("sizeObserver", observeSize);
+Alpine.data("split", split);
 
 // Stores
 

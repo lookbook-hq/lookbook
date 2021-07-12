@@ -15,7 +15,7 @@
 
   <div class="grid h-full" x-data :style="`grid-template-rows: 1fr 1px ${$store.inspector.height}px`">
     <%= render "partials/preview" %>
-    <div class="w-full gutter border-t border-gray-300 relative" x-init="split({el: $el, direction: 'vertical', minSize: 200, onDrag: (splits) => { $store.inspector.height = splits[2] }})">
+    <div class="w-full gutter border-t border-gray-300 relative" x-data="split({direction: 'vertical', minSize: 200, onDrag: (splits) => { $store.inspector.height = splits[2] }})">
       <div class="h-[11px] w-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute left-0 right-0 transform -translate-y-1/2 cursor-[row-resize]"></div>
     </div>
     <%= render "partials/inspector" %>
