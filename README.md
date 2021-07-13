@@ -1,10 +1,7 @@
 <div align="center"> 
-<h1> 👀 Lookbook 👀</h1>
+<h2> 👀 Lookbook 👀</h2>
  
-<strong>⚡️ Supercharge your [ViewComponent](http://viewcomponent.org/) development process 🚀</strong>
-
-🚨 Lookbook is very much a **work in progress** at the moment 🚨
-<br>Expect lots of breaking 💥 changes at any time... as well as things that are just broken.
+⚡️ Supercharge your [ViewComponent](http://viewcomponent.org/) development process 🚀
 
 </div>
 
@@ -16,7 +13,8 @@ Lookbook provides a _ready-to-go_ UI for navigating, inspecting and interacting 
 
 The goal is to (eventually) give a [Storybook](https://storybook.js.org/)-like development experience for ViewComponents, but hopefully with a more 'Railsy' feel and without having to learn a whole new DSL.
 
-> If you are a Storybook fan then you might want to investigate the excellent [ViewComponent::Storybook project](https://github.com/jonspalmer/view_component_storybook) for all your Storybook/ViewComponent integration needs!
+> ⚠️ **PLEASE NOTE!** ⚠️
+> Lookbook is very much a **work in progress** at the moment. It's nowhere near a v1.0 release. Expect lots of breaking 💥 changes at any time... as well as things that are just plain broken.
 
 ![Lookbook UI](.github/assets/lookbook_screenshot.png)
 
