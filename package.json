@@ -17,19 +17,21 @@
   "author": "Mark Perkins",
   "license": "MIT",
   "devDependencies": {
-    "autoprefixer": "^10.2.6",
+    "autoprefixer": "^10.3.1",
     "concurrently": "^6.2.0",
-    "esbuild": "^0.12.9",
+    "esbuild": "^0.12.15",
     "postcss-import": "^14.0.2",
     "pre-commit": "^1.2.2"
   },
   "dependencies": {
+    "@rails/actioncable": "^6.1.4",
     "@ryangjchandler/alpine-clipboard": "^2.0.0",
     "@ryangjchandler/alpine-tooltip": "^0.1.2",
     "@ryangjchandler/fern": "^0.1.0",
     "@tailwindcss/forms": "^0.3.3",
     "@tailwindcss/typography": "^0.4.1",
-    "alpinejs": "^3.2.1",
+    "alpinejs": "^3.2.2",
+    "debounce": "^1.2.1",
     "feather-icons": "^4.28.0",
     "split-grid": "^1.0.11",
     "tailwindcss": "^2.2.4"

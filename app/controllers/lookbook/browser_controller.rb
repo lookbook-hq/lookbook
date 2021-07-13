@@ -9,7 +9,6 @@ module Lookbook
     before_action :assign_previews
     before_action :find_preview, only: :preview
     before_action :find_example, only: :preview
-    before_action :assign_comment, only: :preview
     before_action :assign_navigation
 
     def index
@@ -17,17 +16,22 @@ module Lookbook
 
     def preview
       @path = params[:path]
-      @render_args = @preview.render_args(@example_name, params: params.permit!)
-      @output = render_component_to_string(@render_args[:template], @render_args[:locals])
-      if @render_args[:template] == "view_components/preview"
-        @source = @preview.preview_method_source(@example_name)
-        @source_lang = "Ruby"
+      if @preview.present? && @preview.examples.include?(@example_name)
+        @render_args = @preview.render_args(@example_name, params: params.permit!)
+        @output = render_component_to_string(@render_args[:template], @render_args[:locals])
+        if @render_args[:template] == "view_components/preview"
+          @source = @preview.preview_method_source(@example_name)
+          @source_lang = "Ruby"
+        else
+          @source = @preview.preview_template_source(@render_args[:template])
+          template_path = @preview.preview_example_template_full_path(@render_args[:template])
+          @source_lang = File.extname(template_path).sub(".", "")
+        end
+        assign_comment
+        assign_info_panes
       else
-        @source = @preview.preview_template_source(@render_args[:template])
-        template_path = @preview.preview_example_template_full_path(@render_args[:template])
-        @source_lang = File.extname(template_path).sub(".", "")
+        render "browser/not_found"
       end
-      assign_info_panes
     end
 
     private
@@ -82,7 +86,9 @@ module Lookbook
     end
 
     def find_example
-      @example_name = params[:path] == @preview.preview_name ? @preview.unsorted_examples.first : File.basename(params[:path])
+      if @preview
+        @example_name = params[:path] == @preview.preview_name ? @preview.unsorted_examples.first : File.basename(params[:path])
+      end
     end
 
     def find_preview
@@ -92,8 +98,6 @@ module Lookbook
 
       if preview
         @preview = ViewComponent::Preview.find(preview)
-      else
-        raise AbstractController::ActionNotFound, "Component preview '#{params[:path]}' not found"
       end
     end
     

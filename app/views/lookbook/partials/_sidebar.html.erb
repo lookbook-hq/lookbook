@@ -4,17 +4,19 @@
       class="text-sm px-4 h-10 w-full border-0 bg-transparent focus:outline-none outline-none focus:ring-0"
       x-model="$store.nav.filter"
       @keyup.stop="if ($event.key === 'Escape') $store.nav.filter = ''"
-      placeholder="Filter components&hellip;">
+      placeholder="Filter previews&hellip;">
     <button class="text-gray-400 hover:text-indigo-500 focus:ring-0 focus:outline-none absolute top-1/2 right-2 transform -translate-y-1/2" @click="$store.nav.filter = ''">
-      <i data-feather="x" class="w-3 h-3"></i>
+      <svg class="feather w-3 h-3">
+        <use xlink:href="#x" />
+      </svg>
     </button>
   </div>
-  <div class="bg-gray-100 relative overflow-auto" style="height: calc(100% - 40px)" @scroll.passive="$store.nav.scrollTop = $event.currentTarget.scrollTop;" x-init="setTimeout(() => {$el.scrollTop = $store.nav.scrollTop}, 30)">
+  <div id="nav" class="bg-gray-100 relative overflow-auto" style="height: calc(100% - 40px)" @scroll.passive="$store.nav.scrollTop = $event.currentTarget.scrollTop;" x-init="setTimeout(() => {$el.scrollTop = $store.nav.scrollTop}, 30)">
     <nav class="pb-6 h-full" x-show="$store.nav.filter != ''">
-      <%= render "partials/nav", @nav[:flat] %>
+      <%= render "partials/nav", **@nav[:flat], foo: "flat" %>
     </nav>
     <nav class="pb-6 h-full" x-show="$store.nav.filter == ''">
-      <%= render "partials/nav", @nav[:nested] %>
+      <%= render "partials/nav", **@nav[:nested], foo: "nested" %>
     </nav>
   </div> 
 </div>

@@ -21,7 +21,7 @@ module Lookbook
     end
 
     def nested
-      nav = {style: :nested, depth: 0, items: []}
+      nav = {flat: false, depth: 0, items: []}
       previews.each do |preview|
         current = nav
         depth = preview.path_parts.size

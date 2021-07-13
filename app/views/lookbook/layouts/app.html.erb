@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <link href="/lookbook-assets/app.css" rel="stylesheet">
+
+  <script>
+    window.SOCKET_PATH = "/lookbook/cable"
+  </script>
   <script src="/lookbook-assets/app.js" defer></script>
   
   <title><% if @preview %><%= @preview.label %> : <%= @example_name.capitalize %> | <% end %>Lookbook</title>
@@ -14,29 +18,30 @@
   <div
     class="grid h-screen w-screen max-w-full overflow-hidden"
     :style="`grid-template-columns: ${$store.nav.width}px 1px 1fr;`"
-    x-data="{doc: document}"
+    x-data="{
+      doc: document,
+      update(eventName){
+        return fetch(document.location).then(async response => {
+          if (!response.ok) return location.reload();
+          const html = await response.text();
+          this.doc = (new DOMParser()).parseFromString(html, 'text/html');
+          $dispatch(eventName, {doc: this.doc})
+        });
+      }
+    }"
     x-effect="document.title = doc.title"
-    @document:loaded="feather.replace()"
-    @popstate.window="
-      fetch(document.location).then(async response => {
-        if (!response.ok) return location.reload();
-        const html = await response.text();
-	      doc = (new DOMParser()).parseFromString(html, 'text/html');
-        $dispatch('document:loaded', {doc});
-      });
-    ">
+    @refresh.document="update('document:updated')"
+    @popstate.window="update('document:loaded')">
     <%= render "partials/sidebar" %>
     <div class="h-screen gutter border-r border-gray-300 relative" x-data="split({minSize: 200, onDrag: (splits) => { $store.nav.width = Math.min(splits[0], 500) }})">
       <div class="w-[9px] h-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute top-0 bottom-0 transform -translate-x-1/2 cursor-[col-resize] z-10"></div>
     </div>
-    <div id="main" class="h-screen overflow-hidden w-full" x-init="$watch('doc', () => {
-        while ($el.firstChild) {
-          $el.removeChild($el.lastChild);
-        }
-        $el.innerHTML = doc.getElementById('main').innerHTML;
-      })">
+    <div id="main" class="h-screen overflow-hidden w-full" x-effect="$el.innerHTML = doc.getElementById('main').innerHTML">
       <%= yield %>
     </div>
+  </div>
+  <div class="hidden">
+    <%= render "partials/icon_sprite.svg" %>
   </div>
 </body>
 </html>

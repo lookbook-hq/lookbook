@@ -15,8 +15,11 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["{app,config,lib,public,vendor}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
+  spec.add_dependency "rails"
+  spec.add_dependency "actioncable"
   spec.add_dependency "view_component"
   spec.add_dependency "redcarpet"
   spec.add_dependency "method_source"
   spec.add_dependency "rouge"
+  spec.add_dependency "listen"
 end

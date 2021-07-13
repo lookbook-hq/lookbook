@@ -1,13 +1,14 @@
-import feather from "feather-icons";
 import Alpine from "alpinejs";
 import Fern from "@ryangjchandler/fern";
 import Tooltip from "@ryangjchandler/alpine-tooltip";
 import split from "./split";
 import preview from "./preview";
 import observeSize from "./size_observer";
+import reloader from "./reloader";
 
 window.Alpine = Alpine;
-window.feather = feather;
+
+// Plugins
 
 Alpine.plugin(Fern);
 Alpine.plugin(Tooltip);
@@ -36,8 +37,5 @@ Alpine.persistedStore("inspector", {
 
 // Kick things off...
 
-document.addEventListener("alpine:initialized", () => {
-  feather.replace();
-});
-
+reloader(window.SOCKET_PATH).start();
 Alpine.start();
