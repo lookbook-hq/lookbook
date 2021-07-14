@@ -7660,8 +7660,7 @@ Expression: "${expression}"
     width: 280,
     filter: "",
     open: {},
-    scrollTop: 0,
-    active: null
+    scrollTop: 0
   });
   module_default.persistedStore("preview", {});
   module_default.persistedStore("inspector", {

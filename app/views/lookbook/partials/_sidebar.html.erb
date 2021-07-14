@@ -11,7 +11,12 @@
       </svg>
     </button>
   </div>
-  <div id="nav" class="bg-gray-100 relative overflow-auto" style="height: calc(100% - 40px)" @scroll.passive="$store.nav.scrollTop = $event.currentTarget.scrollTop;" x-init="setTimeout(() => {$el.scrollTop = $store.nav.scrollTop}, 30)">
+  <div
+    id="nav"
+    class="bg-gray-100 relative overflow-auto"
+    style="height: calc(100% - 40px)"
+    @scroll.passive="$store.nav.scrollTop = $event.currentTarget.scrollTop;"
+    x-init="setTimeout(() => {$el.scrollTop = $store.nav.scrollTop}, 30)">
     <nav class="pb-6 h-full" x-show="$store.nav.filter != ''">
       <%= render "partials/nav", @nav[:flat] %>
     </nav>

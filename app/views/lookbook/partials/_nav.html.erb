@@ -1,5 +1,5 @@
 <% flat ||= false %>
-<ul id="nav-<%= flat ? "flat" : "nested" %>" class="select-none <%= "divide-y divide-gray-300" if depth == 0 %>" @document:updated.window="$el.innerHTML = $event.detail.doc.getElementById('nav-<%= flat ? "flat" : "nested" %>').innerHTML">
+<ul id="nav-<%= flat ? "flat" : "nested" %>" class="select-none <%= "divide-y divide-gray-300" if depth == 0 %>" @document:updated.document="$el.innerHTML = $event.detail.doc.getElementById('nav-<%= flat ? "flat" : "nested" %>').innerHTML">
   <% items.each do |item| %>
     <li
       class="<%= "py-2" if depth == 0 %>"
@@ -23,15 +23,15 @@
         <% else %>
           <ul class="mb-1">
             <% item[:examples].each do |example| %>
-              <li x-data="{path: '<%= preview_path(example[:path]) %>'}"<% if example[:active] %>x-init="$store.nav.active = '<%= preview_path(example[:path]) %>'"<% end %>>
+              <li x-data="{path: '<%= preview_path(example[:path]) %>'}">
                 <a
                   :href="path"
                   class="pr-3 py-[3px] flex items-center w-full group transition hover:bg-gray-200 hover:bg-opacity-50"
-                  :class="{'!bg-indigo-100': $store.nav.active === path}"
+                  :class="{'!bg-indigo-100': location === path}"
                   style="padding-left: calc((<%= depth %> * 12px) + 2rem)"
                   @click.stop.prevent="history.pushState({}, null, $event.currentTarget.href); $dispatch('popstate');"
                   >
-                  <div :class="{'text-gray-900': $store.nav.active === path, 'text-indigo-500': $store.nav.active !== path}">
+                  <div :class="{'text-gray-900': location === path, 'text-indigo-500': location !== path}">
                     <svg class="feather w-3.5 h-3.5 mr-1.5 flex-none group-hover:text-indigo-800 transition">
                       <use xlink:href="#eye" />
                     </svg>

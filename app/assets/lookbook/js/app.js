@@ -27,7 +27,6 @@ Alpine.persistedStore("nav", {
   filter: "",
   open: {},
   scrollTop: 0,
-  active: null,
 });
 Alpine.persistedStore("preview", {});
 Alpine.persistedStore("inspector", {
