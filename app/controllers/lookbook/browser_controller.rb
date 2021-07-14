@@ -77,7 +77,7 @@ module Lookbook
           lang: "html"
         },
         comments: {
-          label: "Comments",
+          label: "Notes",
           content: @comment.blank? ? "<em class='text-gray-400'>No comments provided.</em>".html_safe : @comment,
           template: "partials/panes/prose",
           disabled: @comment.blank?
