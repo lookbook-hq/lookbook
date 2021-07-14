@@ -1,3 +1,5 @@
+
+
 module Lookbook
   class BrowserController < ActionController::Base
     protect_from_forgery with: :exception
@@ -17,17 +19,16 @@ module Lookbook
     def preview
       @path = params[:path]
       if @preview.present? && @preview.examples.include?(@example_name)
+        @example = @preview.example(@example_name)
         @render_args = @preview.render_args(@example_name, params: params.permit!)
         @output = render_component_to_string(@render_args[:template], @render_args[:locals])
         if @render_args[:template] == "view_components/preview"
-          @source = @preview.preview_method_source(@example_name)
+          @source = @example.method_source
           @source_lang = "Ruby"
         else
-          @source = @preview.preview_template_source(@render_args[:template])
-          template_path = @preview.preview_example_template_full_path(@render_args[:template])
-          @source_lang = File.extname(template_path).sub(".", "")
+          @source = @example.template_source(@render_args[:template])
+          @source_lang = @example.template_lang(@render_args[:template])
         end
-        assign_comment
         assign_info_panes
       else
         render "browser/not_found"
@@ -42,12 +43,6 @@ module Lookbook
       opts[:layout] = false
       opts[:locals] = locals if locals.present?
       render_to_string template, opts
-    end
-
-    def assign_comment
-      comment_text = @preview.preview_comment(@example_name)
-      comment = Lookbook::Comment.new(comment_text)
-      @comment = comment.to_html
     end
 
     def assign_previews
@@ -76,11 +71,11 @@ module Lookbook
           template: "partials/panes/code",
           lang: "html"
         },
-        comments: {
+        notes: {
           label: "Notes",
-          content: @comment.blank? ? "<em class='text-gray-400'>No comments provided.</em>".html_safe : @comment,
+          content: @example.notes.blank? ? "<em class='text-gray-400'>No comments provided.</em>".html_safe : @example.notes,
           template: "partials/panes/prose",
-          disabled: @comment.blank?
+          disabled: @example.notes.blank?
         }
       }
     end

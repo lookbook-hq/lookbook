@@ -22,4 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "method_source"
   spec.add_dependency "rouge"
   spec.add_dependency "listen"
+  spec.add_dependency "yard"
 end

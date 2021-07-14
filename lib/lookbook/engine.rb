@@ -1,7 +1,3 @@
-require "rails"
-require "view_component"
-require "action_cable/engine"
-
 module Lookbook
 
   class << self
@@ -17,9 +13,9 @@ module Lookbook
   class Engine < Rails::Engine
     isolate_namespace Lookbook
 
-    Lookbook.autoload :Preview, "lookbook/preview"
     Lookbook.autoload :Navigation, "lookbook/navigation"
-    Lookbook.autoload :Comment, "lookbook/comment"
+    Lookbook.autoload :Preview, "lookbook/preview"
+    Lookbook.autoload :PreviewExample, "lookbook/preview_example"
 
     config.lookbook = ActiveSupport::OrderedOptions.new
 
