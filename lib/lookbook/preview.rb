@@ -36,11 +36,8 @@ module Lookbook
     private
 
     def method_info(method_name)
-      yard_path = "#{name}##{method_name}"
-      if YARD::Registry.at(yard_path).nil?
-        YARD.parse(full_path.to_s)
-      end
-      YARD::Registry.at(yard_path)
+      YARD.parse(full_path.to_s)
+      YARD::Registry.at("#{name}##{method_name}")
     end
 
   end
