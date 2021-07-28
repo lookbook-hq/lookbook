@@ -1,6 +1,6 @@
-<div align="center"> 
+<div align="center">
 <h2> 👀 Lookbook 👀</h2>
- 
+
 ⚡️ Supercharge your [ViewComponent](http://viewcomponent.org/) development process 🚀
 
 </div>
@@ -138,6 +138,14 @@ Disable/enable the auto-updating of the Lookbook UI when files change. Enabled b
 
 ```ruby
 config.lookbook.auto_refresh = false # default is true
+```
+
+### Listen paths
+
+Customize listen paths for auto-refresh. Can be used to refresh on components change.
+
+```ruby
+config.lookbook.listen_paths << Rails.root.join('../app/components')
 ```
 
 ## Contributing

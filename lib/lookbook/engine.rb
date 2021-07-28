@@ -18,11 +18,13 @@ module Lookbook
     Lookbook.autoload :PreviewExample, "lookbook/preview_example"
 
     config.lookbook = ActiveSupport::OrderedOptions.new
+    config.lookbook.listen_paths ||= []
 
     initializer "view_component.set_configs" do |app|
       options = app.config.lookbook
 
       options.auto_refresh = true if options.auto_refresh.nil?
+      config.lookbook.listen_paths = config.lookbook.listen_paths.map(&:to_s)
 
       ActiveSupport.on_load(:lookbook) do
         options.each { |k, v| send("#{k}=", v) if respond_to?("#{k}=") }
@@ -55,7 +57,7 @@ module Lookbook
 
     config.after_initialize do |app|
       if app.config.lookbook.auto_refresh
-        paths = config.view_component.preview_paths
+        paths = config.view_component.preview_paths + app.config.lookbook.listen_paths
         @listener = Listen.to(*paths, only: /\.(rb|html.*)$/) do |modified, added, removed|
           if (modified.any? || removed.any?) && added.none?
             Lookbook::Engine.websocket.broadcast("reload", {modified: modified, removed: removed})
