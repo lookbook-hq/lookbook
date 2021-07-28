@@ -140,12 +140,12 @@ Disable/enable the auto-updating of the Lookbook UI when files change. Enabled b
 config.lookbook.auto_refresh = false # default is true
 ```
 
-### Listen paths
+By default Lookbook will listen for changes in any [preview directories](https://viewcomponent.org/api.html#preview_paths) as well as in the [components directory](config.view_component.preview_paths) itself.
 
-Customize listen paths for auto-refresh. Can be used to refresh on components change.
+If you wish to add additional paths to listen for changes in, you can use the `listen_paths` option:
 
 ```ruby
-config.lookbook.listen_paths << Rails.root.join('../app/components')
+config.lookbook.listen_paths << Rails.root.join('app/other/directory')
 ```
 
 ## Contributing
