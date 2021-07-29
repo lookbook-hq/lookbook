@@ -1,0 +1,16 @@
+.tippy-box[data-theme~="lookbook"] {
+  @apply bg-indigo-500 text-white text-xs opacity-90;
+
+  &[data-placement^="top"] > .tippy-arrow::before {
+    border-top-color: theme("colors.indigo.500");
+  }
+  &[data-placement^="bottom"] > .tippy-arrow::before {
+    border-bottom-color: theme("colors.indigo.500");
+  }
+  &[data-placement^="left"] > .tippy-arrow::before {
+    border-left-color: theme("colors.indigo.500");
+  }
+  &[data-placement^="right"] > .tippy-arrow::before {
+    border-right-color: theme("colors.indigo.500");
+  }
+}

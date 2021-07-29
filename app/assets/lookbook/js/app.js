@@ -1,17 +1,17 @@
 import Alpine from "alpinejs";
 import Fern from "@ryangjchandler/fern";
 import Tooltip from "@ryangjchandler/alpine-tooltip";
+import Clipboard from "@ryangjchandler/alpine-clipboard";
 import split from "./split";
 import preview from "./preview";
 import observeSize from "./size_observer";
 import reloader from "./reloader";
 
-window.Alpine = Alpine;
-
 // Plugins
 
 Alpine.plugin(Fern);
 Alpine.plugin(Tooltip);
+Alpine.plugin(Clipboard);
 
 // Data
 
@@ -34,7 +34,8 @@ Alpine.persistedStore("inspector", {
   active: "source",
 });
 
-// Kick things off...
+// Init
 
+window.Alpine = Alpine;
 reloader(window.SOCKET_PATH).start();
 Alpine.start();

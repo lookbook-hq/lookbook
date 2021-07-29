@@ -63,13 +63,15 @@ module Lookbook
           label: "Source <span class='ml-1 text-gray-400'>(#{@source_lang})<span>",
           content: @source || "",
           template: "partials/panes/code",
-          lang: @source_lang.downcase
+          lang: @source_lang.downcase,
+          clipboard: @source || ""
         },
         output: { 
           label: "Output <span class='ml-1 text-gray-400'>(HTML)<span>",
           content: @output || "",
           template: "partials/panes/code",
-          lang: "html"
+          lang: "html",
+          clipboard: @output || ""
         },
         notes: {
           label: "Notes",

@@ -16,12 +16,27 @@
       <% end %>
     </nav>
   </div>
-  <div class="flex-auto overflow-auto">
+  <div class="flex-auto overflow-auto bg-gray-50">
     <% @info.each do |key, props| %>
       <div
-        class="flex flex-col h-full overflow-auto bg-gray-50"
+        class="flex flex-col h-full relative"
         x-show="$store.inspector.active === '<%= key %>'" x-cloak>
-        <%= render props[:template], props %>
+        <% if props[:clipboard].present? %>
+          <button
+            class="p-1.5 border-b border-l border-gray-200 hover:border-gray-300 rounded-bl-md bg-white absolute top-0 right-0 text-gray-400 hover:text-indigo-500 transition"
+            x-data="{content: null, done: false}"
+            x-tooltip.theme.lookbook="done ? 'cpied!' : 'copy to clipboard'"
+            data-tippy-placement="left"
+            @click="$clipboard(content); done = true; setTimeout(() => {done = false}, 1000)">
+            <svg class="feather h-4 w-4 ">
+              <use x-bind:href="done ? '#check' : '#clipboard'" />
+            </svg>
+            <div class="hidden" x-init="content = $el.innerText"><%= h props[:clipboard].strip %></div>
+          </button>
+        <% end %>
+        <div class="flex flex-col h-full overflow-auto">
+          <%= render props[:template], key: key, **props %>
+        </div>
       </div>
     <% end %>
   </div>

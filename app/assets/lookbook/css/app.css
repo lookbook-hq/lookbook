@@ -1,7 +1,9 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-@import "github_theme.css";
+@import "tippy.js/dist/tippy";
+@import "code_theme";
+@import "tooltip_theme";
 
 @layer base {
   html {

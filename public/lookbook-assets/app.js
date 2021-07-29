@@ -7056,6 +7056,21 @@ Expression: "${expression}"
   };
   var module_default3 = src_default3;
 
+  // node_modules/@ryangjchandler/alpine-clipboard/src/index.js
+  function src_default4(Alpine3) {
+    Alpine3.magic("clipboard", () => {
+      return function(target) {
+        if (typeof target === "function") {
+          target = target();
+        }
+        if (typeof target === "object") {
+          target = JSON.stringify(target);
+        }
+        return window.navigator.clipboard.writeText(target);
+      };
+    });
+  }
+
   // node_modules/split-grid/dist/split-grid.mjs
   var numeric = function(value, unit) {
     return Number(value.slice(0, -1 * unit.length));
@@ -7649,9 +7664,9 @@ Expression: "${expression}"
   }
 
   // app/assets/lookbook/js/app.js
-  window.Alpine = module_default;
   module_default.plugin(module_default2);
   module_default.plugin(module_default3);
+  module_default.plugin(src_default4);
   module_default.data("preview", preview);
   module_default.data("sizeObserver", size_observer_default);
   module_default.data("split", split_default);
@@ -7667,6 +7682,7 @@ Expression: "${expression}"
     height: 200,
     active: "source"
   });
+  window.Alpine = module_default;
   reloader_default(window.SOCKET_PATH).start();
   module_default.start();
 })();
