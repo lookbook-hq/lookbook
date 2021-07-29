@@ -1,5 +1,5 @@
 <div align="center">
-<h2> 👀 Lookbook 👀</h2>
+<h2> L👀kbook</h2>
 
 ⚡️ Supercharge your [ViewComponent](http://viewcomponent.org/) development process 🚀
 
@@ -14,7 +14,7 @@ Lookbook provides a _ready-to-go_ UI for navigating, inspecting and interacting 
 The goal is to (eventually) give a [Storybook](https://storybook.js.org/)-like development experience for ViewComponents, but hopefully with a more 'Railsy' feel and without having to learn a whole new DSL.
 
 > ⚠️ **PLEASE NOTE!** ⚠️
-> Lookbook is very much a **work in progress** at the moment. It's nowhere near a v1.0 release. Expect lots of breaking 💥 changes at any time... as well as things that are just plain broken.
+> Lookbook is very much a **work in progress** at the moment. There may be breaking changes on point-releases before a 1.0 version is ready.
 
 ![Lookbook UI](.github/assets/lookbook_screenshot.png)
 
@@ -26,32 +26,17 @@ The [demo app repo](https://github.com/allmarkedup/lookbook-demo) contains instr
 
 ### Current features
 
-- 🚸 Navigate your component previews with ease!
+- 👀 Navigate your component previews with ease!
 - 🔍 Filter/search previews by name
 - 🖥 Resizable, responsive preview window
-- 🤓 Highlighted preview source code
-- 🏳️‍🌈 Highlighted HTML output
-- 📝 Add notes via comments in the preview file - supports markdown too!
-- 🚀 UI auto-updates when files are edited
+- 🔦 Highlighted preview source code (with one-click copy to clipboard)
+- 🔦 Highlighted HTML output
+- 📝 Add notes via comments in the preview file - markdown supported
+- 🚀 Live UI, auto-updates when component or previews files are updated
 
-### Future plans and ideas (in no particular order)...
+### Future plans and ideas
 
-- In-browser editing of [dynamic preview param](https://viewcomponent.org/guide/previews.html#previews) values
-- Support a wider range of possible ViewComponent project setups and styles
-- A nice way to document and display component parameter schema
-- Idenfication and linking to previews of any sub-components of the preview component
-- Quick toggling between a set of project-specific preview window sizes in the UI
-- Helpers for setting background colour and other preview window properties on a per-preview basis
-- More configuration options for customising UI look and feel
-- Ability to override nav tree generation
-- Better filtering/search, including keyboard navigation
-- Tagging of previews/examples for grouping and advanced search
-- Preview/component metadata tab in inspector
-- Start/end of note delimiters within example comment parsing
-- Preview/component-level notes in addition to the example-level ones
-- Make UI work better on small screens
-- UI accessibility improvements
-- Some tests would be nice 🤔
+Check out the [feature request issues](https://github.com/allmarkedup/lookbook/labels/feature%20request)) to get a feel for some of the potential features coming to Lookbook in the future. And please suggest your own if you have anything you'd like to see added!
 
 ## Installing
 
@@ -96,11 +81,23 @@ Lookbook uses the exact same [preview files](https://viewcomponent.org/guide/pre
 
 Lookbook does however bring a few additions to the standard ViewComponent previews. That's why it exists!
 
-### 📝 Preview notes
+### 🔦 Viewing source code and rendered HTML output
+
+Lookbook displays the source code of the current preview (or the contents of preview template, if one is being used), right underneath the rendered preview itself:
+
+<img src=".github/assets/preview_source.png" width="400">
+
+You can also inspect the HTML output of the rendered preview (without any of the layout cruft):
+
+<img src=".github/assets/preview_output.png" width="400">
+
+**You don't need to do anything** to enable viewing the source and output code - it should all just work automagically.
+
+### 📝 Adding notes to previews
 
 Lookbook lets you add notes to your preview examples which are then displayed in the inspector panel. They look something like this:
 
-<img src=".github/assets/preview_example_notes.png" style="max-width: 500px;">
+<img src=".github/assets/preview_example_notes.png" width="400">
 
 Notes are generated from comments above example methods in your preview files. Below is an example of two preview examples that both have notes:
 
@@ -126,8 +123,6 @@ end
 
 ## Configuration
 
-> There is not much to configure in Lookbook yet, but more UI customisation options are planned for the future.
-
 Lookbook uses ViewComponent's configuration options for anything to do with previews, paths and general setup, so you won't need to duplicate any settings.
 
 However the following Lookbook-specific config options are also available:
@@ -152,7 +147,27 @@ config.lookbook.listen_paths << Rails.root.join('app/other/directory')
 
 Lookbook is very much a small hobby/side project at the moment. I'd love to hear from anyone who is interested in contributing but I'm terrible at replying to emails or messages, so don't be surprised if I take forever to get back to you. It's not personal 😜
 
-However, I'm a frontend developer - not a Rails dev - so any thoughts, advice or PRs on how to improve the codebase will be always much appreciated! 🍻
+However, I'm a frontend developer - not a Rails dev - so any thoughts, advice or PRs on how to improve the codebase will be always much appreciated. 🍻
+
+### Developing on a local version of Lookbook
+
+The quickest way to get a development version of Lookbook up and running is to use the [lookbook-demo](https://github.com/allmarkedup/lookbook-demo) app and link it to a local version of the Lookbook gem:
+
+#### Initial setup:
+
+1. Clone this repository somewhere on your machine - `git clone git@github.com:allmarkedup/lookbook.git`
+2. Also pull down the [lookbook-demo](https://github.com/allmarkedup/lookbook-demo) repository to your machine
+3. In the `Gemfile` of the `lookbook-demo` repository, replace `gem "lookbook", git: "https://github.com/allmarkedup/lookbook", branch: "main"` with `gem "lookbook", path: "../path/to/lookbook"` (use the path to your local copy of lookbook)
+4. Install dependencies - from the root of the parent project run `bundle install`
+
+#### Starting development
+
+1. From within the `lookbook` root directory run the comand `npm run dev` (this will make sure the CSS/JS is recompiled if/when you make changes to the UI)
+2. From within the `lookbook-demo` root directory run `npm run start` - this will start a server and build the demo assets
+
+Point your browser to http://localhost:3000/lookbook to see the UI. You can then make and test changes to the Lookbook code in your local copy of lookbook repo. PRs are welcome if you add anything useful :-)
+
+> Note that changes to files in the Lookbook `lib/` directory will require a server restart in order to have them applied.
 
 ## License
 
