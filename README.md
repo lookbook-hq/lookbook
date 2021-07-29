@@ -159,7 +159,7 @@ The quickest way to get a development version of Lookbook up and running is to u
 
 1. Clone this repository somewhere on your machine - `git clone git@github.com:allmarkedup/lookbook.git`
 2. Also pull down the [lookbook-demo](https://github.com/allmarkedup/lookbook-demo) repository to your machine
-3. In the `Gemfile` of the `lookbook-demo` repository, replace `gem "lookbook", git: "https://github.com/allmarkedup/lookbook", branch: "main"` with `gem "lookbook", path: "../path/to/lookbook"` (use the path to your local copy of lookbook)
+3. In the `Gemfile` of the `lookbook-demo` repository, replace `gem "lookbook", '>= 0.1', git: "https://github.com/allmarkedup/lookbook", branch: "main"` with `gem "lookbook", path: "../path/to/lookbook"` (use the path to your local copy of lookbook)
 4. Install dependencies - from the root of the parent project run `bundle install`
 
 #### Starting development
