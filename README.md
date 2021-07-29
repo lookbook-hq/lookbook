@@ -91,7 +91,9 @@ You can also inspect the HTML output of the rendered preview (without any of the
 
 <img src=".github/assets/preview_output.png" width="400">
 
-**You don't need to do anything** to enable viewing the source and output code - it should all just work automagically.
+All code panels have a 'copy-to-clipboard' button at the top right of the panel, just click it to copy the un-highlighted code to your clipboard.
+
+<img src=".github/assets/copy_to_clipboard.png" width="400">
 
 ### 📝 Adding notes to previews
 
