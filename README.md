@@ -18,12 +18,6 @@ The goal is to (eventually) give a [Storybook](https://storybook.js.org/)-like d
 
 ![Lookbook UI](.github/assets/lookbook_screenshot.png)
 
-### Lookbook demo
-
-If you want to have a quick play with Lookbook, the easiest way is to [give the demo app](https://github.com/allmarkedup/lookbook-demo) a spin. It's a basic Rails/ViewComponent app with a few test components included to tinker with.
-
-The [demo app repo](https://github.com/allmarkedup/lookbook-demo) contains instructions on how to get it up and running.
-
 ### Current features
 
 - 👀 Navigate your component previews with ease!
@@ -38,6 +32,12 @@ The [demo app repo](https://github.com/allmarkedup/lookbook-demo) contains instr
 
 Check out the [feature request issues](https://github.com/allmarkedup/lookbook/labels/feature%20request)) to get a feel for some of the potential features coming to Lookbook in the future. And please suggest your own if you have anything you'd like to see added!
 
+## Lookbook demo
+
+If you want to have a quick play with Lookbook, the easiest way is to [give the demo app](https://github.com/allmarkedup/lookbook-demo) a spin. It's a basic Rails/ViewComponent app with a few test components included to tinker with.
+
+The [demo app repo](https://github.com/allmarkedup/lookbook-demo) contains instructions on how to get it up and running.
+
 ## Installing
 
 Lookbook is current a work in progress and **has not been published as a Gem** yet.
@@ -49,7 +49,7 @@ If you wish to play with it in it's current state you can include it directly fr
 In your `Gemfile` add:
 
 ```ruby
-gem "lookbook", git: "https://github.com/allmarkedup/lookbook", branch: "main"
+gem "lookbook", '>= 0.1', git: "https://github.com/allmarkedup/lookbook", branch: "main"
 ```
 
 This line should be placed <strong>below</strong> wherever you have specified the `view_component` gem.
