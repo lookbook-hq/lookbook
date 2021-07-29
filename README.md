@@ -61,13 +61,17 @@ You then need to mount the Lookbook engine (at a path of your choosing) in your 
 ```ruby
 Rails.application.routes.draw do
   # any other routes...
-  mount Lookbook::Engine, at: "/lookbook"
+  if Rails.env.development?
+    mount Lookbook::Engine, at: "/lookbook"
+  end
 end
 ```
 
 The `at` property determines the root URL that the Lookbook UI will be served at.
 
-Then start your app as normal and navigate to `http://localhost:3000/lookbook` (or whatever mount path you specified) to view your component previews in the Lookbook UI.
+> If you would like to expose the Lookbook UI in production as well as in development, just remove the `if Rails.env.development?` wrapper from the mount statement.
+
+Then you can start your app as normal and navigate to `http://localhost:3000/lookbook` (or whatever mount path you specified) to view your component previews in the Lookbook UI.
 
 ## Usage
 
