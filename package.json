@@ -13,7 +13,9 @@
     "js:watch": "NODE_ENV=development node esbuild.config.js",
     "js:build": "NODE_ENV=production node esbuild.config.js",
     "dev": "concurrently \"npm:css:watch\" \"npm:js:watch\"",
-    "build": "concurrently \"npm:css:build\" \"npm:js:build\""
+    "build": "concurrently \"npm:css:build\" \"npm:js:build\"",
+    "release": "release-it",
+    "release:dry-run": "release-it --dry-run"
   },
   "author": "Mark Perkins",
   "license": "MIT",
@@ -22,7 +24,8 @@
     "concurrently": "^6.2.0",
     "esbuild": "^0.12.15",
     "postcss-import": "^14.0.2",
-    "pre-commit": "^1.2.2"
+    "pre-commit": "^1.2.2",
+    "release-it": "^14.10.1"
   },
   "dependencies": {
     "@rails/actioncable": "^6.1.4",
@@ -37,5 +40,20 @@
     "split-grid": "^1.0.11",
     "tailwindcss": "^2.2.4",
     "tippy.js": "^6.3.1"
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "release v${version}",
+      "requireBranch": "main"
+    },
+    "github": {
+      "release": true
+    },
+    "npm": {
+      "publish": false
+    },
+    "hooks": {
+      "after:bump": "echo \"module Lookbook\\n\\tVERSION = '${version//v/$''}'\\nend\" > ./lib/lookbook/version.rb"
+    }
   }
 }
