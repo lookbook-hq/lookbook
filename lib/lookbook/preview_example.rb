@@ -4,9 +4,11 @@ module Lookbook
 
     attr_reader :name
 
-    def initialize(name, code_object)
+    def initialize(name, preview)
       @name = name
-      @code_object = code_object
+      YARD::Registry.clear
+      YARD.parse(preview.full_path.to_s)
+      @code_object = YARD::Registry.at("#{preview.name}##{name}")
     end
 
     def notes

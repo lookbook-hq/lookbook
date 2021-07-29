@@ -2,7 +2,7 @@ module Lookbook
   module Preview
 
     def example(example_name)
-      Lookbook::PreviewExample.new(example_name, method_info(example_name))
+      Lookbook::PreviewExample.new(example_name, self)
     end
     
     def label
@@ -32,13 +32,5 @@ module Lookbook
     def unsorted_examples
       public_instance_methods(false).map(&:to_s)
     end
-
-    private
-
-    def method_info(method_name)
-      YARD.parse(full_path.to_s)
-      YARD::Registry.at("#{name}##{method_name}")
-    end
-
   end
 end
