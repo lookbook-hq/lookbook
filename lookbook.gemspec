@@ -1,15 +1,13 @@
 $:.push File.expand_path("lib", __dir__)
 
-# Maintain your gem's version:
 require "lookbook/version"
 
-# Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
   spec.name        = "lookbook"
   spec.version     = Lookbook::VERSION
   spec.authors     = ["Mark Perkins"]
   spec.email       = ["mark@allmarkedup.com"]
-  # spec.homepage    = "TODO"
+  spec.homepage    = "https://github.com/allmarkedup/lookbook"
   spec.summary     = "Supercharge your ViewComponent development"
   spec.license     = "MIT"
 
@@ -19,7 +17,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "actioncable"
   spec.add_dependency "view_component"
   spec.add_dependency "redcarpet"
-  spec.add_dependency "method_source"
   spec.add_dependency "rouge"
   spec.add_dependency "listen"
   spec.add_dependency "yard"

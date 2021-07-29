@@ -4,16 +4,11 @@ PATH
     lookbook (0.1.0)
       actioncable
       listen
-      method_source
       rails
       redcarpet
       rouge
       view_component
-
-PATH
-  remote: vendor/gems/method_source-1.0.0
-  specs:
-    method_source (1.0.0)
+      yard
 
 GEM
   remote: https://rubygems.org/
@@ -82,11 +77,11 @@ GEM
     crass (1.0.6)
     erubi (1.10.0)
     ffi (1.15.3)
-    globalid (0.4.2)
-      activesupport (>= 4.2.0)
+    globalid (0.5.1)
+      activesupport (>= 5.0)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
-    listen (3.5.1)
+    listen (3.6.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.10.0)
@@ -95,6 +90,7 @@ GEM
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     marcel (1.0.1)
+    method_source (1.0.0)
     mini_mime (1.1.0)
     mini_portile2 (2.5.3)
     minitest (5.14.4)
@@ -148,12 +144,13 @@ GEM
     thor (1.1.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
-    view_component (2.35.0)
+    view_component (2.36.0)
       activesupport (>= 5.0.0, < 8.0)
       method_source (~> 1.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    yard (0.9.26)
     zeitwerk (2.4.2)
 
 PLATFORMS
@@ -161,7 +158,6 @@ PLATFORMS
 
 DEPENDENCIES
   lookbook!
-  method_source!
 
 BUNDLED WITH
    2.1.4
