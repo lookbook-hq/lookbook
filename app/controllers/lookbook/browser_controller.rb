@@ -9,16 +9,26 @@ module Lookbook
     layout "layouts/app"
 
     before_action :assign_previews
-    before_action :find_preview, only: :preview
-    before_action :find_example, only: :preview
+    before_action :find_preview, only: [:preview, :show]
+    before_action :find_example, only: [:preview, :show]
     before_action :assign_navigation
 
     def index
     end
 
     def preview
+      if example_exists?
+        controller = ::ViewComponentsController.new
+        controller.request = request
+        controller.response = response
+        @preview_html = controller.process(:previews)
+        render "browser/preview", layout: nil
+      end
+    end
+
+    def show 
       @path = params[:path]
-      if @preview.present? && @preview.examples.include?(@example_name)
+      if example_exists?
         @example = @preview.example(@example_name)
         @render_args = @preview.render_args(@example_name, params: params.permit!)
         @output = render_component_to_string(@render_args[:template], @render_args[:locals])
@@ -36,6 +46,10 @@ module Lookbook
     end
 
     private
+
+    def example_exists?
+      @preview.present? && @preview.examples.include?(@example_name)
+    end
 
     def render_component_to_string(template, locals)
       prepend_view_path(ViewComponent::Base.preview_paths)

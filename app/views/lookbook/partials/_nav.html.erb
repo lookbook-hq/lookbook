@@ -23,7 +23,7 @@
         <% else %>
           <ul class="mb-1">
             <% item[:examples].each do |example| %>
-              <li x-data="{path: '<%= preview_path(example[:path]) %>'}">
+              <li x-data="{path: '<%= show_path example[:path] %>'}">
                 <a
                   :href="path"
                   class="pr-3 py-[3px] flex items-center w-full group transition hover:bg-gray-200 hover:bg-opacity-50"

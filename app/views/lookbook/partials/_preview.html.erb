@@ -1,7 +1,7 @@
 <div class="w-full bg-gray-50">
   <div class="h-full relative mx-auto bg-white" x-data="preview" :style="`width: ${$store.preview.width}`">
     <iframe
-      src="<%= "#{Rails.application.config.view_component.preview_route}/#{@preview.preview_name}/#{@example_name}?#{request.query_string}" %>"
+      src="<%= url_for lookbook.preview_path %>"
       frameborder="0"
       class="h-full w-full border-l border-gray-300 pr-4 -mx-px"
       x-data="sizeObserver"
