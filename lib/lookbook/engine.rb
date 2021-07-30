@@ -1,5 +1,8 @@
-module Lookbook
+require "rails"
+require "view_component"
+require "action_cable/engine"
 
+module Lookbook
   class << self
     def config
       @config ||= Engine.config.lookbook
@@ -12,11 +15,6 @@ module Lookbook
 
   class Engine < Rails::Engine
     isolate_namespace Lookbook
-
-    Lookbook.autoload :Navigation, "lookbook/navigation"
-    Lookbook.autoload :Preview, "lookbook/preview"
-    Lookbook.autoload :PreviewExample, "lookbook/preview_example"
-    Lookbook.autoload :Parser, "lookbook/parser"
 
     config.lookbook = ActiveSupport::OrderedOptions.new
     config.lookbook.listen_paths ||= []

@@ -1,3 +1,5 @@
+require "yard"
+
 module Lookbook
   class Parser
 

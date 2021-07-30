@@ -1,3 +1,6 @@
+require 'redcarpet'
+require 'rouge'
+
 module Lookbook
   module ApplicationHelper
     def config
