@@ -56,6 +56,11 @@ module Lookbook
       end
     end
 
+    config.to_prepare do
+      Lookbook::BrowserController.helper Lookbook::Engine.helpers
+      Lookbook::BrowserController.prepend_view_path Lookbook::Engine.root.join("app/views")
+    end
+
     config.after_initialize do |app|
       if app.config.lookbook.auto_refresh
         @listener = Listen.to(*app.config.lookbook.listen_paths, only: /\.(rb|html.*)$/) do |modified, added, removed|

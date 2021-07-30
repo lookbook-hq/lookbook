@@ -16,5 +16,8 @@ module Lookbook
       lexer = Rouge::Lexer.find(language)
       formatter.format(lexer.lex(source)).html_safe
     end
+
+    def preview_source
+    end
   end
 end

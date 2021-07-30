@@ -1,11 +1,8 @@
-
-
 module Lookbook
   class BrowserController < ActionController::Base
     protect_from_forgery with: :exception
     prepend_view_path File.expand_path("../../views/lookbook", __dir__)
     
-    helper Lookbook::Engine.helpers
     layout "layouts/app"
 
     before_action :assign_previews

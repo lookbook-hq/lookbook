@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lookbook (0.1.0)
+    lookbook (0.1.1)
       actioncable
       listen
       rails
