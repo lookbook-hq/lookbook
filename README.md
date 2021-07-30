@@ -13,8 +13,9 @@ Lookbook provides a _ready-to-go_ UI for navigating, inspecting and interacting 
 
 The goal is to (eventually) give a [Storybook](https://storybook.js.org/)-like development experience for ViewComponents, but hopefully with a more 'Railsy' feel and without having to learn a whole new DSL.
 
-> ⚠️ **PLEASE NOTE!** ⚠️
-> Lookbook is very much a **work in progress** at the moment. There may be breaking changes on point-releases before a 1.0 version is ready.
+Lookbook uses [RDoc/Yard-style comment tags](https://rubydoc.info/gems/yard/file/docs/Tags.md) to extend the capabilities of ViewComponent's preview functionality whilst maintaining compatability with the standard ViewComponent preview class format, so you can add or remove Lookbook at any time without having to rewrite any code.
+
+> ⚠️ **PLEASE NOTE!** Lookbook is very much a **work in progress** at the moment. There may be breaking changes on point-releases before a 1.0 version is ready. ⚠️
 
 ![Lookbook UI](.github/assets/lookbook_screenshot.png)
 
@@ -27,6 +28,7 @@ The goal is to (eventually) give a [Storybook](https://storybook.js.org/)-like d
 - 🔦 Highlighted HTML output
 - 📝 Add notes via comments in the preview file - markdown supported
 - 🚀 Live UI, auto-updates when component or previews files are updated
+- 🙈 Supports 'hidden' previews and examples
 
 ### Future plans and ideas
 
@@ -83,7 +85,24 @@ Lookbook will use the [ViewComponent configuration options](https://viewcomponen
 
 Lookbook uses the exact same [preview files](https://viewcomponent.org/guide/previews.html) as 'regular' ViewComponent previews, so using preview templates, custom layouts and even bespoke [preview controllers](https://viewcomponent.org/guide/previews.html#configuring-preview-controller) should all work just the same.
 
-Lookbook does however bring a few additions to the standard ViewComponent previews. That's why it exists!
+### Comment tags
+
+Lookbook uses [Yard-style tags](https://rubydoc.info/gems/yard/file/docs/Tags.md) in class and method comments to extract additional information about previews, examples and components.
+
+Tags are just strings identified by their `@` prefix - for example `@hidden`. Tags are always placed in a comment above the relevant preview class or example method. The comments can still contain any other text, and multiple tags can be included in any one comment. For example:
+
+```ruby
+# This is a class-level comment.
+# @hidden
+class MyClass
+  # This is a method-level comment.
+  # @hidden
+  def my_method
+  end
+end
+```
+
+Some tags can also require additional arguments. Further informatin on the tags Lookbook uses are detailed in the docs below.
 
 ### 🔦 Viewing source code and rendered HTML output
 
@@ -108,7 +127,6 @@ Lookbook lets you add notes to your preview examples which are then displayed in
 Notes are generated from comments above example methods in your preview files. Below is an example of two preview examples that both have notes:
 
 ```ruby
-# test/components/previews/button_component_preview.rb
 class ButtonComponentPreview < ViewComponent::Preview
 
   # Add notes as comments above the example methods.
@@ -123,6 +141,50 @@ class ButtonComponentPreview < ViewComponent::Preview
   # Each preview example has it's own notes, extracted from the method comments.
   def danger
     render ButtonComponent.new(text: "Don't do it!", theme: :danger)
+  end
+end
+```
+
+### 📝 Hiding previews and examples
+
+Sometimes you may want a preview or an individual example to be 'hidden' in the Lookbook UI. This means that the preview or example will not show up in the navigation, but will still be accessible via it's URL.
+
+To hide a preview or example, the `@hidden` comment tag is used:
+
+#### Hiding a preview
+
+To hide an entire preview, include the `@hidden` tag in a class comment:
+
+```ruby
+# @hidden
+class MyComponentPreview < ViewComponent::Preview
+  # examples here....
+end
+```
+
+#### Hiding an example
+
+To hide an individual example, include the `@hidden` tag in the appropriate method comment:
+
+```ruby
+class MyComponentPreview < ViewComponent::Preview
+
+  # Hidden Example
+  # ----------
+  # You won't see this in the nav!
+  #
+  # @hidden
+  def hidden_example
+    # example code...
+  end
+
+  def a_visible_example
+    # example code...
+  end
+
+  # @hidden
+  def another_hidden_example
+    # example code...
   end
 end
 ```
