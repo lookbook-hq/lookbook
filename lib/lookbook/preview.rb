@@ -6,8 +6,16 @@ module Lookbook
       hidden_tag.present? && hidden_tag.text.strip != "false"
     end
 
-    def example(example_name)
+    def get_example(example_name)
       Lookbook::PreviewExample.new(example_name, name)
+    end
+
+    def get_examples
+      @examples_data ||= public_instance_methods(false).map { |name| get_example(name.to_s) }
+    end
+
+    def get_visible_examples
+      get_examples.reject(&:hidden?)
     end
     
     def label
@@ -32,10 +40,6 @@ module Lookbook
 
     def normalized_name
       name.chomp("ComponentPreview").chomp("::").underscore
-    end
-
-    def unsorted_examples
-      public_instance_methods(false).map(&:to_s)
     end
 
   end

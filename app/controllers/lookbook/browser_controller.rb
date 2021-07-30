@@ -29,7 +29,7 @@ module Lookbook
     def show 
       @path = params[:path]
       if example_exists?
-        @example = @preview.example(@example_name)
+        @example = @preview.get_example(@example_name)
         @render_args = @preview.render_args(@example_name, params: params.permit!)
         @output = render_component_to_string(@render_args[:template], @render_args[:locals])
         if @render_args[:template] == "view_components/preview"
@@ -64,10 +64,9 @@ module Lookbook
     end
 
     def assign_navigation
-      nav = Lookbook::Navigation.new(@previews, params[:path])
       @nav = {
-        nested: nav.nested,
-        flat: nav.flat
+        nested: Lookbook::Navigation.nested,
+        flat: Lookbook::Navigation.flat
       }
     end
 
