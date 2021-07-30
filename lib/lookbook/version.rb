@@ -1,3 +1,3 @@
 module Lookbook
-	VERSION = '0.1.1'
+	VERSION = '#{ersion}'
 end
