@@ -15,7 +15,7 @@ module Lookbook
 
     def preview
       if example_exists?
-        controller = ::ViewComponentsController.new
+        controller = preview_controller.new
         controller.request = request
         controller.response = response
         @preview_html = controller.process(:previews)
@@ -107,6 +107,9 @@ module Lookbook
         @preview = ViewComponent::Preview.find(preview)
       end
     end
-    
+
+    def preview_controller
+      Rails.configuration.view_component.preview_controller.constantize
+    end
   end
 end
