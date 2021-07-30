@@ -7,7 +7,8 @@ module Lookbook
     end
 
     def previews
-      @previews.sort_by(&:normalized_name).filter { |preview| preview.unsorted_examples.any? }
+      valid = @previews.filter { |preview| preview.unsorted_examples.any? && !preview.hidden? }
+      valid.sort_by(&:normalized_name)
     end
 
     def flat

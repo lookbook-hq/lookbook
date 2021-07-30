@@ -1,8 +1,13 @@
 module Lookbook
   module Preview
 
+    def hidden?
+      hidden_tag = Lookbook::Engine.parser.tags_for(name).first
+      hidden_tag.present? && hidden_tag.text.strip != "false"
+    end
+
     def example(example_name)
-      Lookbook::PreviewExample.new(example_name, self)
+      Lookbook::PreviewExample.new(example_name, name)
     end
     
     def label
@@ -32,5 +37,6 @@ module Lookbook
     def unsorted_examples
       public_instance_methods(false).map(&:to_s)
     end
+
   end
 end

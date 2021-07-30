@@ -16,6 +16,7 @@ module Lookbook
     Lookbook.autoload :Navigation, "lookbook/navigation"
     Lookbook.autoload :Preview, "lookbook/preview"
     Lookbook.autoload :PreviewExample, "lookbook/preview_example"
+    Lookbook.autoload :Parser, "lookbook/parser"
 
     config.lookbook = ActiveSupport::OrderedOptions.new
     config.lookbook.listen_paths ||= []
@@ -61,6 +62,7 @@ module Lookbook
       if app.config.lookbook.auto_refresh
         @listener = Listen.to(*app.config.lookbook.listen_paths, only: /\.(rb|html.*)$/) do |modified, added, removed|
           if (modified.any? || removed.any?) && added.none?
+            Lookbook::Engine.parser.parse
             Lookbook::Engine.websocket.broadcast("reload", {modified: modified, removed: removed})
           end
         end
@@ -75,6 +77,14 @@ module Lookbook
     class << self
       def websocket
         @websocket ||= ActionCable::Server::Base.new(config: Lookbook.cable)
+      end
+
+      def parser
+        return @parser if @parser
+        @parser = Lookbook::Parser.new(config.lookbook.listen_paths)
+        @parser.define_tags
+        @parser.parse
+        @parser
       end
     end
   end

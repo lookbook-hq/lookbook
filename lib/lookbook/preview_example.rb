@@ -4,19 +4,17 @@ module Lookbook
 
     attr_reader :name
 
-    def initialize(name, preview)
+    def initialize(name, preview_name)
       @name = name
-      YARD::Registry.clear
-      YARD.parse(preview.full_path.to_s)
-      @code_object = YARD::Registry.at("#{preview.name}##{name}")
+      @preview_name = preview_name
     end
 
     def notes
-      @code_object.docstring.to_s.strip
+      code_object.docstring.to_s.strip
     end
 
     def method_source
-      @code_object.source.split("\n")[1..-2].join("\n").strip_heredoc
+      code_object.source.split("\n")[1..-2].join("\n").strip_heredoc
     end
 
     def template_source(template_path)
@@ -28,6 +26,10 @@ module Lookbook
     end
 
     private
+
+    def code_object
+      @code_object ||= Lookbook::Engine.parser.find("#{@preview_name}##{@name}")
+    end
 
     def full_template_path(template_path)
       base_path = Array(ViewComponent::Base.preview_paths).detect do |p|
