@@ -53,7 +53,7 @@
       "publish": false
     },
     "hooks": {
-      "after:version:bump": "rake lookbook:release:bump_version\\[#{version}]"
+      "after:version:bump": "rake 'lookbook:release:bump_version[${version}]' && bundle"
     }
   }
 }
