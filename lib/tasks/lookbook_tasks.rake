@@ -1,4 +1,4 @@
-require "./lib/lookbook.rb"
+require_relative "../lookbook.rb"
 
 namespace :lookbook do
   namespace :release do
