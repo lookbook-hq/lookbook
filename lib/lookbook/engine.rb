@@ -1,6 +1,7 @@
 require "rails"
 require "view_component"
 require "action_cable/engine"
+require "listen"
 
 module Lookbook
   class << self
