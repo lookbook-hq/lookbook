@@ -44,6 +44,10 @@ module Lookbook
       Lookbook.cable.logger ||= Rails.logger
     end
 
+    initializer "lookbook.parser.tags" do
+      Lookbook::Parser.define_tags
+    end
+
     initializer "lookbook.assets.serve" do
       config.app_middleware.use(
         Rack::Static,
@@ -66,7 +70,6 @@ module Lookbook
       if app.config.lookbook.auto_refresh
         @listener = Listen.to(*app.config.lookbook.listen_paths, only: /\.(rb|html.*)$/) do |modified, added, removed|
           if (modified.any? || removed.any?) && added.none?
-            Lookbook::Engine.parser.parse
             Lookbook::Engine.websocket.broadcast("reload", {modified: modified, removed: removed})
           end
         end
@@ -81,15 +84,6 @@ module Lookbook
     class << self
       def websocket
         @websocket ||= ActionCable::Server::Base.new(config: Lookbook.cable)
-      end
-
-      def parser
-        return @parser if @parser
-        parser_paths = config.view_component.preview_paths.map { |p| "#{p}/**/*_preview.rb" }
-        @parser = Lookbook::Parser.new(parser_paths)
-        @parser.define_tags
-        @parser.parse
-        @parser
       end
     end
   end

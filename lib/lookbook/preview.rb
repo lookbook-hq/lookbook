@@ -2,12 +2,12 @@ module Lookbook
   module Preview
 
     def hidden?
-      hidden_tag = Lookbook::Engine.parser.tags_for(name).first
+      hidden_tag = class_object.tags(:hidden).first
       hidden_tag.present? && hidden_tag.text.strip != "false"
     end
 
     def get_example(example_name)
-      Lookbook::PreviewExample.new(example_name, name)
+      Lookbook::PreviewExample.new(example_name, method_object(example_name))
     end
 
     def get_examples
@@ -40,6 +40,17 @@ module Lookbook
 
     def normalized_name
       name.chomp("ComponentPreview").chomp("::").underscore
+    end
+
+    private
+
+    def class_object
+      return @class_object if @class_object.present?
+      @class_object = Lookbook::Parser.get_code_object(full_path, name)
+    end
+
+    def method_object(method_name)
+      class_object.meths.find { |m| m.name.to_s == method_name }
     end
 
   end
