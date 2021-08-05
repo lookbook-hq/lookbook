@@ -85,7 +85,8 @@ module Lookbook
 
       def parser
         return @parser if @parser
-        @parser = Lookbook::Parser.new(config.lookbook.listen_paths)
+        parser_paths = config.view_component.preview_paths.map { |p| "#{p}/**/*_preview.rb" }
+        @parser = Lookbook::Parser.new(parser_paths)
         @parser.define_tags
         @parser.parse
         @parser

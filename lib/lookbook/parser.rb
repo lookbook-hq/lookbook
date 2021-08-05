@@ -6,7 +6,7 @@ module Lookbook
     YARDOC_FILE_PATH = Rails.root.join("tmp/storage/.yardoc").to_s
 
     def initialize(paths)
-      @paths = paths.map { |p| "#{p}/**/*.rb" }
+      @paths = paths
       registry.yardoc_file = YARDOC_FILE_PATH
     end
 
