@@ -9,17 +9,13 @@ module Lookbook
     before_action :find_preview, only: [:preview, :show]
     before_action :find_example, only: [:preview, :show]
     before_action :assign_navigation
-
+ 
     def index
     end
 
     def preview
       if example_exists?
-        controller = preview_controller.new
-        controller.request = request
-        controller.response = response
-        @preview_html = controller.process(:previews)
-        render "browser/preview", layout: nil
+        render html: preview_controller.process(:previews)
       end
     end
 
@@ -28,7 +24,7 @@ module Lookbook
       if example_exists?
         @example = @preview.get_example(@example_name)
         @render_args = @preview.render_args(@example_name, params: params.permit!)
-        @output = render_component_to_string(@render_args[:template], @render_args[:locals])
+        @output = preview_controller.render_component_to_string(@preview, @example_name)
         if @render_args[:template] == "view_components/preview"
           @source = @example.method_source
           @source_lang = "Ruby"
@@ -46,14 +42,6 @@ module Lookbook
 
     def example_exists?
       @preview.present? && @preview.examples.include?(@example_name)
-    end
-
-    def render_component_to_string(template, locals)
-      prepend_view_path(ViewComponent::Base.preview_paths)
-      opts = {}
-      opts[:layout] = false
-      opts[:locals] = locals if locals.present?
-      render_to_string template, opts
     end
 
     def assign_previews
@@ -109,7 +97,12 @@ module Lookbook
     end
 
     def preview_controller
-      Rails.configuration.view_component.preview_controller.constantize
+      controller_class = Lookbook.config.preview_controller.constantize
+      controller_class.class_eval { include Lookbook::PreviewController }
+      controller = controller_class.new
+      controller.request = request
+      controller.response = response
+      controller
     end
   end
 end

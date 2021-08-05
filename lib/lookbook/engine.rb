@@ -22,11 +22,13 @@ module Lookbook
 
     initializer "view_component.set_configs" do |app|
       options = app.config.lookbook
+      vc_options = app.config.view_component
 
       options.auto_refresh = true if options.auto_refresh.nil?
-      config.lookbook.listen_paths = config.lookbook.listen_paths.map(&:to_s)
-      config.lookbook.listen_paths += config.view_component.preview_paths
-      config.lookbook.listen_paths << (config.view_component.view_component_path || "app/components")
+      options.listen_paths = options.listen_paths.map(&:to_s)
+      options.listen_paths += vc_options.preview_paths
+      options.listen_paths << (vc_options.view_component_path || "app/components")
+      options.preview_controller = vc_options.preview_controller if options.preview_controller.nil?
 
       ActiveSupport.on_load(:lookbook) do
         options.each { |k, v| send("#{k}=", v) if respond_to?("#{k}=") }

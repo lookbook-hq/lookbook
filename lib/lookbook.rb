@@ -7,5 +7,6 @@ module Lookbook
   autoload :Parser, "lookbook/parser"
   autoload :Preview, "lookbook/preview"
   autoload :PreviewExample, "lookbook/preview_example"
+  autoload :PreviewController, "lookbook/preview_controller"
   autoload :Navigation, "lookbook/navigation"
 end
