@@ -11,7 +11,7 @@ module Lookbook
     end
 
     def get_examples
-      @examples_data ||= public_instance_methods(false).map { |name| get_example(name.to_s) }
+      @examples_data ||= class_object.meths.map { |m| get_example(m.name.to_s) }
     end
 
     def get_visible_examples
@@ -45,7 +45,7 @@ module Lookbook
     private
 
     def class_object
-      Lookbook::Parser.get_code_object(full_path, name)
+      @class_object ||= Lookbook::Parser.get_code_object(full_path, name)
     end
 
     def method_object(method_name)
