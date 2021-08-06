@@ -45,8 +45,7 @@ module Lookbook
     private
 
     def class_object
-      return @class_object if @class_object.present?
-      @class_object = Lookbook::Parser.get_code_object(full_path, name)
+      Lookbook::Parser.get_code_object(full_path, name)
     end
 
     def method_object(method_name)
