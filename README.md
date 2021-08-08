@@ -104,20 +104,6 @@ end
 
 Some tags can also require additional arguments. Further informatin on the tags Lookbook uses are detailed in the docs below.
 
-### 🔦 Viewing source code and rendered HTML output
-
-Lookbook displays the source code of the current preview (or the contents of preview template, if one is being used), right underneath the rendered preview itself:
-
-<img src=".github/assets/preview_source.png" width="400">
-
-You can also inspect the HTML output of the rendered preview (without any of the layout cruft):
-
-<img src=".github/assets/preview_output.png" width="400">
-
-All code panels have a 'copy-to-clipboard' button at the top right of the panel, just click it to copy the un-highlighted code to your clipboard.
-
-<img src=".github/assets/copy_to_clipboard.png" width="400">
-
 ### 📝 Adding notes to previews
 
 Lookbook lets you add notes to your preview examples which are then displayed in the inspector panel. They look something like this:
@@ -145,15 +131,35 @@ class ButtonComponentPreview < ViewComponent::Preview
 end
 ```
 
-### 📝 Hiding previews and examples
+### 👀 Navigation customisation
 
-Sometimes you may want a preview or an individual example to be 'hidden' in the Lookbook UI. This means that the preview or example will not show up in the navigation, but will still be accessible via it's URL.
+Lookbook generates a nested navigation menu based on the file structure of your component preview directories. This can be customised in a number of ways.
 
-To hide a preview or example, the `@hidden` comment tag is used:
+#### Preview and example labels
 
-#### Hiding a preview
+By default, the labels shown for previews and examples are stripped and 'titlized' versions of the preview file names and the example method names, respectively.
 
-To hide an entire preview, include the `@hidden` tag in a class comment:
+If you wish to override the automatic navigation label generation for a preview or example you can use the `@label` comment tag:
+
+```ruby
+# @label Standard Button
+class BtnPreview < ViewComponent::Preview
+
+  # @label Icon Button
+  def with_icon
+  end
+end
+```
+
+In the example above, the preview and example would be displayed like this:
+
+<img src=".github/assets/nav_labels.png" width="200">
+
+#### Excluding previews and/or examples from the navigation
+
+Sometimes you may want a preview or an individual example to be 'hidden' in the Lookbook UI. This means that the preview or example will not show up in the navigation, but will still be accessible via it's URL. You can use the `@hidden` comment tag to manage this.
+
+To **hide an entire preview** so that it no longer shows up in the , include the `@hidden` tag in a class comment:
 
 ```ruby
 # @hidden
@@ -162,9 +168,7 @@ class MyComponentPreview < ViewComponent::Preview
 end
 ```
 
-#### Hiding an example
-
-To hide an individual example, include the `@hidden` tag in the appropriate method comment:
+To **hide an individual example**, include the `@hidden` tag in the appropriate method comment:
 
 ```ruby
 class MyComponentPreview < ViewComponent::Preview
@@ -175,19 +179,33 @@ class MyComponentPreview < ViewComponent::Preview
   #
   # @hidden
   def hidden_example
-    # example code...
+    # ...
   end
 
   def a_visible_example
-    # example code...
+    # ...
   end
 
   # @hidden
   def another_hidden_example
-    # example code...
+    # ...
   end
 end
 ```
+
+### 🔦 Viewing source code and rendered HTML output
+
+Lookbook displays the source code of the current preview (or the contents of preview template, if one is being used), right underneath the rendered preview itself:
+
+<img src=".github/assets/preview_source.png" width="400">
+
+You can also inspect the HTML output of the rendered preview (without any of the layout cruft):
+
+<img src=".github/assets/preview_output.png" width="400">
+
+All code panels have a 'copy-to-clipboard' button at the top right of the panel, just click it to copy the un-highlighted code to your clipboard.
+
+<img src=".github/assets/copy_to_clipboard.png" width="400">
 
 ## Configuration
 

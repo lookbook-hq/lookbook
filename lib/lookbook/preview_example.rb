@@ -1,5 +1,6 @@
 module Lookbook
   class PreviewExample
+    include Lookbook::Parsable
 
     attr_reader :name
 
@@ -9,11 +10,7 @@ module Lookbook
     end
 
     def label
-      name.titleize.strip
-    end
-
-    def notes
-      @code_object.docstring.to_s.strip
+      super || name.titleize.strip
     end
 
     def method_source
@@ -26,11 +23,6 @@ module Lookbook
 
     def template_lang(template_path)
       File.extname(full_template_path(template_path)).sub(".", "")
-    end
-
-    def hidden?
-      hidden_tag = @code_object.tags(:hidden).first
-      hidden_tag.present? && hidden_tag.text.strip != "false"
     end
 
     private

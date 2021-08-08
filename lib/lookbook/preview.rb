@@ -1,17 +1,13 @@
 module Lookbook
   module Preview
-
-    def hidden?
-      hidden_tag = class_object.tags(:hidden).first
-      hidden_tag.present? && hidden_tag.text.strip != "false"
-    end
+    include Lookbook::Parsable
 
     def get_example(example_name)
       Lookbook::PreviewExample.new(example_name, method_object(example_name))
     end
 
     def get_examples
-      @examples_data ||= class_object.meths.map { |m| get_example(m.name.to_s) }
+      @examples_data ||= code_object.meths.map { |m| get_example(m.name.to_s) }
     end
 
     def get_visible_examples
@@ -19,7 +15,7 @@ module Lookbook
     end
     
     def label
-      normalized_name.split("/").last.titleize.strip
+      super || normalized_name.split("/").last.titleize.strip
     end
 
     def pretty_path
@@ -44,12 +40,12 @@ module Lookbook
 
     private
 
-    def class_object
-      @class_object ||= Lookbook::Parser.get_code_object(full_path, name)
+    def code_object
+      @code_object ||= Lookbook::Parser.get_code_object(full_path, name)
     end
 
     def method_object(method_name)
-      class_object.meths.find { |m| m.name.to_s == method_name }
+      code_object.meths.find { |m| m.name.to_s == method_name }
     end
 
   end
