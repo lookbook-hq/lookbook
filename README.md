@@ -1,7 +1,7 @@
 <div align="center">
-<h2> L👀kbook</h2>
+  <h2>Lookbook</h2>
 
-⚡️ Supercharge your [ViewComponent](http://viewcomponent.org/) development process 🚀
+A zero-config development UI for [ViewComponent](http://viewcomponent.org/)
 
 </div>
 
