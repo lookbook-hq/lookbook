@@ -1,0 +1,24 @@
+name: reviewdog
+
+on:
+  pull_request:
+    branches:
+      - "*"
+  push:
+    branches:
+      - main
+
+jobs:
+  standardrb:
+    name: runner / standardrb
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v1
+      - name: standardrb
+        uses: SennaLabs/action-standardrb@v0.0.3
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          rubocop_version: 0.1.6
+          rubocop_flags: --format progress
