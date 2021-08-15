@@ -1,4 +1,4 @@
-require_relative "../lookbook.rb"
+require_relative "../lookbook"
 
 namespace :lookbook do
   namespace :release do
@@ -7,7 +7,7 @@ namespace :lookbook do
       filename = Lookbook::Engine.root.join("lib/lookbook/version.rb")
       current_version = Lookbook::VERSION.to_s
       new_version = args[:version].sub("v", "")
-      file = File.open(filename);
+      file = File.open(filename)
       contents = file.read
       File.write(filename, contents.gsub(current_version, new_version))
     end

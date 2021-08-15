@@ -1,9 +1,8 @@
 module Lookbook
   class Collection
-
     attr_reader :path
 
-    def initialize(path = '')
+    def initialize(path = "")
       @path = path.delete_prefix("/").delete_suffix("/")
       @items = []
     end
@@ -48,6 +47,5 @@ module Lookbook
     def type
       :collection
     end
-
   end
 end

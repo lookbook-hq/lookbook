@@ -1,7 +1,7 @@
 module Lookbook
   module Preview
     include Taggable
-    
+
     # Examples::FooBarComponent::Preview -> "Foo Bar"
     def lookbook_label
       super.presence || lookbook_path.split("/").last.titleize
@@ -56,7 +56,6 @@ module Lookbook
     end
 
     class << self
-
       def all
         ViewComponent::Preview.all
       end
@@ -68,7 +67,6 @@ module Lookbook
       def exists?(path)
         !!find(path)
       end
-
     end
 
     private

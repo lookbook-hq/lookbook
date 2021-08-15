@@ -1,6 +1,5 @@
 module Lookbook
   module PreviewController
-
     def render_component_to_string(preview, example_name)
       prepend_application_view_paths
       prepend_preview_examples_view_path
@@ -14,6 +13,5 @@ module Lookbook
       opts[:locals] = locals if locals.present?
       render_to_string template, opts
     end
-
   end
 end

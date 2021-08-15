@@ -2,7 +2,6 @@ require "yard"
 
 module Lookbook
   class Parser
-
     YARDOC_FILE_PATH = Rails.root.join("tmp/storage/.yardoc").to_s
 
     def initialize(paths)
@@ -25,13 +24,10 @@ module Lookbook
     end
 
     class << self
-
       def define_tags
         YARD::Tags::Library.define_tag("Hidden status", :hidden)
         YARD::Tags::Library.define_tag("Label", :label)
       end
-
     end
-
   end
 end

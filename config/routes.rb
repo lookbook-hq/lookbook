@@ -5,5 +5,4 @@ Lookbook::Engine.routes.draw do
 
   get "/preview/*path", to: "browser#preview", as: :preview
   get "/*path", to: "browser#show", as: :show
-  
 end

@@ -1,5 +1,5 @@
-require 'redcarpet'
-require 'rouge'
+require "redcarpet"
+require "rouge"
 
 module Lookbook
   module ApplicationHelper
@@ -12,7 +12,7 @@ module Lookbook
     end
 
     def highlight(source, language)
-      formatter = Rouge::Formatters::HTML.new(css_class: 'highlight')
+      formatter = Rouge::Formatters::HTML.new(css_class: "highlight")
       lexer = Rouge::Lexer.find(language)
       formatter.format(lexer.lex(source)).html_safe
     end

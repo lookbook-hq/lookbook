@@ -2,13 +2,13 @@ module Lookbook
   class BrowserController < ActionController::Base
     protect_from_forgery with: :exception
     prepend_view_path File.expand_path("../../views/lookbook", __dir__)
-    
+
     layout "layouts/app"
     helper Lookbook::Engine.helpers
 
     before_action :find_preview, only: [:preview, :show]
     before_action :find_example, only: [:preview, :show]
- 
+
     def index
       assign_vars
     end
@@ -80,7 +80,7 @@ module Lookbook
           lang: @source_lang,
           clipboard: @source
         },
-        output: { 
+        output: {
           label: "Output",
           content: @render_output || "",
           template: "partials/panes/code",

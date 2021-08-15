@@ -4,7 +4,7 @@ module Lookbook
 
     def connect
       self.uid = request.params[:uid]
-      logger.add_tags(self.uid)
+      logger.add_tags(uid)
       logger.info "connected to Lookbook"
     end
   end

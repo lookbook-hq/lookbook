@@ -1,7 +1,7 @@
 module Lookbook
   class PreviewExample
     include Taggable
-    
+
     attr_reader :name
 
     def initialize(name, preview)
@@ -10,7 +10,7 @@ module Lookbook
     end
 
     def id
-      path.underscore.tr("_","-")
+      path.underscore.tr("_", "-")
     end
 
     def path

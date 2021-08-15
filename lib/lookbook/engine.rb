@@ -26,7 +26,7 @@ module Lookbook
 
       options.preview_paths = options.preview_paths.map(&:to_s)
       options.preview_paths += vc_options.preview_paths
-      
+
       options.preview_controller = vc_options.preview_controller if options.preview_controller.nil?
 
       options.listen_paths = options.listen_paths.map(&:to_s)
@@ -69,7 +69,7 @@ module Lookbook
           if (modified.any? || removed.any?) && added.none?
             Lookbook::Engine.websocket.broadcast("reload", {modified: modified, removed: removed})
           end
-        end 
+        end
       end
       @listener.start
       parser.parse
