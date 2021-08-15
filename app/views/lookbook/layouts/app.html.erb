@@ -6,13 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link href="/lookbook-assets/app.css" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👀</text></svg>">
 
   <script>
     window.SOCKET_PATH = "/lookbook/cable"
   </script>
   <script src="/lookbook-assets/app.js" defer></script>
 
-  <title><% if @preview %><%= @preview.label %> : <%= @example_name.capitalize %> | <% end %>Lookbook</title>
+  <title><%= [@example&.label, @preview&.label, "Lookbook"].compact.join(" :: ") %></title>
 </head>
 <body class="text-gray-800 font-sans text-sm antialiased">
   <div
@@ -32,7 +33,7 @@
     }"
     x-effect="document.title = doc.title; location = window.location.pathname"
     @refresh.document="update('document:updated')"
-    @popstate.document="update('document:loaded')">
+    @popstate.window="console.log('adasd'); update('document:loaded')">
     <%= render "partials/sidebar" %>
     <div class="h-screen gutter border-r border-gray-300 relative" x-data="split({minSize: 200, onDrag: (splits) => { $store.nav.width = Math.min(splits[0], 500) }})">
       <div class="w-[9px] h-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute top-0 bottom-0 transform -translate-x-1/2 cursor-[col-resize] z-10"></div>

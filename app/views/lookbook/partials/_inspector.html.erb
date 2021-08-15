@@ -1,7 +1,7 @@
 <div id="inspector" class="bg-white w-full overflow-hidden flex flex-col">
    <div class="px-4 border-b border-gray-200 flex items-center flex-none select-none cursor-[ns-resize]">
     <nav class="-mb-px flex space-x-8 cursor-auto">
-      <% @info.each do |key, props| %>
+      <% @inspector_panes.each do |key, props| %>
         <a
           href="#<%= key %>"
           class="whitespace-nowrap py-2 px-1 border-b-2 cursor-pointer <%= "!text-gray-300" if props[:disabled] %>"
@@ -17,7 +17,7 @@
     </nav>
   </div>
   <div class="flex-auto overflow-auto bg-gray-50">
-    <% @info.each do |key, props| %>
+    <% @inspector_panes.each do |key, props| %>
       <div
         class="flex flex-col h-full relative"
         x-show="$store.inspector.active === '<%= key %>'" x-cloak>

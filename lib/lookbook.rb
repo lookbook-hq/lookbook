@@ -4,10 +4,11 @@ require "lookbook/engine"
 module Lookbook
   extend ActiveSupport::Autoload
 
+  autoload :Lang, "lookbook/lang"
+  autoload :Collection, "lookbook/collection"
   autoload :Parser, "lookbook/parser"
-  autoload :Parsable, "lookbook/parsable"
   autoload :Preview, "lookbook/preview"
-  autoload :PreviewExample, "lookbook/preview_example"
   autoload :PreviewController, "lookbook/preview_controller"
-  autoload :Navigation, "lookbook/navigation"
+  autoload :PreviewExample, "lookbook/preview_example"
+  autoload :Taggable, "lookbook/taggable"
 end

@@ -8,10 +8,6 @@ module Lookbook
     def config
       @config ||= Engine.config.lookbook
     end
-
-    def cable
-      @cable ||= ActionCable::Server::Configuration.new
-    end
   end
 
   class Engine < Rails::Engine
@@ -19,31 +15,34 @@ module Lookbook
 
     config.lookbook = ActiveSupport::OrderedOptions.new
     config.lookbook.listen_paths ||= []
+    config.lookbook.preview_paths ||= []
 
     initializer "view_component.set_configs" do |app|
       options = app.config.lookbook
       vc_options = app.config.view_component
 
       options.auto_refresh = true if options.auto_refresh.nil?
-      options.listen_paths = options.listen_paths.map(&:to_s)
-      options.listen_paths += vc_options.preview_paths
-      options.listen_paths << (vc_options.view_component_path || "app/components")
+      options.sort_examples = false if options.sort_examples.nil?
+
+      options.preview_paths = options.preview_paths.map(&:to_s)
+      options.preview_paths += vc_options.preview_paths
+      
       options.preview_controller = vc_options.preview_controller if options.preview_controller.nil?
 
-      ActiveSupport.on_load(:lookbook) do
-        options.each { |k, v| send("#{k}=", v) if respond_to?("#{k}=") }
-      end
+      options.listen_paths = options.listen_paths.map(&:to_s)
+      options.listen_paths += options.preview_paths
+      options.listen_paths << (vc_options.view_component_path || "app/components")
     end
 
     initializer "lookbook.cable.config" do |app|
       config_path = Lookbook::Engine.root.join("config", "lookbook_cable.yml")
-      Lookbook.cable.cable = app.config_for(config_path).with_indifferent_access
-      Lookbook.cable.mount_path = "/cable"
-      Lookbook.cable.connection_class = -> { Lookbook::Connection }
+      Lookbook::Engine.cable.cable = app.config_for(config_path).with_indifferent_access
+      Lookbook::Engine.cable.mount_path = "/cable"
+      Lookbook::Engine.cable.connection_class = -> { Lookbook::Connection }
     end
 
     initializer "lookbook.cable.logger" do
-      Lookbook.cable.logger ||= Rails.logger
+      Lookbook::Engine.cable.logger ||= Rails.logger
     end
 
     initializer "lookbook.parser.tags" do
@@ -63,20 +62,17 @@ module Lookbook
       end
     end
 
-    config.to_prepare do
-      Lookbook::BrowserController.helper Lookbook::Engine.helpers
-      Lookbook::BrowserController.prepend_view_path Lookbook::Engine.root.join("app/views")
-    end
-
     config.after_initialize do |app|
-      if app.config.lookbook.auto_refresh
-        @listener = Listen.to(*app.config.lookbook.listen_paths, only: /\.(rb|html.*)$/) do |modified, added, removed|
+      @listener = Listen.to(*app.config.lookbook.listen_paths, only: /\.(rb|html.*)$/) do |modified, added, removed|
+        parser.parse
+        if app.config.lookbook.auto_refresh
           if (modified.any? || removed.any?) && added.none?
             Lookbook::Engine.websocket.broadcast("reload", {modified: modified, removed: removed})
           end
-        end
-        @listener.start
+        end 
       end
+      @listener.start
+      parser.parse
     end
 
     at_exit do
@@ -85,7 +81,15 @@ module Lookbook
 
     class << self
       def websocket
-        @websocket ||= ActionCable::Server::Base.new(config: Lookbook.cable)
+        @websocket ||= ActionCable::Server::Base.new(config: Lookbook::Engine.cable)
+      end
+
+      def cable
+        @cable ||= ActionCable::Server::Configuration.new
+      end
+
+      def parser
+        @parser ||= Lookbook::Parser.new(config.lookbook.preview_paths)
       end
     end
   end

@@ -1,4 +1,4 @@
-<div class="h-screen overflow-hidden" x-data="{open: $store.nav.open}" @popstate.window="$store.nav.active = document.location.pathname">
+<div class="h-screen overflow-hidden" x-data="{open: $store.nav.open, isOpen(id){ return this.open[id] }}" @popstate.window="$store.nav.active = document.location.pathname">
   <div class="bg-white h-10 border-b border-gray-300 flex items-center relative">
     <input type="text"
       class="text-sm px-4 h-10 w-full border-0 bg-transparent focus:outline-none outline-none focus:ring-0"
@@ -12,16 +12,10 @@
     </button>
   </div>
   <div
-    id="nav"
     class="bg-gray-100 relative overflow-auto"
     style="height: calc(100% - 40px)"
     @scroll.passive="$store.nav.scrollTop = $event.currentTarget.scrollTop;"
     x-init="setTimeout(() => {$el.scrollTop = $store.nav.scrollTop}, 30)">
-    <nav class="pb-6 h-full" x-show="$store.nav.filter != ''">
-      <%= render "partials/nav", @nav[:flat] %>
-    </nav>
-    <nav class="pb-6 h-full" x-show="$store.nav.filter == ''">
-      <%= render "partials/nav", @nav[:nested] %>
-    </nav>
+    <%= render "partials/nav/nav" %>
   </div> 
 </div>

@@ -3,9 +3,19 @@
     <svg class="feather w-10 h-10 text-red-300 mx-auto">
       <use xlink:href="#alert-triangle" />
     </svg>
-    <div class="mt-3 text-gray-700">
-      <h5 class="text-base">Preview not found</h5>
-      <p class="mt-2 text-gray-400 text-sm">looked for "<span class="text-gray-500"><%= @path %></span>"</p>
+    <div class="mt-3 text-gray-700 max-w-xs">
+      <% if @preview %>
+        <h5 class="text-base">Not found</h5>
+        <p class="mt-2 text-gray-400 text-sm">
+          The "<span class="text-gray-500"><%= @preview.lookbook_label %></span>" preview does not have an example named "<span class="text-gray-500"><%= @example_name %></span>".
+        </p>
+      <% else %>
+        <h5 class="text-base">Preview not found</h5>
+        <p class="mt-2 text-gray-400 text-sm">
+          Looked for "<span class="text-gray-500"><%= params[:path] %></span>".<br>
+          The preview may have been renamed or deleted.
+        </p>
+      <% end %>
     </div>
   </div>
 </div>

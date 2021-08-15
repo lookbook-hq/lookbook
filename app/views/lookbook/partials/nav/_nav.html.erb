@@ -1,0 +1,11 @@
+<nav id="nav" class="select-none" x-data @document:updated.document="$el.innerHTML = $event.detail.doc.getElementById('nav').innerHTML">
+  <% @nav.items.each do |item| %>
+    <ul>
+      <% if item.type == :collection %>
+        <%= render "partials/nav/collection", collection: item %>
+      <% else %>
+        <%= render "partials/nav/preview", preview: item %>
+      <% end %>
+    </ul>
+  <% end %>
+</nav>

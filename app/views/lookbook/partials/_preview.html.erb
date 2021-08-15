@@ -2,6 +2,7 @@
   <div class="h-full relative mx-auto bg-white" x-data="preview" :style="`width: ${$store.preview.width}`">
     <iframe
       src="<%= url_for lookbook.preview_path %>"
+      srcdoc="<%== @preview_srcdoc %>"
       frameborder="0"
       class="h-full w-full border-l border-gray-300 pr-4 -mx-px"
       x-data="sizeObserver"
