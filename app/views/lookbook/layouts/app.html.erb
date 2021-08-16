@@ -33,7 +33,7 @@
     }"
     x-effect="document.title = doc.title; location = window.location.pathname"
     @refresh.document="update('document:updated')"
-    @popstate.window="console.log('adasd'); update('document:loaded')">
+    @popstate.window="update('document:loaded')">
     <%= render "partials/sidebar" %>
     <div class="h-screen gutter border-r border-gray-300 relative" x-data="split({minSize: 200, onDrag: (splits) => { $store.nav.width = Math.min(splits[0], 500) }})">
       <div class="w-[9px] h-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute top-0 bottom-0 transform -translate-x-1/2 cursor-[col-resize] z-10"></div>
