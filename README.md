@@ -1,38 +1,31 @@
 <div align="center">
   <h2>Lookbook</h2>
 
-A zero-config development UI for [ViewComponent](http://viewcomponent.org/)
+👀 A native development UI for [ViewComponent](http://viewcomponent.org/) 👀
 
 </div>
 
 ---
 
-## About
+Lookbook gives [ViewComponent](http://viewcomponent.org/)-based projects a _ready-to-go_ development UI for navigating, inspecting and interacting with component previews.
 
-Lookbook provides a _ready-to-go_ UI for navigating, inspecting and interacting with ViewComponent previews. It uses (and extends) ViewComponent's in-built [component preview functionality](https://viewcomponent.org/guide/previews.html) and is intended to integrate seamlessly with existing ViewComponent libraries.
+It uses (and extends) the native [ViewComponent preview functionality](https://viewcomponent.org/guide/previews.html) and is intended to integrate seamlessly with existing component libraries.
 
-The goal is to (eventually) give a [Storybook](https://storybook.js.org/)-like development experience for ViewComponents, but hopefully with a more 'Railsy' feel and without having to learn a whole new DSL.
-
-Lookbook uses [RDoc/Yard-style comment tags](https://rubydoc.info/gems/yard/file/docs/Tags.md) to extend the capabilities of ViewComponent's preview functionality whilst maintaining compatability with the standard ViewComponent preview class format, so you can add or remove Lookbook at any time without having to rewrite any code.
+Lookbook uses [RDoc/Yard-style comment tags](https://rubydoc.info/gems/yard/file/docs/Tags.md) to extend the capabilities of ViewComponent's previews whilst maintaining compatability with the standard preview class format, so you can add or remove Lookbook at any time without having to rework your code.
 
 > ⚠️ **PLEASE NOTE!** Lookbook is very much a **work in progress** at the moment. There may be breaking changes on point-releases before a 1.0 version is ready. ⚠️
 
 ![Lookbook UI](.github/assets/lookbook_screenshot.png)
 
-### Current features
+### Features
 
-- 👀 Navigate your component previews with ease!
-- 🔍 Filter/search previews by name
+- 👀 Navigate your component previews with ease
+- 🔍 Search/filter previews
 - 🖥 Resizable, responsive preview window
-- 🔦 Highlighted preview source code (with one-click copy to clipboard)
-- 🔦 Highlighted HTML output
-- 📝 Add notes via comments in the preview file - markdown supported
+- 🔦 Highlighted preview source code and HTML output (with one-click copy to clipboard)
+- 📝 Add notes via comments in the preview file (markdown supported)
 - 🚀 Live UI, auto-updates when component or previews files are updated
 - 🙈 Supports 'hidden' previews and examples
-
-### Future plans and ideas
-
-Check out the [feature request issues](https://github.com/allmarkedup/lookbook/labels/feature%20request)) to get a feel for some of the potential features coming to Lookbook in the future. And please suggest your own if you have anything you'd like to see added!
 
 ## Lookbook demo
 
@@ -81,13 +74,13 @@ You don't need to do anything special to create ViewComponent previews for Lookb
 
 Lookbook will use the [ViewComponent configuration options](https://viewcomponent.org/api.html#configuration) for your project to find and render your components so you don't need to configure anything separately (unless you want to tweak the behaviour or look of Lookbook itself).
 
-> If you are new to ViewComponent development, checkout the [ViewComponent docs](https://viewcomponent.org/guide/) on how to get started developing your components.
+> If you are new to ViewComponent development, checkout the [ViewComponent docs](https://viewcomponent.org/guide/) on how to get started developing your components and creating previews.
 
-Lookbook uses the exact same [preview files](https://viewcomponent.org/guide/previews.html) as 'regular' ViewComponent previews, so using preview templates, custom layouts and even bespoke [preview controllers](https://viewcomponent.org/guide/previews.html#configuring-preview-controller) should all work just the same.
+Lookbook uses the exact same [preview files](https://viewcomponent.org/guide/previews.html) as 'regular' ViewComponent previews, so using preview templates, custom layouts and even bespoke [preview controllers](https://viewcomponent.org/guide/previews.html#configuring-preview-controller) all works as you would expect.
 
 ### Comment tags
 
-Lookbook uses [Yard-style tags](https://rubydoc.info/gems/yard/file/docs/Tags.md) in class and method comments to extract additional information about previews, examples and components.
+Lookbook uses [Yard-style tags](https://rubydoc.info/gems/yard/file/docs/Tags.md) in class and method comments to extract additional information about previews and examples.
 
 Tags are just strings identified by their `@` prefix - for example `@hidden`. Tags are always placed in a comment above the relevant preview class or example method. The comments can still contain any other text, and multiple tags can be included in any one comment. For example:
 
