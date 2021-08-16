@@ -23,8 +23,13 @@
     "autoprefixer": "^10.3.1",
     "concurrently": "^6.2.0",
     "esbuild": "^0.12.15",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.0",
     "postcss-import": "^14.0.2",
     "pre-commit": "^1.2.2",
+    "prettier": "2.3.2",
     "release-it": "^14.10.1"
   },
   "dependencies": {
