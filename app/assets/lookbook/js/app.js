@@ -29,7 +29,9 @@ Alpine.persistedStore("nav", {
   scrollTop: 0,
   shouldDisplay(previewName) {
     const cleanFilter = this.filter.replace(/\s/g, "");
-    return cleanFilter === "" || previewName.includes(cleanFilter.toLowerCase());
+    return (
+      cleanFilter === "" || previewName.includes(cleanFilter.toLowerCase())
+    );
   },
 });
 Alpine.persistedStore("preview", {});

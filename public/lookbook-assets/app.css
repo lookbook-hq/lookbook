@@ -1496,10 +1496,6 @@ pre[class*="language-"] {
   margin-right: 0.375rem;
 }
 
-.mb-1 {
-  margin-bottom: 0.25rem;
-}
-
 .block {
   display: block;
 }
@@ -1657,17 +1653,6 @@ pre[class*="language-"] {
   margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
-.divide-y > :not([hidden]) ~ :not([hidden]) {
-  --tw-divide-y-reverse: 0;
-  border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
-  border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
-}
-
-.divide-gray-300 > :not([hidden]) ~ :not([hidden]) {
-  --tw-divide-opacity: 1;
-  border-color: rgba(209, 213, 219, var(--tw-divide-opacity));
-}
-
 .overflow-auto {
   overflow: auto;
 }
@@ -1784,9 +1769,9 @@ pre[class*="language-"] {
   padding-right: 0.25rem;
 }
 
-.py-\[3px\] {
-  padding-top: 3px;
-  padding-bottom: 3px;
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 
 .py-\[4px\] {
@@ -1794,9 +1779,9 @@ pre[class*="language-"] {
   padding-bottom: 4px;
 }
 
-.py-1 {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+.py-\[3px\] {
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 .pr-4 {
@@ -1805,10 +1790,6 @@ pre[class*="language-"] {
 
 .pr-3 {
   padding-right: 0.75rem;
-}
-
-.pb-6 {
-  padding-bottom: 1.5rem;
 }
 
 .text-left {
@@ -2323,37 +2304,6 @@ pre[class*="language-"] {
 
 .tippy-box[data-theme~="lookbook"][data-placement^="right"] > .tippy-arrow::before {
   border-right-color: #6366f1;
-}
-
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
-  @media screen and (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-  }
-
-  [x-cloak] {
-    display: none !important;
-  }
-
-  pre[class*="language-"] {
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-
-  .feather {
-    width: 24px;
-    height: 24px;
-    stroke: currentColor;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    fill: none;
-  }
 }
 
 .hover\:border-gray-300:hover {

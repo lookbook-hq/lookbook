@@ -6,7 +6,8 @@ export default function preview() {
       this.root = this.$el;
     },
     onResize(e) {
-      const size = this.resizeStartSize - (this.resizeStartPosition - e.pageX) * 2;
+      const size =
+        this.resizeStartSize - (this.resizeStartPosition - e.pageX) * 2;
       const parentSize = this.root.parentElement.clientWidth;
       const percentSize = (Math.round(size) / parentSize) * 100;
       const minWidth = (300 / parentSize) * 100;
