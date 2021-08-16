@@ -1,7 +1,7 @@
 <li <% if collection.hierarchy_depth == 1 %> class="py-1 border-b border-gray-300 cursor-pointer"<% end %> data-type="collection"
   x-data="{id: '<%= collection.id %>', hidden: false}"
   @filtered="$nextTick(() => {hidden = !$el.querySelectorAll('[data-type=preview]:not(.hidden)').length})"
-  x-show="!hidden">
+  :class="{hidden}">
   <div @click="open[id] = !open[id]" style="<%= nav_padding_style(collection.hierarchy_depth) %>">
     <%= render "partials/nav/label", text: collection.label, icon: "folder" %>
   </div>
