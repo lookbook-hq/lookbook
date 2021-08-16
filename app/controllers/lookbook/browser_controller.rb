@@ -23,16 +23,22 @@ module Lookbook
 
     def show
       if @example
-        @preview_srcdoc = preview_output.gsub("\"", "&quot;")
-        @render_args = @preview.render_args(@example.name, params: preview_controller.params.permit!)
-        @render_output = preview_controller.render_component_to_string(@preview, @example_name)
-        @render_output_lang = Lookbook::Lang.find(:html)
-        if using_preview_template?
-          @source = @example.method_source
-          @source_lang = @example.source_lang
-        else
-          @source = @example.template_source(@render_args[:template])
-          @source_lang = @example.template_lang(@render_args[:template])
+        begin
+          @preview_srcdoc = preview_output.gsub("\"", "&quot;")
+          @render_args = @preview.render_args(@example.name, params: preview_controller.params.permit!)
+          @render_output = preview_controller.render_component_to_string(@preview, @example_name)
+          @render_output_lang = Lookbook::Lang.find(:html)
+          if using_preview_template?
+            @source = @example.method_source
+            @source_lang = @example.source_lang
+          else
+            @source = @example.template_source(@render_args[:template])
+            @source_lang = @example.template_lang(@render_args[:template])
+          end
+        rescue ViewComponent::PreviewTemplateError => e
+          @error = e
+          assign_vars
+          render "browser/error"
         end
         assign_vars
       else
