@@ -14,6 +14,7 @@
     "js:build": "NODE_ENV=production node esbuild.config.js",
     "dev": "concurrently \"npm:css:watch\" \"npm:js:watch\"",
     "build": "concurrently \"npm:css:build\" \"npm:js:build\"",
+    "lint:fix": "standardrb --fix && prettier --write .",
     "release": "release-it",
     "release:dry-run": "release-it --dry-run"
   },
@@ -58,6 +59,7 @@
       "publish": false
     },
     "hooks": {
+      "before:init": "bundle install",
       "after:bump": "npm run build",
       "after:version:bump": "rake 'lookbook:release:bump_version[${version}]' && bundle"
     }
