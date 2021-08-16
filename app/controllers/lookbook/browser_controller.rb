@@ -1,5 +1,8 @@
 module Lookbook
   class BrowserController < ActionController::Base
+
+    EXCEPTIONS = [ViewComponent::PreviewTemplateError, ViewComponent::ComponentError, ViewComponent::TemplateError, ActionView::Template::Error]
+
     protect_from_forgery with: :exception
     prepend_view_path File.expand_path("../../views/lookbook", __dir__)
 
@@ -8,9 +11,9 @@ module Lookbook
 
     before_action :find_preview, only: [:preview, :show]
     before_action :find_example, only: [:preview, :show]
+    before_action :assign_nav, only: [:index, :show]
 
     def index
-      assign_vars
     end
 
     def preview
@@ -35,12 +38,10 @@ module Lookbook
             @source = @example.template_source(@render_args[:template])
             @source_lang = @example.template_lang(@render_args[:template])
           end
-        rescue ViewComponent::PreviewTemplateError => e
-          @error = e
-          assign_vars
+          assign_inspector
+        rescue *EXCEPTIONS
           render "browser/error"
         end
-        assign_vars
       else
         render "browser/not_found"
       end
@@ -77,35 +78,37 @@ module Lookbook
       end
     end
 
-    def inspector_panes
-      {
-        source: {
-          label: "Source",
-          content: @source || "",
-          template: "partials/panes/code",
-          lang: @source_lang,
-          clipboard: @source
-        },
-        output: {
-          label: "Output",
-          content: @render_output || "",
-          template: "partials/panes/code",
-          lang: @render_output_lang,
-          clipboard: @render_output
-        },
-        notes: {
-          label: "Notes",
-          content: @example.notes.presence || "<em class='opacity-50'>No notes provided.</em>",
-          template: "partials/panes/prose",
-          disabled: @example.notes.blank?
+    def assign_inspector
+      @inspector = {
+        panes: {
+          source: {
+            label: "Source",
+            content: @source || "",
+            template: "code",
+            lang: @source_lang,
+            clipboard: @source
+          },
+          output: {
+            label: "Output",
+            content: @render_output || "",
+            template: "code",
+            lang: @render_output_lang,
+            clipboard: @render_output
+          },
+          notes: {
+            label: "Notes",
+            content: @example.notes.presence || "<em class='opacity-50'>No notes provided.</em>",
+            template: "prose",
+            disabled: @example.notes.blank?
+          }
         }
       }
     end
 
-    def nav
-      root = Collection.new
+    def assign_nav
+      @nav = Collection.new
       previews.reject { |p| p.hidden? }.each do |preview|
-        current = root
+        current = @nav
         if preview.hierarchy_depth == 1
           current.add(preview)
         else
@@ -119,7 +122,7 @@ module Lookbook
           end
         end
       end
-      root
+      @nav
     end
 
     def previews
@@ -134,13 +137,6 @@ module Lookbook
       controller.request = request
       controller.response = response
       @preview_controller ||= controller
-    end
-
-    def assign_vars
-      if @example
-        @inspector_panes = inspector_panes
-      end
-      @nav = nav
     end
   end
 end
