@@ -9,23 +9,22 @@
 
 Lookbook gives [ViewComponent](http://viewcomponent.org/)-based projects a _ready-to-go_ development UI for navigating, inspecting and interacting with component previews.
 
-It uses (and extends) the native [ViewComponent preview functionality](https://viewcomponent.org/guide/previews.html) and is intended to integrate seamlessly with existing component libraries.
+It uses (and extends) the native [ViewComponent preview functionality](https://viewcomponent.org/guide/previews.html), so you don't need to learn a new DSL or create any extra files to get up and running.
 
 Lookbook uses [RDoc/Yard-style comment tags](https://rubydoc.info/gems/yard/file/docs/Tags.md) to extend the capabilities of ViewComponent's previews whilst maintaining compatability with the standard preview class format, so you can add or remove Lookbook at any time without having to rework your code.
-
-> ⚠️ **PLEASE NOTE!** Lookbook is very much a **work in progress** at the moment. There may be breaking changes on point-releases before a 1.0 version is ready. ⚠️
 
 ![Lookbook UI](.github/assets/lookbook_screenshot.png)
 
 ### Features
 
-- 👀 Navigate your component previews with ease
-- 🔍 Search/filter previews
-- 🖥 Resizable, responsive preview window
-- 🔦 Highlighted preview source code and HTML output (with one-click copy to clipboard)
-- 📝 Add notes via comments in the preview file (markdown supported)
-- 🚀 Live UI, auto-updates when component or previews files are updated
-- 🙈 Supports 'hidden' previews and examples
+- Tree-style navigation menu
+- Live nav search/filter
+- Resizable preview window for responsive testing
+- Highlighted preview source code and HTML output
+- Add notes via comments in the preview file (markdown supported)
+- Auto-updating UI when component or preview files are updated
+- Supports 'hidden' previews and examples
+- Works with standard the ViewComponent preview system
 
 ## Lookbook demo
 
@@ -35,19 +34,21 @@ The [demo app repo](https://github.com/allmarkedup/lookbook-demo) contains instr
 
 ## Installing
 
-Lookbook is current a work in progress and **has not been published as a Gem** yet.
-
-If you wish to play with it in it's current state you can include it directly from Github using the instructions below.
+> ⚠️ **Please note:** Lookbook is still in the early stages of development and has not yet been well tested across a wide range of Rails/ViewComponent versions and setups. If you run into any problems please [open an issue](issues) with as much detail as possible. Thanks! ⚠️
 
 ### 1. Add as a dependency
 
 In your `Gemfile` add:
 
 ```ruby
-gem "lookbook", '>= 0.1', git: "https://github.com/allmarkedup/lookbook", branch: "main"
+gem "lookbook"
 ```
 
-This line should be placed <strong>below</strong> wherever you have specified the `view_component` gem.
+or
+
+```bash
+gem install lookbook
+```
 
 ### 2. Mount the Lookbook engine
 
@@ -55,7 +56,6 @@ You then need to mount the Lookbook engine (at a path of your choosing) in your 
 
 ```ruby
 Rails.application.routes.draw do
-  # any other routes...
   if Rails.env.development?
     mount Lookbook::Engine, at: "/lookbook"
   end
@@ -64,7 +64,7 @@ end
 
 The `at` property determines the root URL that the Lookbook UI will be served at.
 
-> If you would like to expose the Lookbook UI in production as well as in development, just remove the `if Rails.env.development?` wrapper from the mount statement.
+> If you would like to expose the Lookbook UI in production as well as in development, just remove the `if Rails.env.development?` condition from around the mount statement.
 
 Then you can start your app as normal and navigate to `http://localhost:3000/lookbook` (or whatever mount path you specified) to view your component previews in the Lookbook UI.
 
@@ -72,7 +72,7 @@ Then you can start your app as normal and navigate to `http://localhost:3000/loo
 
 You don't need to do anything special to create ViewComponent previews for Lookbook.
 
-Lookbook will use the [ViewComponent configuration options](https://viewcomponent.org/api.html#configuration) for your project to find and render your components so you don't need to configure anything separately (unless you want to tweak the behaviour or look of Lookbook itself).
+Lookbook will use the [ViewComponent configuration options](https://viewcomponent.org/api.html#configuration) for your project to find and render your components so you don't need to configure anything separately (unless you want to tweak the behaviour or look of Lookbook itself, of course).
 
 > If you are new to ViewComponent development, checkout the [ViewComponent docs](https://viewcomponent.org/guide/) on how to get started developing your components and creating previews.
 
@@ -95,7 +95,7 @@ class MyClass
 end
 ```
 
-Some tags can also require additional arguments. Further informatin on the tags Lookbook uses are detailed in the docs below.
+Some tags can also require additional arguments. Further information on the tags Lookbook uses are detailed in the docs below.
 
 ### 📝 Adding notes to previews
 
@@ -126,7 +126,7 @@ end
 
 ### 👀 Navigation customisation
 
-Lookbook generates a nested navigation menu based on the file structure of your component preview directories. This can be customised in a number of ways.
+Lookbook generates a nested navigation menu based on the file structure of your component preview directory (or directories). This can be customised in a number of ways.
 
 #### Preview and example labels
 
@@ -150,9 +150,9 @@ In the example above, the preview and example would be displayed like this:
 
 #### Excluding previews and/or examples from the navigation
 
-Sometimes you may want a preview or an individual example to be 'hidden' in the Lookbook UI. This means that the preview or example will not show up in the navigation, but will still be accessible via it's URL. You can use the `@hidden` comment tag to manage this.
+Sometimes you may want to temporarily hide a preview or an individual example from the Lookbook UI. This means that the preview or example will not show up in the navigation, but will still be accessible via it's URL. You can use the `@hidden` comment tag to manage this.
 
-To **hide an entire preview** so that it no longer shows up in the , include the `@hidden` tag in a class comment:
+To **hide an entire preview** include the `@hidden` tag in a class comment:
 
 ```ruby
 # @hidden
@@ -161,7 +161,7 @@ class MyComponentPreview < ViewComponent::Preview
 end
 ```
 
-To **hide an individual example**, include the `@hidden` tag in the appropriate method comment:
+To **hide an individual example** include the `@hidden` tag in the appropriate method comment:
 
 ```ruby
 class MyComponentPreview < ViewComponent::Preview
@@ -185,20 +185,6 @@ class MyComponentPreview < ViewComponent::Preview
   end
 end
 ```
-
-### 🔦 Viewing source code and rendered HTML output
-
-Lookbook displays the source code of the current preview (or the contents of preview template, if one is being used), right underneath the rendered preview itself:
-
-<img src=".github/assets/preview_source.png" width="400">
-
-You can also inspect the HTML output of the rendered preview (without any of the layout cruft):
-
-<img src=".github/assets/preview_output.png" width="400">
-
-All code panels have a 'copy-to-clipboard' button at the top right of the panel, just click it to copy the un-highlighted code to your clipboard.
-
-<img src=".github/assets/copy_to_clipboard.png" width="400">
 
 ## Configuration
 
@@ -225,8 +211,6 @@ config.lookbook.listen_paths << Rails.root.join('app/other/directory')
 ## Contributing
 
 Lookbook is very much a small hobby/side project at the moment. I'd love to hear from anyone who is interested in contributing but I'm terrible at replying to emails or messages, so don't be surprised if I take forever to get back to you. It's not personal 😜
-
-However, I'm a frontend developer - not a Rails dev - so any thoughts, advice or PRs on how to improve the codebase will be always much appreciated. 🍻
 
 ### Developing on a local version of Lookbook
 
