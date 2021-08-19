@@ -1,6 +1,5 @@
 module Lookbook
   class BrowserController < ActionController::Base
-
     EXCEPTIONS = [ViewComponent::PreviewTemplateError, ViewComponent::ComponentError, ViewComponent::TemplateError, ActionView::Template::Error]
 
     protect_from_forgery with: :exception

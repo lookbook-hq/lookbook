@@ -31,7 +31,7 @@ module Lookbook
 
       options.listen_paths = options.listen_paths.map(&:to_s)
       options.listen_paths += options.preview_paths
-      options.listen_paths << (vc_options.view_component_path || "app/components")
+      options.listen_paths << (vc_options.view_component_path || Rails.root.join("app/components"))
     end
 
     initializer "lookbook.cable.config" do |app|
