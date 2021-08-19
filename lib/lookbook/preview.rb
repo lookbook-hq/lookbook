@@ -17,7 +17,9 @@ module Lookbook
 
     def lookbook_examples
       return @lookbook_examples if @lookbook_examples.present?
-      examples = code_object.meths.map { |m| PreviewExample.new(m.name.to_s, self) }
+      public_methods = public_instance_methods(false)
+      public_method_objects = code_object.meths.filter { |m| public_methods.include?(m.name) }
+      examples = public_method_objects.map { |m| PreviewExample.new(m.name.to_s, self) }
       examples.reject!(&:hidden?)
       @lookbook_examples ||= Lookbook.config.sort_examples ? examples.sort_by(&:label) : examples
     end
