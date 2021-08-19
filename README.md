@@ -248,6 +248,10 @@ Point your browser to http://localhost:3000/lookbook to see the UI. You can then
 
 > Note that changes to files in the Lookbook `lib/` directory will require a server restart in order to have them applied.
 
+#### Tests
+
+You can run the tests from within the `lookbook` root directory with the `rake test` command.
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

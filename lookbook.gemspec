@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.version = Lookbook::VERSION
   spec.authors = ["Mark Perkins"]
   spec.homepage = "https://github.com/allmarkedup/lookbook"
-  spec.summary = "Zero-config development UI for ViewComponent"
+  spec.summary = "A native development UI for ViewComponent"
   spec.license = "MIT"
 
   spec.files = Dir["{app,config,lib,public}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
@@ -19,4 +19,10 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rouge"
   spec.add_dependency "listen"
   spec.add_dependency "yard"
+
+  spec.add_development_dependency "shoulda"
+  spec.add_development_dependency "warning"
+  spec.add_development_dependency "sqlite3"
+  spec.add_development_dependency "standard"
+  spec.add_development_dependency "capybara"
 end
