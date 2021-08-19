@@ -1496,10 +1496,6 @@ pre[class*="language-"] {
   margin-right: 0.375rem;
 }
 
-.mb-2 {
-  margin-bottom: 0.5rem;
-}
-
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -1783,16 +1779,6 @@ pre[class*="language-"] {
   padding-bottom: 4px;
 }
 
-.px-3 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-}
-
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
 .py-\[3px\] {
   padding-top: 3px;
   padding-bottom: 3px;
@@ -1895,11 +1881,6 @@ pre[class*="language-"] {
   color: rgba(17, 24, 39, var(--tw-text-opacity));
 }
 
-.text-gray-200 {
-  --tw-text-opacity: 1;
-  color: rgba(229, 231, 235, var(--tw-text-opacity));
-}
-
 .underline {
   text-decoration: underline;
 }
@@ -1911,10 +1892,6 @@ pre[class*="language-"] {
 
 .opacity-0 {
   opacity: 0;
-}
-
-.opacity-80 {
-  opacity: 0.8;
 }
 
 .opacity-50 {
@@ -2327,37 +2304,6 @@ pre[class*="language-"] {
 
 .tippy-box[data-theme~="lookbook"][data-placement^="right"] > .tippy-arrow::before {
   border-right-color: #6366f1;
-}
-
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
-  @media screen and (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-  }
-
-  [x-cloak] {
-    display: none !important;
-  }
-
-  pre[class*="language-"] {
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-
-  .feather {
-    width: 24px;
-    height: 24px;
-    stroke: currentColor;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    fill: none;
-  }
 }
 
 .hover\:border-gray-300:hover {
