@@ -122,16 +122,57 @@ end
 
 **Tags** are just strings identified by their `@` prefix - for example `@hidden`. Tags are always placed in a comment above the relevant preview class or example method.
 
-#### Available tags
+The following Lookbook-specific tags are available for use:
 
-The following tags are supported for preview classes and/or individual methods:
+#### `@label <text>`
 
-- `@label <text>` - Override the default generated navigation label with `<text>`
-- `@hidden` - Used to exclude an item from the Lookbook navigation. The item will still be accessible via it's URL
+Used to replace the auto-generated navigation label for the item with `<text>`.
+
+> Available for preview classes & example methods.
+
+```ruby
+# @label Preview Label
+class FooComponentPreview < ViewComponent::Preview
+
+  # @label Example Label
+  def default
+  end
+end
+```
+
+#### `@hidden`
+
+Used to temporarily exclude an item from the Lookbook navigation. The item will still be accessible via it's URL.
+
+Can be useful when a component (or a variant of a component) is still in development and is not ready to be shared with the wider team.
+
+> Available for both preview classes & example methods.
+
+```ruby
+# @hidden
+class FooComponentPreview < ViewComponent::Preview
+
+  # @hidden
+  def default
+  end
+end
+```
 
 #### Adding notes
 
 All comment text other than tags will be treated as markdown and rendered in the **Notes** panel for that example in the Lookbook UI.
+
+```ruby
+# @hidden
+class ProfileCardComponentPreview < ViewComponent::Preview
+
+  # Profile Card
+  # ------------
+  # Use the default profile card component whenever you need to represent a user.
+  def default
+  end
+end
+```
 
 <img src=".github/assets/preview_example_notes.png" width="400">
 
