@@ -1,13 +1,18 @@
 <div align="center">
-  <h2>Lookbook</h2>
+<h1>👀 Lookbook 👀</h1>
 
-👀 A native development UI for [ViewComponent](http://viewcomponent.org/) 👀
+<p>A native development UI for <a href="http://viewcomponent.org/">ViewComponent</a></p>
 
+<div>
+<a href="https://rubygems.org/gems/lookbook"><img src="https://badge.fury.io/rb/lookbook.svg" alt="Gem version">
+<a href="https://github.com/testdouble/standard"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Ruby Style Guide">
+<a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg" alt="Code style: Prettier">
+</div>
 </div>
 
 ---
 
-Lookbook gives [ViewComponent](http://viewcomponent.org/)-based projects a _ready-to-go_ development UI for navigating, inspecting and interacting with component previews.
+**Lookbook gives [ViewComponent](http://viewcomponent.org/)-based projects a _ready-to-go_ development UI for navigating, inspecting and interacting with component previews.**
 
 It uses (and extends) the native [ViewComponent preview functionality](https://viewcomponent.org/guide/previews.html), so you don't need to learn a new DSL or create any extra files to get up and running.
 
@@ -70,125 +75,69 @@ Then you can start your app as normal and navigate to `http://localhost:3000/loo
 
 ## Usage
 
-You don't need to do anything special to create ViewComponent previews for Lookbook.
+You don't need to do anything special to see your ViewComponent previews and examples in Lookbook - just create them as normal and they'll automatically appear in the Lookbook UI. Preview templates, custom layouts and even bespoke [preview controllers](https://viewcomponent.org/guide/previews.html#configuring-preview-controller) should all work as you would expect.
 
-Lookbook will use the [ViewComponent configuration options](https://viewcomponent.org/api.html#configuration) for your project to find and render your components so you don't need to configure anything separately (unless you want to tweak the behaviour or look of Lookbook itself, of course).
+> If you are new to ViewComponent development, checkout the ViewComponent [documentation](https://viewcomponent.org/guide/) on how to get started developing your components and [creating previews](https://viewcomponent.org/guide/previews.html).
 
-> If you are new to ViewComponent development, checkout the [ViewComponent docs](https://viewcomponent.org/guide/) on how to get started developing your components and creating previews.
+### Annotating preview files
 
-Lookbook uses the exact same [preview files](https://viewcomponent.org/guide/previews.html) as 'regular' ViewComponent previews, so using preview templates, custom layouts and even bespoke [preview controllers](https://viewcomponent.org/guide/previews.html#configuring-preview-controller) all works as you would expect.
-
-### Comment tags
-
-Lookbook uses [Yard-style tags](https://rubydoc.info/gems/yard/file/docs/Tags.md) in class and method comments to extract additional information about previews and examples.
-
-Tags are just strings identified by their `@` prefix - for example `@hidden`. Tags are always placed in a comment above the relevant preview class or example method. The comments can still contain any other text, and multiple tags can be included in any one comment. For example:
+Lookbook parses [Yard-style comment tags](https://rubydoc.info/gems/yard/file/docs/Tags.md) in your preview classes to customise and extend the standard ViewComponent preview experience:
 
 ```ruby
-# This is a class-level comment.
-# @hidden
-class MyClass
-  # This is a method-level comment.
+# @label Basic Button
+class ButtonComponentPreview < ViewComponent::Preview
+
+  # Primary button
+  # ---------------
+  # This is the button style you should use for most things.
+  #
+  # @label Primary
+  def default
+    render ButtonComponent.new do
+      "Click me"
+    end
+  end
+
+  # Secondary button
+  # ---------------
+  # This should be used for less important actions.
+  def secondary
+    render ButtonComponent.new(style: :secondary) do
+      "Click me"
+    end
+  end
+
+  # Unicorn button
+  # ---------------
+  # This button style is still a **work in progress**.
+  #
   # @hidden
-  def my_method
+  def secondary
+    render ButtonComponent.new do
+      "Click me"
+    end
   end
 end
 ```
 
-Some tags can also require additional arguments. Further information on the tags Lookbook uses are detailed in the docs below.
+**Tags** are just strings identified by their `@` prefix - for example `@hidden`. Tags are always placed in a comment above the relevant preview class or example method.
 
-### 📝 Adding notes to previews
+#### Available tags
 
-Lookbook lets you add notes to your preview examples which are then displayed in the inspector panel. They look something like this:
+The following tags are supported for preview classes and/or individual methods:
+
+- `@label <text>` - Override the default generated navigation label with `<text>`
+- `@hidden` - Used to exclude an item from the Lookbook navigation. The item will still be accessible via it's URL
+
+#### Adding notes
+
+All comment text other than tags will be treated as markdown and rendered in the **Notes** panel for that example in the Lookbook UI.
 
 <img src=".github/assets/preview_example_notes.png" width="400">
 
-Notes are generated from comments above example methods in your preview files. Below is an example of two preview examples that both have notes:
-
-```ruby
-class ButtonComponentPreview < ViewComponent::Preview
-
-  # Add notes as comments above the example methods.
-  # Multi-line is just fine and **markdown** is supported too!
-  #
-  # It's a good place to put usage and implementation instructions
-  # for people browsing the component previews in the UI.
-  def default
-    render ButtonComponent.new(text: "Click me")
-  end
-
-  # Each preview example has it's own notes, extracted from the method comments.
-  def danger
-    render ButtonComponent.new(text: "Don't do it!", theme: :danger)
-  end
-end
-```
-
-### 👀 Navigation customisation
-
-Lookbook generates a nested navigation menu based on the file structure of your component preview directory (or directories). This can be customised in a number of ways.
-
-#### Preview and example labels
-
-By default, the labels shown for previews and examples are stripped and 'titlized' versions of the preview file names and the example method names, respectively.
-
-If you wish to override the automatic navigation label generation for a preview or example you can use the `@label` comment tag:
-
-```ruby
-# @label Standard Button
-class BtnPreview < ViewComponent::Preview
-
-  # @label Icon Button
-  def with_icon
-  end
-end
-```
-
-In the example above, the preview and example would be displayed like this:
-
-<img src=".github/assets/nav_labels.png" width="200">
-
-#### Excluding previews and/or examples from the navigation
-
-Sometimes you may want to temporarily hide a preview or an individual example from the Lookbook UI. This means that the preview or example will not show up in the navigation, but will still be accessible via it's URL. You can use the `@hidden` comment tag to manage this.
-
-To **hide an entire preview** include the `@hidden` tag in a class comment:
-
-```ruby
-# @hidden
-class MyComponentPreview < ViewComponent::Preview
-  # examples here....
-end
-```
-
-To **hide an individual example** include the `@hidden` tag in the appropriate method comment:
-
-```ruby
-class MyComponentPreview < ViewComponent::Preview
-
-  # Hidden Example
-  # ----------
-  # You won't see this in the nav!
-  #
-  # @hidden
-  def hidden_example
-    # ...
-  end
-
-  def a_visible_example
-    # ...
-  end
-
-  # @hidden
-  def another_hidden_example
-    # ...
-  end
-end
-```
-
 ## Configuration
 
-Lookbook uses ViewComponent's configuration options for anything to do with previews, paths and general setup, so you won't need to duplicate any settings.
+Lookbook will use the ViewComponent [configuration](https://viewcomponent.org/api.html#configuration) for your project to find and render your previews so you generally you won't need to configure anything separately.
 
 However the following Lookbook-specific config options are also available:
 
