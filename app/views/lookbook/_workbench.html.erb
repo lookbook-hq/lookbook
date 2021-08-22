@@ -1,0 +1,12 @@
+<div id="workbench" class="bg-gray-50 h-full flex flex-col" x-data="workbench">
+  <%= render "./workbench/header" %>
+  <div class="grid h-full" :style="`grid-template-rows: 1fr 1px ${$store.inspector.height}px`">
+    <%= render "./workbench/preview" %>
+    <div class="w-full gutter border-t border-gray-300 relative" x-data="split(splitProps)">
+      <div class="h-[11px] w-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute left-0 right-0 transform -translate-y-1/2 cursor-[row-resize]"></div>
+    </div>
+    <% if @inspector %>
+      <%= render "./workbench/inspector", **@inspector %>
+    <% end %>
+  </div>
+</div>

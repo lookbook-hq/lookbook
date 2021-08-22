@@ -1,0 +1,24 @@
+<%= render "./nav/group", group: group do %>
+  <% group.get_examples.each do |example| %>
+    <% path = show_path example.path %>
+    <li x-data="navExample" :class="{hidden}" x-init="matchers = <%= example.matchers.to_json %>; path = '<%= path %>'; setActive()" @popstate.window="setActive">
+      <a href="<%= path %>"
+        class="pr-3 py-[5px] flex items-center w-full group transition hover:bg-gray-200 hover:bg-opacity-50"
+        style="<%= nav_padding_style(example.hierarchy_depth + 1) %>"
+        :class="{'!bg-indigo-100':active}"
+        @click.stop.prevent="navigate"
+      >
+        <div :class="active ? 'text-gray-900' : 'text-indigo-500'"> 
+          <svg class="feather w-3.5 h-3.5 mr-1.5 flex-none group-hover:text-indigo-800 transition">
+            <use xlink:href="#eye" />
+          </svg>
+        </div>
+        <div class="truncate whitespace-nowrap">
+          <%= example.label %>
+        </div>
+      </a>
+    </li>
+  <% end %>
+<% end %>
+
+    

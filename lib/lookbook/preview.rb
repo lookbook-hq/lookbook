@@ -2,6 +2,10 @@ module Lookbook
   module Preview
     include Taggable
 
+    def id
+      lookbook_path.tr("_", "-")
+    end
+
     # Examples::FooBarComponent::Preview -> "Foo Bar"
     def lookbook_label
       super.presence || lookbook_path.split("/").last.titleize

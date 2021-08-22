@@ -1,0 +1,38 @@
+<div id="nav" class="h-full" x-data="nav($store.nav)" @document:updated.window="updateMenu">
+  <div class="bg-white h-10 border-b border-gray-300 flex items-center relative">
+    <input
+      type="text"
+      class="text-sm px-4 h-10 w-full border-0 bg-transparent focus:outline-none outline-none focus:ring-0"
+      placeholder="Filter previews&hellip;"
+      x-model="$store.nav.filter"
+      @keyup.stop="if ($event.key === 'Escape') clearFilter();"
+    >
+    <button class="text-gray-400 hover:text-indigo-500 focus:ring-0 focus:outline-none absolute top-1/2 right-2 transform -translate-y-1/2" @click="clearFilter">
+      <svg class="feather w-3 h-3">
+        <use xlink:href="#x" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="relative overflow-y-auto w-full" style="height: calc(100% - 40px)">
+    <div x-ref="shim">
+      <nav id="menu" class="select-none" x-data="navGroup" @menu:updated.window="filter" x-init="$watch('$store.nav.filterText', () => filter()); $nextTick(() => filter());">
+        <% if @nav.items.any? %>
+          <ul x-ref="items">
+            <% @nav.items.each do |group| %>
+              <%= render "./nav/#{group.type.to_s}", group: group %>
+            <% end %>
+          </ul>
+          <div class="p-4 text-center" x-show="hidden" x-cloak>
+            <em class="text-gray-400">No matching previews found.</em>
+          </div>
+        <% else %>
+          <div class="p-4">
+            <h4 class="text-gray-500 mb-1">No previews found.</h4>
+            <p class="text-gray-400 text-xs">Have you set your <a class="underline" href="https://viewcomponent.org/api.html#preview_paths">preview paths</a> config correctly?</p>
+          </div>
+        <% end %>
+      </nav>
+    </div>
+  </div>   
+</div>

@@ -1,5 +1,5 @@
 module Lookbook
-  class BrowserController < ActionController::Base
+  class AppController < ActionController::Base
     EXCEPTIONS = [ViewComponent::PreviewTemplateError, ViewComponent::ComponentError, ViewComponent::TemplateError, ActionView::Template::Error]
 
     protect_from_forgery with: :exception
@@ -19,7 +19,7 @@ module Lookbook
       if @example
         render html: preview_output
       else
-        render "browser/not_found"
+        render "app/not_found"
       end
     end
 
@@ -39,10 +39,10 @@ module Lookbook
           end
           assign_inspector
         rescue *EXCEPTIONS
-          render "browser/error"
+          render "app/error"
         end
       else
-        render "browser/not_found"
+        render "app/not_found"
       end
     end
 

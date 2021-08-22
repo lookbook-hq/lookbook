@@ -1,0 +1,23 @@
+<header class="py-2 px-4 w-full flex-none bg-white border-b border-gray-300 flex items-center h-10">
+  <div class="flex items-center ">
+    <div class="flex items-center space-x-1">
+      <strong><%= @preview.label %></strong>
+      <span>/</span>
+      <span><%= @example.label %></span>
+    </div>
+    <a
+      href="<%= preview_path %>"
+      class="block ml-2 text-gray-400 hover:text-indigo-800 transition" target="_blank"
+      x-tooltip.theme.lookbook="`Open preview in new window`"
+    >
+      <svg class="feather w-3 h-3">
+        <use xlink:href="#external-link" />
+      </svg>
+    </a>
+  </div>
+  <div class="ml-auto flex text-xs font-monospace text-gray-700 space-x-1">
+    <span x-text="`${previewViewportWidth}px`"></span>
+    <span class="text-gray-500">x</span>
+    <span x-text="`${previewViewportHeight}px`"></span>
+  </div>
+</header>

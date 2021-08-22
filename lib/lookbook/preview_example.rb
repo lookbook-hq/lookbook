@@ -41,8 +41,8 @@ module Lookbook
       :example
     end
 
-    def filter_match_string
-      [*@preview.lookbook_parent_collections, @preview.label, label].join("/").gsub(/\s/, "").downcase
+    def matchers
+      [@preview.label, label].map { |m| m.gsub(/\s/, "").downcase }
     end
 
     def hierarchy_depth

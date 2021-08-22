@@ -1,4 +1,4 @@
-export default function () {
+export default function sizeObserver() {
   return {
     observedWidth: 0,
     observedHeight: 0,

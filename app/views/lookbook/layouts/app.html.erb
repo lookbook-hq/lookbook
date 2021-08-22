@@ -19,33 +19,25 @@
 </head>
 <body class="text-gray-800 font-sans text-sm antialiased">
   <div
-    class="grid h-screen w-screen max-w-full overflow-hidden"
+    x-data="page"
+    x-effect="updateTitle"
+    @refresh.document="fetchHTML().then(doc => $dispatch('document:updated', {doc}))" 
+    @popstate.window="fetchHTML().then(doc => $dispatch('document:loaded', {doc}))"
     :style="`grid-template-columns: ${$store.nav.width}px 1px 1fr;`"
-    x-data="{
-      doc: document,
-      location: window.location.pathname,
-      update(eventName){
-        return fetch(document.location).then(async response => {
-          if (!response.ok) return location.reload();
-          const html = await response.text();
-          this.doc = (new DOMParser()).parseFromString(html, 'text/html');
-          $dispatch(eventName, {doc: this.doc})
-        });
-      }
-    }"
-    x-effect="document.title = doc.title; location = window.location.pathname"
-    @refresh.document="update('document:updated')"
-    @popstate.window="update('document:loaded')">
-    <%= render "partials/sidebar" %>
-    <div class="h-screen gutter border-r border-gray-300 relative" x-data="split({minSize: 200, onDrag: (splits) => { $store.nav.width = Math.min(splits[0], 500) }})">
+    class="grid h-screen w-screen max-w-full overflow-hidden"
+  >
+    <div class="h-screen bg-gray-100 overflow-hidden">
+      <%= render "./nav" %>
+    </div>
+    <div x-data="split(splitProps)" class="h-screen gutter border-r border-gray-300 relative">
       <div class="w-[9px] h-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute top-0 bottom-0 transform -translate-x-1/2 cursor-[col-resize] z-10"></div>
     </div>
-    <div id="main" class="h-screen overflow-hidden w-full" x-effect="$el.innerHTML = doc.getElementById('main').innerHTML">
+    <main id="main" x-effect="render" class="h-screen overflow-hidden w-full">
       <%= yield %>
-    </div>
+    </main>
   </div>
   <div class="hidden">
-    <%= render "partials/icon_sprite" %>
+    <%= render "./icon_sprite" %>
   </div>
 </body>
 </html>

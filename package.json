@@ -43,6 +43,8 @@
     "alpinejs": "^3.2.2",
     "debounce": "^1.2.1",
     "feather-icons": "^4.28.0",
+    "morphdom": "^2.6.1",
+    "nanomorph": "^5.4.3",
     "split-grid": "^1.0.11",
     "tailwindcss": "^2.2.4",
     "tippy.js": "^6.3.1"

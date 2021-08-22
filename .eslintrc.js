@@ -10,4 +10,7 @@ module.exports = {
     sourceType: "module",
   },
   rules: {},
+  globals: {
+    Alpine: "readable",
+  },
 };

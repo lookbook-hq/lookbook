@@ -1,0 +1,11 @@
+<button
+  class="p-1.5 border-b border-l border-gray-200 hover:border-gray-300 rounded-bl-md bg-white absolute top-0 right-0 text-gray-400 hover:text-indigo-500 transition"
+  x-data="clipboard"
+  x-tooltip.theme.lookbook="done ? 'copied!' : 'copy to clipboard'"
+  @click="save"
+  data-tippy-placement="left">
+  <svg class="feather h-4 w-4 ">
+    <use x-bind:href="done ? '#check' : '#clipboard'" />
+  </svg>
+  <div class="hidden" x-init="content = $el.innerText"><%== yield %></div>
+</button>

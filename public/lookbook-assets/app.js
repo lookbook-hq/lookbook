@@ -691,7 +691,7 @@
     };
     var GLOBALS_WHITE_LISTED = "Infinity,undefined,NaN,isFinite,isNaN,parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,BigInt";
     var isGloballyWhitelisted = /* @__PURE__ */ makeMap(GLOBALS_WHITE_LISTED);
-    var range = 2;
+    var range2 = 2;
     function generateCodeFrame(source, start2 = 0, end = source.length) {
       const lines = source.split(/\r?\n/);
       let count = 0;
@@ -699,7 +699,7 @@
       for (let i = 0; i < lines.length; i++) {
         count += lines[i].length + 1;
         if (count >= start2) {
-          for (let j = i - range; j <= i + range || end > count; j++) {
+          for (let j = i - range2; j <= i + range2 || end > count; j++) {
             if (j < 0 || j >= lines.length)
               continue;
             const line = j + 1;
@@ -2314,9 +2314,9 @@ Expression: "${expression}"
     stopDeferring();
   }
   function getDirectiveHandler(el, directive2) {
-    let noop = () => {
+    let noop2 = () => {
     };
-    let handler3 = directiveHandlers[directive2.type] || noop;
+    let handler3 = directiveHandlers[directive2.type] || noop2;
     let cleanups = [];
     let cleanup2 = (callback) => cleanups.push(callback);
     let [effect3, cleanupEffect] = elementBoundEffect(el);
@@ -5791,18 +5791,18 @@ Expression: "${expression}"
         didTouchMove = false;
       }
       function addDocumentPress() {
-        var doc = getDocument();
-        doc.addEventListener("mousedown", onDocumentPress, true);
-        doc.addEventListener("touchend", onDocumentPress, TOUCH_OPTIONS);
-        doc.addEventListener("touchstart", onTouchStart, TOUCH_OPTIONS);
-        doc.addEventListener("touchmove", onTouchMove, TOUCH_OPTIONS);
+        var doc2 = getDocument();
+        doc2.addEventListener("mousedown", onDocumentPress, true);
+        doc2.addEventListener("touchend", onDocumentPress, TOUCH_OPTIONS);
+        doc2.addEventListener("touchstart", onTouchStart, TOUCH_OPTIONS);
+        doc2.addEventListener("touchmove", onTouchMove, TOUCH_OPTIONS);
       }
       function removeDocumentPress() {
-        var doc = getDocument();
-        doc.removeEventListener("mousedown", onDocumentPress, true);
-        doc.removeEventListener("touchend", onDocumentPress, TOUCH_OPTIONS);
-        doc.removeEventListener("touchstart", onTouchStart, TOUCH_OPTIONS);
-        doc.removeEventListener("touchmove", onTouchMove, TOUCH_OPTIONS);
+        var doc2 = getDocument();
+        doc2.removeEventListener("mousedown", onDocumentPress, true);
+        doc2.removeEventListener("touchend", onDocumentPress, TOUCH_OPTIONS);
+        doc2.removeEventListener("touchstart", onTouchStart, TOUCH_OPTIONS);
+        doc2.removeEventListener("touchmove", onTouchMove, TOUCH_OPTIONS);
       }
       function onTransitionedOut(duration, callback) {
         onTransitionEnd(duration, function() {
@@ -6697,18 +6697,18 @@ Expression: "${expression}"
         clientY
       };
     }
-    function addMouseCoordsListener(doc) {
-      doc.addEventListener("mousemove", storeMouseCoords);
+    function addMouseCoordsListener(doc2) {
+      doc2.addEventListener("mousemove", storeMouseCoords);
     }
-    function removeMouseCoordsListener(doc) {
-      doc.removeEventListener("mousemove", storeMouseCoords);
+    function removeMouseCoordsListener(doc2) {
+      doc2.removeEventListener("mousemove", storeMouseCoords);
     }
     var followCursor2 = {
       name: "followCursor",
       defaultValue: false,
       fn: function fn(instance) {
         var reference = instance.reference;
-        var doc = getOwnerDocument(instance.props.triggerTarget || reference);
+        var doc2 = getOwnerDocument(instance.props.triggerTarget || reference);
         var isInternalUpdate = false;
         var wasFocusEvent = false;
         var isUnmounted = true;
@@ -6717,10 +6717,10 @@ Expression: "${expression}"
           return instance.props.followCursor === "initial" && instance.state.isVisible;
         }
         function addListener() {
-          doc.addEventListener("mousemove", onMouseMove);
+          doc2.addEventListener("mousemove", onMouseMove);
         }
         function removeListener() {
-          doc.removeEventListener("mousemove", onMouseMove);
+          doc2.removeEventListener("mousemove", onMouseMove);
         }
         function unsetGetReferenceClientRect() {
           isInternalUpdate = true;
@@ -6766,9 +6766,9 @@ Expression: "${expression}"
           if (instance.props.followCursor) {
             activeInstances.push({
               instance,
-              doc
+              doc: doc2
             });
-            addMouseCoordsListener(doc);
+            addMouseCoordsListener(doc2);
           }
         }
         function destroy3() {
@@ -6776,9 +6776,9 @@ Expression: "${expression}"
             return data2.instance !== instance;
           });
           if (activeInstances.filter(function(data2) {
-            return data2.doc === doc;
+            return data2.doc === doc2;
           }).length === 0) {
-            removeMouseCoordsListener(doc);
+            removeMouseCoordsListener(doc2);
           }
         }
         return {
@@ -7575,9 +7575,9 @@ Expression: "${expression}"
   }
   var split_grid_default = index;
 
-  // app/assets/lookbook/js/split.js
+  // app/assets/lookbook/js/utils/split.js
   function split_default(props) {
-    const app = Alpine.store("app");
+    const page2 = Alpine.store("page");
     return {
       init() {
         split_grid_default({
@@ -7588,23 +7588,561 @@ Expression: "${expression}"
           writeStyle() {
           },
           onDrag(dir, track, style) {
-            splits = style.split(" ").map((num) => parseInt(num));
+            const splits = style.split(" ").map((num) => parseInt(num));
             props.onDrag(splits);
           },
           onDragStart() {
-            app.reflowing = true;
+            page2.reflowing = true;
           },
           onDragEnd() {
-            app.reflowing = false;
+            page2.reflowing = false;
           }
         });
       }
     };
   }
 
-  // app/assets/lookbook/js/preview.js
+  // node_modules/morphdom/dist/morphdom-esm.js
+  var DOCUMENT_FRAGMENT_NODE = 11;
+  function morphAttrs(fromNode, toNode) {
+    var toNodeAttrs = toNode.attributes;
+    var attr;
+    var attrName;
+    var attrNamespaceURI;
+    var attrValue;
+    var fromValue;
+    if (toNode.nodeType === DOCUMENT_FRAGMENT_NODE || fromNode.nodeType === DOCUMENT_FRAGMENT_NODE) {
+      return;
+    }
+    for (var i = toNodeAttrs.length - 1; i >= 0; i--) {
+      attr = toNodeAttrs[i];
+      attrName = attr.name;
+      attrNamespaceURI = attr.namespaceURI;
+      attrValue = attr.value;
+      if (attrNamespaceURI) {
+        attrName = attr.localName || attrName;
+        fromValue = fromNode.getAttributeNS(attrNamespaceURI, attrName);
+        if (fromValue !== attrValue) {
+          if (attr.prefix === "xmlns") {
+            attrName = attr.name;
+          }
+          fromNode.setAttributeNS(attrNamespaceURI, attrName, attrValue);
+        }
+      } else {
+        fromValue = fromNode.getAttribute(attrName);
+        if (fromValue !== attrValue) {
+          fromNode.setAttribute(attrName, attrValue);
+        }
+      }
+    }
+    var fromNodeAttrs = fromNode.attributes;
+    for (var d = fromNodeAttrs.length - 1; d >= 0; d--) {
+      attr = fromNodeAttrs[d];
+      attrName = attr.name;
+      attrNamespaceURI = attr.namespaceURI;
+      if (attrNamespaceURI) {
+        attrName = attr.localName || attrName;
+        if (!toNode.hasAttributeNS(attrNamespaceURI, attrName)) {
+          fromNode.removeAttributeNS(attrNamespaceURI, attrName);
+        }
+      } else {
+        if (!toNode.hasAttribute(attrName)) {
+          fromNode.removeAttribute(attrName);
+        }
+      }
+    }
+  }
+  var range;
+  var NS_XHTML = "http://www.w3.org/1999/xhtml";
+  var doc = typeof document === "undefined" ? void 0 : document;
+  var HAS_TEMPLATE_SUPPORT = !!doc && "content" in doc.createElement("template");
+  var HAS_RANGE_SUPPORT = !!doc && doc.createRange && "createContextualFragment" in doc.createRange();
+  function createFragmentFromTemplate(str) {
+    var template = doc.createElement("template");
+    template.innerHTML = str;
+    return template.content.childNodes[0];
+  }
+  function createFragmentFromRange(str) {
+    if (!range) {
+      range = doc.createRange();
+      range.selectNode(doc.body);
+    }
+    var fragment = range.createContextualFragment(str);
+    return fragment.childNodes[0];
+  }
+  function createFragmentFromWrap(str) {
+    var fragment = doc.createElement("body");
+    fragment.innerHTML = str;
+    return fragment.childNodes[0];
+  }
+  function toElement(str) {
+    str = str.trim();
+    if (HAS_TEMPLATE_SUPPORT) {
+      return createFragmentFromTemplate(str);
+    } else if (HAS_RANGE_SUPPORT) {
+      return createFragmentFromRange(str);
+    }
+    return createFragmentFromWrap(str);
+  }
+  function compareNodeNames(fromEl, toEl) {
+    var fromNodeName = fromEl.nodeName;
+    var toNodeName = toEl.nodeName;
+    var fromCodeStart, toCodeStart;
+    if (fromNodeName === toNodeName) {
+      return true;
+    }
+    fromCodeStart = fromNodeName.charCodeAt(0);
+    toCodeStart = toNodeName.charCodeAt(0);
+    if (fromCodeStart <= 90 && toCodeStart >= 97) {
+      return fromNodeName === toNodeName.toUpperCase();
+    } else if (toCodeStart <= 90 && fromCodeStart >= 97) {
+      return toNodeName === fromNodeName.toUpperCase();
+    } else {
+      return false;
+    }
+  }
+  function createElementNS(name, namespaceURI) {
+    return !namespaceURI || namespaceURI === NS_XHTML ? doc.createElement(name) : doc.createElementNS(namespaceURI, name);
+  }
+  function moveChildren(fromEl, toEl) {
+    var curChild = fromEl.firstChild;
+    while (curChild) {
+      var nextChild = curChild.nextSibling;
+      toEl.appendChild(curChild);
+      curChild = nextChild;
+    }
+    return toEl;
+  }
+  function syncBooleanAttrProp(fromEl, toEl, name) {
+    if (fromEl[name] !== toEl[name]) {
+      fromEl[name] = toEl[name];
+      if (fromEl[name]) {
+        fromEl.setAttribute(name, "");
+      } else {
+        fromEl.removeAttribute(name);
+      }
+    }
+  }
+  var specialElHandlers = {
+    OPTION: function(fromEl, toEl) {
+      var parentNode = fromEl.parentNode;
+      if (parentNode) {
+        var parentName = parentNode.nodeName.toUpperCase();
+        if (parentName === "OPTGROUP") {
+          parentNode = parentNode.parentNode;
+          parentName = parentNode && parentNode.nodeName.toUpperCase();
+        }
+        if (parentName === "SELECT" && !parentNode.hasAttribute("multiple")) {
+          if (fromEl.hasAttribute("selected") && !toEl.selected) {
+            fromEl.setAttribute("selected", "selected");
+            fromEl.removeAttribute("selected");
+          }
+          parentNode.selectedIndex = -1;
+        }
+      }
+      syncBooleanAttrProp(fromEl, toEl, "selected");
+    },
+    INPUT: function(fromEl, toEl) {
+      syncBooleanAttrProp(fromEl, toEl, "checked");
+      syncBooleanAttrProp(fromEl, toEl, "disabled");
+      if (fromEl.value !== toEl.value) {
+        fromEl.value = toEl.value;
+      }
+      if (!toEl.hasAttribute("value")) {
+        fromEl.removeAttribute("value");
+      }
+    },
+    TEXTAREA: function(fromEl, toEl) {
+      var newValue = toEl.value;
+      if (fromEl.value !== newValue) {
+        fromEl.value = newValue;
+      }
+      var firstChild = fromEl.firstChild;
+      if (firstChild) {
+        var oldValue = firstChild.nodeValue;
+        if (oldValue == newValue || !newValue && oldValue == fromEl.placeholder) {
+          return;
+        }
+        firstChild.nodeValue = newValue;
+      }
+    },
+    SELECT: function(fromEl, toEl) {
+      if (!toEl.hasAttribute("multiple")) {
+        var selectedIndex = -1;
+        var i = 0;
+        var curChild = fromEl.firstChild;
+        var optgroup;
+        var nodeName;
+        while (curChild) {
+          nodeName = curChild.nodeName && curChild.nodeName.toUpperCase();
+          if (nodeName === "OPTGROUP") {
+            optgroup = curChild;
+            curChild = optgroup.firstChild;
+          } else {
+            if (nodeName === "OPTION") {
+              if (curChild.hasAttribute("selected")) {
+                selectedIndex = i;
+                break;
+              }
+              i++;
+            }
+            curChild = curChild.nextSibling;
+            if (!curChild && optgroup) {
+              curChild = optgroup.nextSibling;
+              optgroup = null;
+            }
+          }
+        }
+        fromEl.selectedIndex = selectedIndex;
+      }
+    }
+  };
+  var ELEMENT_NODE = 1;
+  var DOCUMENT_FRAGMENT_NODE$1 = 11;
+  var TEXT_NODE = 3;
+  var COMMENT_NODE = 8;
+  function noop() {
+  }
+  function defaultGetNodeKey(node) {
+    if (node) {
+      return node.getAttribute && node.getAttribute("id") || node.id;
+    }
+  }
+  function morphdomFactory(morphAttrs2) {
+    return function morphdom2(fromNode, toNode, options) {
+      if (!options) {
+        options = {};
+      }
+      if (typeof toNode === "string") {
+        if (fromNode.nodeName === "#document" || fromNode.nodeName === "HTML" || fromNode.nodeName === "BODY") {
+          var toNodeHtml = toNode;
+          toNode = doc.createElement("html");
+          toNode.innerHTML = toNodeHtml;
+        } else {
+          toNode = toElement(toNode);
+        }
+      }
+      var getNodeKey = options.getNodeKey || defaultGetNodeKey;
+      var onBeforeNodeAdded = options.onBeforeNodeAdded || noop;
+      var onNodeAdded = options.onNodeAdded || noop;
+      var onBeforeElUpdated = options.onBeforeElUpdated || noop;
+      var onElUpdated = options.onElUpdated || noop;
+      var onBeforeNodeDiscarded = options.onBeforeNodeDiscarded || noop;
+      var onNodeDiscarded = options.onNodeDiscarded || noop;
+      var onBeforeElChildrenUpdated = options.onBeforeElChildrenUpdated || noop;
+      var childrenOnly = options.childrenOnly === true;
+      var fromNodesLookup = Object.create(null);
+      var keyedRemovalList = [];
+      function addKeyedRemoval(key) {
+        keyedRemovalList.push(key);
+      }
+      function walkDiscardedChildNodes(node, skipKeyedNodes) {
+        if (node.nodeType === ELEMENT_NODE) {
+          var curChild = node.firstChild;
+          while (curChild) {
+            var key = void 0;
+            if (skipKeyedNodes && (key = getNodeKey(curChild))) {
+              addKeyedRemoval(key);
+            } else {
+              onNodeDiscarded(curChild);
+              if (curChild.firstChild) {
+                walkDiscardedChildNodes(curChild, skipKeyedNodes);
+              }
+            }
+            curChild = curChild.nextSibling;
+          }
+        }
+      }
+      function removeNode(node, parentNode, skipKeyedNodes) {
+        if (onBeforeNodeDiscarded(node) === false) {
+          return;
+        }
+        if (parentNode) {
+          parentNode.removeChild(node);
+        }
+        onNodeDiscarded(node);
+        walkDiscardedChildNodes(node, skipKeyedNodes);
+      }
+      function indexTree(node) {
+        if (node.nodeType === ELEMENT_NODE || node.nodeType === DOCUMENT_FRAGMENT_NODE$1) {
+          var curChild = node.firstChild;
+          while (curChild) {
+            var key = getNodeKey(curChild);
+            if (key) {
+              fromNodesLookup[key] = curChild;
+            }
+            indexTree(curChild);
+            curChild = curChild.nextSibling;
+          }
+        }
+      }
+      indexTree(fromNode);
+      function handleNodeAdded(el) {
+        onNodeAdded(el);
+        var curChild = el.firstChild;
+        while (curChild) {
+          var nextSibling = curChild.nextSibling;
+          var key = getNodeKey(curChild);
+          if (key) {
+            var unmatchedFromEl = fromNodesLookup[key];
+            if (unmatchedFromEl && compareNodeNames(curChild, unmatchedFromEl)) {
+              curChild.parentNode.replaceChild(unmatchedFromEl, curChild);
+              morphEl(unmatchedFromEl, curChild);
+            } else {
+              handleNodeAdded(curChild);
+            }
+          } else {
+            handleNodeAdded(curChild);
+          }
+          curChild = nextSibling;
+        }
+      }
+      function cleanupFromEl(fromEl, curFromNodeChild, curFromNodeKey) {
+        while (curFromNodeChild) {
+          var fromNextSibling = curFromNodeChild.nextSibling;
+          if (curFromNodeKey = getNodeKey(curFromNodeChild)) {
+            addKeyedRemoval(curFromNodeKey);
+          } else {
+            removeNode(curFromNodeChild, fromEl, true);
+          }
+          curFromNodeChild = fromNextSibling;
+        }
+      }
+      function morphEl(fromEl, toEl, childrenOnly2) {
+        var toElKey = getNodeKey(toEl);
+        if (toElKey) {
+          delete fromNodesLookup[toElKey];
+        }
+        if (!childrenOnly2) {
+          if (onBeforeElUpdated(fromEl, toEl) === false) {
+            return;
+          }
+          morphAttrs2(fromEl, toEl);
+          onElUpdated(fromEl);
+          if (onBeforeElChildrenUpdated(fromEl, toEl) === false) {
+            return;
+          }
+        }
+        if (fromEl.nodeName !== "TEXTAREA") {
+          morphChildren(fromEl, toEl);
+        } else {
+          specialElHandlers.TEXTAREA(fromEl, toEl);
+        }
+      }
+      function morphChildren(fromEl, toEl) {
+        var curToNodeChild = toEl.firstChild;
+        var curFromNodeChild = fromEl.firstChild;
+        var curToNodeKey;
+        var curFromNodeKey;
+        var fromNextSibling;
+        var toNextSibling;
+        var matchingFromEl;
+        outer:
+          while (curToNodeChild) {
+            toNextSibling = curToNodeChild.nextSibling;
+            curToNodeKey = getNodeKey(curToNodeChild);
+            while (curFromNodeChild) {
+              fromNextSibling = curFromNodeChild.nextSibling;
+              if (curToNodeChild.isSameNode && curToNodeChild.isSameNode(curFromNodeChild)) {
+                curToNodeChild = toNextSibling;
+                curFromNodeChild = fromNextSibling;
+                continue outer;
+              }
+              curFromNodeKey = getNodeKey(curFromNodeChild);
+              var curFromNodeType = curFromNodeChild.nodeType;
+              var isCompatible = void 0;
+              if (curFromNodeType === curToNodeChild.nodeType) {
+                if (curFromNodeType === ELEMENT_NODE) {
+                  if (curToNodeKey) {
+                    if (curToNodeKey !== curFromNodeKey) {
+                      if (matchingFromEl = fromNodesLookup[curToNodeKey]) {
+                        if (fromNextSibling === matchingFromEl) {
+                          isCompatible = false;
+                        } else {
+                          fromEl.insertBefore(matchingFromEl, curFromNodeChild);
+                          if (curFromNodeKey) {
+                            addKeyedRemoval(curFromNodeKey);
+                          } else {
+                            removeNode(curFromNodeChild, fromEl, true);
+                          }
+                          curFromNodeChild = matchingFromEl;
+                        }
+                      } else {
+                        isCompatible = false;
+                      }
+                    }
+                  } else if (curFromNodeKey) {
+                    isCompatible = false;
+                  }
+                  isCompatible = isCompatible !== false && compareNodeNames(curFromNodeChild, curToNodeChild);
+                  if (isCompatible) {
+                    morphEl(curFromNodeChild, curToNodeChild);
+                  }
+                } else if (curFromNodeType === TEXT_NODE || curFromNodeType == COMMENT_NODE) {
+                  isCompatible = true;
+                  if (curFromNodeChild.nodeValue !== curToNodeChild.nodeValue) {
+                    curFromNodeChild.nodeValue = curToNodeChild.nodeValue;
+                  }
+                }
+              }
+              if (isCompatible) {
+                curToNodeChild = toNextSibling;
+                curFromNodeChild = fromNextSibling;
+                continue outer;
+              }
+              if (curFromNodeKey) {
+                addKeyedRemoval(curFromNodeKey);
+              } else {
+                removeNode(curFromNodeChild, fromEl, true);
+              }
+              curFromNodeChild = fromNextSibling;
+            }
+            if (curToNodeKey && (matchingFromEl = fromNodesLookup[curToNodeKey]) && compareNodeNames(matchingFromEl, curToNodeChild)) {
+              fromEl.appendChild(matchingFromEl);
+              morphEl(matchingFromEl, curToNodeChild);
+            } else {
+              var onBeforeNodeAddedResult = onBeforeNodeAdded(curToNodeChild);
+              if (onBeforeNodeAddedResult !== false) {
+                if (onBeforeNodeAddedResult) {
+                  curToNodeChild = onBeforeNodeAddedResult;
+                }
+                if (curToNodeChild.actualize) {
+                  curToNodeChild = curToNodeChild.actualize(fromEl.ownerDocument || doc);
+                }
+                fromEl.appendChild(curToNodeChild);
+                handleNodeAdded(curToNodeChild);
+              }
+            }
+            curToNodeChild = toNextSibling;
+            curFromNodeChild = fromNextSibling;
+          }
+        cleanupFromEl(fromEl, curFromNodeChild, curFromNodeKey);
+        var specialElHandler = specialElHandlers[fromEl.nodeName];
+        if (specialElHandler) {
+          specialElHandler(fromEl, toEl);
+        }
+      }
+      var morphedNode = fromNode;
+      var morphedNodeType = morphedNode.nodeType;
+      var toNodeType = toNode.nodeType;
+      if (!childrenOnly) {
+        if (morphedNodeType === ELEMENT_NODE) {
+          if (toNodeType === ELEMENT_NODE) {
+            if (!compareNodeNames(fromNode, toNode)) {
+              onNodeDiscarded(fromNode);
+              morphedNode = moveChildren(fromNode, createElementNS(toNode.nodeName, toNode.namespaceURI));
+            }
+          } else {
+            morphedNode = toNode;
+          }
+        } else if (morphedNodeType === TEXT_NODE || morphedNodeType === COMMENT_NODE) {
+          if (toNodeType === morphedNodeType) {
+            if (morphedNode.nodeValue !== toNode.nodeValue) {
+              morphedNode.nodeValue = toNode.nodeValue;
+            }
+            return morphedNode;
+          } else {
+            morphedNode = toNode;
+          }
+        }
+      }
+      if (morphedNode === toNode) {
+        onNodeDiscarded(fromNode);
+      } else {
+        if (toNode.isSameNode && toNode.isSameNode(morphedNode)) {
+          return;
+        }
+        morphEl(morphedNode, toNode, childrenOnly);
+        if (keyedRemovalList) {
+          for (var i = 0, len = keyedRemovalList.length; i < len; i++) {
+            var elToRemove = fromNodesLookup[keyedRemovalList[i]];
+            if (elToRemove) {
+              removeNode(elToRemove, elToRemove.parentNode, false);
+            }
+          }
+        }
+      }
+      if (!childrenOnly && morphedNode !== fromNode && fromNode.parentNode) {
+        if (morphedNode.actualize) {
+          morphedNode = morphedNode.actualize(fromNode.ownerDocument || doc);
+        }
+        fromNode.parentNode.replaceChild(morphedNode, fromNode);
+      }
+      return morphedNode;
+    };
+  }
+  var morphdom = morphdomFactory(morphAttrs);
+  var morphdom_esm_default = morphdom;
+
+  // app/assets/lookbook/js/utils/morph.js
+  function morph_default(from, to, opts = {}) {
+    morphdom_esm_default(from, to, __spreadValues({
+      onBeforeElUpdated: function(fromEl, toEl) {
+        if (fromEl._x_dataStack) {
+          Alpine.clone(fromEl, toEl);
+        }
+        if (fromEl.isEqualNode(toEl)) {
+          return false;
+        }
+        return true;
+      }
+    }, opts));
+  }
+
+  // app/assets/lookbook/js/page.js
+  function page() {
+    const store2 = Alpine.store("page");
+    return {
+      ready: false,
+      init() {
+        this.$nextTick(() => this.ready = true);
+      },
+      splitProps: {
+        minSize: 200,
+        onDrag(splits) {
+          Alpine.store("nav").width = Math.min(splits[0], 500);
+        }
+      },
+      fetchHTML() {
+        return __async(this, null, function* () {
+          const response = yield fetch(window.document.location);
+          if (!response.ok)
+            return window.location.reload();
+          const html = yield response.text();
+          store2.doc = new DOMParser().parseFromString(html, "text/html");
+          return store2.doc;
+        });
+      },
+      updateTitle() {
+        document.title = store2.doc.title;
+      },
+      render() {
+        if (this.ready) {
+          morph_default(this.$el, store2.doc.getElementById(this.$el.id));
+        }
+      }
+    };
+  }
+
+  // app/assets/lookbook/js/workbench.js
+  function workbench() {
+    const inspector2 = Alpine.store("inspector");
+    return {
+      previewViewportHeight: 0,
+      previewViewportWidth: 0,
+      splitProps: {
+        direction: "vertical",
+        minSize: 200,
+        onDrag(splits) {
+          inspector2.height = splits[2];
+        }
+      }
+    };
+  }
+
+  // app/assets/lookbook/js/workbench/preview.js
   function preview() {
-    const app = Alpine.store("app");
+    const app = Alpine.store("page");
     const preview2 = Alpine.store("preview");
     return {
       init() {
@@ -7626,27 +8164,119 @@ Expression: "${expression}"
         window.addEventListener("pointermove", this.onResize);
         window.addEventListener("pointerup", this.onResizeEnd);
       },
-      onResizeEnd(e) {
+      onResizeEnd() {
         window.removeEventListener("pointermove", this.onResize);
         window.removeEventListener("pointerup", this.onResizeEnd);
         app.reflowing = false;
       },
-      handle: {
-        ["@pointerdown"]: "onResizeStart",
-        ["@dblclick"]() {
-          if (preview2.width === "100%" && preview2.lastWidth) {
-            preview2.width = preview2.lastWidth;
-          } else {
-            preview2.lastWidth = preview2.width;
-            preview2.width = "100%";
-          }
+      toggleFullWidth() {
+        if (preview2.width === "100%" && preview2.lastWidth) {
+          preview2.width = preview2.lastWidth;
+        } else {
+          preview2.lastWidth = preview2.width;
+          preview2.width = "100%";
         }
       }
     };
   }
 
-  // app/assets/lookbook/js/size_observer.js
-  function size_observer_default() {
+  // app/assets/lookbook/js/workbench/inspector.js
+  function inspector() {
+    const inspector2 = Alpine.store("inspector");
+    return {
+      switchTo(id) {
+        inspector2.active = id;
+      },
+      active(id) {
+        return inspector2.active === id;
+      }
+    };
+  }
+
+  // app/assets/lookbook/js/nav.js
+  function nav_default() {
+    return {
+      clearFilter() {
+        this.$store.nav.filter = "";
+      },
+      init() {
+        this.$watch("$store.nav.filter", (value) => {
+          const nav = this.$store.nav;
+          nav.filterText = value.replace(/\s/g, "").toLowerCase();
+          nav.filtering = nav.filterText.length > 0;
+        });
+      },
+      updateMenu(event) {
+        const menu = document.getElementById("menu");
+        menu.style.height = `${this.$refs.shim.offsetHeight}px`;
+        morph_default(menu, event.detail.doc.querySelector("#menu"));
+        Promise.resolve().then(() => {
+          this.$refs.shim.style.height = "auto";
+          this.$dispatch("menu:updated");
+        });
+      },
+      navigate($event) {
+        history.pushState({}, null, $event.currentTarget.href);
+        this.$dispatch("popstate");
+      }
+    };
+  }
+
+  // app/assets/lookbook/js/nav/example.js
+  function navExample() {
+    return {
+      path: null,
+      matchers: [],
+      active: false,
+      hidden: false,
+      setActive() {
+        this.active = this.path === window.location.pathname;
+      },
+      filter() {
+        if (this.$store.nav.filtering) {
+          const text = this.$store.nav.filterText;
+          const matched = this.matchers.map((m) => m.includes(text));
+          this.hidden = !matched.filter((m) => m).length;
+        } else {
+          this.hidden = false;
+        }
+      }
+    };
+  }
+
+  // app/assets/lookbook/js/nav/group.js
+  function navGroup() {
+    return {
+      id: null,
+      hidden: true,
+      children: [],
+      init() {
+        this.id = this.$el.id;
+      },
+      open() {
+        return this.$store.nav.open[this.id];
+      },
+      getChildren() {
+        return this.$refs.items ? Array.from(this.$refs.items.querySelectorAll(":scope > li")) : [];
+      },
+      filter() {
+        this.hidden = true;
+        this.getChildren().forEach((child) => {
+          const data2 = child._x_dataStack[0];
+          data2.filter();
+          if (!data2.hidden) {
+            this.hidden = false;
+          }
+        });
+      },
+      toggle() {
+        this.$store.nav.open[this.id] = !this.$store.nav.open[this.id];
+      }
+    };
+  }
+
+  // app/assets/lookbook/js/utils/size_observer.js
+  function sizeObserver() {
     return {
       observedWidth: 0,
       observedHeight: 0,
@@ -7663,7 +8293,7 @@ Expression: "${expression}"
     };
   }
 
-  // app/assets/lookbook/js/reloader.js
+  // app/assets/lookbook/js/utils/reloader.js
   var import_actioncable = __toModule(require_action_cable());
   var import_debounce = __toModule(require_debounce());
   function reloader_default(endpoint) {
@@ -7690,29 +8320,52 @@ Expression: "${expression}"
     };
   }
 
+  // app/assets/lookbook/js/utils/clipboard.js
+  function clipboard() {
+    return {
+      content: null,
+      done: false,
+      save() {
+        this.$clipboard(this.content);
+        this.done = true;
+        setTimeout(() => {
+          this.done = false;
+        }, 1e3);
+      }
+    };
+  }
+
   // app/assets/lookbook/js/app.js
+  window.Alpine = module_default;
   module_default.plugin(module_default2);
   module_default.plugin(module_default3);
   module_default.plugin(src_default4);
-  module_default.data("preview", preview);
-  module_default.data("sizeObserver", size_observer_default);
-  module_default.data("split", split_default);
-  module_default.store("app", { reflowing: false });
+  module_default.store("page", {
+    reflowing: false,
+    doc: window.document
+  });
   module_default.persistedStore("nav", {
     width: 280,
     filter: "",
-    open: {},
-    scrollTop: 0,
-    shouldDisplay(previewName) {
-      const cleanFilter = this.filter.replace(/\s/g, "");
-      return cleanFilter === "" || previewName.includes(cleanFilter.toLowerCase());
-    }
+    open: {}
   });
-  module_default.persistedStore("preview", {});
   module_default.persistedStore("inspector", {
     height: 200,
     active: "source"
   });
+  module_default.persistedStore("preview", {
+    width: "100%"
+  });
+  module_default.data("page", page);
+  module_default.data("nav", nav_default);
+  module_default.data("navGroup", navGroup);
+  module_default.data("navExample", navExample);
+  module_default.data("workbench", workbench);
+  module_default.data("preview", preview);
+  module_default.data("inspector", inspector);
+  module_default.data("clipboard", clipboard);
+  module_default.data("sizeObserver", sizeObserver);
+  module_default.data("split", split_default);
   window.Alpine = module_default;
   if (window.SOCKET_PATH) {
     reloader_default(window.SOCKET_PATH).start();

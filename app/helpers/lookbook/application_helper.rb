@@ -18,7 +18,7 @@ module Lookbook
     end
 
     def nav_padding_style(depth)
-      "padding-left: calc((#{depth} * 12px) + 0.5rem);"
+      "padding-left: calc((#{depth - 1} * 12px) + 0.5rem);"
     end
   end
 end
