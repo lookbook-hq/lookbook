@@ -1,5 +1,7 @@
 Lookbook::Engine.routes.draw do
-  mount Lookbook::Engine.websocket => Lookbook::Engine.cable.mount_path
+  if Lookbook.config.auto_refresh
+    mount Lookbook::Engine.websocket => Lookbook::Engine.cable.mount_path
+  end
 
   root to: "browser#index", as: :home
 
