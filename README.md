@@ -43,16 +43,11 @@ The [demo app repo](https://github.com/allmarkedup/lookbook-demo) contains instr
 
 ### 1. Add as a dependency
 
-In your `Gemfile` add:
+Add Lookbook to your `Gemfile` somewhere **after** the ViewComponent gem. For example:
 
 ```ruby
+gem "view_component", require: "view_component/engine"
 gem "lookbook"
-```
-
-or
-
-```bash
-gem install lookbook
 ```
 
 ### 2. Mount the Lookbook engine
