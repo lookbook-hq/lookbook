@@ -3,7 +3,7 @@ PATH
   specs:
     lookbook (0.2.1)
       listen (~> 3.3)
-      rails (~> 6.0)
+      rails (>= 6.0)
       redcarpet (~> 3.5)
       rouge (~> 3.26)
       view_component (~> 2.0)
@@ -212,4 +212,4 @@ DEPENDENCIES
   warning (~> 1.2)
 
 BUNDLED WITH
-   2.1.4
+   2.2.3
