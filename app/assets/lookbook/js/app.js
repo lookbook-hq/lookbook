@@ -43,5 +43,7 @@ Alpine.persistedStore("inspector", {
 // Init
 
 window.Alpine = Alpine;
-reloader(window.SOCKET_PATH).start();
+if (window.SOCKET_PATH) {
+  reloader(window.SOCKET_PATH).start();
+}
 Alpine.start();

@@ -35,10 +35,12 @@ module Lookbook
     end
 
     initializer "lookbook.cable.config" do |app|
-      config_path = Lookbook::Engine.root.join("config", "lookbook_cable.yml")
-      Lookbook::Engine.cable.cable = app.config_for(config_path).with_indifferent_access
-      Lookbook::Engine.cable.mount_path = "/cable"
-      Lookbook::Engine.cable.connection_class = -> { Lookbook::Connection }
+      if app.config.lookbook.auto_refresh
+        config_path = Lookbook::Engine.root.join("config", "lookbook_cable.yml")
+        Lookbook::Engine.cable.cable = app.config_for(config_path).with_indifferent_access
+        Lookbook::Engine.cable.mount_path = "/cable"
+        Lookbook::Engine.cable.connection_class = -> { Lookbook::Connection }
+      end
     end
 
     initializer "lookbook.cable.logger" do
