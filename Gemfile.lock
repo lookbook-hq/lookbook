@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lookbook (0.2.1)
+    lookbook (0.2.2)
       listen (~> 3.3)
       rails (>= 6.0)
       redcarpet (~> 3.5)
@@ -86,7 +86,7 @@ GEM
     concurrent-ruby (1.1.9)
     crass (1.0.6)
     erubi (1.10.0)
-    ffi (1.15.3)
+    ffi (1.15.4)
     globalid (0.5.2)
       activesupport (>= 5.0)
     i18n (1.8.10)
@@ -212,4 +212,4 @@ DEPENDENCIES
   warning (~> 1.2)
 
 BUNDLED WITH
-   2.2.3
+   2.2.25
