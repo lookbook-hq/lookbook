@@ -2,6 +2,7 @@ import Alpine from "alpinejs";
 import Fern from "@ryangjchandler/fern";
 import AlpineTooltip from "@ryangjchandler/alpine-tooltip";
 import AlpineClipboard from "@ryangjchandler/alpine-clipboard";
+import Screen from "./utils/screen";
 import split from "./utils/split";
 import page from "./page";
 import workbench from "./workbench";
@@ -21,6 +22,7 @@ window.Alpine = Alpine;
 Alpine.plugin(Fern);
 Alpine.plugin(AlpineTooltip);
 Alpine.plugin(AlpineClipboard);
+Alpine.plugin(Screen);
 
 // Stores
 

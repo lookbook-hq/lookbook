@@ -13,9 +13,9 @@ export default function () {
       });
     },
     updateMenu(event) {
-      const menu = document.getElementById("menu");
+      const menu = document.getElementById("nav-menu");
       menu.style.height = `${this.$refs.shim.offsetHeight}px`;
-      morph(menu, event.detail.doc.querySelector("#menu"));
+      morph(menu, event.detail.doc.querySelector("#nav-menu"));
       Promise.resolve().then(() => {
         this.$refs.shim.style.height = "auto";
         this.$dispatch("menu:updated");

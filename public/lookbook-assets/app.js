@@ -7098,6 +7098,32 @@ Expression: "${expression}"
     });
   }
 
+  // app/assets/lookbook/js/utils/screen.js
+  function screen_default(Alpine3) {
+    let data2 = Alpine3.reactive({ screensize: window.innerWidth });
+    const defaultBreakpoints = {
+      xs: 0,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      "2xl": 1536
+    };
+    const breakpoints = window.AlpineMagicHelpersConfig && window.AlpineMagicHelpersConfig.breakpoints ? window.AlpineMagicHelpersConfig.breakpoints : defaultBreakpoints;
+    window.addEventListener("resize", () => {
+      data2.screensize = window.innerWidth;
+    });
+    Alpine3.magic("screen", () => (breakpoint) => {
+      let width = data2.screensize;
+      if (Number.isInteger(breakpoint))
+        return breakpoint <= width;
+      if (breakpoints[breakpoint] === void 0) {
+        throw Error("Undefined $screen property: " + breakpoint + ". Supported properties: " + Object.keys(breakpoints).join(", "));
+      }
+      return breakpoints[breakpoint] <= width;
+    });
+  }
+
   // node_modules/split-grid/dist/split-grid.mjs
   var numeric = function(value, unit) {
     return Number(value.slice(0, -1 * unit.length));
@@ -8094,6 +8120,7 @@ Expression: "${expression}"
     const store2 = Alpine.store("page");
     return {
       ready: false,
+      sidebarOpenMobile: false,
       init() {
         this.$nextTick(() => this.ready = true);
       },
@@ -8207,9 +8234,9 @@ Expression: "${expression}"
         });
       },
       updateMenu(event) {
-        const menu = document.getElementById("menu");
+        const menu = document.getElementById("nav-menu");
         menu.style.height = `${this.$refs.shim.offsetHeight}px`;
-        morph_default(menu, event.detail.doc.querySelector("#menu"));
+        morph_default(menu, event.detail.doc.querySelector("#nav-menu"));
         Promise.resolve().then(() => {
           this.$refs.shim.style.height = "auto";
           this.$dispatch("menu:updated");
@@ -8340,6 +8367,7 @@ Expression: "${expression}"
   module_default.plugin(module_default2);
   module_default.plugin(module_default3);
   module_default.plugin(src_default4);
+  module_default.plugin(screen_default);
   module_default.store("page", {
     reflowing: false,
     doc: window.document

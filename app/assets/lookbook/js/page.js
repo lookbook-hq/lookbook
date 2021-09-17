@@ -4,6 +4,7 @@ export default function page() {
   const store = Alpine.store("page");
   return {
     ready: false,
+    sidebarOpenMobile: false,
     init() {
       this.$nextTick(() => (this.ready = true));
     },

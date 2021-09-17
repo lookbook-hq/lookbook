@@ -1,9 +1,9 @@
-<header class="py-2 px-4 w-full flex-none bg-white border-b border-gray-300 flex items-center h-10">
-  <div class="flex items-center ">
+<%= render "./shared/header" do %>
+  <div class="flex items-center">
     <div class="flex items-center space-x-1">
-      <strong><%= @preview.label %></strong>
+      <strong class="whitespace-nowrap truncate"><%= @preview.label %></strong>
       <span>/</span>
-      <span><%= @example.label %></span>
+      <span class="whitespace-nowrap truncate"><%= @example.label %></span>
     </div>
     <a
       href="<%= preview_path %>"
@@ -15,9 +15,9 @@
       </svg>
     </a>
   </div>
-  <div class="ml-auto flex text-xs font-monospace text-gray-700 space-x-1">
+  <div class="ml-auto flex text-xs font-monospace text-gray-700 space-x-1" x-show="$screen('md')">
     <span x-text="`${previewViewportWidth}px`"></span>
     <span class="text-gray-500">x</span>
     <span x-text="`${previewViewportHeight}px`"></span>
   </div>
-</header>
+<% end %>

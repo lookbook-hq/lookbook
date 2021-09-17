@@ -1,5 +1,5 @@
-<div id="inspector" class="bg-white w-full overflow-hidden flex flex-col" x-data="inspector">
-   <div class="px-4 border-b border-gray-200 flex items-center flex-none select-none cursor-[ns-resize]">
+<div id="inspector" class="bg-white w-full overflow-hidden flex flex-col" x-data="inspector" x-show="$screen('md')">
+   <div class="px-4 border-b border-gray-200 flex items-center flex-none select-none">
     <nav class="-mb-px flex space-x-8 cursor-auto">
       <% panes.each do |key, props| %>
         <a

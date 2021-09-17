@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-fill min-h-fill">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
   <link href="/lookbook-assets/app.css" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👀</text></svg>">
@@ -17,22 +17,23 @@
 
   <title><%= [@example&.label, @preview&.label, "Lookbook"].compact.join(" :: ") %></title>
 </head>
-<body class="text-gray-800 font-sans text-sm antialiased">
+<body class="text-gray-800 font-sans text-sm antialiased h-fill min-h-fill overflow-hidden">
   <div
     x-data="page"
     x-effect="updateTitle"
     @refresh.document="fetchHTML().then(doc => $dispatch('document:updated', {doc}))" 
-    @popstate.window="fetchHTML().then(doc => $dispatch('document:loaded', {doc}))"
+    @popstate.window="fetchHTML().then(doc => { $dispatch('document:loaded', {doc}); sidebarOpenMobile = false})"
+    @sidebar:toggle.window="sidebarOpenMobile = !sidebarOpenMobile"
     :style="`grid-template-columns: ${$store.nav.width}px 1px 1fr;`"
-    class="grid h-screen w-screen max-w-full overflow-hidden"
+    class="md:grid w-screen w-fill h-full min-h-fill"
   >
-    <div class="h-screen bg-gray-100 overflow-hidden">
+    <div class="h-full min-h-fill bg-gray-100 overflow-hidden" x-show="$screen('md') || sidebarOpenMobile" x-cloak>
       <%= render "./nav" %>
     </div>
-    <div x-data="split(splitProps)" class="h-screen gutter border-r border-gray-300 relative">
-      <div class="w-[9px] h-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute top-0 bottom-0 transform -translate-x-1/2 cursor-[col-resize] z-10"></div>
+    <div x-data="split(splitProps)" class="h-fill gutter border-r border-gray-300 relative" x-show="$screen('md')" x-cloak>
+      <div class="w-[9px] h-full min-h-fill bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute top-0 bottom-0 transform -translate-x-1/2 cursor-[col-resize] z-10"></div>
     </div>
-    <main id="main" x-effect="render" class="h-screen overflow-hidden w-full">
+    <main id="main" x-effect="render" class="h-fill overflow-hidden w-full" x-show="!$screen('md') || !sidebarOpenMobile" x-cloak>
       <%= yield %>
     </main>
   </div>

@@ -1,7 +1,7 @@
-<div id="preview" class="w-full bg-gray-50" >
-  <div class="h-full relative mx-auto bg-white" x-data="preview" :style="`width: ${$store.preview.width}`">
+<div id="preview" class="h-full min-h-fill md:h-auto md:min-h-0 flex w-full bg-gray-50">
+  <div class="relative mx-auto bg-white" x-data="preview" :style="`width: ${$screen('md') ? $store.preview.width : '100%'}`">
     <iframe seamless
-      class="h-full w-full border-l border-gray-300 pr-4 -mx-px"
+      class="absolute h-full inset-0 w-full border-l border-gray-300 md:pr-4 md:-mx-px"
       src="<%= url_for lookbook.preview_path %>"
       <% if config.preview_srcdoc %>srcdoc="<%== @preview_srcdoc %>"<% end %>
       frameborder="0"
@@ -14,6 +14,7 @@
       style="touch-action: none"
       @pointerdown="onResizeStart"
       @dblclick="toggleFullWidth"
+      x-show="$screen('md')"
     >
       <svg class="h-4 w-4 text-gray-600 pointer-events-none" fill="currentColor" viewBox="0 0 24 24">
         <path d="M8 5h2v14H8zM14 5h2v14h-2z"></path>
