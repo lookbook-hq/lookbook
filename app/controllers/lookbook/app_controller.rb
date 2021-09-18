@@ -1,3 +1,5 @@
+require "htmlbeautifier"
+
 module Lookbook
   class AppController < ActionController::Base
     EXCEPTIONS = [ViewComponent::PreviewTemplateError, ViewComponent::ComponentError, ViewComponent::TemplateError, ActionView::Template::Error]
@@ -28,7 +30,7 @@ module Lookbook
         begin
           @preview_srcdoc = preview_output.gsub("\"", "&quot;")
           @render_args = @preview.render_args(@example.name, params: preview_controller.params.permit!)
-          @render_output = preview_controller.render_component_to_string(@preview, @example_name)
+          @render_output = HtmlBeautifier.beautify(preview_controller.render_component_to_string(@preview, @example_name))
           @render_output_lang = Lookbook::Lang.find(:html)
           if using_preview_template?
             @source = @example.method_source
