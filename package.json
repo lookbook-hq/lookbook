@@ -34,6 +34,7 @@
     "release-it": "^14.10.1"
   },
   "dependencies": {
+    "@github/hotkey": "^1.4.4",
     "@rails/actioncable": "^6.1.4",
     "@ryangjchandler/alpine-clipboard": "^2.0.0",
     "@ryangjchandler/alpine-tooltip": "^0.1.2",

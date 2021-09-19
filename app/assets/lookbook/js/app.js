@@ -1,3 +1,4 @@
+import { install } from "@github/hotkey";
 import Alpine from "alpinejs";
 import Fern from "@ryangjchandler/fern";
 import AlpineTooltip from "@ryangjchandler/alpine-tooltip";
@@ -61,8 +62,13 @@ Alpine.data("split", split);
 
 // Init
 
-window.Alpine = Alpine;
+for (const el of document.querySelectorAll("[data-hotkey]")) {
+  install(el);
+}
+
 if (window.SOCKET_PATH) {
   reloader(window.SOCKET_PATH).start();
 }
+
+window.Alpine = Alpine;
 Alpine.start();

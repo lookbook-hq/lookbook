@@ -87,20 +87,23 @@ module Lookbook
             content: @source || "",
             template: "code",
             lang: @source_lang,
-            clipboard: @source
+            clipboard: @source,
+            hotkey: "s"
           },
           output: {
             label: "Output",
             content: @render_output || "",
             template: "code",
             lang: @render_output_lang,
-            clipboard: @render_output
+            clipboard: @render_output,
+            hotkey: "o"
           },
           notes: {
             label: "Notes",
             content: @example.notes.presence || "<em class='opacity-50'>No notes provided.</em>",
             template: "prose",
-            disabled: @example.notes.blank?
+            disabled: @example.notes.blank?,
+            hotkey: "n"
           }
         }
       }
