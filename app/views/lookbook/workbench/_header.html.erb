@@ -5,19 +5,32 @@
       <span>/</span>
       <span class="whitespace-nowrap truncate"><%= @example.label %></span>
     </div>
-    <a
-      href="<%= preview_path %>"
-      class="block ml-2 text-gray-400 hover:text-indigo-800 transition" target="_blank"
-      x-tooltip.theme.lookbook="`Open preview in new window`"
-    >
-      <svg class="feather w-3 h-3">
-        <use xlink:href="#external-link" />
-      </svg>
-    </a>
   </div>
-  <div class="ml-auto flex text-xs font-monospace text-gray-700 space-x-1" x-show="$screen('md')">
+  <div class="flex text-xs ml-auto font-monospace text-gray-700 space-x-1" x-show="$screen('md')">
     <span x-text="`${previewViewportWidth}px`"></span>
     <span class="text-gray-500">x</span>
     <span x-text="`${previewViewportHeight}px`"></span>
+  </div>
+  <div class="flex items-center ml-3 pl-3 space-x-3 border-l border-gray-300 text-gray-400">
+    <a
+      href="<%= url_for %>"
+      class="block transition hover:text-indigo-800"
+      x-tooltip.theme.lookbook="`Refresh preview`"
+      @click.prevent.stop="$dispatch('navigate')"
+      data-hotkey="r"
+    >
+      <svg class="feather w-4 h-4">
+        <use xlink:href="#refresh-cw" />
+      </svg>
+    </a>
+      <a
+      href="<%= preview_path %>"
+      class="block transition hover:text-indigo-800" target="_blank"
+      x-tooltip.theme.lookbook="`Open in new window`"
+    >
+      <svg class="feather w-4 h-4">
+        <use xlink:href="#external-link" />
+      </svg>
+    </a>
   </div>
 <% end %>

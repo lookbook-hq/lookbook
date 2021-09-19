@@ -1,4 +1,4 @@
-<div id="sidebar" class="h-full" x-data="nav" @document:updated.window="updateNav">
+<div id="sidebar" class="h-full" x-data="nav" @document:updated.window="updateNav" @navigate.window="navigate">
   <div class="bg-white h-10 border-b border-gray-300 flex items-center relative">
     <button class="flex-none ml-4 " x-show="!$screen('md')" @click="$dispatch('sidebar:toggle')" x-cloak>
       <svg class="feather w-5 h-5 hover:text-indigo-500 transition">
