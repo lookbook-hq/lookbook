@@ -12,13 +12,13 @@ export default function () {
         nav.filtering = nav.filterText.length > 0;
       });
     },
-    updateMenu(event) {
-      const menu = document.getElementById("nav-menu");
-      menu.style.height = `${this.$refs.shim.offsetHeight}px`;
-      morph(menu, event.detail.doc.querySelector("#nav-menu"));
+    updateNav(event) {
+      const nav = document.getElementById("nav");
+      nav.style.height = `${this.$refs.shim.offsetHeight}px`;
+      morph(nav, event.detail.doc.getElementById("nav"));
       Promise.resolve().then(() => {
         this.$refs.shim.style.height = "auto";
-        this.$dispatch("menu:updated");
+        this.$dispatch("nav:updated");
       });
     },
     navigate($event) {

@@ -28,7 +28,7 @@
     class="md:grid w-screen w-fill h-full min-h-fill"
   >
     <div class="h-full min-h-fill bg-gray-100 overflow-hidden" x-show="$screen('md') || sidebarOpenMobile" x-cloak>
-      <%= render "./nav" %>
+      <%= render "./sidebar" %>
     </div>
     <div x-data="split(splitProps)" class="h-fill gutter border-r border-gray-300 relative" x-show="$screen('md')" x-cloak>
       <div class="w-[9px] h-full min-h-fill bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute top-0 bottom-0 transform -translate-x-1/2 cursor-[col-resize] z-10"></div>
