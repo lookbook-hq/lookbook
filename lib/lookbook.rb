@@ -10,5 +10,6 @@ module Lookbook
   autoload :Preview, "lookbook/preview"
   autoload :PreviewController, "lookbook/preview_controller"
   autoload :PreviewExample, "lookbook/preview_example"
+  autoload :PreviewGroup, "lookbook/preview_group"
   autoload :Taggable, "lookbook/taggable"
 end

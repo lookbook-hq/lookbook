@@ -1482,6 +1482,94 @@ pre[class*="language-"] {
   bottom: 0px;
 }
 
+.top-4 {
+  top: 1rem;
+}
+
+.right-4 {
+  right: 1rem;
+}
+
+.top-2 {
+  top: 0.5rem;
+}
+
+.left-4 {
+  left: 1rem;
+}
+
+.top-\[2px\] {
+  top: 2px;
+}
+
+.top-\[4px\] {
+  top: 4px;
+}
+
+.left-\[4px\] {
+  left: 4px;
+}
+
+.top-\[6px\] {
+  top: 6px;
+}
+
+.left-\[6px\] {
+  left: 6px;
+}
+
+.-top-1 {
+  top: -0.25rem;
+}
+
+.-left-1 {
+  left: -0.25rem;
+}
+
+.top-3 {
+  top: 0.75rem;
+}
+
+.left-3 {
+  left: 0.75rem;
+}
+
+.top-1 {
+  top: 0.25rem;
+}
+
+.left-1 {
+  left: 0.25rem;
+}
+
+.-top-1\.5 {
+  top: -0.375rem;
+}
+
+.-left-1\.5 {
+  left: -0.375rem;
+}
+
+.-top-0 {
+  top: 0px;
+}
+
+.-left-0 {
+  left: 0px;
+}
+
+.left-\[2px\] {
+  left: 2px;
+}
+
+.top-\[-2px\] {
+  top: -2px;
+}
+
+.left-\[-2px\] {
+  left: -2px;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -1489,6 +1577,11 @@ pre[class*="language-"] {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.-my-4 {
+  margin-top: -1rem;
+  margin-bottom: -1rem;
 }
 
 .ml-4 {
@@ -1539,6 +1632,10 @@ pre[class*="language-"] {
   display: block;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .flex {
   display: flex;
 }
@@ -1583,6 +1680,14 @@ pre[class*="language-"] {
   height: 1rem;
 }
 
+.h-2\.5 {
+  height: 0.625rem;
+}
+
+.h-2 {
+  height: 0.5rem;
+}
+
 .w-5 {
   width: 1.25rem;
 }
@@ -1613,6 +1718,14 @@ pre[class*="language-"] {
 
 .w-4 {
   width: 1rem;
+}
+
+.w-2\.5 {
+  width: 0.625rem;
+}
+
+.w-2 {
+  width: 0.5rem;
 }
 
 .max-w-xs {
@@ -1702,6 +1815,38 @@ pre[class*="language-"] {
   margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
+.space-y-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+
+.divide-y > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-y-reverse: 0;
+  border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+  border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
+}
+
+.divide-dashed > :not([hidden]) ~ :not([hidden]) {
+  border-style: dashed;
+}
+
+.divide-gray-300 > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-opacity: 1;
+  border-color: rgba(209, 213, 219, var(--tw-divide-opacity));
+}
+
+.divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-opacity: 1;
+  border-color: rgba(229, 231, 235, var(--tw-divide-opacity));
+}
+
 .overflow-auto {
   overflow: auto;
 }
@@ -1724,12 +1869,33 @@ pre[class*="language-"] {
   white-space: nowrap;
 }
 
+.rounded-sm {
+  border-radius: 0.125rem;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
+.rounded-b {
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
 .rounded-bl-md {
   border-bottom-left-radius: 0.375rem;
 }
 
 .border-0 {
   border-width: 0px;
+}
+
+.border {
+  border-width: 1px;
 }
 
 .border-b {
@@ -1750,6 +1916,10 @@ pre[class*="language-"] {
 
 .border-b-2 {
   border-bottom-width: 2px;
+}
+
+.border-t-0 {
+  border-top-width: 0px;
 }
 
 .border-gray-300 {
@@ -1795,6 +1965,11 @@ pre[class*="language-"] {
   background-color: rgba(224, 231, 255, var(--tw-bg-opacity)) !important;
 }
 
+.bg-gray-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
+}
+
 .p-4 {
   padding: 1rem;
 }
@@ -1832,12 +2007,48 @@ pre[class*="language-"] {
   padding-right: 0.25rem;
 }
 
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+}
+
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .pr-3 {
   padding-right: 0.75rem;
 }
 
 .pl-3 {
   padding-left: 0.75rem;
+}
+
+.pt-8 {
+  padding-top: 2rem;
+}
+
+.pt-10 {
+  padding-top: 2.5rem;
+}
+
+.pb-6 {
+  padding-bottom: 1.5rem;
+}
+
+.pb-8 {
+  padding-bottom: 2rem;
 }
 
 .text-left {
@@ -1871,8 +2082,16 @@ pre[class*="language-"] {
   line-height: 1.5rem;
 }
 
+.text-\[11px\] {
+  font-size: 11px;
+}
+
 .font-bold {
   font-weight: 700;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 .italic {

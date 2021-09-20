@@ -1,6 +1,6 @@
 module Lookbook
   module PreviewController
-    def render_component_to_string(preview, example_name)
+    def render_example_to_string(preview, example_name)
       prepend_application_view_paths
       prepend_preview_examples_view_path
       @preview = preview
@@ -12,6 +12,11 @@ module Lookbook
       opts[:layout] = nil
       opts[:locals] = locals if locals.present?
       render_to_string template, opts
+    end
+
+    def render_in_layout_to_string(content, layout_override)
+      layout = determine_layout(layout_override, prepend_views: false)[:layout]
+      render_to_string html: content, layout: layout
     end
   end
 end

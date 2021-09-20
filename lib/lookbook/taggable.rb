@@ -14,7 +14,11 @@ module Lookbook
       code_object.docstring.to_s.strip
     end
 
-    private
+    def lookbook_group
+      code_object&.group
+    end
+
+    # private
 
     def code_object
       @code_object ||= Lookbook::Engine.parser.get_code_object(taggable_object_path)

@@ -1,0 +1,6 @@
+<% items.each do |item| %>
+  <div class="lookbook-example" style="margin-bottom: 30px;">
+    <h6 class="lookbook-example-label" style="color: #999; font-size: 14px; margin-bottom: 10px;"><%= item[:label] %></h6>
+    <%= item[:content] %>
+  </div>
+<% end %>

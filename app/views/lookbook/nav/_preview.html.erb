@@ -8,10 +8,15 @@
         :class="{'!bg-indigo-100':active}"
         @click.stop.prevent="navigate"
       >
-        <div :class="active ? 'text-gray-900' : 'text-indigo-500'"> 
-          <svg class="feather w-3.5 h-3.5 mr-1.5 flex-none group-hover:text-indigo-800 transition">
+        <div class="relative w-3.5 h-3.5 mr-1.5" :class="active ? 'text-gray-900' : 'text-indigo-500'"> 
+          <svg class="feather flex-none group-hover:text-indigo-800 transition <% if example.type == :group %> absolute top-[-2px] left-[-2px] w-3 h-3<% else %>w-3.5 h-3.5<% end %>">
             <use xlink:href="#eye" />
           </svg>
+          <% if example.type == :group %>
+            <svg class="feather w-3 h-3 flex-none group-hover:text-indigo-800 transition absolute top-[4px] left-[4px]">
+              <use xlink:href="#eye" />
+            </svg>
+          <% end %>
         </div>
         <div class="truncate whitespace-nowrap">
           <%= example.label %>

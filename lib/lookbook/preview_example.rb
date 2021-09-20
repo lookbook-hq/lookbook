@@ -62,6 +62,7 @@ module Lookbook
       Pathname.new(Dir["#{base_path}/#{template_path}.html.*"].first)
     end
 
+    alias_method :group, :lookbook_group
     alias_method :notes, :lookbook_notes
     alias_method :hidden?, :lookbook_hidden?
   end

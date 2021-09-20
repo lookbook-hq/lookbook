@@ -13,9 +13,7 @@ module Lookbook
     before_action :find_preview, only: [:preview, :show]
     before_action :find_example, only: [:preview, :show]
     before_action :assign_nav, only: [:index, :show]
-
-    def index
-    end
+    before_action :initialize_inspector, only: [:show]
 
     def preview
       if @example
@@ -29,15 +27,8 @@ module Lookbook
       if @example
         begin
           @preview_srcdoc = preview_output.gsub("\"", "&quot;")
-          @render_args = @preview.render_args(@example.name, params: preview_controller.params.permit!)
-          @render_output = HtmlBeautifier.beautify(preview_controller.render_component_to_string(@preview, @example_name))
-          @render_output_lang = Lookbook::Lang.find(:html)
-          if using_preview_template?
-            @source = @example.method_source
-            @source_lang = @example.source_lang
-          else
-            @source = @example.template_source(@render_args[:template])
-            @source_lang = @example.template_lang(@render_args[:template])
+          (@example.type == :group ? @example.examples : [@example]).each do |example|
+            include_example_data(example)
           end
           assign_inspector
         rescue *EXCEPTIONS
@@ -49,6 +40,12 @@ module Lookbook
     end
 
     private
+
+    def initialize_inspector
+      @source = []
+      @output = []
+      @notes = []
+    end
 
     def find_preview
       candidates = []
@@ -68,12 +65,39 @@ module Lookbook
       end
     end
 
-    def using_preview_template?
-      @render_args[:template] == "view_components/preview"
+    def include_example_data(example)
+      content = HtmlBeautifier.beautify(preview_controller.render_example_to_string(@preview, example.name))
+      @output << {
+        label: "<!-- #{example.label} -->",
+        content: content,
+        lang: Lookbook::Lang.find(:html)
+      }
+      render_args = @preview.render_args(example.name, params: preview_controller.params.permit!)
+      has_template = render_args[:template] != "view_components/preview"
+      @source << {
+        label: has_template ? "<!-- #{example.label} -->" : "\# #{example.label}",
+        content: has_template ? example.template_source(render_args[:template]) : example.method_source,
+        lang: has_template ? example.template_lang(render_args[:template]) : example.source_lang
+      }
+      if example.notes.present?
+        @notes << {
+          label: example.label,
+          content: example.notes
+        }
+      end
     end
 
     def preview_output
-      @preview_output ||= if @preview
+      if @example.type == :group
+        rendered = @example.examples.map do |example|
+          {
+            label: example.label,
+            content: preview_controller.render_example_to_string(@preview, example.name)
+          }
+        end
+        joined = render_to_string "layouts/group", locals: {items: rendered}, layout: nil
+        preview_controller.render_in_layout_to_string(joined, @preview.lookbook_layout)
+      else
         preview_controller.request.params[:path] = "#{@preview.preview_name}/#{@example.name}".chomp("/")
         preview_controller.process(:previews)
       end
@@ -84,26 +108,24 @@ module Lookbook
         panes: {
           source: {
             label: "Source",
-            content: @source || "",
             template: "code",
-            lang: @source_lang,
-            clipboard: @source,
-            hotkey: "s"
+            hotkey: "s",
+            items: @source,
+            clipboard: @source.map { |s| @source.many? ? "#{s[:label]}\n#{s[:content]}" : s[:content] }.join("\n\n")
           },
           output: {
             label: "Output",
-            content: @render_output || "",
             template: "code",
-            lang: @render_output_lang,
-            clipboard: @render_output,
-            hotkey: "o"
+            hotkey: "o",
+            items: @output,
+            clipboard: @output.map { |o| @output.many? ? "#{o[:label]}\n#{o[:content]}" : o[:content] }.join("\n\n")
           },
           notes: {
             label: "Notes",
-            content: @example.notes.presence || "<em class='opacity-50'>No notes provided.</em>",
-            template: "prose",
-            disabled: @example.notes.blank?,
-            hotkey: "n"
+            template: "notes",
+            hotkey: "n",
+            items: @notes,
+            disabled: @notes.none?
           }
         }
       }

@@ -23,9 +23,21 @@ module Lookbook
       return @lookbook_examples if @lookbook_examples.present?
       public_methods = public_instance_methods(false)
       public_method_objects = code_object.meths.filter { |m| public_methods.include?(m.name) }
-      examples = public_method_objects.map { |m| PreviewExample.new(m.name.to_s, self) }
-      examples.reject!(&:hidden?)
-      @lookbook_examples ||= Lookbook.config.sort_examples ? examples.sort_by(&:label) : examples
+      visible = public_method_objects.map { |m| PreviewExample.new(m.name.to_s, self) }.reject(&:hidden?)
+      sorted = Lookbook.config.sort_examples ? visible.sort_by(&:label) : visible
+      @lookbook_examples = []
+      if code_object.groups.any?
+        sorted.group_by { |m| m.group }.each do |name, examples|
+          if name.nil?
+            @lookbook_examples += examples
+          else
+            @lookbook_examples << PreviewGroup.new(name.underscore, self, examples)
+          end
+        end
+      else
+        @lookbook_examples = sorted
+      end
+      @lookbook_examples
     end
 
     # Examples::FooBarComponentPreview -> "Examples::FooBar"
@@ -61,6 +73,10 @@ module Lookbook
       lookbook_path.tr("_", "-")
     end
 
+    def lookbook_layout
+      defined?(@layout) ? @layout : nil
+    end
+
     class << self
       def all
         ViewComponent::Preview.all
@@ -73,6 +89,8 @@ module Lookbook
       def exists?(path)
         !!find(path)
       end
+
+      
     end
 
     private
