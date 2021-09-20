@@ -45,8 +45,7 @@
   },
   "release-it": {
     "git": {
-      "commitMessage": "release v${version}",
-      "requireBranch": "main"
+      "commitMessage": "release v${version}"
     },
     "github": {
       "release": true
