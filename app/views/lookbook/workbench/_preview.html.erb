@@ -3,7 +3,7 @@
     <iframe seamless
       class="absolute h-full inset-0 w-full border-l border-gray-300 md:pr-4 md:-mx-px"
       src="<%= url_for lookbook.preview_path %>"
-      <% if config.preview_srcdoc %>srcdoc="<%== @preview_srcdoc %>"<% end %>
+      <% if config.preview_srcdoc %>srcdoc="<%== @rendered_example %>"<% end %>
       frameborder="0"
       x-data="sizeObserver"
       x-effect="previewViewportWidth = observedWidth; previewViewportHeight = observedHeight;"

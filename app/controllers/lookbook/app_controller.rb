@@ -26,7 +26,7 @@ module Lookbook
     def show
       if @example
         begin
-          @preview_srcdoc = preview_output.gsub("\"", "&quot;")
+          @rendered_example = rendered_example.gsub("\"", "&quot;")
           (@example.type == :group ? @example.examples : [@example]).each do |example|
             include_example_data(example)
           end
@@ -87,7 +87,7 @@ module Lookbook
       end
     end
 
-    def preview_output
+    def rendered_example
       if @example.type == :group
         rendered = @example.examples.map do |example|
           {
