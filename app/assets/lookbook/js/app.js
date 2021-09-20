@@ -10,8 +10,8 @@ import workbench from "./workbench";
 import preview from "./workbench/preview";
 import inspector from "./workbench/inspector";
 import nav from "./nav";
-import navExample from "./nav/example";
-import navGroup from "./nav/group";
+import navNode from "./nav/node";
+import navLeaf from "./nav/leaf";
 import sizeObserver from "./utils/size_observer";
 import reloader from "./utils/reloader";
 import clipboard from "./utils/clipboard";
@@ -51,8 +51,8 @@ Alpine.persistedStore("preview", {
 
 Alpine.data("page", page);
 Alpine.data("nav", nav);
-Alpine.data("navGroup", navGroup);
-Alpine.data("navExample", navExample);
+Alpine.data("navNode", navNode);
+Alpine.data("navLeaf", navLeaf);
 Alpine.data("workbench", workbench);
 Alpine.data("preview", preview);
 Alpine.data("inspector", inspector);

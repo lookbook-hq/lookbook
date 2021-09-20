@@ -19,14 +19,13 @@
       </svg>
     </button>
   </div>
-
   <div class="relative overflow-y-auto w-full" style="height: calc(100% - 40px)">
     <div x-ref="shim">
-      <nav id="nav" class="select-none" x-data="navGroup" @nav:updated.window="filter" x-init="$watch('$store.nav.filterText', () => filter()); $nextTick(() => filter());">
+      <nav id="nav" class="select-none" x-data="navNode" @nav:updated.window="filter" x-init="$watch('$store.nav.filterText', () => filter()); $nextTick(() => filter());">
         <% if @nav.items.any? %>
           <ul x-ref="items">
-            <% @nav.items.each do |group| %>
-              <%= render "./nav/#{group.type.to_s}", group: group %>
+            <% @nav.items.each do |item| %>
+              <%= render "./nav/#{item.type.to_s}", node: item %>
             <% end %>
           </ul>
           <div class="p-4 text-center" x-show="hidden" x-cloak>

@@ -1,4 +1,4 @@
-export default function navExample() {
+export default function navLeaf() {
   return {
     path: null,
     matchers: [],

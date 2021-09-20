@@ -1,4 +1,4 @@
-export default function navGroup() {
+export default function navNode() {
   return {
     id: null,
     hidden: true,

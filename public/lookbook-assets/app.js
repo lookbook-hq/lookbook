@@ -8381,30 +8381,8 @@ Expression: "${expression}"
     };
   }
 
-  // app/assets/lookbook/js/nav/example.js
-  function navExample() {
-    return {
-      path: null,
-      matchers: [],
-      active: false,
-      hidden: false,
-      setActive() {
-        this.active = this.path === window.location.pathname;
-      },
-      filter() {
-        if (this.$store.nav.filtering) {
-          const text = this.$store.nav.filterText;
-          const matched = this.matchers.map((m) => m.includes(text));
-          this.hidden = !matched.filter((m) => m).length;
-        } else {
-          this.hidden = false;
-        }
-      }
-    };
-  }
-
-  // app/assets/lookbook/js/nav/group.js
-  function navGroup() {
+  // app/assets/lookbook/js/nav/node.js
+  function navNode() {
     return {
       id: null,
       hidden: true,
@@ -8430,6 +8408,28 @@ Expression: "${expression}"
       },
       toggle() {
         this.$store.nav.open[this.id] = !this.$store.nav.open[this.id];
+      }
+    };
+  }
+
+  // app/assets/lookbook/js/nav/leaf.js
+  function navLeaf() {
+    return {
+      path: null,
+      matchers: [],
+      active: false,
+      hidden: false,
+      setActive() {
+        this.active = this.path === window.location.pathname;
+      },
+      filter() {
+        if (this.$store.nav.filtering) {
+          const text = this.$store.nav.filterText;
+          const matched = this.matchers.map((m) => m.includes(text));
+          this.hidden = !matched.filter((m) => m).length;
+        } else {
+          this.hidden = false;
+        }
       }
     };
   }
@@ -8518,8 +8518,8 @@ Expression: "${expression}"
   });
   module_default.data("page", page);
   module_default.data("nav", nav_default);
-  module_default.data("navGroup", navGroup);
-  module_default.data("navExample", navExample);
+  module_default.data("navNode", navNode);
+  module_default.data("navLeaf", navLeaf);
   module_default.data("workbench", workbench);
   module_default.data("preview", preview);
   module_default.data("inspector", inspector);
