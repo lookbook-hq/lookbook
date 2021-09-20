@@ -5,7 +5,7 @@
   @click="save"
   data-tippy-placement="left">
   <svg class="feather h-4 w-4 ">
-    <use x-bind:href="done ? '#check' : '#clipboard'" />
+    <use x-bind:href="`/lookbook-assets/feather-sprite.svg#${done ? 'check' : 'clipboard'}`" />
   </svg>
   <div class="hidden" x-init="content = $el.innerText"><%== yield %></div>
 </button>
