@@ -112,6 +112,29 @@ class ButtonComponentPreview < ViewComponent::Preview
       "Click me"
     end
   end
+
+  # @!group More examples
+
+  def short_text
+    render ButtonComponent.new do
+      "Go"
+    end
+  end
+
+  def long_text
+    render ButtonComponent.new do
+      "Click here to do this thing because it's the best way to do it"
+    end
+  end
+
+  def emoji_text
+    render ButtonComponent.new do
+      "👀📗"
+    end
+  end
+
+  # @!endgroup
+
 end
 ```
 
@@ -152,6 +175,52 @@ class FooComponentPreview < ViewComponent::Preview
   end
 end
 ```
+
+#### `@!group <name> ... @!endgroup`
+
+For smaller components, it can often make sense to render a set of preview examples in a single window, rather than representing them as individual items in the navigation which can start to look a bit cluttered.
+
+You can group a set of examples by wrapping them in `@!group <name>` / `@!endgroup` tags within your preview file:
+
+```ruby
+class HeaderComponentPreview < ViewComponent::Preview
+
+  def standard
+    render Elements::HeaderComponent.new do
+      "Standard header"
+    end
+  end
+
+  # @!group Sizes
+
+  def small
+    render Elements::HeaderComponent.new(size: 12) do
+      "Small header"
+    end
+  end
+
+  def medium
+    render Elements::HeaderComponent.new(size: 16) do
+      "Small header"
+    end
+  end
+
+  def big
+    render Elements::HeaderComponent.new(size: 24) do
+      "Small header"
+    end
+  end
+
+  # @!endgroup
+
+end
+```
+
+The example above would display the `Sizes` examples grouped together on a single page, rather than as indiviual items in the navigation:
+
+<img src=".github/assets/nav_group.png">
+
+You can have as many groups as you like within a single preview class, but each example can only belong to one group.
 
 #### Adding notes
 
