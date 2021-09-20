@@ -9,9 +9,11 @@
       type="text"
       class="text-sm px-4 h-10 w-full border-0 bg-transparent focus:outline-none outline-none focus:ring-0"
       placeholder="Filter previews&hellip;"
+      x-ref="filter"
       x-model="$store.nav.filter"
-      x-effect="if (sidebarOpenMobile) setTimeout(() => $el.focus(), 0)"
-      @keyup.stop="if ($event.key === 'Escape') clearFilter();"
+      x-effect="if (sidebarOpenMobile) focusFilter()"
+      @keyup.stop="if ($event.key === 'Escape') $store.nav.filtering ? clearFilter() : unfocusFilter()"
+      @keyup.f.document="focusFilter"
     >
     <button class="text-gray-400 hover:text-indigo-500 focus:ring-0 focus:outline-none absolute top-1/2 right-2 transform -translate-y-1/2" @click="clearFilter">
       <svg class="feather w-3 h-3">

@@ -8377,6 +8377,13 @@ Expression: "${expression}"
       navigate($event) {
         history.pushState({}, null, $event.currentTarget.href);
         this.$dispatch("popstate");
+      },
+      focusFilter() {
+        this.currentFocus = this.$refs.filter;
+        setTimeout(() => this.$refs.filter.focus(), 0);
+      },
+      unfocusFilter() {
+        this.$refs.filter.blur();
       }
     };
   }
