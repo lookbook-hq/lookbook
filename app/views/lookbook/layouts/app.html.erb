@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-fill min-h-fill">
+<html lang="en" class="h-screen">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +17,7 @@
 
   <title><%= [@example&.label, @preview&.label, "Lookbook"].compact.join(" :: ") %></title>
 </head>
-<body class="text-gray-800 font-sans text-sm antialiased h-fill min-h-fill overflow-hidden">
+<body class="text-gray-800 font-sans text-sm antialiased h-screen overflow-hidden">
   <div
     x-data="page"
     x-effect="updateTitle"
@@ -25,15 +25,15 @@
     @popstate.window="fetchHTML().then(doc => { $dispatch('document:loaded', {doc}); sidebarOpenMobile = false})"
     @sidebar:toggle.window="sidebarOpenMobile = !sidebarOpenMobile"
     :style="`grid-template-columns: ${$store.nav.width}px 1px 1fr;`"
-    class="md:grid w-screen w-fill h-full min-h-fill"
+    class="md:grid w-screen h-screen"
   >
-    <div class="h-full min-h-fill bg-gray-100 overflow-hidden" x-show="$screen('md') || sidebarOpenMobile" x-cloak>
+    <div class="h-full bg-gray-100 overflow-hidden" x-show="$screen('md') || sidebarOpenMobile" x-cloak>
       <%= render "./sidebar" %>
     </div>
-    <div x-data="split(splitProps)" class="h-fill gutter border-r border-gray-300 relative" x-show="$screen('md')" x-cloak>
-      <div class="w-[9px] h-full min-h-fill bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute top-0 bottom-0 transform -translate-x-1/2 cursor-[col-resize] z-10"></div>
+    <div x-data="split(splitProps)" class="h-full gutter border-r border-gray-300 relative" x-show="$screen('md')" x-cloak>
+      <div class="w-[9px] h-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute top-0 bottom-0 transform -translate-x-1/2 cursor-[col-resize] z-10"></div>
     </div>
-    <main id="main" x-effect="render" class="h-fill overflow-hidden w-full" x-show="!$screen('md') || !sidebarOpenMobile" x-cloak>
+    <main id="main" x-effect="render" class="h-full overflow-hidden w-full" x-show="!$screen('md') || !sidebarOpenMobile" x-cloak>
       <%= yield %>
     </main>
   </div>

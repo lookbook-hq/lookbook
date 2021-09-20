@@ -1,4 +1,4 @@
-<div id="workbench" class="bg-gray-50 h-full min-h-fill flex flex-col" x-data="workbench">
+<div id="workbench" class="bg-gray-50 h-screen flex flex-col" x-data="workbench">
   <%= render "./workbench/header" %>
   <div class="md:grid flex-grow" :style="`grid-template-rows: 1fr 1px ${$store.inspector.height}px`">
     <%= render "./workbench/preview" %>

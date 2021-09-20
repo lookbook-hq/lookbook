@@ -36,11 +36,11 @@
   }
 
   .h-fill {
-    height: -webkit-fill-available;
+    height: fill-available;
   }
 
   .min-h-fill {
-    min-height: -webkit-fill-available;
+    min-height: fill-available;
   }
 
   ::-webkit-scrollbar {

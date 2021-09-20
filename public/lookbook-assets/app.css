@@ -818,12 +818,10 @@ pre[class*="language-"] {
   fill: none;
 }
 
-.h-fill {
-  height: -webkit-fill-available;
-}
-
 .min-h-fill {
   min-height: -webkit-fill-available;
+  min-height: -moz-available;
+  min-height: fill-available;
 }
 
 ::-webkit-scrollbar {
@@ -1595,12 +1593,12 @@ pre[class*="language-"] {
   height: 0.75rem;
 }
 
-.h-\[11px\] {
-  height: 11px;
-}
-
 .h-screen {
   height: 100vh;
+}
+
+.h-\[11px\] {
+  height: 11px;
 }
 
 .h-3\.5 {
