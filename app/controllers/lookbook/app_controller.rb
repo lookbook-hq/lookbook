@@ -17,7 +17,7 @@ module Lookbook
 
     def preview
       if @example
-        render html: preview_output
+        render html: rendered_example
       else
         render "app/not_found"
       end
