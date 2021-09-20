@@ -2,11 +2,7 @@
   "name": "lookbook",
   "version": "0.2.4",
   "private": true,
-  "description": "Supercharge your ViewComponent development",
-  "pre-commit": [
-    "build"
-  ],
-  "precommit-msg": "echo 'Building production assets...' && exit 0",
+  "description": "A native development UI for ViewComponent",
   "scripts": {
     "css:watch": "npx tailwindcss -i ./app/assets/lookbook/css/app.css -o ./public/lookbook-assets/app.css --watch --postcss",
     "css:build": "NODE_ENV=production npx tailwindcss -i ./app/assets/lookbook/css/app.css -o ./public/lookbook-assets/app.css --postcss",
@@ -29,7 +25,6 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.0",
     "postcss-import": "^14.0.2",
-    "pre-commit": "^1.2.2",
     "prettier": "2.3.2",
     "release-it": "^14.10.1"
   },
@@ -43,9 +38,7 @@
     "@tailwindcss/typography": "^0.4.1",
     "alpinejs": "^3.2.2",
     "debounce": "^1.2.1",
-    "feather-icons": "^4.28.0",
     "morphdom": "^2.6.1",
-    "nanomorph": "^5.4.3",
     "split-grid": "^1.0.11",
     "tailwindcss": "^2.2.4",
     "tippy.js": "^6.3.1"

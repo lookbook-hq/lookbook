@@ -20,7 +20,10 @@
     return a;
   };
   var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
-  var __commonJS = (cb, mod) => function __require() {
+  var __require = typeof require !== "undefined" ? require : (x) => {
+    throw new Error('Dynamic require of "' + x + '" is not supported');
+  };
+  var __commonJS = (cb, mod) => function __require2() {
     return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
   };
   var __reExport = (target, module, desc) => {
@@ -2219,7 +2222,7 @@
   function closestDataStack(node) {
     if (node._x_dataStack)
       return node._x_dataStack;
-    if (node instanceof ShadowRoot) {
+    if (typeof ShadowRoot === "function" && node instanceof ShadowRoot) {
       return closestDataStack(node.host);
     }
     if (!node.parentNode) {
@@ -2425,6 +2428,9 @@ Expression: "${expression}"
       return getDirectiveHandler(el, directive2);
     });
   }
+  function attributesOnly(attributes) {
+    return Array.from(attributes).map(toTransformedAttributes()).filter((attr) => !outNonAlpineAttributes(attr));
+  }
   var isDeferringHandlers = false;
   var directiveHandlerStacks = new Map();
   var currentHandlerStackKey = Symbol();
@@ -2478,7 +2484,8 @@ Expression: "${expression}"
     return { name, value };
   };
   var into = (i) => i;
-  function toTransformedAttributes(callback) {
+  function toTransformedAttributes(callback = () => {
+  }) {
     return ({ name, value }) => {
       let { name: newName, value: newValue } = attributeTransformers.reduce((carry, transform) => {
         return transform(carry);
@@ -2558,7 +2565,7 @@ Expression: "${expression}"
     isHolding = true;
   }
   function walk(el, callback) {
-    if (el instanceof ShadowRoot) {
+    if (typeof ShadowRoot === "function" && el instanceof ShadowRoot) {
       Array.from(el.children).forEach((el2) => walk(el2, callback));
       return;
     }
@@ -2586,7 +2593,7 @@ Expression: "${expression}"
     onAttributesAdded((el, attrs) => {
       directives(el, attrs).forEach((handle) => handle());
     });
-    let outNestedComponents = (el) => !closestRoot(el.parentElement);
+    let outNestedComponents = (el) => !closestRoot(el.parentElement, true);
     Array.from(document.querySelectorAll(allSelectors())).filter(outNestedComponents).forEach((el) => {
       initTree(el);
     });
@@ -2606,14 +2613,15 @@ Expression: "${expression}"
   function addInitSelector(selectorCallback) {
     initSelectorCallbacks.push(selectorCallback);
   }
-  function closestRoot(el) {
+  function closestRoot(el, includeInitSelectors = false) {
     if (!el)
       return;
-    if (rootSelectors().some((selector) => el.matches(selector)))
+    const selectors = includeInitSelectors ? allSelectors() : rootSelectors();
+    if (selectors.some((selector) => el.matches(selector)))
       return el;
     if (!el.parentElement)
       return;
-    return closestRoot(el.parentElement);
+    return closestRoot(el.parentElement, includeInitSelectors);
   }
   function isRoot(el) {
     return rootSelectors().some((selector) => el.matches(selector));
@@ -2628,6 +2636,29 @@ Expression: "${expression}"
   }
   function destroyTree(root) {
     walk(root, (el) => cleanupAttributes(el));
+  }
+  function debounce(func, wait) {
+    var timeout;
+    return function() {
+      var context = this, args = arguments;
+      var later = function() {
+        timeout = null;
+        func.apply(context, args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+  function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+      let context = this, args = arguments;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => inThrottle = false, limit);
+      }
+    };
   }
   function plugin(callback) {
     callback(alpine_default);
@@ -2715,7 +2746,7 @@ Expression: "${expression}"
     get raw() {
       return raw;
     },
-    version: "3.2.4",
+    version: "3.4.0",
     disableEffectScheduling,
     setReactivityEngine,
     addRootSelector,
@@ -2726,6 +2757,8 @@ Expression: "${expression}"
     interceptor,
     mutateDom,
     directive,
+    throttle,
+    debounce,
     evaluate,
     initTree,
     nextTick,
@@ -2760,7 +2793,23 @@ Expression: "${expression}"
     }));
   });
   magic("store", getStores);
-  magic("refs", (el) => closestRoot(el)._x_refs || {});
+  magic("root", (el) => closestRoot(el));
+  magic("refs", (el) => {
+    if (el._x_refs_proxy)
+      return el._x_refs_proxy;
+    el._x_refs_proxy = mergeProxies(getArrayOfRefObject(el));
+    return el._x_refs_proxy;
+  });
+  function getArrayOfRefObject(el) {
+    let refObjects = [];
+    let currentEl = el;
+    while (currentEl) {
+      if (currentEl._x_refs)
+        refObjects.push(currentEl._x_refs);
+      currentEl = currentEl.parentNode;
+    }
+    return refObjects;
+  }
   magic("el", (el) => el);
   function setClasses(el, value) {
     if (Array.isArray(value)) {
@@ -2968,7 +3017,9 @@ Expression: "${expression}"
       };
   }
   window.Element.prototype._x_toggleAndCascadeWithTransitions = function(el, value, show, hide) {
-    let clickAwayCompatibleShow = () => requestAnimationFrame(show);
+    let clickAwayCompatibleShow = () => {
+      document.visibilityState === "visible" ? requestAnimationFrame(show) : setTimeout(show);
+    };
     if (value) {
       el._x_transition ? el._x_transition.in(show) : clickAwayCompatibleShow();
       return;
@@ -3248,7 +3299,7 @@ Expression: "${expression}"
     return booleanAttributes.includes(attrName);
   }
   function attributeShouldntBePreservedIfFalsy(name) {
-    return !["aria-pressed", "aria-checked"].includes(name);
+    return !["aria-pressed", "aria-checked", "aria-expanded"].includes(name);
   }
   function on(el, event, modifiers, callback) {
     let listenerTarget = el;
@@ -3300,12 +3351,12 @@ Expression: "${expression}"
     if (modifiers.includes("debounce")) {
       let nextModifier = modifiers[modifiers.indexOf("debounce") + 1] || "invalid-wait";
       let wait = isNumeric(nextModifier.split("ms")[0]) ? Number(nextModifier.split("ms")[0]) : 250;
-      handler3 = debounce(handler3, wait, this);
+      handler3 = debounce(handler3, wait);
     }
     if (modifiers.includes("throttle")) {
       let nextModifier = modifiers[modifiers.indexOf("throttle") + 1] || "invalid-wait";
       let wait = isNumeric(nextModifier.split("ms")[0]) ? Number(nextModifier.split("ms")[0]) : 250;
-      handler3 = throttle(handler3, wait, this);
+      handler3 = throttle(handler3, wait);
     }
     if (modifiers.includes("once")) {
       handler3 = wrapHandler(handler3, (next, e) => {
@@ -3323,29 +3374,6 @@ Expression: "${expression}"
   }
   function camelCase2(subject) {
     return subject.toLowerCase().replace(/-(\w)/g, (match, char) => char.toUpperCase());
-  }
-  function debounce(func, wait) {
-    var timeout;
-    return function() {
-      var context = this, args = arguments;
-      var later = function() {
-        timeout = null;
-        func.apply(context, args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
-  }
-  function throttle(func, limit) {
-    let inThrottle;
-    return function() {
-      let context = this, args = arguments;
-      if (!inThrottle) {
-        func.apply(context, args);
-        inThrottle = true;
-        setTimeout(() => inThrottle = false, limit);
-      }
-    };
   }
   function isNumeric(subject) {
     return !Array.isArray(subject) && !isNaN(subject);
@@ -3398,7 +3426,9 @@ Expression: "${expression}"
       up: "arrow-up",
       down: "arrow-down",
       left: "arrow-left",
-      right: "arrow-right"
+      right: "arrow-right",
+      period: ".",
+      equal: "="
     };
     modifierToKeyMap[key] = key;
     return Object.keys(modifierToKeyMap).map((modifier) => {
@@ -3479,7 +3509,12 @@ Expression: "${expression}"
   }
   directive("cloak", (el) => queueMicrotask(() => mutateDom(() => el.removeAttribute(prefix("cloak")))));
   addInitSelector(() => `[${prefix("init")}]`);
-  directive("init", skipDuringClone((el, { expression }) => evaluate(el, expression, {}, false)));
+  directive("init", skipDuringClone((el, { expression }) => {
+    if (typeof expression === "string") {
+      return !!expression.trim() && evaluate(el, expression, {}, false);
+    }
+    return evaluate(el, expression, {}, false);
+  }));
   directive("text", (el, { expression }, { effect: effect3, evaluateLater: evaluateLater2 }) => {
     let evaluate2 = evaluateLater2(expression);
     effect3(() => {
@@ -3519,6 +3554,12 @@ Expression: "${expression}"
         cleanupRunners.pop()();
       getBindings((bindings) => {
         let attributes = Object.entries(bindings).map(([name, value]) => ({ name, value }));
+        attributesOnly(attributes).forEach(({ name, value }, index2) => {
+          attributes[index2] = {
+            name: `x-bind:${name}`,
+            value: `"${value}"`
+          };
+        });
         directives(el, attributes, original).map((handle) => {
           cleanupRunners.push(handle.runCleanups);
           handle();
@@ -3717,6 +3758,11 @@ Expression: "${expression}"
       let names = iteratorNames.item.replace("[", "").replace("]", "").split(",").map((i) => i.trim());
       names.forEach((name, i) => {
         scopeVariables[name] = item[i];
+      });
+    } else if (/^\{.*\}$/.test(iteratorNames.item) && !Array.isArray(item) && typeof item === "object") {
+      let names = iteratorNames.item.replace("{", "").replace("}", "").split(",").map((i) => i.trim());
+      names.forEach((name) => {
+        scopeVariables[name] = item[name];
       });
     } else {
       scopeVariables[iteratorNames.item] = item;
