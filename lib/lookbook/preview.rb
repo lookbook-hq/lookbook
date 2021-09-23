@@ -31,6 +31,7 @@ module Lookbook
           if name.nil?
             @lookbook_examples += examples
           else
+            name = lookbook_label if name.strip == ""
             @lookbook_examples << PreviewGroup.new(name.underscore, self, examples)
           end
         end

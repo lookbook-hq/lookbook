@@ -8420,8 +8420,11 @@ Expression: "${expression}"
           this.$dispatch("nav:updated");
         });
       },
-      navigate($event) {
-        history.pushState({}, null, $event.currentTarget.href);
+      navigate(path) {
+        if (path instanceof Event) {
+          path = path.currentTarget.href;
+        }
+        history.pushState({}, null, path);
         this.$dispatch("popstate");
       },
       focusFilter() {
