@@ -89,13 +89,13 @@ module Lookbook
 
     def rendered_example
       if @example.type == :group
-        rendered = @example.examples.map do |example|
+        examples = @example.examples.map do |example|
           {
             label: example.label,
-            content: preview_controller.render_example_to_string(@preview, example.name)
+            html: preview_controller.render_example_to_string(@preview, example.name)
           }
         end
-        joined = render_to_string "layouts/group", locals: {items: rendered}, layout: nil
+        joined = render_to_string "./preview_group", locals: {examples: examples}, layout: nil
         preview_controller.render_in_layout_to_string(joined, @preview.lookbook_layout)
       else
         preview_controller.request.params[:path] = "#{@preview.preview_name}/#{@example.name}".chomp("/")
