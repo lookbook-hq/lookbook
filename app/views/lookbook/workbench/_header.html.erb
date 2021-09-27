@@ -2,8 +2,10 @@
   <div class="flex items-center">
     <div class="flex items-center space-x-1">
       <strong class="whitespace-nowrap truncate"><%= @preview.label %></strong>
-      <span>/</span>
-      <span class="whitespace-nowrap truncate"><%= @example.label %></span>
+      <% if @preview.get_examples.many? %>
+        <span>/</span>
+        <span class="whitespace-nowrap truncate"><%= @example.label %></span>
+      <% end %>
     </div>
   </div>
   <div class="flex text-xs ml-auto font-monospace text-gray-700 space-x-1" x-show="$screen('md')">

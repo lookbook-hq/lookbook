@@ -1,6 +1,7 @@
 <%
 path = show_path leaf.path
 display ||= :leaf
+label ||= leaf.label
 %>
 <li x-data="navLeaf" :class="{hidden}" x-init="matchers = <%= leaf.matchers.to_json %>; path = '<%= path %>'; setActive()" @popstate.window="setActive">
   <a href="<%= path %>"
@@ -15,7 +16,7 @@ display ||= :leaf
       </svg>
     </div>
     <div class="truncate whitespace-nowrap <%= "font-bold" if display == :node %>">
-      <%= leaf.label %>
+      <%= label %>
     </div>
   </a>
 </li>

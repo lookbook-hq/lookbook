@@ -7,5 +7,5 @@
   <% end %>
 <% else %>
   <% example = examples.first %>
-  <%= render "./nav/leaf", leaf: example, depth: example.hierarchy_depth, display: :node %>
+  <%= render "./nav/leaf", leaf: example, depth: example.hierarchy_depth, label: node.label, display: :node %>
 <% end %>
