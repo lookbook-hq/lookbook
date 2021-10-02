@@ -1,7 +1,7 @@
 import Split from "split-grid";
 
 export default function (props) {
-  const app = Alpine.store("app");
+  const page = Alpine.store("page");
   return {
     init() {
       Split({
@@ -11,14 +11,14 @@ export default function (props) {
         minSize: props.minSize,
         writeStyle() {},
         onDrag(dir, track, style) {
-          splits = style.split(" ").map((num) => parseInt(num));
+          const splits = style.split(" ").map((num) => parseInt(num));
           props.onDrag(splits);
         },
         onDragStart() {
-          app.reflowing = true;
+          page.reflowing = true;
         },
         onDragEnd() {
-          app.reflowing = false;
+          page.reflowing = false;
         },
       });
     },

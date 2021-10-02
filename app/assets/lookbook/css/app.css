@@ -34,4 +34,32 @@
     stroke-linejoin: round;
     fill: none;
   }
+
+  .h-fill {
+    height: fill-available;
+  }
+
+  .min-h-fill {
+    min-height: fill-available;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 transition-colors;
+    border-radius: 6px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+  }
 }

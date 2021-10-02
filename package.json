@@ -1,12 +1,8 @@
 {
   "name": "lookbook",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "private": true,
-  "description": "Supercharge your ViewComponent development",
-  "pre-commit": [
-    "build"
-  ],
-  "precommit-msg": "echo 'Building production assets...' && exit 0",
+  "description": "A native development UI for ViewComponent",
   "scripts": {
     "css:watch": "npx tailwindcss -i ./app/assets/lookbook/css/app.css -o ./public/lookbook-assets/app.css --watch --postcss",
     "css:build": "NODE_ENV=production npx tailwindcss -i ./app/assets/lookbook/css/app.css -o ./public/lookbook-assets/app.css --postcss",
@@ -29,11 +25,11 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.0",
     "postcss-import": "^14.0.2",
-    "pre-commit": "^1.2.2",
     "prettier": "2.3.2",
     "release-it": "^14.10.1"
   },
   "dependencies": {
+    "@github/hotkey": "^1.4.4",
     "@rails/actioncable": "^6.1.4",
     "@ryangjchandler/alpine-clipboard": "^2.0.0",
     "@ryangjchandler/alpine-tooltip": "^0.1.2",
@@ -42,15 +38,14 @@
     "@tailwindcss/typography": "^0.4.1",
     "alpinejs": "^3.2.2",
     "debounce": "^1.2.1",
-    "feather-icons": "^4.28.0",
+    "morphdom": "^2.6.1",
     "split-grid": "^1.0.11",
     "tailwindcss": "^2.2.4",
     "tippy.js": "^6.3.1"
   },
   "release-it": {
     "git": {
-      "commitMessage": "release v${version}",
-      "requireBranch": "main"
+      "commitMessage": "release v${version}"
     },
     "github": {
       "release": true

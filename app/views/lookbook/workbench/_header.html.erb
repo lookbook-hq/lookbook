@@ -1,0 +1,39 @@
+<%= render "./shared/header" do %>
+  <div class="flex items-center">
+    <div class="flex items-center space-x-1">
+      <strong class="whitespace-nowrap truncate"><%= @preview.label %></strong>
+      <% if @preview.get_examples.many? %>
+        <span>/</span>
+        <span class="whitespace-nowrap truncate"><%= @example.label %></span>
+      <% end %>
+    </div>
+  </div>
+  <div class="flex text-xs ml-auto font-monospace text-gray-700 space-x-1" x-show="$screen('md')">
+    <span x-text="`${previewViewportWidth}px`"></span>
+    <span class="text-gray-500">x</span>
+    <span x-text="`${previewViewportHeight}px`"></span>
+  </div>
+  <div class="flex items-center ml-auto md:ml-3 md:pl-3 space-x-3 md:border-l border-gray-300 text-gray-400">
+    <a
+      href="<%= url_for %>"
+      class="block transition hover:text-indigo-800"
+      x-tooltip.theme.lookbook="`Refresh preview`"
+      @click.prevent.stop="$dispatch('navigate')"
+      data-hotkey="r"
+    >
+      <svg class="feather w-4 h-4">
+        <use xlink:href="/lookbook-assets/feather-sprite.svg#refresh-cw" />
+      </svg>
+    </a>
+      <a
+      href="<%= preview_path %>"
+      class="block transition hover:text-indigo-800" target="_blank"
+      x-tooltip.theme.lookbook="`Open in new window`"
+      data-hotkey="w"
+    >
+      <svg class="feather w-4 h-4">
+        <use xlink:href="/lookbook-assets/feather-sprite.svg#external-link" />
+      </svg>
+    </a>
+  </div>
+<% end %>

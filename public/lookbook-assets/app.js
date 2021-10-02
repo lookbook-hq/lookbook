@@ -631,6 +631,138 @@
     }
   });
 
+  // node_modules/@github/hotkey/dist/index.js
+  var Leaf = class {
+    constructor(trie) {
+      this.children = [];
+      this.parent = trie;
+    }
+    delete(value) {
+      const index2 = this.children.indexOf(value);
+      if (index2 === -1)
+        return false;
+      this.children = this.children.slice(0, index2).concat(this.children.slice(index2 + 1));
+      if (this.children.length === 0) {
+        this.parent.delete(this);
+      }
+      return true;
+    }
+    add(value) {
+      this.children.push(value);
+      return this;
+    }
+  };
+  var RadixTrie = class {
+    constructor(trie) {
+      this.parent = null;
+      this.children = {};
+      this.parent = trie || null;
+    }
+    get(edge) {
+      return this.children[edge];
+    }
+    insert(edges) {
+      let currentNode = this;
+      for (let i = 0; i < edges.length; i += 1) {
+        const edge = edges[i];
+        let nextNode = currentNode.get(edge);
+        if (i === edges.length - 1) {
+          if (nextNode instanceof RadixTrie) {
+            currentNode.delete(nextNode);
+            nextNode = null;
+          }
+          if (!nextNode) {
+            nextNode = new Leaf(currentNode);
+            currentNode.children[edge] = nextNode;
+          }
+          return nextNode;
+        } else {
+          if (nextNode instanceof Leaf)
+            nextNode = null;
+          if (!nextNode) {
+            nextNode = new RadixTrie(currentNode);
+            currentNode.children[edge] = nextNode;
+          }
+        }
+        currentNode = nextNode;
+      }
+      return currentNode;
+    }
+    delete(node) {
+      for (const edge in this.children) {
+        const currentNode = this.children[edge];
+        if (currentNode === node) {
+          const success = delete this.children[edge];
+          if (Object.keys(this.children).length === 0 && this.parent) {
+            this.parent.delete(this);
+          }
+          return success;
+        }
+      }
+      return false;
+    }
+  };
+  function isFormField(element) {
+    if (!(element instanceof HTMLElement)) {
+      return false;
+    }
+    const name = element.nodeName.toLowerCase();
+    const type = (element.getAttribute("type") || "").toLowerCase();
+    return name === "select" || name === "textarea" || name === "input" && type !== "submit" && type !== "reset" && type !== "checkbox" && type !== "radio" || element.isContentEditable;
+  }
+  function fireDeterminedAction(el) {
+    if (isFormField(el)) {
+      el.focus();
+    } else {
+      el.click();
+    }
+  }
+  function expandHotkeyToEdges(hotkey2) {
+    return hotkey2.split(",").map((edge) => edge.split(" "));
+  }
+  function hotkey(event) {
+    const elideShift = event.code.startsWith("Key") && event.shiftKey && event.key.toUpperCase() === event.key;
+    return `${event.ctrlKey ? "Control+" : ""}${event.altKey ? "Alt+" : ""}${event.metaKey ? "Meta+" : ""}${event.shiftKey && !elideShift ? "Shift+" : ""}${event.key}`;
+  }
+  var hotkeyRadixTrie = new RadixTrie();
+  var elementsLeaves = new WeakMap();
+  var currentTriePosition = hotkeyRadixTrie;
+  var resetTriePositionTimer = null;
+  function resetTriePosition() {
+    resetTriePositionTimer = null;
+    currentTriePosition = hotkeyRadixTrie;
+  }
+  function keyDownHandler(event) {
+    if (event.defaultPrevented)
+      return;
+    if (event.target instanceof Node && isFormField(event.target))
+      return;
+    if (resetTriePositionTimer != null) {
+      window.clearTimeout(resetTriePositionTimer);
+    }
+    resetTriePositionTimer = window.setTimeout(resetTriePosition, 1500);
+    const newTriePosition = currentTriePosition.get(hotkey(event));
+    if (!newTriePosition) {
+      resetTriePosition();
+      return;
+    }
+    currentTriePosition = newTriePosition;
+    if (newTriePosition instanceof Leaf) {
+      fireDeterminedAction(newTriePosition.children[newTriePosition.children.length - 1]);
+      event.preventDefault();
+      resetTriePosition();
+      return;
+    }
+  }
+  function install(element, hotkey2) {
+    if (Object.keys(hotkeyRadixTrie.children).length === 0) {
+      document.addEventListener("keydown", keyDownHandler);
+    }
+    const hotkeys = expandHotkeyToEdges(hotkey2 || element.getAttribute("data-hotkey") || "");
+    const leaves = hotkeys.map((h) => hotkeyRadixTrie.insert(h).add(element));
+    elementsLeaves.set(element, leaves);
+  }
+
   // node_modules/alpinejs/dist/module.esm.js
   var __create2 = Object.create;
   var __defProp2 = Object.defineProperty;
@@ -691,7 +823,7 @@
     };
     var GLOBALS_WHITE_LISTED = "Infinity,undefined,NaN,isFinite,isNaN,parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,BigInt";
     var isGloballyWhitelisted = /* @__PURE__ */ makeMap(GLOBALS_WHITE_LISTED);
-    var range = 2;
+    var range2 = 2;
     function generateCodeFrame(source, start2 = 0, end = source.length) {
       const lines = source.split(/\r?\n/);
       let count = 0;
@@ -699,7 +831,7 @@
       for (let i = 0; i < lines.length; i++) {
         count += lines[i].length + 1;
         if (count >= start2) {
-          for (let j = i - range; j <= i + range || end > count; j++) {
+          for (let j = i - range2; j <= i + range2 || end > count; j++) {
             if (j < 0 || j >= lines.length)
               continue;
             const line = j + 1;
@@ -2294,12 +2426,17 @@ Expression: "${expression}"
     });
   }
   var isDeferringHandlers = false;
-  var directiveHandlerStack = [];
+  var directiveHandlerStacks = new Map();
+  var currentHandlerStackKey = Symbol();
   function deferHandlingDirectives(callback) {
     isDeferringHandlers = true;
+    let key = Symbol();
+    currentHandlerStackKey = key;
+    directiveHandlerStacks.set(key, []);
     let flushHandlers = () => {
-      while (directiveHandlerStack.length)
-        directiveHandlerStack.shift()();
+      while (directiveHandlerStacks.get(key).length)
+        directiveHandlerStacks.get(key).shift()();
+      directiveHandlerStacks.delete(key);
     };
     let stopDeferring = () => {
       isDeferringHandlers = false;
@@ -2309,9 +2446,9 @@ Expression: "${expression}"
     stopDeferring();
   }
   function getDirectiveHandler(el, directive2) {
-    let noop = () => {
+    let noop2 = () => {
     };
-    let handler3 = directiveHandlers[directive2.type] || noop;
+    let handler3 = directiveHandlers[directive2.type] || noop2;
     let cleanups = [];
     let cleanup2 = (callback) => cleanups.push(callback);
     let [effect3, cleanupEffect] = elementBoundEffect(el);
@@ -2330,7 +2467,7 @@ Expression: "${expression}"
         return;
       handler3.inline && handler3.inline(el, directive2, utilities);
       handler3 = handler3.bind(handler3, el, directive2, utilities);
-      isDeferringHandlers ? directiveHandlerStack.push(handler3) : handler3();
+      isDeferringHandlers ? directiveHandlerStacks.get(currentHandlerStackKey).push(handler3) : handler3();
     };
     fullHandler.runCleanups = doCleanup;
     return fullHandler;
@@ -2449,7 +2586,7 @@ Expression: "${expression}"
     onAttributesAdded((el, attrs) => {
       directives(el, attrs).forEach((handle) => handle());
     });
-    let outNestedComponents = (el) => !closestRoot(el.parentNode || closestRoot(el));
+    let outNestedComponents = (el) => !closestRoot(el.parentElement);
     Array.from(document.querySelectorAll(allSelectors())).filter(outNestedComponents).forEach((el) => {
       initTree(el);
     });
@@ -2470,6 +2607,8 @@ Expression: "${expression}"
     initSelectorCallbacks.push(selectorCallback);
   }
   function closestRoot(el) {
+    if (!el)
+      return;
     if (rootSelectors().some((selector) => el.matches(selector)))
       return el;
     if (!el.parentElement)
@@ -2576,7 +2715,7 @@ Expression: "${expression}"
     get raw() {
       return raw;
     },
-    version: "3.2.2",
+    version: "3.2.4",
     disableEffectScheduling,
     setReactivityEngine,
     addRootSelector,
@@ -2678,7 +2817,7 @@ Expression: "${expression}"
     let previousStyles = {};
     Object.entries(value).forEach(([key, value2]) => {
       previousStyles[key] = el.style[key];
-      el.style[key] = value2;
+      el.style.setProperty(kebabCase(key), value2);
     });
     setTimeout(() => {
       if (el.style.length === 0) {
@@ -2695,6 +2834,9 @@ Expression: "${expression}"
     return () => {
       el.setAttribute("style", cache);
     };
+  }
+  function kebabCase(subject) {
+    return subject.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
   }
   function once(callback, fallback = () => {
   }) {
@@ -3113,6 +3255,8 @@ Expression: "${expression}"
     let handler3 = (e) => callback(e);
     let options = {};
     let wrapHandler = (callback2, wrapper) => (e) => wrapper(callback2, e);
+    if (modifiers.includes("dot"))
+      event = dotSyntax(event);
     if (modifiers.includes("camel"))
       event = camelCase2(event);
     if (modifiers.includes("passive"))
@@ -3174,6 +3318,9 @@ Expression: "${expression}"
       listenerTarget.removeEventListener(event, handler3, options);
     };
   }
+  function dotSyntax(subject) {
+    return subject.replace(/-/g, ".");
+  }
   function camelCase2(subject) {
     return subject.toLowerCase().replace(/-(\w)/g, (match, char) => char.toUpperCase());
   }
@@ -3203,7 +3350,7 @@ Expression: "${expression}"
   function isNumeric(subject) {
     return !Array.isArray(subject) && !isNaN(subject);
   }
-  function kebabCase(subject) {
+  function kebabCase2(subject) {
     return subject.replace(/([a-z])([A-Z])/g, "$1-$2").replace(/[_\s]/, "-").toLowerCase();
   }
   function isKeyEvent(event) {
@@ -3219,7 +3366,7 @@ Expression: "${expression}"
     }
     if (keyModifiers.length === 0)
       return false;
-    if (keyModifiers.length === 1 && keyModifiers[0] === keyToModifier(e.key))
+    if (keyModifiers.length === 1 && keyToModifiers(e.key).includes(keyModifiers[0]))
       return false;
     const systemKeyModifiers = ["ctrl", "shift", "alt", "meta", "cmd", "super"];
     const selectedSystemKeyModifiers = systemKeyModifiers.filter((modifier) => keyModifiers.includes(modifier));
@@ -3231,22 +3378,33 @@ Expression: "${expression}"
         return e[`${modifier}Key`];
       });
       if (activelyPressedKeyModifiers.length === selectedSystemKeyModifiers.length) {
-        if (keyModifiers[0] === keyToModifier(e.key))
+        if (keyToModifiers(e.key).includes(keyModifiers[0]))
           return false;
       }
     }
     return true;
   }
-  function keyToModifier(key) {
-    switch (key) {
-      case "/":
-        return "slash";
-      case " ":
-      case "Spacebar":
-        return "space";
-      default:
-        return key && kebabCase(key);
-    }
+  function keyToModifiers(key) {
+    if (!key)
+      return [];
+    key = kebabCase2(key);
+    let modifierToKeyMap = {
+      ctrl: "control",
+      slash: "/",
+      space: "-",
+      spacebar: "-",
+      cmd: "meta",
+      esc: "escape",
+      up: "arrow-up",
+      down: "arrow-down",
+      left: "arrow-left",
+      right: "arrow-right"
+    };
+    modifierToKeyMap[key] = key;
+    return Object.keys(modifierToKeyMap).map((modifier) => {
+      if (modifierToKeyMap[modifier] === key)
+        return modifier;
+    }).filter((modifier) => modifier);
   }
   directive("model", (el, { modifiers, expression }, { effect: effect3, cleanup: cleanup2 }) => {
     let evaluate2 = evaluateLater(el, expression);
@@ -3287,7 +3445,7 @@ Expression: "${expression}"
     return (event, currentValue) => {
       return mutateDom(() => {
         if (event instanceof CustomEvent && event.detail !== void 0) {
-          return event.detail;
+          return event.detail || event.target.value;
         } else if (el.type === "checkbox") {
           if (Array.isArray(currentValue)) {
             let newValue = modifiers.includes("number") ? safeParseNumber(event.target.value) : event.target.value;
@@ -3383,11 +3541,10 @@ Expression: "${expression}"
     let reactiveData = reactive(data2);
     initInterceptors(reactiveData);
     let undo = addScopeToNode(el, reactiveData);
-    if (reactiveData["init"])
-      reactiveData["init"]();
+    reactiveData["init"] && evaluate(el, reactiveData["init"]);
     cleanup2(() => {
       undo();
-      reactiveData["destroy"] && reactiveData["destroy"]();
+      reactiveData["destroy"] && evaluate(el, reactiveData["destroy"]);
     });
   }));
   directive("show", (el, { modifiers, expression }, { effect: effect3 }) => {
@@ -3444,6 +3601,8 @@ Expression: "${expression}"
       if (isNumeric3(items) && items >= 0) {
         items = Array.from(Array(items).keys(), (i) => i + 1);
       }
+      if (items === void 0)
+        items = [];
       let lookup = el._x_lookup;
       let prevKeys = el._x_prevKeys;
       let scopes = [];
@@ -5764,18 +5923,18 @@ Expression: "${expression}"
         didTouchMove = false;
       }
       function addDocumentPress() {
-        var doc = getDocument();
-        doc.addEventListener("mousedown", onDocumentPress, true);
-        doc.addEventListener("touchend", onDocumentPress, TOUCH_OPTIONS);
-        doc.addEventListener("touchstart", onTouchStart, TOUCH_OPTIONS);
-        doc.addEventListener("touchmove", onTouchMove, TOUCH_OPTIONS);
+        var doc2 = getDocument();
+        doc2.addEventListener("mousedown", onDocumentPress, true);
+        doc2.addEventListener("touchend", onDocumentPress, TOUCH_OPTIONS);
+        doc2.addEventListener("touchstart", onTouchStart, TOUCH_OPTIONS);
+        doc2.addEventListener("touchmove", onTouchMove, TOUCH_OPTIONS);
       }
       function removeDocumentPress() {
-        var doc = getDocument();
-        doc.removeEventListener("mousedown", onDocumentPress, true);
-        doc.removeEventListener("touchend", onDocumentPress, TOUCH_OPTIONS);
-        doc.removeEventListener("touchstart", onTouchStart, TOUCH_OPTIONS);
-        doc.removeEventListener("touchmove", onTouchMove, TOUCH_OPTIONS);
+        var doc2 = getDocument();
+        doc2.removeEventListener("mousedown", onDocumentPress, true);
+        doc2.removeEventListener("touchend", onDocumentPress, TOUCH_OPTIONS);
+        doc2.removeEventListener("touchstart", onTouchStart, TOUCH_OPTIONS);
+        doc2.removeEventListener("touchmove", onTouchMove, TOUCH_OPTIONS);
       }
       function onTransitionedOut(duration, callback) {
         onTransitionEnd(duration, function() {
@@ -6670,18 +6829,18 @@ Expression: "${expression}"
         clientY
       };
     }
-    function addMouseCoordsListener(doc) {
-      doc.addEventListener("mousemove", storeMouseCoords);
+    function addMouseCoordsListener(doc2) {
+      doc2.addEventListener("mousemove", storeMouseCoords);
     }
-    function removeMouseCoordsListener(doc) {
-      doc.removeEventListener("mousemove", storeMouseCoords);
+    function removeMouseCoordsListener(doc2) {
+      doc2.removeEventListener("mousemove", storeMouseCoords);
     }
     var followCursor2 = {
       name: "followCursor",
       defaultValue: false,
       fn: function fn(instance) {
         var reference = instance.reference;
-        var doc = getOwnerDocument(instance.props.triggerTarget || reference);
+        var doc2 = getOwnerDocument(instance.props.triggerTarget || reference);
         var isInternalUpdate = false;
         var wasFocusEvent = false;
         var isUnmounted = true;
@@ -6690,10 +6849,10 @@ Expression: "${expression}"
           return instance.props.followCursor === "initial" && instance.state.isVisible;
         }
         function addListener() {
-          doc.addEventListener("mousemove", onMouseMove);
+          doc2.addEventListener("mousemove", onMouseMove);
         }
         function removeListener() {
-          doc.removeEventListener("mousemove", onMouseMove);
+          doc2.removeEventListener("mousemove", onMouseMove);
         }
         function unsetGetReferenceClientRect() {
           isInternalUpdate = true;
@@ -6739,9 +6898,9 @@ Expression: "${expression}"
           if (instance.props.followCursor) {
             activeInstances.push({
               instance,
-              doc
+              doc: doc2
             });
-            addMouseCoordsListener(doc);
+            addMouseCoordsListener(doc2);
           }
         }
         function destroy3() {
@@ -6749,9 +6908,9 @@ Expression: "${expression}"
             return data2.instance !== instance;
           });
           if (activeInstances.filter(function(data2) {
-            return data2.doc === doc;
+            return data2.doc === doc2;
           }).length === 0) {
-            removeMouseCoordsListener(doc);
+            removeMouseCoordsListener(doc2);
           }
         }
         return {
@@ -7068,6 +7227,32 @@ Expression: "${expression}"
         }
         return window.navigator.clipboard.writeText(target);
       };
+    });
+  }
+
+  // app/assets/lookbook/js/utils/screen.js
+  function screen_default(Alpine3) {
+    let data2 = Alpine3.reactive({ screensize: window.innerWidth });
+    const defaultBreakpoints = {
+      xs: 0,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      "2xl": 1536
+    };
+    const breakpoints = window.AlpineMagicHelpersConfig && window.AlpineMagicHelpersConfig.breakpoints ? window.AlpineMagicHelpersConfig.breakpoints : defaultBreakpoints;
+    window.addEventListener("resize", () => {
+      data2.screensize = window.innerWidth;
+    });
+    Alpine3.magic("screen", () => (breakpoint) => {
+      let width = data2.screensize;
+      if (Number.isInteger(breakpoint))
+        return breakpoint <= width;
+      if (breakpoints[breakpoint] === void 0) {
+        throw Error("Undefined $screen property: " + breakpoint + ". Supported properties: " + Object.keys(breakpoints).join(", "));
+      }
+      return breakpoints[breakpoint] <= width;
     });
   }
 
@@ -7548,9 +7733,9 @@ Expression: "${expression}"
   }
   var split_grid_default = index;
 
-  // app/assets/lookbook/js/split.js
+  // app/assets/lookbook/js/utils/split.js
   function split_default(props) {
-    const app = Alpine.store("app");
+    const page2 = Alpine.store("page");
     return {
       init() {
         split_grid_default({
@@ -7561,23 +7746,562 @@ Expression: "${expression}"
           writeStyle() {
           },
           onDrag(dir, track, style) {
-            splits = style.split(" ").map((num) => parseInt(num));
+            const splits = style.split(" ").map((num) => parseInt(num));
             props.onDrag(splits);
           },
           onDragStart() {
-            app.reflowing = true;
+            page2.reflowing = true;
           },
           onDragEnd() {
-            app.reflowing = false;
+            page2.reflowing = false;
           }
         });
       }
     };
   }
 
-  // app/assets/lookbook/js/preview.js
+  // node_modules/morphdom/dist/morphdom-esm.js
+  var DOCUMENT_FRAGMENT_NODE = 11;
+  function morphAttrs(fromNode, toNode) {
+    var toNodeAttrs = toNode.attributes;
+    var attr;
+    var attrName;
+    var attrNamespaceURI;
+    var attrValue;
+    var fromValue;
+    if (toNode.nodeType === DOCUMENT_FRAGMENT_NODE || fromNode.nodeType === DOCUMENT_FRAGMENT_NODE) {
+      return;
+    }
+    for (var i = toNodeAttrs.length - 1; i >= 0; i--) {
+      attr = toNodeAttrs[i];
+      attrName = attr.name;
+      attrNamespaceURI = attr.namespaceURI;
+      attrValue = attr.value;
+      if (attrNamespaceURI) {
+        attrName = attr.localName || attrName;
+        fromValue = fromNode.getAttributeNS(attrNamespaceURI, attrName);
+        if (fromValue !== attrValue) {
+          if (attr.prefix === "xmlns") {
+            attrName = attr.name;
+          }
+          fromNode.setAttributeNS(attrNamespaceURI, attrName, attrValue);
+        }
+      } else {
+        fromValue = fromNode.getAttribute(attrName);
+        if (fromValue !== attrValue) {
+          fromNode.setAttribute(attrName, attrValue);
+        }
+      }
+    }
+    var fromNodeAttrs = fromNode.attributes;
+    for (var d = fromNodeAttrs.length - 1; d >= 0; d--) {
+      attr = fromNodeAttrs[d];
+      attrName = attr.name;
+      attrNamespaceURI = attr.namespaceURI;
+      if (attrNamespaceURI) {
+        attrName = attr.localName || attrName;
+        if (!toNode.hasAttributeNS(attrNamespaceURI, attrName)) {
+          fromNode.removeAttributeNS(attrNamespaceURI, attrName);
+        }
+      } else {
+        if (!toNode.hasAttribute(attrName)) {
+          fromNode.removeAttribute(attrName);
+        }
+      }
+    }
+  }
+  var range;
+  var NS_XHTML = "http://www.w3.org/1999/xhtml";
+  var doc = typeof document === "undefined" ? void 0 : document;
+  var HAS_TEMPLATE_SUPPORT = !!doc && "content" in doc.createElement("template");
+  var HAS_RANGE_SUPPORT = !!doc && doc.createRange && "createContextualFragment" in doc.createRange();
+  function createFragmentFromTemplate(str) {
+    var template = doc.createElement("template");
+    template.innerHTML = str;
+    return template.content.childNodes[0];
+  }
+  function createFragmentFromRange(str) {
+    if (!range) {
+      range = doc.createRange();
+      range.selectNode(doc.body);
+    }
+    var fragment = range.createContextualFragment(str);
+    return fragment.childNodes[0];
+  }
+  function createFragmentFromWrap(str) {
+    var fragment = doc.createElement("body");
+    fragment.innerHTML = str;
+    return fragment.childNodes[0];
+  }
+  function toElement(str) {
+    str = str.trim();
+    if (HAS_TEMPLATE_SUPPORT) {
+      return createFragmentFromTemplate(str);
+    } else if (HAS_RANGE_SUPPORT) {
+      return createFragmentFromRange(str);
+    }
+    return createFragmentFromWrap(str);
+  }
+  function compareNodeNames(fromEl, toEl) {
+    var fromNodeName = fromEl.nodeName;
+    var toNodeName = toEl.nodeName;
+    var fromCodeStart, toCodeStart;
+    if (fromNodeName === toNodeName) {
+      return true;
+    }
+    fromCodeStart = fromNodeName.charCodeAt(0);
+    toCodeStart = toNodeName.charCodeAt(0);
+    if (fromCodeStart <= 90 && toCodeStart >= 97) {
+      return fromNodeName === toNodeName.toUpperCase();
+    } else if (toCodeStart <= 90 && fromCodeStart >= 97) {
+      return toNodeName === fromNodeName.toUpperCase();
+    } else {
+      return false;
+    }
+  }
+  function createElementNS(name, namespaceURI) {
+    return !namespaceURI || namespaceURI === NS_XHTML ? doc.createElement(name) : doc.createElementNS(namespaceURI, name);
+  }
+  function moveChildren(fromEl, toEl) {
+    var curChild = fromEl.firstChild;
+    while (curChild) {
+      var nextChild = curChild.nextSibling;
+      toEl.appendChild(curChild);
+      curChild = nextChild;
+    }
+    return toEl;
+  }
+  function syncBooleanAttrProp(fromEl, toEl, name) {
+    if (fromEl[name] !== toEl[name]) {
+      fromEl[name] = toEl[name];
+      if (fromEl[name]) {
+        fromEl.setAttribute(name, "");
+      } else {
+        fromEl.removeAttribute(name);
+      }
+    }
+  }
+  var specialElHandlers = {
+    OPTION: function(fromEl, toEl) {
+      var parentNode = fromEl.parentNode;
+      if (parentNode) {
+        var parentName = parentNode.nodeName.toUpperCase();
+        if (parentName === "OPTGROUP") {
+          parentNode = parentNode.parentNode;
+          parentName = parentNode && parentNode.nodeName.toUpperCase();
+        }
+        if (parentName === "SELECT" && !parentNode.hasAttribute("multiple")) {
+          if (fromEl.hasAttribute("selected") && !toEl.selected) {
+            fromEl.setAttribute("selected", "selected");
+            fromEl.removeAttribute("selected");
+          }
+          parentNode.selectedIndex = -1;
+        }
+      }
+      syncBooleanAttrProp(fromEl, toEl, "selected");
+    },
+    INPUT: function(fromEl, toEl) {
+      syncBooleanAttrProp(fromEl, toEl, "checked");
+      syncBooleanAttrProp(fromEl, toEl, "disabled");
+      if (fromEl.value !== toEl.value) {
+        fromEl.value = toEl.value;
+      }
+      if (!toEl.hasAttribute("value")) {
+        fromEl.removeAttribute("value");
+      }
+    },
+    TEXTAREA: function(fromEl, toEl) {
+      var newValue = toEl.value;
+      if (fromEl.value !== newValue) {
+        fromEl.value = newValue;
+      }
+      var firstChild = fromEl.firstChild;
+      if (firstChild) {
+        var oldValue = firstChild.nodeValue;
+        if (oldValue == newValue || !newValue && oldValue == fromEl.placeholder) {
+          return;
+        }
+        firstChild.nodeValue = newValue;
+      }
+    },
+    SELECT: function(fromEl, toEl) {
+      if (!toEl.hasAttribute("multiple")) {
+        var selectedIndex = -1;
+        var i = 0;
+        var curChild = fromEl.firstChild;
+        var optgroup;
+        var nodeName;
+        while (curChild) {
+          nodeName = curChild.nodeName && curChild.nodeName.toUpperCase();
+          if (nodeName === "OPTGROUP") {
+            optgroup = curChild;
+            curChild = optgroup.firstChild;
+          } else {
+            if (nodeName === "OPTION") {
+              if (curChild.hasAttribute("selected")) {
+                selectedIndex = i;
+                break;
+              }
+              i++;
+            }
+            curChild = curChild.nextSibling;
+            if (!curChild && optgroup) {
+              curChild = optgroup.nextSibling;
+              optgroup = null;
+            }
+          }
+        }
+        fromEl.selectedIndex = selectedIndex;
+      }
+    }
+  };
+  var ELEMENT_NODE = 1;
+  var DOCUMENT_FRAGMENT_NODE$1 = 11;
+  var TEXT_NODE = 3;
+  var COMMENT_NODE = 8;
+  function noop() {
+  }
+  function defaultGetNodeKey(node) {
+    if (node) {
+      return node.getAttribute && node.getAttribute("id") || node.id;
+    }
+  }
+  function morphdomFactory(morphAttrs2) {
+    return function morphdom2(fromNode, toNode, options) {
+      if (!options) {
+        options = {};
+      }
+      if (typeof toNode === "string") {
+        if (fromNode.nodeName === "#document" || fromNode.nodeName === "HTML" || fromNode.nodeName === "BODY") {
+          var toNodeHtml = toNode;
+          toNode = doc.createElement("html");
+          toNode.innerHTML = toNodeHtml;
+        } else {
+          toNode = toElement(toNode);
+        }
+      }
+      var getNodeKey = options.getNodeKey || defaultGetNodeKey;
+      var onBeforeNodeAdded = options.onBeforeNodeAdded || noop;
+      var onNodeAdded = options.onNodeAdded || noop;
+      var onBeforeElUpdated = options.onBeforeElUpdated || noop;
+      var onElUpdated = options.onElUpdated || noop;
+      var onBeforeNodeDiscarded = options.onBeforeNodeDiscarded || noop;
+      var onNodeDiscarded = options.onNodeDiscarded || noop;
+      var onBeforeElChildrenUpdated = options.onBeforeElChildrenUpdated || noop;
+      var childrenOnly = options.childrenOnly === true;
+      var fromNodesLookup = Object.create(null);
+      var keyedRemovalList = [];
+      function addKeyedRemoval(key) {
+        keyedRemovalList.push(key);
+      }
+      function walkDiscardedChildNodes(node, skipKeyedNodes) {
+        if (node.nodeType === ELEMENT_NODE) {
+          var curChild = node.firstChild;
+          while (curChild) {
+            var key = void 0;
+            if (skipKeyedNodes && (key = getNodeKey(curChild))) {
+              addKeyedRemoval(key);
+            } else {
+              onNodeDiscarded(curChild);
+              if (curChild.firstChild) {
+                walkDiscardedChildNodes(curChild, skipKeyedNodes);
+              }
+            }
+            curChild = curChild.nextSibling;
+          }
+        }
+      }
+      function removeNode(node, parentNode, skipKeyedNodes) {
+        if (onBeforeNodeDiscarded(node) === false) {
+          return;
+        }
+        if (parentNode) {
+          parentNode.removeChild(node);
+        }
+        onNodeDiscarded(node);
+        walkDiscardedChildNodes(node, skipKeyedNodes);
+      }
+      function indexTree(node) {
+        if (node.nodeType === ELEMENT_NODE || node.nodeType === DOCUMENT_FRAGMENT_NODE$1) {
+          var curChild = node.firstChild;
+          while (curChild) {
+            var key = getNodeKey(curChild);
+            if (key) {
+              fromNodesLookup[key] = curChild;
+            }
+            indexTree(curChild);
+            curChild = curChild.nextSibling;
+          }
+        }
+      }
+      indexTree(fromNode);
+      function handleNodeAdded(el) {
+        onNodeAdded(el);
+        var curChild = el.firstChild;
+        while (curChild) {
+          var nextSibling = curChild.nextSibling;
+          var key = getNodeKey(curChild);
+          if (key) {
+            var unmatchedFromEl = fromNodesLookup[key];
+            if (unmatchedFromEl && compareNodeNames(curChild, unmatchedFromEl)) {
+              curChild.parentNode.replaceChild(unmatchedFromEl, curChild);
+              morphEl(unmatchedFromEl, curChild);
+            } else {
+              handleNodeAdded(curChild);
+            }
+          } else {
+            handleNodeAdded(curChild);
+          }
+          curChild = nextSibling;
+        }
+      }
+      function cleanupFromEl(fromEl, curFromNodeChild, curFromNodeKey) {
+        while (curFromNodeChild) {
+          var fromNextSibling = curFromNodeChild.nextSibling;
+          if (curFromNodeKey = getNodeKey(curFromNodeChild)) {
+            addKeyedRemoval(curFromNodeKey);
+          } else {
+            removeNode(curFromNodeChild, fromEl, true);
+          }
+          curFromNodeChild = fromNextSibling;
+        }
+      }
+      function morphEl(fromEl, toEl, childrenOnly2) {
+        var toElKey = getNodeKey(toEl);
+        if (toElKey) {
+          delete fromNodesLookup[toElKey];
+        }
+        if (!childrenOnly2) {
+          if (onBeforeElUpdated(fromEl, toEl) === false) {
+            return;
+          }
+          morphAttrs2(fromEl, toEl);
+          onElUpdated(fromEl);
+          if (onBeforeElChildrenUpdated(fromEl, toEl) === false) {
+            return;
+          }
+        }
+        if (fromEl.nodeName !== "TEXTAREA") {
+          morphChildren(fromEl, toEl);
+        } else {
+          specialElHandlers.TEXTAREA(fromEl, toEl);
+        }
+      }
+      function morphChildren(fromEl, toEl) {
+        var curToNodeChild = toEl.firstChild;
+        var curFromNodeChild = fromEl.firstChild;
+        var curToNodeKey;
+        var curFromNodeKey;
+        var fromNextSibling;
+        var toNextSibling;
+        var matchingFromEl;
+        outer:
+          while (curToNodeChild) {
+            toNextSibling = curToNodeChild.nextSibling;
+            curToNodeKey = getNodeKey(curToNodeChild);
+            while (curFromNodeChild) {
+              fromNextSibling = curFromNodeChild.nextSibling;
+              if (curToNodeChild.isSameNode && curToNodeChild.isSameNode(curFromNodeChild)) {
+                curToNodeChild = toNextSibling;
+                curFromNodeChild = fromNextSibling;
+                continue outer;
+              }
+              curFromNodeKey = getNodeKey(curFromNodeChild);
+              var curFromNodeType = curFromNodeChild.nodeType;
+              var isCompatible = void 0;
+              if (curFromNodeType === curToNodeChild.nodeType) {
+                if (curFromNodeType === ELEMENT_NODE) {
+                  if (curToNodeKey) {
+                    if (curToNodeKey !== curFromNodeKey) {
+                      if (matchingFromEl = fromNodesLookup[curToNodeKey]) {
+                        if (fromNextSibling === matchingFromEl) {
+                          isCompatible = false;
+                        } else {
+                          fromEl.insertBefore(matchingFromEl, curFromNodeChild);
+                          if (curFromNodeKey) {
+                            addKeyedRemoval(curFromNodeKey);
+                          } else {
+                            removeNode(curFromNodeChild, fromEl, true);
+                          }
+                          curFromNodeChild = matchingFromEl;
+                        }
+                      } else {
+                        isCompatible = false;
+                      }
+                    }
+                  } else if (curFromNodeKey) {
+                    isCompatible = false;
+                  }
+                  isCompatible = isCompatible !== false && compareNodeNames(curFromNodeChild, curToNodeChild);
+                  if (isCompatible) {
+                    morphEl(curFromNodeChild, curToNodeChild);
+                  }
+                } else if (curFromNodeType === TEXT_NODE || curFromNodeType == COMMENT_NODE) {
+                  isCompatible = true;
+                  if (curFromNodeChild.nodeValue !== curToNodeChild.nodeValue) {
+                    curFromNodeChild.nodeValue = curToNodeChild.nodeValue;
+                  }
+                }
+              }
+              if (isCompatible) {
+                curToNodeChild = toNextSibling;
+                curFromNodeChild = fromNextSibling;
+                continue outer;
+              }
+              if (curFromNodeKey) {
+                addKeyedRemoval(curFromNodeKey);
+              } else {
+                removeNode(curFromNodeChild, fromEl, true);
+              }
+              curFromNodeChild = fromNextSibling;
+            }
+            if (curToNodeKey && (matchingFromEl = fromNodesLookup[curToNodeKey]) && compareNodeNames(matchingFromEl, curToNodeChild)) {
+              fromEl.appendChild(matchingFromEl);
+              morphEl(matchingFromEl, curToNodeChild);
+            } else {
+              var onBeforeNodeAddedResult = onBeforeNodeAdded(curToNodeChild);
+              if (onBeforeNodeAddedResult !== false) {
+                if (onBeforeNodeAddedResult) {
+                  curToNodeChild = onBeforeNodeAddedResult;
+                }
+                if (curToNodeChild.actualize) {
+                  curToNodeChild = curToNodeChild.actualize(fromEl.ownerDocument || doc);
+                }
+                fromEl.appendChild(curToNodeChild);
+                handleNodeAdded(curToNodeChild);
+              }
+            }
+            curToNodeChild = toNextSibling;
+            curFromNodeChild = fromNextSibling;
+          }
+        cleanupFromEl(fromEl, curFromNodeChild, curFromNodeKey);
+        var specialElHandler = specialElHandlers[fromEl.nodeName];
+        if (specialElHandler) {
+          specialElHandler(fromEl, toEl);
+        }
+      }
+      var morphedNode = fromNode;
+      var morphedNodeType = morphedNode.nodeType;
+      var toNodeType = toNode.nodeType;
+      if (!childrenOnly) {
+        if (morphedNodeType === ELEMENT_NODE) {
+          if (toNodeType === ELEMENT_NODE) {
+            if (!compareNodeNames(fromNode, toNode)) {
+              onNodeDiscarded(fromNode);
+              morphedNode = moveChildren(fromNode, createElementNS(toNode.nodeName, toNode.namespaceURI));
+            }
+          } else {
+            morphedNode = toNode;
+          }
+        } else if (morphedNodeType === TEXT_NODE || morphedNodeType === COMMENT_NODE) {
+          if (toNodeType === morphedNodeType) {
+            if (morphedNode.nodeValue !== toNode.nodeValue) {
+              morphedNode.nodeValue = toNode.nodeValue;
+            }
+            return morphedNode;
+          } else {
+            morphedNode = toNode;
+          }
+        }
+      }
+      if (morphedNode === toNode) {
+        onNodeDiscarded(fromNode);
+      } else {
+        if (toNode.isSameNode && toNode.isSameNode(morphedNode)) {
+          return;
+        }
+        morphEl(morphedNode, toNode, childrenOnly);
+        if (keyedRemovalList) {
+          for (var i = 0, len = keyedRemovalList.length; i < len; i++) {
+            var elToRemove = fromNodesLookup[keyedRemovalList[i]];
+            if (elToRemove) {
+              removeNode(elToRemove, elToRemove.parentNode, false);
+            }
+          }
+        }
+      }
+      if (!childrenOnly && morphedNode !== fromNode && fromNode.parentNode) {
+        if (morphedNode.actualize) {
+          morphedNode = morphedNode.actualize(fromNode.ownerDocument || doc);
+        }
+        fromNode.parentNode.replaceChild(morphedNode, fromNode);
+      }
+      return morphedNode;
+    };
+  }
+  var morphdom = morphdomFactory(morphAttrs);
+  var morphdom_esm_default = morphdom;
+
+  // app/assets/lookbook/js/utils/morph.js
+  function morph_default(from, to, opts = {}) {
+    morphdom_esm_default(from, to, __spreadValues({
+      onBeforeElUpdated: function(fromEl, toEl) {
+        if (fromEl._x_dataStack) {
+          Alpine.clone(fromEl, toEl);
+        }
+        if (fromEl.isEqualNode(toEl)) {
+          return false;
+        }
+        return true;
+      }
+    }, opts));
+  }
+
+  // app/assets/lookbook/js/page.js
+  function page() {
+    const store2 = Alpine.store("page");
+    return {
+      ready: false,
+      sidebarOpenMobile: false,
+      init() {
+        this.$nextTick(() => this.ready = true);
+      },
+      splitProps: {
+        minSize: 200,
+        onDrag(splits) {
+          Alpine.store("nav").width = Math.min(splits[0], 500);
+        }
+      },
+      fetchHTML() {
+        return __async(this, null, function* () {
+          const response = yield fetch(window.document.location);
+          if (!response.ok)
+            return window.location.reload();
+          const html = yield response.text();
+          store2.doc = new DOMParser().parseFromString(html, "text/html");
+          return store2.doc;
+        });
+      },
+      updateTitle() {
+        document.title = store2.doc.title;
+      },
+      render() {
+        if (this.ready) {
+          morph_default(this.$el, store2.doc.getElementById(this.$el.id));
+        }
+      }
+    };
+  }
+
+  // app/assets/lookbook/js/workbench.js
+  function workbench() {
+    const inspector2 = Alpine.store("inspector");
+    return {
+      previewViewportHeight: 0,
+      previewViewportWidth: 0,
+      splitProps: {
+        direction: "vertical",
+        minSize: 200,
+        onDrag(splits) {
+          inspector2.height = splits[2];
+        }
+      }
+    };
+  }
+
+  // app/assets/lookbook/js/workbench/preview.js
   function preview() {
-    const app = Alpine.store("app");
+    const app = Alpine.store("page");
     const preview2 = Alpine.store("preview");
     return {
       init() {
@@ -7599,27 +8323,129 @@ Expression: "${expression}"
         window.addEventListener("pointermove", this.onResize);
         window.addEventListener("pointerup", this.onResizeEnd);
       },
-      onResizeEnd(e) {
+      onResizeEnd() {
         window.removeEventListener("pointermove", this.onResize);
         window.removeEventListener("pointerup", this.onResizeEnd);
         app.reflowing = false;
       },
-      handle: {
-        ["@pointerdown"]: "onResizeStart",
-        ["@dblclick"]() {
-          if (preview2.width === "100%" && preview2.lastWidth) {
-            preview2.width = preview2.lastWidth;
-          } else {
-            preview2.lastWidth = preview2.width;
-            preview2.width = "100%";
-          }
+      toggleFullWidth() {
+        if (preview2.width === "100%" && preview2.lastWidth) {
+          preview2.width = preview2.lastWidth;
+        } else {
+          preview2.lastWidth = preview2.width;
+          preview2.width = "100%";
         }
       }
     };
   }
 
-  // app/assets/lookbook/js/size_observer.js
-  function size_observer_default() {
+  // app/assets/lookbook/js/workbench/inspector.js
+  function inspector() {
+    const inspector2 = Alpine.store("inspector");
+    return {
+      switchTo(id) {
+        inspector2.active = id;
+      },
+      active(id) {
+        return inspector2.active === id;
+      }
+    };
+  }
+
+  // app/assets/lookbook/js/nav.js
+  function nav_default() {
+    return {
+      clearFilter() {
+        this.$store.nav.filter = "";
+      },
+      init() {
+        this.$watch("$store.nav.filter", (value) => {
+          const nav = this.$store.nav;
+          nav.filterText = value.replace(/\s/g, "").toLowerCase();
+          nav.filtering = nav.filterText.length > 0;
+        });
+      },
+      updateNav(event) {
+        const nav = document.getElementById("nav");
+        nav.style.height = `${this.$refs.shim.offsetHeight}px`;
+        morph_default(nav, event.detail.doc.getElementById("nav"));
+        Promise.resolve().then(() => {
+          this.$refs.shim.style.height = "auto";
+          this.$dispatch("nav:updated");
+        });
+      },
+      navigate(path) {
+        if (path instanceof Event) {
+          path = path.currentTarget.href;
+        }
+        history.pushState({}, null, path);
+        this.$dispatch("popstate");
+      },
+      focusFilter() {
+        this.currentFocus = this.$refs.filter;
+        setTimeout(() => this.$refs.filter.focus(), 0);
+      },
+      unfocusFilter() {
+        this.$refs.filter.blur();
+      }
+    };
+  }
+
+  // app/assets/lookbook/js/nav/node.js
+  function navNode() {
+    return {
+      id: null,
+      hidden: true,
+      children: [],
+      init() {
+        this.id = this.$el.id;
+      },
+      open() {
+        return this.$store.nav.open[this.id];
+      },
+      getChildren() {
+        return this.$refs.items ? Array.from(this.$refs.items.querySelectorAll(":scope > li")) : [];
+      },
+      filter() {
+        this.hidden = true;
+        this.getChildren().forEach((child) => {
+          const data2 = child._x_dataStack[0];
+          data2.filter();
+          if (!data2.hidden) {
+            this.hidden = false;
+          }
+        });
+      },
+      toggle() {
+        this.$store.nav.open[this.id] = !this.$store.nav.open[this.id];
+      }
+    };
+  }
+
+  // app/assets/lookbook/js/nav/leaf.js
+  function navLeaf() {
+    return {
+      path: null,
+      matchers: [],
+      active: false,
+      hidden: false,
+      setActive() {
+        this.active = this.path === window.location.pathname;
+      },
+      filter() {
+        if (this.$store.nav.filtering) {
+          const text = this.$store.nav.filterText;
+          const matched = this.matchers.map((m) => m.includes(text));
+          this.hidden = !matched.filter((m) => m).length;
+        } else {
+          this.hidden = false;
+        }
+      }
+    };
+  }
+
+  // app/assets/lookbook/js/utils/size_observer.js
+  function sizeObserver() {
     return {
       observedWidth: 0,
       observedHeight: 0,
@@ -7636,7 +8462,7 @@ Expression: "${expression}"
     };
   }
 
-  // app/assets/lookbook/js/reloader.js
+  // app/assets/lookbook/js/utils/reloader.js
   var import_actioncable = __toModule(require_action_cable());
   var import_debounce = __toModule(require_debounce());
   function reloader_default(endpoint) {
@@ -7663,30 +8489,59 @@ Expression: "${expression}"
     };
   }
 
+  // app/assets/lookbook/js/utils/clipboard.js
+  function clipboard() {
+    return {
+      content: null,
+      done: false,
+      save() {
+        this.$clipboard(this.content);
+        this.done = true;
+        setTimeout(() => {
+          this.done = false;
+        }, 1e3);
+      }
+    };
+  }
+
   // app/assets/lookbook/js/app.js
+  window.Alpine = module_default;
   module_default.plugin(module_default2);
   module_default.plugin(module_default3);
   module_default.plugin(src_default4);
-  module_default.data("preview", preview);
-  module_default.data("sizeObserver", size_observer_default);
-  module_default.data("split", split_default);
-  module_default.store("app", { reflowing: false });
+  module_default.plugin(screen_default);
+  module_default.store("page", {
+    reflowing: false,
+    doc: window.document
+  });
   module_default.persistedStore("nav", {
     width: 280,
     filter: "",
-    open: {},
-    scrollTop: 0,
-    shouldDisplay(previewName) {
-      const cleanFilter = this.filter.replace(/\s/g, "");
-      return cleanFilter === "" || previewName.includes(cleanFilter.toLowerCase());
-    }
+    open: {}
   });
-  module_default.persistedStore("preview", {});
   module_default.persistedStore("inspector", {
     height: 200,
     active: "source"
   });
+  module_default.persistedStore("preview", {
+    width: "100%"
+  });
+  module_default.data("page", page);
+  module_default.data("nav", nav_default);
+  module_default.data("navNode", navNode);
+  module_default.data("navLeaf", navLeaf);
+  module_default.data("workbench", workbench);
+  module_default.data("preview", preview);
+  module_default.data("inspector", inspector);
+  module_default.data("clipboard", clipboard);
+  module_default.data("sizeObserver", sizeObserver);
+  module_default.data("split", split_default);
+  for (const el of document.querySelectorAll("[data-hotkey]")) {
+    install(el);
+  }
+  if (window.SOCKET_PATH) {
+    reloader_default(window.SOCKET_PATH).start();
+  }
   window.Alpine = module_default;
-  reloader_default(window.SOCKET_PATH).start();
   module_default.start();
 })();

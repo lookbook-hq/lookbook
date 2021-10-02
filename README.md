@@ -43,16 +43,11 @@ The [demo app repo](https://github.com/allmarkedup/lookbook-demo) contains instr
 
 ### 1. Add as a dependency
 
-In your `Gemfile` add:
+Add Lookbook to your `Gemfile` somewhere **after** the ViewComponent gem. For example:
 
 ```ruby
+gem "view_component", require: "view_component/engine"
 gem "lookbook"
-```
-
-or
-
-```bash
-gem install lookbook
 ```
 
 ### 2. Mount the Lookbook engine
@@ -117,6 +112,29 @@ class ButtonComponentPreview < ViewComponent::Preview
       "Click me"
     end
   end
+
+  # @!group More examples
+
+  def short_text
+    render ButtonComponent.new do
+      "Go"
+    end
+  end
+
+  def long_text
+    render ButtonComponent.new do
+      "Click here to do this thing because it's the best way to do it"
+    end
+  end
+
+  def emoji_text
+    render ButtonComponent.new do
+      "👀📗"
+    end
+  end
+
+  # @!endgroup
+
 end
 ```
 
@@ -158,6 +176,52 @@ class FooComponentPreview < ViewComponent::Preview
 end
 ```
 
+#### `@!group <name> ... @!endgroup`
+
+For smaller components, it can often make sense to render a set of preview examples in a single window, rather than representing them as individual items in the navigation which can start to look a bit cluttered.
+
+You can group a set of examples by wrapping them in `@!group <name>` / `@!endgroup` tags within your preview file:
+
+```ruby
+class HeaderComponentPreview < ViewComponent::Preview
+
+  def standard
+    render Elements::HeaderComponent.new do
+      "Standard header"
+    end
+  end
+
+  # @!group Sizes
+
+  def small
+    render Elements::HeaderComponent.new(size: 12) do
+      "Small header"
+    end
+  end
+
+  def medium
+    render Elements::HeaderComponent.new(size: 16) do
+      "Small header"
+    end
+  end
+
+  def big
+    render Elements::HeaderComponent.new(size: 24) do
+      "Small header"
+    end
+  end
+
+  # @!endgroup
+
+end
+```
+
+The example above would display the `Sizes` examples grouped together on a single page, rather than as indiviual items in the navigation:
+
+<img src=".github/assets/nav_group.png">
+
+You can have as many groups as you like within a single preview class, but each example can only belong to one group.
+
 #### Adding notes
 
 All comment text other than tags will be treated as markdown and rendered in the **Notes** panel for that example in the Lookbook UI.
@@ -196,6 +260,30 @@ If you wish to add additional paths to listen for changes in, you can use the `l
 
 ```ruby
 config.lookbook.listen_paths << Rails.root.join('app/other/directory')
+```
+
+## Keyboard shortcuts
+
+Lookbook provides a few keyboard shortcuts to help you quickly move around the UI.
+
+- `f` - move focus to the nav filter box
+- `Esc` [when focus is in nav filter box] - Clear contents if text is present, or return focus to the UI if the box is already empty
+- `s` - Switch to Source tab in the inspector
+- `o` - Switch to Output tab in the inspector
+- `n` - Switch to Notes tab in the inspector
+- `r` - Refresh the preview (useful if using something like Faker to generate randomised data for the preview)
+- `w` - Open the standalone rendered preview in a new window
+
+## Troubleshooting
+
+#### Blank preview window
+
+Certain setups (for example when using `Rack::LiveReload`) can cause an issue with the way that the preview iframe displays the rendered component preview (i.e. using the `srcdoc` attribute to avoid extra requests).
+
+If you are seeing a blank preview window, but the source and output tabs are both displaying code as expected, you can disable the use of the `srcdoc` attribute using the following configuration option:
+
+```ruby
+config.lookbook.preview_srcdoc = false
 ```
 
 ## Contributing
