@@ -83,7 +83,14 @@ module Lookbook
 
     class << self
       def websocket
-        @websocket ||= ActionCable::Server::Base.new(config: Lookbook::Engine.cable)
+        if Rails.version.to_f >= 6.0
+          @websocket ||= ActionCable::Server::Base.new(config: Lookbook::Engine.cable)
+        else
+          @websocket = ActionCable::Server::Base.new
+          @websocket.config = Lookbook::Engine.cable
+
+          @websocket
+        end
       end
 
       def cable
