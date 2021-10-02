@@ -27,9 +27,9 @@ Lookbook uses [RDoc/Yard-style comment tags](https://rubydoc.info/gems/yard/file
 - Resizable preview window for responsive testing
 - Highlighted preview source code and HTML output
 - Add notes via comments in the preview file (markdown supported)
-- Auto-updating UI when component or preview files are updated
-- Supports 'hidden' previews and examples
-- Works with standard the ViewComponent preview system
+- Auto-updating UI when component or preview files are updated _(Rails v6.0+ only)_
+- Hide, group and rename preview examples using comment tags
+- Fully compatible with standard the ViewComponent preview system
 
 ## Lookbook demo
 
@@ -247,6 +247,8 @@ Lookbook will use the ViewComponent [configuration](https://viewcomponent.org/ap
 However the following Lookbook-specific config options are also available:
 
 ### UI auto-refresh
+
+> ⚠️ UI auto-refresh is only supported in Rails v6.0+
 
 Disable/enable the auto-updating of the Lookbook UI when files change. Enabled by default.
 
