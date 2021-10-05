@@ -21,10 +21,10 @@
     <% panes.each do |key, props| %>
       <div class="flex flex-col h-full relative" x-show="active('<%= key %>')" x-cloak>
         <% if props[:clipboard].present? %>
-          <%= render "./shared/clipboard" do %><%= h props[:clipboard].strip %><% end %>
+          <%= render "shared/clipboard" do %><%= h props[:clipboard].strip %><% end %>
         <% end %>
         <div class="flex flex-col h-full overflow-auto">
-          <%= render "./workbench/inspector/#{props[:template]}", key: key, **props %>
+          <%= render "workbench/inspector/#{props[:template]}", key: key, **props %>
         </div>
       </div>
     <% end %>

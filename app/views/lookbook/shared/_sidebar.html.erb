@@ -27,7 +27,7 @@
         <% if @nav.items.any? %>
           <ul x-ref="items">
             <% @nav.items.each do |item| %>
-              <%= render "./nav/#{item.type.to_s}", node: item %>
+              <%= render "nav/#{item.type.to_s}", node: item %>
             <% end %>
           </ul>
           <div class="p-4 text-center" x-show="hidden" x-cloak>
@@ -41,5 +41,5 @@
         <% end %>
       </nav>
     </div>
-  </div>   
+  </div>
 </div>

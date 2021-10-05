@@ -1,11 +1,11 @@
 <% examples = node.get_examples %>
 <% if examples.many? %>
-  <%= render "./nav/node", node: node, path: show_path(examples.first.path) do %>
+  <%= render "nav/node", node: node, path: show_path(examples.first.path) do %>
     <% examples.each do |example| %>
-      <%= render "./nav/leaf", leaf: example, depth: example.hierarchy_depth + 1 %>
+      <%= render "nav/leaf", leaf: example, depth: example.hierarchy_depth + 1 %>
     <% end %>
   <% end %>
 <% else %>
   <% example = examples.first %>
-  <%= render "./nav/leaf", leaf: example, depth: example.hierarchy_depth, label: node.label, display: :node %>
+  <%= render "nav/leaf", leaf: example, depth: example.hierarchy_depth, label: node.label, display: :node %>
 <% end %>

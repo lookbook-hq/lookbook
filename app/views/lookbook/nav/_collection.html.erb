@@ -1,5 +1,5 @@
-<%= render "./nav/node", node: node do %>
+<%= render "nav/node", node: node do %>
   <% node.items.each do |item| %>
-    <%= render "./nav/#{item.type.to_s}", node: item %>
-  <% end %> 
+    <%= render "nav/#{item.type.to_s}", node: item %>
+  <% end %>
 <% end %>
