@@ -95,7 +95,7 @@ module Lookbook
             html: preview_controller.render_example_to_string(@preview, example.name)
           }
         end
-        joined = render_to_string "./preview_group", locals: {examples: examples}, layout: nil
+        joined = render_to_string "lookbook/preview_group", locals: {examples: examples}, layout: nil
         preview_controller.render_in_layout_to_string(joined, @preview.lookbook_layout)
       else
         preview_controller.request.params[:path] = "#{@preview.preview_name}/#{@example.name}".chomp("/")
