@@ -10,7 +10,7 @@
 
   <% if config.auto_refresh %>
     <script>
-      window.SOCKET_PATH = "/lookbook/cable";
+      window.SOCKET_PATH = "<%= Lookbook::Engine.websocket_mount_path %>";
     </script>
   <% end %>
   <script src="/lookbook-assets/app.js" defer></script>

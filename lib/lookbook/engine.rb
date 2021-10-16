@@ -93,6 +93,10 @@ module Lookbook
         end
       end
 
+      def websocket_mount_path
+        "#{Lookbook::Engine.routes.find_script_name({})}#{cable.mount_path}"
+      end
+
       def cable
         @cable ||= ActionCable::Server::Configuration.new
       end
