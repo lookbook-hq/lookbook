@@ -30,6 +30,7 @@ module Lookbook
 
       options.preview_controller = vc_options.preview_controller if options.preview_controller.nil?
       options.preview_srcdoc = true if options.preview_srcdoc.nil?
+      options.preview_display_params ||= {}
 
       options.listen_paths = options.listen_paths.map(&:to_s)
       options.listen_paths += options.preview_paths
@@ -110,8 +111,6 @@ module Lookbook
       def parser
         @parser ||= Lookbook::Parser.new(config.lookbook.preview_paths)
       end
-
-   
     end
   end
 end

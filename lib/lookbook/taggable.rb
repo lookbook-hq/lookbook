@@ -20,6 +20,23 @@ module Lookbook
       code_object&.group
     end
 
+    def lookbook_display_params
+      display_params = {}
+      if code_object&.tags(:display).present?
+        code_object.tags(:display).each do |tag|
+          parts = tag.text.match(/^\s?([^:]*)\s?:\s?(.*)\s?$/)
+          if parts.present?
+            begin
+              display_params[parts[1]] = JSON.parse parts[2]
+            rescue JSON::ParserError => err
+              Rails.logger.error("\n👀 [Lookbook] Invalid JSON in @display tag.\n👀 [Lookbook] (#{err.to_s})\n")
+            end
+          end
+        end
+      end
+      display_params
+    end
+
     # private
 
     def code_object

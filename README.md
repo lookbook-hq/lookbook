@@ -80,6 +80,7 @@ Lookbook parses [Yard-style comment tags](https://rubydoc.info/gems/yard/file/do
 
 ```ruby
 # @label Basic Button
+# @display bg_color: "#fff"
 class ButtonComponentPreview < ViewComponent::Preview
 
   # Primary button
@@ -93,11 +94,13 @@ class ButtonComponentPreview < ViewComponent::Preview
     end
   end
 
-  # Secondary button
+  # Inverted button
   # ---------------
-  # This should be used for less important actions.
+  # For light-on-dark screens
+  #
+  # @display bg_color: "#000"
   def secondary
-    render ButtonComponent.new(style: :secondary) do
+    render ButtonComponent.new(style: :inverted) do
       "Click me"
     end
   end
@@ -174,6 +177,90 @@ class FooComponentPreview < ViewComponent::Preview
   def default
   end
 end
+```
+
+#### `@display <key>: <value>`
+
+The `@display` tag lets you pass custom parameters to your preview layout so that the component preview can be customised on a per-example basis.
+
+```ruby
+# @display bg_color: "#eee"
+class FooComponentPreview < ViewComponent::Preview
+
+  # @display max_width: "500px"
+  # @display wrapper: true
+  def default
+  end
+end
+```
+
+The `@display` tag can be applied at the preview (class) or at the example (method)level, and takes the following format:
+
+```ruby
+# @display <key>: <value>
+```
+
+- `<key>` must be a valid Ruby hash key name, without quotes or spaces
+- `<value>` must be a valid JSON-parsable value. It can be a string (surrounded by **double** quotes), a boolean or an integer.
+
+> [See below for some examples](#some-display-value-examples) of valid and invalid `@display` values.
+
+Any `@display` tags can then be accessed via the `params` hash in your preview layout using `params[:lookbook][:display][<key>]` (where `<key>` is the key specified in the tag):
+
+```html
+<!DOCTYPE html>
+<html style="background-color: <%= params[:lookbook][:display][:bg_color] %>">
+  <head>
+    <title>Preview Layout</title>
+  </head>
+  <body>
+    <div style="max-width: <%= params[:lookbook][:display][:max_width] || '100%' %>">
+      <% if params[:lookbook][:display][:wrapper] == true %>
+        <div class="wrapper"><%= yield %></div>
+      <% else %>
+        <%= yield %>
+      <% end %>
+    </div>
+  </body>
+</html>
+```
+
+> By default ViewComponent will use your default application layout for displaying the rendered example. However it's often better to create a seperate layout that you can customise and use specifically for previewing your components. See the  ViewComponent [preview docs](https://viewcomponent.org/guide/previews.html) for instructions on how to set that up.
+
+Any `@display` params set at the preview (class) level with be merged with those set on individual example methods.
+
+##### Global display params
+
+Global (fallback) display params can be defined via a configuration option:
+
+```ruby
+# config/application.rb
+config.lookbook.preview_display_params = {
+  bg_color: "#fff",
+  max_width: "100%"
+}
+```
+
+Globally defined display params will be available to all previews. Any preview or example-level `@display` values with the same name will take precedence and override a globally-set one.
+
+##### Some `@display` value examples:
+
+Valid:
+
+```ruby
+# @display body_classes: "bg-red border border-4 border-green"
+# @display wrap_in_container: true
+# @display emojis_to_show: 4
+# @display page_title: "Special example title"
+```
+
+Invalid:
+
+```ruby
+# @display body_classes: 'bg-red border border-4 border-green' [❌ single quotes]
+# @display wrap_in_container: should_wrap [❌ unquoted string, perhaps trying to call a method]
+# @display page title: "Special example title" [❌ space in key]
+# @display bg_color: #fff [❌ colors need quotes around them, it's not CSS!]
 ```
 
 #### `@!group <name> ... @!endgroup`

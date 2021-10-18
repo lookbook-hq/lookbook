@@ -95,12 +95,27 @@ module Lookbook
             html: preview_controller.render_example_to_string(@preview, example.name)
           }
         end
+        set_params
         joined = render_to_string "lookbook/preview_group", locals: {examples: examples}, layout: nil
-        preview_controller.render_in_layout_to_string(joined, @preview.lookbook_layout)
+        preview_controller.render_in_layout_to_string(joined, @preview.lookbook_layout || current_layout)
       else
-        preview_controller.request.params[:path] = "#{@preview.preview_name}/#{@example.name}".chomp("/")
+        set_params(@example)
+        preview_controller.params[:path] = "#{@preview.preview_name}/#{@example.name}".chomp("/")
         preview_controller.process(:previews)
       end
+    end
+
+    def set_params(example = nil)
+      example_params = @preview.lookbook_display_params.deep_merge(example ? example.lookbook_display_params : {})
+      preview_controller.params.merge!({
+        lookbook: {
+          display: Lookbook.config.preview_display_params.deep_merge(example_params)
+        }
+      })
+    end
+
+    def current_layout
+      preview_controller.send :_layout, preview_controller.lookup_context, [:html]
     end
 
     def assign_inspector
