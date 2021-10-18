@@ -1,17 +1,19 @@
 module Lookbook
   module Taggable
     def lookbook_hidden?
-      if code_object.tag(:hidden)
+      if code_object&.tag(:hidden)
         code_object.tag(:hidden).text.strip != "false"
       end
     end
 
     def lookbook_label
-      code_object.tag(:label)&.text
+      code_object&.tag(:label)&.text
     end
 
     def lookbook_notes
-      code_object.docstring.to_s.strip
+      if code_object&.docstring
+        code_object.docstring.to_s.strip
+      end
     end
 
     def lookbook_group
