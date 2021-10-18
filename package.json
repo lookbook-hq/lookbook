@@ -17,31 +17,31 @@
   "author": "Mark Perkins",
   "license": "MIT",
   "devDependencies": {
-    "autoprefixer": "^10.3.1",
-    "concurrently": "^6.2.0",
-    "esbuild": "^0.12.15",
+    "autoprefixer": "^10.3.7",
+    "concurrently": "^6.3.0",
+    "esbuild": "^0.12.29",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.24.0",
+    "eslint-plugin-import": "^2.25.2",
     "postcss-import": "^14.0.2",
     "prettier": "2.3.2",
-    "release-it": "^14.10.1"
+    "release-it": "^14.11.6"
   },
   "dependencies": {
-    "@github/hotkey": "^1.4.4",
+    "@github/hotkey": "^1.6.0",
     "@rails/actioncable": "^6.1.4",
     "@ryangjchandler/alpine-clipboard": "^2.0.0",
     "@ryangjchandler/alpine-tooltip": "^0.1.2",
     "@ryangjchandler/fern": "^0.1.0",
-    "@tailwindcss/forms": "^0.3.3",
+    "@tailwindcss/forms": "^0.3.4",
     "@tailwindcss/typography": "^0.4.1",
-    "alpinejs": "^3.2.2",
+    "alpinejs": "^3.4.2",
     "debounce": "^1.2.1",
     "morphdom": "^2.6.1",
     "split-grid": "^1.0.11",
-    "tailwindcss": "^2.2.4",
-    "tippy.js": "^6.3.1"
+    "tailwindcss": "^2.2.17",
+    "tippy.js": "^6.3.2"
   },
   "release-it": {
     "git": {

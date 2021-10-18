@@ -1,3 +1,4 @@
 public/
 test/
 node_modules/
+*.md
