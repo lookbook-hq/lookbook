@@ -80,7 +80,7 @@ module Lookbook
 
     class << self
       def all
-        ViewComponent::Preview.all
+        ViewComponent::Preview.all.sort_by(&:label)
       end
 
       def find(path)

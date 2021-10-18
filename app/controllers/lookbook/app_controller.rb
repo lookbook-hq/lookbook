@@ -152,7 +152,7 @@ module Lookbook
     end
 
     def previews
-      Lookbook::Preview.all
+      Lookbook::Preview.all.sort_by(&:label)
     end
 
     def preview_controller

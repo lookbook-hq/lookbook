@@ -12,11 +12,11 @@ module Lookbook
     end
 
     def name
-      @path ? @path.split("/").last : "root"
+      @path.present? ? @path.split("/").last : "root"
     end
 
     def label
-      name.titleize
+      name&.titleize
     end
 
     def hierarchy_depth
@@ -24,7 +24,7 @@ module Lookbook
     end
 
     def items(sorted = true)
-      sorted ? @items.sort_by(&:name) : @items
+      sorted ? @items.sort_by(&:label) : @items
     end
 
     def add(item)
