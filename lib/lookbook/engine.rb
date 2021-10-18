@@ -23,6 +23,7 @@ module Lookbook
 
       options.auto_refresh = true if options.auto_refresh.nil?
       options.sort_examples = false if options.sort_examples.nil?
+      options.debug = false unless options.debug == true
 
       options.preview_paths = options.preview_paths.map(&:to_s)
       options.preview_paths += vc_options.preview_paths
@@ -43,10 +44,6 @@ module Lookbook
       end
     end
 
-    initializer "lookbook.cable.logger" do
-      Lookbook::Engine.cable.logger ||= Rails.logger
-    end
-
     initializer "lookbook.parser.tags" do
       Lookbook::Parser.define_tags
     end
@@ -56,6 +53,15 @@ module Lookbook
         Rack::Static,
         urls: ["/lookbook-assets"], root: Lookbook::Engine.root.join("public").to_s
       )
+    end
+
+    initializer "lookbook.logging" do
+      if config.lookbook.debug == true
+        Lookbook::Engine.cable.logger ||= Rails.logger
+      else
+        Lookbook::Engine.cable.logger = Lookbook::NullLogger.new
+        config.action_view.logger = Lookbook::NullLogger.new
+      end
     end
 
     initializer "lookbook.preview.extend" do
@@ -104,6 +110,8 @@ module Lookbook
       def parser
         @parser ||= Lookbook::Parser.new(config.lookbook.preview_paths)
       end
+
+   
     end
   end
 end

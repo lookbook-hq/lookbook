@@ -12,4 +12,5 @@ module Lookbook
   autoload :PreviewExample, "lookbook/preview_example"
   autoload :PreviewGroup, "lookbook/preview_group"
   autoload :Taggable, "lookbook/taggable"
+  autoload :NullLogger, "lookbook/null_logger"
 end
