@@ -90,8 +90,6 @@ module Lookbook
       def exists?(path)
         !!find(path)
       end
-
-      
     end
 
     private
