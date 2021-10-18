@@ -8,7 +8,7 @@
       <svg class="feather h-3.5 w-3.5 mr-1.5 flex-none text-indigo-500">
         <use xlink:href="/lookbook-assets/feather-sprite.svg#<%= node.type == :preview ? 'layers' : 'folder' %>" />
       </svg>
-      <div class="truncate w-full whitespace-nowrap text-left <%= "font-bold" if node.type == :preview %>" @click.stop="toggle(); if (open()) { <%= "navigate('#{path}')" if defined?(path) %>}">
+      <div class="truncate w-full whitespace-nowrap text-left <%= "font-bold" if node.type == :preview %>" @click.stop="toggle(); navigateToFirstChild();">
         <%= node.label %>
       </div>
     </div>

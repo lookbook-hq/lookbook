@@ -14,6 +14,17 @@ export default function navNode() {
         ? Array.from(this.$refs.items.querySelectorAll(":scope > li"))
         : [];
     },
+    navigateToFirstChild() {
+      if (this.open()) {
+        const child = this.firstVisibleChild();
+        if (child) {
+          const link = child.querySelector(":scope > a.nav-link");
+          if (link) {
+            this.navigate(link.getAttribute("href"));
+          }
+        }
+      }
+    },
     filter() {
       this.hidden = true;
       this.getChildren().forEach((child) => {
@@ -26,6 +37,13 @@ export default function navNode() {
     },
     toggle() {
       this.$store.nav.open[this.id] = !this.$store.nav.open[this.id];
+    },
+    firstVisibleChild() {
+      return this.getChildren().find((child) => {
+        return child._x_dataStack
+          ? child._x_dataStack[0].hidden === false
+          : false;
+      });
     },
   };
 }

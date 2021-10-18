@@ -5,7 +5,7 @@ label ||= leaf.label
 %>
 <li x-data="navLeaf" :class="{hidden}" x-init="matchers = <%= leaf.matchers.to_json %>; path = '<%= path %>'; setActive()" @popstate.window="setActive">
   <a href="<%= path %>"
-    class="pr-3 py-[5px] flex items-center w-full group transition hover:bg-gray-200 hover:bg-opacity-50"
+    class="nav-link pr-3 py-[5px] flex items-center w-full group transition hover:bg-gray-200 hover:bg-opacity-50"
     style="<%= nav_padding_style(depth) %>"
     :class="{'!bg-indigo-100':active}"
     @click.stop.prevent="navigate"
