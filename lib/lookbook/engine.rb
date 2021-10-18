@@ -110,6 +110,8 @@ module Lookbook
       def parser
         @parser ||= Lookbook::Parser.new(config.lookbook.preview_paths)
       end
+
+   
     end
   end
 end
