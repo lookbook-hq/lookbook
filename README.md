@@ -16,19 +16,17 @@
 
 It uses (and extends) the native [ViewComponent preview functionality](https://viewcomponent.org/guide/previews.html), so you don't need to learn a new DSL or create any extra files to get up and running.
 
-Lookbook uses [RDoc/Yard-style comment tags](https://rubydoc.info/gems/yard/file/docs/Tags.md) to extend the capabilities of ViewComponent's previews whilst maintaining compatability with the standard preview class format, so you can add or remove Lookbook at any time without having to rework your code.
+Lookbook uses [RDoc/Yard-style comment tags](#annotating-preview-files) to extend the capabilities of ViewComponent's previews whilst maintaining compatability with the standard preview class format, so you can add or remove Lookbook at any time without having to rework your code.
 
 ![Lookbook UI](.github/assets/lookbook_screenshot.png)
 
 ### Features
 
-- Tree-style navigation menu
-- Live nav search/filter
+- Tree-style navigation menu with live search/filter
 - Resizable preview window for responsive testing
 - Highlighted preview source code and HTML output
-- Add notes via comments in the preview file (markdown supported)
 - Auto-updating UI when component or preview files are updated _(Rails v6.0+ only)_
-- Hide, group and rename preview examples using comment tags
+- Use comment tag annotations for granular customisation of the preview experience
 - Fully compatible with standard the ViewComponent preview system
 
 ## Lookbook demo
@@ -38,8 +36,6 @@ If you want to have a quick play with Lookbook, the easiest way is to [give the 
 The [demo app repo](https://github.com/allmarkedup/lookbook-demo) contains instructions on how to get it up and running.
 
 ## Installing
-
-> ⚠️ **Please note:** Lookbook is still in the early stages of development and has not yet been well tested across a wide range of Rails/ViewComponent versions and setups. If you run into any problems please [open an issue](issues) with as much detail as possible. Thanks! ⚠️
 
 ### 1. Add as a dependency
 
@@ -74,7 +70,7 @@ You don't need to do anything special to see your ViewComponent previews and exa
 
 > If you are new to ViewComponent development, checkout the ViewComponent [documentation](https://viewcomponent.org/guide/) on how to get started developing your components and [creating previews](https://viewcomponent.org/guide/previews.html).
 
-### Annotating preview files
+## Annotating preview files
 
 Lookbook parses [Yard-style comment tags](https://rubydoc.info/gems/yard/file/docs/Tags.md) in your preview classes to customise and extend the standard ViewComponent preview experience:
 
@@ -145,7 +141,12 @@ end
 
 The following Lookbook-specific tags are available for use:
 
-#### `@label <text>`
+* `@label <label>` -[Customise navigation labels](#-label-text)
+* `@hidden` - [Prevent items displaying in the navigation](#-hidden)
+* `@display <key>:<value>` - [Specify params to pass into the preview template](#-display-key-value)
+* `@!group <name> ... @!endgroup` - [Render examples in a group on the same page](#-group-name--endgroup)
+
+### 🔖 `@label <text>`
 
 Used to replace the auto-generated navigation label for the item with `<text>`.
 
@@ -161,7 +162,7 @@ class FooComponentPreview < ViewComponent::Preview
 end
 ```
 
-#### `@hidden`
+### 🔖 `@hidden`
 
 Used to temporarily exclude an item from the Lookbook navigation. The item will still be accessible via it's URL.
 
@@ -179,7 +180,7 @@ class FooComponentPreview < ViewComponent::Preview
 end
 ```
 
-#### `@display <key>: <value>`
+### 🔖 `@display <key>: <value>`
 
 The `@display` tag lets you pass custom parameters to your preview layout so that the component preview can be customised on a per-example basis.
 
@@ -194,7 +195,7 @@ class FooComponentPreview < ViewComponent::Preview
 end
 ```
 
-The `@display` tag can be applied at the preview (class) or at the example (method)level, and takes the following format:
+The `@display` tag can be applied at the preview (class) or at the example (method) level, and takes the following format:
 
 ```ruby
 # @display <key>: <value>
@@ -205,7 +206,7 @@ The `@display` tag can be applied at the preview (class) or at the example (meth
 
 > [See below for some examples](#some-display-value-examples) of valid and invalid `@display` values.
 
-Any `@display` tags can then be accessed via the `params` hash in your preview layout using `params[:lookbook][:display][<key>]` (where `<key>` is the key specified in the tag):
+These display parameters can then be accessed via the `params` hash in your preview layout using `params[:lookbook][:display][<key>]`:
 
 ```html
 <!DOCTYPE html>
@@ -229,7 +230,7 @@ Any `@display` tags can then be accessed via the `params` hash in your preview l
 
 Any `@display` params set at the preview (class) level with be merged with those set on individual example methods.
 
-##### Global display params
+#### Global display params
 
 Global (fallback) display params can be defined via a configuration option:
 
@@ -243,7 +244,7 @@ config.lookbook.preview_display_params = {
 
 Globally defined display params will be available to all previews. Any preview or example-level `@display` values with the same name will take precedence and override a globally-set one.
 
-##### Some `@display` value examples:
+#### Some `@display` value examples:
 
 Valid:
 
@@ -263,7 +264,7 @@ Invalid:
 # @display bg_color: #fff [❌ colors need quotes around them, it's not CSS!]
 ```
 
-#### `@!group <name> ... @!endgroup`
+### 🔖 `@!group <name> ... @!endgroup`
 
 For smaller components, it can often make sense to render a set of preview examples in a single window, rather than representing them as individual items in the navigation which can start to look a bit cluttered.
 
@@ -309,7 +310,7 @@ The example above would display the `Sizes` examples grouped together on a singl
 
 You can have as many groups as you like within a single preview class, but each example can only belong to one group.
 
-#### Adding notes
+### Adding notes
 
 All comment text other than tags will be treated as markdown and rendered in the **Notes** panel for that example in the Lookbook UI.
 
