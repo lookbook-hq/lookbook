@@ -50,7 +50,7 @@ module Lookbook
     def find_preview
       candidates = []
       params[:path].to_s.scan(%r{/|$}) { candidates << $` }
-      match = candidates.detect { |candidate| Lookbook::Preview.exists?(candidate) }
+      match = candidates.reverse.detect { |candidate| Lookbook::Preview.exists?(candidate) }
       @preview = match ? Lookbook::Preview.find(match) : nil
     end
 
