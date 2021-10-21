@@ -26,6 +26,10 @@ module Lookbook
       :group
     end
 
+    def hidden?
+      false
+    end
+
     def matchers
       [@preview.label, label].map { |m| m.gsub(/\s/, "").downcase }
     end

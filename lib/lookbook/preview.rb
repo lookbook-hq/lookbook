@@ -23,8 +23,8 @@ module Lookbook
       return @lookbook_examples if @lookbook_examples.present?
       public_methods = public_instance_methods(false)
       public_method_objects = code_object.meths.filter { |m| public_methods.include?(m.name) }
-      visible = public_method_objects.map { |m| PreviewExample.new(m.name.to_s, self) }.reject(&:hidden?)
-      sorted = Lookbook.config.sort_examples ? visible.sort_by(&:label) : visible
+      examples = public_method_objects.map { |m| PreviewExample.new(m.name.to_s, self) }
+      sorted = Lookbook.config.sort_examples ? examples.sort_by(&:label) : examples
       @lookbook_examples = []
       if code_object.groups.any?
         sorted.group_by { |m| m.group }.each do |name, examples|

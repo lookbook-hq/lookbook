@@ -1,4 +1,4 @@
-<% examples = node.get_examples %>
+<% examples = node.get_examples.reject(&:hidden?) %>
 <% if examples.many? %>
   <%= render "nav/node", node: node, path: show_path(examples.first.path) do %>
     <% examples.each do |example| %>
