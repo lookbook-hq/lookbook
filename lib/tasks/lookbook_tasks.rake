@@ -11,5 +11,10 @@ namespace :lookbook do
       contents = file.read
       File.write(filename, contents.gsub(current_version, new_version))
     end
+
+    desc "Build Gem and push to RubyGems"
+    task :build_and_push do
+      sh("rake build && gem push pkg/lookbook-#{Lookbook::VERSION}.gem")
+    end
   end
 end
