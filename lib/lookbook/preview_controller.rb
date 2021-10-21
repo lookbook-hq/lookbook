@@ -14,9 +14,10 @@ module Lookbook
       render_to_string template, opts
     end
 
-    def render_in_layout_to_string(content, layout_override)
+    def render_in_layout_to_string(template, locals, layout_override = nil)
+      append_view_path Lookbook::Engine.root.join("app/views")
       layout = determine_layout(layout_override, prepend_views: false)[:layout]
-      render_to_string html: content, layout: layout
+      render_to_string template, locals: locals, layout: layout
     end
   end
 end

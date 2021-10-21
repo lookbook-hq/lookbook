@@ -169,12 +169,29 @@ module Lookbook
       end
 
       context "with custom layout" do
-        setup do
-          visit preview_url example_path("custom_layout")
+        context "ungrouped" do
+          setup do
+            visit preview_url example_path("custom_layout")
+          end
+  
+          should "use the custom layout" do
+            assert page.has_title?("Custom Layout")
+          end
         end
+        
+        context "grouped" do
+          setup do
+            visit preview_url example_path("custom_layout", "test")
+          end
+  
+          should "use the custom layout" do
+            assert page.has_title?("Custom Layout")
+          end
 
-        should "use the custom layout" do
-          assert page.has_title?("Custom Layout")
+          should "render all components in the group" do
+            assert page.has_content?("Test one")
+            assert page.has_content?("Test two")
+          end
         end
       end
 
@@ -202,7 +219,12 @@ module Lookbook
           assert page.has_no_content?("Misc three")
           assert page.has_no_content?("Misc four")
         end
+
+         should "use the default layout" do
+          assert page.has_title?("App Layout")
+        end
       end
+      
     end
   end
 end
