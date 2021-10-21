@@ -3,6 +3,7 @@
     <nav class="-mb-px flex space-x-8 cursor-auto">
       <% panes.each do |key, props| %>
         <a
+          id="inspector-tab-<%= key %>"
           href="#<%= key %>"
           class="whitespace-nowrap py-2 px-1 border-b-2 cursor-pointer <%= "!text-gray-300" if props[:disabled] %>"
           :class="{
@@ -23,7 +24,7 @@
         <% if props[:clipboard].present? %>
           <%= render "shared/clipboard" do %><%= h props[:clipboard].strip %><% end %>
         <% end %>
-        <div class="flex flex-col h-full overflow-auto">
+        <div id="inspector-content-<%= key %>" class="flex flex-col h-full overflow-auto">
           <%= render "workbench/inspector/#{props[:template]}", key: key, **props %>
         </div>
       </div>

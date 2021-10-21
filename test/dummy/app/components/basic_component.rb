@@ -1,5 +1,10 @@
 class BasicComponent < ViewComponent::Base
+
+  def initialize(text = nil)
+    @text = text || "basic component"
+  end
+
   def call
-    tag.div "basic component"
+    tag.div @text
   end
 end

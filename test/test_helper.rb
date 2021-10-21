@@ -12,6 +12,7 @@ require "rails/test_help"
 require "capybara/rails"
 require "capybara/minitest"
 require "shoulda"
+require_relative "lookbook_test_helper"
 
 # Load fixtures from the engine
 if ActiveSupport::TestCase.respond_to?(:fixture_path=)
