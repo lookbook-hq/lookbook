@@ -106,10 +106,10 @@ module Lookbook
     end
 
     def set_params(example = nil)
-      example_params = @preview.lookbook_display_params.deep_merge(example ? example.lookbook_display_params : {})
+      example_params = example.nil? ? @preview.display_params : example.display_params
       preview_controller.params.merge!({
         lookbook: {
-          display: Lookbook.config.preview_display_params.deep_merge(example_params)
+          display: example_params
         }
       })
     end

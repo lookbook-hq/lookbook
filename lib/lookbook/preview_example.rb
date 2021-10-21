@@ -21,6 +21,10 @@ module Lookbook
       lookbook_label.presence || name.titleize
     end
 
+    def display_params
+      @preview.display_params.merge(lookbook_display_params)
+    end
+
     def method_source
       code_object.source.split("\n")[1..-2].join("\n").strip_heredoc
     end

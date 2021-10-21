@@ -21,7 +21,7 @@ module Lookbook
     end
 
     def lookbook_display_params
-      display_params = {}
+      display_params = {}.with_indifferent_access
       if code_object&.tags(:display).present?
         code_object.tags(:display).each do |tag|
           parts = tag.text.strip.match(/^([^\s]*)\s?(.*)$/)

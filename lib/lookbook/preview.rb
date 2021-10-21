@@ -78,6 +78,10 @@ module Lookbook
       defined?(@layout) ? @layout : nil
     end
 
+    def display_params
+      Lookbook.config.preview_display_params.deep_merge(lookbook_display_params)
+    end
+
     class << self
       def all
         ViewComponent::Preview.all.sort_by(&:label)
