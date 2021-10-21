@@ -143,7 +143,7 @@ The following Lookbook-specific tags are available for use:
 
 * `@label <label>` -[Customise navigation labels](#-label-text)
 * `@hidden` - [Prevent items displaying in the navigation](#-hidden)
-* `@display <key>:<value>` - [Specify params to pass into the preview template](#-display-key-value)
+* `@display <key> <value>` - [Specify params to pass into the preview template](#-display-key-value)
 * `@!group <name> ... @!endgroup` - [Render examples in a group on the same page](#-group-name--endgroup)
 
 ### 🔖 `@label <text>`
