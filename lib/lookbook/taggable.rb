@@ -24,12 +24,12 @@ module Lookbook
       display_params = {}
       if code_object&.tags(:display).present?
         code_object.tags(:display).each do |tag|
-          parts = tag.text.match(/^\s?([^:]*)\s?:\s?(.*)\s?$/)
+          parts = tag.text.strip.match(/^([^\s]*)\s?(.*)$/)
           if parts.present?
             begin
               display_params[parts[1]] = JSON.parse parts[2]
             rescue JSON::ParserError => err
-              Rails.logger.error("\n👀 [Lookbook] Invalid JSON in @display tag.\n👀 [Lookbook] (#{err.to_s})\n")
+              Rails.logger.error("\n👀 [Lookbook] Invalid JSON in @display tag.\n👀 [Lookbook] (#{err})\n")
             end
           end
         end

@@ -76,7 +76,7 @@ Lookbook parses [Yard-style comment tags](https://rubydoc.info/gems/yard/file/do
 
 ```ruby
 # @label Basic Button
-# @display bg_color: "#fff"
+# @display bg_color "#fff"
 class ButtonComponentPreview < ViewComponent::Preview
 
   # Primary button
@@ -94,7 +94,7 @@ class ButtonComponentPreview < ViewComponent::Preview
   # ---------------
   # For light-on-dark screens
   #
-  # @display bg_color: "#000"
+  # @display bg_color "#000"
   def secondary
     render ButtonComponent.new(style: :inverted) do
       "Click me"
@@ -180,16 +180,16 @@ class FooComponentPreview < ViewComponent::Preview
 end
 ```
 
-### 🔖 `@display <key>: <value>`
+### 🔖 `@display <key> <value>`
 
 The `@display` tag lets you pass custom parameters to your preview layout so that the component preview can be customised on a per-example basis.
 
 ```ruby
-# @display bg_color: "#eee"
+# @display bg_color "#eee"
 class FooComponentPreview < ViewComponent::Preview
 
-  # @display max_width: "500px"
-  # @display wrapper: true
+  # @display max_width "500px"
+  # @display wrapper true
   def default
   end
 end
@@ -198,7 +198,7 @@ end
 The `@display` tag can be applied at the preview (class) or at the example (method) level, and takes the following format:
 
 ```ruby
-# @display <key>: <value>
+# @display <key> <value>
 ```
 
 - `<key>` must be a valid Ruby hash key name, without quotes or spaces
@@ -249,19 +249,19 @@ Globally defined display params will be available to all previews. Any preview o
 Valid:
 
 ```ruby
-# @display body_classes: "bg-red border border-4 border-green"
-# @display wrap_in_container: true
-# @display emojis_to_show: 4
-# @display page_title: "Special example title"
+# @display body_classes "bg-red border border-4 border-green"
+# @display wrap_in_container true
+# @display emojis_to_show 4
+# @display page_title "Special example title"
 ```
 
 Invalid:
 
 ```ruby
-# @display body_classes: 'bg-red border border-4 border-green' [❌ single quotes]
-# @display wrap_in_container: should_wrap [❌ unquoted string, perhaps trying to call a method]
-# @display page title: "Special example title" [❌ space in key]
-# @display bg_color: #fff [❌ colors need quotes around them, it's not CSS!]
+# @display body_classes 'bg-red border border-4 border-green' [❌ single quotes]
+# @display wrap_in_container should_wrap [❌ unquoted string, perhaps trying to call a method]
+# @display page title "Special example title" [❌ space in key]
+# @display bg_color #fff [❌ colors need quotes around them, it's not CSS!]
 ```
 
 ### 🔖 `@!group <name> ... @!endgroup`
