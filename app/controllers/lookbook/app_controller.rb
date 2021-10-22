@@ -96,8 +96,7 @@ module Lookbook
           }
         end
         set_params
-        layout = @preview.lookbook_layout || Rails.configuration.view_component.default_preview_layout || current_layout
-        preview_controller.render_in_layout_to_string("lookbook/preview/group", {examples: examples}, layout)
+        preview_controller.render_in_layout_to_string("lookbook/preview/group", {examples: examples}, @preview.lookbook_layout)
       else
         set_params(@example)
         preview_controller.params[:path] = "#{@preview.preview_name}/#{@example.name}".chomp("/")
@@ -112,10 +111,6 @@ module Lookbook
           display: example_params
         }
       })
-    end
-
-    def current_layout
-      preview_controller.send :_layout, preview_controller.lookup_context, [:html]
     end
 
     def assign_inspector
