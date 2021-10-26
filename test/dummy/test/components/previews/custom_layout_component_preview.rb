@@ -1,5 +1,5 @@
 class CustomLayoutComponentPreview < ViewComponent::Preview
-  layout "component_preview"
+  layout "custom_preview"
 
   def default
     render BasicComponent.new

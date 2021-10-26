@@ -5,14 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-
   <%= stylesheet_link_tag 'application', media: 'all' %>
 </head>
 <body>
   <%= yield %>
-
-  <% params.dig(:lookbook, :display).each do |key, value| %>
-    <%= key %>=<%= value %>
-  <% end %>
 </body>
 </html>

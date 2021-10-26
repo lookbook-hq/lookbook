@@ -140,7 +140,7 @@ module Lookbook
         end
 
         should "use the default layout" do
-          assert page.has_title?("App Layout")
+          assert page.has_title?("Preview Layout")
         end
       end
 
@@ -221,7 +221,7 @@ module Lookbook
         end
 
          should "use the default layout" do
-          assert page.has_title?("App Layout")
+          assert page.has_title?("Preview Layout")
         end
       end
       
