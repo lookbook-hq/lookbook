@@ -8,7 +8,12 @@ module Lookbook
     end
 
     def markdown(text)
-      Markdown.new(text).to_html.html_safe
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, {
+        tables: true,
+        fenced_code_blocks: true,
+        disable_indented_code_blocks: true,
+      })
+      markdown.render(text).html_safe
     end
 
     def highlight(source, language)
