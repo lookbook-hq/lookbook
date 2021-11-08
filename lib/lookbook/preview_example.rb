@@ -27,10 +27,17 @@ module Lookbook
 
     def params
       @params || code_object&.tags("param")&.map do |param|
+        input, options_str = param.text.present? ? param.text.split(" ", 2) : [nil, ""]
+        options = YAML.safe_load(options_str || "~")
+        type = param.types&.first
+        input ||= type == "Boolean" ? "toggle" : "text"
+        type ||= input == "toggle" ? "Boolean" : "String"
         {
           name: param.name,
-          input_type: param.text.present? ? param.text.strip : "text",
-          type: param.types&.first || "String",
+          input: input_text?(input) ? "text" : input,
+          input_type: (input if input_text?(input)),
+          options: options,
+          type: type,
           default: parameter_defaults[param.name]
         }
       end
@@ -70,14 +77,42 @@ module Lookbook
       @parameter_defaults || code_object&.parameters&.map do |parsed_param|
         name = parsed_param[0].chomp(":")
         value = parsed_param[1].strip
-        if value == "nil"
-          value = ""
+        value = case value
+        when "nil"
+          ""
+        when "true"
+          "true"
+        when "false"
+          "false"
         else
-          str_match = value.match(/^["'](.+)["']$/)
-          value = str_match ? str_match[1] : ""
+          if value.first == ":"
+            value.delete_prefix(":")
+          else
+            str_match = value.match(/^["'](.+)["']$/)
+            str_match ? str_match[1] : ""
+          end
         end
         [name, value]
       end.to_h
+    end
+
+    def input_text?(input_type)
+      [
+        "color",
+        "date",
+        "datetime-local",
+        "email",
+        "hidden",
+        "month",
+        "number",
+        "password",
+        "range",
+        "tel",
+        "text",
+        "time",
+        "url",
+        "week"
+      ].include? input_type
     end
 
     def taggable_object_path

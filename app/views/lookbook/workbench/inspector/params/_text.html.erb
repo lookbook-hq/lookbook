@@ -1,8 +1,8 @@
 <input
-  id="param-<%= param[:name] %>"
+  id="<%= id %>"
   class="form-input"
-  type="<%= param[:input_type] %>"
-  name="<%= param[:name] %>"
-  value="<%= params[param[:name]] || param[:default] %>"
-  @keyup.stop.debounce.200="update($el.name, $el.value)"
+  type="<%= input_type %>"
+  name="<%= name %>"
+  value="<%= value %>"
+  @keyup.stop.debounce.300="update($el.name, $el.value)"
   data-param-input>
