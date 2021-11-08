@@ -25,6 +25,17 @@ module Lookbook
       @preview.display_params.merge(lookbook_display_params)
     end
 
+    def params
+      @params || code_object&.tags("param")&.map do |param|
+        {
+          name: param.name,
+          input_type: param.text.present? ? param.text.strip : "text",
+          type: param.types&.first || "String",
+          default: parameter_defaults[param.name]
+        }
+      end
+    end
+
     def method_source
       code_object.source.split("\n")[1..-2].join("\n").strip_heredoc
     end
@@ -54,6 +65,20 @@ module Lookbook
     end
 
     private
+
+    def parameter_defaults
+      @parameter_defaults || code_object&.parameters&.map do |parsed_param|
+        name = parsed_param[0].chomp(":")
+        value = parsed_param[1].strip
+        if value == "nil"
+          value = ""
+        else
+          str_match = value.match(/^["'](.+)["']$/)
+          value = str_match ? str_match[1] : ""
+        end
+        [name, value]
+      end.to_h
+    end
 
     def taggable_object_path
       "#{@preview.name}##{name}"

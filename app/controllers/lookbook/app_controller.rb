@@ -105,6 +105,21 @@ module Lookbook
     end
 
     def set_params(example = nil)
+      if example.present?
+        # cast known params to type
+        example.params.each do |param|
+          if preview_controller.params.key?(param[:name])
+            value = preview_controller.params[param[:name]]
+            if param[:type] == "Symbol"
+              preview_controller.params[param[:name]] = value.delete_prefix(":").to_sym
+            else
+              type_class = "ActiveModel::Type::#{param[:type]}".constantize
+              preview_controller.params[param[:name]] = type_class.new.cast(value)
+            end
+          end
+        end
+      end
+      # set display params
       example_params = example.nil? ? @preview.display_params : example.display_params
       preview_controller.params.merge!({
         lookbook: {
@@ -137,6 +152,13 @@ module Lookbook
             hotkey: "n",
             items: @notes,
             disabled: @notes.none?
+          },
+          params: {
+            label: "Params",
+            template: "params",
+            hotkey: "p",
+            items: @source.many? ? [] : @example.params,
+            disabled: @source.many? || @example.params.none?
           }
         }
       }

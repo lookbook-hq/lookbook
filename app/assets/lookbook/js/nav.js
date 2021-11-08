@@ -22,13 +22,12 @@ export default function () {
       });
     },
     navigate(path) {
-      if (path instanceof Event) {
-        path = path.currentTarget.href;
-      }
-      history.pushState({}, null, path);
-      this.$dispatch("popstate");
+      this.navigateTo(path instanceof Event ? path.currentTarget.href : path);
     },
-    focusFilter() {
+    focusFilter($event) {
+      if ($event.target.tagName === "INPUT") {
+        return;
+      }
       this.currentFocus = this.$refs.filter;
       setTimeout(() => this.$refs.filter.focus(), 0);
     },

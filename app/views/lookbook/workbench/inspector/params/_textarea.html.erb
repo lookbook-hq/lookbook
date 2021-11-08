@@ -1,0 +1,8 @@
+<textarea
+  id="param-<%= param[:name] %>"
+  class="form-input"
+  name="<%= param[:name] %>"
+  rows="4"
+  @keyup.stop.debounce.200="update($el.name, $el.value)"
+  data-param-input
+></textarea>

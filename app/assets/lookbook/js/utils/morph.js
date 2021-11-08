@@ -9,6 +9,9 @@ export default function (from, to, opts = {}) {
       if (fromEl.isEqualNode(toEl)) {
         return false;
       }
+      if (fromEl.hasAttribute("skip-morph")) {
+        return false;
+      }
       return true;
     },
     ...opts,

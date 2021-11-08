@@ -26,6 +26,10 @@ module Lookbook
       :group
     end
 
+    def params
+      []
+    end
+
     def hidden?
       false
     end

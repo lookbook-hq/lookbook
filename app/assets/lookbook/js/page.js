@@ -27,7 +27,12 @@ export default function page() {
     render() {
       if (this.ready) {
         morph(this.$el, store.doc.getElementById(this.$el.id));
+        this.$dispatch("document:patched");
       }
+    },
+    navigateTo(path) {
+      history.pushState({}, null, path);
+      this.$dispatch("popstate");
     },
   };
 }

@@ -820,12 +820,6 @@ pre[class*="language-"] {
   fill: none;
 }
 
-.min-h-fill {
-  min-height: -webkit-fill-available;
-  min-height: -moz-available;
-  min-height: fill-available;
-}
-
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -1631,8 +1625,16 @@ pre[class*="language-"] {
   width: 1.25rem;
 }
 
+.w-\[200px\] {
+  width: 200px;
+}
+
 .max-w-xs {
   max-width: 20rem;
+}
+
+.max-w-\[800px\] {
+  max-width: 800px;
 }
 
 .flex-none {
@@ -1692,6 +1694,10 @@ pre[class*="language-"] {
   flex-direction: column;
 }
 
+.items-start {
+  align-items: flex-start;
+}
+
 .items-center {
   align-items: center;
 }
@@ -1716,6 +1722,12 @@ pre[class*="language-"] {
   --tw-space-x-reverse: 0;
   margin-right: calc(2rem * var(--tw-space-x-reverse));
   margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.space-y-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
 }
 
 .divide-y > :not([hidden]) ~ :not([hidden]) {
@@ -1882,6 +1894,16 @@ pre[class*="language-"] {
   padding-bottom: 0px;
 }
 
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
 .pr-3 {
   padding-right: 0.75rem;
 }
@@ -2020,6 +2042,30 @@ pre[class*="language-"] {
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+.min-h-fill {
+  min-height: -webkit-fill-available;
+  min-height: -moz-available;
+  min-height: fill-available;
+}
+
+.form-input {
+  width: 100%;
+  border-radius: 0.125rem;
+  --tw-border-opacity: 1;
+  border-color: rgba(209, 213, 219, var(--tw-border-opacity));
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgba(55, 65, 81, var(--tw-text-opacity));
+}
+
+.form-input:focus {
+  --tw-border-opacity: 1;
+  border-color: rgba(165, 180, 252, var(--tw-border-opacity));
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgba(165, 180, 252, var(--tw-ring-opacity));
 }
 
 .tippy-box[data-animation=fade][data-state=hidden]{
@@ -2427,6 +2473,11 @@ pre[class*="language-"] {
 .hover\:bg-gray-200:hover {
   --tw-bg-opacity: 1;
   background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
+}
+
+.hover\:bg-gray-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
 }
 
 .hover\:bg-opacity-20:hover {

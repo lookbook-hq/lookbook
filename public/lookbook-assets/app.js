@@ -8359,6 +8359,9 @@ Expression: "${expression}"
         if (fromEl.isEqualNode(toEl)) {
           return false;
         }
+        if (fromEl.hasAttribute("skip-morph")) {
+          return false;
+        }
         return true;
       }
     }, opts));
@@ -8395,7 +8398,12 @@ Expression: "${expression}"
       render() {
         if (this.ready) {
           morph_default(this.$el, store2.doc.getElementById(this.$el.id));
+          this.$dispatch("document:patched");
         }
+      },
+      navigateTo(path2) {
+        history.pushState({}, null, path2);
+        this.$dispatch("popstate");
       }
     };
   }
@@ -8469,6 +8477,24 @@ Expression: "${expression}"
     };
   }
 
+  // app/assets/lookbook/js/workbench/param.js
+  function param() {
+    return {
+      focused: false,
+      setFocus() {
+        if (this.focused) {
+          this.$el.focus();
+        }
+      },
+      update(name, value) {
+        const searchParams = new URLSearchParams(window.location.search);
+        searchParams.set(name, value);
+        const path2 = location.href.replace(location.search, "");
+        this.navigateTo(`${path2}?${searchParams.toString()}`);
+      }
+    };
+  }
+
   // app/assets/lookbook/js/nav.js
   function nav_default() {
     return {
@@ -8492,13 +8518,12 @@ Expression: "${expression}"
         });
       },
       navigate(path2) {
-        if (path2 instanceof Event) {
-          path2 = path2.currentTarget.href;
-        }
-        history.pushState({}, null, path2);
-        this.$dispatch("popstate");
+        this.navigateTo(path2 instanceof Event ? path2.currentTarget.href : path2);
       },
-      focusFilter() {
+      focusFilter($event) {
+        if ($event.target.tagName === "INPUT") {
+          return;
+        }
         this.currentFocus = this.$refs.filter;
         setTimeout(() => this.$refs.filter.focus(), 0);
       },
@@ -8666,6 +8691,7 @@ Expression: "${expression}"
   module_default.data("workbench", workbench);
   module_default.data("preview", preview);
   module_default.data("inspector", inspector);
+  module_default.data("param", param);
   module_default.data("clipboard", clipboard);
   module_default.data("sizeObserver", sizeObserver);
   module_default.data("split", split_default);

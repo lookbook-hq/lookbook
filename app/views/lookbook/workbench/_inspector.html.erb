@@ -20,7 +20,12 @@
   </div>
   <div class="flex-auto overflow-auto bg-gray-50">
     <% panes.each do |key, props| %>
-      <div class="flex flex-col h-full relative" x-show="active('<%= key %>')" x-cloak>
+      <div class="flex flex-col h-full relative" x-show="active('<%= key %>')" x-effect="
+        if ($store.inspector.active === '<%= key %>') {
+          const input = $el.querySelector('[data-param-input]');
+          if (input) setTimeout(() => input.focus(), 0)
+        }
+      " x-cloak>
         <% if props[:clipboard].present? %>
           <%= render "shared/clipboard" do %><%= h props[:clipboard].strip %><% end %>
         <% end %>
