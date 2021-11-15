@@ -27,7 +27,7 @@ module Lookbook
     end
 
     def params
-      [].tr("/", "-")
+      []
     end
 
     def hidden?
