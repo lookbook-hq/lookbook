@@ -120,6 +120,64 @@ module Lookbook
             end
           end
         end
+
+        context "with params" do
+          setup do
+            @preview = find_preview("param")
+          end
+
+          context "default param type" do
+            setup do
+              @example = @preview.example("default_input")
+              visit show_url @example.path
+            end
+
+            should "render a text input" do
+              within "#inspector-content-params" do
+                assert page.has_field?("blurb", type: "text", with: "default text")
+              end
+            end
+          end
+
+          context "text param" do
+            setup do
+              @example = @preview.example("text_input")
+              visit show_url @example.path
+            end
+
+            should "render a text input" do
+              within "#inspector-content-params" do
+                assert page.has_field?("blurb", type: "text", with: "default text")
+              end
+            end
+          end
+
+          context "textarea param" do
+            setup do
+              @example = @preview.example("textarea_input")
+              visit show_url @example.path
+            end
+
+            should "render a textarea" do
+              within "#inspector-content-params" do
+                assert page.has_css?("textarea[name='blurb']", text: "default text")
+              end
+            end
+          end
+
+          context "select param" do
+            setup do
+              @example = @preview.example("select_input")
+              visit show_url @example.path
+            end
+
+            should "render a select" do
+              within "#inspector-content-params" do
+                assert page.has_select?("#{@example.id}-param-blurb", with_selected: "option one", with_options: ["option one", "option two"])
+              end
+            end
+          end
+        end
       end
 
       context "preview not found" do
