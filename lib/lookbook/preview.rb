@@ -71,7 +71,7 @@ module Lookbook
     end
 
     def lookbook_id
-      lookbook_path.tr("_", "-")
+      lookbook_path.tr("/", "-").tr("_", "-")
     end
 
     def lookbook_layout

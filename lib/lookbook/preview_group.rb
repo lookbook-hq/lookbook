@@ -11,7 +11,7 @@ module Lookbook
     end
 
     def id
-      path.underscore.tr("_", "-")
+      path.underscore.tr("/", "-").tr("_", "-")
     end
 
     def path
@@ -27,7 +27,7 @@ module Lookbook
     end
 
     def params
-      []
+      [].tr("/", "-")
     end
 
     def hidden?
