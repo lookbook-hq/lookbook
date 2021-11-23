@@ -8491,7 +8491,7 @@ Expression: "${expression}"
     return {
       focused: false,
       setFocus() {
-        if (this.focused) {
+        if (this.focused && this.$el.focus) {
           this.$el.focus();
         }
       },
@@ -8500,6 +8500,9 @@ Expression: "${expression}"
         searchParams.set(name, value);
         const path2 = location.href.replace(location.search, "");
         this.navigateTo(`${path2}?${searchParams.toString()}`);
+      },
+      validate() {
+        return this.$el.reportValidity ? this.$el.reportValidity() : true;
       }
     };
   }

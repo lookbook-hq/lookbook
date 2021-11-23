@@ -2,7 +2,7 @@ export default function param() {
   return {
     focused: false,
     setFocus() {
-      if (this.focused) {
+      if (this.focused && this.$el.focus) {
         this.$el.focus();
       }
     },
@@ -11,6 +11,9 @@ export default function param() {
       searchParams.set(name, value);
       const path = location.href.replace(location.search, "");
       this.navigateTo(`${path}?${searchParams.toString()}`);
+    },
+    validate() {
+      return this.$el.reportValidity ? this.$el.reportValidity() : true;
     },
   };
 }
