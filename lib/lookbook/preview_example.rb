@@ -74,25 +74,8 @@ module Lookbook
     private
 
     def parameter_defaults
-      @parameter_defaults || code_object&.parameters&.map do |parsed_param|
-        name = parsed_param[0].chomp(":")
-        value = parsed_param[1].strip
-        value = case value
-        when "nil"
-          ""
-        when "true"
-          "true"
-        when "false"
-          "false"
-        else
-          if value.first == ":"
-            value.delete_prefix(":")
-          else
-            str_match = value.match(/^["'](.+)["']$/)
-            str_match ? str_match[1] : ""
-          end
-        end
-        [name, value]
+      @parameter_defaults || code_object&.parameters&.map do |param_str|
+        Lookbook::Params.parse_method_param_str(param_str)
       end.to_h
     end
 

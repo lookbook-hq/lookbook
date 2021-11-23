@@ -3,6 +3,26 @@ module Lookbook
     
     class << self
 
+      def parse_method_param_str(param_str)
+        name = param_str[0].chomp(":")
+        value = param_str[1].strip
+        value = case value
+        when "nil"
+          nil
+        when "true"
+          true
+        when "false"
+          false
+        else
+          if value.first == ":"
+            value.delete_prefix(":").to_sym
+          else
+            YAML.safe_load(value)
+          end
+        end
+        [name, value]
+      end
+
       def cast(value, type = "String")
         case type.downcase
         when "symbol"
