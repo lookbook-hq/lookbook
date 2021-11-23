@@ -8,7 +8,7 @@ module Lookbook
     prepend_view_path File.expand_path("../../views/lookbook", __dir__)
 
     layout "layouts/app"
-    helper Lookbook::Engine.helpers
+    helper Lookbook::ApplicationHelper
 
     before_action :find_preview, only: [:preview, :show]
     before_action :find_example, only: [:preview, :show]
@@ -108,7 +108,8 @@ module Lookbook
       example_params = example.nil? ? @preview.display_params : example.display_params
       preview_controller.params.merge!({
         lookbook: {
-          display: example_params
+          display: example_params,
+          preview: @preview
         }
       })
     end
