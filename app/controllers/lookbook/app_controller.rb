@@ -110,8 +110,21 @@ module Lookbook
         example.params.each do |param|
           if preview_controller.params.key?(param[:name])
             value = preview_controller.params[param[:name]]
-            if param[:type] == "Symbol"
-              preview_controller.params[param[:name]] = value.delete_prefix(":").to_sym
+            preview_controller.params[param[:name]] = case param[:type]
+            when "Symbol"
+              value.delete_prefix(":").to_sym
+            when "Hash"
+              begin
+                value.present? ? YAML.safe_load(value) : {}
+              rescue Psych::SyntaxError
+                {}
+              end
+            when "Array"
+              begin
+                value.present? ? YAML.safe_load(value) : []
+              rescue Psych::SyntaxError
+                []
+              end
             else
               type_class = "ActiveModel::Type::#{param[:type]}".constantize
               preview_controller.params[param[:name]] = type_class.new.cast(value)
