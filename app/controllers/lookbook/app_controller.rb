@@ -109,26 +109,7 @@ module Lookbook
         # cast known params to type
         example.params.each do |param|
           if preview_controller.params.key?(param[:name])
-            value = preview_controller.params[param[:name]]
-            preview_controller.params[param[:name]] = case param[:type]
-            when "Symbol"
-              value.delete_prefix(":").to_sym
-            when "Hash"
-              begin
-                value.present? ? YAML.safe_load(value) : {}
-              rescue Psych::SyntaxError
-                {}
-              end
-            when "Array"
-              begin
-                value.present? ? YAML.safe_load(value) : []
-              rescue Psych::SyntaxError
-                []
-              end
-            else
-              type_class = "ActiveModel::Type::#{param[:type]}".constantize
-              preview_controller.params[param[:name]] = type_class.new.cast(value)
-            end
+            preview_controller.params[param[:name]] = Lookbook::Params.cast(preview_controller.params[param[:name]], param[:type])
           end
         end
       end
@@ -136,8 +117,7 @@ module Lookbook
       example_params = example.nil? ? @preview.display_params : example.display_params
       preview_controller.params.merge!({
         lookbook: {
-          display: example_params,
-          preview: @preview
+          display: example_params
         }
       })
     end

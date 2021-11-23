@@ -8,6 +8,10 @@ module Lookbook
     def config
       @config ||= Engine.config.lookbook
     end
+
+    def logger
+      @logger ||= config.debug == true ? Rails.logger : Lookbook::NullLogger.new
+    end
   end
 
   class Engine < Rails::Engine
