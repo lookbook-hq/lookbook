@@ -262,11 +262,14 @@ These will be used as the default values for the param fields.
 
 #### Type casting values
 
-By default, dynamic param values are passed to the example method as strings. The one exception to this is when using the `toggle` field, in which case the value will be boolean `true` or `false`.
+Most dynamic param values are passed to the example method as strings, with the following exceptions:
+
+- `toggle` input - values are cast to booleans
+- `number` input - values are cast to integers
 
 In some cases, you may want to type cast the parameter value to something else (for example a `Symbol`) before using it when initializing the component.
 
-A `type` option can be specified in the `@param` definition to automatically cast the dynamic value to a different type:
+To help with this, a `type` option can be specified in the `@param` definition to automatically cast the dynamic value to a different type:
 
 ```ruby
 # @param <name> [<type>] <input_type> <opts?>

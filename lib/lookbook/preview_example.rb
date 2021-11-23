@@ -27,19 +27,7 @@ module Lookbook
 
     def params
       @params || code_object&.tags("param")&.map do |param|
-        input, options_str = param.text.present? ? param.text.split(" ", 2) : [nil, ""]
-        options = YAML.safe_load(options_str || "~")
-        type = param.types&.first
-        input ||= type == "Boolean" ? "toggle" : "text"
-        type ||= input == "toggle" ? "Boolean" : "String"
-        {
-          name: param.name,
-          input: input_text?(input) ? "text" : input,
-          input_type: (input if input_text?(input)),
-          options: options,
-          type: type,
-          default: parameter_defaults[param.name]
-        }
+        Lookbook::Params.build_param(param, parameter_defaults[param.name])
       end
     end
 
@@ -77,16 +65,6 @@ module Lookbook
       @parameter_defaults || code_object&.parameters&.map do |param_str|
         Lookbook::Params.parse_method_param_str(param_str)
       end.to_h
-    end
-
-    def input_text?(input_type)
-      [
-        "email",
-        "number",
-        "tel",
-        "text",
-        "url",
-      ].include? input_type
     end
 
     def taggable_object_path
