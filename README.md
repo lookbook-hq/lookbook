@@ -25,6 +25,7 @@ Lookbook uses [RDoc/Yard-style comment tags](#annotating-preview-files) to exten
 - Tree-style navigation menu with live search/filter
 - Resizable preview window for responsive testing
 - Highlighted preview source code and HTML output
+- In-browser live editable preview parameters (similar to Storybook Controls/Knobs)
 - Auto-updating UI when component or preview files are updated _(Rails v6.0+ only)_
 - Use comment tag annotations for granular customisation of the preview experience
 - Fully compatible with standard the ViewComponent preview system
@@ -182,9 +183,9 @@ end
 
 ### 🏷 @param
 
-The `@param` tag provides the ability to specify editable preview parameters which can be changed in the Lookbook UI in order to customise the rendered output on the fly, much like the [Knobs addon](https://storybook.js.org/addons/storybook-addon-knobs-color-options) for [Storybook](https://storybook.js.org/).
+The `@param` tag provides the ability to specify **editable preview parameters** which can be changed in the Lookbook UI in order to customise the rendered output on the fly, much like the [Controls (knobs) addon](https://storybook.js.org/addons/@storybook/addon-controls) for Storybook.
 
-Each `@param` will have an associated form field generated for it. The values for each field will be handles as [dynamic preview params](https://viewcomponent.org/guide/previews.html#:~:text=It%E2%80%99s%20also%20possible%20to%20set%20dynamic%20values%20from%20the%20params%20by%20setting%20them%20as%20arguments%3A) when rendering the example.
+Each `@param` will have an associated form field generated for it. The values for each field will be handled as [dynamic preview params](https://viewcomponent.org/guide/previews.html#:~:text=It%E2%80%99s%20also%20possible%20to%20set%20dynamic%20values%20from%20the%20params%20by%20setting%20them%20as%20arguments%3A) when rendering the example.
 
 The `@param` tag takes the following format:
 
@@ -196,45 +197,35 @@ The `@param` tag takes the following format:
 - `<input_type>` - input field type to generate in the UI 
 - `<opts?>` - YAML-encoded field options, used for some field types
 
-**Default values** are specified as part of the preview example method parameters in the usual Ruby way:
-
-```ruby
-def button(content: "Click me", theme: "primary", arrow: false)
-  # ...
-end
-```
-
-These will be used as the default values for the param fields.
-
-> Note that the default values are **not** evaluated at runtime, so you cannot use method calls to generate the defaults. Only simple string, booleans or symbols can be used as values.
+#### Input types
 
 The following **input field types** are available for use:
 
-#### 📝 Text input
-
-Single line text field, useful for short strings of text.
+📝 **Text-style inputs** - Single line fields, useful for short strings of text or numbers.
 
 ```ruby
 @param <name> text
+@param <name> email
+@param <name> number
+@param <name> url
+@param <name> tel
 ```
 
-#### 📝 Textarea
+> The above types only differ in the validation constraints they impose on the input field.
 
-Multi-line textarea field for longer-form content.
+📝 **Textarea** - Multi-line textarea field for longer-form content.
 
 ```ruby
 @param <name> textarea
 ```
 
-#### 📝 Select
-
-Dropdown select box input.
+📝 **Select box** - Dropdown select field for selecting from a list of known options.
 
 ```ruby
-@param <name> select <opts>
+@param <name> select <options>
 ```
 
-`<opts>` is a [YAML array](https://yaml.org/YAML_for_ruby.html#simple_inline_array) of options which should be formatted in the same style as the input for Rails' [`options_for_select`](https://apidock.com/rails/v6.0.0/ActionView/Helpers/FormOptionsHelper/options_for_select) helper. 
+`<options>` should be a [YAML array](https://yaml.org/YAML_for_ruby.html#simple_inline_array) of options which must be formatted in the same style as the input for Rails' [`options_for_select`](https://apidock.com/rails/v6.0.0/ActionView/Helpers/FormOptionsHelper/options_for_select) helper: 
 
 ```ruby
 # Basic options:
@@ -247,18 +238,67 @@ Dropdown select box input.
 # @param theme select [~, primary, secondary, danger]
 ```
 
-> Note that in most cases YAML does not require quoting of strings.
+> **Note**: In most cases YAML does not require quoting of strings, however if you are running into issues check out the [Ruby YAML docs](https://yaml.org/YAML_for_ruby.html) for a complete syntax reference.
 
-
-#### 📝 Toggle
-
-On/off toggle for boolean values.
+📝 **Toggle** - On/off switch for toggling boolean values.
 
 ```ruby
 @param <name> toggle
 ```
 
-#### @params example
+#### Default values
+
+Default values are specified as part of the preview example method parameters in the usual Ruby way:
+
+```ruby
+def button(content: "Click me", theme: "primary", arrow: false)
+  # ...
+end
+```
+
+These will be used as the default values for the param fields.
+
+> Note that the default values are **not** evaluated at runtime, so you cannot use method calls to generate the defaults. Only static default values are supported.
+
+#### Type casting values
+
+By default, dynamic param values are passed to the example method as strings. The one exception to this is when using the `toggle` field, in which case the value will be boolean `true` or `false`.
+
+In some cases, you may want to type cast the parameter value to something else (for example a `Symbol`) before using it when initializing the component.
+
+A `type` option can be specified in the `@param` definition to automatically cast the dynamic value to a different type:
+
+```ruby
+# @param <name> [<type>] <input_type> <opts?>
+```
+
+In the example below, the value of the `theme` param (by default a string) will be automatically cast to a Symbol, ready for use in instantiating the component.
+
+```ruby
+# @param theme [Symbol] select [primary, secondary, danger]
+def default(theme: :primary)
+  render Elements::ButtonComponent.new(theme: theme) do
+    "Click me"
+  end
+end
+```
+
+The supported types to cast to are:
+
+- `String` - *default for all except `toggle` inputs*
+- `Boolean` - *default for `toggle` inputs*
+- `Symbol`
+- `Date`
+- `DateTime`
+- `Integer`
+- `Float`
+
+The following structured types are also available but should be considered **experimental** - you may run into bugs!
+
+- `Hash` - *value string converted to Hash using the Ruby YAML parser*
+- `Array` - *value string converted to Array using the Ruby YAML parser*
+
+#### Full example:
 
 ```ruby
 class ButtonComponentPreview < ViewComponent::Preview
