@@ -98,20 +98,11 @@ module Lookbook
 
     def input_text?(input_type)
       [
-        "color",
-        "date",
-        "datetime",
         "email",
-        "hidden",
-        "month",
         "number",
-        "password",
-        "range",
         "tel",
         "text",
-        "time",
         "url",
-        "week"
       ].include? input_type
     end
 
