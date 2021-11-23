@@ -27,8 +27,8 @@ module Lookbook
           parts = tag.text.strip.match(/^([^\s]*)\s?(.*)$/)
           if parts.present?
             begin
-              display_params[parts[1]] = JSON.parse parts[2]
-            rescue JSON::ParserError => err
+              display_params[parts[1]] = YAML.safe_load(parts[2] || "~")
+            rescue SyntaxError => err
               Rails.logger.error("\n👀 [Lookbook] Invalid JSON in @display tag.\n👀 [Lookbook] (#{err})\n")
             end
           end
