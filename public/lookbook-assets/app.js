@@ -7333,7 +7333,9 @@ Expression: "${expression}"
   var module_default3 = src_default3;
 
   // node_modules/@ryangjchandler/alpine-clipboard/src/index.js
-  function src_default4(Alpine3) {
+  var onCopy = () => {
+  };
+  function Clipboard(Alpine3) {
     Alpine3.magic("clipboard", () => {
       return function(target) {
         if (typeof target === "function") {
@@ -7342,10 +7344,17 @@ Expression: "${expression}"
         if (typeof target === "object") {
           target = JSON.stringify(target);
         }
-        return window.navigator.clipboard.writeText(target);
+        return window.navigator.clipboard.writeText(target).then(onCopy);
       };
     });
   }
+  Clipboard.configure = (config) => {
+    if (config.hasOwnProperty("onCopy") && typeof config.onCopy === "function") {
+      onCopy = config.onCopy;
+    }
+    return Clipboard;
+  };
+  var src_default4 = Clipboard;
 
   // app/assets/lookbook/js/utils/screen.js
   function screen_default(Alpine3) {

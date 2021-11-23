@@ -90,6 +90,19 @@ class ButtonComponentPreview < ViewComponent::Preview
     end
   end
 
+  # Button with icon
+  # ----------------
+  # This example uses dynamic preview parameters
+  # which can be edited live in the Lookbook UI 
+  #
+  # @param text
+  # @param icon select [heart, cog, alert]
+  def icon(text: "Spread the love", icon: "heart")
+    render ButtonComponent.new(icon: icon) do
+      text
+    end
+  end
+
   # Inverted button
   # ---------------
   # For light-on-dark screens
@@ -141,14 +154,19 @@ end
 
 The following Lookbook-specific tags are available for use:
 
-* `@label <label>` -[Customise navigation labels](#-label-text)
-* `@hidden` - [Prevent items displaying in the navigation](#-hidden)
-* `@display <key> <value>` - [Specify params to pass into the preview template](#-display-key-value)
-* `@!group <name> ... @!endgroup` - [Render examples in a group on the same page](#-group-name--endgroup)
+* [`@label`](#-label)
+* [`@param`](#-param)
+* [`@display`](#-display)
+* [`@!group ... @!endgroup`](#-group--endgroup)
+* [`@hidden`](#-hidden)
 
-### 🔖 `@label <text>`
+### 🏷 @label
 
 Used to replace the auto-generated navigation label for the item with `<text>`.
+
+```ruby
+@label <text>
+```
 
 > Available for preview classes & example methods.
 
@@ -162,25 +180,106 @@ class FooComponentPreview < ViewComponent::Preview
 end
 ```
 
-### 🔖 `@hidden`
+### 🏷 @param
 
-Used to temporarily exclude an item from the Lookbook navigation. The item will still be accessible via it's URL.
+The `@param` tag provides the ability to specify editable preview parameters which can be changed in the Lookbook UI in order to customise the rendered output on the fly, much like the [Knobs addon](https://storybook.js.org/addons/storybook-addon-knobs-color-options) for [Storybook](https://storybook.js.org/).
 
-Can be useful when a component (or a variant of a component) is still in development and is not ready to be shared with the wider team.
+Each `@param` will have an associated form field generated for it. The values for each field will be handles as [dynamic preview params](https://viewcomponent.org/guide/previews.html#:~:text=It%E2%80%99s%20also%20possible%20to%20set%20dynamic%20values%20from%20the%20params%20by%20setting%20them%20as%20arguments%3A) when rendering the example.
 
-> Available for both preview classes & example methods.
+The `@param` tag takes the following format:
 
 ```ruby
-# @hidden
-class FooComponentPreview < ViewComponent::Preview
+@param <name> <input_type> <opts?>
+```
 
-  # @hidden
-  def default
-  end
+- `<name>` - name of the dynamic preview param
+- `<input_type>` - input field type to generate in the UI 
+- `<opts?>` - YAML-encoded field options, used for some field types
+
+**Default values** are specified as part of the preview example method parameters in the usual Ruby way:
+
+```ruby
+def button(content: "Click me", theme: "primary", arrow: false)
+  # ...
 end
 ```
 
-### 🔖 `@display <key> <value>`
+These will be used as the default values for the param fields.
+
+> Note that the default values are **not** evaluated at runtime, so you cannot use method calls to generate the defaults. Only simple string, booleans or symbols can be used as values.
+
+The following **input field types** are available for use:
+
+#### 📝 Text input
+
+Single line text field, useful for short strings of text.
+
+```ruby
+@param <name> text
+```
+
+#### 📝 Textarea
+
+Multi-line textarea field for longer-form content.
+
+```ruby
+@param <name> textarea
+```
+
+#### 📝 Select
+
+Dropdown select box input.
+
+```ruby
+@param <name> select <opts>
+```
+
+`<opts>` is a [YAML array](https://yaml.org/YAML_for_ruby.html#simple_inline_array) of options which should be formatted in the same style as the input for Rails' [`options_for_select`](https://apidock.com/rails/v6.0.0/ActionView/Helpers/FormOptionsHelper/options_for_select) helper. 
+
+```ruby
+# Basic options:
+# @param theme select [primary, secondary, danger]
+
+# With custom labels (each item itself an array of [label, value]):
+# @param theme select [[Primary theme, primary], [Secondary theme, secondary], [Danger theme, danger]]
+
+# With empty option (`~` in YAML)
+# @param theme select [~, primary, secondary, danger]
+```
+
+> Note that in most cases YAML does not require quoting of strings.
+
+
+#### 📝 Toggle
+
+On/off toggle for boolean values.
+
+```ruby
+@param <name> toggle
+```
+
+#### @params example
+
+```ruby
+class ButtonComponentPreview < ViewComponent::Preview
+  
+  # The params defined below will be editable in the UI:
+  #
+  # @param content text
+  # @param theme select [primary, secondary, danger]
+  # @param arrow toggle
+  def default(content: "Click me", theme: "primary", arrow: true)
+    render Elements::ButtonComponent.new(theme: theme, arrow: arrow) do
+      content
+    end
+  end
+
+end
+```
+
+<img src=".github/assets/dynamic_params.png">
+
+### 🏷 @display
 
 The `@display` tag lets you pass custom parameters to your preview layout so that the component preview can be customised on a per-example basis.
 
@@ -198,7 +297,7 @@ end
 The `@display` tag can be applied at the preview (class) or at the example (method) level, and takes the following format:
 
 ```ruby
-# @display <key> <value>
+@display <key> <value>
 ```
 
 - `<key>` must be a valid Ruby hash key name, without quotes or spaces
@@ -242,7 +341,7 @@ config.lookbook.preview_display_params = {
 
 Globally defined display params will be available to all previews. Any preview or example-level `@display` values with the same name will take precedence and override a globally-set one.
 
-### 🔖 `@!group <name> ... @!endgroup`
+### 🔖 `@!group ... @!endgroup`
 
 For smaller components, it can often make sense to render a set of preview examples in a single window, rather than representing them as individual items in the navigation which can start to look a bit cluttered.
 
@@ -287,6 +386,24 @@ The example above would display the `Sizes` examples grouped together on a singl
 <img src=".github/assets/nav_group.png">
 
 You can have as many groups as you like within a single preview class, but each example can only belong to one group.
+
+### 🏷 `@hidden`
+
+Used to temporarily exclude an item from the Lookbook navigation. The item will still be accessible via it's URL.
+
+Can be useful when a component (or a variant of a component) is still in development and is not ready to be shared with the wider team.
+
+> Available for both preview classes & example methods.
+
+```ruby
+# @hidden
+class FooComponentPreview < ViewComponent::Preview
+
+  # @hidden
+  def default
+  end
+end
+```
 
 ### Adding notes
 
