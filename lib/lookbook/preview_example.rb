@@ -100,7 +100,7 @@ module Lookbook
       [
         "color",
         "date",
-        "datetime-local",
+        "datetime",
         "email",
         "hidden",
         "month",
