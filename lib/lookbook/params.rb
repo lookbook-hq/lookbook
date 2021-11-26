@@ -1,14 +1,12 @@
 module Lookbook
   module Params
-    
     class << self
-
       def build_param(param, default)
         input, options_str = param.text.present? ? param.text.split(" ", 2) : [nil, ""]
         type = param.types&.first
         options = YAML.safe_load(options_str || "~")
-        input = get_input(input, type)
-        type = get_type(type, input)
+        input ||= guess_input(type, default)
+        type ||= guess_type(input, default)
         {
           name: param.name,
           input: input_text?(input) ? "text" : input,
@@ -25,10 +23,6 @@ module Lookbook
         value = case value
         when "nil"
           nil
-        when "true"
-          true
-        when "false"
-          false
         else
           if value.first == ":"
             value.delete_prefix(":").to_sym
@@ -56,6 +50,7 @@ module Lookbook
             Lookbook.logger.debug "Failed to parse '#{value}' into an Array"
             result = []
           end
+          result
         else
           begin
             type_class = "ActiveModel::Type::#{type}".constantize
@@ -68,45 +63,47 @@ module Lookbook
 
       private
 
-      def get_input(input, type = "String")
-        input ||= case type&.downcase
-        when "boolean"
+      def guess_input(type, default)
+        if type&.downcase == "boolean" || (type.blank? && boolean?(default))
           "toggle"
         else
           "text"
         end
       end
 
-      def get_type(type, input = "text")
-        type ||= case input&.downcase
-        when "toggle"
+      def guess_type(input, default)
+        if input&.downcase == "toggle"
           "Boolean"
-        when "number"
+        elsif input&.downcase == "number"
           "Integer"
+        elsif boolean?(default)
+          "Boolean"
+        elsif default.is_a? Symbol
+          "Symbol"
         else
           "String"
         end
       end
 
       def input_text?(input)
-      [
-        "email",
-        "number",
-        "tel",
-        "text",
-        "url",
-      ].include? input
-    end
-
-      def safe_parse_yaml(value, fallback)
-        begin
-          value.present? ? YAML.safe_load(value) : fallback
-        rescue Psych::SyntaxError
-          fallback
-        end
+        [
+          "email",
+          "number",
+          "tel",
+          "text",
+          "url"
+        ].include? input
       end
 
-    end
+      def safe_parse_yaml(value, fallback)
+        value.present? ? YAML.safe_load(value) : fallback
+      rescue Psych::SyntaxError
+        fallback
+      end
 
+      def boolean?(value)
+        value == true || value == false
+      end
+    end
   end
 end
