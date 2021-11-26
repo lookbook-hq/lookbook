@@ -5,6 +5,7 @@ module Lookbook
   extend ActiveSupport::Autoload
 
   autoload :Lang, "lookbook/lang"
+  autoload :Features, "lookbook/features"
   autoload :Collection, "lookbook/collection"
   autoload :Parser, "lookbook/parser"
   autoload :Preview, "lookbook/preview"
