@@ -23,5 +23,7 @@ module Dummy
       text_color: "red",
       foo_count: 1
     }
+
+    config.lookbook.experimental_features = true
   end
 end

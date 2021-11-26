@@ -105,7 +105,7 @@ module Lookbook
     end
 
     def set_params(example = nil)
-      if example.present?
+      if example.present? && enabled?(:params)
         # cast known params to type
         example.params.each do |param|
           if preview_controller.params.key?(param[:name])
@@ -145,16 +145,18 @@ module Lookbook
             hotkey: "n",
             items: @notes,
             disabled: @notes.none?
-          },
-          params: {
-            label: "Params",
-            template: "params",
-            hotkey: "p",
-            items: @source.many? ? [] : @example.params,
-            disabled: @source.many? || @example.params.none?
           }
         }
       }
+      if enabled?(:params)
+        @inspector[:panes][:params] = {
+          label: "Params",
+          template: "params",
+          hotkey: "p",
+          items: @source.many? ? [] : @example.params,
+          disabled: @source.many? || @example.params.none?
+        }
+      end
     end
 
     def assign_nav
@@ -189,6 +191,10 @@ module Lookbook
       controller.request = request
       controller.response = response
       @preview_controller ||= controller
+    end
+
+    def enabled?(feature)
+      Lookbook::Features.enabled?(feature)
     end
   end
 end
