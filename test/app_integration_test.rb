@@ -231,17 +231,17 @@ module Lookbook
           setup do
             visit preview_url example_path("custom_layout")
           end
-  
+
           should "use the custom layout" do
             assert page.has_title?("Custom Layout")
           end
         end
-        
+
         context "grouped" do
           setup do
             visit preview_url example_path("custom_layout", "test")
           end
-  
+
           should "use the custom layout" do
             assert page.has_title?("Custom Layout")
           end
@@ -278,11 +278,10 @@ module Lookbook
           assert page.has_no_content?("Misc four")
         end
 
-         should "use the default layout" do
+        should "use the default layout" do
           assert page.has_title?("Preview Layout")
         end
       end
-      
     end
   end
 end

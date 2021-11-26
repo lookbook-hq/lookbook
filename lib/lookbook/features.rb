@@ -1,6 +1,5 @@
 module Lookbook
   module Features
-
     EXPERIMENTAL_FEATURES = [:params]
 
     def self.experimental_feature?(name)
