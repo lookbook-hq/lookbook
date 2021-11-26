@@ -25,10 +25,10 @@ Lookbook uses [RDoc/Yard-style comment tags](#annotating-preview-files) to exten
 - Tree-style navigation menu with live search/filter
 - Resizable preview window for responsive testing
 - Highlighted preview source code and HTML output
-- In-browser live editable preview parameters (similar to Storybook Controls/Knobs)
 - Auto-updating UI when component or preview files are updated _(Rails v6.0+ only)_
 - Use comment tag annotations for granular customisation of the preview experience
 - Fully compatible with standard the ViewComponent preview system
+- [**Experimental**] In-browser live editable preview parameters (similar to Storybook Controls/Knobs)
 
 ## Lookbook demo
 
@@ -155,13 +155,13 @@ end
 
 The following Lookbook-specific tags are available for use:
 
-* [`@label`](#-label)
-* [`@param`](#-param)
-* [`@display`](#-display)
-* [`@!group ... @!endgroup`](#-group--endgroup)
-* [`@hidden`](#-hidden)
+* [`@label`](#label-tag)
+* [`@display`](#display-tag)
+* [`@!group ... @!endgroup`](#group-tag)
+* [`@hidden`](#hidden-tag)
+* [`@param`](#param-tag) [⚠️ **experimental!** - requires [feature opt-in](#experimental-features) ⚠️]
 
-### 🏷 @label
+<h3 id="label-tag">🏷 @label</h3>
 
 Used to replace the auto-generated navigation label for the item with `<text>`.
 
@@ -181,7 +181,135 @@ class FooComponentPreview < ViewComponent::Preview
 end
 ```
 
-### 🏷 @param
+<h3 id="display-tag">🏷 @display</h3>
+
+The `@display` tag lets you pass custom parameters to your preview layout so that the component preview can be customised on a per-example basis.
+
+```ruby
+# @display bg_color #eee
+class FooComponentPreview < ViewComponent::Preview
+
+  # @display max_width 500px
+  # @display wrapper true
+  def default
+  end
+end
+```
+
+The `@display` tag can be applied at the preview (class) or at the example (method) level, and takes the following format:
+
+```ruby
+@display <key> <value>
+```
+
+- `<key>` must be a valid Ruby hash key name, without quotes or spaces
+- `<value>` will be parsed using the [Ruby YAML parser](https://yaml.org/YAML_for_ruby.html) to resolve the value
+
+These display parameters can then be accessed via the `params` hash in your preview layout using `params[:lookbook][:display][<key>]`:
+
+```html
+<!DOCTYPE html>
+<html style="background-color: <%= params[:lookbook][:display][:bg_color] %>">
+  <head>
+    <title>Preview Layout</title>
+  </head>
+  <body>
+    <div style="max-width: <%= params[:lookbook][:display][:max_width] || '100%' %>">
+      <% if params[:lookbook][:display][:wrapper] == true %>
+        <div class="wrapper"><%= yield %></div>
+      <% else %>
+        <%= yield %>
+      <% end %>
+    </div>
+  </body>
+</html>
+```
+
+> By default ViewComponent will use your default application layout for displaying the rendered example. However it's often better to create a seperate layout that you can customise and use specifically for previewing your components. See the  ViewComponent [preview docs](https://viewcomponent.org/guide/previews.html) for instructions on how to set that up.
+
+Any `@display` params set at the preview (class) level with be merged with those set on individual example methods.
+
+#### Global display params
+
+Global (fallback) display params can be defined via a configuration option:
+
+```ruby
+# config/application.rb
+config.lookbook.preview_display_params = {
+  bg_color: "#fff",
+  max_width: "100%"
+}
+```
+
+Globally defined display params will be available to all previews. Any preview or example-level `@display` values with the same name will take precedence and override a globally-set one.
+
+<h3 id="group-tag">🔖 `@!group ... @!endgroup`</h3>
+
+For smaller components, it can often make sense to render a set of preview examples in a single window, rather than representing them as individual items in the navigation which can start to look a bit cluttered.
+
+You can group a set of examples by wrapping them in `@!group <name>` / `@!endgroup` tags within your preview file:
+
+```ruby
+class HeaderComponentPreview < ViewComponent::Preview
+
+  def standard
+    render Elements::HeaderComponent.new do
+      "Standard header"
+    end
+  end
+
+  # @!group Sizes
+
+  def small
+    render Elements::HeaderComponent.new(size: 12) do
+      "Small header"
+    end
+  end
+
+  def medium
+    render Elements::HeaderComponent.new(size: 16) do
+      "Small header"
+    end
+  end
+
+  def big
+    render Elements::HeaderComponent.new(size: 24) do
+      "Small header"
+    end
+  end
+
+  # @!endgroup
+
+end
+```
+
+The example above would display the `Sizes` examples grouped together on a single page, rather than as indiviual items in the navigation:
+
+<img src=".github/assets/nav_group.png">
+
+You can have as many groups as you like within a single preview class, but each example can only belong to one group.
+
+<h3 id="hidden-tag">🏷 `@hidden`</h3>
+
+Used to temporarily exclude an item from the Lookbook navigation. The item will still be accessible via it's URL.
+
+Can be useful when a component (or a variant of a component) is still in development and is not ready to be shared with the wider team.
+
+> Available for both preview classes & example methods.
+
+```ruby
+# @hidden
+class FooComponentPreview < ViewComponent::Preview
+
+  # @hidden
+  def default
+  end
+end
+```
+
+<h3 id="param-tag"> 🚧 @param (experimental)</h3>
+
+> ⚠️ This feature is currently flagged as an **experimental** feature which requires [feature opt-in](#experimental-features) to use. Its API and implementation may change in the future.
 
 The `@param` tag provides the ability to specify **editable preview parameters** which can be changed in the Lookbook UI in order to customise the rendered output on the fly, much like the [Controls (knobs) addon](https://storybook.js.org/addons/@storybook/addon-controls) for Storybook.
 
@@ -322,132 +450,6 @@ end
 
 <img src=".github/assets/dynamic_params.png">
 
-### 🏷 @display
-
-The `@display` tag lets you pass custom parameters to your preview layout so that the component preview can be customised on a per-example basis.
-
-```ruby
-# @display bg_color #eee
-class FooComponentPreview < ViewComponent::Preview
-
-  # @display max_width 500px
-  # @display wrapper true
-  def default
-  end
-end
-```
-
-The `@display` tag can be applied at the preview (class) or at the example (method) level, and takes the following format:
-
-```ruby
-@display <key> <value>
-```
-
-- `<key>` must be a valid Ruby hash key name, without quotes or spaces
-- `<value>` will be parsed using the [Ruby YAML parser](https://yaml.org/YAML_for_ruby.html) to resolve the value
-
-These display parameters can then be accessed via the `params` hash in your preview layout using `params[:lookbook][:display][<key>]`:
-
-```html
-<!DOCTYPE html>
-<html style="background-color: <%= params[:lookbook][:display][:bg_color] %>">
-  <head>
-    <title>Preview Layout</title>
-  </head>
-  <body>
-    <div style="max-width: <%= params[:lookbook][:display][:max_width] || '100%' %>">
-      <% if params[:lookbook][:display][:wrapper] == true %>
-        <div class="wrapper"><%= yield %></div>
-      <% else %>
-        <%= yield %>
-      <% end %>
-    </div>
-  </body>
-</html>
-```
-
-> By default ViewComponent will use your default application layout for displaying the rendered example. However it's often better to create a seperate layout that you can customise and use specifically for previewing your components. See the  ViewComponent [preview docs](https://viewcomponent.org/guide/previews.html) for instructions on how to set that up.
-
-Any `@display` params set at the preview (class) level with be merged with those set on individual example methods.
-
-#### Global display params
-
-Global (fallback) display params can be defined via a configuration option:
-
-```ruby
-# config/application.rb
-config.lookbook.preview_display_params = {
-  bg_color: "#fff",
-  max_width: "100%"
-}
-```
-
-Globally defined display params will be available to all previews. Any preview or example-level `@display` values with the same name will take precedence and override a globally-set one.
-
-### 🔖 `@!group ... @!endgroup`
-
-For smaller components, it can often make sense to render a set of preview examples in a single window, rather than representing them as individual items in the navigation which can start to look a bit cluttered.
-
-You can group a set of examples by wrapping them in `@!group <name>` / `@!endgroup` tags within your preview file:
-
-```ruby
-class HeaderComponentPreview < ViewComponent::Preview
-
-  def standard
-    render Elements::HeaderComponent.new do
-      "Standard header"
-    end
-  end
-
-  # @!group Sizes
-
-  def small
-    render Elements::HeaderComponent.new(size: 12) do
-      "Small header"
-    end
-  end
-
-  def medium
-    render Elements::HeaderComponent.new(size: 16) do
-      "Small header"
-    end
-  end
-
-  def big
-    render Elements::HeaderComponent.new(size: 24) do
-      "Small header"
-    end
-  end
-
-  # @!endgroup
-
-end
-```
-
-The example above would display the `Sizes` examples grouped together on a single page, rather than as indiviual items in the navigation:
-
-<img src=".github/assets/nav_group.png">
-
-You can have as many groups as you like within a single preview class, but each example can only belong to one group.
-
-### 🏷 `@hidden`
-
-Used to temporarily exclude an item from the Lookbook navigation. The item will still be accessible via it's URL.
-
-Can be useful when a component (or a variant of a component) is still in development and is not ready to be shared with the wider team.
-
-> Available for both preview classes & example methods.
-
-```ruby
-# @hidden
-class FooComponentPreview < ViewComponent::Preview
-
-  # @hidden
-  def default
-  end
-end
-```
-
 ### Adding notes
 
 All comment text other than tags will be treated as markdown and rendered in the **Notes** panel for that example in the Lookbook UI.
@@ -489,6 +491,33 @@ If you wish to add additional paths to listen for changes in, you can use the `l
 ```ruby
 config.lookbook.listen_paths << Rails.root.join('app/other/directory')
 ```
+
+<h3 id="experimental-features">Experimental features opt-in</h3>
+
+Some features may occasionally be released behind a 'experimental' feature flag while they are being tested and refined, to allow people to try them out and provide feedback.
+
+> ⚠️ **Please note:** Experimental features should be considered to be **subject to extensive change** and breaking changes to them may be made within point releases - these features are **not** considered to be covered by [semver](https://semver.org/) whilst flagged as 'experimental'. ⚠️
+
+#### Opting into specific features (recommended)
+
+To opt into individual experimental features, include the name of the feature in the `experimental_features` config option:
+
+```ruby
+config.lookbook.experimental_features = ["feature_name"]
+```
+
+The current experimental features that can be opted into are:
+
+- `params`: Live-editable, dynamic preview parameters ([read more](#param-tag)). Include `"params"` in the `experimental_features` config option to opt in. 
+
+#### Opting into all experimental features (not recommended!)
+
+If you want to live life on the bleeding-edge you can opt-in to all current **and future** experimental features (usual caveats apply):
+
+```ruby
+config.lookbook.experimental_features = true
+```
+
 
 ## Keyboard shortcuts
 
