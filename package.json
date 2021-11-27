@@ -1,15 +1,23 @@
 {
   "name": "lookbook",
   "version": "0.4.6",
-  "private": true,
   "description": "A native development UI for ViewComponent",
+  "targets": {
+    "app": {
+      "source": [
+        "./app/assets/lookbook/js/app.js",
+        "./app/assets/lookbook/css/app.css"
+      ],
+      "distDir": "./public/lookbook-assets",
+      "engines": {
+        "browsers": "> 0.5%, last 2 versions, not dead"
+      }
+    }
+  },
   "scripts": {
-    "css:watch": "npx tailwindcss -i ./app/assets/lookbook/css/app.css -o ./public/lookbook-assets/app.css --watch --postcss",
-    "css:build": "NODE_ENV=production npx tailwindcss -i ./app/assets/lookbook/css/app.css -o ./public/lookbook-assets/app.css --postcss",
-    "js:watch": "NODE_ENV=development node esbuild.config.js",
-    "js:build": "NODE_ENV=production node esbuild.config.js",
-    "dev": "concurrently \"npm:css:watch\" \"npm:js:watch\"",
-    "build": "concurrently \"npm:css:build\" \"npm:js:build\"",
+    "dev": "parcel watch",
+    "build": "parcel build --no-cache",
+    "clean": "rm -rf .parcel-cache",
     "lint:fix": "standardrb --fix && prettier --write .",
     "release": "release-it",
     "release:dry-run": "release-it --dry-run"
@@ -18,12 +26,11 @@
   "license": "MIT",
   "devDependencies": {
     "autoprefixer": "^10.3.7",
-    "concurrently": "^6.3.0",
-    "esbuild": "^0.12.29",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.2",
+    "parcel": "^2.0.1",
     "postcss-import": "^14.0.2",
     "prettier": "2.3.2",
     "release-it": "^14.11.6"
