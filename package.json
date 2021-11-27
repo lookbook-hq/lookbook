@@ -43,7 +43,7 @@
     "@ryangjchandler/fern": "^0.1.0",
     "@tailwindcss/forms": "^0.3.4",
     "@tailwindcss/typography": "^0.4.1",
-    "alpinejs": "3.4.2",
+    "alpinejs": "^3.5.2",
     "debounce": "^1.2.1",
     "morphdom": "^2.6.1",
     "split-grid": "^1.0.11",
