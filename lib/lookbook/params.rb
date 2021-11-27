@@ -18,13 +18,14 @@ module Lookbook
       end
 
       def parse_method_param_str(param_str)
+        return nil if param_str[0].nil? || param_str[1].nil?
         name = param_str[0].chomp(":")
-        value = param_str[1].strip
+        value = param_str[1]&.strip
         value = case value
         when "nil"
           nil
         else
-          if value.first == ":"
+          if value&.first == ":"
             value.delete_prefix(":").to_sym
           else
             YAML.safe_load(value)

@@ -64,7 +64,7 @@ module Lookbook
     def parameter_defaults
       @parameter_defaults || code_object&.parameters&.map do |param_str|
         Lookbook::Params.parse_method_param_str(param_str)
-      end.to_h
+      end&.compact&.to_h
     end
 
     def taggable_object_path
