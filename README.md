@@ -34,7 +34,9 @@ Lookbook uses [RDoc/Yard-style comment tags](#annotating-preview-files) to exten
 
 If you want to have a quick play with Lookbook, the easiest way is to [give the demo app](https://github.com/allmarkedup/lookbook-demo) a spin. It's a basic Rails/ViewComponent app with a few test components included to tinker with.
 
-The [demo app repo](https://github.com/allmarkedup/lookbook-demo) contains instructions on how to get it up and running.
+**Online demo: https://lookbook-demo-app.herokuapp.com/lookbook**
+
+If you'd rather dig in a bit more and run the demo app locally, the [demo repo](https://github.com/allmarkedup/lookbook-demo) contains instructions on how to get it up and running.
 
 ## Installing
 
