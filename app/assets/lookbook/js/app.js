@@ -3,7 +3,6 @@ import Alpine from "alpinejs";
 import Persist from "@alpinejs/persist";
 import Morph from "@alpinejs/morph";
 import Tooltip from "@ryangjchandler/alpine-tooltip";
-import Clipboard from "@ryangjchandler/alpine-clipboard";
 
 import page from "./components/page";
 import splitter from "./components/splitter";
@@ -28,7 +27,6 @@ import initInspectorStore from "./stores/inspector";
 Alpine.plugin(Persist);
 Alpine.plugin(Morph);
 Alpine.plugin(Tooltip);
-Alpine.plugin(Clipboard);
 
 // Stores
 
