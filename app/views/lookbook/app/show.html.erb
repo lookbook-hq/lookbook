@@ -1,1 +1,17 @@
-<%= render "shared/workbench" %>
+<div id="inspector" class="bg-gray-50 h-screen flex flex-col" x-data="inspector">
+  <%= render "app/inspector/header", preview: @preview, example: @example %>
+  <div class="md:grid flex-grow" :style="`grid-template-rows: 1fr 1px ${$store.inspector.tabs.height}px`">
+    <%= render "app/inspector/preview" %>
+    <% if @inspector %>
+      <div
+        x-data="splitter('horizontal', {minSize: $store.sidebar.minWidth})"
+        class="w-full gutter border-t border-gray-300 relative"
+        x-effect="$store.inspector.tabs.height = splits[2] || $store.inspector.tabs.height"
+        x-show="$store.layout.desktop"
+      >
+        <div class="h-[11px] w-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute left-0 right-0 transform -translate-y-1/2 cursor-[row-resize]"></div>
+      </div>
+      <%= render "app/inspector/tabs", **@inspector %>
+    <% end %>
+  </div>
+</div>

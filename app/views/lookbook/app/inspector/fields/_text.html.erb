@@ -1,0 +1,8 @@
+<input
+  id="<%= id %>"
+  class="form-input"
+  type="<%= input_type %>"
+  name="<%= name %>"
+  value="<%= value %>"
+  @keyup.stop.debounce.400="if (validate()) update($el.name, $el.value)"
+  x-ref="input">

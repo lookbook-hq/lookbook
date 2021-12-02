@@ -1,0 +1,13 @@
+<div id="<%= id %>" x-init="checked = <%= value == true || value == "true" ? "true" : "false" %>" x-ref="input">
+  <button type="button"
+    class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400"
+    :class="{'bg-indigo-500': checked, 'bg-gray-300': !checked}"
+    role="switch"
+    @click.stop="checked = !checked; update('<%= name %>', checked)">
+    <span
+      aria-hidden="true"
+      class="pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"
+      :class="{'translate-x-5': checked, 'translate-x-0': !checked}"
+    ></span>
+  </button>
+</div>

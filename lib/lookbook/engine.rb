@@ -82,7 +82,10 @@ module Lookbook
         parser.parse
         if app.config.lookbook.auto_refresh
           if (modified.any? || removed.any?) && added.none?
-            Lookbook::Engine.websocket.broadcast("reload", {modified: modified, removed: removed})
+            Lookbook::Engine.websocket.broadcast("reload", {
+              modified: modified,
+              removed: removed
+            })
           end
         end
       end

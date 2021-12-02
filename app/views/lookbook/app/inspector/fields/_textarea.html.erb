@@ -1,0 +1,8 @@
+<textarea
+  id="<%= id %>"
+  class="form-input"
+  name="<%= name %>"
+  rows="4"
+  @keyup.stop.debounce.300="update($el.name, $el.value)"
+  x-ref="input"
+><%= value %></textarea>

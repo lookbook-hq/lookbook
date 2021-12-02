@@ -1,0 +1,23 @@
+<%
+path = show_path leaf.path
+display ||= :leaf
+label ||= leaf.label
+%>
+<li id="<%= leaf.id %>" x-data="navLeaf(<%= leaf.matchers.to_json %>)" :class="{hidden}" data-path="<%= path %>">
+  <a href="<%= path %>"
+    class="nav-link pr-3 py-[5px] flex items-center w-full group transition hover:bg-gray-200 hover:bg-opacity-50"
+    style="<%= nav_padding_style(depth) %>"
+    x-ref="link"
+    :class="{'!bg-indigo-100':active}"
+    @click.stop.prevent="navigate"
+  >
+    <div class="relative w-3.5 h-3.5 mr-1.5 <%= "ml-[3px]" if display == :node %> " :class="active ? 'text-gray-900' : 'text-indigo-500'">
+      <svg class="feather flex-none group-hover:text-indigo-800 transition w-3.5 h-3.5">
+        <use xlink:href="/lookbook-assets/feather-sprite.svg#<%= display == :node ? "layers" : "eye" %>" />
+      </svg>
+    </div>
+    <div class="truncate whitespace-nowrap select-none <%= "font-bold" if display == :node %>">
+      <%= label %>
+    </div>
+  </a>
+</li>

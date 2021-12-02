@@ -1,0 +1,2 @@
+<pre data-morph="replace"><code class="h-full p-4 block highlight font-monospace" style="background-image: none"><% items.each_with_index do |item, i| %><%== highlight( "#{items.many? ? item[:label] + "\n" : ""}#{item[:content].strip}#{items.many? && i < items.size - 1 ? "\n" : ""}", item[:lang][:name]) %>
+<% end %></code></pre>

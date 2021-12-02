@@ -32,13 +32,13 @@ module Lookbook
         end
 
         should "display the correct preview example" do
-          within "#workbench header" do
+          within "#inspector header" do
             assert page.has_content?(@preview.label)
           end
         end
 
         should "render the preview in an iframe" do
-          within "#workbench" do
+          within "#inspector" do
             assert page.has_selector?("iframe[src='#{preview_path @example_path}']")
           end
         end
@@ -63,7 +63,7 @@ module Lookbook
         end
 
         should "display the correct preview example" do
-          within "#workbench header" do
+          within "#inspector header" do
             assert page.has_content?(@preview.label)
           end
         end
@@ -81,7 +81,7 @@ module Lookbook
           end
 
           should "display the correct label in the workbench" do
-            within "#workbench header" do
+            within "#inspector header" do
               assert page.has_content?("Relabelled")
             end
           end
@@ -173,7 +173,7 @@ module Lookbook
 
             should "render a select" do
               within "#inspector-content-params" do
-                assert page.has_select?("#{@example.id}-param-blurb", with_selected: "option one", with_options: ["option one", "option two"])
+                assert page.has_select?("#{@example.id}-param-blurb-field", with_selected: "option one", with_options: ["option one", "option two"])
               end
             end
           end

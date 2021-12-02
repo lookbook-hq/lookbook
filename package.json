@@ -36,16 +36,16 @@
     "release-it": "^14.11.6"
   },
   "dependencies": {
+    "@alpinejs/morph": "^3.5.2",
+    "@alpinejs/persist": "^3.5.2",
     "@github/hotkey": "^1.6.0",
     "@rails/actioncable": "^6.1.4",
     "@ryangjchandler/alpine-clipboard": "^2.0.0",
     "@ryangjchandler/alpine-tooltip": "^0.1.2",
-    "@ryangjchandler/fern": "^0.1.0",
     "@tailwindcss/forms": "^0.3.4",
     "@tailwindcss/typography": "^0.4.1",
     "alpinejs": "^3.5.2",
     "debounce": "^1.2.1",
-    "morphdom": "^2.6.1",
     "split-grid": "^1.0.11",
     "tailwindcss": "^2.2.17",
     "tippy.js": "^6.3.2"
