@@ -1,0 +1,17 @@
+<div class="bg-gray-50 flex-grow min-h-full">
+  <% if @example.type == :group %>
+    <div class="p-4 prose prose-sm">
+      <em class='opacity-50'>Params are not yet supported for grouped examples.</em>
+    </div>
+  <% elsif @example.params.none? %>
+    <div class="p-4 prose prose-sm">
+      <em class='opacity-50'>No params configured.</em>
+    </div>
+  <% else %>
+    <div class="py-3">
+      <% @example.params.each_with_index do |param, i| %>
+        <%= component "param", param: param, i: i %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

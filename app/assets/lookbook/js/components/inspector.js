@@ -1,10 +1,17 @@
 export default function inspector() {
   return {
-    isActiveTab(tab) {
-      return this.$store.inspector.tabs.active === tab;
+    isActivePanel(panel) {
+      return this.$store.inspector.panels.active == panel;
     },
-    switchTab(tab) {
-      this.$store.inspector.tabs.active = tab;
+    switchPanel(panel) {
+      this.$store.inspector.panels.active = panel;
+    },
+    get showSource() {
+      return this.$store.inspector.preview.source;
+    },
+    toggleSource() {
+      this.$store.inspector.preview.source =
+        !this.$store.inspector.preview.source;
     },
     preview: {
       width: null,

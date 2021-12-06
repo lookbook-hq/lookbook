@@ -1,0 +1,15 @@
+<div x-data="filter" class="flex items-center w-full">
+  <input
+    type="text"
+    class="text-sm px-4 h-10 w-full border-0 bg-transparent focus:outline-none outline-none focus:ring-0"
+    placeholder="Filter previews&hellip;"
+    x-ref="input"
+    x-model="$store.filter.raw"
+    x-effect="if (!$store.layout.desktop && $store.sidebar.open) focus()"
+    @keyup.stop="checkEsc"
+    @keyup.f.document="focus"
+  >
+  <button class="text-gray-400 hover:text-indigo-500 focus:ring-0 focus:outline-none absolute top-1/2 right-2 transform -translate-y-1/2" @click="clear">
+    <%= icon "x", size: 3, class: "hover:text-indigo-500" %>
+  </button>
+</div>

@@ -5,16 +5,16 @@ import Morph from "@alpinejs/morph";
 import Tooltip from "@ryangjchandler/alpine-tooltip";
 
 import page from "./components/page";
-import splitter from "./components/splitter";
 import inspector from "./components/inspector";
-import clipboard from "./components/clipboard";
-import preview from "./components/preview";
+import previewWindow from "./components/preview-window";
 import filter from "./components/filter";
 import param from "./components/param";
 import nav from "./components/nav";
+import navItem from "./components/nav-item";
+import navGroup from "./components/nav-group";
+import splitter from "./components/splitter";
+import copy from "./components/copy";
 import sizes from "./components/sizes";
-import navLeaf from "./components/nav-leaf";
-import navNode from "./components/nav-node";
 
 import initFilterStore from "./stores/filter";
 import initLayoutStore from "./stores/layout";
@@ -40,15 +40,15 @@ Alpine.store("inspector", initInspectorStore(Alpine));
 
 Alpine.data("page", page);
 Alpine.data("splitter", splitter);
-Alpine.data("preview", preview);
-Alpine.data("clipboard", clipboard);
+Alpine.data("previewWindow", previewWindow);
+Alpine.data("copy", copy);
 Alpine.data("inspector", inspector);
 Alpine.data("filter", filter);
 Alpine.data("param", param);
 Alpine.data("sizes", sizes);
 Alpine.data("nav", nav);
-Alpine.data("navLeaf", navLeaf);
-Alpine.data("navNode", navNode);
+Alpine.data("navItem", navItem);
+Alpine.data("navGroup", navGroup);
 
 // Init
 

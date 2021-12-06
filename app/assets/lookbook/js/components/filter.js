@@ -11,7 +11,10 @@ export default function filter() {
     clear() {
       this.$store.filter.raw = "";
     },
-    focus() {
+    focus($event) {
+      if ($event.target.tagName === "INPUT") {
+        return;
+      }
       setTimeout(() => this.$refs.input.focus(), 0);
     },
     blur() {

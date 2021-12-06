@@ -1,0 +1,20 @@
+<div class="p-4 flex-grow min-h-full space-y-6">
+  <% if examples.many? %>
+    <% examples.each do |example| %>
+      <%= component "code", language: example[:source_lang][:name] do -%>
+        <%== "#{sprintf example[:source_lang][:comment], example[:label]}\n#{example[:source]}" %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= component "code", language: examples.first[:source_lang][:name] do -%>
+      <%== examples.first[:source] %>
+    <% end %>
+  <% end %>
+  <% if defined?(clipboard_id) %>
+    <template id="<%= clipboard_id %>">
+      <% examples.each do |example| -%>
+        <%== example[:source] %>
+      <%- end %>
+    </template>
+  <% end %>
+</div>

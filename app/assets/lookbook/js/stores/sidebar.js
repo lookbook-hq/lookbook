@@ -8,7 +8,7 @@ export default function createSidebarStore(Alpine) {
     minWidth,
     maxWidth,
     toggle() {
-      this.open = !this.open;
+      Alpine.store("sidebar").open = !Alpine.store("sidebar").open;
     },
   };
 }

@@ -1,0 +1,18 @@
+<div class="p-4 flex-grow min-h-full">
+  <%= component "code" do -%>
+    <% if examples.many? %>
+      <% examples.each do |example| -%>
+        <%== "\n<!-- #{example[:label]} -->\n#{beautify(example[:html])}" %>
+      <% end %>
+    <% else -%>
+      <%== beautify(examples.first[:html]) %>
+    <% end %>
+  <% end %>
+  <% if defined?(clipboard_id) %>
+    <template id="<%= clipboard_id %>">
+      <% examples.each do |example| -%>
+        <%== beautify(example[:html]) %>
+      <%- end %>
+    </template>
+  <% end %>
+</div>

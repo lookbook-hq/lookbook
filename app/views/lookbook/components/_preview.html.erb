@@ -1,9 +1,9 @@
-<div id="preview" class="h-full md:h-auto md:min-h-0 flex w-full bg-gray-50">
-  <div class="relative mx-auto bg-white" x-data="preview" :style="`width: ${$store.layout.desktop ? $store.inspector.preview.width : '100%'}`">
+<div id="preview" class="h-full md:h-auto md:min-h-0 w-full bg-gray-50">
+  <div class="relative mx-auto bg-white h-full w-full" x-data="previewWindow" :style="`width: ${$store.layout.desktop ? $store.inspector.preview.width : '100%'}`" x-show="!showSource">
     <iframe seamless
       class="absolute h-full inset-0 w-full border-l border-gray-300 md:pr-4 md:-mx-px"
       src="<%= url_for lookbook.preview_path %>"
-      <% if config.preview_srcdoc %>srcdoc="<%== @rendered_example %>"<% end %>
+      srcdoc="<%== srcdoc %>"
       frameborder="0"
       x-data="sizes"
       x-effect="preview.width = width; preview.height = height;"

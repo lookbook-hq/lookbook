@@ -1,0 +1,11 @@
+<% examples = node.get_examples.reject(&:hidden?) %>
+<% if examples.many? %>
+  <%= component "nav_group", node: node, path: show_path(examples.first.path) do %>
+    <% examples.each do |example| %>
+      <%= component "nav_item", item: example, depth: example.hierarchy_depth + 1 %>
+    <% end %>
+  <% end %>
+<% else %>
+  <% example = examples.first %>
+  <%= component "nav_item", item: example, depth: example.hierarchy_depth, label: node.label, display: :node %>
+<% end %>

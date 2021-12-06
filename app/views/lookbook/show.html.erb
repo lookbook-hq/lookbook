@@ -1,0 +1,90 @@
+<div id="inspector" class="bg-gray-50 h-screen flex flex-col" x-data="inspector">
+  <%= component "header" do %>
+    <div class="flex items-center space-x-1" id="inspector-title-<%= @example.id %>">
+      <strong class="whitespace-nowrap truncate"><%= @preview.label %></strong>
+      <% if @preview.get_examples.many? %>
+        <span>/</span>
+        <span class="whitespace-nowrap truncate"><%= @example.label %></span>
+      <% end %>
+    </div>
+    <div class="flex items-center ml-auto md:divide-x divide-gray-300">
+      <div class="flex text-xs font-monospace text-gray-700 space-x-1" x-show="$store.layout.desktop && !showSource">
+        <span x-text="`${preview.width}px`"></span>
+        <span class="text-gray-500">x</span>
+        <span x-text="`${preview.height}px`"></span>
+      </div>
+      <div class="flex items-center ml-auto md:ml-3 md:pl-3 space-x-3 text-gray-400">
+        <a
+          href="<%= url_for %>"
+          class="transition hover:text-indigo-800 flex items-center"
+          x-tooltip.theme.lookbook="`Refresh preview`"
+          @click.prevent.stop="refresh"
+          data-hotkey="r"
+        >
+          <%= icon "refresh-cw", size: 4 %>
+        </a>
+          <a
+          href="<%= preview_path %>"
+          class="transition hover:text-indigo-800 flex items-center"
+          target="_blank"
+          x-tooltip.theme.lookbook="`Open in new window`"
+          data-hotkey="w"
+        >
+          <%= icon "external-link", size: 4 %>
+        </a>
+      </div>
+    </div>
+  <% end %>
+  <div class="md:grid flex-grow" :style="`grid-template-rows: 1fr 1px ${$store.inspector.panels.height}px`">
+    <%= component "preview", srcdoc: @preview_srcdoc %>
+    <div
+      x-data="splitter('horizontal', {minSize: $store.sidebar.minWidth})"
+      class="w-full gutter border-t border-gray-300 relative"
+      x-effect="$store.inspector.panels.height = splits[2] || $store.inspector.panels.height"
+      x-show="$store.layout.desktop"
+    >
+      <div class="h-[11px] w-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute left-0 right-0 transform -translate-y-1/2 cursor-[row-resize]"></div>
+    </div>
+    <div id="inspector-panels" class="bg-white w-full overflow-hidden flex flex-col" x-show="$store.layout.desktop">
+      <div class="px-4 border-b border-gray-200 flex items-center flex-none select-none">
+        <nav class="-mb-px flex space-x-6 lg:space-x-8 cursor-auto">
+          <% @panels.each do |key, props| %>
+            <a
+              id="inspector-tab-<%= key %>-<%= @example.id %>"
+              href="#inspector-panel-<%= key %>"
+              class="whitespace-nowrap py-2 px-1 border-b-2 cursor-pointer <%= "!text-gray-300" if props[:disabled] %>"
+              :class="{
+                'border-indigo-400': isActivePanel('<%= key %>'),
+                'border-transparent text-gray-500 hover:text-gray-700': !isActivePanel('<%= key %>')
+              }"
+              @click.stop.prevent="switchPanel('<%= key %>')"
+              <% if props[:hotkey] %>data-hotkey="<%= props[:hotkey] %>"<% end %>
+            >
+              <%== props[:label] %>
+            </a>
+          <% end %>
+        </nav>
+      </div>
+      <div class="flex-auto overflow-auto bg-white">
+        <% @panels.each do |key, props| %>
+          <div
+            class="min-h-full flex flex-col"
+            x-show="$store.inspector.panels.active === '<%= key %>'"
+            x-cloak
+          >
+            <div id="inspector-panel-<%= @example.id %>-<%= key %>" class="flex flex-col flex-grow h-full relative">
+              <% if props[:copy].present? %>
+                <%= component "copy", target: "inspector-panel-#{@example.id}-#{key}-clipboard" %>
+              <% end %>
+              <%= render props[:template],
+                key: key,
+                examples: @examples,
+                clipboard_id: "inspector-panel-#{@example.id}-#{key}-clipboard",
+                **props %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

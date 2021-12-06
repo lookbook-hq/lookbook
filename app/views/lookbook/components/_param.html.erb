@@ -1,0 +1,20 @@
+<div
+  class="px-4 py-3"
+  x-data="param"
+  <% if i == 0 %>x-effect="if ($store.inspector.panels.active === 'params') setFocus()"<% end %>
+>
+  <div class="flex items-start max-w-[800px]">
+    <div class="w-[200px] flex-none py-2">
+      <label for="param-<%= param[:name] %>" class="font-bold">
+        <%= param[:name].titleize %>
+      </label>
+    </div>
+    <div class="flex-grow">
+      <%= render "lookbook/inputs/#{param[:input]}",
+        **param,
+        value: params.key?(param[:name]) ? params[param[:name]] : param[:default],
+        id: "#{@example.id}-param-#{param[:name]}-input"
+      %>
+    </div>
+  </div>
+</div>

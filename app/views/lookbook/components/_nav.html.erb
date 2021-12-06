@@ -1,0 +1,17 @@
+<nav id="nav" x-data="nav" @popstate.window="setActive">
+  <% if items.any? %>
+    <ul x-ref="items" class="divide-y divide-gray-300">
+      <% items.each do |node| %>
+        <%= component "nav_#{node.type}", node: node %>
+      <% end %>
+    </ul>
+    <div class="p-4 text-center" x-show="empty" x-cloak>
+      <em class="text-gray-400">No matching previews found.</em>
+    </div>
+  <% else %>
+    <div class="p-4">
+      <h4 class="text-gray-500 mb-1">No previews found.</h4>
+      <p class="text-gray-400 text-xs">Have you set your <a class="underline" href="https://viewcomponent.org/api.html#preview_paths">preview paths</a> config correctly?</p>
+    </div>
+  <% end %>
+</nav>

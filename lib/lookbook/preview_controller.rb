@@ -16,7 +16,7 @@ module Lookbook
 
     def render_in_layout_to_string(template, locals, layout = nil)
       append_view_path Lookbook::Engine.root.join("app/views")
-      render_to_string template, locals: locals, **determine_layout(@preview.lookbook_layout)
+      render_to_string template, locals: locals, **determine_layout(layout)
     end
   end
 end

@@ -1,51 +1,43 @@
-require "htmlbeautifier"
-
 module Lookbook
   class AppController < ActionController::Base
     EXCEPTIONS = [ViewComponent::PreviewTemplateError, ViewComponent::ComponentError, ViewComponent::TemplateError, ActionView::Template::Error]
 
     protect_from_forgery with: :exception
-    prepend_view_path File.expand_path("../../views/lookbook", __dir__)
-
-    layout "layouts/app"
     helper Lookbook::ApplicationHelper
 
     before_action :find_preview, only: [:preview, :show]
     before_action :find_example, only: [:preview, :show]
-    before_action :assign_nav, only: [:index, :show]
-    before_action :initialize_inspector, only: [:show]
+    before_action :build_nav
+
+    def self.controller_path
+      "lookbook"
+    end
 
     def preview
       if @example
-        render html: rendered_example
+        set_params
+        render html: render_examples(examples_data)
       else
-        render "app/not_found"
+        render "not_found"
       end
     end
 
     def show
       if @example
         begin
-          @rendered_example = rendered_example.gsub("\"", "&quot;")
-          (@example.type == :group ? @example.examples : [@example]).each do |example|
-            include_example_data(example)
-          end
-          assign_inspector
+          set_params
+          @examples = examples_data
+          @preview_srcdoc = render_examples(examples_data).gsub("\"", "&quot;")
+          @panels = panels.filter { |name, panel| panel[:show] }
         rescue *EXCEPTIONS
-          render "app/error"
+          render "error"
         end
       else
-        render "app/not_found"
+        render "not_found"
       end
     end
 
     private
-
-    def initialize_inspector
-      @source = []
-      @output = []
-      @notes = []
-    end
 
     def find_preview
       candidates = []
@@ -65,101 +57,47 @@ module Lookbook
       end
     end
 
-    def include_example_data(example)
-      content = HtmlBeautifier.beautify(preview_controller.render_example_to_string(@preview, example.name))
-      @output << {
-        label: "<!-- #{example.label} -->",
-        content: content,
-        lang: Lookbook::Lang.find(:html)
-      }
+    def examples_data
+      @examples_data ||= (@example.type == :group ? @example.examples : [@example]).map do |example|
+        example_data(example)
+      end
+    end
+
+    def example_data(example)
       render_args = @preview.render_args(example.name, params: preview_controller.params.permit!)
       has_template = render_args[:template] != "view_components/preview"
-      @source << {
-        label: has_template ? "<!-- #{example.label} -->" : "\# #{example.label}",
-        content: has_template ? example.template_source(render_args[:template]) : example.method_source,
-        lang: has_template ? example.template_lang(render_args[:template]) : example.source_lang
+      {
+        label: example.label,
+        notes: example.notes,
+        html: preview_controller.render_example_to_string(@preview, example.name),
+        source: has_template ? example.template_source(render_args[:template]) : example.method_source,
+        source_lang: has_template ? example.template_lang(render_args[:template]) : example.source_lang,
+        params: enabled?(:params) ? example.params : []
       }
-      if example.notes.present?
-        @notes << {
-          label: example.label,
-          content: example.notes
-        }
-      end
     end
 
-    def rendered_example
-      if @example.type == :group
-        examples = @example.examples.map do |example|
-          {
-            label: example.label,
-            html: preview_controller.render_example_to_string(@preview, example.name)
-          }
-        end
-        set_params
-        preview_controller.render_in_layout_to_string("lookbook/preview/group", {examples: examples}, @preview.lookbook_layout)
-      else
-        set_params(@example)
-        preview_controller.params[:path] = "#{@preview.preview_name}/#{@example.name}".chomp("/")
-        preview_controller.process(:previews)
-      end
+    def render_examples(examples)
+      preview_controller.render_in_layout_to_string("layouts/lookbook/preview", {examples: examples}, @preview.lookbook_layout)
     end
 
-    def set_params(example = nil)
-      if example.present? && enabled?(:params)
+    def set_params
+      if enabled?(:params)
         # cast known params to type
-        example.params.each do |param|
+        @example.params.each do |param|
           if preview_controller.params.key?(param[:name])
             preview_controller.params[param[:name]] = Lookbook::Params.cast(preview_controller.params[param[:name]], param[:type])
           end
         end
       end
       # set display params
-      example_params = example.nil? ? @preview.display_params : example.display_params
       preview_controller.params.merge!({
         lookbook: {
-          display: example_params
+          display: @example.display_params
         }
       })
     end
 
-    def assign_inspector
-      @inspector = {
-        panes: {
-          source: {
-            label: "Source",
-            template: "code",
-            hotkey: "s",
-            items: @source,
-            clipboard: @source.map { |s| @source.many? ? "#{s[:label]}\n#{s[:content]}" : s[:content] }.join("\n\n")
-          },
-          output: {
-            label: "Output",
-            template: "code",
-            hotkey: "o",
-            items: @output,
-            clipboard: @output.map { |o| @output.many? ? "#{o[:label]}\n#{o[:content]}" : o[:content] }.join("\n\n")
-          },
-          notes: {
-            label: "Notes",
-            template: "notes",
-            hotkey: "n",
-            items: @notes,
-            disabled: @notes.none?
-          }
-        }
-      }
-      if enabled?(:params)
-        @inspector[:panes][:params] = {
-          label: "Params",
-          template: "params",
-          hotkey: "p",
-          items: @source.many? ? [] : @example.params,
-          disabled: @source.many? || @example.params.none?
-        }
-      end
-    end
-
-    def assign_nav
+    def build_nav
       @nav = Collection.new
       previews.reject { |p| p.hidden? }.each do |preview|
         current = @nav
@@ -177,6 +115,41 @@ module Lookbook
         end
       end
       @nav
+    end
+
+    def panels
+      {
+        source: {
+          label: "Source",
+          template: "lookbook/panels/source",
+          hotkey: "s",
+          show: true,
+          disabled: false,
+          copy: true
+        },
+        output: {
+          label: "Output",
+          template: "lookbook/panels/output",
+          hotkey: "o",
+          show: true,
+          disabled: false,
+          copy: true
+        },
+        notes: {
+          label: "Notes",
+          template: "lookbook/panels/notes",
+          hotkey: "n",
+          show: true,
+          disabled: @examples.filter { |e| e[:notes].present? }.none?
+        },
+        params: {
+          label: "Params",
+          template: "lookbook/panels/params",
+          hotkey: "p",
+          show: enabled?(:params),
+          disabled: @example.type == :group || @example.params.none?
+        }
+      }
     end
 
     def previews

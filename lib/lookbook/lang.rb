@@ -5,27 +5,32 @@ module Lookbook
         {
           name: "ruby",
           ext: ".rb",
-          label: "Ruby"
+          label: "Ruby",
+          comment: "# %s"
         },
         {
           name: "html",
           ext: ".html",
-          label: "HTML"
+          label: "HTML",
+          comment: "<!-- %s -->"
         },
         {
           name: "erb",
           ext: ".erb",
-          label: "ERB"
+          label: "ERB",
+          comment: "<%%# %s %%>"
         },
         {
           name: "haml",
           ext: ".haml",
-          label: "Haml"
+          label: "Haml",
+          comment: "<!-- %s -->"
         },
         {
           name: "slim",
           ext: ".slim",
-          label: "Slim"
+          label: "Slim",
+          comment: "<!-- %s -->"
         }
       ]
 

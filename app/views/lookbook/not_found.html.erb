@@ -1,14 +1,12 @@
 <div class="bg-white flex flex-col items-center justify-center h-screen w-full">
   <div class="p-4 text-center">
-    <svg class="feather w-10 h-10 text-red-300 mx-auto">
-      <use xlink:href="/lookbook-assets/feather-sprite.svg#alert-triangle" />
-    </svg>
+    <%= icon "alert-triangle", size: 10, class: "text-red-300 mx-auto" %>
     <div class="mt-3 text-gray-700 max-w-xs">
       <% if @preview %>
         <div data-role="example-not-found">
           <h5 class="text-base">Not found</h5>
           <p class="mt-2 text-gray-400 text-sm">
-            The "<span class="text-gray-500"><%= @preview.lookbook_label %></span>" preview does not have an example named "<span class="text-gray-500"><%= @example_name %></span>".
+            The "<span class="text-gray-500"><%= @preview.label %></span>" preview does not have an example named "<span class="text-gray-500"><%= @example_name %></span>".
           </p>
         </div>
       <% else %>

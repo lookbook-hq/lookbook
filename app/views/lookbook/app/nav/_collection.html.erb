@@ -1,5 +1,0 @@
-<%= render "app/nav/node", node: node do %>
-  <% node.items.each do |item| %>
-    <%= render "app/nav/#{item.type.to_s}", node: item %>
-  <% end %>
-<% end %>

@@ -1,4 +1,4 @@
-export default function leaf(matchers) {
+export default function navItem(matchers) {
   return {
     hidden: false,
     get id() {

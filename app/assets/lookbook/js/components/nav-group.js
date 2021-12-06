@@ -1,6 +1,6 @@
 import { getAlpineData } from "../lib/utils";
 
-export default function node() {
+export default function navGroup() {
   return {
     hidden: false,
     children: [],

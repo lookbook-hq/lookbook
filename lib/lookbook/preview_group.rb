@@ -27,7 +27,11 @@ module Lookbook
     end
 
     def params
-      []
+      examples.map(&:params).flatten.uniq { |param| param[:name] }
+    end
+
+    def display_params
+      {}
     end
 
     def hidden?

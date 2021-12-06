@@ -15,4 +15,5 @@ module Lookbook
   autoload :PreviewGroup, "lookbook/preview_group"
   autoload :Taggable, "lookbook/taggable"
   autoload :NullLogger, "lookbook/null_logger"
+  autoload :CodeFormatter, "lookbook/code_formatter"
 end
