@@ -12,6 +12,10 @@ module Lookbook
     def logger
       @logger ||= config.debug == true ? Rails.logger : Lookbook::NullLogger.new
     end
+
+    def version
+      Lookbook::VERSION
+    end
   end
 
   class Engine < Rails::Engine

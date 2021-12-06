@@ -13,7 +13,7 @@
       window.SOCKET_PATH = "<%= Lookbook::Engine.websocket_mount_path %>";
     </script>
   <% end %>
-  <script src="/lookbook-assets/js/app.js?v=<%= Lookbook::VERSION %>" defer></script>
+  <script src="/lookbook-assets/js/app.js?v=<%= Lookbook.version %>" defer></script>
   
   <title><%= [@example&.label, @preview&.label, "Lookbook"].compact.join(" :: ") %></title>
 </head>
