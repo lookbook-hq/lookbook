@@ -1,17 +1,30 @@
 export default function inspector() {
   return {
+    get orientation() {
+      return this.$store.inspector.drawer.orientation;
+    },
+    get view() {
+      return this.$store.inspector.preview.view;
+    },
+    get horizontal() {
+      return this.orientation == "horizontal";
+    },
+    get vertical() {
+      return !this.horizontal;
+    },
     isActivePanel(panel) {
-      return this.$store.inspector.panels.active == panel;
+      return this.$store.inspector.drawer.active == panel;
     },
     switchPanel(panel) {
-      this.$store.inspector.panels.active = panel;
+      this.$store.inspector.drawer.active = panel;
     },
-    get showSource() {
-      return this.$store.inspector.preview.source;
+    toggleView() {
+      this.$store.inspector.preview.view =
+        this.view === "html" ? "preview" : "html";
     },
-    toggleSource() {
-      this.$store.inspector.preview.source =
-        !this.$store.inspector.preview.source;
+    toggleOrientation() {
+      this.$store.inspector.drawer.orientation =
+        this.orientation === "horizontal" ? "vertical" : "horizontal";
     },
     preview: {
       width: null,

@@ -12,7 +12,7 @@ export default function filter() {
       this.$store.filter.raw = "";
     },
     focus($event) {
-      if ($event.target.tagName === "INPUT") {
+      if ($event && $event.target.tagName === "INPUT") {
         return;
       }
       setTimeout(() => this.$refs.input.focus(), 0);

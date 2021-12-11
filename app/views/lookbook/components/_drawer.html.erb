@@ -1,0 +1,107 @@
+<div id="drawer" class="bg-white w-full h-full flex flex-col min-w-0">
+  <div class="px-4 border-b border-gray-200 select-none flex-none">
+    <div class="-mb-px flex cursor-auto relative">
+      <div
+        id="inspector-tabs-<%= example.id %>"
+        x-data="tabs"
+        class="min-w-0"
+        x-effect="$store.inspector.drawer.visibleTabCount = visibleTabCount"
+      >
+        <nav x-ref="tabs" class="flex h-10 space-x-8 flex-grow pr-8">
+          <% panels.each.with_index(1) do |(key,props),i| %>
+            <a
+              id="inspector-tab-<%= key %>-<%= example.id %>"
+              href="#inspector-panel-<%= key %>"
+              class="whitespace-nowrap pt-2.5 pb-1.5 px-1 border-b-2 cursor-pointer <%= "!text-gray-300" if props[:disabled] %>"
+              :class="{
+                'border-indigo-400': isActivePanel('<%= key %>'),
+                'border-transparent text-gray-500 hover:text-gray-700': !isActivePanel('<%= key %>'),
+                'invisible': (<%= i %> > visibleTabCount)
+              }"
+              @click.stop.prevent="switchPanel('<%= key %>')"
+              <% if props[:hotkey] %>data-hotkey="<%= props[:hotkey] %>"<% end %>
+            >
+              <%== props[:label] %>
+            </a>
+          <% end %>
+          <div
+            x-ref="toggle"
+            x-show="visibleTabCount !== tabs.length"
+            class="flex-none absolute top-[9px]"
+            :style="`left: ${tabsWidth - 48}px`"
+          >
+            <button class="py-1 px-2 text-gray-500 hover:text-indigo-800">
+              <%= icon "chevrons-right", size: 3.5 %> 
+            </button>
+          </div>
+        </nav>
+        <nav class="hidden">
+          <div x-ref="dropdown" class="min-w-[120px]">
+            <% panels.each.with_index(1) do |(key,props),i| %>
+              <template id="inspector-dropdown-tab-<%= key %>-<%= example.id %>" x-if="<%= i %> > $store.inspector.drawer.visibleTabCount">
+                <div :class="{'border-t border-gray-300': (<%= i %> > $store.inspector.drawer.visibleTabCount + 1)}">
+                  <a
+                    
+                    href="#inspector-panel-<%= key %>"
+                    class="block whitespace-nowrap py-2 px-4 border-l-2 cursor-pointer <%= "!text-gray-300" if props[:disabled] %>"
+                    :class="{
+                      'border-indigo-400': $store.inspector.drawer.active === '<%= key %>',
+                      'border-transparent text-gray-500 hover:text-gray-700': $store.inspector.drawer.active !== '<%= key %>',
+                    }"
+                    @click.stop.prevent=" hideDropdown(); switchPanel('<%= key %>')"
+                  >
+                    <%== props[:label] %>
+                  </a>
+                </div>
+              </template>
+            <% end %>
+          </div>
+        </nav>
+      </div>
+      <div class="flex items-center ml-auto pl-8 space-x-3">
+        <% panels.each do |key, props| %>
+          <% if props[:copy].present? %>
+            <button
+              id="<%= "inspector-panel-#{example.id}-#{key}-copy" %>"
+              class="text-gray-400 transition"
+              x-data="copy('<%= "inspector-panel-#{example.id}-#{key}-clipboard" %>')"
+              x-tooltip.theme.lookbook="done ? 'copied!' : 'copy to clipboard'"
+              @click="save"
+              :class="{'!text-green-600 hover:text-green-600': done, 'hover:text-indigo-500': !done}"
+              x-show="isActivePanel('<%= key %>')"
+              x-cloak
+            >
+              <%= icon "${done ? 'check' : 'clipboard'}", size: 4 %>
+            </button>
+          <% else %>
+            <div x-show="isActivePanel('<%= key %>')" x-cloak>
+              <%= icon "clipboard", size: 4, class: "text-gray-300" %>
+            </div>
+          <% end %>
+        <% end %>
+        <button x-tooltip.theme.lookbook="`switch orientation`" @click="toggleOrientation" x-show="$store.layout.desktop"> 
+          <%= icon "${orientation === 'horizontal' ? 'sidebar' : 'credit-card'}",
+            size: 4,
+            class: "transform scale-[-1] text-gray-400 hover:text-indigo-800" %>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="bg-white relative flex-grow">
+    <% panels.each do |key, props| %>
+      <div
+        class="h-full w-full absolute inset-0"
+        x-show="$store.inspector.drawer.active === '<%= key %>'"
+        x-cloak
+      >
+        <div id="inspector-panel-<%= example.id %>-<%= key %>" class="h-full">
+          <%= render props[:template],
+            key: key,
+            examples: examples,
+            clipboard_id: "inspector-panel-#{example.id}-#{key}-clipboard",
+            **props %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

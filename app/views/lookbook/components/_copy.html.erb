@@ -1,10 +1,14 @@
 <button
-  class="p-1.5 border-b border-l border-gray-200 hover:border-gray-300 rounded-bl-md bg-white absolute top-0 right-0 text-gray-400 transition"
+  class="text-gray-400 transition"
   x-data="copy('<%= target %>')"
   x-tooltip.theme.lookbook="done ? 'copied!' : 'copy to clipboard'"
   @click="save"
   :class="{'!text-green-600 hover:text-green-600': done, 'hover:text-indigo-500': !done}"
-  data-tippy-placement="left">
+  data-tippy-placement="left"
+  <% if defined?(show) %>
+    x-show="<%= show %>"
+    x-cloak
+  <% end %>
+  >
   <%= icon "${done ? 'check' : 'clipboard'}", size: 4 %>
-  <div class="hidden" x-init="content = $el.innerText"><%== yield %></div>
 </button>

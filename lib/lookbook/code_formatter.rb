@@ -7,12 +7,12 @@ module Lookbook
     def stream(tokens, &block)
       token_lines(tokens).each_with_index do |line_tokens, i|
         yield "<div class='line'>"
-        yield "<div class='line-number'>#{i}</div>" if @opts[:line_numbers]
-        yield "<div class='line-content'>"
+        yield "<span class='line-number'>#{i}</span>" if @opts[:line_numbers]
+        yield "<span class='line-content'>"
         line_tokens.each do |token, value|
           yield span(token, value)
         end
-        yield "</div>"
+        yield "</span>"
         yield "</div>"
       end
     end

@@ -2,6 +2,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 @import "tippy.js/dist/tippy";
+@import "tippy.js/dist/border";
 @import "code_theme";
 @import "tooltip_theme";
 
@@ -75,10 +76,11 @@
 
   .code pre {
     @apply block;
+    /* @apply whitespace-pre-wrap; */
   }
 
   .code .line {
-    @apply flex items-center leading-relaxed;
+    @apply leading-relaxed;
   }
 
   .code.numbered {
@@ -87,31 +89,28 @@
 
   .code.numbered:before {
     content: "";
-    left: calc(2.7em + 8px);
+    left: 2.7em;
     @apply absolute top-0 bottom-0 border-r border-gray-200;
   }
 
+  .code.numbered .line {
+    padding-left: calc(2.7em + 8px);
+    @apply relative;
+  }
+
   .code .line-number {
+    display: inline-block;
     width: calc(2.7em + 8px);
     padding-top: 3px;
     padding-bottom: 3px;
     padding-right: 8px;
     margin-right: 16px;
-    @apply font-mono text-right text-gray-400 flex-none text-xs;
+    @apply font-mono text-right text-gray-400 flex-none text-xs absolute left-0;
   }
 
   .code .line-content {
     @apply flex-none pr-4;
   }
-
-  /* .code .line:before {
-    content: counter(line);
-    width: calc(3em + 8px);
-    padding-top: 2px;
-    padding-bottom: 2px;
-    padding-right: 8px;
-    @apply font-mono inline-block text-right mr-4 text-gray-400 border-r border-gray-200;
-  } */
 }
 
 @layer utilities {

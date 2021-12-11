@@ -6,9 +6,15 @@ export default {
     maxWidth: 500,
   },
   inspector: {
-    tabs: {
-      default: "source",
+    drawer: {
+      orientation: "horizontal",
+      defaultPanel: "source",
       defaultHeight: 200,
+      defaultWidth: 500,
+      minWidth: 400,
+    },
+    preview: {
+      view: "preview",
     },
   },
 };

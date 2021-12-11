@@ -4,13 +4,41 @@
   &[data-placement^="top"] > .tippy-arrow::before {
     border-top-color: theme("colors.indigo.500");
   }
+
   &[data-placement^="bottom"] > .tippy-arrow::before {
     border-bottom-color: theme("colors.indigo.500");
   }
+
   &[data-placement^="left"] > .tippy-arrow::before {
     border-left-color: theme("colors.indigo.500");
   }
+
   &[data-placement^="right"] > .tippy-arrow::before {
     border-right-color: theme("colors.indigo.500");
+  }
+}
+
+.tippy-box[data-theme~="menu"] {
+  border: 1px solid theme("colors.gray.300");
+  @apply bg-white text-gray-600 shadow-md rounded;
+
+  & > .tippy-content {
+    padding: 0;
+  }
+
+  &[data-placement^="top"] > .tippy-arrow::before {
+    border-top-color: white;
+  }
+
+  &[data-placement^="bottom"] > .tippy-arrow::before {
+    border-bottom-color: white;
+  }
+
+  &[data-placement^="left"] > .tippy-arrow::before {
+    border-left-color: white;
+  }
+
+  &[data-placement^="right"] > .tippy-arrow::before {
+    border-right-color: white;
   }
 }

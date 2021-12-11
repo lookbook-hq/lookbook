@@ -13,6 +13,7 @@ import nav from "./components/nav";
 import navItem from "./components/nav-item";
 import navGroup from "./components/nav-group";
 import splitter from "./components/splitter";
+import tabs from "./components/tabs";
 import copy from "./components/copy";
 import sizes from "./components/sizes";
 
@@ -47,6 +48,7 @@ Alpine.data("filter", filter);
 Alpine.data("param", param);
 Alpine.data("sizes", sizes);
 Alpine.data("nav", nav);
+Alpine.data("tabs", tabs);
 Alpine.data("navItem", navItem);
 Alpine.data("navGroup", navGroup);
 

@@ -1,5 +1,5 @@
-<div id="preview" class="h-full md:h-auto md:min-h-0 w-full bg-gray-50">
-  <div class="relative mx-auto bg-white h-full w-full" x-data="previewWindow" :style="`width: ${$store.layout.desktop ? $store.inspector.preview.width : '100%'}`" x-show="!showSource">
+<div id="preview" class="h-auto min-h-0 w-full bg-gray-50">
+  <div class="relative mx-auto bg-white h-full w-full" x-data="previewWindow" :style="`width: ${$store.layout.desktop ? $store.inspector.preview.width : '100%'}`" x-show="view == 'preview'">
     <iframe seamless
       class="absolute h-full inset-0 w-full border-l border-gray-300 md:pr-4 md:-mx-px"
       src="<%= url_for lookbook.preview_path %>"
@@ -10,7 +10,7 @@
     ></iframe>
     <div class="absolute opacity-0 inset-0 pointer-events-none" :class="{ 'pointer-events-none': !$store.layout.reflowing }"></div>
     <div
-      class="border-l border-r border-gray-300 bg-white hover:bg-indigo-100 hover:bg-opacity-20 transition absolute right-0 inset-y-0 flex items-center w-4 cursor-[col-resize] select-none"
+      class="border-l border-r border-gray-300 bg-white hover:bg-indigo-100 hover:bg-opacity-20 transition absolute -right-px inset-y-0 flex items-center w-4 cursor-[col-resize] select-none"
       style="touch-action: none"
       @pointerdown="onResizeStart"
       @dblclick="toggleFullWidth"

@@ -1,5 +1,5 @@
 <% items = examples.filter { |example| example[:notes].present? } %>
-<div class="text-gray-600 bg-gray-50 flex-grow min-h-full">
+<div class="text-gray-600 bg-gray-50 h-full overflow-auto">
   <% if items.many? %>
     <div class="divide-y divide-dashed divide-gray-300">
       <% items.each do |item| %>
