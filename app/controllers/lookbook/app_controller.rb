@@ -27,7 +27,9 @@ module Lookbook
         begin
           set_params
           @examples = examples_data
-          @preview_srcdoc = render_examples(examples_data).gsub("\"", "&quot;")
+          @preview_srcdoc = if lookbook.preview_srcdoc
+            render_examples(examples_data).gsub("\"", "&quot;")
+          end
           @panels = panels.filter { |name, panel| panel[:show] }
         rescue *EXCEPTIONS
           render "error"
