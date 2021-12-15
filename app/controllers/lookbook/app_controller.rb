@@ -27,7 +27,7 @@ module Lookbook
         begin
           set_params
           @examples = examples_data
-          @preview_srcdoc = if lookbook.preview_srcdoc
+          @preview_srcdoc = if Lookbook.config.preview_srcdoc
             render_examples(examples_data).gsub("\"", "&quot;")
           end
           @panels = panels.filter { |name, panel| panel[:show] }
