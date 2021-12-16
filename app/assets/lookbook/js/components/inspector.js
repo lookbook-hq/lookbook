@@ -1,5 +1,19 @@
+import sizeObserver from "./sizes";
+
 export default function inspector() {
   return {
+    width: 0,
+    height: 0,
+    init() {
+      const ro = new ResizeObserver((entries) => {
+        const rect = entries[0].contentRect;
+        this.width = Math.round(rect.width);
+        this.height = Math.round(rect.height);
+      });
+      ro.observe(this.$el);
+      this.width = Math.round(this.$el.clientWidth);
+      this.height = Math.round(this.$el.clientHeight);
+    },
     get orientation() {
       return this.$store.inspector.drawer.orientation;
     },
@@ -7,10 +21,13 @@ export default function inspector() {
       return this.$store.inspector.preview.view;
     },
     get horizontal() {
-      return this.orientation == "horizontal";
+      return this.canBeVertical ? this.orientation === "horizontal" : true;
     },
     get vertical() {
       return !this.horizontal;
+    },
+    get canBeVertical() {
+      return this.width > 800;
     },
     isActivePanel(panel) {
       return this.$store.inspector.drawer.active == panel;

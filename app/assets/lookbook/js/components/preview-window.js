@@ -2,17 +2,11 @@ export default function preview() {
   return {
     get maxWidth() {
       const previewWidth = this.$store.inspector.preview.width;
-      if (this.$store.layout.desktop && previewWidth !== "100%") {
-        return `${previewWidth}px`;
-      }
-      return "100%";
+      return previewWidth === "100%" ? "100%" : `${previewWidth}px`;
     },
     get maxHeight() {
       const previewHeight = this.$store.inspector.preview.height;
-      if (this.$store.layout.desktop && previewHeight !== "100%") {
-        return `${previewHeight}px`;
-      }
-      return "100%";
+      return previewHeight === "100%" ? "100%" : `${previewHeight}px`;
     },
     get parentWidth() {
       return Math.round(this.$root.parentElement.clientWidth);
@@ -42,7 +36,7 @@ export default function preview() {
       const width =
         this.resizeStartWidth - (this.resizeStartPositionX - e.pageX) * 2;
       const boundedWidth = Math.min(
-        Math.max(Math.round(width), 300),
+        Math.max(Math.round(width), 200),
         this.parentWidth
       );
       this.$store.inspector.preview.width =
@@ -75,7 +69,7 @@ export default function preview() {
       const height =
         this.resizeStartHeight - (this.resizeStartPositionY - e.pageY);
       const boundedHeight = Math.min(
-        Math.max(Math.round(height), 300),
+        Math.max(Math.round(height), 200),
         this.parentHeight
       );
       this.$store.inspector.preview.height =

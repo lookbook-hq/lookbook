@@ -46,7 +46,11 @@
     >
       <div class="w-[9px] h-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute top-0 bottom-0 -translate-x-1/2 cursor-[col-resize] z-10"></div>
     </div>
-    <main id="main" class="h-full overflow-hidden w-full" x-show="$store.layout.desktop || !$store.sidebar.open" x-cloak>
+    <main
+      id="main"
+      class="h-full overflow-hidden w-full"
+      x-show="$store.layout.desktop || !$store.sidebar.open" x-cloak
+    >
       <%= yield %>
     </main>
   </div>

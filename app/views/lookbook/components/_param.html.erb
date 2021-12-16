@@ -8,7 +8,7 @@ value = params.key?(param[:name]) ? params[param[:name]] : param[:default]
   <% if i == 0 %>x-effect="if ($store.inspector.drawer.active === 'params') setFocus()"<% end %>
 >
   <div class="flex items-start max-w-[800px]">
-    <div class="flex-none py-2" :style="`width: ${($store.layout.desktop && horizontal) ? '200' : '120' }px`">
+    <div class="flex-none py-2" :style="`width: ${horizontal ? '200' : '120' }px`">
       <label for="param-<%= param[:name] %>" class="font-bold">
         <%= param[:name].titleize %>
       </label>

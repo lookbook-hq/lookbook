@@ -60,27 +60,33 @@
       </div>
       <div class="flex items-center ml-auto pl-8 space-x-3">
         <% panels.each do |key, props| %>
-          <% if props[:copy].present? %>
+          <div
+            ref="<%= "inspector-panel-#{example.id}-#{key}-copy" %>"
+            class="flex items-center"
+            :class="{'pointer-events-none opacity-30': <%= !props[:copy].present? %>}"
+            x-show="isActivePanel('<%= key %>')"
+          >
             <button
-              id="<%= "inspector-panel-#{example.id}-#{key}-copy" %>"
               class="text-gray-400 transition"
               x-data="copy('<%= "inspector-panel-#{example.id}-#{key}-clipboard" %>')"
               x-tooltip.theme.lookbook="done ? 'copied!' : 'copy to clipboard'"
               @click="save"
-              :class="{'!text-green-600 hover:text-green-600': done, 'hover:text-indigo-500': !done}"
-              x-show="isActivePanel('<%= key %>')"
+              :class="{
+                '!text-green-600 hover:text-green-600': done,
+                'hover:text-indigo-500': !done}"
               x-cloak
+              <% unless props[:copy].present? %>disabled<% end %>
             >
               <%= icon "${done ? 'check' : 'clipboard'}", size: 4 %>
             </button>
-          <% else %>
-            <div x-show="isActivePanel('<%= key %>')" x-cloak>
-              <%= icon "clipboard", size: 4, class: "text-gray-300" %>
-            </div>
-          <% end %>
+          </div>
         <% end %>
-        <button x-tooltip.theme.lookbook="`switch orientation`" @click="toggleOrientation" x-show="$store.layout.desktop"> 
-          <%= icon "${orientation === 'horizontal' ? 'sidebar' : 'credit-card'}",
+        <button
+          x-tooltip.theme.lookbook="`switch orientation`"
+          @click="toggleOrientation"
+          :class="{'pointer-events-none opacity-30': !canBeVertical}"
+        > 
+          <%= icon "${horizontal ? 'sidebar' : 'credit-card'}",
             size: 4,
             class: "scale-[-1] text-gray-400 hover:text-indigo-800" %>
         </button>

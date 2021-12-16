@@ -3,7 +3,7 @@ export default {
   sidebar: {
     defaultWidth: 280,
     minWidth: 200,
-    maxWidth: 500,
+    maxWidth: 350,
   },
   inspector: {
     drawer: {
@@ -11,7 +11,7 @@ export default {
       defaultPanel: "source",
       defaultHeight: 200,
       defaultWidth: 500,
-      minWidth: 400,
+      minWidth: 350,
     },
     preview: {
       view: "preview",

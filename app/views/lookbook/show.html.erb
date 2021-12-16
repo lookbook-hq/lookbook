@@ -1,7 +1,11 @@
-<div id="inspector" class="bg-gray-50 h-screen grid" x-data="inspector" :style="`${(!$store.layout.desktop || horizontal) ? `grid-template-rows: 1fr 1px ${$store.inspector.drawer.height}px` : `grid-template-columns: 1fr 1px ${$store.inspector.drawer.width}px` }`">
-  <div class="grid" style="grid-template-rows: 40px 1fr">
+<div
+  id="inspector"
+  class="bg-gray-50 h-screen grid"
+  x-data="inspector"
+  :style="`${horizontal ? `grid-template-rows: 1fr 1px ${$store.inspector.drawer.height}px` : `grid-template-columns: 1fr 1px ${$store.inspector.drawer.width}px` }`">
+  <div class="grid grid-rows-[40px_1fr]">
     <%= component "header" do %>
-      <div class="flex items-center space-x-1" id="inspector-title-<%= @example.id %>">
+      <div class="flex items-center space-x-1 min-w-0 pr-8" id="inspector-title-<%= @example.id %>">
         <strong class="whitespace-nowrap truncate"><%= @preview.label %></strong>
         <% if @preview.get_examples.many? %>
           <span>/</span>
@@ -40,7 +44,7 @@
     x-data="splitter('horizontal')"
     class="w-full gutter border-t border-gray-300 relative"
     x-effect="$store.inspector.drawer.height = splits[2] || $store.inspector.drawer.height"
-    x-show="!$store.layout.desktop || horizontal"
+    x-show="horizontal"
   >
     <div class="h-[11px] w-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute left-0 right-0 -translate-y-1/2 cursor-[row-resize]"></div>
   </div>
@@ -48,7 +52,7 @@
     x-data="splitter('vertical', {minSize: $store.inspector.drawer.minWidth})"
     class="h-full gutter border-r border-gray-300 relative"
     x-effect="$store.inspector.drawer.width = splits[2] || $store.inspector.drawer.width"
-    x-show="$store.layout.desktop && vertical"
+    x-show="vertical"
   >
     <div class="w-[9px] h-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute top-0 bottom-0 -translate-x-1/2 cursor-[col-resize] z-10"></div>
   </div>

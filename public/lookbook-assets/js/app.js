@@ -11194,8 +11194,23 @@ exports.default = index1;
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"a9DtZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _sizes = require("./sizes");
+var _sizesDefault = parcelHelpers.interopDefault(_sizes);
 function inspector() {
     return {
+        width: 0,
+        height: 0,
+        init: function() {
+            var _this = this;
+            var ro = new ResizeObserver(function(entries) {
+                var rect = entries[0].contentRect;
+                _this.width = Math.round(rect.width);
+                _this.height = Math.round(rect.height);
+            });
+            ro.observe(this.$el);
+            this.width = Math.round(this.$el.clientWidth);
+            this.height = Math.round(this.$el.clientHeight);
+        },
         get orientation () {
             return this.$store.inspector.drawer.orientation;
         },
@@ -11203,10 +11218,13 @@ function inspector() {
             return this.$store.inspector.preview.view;
         },
         get horizontal () {
-            return this.orientation == "horizontal";
+            return this.canBeVertical ? this.orientation === "horizontal" : true;
         },
         get vertical () {
             return !this.horizontal;
+        },
+        get canBeVertical () {
+            return this.width > 800;
         },
         isActivePanel: function(panel) {
             return this.$store.inspector.drawer.active == panel;
@@ -11227,6 +11245,28 @@ function inspector() {
     };
 }
 exports.default = inspector;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU","./sizes":"ipCdL"}],"ipCdL":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function sizeObserver() {
+    return {
+        width: 0,
+        height: 0,
+        init: function() {
+            var _this = this;
+            var ro = new ResizeObserver(function(entries) {
+                var rect = entries[0].contentRect;
+                _this.width = Math.round(rect.width);
+                _this.height = Math.round(rect.height);
+            });
+            ro.observe(this.$el);
+            this.width = Math.round(this.$el.clientWidth);
+            this.height = Math.round(this.$el.clientHeight);
+        }
+    };
+}
+exports.default = sizeObserver;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"1Wjrk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -11340,28 +11380,6 @@ function getAlpineData(el) {
     return el._x_dataStack[0];
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"ipCdL":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-function sizeObserver() {
-    return {
-        width: 0,
-        height: 0,
-        init: function() {
-            var _this = this;
-            var ro = new ResizeObserver(function(entries) {
-                var rect = entries[0].contentRect;
-                _this.width = Math.round(rect.width);
-                _this.height = Math.round(rect.height);
-            });
-            ro.observe(this.$el);
-            this.width = Math.round(this.$el.clientWidth);
-            this.height = Math.round(this.$el.clientHeight);
-        }
-    };
-}
-exports.default = sizeObserver;
-
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"clyCh":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -11403,7 +11421,7 @@ exports.default = {
     sidebar: {
         defaultWidth: 280,
         minWidth: 200,
-        maxWidth: 500
+        maxWidth: 350
     },
     inspector: {
         drawer: {
@@ -11411,7 +11429,7 @@ exports.default = {
             defaultPanel: "source",
             defaultHeight: 200,
             defaultWidth: 500,
-            minWidth: 400
+            minWidth: 350
         },
         preview: {
             view: "preview"
@@ -11615,13 +11633,11 @@ function preview1() {
     return {
         get maxWidth () {
             var previewWidth = this.$store.inspector.preview.width;
-            if (this.$store.layout.desktop && previewWidth !== "100%") return "".concat(previewWidth, "px");
-            return "100%";
+            return previewWidth === "100%" ? "100%" : "".concat(previewWidth, "px");
         },
         get maxHeight () {
             var previewHeight = this.$store.inspector.preview.height;
-            if (this.$store.layout.desktop && previewHeight !== "100%") return "".concat(previewHeight, "px");
-            return "100%";
+            return previewHeight === "100%" ? "100%" : "".concat(previewHeight, "px");
         },
         get parentWidth () {
             return Math.round(this.$root.parentElement.clientWidth);
@@ -11645,7 +11661,7 @@ function preview1() {
         },
         onResizeWidth: function(e) {
             var width = this.resizeStartWidth - (this.resizeStartPositionX - e.pageX) * 2;
-            var boundedWidth = Math.min(Math.max(Math.round(width), 300), this.parentWidth);
+            var boundedWidth = Math.min(Math.max(Math.round(width), 200), this.parentWidth);
             this.$store.inspector.preview.width = boundedWidth === this.parentWidth ? "100%" : boundedWidth;
         },
         onResizeWidthStart: function(e) {
@@ -11672,7 +11688,7 @@ function preview1() {
         },
         onResizeHeight: function(e) {
             var height = this.resizeStartHeight - (this.resizeStartPositionY - e.pageY);
-            var boundedHeight = Math.min(Math.max(Math.round(height), 300), this.parentHeight);
+            var boundedHeight = Math.min(Math.max(Math.round(height), 200), this.parentHeight);
             this.$store.inspector.preview.height = boundedHeight === this.parentHeight ? "100%" : boundedHeight;
         },
         onResizeHeightStart: function(e) {
