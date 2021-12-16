@@ -13,6 +13,7 @@ const morphOpts = {
       return skip();
     }
   },
+  lookahead: true,
 };
 
 export default function page() {

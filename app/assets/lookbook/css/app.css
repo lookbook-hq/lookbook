@@ -58,8 +58,8 @@
 }
 
 @layer components {
-  #nav > ul > li {
-    @apply py-1;
+  #nav > ul > li > div {
+    @apply py-1 border-b border-gray-300;
   }
 
   .nav-toggle {

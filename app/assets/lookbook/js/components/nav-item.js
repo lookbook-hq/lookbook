@@ -15,6 +15,7 @@ export default function navItem(matchers) {
       this.$store.sidebar.open = false;
     },
     filter(text) {
+      this.hidden = false;
       if (text.length) {
         const matched = matchers.map((m) => m.includes(text));
         this.hidden = !matched.filter((m) => m).length;

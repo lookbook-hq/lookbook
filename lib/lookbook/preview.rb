@@ -3,7 +3,7 @@ module Lookbook
     include Taggable
 
     def id
-      lookbook_path.tr("_", "-")
+      lookbook_path.tr("/", "-").tr("_", "-")
     end
 
     # Examples::FooBarComponent::Preview -> "Foo Bar"

@@ -7869,7 +7869,8 @@ var morphOpts = {
             el.innerHTML = toEl.innerHTML;
             return skip();
         }
-    }
+    },
+    lookahead: true
 };
 function page() {
     return {
@@ -11319,7 +11320,7 @@ function nav() {
             });
         },
         getChildren: function() {
-            return this.$refs.items ? Array.from(this.$refs.items.querySelectorAll(":scope > li")) : [];
+            return this.$refs.items ? Array.from(this.$refs.items.querySelectorAll(":scope > li > div")) : [];
         },
         setActive: function() {
             var target = this.$el.querySelector("[data-path=\"".concat(window.location.pathname, "\"]"));
@@ -11545,6 +11546,7 @@ function navItem(matchers) {
             this.$store.sidebar.open = false;
         },
         filter: function(text) {
+            this.hidden = false;
             if (text.length) {
                 var matched = matchers.map(function(m) {
                     return m.includes(text);
@@ -11576,7 +11578,7 @@ function navGroup() {
             this.$store.nav.toggle(this.id);
         },
         getChildren: function() {
-            return this.$refs.items ? Array.from(this.$refs.items.querySelectorAll(":scope > li")) : [];
+            return this.$refs.items ? Array.from(this.$refs.items.querySelectorAll(":scope > li > div")) : [];
         },
         navigateToFirstChild: function() {
             if (this.open) {

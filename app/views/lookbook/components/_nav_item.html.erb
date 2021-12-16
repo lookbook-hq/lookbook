@@ -3,19 +3,21 @@ path = show_path item.path
 display ||= :item
 label ||= item.label
 %>
-<li id="nav-item-<%= item.id %>" x-data="navItem(<%= item.matchers.to_json %>)" :class="{hidden}" data-path="<%= path %>" x-cloak>
-  <a href="<%= path %>"
-    class="nav-link pr-3 py-[5px] flex items-center w-full group transition hover:bg-gray-200 hover:bg-opacity-50"
-    style="padding-left: calc((<%= depth - 1 %> * 12px) + 0.5rem);"
-    x-ref="link"
-    :class="{'!bg-indigo-100':active}"
-    @click.stop.prevent="navigate"
-  >
-    <div class="relative w-3.5 h-3.5 mr-1.5 <%= "ml-[3px]" if display == :node %> " :class="active ? 'text-gray-900' : 'text-indigo-500'">
-      <%= icon display == :node ? "layers" : "eye", size: 3.5, class: "group-hover:text-indigo-800" %>
-    </div>
-    <div class="truncate whitespace-nowrap select-none <%= "font-bold" if display == :node %>">
-      <%= label %>
-    </div>
-  </a>
+<li key="<%= item.id %>">
+  <div id="nav-item-<%= item.id %>" x-data="navItem(<%= item.matchers.to_json %>)" :class="{hidden}" data-path="<%= path %>" x-cloak>
+    <a href="<%= path %>"
+      class="nav-link pr-3 py-[5px] flex items-center w-full group transition hover:bg-gray-200 hover:bg-opacity-50"
+      style="padding-left: calc((<%= depth - 1 %> * 12px) + 0.5rem);"
+      x-ref="link"
+      :class="{'!bg-indigo-100':active}"
+      @click.stop.prevent="navigate"
+    >
+      <div class="relative w-3.5 h-3.5 mr-1.5 <%= "ml-[3px]" if display == :node %> " :class="active ? 'text-gray-900' : 'text-indigo-500'">
+        <%= icon display == :node ? "layers" : "eye", size: 3.5, class: "group-hover:text-indigo-800" %>
+      </div>
+      <div class="truncate whitespace-nowrap select-none <%= "font-bold" if display == :node %>">
+        <%= label %>
+      </div>
+    </a>
+  </div>
 </li>

@@ -1,6 +1,6 @@
 <nav id="nav" x-data="nav" @popstate.window="setActive">
   <% if items.any? %>
-    <ul x-ref="items" class="divide-y divide-gray-300">
+    <ul x-ref="items">
       <% items.each do |node| %>
         <%= component "nav_#{node.type}", node: node %>
       <% end %>

@@ -15,7 +15,7 @@ export default function navGroup() {
     },
     getChildren() {
       return this.$refs.items
-        ? Array.from(this.$refs.items.querySelectorAll(":scope > li"))
+        ? Array.from(this.$refs.items.querySelectorAll(":scope > li > div"))
         : [];
     },
     navigateToFirstChild() {
