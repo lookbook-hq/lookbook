@@ -1,7 +1,7 @@
-<div id="preview" class="h-auto min-h-0 w-full bg-gray-50">
-  <div class="relative mx-auto bg-white h-full w-full" x-data="previewWindow" :style="`width: ${$store.layout.desktop ? $store.inspector.preview.width : '100%'}`" x-show="view == 'preview'">
+<div id="preview" class="h-auto min-h-0 w-full checked-bg">
+  <div class="relative mx-auto h-full w-full" x-data="previewWindow" :style="`max-width: ${maxWidth}; max-height: ${maxHeight};`" x-show="view == 'preview'">
     <iframe seamless
-      class="absolute h-full inset-0 w-full border-l border-gray-300 md:pr-4 md:-mx-px"
+      class="absolute bg-white h-full inset-0 w-full border-l border-gray-300 md:pr-4 md:-mx-px md:pb-4"
       src="<%= url_for lookbook.preview_path %>"
       <% if config.preview_srcdoc %>srcdoc="<%== srcdoc %>"<% end %>
       frameborder="0"
@@ -9,14 +9,38 @@
       x-effect="preview.width = width; preview.height = height;"
     ></iframe>
     <div class="absolute opacity-0 inset-0 pointer-events-none" :class="{ 'pointer-events-none': !$store.layout.reflowing }"></div>
+
     <div
-      class="border-l border-r border-gray-300 bg-white hover:bg-indigo-100 hover:bg-opacity-20 transition absolute -right-px inset-y-0 flex items-center w-4 cursor-[col-resize] select-none"
+      class="border-l border-r border-gray-300 bg-white hover:bg-indigo-100 hover:bg-opacity-20 text-gray-400 hover:text-gray-700 transition absolute -right-px bottom-4 mb-[-2px] top-0 flex items-center w-4 cursor-[col-resize] select-none touch-none"
       style="touch-action: none"
-      @pointerdown="onResizeStart"
+      @pointerdown="onResizeWidthStart"
       @dblclick="toggleFullWidth"
       x-show="$store.layout.desktop"
     >
-      <svg class="h-4 w-4 text-gray-600 pointer-events-none" fill="currentColor" viewBox="0 0 24 24">
+      <svg class="h-4 w-4 pointer-events-none" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M8 5h2v14H8zM14 5h2v14h-2z"></path>
+      </svg>
+    </div>
+
+    <div
+      class="border-t border-b border-gray-300 bg-white hover:bg-indigo-100 hover:bg-opacity-20 text-gray-400 hover:text-gray-700  transition absolute -bottom-px left-0 right-4 mr-[-2px] flex justify-center h-4 cursor-[row-resize] select-none touch-none"
+      style="touch-action: none"
+      @pointerdown="onResizeHeightStart"
+      @dblclick="toggleFullHeight"
+      x-show="$store.layout.desktop"
+    >
+      <svg class="h-4 w-4 pointer-events-none rotate-90 relative -top-px" fill="currentColor" viewBox="0 0 24 24" >
+        <path d="M8 5h2v14H8zM14 5h2v14h-2z"></path>
+      </svg>
+    </div>
+
+    <div
+      class="border-r border-b bg-white hover:bg-indigo-100 hover:bg-opacity-20 text-gray-400 hover:text-gray-700 transition absolute -bottom-px -right-px h-4 w-4 select-none touch-none cursor-[nwse-resize]"
+      @pointerdown="onResizeStart"
+      @dblclick="toggleFullSize"
+      x-show="$store.layout.desktop"
+    >
+      <svg class="h-3 w-3 pointer-events-none rotate-45 relative top-px left-px" fill="currentColor" viewBox="0 0 24 24" >
         <path d="M8 5h2v14H8zM14 5h2v14h-2z"></path>
       </svg>
     </div>

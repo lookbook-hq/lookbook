@@ -11482,7 +11482,8 @@ function createInspectorStore(Alpine) {
             width: Alpine.$persist("100%").as("preview-width"),
             height: Alpine.$persist("100%").as("preview-height"),
             view: Alpine.$persist(preview.view).as("preview-view"),
-            lastWidth: null
+            lastWidth: null,
+            lastHeight: null
         }
     };
 }
@@ -11612,25 +11613,53 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 function preview1() {
     return {
-        onResize: function(e) {
-            var size = this.resizeStartSize - (this.resizeStartPosition - e.pageX) * 2;
-            var parentSize = this.$root.parentElement.clientWidth;
-            var percentSize = Math.round(size) / parentSize * 100;
-            var minWidth = 300 / parentSize * 100;
-            this.$store.inspector.preview.width = "".concat(Math.min(Math.max(percentSize, minWidth), 100), "%");
+        get maxWidth () {
+            var previewWidth = this.$store.inspector.preview.width;
+            if (this.$store.layout.desktop && previewWidth !== "100%") return "".concat(previewWidth, "px");
+            return "100%";
+        },
+        get maxHeight () {
+            var previewHeight = this.$store.inspector.preview.height;
+            if (this.$store.layout.desktop && previewHeight !== "100%") return "".concat(previewHeight, "px");
+            return "100%";
+        },
+        get parentWidth () {
+            return Math.round(this.$root.parentElement.clientWidth);
+        },
+        get parentHeight () {
+            return Math.round(this.$root.parentElement.clientHeight);
         },
         onResizeStart: function(e) {
-            this.$store.layout.reflowing = true;
-            this.onResize = this.onResize.bind(this);
-            this.onResizeEnd = this.onResizeEnd.bind(this);
-            this.resizeStartPosition = e.pageX;
-            this.resizeStartSize = this.$root.clientWidth;
-            window.addEventListener("pointermove", this.onResize);
-            window.addEventListener("pointerup", this.onResizeEnd);
+            this.onResizeWidthStart(e);
+            this.onResizeHeightStart(e);
         },
-        onResizeEnd: function() {
-            window.removeEventListener("pointermove", this.onResize);
-            window.removeEventListener("pointerup", this.onResizeEnd);
+        toggleFullSize: function() {
+            var preview = this.$store.inspector.preview;
+            if (preview.height === "100%" && preview.width === "100%") {
+                this.toggleFullHeight();
+                this.toggleFullWidth();
+            } else {
+                if (preview.height !== "100%") this.toggleFullHeight();
+                if (preview.width !== "100%") this.toggleFullWidth();
+            }
+        },
+        onResizeWidth: function(e) {
+            var width = this.resizeStartWidth - (this.resizeStartPositionX - e.pageX) * 2;
+            var boundedWidth = Math.min(Math.max(Math.round(width), 300), this.parentWidth);
+            this.$store.inspector.preview.width = boundedWidth === this.parentWidth ? "100%" : boundedWidth;
+        },
+        onResizeWidthStart: function(e) {
+            this.$store.layout.reflowing = true;
+            this.onResizeWidth = this.onResizeWidth.bind(this);
+            this.onResizeWidthEnd = this.onResizeWidthEnd.bind(this);
+            this.resizeStartPositionX = e.pageX;
+            this.resizeStartWidth = this.$root.clientWidth;
+            window.addEventListener("pointermove", this.onResizeWidth);
+            window.addEventListener("pointerup", this.onResizeWidthEnd);
+        },
+        onResizeWidthEnd: function() {
+            window.removeEventListener("pointermove", this.onResizeWidth);
+            window.removeEventListener("pointerup", this.onResizeWidthEnd);
             this.$store.layout.reflowing = false;
         },
         toggleFullWidth: function() {
@@ -11639,6 +11668,33 @@ function preview1() {
             else {
                 preview.lastWidth = preview.width;
                 preview.width = "100%";
+            }
+        },
+        onResizeHeight: function(e) {
+            var height = this.resizeStartHeight - (this.resizeStartPositionY - e.pageY);
+            var boundedHeight = Math.min(Math.max(Math.round(height), 300), this.parentHeight);
+            this.$store.inspector.preview.height = boundedHeight === this.parentHeight ? "100%" : boundedHeight;
+        },
+        onResizeHeightStart: function(e) {
+            this.$store.layout.reflowing = true;
+            this.onResizeHeight = this.onResizeHeight.bind(this);
+            this.onResizeHeightEnd = this.onResizeHeightEnd.bind(this);
+            this.resizeStartPositionY = e.pageY;
+            this.resizeStartHeight = this.$root.clientHeight;
+            window.addEventListener("pointermove", this.onResizeHeight);
+            window.addEventListener("pointerup", this.onResizeHeightEnd);
+        },
+        onResizeHeightEnd: function() {
+            window.removeEventListener("pointermove", this.onResizeHeight);
+            window.removeEventListener("pointerup", this.onResizeHeightEnd);
+            this.$store.layout.reflowing = false;
+        },
+        toggleFullHeight: function() {
+            var preview = this.$store.inspector.preview;
+            if (preview.height === "100%" && preview.lastHeight) preview.height = preview.lastHeight;
+            else {
+                preview.lastHeight = preview.height;
+                preview.height = "100%";
             }
         }
     };

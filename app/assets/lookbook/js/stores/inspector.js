@@ -16,6 +16,7 @@ export default function createInspectorStore(Alpine) {
       height: Alpine.$persist("100%").as("preview-height"),
       view: Alpine.$persist(preview.view).as("preview-view"),
       lastWidth: null,
+      lastHeight: null,
     },
   };
 }
