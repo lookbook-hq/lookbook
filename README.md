@@ -79,7 +79,7 @@ Lookbook parses [Yard-style comment tags](https://rubydoc.info/gems/yard/file/do
 
 ```ruby
 # @label Basic Button
-# @display bg_color #fff
+# @display bg_color "#fff"
 class ButtonComponentPreview < ViewComponent::Preview
 
   # Primary button
@@ -110,7 +110,7 @@ class ButtonComponentPreview < ViewComponent::Preview
   # ---------------
   # For light-on-dark screens
   #
-  # @display bg_color #000
+  # @display bg_color "#000"
   def secondary
     render ButtonComponent.new(style: :inverted) do
       "Click me"
@@ -188,7 +188,7 @@ end
 The `@display` tag lets you pass custom parameters to your preview layout so that the component preview can be customised on a per-example basis.
 
 ```ruby
-# @display bg_color #eee
+# @display bg_color "#eee"
 class FooComponentPreview < ViewComponent::Preview
 
   # @display max_width 500px
@@ -206,6 +206,8 @@ The `@display` tag can be applied at the preview (class) or at the example (meth
 
 - `<key>` must be a valid Ruby hash key name, without quotes or spaces
 - `<value>` will be parsed using the [Ruby YAML parser](https://yaml.org/YAML_for_ruby.html) to resolve the value
+
+> Note: Ruby YAML does not (generally) require quoting of string values. However in some cases it _is_ required due to the presence of [indicator characters](https://yaml.org/YAML_for_ruby.html#indicators_in_strings) (such as `#`, `:` etc) - hence why the hex color code in the example above is surrounded by quotes. It's perfectly ok to quote all string values if you prefer.
 
 These display parameters can then be accessed via the `params` hash in your preview layout using `params[:lookbook][:display][<key>]`:
 
