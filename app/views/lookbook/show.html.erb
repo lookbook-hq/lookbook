@@ -42,7 +42,7 @@
     x-effect="$store.inspector.drawer.height = splits[2] || $store.inspector.drawer.height"
     x-show="!$store.layout.desktop || horizontal"
   >
-    <div class="h-[11px] w-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute left-0 right-0 transform -translate-y-1/2 cursor-[row-resize]"></div>
+    <div class="h-[11px] w-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute left-0 right-0 -translate-y-1/2 cursor-[row-resize]"></div>
   </div>
   <div
     x-data="splitter('vertical', {minSize: $store.inspector.drawer.minWidth})"
@@ -50,7 +50,7 @@
     x-effect="$store.inspector.drawer.width = splits[2] || $store.inspector.drawer.width"
     x-show="$store.layout.desktop && vertical"
   >
-    <div class="w-[9px] h-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute top-0 bottom-0 transform -translate-x-1/2 cursor-[col-resize] z-10"></div>
+    <div class="w-[9px] h-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute top-0 bottom-0 -translate-x-1/2 cursor-[col-resize] z-10"></div>
   </div>
   <%= component "drawer", example: @example, examples: @examples, panels: @panels %>
 </div>
