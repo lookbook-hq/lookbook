@@ -2,7 +2,7 @@
   name="<%= name %>"
   id="<%= id %>"
   class="form-input"
-  @change.stop="update($el.name, $el.value)"
+  x-model="value"
   x-ref="input">
   <%= options_for_select(options, value) %>
 </select>

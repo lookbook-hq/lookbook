@@ -4,5 +4,6 @@
   type="<%= input_type %>"
   name="<%= name %>"
   value="<%= value %>"
-  @keyup.stop.debounce.400="if (validate()) update($el.name, $el.value)"
+  x-model="value"
+  @keyup.stop
   x-ref="input">

@@ -1,6 +1,10 @@
+<%
+value = params.key?(param[:name]) ? params[param[:name]] : param[:default]
+%>
 <div
+  id="<%= @example.id %>-param-<%= param[:name] %>-input"
   class="px-4 py-3"
-  x-data="param"
+  x-data="param('<%= param[:name] %>', <%= value.to_json %>)"
   <% if i == 0 %>x-effect="if ($store.inspector.drawer.active === 'params') setFocus()"<% end %>
 >
   <div class="flex items-start max-w-[800px]">
@@ -12,7 +16,7 @@
     <div class="flex-grow">
       <%= render "lookbook/inputs/#{param[:input]}",
         **param,
-        value: params.key?(param[:name]) ? params[param[:name]] : param[:default],
+        value: value,
         id: "#{@example.id}-param-#{param[:name]}-input"
       %>
     </div>

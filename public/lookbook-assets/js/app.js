@@ -140,10 +140,10 @@
       this[globalName] = mainExports;
     }
   }
-})({"cu9LU":[function(require,module,exports) {
+})({"1uIvH":[function(require,module,exports) {
 "use strict";
 var HMR_HOST = null;
-var HMR_PORT = 50879;
+var HMR_PORT = 1234;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "916932b22e4085ab";
 module.bundle.HMR_BUNDLE_ID = "0a614e2f185f363f";
@@ -11261,17 +11261,27 @@ exports.default = filter;
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"9tbIq":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-function param() {
+var _debounce = require("debounce");
+var _debounceDefault = parcelHelpers.interopDefault(_debounce);
+function param(name, value) {
     return {
+        name: name,
+        value: value,
+        init: function() {
+            var _this = this;
+            this.$watch("value", _debounceDefault.default(function() {
+                if (_this.validate()) _this.update();
+            }, 300));
+        },
         setFocus: function() {
             var _this = this;
             if (this.$refs.input) setTimeout(function() {
                 return _this.$refs.input.focus();
             }, 0);
         },
-        update: function(name, value) {
+        update: function() {
             var searchParams = new URLSearchParams(window.location.search);
-            searchParams.set(name, value);
+            searchParams.set(this.name, this.value);
             var path = location.href.replace(location.search, "");
             this.setLocation("".concat(path, "?").concat(searchParams.toString()));
         },
@@ -11282,7 +11292,7 @@ function param() {
 }
 exports.default = param;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"41Ql3":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU","debounce":"hw0wb"}],"41Ql3":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _utils = require("../lib/utils");
@@ -16023,6 +16033,6 @@ var createPopper = /*#__PURE__*/ _createPopperJs.popperGenerator({
     defaultModifiers: defaultModifiers
 }); // eslint-disable-next-line import/no-unused-modules
 
-},{"./createPopper.js":"l5IpN","./modifiers/eventListeners.js":"5gSsV","./modifiers/popperOffsets.js":"8Q7zp","./modifiers/computeStyles.js":"h32UB","./modifiers/applyStyles.js":"kqd6O","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}]},["cu9LU","kCDd3"], "kCDd3", "parcelRequirea49c")
+},{"./createPopper.js":"l5IpN","./modifiers/eventListeners.js":"5gSsV","./modifiers/popperOffsets.js":"8Q7zp","./modifiers/computeStyles.js":"h32UB","./modifiers/applyStyles.js":"kqd6O","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}]},["1uIvH","kCDd3"], "kCDd3", "parcelRequirea49c")
 
 //# sourceMappingURL=app.js.map
