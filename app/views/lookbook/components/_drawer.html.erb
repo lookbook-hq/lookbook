@@ -1,5 +1,5 @@
 <div id="drawer" class="bg-white w-full h-full flex flex-col min-w-0">
-  <div class="px-4 border-b border-gray-200 select-none flex-none">
+  <div class="px-4 border-b border-gray-200 select-none flex-none" x-show="!drawerHidden">
     <div class="-mb-px flex cursor-auto relative">
       <div
         id="inspector-tabs-<%= example.id %>"
@@ -89,6 +89,14 @@
           <%= icon "${horizontal ? 'sidebar' : 'credit-card'}",
             size: 4,
             class: "scale-[-1] text-gray-400 hover:text-indigo-800" %>
+        </button>
+        <button
+          x-tooltip.theme.lookbook="`close drawer`"
+          @click="toggleDrawer"
+        > 
+          <%= icon "x",
+            size: 4,
+            class: "text-gray-400 hover:text-indigo-800" %>
         </button>
       </div>
     </div>

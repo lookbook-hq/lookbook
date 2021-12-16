@@ -29,6 +29,9 @@ export default function inspector() {
     get canBeVertical() {
       return this.width > 800;
     },
+    get drawerHidden() {
+      return this.$store.inspector.drawer.hidden;
+    },
     isActivePanel(panel) {
       return this.$store.inspector.drawer.active == panel;
     },
@@ -42,6 +45,10 @@ export default function inspector() {
     toggleOrientation() {
       this.$store.inspector.drawer.orientation =
         this.orientation === "horizontal" ? "vertical" : "horizontal";
+    },
+    toggleDrawer() {
+      this.$store.inspector.drawer.hidden =
+        !this.$store.inspector.drawer.hidden;
     },
     preview: {
       width: null,

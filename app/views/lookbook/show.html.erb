@@ -2,7 +2,7 @@
   id="inspector"
   class="bg-gray-50 h-screen grid"
   x-data="inspector"
-  :style="`${horizontal ? `grid-template-rows: 1fr 1px ${$store.inspector.drawer.height}px` : `grid-template-columns: 1fr 1px ${$store.inspector.drawer.width}px` }`">
+  :style="`${horizontal ? `grid-template-rows: 1fr 1px ${drawerHidden ? '0' : $store.inspector.drawer.height}px` : `grid-template-columns: 1fr 1px ${drawerHidden ? '0' : $store.inspector.drawer.width}px` }`">
   <div class="grid grid-rows-[40px_1fr]">
     <%= component "header" do %>
       <div class="flex items-center space-x-1 min-w-0 pr-8" id="inspector-title-<%= @example.id %>">
@@ -12,29 +12,42 @@
           <span class="whitespace-nowrap truncate"><%= @example.label %></span>
         <% end %>
       </div>
-      <div class="flex items-center ml-auto md:divide-x divide-gray-300">
-        <div class="flex text-xs font-monospace text-gray-700 space-x-1" x-show="$store.layout.desktop && view == 'preview'">
+      <div class="flex items-center ml-auto divide-x divide-gray-300 space-x-3">
+        <div
+          class="flex text-xs font-monospace text-gray-700 space-x-1 opacity-50 hover:opacity-100 transition"
+          :class="{'opacity-100': $store.inspector.preview.resizing}"
+        >
           <span x-text="`${preview.width}px`"></span>
           <span class="text-gray-500">x</span>
           <span x-text="`${preview.height}px`"></span>
         </div>
-        <div class="flex items-center ml-auto md:ml-3 md:pl-3 space-x-3 text-gray-400">
-          <a
-            href="<%= url_for %>"
-            x-tooltip.theme.lookbook="`Refresh preview`"
-            @click.prevent.stop="refresh"
-            data-hotkey="r"
-          >
-            <%= icon "refresh-cw", size: 4, class: "hover:text-indigo-800" %>
-          </a>
-          <a
-            href="<%= preview_path %>"
-            target="_blank"
-            x-tooltip.theme.lookbook="`Open in new window`"
-            data-hotkey="w"
-          >
-            <%= icon "external-link", size: 4, class: "hover:text-indigo-800" %>
-          </a>
+        <div class="flex items-center space-x-3 text-gray-400 divide-x divide-gray-300 pl-3">
+          <div class="flex items-center space-x-3">
+            <button
+              x-tooltip.theme.lookbook="`Refresh preview`"
+              @click.prevent.stop="refresh"
+              data-hotkey="r"
+            >
+              <%= icon "refresh-cw", size: 4, class: "hover:text-indigo-800" %>
+            </button>
+            <a
+              href="<%= preview_path %>"
+              target="_blank"
+              x-tooltip.theme.lookbook="`Open in new window`"
+              data-hotkey="w"
+            >
+              <%= icon "external-link", size: 4, class: "hover:text-indigo-800" %>
+            </a>
+          </div>
+          <div class="flex items-center space-x-3 pl-3" x-show="drawerHidden">
+            <button
+              x-tooltip.theme.lookbook="`${drawerHidden ? 'show' : 'hide'} drawer`"
+              @click="toggleDrawer"
+              data-hotkey="i"
+            > 
+              <%= icon "${horizontal ? 'credit-card' : 'sidebar'}", size: 4, class: "hover:text-indigo-800 scale-[-1]" %>
+            </button>
+          </div>
         </div>
       </div>
     <% end %>
@@ -44,7 +57,7 @@
     x-data="splitter('horizontal')"
     class="w-full gutter border-t border-gray-300 relative"
     x-effect="$store.inspector.drawer.height = splits[2] || $store.inspector.drawer.height"
-    x-show="horizontal"
+    x-show="horizontal && !drawerHidden"
   >
     <div class="h-[11px] w-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute left-0 right-0 -translate-y-1/2 cursor-[row-resize]"></div>
   </div>
@@ -52,7 +65,7 @@
     x-data="splitter('vertical', {minSize: $store.inspector.drawer.minWidth})"
     class="h-full gutter border-r border-gray-300 relative"
     x-effect="$store.inspector.drawer.width = splits[2] || $store.inspector.drawer.width"
-    x-show="vertical"
+    x-show="vertical && !drawerHidden"
   >
     <div class="w-[9px] h-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute top-0 bottom-0 -translate-x-1/2 cursor-[col-resize] z-10"></div>
   </div>

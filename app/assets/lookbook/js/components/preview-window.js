@@ -1,12 +1,13 @@
 export default function preview() {
   return {
+    get store() {
+      return this.$store.inspector.preview;
+    },
     get maxWidth() {
-      const previewWidth = this.$store.inspector.preview.width;
-      return previewWidth === "100%" ? "100%" : `${previewWidth}px`;
+      return this.store.width === "100%" ? "100%" : `${this.store.width}px`;
     },
     get maxHeight() {
-      const previewHeight = this.$store.inspector.preview.height;
-      return previewHeight === "100%" ? "100%" : `${previewHeight}px`;
+      return this.store.height === "100%" ? "100%" : `${this.store.height}px`;
     },
     get parentWidth() {
       return Math.round(this.$root.parentElement.clientWidth);
@@ -14,22 +15,26 @@ export default function preview() {
     get parentHeight() {
       return Math.round(this.$root.parentElement.clientHeight);
     },
+    start() {
+      this.$store.layout.reflowing = true;
+      this.store.resizing = true;
+    },
+    end() {
+      this.$store.layout.reflowing = false;
+      this.store.resizing = false;
+    },
     onResizeStart(e) {
       this.onResizeWidthStart(e);
       this.onResizeHeightStart(e);
     },
     toggleFullSize() {
-      const preview = this.$store.inspector.preview;
-      if (preview.height === "100%" && preview.width === "100%") {
+      const { height, width } = this.store;
+      if (height === "100%" && width === "100%") {
         this.toggleFullHeight();
         this.toggleFullWidth();
       } else {
-        if (preview.height !== "100%") {
-          this.toggleFullHeight();
-        }
-        if (preview.width !== "100%") {
-          this.toggleFullWidth();
-        }
+        if (height !== "100%") this.toggleFullHeight();
+        if (width !== "100%") this.toggleFullWidth();
       }
     },
     onResizeWidth(e) {
@@ -39,11 +44,11 @@ export default function preview() {
         Math.max(Math.round(width), 200),
         this.parentWidth
       );
-      this.$store.inspector.preview.width =
+      this.store.width =
         boundedWidth === this.parentWidth ? "100%" : boundedWidth;
     },
     onResizeWidthStart(e) {
-      this.$store.layout.reflowing = true;
+      this.start();
       this.onResizeWidth = this.onResizeWidth.bind(this);
       this.onResizeWidthEnd = this.onResizeWidthEnd.bind(this);
       this.resizeStartPositionX = e.pageX;
@@ -54,15 +59,15 @@ export default function preview() {
     onResizeWidthEnd() {
       window.removeEventListener("pointermove", this.onResizeWidth);
       window.removeEventListener("pointerup", this.onResizeWidthEnd);
-      this.$store.layout.reflowing = false;
+      this.end();
     },
     toggleFullWidth() {
-      const preview = this.$store.inspector.preview;
-      if (preview.width === "100%" && preview.lastWidth) {
-        preview.width = preview.lastWidth;
+      const { width, lastWidth } = this.store;
+      if (width === "100%" && lastWidth) {
+        this.store.width = lastWidth;
       } else {
-        preview.lastWidth = preview.width;
-        preview.width = "100%";
+        this.store.lastWidth = width;
+        this.store.width = "100%";
       }
     },
     onResizeHeight(e) {
@@ -76,7 +81,7 @@ export default function preview() {
         boundedHeight === this.parentHeight ? "100%" : boundedHeight;
     },
     onResizeHeightStart(e) {
-      this.$store.layout.reflowing = true;
+      this.start();
       this.onResizeHeight = this.onResizeHeight.bind(this);
       this.onResizeHeightEnd = this.onResizeHeightEnd.bind(this);
       this.resizeStartPositionY = e.pageY;
@@ -87,15 +92,15 @@ export default function preview() {
     onResizeHeightEnd() {
       window.removeEventListener("pointermove", this.onResizeHeight);
       window.removeEventListener("pointerup", this.onResizeHeightEnd);
-      this.$store.layout.reflowing = false;
+      this.end();
     },
     toggleFullHeight() {
-      const preview = this.$store.inspector.preview;
-      if (preview.height === "100%" && preview.lastHeight) {
-        preview.height = preview.lastHeight;
+      const { height, lastHeight } = this.store;
+      if (height === "100%" && lastHeight) {
+        this.store.height = lastHeight;
       } else {
-        preview.lastHeight = preview.height;
-        preview.height = "100%";
+        this.store.lastHeight = height;
+        this.store.height = "100%";
       }
     },
   };

@@ -11226,6 +11226,9 @@ function inspector() {
         get canBeVertical () {
             return this.width > 800;
         },
+        get drawerHidden () {
+            return this.$store.inspector.drawer.hidden;
+        },
         isActivePanel: function(panel) {
             return this.$store.inspector.drawer.active == panel;
         },
@@ -11237,6 +11240,9 @@ function inspector() {
         },
         toggleOrientation: function() {
             this.$store.inspector.drawer.orientation = this.orientation === "horizontal" ? "vertical" : "horizontal";
+        },
+        toggleDrawer: function() {
+            this.$store.inspector.drawer.hidden = !this.$store.inspector.drawer.hidden;
         },
         preview: {
             width: null,
@@ -11489,6 +11495,7 @@ function createInspectorStore(Alpine) {
     var _inspector = _configDefault.default.inspector, drawer = _inspector.drawer, preview = _inspector.preview;
     return {
         drawer: {
+            hidden: Alpine.$persist(false).as("drawer-hidden"),
             orientation: Alpine.$persist(drawer.orientation).as("drawer-orientation"),
             active: Alpine.$persist(drawer.defaultPanel).as("drawer-active"),
             height: Alpine.$persist(drawer.defaultHeight).as("drawer-height"),
@@ -11501,7 +11508,8 @@ function createInspectorStore(Alpine) {
             height: Alpine.$persist("100%").as("preview-height"),
             view: Alpine.$persist(preview.view).as("preview-view"),
             lastWidth: null,
-            lastHeight: null
+            lastHeight: null,
+            resizing: false
         }
     };
 }
@@ -11629,15 +11637,16 @@ exports.default = navGroup;
 },{"../lib/utils":"efGNF","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"iZ8eY":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-function preview1() {
+function preview() {
     return {
+        get store () {
+            return this.$store.inspector.preview;
+        },
         get maxWidth () {
-            var previewWidth = this.$store.inspector.preview.width;
-            return previewWidth === "100%" ? "100%" : "".concat(previewWidth, "px");
+            return this.store.width === "100%" ? "100%" : "".concat(this.store.width, "px");
         },
         get maxHeight () {
-            var previewHeight = this.$store.inspector.preview.height;
-            return previewHeight === "100%" ? "100%" : "".concat(previewHeight, "px");
+            return this.store.height === "100%" ? "100%" : "".concat(this.store.height, "px");
         },
         get parentWidth () {
             return Math.round(this.$root.parentElement.clientWidth);
@@ -11645,27 +11654,35 @@ function preview1() {
         get parentHeight () {
             return Math.round(this.$root.parentElement.clientHeight);
         },
+        start: function() {
+            this.$store.layout.reflowing = true;
+            this.store.resizing = true;
+        },
+        end: function() {
+            this.$store.layout.reflowing = false;
+            this.store.resizing = false;
+        },
         onResizeStart: function(e) {
             this.onResizeWidthStart(e);
             this.onResizeHeightStart(e);
         },
         toggleFullSize: function() {
-            var preview = this.$store.inspector.preview;
-            if (preview.height === "100%" && preview.width === "100%") {
+            var _store = this.store, height = _store.height, width = _store.width;
+            if (height === "100%" && width === "100%") {
                 this.toggleFullHeight();
                 this.toggleFullWidth();
             } else {
-                if (preview.height !== "100%") this.toggleFullHeight();
-                if (preview.width !== "100%") this.toggleFullWidth();
+                if (height !== "100%") this.toggleFullHeight();
+                if (width !== "100%") this.toggleFullWidth();
             }
         },
         onResizeWidth: function(e) {
             var width = this.resizeStartWidth - (this.resizeStartPositionX - e.pageX) * 2;
             var boundedWidth = Math.min(Math.max(Math.round(width), 200), this.parentWidth);
-            this.$store.inspector.preview.width = boundedWidth === this.parentWidth ? "100%" : boundedWidth;
+            this.store.width = boundedWidth === this.parentWidth ? "100%" : boundedWidth;
         },
         onResizeWidthStart: function(e) {
-            this.$store.layout.reflowing = true;
+            this.start();
             this.onResizeWidth = this.onResizeWidth.bind(this);
             this.onResizeWidthEnd = this.onResizeWidthEnd.bind(this);
             this.resizeStartPositionX = e.pageX;
@@ -11676,14 +11693,14 @@ function preview1() {
         onResizeWidthEnd: function() {
             window.removeEventListener("pointermove", this.onResizeWidth);
             window.removeEventListener("pointerup", this.onResizeWidthEnd);
-            this.$store.layout.reflowing = false;
+            this.end();
         },
         toggleFullWidth: function() {
-            var preview = this.$store.inspector.preview;
-            if (preview.width === "100%" && preview.lastWidth) preview.width = preview.lastWidth;
+            var _store = this.store, width = _store.width, lastWidth = _store.lastWidth;
+            if (width === "100%" && lastWidth) this.store.width = lastWidth;
             else {
-                preview.lastWidth = preview.width;
-                preview.width = "100%";
+                this.store.lastWidth = width;
+                this.store.width = "100%";
             }
         },
         onResizeHeight: function(e) {
@@ -11692,7 +11709,7 @@ function preview1() {
             this.$store.inspector.preview.height = boundedHeight === this.parentHeight ? "100%" : boundedHeight;
         },
         onResizeHeightStart: function(e) {
-            this.$store.layout.reflowing = true;
+            this.start();
             this.onResizeHeight = this.onResizeHeight.bind(this);
             this.onResizeHeightEnd = this.onResizeHeightEnd.bind(this);
             this.resizeStartPositionY = e.pageY;
@@ -11703,19 +11720,19 @@ function preview1() {
         onResizeHeightEnd: function() {
             window.removeEventListener("pointermove", this.onResizeHeight);
             window.removeEventListener("pointerup", this.onResizeHeightEnd);
-            this.$store.layout.reflowing = false;
+            this.end();
         },
         toggleFullHeight: function() {
-            var preview = this.$store.inspector.preview;
-            if (preview.height === "100%" && preview.lastHeight) preview.height = preview.lastHeight;
+            var _store = this.store, height = _store.height, lastHeight = _store.lastHeight;
+            if (height === "100%" && lastHeight) this.store.height = lastHeight;
             else {
-                preview.lastHeight = preview.height;
-                preview.height = "100%";
+                this.store.lastHeight = height;
+                this.store.height = "100%";
             }
         }
     };
 }
-exports.default = preview1;
+exports.default = preview;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"gHCnH":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");

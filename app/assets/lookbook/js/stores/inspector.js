@@ -4,6 +4,7 @@ export default function createInspectorStore(Alpine) {
   const { drawer, preview } = config.inspector;
   return {
     drawer: {
+      hidden: Alpine.$persist(false).as("drawer-hidden"),
       orientation: Alpine.$persist(drawer.orientation).as("drawer-orientation"),
       active: Alpine.$persist(drawer.defaultPanel).as("drawer-active"),
       height: Alpine.$persist(drawer.defaultHeight).as("drawer-height"),
@@ -17,6 +18,7 @@ export default function createInspectorStore(Alpine) {
       view: Alpine.$persist(preview.view).as("preview-view"),
       lastWidth: null,
       lastHeight: null,
+      resizing: false,
     },
   };
 }

@@ -963,6 +963,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-right: -2px;
 }.mb-4 {
   margin-bottom: 1rem;
+}.ml-3 {
+  margin-left: 0.75rem;
 }.block {
   display: block;
 }.inline-block {
@@ -1049,6 +1051,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-scale-x: -1;
   --tw-scale-y: -1;
   transform: var(--tw-transform);
+}.scale-x-\[-1\] {
+  --tw-scale-x: -1;
+  transform: var(--tw-transform);
 }.cursor-\[row-resize\] {
   cursor: row-resize;
 }.cursor-\[col-resize\] {
@@ -1101,6 +1106,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-divide-y-reverse: 0;
   border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
   border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
+}.divide-x > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-x-reverse: 0;
+  border-right-width: calc(1px * var(--tw-divide-x-reverse));
+  border-left-width: calc(1px * calc(1 - var(--tw-divide-x-reverse)));
 }.divide-dashed > :not([hidden]) ~ :not([hidden]) {
   border-style: dashed;
 }.divide-gray-300 > :not([hidden]) ~ :not([hidden]) {
@@ -1210,6 +1219,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-top: 0.75rem;
 }.pb-6 {
   padding-bottom: 1.5rem;
+}.pl-3 {
+  padding-left: 0.75rem;
 }.text-center {
   text-align: center;
 }.font-monospace {
@@ -1283,6 +1294,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   opacity: 0.4;
 }.opacity-30 {
   opacity: 0.3;
+}.opacity-20 {
+  opacity: 0.2;
+}.opacity-100 {
+  opacity: 1;
 }.shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
@@ -1535,6 +1550,8 @@ Ensure the default browser behavior of the `hidden` attribute.
 }.hover\:text-gray-700:hover {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
+}.hover\:opacity-100:hover {
+  opacity: 1;
 }.focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
