@@ -140,10 +140,10 @@
       this[globalName] = mainExports;
     }
   }
-})({"1uIvH":[function(require,module,exports) {
+})({"cu9LU":[function(require,module,exports) {
 "use strict";
 var HMR_HOST = null;
-var HMR_PORT = 1234;
+var HMR_PORT = 50879;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "916932b22e4085ab";
 module.bundle.HMR_BUNDLE_ID = "0a614e2f185f363f";
@@ -7860,6 +7860,17 @@ var _regeneratorRuntime = require("regenerator-runtime");
 var _regeneratorRuntimeDefault = parcelHelpers.interopDefault(_regeneratorRuntime);
 var _socket = require("../lib/socket");
 var _socketDefault = parcelHelpers.interopDefault(_socket);
+var morphOpts = {
+    key: function(el) {
+        return el.getAttribute("key") ? el.getAttribute("key") : el.id;
+    },
+    updating: function(el, toEl, childrenOnly, skip) {
+        if (el.getAttribute && el.getAttribute("data-morph-strategy") === "replace") {
+            el.innerHTML = toEl.innerHTML;
+            return skip();
+        }
+    }
+};
 function page() {
     return {
         init: function() {
@@ -7908,11 +7919,7 @@ function page() {
         },
         morph: function(dom) {
             var pageHtml = dom.getElementById(this.$root.id).outerHTML;
-            Alpine.morph(this.$root, pageHtml, {
-                key: function(el) {
-                    return el.getAttribute("key") ? el.getAttribute("key") : el.id;
-                }
-            });
+            Alpine.morph(this.$root, pageHtml, morphOpts);
             this.$dispatch("page:morphed");
         }
     };
@@ -11676,7 +11683,7 @@ function tabs() {
 }
 exports.default = tabs;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU","tippy.js":"bFFfD"}],"bFFfD":[function(require,module,exports) {
+},{"tippy.js":"bFFfD","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"bFFfD":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "animateFill", ()=>animateFill
@@ -16016,6 +16023,6 @@ var createPopper = /*#__PURE__*/ _createPopperJs.popperGenerator({
     defaultModifiers: defaultModifiers
 }); // eslint-disable-next-line import/no-unused-modules
 
-},{"./createPopper.js":"l5IpN","./modifiers/eventListeners.js":"5gSsV","./modifiers/popperOffsets.js":"8Q7zp","./modifiers/computeStyles.js":"h32UB","./modifiers/applyStyles.js":"kqd6O","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}]},["1uIvH","kCDd3"], "kCDd3", "parcelRequirea49c")
+},{"./createPopper.js":"l5IpN","./modifiers/eventListeners.js":"5gSsV","./modifiers/popperOffsets.js":"8Q7zp","./modifiers/computeStyles.js":"h32UB","./modifiers/applyStyles.js":"kqd6O","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}]},["cu9LU","kCDd3"], "kCDd3", "parcelRequirea49c")
 
 //# sourceMappingURL=app.js.map

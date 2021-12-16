@@ -1,5 +1,20 @@
 import createSocket from "../lib/socket";
 
+const morphOpts = {
+  key(el) {
+    return el.getAttribute("key") ? el.getAttribute("key") : el.id;
+  },
+  updating(el, toEl, childrenOnly, skip) {
+    if (
+      el.getAttribute &&
+      el.getAttribute("data-morph-strategy") === "replace"
+    ) {
+      el.innerHTML = toEl.innerHTML;
+      return skip();
+    }
+  },
+};
+
 export default function page() {
   return {
     init() {
@@ -22,11 +37,7 @@ export default function page() {
     },
     morph(dom) {
       const pageHtml = dom.getElementById(this.$root.id).outerHTML;
-      Alpine.morph(this.$root, pageHtml, {
-        key(el) {
-          return el.getAttribute("key") ? el.getAttribute("key") : el.id;
-        },
-      });
+      Alpine.morph(this.$root, pageHtml, morphOpts);
       this.$dispatch("page:morphed");
     },
   };
