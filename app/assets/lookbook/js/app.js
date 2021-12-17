@@ -15,6 +15,7 @@ import navGroup from "./components/nav-group";
 import splitter from "./components/splitter";
 import tabs from "./components/tabs";
 import copy from "./components/copy";
+import code from "./components/code";
 import sizes from "./components/sizes";
 
 import initFilterStore from "./stores/filter";
@@ -43,6 +44,7 @@ Alpine.data("page", page);
 Alpine.data("splitter", splitter);
 Alpine.data("previewWindow", previewWindow);
 Alpine.data("copy", copy);
+Alpine.data("code", code);
 Alpine.data("inspector", inspector);
 Alpine.data("filter", filter);
 Alpine.data("param", param);

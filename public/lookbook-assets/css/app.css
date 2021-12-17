@@ -823,7 +823,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }.code pre {
   display: block;
-    /* @apply whitespace-pre-wrap; */
+}.code.wrapped pre {
+  white-space: pre-wrap;
 }.code .line {
   line-height: 1.625;
 }.code.numbered {

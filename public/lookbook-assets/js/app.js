@@ -491,6 +491,8 @@ var _tabs = require("./components/tabs");
 var _tabsDefault = parcelHelpers.interopDefault(_tabs);
 var _copy = require("./components/copy");
 var _copyDefault = parcelHelpers.interopDefault(_copy);
+var _code = require("./components/code");
+var _codeDefault = parcelHelpers.interopDefault(_code);
 var _sizes = require("./components/sizes");
 var _sizesDefault = parcelHelpers.interopDefault(_sizes);
 var _filter1 = require("./stores/filter");
@@ -518,6 +520,7 @@ _alpinejsDefault.default.data("page", _pageDefault.default);
 _alpinejsDefault.default.data("splitter", _splitterDefault.default);
 _alpinejsDefault.default.data("previewWindow", _previewWindowDefault.default);
 _alpinejsDefault.default.data("copy", _copyDefault.default);
+_alpinejsDefault.default.data("code", _codeDefault.default);
 _alpinejsDefault.default.data("inspector", _inspectorDefault.default);
 _alpinejsDefault.default.data("filter", _filterDefault.default);
 _alpinejsDefault.default.data("param", _paramDefault.default);
@@ -550,7 +553,7 @@ try {
 window.Alpine = _alpinejsDefault.default;
 _alpinejsDefault.default.start();
 
-},{"@github/hotkey":"4Vf0K","alpinejs":"cQZQC","@alpinejs/persist":"gCoGk","@alpinejs/morph":"80ez2","@ryangjchandler/alpine-tooltip":"lgns0","./components/page":"55pfR","./components/splitter":"2c7V4","./components/inspector":"a9DtZ","./components/filter":"1Wjrk","./components/param":"9tbIq","./components/nav":"41Ql3","./components/sizes":"ipCdL","./stores/filter":"clyCh","./stores/layout":"dS8Sg","./stores/nav":"dXBwS","./stores/sidebar":"520kV","./stores/inspector":"4zpcp","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU","./components/copy":"kk5Vp","./components/nav-item":"jkkjy","./components/nav-group":"7yZ5O","./components/preview-window":"iZ8eY","./components/tabs":"gHCnH"}],"4Vf0K":[function(require,module,exports) {
+},{"@github/hotkey":"4Vf0K","alpinejs":"cQZQC","@alpinejs/persist":"gCoGk","@alpinejs/morph":"80ez2","@ryangjchandler/alpine-tooltip":"lgns0","./components/page":"55pfR","./components/splitter":"2c7V4","./components/inspector":"a9DtZ","./components/filter":"1Wjrk","./components/param":"9tbIq","./components/nav":"41Ql3","./components/sizes":"ipCdL","./stores/filter":"clyCh","./stores/layout":"dS8Sg","./stores/nav":"dXBwS","./stores/sidebar":"520kV","./stores/inspector":"4zpcp","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU","./components/copy":"kk5Vp","./components/nav-item":"jkkjy","./components/nav-group":"7yZ5O","./components/preview-window":"iZ8eY","./components/tabs":"gHCnH","./components/code":"9EiSR"}],"4Vf0K":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Leaf", ()=>Leaf
@@ -16133,6 +16136,16 @@ var createPopper = /*#__PURE__*/ _createPopperJs.popperGenerator({
     defaultModifiers: defaultModifiers
 }); // eslint-disable-next-line import/no-unused-modules
 
-},{"./createPopper.js":"l5IpN","./modifiers/eventListeners.js":"5gSsV","./modifiers/popperOffsets.js":"8Q7zp","./modifiers/computeStyles.js":"h32UB","./modifiers/applyStyles.js":"kqd6O","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}]},["1uIvH","kCDd3"], "kCDd3", "parcelRequirea49c")
+},{"./createPopper.js":"l5IpN","./modifiers/eventListeners.js":"5gSsV","./modifiers/popperOffsets.js":"8Q7zp","./modifiers/computeStyles.js":"h32UB","./modifiers/applyStyles.js":"kqd6O","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"9EiSR":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function code() {
+    return {
+        wrap: false
+    };
+}
+exports.default = code;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}]},["1uIvH","kCDd3"], "kCDd3", "parcelRequirea49c")
 
 //# sourceMappingURL=app.js.map

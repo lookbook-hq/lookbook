@@ -1,7 +1,7 @@
 <div class="p-4 h-full overflow-auto bg-gray-50 space-y-6" data-morph-strategy="replace">
   <% if examples.many? %>
     <% examples.each do |example| %>
-      <%= component "code", language: example[:source_lang][:name] do -%>
+      <%= component "code", language: example[:source_lang][:name], wrap: "vertical" do -%>
         <%== "#{sprintf example[:source_lang][:comment], example[:label]}\n#{example[:source]}" %>
       <% end %>
     <% end %>

@@ -76,7 +76,10 @@
 
   .code pre {
     @apply block;
-    /* @apply whitespace-pre-wrap; */
+  }
+
+  .code.wrapped pre {
+    @apply whitespace-pre-wrap;
   }
 
   .code .line {
