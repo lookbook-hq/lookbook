@@ -1,8 +1,7 @@
 <select
   name="<%= name %>"
-  id="<%= id %>"
   class="form-input"
   x-model="value"
-  x-ref="input">
+  x-data="param('<%= name %>', '<%= value %>')">
   <%= options_for_select(options, value) %>
 </select>

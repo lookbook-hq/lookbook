@@ -1,9 +1,8 @@
 <textarea
-  id="<%= id %>"
   class="form-input"
   name="<%= name %>"
   rows="4"
   @keyup.stop
   x-model="value"
-  x-ref="input"
+  x-data="param('<%= name %>', '<%= value %>', {debounce: 300})"
 ><%= value %></textarea>

@@ -10,7 +10,7 @@ export default function socket(endpoint) {
         received: debounce((data) => {
           console.log("Lookbook files changed");
           callback(data);
-        }, 300),
+        }, 200),
         connected() {
           console.log("Lookbook websocket connected");
         },

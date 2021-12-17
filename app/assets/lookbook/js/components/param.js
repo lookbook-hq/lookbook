@@ -1,23 +1,25 @@
 import debounce from "debounce";
 
-export default function param(name, value) {
+export default function param(name, value, opts = {}) {
   return {
     name,
     value,
+    updating: false,
     init() {
-      this.$watch(
-        "value",
-        debounce(() => {
-          if (this.validate()) {
-            this.update();
-          }
-        }, 300)
-      );
+      if (opts.debounce) {
+        this.$watch(
+          "value",
+          debounce(() => this.updateIfValid(), opts.debounce)
+        );
+      } else {
+        this.$watch("value", () => this.updateIfValid());
+      }
     },
     setFocus() {
-      if (this.$refs.input) {
-        setTimeout(() => this.$refs.input.focus(), 0);
-      }
+      setTimeout(() => this.$root.focus(), 0);
+    },
+    updateIfValid() {
+      if (this.validate()) this.update();
     },
     update() {
       const searchParams = new URLSearchParams(window.location.search);
@@ -26,7 +28,7 @@ export default function param(name, value) {
       this.setLocation(`${path}?${searchParams.toString()}`);
     },
     validate() {
-      return this.$el.reportValidity ? this.$el.reportValidity() : true;
+      return this.$root.reportValidity ? this.$root.reportValidity() : true;
     },
   };
 }
