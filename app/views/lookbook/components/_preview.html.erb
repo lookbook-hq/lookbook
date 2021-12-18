@@ -9,7 +9,7 @@
       <iframe seamless
         class="h-full w-full border border-gray-300"
          :class="{ 'pointer-events-none': $store.layout.reflowing }"
-        src="<%= url_for lookbook.preview_path %>"
+        src="<%= lookbook.preview_path(request.query_parameters) %>"
         <% if config.preview_srcdoc %>srcdoc="<%== srcdoc %>"<% end %>
         frameborder="0"
         x-data="sizes"
