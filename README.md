@@ -63,9 +63,15 @@ end
 
 The `at` property determines the root URL that the Lookbook UI will be served at.
 
-> If you would like to expose the Lookbook UI in production as well as in development, just remove the `if Rails.env.development?` condition from around the mount statement.
-
 Then you can start your app as normal and navigate to `http://localhost:3000/lookbook` (or whatever mount path you specified) to view your component previews in the Lookbook UI.
+
+#### Mounting in Production
+
+If you would like to expose the Lookbook UI in production as well as in development
+
+1. Remove the `if Rails.env.development?` condition from around the mount statement in `routes.rb`
+2. Add `config.view_component.show_previews = true` to `config/environments/production.rb`
+
 
 ## Usage
 
@@ -96,7 +102,7 @@ class ButtonComponentPreview < ViewComponent::Preview
   # Button with icon
   # ----------------
   # This example uses dynamic preview parameters
-  # which can be edited live in the Lookbook UI 
+  # which can be edited live in the Lookbook UI
   #
   # @param text
   # @param icon select [heart, cog, alert]
@@ -326,7 +332,7 @@ The `@param` tag takes the following format:
 ```
 
 - `<name>` - name of the dynamic preview param
-- `<input_type>` - input field type to generate in the UI 
+- `<input_type>` - input field type to generate in the UI
 - `<opts?>` - YAML-encoded field options, used for some field types
 
 #### Input types
@@ -357,7 +363,7 @@ The following **input field types** are available for use:
 @param <name> select <options>
 ```
 
-`<options>` should be a [YAML array](https://yaml.org/YAML_for_ruby.html#simple_inline_array) of options which must be formatted in the same style as the input for Rails' [`options_for_select`](https://apidock.com/rails/v6.0.0/ActionView/Helpers/FormOptionsHelper/options_for_select) helper: 
+`<options>` should be a [YAML array](https://yaml.org/YAML_for_ruby.html#simple_inline_array) of options which must be formatted in the same style as the input for Rails' [`options_for_select`](https://apidock.com/rails/v6.0.0/ActionView/Helpers/FormOptionsHelper/options_for_select) helper:
 
 ```ruby
 # Basic options:
@@ -437,7 +443,7 @@ The following structured types are also available but should be considered **exp
 
 ```ruby
 class ButtonComponentPreview < ViewComponent::Preview
-  
+
   # The params defined below will be editable in the UI:
   #
   # @param content text
@@ -512,7 +518,7 @@ config.lookbook.experimental_features = ["feature_name"]
 
 The current experimental features that can be opted into are:
 
-- `params`: Live-editable, dynamic preview parameters ([read more](#param-tag)). Include `"params"` in the `experimental_features` config option to opt in. 
+- `params`: Live-editable, dynamic preview parameters ([read more](#param-tag)). Include `"params"` in the `experimental_features` config option to opt in.
 
 #### Opting into all experimental features (not recommended!)
 
