@@ -3,56 +3,7 @@
   class="bg-gray-50 h-screen grid"
   x-data="inspector"
   :style="`${horizontal ? `grid-template-rows: 1fr 1px ${drawerHidden ? '0' : $store.inspector.drawer.height}px` : `grid-template-columns: 1fr 1px ${drawerHidden ? '0' : $store.inspector.drawer.width}px` }`">
-  <div class="grid grid-rows-[40px_1fr]">
-    <%= component "header" do %>
-      <div class="flex items-center space-x-1 min-w-0 pr-8" id="inspector-title-<%= @example.id %>">
-        <strong class="whitespace-nowrap truncate"><%= @preview.label %></strong>
-        <% if @preview.get_examples.many? %>
-          <span>/</span>
-          <span class="whitespace-nowrap truncate"><%= @example.label %></span>
-        <% end %>
-      </div>
-      <div class="flex items-center ml-auto divide-x divide-gray-300 space-x-3">
-        <div
-          class="flex text-xs font-monospace text-gray-700 space-x-1 opacity-50 hover:opacity-100 transition"
-          :class="{'opacity-100': $store.inspector.preview.resizing}"
-        >
-          <span x-text="`${preview.width}px`"></span>
-          <span class="text-gray-500">x</span>
-          <span x-text="`${preview.height}px`"></span>
-        </div>
-        <div class="flex items-center space-x-3 text-gray-400 divide-x divide-gray-300 pl-3">
-          <div class="flex items-center space-x-3">
-            <button
-              x-tooltip.theme.lookbook="`Refresh preview`"
-              @click.prevent.stop="refresh"
-              data-hotkey="r"
-            >
-              <%= icon "refresh-cw", size: 4, class: "hover:text-indigo-800" %>
-            </button>
-            <a
-              href="<%= preview_path %>"
-              target="_blank"
-              x-tooltip.theme.lookbook="`Open in new window`"
-              data-hotkey="w"
-            >
-              <%= icon "external-link", size: 4, class: "hover:text-indigo-800" %>
-            </a>
-          </div>
-          <div class="flex items-center space-x-3 pl-3" x-show="drawerHidden">
-            <button
-              x-tooltip.theme.lookbook="`${drawerHidden ? 'show' : 'hide'} drawer`"
-              @click="toggleDrawer"
-              data-hotkey="i"
-            > 
-              <%= icon "${horizontal ? 'credit-card' : 'sidebar'}", size: 4, class: "hover:text-indigo-800 scale-[-1]" %>
-            </button>
-          </div>
-        </div>
-      </div>
-    <% end %>
-    <%= component "preview", srcdoc: @preview_srcdoc %>
-  </div>
+  <%= component "preview", example: @example, examples: @examples, panels: @preview_panels %>
   <div
     x-data="splitter('horizontal')"
     class="w-full gutter border-t border-gray-300 relative"
@@ -69,5 +20,5 @@
   >
     <div class="w-[9px] h-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute top-0 bottom-0 -translate-x-1/2 cursor-[col-resize] z-10"></div>
   </div>
-  <%= component "drawer", example: @example, examples: @examples, panels: @panels %>
+  <%= component "drawer", example: @example, examples: @examples, panels: @drawer_panels %>
 </div>

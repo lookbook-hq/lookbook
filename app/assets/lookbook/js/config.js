@@ -14,7 +14,7 @@ export default {
       minWidth: 350,
     },
     preview: {
-      view: "preview",
+      defaultPanel: "preview",
     },
   },
 };

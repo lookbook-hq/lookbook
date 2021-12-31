@@ -27,10 +27,8 @@ module Lookbook
         begin
           set_params
           @examples = examples_data
-          @preview_srcdoc = if Lookbook.config.preview_srcdoc
-            render_examples(examples_data).gsub("\"", "&quot;")
-          end
-          @panels = panels.filter { |name, panel| panel[:show] }
+          @drawer_panels = drawer_panels.filter { |name, panel| panel[:show] }
+          @preview_panels = preview_panels.filter { |name, panel| panel[:show] }
         rescue *EXCEPTIONS
           render "error"
         end
@@ -119,20 +117,34 @@ module Lookbook
       @nav
     end
 
-    def panels
+    def preview_panels
+      {
+        preview: {
+          label: "Preview",
+          template: "lookbook/panels/preview",
+          srcdoc: Lookbook.config.preview_srcdoc ? render_examples(examples_data).gsub("\"", "&quot;") : nil,
+          hotkey: "v",
+          show: true,
+          disabled: false,
+          copy: false
+        },
+        output: {
+          label: "HTML",
+          template: "lookbook/panels/output",
+          hotkey: "o",
+          show: true,
+          disabled: false,
+          copy: true
+        }
+      }
+    end
+
+    def drawer_panels
       {
         source: {
           label: "Source",
           template: "lookbook/panels/source",
           hotkey: "s",
-          show: true,
-          disabled: false,
-          copy: true
-        },
-        output: {
-          label: "Output",
-          template: "lookbook/panels/output",
-          hotkey: "o",
           show: true,
           disabled: false,
           copy: true

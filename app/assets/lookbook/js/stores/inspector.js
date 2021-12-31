@@ -6,7 +6,7 @@ export default function createInspectorStore(Alpine) {
     drawer: {
       hidden: Alpine.$persist(false).as("drawer-hidden"),
       orientation: Alpine.$persist(drawer.orientation).as("drawer-orientation"),
-      active: Alpine.$persist(drawer.defaultPanel).as("drawer-active"),
+      panel: Alpine.$persist(drawer.defaultPanel).as("drawer-panel"),
       height: Alpine.$persist(drawer.defaultHeight).as("drawer-height"),
       width: Alpine.$persist(drawer.defaultWidth).as("drawer-width"),
       minWidth: drawer.minWidth,
@@ -15,7 +15,7 @@ export default function createInspectorStore(Alpine) {
     preview: {
       width: Alpine.$persist("100%").as("preview-width"),
       height: Alpine.$persist("100%").as("preview-height"),
-      view: Alpine.$persist(preview.view).as("preview-view"),
+      panel: Alpine.$persist(preview.defaultPanel).as("preview-panel"),
       lastWidth: null,
       lastHeight: null,
       resizing: false,

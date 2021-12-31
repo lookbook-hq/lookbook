@@ -1,10 +1,10 @@
 <div id="drawer" class="bg-white w-full h-full flex flex-col min-w-0">
-  <div class="px-4 border-b border-gray-200 select-none flex-none" x-show="!drawerHidden">
-    <div class="-mb-px flex cursor-auto relative">
+  <div class="pl-4 border-b border-gray-300 select-none flex-none" x-show="!drawerHidden">
+    <div class="flex cursor-auto relative">
       <div
         id="inspector-tabs-<%= example.id %>"
         x-data="tabs"
-        class="min-w-0"
+        class="min-w-0 -mb-px"
         x-effect="$store.inspector.drawer.visibleTabCount = visibleTabCount"
       >
         <nav x-ref="tabs" class="flex h-10 space-x-8 flex-grow pr-8">
@@ -14,11 +14,11 @@
               href="#inspector-panel-<%= key %>"
               class="whitespace-nowrap pt-2.5 pb-1.5 px-1 border-b-2 cursor-pointer <%= "!text-gray-300" if props[:disabled] %>"
               :class="{
-                'border-indigo-400': isActivePanel('<%= key %>'),
-                'border-transparent text-gray-500 hover:text-gray-700': !isActivePanel('<%= key %>'),
+                'border-indigo-400': isActiveDrawerPanel('<%= key %>'),
+                'border-transparent text-gray-500 hover:text-gray-700': !isActiveDrawerPanel('<%= key %>'),
                 'invisible': (<%= i %> > visibleTabCount)
               }"
-              @click.stop.prevent="switchPanel('<%= key %>')"
+              @click.stop.prevent="switchDrawerPanel('<%= key %>')"
               <% if props[:hotkey] %>data-hotkey="<%= props[:hotkey] %>"<% end %>
             >
               <%== props[:label] %>
@@ -41,14 +41,13 @@
               <template id="inspector-dropdown-tab-<%= key %>-<%= example.id %>" x-if="<%= i %> > $store.inspector.drawer.visibleTabCount">
                 <div :class="{'border-t border-gray-300': (<%= i %> > $store.inspector.drawer.visibleTabCount + 1)}">
                   <a
-                    
                     href="#inspector-panel-<%= key %>"
                     class="block whitespace-nowrap py-2 px-4 border-l-2 cursor-pointer <%= "!text-gray-300" if props[:disabled] %>"
                     :class="{
-                      'border-indigo-400': $store.inspector.drawer.active === '<%= key %>',
-                      'border-transparent text-gray-500 hover:text-gray-700': $store.inspector.drawer.active !== '<%= key %>',
+                      'border-indigo-400': $store.inspector.drawer.panel === '<%= key %>',
+                      'border-transparent text-gray-500 hover:text-gray-700': $store.inspector.drawer.panel !== '<%= key %>',
                     }"
-                    @click.stop.prevent=" hideDropdown(); switchPanel('<%= key %>')"
+                    @click.stop.prevent=" hideDropdown(); switchDrawerPanel('<%= key %>')"
                   >
                     <%== props[:label] %>
                   </a>
@@ -58,31 +57,34 @@
           </div>
         </nav>
       </div>
-      <div class="flex items-center ml-auto pl-8 space-x-3">
-        <% panels.each do |key, props| %>
-          <div
-            ref="<%= "inspector-panel-#{example.id}-#{key}-copy" %>"
-            class="flex items-center"
-            :class="{'pointer-events-none opacity-30': <%= !props[:copy].present? %>}"
-            x-show="isActivePanel('<%= key %>')"
-          >
-            <button
-              class="text-gray-400 transition"
-              x-data="copy('<%= "inspector-panel-#{example.id}-#{key}-clipboard" %>')"
-              x-tooltip.theme.lookbook="done ? 'copied!' : 'copy to clipboard'"
-              @click="save"
-              :class="{
-                '!text-green-600 hover:text-green-600': done,
-                'hover:text-indigo-500': !done}"
+      <div class="flex items-center bg-gray-50 border-l border-gray-300 ml-auto space-x-3 px-3">
+        <div>
+          <% panels.each do |key, props| %>
+            <div
+              ref="<%= "inspector-panel-#{example.id}-#{key}-copy" %>"
+              class="flex items-center"
+              :class="{'pointer-events-none opacity-30': <%= !props[:copy].present? %>}"
+              x-show="isActiveDrawerPanel('<%= key %>')"
               x-cloak
-              <% unless props[:copy].present? %>disabled<% end %>
             >
-              <%= icon "${done ? 'check' : 'clipboard'}", size: 4 %>
-            </button>
-          </div>
-        <% end %>
+              <button
+                class="text-gray-400 transition"
+                x-data="copy('<%= "inspector-panel-#{example.id}-#{key}-clipboard" %>')"
+                x-tooltip.theme.lookbook="done ? 'copied!' : 'copy to clipboard'"
+                @click="save"
+                :class="{
+                  '!text-green-600 hover:text-green-600': done,
+                  'hover:text-indigo-500': !done}"
+                x-cloak
+                <% unless props[:copy].present? %>disabled<% end %>
+              >
+                <%= icon "${done ? 'check' : 'clipboard'}", size: 4 %>
+              </button>
+            </div>
+          <% end %>
+        </div>
         <button
-          x-tooltip.theme.lookbook="`switch orientation`"
+          x-tooltip.theme.lookbook="`${horizontal ? 'pin drawer on right' : 'pin drawer on bottom'}`"
           @click="toggleOrientation"
           :class="{'pointer-events-none opacity-30': !canBeVertical}"
         > 
@@ -91,10 +93,10 @@
             class: "scale-[-1] text-gray-400 hover:text-indigo-800" %>
         </button>
         <button
-          x-tooltip.theme.lookbook="`close drawer`"
+          x-tooltip.theme.lookbook="`hide drawer`"
           @click="toggleDrawer"
         > 
-          <%= icon "x",
+          <%= icon "x-circle",
             size: 4,
             class: "text-gray-400 hover:text-indigo-800" %>
         </button>
@@ -105,7 +107,7 @@
     <% panels.each do |key, props| %>
       <div
         class="h-full w-full absolute inset-0"
-        x-show="$store.inspector.drawer.active === '<%= key %>'"
+        x-show="isActiveDrawerPanel('<%= key %>')"
         x-cloak
       >
         <div id="inspector-panel-<%= example.id %>-<%= key %>" class="h-full">

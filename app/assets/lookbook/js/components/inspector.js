@@ -32,15 +32,17 @@ export default function inspector() {
     get drawerHidden() {
       return this.$store.inspector.drawer.hidden;
     },
-    isActivePanel(panel) {
-      return this.$store.inspector.drawer.active == panel;
+    isActiveDrawerPanel(panel) {
+      return this.$store.inspector.drawer.panel === panel;
     },
-    switchPanel(panel) {
-      this.$store.inspector.drawer.active = panel;
+    switchDrawerPanel(panel) {
+      this.$store.inspector.drawer.panel = panel;
     },
-    toggleView() {
-      this.$store.inspector.preview.view =
-        this.view === "html" ? "preview" : "html";
+    isActivePreviewPanel(panel) {
+      return this.$store.inspector.preview.panel === panel;
+    },
+    switchPreviewPanel(panel) {
+      this.$store.inspector.preview.panel = panel;
     },
     toggleOrientation() {
       this.$store.inspector.drawer.orientation =
