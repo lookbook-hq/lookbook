@@ -27,30 +27,25 @@ module Lookbook
       context "basic" do
         setup do
           @preview = find_preview("basic")
-          @example_path = example_path(@preview)
+          @example = @preview.get_examples.first
+          @example_path = @example.path
           visit show_url @example_path
         end
 
-        should "display the correct preview example" do
-          within "#inspector header" do
-            assert page.has_content?(@preview.label)
-          end
-        end
-
-        should "render the preview in an iframe" do
+        should "render the correct preview in an iframe" do
           within "#inspector" do
             assert page.has_selector?("iframe[src='#{preview_path @example_path}']")
           end
         end
 
         should "display the source" do
-          within "#inspector-content-source" do
+          within "#inspector-panel-#{@example.id}-source" do
             assert page.has_content?("render BasicComponent.new")
           end
         end
 
         should "display the output" do
-          within "#inspector-content-output" do
+          within "#preview-panel-#{@example.id}-output" do
             assert page.has_content?("basic component")
           end
         end
@@ -62,8 +57,8 @@ module Lookbook
           visit show_url example_path(@preview)
         end
 
-        should "display the correct preview example" do
-          within "#inspector header" do
+        should "display the correct label in the nav" do
+          within "#nav" do
             assert page.has_content?(@preview.label)
           end
         end
@@ -78,12 +73,6 @@ module Lookbook
           setup do
             @example_path = example_path(@preview, "labelled")
             visit show_url @example_path
-          end
-
-          should "display the correct label in the workbench" do
-            within "#inspector header" do
-              assert page.has_content?("Relabelled")
-            end
           end
 
           should "display the correct label in the nav" do
@@ -108,12 +97,13 @@ module Lookbook
 
         context "with notes" do
           setup do
-            @example_path = example_path(@preview, "with_notes")
+            @example = @preview.example("with_notes")
+            @example_path = @example.path
             visit show_url @example_path
           end
 
           should "renders the notes as markdown" do
-            within "#inspector-content-notes" do
+            within "#inspector-panel-#{@example.id}-notes" do
               assert page.has_content?("Some notes about this example")
               assert page.has_no_content?("@label Noted")
               assert page.has_selector?("strong", text: "markdown")
@@ -133,7 +123,7 @@ module Lookbook
             end
 
             should "render a text input" do
-              within "#inspector-content-params" do
+              within "#inspector-panel-#{@example.id}-params" do
                 assert page.has_field?("blurb", type: "text", with: "default text")
               end
             end
@@ -146,7 +136,7 @@ module Lookbook
             end
 
             should "render a text input" do
-              within "#inspector-content-params" do
+              within "#inspector-panel-#{@example.id}-params" do
                 assert page.has_field?("blurb", type: "text", with: "default text")
               end
             end
@@ -159,7 +149,7 @@ module Lookbook
             end
 
             should "render a textarea" do
-              within "#inspector-content-params" do
+              within "#inspector-panel-#{@example.id}-params" do
                 assert page.has_css?("textarea[name='blurb']", text: "default text")
               end
             end
@@ -172,8 +162,8 @@ module Lookbook
             end
 
             should "render a select" do
-              within "#inspector-content-params" do
-                assert page.has_select?("#{@example.id}-param-blurb-field", with_selected: "option one", with_options: ["option one", "option two"])
+              within "#inspector-panel-#{@example.id}-params" do
+                assert page.has_select?("blurb", with_selected: "option one", with_options: ["option one", "option two"])
               end
             end
           end
