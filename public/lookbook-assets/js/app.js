@@ -11232,6 +11232,12 @@ function inspector() {
         get drawerHidden () {
             return this.$store.inspector.drawer.hidden;
         },
+        get maxDrawerHeight () {
+            return Math.round(this.height * 0.7);
+        },
+        get maxDrawerWidth () {
+            return Math.round(this.width * 0.7);
+        },
         isActiveDrawerPanel: function(panel) {
             return this.$store.inspector.drawer.panel === panel;
         },
@@ -11448,9 +11454,10 @@ exports.default = {
         drawer: {
             orientation: "horizontal",
             defaultPanel: "source",
-            defaultHeight: 200,
+            defaultHeight: 300,
             defaultWidth: 500,
-            minWidth: 350
+            minWidth: 350,
+            minHeight: 200
         },
         preview: {
             defaultPanel: "preview"
@@ -11516,6 +11523,7 @@ function createInspectorStore(Alpine) {
             height: Alpine.$persist(drawer.defaultHeight).as("drawer-height"),
             width: Alpine.$persist(drawer.defaultWidth).as("drawer-width"),
             minWidth: drawer.minWidth,
+            minHeight: drawer.minHeight,
             visibleTabCount: Infinity
         },
         preview: {

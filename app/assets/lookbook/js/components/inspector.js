@@ -32,6 +32,12 @@ export default function inspector() {
     get drawerHidden() {
       return this.$store.inspector.drawer.hidden;
     },
+    get maxDrawerHeight() {
+      return Math.round(this.height * 0.7);
+    },
+    get maxDrawerWidth() {
+      return Math.round(this.width * 0.7);
+    },
     isActiveDrawerPanel(panel) {
       return this.$store.inspector.drawer.panel === panel;
     },

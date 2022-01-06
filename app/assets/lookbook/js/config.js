@@ -9,9 +9,10 @@ export default {
     drawer: {
       orientation: "horizontal",
       defaultPanel: "source",
-      defaultHeight: 200,
+      defaultHeight: 300,
       defaultWidth: 500,
       minWidth: 350,
+      minHeight: 200,
     },
     preview: {
       defaultPanel: "preview",

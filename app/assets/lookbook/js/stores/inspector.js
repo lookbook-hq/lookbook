@@ -10,6 +10,7 @@ export default function createInspectorStore(Alpine) {
       height: Alpine.$persist(drawer.defaultHeight).as("drawer-height"),
       width: Alpine.$persist(drawer.defaultWidth).as("drawer-width"),
       minWidth: drawer.minWidth,
+      minHeight: drawer.minHeight,
       visibleTabCount: Infinity,
     },
     preview: {
