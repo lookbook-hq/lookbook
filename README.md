@@ -28,7 +28,7 @@ Lookbook uses [RDoc/Yard-style comment tags](#annotating-preview-files) to exten
 - Auto-updating UI when component or preview files are updated _(Rails v6.0+ only)_
 - Use comment tag annotations for granular customisation of the preview experience
 - Fully compatible with standard the ViewComponent preview system
-- [**Experimental**] In-browser live editable preview parameters (similar to Storybook Controls/Knobs)
+- In-browser live-editable preview parameters (similar to basic Storybook Controls/Knobs)
 
 ## Lookbook demo
 
@@ -167,7 +167,7 @@ The following Lookbook-specific tags are available for use:
 * [`@display`](#display-tag)
 * [`@!group ... @!endgroup`](#group-tag)
 * [`@hidden`](#hidden-tag)
-* [`@param`](#param-tag) [⚠️ **experimental!** - requires [feature opt-in](#experimental-features) ⚠️]
+* [`@param`](#param-tag)
 
 <h3 id="label-tag">🏷 @label</h3>
 
@@ -317,9 +317,7 @@ class FooComponentPreview < ViewComponent::Preview
 end
 ```
 
-<h3 id="param-tag"> 🚧 @param (experimental)</h3>
-
-> ⚠️ This feature is currently flagged as an **experimental** feature which requires [feature opt-in](#experimental-features) to use. Its API and implementation may change in the future.
+<h3 id="param-tag">@param</h3>
 
 The `@param` tag provides the ability to specify **editable preview parameters** which can be changed in the Lookbook UI in order to customise the rendered output on the fly, much like the [Controls (knobs) addon](https://storybook.js.org/addons/@storybook/addon-controls) for Storybook.
 
@@ -516,10 +514,6 @@ To opt into individual experimental features, include the name of the feature in
 config.lookbook.experimental_features = ["feature_name"]
 ```
 
-The current experimental features that can be opted into are:
-
-- `params`: Live-editable, dynamic preview parameters ([read more](#param-tag)). Include `"params"` in the `experimental_features` config option to opt in.
-
 #### Opting into all experimental features (not recommended!)
 
 If you want to live life on the bleeding-edge you can opt-in to all current **and future** experimental features (usual caveats apply):
@@ -535,9 +529,10 @@ Lookbook provides a few keyboard shortcuts to help you quickly move around the U
 
 - `f` - move focus to the nav filter box
 - `Esc` [when focus is in nav filter box] - Clear contents if text is present, or return focus to the UI if the box is already empty
-- `s` - Switch to Source tab in the inspector
-- `o` - Switch to Output tab in the inspector
-- `n` - Switch to Notes tab in the inspector
+- `s` - Switch to Source tab in the drawer
+- `n` - Switch to Notes tab in the drawer
+- `v` - Switch to the rendered preview
+- `o` - Switch to the code preview
 - `r` - Refresh the preview (useful if using something like Faker to generate randomised data for the preview)
 - `w` - Open the standalone rendered preview in a new window
 
