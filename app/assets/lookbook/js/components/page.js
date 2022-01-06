@@ -26,7 +26,9 @@ export default function page() {
       const response = await fetch(window.document.location);
       if (!response.ok) return window.location.reload();
       const html = await response.text();
-      this.morph(new DOMParser().parseFromString(html, "text/html"));
+      const newDoc = new DOMParser().parseFromString(html, "text/html");
+      this.morph(newDoc);
+      document.title = newDoc.title;
     },
     setLocation(loc) {
       const path = loc instanceof Event ? loc.currentTarget.href : loc;
