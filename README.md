@@ -500,6 +500,17 @@ If you wish to add additional paths to listen for changes in, you can use the `l
 config.lookbook.listen_paths << Rails.root.join('app/other/directory')
 ```
 
+### Custom favicon
+
+If you want to change the favicon used by the Lookbook UI, you can provide a path to your own (or a data-uri string) using the `ui_favicon` option:
+
+```ruby
+config.lookbook.ui_favicon = "/path/to/my/favicon.png" 
+```
+
+> To disable the favicon entirely, set the value to `false`.
+
+
 <h3 id="experimental-features">Experimental features opt-in</h3>
 
 Some features may occasionally be released behind a 'experimental' feature flag while they are being tested and refined, to allow people to try them out and provide feedback.
