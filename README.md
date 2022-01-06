@@ -474,8 +474,6 @@ class ProfileCardComponentPreview < ViewComponent::Preview
 end
 ```
 
-<img src=".github/assets/preview_example_notes.png" width="400">
-
 ## Configuration
 
 Lookbook will use the ViewComponent [configuration](https://viewcomponent.org/api.html#configuration) for your project to find and render your previews so you generally you won't need to configure anything separately.
