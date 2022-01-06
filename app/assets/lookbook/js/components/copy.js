@@ -1,7 +1,9 @@
-export default function copy(id) {
+export default function copy() {
   return {
     get content() {
-      const target = document.getElementById(id);
+      const target = document.getElementById(
+        this.$root.getAttribute("data-target")
+      );
       return (target ? target.innerHTML : "").trim();
     },
     done: false,

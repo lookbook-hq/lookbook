@@ -68,8 +68,9 @@
               x-cloak
             >
               <button
+                data-target="<%= "inspector-panel-#{example.id}-#{key}-clipboard" %>"
                 class="text-gray-400 transition"
-                x-data="copy('<%= "inspector-panel-#{example.id}-#{key}-clipboard" %>')"
+                x-data="copy"
                 x-tooltip.theme.lookbook="done ? 'copied!' : 'copy to clipboard'"
                 @click="save"
                 :class="{

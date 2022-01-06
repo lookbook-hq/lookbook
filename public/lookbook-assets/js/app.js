@@ -11536,10 +11536,10 @@ parcelHelpers.defineInteropFlag(exports);
 var _helpers = require("@swc/helpers");
 var _regeneratorRuntime = require("regenerator-runtime");
 var _regeneratorRuntimeDefault = parcelHelpers.interopDefault(_regeneratorRuntime);
-function copy(id) {
+function copy() {
     return {
         get content () {
-            var target = document.getElementById(id);
+            var target = document.getElementById(this.$root.getAttribute("data-target"));
             return (target ? target.innerHTML : "").trim();
         },
         done: false,
