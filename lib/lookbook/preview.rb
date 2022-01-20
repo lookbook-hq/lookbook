@@ -44,7 +44,7 @@ module Lookbook
     # Examples::FooBarComponentPreview -> "Examples::FooBar"
     # Examples::FooBarComponent::Preview -> "Examples::FooBar"
     def lookbook_name
-      name.chomp("ComponentPreview").chomp("Component::Preview").chomp("::")
+      name.chomp("ComponentPreview").chomp("Component::Preview").chomp("::Preview").chomp("::")
     end
 
     # Examples::FooBarComponentPreview -> "examples/foo_bar"
