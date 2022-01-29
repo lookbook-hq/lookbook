@@ -4,7 +4,9 @@ export default function copy() {
       const target = document.getElementById(
         this.$root.getAttribute("data-target")
       );
-      return (target ? target.innerHTML : "").trim();
+      const decoder = document.createElement("textarea");
+      decoder.innerHTML = target ? target.innerHTML : "";
+      return decoder.value.trim();
     },
     done: false,
     async save() {
