@@ -13,7 +13,8 @@ Gem::Specification.new do |spec|
   spec.files = Dir["{app,config,lib,public}/**/*", "LICENSE.txt", "README.md"]
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "rails", ">= 5.0"
+  spec.add_dependency "actioncable"
+  spec.add_dependency "railties", ">= 5.0"
   spec.add_dependency "view_component", "~> 2.0"
   spec.add_dependency "redcarpet", "~> 3.5"
   spec.add_dependency "rouge", "~> 3.26"
