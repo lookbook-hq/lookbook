@@ -545,18 +545,6 @@ Lookbook provides a few keyboard shortcuts to help you quickly move around the U
 - `r` - Refresh the preview (useful if using something like Faker to generate randomised data for the preview)
 - `w` - Open the standalone rendered preview in a new window
 
-## Troubleshooting
-
-#### Blank preview window
-
-Certain setups (for example when using `Rack::LiveReload`) can cause an issue with the way that the preview iframe displays the rendered component preview (i.e. using the `srcdoc` attribute to avoid extra requests).
-
-If you are seeing a blank preview window, but the source and output tabs are both displaying code as expected, you can disable the use of the `srcdoc` attribute using the following configuration option:
-
-```ruby
-config.lookbook.preview_srcdoc = false
-```
-
 ## Contributing
 
 Lookbook is very much a small hobby/side project at the moment. I'd love to hear from anyone who is interested in contributing but I'm terrible at replying to emails or messages, so don't be surprised if I take forever to get back to you. It's not personal 😜

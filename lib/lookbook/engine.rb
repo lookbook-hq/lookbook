@@ -37,7 +37,7 @@ module Lookbook
       options.preview_paths += vc_options.preview_paths
 
       options.preview_controller = vc_options.preview_controller if options.preview_controller.nil?
-      options.preview_srcdoc = true if options.preview_srcdoc.nil?
+      options.preview_srcdoc = false if options.preview_srcdoc.nil?
       options.preview_display_params ||= {}.with_indifferent_access
 
       options.listen_paths = options.listen_paths.map(&:to_s)
