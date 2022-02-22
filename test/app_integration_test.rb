@@ -34,7 +34,7 @@ module Lookbook
 
         should "render the correct preview in an iframe" do
           within "#inspector" do
-            assert page.has_selector?("iframe[src='#{preview_path @example_path}']")
+            assert page.has_selector?("iframe[src^='#{preview_path @example_path}']")
           end
         end
 
