@@ -7,6 +7,7 @@ module Lookbook
 
   autoload :Lang, "lookbook/lang"
   autoload :Params, "lookbook/params"
+  autoload :Page, "lookbook/page"
   autoload :Features, "lookbook/features"
   autoload :Collection, "lookbook/collection"
   autoload :Parser, "lookbook/parser"

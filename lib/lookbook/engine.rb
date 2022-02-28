@@ -24,6 +24,7 @@ module Lookbook
     config.lookbook = ActiveSupport::OrderedOptions.new
     config.lookbook.listen_paths ||= []
     config.lookbook.preview_paths ||= []
+    config.lookbook.page_paths ||= []
 
     initializer "view_component.set_configs" do
       options = config.lookbook
@@ -35,6 +36,9 @@ module Lookbook
 
       options.preview_paths = options.preview_paths.map(&:to_s)
       options.preview_paths += vc_options.preview_paths
+
+      options.page_paths = options.page_paths.map(&:to_s)
+      options.page_route ||= "pages"
 
       options.preview_controller = vc_options.preview_controller if options.preview_controller.nil?
       options.preview_srcdoc = false if options.preview_srcdoc.nil?

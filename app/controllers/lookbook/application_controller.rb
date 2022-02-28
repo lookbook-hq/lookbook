@@ -15,10 +15,25 @@ module Lookbook
       Lookbook::Preview.all.sort_by(&:label)
     end
 
+    def pages
+      Lookbook::Page.all
+    end
+
     def build_nav
-      @nav = Collection.new
+      @nav = {
+        pages: pages_nav,
+        previews: previews_nav
+      }
+    end
+
+    def pages_nav
+      Collection.new
+    end
+
+    def previews_nav
+      nav = Collection.new
       previews.reject { |p| p.hidden? }.each do |preview|
-        current = @nav
+        current = nav
         if preview.hierarchy_depth == 1
           current.add(preview)
         else
@@ -32,7 +47,7 @@ module Lookbook
           end
         end
       end
-      @nav
+      nav
     end
   end
 end

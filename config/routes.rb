@@ -5,6 +5,7 @@ Lookbook::Engine.routes.draw do
 
   root to: "application#index", as: :home
 
+  get "/#{Lookbook.config.page_route}/*path", to: "pages#show", as: :page
   get "/preview/*path", to: "previews#preview", as: :preview
   get "/*path", to: "previews#show", as: :show
 end
