@@ -1,17 +1,18 @@
 module Lookbook
-  class AppController < ActionController::Base
-    EXCEPTIONS = [ViewComponent::PreviewTemplateError, ViewComponent::ComponentError, ViewComponent::TemplateError, ActionView::Template::Error]
+  class PreviewsController < ApplicationController
+    EXCEPTIONS = [
+      ViewComponent::PreviewTemplateError,
+      ViewComponent::ComponentError,
+      ViewComponent::TemplateError,
+      ActionView::Template::Error
+    ]
 
-    protect_from_forgery with: :exception
-    helper Lookbook::ApplicationHelper
+    def self.controller_path
+      "lookbook/previews"
+    end
 
     before_action :find_preview, only: [:preview, :show]
     before_action :find_example, only: [:preview, :show]
-    before_action :build_nav
-
-    def self.controller_path
-      "lookbook"
-    end
 
     def preview
       if @example
@@ -97,31 +98,11 @@ module Lookbook
       })
     end
 
-    def build_nav
-      @nav = Collection.new
-      previews.reject { |p| p.hidden? }.each do |preview|
-        current = @nav
-        if preview.hierarchy_depth == 1
-          current.add(preview)
-        else
-          preview.lookbook_parent_collections.each.with_index(1) do |name, i|
-            target = current.get_or_create(name)
-            if preview.hierarchy_depth == i + 1
-              target.add(preview)
-            else
-              current = target
-            end
-          end
-        end
-      end
-      @nav
-    end
-
     def preview_panels
       {
         preview: {
           label: "Preview",
-          template: "lookbook/panels/preview",
+          template: "lookbook/previews/panels/preview",
           srcdoc: Lookbook.config.preview_srcdoc ? render_examples(examples_data).gsub("\"", "&quot;") : nil,
           hotkey: "v",
           show: true,
@@ -130,7 +111,7 @@ module Lookbook
         },
         output: {
           label: "HTML",
-          template: "lookbook/panels/output",
+          template: "lookbook/previews/panels/output",
           hotkey: "o",
           show: true,
           disabled: false,
@@ -143,7 +124,7 @@ module Lookbook
       {
         source: {
           label: "Source",
-          template: "lookbook/panels/source",
+          template: "lookbook/previews/panels/source",
           hotkey: "s",
           show: true,
           disabled: false,
@@ -151,23 +132,19 @@ module Lookbook
         },
         notes: {
           label: "Notes",
-          template: "lookbook/panels/notes",
+          template: "lookbook/previews/panels/notes",
           hotkey: "n",
           show: true,
           disabled: @examples.filter { |e| e[:notes].present? }.none?
         },
         params: {
           label: "Params",
-          template: "lookbook/panels/params",
+          template: "lookbook/previews/panels/params",
           hotkey: "p",
           show: enabled?(:params),
           disabled: @example.type == :group || @example.params.none?
         }
       }
-    end
-
-    def previews
-      Lookbook::Preview.all.sort_by(&:label)
     end
 
     def preview_controller

@@ -3,8 +3,8 @@ Lookbook::Engine.routes.draw do
     mount Lookbook::Engine.websocket => Lookbook.config.cable.mount_path
   end
 
-  root to: "app#index", as: :home
+  root to: "application#index", as: :home
 
-  get "/preview/*path", to: "app#preview", as: :preview
-  get "/*path", to: "app#show", as: :show
+  get "/preview/*path", to: "previews#preview", as: :preview
+  get "/*path", to: "previews#show", as: :show
 end

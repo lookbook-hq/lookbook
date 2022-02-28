@@ -12,7 +12,7 @@ value = params.key?(param[:name]) ? params[param[:name]] : param[:default]
       </label>
     </div>
     <div class="flex-grow">
-      <%= render "lookbook/inputs/#{param[:input]}",
+      <%= render "lookbook/previews/inputs/#{param[:input]}",
         **param,
         value: value
       %>
