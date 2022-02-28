@@ -1,5 +1,3 @@
-import { getAlpineData } from "../lib/utils";
-
 export default function navGroup() {
   return {
     hidden: false,
@@ -32,7 +30,7 @@ export default function navGroup() {
     filter(text) {
       this.hidden = true;
       this.getChildren().forEach((child) => {
-        const data = getAlpineData(child);
+        const data = Alpine.$data(child);
         data.filter(text);
         if (!data.hidden) {
           this.hidden = false;
@@ -41,9 +39,8 @@ export default function navGroup() {
     },
     firstVisibleChild() {
       return this.getChildren().find((child) => {
-        return child._x_dataStack
-          ? child._x_dataStack[0].hidden === false
-          : false;
+        const data = Alpine.$data(child);
+        return data.hidden === false;
       });
     },
   };

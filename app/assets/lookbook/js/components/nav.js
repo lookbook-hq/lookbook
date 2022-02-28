@@ -1,5 +1,3 @@
-import { getAlpineData } from "../lib/utils";
-
 export default function nav() {
   return {
     empty: false,
@@ -13,7 +11,7 @@ export default function nav() {
     filter() {
       this.empty = true;
       this.getChildren().forEach((child) => {
-        const data = getAlpineData(child);
+        const data = Alpine.$data(child);
         data.filter(this.$store.filter.text);
         if (!data.hidden) {
           this.empty = false;
