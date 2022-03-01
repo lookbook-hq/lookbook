@@ -25,9 +25,9 @@ module Lookbook
     config.lookbook.listen_paths ||= []
     config.lookbook.preview_paths ||= []
 
-    initializer "view_component.set_configs" do |app|
-      options = app.config.lookbook
-      vc_options = app.config.view_component
+    initializer "view_component.set_configs" do
+      options = config.lookbook
+      vc_options = config.view_component
 
       options.auto_refresh = true if options.auto_refresh.nil?
       options.sort_examples = false if options.sort_examples.nil?
@@ -44,15 +44,12 @@ module Lookbook
       options.listen_paths += options.preview_paths
       options.listen_paths << (vc_options.view_component_path || Rails.root.join("app/components"))
 
-      options.experimental_features = false unless options.experimental_features.present?
-    end
+      options.cable = ActionCable::Server::Configuration.new
+      options.cable.cable = {adapter: "async"}.with_indifferent_access
+      options.cable.mount_path ||= "/lookbook-cable"
+      options.cable.connection_class = -> { Lookbook::Connection }
 
-    initializer "lookbook.cable.config" do |app|
-      if app.config.lookbook.auto_refresh
-        Lookbook::Engine.cable.cable = {adapter: "async"}.with_indifferent_access
-        Lookbook::Engine.cable.mount_path = "/cable"
-        Lookbook::Engine.cable.connection_class = -> { Lookbook::Connection }
-      end
+      options.experimental_features = false unless options.experimental_features.present?
     end
 
     initializer "lookbook.parser.tags" do
@@ -68,9 +65,9 @@ module Lookbook
 
     initializer "lookbook.logging" do
       if config.lookbook.debug == true
-        Lookbook::Engine.cable.logger ||= Rails.logger
+        config.lookbook.cable.logger ||= Rails.logger
       else
-        Lookbook::Engine.cable.logger = Lookbook::NullLogger.new
+        config.lookbook.cable.logger = Lookbook::NullLogger.new
         config.action_view.logger = Lookbook::NullLogger.new
       end
     end
@@ -81,10 +78,10 @@ module Lookbook
       end
     end
 
-    config.after_initialize do |app|
-      @listener = Listen.to(*app.config.lookbook.listen_paths, only: /\.(rb|html.*)$/) do |modified, added, removed|
+    config.after_initialize do
+      @listener = Listen.to(*config.lookbook.listen_paths, only: /\.(rb|html.*)$/) do |modified, added, removed|
         parser.parse
-        if app.config.lookbook.auto_refresh
+        if Lookbook::Engine.websocket
           if (modified.any? || removed.any?) && added.none?
             Lookbook::Engine.websocket.broadcast("reload", {
               modified: modified,
@@ -93,6 +90,7 @@ module Lookbook
           end
         end
       end
+
       @listener.start
       parser.parse
     end
@@ -103,22 +101,23 @@ module Lookbook
 
     class << self
       def websocket
-        if Rails.version.to_f >= 6.0
-          @websocket ||= ActionCable::Server::Base.new(config: Lookbook::Engine.cable)
-        else
-          @websocket = ActionCable::Server::Base.new
-          @websocket.config = Lookbook::Engine.cable
-
-          @websocket
+        if config.lookbook.auto_refresh
+          @websocket ||= if Rails.version.to_f >= 6.0
+            ActionCable::Server::Base.new(config: config.lookbook.cable)
+          else
+            websocket ||= ActionCable::Server::Base.new
+            websocket.config = config.lookbook.cable
+            websocket
+          end
         end
       end
 
       def websocket_mount_path
-        "#{Lookbook::Engine.routes.find_script_name({})}#{cable.mount_path}"
+        "#{mounted_path}#{config.lookbook.cable.mount_path}" if websocket
       end
 
-      def cable
-        @cable ||= ActionCable::Server::Configuration.new
+      def mounted_path
+        Lookbook::Engine.routes.find_script_name({})
       end
 
       def parser

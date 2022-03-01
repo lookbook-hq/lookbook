@@ -1,6 +1,6 @@
 Lookbook::Engine.routes.draw do
   if Lookbook.config.auto_refresh
-    mount Lookbook::Engine.websocket => Lookbook::Engine.cable.mount_path
+    mount Lookbook::Engine.websocket => Lookbook.config.cable.mount_path
   end
 
   root to: "app#index", as: :home
