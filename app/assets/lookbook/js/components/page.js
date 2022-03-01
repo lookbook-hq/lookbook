@@ -19,8 +19,10 @@ const morphOpts = {
 export default function page() {
   return {
     init() {
-      const socket = createSocket(window.SOCKET_PATH);
-      socket.addListener("Lookbook::ReloadChannel", () => this.refresh());
+      if (window.SOCKET_PATH) {
+        const socket = createSocket(window.SOCKET_PATH);
+        socket.addListener("Lookbook::ReloadChannel", () => this.refresh());
+      }
     },
     async update() {
       const response = await fetch(window.document.location);
