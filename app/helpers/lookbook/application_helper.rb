@@ -1,11 +1,11 @@
-require "redcarpet"
-require "rouge"
-require "htmlbeautifier"
-
 module Lookbook
   module ApplicationHelper
     def config
       Lookbook::Engine.config.lookbook
+    end
+
+    def feature_enabled?(name)
+      Lookbook::Features.enabled?(name)
     end
 
     def markdown(text)

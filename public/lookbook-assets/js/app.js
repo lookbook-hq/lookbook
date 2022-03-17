@@ -479,12 +479,16 @@ var _filter = require("./components/filter");
 var _filterDefault = parcelHelpers.interopDefault(_filter);
 var _param = require("./components/param");
 var _paramDefault = parcelHelpers.interopDefault(_param);
+var _sidebar = require("./components/sidebar");
+var _sidebarDefault = parcelHelpers.interopDefault(_sidebar);
 var _nav = require("./components/nav");
 var _navDefault = parcelHelpers.interopDefault(_nav);
 var _navItem = require("./components/nav-item");
 var _navItemDefault = parcelHelpers.interopDefault(_navItem);
 var _navGroup = require("./components/nav-group");
 var _navGroupDefault = parcelHelpers.interopDefault(_navGroup);
+var _navSection = require("./components/nav-section");
+var _navSectionDefault = parcelHelpers.interopDefault(_navSection);
 var _splitter = require("./components/splitter");
 var _splitterDefault = parcelHelpers.interopDefault(_splitter);
 var _tabs = require("./components/tabs");
@@ -501,8 +505,8 @@ var _layout = require("./stores/layout");
 var _layoutDefault = parcelHelpers.interopDefault(_layout);
 var _nav1 = require("./stores/nav");
 var _navDefault1 = parcelHelpers.interopDefault(_nav1);
-var _sidebar = require("./stores/sidebar");
-var _sidebarDefault = parcelHelpers.interopDefault(_sidebar);
+var _sidebar1 = require("./stores/sidebar");
+var _sidebarDefault1 = parcelHelpers.interopDefault(_sidebar1);
 var _inspector1 = require("./stores/inspector");
 var _inspectorDefault1 = parcelHelpers.interopDefault(_inspector1);
 // Plugins
@@ -513,10 +517,11 @@ _alpinejsDefault.default.plugin(_alpineTooltipDefault.default);
 _alpinejsDefault.default.store("filter", _filterDefault1.default(_alpinejsDefault.default));
 _alpinejsDefault.default.store("layout", _layoutDefault.default(_alpinejsDefault.default));
 _alpinejsDefault.default.store("nav", _navDefault1.default(_alpinejsDefault.default));
-_alpinejsDefault.default.store("sidebar", _sidebarDefault.default(_alpinejsDefault.default));
+_alpinejsDefault.default.store("sidebar", _sidebarDefault1.default(_alpinejsDefault.default));
 _alpinejsDefault.default.store("inspector", _inspectorDefault1.default(_alpinejsDefault.default));
 // Components
 _alpinejsDefault.default.data("page", _pageDefault.default);
+_alpinejsDefault.default.data("sidebar", _sidebarDefault.default);
 _alpinejsDefault.default.data("splitter", _splitterDefault.default);
 _alpinejsDefault.default.data("previewWindow", _previewWindowDefault.default);
 _alpinejsDefault.default.data("copy", _copyDefault.default);
@@ -529,6 +534,7 @@ _alpinejsDefault.default.data("nav", _navDefault.default);
 _alpinejsDefault.default.data("tabs", _tabsDefault.default);
 _alpinejsDefault.default.data("navItem", _navItemDefault.default);
 _alpinejsDefault.default.data("navGroup", _navGroupDefault.default);
+_alpinejsDefault.default.data("navSection", _navSectionDefault.default);
 var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
 try {
     // Init
@@ -553,7 +559,7 @@ try {
 window.Alpine = _alpinejsDefault.default;
 _alpinejsDefault.default.start();
 
-},{"@github/hotkey":"4Vf0K","alpinejs":"cQZQC","@alpinejs/persist":"gCoGk","@alpinejs/morph":"80ez2","@ryangjchandler/alpine-tooltip":"lgns0","./components/page":"55pfR","./components/splitter":"2c7V4","./components/inspector":"a9DtZ","./components/filter":"1Wjrk","./components/param":"9tbIq","./components/nav":"41Ql3","./components/sizes":"ipCdL","./stores/filter":"clyCh","./stores/layout":"dS8Sg","./stores/nav":"dXBwS","./stores/sidebar":"520kV","./stores/inspector":"4zpcp","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU","./components/copy":"kk5Vp","./components/nav-item":"jkkjy","./components/nav-group":"7yZ5O","./components/preview-window":"iZ8eY","./components/tabs":"gHCnH","./components/code":"9EiSR"}],"4Vf0K":[function(require,module,exports) {
+},{"@github/hotkey":"4Vf0K","alpinejs":"cQZQC","@alpinejs/persist":"gCoGk","@alpinejs/morph":"80ez2","@ryangjchandler/alpine-tooltip":"lgns0","./components/page":"55pfR","./components/splitter":"2c7V4","./components/inspector":"a9DtZ","./components/filter":"1Wjrk","./components/param":"9tbIq","./components/nav":"41Ql3","./components/sizes":"ipCdL","./stores/filter":"clyCh","./stores/layout":"dS8Sg","./stores/nav":"dXBwS","./stores/sidebar":"520kV","./stores/inspector":"4zpcp","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU","./components/copy":"kk5Vp","./components/nav-item":"jkkjy","./components/nav-group":"7yZ5O","./components/preview-window":"iZ8eY","./components/tabs":"gHCnH","./components/code":"9EiSR","./components/nav-section":"65cOs","./components/sidebar":"4nXk5"}],"4Vf0K":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Leaf", ()=>Leaf
@@ -1924,7 +1930,7 @@ function queueJob(job) {
     queueFlush();
 }
 function dequeueJob(job) {
-    const index = queue.indexOf(job);
+    let index = queue.indexOf(job);
     if (index !== -1) queue.splice(index, 1);
 }
 function queueFlush() {
@@ -1999,8 +2005,14 @@ var onElAddeds = [];
 function onElAdded(callback) {
     onElAddeds.push(callback);
 }
-function onElRemoved(callback) {
-    onElRemoveds.push(callback);
+function onElRemoved(el, callback) {
+    if (typeof callback === "function") {
+        if (!el._x_cleanups) el._x_cleanups = [];
+        el._x_cleanups.push(callback);
+    } else {
+        callback = el;
+        onElRemoveds.push(callback);
+    }
 }
 function onAttributesAdded(callback) {
     onAttributeAddeds.push(callback);
@@ -2120,6 +2132,7 @@ function onMutate(mutations) {
         if (addedNodes.includes(node2)) continue;
         onElRemoveds.forEach((i)=>i(node2)
         );
+        if (node2._x_cleanups) while(node2._x_cleanups.length)node2._x_cleanups.pop()();
     }
     addedNodes.forEach((node)=>{
         node._x_ignoreSelf = true;
@@ -2281,10 +2294,13 @@ function injectMagics(obj, el) {
     Object.entries(magics).forEach(([name, callback])=>{
         Object.defineProperty(obj, `$${name}`, {
             get () {
-                return callback(el, {
-                    Alpine: alpine_default,
-                    interceptor
-                });
+                let [utilities, cleanup] = getElementBoundUtilities(el);
+                utilities = {
+                    interceptor,
+                    ...utilities
+                };
+                onElRemoved(el, cleanup);
+                return callback(el, utilities);
             },
             enumerable: false
         });
@@ -2452,10 +2468,7 @@ function deferHandlingDirectives(callback) {
     callback(flushHandlers);
     stopDeferring();
 }
-function getDirectiveHandler(el, directive2) {
-    let noop = ()=>{
-    };
-    let handler3 = directiveHandlers[directive2.type] || noop;
+function getElementBoundUtilities(el) {
     let cleanups = [];
     let cleanup = (callback)=>cleanups.push(callback)
     ;
@@ -2471,14 +2484,24 @@ function getDirectiveHandler(el, directive2) {
     let doCleanup = ()=>cleanups.forEach((i)=>i()
         )
     ;
-    onAttributeRemoved(el, directive2.original, doCleanup);
+    return [
+        utilities,
+        doCleanup
+    ];
+}
+function getDirectiveHandler(el, directive2) {
+    let noop = ()=>{
+    };
+    let handler3 = directiveHandlers[directive2.type] || noop;
+    let [utilities, cleanup] = getElementBoundUtilities(el);
+    onAttributeRemoved(el, directive2.original, cleanup);
     let fullHandler = ()=>{
         if (el._x_ignore || el._x_ignoreSelf) return;
         handler3.inline && handler3.inline(el, directive2, utilities);
         handler3 = handler3.bind(handler3, el, directive2, utilities);
         isDeferringHandlers ? directiveHandlerStacks.get(currentHandlerStackKey).push(handler3) : handler3();
     };
-    fullHandler.runCleanups = doCleanup;
+    fullHandler.runCleanups = cleanup;
     return fullHandler;
 }
 var startingWith = (subject, replacement)=>({ name , value  })=>{
@@ -3298,7 +3321,7 @@ var Alpine = {
     get raw () {
         return raw;
     },
-    version: "3.9.0",
+    version: "3.9.1",
     flushAndStopDeferringMutations,
     disableEffectScheduling,
     setReactivityEngine,
@@ -3338,7 +3361,7 @@ var Alpine = {
 };
 var alpine_default = Alpine;
 // packages/alpinejs/src/index.js
-var import_reactivity9 = __toModule(require_reactivity());
+var import_reactivity8 = __toModule(require_reactivity());
 // packages/alpinejs/src/magics/$nextTick.js
 magic("nextTick", ()=>nextTick
 );
@@ -3346,11 +3369,11 @@ magic("nextTick", ()=>nextTick
 magic("dispatch", (el)=>dispatch.bind(dispatch, el)
 );
 // packages/alpinejs/src/magics/$watch.js
-magic("watch", (el)=>(key, callback)=>{
-        let evaluate2 = evaluateLater(el, key);
+magic("watch", (el, { evaluateLater: evaluateLater2 , effect: effect3  })=>(key, callback)=>{
+        let evaluate2 = evaluateLater2(key);
         let firstTime = true;
         let oldValue;
-        effect(()=>evaluate2((value)=>{
+        effect3(()=>evaluate2((value)=>{
                 JSON.stringify(value);
                 if (!firstTime) queueMicrotask(()=>{
                     callback(value, oldValue);
@@ -3718,10 +3741,10 @@ directive("cloak", (el)=>queueMicrotask(()=>mutateDom(()=>el.removeAttribute(pre
 // packages/alpinejs/src/directives/x-init.js
 addInitSelector(()=>`[${prefix("init")}]`
 );
-directive("init", skipDuringClone((el, { expression  })=>{
-    if (typeof expression === "string") return !!expression.trim() && evaluate(el, expression, {
+directive("init", skipDuringClone((el, { expression  }, { evaluate: evaluate2  })=>{
+    if (typeof expression === "string") return !!expression.trim() && evaluate2(expression, {
     }, false);
-    return evaluate(el, expression, {
+    return evaluate2(expression, {
     }, false);
 }));
 // packages/alpinejs/src/directives/x-text.js
@@ -4091,10 +4114,10 @@ directive("on", skipDuringClone((el, { value , modifiers , expression  }, { clea
 // packages/alpinejs/src/index.js
 alpine_default.setEvaluator(normalEvaluator);
 alpine_default.setReactivityEngine({
-    reactive: import_reactivity9.reactive,
-    effect: import_reactivity9.effect,
-    release: import_reactivity9.stop,
-    raw: import_reactivity9.toRaw
+    reactive: import_reactivity8.reactive,
+    effect: import_reactivity8.effect,
+    release: import_reactivity8.stop,
+    raw: import_reactivity8.toRaw
 });
 var src_default = alpine_default;
 // packages/alpinejs/builds/module.js
@@ -4159,21 +4182,26 @@ var resolveStep = ()=>{
 };
 var logger = ()=>{
 };
+var fromEl;
+var toEl;
 function breakpoint(message) {
     if (!debug) return;
-    message && logger(message.replace("\n", "\\n"));
+    logger((message || "").replace("\n", "\\n"), fromEl, toEl);
     return new Promise((resolve)=>resolveStep = ()=>resolve()
     );
 }
 async function morph(from, toHtml, options) {
     assignOptions(options);
-    let toEl = createElement(toHtml);
+    fromEl = from;
+    toEl = createElement(toHtml);
     if (window.Alpine && !from._x_dataStack) {
         toEl._x_dataStack = window.Alpine.closestDataStack(from);
         toEl._x_dataStack && window.Alpine.clone(from, toEl);
     }
     await breakpoint();
-    patch(from, toEl);
+    await patch(from, toEl);
+    fromEl = void 0;
+    toEl = void 0;
     return from;
 }
 morph.step = ()=>resolveStep()
@@ -4290,7 +4318,8 @@ async function patchChildren(from, to) {
                 currentFrom = holdover;
                 await breakpoint("Add element (from key)");
             } else {
-                let added2 = addNodeTo(currentTo, from);
+                let added2 = addNodeTo(currentTo, from) || {
+                };
                 await breakpoint("Add element: " + added2.outerHTML);
                 currentTo = dom(currentTo).nodes().next();
                 continue;
@@ -4346,14 +4375,16 @@ async function patchChildren(from, to) {
         currentTo = currentTo && dom(currentTo).nodes().next();
         currentFrom = currentFrom && dom(currentFrom).nodes().next();
     }
+    let removals = [];
     while(currentFrom){
-        if (!shouldSkip(removing, currentFrom)) {
-            let domForRemoval = currentFrom;
-            domForRemoval.remove();
-            await breakpoint("remove el");
-            removed(domForRemoval);
-        }
+        if (!shouldSkip(removing, currentFrom)) removals.push(currentFrom);
         currentFrom = dom(currentFrom).nodes().next();
+    }
+    while(removals.length){
+        let domForRemoval = removals.pop();
+        domForRemoval.remove();
+        await breakpoint("remove el");
+        removed(domForRemoval);
     }
 }
 function getKey(el) {
@@ -4381,6 +4412,7 @@ function addNodeTo(node, parent) {
         added(clone);
         return clone;
     }
+    return null;
 }
 function addNodeBefore(node, beforeMe) {
     if (!shouldSkip(adding, node)) {
@@ -7953,11 +7985,13 @@ var morphOpts = {
 function page() {
     return {
         init: function() {
-            var _this = this;
-            var socket = _socketDefault.default(window.SOCKET_PATH);
-            socket.addListener("Lookbook::ReloadChannel", function() {
-                return _this.refresh();
-            });
+            if (window.SOCKET_PATH) {
+                var _this = this;
+                var socket = _socketDefault.default(window.SOCKET_PATH);
+                socket.addListener("Lookbook::ReloadChannel", function() {
+                    return _this.refresh();
+                });
+            }
         },
         update: function() {
             return _helpers.asyncToGenerator(_regeneratorRuntimeDefault.default.mark(function _callee() {
@@ -11381,13 +11415,18 @@ function filter() {
             var _this = this;
             if ($event && $event.target.tagName === "INPUT") return;
             setTimeout(function() {
-                return _this.$refs.input.focus();
+                var _this1 = _this;
+                _this.$dispatch("filter:focus");
+                _this.$nextTick(function() {
+                    return _this1.$refs.input.focus();
+                });
             }, 0);
         },
         blur: function() {
             var _this = this;
             setTimeout(function() {
-                return _this.$refs.input.blur();
+                _this.$refs.input.blur();
+                _this.$dispatch("filter:blur");
             }, 0);
         }
     };
@@ -11449,7 +11488,6 @@ function nav() {
                 return _this.filter();
             });
             this.$nextTick(function() {
-                _this1.setActive();
                 _this1.filter();
             });
         },
@@ -11464,10 +11502,6 @@ function nav() {
         },
         getChildren: function() {
             return this.$refs.items ? Array.from(this.$refs.items.querySelectorAll(":scope > li > div")) : [];
-        },
-        setActive: function() {
-            var target = this.$el.querySelector("[data-path=\"".concat(window.location.pathname, "\"]"));
-            this.$store.nav.active = target ? target.id : "";
         }
     };
 }
@@ -11850,7 +11884,7 @@ function tabs() {
             });
         },
         get tabs () {
-            return Array.from(this.$refs.tabs.querySelectorAll(":scope > a"));
+            return Array.from(this.$refs.tabs ? this.$refs.tabs.querySelectorAll(":scope > a") : []);
         },
         get visibleTabCount () {
             var cumulativeWidth = 0;
@@ -16224,6 +16258,38 @@ function code() {
     };
 }
 exports.default = code;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"65cOs":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function navSection() {
+    return {
+        open: true,
+        toggle: function() {
+            this.open = !this.open;
+        }
+    };
+}
+exports.default = navSection;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"4nXk5":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function sidebar() {
+    return {
+        init: function() {
+            var _this = this;
+            this.$nextTick(function() {
+                return _this.setActiveNavItem();
+            });
+        },
+        setActiveNavItem: function() {
+            var target = this.$el.querySelector("[data-path=\"".concat(window.location.pathname, "\"]"));
+            this.$store.nav.active = target ? target.id : "";
+        }
+    };
+}
+exports.default = sidebar;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}]},["1uIvH","kCDd3"], "kCDd3", "parcelRequirea49c")
 

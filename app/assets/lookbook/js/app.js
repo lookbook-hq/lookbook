@@ -9,9 +9,11 @@ import inspector from "./components/inspector";
 import previewWindow from "./components/preview-window";
 import filter from "./components/filter";
 import param from "./components/param";
+import sidebar from "./components/sidebar";
 import nav from "./components/nav";
 import navItem from "./components/nav-item";
 import navGroup from "./components/nav-group";
+import navSection from "./components/nav-section";
 import splitter from "./components/splitter";
 import tabs from "./components/tabs";
 import copy from "./components/copy";
@@ -41,6 +43,7 @@ Alpine.store("inspector", initInspectorStore(Alpine));
 // Components
 
 Alpine.data("page", page);
+Alpine.data("sidebar", sidebar);
 Alpine.data("splitter", splitter);
 Alpine.data("previewWindow", previewWindow);
 Alpine.data("copy", copy);
@@ -53,6 +56,7 @@ Alpine.data("nav", nav);
 Alpine.data("tabs", tabs);
 Alpine.data("navItem", navItem);
 Alpine.data("navGroup", navGroup);
+Alpine.data("navSection", navSection);
 
 // Init
 

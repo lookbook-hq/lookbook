@@ -1,0 +1,11 @@
+<div x-data="navSection" <% if classes %> class="<%= classes %>"<% end %>>
+  <div class="h-10 pl-3 pr-1 py-2 flex items-center border-b border-gray-300"> 
+    <div class="flex items-center w-full cursor-pointer" @click="toggle">
+      <%= icon "${open ? 'chevron-down' : 'chevron-right'}", size: 3, class: "mr-1 text-gray-600" %>
+      <h2 class="font-bold text-gray-700 uppercase tracking-wide text-xs"><%= title %></h2>
+    </div>
+  </div>
+  <div :class="{hidden: !open}">
+    <%= yield %>
+  </div>
+</div>

@@ -109,5 +109,6 @@ module Lookbook
     alias_method :example, :lookbook_example
     alias_method :get_examples, :lookbook_examples
     alias_method :hierarchy_depth, :lookbook_hierarchy_depth
+    alias_method :parent_collections, :lookbook_parent_collections
   end
 end

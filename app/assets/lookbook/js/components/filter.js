@@ -15,10 +15,16 @@ export default function filter() {
       if ($event && $event.target.tagName === "INPUT") {
         return;
       }
-      setTimeout(() => this.$refs.input.focus(), 0);
+      setTimeout(() => {
+        this.$dispatch("filter:focus");
+        this.$nextTick(() => this.$refs.input.focus());
+      }, 0);
     },
     blur() {
-      setTimeout(() => this.$refs.input.blur(), 0);
+      setTimeout(() => {
+        this.$refs.input.blur();
+        this.$dispatch("filter:blur");
+      }, 0);
     },
   };
 }

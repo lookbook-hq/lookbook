@@ -24,7 +24,7 @@ module Lookbook
     config.lookbook = ActiveSupport::OrderedOptions.new
     config.lookbook.listen_paths ||= []
     config.lookbook.preview_paths ||= []
-    config.lookbook.page_paths ||= []
+    config.lookbook.page_paths ||= ["test/components/docs"]
 
     initializer "view_component.set_configs" do
       options = config.lookbook
@@ -38,7 +38,9 @@ module Lookbook
       options.preview_paths += vc_options.preview_paths
 
       options.page_paths = options.page_paths.map(&:to_s)
+      options.page_controller = "Lookbook::PageController" if options.page_controller.nil?
       options.page_route ||= "pages"
+      options.page_metadata ||= {}.with_indifferent_access
 
       options.preview_controller = vc_options.preview_controller if options.preview_controller.nil?
       options.preview_srcdoc = false if options.preview_srcdoc.nil?
@@ -46,6 +48,7 @@ module Lookbook
 
       options.listen_paths = options.listen_paths.map(&:to_s)
       options.listen_paths += options.preview_paths
+      options.listen_paths += options.page_paths
       options.listen_paths << (vc_options.view_component_path || Rails.root.join("app/components"))
 
       options.cable = ActionCable::Server::Configuration.new
@@ -80,6 +83,10 @@ module Lookbook
       ActiveSupport.on_load(:view_component) do
         ViewComponent::Preview.extend Lookbook::Preview
       end
+    end
+
+    initializer "lookbook.helpers" do
+      config.action_controller.include_all_helpers = false
     end
 
     config.after_initialize do

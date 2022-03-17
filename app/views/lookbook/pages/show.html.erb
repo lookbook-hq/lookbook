@@ -1,5 +1,22 @@
-<div class="p-4">
-  <h1 class="font-bold text-2xl"><%= @page.label %></h1>
+<div class="grid grid-rows-[40px_1fr] bg-gray-50 h-full">
+  <div class="px-4 w-full flex-none bg-white border-b border-gray-300 flex items-center h-10 select-none min-w-0">
+    <div class="ml-auto text-gray-400">
+      <%= @page.path %>
+    </div>
+  </div>
+  <div class="px-[5vw] pt-8 overflow-auto pb-10">
+    <% if @page.title? %>
+      <header class="border-b border-gray-300 pb-6 mb-10 prose">
+        <h1>
+          <%= @page.title %>
+        </h1>
+      </header>
+    <% end %>
+    <div class="overflow-auto">
+      <div class="prose text-gray-600" data-morph-strategy="replace">
+        <%= @page_content %>
+      </div>
+    </div>
+  </div>
 </div>
-
 

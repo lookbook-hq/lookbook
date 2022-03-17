@@ -1,4 +1,7 @@
-<nav id="nav" x-data="nav" @popstate.window="setActive">
+<%
+entity ||= "preview"
+%>
+<nav id="nav" x-data="nav">
   <% if items.any? %>
     <ul x-ref="items">
       <% items.each do |node| %>
@@ -6,12 +9,11 @@
       <% end %>
     </ul>
     <div class="p-4 text-center" x-show="empty" x-cloak>
-      <em class="text-gray-400">No matching previews found.</em>
+      <em class="text-gray-400 italic">No matching <%= entity.pluralize %> found.</em>
     </div>
   <% else %>
-    <div class="p-4">
-      <h4 class="text-gray-500 mb-1">No previews found.</h4>
-      <p class="text-gray-400 text-xs">Have you set your <a class="underline" href="https://viewcomponent.org/api.html#preview_paths">preview paths</a> config correctly?</p>
+    <div class="p-4 text-center">
+      <h4 class="text-gray-400 italic">No <%= entity.pluralize %> found.</h4>
     </div>
   <% end %>
 </nav>

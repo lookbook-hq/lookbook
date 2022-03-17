@@ -12,19 +12,31 @@ module Lookbook
     end
 
     def name
-      @path.present? ? @path.split("/").last : "root"
+      path_name.gsub(/^(\d+?)-/, "")
     end
 
     def label
       name&.titleize
     end
 
+    def position
+      matches = path_name.match(/^(\d+?)-/)
+      matches ? matches[1].to_i : 0
+    end
+
     def hierarchy_depth
       @path ? @path.split("/").size : 0
     end
 
-    def items(sorted = true)
-      sorted ? @items.sort_by(&:label) : @items
+    def items(sort_by: :label)
+      case sort_by
+      when :label
+        @items.sort_by(&:label)
+      when :position
+        @items.sort_by(&:position)
+      else
+        @items
+      end
     end
 
     def add(item)
@@ -46,6 +58,12 @@ module Lookbook
 
     def type
       :collection
+    end
+
+    protected
+
+    def path_name
+      @path.present? ? @path.split("/").last : "root"
     end
   end
 end

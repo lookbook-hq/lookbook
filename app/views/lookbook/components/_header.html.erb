@@ -1,8 +1,6 @@
 <header class="pl-4 w-full flex-none bg-white border-b border-gray-300 flex items-center h-10 select-none min-w-0">
   <button class="flex-none mr-6" x-show="!$store.layout.desktop" @click="$store.sidebar.toggle">
-    <svg class="feather w-5 h-5 hover:text-indigo-500 transition">
-      <use xlink:href="/lookbook-assets/feather-sprite.svg#menu" />
-    </svg>
+    <%= icon "menu", size: 5, class: "hover:text-indigo-500 transition" %>
   </button>
   <%= yield %>
 </header>

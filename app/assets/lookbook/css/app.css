@@ -58,7 +58,7 @@
 }
 
 @layer components {
-  #nav > ul > li > div {
+  .unsectioned > #nav > ul > li > div {
     @apply py-1 border-b border-gray-300;
   }
 
@@ -113,6 +113,10 @@
 
   .code .line-content {
     @apply flex-none pr-4;
+  }
+
+  .prose .code {
+    @apply !bg-white border border-gray-200 text-gray-600;
   }
 
   .resize-handle {

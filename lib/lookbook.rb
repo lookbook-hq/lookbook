@@ -1,6 +1,9 @@
 require "active_support/dependencies/autoload"
 require "lookbook/engine"
 require "lookbook/version"
+require "redcarpet"
+require "rouge"
+require "htmlbeautifier"
 
 module Lookbook
   extend ActiveSupport::Autoload
@@ -18,4 +21,5 @@ module Lookbook
   autoload :Taggable, "lookbook/taggable"
   autoload :NullLogger, "lookbook/null_logger"
   autoload :CodeFormatter, "lookbook/code_formatter"
+  autoload :Markdown, "lookbook/markdown"
 end

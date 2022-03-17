@@ -4,7 +4,6 @@ export default function nav() {
     init() {
       this.$watch("$store.filter.text", () => this.filter());
       this.$nextTick(() => {
-        this.setActive();
         this.filter();
       });
     },
@@ -22,12 +21,6 @@ export default function nav() {
       return this.$refs.items
         ? Array.from(this.$refs.items.querySelectorAll(":scope > li > div"))
         : [];
-    },
-    setActive() {
-      const target = this.$el.querySelector(
-        `[data-path="${window.location.pathname}"]`
-      );
-      this.$store.nav.active = target ? target.id : "";
     },
   };
 }

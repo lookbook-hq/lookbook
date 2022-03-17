@@ -19,7 +19,9 @@ export default function tabs() {
       });
     },
     get tabs() {
-      return Array.from(this.$refs.tabs.querySelectorAll(":scope > a"));
+      return Array.from(
+        this.$refs.tabs ? this.$refs.tabs.querySelectorAll(":scope > a") : []
+      );
     },
     get visibleTabCount() {
       let cumulativeWidth = 0;

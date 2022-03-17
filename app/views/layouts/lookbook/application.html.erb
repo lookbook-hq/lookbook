@@ -28,16 +28,39 @@
     @resize.window="$store.layout.desktop = window.innerWidth >= $store.layout.desktopWidth"
     class="md:grid w-screen h-screen"
   >
-    <div class="h-full bg-gray-100 overflow-hidden flex flex-col" x-show="$store.layout.desktop || $store.sidebar.open" x-cloak>
-      <div class="bg-white h-10 border-b border-gray-300 flex flex-none items-center relative">
+    <div
+      x-data="sidebar"
+      @page:morphed.window="setActiveNavItem"
+      class="h-full bg-gray-100 overflow-hidden flex flex-col"
+      x-show="$store.layout.desktop || $store.sidebar.open"
+      x-cloak>
+
+      <div class="bg-white h-10 border-b border-gray-400 flex flex-none items-center relative">
         <button class="flex-none ml-4 md:hidden" @click="$store.sidebar.toggle">
           <%= icon "x", size: 4, class: "hover:text-indigo-500" %>
         </button>
-        <%= component "filter" %>
+        <div class="bg-white flex flex-none items-center relative w-full" x-cloak>
+          <%= component "filter" %>
+        </div>
       </div>
-      <div class="flex-grow overflow-y-auto">
-        <%= component "nav", items: @nav[:previews].items %>
-      </div>
+
+      <% if feature_enabled?(:pages) %>
+        <%= component "nav_section", title: "Previews", filterable: true do %>
+          <div class="flex-grow overflow-y-auto pt-2 pb-3">
+            <%= component "nav", items: @nav[:previews].items, entity: "preview" %>
+          </div>
+        <% end %>
+        <%= component "nav_section", title: "Pages", class: "border-t border-gray-300 -mt-px" do %>
+          <div class="flex-grow overflow-y-auto pt-2 pb-3">
+            <%= component "nav", items: @nav[:pages].items(sort_by: :position), entity: "page" %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="flex-grow overflow-y-auto unsectioned">
+          <%= component "nav", items: @nav[:previews].items, entity: "preview" %>
+        </div>
+      <% end %>
+      
     </div>
     <div
       x-data="splitter('vertical', {minSize: $store.sidebar.minWidth})"

@@ -16,38 +16,34 @@ module Lookbook
     end
 
     def pages
-      Lookbook::Page.all
+      Lookbook::Page.all.sort_by(&:position)
     end
 
     def build_nav
       @nav = {
-        pages: pages_nav,
-        previews: previews_nav
+        pages: nested_collection(pages),
+        previews: nested_collection(previews)
       }
     end
 
-    def pages_nav
-      Collection.new
-    end
-
-    def previews_nav
-      nav = Collection.new
-      previews.reject { |p| p.hidden? }.each do |preview|
-        current = nav
-        if preview.hierarchy_depth == 1
-          current.add(preview)
+    def nested_collection(items)
+      collection = Collection.new
+      items.reject { |i| i.hidden? }.each do |items|
+        current = collection
+        if items.hierarchy_depth == 1
+          current.add(items)
         else
-          preview.lookbook_parent_collections.each.with_index(1) do |name, i|
+          items.parent_collections.each.with_index(1) do |name, i|
             target = current.get_or_create(name)
-            if preview.hierarchy_depth == i + 1
-              target.add(preview)
+            if items.hierarchy_depth == i + 1
+              target.add(items)
             else
               current = target
             end
           end
         end
       end
-      nav
+      collection
     end
   end
 end
