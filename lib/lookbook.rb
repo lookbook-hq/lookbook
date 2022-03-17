@@ -8,6 +8,8 @@ require "htmlbeautifier"
 module Lookbook
   extend ActiveSupport::Autoload
 
+  autoload :Api, "lookbook/api"
+  autoload :Utils, "lookbook/utils"
   autoload :Lang, "lookbook/lang"
   autoload :Params, "lookbook/params"
   autoload :Page, "lookbook/page"

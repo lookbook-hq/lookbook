@@ -1,6 +1,6 @@
 import "iframe-resizer/js/iframeResizer";
 
-export default function embedPreview() {
+export default function embed() {
   return {
     init() {
       this.resizer = window.iFrameResize(

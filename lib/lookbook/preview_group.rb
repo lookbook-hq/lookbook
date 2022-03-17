@@ -1,6 +1,7 @@
 module Lookbook
   class PreviewGroup
     include Taggable
+    include Utils
 
     attr_reader :name, :examples
 
@@ -11,7 +12,7 @@ module Lookbook
     end
 
     def id
-      path.underscore.tr("/", "-").tr("_", "-")
+      generate_id(path)
     end
 
     def path
@@ -39,7 +40,7 @@ module Lookbook
     end
 
     def matchers
-      [@preview.label, label].map { |m| m.gsub(/\s/, "").downcase }
+      normalize_matchers(@preview.label, label)
     end
 
     def hierarchy_depth

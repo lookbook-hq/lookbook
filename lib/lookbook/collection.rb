@@ -1,5 +1,7 @@
 module Lookbook
   class Collection
+    include Utils
+
     attr_reader :path
 
     def initialize(path = "")
@@ -8,11 +10,11 @@ module Lookbook
     end
 
     def id
-      (@path || "root").underscore.tr("_", "-")
+      generate_id(@path || "root")
     end
 
     def name
-      path_name.gsub(/^(\d+?)-/, "")
+      parse_position_prefix(path_name).last
     end
 
     def label
@@ -20,8 +22,7 @@ module Lookbook
     end
 
     def position
-      matches = path_name.match(/^(\d+?)-/)
-      matches ? matches[1].to_i : 0
+      parse_position_prefix(path_name).first
     end
 
     def hierarchy_depth

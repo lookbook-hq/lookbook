@@ -11,15 +11,14 @@ module Lookbook
       "lookbook/previews"
     end
 
-    before_action :find_preview, only: [:preview, :show]
-    before_action :find_example, only: [:preview, :show]
+    before_action :lookup_entities, only: [:preview, :show]
 
     def preview
       if @example
         set_params
         render html: render_examples(examples_data)
       else
-        render "not_found"
+        render_in_layout "not_found"
       end
     end
 
@@ -31,30 +30,19 @@ module Lookbook
           @drawer_panels = drawer_panels.filter { |name, panel| panel[:show] }
           @preview_panels = preview_panels.filter { |name, panel| panel[:show] }
         rescue *EXCEPTIONS
-          render "error"
+          render_in_layout "error"
         end
       else
-        render "not_found"
+        render_in_layout "not_found"
       end
     end
 
     private
 
-    def find_preview
-      candidates = []
-      params[:path].to_s.scan(%r{/|$}) { candidates << $` }
-      match = candidates.reverse.detect { |candidate| Lookbook::Preview.exists?(candidate) }
-      @preview = match ? Lookbook::Preview.find(match) : nil
-    end
-
-    def find_example
-      @example = if @preview
-        if params[:path] == @preview.lookbook_path
-          redirect_to show_path "#{params[:path]}/#{@preview.lookbook_examples.first.name}"
-        else
-          @example_name = File.basename(params[:path])
-          @preview.lookbook_example(@example_name)
-        end
+    def lookup_entities
+      @preview, @example = Lookbook::Api.find_preview_and_example(params[:path])
+      if params[:path] == @preview&.lookbook_path
+        redirect_to show_path "#{params[:path]}/#{@preview.lookbook_examples.first.name}"
       end
     end
 
@@ -159,6 +147,10 @@ module Lookbook
 
     def enabled?(feature)
       Lookbook::Features.enabled?(feature)
+    end
+
+    def render_in_layout(path)
+      render "not_found", layout: params[:lookbook_embed] ? "lookbook/basic" : "lookbook/application"
     end
   end
 end

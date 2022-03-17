@@ -1,6 +1,6 @@
 <div x-data="navSection" <% if classes %> class="<%= classes %>"<% end %>>
-  <div class="pl-3 pr-3 py-2 pt-2.5 flex items-center border-b border-gray-300 bg-gray-50"> 
-    <div class="flex items-center w-full cursor-pointer" @click="toggle">
+  <div class="flex items-center border-b border-gray-300 bg-gray-50"> 
+    <div class="flex items-center w-full cursor-pointer pl-3 pr-3 py-2 pt-2.5" @click="toggle">
       <h2 class="font-bold text-gray-700 uppercase text-xs"><%= title %></h2>
       <%= icon "${open ? 'chevron-down' : 'chevron-right'}", size: 3.5, class: "ml-auto text-gray-600" %>
     </div>

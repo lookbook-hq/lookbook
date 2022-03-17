@@ -29,19 +29,19 @@ module Lookbook
       result.strip.html_safe
     end
 
+    def component(name, **attrs, &block)
+      render "lookbook/components/#{name}",
+        classes: class_names(attrs[:class]),
+        **attrs.except(:class),
+        &block
+    end
+
     def icon(name = nil, size: 4, **attrs)
       render "lookbook/components/icon",
         name: name,
         size: size,
         classes: class_names(attrs[:class]),
         **attrs.except(:class)
-    end
-
-    def component(name, **attrs, &block)
-      render "lookbook/components/#{name}",
-        classes: class_names(attrs[:class]),
-        **attrs.except(:class),
-        &block
     end
 
     if Rails.version.to_f < 6.1

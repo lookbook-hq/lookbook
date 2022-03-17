@@ -1,11 +1,8 @@
 module Lookbook
   class Page
-    DATA_DEFAULTS = {
-      hidden: false,
-      title: nil,
-      position: nil,
-      label: nil
-    }
+    include Utils
+
+    POSITION_PREFIX_REGEX = /^(\d+?)[-_]/
 
     def initialize(path, base_path)
       @pathname = Pathname.new path
@@ -14,7 +11,8 @@ module Lookbook
 
     def path
       rel_path = @pathname.relative_path_from(@base_path)
-      String(rel_path.dirname) == "." ? name : "#{rel_path.dirname}/#{name}"
+      dirty_path = (String(rel_path.dirname) == "." ? name : "#{rel_path.dirname}/#{name}")
+      dirty_path.gsub(POSITION_PREFIX_REGEX, "").gsub(/\/(\d+?)[-_]/, "/")
     end
 
     def fullpath
@@ -22,19 +20,11 @@ module Lookbook
     end
 
     def name
-      path_name.gsub(/^(\d+?)-/, "")
+      path_name.gsub(POSITION_PREFIX_REGEX, "")
     end
 
     def id
-      path.underscore.tr("/", "-").tr("_", "-")
-    end
-
-    def label
-      data[:label]
-    end
-
-    def title
-      data[:title]
+      generate_id(path)
     end
 
     def title?
@@ -45,31 +35,16 @@ module Lookbook
       data[:hidden] == true
     end
 
-    def position
-      data[:position]
-    end
-
     def markdown?
-      data[:markdown]
-    end
-
-    def data
-      return @data if @data
-      data = Lookbook.config.page_data.merge(frontmatter).with_indifferent_access
-      data[:label] ||= name.titleize
-      data[:title] ||= data[:label]
-      data[:hidden] || false
-      data[:position] = data[:position] ? data[:position].to_i : position_from_filename
-      data[:markdown] ||= markdown_file?
-      @data ||= data
+      data[:markdown] == true
     end
 
     def content
-      file_contents.gsub(/\A---(.|\n)*?---/, "")
+      parse_frontmatter(file_contents).last
     end
 
     def matchers
-      [label].map { |m| m.gsub(/\s/, "").downcase }
+      normalize_matchers(label)
     end
 
     def hierarchy_depth
@@ -84,24 +59,38 @@ module Lookbook
       :page
     end
 
-    def file_contents
-      File.read(fullpath)
+    def method_missing(method_name, *args, &block)
+      if args.none? && !block
+        data[method_name]
+      else
+        super
+      end
+    end
+
+    def respond_to_missing?(method_name, include_private = false)
+      data.key? method_name
     end
 
     protected
 
+    def file_contents
+      File.read(fullpath)
+    end
+
+    def data
+      return @data if @data
+      frontmatter = parse_frontmatter(file_contents).first
+      data = Lookbook.config.page_data.merge(frontmatter || {}).with_indifferent_access
+      data[:label] ||= name.titleize
+      data[:title] ||= data[:label]
+      data[:hidden] || false
+      data[:position] = data[:position] ? data[:position].to_i : parse_position_prefix(path_name).first
+      data[:markdown] ||= markdown_file?
+      @data ||= data
+    end
+
     def path_name
       @pathname.basename(@pathname.extname).to_s.gsub(/\.(html|md)$/, "")
-    end
-
-    def frontmatter
-      fm = file_contents.match(/\A---((.|\n)*?)---/)
-      fm.nil? ? {} : YAML.safe_load(fm[1])
-    end
-
-    def position_from_filename
-      pos = path_name.match(/^(\d+?)-/)
-      pos ? pos[1].to_i : 0
     end
 
     def markdown_file?
@@ -115,8 +104,10 @@ module Lookbook
 
       def all
         pages = Array(page_paths).map do |dir|
-          Dir["#{dir}/**/*.html.*", "#{dir}/**/*.md.*"].sort.map do |page|
-            Lookbook::Page.new(page, dir)
+          if Dir.exist? dir
+            Dir["#{dir}/**/*.html.*", "#{dir}/**/*.md.*"].sort.map do |page|
+              Lookbook::Page.new(page, dir)
+            end
           end
         end
         pages.flatten.uniq { |p| p.path }

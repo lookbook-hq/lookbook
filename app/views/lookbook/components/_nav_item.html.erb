@@ -8,7 +8,7 @@ item_icon = item.type == :page ? "file" : display == :node ? "layers" : "eye"
   <div id="nav-item-<%= item.id %>" x-data="navItem(<%= item.matchers.to_json %>)" :class="{hidden}" data-path="<%= path %>" x-cloak>
     <a href="<%= path %>"
       class="nav-link pr-3 py-[5px] flex items-center w-full group transition hover:bg-gray-200 hover:bg-opacity-50"
-      style="padding-left: calc((<%= depth - 1 %> * 12px) + 0.75rem);"
+      style="padding-left: calc((<%= depth - 1 %> * 12px) + 0.5rem);"
       x-ref="link"
       :class="{'!bg-indigo-100':active}"
       @click.stop.prevent="navigate"

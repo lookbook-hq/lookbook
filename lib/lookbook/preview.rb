@@ -1,12 +1,12 @@
 module Lookbook
   module Preview
     include Taggable
+    include Utils
 
     def id
       lookbook_path.tr("/", "-").tr("_", "-")
     end
 
-    # Examples::FooBarComponent::Preview -> "Foo Bar"
     def lookbook_label
       super.presence || lookbook_path.split("/").last.titleize
     end
@@ -41,16 +41,12 @@ module Lookbook
       @lookbook_examples
     end
 
-    # Examples::FooBarComponentPreview -> "Examples::FooBar"
-    # Examples::FooBarComponent::Preview -> "Examples::FooBar"
     def lookbook_name
-      name.chomp("ComponentPreview").chomp("Component::Preview").chomp("::Preview").chomp("::")
+      preview_class_basename(name)
     end
 
-    # Examples::FooBarComponentPreview -> "examples/foo_bar"
-    # Examples::FooBarComponent::Preview -> "examples/foo_bar"
     def lookbook_path
-      lookbook_name.underscore
+      preview_class_path(lookbook_name)
     end
 
     # Examples::FooBarComponentPreview -> "/Users/myname/myapp/test/components/previews/examples/foo_bar_component_preview.rb"
@@ -71,7 +67,7 @@ module Lookbook
     end
 
     def lookbook_id
-      lookbook_path.tr("/", "-").tr("_", "-")
+      generate_id(lookbook_path)
     end
 
     def lookbook_layout

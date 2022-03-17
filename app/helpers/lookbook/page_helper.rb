@@ -1,24 +1,45 @@
 module Lookbook
   module PageHelper
+    def icon(name = nil, size: 4, **attrs)
+      render "lookbook/components/icon",
+        name: name,
+        size: size,
+        classes: class_names(attrs[:class]),
+        **attrs.except(:class)
+    end
+
     def markdown(text = nil, &block)
       Lookbook::Markdown.render(block ? capture(&block) : text)
     end
 
-    def code(source = nil, language = "ruby", opts = {}, &block)
-      source = block ? capture(&block) : source
-      "<pre><code class='highlight'>#{Lookbook::Markdown.highlight(source.strip, language, opts)}</code></pre>".html_safe
+    def code(*args, **opts, &block)
+      if block
+        source = capture(&block)
+        language = args[0]
+      else
+        source, language = args
+      end
+      "<pre class='code'><code class='highlight'>#{Lookbook::Markdown.highlight(source.strip, (language || :ruby).to_s, opts)}</code></pre>".html_safe
     end
 
-    def embed(path, params: {}, type: :preview, **opts)
+    def embed(*args, params: {}, type: :preview, **opts)
       @embed_counter ||= 0
-      html = render "lookbook/embeds/#{type}", {
-        id: "embed#{url_for}-#{path}-#{type}-#{@embed_counter}".tr("/", "-"),
-        path: path,
-        params: params,
-        opts: opts
-      }
-      @embed_counter += 1
-      html
+      preview, example = Lookbook::Api.find_preview_and_example(*args)
+      if example
+        html = render "lookbook/components/embed", {
+          id: "embed#{url_for}-#{example.path}-#{@embed_counter}".tr("/", "-"),
+          preview: preview,
+          example: example,
+          params: params,
+          opts: opts
+        }
+        @embed_counter += 1
+        html
+      else
+        render "lookbook/components/embed_not_found", {
+          opts: opts
+        }
+      end
     end
   end
 end

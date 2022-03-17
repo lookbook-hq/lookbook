@@ -116,19 +116,19 @@
   }
 
   .prose .code {
-    @apply !bg-white border border-gray-200 text-gray-600;
+    @apply !bg-white border border-gray-300 text-gray-600 my-8;
   }
 
   .prose > *:not(.not-prose) {
-    @apply max-w-3xl;
+    @apply max-w-3xl w-full mx-auto;
   }
 
-  .prose .embed-preview {
-    @apply my-10;
+  .prose .embed {
+    @apply my-8 max-w-3xl mx-auto;
   }
 
-  .prose .embed-fitted {
-    @apply max-w-3xl;
+  .prose .embed-breakout {
+    @apply max-w-none;
   }
 
   .resize-handle {

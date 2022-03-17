@@ -19,7 +19,7 @@ import tabs from "./components/tabs";
 import copy from "./components/copy";
 import code from "./components/code";
 import sizes from "./components/sizes";
-import embedPreview from "./components/embed_preview";
+import embed from "./components/embed";
 
 import initFilterStore from "./stores/filter";
 import initLayoutStore from "./stores/layout";
@@ -60,7 +60,7 @@ Alpine.data("tabs", tabs);
 Alpine.data("navItem", navItem);
 Alpine.data("navGroup", navGroup);
 Alpine.data("navSection", navSection);
-Alpine.data("embedPreview", embedPreview);
+Alpine.data("embed", embed);
 
 // Init
 
