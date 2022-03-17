@@ -29,6 +29,7 @@ Lookbook uses [RDoc/Yard-style comment tags](#annotating-preview-files) to exten
 - Use comment tag annotations for granular customisation of the preview experience
 - Fully compatible with standard the ViewComponent preview system
 - In-browser live-editable preview parameters (similar to basic Storybook Controls/Knobs)
+- [**BETA**] Markdown-powerered documentation pages with embeddable previews
 
 ## Lookbook demo
 
@@ -474,7 +475,127 @@ class ProfileCardComponentPreview < ViewComponent::Preview
 end
 ```
 
-## Configuration
+## 🚧 Documentation Pages (experimental)
+
+If you need to add more long-form documentation to live alongside your component previews you can do so using Lookbook's markdown-powered `pages` system.
+
+> ⚠️ This feature is currently flagged as an **experimental** feature which requires [feature opt-in](#experimental-features) to use. Its API and implementation may change before it is released.
+> 
+> To enable support for pages in your project, add `config.lookbook.experimental_features = ["pages"]` into your application configuration file.
+
+### Pages Overview
+
+A few key things to know about using pages in Lookbook:
+
+1. By default, documentation pages should be placed in the `test/components/docs` directory (although this can be customised).
+2. Pages must have  either a `.html.erb` or a `.md.erb` file extension. All pages are rendered as ERB templates but `.md.erb` files will also additionally be run through a markdown parser.
+3. You can nest pages in directories as deep as you like.
+3. Pages can optionally make use of a **YAML frontmatter block** to customise the behaviour and content of the page itself.
+
+An example page (`test/components/docs/example_page.md.erb`) might look like this: 
+
+```ruby
+---
+title: An example page
+label: Nice example
+---
+
+This is an example page. Because it has a `.md.erb` file extension it's contents will be run through a Markdown parser/renderer before display.
+
+## YAML frontmatter
+
+You can set/override page data in the YAML frontmatter section at the top of the page. Some useful options are:
+
+* `label` - The name of the page that will be displayed in the navigation (auto-generated from the file name if not set)
+* `title` - The main page title displayed on the page (defaults to the label value if not set). Can also set this value to `false` to hide the title altogether.
+* `hidden` - Boolean, if `false` the page will not appear in the navigation but will still be accessible at it's URL (useful for pages that are still in-development)
+
+## Other notes
+
+Fenced code blocks are fully supported and will be highlighted appropriately.
+
+<%= "ERB can be used in here - the template will be rendered **before** being parsed as Markdown." %>
+
+Preview examples can be embedded in the page - see the documentation below for more details.
+```
+
+### Ordering pages and directories
+
+If you want to enforce a specific order for pages and directories in the Lookbook navigation you can prefix the file/directory basename with an 'order number' integer value followed by an underscore or hyphen.
+
+For example: `01_example_page.md.erb` will be displayed first in the navigation (`01`) within the directory it is in.
+
+The integer value will be parsed out from the filename so that it doesn't appear in navigation labels or URLs, and the value itself will be used as a 'position' number when sorting the navigation items.
+
+For example, an ordered directory of pages might look like:
+
+```
+test/components/docs/
+  ├── 01_overview.md.erb
+  ├── 02_implementation_notes/
+  │   ├── 01_slots.md.erb
+  │   └── 02_html_attributes.md.erb
+  └── 03_helpful_examples/
+      ├── 01_basic_components.md.erb
+      └── 02_complex_components.md.erb
+```
+
+Without the number prefixes on the file names the pages may not have appeared in the navigation in the desired order.
+
+### Embedding previews
+
+You can embed preview examples from your project directly into the documentation pages using the `embed` helper.
+
+<img src=".github/assets/preview_embed.png">
+
+
+To specify which preview example to render, the helper accepts **either** a preview class and a method name (as a symbol), like this:
+
+```erb
+<%= embed Elements:ButtonComponentPreview, :default %>
+```
+
+**or** the 'URL path' to the example, as follows:
+
+```erb
+<%= embed "elements/button/default" %>
+```
+
+#### Preview params
+
+If you have configured your examples to accept preview params (see the [`@param`](#param-tag) docs), then you can supply values for those params when rendering the embedded preview:
+
+```erb
+<%= embed Elements:ButtonComponentPreview, :default, params: { icon: "plus", text: "Add new" } %>
+<!-- or -->
+<%= embed "elements/button/default" params: { icon: "plus", text: "Add new" } %>
+```
+
+### Displaying code
+
+You can use language-scoped [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) in the markdown file to render nicely highlighted code examples.
+
+However, if you are not using Markdown, or need a little more control, you can use the `code` helper instead:
+
+```erb
+<%= code do %>
+  # code goes here
+<% end %>
+```
+
+The default language is Ruby. To highlight a different language you need to specify it's name as an argument:
+
+```erb
+<%= code :html do %>
+  <!-- code goes here -->
+<% end %>
+```
+
+> You can find a [full list of supported languages here](https://github.com/rouge-ruby/rouge/blob/master/docs/Languages.md).
+
+
+
+## General Configuration
 
 Lookbook will use the ViewComponent [configuration](https://viewcomponent.org/api.html#configuration) for your project to find and render your previews so you generally you won't need to configure anything separately.
 
@@ -522,6 +643,11 @@ To opt into individual experimental features, include the name of the feature in
 ```ruby
 config.lookbook.experimental_features = ["feature_name"]
 ```
+
+The current experimental features that can be opted into are:
+
+- `pages`: Markdown-powered documentation pages with embeddable previews
+
 
 #### Opting into all experimental features (not recommended!)
 
