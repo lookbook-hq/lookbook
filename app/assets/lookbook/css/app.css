@@ -119,6 +119,18 @@
     @apply !bg-white border border-gray-200 text-gray-600;
   }
 
+  .prose > *:not(.not-prose) {
+    @apply max-w-3xl;
+  }
+
+  .prose .embed-preview {
+    @apply my-10;
+  }
+
+  .prose .embed-fitted {
+    @apply max-w-3xl;
+  }
+
   .resize-handle {
     @apply flex items-center justify-center h-full w-full border-gray-300 bg-white hover:bg-indigo-100 hover:bg-opacity-20 text-gray-400 hover:text-gray-700 transition select-none touch-none;
   }

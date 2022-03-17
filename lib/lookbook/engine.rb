@@ -40,7 +40,7 @@ module Lookbook
       options.page_paths = options.page_paths.map(&:to_s)
       options.page_controller = "Lookbook::PageController" if options.page_controller.nil?
       options.page_route ||= "pages"
-      options.page_metadata ||= {}.with_indifferent_access
+      options.page_data ||= {}.with_indifferent_access
 
       options.preview_controller = vc_options.preview_controller if options.preview_controller.nil?
       options.preview_srcdoc = false if options.preview_srcdoc.nil?
@@ -90,7 +90,7 @@ module Lookbook
     end
 
     config.after_initialize do
-      @listener = Listen.to(*config.lookbook.listen_paths, only: /\.(rb|html.*)$/) do |modified, added, removed|
+      @listener = Listen.to(*config.lookbook.listen_paths, only: /\.(rb|html.*|md.*)$/) do |modified, added, removed|
         parser.parse
         if Lookbook::Engine.websocket
           if (modified.any? || removed.any?) && added.none?

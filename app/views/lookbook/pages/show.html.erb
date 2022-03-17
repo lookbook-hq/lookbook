@@ -1,19 +1,19 @@
 <div class="grid grid-rows-[40px_1fr] bg-gray-50 h-full">
   <div class="px-4 w-full flex-none bg-white border-b border-gray-300 flex items-center h-10 select-none min-w-0">
     <div class="ml-auto text-gray-400">
-      <%= @page.path %>
+      <%#= @page.path %>
     </div>
   </div>
-  <div class="px-[5vw] pt-8 overflow-auto pb-10">
+  <div class="px-10 mx-auto w-full pt-8 overflow-auto pb-10 max-w-6xl">
     <% if @page.title? %>
-      <header class="border-b border-gray-300 pb-6 mb-10 prose">
+      <header class="border-b border-gray-300 pb-6 mb-10 prose max-w-none">
         <h1>
           <%= @page.title %>
         </h1>
       </header>
     <% end %>
-    <div class="overflow-auto">
-      <div class="prose text-gray-600" data-morph-strategy="replace">
+    <div class="overflow-auto text-gray-600" data-morph-strategy="replace">
+      <div class="prose max-w-none">
         <%= @page_content %>
       </div>
     </div>

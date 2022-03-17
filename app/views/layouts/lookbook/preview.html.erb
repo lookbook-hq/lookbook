@@ -10,3 +10,7 @@
 <% else %>
   <%= examples.first[:html] %>
 <% end %>
+
+<% if params[:lookbook_embed] == "true" %>
+  <script src="/lookbook-assets/js/embed.js?v=<%= Lookbook.version %>" defer></script>
+<% end %>

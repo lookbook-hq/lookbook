@@ -1,6 +1,6 @@
 module Lookbook
   class Page
-    METADATA_DEFAULTS = {
+    DATA_DEFAULTS = {
       hidden: false,
       title: nil,
       position: nil,
@@ -30,33 +30,38 @@ module Lookbook
     end
 
     def label
-      metadata[:label].presence || name.titleize
+      data[:label]
     end
 
     def title
-      metadata[:title].presence || label
+      data[:title]
     end
 
     def title?
-      metadata[:title] != false
+      data[:title] != false
     end
 
     def hidden?
-      metadata[:hidden] == true
+      data[:hidden] == true
     end
 
     def position
-      pos = path_name.match(/^(\d+?)-/)
-      metadata[:position].presence || (pos ? pos[1].to_i : 0)
+      data[:position]
     end
 
     def markdown?
-      md_ext = @pathname.basename(@pathname.extname).to_s.end_with?(".md")
-      metadata.key?(:markdown) ? metadata[:markdown] : md_ext
+      data[:markdown]
     end
 
-    def metadata
-      METADATA_DEFAULTS.merge(Lookbook.config.page_metadata).merge(frontmatter).with_indifferent_access
+    def data
+      return @data if @data
+      data = Lookbook.config.page_data.merge(frontmatter).with_indifferent_access
+      data[:label] ||= name.titleize
+      data[:title] ||= data[:label]
+      data[:hidden] || false
+      data[:position] = data[:position] ? data[:position].to_i : position_from_filename
+      data[:markdown] ||= markdown_file?
+      @data ||= data
     end
 
     def content
@@ -92,6 +97,15 @@ module Lookbook
     def frontmatter
       fm = file_contents.match(/\A---((.|\n)*?)---/)
       fm.nil? ? {} : YAML.safe_load(fm[1])
+    end
+
+    def position_from_filename
+      pos = path_name.match(/^(\d+?)-/)
+      pos ? pos[1].to_i : 0
+    end
+
+    def markdown_file?
+      @pathname.basename(@pathname.extname).to_s.end_with?(".md")
     end
 
     class << self

@@ -5,6 +5,7 @@
   "targets": {
     "app": {
       "source": [
+        "./app/assets/lookbook/js/embed.js",
         "./app/assets/lookbook/js/app.js",
         "./app/assets/lookbook/css/app.css"
       ],
@@ -47,6 +48,7 @@
     "@ryangjchandler/alpine-tooltip": "^0.1.2",
     "alpinejs": "^3.9.1",
     "debounce": "^1.2.1",
+    "iframe-resizer": "^4.3.2",
     "split-grid": "^1.0.11",
     "tippy.js": "^6.3.2"
   },

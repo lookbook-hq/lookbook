@@ -4,7 +4,7 @@ import Persist from "@alpinejs/persist";
 import Morph from "@alpinejs/morph";
 import Tooltip from "@ryangjchandler/alpine-tooltip";
 
-import page from "./components/page";
+import app from "./components/app";
 import inspector from "./components/inspector";
 import previewWindow from "./components/preview-window";
 import filter from "./components/filter";
@@ -19,12 +19,14 @@ import tabs from "./components/tabs";
 import copy from "./components/copy";
 import code from "./components/code";
 import sizes from "./components/sizes";
+import embedPreview from "./components/embed_preview";
 
 import initFilterStore from "./stores/filter";
 import initLayoutStore from "./stores/layout";
 import initNavStore from "./stores/nav";
 import initSidebarStore from "./stores/sidebar";
 import initInspectorStore from "./stores/inspector";
+import initPagesStore from "./stores/pages";
 
 // Plugins
 
@@ -39,10 +41,11 @@ Alpine.store("layout", initLayoutStore(Alpine));
 Alpine.store("nav", initNavStore(Alpine));
 Alpine.store("sidebar", initSidebarStore(Alpine));
 Alpine.store("inspector", initInspectorStore(Alpine));
+Alpine.store("pages", initPagesStore(Alpine));
 
 // Components
 
-Alpine.data("page", page);
+Alpine.data("app", app);
 Alpine.data("sidebar", sidebar);
 Alpine.data("splitter", splitter);
 Alpine.data("previewWindow", previewWindow);
@@ -57,6 +60,7 @@ Alpine.data("tabs", tabs);
 Alpine.data("navItem", navItem);
 Alpine.data("navGroup", navGroup);
 Alpine.data("navSection", navSection);
+Alpine.data("embedPreview", embedPreview);
 
 // Init
 

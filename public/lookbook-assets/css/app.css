@@ -869,6 +869,13 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(255 255 255 / var(--tw-bg-opacity)) !important;
   --tw-text-opacity: 1;
   color: rgb(75 85 99 / var(--tw-text-opacity));
+}.prose > *:not(.not-prose) {
+  max-width: 48rem;
+}.prose .embed-preview {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}.prose .embed-fitted {
+  max-width: 48rem;
 }.resize-handle {
   display: flex;
   height: 100%;
@@ -919,6 +926,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   top: 50%;
 }.right-2 {
   right: 0.5rem;
+}.-right-px {
+  right: -1px;
 }.left-0 {
   left: 0px;
 }.right-0 {
@@ -982,14 +991,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 0.875rem;
 }.h-3 {
   height: 0.75rem;
+}.h-4 {
+  height: 1rem;
 }.h-\[11px\] {
   height: 11px;
 }.h-6 {
   height: 1.5rem;
 }.h-5 {
   height: 1.25rem;
-}.h-4 {
-  height: 1rem;
 }.min-h-0 {
   min-height: 0px;
 }.w-full {
@@ -1002,12 +1011,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 0.875rem;
 }.w-3 {
   width: 0.75rem;
+}.w-4 {
+  width: 1rem;
 }.w-11 {
   width: 2.75rem;
 }.w-5 {
   width: 1.25rem;
-}.w-4 {
-  width: 1rem;
 }.min-w-0 {
   min-width: 0px;
 }.min-w-\[120px\] {
@@ -1016,6 +1025,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   max-width: 800px;
 }.max-w-xs {
   max-width: 20rem;
+}.max-w-6xl {
+  max-width: 72rem;
+}.max-w-none {
+  max-width: none;
 }.flex-none {
   flex: none;
 }.flex-shrink-0 {
@@ -1056,6 +1069,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   cursor: nwse-resize;
 }.select-none {
   user-select: none;
+}.resize {
+  resize: both;
 }.grid-cols-\[1fr_17px\] {
   grid-template-columns: 1fr 17px;
 }.grid-rows-\[40px_1fr\] {
@@ -1113,14 +1128,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   white-space: nowrap;
 }.whitespace-nowrap {
   white-space: nowrap;
+}.rounded {
+  border-radius: 0.25rem;
 }.rounded-full {
   border-radius: 9999px;
 }.border-0 {
   border-width: 0px;
-}.border-2 {
-  border-width: 2px;
 }.border {
   border-width: 1px;
+}.border-2 {
+  border-width: 2px;
 }.border-b {
   border-bottom-width: 1px;
 }.border-t {
@@ -1193,9 +1210,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }.py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-}.px-\[5vw\] {
-  padding-left: 5vw;
-  padding-right: 5vw;
+}.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
 }.pt-2 {
   padding-top: 0.5rem;
 }.pb-3 {

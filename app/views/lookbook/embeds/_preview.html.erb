@@ -1,0 +1,21 @@
+<%= render "lookbook/embeds/embed", type: :preview, fitted: opts[:fitted] do %>
+  <div id="<%= id %>" x-data="embedPreview" class="checked-bg border border-gray-300 rounded overflow-hidden">
+    <div x-ref="resizer" class="grid bg-white relative grid-cols-[1fr_17px] w-full" :style="`max-width: ${maxWidth}`">
+      <iframe seamless
+        x-ref="iframe"
+        src="<%= lookbook.preview_path(path, params.merge(lookbook_timestamp: Time.now, lookbook_embed: true)) %>"
+        class="w-full h-full"
+        :class="{ 'pointer-events-none': reflowing }">
+      </iframe>
+      <div
+        class="resize-handle border-r border-l cursor-[col-resize] relative -right-px"
+        @pointerdown="onResizeWidthStart"
+        @dblclick="toggleFullWidth"
+      >
+        <svg class="h-4 w-4 pointer-events-none" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M8 5h2v14H8zM14 5h2v14h-2z"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+<% end %>

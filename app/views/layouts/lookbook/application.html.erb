@@ -22,7 +22,7 @@
 <body class="text-gray-800 font-sans text-sm antialiased overflow-hidden">
   <div
     id="page"
-    x-data="page"
+    x-data="app"
     :style="`grid-template-columns: ${$store.sidebar.width}px 1px 1fr;`"
     @popstate.window="update"
     @resize.window="$store.layout.desktop = window.innerWidth >= $store.layout.desktopWidth"
@@ -44,7 +44,7 @@
         </div>
       </div>
 
-      <% if feature_enabled?(:pages) %>
+      <% if feature_enabled?(:pages) && @nav[:pages].items.any? %>
         <%= component "nav_section", title: "Previews", filterable: true do %>
           <div class="flex-grow overflow-y-auto pt-2 pb-3">
             <%= component "nav", items: @nav[:previews].items, entity: "preview" %>

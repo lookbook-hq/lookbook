@@ -4,6 +4,7 @@ const morphOpts = {
   key(el) {
     return el.getAttribute("key") ? el.getAttribute("key") : el.id;
   },
+  lookahead: true,
   updating(el, toEl, childrenOnly, skip) {
     if (
       el.getAttribute &&
@@ -16,7 +17,7 @@ const morphOpts = {
   lookahead: true,
 };
 
-export default function page() {
+export default function app() {
   return {
     init() {
       if (window.SOCKET_PATH) {
