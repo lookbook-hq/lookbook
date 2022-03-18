@@ -544,10 +544,11 @@ Without the number prefixes on the file names the pages may not have appeared in
 
 ### Embedding previews
 
-You can embed preview examples from your project directly into the documentation pages using the `embed` helper.
+You can embed preview examples from your project directly into the documentation pages using the `embed` helper, which renders an iframe with the rendered preview in it at any point in your document.
+
+The output looks like this:
 
 <img src=".github/assets/preview_embed.png">
-
 
 To specify which preview example to render, the helper accepts **either** a preview class and a method name (as a symbol), like this:
 
