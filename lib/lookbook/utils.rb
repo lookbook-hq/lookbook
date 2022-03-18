@@ -27,7 +27,7 @@ module Lookbook
     def parse_position_prefix(str)
       pos = str.match(POSITION_PREFIX_REGEX)
       if pos.nil?
-        [0, str]
+        [10000, str]
       else
         cleaned_str = str.gsub(POSITION_PREFIX_REGEX, "")
         [pos[1].to_i, cleaned_str]

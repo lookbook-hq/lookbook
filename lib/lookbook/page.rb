@@ -11,8 +11,11 @@ module Lookbook
 
     def path
       rel_path = @pathname.relative_path_from(@base_path)
-      dirty_path = (String(rel_path.dirname) == "." ? name : "#{rel_path.dirname}/#{name}")
-      dirty_path.gsub(POSITION_PREFIX_REGEX, "").gsub(/\/(\d+?)[-_]/, "/")
+      (String(rel_path.dirname) == "." ? name : "#{rel_path.dirname}/#{name}")
+    end
+
+    def url_path
+      path.gsub(POSITION_PREFIX_REGEX, "").gsub(/\/(\d+?)[-_]/, "/")
     end
 
     def fullpath
@@ -24,7 +27,7 @@ module Lookbook
     end
 
     def id
-      generate_id(path)
+      generate_id(url_path)
     end
 
     def title?
@@ -103,7 +106,7 @@ module Lookbook
 
     class << self
       def find(path)
-        all.find { |p| p.path == path }
+        all.find { |p| p.url_path == path }
       end
 
       def all

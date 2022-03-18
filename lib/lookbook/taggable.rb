@@ -20,6 +20,10 @@ module Lookbook
       code_object&.group
     end
 
+    def lookbook_position
+      code_object&.tag(:position)&.text&.to_i || 10000
+    end
+
     def lookbook_display_params
       display_params = {}.with_indifferent_access
       if code_object&.tags(:display).present?

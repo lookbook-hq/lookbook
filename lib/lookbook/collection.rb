@@ -10,34 +10,31 @@ module Lookbook
     end
 
     def id
-      generate_id(@path || "root")
+      generate_id(url_path || "root")
     end
 
     def name
-      parse_position_prefix(path_name).last
+      parse_position_prefix(basename).last
     end
 
     def label
       name&.titleize
     end
 
+    def url_path
+      @url_path ||= @path.split("/").map { |segment| parse_position_prefix(segment).last }.join("/")
+    end
+
     def position
-      parse_position_prefix(path_name).first
+      @position ||= parse_position_prefix(basename).first
     end
 
     def hierarchy_depth
       @path ? @path.split("/").size : 0
     end
 
-    def items(sort_by: :label)
-      case sort_by
-      when :label
-        @items.sort_by(&:label)
-      when :position
-        @items.sort_by(&:position)
-      else
-        @items
-      end
+    def items
+      @items.sort_by { |item| [item.position, item.label] }
     end
 
     def add(item)
@@ -54,7 +51,7 @@ module Lookbook
     end
 
     def get_or_create(name)
-      get(name).presence || add(name)
+      get(parse_position_prefix(name).last).presence || add(name)
     end
 
     def type
@@ -63,7 +60,7 @@ module Lookbook
 
     protected
 
-    def path_name
+    def basename
       @path.present? ? @path.split("/").last : "root"
     end
   end

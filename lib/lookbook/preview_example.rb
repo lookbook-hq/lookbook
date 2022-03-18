@@ -11,7 +11,7 @@ module Lookbook
     end
 
     def id
-      generate_id(path)
+      generate_id(url_path)
     end
 
     def path
@@ -79,6 +79,8 @@ module Lookbook
       Pathname.new(Dir["#{base_path}/#{template_path}.html.*"].first)
     end
 
+    alias_method :position, :lookbook_position
+    alias_method :url_path, :path
     alias_method :group, :lookbook_group
     alias_method :notes, :lookbook_notes
     alias_method :hidden?, :lookbook_hidden?

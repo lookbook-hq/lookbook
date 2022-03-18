@@ -12,7 +12,7 @@ module Lookbook
     end
 
     def id
-      generate_id(path)
+      generate_id(url_path)
     end
 
     def path
@@ -46,5 +46,8 @@ module Lookbook
     def hierarchy_depth
       @preview.lookbook_hierarchy_depth + 1
     end
+
+    alias_method :position, :lookbook_position
+    alias_method :url_path, :path
   end
 end

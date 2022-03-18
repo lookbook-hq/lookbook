@@ -28,6 +28,7 @@ module Lookbook
         YARD::Tags::Library.define_tag("Hidden status", :hidden)
         YARD::Tags::Library.define_tag("Label", :label)
         YARD::Tags::Library.define_tag("Display", :display)
+        YARD::Tags::Library.define_tag("Position", :position)
       end
     end
   end

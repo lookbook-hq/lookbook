@@ -4,11 +4,11 @@ module Lookbook
     include Utils
 
     def id
-      lookbook_path.tr("/", "-").tr("_", "-")
+      generate_id(url_path)
     end
 
     def lookbook_label
-      super.presence || lookbook_path.split("/").last.titleize
+      super.presence || url_path.split("/").last.titleize
     end
 
     def lookbook_type
@@ -84,7 +84,7 @@ module Lookbook
       end
 
       def find(path)
-        all.find { |p| p.lookbook_path == path }
+        all.find { |p| p.url_path == path }
       end
 
       def exists?(path)
@@ -98,10 +98,12 @@ module Lookbook
       name
     end
 
+    alias_method :position, :lookbook_position
     alias_method :label, :lookbook_label
     alias_method :notes, :lookbook_notes
     alias_method :hidden?, :lookbook_hidden?
     alias_method :type, :lookbook_type
+    alias_method :url_path, :lookbook_path
     alias_method :example, :lookbook_example
     alias_method :get_examples, :lookbook_examples
     alias_method :hierarchy_depth, :lookbook_hierarchy_depth
