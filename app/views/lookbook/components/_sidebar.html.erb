@@ -1,0 +1,44 @@
+<div
+  x-data="sidebar"
+  @page:morphed.window="setActiveNavItem"
+  class="h-full bg-gray-100 overflow-hidden flex flex-col"
+  x-show="$store.layout.desktop || $store.sidebar.open"
+  x-cloak>
+
+  <div class="bg-white h-10 border-b border-gray-400 flex flex-none items-center relative">
+    <button class="flex-none ml-4 md:hidden" @click="$store.sidebar.toggle">
+      <%= icon "x", size: 4, class: "hover:text-indigo-500" %>
+    </button>
+    <div class="bg-white flex flex-grow items-center relative" x-cloak>
+      <%= component "filter" %>
+    </div>
+  </div>
+
+  <% if feature_enabled?(:pages) && @nav[:pages].items.any? %>
+    <div
+      x-data="navAccordion"
+      class="grid overflow-hidden"
+      :style="`
+        height: calc(100vh - 42px);
+        grid-template-rows: 1fr 1px ${sectionHeight(1)}px
+      `">
+      <%= component "nav_section", title: "Previews", filterable: true do %>
+        <%= component "nav", items: @nav[:previews].items, entity: "preview" %>
+      <% end %>
+      <div
+        x-data="splitter('horizontal', {minSize: 32})"
+        class="w-full gutter border-t border-gray-300 relative"
+        x-effect="setSplits(splits)">
+        <div class="h-[11px] w-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute left-0 right-0 -translate-y-1/2 cursor-[row-resize]"></div>
+      </div>
+        <%= component "nav_section", title: "Pages", class: "" do %>
+          <%= component "nav", items: @nav[:pages].items(sort_by: :position), entity: "page" %>
+        <% end %>
+    </div>
+  <% else %>
+    <div class="flex-grow overflow-y-auto unsectioned">
+      <%= component "nav", items: @nav[:previews].items, entity: "preview" %>
+    </div>
+  <% end %>
+
+</div>

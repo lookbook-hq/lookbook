@@ -20,6 +20,7 @@ import copy from "./components/copy";
 import code from "./components/code";
 import sizes from "./components/sizes";
 import embed from "./components/embed";
+import navAccordion from "./components/nav-accordion";
 
 import initFilterStore from "./stores/filter";
 import initLayoutStore from "./stores/layout";
@@ -61,6 +62,7 @@ Alpine.data("navItem", navItem);
 Alpine.data("navGroup", navGroup);
 Alpine.data("navSection", navSection);
 Alpine.data("embed", embed);
+Alpine.data("navAccordion", navAccordion);
 
 // Init
 

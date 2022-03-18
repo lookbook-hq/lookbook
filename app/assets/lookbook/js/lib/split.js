@@ -11,11 +11,5 @@ export default function (element, props) {
       const splits = style.split(" ").map((num) => parseInt(num));
       props.onDrag(splits);
     },
-    // onDragStart() {
-    //   this.reflowing = true;
-    // },
-    // onDragEnd() {
-    //   this.reflowing = false;
-    // },
   });
 }

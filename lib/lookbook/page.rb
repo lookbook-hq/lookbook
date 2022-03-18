@@ -39,6 +39,10 @@ module Lookbook
       data[:markdown] == true
     end
 
+    def get(key)
+      data[key]
+    end
+
     def content
       parse_frontmatter(file_contents).last
     end
@@ -104,17 +108,15 @@ module Lookbook
 
       def all
         pages = Array(page_paths).map do |dir|
-          if Dir.exist? dir
-            Dir["#{dir}/**/*.html.*", "#{dir}/**/*.md.*"].sort.map do |page|
-              Lookbook::Page.new(page, dir)
-            end
+          Dir["#{dir}/**/*.html.*", "#{dir}/**/*.md.*"].sort.map do |page|
+            Lookbook::Page.new(page, dir)
           end
         end
         pages.flatten.uniq { |p| p.path }
       end
 
       def page_paths
-        Lookbook.config.page_paths
+        Lookbook.config.page_paths.filter { |dir| Dir.exist? dir }
       end
     end
   end

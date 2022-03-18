@@ -501,6 +501,8 @@ var _sizes = require("./components/sizes");
 var _sizesDefault = parcelHelpers.interopDefault(_sizes);
 var _embed = require("./components/embed");
 var _embedDefault = parcelHelpers.interopDefault(_embed);
+var _navAccordion = require("./components/nav-accordion");
+var _navAccordionDefault = parcelHelpers.interopDefault(_navAccordion);
 var _filter1 = require("./stores/filter");
 var _filterDefault1 = parcelHelpers.interopDefault(_filter1);
 var _layout = require("./stores/layout");
@@ -541,6 +543,7 @@ _alpinejsDefault.default.data("navItem", _navItemDefault.default);
 _alpinejsDefault.default.data("navGroup", _navGroupDefault.default);
 _alpinejsDefault.default.data("navSection", _navSectionDefault.default);
 _alpinejsDefault.default.data("embed", _embedDefault.default);
+_alpinejsDefault.default.data("navAccordion", _navAccordionDefault.default);
 var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
 try {
     // Init
@@ -565,7 +568,7 @@ try {
 window.Alpine = _alpinejsDefault.default;
 _alpinejsDefault.default.start();
 
-},{"@github/hotkey":"4Vf0K","alpinejs":"cQZQC","@alpinejs/persist":"gCoGk","@alpinejs/morph":"80ez2","@ryangjchandler/alpine-tooltip":"lgns0","./components/inspector":"a9DtZ","./components/preview-window":"iZ8eY","./components/filter":"1Wjrk","./components/param":"9tbIq","./components/sidebar":"4nXk5","./components/nav":"41Ql3","./components/nav-item":"jkkjy","./components/nav-group":"7yZ5O","./components/nav-section":"65cOs","./components/splitter":"2c7V4","./components/tabs":"gHCnH","./components/copy":"kk5Vp","./components/code":"9EiSR","./components/sizes":"ipCdL","./stores/filter":"clyCh","./stores/layout":"dS8Sg","./stores/nav":"dXBwS","./stores/sidebar":"520kV","./stores/inspector":"4zpcp","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU","./components/app":"7GyrV","./stores/pages":"9outO","./components/embed":"98SVy"}],"4Vf0K":[function(require,module,exports) {
+},{"@github/hotkey":"4Vf0K","alpinejs":"cQZQC","@alpinejs/persist":"gCoGk","@alpinejs/morph":"80ez2","@ryangjchandler/alpine-tooltip":"lgns0","./components/inspector":"a9DtZ","./components/preview-window":"iZ8eY","./components/filter":"1Wjrk","./components/param":"9tbIq","./components/sidebar":"4nXk5","./components/nav":"41Ql3","./components/nav-item":"jkkjy","./components/nav-group":"7yZ5O","./components/nav-section":"65cOs","./components/splitter":"2c7V4","./components/tabs":"gHCnH","./components/copy":"kk5Vp","./components/code":"9EiSR","./components/sizes":"ipCdL","./stores/filter":"clyCh","./stores/layout":"dS8Sg","./stores/nav":"dXBwS","./stores/sidebar":"520kV","./stores/inspector":"4zpcp","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU","./components/app":"7GyrV","./stores/pages":"9outO","./components/embed":"98SVy","./components/nav-accordion":"8iwKL"}],"4Vf0K":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Leaf", ()=>Leaf
@@ -8435,10 +8438,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 function navSection() {
     return {
-        open: true,
-        toggle: function() {
-            this.open = !this.open;
-        }
+        height: null
     };
 }
 exports.default = navSection;
@@ -17204,6 +17204,32 @@ exports.default = embed;
     window.iFrameResize = window.iFrameResize || factory();
 })();
 
-},{}]},["1uIvH","kCDd3"], "kCDd3", "parcelRequirea49c")
+},{}],"8iwKL":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function navAccordion() {
+    return {
+        sections: [],
+        get fullHeight () {
+            return this.$root.clientHeight;
+        },
+        sectionHeight: function(index) {
+            var section = this.sections[index];
+            return section ? section.height || this.fullHeight / 2 : this.fullHeight / 2;
+        },
+        setSplits: function(splits) {
+            var sectionSplits = [
+                splits[0],
+                splits[2]
+            ];
+            this.sections.forEach(function(section, i) {
+                section.height = sectionSplits[i];
+            });
+        }
+    };
+}
+exports.default = navAccordion;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}]},["1uIvH","kCDd3"], "kCDd3", "parcelRequirea49c")
 
 //# sourceMappingURL=app.js.map

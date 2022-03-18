@@ -50,6 +50,7 @@ module Lookbook
       options.listen_paths += options.preview_paths
       options.listen_paths += options.page_paths
       options.listen_paths << (vc_options.view_component_path || Rails.root.join("app/components"))
+      options.listen_paths.filter! { |path| Dir.exist? path }
 
       options.cable = ActionCable::Server::Configuration.new
       options.cable.cable = {adapter: "async"}.with_indifferent_access
