@@ -1,5 +1,5 @@
-<i class="transition block flex-none leading-none w-<%= size %> h-<%= size %> <%= classes %>">
+<i class="transition block flex-none leading-none w-<%= size %> h-<%= size %> <%= classes ||= "" %>">
   <svg class="feather w-full h-full">
-    <use :href="`/lookbook-assets/feather-sprite.svg#<%= name %>`" x-cloak />
+    <use :href="`/lookbook-assets/feather-sprite.svg#<%= name.to_s %>`" x-cloak />
   </svg>
 </i>

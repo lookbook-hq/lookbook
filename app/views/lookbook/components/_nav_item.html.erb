@@ -1,5 +1,5 @@
 <%
-path = item.type == :page ? page_path(item.path) : show_path(item.path)
+path = item.type == :page ? page_path(item.lookup_path) : show_path(item.lookup_path)
 display ||= :item
 label ||= item.label
 item_icon = item.type == :page ? "file" : display == :node ? "layers" : "eye"
@@ -16,7 +16,7 @@ item_icon = item.type == :page ? "file" : display == :node ? "layers" : "eye"
       <div class="relative w-3.5 h-3.5 mr-1.5 <%= "ml-[3px]" if display == :node %> " :class="active ? 'text-gray-900' : 'text-indigo-500'">
         <%= icon item_icon, size: 3.5, class: "group-hover:text-indigo-800" %>
       </div>
-      <div class="truncate whitespace-nowrap select-none <%= "font-bold" if display == :node %>">
+      <div class="truncate whitespace-nowrap select-none <%= "font-bold" if display == :node && item.type != :page %>">
         <%= label %>
       </div>
     </a>

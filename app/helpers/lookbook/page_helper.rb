@@ -1,45 +1,40 @@
 module Lookbook
   module PageHelper
-    def icon(name = nil, size: 4, **attrs)
-      render "lookbook/components/icon",
-        name: name,
-        size: size,
-        classes: class_names(attrs[:class]),
-        **attrs.except(:class)
-    end
+    include Utils
 
-    def markdown(text = nil, &block)
-      Lookbook::Markdown.render(block ? capture(&block) : text)
-    end
-
-    def code(*args, **opts, &block)
-      if block
-        source = capture(&block)
-        language = args[0]
-      else
-        source, language = args
-      end
-      "<pre class='code'><code class='highlight'>#{Lookbook::Markdown.highlight(source.strip, (language || :ruby).to_s, opts)}</code></pre>".html_safe
+    def code(language = "ruby", line_numbers: false, &block)
+      render_component "code", language: language, line_numbers: line_numbers, &block
     end
 
     def embed(*args, params: {}, type: :preview, **opts)
       @embed_counter ||= 0
-      preview, example = Lookbook::Api.find_preview_and_example(*args)
+      lookup_path = to_preview_path(*args)
+      if (args.size == 1 && args.first.is_a?(String)) || args.many?
+        example = Lookbook.previews.find_example_by_path(lookup_path)
+      else
+        preview = Lookbook.previews.find_by_path(lookup_path)
+        example = preview&.default_example
+      end
       if example
-        html = render "lookbook/components/embed", {
-          id: "embed#{url_for}-#{example.path}-#{@embed_counter}".tr("/", "-"),
-          preview: preview,
+        @embed_counter += 1
+        render_component "embed", {
+          id: generate_id("embed", url_for, example.lookup_path, @embed_counter - 1),
           example: example,
           params: params,
           opts: opts
         }
-        @embed_counter += 1
-        html
       else
-        render "lookbook/components/embed_not_found", {
-          opts: opts
-        }
+        embed_not_found
       end
+    end
+
+    protected
+
+    def embed_not_found
+      render_component "not_found", {
+        title: "Preview not found",
+        text: "The preview may have been renamed or deleted."
+      }
     end
   end
 end

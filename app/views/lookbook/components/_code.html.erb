@@ -3,8 +3,8 @@ line_numbers ||= false
 language ||= "html"
 wrap ||= nil;
 %>
-<% code = capture do %><%= yield %><% end %>
-<div class="code <%= "numbered" if line_numbers %> <%= classes %>"
+<% code ||= capture do %><%= yield %><% end %>
+<div class="code not-prose <%= "numbered" if line_numbers %> <%= classes ||= "" %>"
   x-data="code"
   :class="{'wrapped': wrap}"
   <% if wrap.present? %>x-effect="wrap = <%= wrap %>"<% end %>

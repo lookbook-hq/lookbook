@@ -483,7 +483,7 @@ If you need to add more long-form documentation to live alongside your component
 > 
 > To enable support for pages in your project, add `config.lookbook.experimental_features = ["pages"]` into your application configuration file.
 
-### Pages Overview
+### About pages in Lookbook
 
 A few key things to know about using pages in Lookbook:
 

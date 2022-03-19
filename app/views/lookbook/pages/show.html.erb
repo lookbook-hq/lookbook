@@ -1,18 +1,42 @@
 <div id="page" class="grid grid-rows-[40px_1fr] bg-gray-50 h-full">
   <%= component "header" do %>
-  
+    <div class="flex items-center ml-auto pr-2">
+      <% if @previous_page %>
+        <a  ref="header-prev-page" href="<%= page_path @previous_page.lookup_path %>"
+          x-tooltip.theme.lookbook="`Previous page`"
+          class="flex-none p-1">
+            <%= icon "chevron-left", size: 4, class: "hover:text-indigo-800" %>
+          </a>
+      <% else %>
+        <span ref="header-prev-page" class="flex-none p-1">
+          <%= icon "chevron-left", size: 4, class: "opacity-20" %>
+        </span>
+      <% end %>
+
+      <% if @next_page %>
+        <a ref="header-next-page" href="<%= page_path @next_page.lookup_path %>"
+          x-tooltip.theme.lookbook="`Next page`"
+          class="flex-none p-1">
+            <%= icon "chevron-right", size: 4, class: "hover:text-indigo-800" %>
+          </a>
+      <% else %>
+        <span ref="header-next-page" class="flex-none p-1">
+          <%= icon "chevron-right", size: 4, class: "opacity-20" %>
+        </span>
+      <% end %>
+    </div>
   <% end %>
-  <div class="px-4 md:px-10 w-full pt-8 overflow-auto pb-10">
+  <div class="px-4 md:px-10 w-full pt-8 md:pt-12 overflow-auto pb-10">
     <div class="w-full max-w-[52rem] mx-auto text-gray-600">
       <% if @page.title? %>
-        <header class="border-b border-gray-300 pb-8 mb-10 prose max-w-none">
+        <header class="mb-10 prose max-w-none">
           <h1>
             <%= @page.title %>
           </h1>
         </header>
       <% end %>
       <div data-morph-strategy="replace">
-        <div class="prose max-w-none">
+        <div class="prose max-w-none prose-a:text-indigo-900">
           <%= @page_content %>
         </div>
       </div>

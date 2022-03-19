@@ -40,9 +40,12 @@ module Lookbook
     private
 
     def lookup_entities
-      @preview, @example = Lookbook::Api.find_preview_and_example(params[:path])
-      if params[:path] == @preview&.lookbook_path
-        redirect_to show_path "#{params[:path]}/#{@preview.lookbook_examples.first.name}"
+      @example = Lookbook.previews.find_example_by_path(params[:path])
+      if @example
+        @preview = @example.preview
+        if params[:path] == @preview&.lookup_path
+          redirect_to show_path "#{params[:path]}/#{@preview.default_example.name}"
+        end
       end
     end
 
@@ -61,23 +64,22 @@ module Lookbook
         html: preview_controller.render_example_to_string(@preview, example.name),
         source: has_template ? example.template_source(render_args[:template]) : example.method_source,
         source_lang: has_template ? example.template_lang(render_args[:template]) : example.source_lang,
-        params: enabled?(:params) ? example.params : []
+        params: example.params
       }
     end
 
     def render_examples(examples)
-      preview_controller.render_in_layout_to_string("layouts/lookbook/preview", {examples: examples}, @preview.lookbook_layout)
+      preview_controller.render_in_layout_to_string("layouts/lookbook/preview", {examples: examples}, @preview.layout)
     end
 
     def set_params
-      if enabled?(:params)
-        # cast known params to type
-        @example.params.each do |param|
-          if preview_controller.params.key?(param[:name])
-            preview_controller.params[param[:name]] = Lookbook::Params.cast(preview_controller.params[param[:name]], param[:type])
-          end
+      # cast known params to type
+      @example.params.each do |param|
+        if preview_controller.params.key?(param[:name])
+          preview_controller.params[param[:name]] = Lookbook::Params.cast(preview_controller.params[param[:name]], param[:type])
         end
       end
+
       # set display params
       preview_controller.params.merge!({
         lookbook: {
@@ -129,7 +131,7 @@ module Lookbook
           label: "Params",
           template: "lookbook/previews/panels/params",
           hotkey: "p",
-          show: enabled?(:params),
+          show: true,
           disabled: @example.type == :group || @example.params.none?
         }
       }

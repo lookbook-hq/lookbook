@@ -1,13 +1,18 @@
-
-<div id="<%= id %>" x-data="embed" class="not-prose embed border border-gray-300 rounded-md overflow-hidden <%= "embed-breakout" if opts[:breakout] %>">
-  <header class="px-3 py-2 flex items-center text-xs text-gray-400 bg-white border-b border-gray-200">
-    <div class="">
-      <%= preview.label %> / <%= example.label %>
+<div id="<%= id %>" x-data="embed" class="not-prose embed border border-gray-300 rounded-md overflow-hidden">
+  <header class="px-3 py-2 flex items-center text-xs text-gray-400 bg-white border-b border-gray-300">
+    <div class="text-gray-500">
+      <%= example.preview.label %> (<%= example.label %>)
     </div>
-    <div class="ml-auto">
-      <a href="<%= lookbook.show_path(example.path, params) %>" class="flex items-center group">
-        <span class="group-hover:underline mr-1">view full preview</span>
-        <%= icon "arrow-right-circle", size: 3.5 %>
+    <div class="ml-auto flex items-center space-x-3">
+      <a href="<%= lookbook.show_path(example.path, params) %>" class="" x-tooltip.theme.lookbook="`View in Inspector`">
+        <%= icon "eye", size: 4, class: "hover:text-indigo-800" %>
+      </a>
+      <a
+        href="<%= lookbook.preview_path(example.path, params) %>"
+        target="_blank"
+        class="-top-px relative"
+        x-tooltip.theme.lookbook="`Open in new window`">
+        <%= icon "external-link", size: 4, class: "hover:text-indigo-800" %>
       </a>
     </div>
   </header>

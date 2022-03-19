@@ -42,6 +42,8 @@ module Lookbook
       options.page_route ||= "pages"
       options.page_data ||= {}.with_indifferent_access
 
+      options.markdown_options = Markdown::DEFAULT_OPTIONS.merge(options.markdown_options || {})
+
       options.preview_controller = vc_options.preview_controller if options.preview_controller.nil?
       options.preview_srcdoc = false if options.preview_srcdoc.nil?
       options.preview_display_params ||= {}.with_indifferent_access
@@ -77,12 +79,6 @@ module Lookbook
       else
         config.lookbook.cable.logger = Lookbook::NullLogger.new
         config.action_view.logger = Lookbook::NullLogger.new
-      end
-    end
-
-    initializer "lookbook.preview.extend" do
-      ActiveSupport.on_load(:view_component) do
-        ViewComponent::Preview.extend Lookbook::Preview
       end
     end
 

@@ -65,22 +65,10 @@
               class="flex items-center"
               :class="{'pointer-events-none opacity-30': <%= !props[:copy].present? %>}"
               x-show="isActiveDrawerPanel('<%= key %>')"
-              x-cloak
-            >
-              <button
-                data-target="<%= "inspector-panel-#{example.id}-#{key}-clipboard" %>"
-                class="text-gray-400 transition"
-                x-data="copy"
-                x-tooltip.theme.lookbook="done ? 'copied!' : 'copy to clipboard'"
-                @click="save"
-                :class="{
-                  '!text-green-600 hover:text-green-600': done,
-                  'hover:text-indigo-500': !done}"
-                x-cloak
-                <% unless props[:copy].present? %>disabled<% end %>
-              >
-                <%= icon "${done ? 'check' : 'clipboard'}", size: 4 %>
-              </button>
+              x-cloak>
+              <%= component "copy-button",
+                target: "inspector-panel-#{example.id}-#{key}-clipboard",
+                disabled: !props[:copy].present? %>
             </div>
           <% end %>
         </div>

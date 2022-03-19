@@ -1,30 +1,37 @@
 module Lookbook
-  module Taggable
-    def lookbook_hidden?
+  class CodeInspector
+    attr_reader :code_object
+    delegate :groups, :source, to: :@code_object
+
+    def initialize(taggable_object_path)
+      @code_object = Lookbook::Engine.parser.get_code_object(taggable_object_path)
+    end
+
+    def hidden?
       if code_object&.tag(:hidden)
         code_object.tag(:hidden).text.strip != "false"
       end
     end
 
-    def lookbook_label
+    def label
       code_object&.tag(:label)&.text
     end
 
-    def lookbook_notes
+    def notes
       if code_object&.docstring
         code_object.docstring.to_s.strip
       end
     end
 
-    def lookbook_group
+    def group
       code_object&.group
     end
 
-    def lookbook_position
+    def position
       code_object&.tag(:position)&.text&.to_i || 10000
     end
 
-    def lookbook_display_params
+    def display_params
       display_params = {}.with_indifferent_access
       if code_object&.tags(:display).present?
         code_object.tags(:display).each do |tag|
@@ -33,7 +40,7 @@ module Lookbook
             begin
               display_params[parts[1]] = YAML.safe_load(parts[2] || "~")
             rescue SyntaxError => err
-              Rails.logger.error("\n👀 [Lookbook] Invalid JSON in @display tag.\n👀 [Lookbook] (#{err})\n")
+              Lookbook.logger.error("\n👀 [Lookbook] Invalid JSON in @display tag.\n👀 [Lookbook] (#{err})\n")
             end
           end
         end
@@ -41,10 +48,18 @@ module Lookbook
       display_params
     end
 
-    # private
+    def parameter_defaults
+      code_object&.parameters&.map { |str| Params.parse_method_param_str(str) }&.compact&.to_h
+    end
 
-    def code_object
-      @code_object ||= Lookbook::Engine.parser.get_code_object(taggable_object_path)
+    def params
+      code_object&.tags("param")&.map do |param|
+        Lookbook::Params.build_param(param, parameter_defaults[param.name])
+      end
+    end
+
+    def methods
+      code_object.meths
     end
   end
 end

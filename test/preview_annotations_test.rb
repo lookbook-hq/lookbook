@@ -14,7 +14,7 @@ module Lookbook
       end
 
       should "have expected display params" do
-        display_params = @preview.lookbook_display_params
+        display_params = @preview.display_params
         assert display_params["max_width"] == "500px"
         assert display_params["with_wrapper"] == true
         assert display_params["foo_count"] == 12
@@ -74,7 +74,7 @@ module Lookbook
 
     context "grouped examples - unnamed" do
       setup do
-        @example = @preview.get_examples.find { |e| e.type == :group && e.label != "Misc" }
+        @example = @preview.examples.find { |e| e.type == :group && e.label != "Misc" }
       end
 
       should "inherit their name from the preview" do

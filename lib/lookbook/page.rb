@@ -2,8 +2,6 @@ module Lookbook
   class Page
     include Utils
 
-    POSITION_PREFIX_REGEX = /^(\d+?)[-_]/
-
     def initialize(path, base_path)
       @pathname = Pathname.new path
       @base_path = base_path
@@ -11,23 +9,23 @@ module Lookbook
 
     def path
       rel_path = @pathname.relative_path_from(@base_path)
-      (String(rel_path.dirname) == "." ? name : "#{rel_path.dirname}/#{name}")
+      (rel_path.dirname.to_s == "." ? name : "#{rel_path.dirname}/#{name}")
     end
 
-    def url_path
-      path.gsub(POSITION_PREFIX_REGEX, "").gsub(/\/(\d+?)[-_]/, "/")
+    def lookup_path
+      @lookup_path ||= to_lookup_path(path)
     end
 
-    def fullpath
+    def full_path
       Rails.root.join(@pathname.to_s)
     end
 
     def name
-      path_name.gsub(POSITION_PREFIX_REGEX, "")
+      remove_position_prefix(path_name)
     end
 
     def id
-      generate_id(url_path)
+      generate_id(lookup_path)
     end
 
     def title?
@@ -47,7 +45,7 @@ module Lookbook
     end
 
     def content
-      parse_frontmatter(file_contents).last
+      @content ||= strip_frontmatter(file_contents)
     end
 
     def matchers
@@ -58,7 +56,7 @@ module Lookbook
       path.split("/").size
     end
 
-    def parent_collections
+    def parent_collections_names
       File.dirname(path).split("/")
     end
 
@@ -81,17 +79,17 @@ module Lookbook
     protected
 
     def file_contents
-      File.read(fullpath)
+      File.read(full_path)
     end
 
     def data
       return @data if @data
-      frontmatter = parse_frontmatter(file_contents).first
+      frontmatter = get_frontmatter(file_contents)
       data = Lookbook.config.page_data.merge(frontmatter || {}).with_indifferent_access
       data[:label] ||= name.titleize
       data[:title] ||= data[:label]
       data[:hidden] || false
-      data[:position] = data[:position] ? data[:position].to_i : parse_position_prefix(path_name).first
+      data[:position] = data[:position] ? data[:position].to_i : get_position_prefix(path_name)
       data[:markdown] ||= markdown_file?
       @data ||= data
     end
@@ -106,7 +104,11 @@ module Lookbook
 
     class << self
       def find(path)
-        all.find { |p| p.url_path == path }
+        all.find { |p| p.lookup_path == path }
+      end
+
+      def exists?(path)
+        !!find(path)
       end
 
       def all
@@ -115,7 +117,8 @@ module Lookbook
             Lookbook::Page.new(page, dir)
           end
         end
-        pages.flatten.uniq { |p| p.path }
+        sorted_pages = pages.flatten.uniq { |p| p.path }.sort_by { |page| [page.position, page.label] }
+        PageCollection.new(sorted_pages)
       end
 
       def page_paths

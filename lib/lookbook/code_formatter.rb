@@ -1,5 +1,26 @@
+require "rouge"
+require "htmlbeautifier"
+
 module Lookbook
-  class CodeFormatter < Rouge::Formatters::HTML
+  module CodeFormatter
+    class << self
+      def highlight(source, language, opts = {})
+        source&.gsub!("&gt;", "<")&.gsub!("&lt;", ">")
+        language ||= "ruby"
+        formatter = Formatter.new(opts)
+        lexer = Rouge::Lexer.find(language.to_s) || Rouge::Lexer.find("plaintext")
+        formatter.format(lexer.lex(source)).html_safe
+      end
+
+      def beautify(source, language = "html")
+        source = source.strip
+        result = language.downcase == "html" ? HtmlBeautifier.beautify(source) : source
+        result.strip.html_safe
+      end
+    end
+  end
+
+  class Formatter < Rouge::Formatters::HTML
     def initialize(opts = {})
       @opts = opts
     end

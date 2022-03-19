@@ -6,7 +6,7 @@ module Lookbook
 
     def example_path(preview, example_name = nil)
       preview = preview.is_a?(String) ? find_preview(preview) : preview
-      example = example_name.nil? ? preview.get_examples.first : preview.example(example_name)
+      example = example_name.nil? ? preview.examples.first : preview.example(example_name)
       example.path
     end
 

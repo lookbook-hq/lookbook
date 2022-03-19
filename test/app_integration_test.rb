@@ -27,7 +27,7 @@ module Lookbook
       context "basic" do
         setup do
           @preview = find_preview("basic")
-          @example = @preview.get_examples.first
+          @example = @preview.examples.first
           @example_path = @example.path
           visit show_url @example_path
         end

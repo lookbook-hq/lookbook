@@ -7,14 +7,14 @@
           <h6 class="text-[11px] text-gray-500 italic inline-block uppercase tracking-wide mb-4">
             <%= item[:label] %>
           </h6>
-          <div class="prose prose-sm">
+          <div class="prose prose-sm prose-a:text-indigo-900">
             <%= markdown(item[:notes]) %>
           </div>
         </div>
       <% end %>
     </div>
   <% else %>
-    <div class="p-4 prose prose-sm">
+    <div class="p-4 prose prose-sm prose-a:text-indigo-900">
       <% if items.any? %>
         <%= markdown(items.first[:notes]) %>
       <% else %>

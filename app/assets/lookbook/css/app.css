@@ -87,7 +87,7 @@
   }
 
   .code.numbered {
-    @apply relative pt-3;
+    @apply relative;
   }
 
   .code.numbered:before {
@@ -97,7 +97,7 @@
   }
 
   .code.numbered .line {
-    padding-left: calc(2.7em + 8px);
+    padding-left: calc(2.7em + 14px);
     @apply relative;
   }
 
@@ -116,7 +116,11 @@
   }
 
   .prose .code {
-    @apply !bg-white border border-gray-300 text-gray-600 my-8;
+    @apply !bg-white border border-gray-300 text-gray-600 my-8 text-sm rounded-md py-4 overflow-auto max-w-3xl w-full mx-auto;
+  }
+
+  .prose .code:not(.numbered) .line {
+    @apply px-4;
   }
 
   .prose > *:not(.not-prose) {
@@ -125,10 +129,6 @@
 
   .prose .embed {
     @apply my-8 max-w-3xl mx-auto;
-  }
-
-  .prose .embed-breakout {
-    @apply max-w-none;
   }
 
   .resize-handle {

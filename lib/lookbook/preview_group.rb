@@ -1,9 +1,8 @@
 module Lookbook
   class PreviewGroup
-    include Taggable
     include Utils
 
-    attr_reader :name, :examples
+    attr_reader :name, :examples, :preview
 
     def initialize(name, preview, examples)
       @name = name
@@ -12,11 +11,11 @@ module Lookbook
     end
 
     def id
-      generate_id(url_path)
+      generate_id(lookup_path)
     end
 
     def path
-      "#{@preview.lookbook_path}/#{name}"
+      "#{@preview.path}/#{name}"
     end
 
     def label
@@ -39,15 +38,18 @@ module Lookbook
       false
     end
 
+    def position
+      10000
+    end
+
     def matchers
       normalize_matchers(@preview.label, label)
     end
 
     def hierarchy_depth
-      @preview.lookbook_hierarchy_depth + 1
+      @preview.hierarchy_depth + 1
     end
 
-    alias_method :position, :lookbook_position
-    alias_method :url_path, :path
+    alias_method :lookup_path, :path
   end
 end

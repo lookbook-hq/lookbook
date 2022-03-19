@@ -31,28 +31,34 @@
       </div>
       <div class="flex items-center bg-white border-l border-gray-200 space-x-3 text-gray-400 divide-x divide-gray-300 px-3">
         <div class="flex items-center space-x-3">
+          <% if feature_enabled? :pages %>
+            <%= component "copy-button",
+              icon: :code,
+              target: "pages-embed-code",
+              tooltip: "Copy page embed code" %>
+            <div id="pages-embed-code" class="hidden">
+              &lt;%= embed "<%= @example.lookup_path %>", params: <%= request.query_parameters.to_json %> %&gt;
+            </div>
+          <% end %>
           <button
             x-tooltip.theme.lookbook="`Refresh preview`"
             @click.prevent.stop="refresh"
-            data-hotkey="r"
-          >
-            <%= icon "refresh-cw", size: 4, class: "hover:text-indigo-800" %>
+            data-hotkey="r">
+              <%= icon "refresh-cw", size: 4, class: "hover:text-indigo-800" %>
           </button>
           <a
             href="<%= preview_path %>"
             target="_blank"
             x-tooltip.theme.lookbook="`Open in new window`"
-            data-hotkey="w"
-          >
-            <%= icon "external-link", size: 4, class: "hover:text-indigo-800" %>
+            data-hotkey="w">
+              <%= icon "external-link", size: 4, class: "hover:text-indigo-800" %>
           </a>
           <button
             x-tooltip.theme.lookbook="`${drawerHidden ? 'show' : 'hide'} drawer`"
             @click="toggleDrawer"
-             x-show="drawerHidden"
-            data-hotkey="i"
-          > 
-            <%= icon "${horizontal ? 'credit-card' : 'sidebar'}", size: 4, class: "hover:text-indigo-800 scale-[-1]" %>
+            x-show="drawerHidden"
+            data-hotkey="i"> 
+              <%= icon "${horizontal ? 'credit-card' : 'sidebar'}", size: 4, class: "hover:text-indigo-800 scale-[-1]" %>
           </button>
         </div>
         

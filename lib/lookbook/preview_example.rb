@@ -1,39 +1,34 @@
 module Lookbook
   class PreviewExample
-    include Taggable
     include Utils
 
-    attr_reader :name
+    attr_reader :name, :preview
+    delegate :params, :position, :group, :notes, :hidden?, to: :@example_inspector
 
     def initialize(name, preview)
       @name = name
       @preview = preview
+      @example_inspector = CodeInspector.new("#{@preview.name}##{name}")
     end
 
     def id
-      generate_id(url_path)
+      generate_id(lookup_path)
     end
 
     def path
-      "#{@preview.lookbook_path}/#{name}"
+      "#{@preview.path}/#{name}"
     end
 
     def label
-      lookbook_label.presence || name.titleize
+      @example_inspector.label.presence || name.titleize
     end
 
     def display_params
-      @preview.display_params.merge(lookbook_display_params)
-    end
-
-    def params
-      @params || code_object&.tags("param")&.map do |param|
-        Lookbook::Params.build_param(param, parameter_defaults[param.name])
-      end
+      @preview.display_params.merge(@example_inspector.display_params)
     end
 
     def method_source
-      code_object.source.split("\n")[1..-2].join("\n").strip_heredoc
+      @example_inspector.source.split("\n")[1..-2].join("\n").strip_heredoc
     end
 
     def source_lang
@@ -57,20 +52,10 @@ module Lookbook
     end
 
     def hierarchy_depth
-      @preview.lookbook_hierarchy_depth + 1
+      @preview.hierarchy_depth + 1
     end
 
-    private
-
-    def parameter_defaults
-      @parameter_defaults || code_object&.parameters&.map do |param_str|
-        Lookbook::Params.parse_method_param_str(param_str)
-      end&.compact&.to_h
-    end
-
-    def taggable_object_path
-      "#{@preview.name}##{name}"
-    end
+    protected
 
     def full_template_path(template_path)
       base_path = Array(Lookbook.config.preview_paths).detect do |p|
@@ -79,10 +64,20 @@ module Lookbook
       Pathname.new(Dir["#{base_path}/#{template_path}.html.*"].first)
     end
 
-    alias_method :position, :lookbook_position
-    alias_method :url_path, :path
-    alias_method :group, :lookbook_group
-    alias_method :notes, :lookbook_notes
-    alias_method :hidden?, :lookbook_hidden?
+    class << self
+      def all
+        Preview.all.map { |preview| preview.examples }.flatten
+      end
+
+      def find(path)
+        all.find { |p| p.lookup_path == path }
+      end
+
+      def exists?(path)
+        !!find(path)
+      end
+    end
+
+    alias_method :lookup_path, :path
   end
 end

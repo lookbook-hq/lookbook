@@ -14,7 +14,7 @@
     </div>
   </div>
 
-  <% if feature_enabled?(:pages) && @nav[:pages].items.any? %>
+  <% if feature_enabled?(:pages) %>
     <div
       x-data="navAccordion"
       class="grid overflow-hidden"
@@ -23,7 +23,7 @@
         grid-template-rows: 1fr 1px ${sectionHeight(1)}px
       `">
       <%= component "nav_section", title: "Previews", filterable: true do %>
-        <%= component "nav", items: @nav[:previews].items, entity: "preview" %>
+        <%= component "nav", items: Lookbook.previews.as_tree %>
       <% end %>
       <div
         x-data="splitter('horizontal', {minSize: 32})"
@@ -32,12 +32,12 @@
         <div class="h-[11px] w-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute left-0 right-0 -translate-y-1/2 cursor-[row-resize]"></div>
       </div>
         <%= component "nav_section", title: "Pages", class: "" do %>
-          <%= component "nav", items: @nav[:pages].items(sort_by: :position), entity: "page" %>
+          <%= component "nav", items: Lookbook.pages.as_tree %>
         <% end %>
     </div>
   <% else %>
     <div class="flex-grow overflow-y-auto unsectioned">
-      <%= component "nav", items: @nav[:previews].items, entity: "preview" %>
+      <%= component "nav", collection: Lookbook.previews.as_tree %>
     </div>
   <% end %>
 
