@@ -88,7 +88,8 @@ module Lookbook
       data = Lookbook.config.page_data.merge(frontmatter || {}).with_indifferent_access
       data[:label] ||= name.titleize
       data[:title] ||= data[:label]
-      data[:hidden] || false
+      data[:hidden] ||= false
+      data[:landing] ||= false
       data[:position] = data[:position] ? data[:position].to_i : get_position_prefix(path_name)
       data[:markdown] ||= markdown_file?
       @data ||= data

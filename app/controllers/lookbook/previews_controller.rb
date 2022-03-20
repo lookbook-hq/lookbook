@@ -147,10 +147,6 @@ module Lookbook
       @preview_controller ||= controller
     end
 
-    def enabled?(feature)
-      Lookbook::Features.enabled?(feature)
-    end
-
     def render_in_layout(path)
       render "not_found", layout: params[:lookbook_embed] ? "lookbook/basic" : "lookbook/application"
     end

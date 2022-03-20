@@ -9,5 +9,20 @@ module Lookbook
     def self.controller_path
       "lookbook"
     end
+
+    def index
+      if feature_enabled? :pages
+        landing = Lookbook.pages.find(&:landing)
+        if landing.present?
+          redirect_to page_path(landing.lookup_path)
+        end
+      end
+    end
+
+    protected
+
+    def feature_enabled?(feature)
+      Lookbook::Features.enabled?(feature)
+    end
   end
 end
