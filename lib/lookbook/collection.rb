@@ -68,6 +68,18 @@ module Lookbook
       get(remove_position_prefix(name)).presence || add(name)
     end
 
+    def find(lookup = nil, &block)
+      if lookup
+        lookup.is_a?(Symbol) ? find_by_id(lookup.to_s.tr("_", "-")) : find_by_path(lookup)
+      elsif block
+        items.find(&block)
+      end
+    end
+
+    def find_by_id(id)
+      items.find { |i| i.id == id }
+    end
+
     def find_by_path(path)
       items.find { |i| i.lookup_path == path }
     end

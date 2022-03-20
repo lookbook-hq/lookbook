@@ -11,7 +11,11 @@ module Lookbook
     end
 
     def id
-      generate_id(lookup_path)
+      @preview_inspector.id || generate_id(lookup_path)
+    end
+
+    def preview_class
+      @preview.name
     end
 
     def label
@@ -23,7 +27,7 @@ module Lookbook
     end
 
     def example(example_name)
-      examples.find { |m| m.name == example_name }
+      examples.find { |m| m.name == example_name.to_s }
     end
 
     def examples

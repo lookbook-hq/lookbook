@@ -12,7 +12,7 @@ module Lookbook
     end
 
     def id
-      generate_id(lookup_path)
+      generate_id(@preview.id, name)
     end
 
     def path

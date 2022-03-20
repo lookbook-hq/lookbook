@@ -24,10 +24,6 @@ module Lookbook
       remove_position_prefix(path_name)
     end
 
-    def id
-      generate_id(lookup_path)
-    end
-
     def title?
       data[:title] != false
     end
@@ -86,6 +82,7 @@ module Lookbook
       return @data if @data
       frontmatter = get_frontmatter(file_contents)
       data = Lookbook.config.page_data.merge(frontmatter || {}).with_indifferent_access
+      data[:id] = data[:id] ? generate_id(data[:id]) : generate_id(lookup_path)
       data[:label] ||= name.titleize
       data[:title] ||= data[:label]
       data[:hidden] ||= false

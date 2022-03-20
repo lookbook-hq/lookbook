@@ -29,6 +29,7 @@ module Lookbook
         YARD::Tags::Library.define_tag("Label", :label)
         YARD::Tags::Library.define_tag("Display", :display)
         YARD::Tags::Library.define_tag("Position", :position)
+        YARD::Tags::Library.define_tag("ID", :id)
       end
     end
   end

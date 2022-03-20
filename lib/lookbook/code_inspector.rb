@@ -1,5 +1,7 @@
 module Lookbook
   class CodeInspector
+    include Utils
+
     attr_reader :code_object
     delegate :groups, :source, to: :@code_object
 
@@ -10,6 +12,12 @@ module Lookbook
     def hidden?
       if code_object&.tag(:hidden)
         code_object.tag(:hidden).text.strip != "false"
+      end
+    end
+
+    def id
+      if code_object&.tag(:id)&.text&.present?
+        generate_id(code_object&.tag(:id)&.text)
       end
     end
 

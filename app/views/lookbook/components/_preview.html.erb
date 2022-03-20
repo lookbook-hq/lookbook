@@ -37,7 +37,7 @@
               target: "pages-embed-code",
               tooltip: "Copy page embed code" %>
             <div id="pages-embed-code" class="hidden">
-              &lt;%= embed "<%= @example.lookup_path %>", params: <%= request.query_parameters.deep_symbolize_keys.to_s %> %&gt;
+              &lt;%= embed <%= @preview.preview_class %>, :<%= @example.name %>, params: <%= request.query_parameters.deep_symbolize_keys.to_s %> %&gt;
             </div>
           <% end %>
           <button

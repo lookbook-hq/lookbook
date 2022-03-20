@@ -1,10 +1,10 @@
 <%
-path = item.type == :page ? page_path(item.lookup_path) : show_path(item.lookup_path)
+path = show_path(item.lookup_path)
 display ||= :item
 label ||= item.label
-item_icon = item.type == :page ? "file" : display == :node ? "layers" : "eye"
+item_icon = display == :node ? "layers" : "eye"
 %>
-<li key="<%= item.id %>">
+<li key="nav-item-<%= item.id %>-item">
   <div id="nav-item-<%= item.id %>" x-data="navItem(<%= item.matchers.to_json %>)" :class="{hidden}" data-path="<%= path %>" x-cloak>
     <a href="<%= path %>"
       class="nav-link pr-3 py-[5px] flex items-center w-full group transition hover:bg-gray-200 hover:bg-opacity-50"
@@ -16,7 +16,7 @@ item_icon = item.type == :page ? "file" : display == :node ? "layers" : "eye"
       <div class="relative w-3.5 h-3.5 mr-1.5 <%= "ml-[3px]" if display == :node %> " :class="active ? 'text-gray-900' : 'text-indigo-500'">
         <%= icon item_icon, size: 3.5, class: "group-hover:text-indigo-800" %>
       </div>
-      <div class="truncate whitespace-nowrap select-none <%= "font-bold" if display == :node && item.type != :page %>">
+      <div class="truncate whitespace-nowrap select-none <%= "font-bold" if display == :node %>">
         <%= label %>
       </div>
     </a>

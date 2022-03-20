@@ -550,16 +550,10 @@ The output looks like this:
 
 <img src=".github/assets/preview_embed.png">
 
-To specify which preview example to render, the helper accepts **either** a preview class and a method name (as a symbol), like this:
+To specify which preview example to render, the helper accepts a preview class and a method name (as a symbol), like this:
 
 ```erb
 <%= embed Elements:ButtonComponentPreview, :default %>
-```
-
-**or** the 'URL path' to the example, as follows:
-
-```erb
-<%= embed "elements/button/default" %>
 ```
 
 #### Preview params
@@ -567,9 +561,10 @@ To specify which preview example to render, the helper accepts **either** a prev
 If you have configured your examples to accept preview params (see the [`@param`](#param-tag) docs), then you can supply values for those params when rendering the embedded preview:
 
 ```erb
-<%= embed Elements:ButtonComponentPreview, :default, params: { icon: "plus", text: "Add new" } %>
-<!-- or -->
-<%= embed "elements/button/default" params: { icon: "plus", text: "Add new" } %>
+<%= embed Elements:ButtonComponentPreview, :default, params: {
+  icon: "plus",
+  text: "Add new"
+} %>
 ```
 
 ### Displaying code

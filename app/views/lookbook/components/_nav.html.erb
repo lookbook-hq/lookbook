@@ -1,6 +1,6 @@
 <nav id="nav" x-data="nav">
   <% if items.any? %>
-    <ul x-ref="items">
+    <ul x-ref="items" id="nav-<%= items.class.describe_as %>">
       <% items.each do |item| %>
         <%= component "nav_#{item.type}", node: item %>
       <% end %>

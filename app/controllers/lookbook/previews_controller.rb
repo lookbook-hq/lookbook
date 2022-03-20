@@ -40,7 +40,7 @@ module Lookbook
     private
 
     def lookup_entities
-      @example = Lookbook.previews.find_example_by_path(params[:path])
+      @example = Lookbook.previews.find_example(params[:path])
       if @example
         @preview = @example.preview
         if params[:path] == @preview&.lookup_path
