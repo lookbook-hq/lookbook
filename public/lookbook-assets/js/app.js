@@ -16322,25 +16322,39 @@ var _iframeResizer = require("iframe-resizer/js/iframeResizer");
 function embed() {
     return {
         init: function() {
-            this.resizer = window.iFrameResize({
-            }, this.$refs.iframe)[0].iFrameResizer;
-        },
-        lastWidth: null,
-        reflowing: false,
-        set width (value){
             if (!this.$store.pages.embeds[this.$root.id]) this.$store.pages.embeds[this.$root.id] = {
                 width: "100%"
             };
-            this.$store.pages.embeds[this.$root.id].width = value;
+        },
+        lastWidth: null,
+        reflowing: false,
+        get resizer () {
+            return this.$refs.iframe.iFrameResizer;
+        },
+        set width (value){
+            this.store.width = value;
         },
         get width () {
-            return this.$store.pages.embeds[this.$root.id] ? this.$store.pages.embeds[this.$root.id].width : "100%";
+            return this.store.width || "100%";
+        },
+        get height () {
+            return this.store.height;
         },
         get parentWidth () {
             return Math.round(this.$root.parentElement.clientWidth);
         },
         get maxWidth () {
             return this.width === "100%" ? "100%" : "".concat(this.width, "px");
+        },
+        get store () {
+            return this.$store.pages.embeds[this.$root.id];
+        },
+        resize: function() {
+            this.resizer.resize();
+        },
+        onIframeResized: function(event) {
+            var _detail = event.detail, iframe = _detail.iframe, height = _detail.height;
+            if (iframe.isSameNode(this.$refs.iframe)) this.store.height = height;
         },
         onResizeWidth: function(e) {
             var width = this.resizeStartWidth - (this.resizeStartPositionX - e.pageX);
@@ -16363,11 +16377,15 @@ function embed() {
             this.reflowing = false;
         },
         toggleFullWidth: function() {
+            var _this = this;
             if (this.width === "100%" && this.lastWidth) this.width = this.lastWidth;
             else {
                 this.lastWidth = this.width;
                 this.width = "100%";
             }
+            this.$nextTick(function() {
+                return _this.resize();
+            });
         }
     };
 }
@@ -17242,6 +17260,8 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 function page() {
     return {
+        init: function() {
+        },
         scrollToTop: function() {
             console.log("scroll");
             this.$refs.scroller.scrollTop = 0;
@@ -17252,6 +17272,15 @@ function page() {
                 event.preventDefault();
                 this.setLocation(link.href);
             }
+        },
+        reloadIframes: function() {
+            var _this = this;
+            window.iFrameResize({
+                heightCalculationMethod: "lowestElement",
+                onResized: function(data) {
+                    return _this.$dispatch("iframe:resized", data);
+                }
+            }, "[x-ref='iframe']");
         }
     };
 }

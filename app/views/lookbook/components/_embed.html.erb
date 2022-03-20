@@ -1,4 +1,4 @@
-<div id="<%= id %>" x-data="embed" class="not-prose embed border border-gray-300 rounded-md overflow-hidden">
+<div id="<%= id %>" x-data="embed" class="not-prose embed border border-gray-300 rounded-md overflow-hidden" @page:morphed.window="resize" @iframe:resized.window="onIframeResized">
   <header class="px-3 py-2 flex items-center text-xs text-gray-400 bg-white border-b border-gray-300">
     <div class="text-gray-500">
       <%= example.preview.label %> (<%= example.label %>)
@@ -17,12 +17,13 @@
     </div>
   </header>
   <div class="checked-bg overflow-hidden">
-    <div x-ref="resizer" class="grid bg-white relative grid-cols-[1fr_17px] w-full" :style="`max-width: ${maxWidth}`">
+    <div x-ref="resizer" class="grid bg-white relative grid-cols-[1fr_17px] w-full" :style="`max-width: ${maxWidth}; height: ${height ? `${height}px` : 'auto'}`">
       <iframe seamless
         x-ref="iframe"
-        src="<%= lookbook.preview_path(example.path, params.merge(lookbook_timestamp: Time.now, lookbook_embed: true)) %>"
-        class="w-full h-full"
-        :class="{ 'pointer-events-none': reflowing }">
+        src="<%= lookbook.preview_path(example.path, params.merge(lookbook_embed: true)) %>"
+        class="min-w-full h-full w-px"
+        :class="{ 'pointer-events-none': reflowing }"
+        @load="resize">
       </iframe>
       <div
         class="resize-handle border-r border-l cursor-[col-resize] relative -right-px"

@@ -1,5 +1,6 @@
 export default function page() {
   return {
+    init() {},
     scrollToTop() {
       console.log("scroll");
       this.$refs.scroller.scrollTop = 0;
@@ -10,6 +11,15 @@ export default function page() {
         event.preventDefault();
         this.setLocation(link.href);
       }
+    },
+    reloadIframes() {
+      window.iFrameResize(
+        {
+          heightCalculationMethod: "lowestElement",
+          onResized: (data) => this.$dispatch("iframe:resized", data),
+        },
+        `[x-ref='iframe']`
+      );
     },
   };
 }

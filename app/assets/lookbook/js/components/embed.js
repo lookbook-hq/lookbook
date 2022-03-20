@@ -3,29 +3,43 @@ import "iframe-resizer/js/iframeResizer";
 export default function embed() {
   return {
     init() {
-      this.resizer = window.iFrameResize(
-        {},
-        this.$refs.iframe
-      )[0].iFrameResizer;
+      if (!this.$store.pages.embeds[this.$root.id]) {
+        this.$store.pages.embeds[this.$root.id] = {
+          width: "100%",
+        };
+      }
     },
     lastWidth: null,
     reflowing: false,
+    get resizer() {
+      return this.$refs.iframe.iFrameResizer;
+    },
     set width(value) {
-      if (!this.$store.pages.embeds[this.$root.id]) {
-        this.$store.pages.embeds[this.$root.id] = { width: "100%" };
-      }
-      this.$store.pages.embeds[this.$root.id].width = value;
+      this.store.width = value;
     },
     get width() {
-      return this.$store.pages.embeds[this.$root.id]
-        ? this.$store.pages.embeds[this.$root.id].width
-        : "100%";
+      return this.store.width || "100%";
+    },
+    get height() {
+      return this.store.height;
     },
     get parentWidth() {
       return Math.round(this.$root.parentElement.clientWidth);
     },
     get maxWidth() {
       return this.width === "100%" ? "100%" : `${this.width}px`;
+    },
+    get store() {
+      return this.$store.pages.embeds[this.$root.id];
+    },
+    resize() {
+      this.resizer.resize();
+    },
+    onIframeResized(event) {
+      const { iframe, height } = event.detail;
+      if (iframe.isSameNode(this.$refs.iframe)) {
+        this.store.height = height;
+      }
     },
     onResizeWidth(e) {
       const width =
@@ -58,6 +72,7 @@ export default function embed() {
         this.lastWidth = this.width;
         this.width = "100%";
       }
+      this.$nextTick(() => this.resize());
     },
   };
 }
