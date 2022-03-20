@@ -1,20 +1,27 @@
-<div id="page" class="grid grid-rows-[40px_1fr] bg-gray-50 h-full">
+<div
+  id="page"
+  class="grid grid-rows-[40px_1fr] bg-gray-50 h-full"
+  x-data="page"
+  @click="checkForNavigation"
+  @page:changed.window="scrollToTop">
   <%= component "header" do %>
-    <div class="flex items-center ml-auto pr-2">
+    <div id="page-banner-<%= @page.id %>" class="flex items-center ml-auto pr-2">
       <% if @previous_page %>
-        <a  ref="header-prev-page" href="<%= page_path @previous_page.lookup_path %>"
+        <a ref="header-previous-page"
+          href="<%= page_path @previous_page.lookup_path %>"
           x-tooltip.theme.lookbook="`Previous page`"
           class="flex-none p-1">
-            <%= icon "chevron-left", size: 4, class: "hover:text-indigo-800" %>
-          </a>
+          <%= icon "chevron-left", size: 4, class: "hover:text-indigo-800" %>
+        </a>
       <% else %>
-        <span ref="header-prev-page" class="flex-none p-1">
+        <span ref="header-previous-page" class="flex-none p-1">
           <%= icon "chevron-left", size: 4, class: "opacity-20" %>
         </span>
       <% end %>
 
       <% if @next_page %>
-        <a ref="header-next-page" href="<%= page_path @next_page.lookup_path %>"
+        <a ref="header-next-page"
+          href="<%= page_path @next_page.lookup_path %>"
           x-tooltip.theme.lookbook="`Next page`"
           class="flex-none p-1">
             <%= icon "chevron-right", size: 4, class: "hover:text-indigo-800" %>
@@ -26,20 +33,37 @@
       <% end %>
     </div>
   <% end %>
-  <div class="px-4 md:px-10 w-full pt-8 md:pt-12 overflow-auto pb-10">
-    <div class="w-full max-w-[52rem] mx-auto text-gray-600">
+  <div class="px-4 md:px-10 w-full pt-8 md:pt-12 overflow-auto pb-10 scroll-smooth" x-ref="scroller">
+    <div class="w-full max-w-3xl mx-auto text-gray-600">
       <% if @page.title? %>
-        <header class="mb-10 prose max-w-none">
-          <h1>
-            <%= @page.title %>
-          </h1>
+        <header id="page-header-<%= @page.id %>" class="mb-10 prose max-w-none">
+          <h1><%= @page.title %></h1>
         </header>
       <% end %>
-      <div data-morph-strategy="replace">
+      <div id="page-main-<%= @page.id %>">
         <div class="prose max-w-none prose-a:text-indigo-900">
           <%= @page_content %>
         </div>
       </div>
+      <footer id="page-footer-<%= @page.id %>" class="flex items-center justify-between border-t border-gray-300 mt-12 pt-8">
+        <% if @previous_page %>
+          <a ref="footer-previous-page"
+            href="<%= page_path @previous_page.lookup_path %>"
+            class="flex items-center flex-none">
+            <%= icon "arrow-left", size: 4, class: "hover:text-indigo-800" %>
+            <span class="ml-2 underline"><%= @previous_page.title %></span>
+          </a>
+        <% end %>
+
+        <% if @next_page %>
+          <a ref="footer-next-page"
+            href="<%= page_path @next_page.lookup_path %>"
+            class="flex items-center flex-none ml-auto">
+            <span class="mr-2 underline"><%= @next_page.title %></span>
+            <%= icon "arrow-right", size: 4, class: "hover:text-indigo-800" %>
+          </a>
+        <% end %>
+      </footer>
     </div>
   </div>
 </div>

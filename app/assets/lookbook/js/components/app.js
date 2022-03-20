@@ -4,7 +4,7 @@ const morphOpts = {
   key(el) {
     return el.getAttribute("key") ? el.getAttribute("key") : el.id;
   },
-  lookahead: true,
+  lookahead: false,
   updating(el, toEl, childrenOnly, skip) {
     if (
       el.getAttribute &&
@@ -14,7 +14,6 @@ const morphOpts = {
       return skip();
     }
   },
-  lookahead: true,
 };
 
 export default function app() {
@@ -34,12 +33,18 @@ export default function app() {
       document.title = newDoc.title;
     },
     setLocation(loc) {
-      const path = loc instanceof Event ? loc.currentTarget.href : loc;
+      let path;
+      if (loc instanceof Event) {
+        path = loc.currentTarget.href;
+        loc.preventDefault();
+      } else {
+        path = loc;
+      }
       history.pushState({}, null, path);
       this.$dispatch("popstate");
     },
     refresh() {
-      this.$dispatch("popstate");
+      this.$dispatch("refresh");
     },
     morph(dom) {
       const pageHtml = dom.getElementById(this.$root.id).outerHTML;

@@ -883,17 +883,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }.prose .code:not(.numbered) .line {
   padding-left: 1rem;
   padding-right: 1rem;
-}.prose > *:not(.not-prose) {
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  max-width: 48rem;
 }.prose .embed {
   margin-top: 2rem;
   margin-bottom: 2rem;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 48rem;
 }.resize-handle {
   display: flex;
   height: 100%;
@@ -983,8 +975,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: 0.75rem;
 }.mb-10 {
   margin-bottom: 2.5rem;
+}.mt-10 {
+  margin-top: 2.5rem;
+}.ml-2 {
+  margin-left: 0.5rem;
+}.mr-2 {
+  margin-right: 0.5rem;
 }.mb-4 {
   margin-bottom: 1rem;
+}.mt-12 {
+  margin-top: 3rem;
 }.block {
   display: block;
 }.inline-block {
@@ -1043,8 +1043,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   max-width: 20rem;
 }.max-w-\[800px\] {
   max-width: 800px;
-}.max-w-\[52rem\] {
-  max-width: 52rem;
+}.max-w-3xl {
+  max-width: 48rem;
 }.max-w-none {
   max-width: none;
 }.flex-none {
@@ -1105,6 +1105,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   align-items: stretch;
 }.justify-center {
   justify-content: center;
+}.justify-between {
+  justify-content: space-between;
 }.space-x-8 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(2rem * var(--tw-space-x-reverse));
@@ -1140,6 +1142,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   overflow: hidden;
 }.overflow-y-auto {
   overflow-y: auto;
+}.scroll-smooth {
+  scroll-behavior: smooth;
 }.truncate {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1208,8 +1212,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding: 1rem;
 }.p-6 {
   padding: 1.5rem;
-}.p-2 {
-  padding: 0.5rem;
 }.p-1 {
   padding: 0.25rem;
 }.px-1 {
@@ -1252,16 +1254,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 0.75rem;
 }.pb-3 {
   padding-bottom: 0.75rem;
+}.pr-2 {
+  padding-right: 0.5rem;
 }.pt-8 {
   padding-top: 2rem;
 }.pb-10 {
   padding-bottom: 2.5rem;
+}.pt-6 {
+  padding-top: 1.5rem;
 }.pt-3 {
   padding-top: 0.75rem;
 }.pb-6 {
   padding-bottom: 1.5rem;
-}.pr-2 {
-  padding-right: 0.5rem;
 }.text-center {
   text-align: center;
 }.font-sans {
@@ -1322,6 +1326,8 @@ Ensure the default browser behavior of the `hidden` attribute.
 }.text-gray-600 {
   --tw-text-opacity: 1;
   color: rgb(75 85 99 / var(--tw-text-opacity));
+}.underline {
+  text-decoration-line: underline;
 }.antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -1331,8 +1337,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   opacity: 0.5;
 }.opacity-100 {
   opacity: 1;
-}.opacity-40 {
-  opacity: 0.4;
 }.opacity-20 {
   opacity: 0.2;
 }.shadow {
@@ -1613,15 +1617,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }.group:hover .group-hover\:text-indigo-800 {
   --tw-text-opacity: 1;
   color: rgb(55 48 163 / var(--tw-text-opacity));
-}.prose-a\:text-indigo-700 :is(:where(a):not(:where([class~="not-prose"] *))) {
-  --tw-text-opacity: 1;
-  color: rgb(67 56 202 / var(--tw-text-opacity));
 }.prose-a\:text-indigo-900 :is(:where(a):not(:where([class~="not-prose"] *))) {
   --tw-text-opacity: 1;
   color: rgb(49 46 129 / var(--tw-text-opacity));
-}.prose-a\:text-indigo-800 :is(:where(a):not(:where([class~="not-prose"] *))) {
-  --tw-text-opacity: 1;
-  color: rgb(55 48 163 / var(--tw-text-opacity));
 }@media (min-width: 768px) {
 
   .md\:grid {

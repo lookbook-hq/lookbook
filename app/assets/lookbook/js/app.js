@@ -5,6 +5,7 @@ import Morph from "@alpinejs/morph";
 import Tooltip from "@ryangjchandler/alpine-tooltip";
 
 import app from "./components/app";
+import page from "./components/page";
 import inspector from "./components/inspector";
 import previewWindow from "./components/preview-window";
 import filter from "./components/filter";
@@ -47,6 +48,7 @@ Alpine.store("pages", initPagesStore(Alpine));
 // Components
 
 Alpine.data("app", app);
+Alpine.data("page", page);
 Alpine.data("sidebar", sidebar);
 Alpine.data("splitter", splitter);
 Alpine.data("previewWindow", previewWindow);
