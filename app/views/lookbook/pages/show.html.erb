@@ -35,7 +35,7 @@
   <% end %>
   <div class="px-4 md:px-10 w-full pt-8 md:pt-12 overflow-auto pb-10 scroll-smooth" x-ref="scroller">
     <div class="w-full max-w-3xl mx-auto text-gray-600">
-      <% if @page.title? %>
+      <% if @page.header? %>
         <header id="page-header-<%= @page.id %>" class="mb-10 prose max-w-none">
           <h1><%= @page.title %></h1>
         </header>

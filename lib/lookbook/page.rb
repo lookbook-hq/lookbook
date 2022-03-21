@@ -10,6 +10,7 @@ module Lookbook
       :landing,
       :position,
       :markdown,
+      :header,
       :footer,
       :data
     ]
@@ -36,16 +37,16 @@ module Lookbook
       remove_position_prefix(path_name)
     end
 
-    def title?
-      options[:title] != false
-    end
-
     def hidden?
       options[:hidden] == true
     end
 
     def markdown?
       options[:markdown] == true
+    end
+
+    def header?
+      options[:header] == true
     end
 
     def footer?
@@ -105,8 +106,8 @@ module Lookbook
       options[:landing] ||= false
       options[:position] = options[:position] ? options[:position].to_i : get_position_prefix(path_name)
       options[:markdown] ||= markdown_file?
+      options[:header] = true unless options.key? :header
       options[:footer] = true unless options.key? :footer
-      options[:footer] ||= {}
       @options ||= options
     end
 
