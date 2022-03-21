@@ -497,28 +497,30 @@ For an example of some pages in Lookbook, check out the [example pages](https://
 
 ### Usage
 
-1. By default, pages should be placed in the `test/components/docs` directory (although this can be customised).
-2. Pages must have  either a `.html.erb` or a `.md.erb` file extension. All pages are rendered as ERB templates but `.md.erb` files will also additionally be run through a markdown parser.
-3. You can nest pages in directories as deeply as you like.
-3. Pages can optionally make use of a **YAML frontmatter block** to customise the behaviour and content of the page itself.
+By default, pages should be placed in the `test/components/docs` directory (although this can be customised) and can be nested in directories as deeply as required.
 
-An example page (`test/components/docs/example_page.md.erb`) might look like this: 
+Pages must have  either a `.html.erb` or a `.md.erb` file extension. All pages are rendered as ERB templates but `.md.erb` files will also additionally be run through a markdown parser.
 
-```ruby
+Pages can optionally make use of a **YAML frontmatter block** to customise the behaviour and content of the page itself.
+
+An example page might look like this: 
+
+```markdown
 ---
 title: An example page
 label: Nice example
 ---
 
-This is an example page. Because it has a `.md.erb` file extension it's contents will be run through a Markdown parser/renderer before display.
+This is an example page. If it has a `.md.erb` file extension its
+contents will be run through a Markdown parser/renderer before display.
 
 Fenced code blocks are fully supported and will be highlighted appropriately.
 
-ERB can be used in here - the template will be rendered **before** being parsed as Markdown. 
+ERB can be used in here.
+The template will be rendered **before** being parsed as Markdown. 
 
-You can can access data about the page using the `@page` variable. The title of this page is "<%= @page.title %>".
-
-Preview examples can additionally be embedded in the page - see the documentation below for more details.
+You can can access data about the page using the `@page` variable.
+The title of this page is "<%= @page.title %>".
 ```
 
 ### YAML Frontmatter
