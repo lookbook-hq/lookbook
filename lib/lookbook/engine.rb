@@ -50,7 +50,6 @@ module Lookbook
 
       options.listen_paths = options.listen_paths.map(&:to_s)
       options.listen_paths += options.preview_paths
-      options.listen_paths += options.page_paths
       options.listen_paths << (vc_options.view_component_path || Rails.root.join("app/components"))
       options.listen_paths.filter! { |path| Dir.exist? path }
 
@@ -87,7 +86,11 @@ module Lookbook
     end
 
     config.after_initialize do
-      @listener = Listen.to(*config.lookbook.listen_paths, only: /\.(rb|html.*|md.*)$/) do |modified, added, removed|
+      Array(config.view_component.preview_paths).each do |preview_path|
+        Dir["#{preview_path}/**/*_preview.rb"].sort.each { |file| require_dependency file }
+      end
+
+      @preview_listener = Listen.to(*config.lookbook.listen_paths, only: /\.(rb|html.*)$/) do |modified, added, removed|
         parser.parse
         if Lookbook::Engine.websocket
           if (modified.any? || removed.any?) && added.none?
@@ -99,12 +102,26 @@ module Lookbook
         end
       end
 
-      @listener.start
+      @page_listener = Listen.to(*config.lookbook.page_paths, only: /\.(html.*|md.*)$/) do |modified, added, removed|
+        if Lookbook::Engine.websocket
+          if modified.any? || removed.any? || added.any?
+            Lookbook::Engine.websocket.broadcast("reload", {
+              modified: modified,
+              removed: removed,
+              added: added
+            })
+          end
+        end
+      end
+
+      @preview_listener.start
+      @page_listener.start
       parser.parse
     end
 
     at_exit do
-      @listener&.stop
+      @preview_listener&.stop
+      @page_listener&.stop
     end
 
     class << self
