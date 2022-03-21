@@ -52,6 +52,7 @@ module Lookbook
     end
 
     def add(item)
+      @ordered_entities = nil
       @tree = nil
       if item.is_a?(String)
         item = Collection.new([@path, item].join("/"))
@@ -90,14 +91,27 @@ module Lookbook
       find_by_path(parent_path)
     end
 
+    def ordered_entities
+      return @ordered_entities if @ordered_entities.present?
+      entities = []
+      as_tree.items.each do |item|
+        entities.append(item.is_a?(Collection) ? item.ordered_entities : item)
+      end
+      @ordered_entities ||= entities.flatten
+    end
+
+    def find_first
+      ordered_entities.first
+    end
+
     def find_next(item)
-      index = items.find_index { |i| i.lookup_path == item.lookup_path }
-      items[index + 1] unless index.nil?
+      index = ordered_entities.find_index { |i| i.lookup_path == item.lookup_path }
+      ordered_entities[index + 1] unless index.nil?
     end
 
     def find_previous(item)
-      index = items.find_index { |i| i.lookup_path == item.lookup_path }
-      items[index - 1] if !index.nil? && index > 0
+      index = ordered_entities.find_index { |i| i.lookup_path == item.lookup_path }
+      ordered_entities[index - 1] if !index.nil? && index > 0
     end
 
     def as_tree(filter_hidden: true)
