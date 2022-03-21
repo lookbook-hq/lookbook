@@ -13,7 +13,7 @@
 ---
 
 <div align="center">
-<a href="#installing">Installing</a> • <a href="#previews">Previews</a>  • <a href="#pages">Pages</a> • <a href="#config">Configuration</a>
+<a href="#installing">Installing</a> • <a href="#previews">Previews</a>  • <a href="#pages">Pages</a> • <a href="#config">Configuration</a> 
 </div>
 
 ---
@@ -525,6 +525,75 @@ Fenced code blocks are fully supported and will be highlighted appropriately.
 <%= "ERB can be used in here - the template will be rendered **before** being parsed as Markdown." %>
 
 Preview examples can be embedded in the page - see the documentation below for more details.
+```
+
+### YAML Frontmatter
+
+Pages can use an optional YAML frontmatter block to configure the behaviour of the page and to provide custom data, if required.
+
+The following page options can be customised via frontmatter:
+
+* `id` - a custom page ID that can be used for linking to it from other pages
+* `label` - The name of the page that will be displayed in the navigation (auto-generated from the file name if not set)
+* `title` - The main page title displayed on the page (defaults to the label value if not set). Can also set this value to `false` to hide the title altogether.
+* `hidden` - If `false` the page will not appear in the navigation but will still be accessible at it's URL (useful for pages that are still in development) [default: `true`]
+* `landing` - Set to `true` to use the page as the Lookbook landing page [default: `false`]
+* `footer` - Set to `false` to hide the page footer containing the previous/next page links [default: `false`]
+* `data` - Optional hash of custom data to make available for use in the page - see info on [page variables](#page-variables) below. [default: `{}`]
+
+#### Frontmatter defaults
+
+You can set global default values for page options in the application configuration:
+
+```ruby
+# config/application.rb
+config.lookbook.page_options = {
+  footer: false,
+  data: {
+    brand_colors: {
+      red: #ff0000
+    }
+  }
+}
+```
+
+These will be merged with any page-level frontmatter data. Options set in the frontmatter will override those set at the global level (apart from `data`, which will be deep-merged with the any globally defined data).
+
+### Page variables
+
+All pages have the following variables available for use in the page template:
+
+* `@page` - The current page object
+* `@next_page` - The next page object (if available)
+* `@previous_page` - The previous page object (if available)
+* `@pages` - Collection of all pages
+
+Page objects have access to frontmatter variables:
+
+```ruby
+The page title is <%= @page.title %>
+
+Our brand color hex value: <%= @page.data[:brand_colors][:red] %>
+```
+
+### Linking to other pages
+
+You can get the path to a page using the `page_path` helper. This accepts a page `id` (as a `Symbol`) or a page object:
+
+```markdown
+Visit the [about page](<%= page_path :about %>)
+
+Go to the [next page](<%= page_path @next_page %>)
+```
+
+Page ids can be set in the YAML frontmatter block for that page:
+
+```
+---
+id: about
+---
+
+This is the about page.
 ```
 
 ### Ordering pages and directories
