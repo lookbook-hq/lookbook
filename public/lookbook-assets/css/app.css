@@ -975,16 +975,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: 0.75rem;
 }.mb-10 {
   margin-bottom: 2.5rem;
-}.mt-10 {
-  margin-top: 2.5rem;
+}.mt-12 {
+  margin-top: 3rem;
 }.ml-2 {
   margin-left: 0.5rem;
 }.mr-2 {
   margin-right: 0.5rem;
 }.mb-4 {
   margin-bottom: 1rem;
-}.mt-12 {
-  margin-top: 3rem;
 }.block {
   display: block;
 }.inline-block {
@@ -1027,6 +1025,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 100vw;
 }.w-\[9px\] {
   width: 9px;
+}.w-px {
+  width: 1px;
 }.w-4 {
   width: 1rem;
 }.w-3\.5 {
@@ -1037,8 +1037,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 2.75rem;
 }.w-5 {
   width: 1.25rem;
-}.w-px {
-  width: 1px;
 }.min-w-0 {
   min-width: 0px;
 }.min-w-\[120px\] {
@@ -1266,8 +1264,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-top: 2rem;
 }.pb-10 {
   padding-bottom: 2.5rem;
-}.pt-6 {
-  padding-top: 1.5rem;
 }.pt-3 {
   padding-top: 0.75rem;
 }.pb-6 {

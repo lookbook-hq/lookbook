@@ -491,9 +491,11 @@ If you need to add more long-form documentation to live alongside your component
 > 
 > To enable support for pages in your project, add `config.lookbook.experimental_features = ["pages"]` into your application configuration file.
 
-### About pages in Lookbook
+### Pages demo 
 
-A few key things to know about using pages in Lookbook:
+For an example of some pages in Lookbook, check out the [example pages](https://lookbook-demo-app.herokuapp.com/lookbook) in the Lookbook demo app and the associated [page files](https://github.com/allmarkedup/lookbook-demo/tree/main/test/components/docs) in the demo repo.
+
+### Usage
 
 1. By default, pages should be placed in the `test/components/docs` directory (although this can be customised).
 2. Pages must have  either a `.html.erb` or a `.md.erb` file extension. All pages are rendered as ERB templates but `.md.erb` files will also additionally be run through a markdown parser.
@@ -510,21 +512,13 @@ label: Nice example
 
 This is an example page. Because it has a `.md.erb` file extension it's contents will be run through a Markdown parser/renderer before display.
 
-## YAML frontmatter
-
-You can set/override page data in the YAML frontmatter section at the top of the page. Some useful options are:
-
-* `label` - The name of the page that will be displayed in the navigation (auto-generated from the file name if not set)
-* `title` - The main page title displayed on the page (defaults to the label value if not set). Can also set this value to `false` to hide the title altogether.
-* `hidden` - Boolean, if `false` the page will not appear in the navigation but will still be accessible at it's URL (useful for pages that are still in-development)
-
-## Other notes
-
 Fenced code blocks are fully supported and will be highlighted appropriately.
 
-<%= "ERB can be used in here - the template will be rendered **before** being parsed as Markdown." %>
+ERB can be used in here - the template will be rendered **before** being parsed as Markdown. 
 
-Preview examples can be embedded in the page - see the documentation below for more details.
+You can can access data about the page using the `@page` variable. The title of this page is "<%= @page.title %>".
+
+Preview examples can additionally be embedded in the page - see the documentation below for more details.
 ```
 
 ### YAML Frontmatter
@@ -535,10 +529,11 @@ The following page options can be customised via frontmatter:
 
 * `id` - a custom page ID that can be used for linking to it from other pages
 * `label` - The name of the page that will be displayed in the navigation (auto-generated from the file name if not set)
-* `title` - The main page title displayed on the page (defaults to the label value if not set). Can also set this value to `false` to hide the title altogether.
+* `title` - The main page title displayed on the page (defaults to the label value if not set).
 * `hidden` - If `false` the page will not appear in the navigation but will still be accessible at it's URL (useful for pages that are still in development) [default: `true`]
 * `landing` - Set to `true` to use the page as the Lookbook landing page [default: `false`]
-* `footer` - Set to `false` to hide the page footer containing the previous/next page links [default: `false`]
+* `header` - Set to `false` to hide the page header containing the page title [default: `true`]
+* `footer` - Set to `false` to hide the page footer containing the previous/next page links [default: `true`]
 * `data` - Optional hash of custom data to make available for use in the page - see info on [page variables](#page-variables) below. [default: `{}`]
 
 #### Frontmatter defaults
@@ -573,27 +568,7 @@ Page objects have access to frontmatter variables:
 ```ruby
 The page title is <%= @page.title %>
 
-Our brand color hex value: <%= @page.data[:brand_colors][:red] %>
-```
-
-### Linking to other pages
-
-You can get the path to a page using the `page_path` helper. This accepts a page `id` (as a `Symbol`) or a page object:
-
-```markdown
-Visit the [about page](<%= page_path :about %>)
-
-Go to the [next page](<%= page_path @next_page %>)
-```
-
-Page ids can be set in the YAML frontmatter block for that page:
-
-```
----
-id: about
----
-
-This is the about page.
+Our brand color hex value is <%= @page.data[:brand_colors][:red] %>
 ```
 
 ### Ordering pages and directories
@@ -618,6 +593,26 @@ test/components/docs/
 ```
 
 Without the number prefixes on the file names the pages may not have appeared in the navigation in the desired order.
+
+### Linking to other pages
+
+You can get the path to a page using the `page_path` helper. This accepts a page `id` (as a `Symbol`) or a page object:
+
+```markdown
+Visit the [about page](<%= page_path :about %>)
+
+Go to the [next page](<%= page_path @next_page %>)
+```
+
+Page ids can be set in the YAML frontmatter block for that page:
+
+```
+---
+id: about
+---
+
+This is the about page.
+```
 
 ### Embedding previews
 
@@ -656,7 +651,7 @@ However, if you are not using Markdown, or need a little more control, you can u
 <% end %>
 ```
 
-The default language is Ruby. To highlight a different language you need to specify it's name as an argument:
+The default language is `ruby`. To highlight a different language you need to specify it's name as an argument:
 
 ```erb
 <%= code :html do %>
@@ -664,15 +659,37 @@ The default language is Ruby. To highlight a different language you need to spec
 <% end %>
 ```
 
-> You can find a [full list of supported languages here](https://github.com/rouge-ruby/rouge/blob/master/docs/Languages.md).
+> Lookbook uses [Rouge](https://github.com/rouge-ruby/rouge) for syntax highlighting. You can find a [full list of supported languages here](https://github.com/rouge-ruby/rouge/blob/master/docs/Languages.md).
 
 ---
 
-<h2 id="config"> General Configuration</h2>
+### Pages configuration
 
-Lookbook will use the ViewComponent [configuration](https://viewcomponent.org/api.html#configuration) for your project to find and render your previews so you generally you won't need to configure anything separately.
+These options can be set in your application configuration files to customise the pages behaviour.
 
-However the following Lookbook-specific config options are also available:
+#### `page_paths`
+
+An array of directories to look for pages in.
+Default: `["test/previews/docs"]`
+
+```ruby
+config.lookbook.page_paths = ["path/to/my/pages"]
+```
+
+#### `page_route`
+
+The URL segment used to prefix page routes.
+Default: `pages`
+
+```ruby
+config.lookbook.page_route = `docs`
+```
+
+<h2 id="config">General Configuration</h2>
+
+Lookbook will use the ViewComponent [configuration](https://viewcomponent.org/api.html#configuration) for your project to find and render your previews so you generally you won't need to configure much else separately.
+
+However the following Lookbook-specific configuration options are also available:
 
 ### UI auto-refresh
 

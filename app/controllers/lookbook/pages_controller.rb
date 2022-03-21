@@ -4,6 +4,15 @@ module Lookbook
       "lookbook/pages"
     end
 
+    def index
+      landing = Lookbook.pages.find(&:landing) || Lookbook.pages.first
+      if landing.present?
+        redirect_to page_path landing.lookup_path
+      else
+        render "not_found"
+      end
+    end
+
     def show
       @pages = Lookbook.pages
       @page = @pages.find_by_path(params[:path])
