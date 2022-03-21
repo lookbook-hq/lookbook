@@ -7,5 +7,14 @@ module Lookbook
     Lookbook.config.page_paths.each do |path|
       prepend_view_path Rails.root.join(path)
     end
+
+    def render_page(page, locals = {})
+      @page = page
+      @pages = Lookbook.pages
+      @next_page = @pages.find_next(@page)
+      @previous_page = @pages.find_previous(@page)
+      content = render_to_string inline: @page.content
+      @page.markdown? ? Lookbook::Markdown.render(content) : content
+    end
   end
 end

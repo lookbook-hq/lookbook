@@ -12,6 +12,12 @@
 
 ---
 
+<div align="center">
+<a href="#installing">Installing</a> • <a href="#previews">Previews</a>  • <a href="#pages">Pages</a> • <a href="#config">Configuration</a>
+</div>
+
+---
+
 **Lookbook gives [ViewComponent](http://viewcomponent.org/)-based projects a _ready-to-go_ development UI for navigating, inspecting and interacting with component previews.**
 
 It uses (and extends) the native [ViewComponent preview functionality](https://viewcomponent.org/guide/previews.html), so you don't need to learn a new DSL or create any extra files to get up and running.
@@ -29,7 +35,7 @@ Lookbook uses [RDoc/Yard-style comment tags](#annotating-preview-files) to exten
 - Use comment tag annotations for granular customisation of the preview experience
 - Fully compatible with standard the ViewComponent preview system
 - In-browser live-editable preview parameters (similar to basic Storybook Controls/Knobs)
-- [**BETA**] Markdown-powerered documentation pages with embeddable previews
+- [**Experimental**] Markdown-powerered documentation pages with embeddable previews
 
 ## Lookbook demo
 
@@ -74,13 +80,13 @@ If you would like to expose the Lookbook UI in production as well as in developm
 2. Add `config.view_component.show_previews = true` to `config/environments/production.rb`
 
 
-## Usage
+<h2 id="previews">Previews</h2>
 
 You don't need to do anything special to see your ViewComponent previews and examples in Lookbook - just create them as normal and they'll automatically appear in the Lookbook UI. Preview templates, custom layouts and even bespoke [preview controllers](https://viewcomponent.org/guide/previews.html#configuring-preview-controller) should all work as you would expect.
 
 > If you are new to ViewComponent development, checkout the ViewComponent [documentation](https://viewcomponent.org/guide/) on how to get started developing your components and [creating previews](https://viewcomponent.org/guide/previews.html).
 
-## Annotating preview files
+### Annotating preview files
 
 Lookbook parses [Yard-style comment tags](https://rubydoc.info/gems/yard/file/docs/Tags.md) in your preview classes to customise and extend the standard ViewComponent preview experience:
 
@@ -475,7 +481,9 @@ class ProfileCardComponentPreview < ViewComponent::Preview
 end
 ```
 
-## 🚧 Documentation Pages (experimental)
+---
+
+<h2 id="pages">🚧 Documentation Pages [experimental]</h2>
 
 If you need to add more long-form documentation to live alongside your component previews you can do so using Lookbook's markdown-powered `pages` system.
 
@@ -487,9 +495,9 @@ If you need to add more long-form documentation to live alongside your component
 
 A few key things to know about using pages in Lookbook:
 
-1. By default, documentation pages should be placed in the `test/components/docs` directory (although this can be customised).
+1. By default, pages should be placed in the `test/components/docs` directory (although this can be customised).
 2. Pages must have  either a `.html.erb` or a `.md.erb` file extension. All pages are rendered as ERB templates but `.md.erb` files will also additionally be run through a markdown parser.
-3. You can nest pages in directories as deep as you like.
+3. You can nest pages in directories as deeply as you like.
 3. Pages can optionally make use of a **YAML frontmatter block** to customise the behaviour and content of the page itself.
 
 An example page (`test/components/docs/example_page.md.erb`) might look like this: 
@@ -589,9 +597,9 @@ The default language is Ruby. To highlight a different language you need to spec
 
 > You can find a [full list of supported languages here](https://github.com/rouge-ruby/rouge/blob/master/docs/Languages.md).
 
+---
 
-
-## General Configuration
+<h2 id="config"> General Configuration</h2>
 
 Lookbook will use the ViewComponent [configuration](https://viewcomponent.org/api.html#configuration) for your project to find and render your previews so you generally you won't need to configure anything separately.
 

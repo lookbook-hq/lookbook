@@ -45,25 +45,27 @@
           <%= @page_content %>
         </div>
       </div>
-      <footer id="page-footer-<%= @page.id %>" class="flex items-center justify-between border-t border-gray-300 mt-12 pt-8">
-        <% if @previous_page %>
-          <a ref="footer-previous-page"
-            href="<%= page_path @previous_page.lookup_path %>"
-            class="flex items-center flex-none">
-            <%= icon "arrow-left", size: 4, class: "hover:text-indigo-800" %>
-            <span class="ml-2 underline"><%= @previous_page.title %></span>
-          </a>
-        <% end %>
+      <% if @page.footer? %>
+        <footer id="page-footer-<%= @page.id %>" class="flex items-center justify-between border-t border-gray-300 mt-12 pt-8">
+          <% if @previous_page %>
+            <a ref="footer-previous-page"
+              href="<%= page_path @previous_page.lookup_path %>"
+              class="flex items-center flex-none">
+              <%= icon "arrow-left", size: 4, class: "hover:text-indigo-800" %>
+              <span class="ml-2 underline"><%= @previous_page.title %></span>
+            </a>
+          <% end %>
 
-        <% if @next_page %>
-          <a ref="footer-next-page"
-            href="<%= page_path @next_page.lookup_path %>"
-            class="flex items-center flex-none ml-auto">
-            <span class="mr-2 underline"><%= @next_page.title %></span>
-            <%= icon "arrow-right", size: 4, class: "hover:text-indigo-800" %>
-          </a>
-        <% end %>
-      </footer>
+          <% if @next_page %>
+            <a ref="footer-next-page"
+              href="<%= page_path @next_page.lookup_path %>"
+              class="flex items-center flex-none ml-auto">
+              <span class="mr-2 underline"><%= @next_page.title %></span>
+              <%= icon "arrow-right", size: 4, class: "hover:text-indigo-800" %>
+            </a>
+          <% end %>
+        </footer>
+      <% end %>
     </div>
   </div>
 </div>

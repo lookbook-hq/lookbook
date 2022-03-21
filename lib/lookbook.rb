@@ -10,7 +10,6 @@ module Lookbook
   autoload :Params, "lookbook/params"
   autoload :Page, "lookbook/page"
   autoload :PageCollection, "lookbook/page_collection"
-  autoload :PageRenderer, "lookbook/page_renderer"
   autoload :Features, "lookbook/features"
   autoload :Collection, "lookbook/collection"
   autoload :Parser, "lookbook/parser"

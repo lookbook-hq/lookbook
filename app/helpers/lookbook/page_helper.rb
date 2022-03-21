@@ -3,7 +3,7 @@ module Lookbook
     include Utils
 
     def page_path(id)
-      page = Lookbook.pages.find(id)
+      page = id.is_a?(Page) ? id : Lookbook.pages.find(id)
       lookbook.page_path page.lookup_path
     end
 

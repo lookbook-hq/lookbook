@@ -2,6 +2,18 @@ module Lookbook
   class Page
     include Utils
 
+    FRONTMATTER_FIELDS = [
+      :id,
+      :label,
+      :title,
+      :hidden,
+      :landing,
+      :position,
+      :markdown,
+      :footer,
+      :data
+    ]
+
     def initialize(path, base_path)
       @pathname = Pathname.new path
       @base_path = base_path
@@ -25,19 +37,23 @@ module Lookbook
     end
 
     def title?
-      data[:title] != false
+      options[:title] != false
     end
 
     def hidden?
-      data[:hidden] == true
+      options[:hidden] == true
     end
 
     def markdown?
-      data[:markdown] == true
+      options[:markdown] == true
+    end
+
+    def footer?
+      options[:footer] == true
     end
 
     def get(key)
-      data[key]
+      options[key]
     end
 
     def content
@@ -62,14 +78,14 @@ module Lookbook
 
     def method_missing(method_name, *args, &block)
       if args.none? && !block
-        data[method_name]
+        options[method_name]
       else
         super
       end
     end
 
     def respond_to_missing?(method_name, include_private = false)
-      data.key? method_name
+      FRONTMATTER_FIELDS.include? method_name
     end
 
     protected
@@ -78,18 +94,20 @@ module Lookbook
       File.read(full_path)
     end
 
-    def data
-      return @data if @data
-      frontmatter = get_frontmatter(file_contents)
-      data = Lookbook.config.page_data.merge(frontmatter || {}).with_indifferent_access
-      data[:id] = data[:id] ? generate_id(data[:id]) : generate_id(lookup_path)
-      data[:label] ||= name.titleize
-      data[:title] ||= data[:label]
-      data[:hidden] ||= false
-      data[:landing] ||= false
-      data[:position] = data[:position] ? data[:position].to_i : get_position_prefix(path_name)
-      data[:markdown] ||= markdown_file?
-      @data ||= data
+    def options
+      return @options if @options
+      frontmatter = (get_frontmatter(file_contents) || {}).deep_symbolize_keys
+      options = Lookbook.config.page_options.deep_merge(frontmatter).with_indifferent_access
+      options[:id] = options[:id] ? generate_id(options[:id]) : generate_id(lookup_path)
+      options[:label] ||= name.titleize
+      options[:title] ||= options[:label]
+      options[:hidden] ||= false
+      options[:landing] ||= false
+      options[:position] = options[:position] ? options[:position].to_i : get_position_prefix(path_name)
+      options[:markdown] ||= markdown_file?
+      options[:footer] = true unless options.key? :footer
+      options[:footer] ||= {}
+      @options ||= options
     end
 
     def path_name

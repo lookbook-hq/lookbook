@@ -99,12 +99,12 @@ module Lookbook
 
     def find_next(item)
       index = ordered_entities.find_index { |i| i.lookup_path == item.lookup_path }
-      ordered_entities[index + 1]
+      ordered_entities[index + 1] unless index.nil?
     end
 
     def find_previous(item)
       index = ordered_entities.find_index { |i| i.lookup_path == item.lookup_path }
-      ordered_entities[index - 1] if index > 0
+      ordered_entities[index - 1] if !index.nil? && index > 0
     end
 
     def as_tree(filter_hidden: true)

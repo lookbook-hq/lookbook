@@ -989,6 +989,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: block;
 }.inline-block {
   display: inline-block;
+}.inline {
+  display: inline;
 }.flex {
   display: flex;
 }.inline-flex {
