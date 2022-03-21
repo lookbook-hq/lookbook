@@ -44,7 +44,7 @@ module Lookbook
     end
 
     def items
-      @items.sort_by { |item| [item.position, item.label] }
+      @items.sort_by { |item| [item.hierarchy_depth, item.position, item.label] }
     end
 
     def visible_items
@@ -52,6 +52,7 @@ module Lookbook
     end
 
     def add(item)
+      @tree = nil
       if item.is_a?(String)
         item = Collection.new([@path, item].join("/"))
       end
@@ -89,27 +90,19 @@ module Lookbook
       find_by_path(parent_path)
     end
 
-    def ordered_entities
-      entities = []
-      as_tree.items.each do |item|
-        entities.append(item.is_a?(Collection) ? item.ordered_entities : item)
-      end
-      entities.flatten
-    end
-
     def find_next(item)
-      index = ordered_entities.find_index { |i| i.lookup_path == item.lookup_path }
-      ordered_entities[index + 1] unless index.nil?
+      index = items.find_index { |i| i.lookup_path == item.lookup_path }
+      items[index + 1] unless index.nil?
     end
 
     def find_previous(item)
-      index = ordered_entities.find_index { |i| i.lookup_path == item.lookup_path }
-      ordered_entities[index - 1] if !index.nil? && index > 0
+      index = items.find_index { |i| i.lookup_path == item.lookup_path }
+      items[index - 1] if !index.nil? && index > 0
     end
 
     def as_tree(filter_hidden: true)
       return self if hierarchy_depth > 0
-      return @tree if @tree
+      return @tree if @tree.present?
       @tree = self.class.new
       candidates = filter_hidden ? visible_items : items
       candidates.each do |item|
