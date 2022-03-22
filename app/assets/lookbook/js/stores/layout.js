@@ -8,5 +8,8 @@ export default function createLayoutStore() {
     reflowing: false,
     desktop: true,
     desktopWidth: config.desktopWidth,
+    get mobile() {
+      return !this.desktop;
+    },
   };
 }

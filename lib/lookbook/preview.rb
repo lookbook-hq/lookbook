@@ -11,7 +11,7 @@ module Lookbook
     end
 
     def id
-      @preview_inspector.id || generate_id(lookup_path)
+      @preview_inspector&.id || generate_id(lookup_path)
     end
 
     def preview_class
@@ -19,7 +19,7 @@ module Lookbook
     end
 
     def label
-      @preview_inspector.label.presence || lookup_path.split("/").last.titleize
+      @preview_inspector&.label&.presence || lookup_path.split("/").last.titleize
     end
 
     def type
@@ -33,11 +33,11 @@ module Lookbook
     def examples
       return @examples if @examples.present?
       public_methods = @preview.public_instance_methods(false)
-      public_method_objects = @preview_inspector.methods.filter { |m| public_methods.include?(m.name) }
-      examples = public_method_objects.map { |m| PreviewExample.new(m.name.to_s, self) }
+      public_method_objects = @preview_inspector&.methods&.filter { |m| public_methods.include?(m.name) }
+      examples = public_method_objects&.map { |m| PreviewExample.new(m.name.to_s, self) }
       sorted = Lookbook.config.sort_examples ? examples.sort_by(&:label) : examples
       @examples = []
-      if @preview_inspector.groups.any?
+      if @preview_inspector&.groups&.any?
         sorted.group_by { |m| m.group }.each do |name, examples|
           if name.nil?
             @examples += examples
@@ -84,7 +84,7 @@ module Lookbook
     end
 
     def display_params
-      Lookbook.config.preview_display_params.deep_merge(@preview_inspector.display_params)
+      Lookbook.config.preview_display_params.deep_merge(@preview_inspector&.display_params)
     end
 
     class << self

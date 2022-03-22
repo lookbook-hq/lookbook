@@ -3,7 +3,7 @@ module Lookbook
     include Utils
 
     attr_reader :code_object
-    delegate :groups, :source, to: :@code_object
+    delegate :groups, :source, to: :@code_object, allow_nil: true
 
     def initialize(taggable_object_path)
       @code_object = Lookbook::Engine.parser.get_code_object(taggable_object_path)
@@ -67,7 +67,7 @@ module Lookbook
     end
 
     def methods
-      code_object.meths
+      code_object&.meths
     end
   end
 end

@@ -12,7 +12,9 @@ export default function navItem(matchers) {
     },
     navigate() {
       this.setLocation(this.path);
-      this.$store.sidebar.open = false;
+      if (this.$store.layout.mobile) {
+        this.$store.sidebar.open = false;
+      }
     },
     filter(text) {
       this.hidden = false;

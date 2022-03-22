@@ -1,4 +1,4 @@
-<nav id="nav" x-data="nav">
+<nav id="nav" x-data="nav(<%= filterable %>)">
   <% if items.any? %>
     <ul x-ref="items" id="nav-<%= items.class.describe_as %>">
       <% items.each do |item| %>

@@ -14,14 +14,12 @@ import sidebar from "./components/sidebar";
 import nav from "./components/nav";
 import navItem from "./components/nav-item";
 import navGroup from "./components/nav-group";
-import navSection from "./components/nav-section";
 import splitter from "./components/splitter";
 import tabs from "./components/tabs";
 import copy from "./components/copy";
 import code from "./components/code";
 import sizes from "./components/sizes";
 import embed from "./components/embed";
-import navAccordion from "./components/nav-accordion";
 
 import initFilterStore from "./stores/filter";
 import initLayoutStore from "./stores/layout";
@@ -62,9 +60,7 @@ Alpine.data("nav", nav);
 Alpine.data("tabs", tabs);
 Alpine.data("navItem", navItem);
 Alpine.data("navGroup", navGroup);
-Alpine.data("navSection", navSection);
 Alpine.data("embed", embed);
-Alpine.data("navAccordion", navAccordion);
 
 // Init
 

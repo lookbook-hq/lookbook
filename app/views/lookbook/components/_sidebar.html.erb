@@ -2,42 +2,51 @@
   x-data="sidebar"
   @page:morphed.window="setActiveNavItem"
   class="h-full bg-gray-100 overflow-hidden flex flex-col"
-  x-show="$store.layout.desktop || $store.sidebar.open"
+  x-show="$store.sidebar.open"
   x-cloak>
 
-  <div class="bg-white h-10 border-b border-gray-400 flex flex-none items-center relative">
-    <button class="flex-none ml-4 md:hidden" @click="$store.sidebar.toggle">
-      <%= icon "x", size: 4, class: "hover:text-indigo-500" %>
+  <div class="bg-white h-10 border-b border-gray-300 flex flex-none items-center relative pl-4 pr-4">
+    <button class="flex-none flex items-center ml-auto" @click="$store.sidebar.toggle">
+      <%= icon "menu", size: 4, class: "text-indigo-500 transition" %>
     </button>
-    <div class="bg-white flex flex-grow items-center relative" x-cloak>
-      <%= component "filter" %>
-    </div>
   </div>
-
+  
   <% if feature_enabled?(:pages) %>
     <div
-      x-data="navAccordion"
       class="grid overflow-hidden"
-      :style="`
-        height: calc(100vh - 42px);
-        grid-template-rows: 1fr 1px ${sectionHeight(1)}px
-      `">
-      <%= component "nav_section", title: "Previews", filterable: true do %>
-        <%= component "nav", items: Lookbook.previews.as_tree %>
-      <% end %>
+      :style="`grid-template-rows: 1fr 1px ${pagesPanelHeight}px; height: calc(100vh - 40px)`">
+      <div class="flex flex-col overflow-hidden">
+        <div class="flex items-center flex-none border-b border-gray-300 h-10 bg-white relative px-4">   
+          <h2 class="whitespace-nowrap relative">Previews</h2>
+        </div>
+        <div x-ref="filter" class="px-2 py-2 relative" x-cloak>
+          <%= component "filter" %> 
+        </div>
+        <div class="flex-grow pb-3 overflow-auto">
+          <%= component "nav", items: Lookbook.previews.as_tree, filterable: true %>
+        </div>
+      </div>
       <div
-        x-data="splitter('horizontal', {minSize: 32})"
+        x-data="splitter('horizontal', {minSize: 40})"
         class="w-full gutter border-t border-gray-300 relative"
-        x-effect="setSplits(splits)">
+        x-effect="if (splits[2]) $store.sidebar.pagesPanelHeight = splits[2]">
         <div class="h-[11px] w-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute left-0 right-0 -translate-y-1/2 cursor-[row-resize]"></div>
       </div>
-        <%= component "nav_section", title: "Pages", class: "" do %>
-          <%= component "nav", items: Lookbook.pages.as_tree %>
-        <% end %>
+      <div class="flex flex-col overflow-hidden">
+        <div class="flex items-center flex-none border-b border-gray-300 h-10 bg-white relative px-4">   
+          <h2 class="whitespace-nowrap relative">Pages</h2>
+        </div>
+        <div class="flex-grow pt-2 pb-3 overflow-auto">
+          <%= component "nav", items: Lookbook.pages.as_tree, filterable: false %>
+        </div>
+      </div>
     </div>
   <% else %>
+    <div x-ref="filter" class="px-2 py-2 relative" x-cloak>
+      <%= component "filter" %> 
+    </div>
     <div class="flex-grow overflow-y-auto unsectioned">
-      <%= component "nav", items: Lookbook.previews.as_tree %>
+      <%= component "nav", items: Lookbook.previews.as_tree, filterable: true %>
     </div>
   <% end %>
 

@@ -1,11 +1,13 @@
-export default function nav() {
+export default function nav(filterable = true) {
   return {
     empty: false,
     init() {
-      this.$watch("$store.filter.text", () => this.filter());
-      this.$nextTick(() => {
-        this.filter();
-      });
+      if (filterable) {
+        this.$watch("$store.filter.text", () => this.filter());
+        this.$nextTick(() => {
+          this.filter();
+        });
+      }
     },
     filter() {
       this.empty = true;
