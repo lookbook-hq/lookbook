@@ -1289,6 +1289,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-size: 11px;
 }.font-bold {
   font-weight: 700;
+}.font-black {
+  font-weight: 900;
 }.uppercase {
   text-transform: uppercase;
 }.italic {

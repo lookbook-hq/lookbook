@@ -30,6 +30,7 @@ module Lookbook
       options = config.lookbook
       vc_options = config.view_component
 
+      options.project_name ||= "Lookbook"
       options.auto_refresh = true if options.auto_refresh.nil?
       options.sort_examples = false if options.sort_examples.nil?
       options.debug = false unless options.debug == true
