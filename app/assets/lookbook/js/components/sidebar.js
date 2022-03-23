@@ -9,10 +9,10 @@ export default function sidebar() {
       );
       this.$store.nav.active = target ? target.id : "";
     },
-    get pagesPanelHeight() {
-      return this.$store.sidebar.pagesPanelHeight === 0
-        ? window.innerHeight / 2
-        : this.$store.sidebar.pagesPanelHeight;
+    setSplits(splits) {
+      if (splits.length) {
+        this.$store.sidebar.panelSplits = [splits[0] || 1.0, splits[2] || 1.0];
+      }
     },
   };
 }

@@ -11,7 +11,7 @@ export default function splitter(direction, props = {}) {
         minSize: props.minSize || 0,
         writeStyle() {},
         onDrag: (dir, track, style) => {
-          this.splits = style.split(" ").map((num) => parseInt(num));
+          this.splits = style.split(" ").map((num) => parseFloat(num, 10));
         },
         onDragStart: () => {
           this.$store.layout.reflowing = true;

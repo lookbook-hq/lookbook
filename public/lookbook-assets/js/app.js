@@ -11152,8 +11152,11 @@ function sidebar() {
             var target = this.$el.querySelector("[data-path=\"".concat(window.location.pathname, "\"]"));
             this.$store.nav.active = target ? target.id : "";
         },
-        get pagesPanelHeight () {
-            return this.$store.sidebar.pagesPanelHeight === 0 ? window.innerHeight / 2 : this.$store.sidebar.pagesPanelHeight;
+        setSplits: function(splits) {
+            if (splits.length) this.$store.sidebar.panelSplits = [
+                splits[0] || 1,
+                splits[2] || 1
+            ];
         }
     };
 }
@@ -11299,7 +11302,7 @@ function splitter(direction, param) {
             ]), _helpers.defineProperty(_obj, "minSize", props.minSize || 0), _helpers.defineProperty(_obj, "writeStyle", function() {
             }), _helpers.defineProperty(_obj, "onDrag", function(dir, track, style) {
                 _this.splits = style.split(" ").map(function(num) {
-                    return parseInt(num);
+                    return parseFloat(num, 10);
                 });
             }), _helpers.defineProperty(_obj, "onDragStart", function() {
                 _this1.$store.layout.reflowing = true;
@@ -16209,7 +16212,6 @@ function embed() {
         get resizer () {
             if (this.$refs.iframe) {
                 if (!this.$refs.iframe.iFrameResizer) window.iFrameResize({
-                    log: true,
                     heightCalculationMethod: "lowestElement",
                     onResized: this.onIframeResized.bind(this)
                 }, this.$refs.iframe);
@@ -17210,7 +17212,10 @@ function createSidebarStore(Alpine) {
     return {
         open: Alpine.$persist(true).as("sidebar-open"),
         width: Alpine.$persist(defaultWidth).as("sidebar-width"),
-        pagesPanelHeight: Alpine.$persist(0).as("sidebar-pages-panel-height"),
+        panelSplits: Alpine.$persist([
+            1,
+            1
+        ]).as("sidebar-panel-splits"),
         minWidth: minWidth,
         maxWidth: maxWidth,
         toggle: function() {

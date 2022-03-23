@@ -16,7 +16,6 @@ export default function embed() {
         if (!this.$refs.iframe.iFrameResizer) {
           window.iFrameResize(
             {
-              log: true,
               heightCalculationMethod: "lowestElement",
               onResized: this.onIframeResized.bind(this),
             },

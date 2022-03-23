@@ -5,7 +5,7 @@ export default function createSidebarStore(Alpine) {
   return {
     open: Alpine.$persist(true).as("sidebar-open"),
     width: Alpine.$persist(defaultWidth).as("sidebar-width"),
-    pagesPanelHeight: Alpine.$persist(0).as(`sidebar-pages-panel-height`),
+    panelSplits: Alpine.$persist([1.0, 1.0]).as(`sidebar-panel-splits`),
     minWidth,
     maxWidth,
     toggle() {

@@ -20,7 +20,8 @@
   <% if feature_enabled?(:pages) && Lookbook.pages.any? %>
     <div
       class="grid overflow-hidden"
-      :style="`grid-template-rows: 1fr 1px ${pagesPanelHeight}px; height: calc(100vh - 40px)`">
+      :style="`grid-template-rows: ${$store.sidebar.panelSplits[0] || 1}fr 1px ${$store.sidebar.panelSplits[1] || 1}fr; height: calc(100vh - 40px)`"
+      x-ref="sidebarPanels">
       <div class="flex flex-col overflow-hidden">
         <div class="flex items-center flex-none border-b border-gray-300 h-10 bg-white relative px-4">   
           <h2 class="whitespace-nowrap relative">Previews</h2>
@@ -35,7 +36,7 @@
       <div
         x-data="splitter('horizontal', {minSize: 40})"
         class="w-full gutter border-t border-gray-300 relative"
-        x-effect="if (splits[2]) $store.sidebar.pagesPanelHeight = splits[2]">
+        x-effect="setSplits(splits)">
         <div class="h-[11px] w-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute left-0 right-0 -translate-y-1/2 cursor-[row-resize]"></div>
       </div>
       <div class="flex flex-col overflow-hidden">
