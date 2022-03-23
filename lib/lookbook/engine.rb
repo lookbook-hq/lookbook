@@ -38,7 +38,7 @@ module Lookbook
       options.preview_paths = options.preview_paths.map(&:to_s)
       options.preview_paths += vc_options.preview_paths
 
-      options.page_paths = options.page_paths.map(&:to_s).filter { |dir| Dir.exist? dir }
+      options.page_paths = options.page_paths.map(&:to_s)
       options.page_controller = "Lookbook::PageController" if options.page_controller.nil?
       options.page_route ||= "pages"
       options.page_options ||= {}.with_indifferent_access
@@ -102,21 +102,23 @@ module Lookbook
           end
         end
       end
+      @preview_listener.start
 
-      @page_listener = Listen.to(*config.lookbook.page_paths, only: /\.(html.*|md.*)$/) do |modified, added, removed|
-        if Lookbook::Engine.websocket
-          if modified.any? || removed.any? || added.any?
-            Lookbook::Engine.websocket.broadcast("reload", {
-              modified: modified,
-              removed: removed,
-              added: added
-            })
+      if Lookbook::Features.enabled?(:pages)
+        @page_listener = Listen.to(*config.lookbook.page_paths.filter { |dir| Dir.exist? dir }, only: /\.(html.*|md.*)$/) do |modified, added, removed|
+          if Lookbook::Engine.websocket
+            if modified.any? || removed.any? || added.any?
+              Lookbook::Engine.websocket.broadcast("reload", {
+                modified: modified,
+                removed: removed,
+                added: added
+              })
+            end
           end
         end
+        @page_listener.start
       end
 
-      @preview_listener.start
-      @page_listener.start
       parser.parse
     end
 
