@@ -12,6 +12,7 @@ module Lookbook
     end
 
     before_action :lookup_entities, only: [:preview, :show]
+    before_action :set_title
 
     def preview
       if @example
@@ -47,6 +48,10 @@ module Lookbook
           redirect_to show_path "#{params[:path]}/#{@preview.default_example.name}"
         end
       end
+    end
+
+    def set_title
+      @title = @example.present? ? [@example&.label, @preview&.label].compact.join(" :: ") : "Not found"
     end
 
     def examples_data

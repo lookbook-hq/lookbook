@@ -489,7 +489,7 @@ If you need to add more long-form documentation to live alongside your component
 
 > ⚠️ This feature is currently flagged as an **experimental** feature which requires [feature opt-in](#experimental-features) to use. Its API and implementation may change before it is released.
 > 
-> To enable support for pages in your project, add `config.lookbook.experimental_features = ["pages"]` into your application configuration file.
+> To enable support for pages in your project, add `config.lookbook.experimental_features = [:pages]` into your application configuration file.
 
 ### Pages demo 
 
@@ -720,6 +720,16 @@ config.lookbook.ui_favicon = "/path/to/my/favicon.png"
 ```
 
 > To disable the favicon entirely, set the value to `false`.
+
+### Project name
+
+Specify a project name to display in the top left of the UI (instead of the default "Lookbook"):
+
+```ruby
+config.lookbook.project_name = "My Project" 
+```
+
+> If you don't want to display a project name at all, set the value to `false`.
 
 
 <h3 id="experimental-features">Experimental features opt-in</h3>

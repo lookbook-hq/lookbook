@@ -9,6 +9,7 @@ module Lookbook
       if landing.present?
         redirect_to page_path landing.lookup_path
       else
+        @title = "Not found"
         render "not_found"
       end
     end
@@ -20,7 +21,9 @@ module Lookbook
         @page_content = page_controller.render_page(@page)
         @next_page = @pages.find_next(@page)
         @previous_page = @pages.find_previous(@page)
+        @title = @page.title
       else
+        @title = "Not found"
         render "not_found"
       end
     end

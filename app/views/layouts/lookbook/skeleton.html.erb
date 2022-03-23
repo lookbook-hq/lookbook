@@ -20,7 +20,7 @@
     <script src="/lookbook-assets/js/embed.js?v=<%= Lookbook.version %>" defer></script>
   <% end %>
   
-  <title><%= @example ? [@example&.label, @preview&.label, "Lookbook"].compact.join(" :: ") : "Lookbook" %></title>
+  <title><%= [@title, config.project_name || "Lookbook"].compact.join(" :: ") %></title>
 </head>
 <body class="text-gray-800 font-sans text-sm antialiased overflow-hidden">
   <%= yield :body %>
