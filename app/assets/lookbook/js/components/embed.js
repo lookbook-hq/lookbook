@@ -12,7 +12,20 @@ export default function embed() {
     lastWidth: null,
     reflowing: false,
     get resizer() {
-      return this.$refs.iframe.iFrameResizer;
+      if (this.$refs.iframe) {
+        if (!this.$refs.iframe.iFrameResizer) {
+          window.iFrameResize(
+            {
+              log: true,
+              heightCalculationMethod: "lowestElement",
+              onResized: this.onIframeResized.bind(this),
+            },
+            this.$refs.iframe
+          );
+        }
+        return this.$refs.iframe.iFrameResizer;
+      }
+      return null;
     },
     set width(value) {
       this.store.width = value;
@@ -32,11 +45,10 @@ export default function embed() {
     get store() {
       return this.$store.pages.embeds[this.$root.id];
     },
-    resize() {
-      this.resizer.resize();
+    recaclulateIframeHeight() {
+      if (this.resizer) this.resizer.resize();
     },
-    onIframeResized(event) {
-      const { iframe, height } = event.detail;
+    onIframeResized({ iframe, height }) {
       if (iframe.isSameNode(this.$refs.iframe)) {
         this.store.height = height;
       }
@@ -49,7 +61,7 @@ export default function embed() {
         this.parentWidth
       );
       this.width = boundedWidth === this.parentWidth ? "100%" : boundedWidth;
-      this.resizer.resize();
+      this.recaclulateIframeHeight();
     },
     onResizeWidthStart(e) {
       this.reflowing = true;
@@ -72,7 +84,7 @@ export default function embed() {
         this.lastWidth = this.width;
         this.width = "100%";
       }
-      this.$nextTick(() => this.resize());
+      this.$nextTick(() => this.recaclulateIframeHeight());
     },
   };
 }

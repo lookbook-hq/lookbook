@@ -938,16 +938,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   right: -1px;
 }.top-1\/2 {
   top: 50%;
-}.right-4 {
-  right: 1rem;
+}.right-5 {
+  right: 1.25rem;
 }.left-0 {
   left: 0px;
 }.right-0 {
   right: 0px;
 }.-left-px {
   left: -1px;
-}.right-5 {
-  right: 1.25rem;
 }.z-10 {
   z-index: 10;
 }.mx-auto {
@@ -1252,14 +1250,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-top: 0.5rem;
 }.pb-1 {
   padding-bottom: 0.25rem;
+}.pl-3 {
+  padding-left: 0.75rem;
 }.pr-3 {
   padding-right: 0.75rem;
 }.pr-4 {
   padding-right: 1rem;
-}.pb-3 {
-  padding-bottom: 0.75rem;
 }.pr-2 {
   padding-right: 0.5rem;
+}.pb-3 {
+  padding-bottom: 0.75rem;
 }.pt-8 {
   padding-top: 2rem;
 }.pb-10 {
@@ -1268,8 +1268,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-top: 0.75rem;
 }.pb-6 {
   padding-bottom: 1.5rem;
-}.pl-3 {
-  padding-left: 0.75rem;
 }.text-center {
   text-align: center;
 }.font-sans {

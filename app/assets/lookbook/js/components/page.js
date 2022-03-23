@@ -12,15 +12,6 @@ export default function page() {
         this.setLocation(link.href);
       }
     },
-    reloadIframes() {
-      window.iFrameResize(
-        {
-          heightCalculationMethod: "lowestElement",
-          onResized: (data) => this.$dispatch("iframe:resized", data),
-        },
-        `[x-ref='iframe']`
-      );
-    },
   };
 }
 

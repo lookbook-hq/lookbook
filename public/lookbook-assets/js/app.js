@@ -10853,15 +10853,6 @@ function page() {
                 event.preventDefault();
                 this.setLocation(link.href);
             }
-        },
-        reloadIframes: function() {
-            var _this = this;
-            window.iFrameResize({
-                heightCalculationMethod: "lowestElement",
-                onResized: function(data) {
-                    return _this.$dispatch("iframe:resized", data);
-                }
-            }, "[x-ref='iframe']");
         }
     };
 }
@@ -16216,7 +16207,15 @@ function embed() {
         lastWidth: null,
         reflowing: false,
         get resizer () {
-            return this.$refs.iframe.iFrameResizer;
+            if (this.$refs.iframe) {
+                if (!this.$refs.iframe.iFrameResizer) window.iFrameResize({
+                    log: true,
+                    heightCalculationMethod: "lowestElement",
+                    onResized: this.onIframeResized.bind(this)
+                }, this.$refs.iframe);
+                return this.$refs.iframe.iFrameResizer;
+            }
+            return null;
         },
         set width (value){
             this.store.width = value;
@@ -16236,18 +16235,18 @@ function embed() {
         get store () {
             return this.$store.pages.embeds[this.$root.id];
         },
-        resize: function() {
-            this.resizer.resize();
+        recaclulateIframeHeight: function() {
+            if (this.resizer) this.resizer.resize();
         },
-        onIframeResized: function(event) {
-            var _detail = event.detail, iframe = _detail.iframe, height = _detail.height;
+        onIframeResized: function(param) {
+            var iframe = param.iframe, height = param.height;
             if (iframe.isSameNode(this.$refs.iframe)) this.store.height = height;
         },
         onResizeWidth: function(e) {
             var width = this.resizeStartWidth - (this.resizeStartPositionX - e.pageX);
             var boundedWidth = Math.min(Math.max(Math.round(width), 200), this.parentWidth);
             this.width = boundedWidth === this.parentWidth ? "100%" : boundedWidth;
-            this.resizer.resize();
+            this.recaclulateIframeHeight();
         },
         onResizeWidthStart: function(e) {
             this.reflowing = true;
@@ -16271,7 +16270,7 @@ function embed() {
                 this.width = "100%";
             }
             this.$nextTick(function() {
-                return _this.resize();
+                return _this.recaclulateIframeHeight();
             });
         }
     };
