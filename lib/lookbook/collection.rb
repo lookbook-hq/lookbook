@@ -4,6 +4,7 @@ module Lookbook
     include Enumerable
 
     attr_reader :path
+    delegate :size, :each, to: :items
 
     def initialize(path = "", items = [])
       if path.is_a?(Array)
@@ -13,10 +14,6 @@ module Lookbook
         @items = items
       end
       @path = path.delete_prefix("/").delete_suffix("/")
-    end
-
-    def each(&block)
-      items.each(&block)
     end
 
     def id
