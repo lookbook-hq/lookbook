@@ -1238,6 +1238,8 @@ Ensure the default browser behavior of the `hidden` attribute.
 }.py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
+}.pr-2 {
+  padding-right: 0.5rem;
 }.pl-4 {
   padding-left: 1rem;
 }.pr-8 {
@@ -1256,8 +1258,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 0.75rem;
 }.pr-4 {
   padding-right: 1rem;
-}.pr-2 {
-  padding-right: 0.5rem;
 }.pb-3 {
   padding-bottom: 0.75rem;
 }.pt-8 {
@@ -1285,10 +1285,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   line-height: 1rem;
 }.text-\[11px\] {
   font-size: 11px;
-}.font-bold {
-  font-weight: 700;
 }.font-black {
   font-weight: 900;
+}.font-bold {
+  font-weight: 700;
 }.uppercase {
   text-transform: uppercase;
 }.italic {

@@ -96,7 +96,7 @@ module Lookbook
     def preview_panels
       {
         preview: {
-          label: "Rendered",
+          label: "Preview",
           template: "lookbook/previews/panels/preview",
           srcdoc: Lookbook.config.preview_srcdoc ? render_examples(examples_data).gsub("\"", "&quot;") : nil,
           hotkey: "v",

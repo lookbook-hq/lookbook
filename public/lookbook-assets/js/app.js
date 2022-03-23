@@ -10848,7 +10848,7 @@ function page() {
         },
         checkForNavigation: function(event) {
             var link = event.target.closest("a[href]");
-            if (link && !isExternalLink(link.href)) {
+            if (link && !isExternalLink(link.href) && link.getAttribute("target") !== "_blank") {
                 event.preventDefault();
                 this.setLocation(link.href);
             }
