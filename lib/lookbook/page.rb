@@ -139,7 +139,7 @@ module Lookbook
       end
 
       def page_paths
-        Lookbook.config.page_paths.filter { |dir| Dir.exist? dir }
+        Lookbook.config.page_paths
       end
     end
   end

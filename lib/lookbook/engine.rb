@@ -38,7 +38,7 @@ module Lookbook
       options.preview_paths = options.preview_paths.map(&:to_s)
       options.preview_paths += vc_options.preview_paths
 
-      options.page_paths = options.page_paths.map(&:to_s)
+      options.page_paths = options.page_paths.map(&:to_s).filter { |dir| Dir.exist? dir }
       options.page_controller = "Lookbook::PageController" if options.page_controller.nil?
       options.page_route ||= "pages"
       options.page_options ||= {}.with_indifferent_access
