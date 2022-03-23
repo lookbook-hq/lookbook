@@ -7,5 +7,14 @@ module Lookbook
     def feature_enabled?(name)
       Lookbook::Features.enabled?(name)
     end
+
+    def landing_path
+      landing = feature_enabled?(:pages) ? Lookbook.pages.find(&:landing) || Lookbook.pages.first : nil
+      if landing.present?
+        page_path(landing.lookup_path)
+      else
+        home_path
+      end
+    end
   end
 end

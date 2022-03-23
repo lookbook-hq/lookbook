@@ -6,14 +6,7 @@
   x-cloak>
 
   <div class="bg-white h-10 border-b border-gray-300 flex flex-none items-center relative pl-4 pr-4">
-    <% if config.project_name %>
-      <a
-        href="<%= home_path %>"
-        class="text-xs truncate uppercase font-black tracking-wide pr-2"
-        @click="setLocation">
-        <%= config.project_name %>
-      </a>
-    <% end %>
+    <%= component "branding" %>
     <button class="flex-none flex items-center ml-auto" @click="$store.sidebar.toggle">
       <%= icon "menu", size: 4, class: "text-indigo-500 transition" %>
     </button>

@@ -2,7 +2,6 @@ export default function page() {
   return {
     init() {},
     scrollToTop() {
-      console.log("scroll");
       this.$refs.scroller.scrollTop = 0;
     },
     checkForNavigation(event) {

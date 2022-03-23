@@ -10844,7 +10844,6 @@ function page() {
         init: function() {
         },
         scrollToTop: function() {
-            console.log("scroll");
             this.$refs.scroller.scrollTop = 0;
         },
         checkForNavigation: function(event) {

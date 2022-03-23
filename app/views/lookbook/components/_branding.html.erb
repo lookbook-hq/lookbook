@@ -1,0 +1,8 @@
+<% if config.project_name %>
+  <a
+    href="<%= landing_path %>"
+    class="text-xs truncate uppercase font-black tracking-wide pr-2"
+    @click="setLocation">
+    <%= config.project_name %>
+  </a>
+<% end %>
