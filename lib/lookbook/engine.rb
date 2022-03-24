@@ -82,10 +82,6 @@ module Lookbook
       end
     end
 
-    initializer "lookbook.helpers" do
-      config.action_controller.include_all_helpers = false
-    end
-
     config.after_initialize do
       Array(config.view_component.preview_paths).each do |preview_path|
         Dir["#{preview_path}/**/*_preview.rb"].sort.each { |file| require_dependency file }
