@@ -4,7 +4,8 @@ module Lookbook
       ViewComponent::PreviewTemplateError,
       ViewComponent::ComponentError,
       ViewComponent::TemplateError,
-      ActionView::Template::Error
+      ActionView::Template::Error,
+      SyntaxError
     ]
 
     def self.controller_path
@@ -153,7 +154,7 @@ module Lookbook
     end
 
     def render_in_layout(path)
-      render "not_found", layout: params[:lookbook_embed] ? "lookbook/basic" : "lookbook/application"
+      render path, layout: params[:lookbook_embed] ? "lookbook/basic" : "lookbook/application"
     end
   end
 end
