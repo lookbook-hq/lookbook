@@ -1,0 +1,25 @@
+<%
+title ||= error.class
+@title = title
+%>
+<%= component "header" %>
+<div class="h-full w-full bg-red-50 flex flex-col border-red-300">
+  <header class="flex-none px-8 py-8">
+    <h2 class="text-xl font-bold text-red-700"><%= title %></h2>
+  </header>
+
+  <div class="flex-none px-8 py-6 border-t border-b border-red-200 bg-red-100 text-base leading-relaxed">
+    <pre class="whitespace-pre-wrap"><%= error.message.strip %></pre>
+  </div>
+
+  <h3 class="font-bold mt-6 mb-4 px-8 flex-none">Full stack trace</h3>
+  <div class="text-xs font-mono flex-grow h-full overflow-hidden">
+    <div class="h-full  overflow-auto px-8 pb-10 text-gray-400">
+      <% error.backtrace.each do |line| %>
+        <div class="py-1 hover:text-gray-900 transition-colors duration-100">
+          <%= line %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
