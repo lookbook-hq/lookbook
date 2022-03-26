@@ -1,13 +1,5 @@
 module Lookbook
   class PreviewsController < ApplicationController
-    EXCEPTIONS = [
-      ViewComponent::PreviewTemplateError,
-      ViewComponent::ComponentError,
-      ViewComponent::TemplateError,
-      ActionView::Template::Error,
-      SyntaxError
-    ]
-
     def self.controller_path
       "lookbook/previews"
     end
@@ -31,7 +23,7 @@ module Lookbook
           @examples = examples_data
           @drawer_panels = drawer_panels.filter { |name, panel| panel[:show] }
           @preview_panels = preview_panels.filter { |name, panel| panel[:show] }
-        rescue *EXCEPTIONS
+        rescue
           render_in_layout "error"
         end
       else

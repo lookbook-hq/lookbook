@@ -83,17 +83,20 @@ module Lookbook
     end
 
     config.after_initialize do
-      Array(config.view_component.preview_paths).each do |preview_path|
-        Dir["#{preview_path}/**/*_preview.rb"].sort.each { |file| require_dependency file }
-      end
-
       @preview_listener = Listen.to(*config.lookbook.listen_paths, only: /\.(rb|html.*)$/) do |modified, added, removed|
-        parser.parse
+        if Lookbook::Preview.errors.any?
+          Lookbook::Preview.reload
+        end
+        begin
+          parser.parse
+        rescue
+        end
         if Lookbook::Engine.websocket
-          if (modified.any? || removed.any?) && added.none?
+          if modified.any? || removed.any? || added.none?
             Lookbook::Engine.websocket.broadcast("reload", {
               modified: modified,
-              removed: removed
+              removed: removed,
+              added: added
             })
           end
         end
