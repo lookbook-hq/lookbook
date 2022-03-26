@@ -15,9 +15,12 @@ module Lookbook
       :data
     ]
 
+    attr_reader :errors
+
     def initialize(path, base_path)
       @pathname = Pathname.new path
       @base_path = base_path
+      @errors = []
     end
 
     def path
@@ -97,7 +100,12 @@ module Lookbook
 
     def options
       return @options if @options
-      frontmatter = (get_frontmatter(file_contents) || {}).deep_symbolize_keys
+      begin
+        frontmatter = (get_frontmatter(file_contents) || {}).deep_symbolize_keys
+      rescue => exception
+        frontmatter = {}
+        @errors.push(exception)
+      end
       options = Lookbook.config.page_options.deep_merge(frontmatter).with_indifferent_access
       options[:id] = options[:id] ? generate_id(options[:id]) : generate_id(lookup_path)
       options[:label] ||= name.titleize
