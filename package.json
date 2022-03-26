@@ -9,10 +9,7 @@
         "./app/assets/lookbook/js/app.js",
         "./app/assets/lookbook/css/app.css"
       ],
-      "distDir": "./public/lookbook-assets",
-      "engines": {
-        "browsers": "> 0.5%, last 2 versions, not dead"
-      }
+      "distDir": "./public/lookbook-assets"
     }
   },
   "scripts": {
