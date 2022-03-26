@@ -115,6 +115,14 @@
     @apply flex-none pr-4;
   }
 
+  .code.focussed .line:not(.highlighted-line) * {
+    @apply !text-gray-700 !opacity-50;
+  }
+
+  .code.focussed .line:not(.highlighted-line) .line-number {
+    @apply !opacity-20;
+  }
+
   .prose .code {
     @apply !bg-white border border-gray-300 text-gray-600 my-8 text-sm rounded-md py-4 overflow-auto max-w-3xl w-full mx-auto;
   }

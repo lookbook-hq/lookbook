@@ -3,7 +3,7 @@ module Lookbook
     include Utils
 
     attr_reader :name, :preview
-    delegate :params, :position, :group, :notes, :hidden?, to: :@example_inspector
+    delegate :params, :position, :group, :notes, :hidden?, :source, to: :@example_inspector
 
     def initialize(name, preview)
       @name = name

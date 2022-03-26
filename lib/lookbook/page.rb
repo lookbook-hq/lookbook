@@ -20,6 +20,7 @@ module Lookbook
     def initialize(path, base_path)
       @pathname = Pathname.new path
       @base_path = base_path
+      @options = nil
       @errors = []
     end
 
@@ -61,7 +62,7 @@ module Lookbook
     end
 
     def content
-      @content ||= strip_frontmatter(file_contents)
+      @content ||= strip_frontmatter(file_contents).strip
     end
 
     def matchers
@@ -104,23 +105,24 @@ module Lookbook
         frontmatter = (get_frontmatter(file_contents) || {}).deep_symbolize_keys
       rescue => exception
         frontmatter = {}
+        line_number_match = exception.message.match(/.*line\s(\d+)/)
         @errors.push(Lookbook::Error.new(exception, {
           title: "YAML frontmatter parsing error",
-          file_name: @pathname.to_s,
-          line_number: nil
+          file_path: @pathname.to_s,
+          line_number: line_number_match ? line_number_match[1] : false
         }))
       end
-      options = Lookbook.config.page_options.deep_merge(frontmatter).with_indifferent_access
-      options[:id] = options[:id] ? generate_id(options[:id]) : generate_id(lookup_path)
-      options[:label] ||= name.titleize
-      options[:title] ||= options[:label]
-      options[:hidden] ||= false
-      options[:landing] ||= false
-      options[:position] = options[:position] ? options[:position].to_i : get_position_prefix(path_name)
-      options[:markdown] ||= markdown_file?
-      options[:header] = true unless options.key? :header
-      options[:footer] = true unless options.key? :footer
-      @options ||= options
+      @options = Lookbook.config.page_options.deep_merge(frontmatter).with_indifferent_access
+      @options[:id] = @options[:id] ? generate_id(@options[:id]) : generate_id(lookup_path)
+      @options[:label] ||= name.titleize
+      @options[:title] ||= @options[:label]
+      @options[:hidden] ||= false
+      @options[:landing] ||= false
+      @options[:position] = @options[:position] ? @options[:position].to_i : get_position_prefix(path_name)
+      @options[:markdown] ||= markdown_file?
+      @options[:header] = true unless @options.key? :header
+      @options[:footer] = true unless @options.key? :footer
+      @options
     end
 
     def path_name

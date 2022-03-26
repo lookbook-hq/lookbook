@@ -9,6 +9,10 @@ module Lookbook
       render_component "icon", name: name, size: size, **attrs
     end
 
+    def code(language = "ruby", **opts, &block)
+      render_component "code", {language: language, **opts}, &block
+    end
+
     if Rails.version.to_f < 6.1
       def class_names(*args)
         tokens = build_tag_values(*args).flat_map { |value| value.to_s.split(/\s+/) }.uniq

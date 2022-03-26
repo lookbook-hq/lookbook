@@ -68,7 +68,7 @@ module Lookbook
     end
 
     def preview_paths
-      ViewComponent::Preview.preview_paths
+      ViewComponent::Base.preview_paths
     end
 
     def parent_collections_names
@@ -143,7 +143,8 @@ module Lookbook
           Rails.logger.error "[lookbook] preview error\n#{exception.full_message}\n"
           @errors.push(Lookbook::Error.new(exception, {
             title: "Preview #{exception.class}",
-            file_name: file[:rel_path]
+            file_name: file[:rel_path],
+            file_path: file[:path]
           }))
         end
       end

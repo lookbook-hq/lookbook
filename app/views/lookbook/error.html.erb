@@ -4,23 +4,38 @@ error = error.is_a?(Lookbook::Error) ? error : Lookbook::Error.new(error)
 disable_header ||= false
 %>
 <%= component "header" unless disable_header %>
-<div class="h-full w-full bg-red-50 flex flex-col border-red-300">
-  <header class="flex-none px-8 py-8">
+<div class="h-full w-full bg-red-50 flex flex-col border-red-300" id="error-<%= Time.now %>">
+
+  <header class="mx-8  pt-8 mb-8 flex-none">
     <h2 class="text-xl font-bold text-red-700"><%= error.title %></h2>
   </header>
-
-  <div class="flex-none px-8 py-6 border-t border-b border-red-200 bg-red-100 text-base font-mono leading-relaxed">
-    <% if error.file_name %>
-    <div class="mb-2 text-gray-500">
-      <%= error.file_name %><%= ":#{error.line_number}" if error.line_number %>
-    </div>
-    <% end %>
-    <pre class="whitespace-pre-wrap"><%= error.message %></pre>
+  
+  <div class="flex-none px-8 py-6 mb-8 border-t border-b border-red-200 bg-red-100 text-base font-mono leading-relaxed">
+    <pre class="whitespace-pre-wrap font-sans leading-tight text-red-900"><%= error.message %></pre>
   </div>
 
-  <h3 class="font-bold mt-6 mb-4 px-8 flex-none">Full stack trace</h3>
+  <% if error.file_name %>
+    <div class="text-gray-800 text-sm mx-8 mb-2 pl-2 font-mono flex-none">
+      <span><%= error.file_name %></span>
+      <% if error.line_number %>
+        <span>[line <strong><%= error.line_number %></strong>]</span>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if error.source_code %>
+    <div class="bg-white mx-8 mb-2 border border-red-200 rounded-md ">
+      <%= code error.file_lang, highlight_lines: [error.source_code[:highlighted_line]],
+        line_numbers: true,
+        start_line: error.source_code[:start_line],
+        strip: false,
+        class: "py-4" do %><%= h(error.source_code[:code]) %><% end %>
+    </div>
+  <% end %>
+
+  <h3 class="font-bold mb-4 px-8 mt-8 flex-none">Full stack trace</h3>
   <div class="text-xs font-mono flex-grow h-full overflow-hidden">
-    <div class="h-full  overflow-auto px-8 pb-10 text-gray-400">
+    <div class="h-full overflow-auto px-8 pb-10 text-gray-400">
       <% error.backtrace.each do |line| %>
         <div class="py-1 hover:text-gray-900 transition-colors duration-100">
           <%= line %>

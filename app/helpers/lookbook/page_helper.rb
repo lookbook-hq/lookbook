@@ -7,10 +7,6 @@ module Lookbook
       lookbook.page_path page.lookup_path
     end
 
-    def code(language = "ruby", line_numbers: false, &block)
-      render_component "code", language: language, line_numbers: line_numbers, &block
-    end
-
     def embed(*args, params: {}, type: :preview, **opts)
       return unless args.any?
 
