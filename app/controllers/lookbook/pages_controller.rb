@@ -18,12 +18,19 @@ module Lookbook
       @pages = Lookbook.pages
       @page = @pages.find_by_path(params[:path])
       if @page
-        @page_content = page_controller.render_page(@page)
-        @next_page = @pages.find_next(@page)
-        @previous_page = @pages.find_previous(@page)
-        @title = @page.title
+        begin
+          throw @page.errors.first if @page.errors.any?
+          @page_content = page_controller.render_page(@page)
+          @next_page = @pages.find_next(@page)
+          @previous_page = @pages.find_previous(@page)
+          @title = @page.title
+        rescue => exception
+          render "lookbook/error", locals: {
+            title: "Page render error",
+            error: exception
+          }
+        end
       else
-        @title = "Not found"
         render "not_found"
       end
     end
