@@ -1,7 +1,7 @@
 <div
   x-data="sidebar"
   @page:morphed.window="setActiveNavItem"
-  class="h-full bg-gray-100 overflow-hidden flex flex-col"
+  class="h-full bg-gray-100 overflow-hidden flex flex-col relative"
   x-show="$store.sidebar.open"
   x-cloak>
 
@@ -14,8 +14,8 @@
   
   <% if feature_enabled?(:pages) && Lookbook.pages.any? %>
     <div
-      class="grid overflow-hidden"
-      :style="`grid-template-rows: ${$store.sidebar.panelSplits[0] || 1}fr 1px ${$store.sidebar.panelSplits[1] || 1}fr; height: calc(100vh - 40px)`"
+      class="grid overflow-hidden flex-grow"
+      :style="`grid-template-rows: ${$store.sidebar.panelSplits[0] || 1}fr 1px ${$store.sidebar.panelSplits[1] || 1}fr;`"
       x-ref="sidebarPanels">
       <div class="flex flex-col overflow-hidden">
         <div class="flex items-center flex-none border-b border-gray-300 h-10 bg-white relative px-4">   
@@ -49,6 +49,20 @@
     </div>
     <div class="flex-grow overflow-y-auto unsectioned">
       <%= component "nav", items: Lookbook.previews.as_tree, filterable: true %>
+    </div>
+  <% end %>
+
+  <% if Lookbook::Preview.errors.any? %>
+    <div class="flex-none" x-ref="preview-errors" id="preview-errors">
+      <div class="flex items-center border-b border-t border-gray-300 h-10 bg-white px-4">   
+        <h2 class="flex items-center flex-none">
+          <%= icon "alert-triangle", size: 4, class: "text-red-700" %>
+          <span class="ml-2" >Errors</span>
+        </h2>
+      </div>
+      <div class="h-full max-h-[300px] overflow-hidden">
+        <%= component "errors", errors: Lookbook::Preview.errors %>
+      </div>
     </div>
   <% end %>
 

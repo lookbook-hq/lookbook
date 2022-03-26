@@ -7,8 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        monospace:
-          "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace",
+        mono: "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace",
         sans: '"Nunito Sans", -apple-system, ".SFNSText-Regular", "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif',
       },
     },
