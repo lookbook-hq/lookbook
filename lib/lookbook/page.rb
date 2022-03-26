@@ -104,7 +104,11 @@ module Lookbook
         frontmatter = (get_frontmatter(file_contents) || {}).deep_symbolize_keys
       rescue => exception
         frontmatter = {}
-        @errors.push(exception)
+        @errors.push(Lookbook::Error.new(exception, {
+          title: "YAML frontmatter parsing error",
+          file_name: @pathname.to_s,
+          line_number: nil
+        }))
       end
       options = Lookbook.config.page_options.deep_merge(frontmatter).with_indifferent_access
       options[:id] = options[:id] ? generate_id(options[:id]) : generate_id(lookup_path)

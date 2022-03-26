@@ -141,10 +141,10 @@ module Lookbook
           @loaded_files.push(file[:rel_path])
         rescue => exception
           Rails.logger.error "[lookbook] preview error\n#{exception.full_message}\n"
-          @errors.push({
-            file: file,
-            exception: exception
-          })
+          @errors.push(Lookbook::Error.new(exception, {
+            title: "Preview #{exception.class}",
+            file_name: file[:rel_path]
+          }))
         end
       end
 

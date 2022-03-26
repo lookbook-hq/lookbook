@@ -10,7 +10,11 @@ module Lookbook
     def preview
       if @example
         set_params
-        render html: render_examples(examples_data)
+        begin
+          render html: render_examples(examples_data)
+        rescue => exception
+          render_in_layout "lookbook/error", layout: "lookbook/basic", error: exception, disable_header: true
+        end
       else
         render_in_layout "not_found"
       end
@@ -23,8 +27,8 @@ module Lookbook
           @examples = examples_data
           @drawer_panels = drawer_panels.filter { |name, panel| panel[:show] }
           @preview_panels = preview_panels.filter { |name, panel| panel[:show] }
-        rescue
-          render_in_layout "error"
+        rescue => exception
+          render_in_layout "lookbook/error", error: exception
         end
       else
         render_in_layout "not_found"
@@ -145,8 +149,8 @@ module Lookbook
       @preview_controller ||= controller
     end
 
-    def render_in_layout(path)
-      render path, layout: params[:lookbook_embed] ? "lookbook/basic" : "lookbook/application"
+    def render_in_layout(path, layout: nil, **locals)
+      render path, layout: layout.presence || (params[:lookbook_embed] ? "lookbook/basic" : "lookbook/application"), locals: locals
     end
   end
 end

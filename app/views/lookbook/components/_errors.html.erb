@@ -1,11 +1,12 @@
 <div class="bg-red-50 w-full overflow-auto h-full">
   <ul class="text-sm divide-y divide-red-200">
     <% errors.each do |error| %>
+      <% error = error.is_a?(Lookbook::Error) ? error : Lookbook::Error.new(error) %>
       <li class="px-4 py-3">
-        <h4 class="truncate">
-          <%= error[:file][:rel_path] %>:<%= error[:exception].backtrace[0].split(":")[1] %>
+        <h4 class="break-all leading-tight">
+          <%= error.file_name %><%= ":#{error.line_number}" if error.line_number %>
         </h4>
-        <pre class="text-red-800 text-xs mt-1 whitespace-pre-wrap opacity-80 font-mono"><%= error[:exception].message %></pre>
+        <pre class="text-red-800 text-xs mt-2 whitespace-pre-wrap opacity-80 font-mono"><%= error.message %></pre>
       </li>
     <% end %>
   </ul>

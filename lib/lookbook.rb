@@ -5,6 +5,7 @@ require "lookbook/version"
 module Lookbook
   extend ActiveSupport::Autoload
 
+  autoload :Error, "lookbook/error"
   autoload :Utils, "lookbook/utils"
   autoload :Lang, "lookbook/lang"
   autoload :Params, "lookbook/params"

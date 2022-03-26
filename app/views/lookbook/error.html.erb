@@ -1,15 +1,21 @@
 <%
-title ||= error.class
-@title = title
+error = error.is_a?(Lookbook::Error) ? error : Lookbook::Error.new(error)
+@title = error.title
+disable_header ||= false
 %>
-<%= component "header" %>
+<%= component "header" unless disable_header %>
 <div class="h-full w-full bg-red-50 flex flex-col border-red-300">
   <header class="flex-none px-8 py-8">
-    <h2 class="text-xl font-bold text-red-700"><%= title %></h2>
+    <h2 class="text-xl font-bold text-red-700"><%= error.title %></h2>
   </header>
 
-  <div class="flex-none px-8 py-6 border-t border-b border-red-200 bg-red-100 text-base leading-relaxed">
-    <pre class="whitespace-pre-wrap"><%= error.message.strip %></pre>
+  <div class="flex-none px-8 py-6 border-t border-b border-red-200 bg-red-100 text-base font-mono leading-relaxed">
+    <% if error.file_name %>
+    <div class="mb-2 text-gray-500">
+      <%= error.file_name %><%= ":#{error.line_number}" if error.line_number %>
+    </div>
+    <% end %>
+    <pre class="whitespace-pre-wrap"><%= error.message %></pre>
   </div>
 
   <h3 class="font-bold mt-6 mb-4 px-8 flex-none">Full stack trace</h3>
