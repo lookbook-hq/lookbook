@@ -1074,6 +1074,7 @@ pre[class*="language-"] {
 
 .code.numbered:before {
   content: "";
+  z-index: 10;
   --tw-border-opacity: 1;
   border-right-width: 1px;
   border-color: rgb(229 231 235 / var(--tw-border-opacity) );
@@ -1111,14 +1112,23 @@ pre[class*="language-"] {
   padding-right: 1rem;
 }
 
-.code.focussed .line:not(.highlighted-line) * {
-  --tw-text-opacity: 1 !important;
+.code.focussed .line:not(.highlighted-line) *, .code.focussed .line:not(.highlighted-line) .line-content * {
   color: rgb(55 65 81 / var(--tw-text-opacity) ) !important;
-  opacity: .5 !important;
+  --tw-text-opacity: .4 !important;
 }
 
 .code.focussed .line:not(.highlighted-line) .line-number {
-  opacity: .2 !important;
+  opacity: .7 !important;
+}
+
+.code.focussed .line.highlighted-line {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 252 232 / var(--tw-bg-opacity) );
+}
+
+.code.focussed .line.highlighted-line .line-number {
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity) );
 }
 
 .prose .code {
@@ -1261,6 +1271,10 @@ pre[class*="language-"] {
 
 .mb-2 {
   margin-bottom: .5rem;
+}
+
+.\!mt-1 {
+  margin-top: .25rem !important;
 }
 
 .mb-4 {
@@ -1445,6 +1459,14 @@ pre[class*="language-"] {
 
 .min-w-full {
   min-width: 100%;
+}
+
+.max-w-full {
+  max-width: 100%;
+}
+
+.\!max-w-full {
+  max-width: 100% !important;
 }
 
 .max-w-xs {
@@ -1718,6 +1740,11 @@ pre[class*="language-"] {
   border-color: rgb(254 202 202 / var(--tw-border-opacity) );
 }
 
+.\!border-red-200 {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(254 202 202 / var(--tw-border-opacity) ) !important;
+}
+
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity) );
@@ -1752,13 +1779,13 @@ pre[class*="language-"] {
   background-color: rgb(254 226 226 / var(--tw-bg-opacity) );
 }
 
+.bg-transparent {
+  background-color: #0000;
+}
+
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity) );
-}
-
-.bg-transparent {
-  background-color: #0000;
 }
 
 .\!bg-indigo-100 {
@@ -1813,14 +1840,14 @@ pre[class*="language-"] {
   padding-bottom: 1rem;
 }
 
-.py-1 {
-  padding-top: .25rem;
-  padding-bottom: .25rem;
-}
-
 .px-1 {
   padding-left: .25rem;
   padding-right: .25rem;
+}
+
+.py-1 {
+  padding-top: .25rem;
+  padding-bottom: .25rem;
 }
 
 .px-2 {
@@ -1975,6 +2002,10 @@ pre[class*="language-"] {
 
 .leading-tight {
   line-height: 1.25;
+}
+
+.leading-loose {
+  line-height: 2;
 }
 
 .leading-none {

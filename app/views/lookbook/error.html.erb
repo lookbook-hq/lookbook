@@ -15,7 +15,7 @@ disable_header ||= false
   </div>
 
   <% if error.file_name %>
-    <div class="text-gray-800 text-sm mx-8 mb-2 pl-2 font-mono flex-none">
+    <div class="text-gray-800 text-sm mx-8 mb-2 font-mono flex-none <%= "pl-2" if error.source_code %>">
       <span><%= error.file_name %></span>
       <% if error.line_number %>
         <span>[line <strong><%= error.line_number %></strong>]</span>
@@ -24,20 +24,20 @@ disable_header ||= false
   <% end %>
 
   <% if error.source_code %>
-    <div class="bg-white mx-8 mb-2 border border-red-200 rounded-md ">
+  <div class="prose max-w-full mx-8">
       <%= code error.file_lang, highlight_lines: [error.source_code[:highlighted_line]],
         line_numbers: true,
         start_line: error.source_code[:start_line],
         strip: false,
-        class: "py-4" do %><%= h(error.source_code[:code]) %><% end %>
-    </div>
+        class: "py-4 !max-w-full !border-red-200 !mt-1" do %><%= h(error.source_code[:code]) %><% end %>
+  </div>
   <% end %>
 
   <h3 class="font-bold mb-4 px-8 mt-8 flex-none">Full stack trace</h3>
   <div class="text-xs font-mono flex-grow h-full overflow-hidden">
-    <div class="h-full overflow-auto px-8 pb-10 text-gray-400">
+    <div class="h-full overflow-auto px-8 pb-10 text-gray-400 leading-relaxed">
       <% error.backtrace.each do |line| %>
-        <div class="py-1 hover:text-gray-900 transition-colors duration-100">
+        <div class="hover:text-gray-900 transition-colors duration-100">
           <%= line %>
         </div>
       <% end %>

@@ -25,19 +25,20 @@ module Lookbook
 
         line_count = end_line - start_line
         relevant_lines = lines.slice(start_line - 1, line_count + 1)
-        empty_start_lines = 0
+        if relevant_lines.present?
+          empty_start_lines = 0
+          relevant_lines.each do |line|
+            break unless line.strip.empty?
+            empty_start_lines += 1
+          end
 
-        relevant_lines.each do |line|
-          break unless line.strip.empty?
-          empty_start_lines += 1
+          {
+            code: relevant_lines.join("\n").lstrip,
+            start_line: start_line - empty_start_lines,
+            end_line: end_line - empty_start_lines,
+            highlighted_line: highlighted_line - empty_start_lines
+          }
         end
-
-        {
-          code: relevant_lines.join("\n").lstrip,
-          start_line: start_line - empty_start_lines,
-          end_line: end_line - empty_start_lines,
-          highlighted_line: highlighted_line - empty_start_lines
-        }
 
       end
     end
@@ -106,24 +107,15 @@ module Lookbook
     end
 
     def source_code_start_line(lines)
-      line = [(line_number - LINES_AROUND), 1].max unless line_number.nil?
-      p "ERROR #{line_number}"
-      p "START #{line}"
-      line
+      [(line_number - LINES_AROUND), 1].max unless line_number.nil?
     end
 
     def source_code_end_line(lines)
-      p "COUNT #{lines.size}"
-      line = [line_number + LINES_AROUND, lines&.size || Infinity].min
-      p "END #{line}"
-      line
+      [line_number + LINES_AROUND, lines&.size || Infinity].min
     end
 
     def source_code_highlighted_line(lines)
-      line = [line_number - source_code_start_line(lines) + 1, 1].max unless line_number.nil?
-      p "HIGHLIGHT #{line}"
-      p "--------------------------"
-      line
+      [line_number - source_code_start_line(lines) + 1, 1].max unless line_number.nil?
     end
   end
 end

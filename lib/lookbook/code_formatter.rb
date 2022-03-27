@@ -4,8 +4,8 @@ require "htmlbeautifier"
 module Lookbook
   module CodeFormatter
     class << self
-      def highlight(source, language, strip: true, **opts)
-        source&.strip! if strip
+      def highlight(source, language, opts = {})
+        source&.strip! unless opts[:strip] == false
         source&.gsub!("&gt;", ">")&.gsub!("&lt;", "<")
         language ||= "ruby"
         formatter = Formatter.new(opts)

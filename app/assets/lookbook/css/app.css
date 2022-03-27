@@ -93,7 +93,7 @@
   .code.numbered:before {
     content: "";
     left: 2.7em;
-    @apply absolute top-0 bottom-0 border-r border-gray-200;
+    @apply absolute top-0 bottom-0 border-r border-gray-200 z-10;
   }
 
   .code.numbered .line {
@@ -115,16 +115,25 @@
     @apply flex-none pr-4;
   }
 
-  .code.focussed .line:not(.highlighted-line) * {
-    @apply !text-gray-700 !opacity-50;
+  .code.focussed .line:not(.highlighted-line) *,
+  .code.focussed .line:not(.highlighted-line) .line-content * {
+    @apply !text-gray-700 !text-opacity-40;
   }
 
   .code.focussed .line:not(.highlighted-line) .line-number {
-    @apply !opacity-20;
+    @apply !opacity-70;
+  }
+
+  .code.focussed .line.highlighted-line {
+    @apply bg-yellow-50;
+  }
+
+  .code.focussed .line.highlighted-line .line-number {
+    @apply text-gray-900;
   }
 
   .prose .code {
-    @apply !bg-white border border-gray-300 text-gray-600 my-8 text-sm rounded-md py-4 overflow-auto max-w-3xl w-full mx-auto;
+    @apply !bg-white border border-gray-300 text-gray-600 my-8 rounded-md py-4 text-sm overflow-auto max-w-3xl w-full mx-auto;
   }
 
   .prose .code:not(.numbered) .line {
