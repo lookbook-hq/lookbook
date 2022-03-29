@@ -78,7 +78,6 @@ module Lookbook
         config.lookbook.cable.logger ||= Rails.logger
       else
         config.lookbook.cable.logger = Lookbook::NullLogger.new
-        config.action_view.logger = Lookbook::NullLogger.new
       end
     end
 
