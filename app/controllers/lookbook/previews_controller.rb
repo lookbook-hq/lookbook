@@ -176,7 +176,7 @@ module Lookbook
           }
         end
       end
-      Lookbook::Error.new(exception, error_params || {})
+      Lookbook::Error.new(exception, **(error_params || {}))
     end
   end
 end

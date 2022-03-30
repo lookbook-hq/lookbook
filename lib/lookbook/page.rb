@@ -106,7 +106,7 @@ module Lookbook
       rescue => exception
         frontmatter = {}
         line_number_match = exception.message.match(/.*line\s(\d+)/)
-        @errors.push(Lookbook::Error.new(exception, {
+        @errors.push(Lookbook::Error.new(exception, **{
           title: "YAML frontmatter parsing error",
           file_path: @pathname.to_s,
           line_number: line_number_match ? line_number_match[1] : false
