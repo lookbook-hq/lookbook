@@ -83,9 +83,6 @@ module Lookbook
 
     config.after_initialize do
       @preview_listener = Listen.to(*config.lookbook.listen_paths, only: /\.(rb|html.*)$/) do |modified, added, removed|
-        if Lookbook::Preview.errors.any?
-          Lookbook::Preview.reload
-        end
         begin
           parser.parse
         rescue

@@ -97,10 +97,18 @@ module Lookbook
       end
 
       def all
-        previews = load_previews.map do |p|
+        load_previews if preview_files.size > ViewComponent::Preview.descendants.size
+
+        previews = ViewComponent::Preview.descendants.map do |p|
           new(p)
         rescue
           Rails.logger.error "[lookbook] error instantiating preview\n#{exception.full_message}"
+        end
+
+        if errors.any?
+          errors.each do |error|
+            Rails.logger.error "[lookbook] preview error\n#{error.full_message}\n"
+          end
         end
 
         sorted_previews = previews.compact.sort_by { |preview| [preview.position, preview.label] }
@@ -108,44 +116,22 @@ module Lookbook
       end
 
       def errors
-        @errors || []
-      end
-
-      def reload
-        load_previews
+        @errors ||= []
       end
 
       protected
 
-      def reset_files_data
-        @loaded_files = []
-        @errors = []
-      end
-
       def load_previews
-        reset_files_data if @loaded_files.nil?
-        require_preview_files if @errors.any?
-
-        preview_classes = ViewComponent::Preview.descendants
-        if preview_files.size > preview_classes.size
-          require_preview_files
-        end
-
-        ViewComponent::Preview.descendants.filter { |klass| @loaded_files.include? "#{klass.name.underscore}.rb" }
-      end
-
-      def require_preview_files
-        reset_files_data
+        @errors = []
         preview_files.each do |file|
-          require_dependency(file[:path])
-          @loaded_files.push(file[:rel_path])
+          require_dependency file[:path]
         rescue => exception
-          Rails.logger.error "[lookbook] preview error\n#{exception.full_message}\n"
-          @errors.push(Lookbook::Error.new(exception, **{
-            title: "Preview #{exception.class}",
-            file_name: file[:rel_path],
-            file_path: file[:path]
-          }))
+          @errors.push(
+            Lookbook::Error.new(exception,
+              title: "Preview #{exception.class}",
+              file_name: file[:rel_path],
+              file_path: file[:path])
+          )
         end
       end
 
