@@ -19,12 +19,11 @@ module Lookbook
 
       if example
         @embed_counter += 1
-        render_component "embed", {
+        render_component "embed",
           id: generate_id("embed", url_for, example.lookup_path, @embed_counter - 1),
           example: example,
           params: params,
           opts: opts
-        }
       else
         embed_not_found
       end

@@ -28,10 +28,7 @@ module Lookbook
             @title = @page.title
           rescue => exception
             render "lookbook/error", locals: {
-              error: Lookbook::Error.new(exception, {
-                file_path: @page.full_path,
-                source_code: @page.content
-              })
+              error: Lookbook::Error.new(exception, file_path: @page.full_path, source_code: @page.content)
             }
           end
         end

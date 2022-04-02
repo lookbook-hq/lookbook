@@ -10,7 +10,7 @@ module Lookbook
     end
 
     def code(language = "ruby", **opts, &block)
-      render_component "code", {language: language, **opts}, &block
+      render_component "code", language: language, **opts, &block
     end
 
     if Rails.version.to_f < 6.1
