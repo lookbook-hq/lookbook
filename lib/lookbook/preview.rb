@@ -151,7 +151,7 @@ module Lookbook
 
       def preview_files
         files = Array(Lookbook.config.preview_paths).map do |preview_path|
-          Dir["#{preview_path}/**/*_preview.rb"].map do |path|
+          Dir["#{preview_path}/**/*preview.rb"].map do |path|
             {
               path: path,
               base_path: preview_path,
