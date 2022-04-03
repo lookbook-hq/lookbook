@@ -31,7 +31,11 @@ module Lookbook
     end
 
     def display_params
-      {}
+      merged = {}
+      examples.reverse.map do |example|
+        merged.merge! example.display_params
+      end
+      merged
     end
 
     def hidden?
