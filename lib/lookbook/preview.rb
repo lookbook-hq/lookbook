@@ -125,7 +125,7 @@ module Lookbook
         @errors = []
         preview_files.each do |file|
           require_dependency file[:path]
-        rescue => exception
+        rescue SyntaxError, StandardError => exception
           @errors.push(
             Lookbook::Error.new(exception,
               title: "Preview #{exception.class}",

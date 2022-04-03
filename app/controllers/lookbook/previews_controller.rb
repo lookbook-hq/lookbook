@@ -167,7 +167,6 @@ module Lookbook
         message_parts = exception.message.split("\n").first.split
         component_class = message_parts.first.constantize
         naughty_method = message_parts.last.delete("#").delete("`").delete(".")
-        p naughty_method
         method = component_class.instance_method(naughty_method.to_sym)
         if method
           {
