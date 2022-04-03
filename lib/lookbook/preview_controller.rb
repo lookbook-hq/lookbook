@@ -11,12 +11,12 @@ module Lookbook
       opts = {}
       opts[:layout] = nil
       opts[:locals] = locals if locals.present?
-      render_to_string template, opts
+      render html: render_to_string(template, **opts)
     end
 
     def render_in_layout_to_string(template, locals, layout = nil)
       append_view_path Lookbook::Engine.root.join("app/views")
-      render_to_string template, locals: locals, **determine_layout(layout)
+      render html: render_to_string(template, locals: locals, **determine_layout(layout))
     end
   end
 end
