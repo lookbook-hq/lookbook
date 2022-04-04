@@ -87,29 +87,22 @@ module Lookbook
           parser.parse
         rescue
         end
-        if Lookbook::Engine.websocket
-          if modified.any? || removed.any? || added.none?
-            Lookbook::Engine.websocket.broadcast("reload", {
-              modified: modified,
-              removed: removed,
-              added: added
-            })
-          end
-        end
+        Lookbook::Preview.clear_cache
+        Lookbook::Engine.websocket&.broadcast("reload", {
+          modified: modified,
+          removed: removed,
+          added: added
+        })
       end
       @preview_listener.start
 
       if Lookbook::Features.enabled?(:pages)
         @page_listener = Listen.to(*config.lookbook.page_paths.filter { |dir| Dir.exist? dir }, only: /\.(html.*|md.*)$/) do |modified, added, removed|
-          if Lookbook::Engine.websocket
-            if modified.any? || removed.any? || added.any?
-              Lookbook::Engine.websocket.broadcast("reload", {
-                modified: modified,
-                removed: removed,
-                added: added
-              })
-            end
-          end
+          Lookbook::Engine.websocket&.broadcast("reload", {
+            modified: modified,
+            removed: removed,
+            added: added
+          })
         end
         @page_listener.start
       end

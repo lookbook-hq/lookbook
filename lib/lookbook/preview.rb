@@ -96,8 +96,14 @@ module Lookbook
         !!find(path)
       end
 
+      def clear_cache
+        @previews = nil
+      end
+
       def all
         load_previews if preview_files.size > ViewComponent::Preview.descendants.size
+
+        return @previews if @previews.present?
 
         previews = ViewComponent::Preview.descendants.map do |p|
           new(p)
@@ -112,7 +118,7 @@ module Lookbook
         end
 
         sorted_previews = previews.compact.sort_by { |preview| [preview.position, preview.label] }
-        PreviewCollection.new(sorted_previews)
+        @previews ||= PreviewCollection.new(sorted_previews)
       end
 
       def errors
