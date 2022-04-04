@@ -1,3 +1,3 @@
 module Lookbook
-  VERSION = "0.7.2.beta.4"
+  VERSION = "0.7.2.beta.5"
 end
