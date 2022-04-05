@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lookbook (0.7.2.beta.5)
+    lookbook (0.7.2)
       actioncable
       htmlbeautifier (~> 1.3)
       listen (~> 3.0)
