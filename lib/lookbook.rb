@@ -20,7 +20,6 @@ module Lookbook
   autoload :PreviewExample, "lookbook/preview_example"
   autoload :PreviewGroup, "lookbook/preview_group"
   autoload :CodeInspector, "lookbook/code_inspector"
-  autoload :NullLogger, "lookbook/null_logger"
   autoload :CodeFormatter, "lookbook/code_formatter"
   autoload :Markdown, "lookbook/markdown"
 

@@ -10,7 +10,7 @@ module Lookbook
     end
 
     def logger
-      @logger ||= config.debug == true ? Rails.logger : Lookbook::NullLogger.new
+      @logger ||= Rails.logger
     end
 
     def version
@@ -54,10 +54,8 @@ module Lookbook
       options.listen_paths << (vc_options.view_component_path || Rails.root.join("app/components"))
       options.listen_paths.filter! { |path| Dir.exist? path }
 
-      options.cable = ActionCable::Server::Configuration.new
-      options.cable.cable = {adapter: "async"}.with_indifferent_access
-      options.cable.mount_path ||= "/lookbook-cable"
-      options.cable.connection_class = -> { Lookbook::Connection }
+      options.cable_mount_path ||= "/lookbook-cable"
+      options.cable_logger ||= Rails.logger
 
       options.experimental_features = false unless options.experimental_features.present?
     end
@@ -71,14 +69,6 @@ module Lookbook
         Rack::Static,
         urls: ["/lookbook-assets"], root: Lookbook::Engine.root.join("public").to_s
       )
-    end
-
-    initializer "lookbook.logging" do
-      if config.lookbook.debug == true
-        config.lookbook.cable.logger ||= Rails.logger
-      else
-        config.lookbook.cable.logger = Lookbook::NullLogger.new
-      end
     end
 
     config.after_initialize do
@@ -118,18 +108,24 @@ module Lookbook
     class << self
       def websocket
         if config.lookbook.auto_refresh
+          cable = ActionCable::Server::Configuration.new
+          cable.cable = {adapter: "async"}.with_indifferent_access
+          cable.mount_path = config.lookbook.cable_mount_path
+          cable.connection_class = -> { Lookbook::Connection }
+          cable.logger = config.lookbook.cable_logger
+
           @websocket ||= if Rails.version.to_f >= 6.0
-            ActionCable::Server::Base.new(config: config.lookbook.cable)
+            ActionCable::Server::Base.new(config: cable)
           else
             websocket ||= ActionCable::Server::Base.new
-            websocket.config = config.lookbook.cable
+            websocket.config = cable
             websocket
           end
         end
       end
 
       def websocket_mount_path
-        "#{mounted_path}#{config.lookbook.cable.mount_path}" if websocket
+        "#{mounted_path}#{config.lookbook.cable_mount_path}" if websocket
       end
 
       def mounted_path
