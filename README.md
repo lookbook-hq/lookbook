@@ -704,8 +704,10 @@ rake lookbook:previews:preparse
 If you wish to run this as part of your existing assets precompilation step, you can add the following into your app's `Rakefile`:
 
 ```ruby
-Rake::Task['assets:precompile'].enhance do
-  Rake::Task["lookbook:previews:preparse"].invoke
+if Rails.env.production?
+  Rake::Task['assets:precompile'].enhance do
+    Rake::Task["lookbook:previews:preparse"].invoke
+  end
 end
 ```
 
