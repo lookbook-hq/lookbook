@@ -2,26 +2,30 @@ require "yard"
 
 module Lookbook
   class Parser
-    YARDOC_FILE_PATH = Rails.root.join("tmp/storage/.yardoc").to_s
-
-    def initialize(paths)
+    attr_reader :registry_path
+    def initialize(paths, registry_path)
       @paths = paths.map { |p| "#{p}/**/*preview.rb" }
-      YARD::Registry.yardoc_file = YARDOC_FILE_PATH
+      @registry_path = registry_path.to_s
+      YARD::Registry.yardoc_file = registry_path
     end
 
     def parse
       YARD::Registry.clear
       YARD::Registry.lock_for_writing do
         YARD.parse(@paths)
-        YARD::Registry.save(false, YARDOC_FILE_PATH)
+        YARD::Registry.save(false, registry_path)
       end
     end
 
     def get_code_object(path)
       registry = YARD::RegistryStore.new
-      registry.load!(YARDOC_FILE_PATH)
+      registry.load!(registry_path)
       registry.get(path)
     end
+
+    # def yardoc_file_path
+    #   Rails&.root ? Rails.root.join(YARDOC_FILE_PATH) : YARDOC_FILE_PATH
+    # end
 
     class << self
       def define_tags

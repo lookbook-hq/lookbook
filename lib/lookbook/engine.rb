@@ -49,6 +49,7 @@ module Lookbook
       options.preview_srcdoc = false if options.preview_srcdoc.nil?
       options.preview_display_params ||= {}.with_indifferent_access
 
+      options.listen = Rails.env.development? if options.listen.nil?
       options.listen_paths = options.listen_paths.map(&:to_s)
       options.listen_paths += options.preview_paths
       options.listen_paths << (vc_options.view_component_path || Rails.root.join("app/components"))
@@ -56,6 +57,9 @@ module Lookbook
 
       options.cable_mount_path ||= "/lookbook-cable"
       options.cable_logger ||= Rails.logger
+
+      options.runtime_parsing = !Rails.env.production? if options.runtime_parsing.nil?
+      options.parser_registry_path ||= Rails.root.join("tmp/storage/.yardoc")
 
       options.experimental_features = false unless options.experimental_features.present?
     end
@@ -74,32 +78,45 @@ module Lookbook
     config.after_initialize do
       preview_controller = Lookbook.config.preview_controller.constantize
       preview_controller.class_eval { include Lookbook::PreviewController }
-      @preview_listener = Listen.to(*config.lookbook.listen_paths, only: /\.(rb|html.*)$/) do |modified, added, removed|
-        begin
-          parser.parse
-        rescue
-        end
-        Lookbook::Preview.clear_cache
-        Lookbook::Engine.websocket&.broadcast("reload", {
-          modified: modified,
-          removed: removed,
-          added: added
-        })
-      end
-      @preview_listener.start
 
-      if Lookbook::Features.enabled?(:pages)
-        @page_listener = Listen.to(*config.lookbook.page_paths.filter { |dir| Dir.exist? dir }, only: /\.(html.*|md.*)$/) do |modified, added, removed|
+      if config.lookbook.listen
+        @preview_listener = Listen.to(*config.lookbook.listen_paths, only: /\.(rb|html.*)$/) do |modified, added, removed|
+          begin
+            parser.parse
+          rescue
+          end
+          Lookbook::Preview.clear_cache
           Lookbook::Engine.websocket&.broadcast("reload", {
             modified: modified,
             removed: removed,
             added: added
           })
         end
-        @page_listener.start
-      end
+        @preview_listener.start
 
-      parser.parse
+        if Lookbook::Features.enabled?(:pages)
+          @page_listener = Listen.to(*config.lookbook.page_paths.filter { |dir| Dir.exist? dir }, only: /\.(html.*|md.*)$/) do |modified, added, removed|
+            Lookbook::Engine.websocket&.broadcast("reload", {
+              modified: modified,
+              removed: removed,
+              added: added
+            })
+          end
+          @page_listener.start
+        end
+
+        if config.lookbook.runtime_parsing
+          parser.parse
+        else
+          unless File.exist?(config.lookbook.parser_registry_path)
+            Lookbook.logger.warn "
+              Runtime parsing is disabled but no registry file has been found.
+              Did you run `rake lookbook:preparse` before starting the app?
+              Expected to find registry file at #{config.lookbook.parser_registry_path}
+            "
+          end
+        end
+      end
     end
 
     at_exit do
@@ -135,7 +152,7 @@ module Lookbook
       end
 
       def parser
-        @parser ||= Lookbook::Parser.new(config.lookbook.preview_paths)
+        @parser ||= Lookbook::Parser.new(config.lookbook.preview_paths, config.lookbook.parser_registry_path)
       end
     end
   end
