@@ -72,6 +72,8 @@ module Lookbook
     end
 
     config.after_initialize do
+      preview_controller = Lookbook.config.preview_controller.constantize
+      preview_controller.class_eval { include Lookbook::PreviewController }
       @preview_listener = Listen.to(*config.lookbook.listen_paths, only: /\.(rb|html.*)$/) do |modified, added, removed|
         begin
           parser.parse

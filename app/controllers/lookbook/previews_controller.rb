@@ -145,7 +145,6 @@ module Lookbook
     def preview_controller
       return @preview_controller if @preview_controller.present?
       controller_class = Lookbook.config.preview_controller.constantize
-      controller_class.class_eval { include Lookbook::PreviewController }
       controller = controller_class.new
       controller.request = request
       controller.response = response
