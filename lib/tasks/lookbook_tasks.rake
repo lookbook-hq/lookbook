@@ -1,6 +1,15 @@
 require_relative "../lookbook"
 
 namespace :lookbook do
+
+  namespace :previews do
+    desc "Preparse the previews"
+    task :preparse do
+      Lookbook::Engine.parser.parse
+      puts "Lookbook preview parsing complete"
+    end
+  end
+
   namespace :release do
     desc "Bump the Lookbook engine version number"
     task :bump_version, [:version] do |t, args|
