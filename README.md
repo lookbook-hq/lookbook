@@ -541,7 +541,7 @@ config.lookbook.page_options = {
   footer: false,
   data: {
     brand_colors: {
-      red: #ff0000
+      red: "#ff0000"
     }
   }
 }
