@@ -1,6 +1,7 @@
 require "active_support/dependencies/autoload"
 require "lookbook/engine"
 require "lookbook/version"
+require "view_component/engine"
 
 module Lookbook
   extend ActiveSupport::Autoload

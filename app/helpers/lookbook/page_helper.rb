@@ -32,7 +32,7 @@ module Lookbook
     protected
 
     def embed_not_found
-      render_component "not_found", {
+      component "not_found", {
         title: "Preview not found",
         text: "The preview may have been renamed or deleted."
       }

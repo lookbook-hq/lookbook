@@ -1,16 +1,29 @@
 module Lookbook
   module ComponentHelper
-    def render_component(name, **attrs, &block)
+    COMPONENT_CLASSES = {} # cache for constantized references
+
+    # ViewComponent handler
+    def render_component(ref, *args, &block)
+      klass = component_class(ref)
+      render klass.new(*args), &block
+    end
+
+    def render_component_tag(*args, &block)
+      render_component("tag", *args, &block)
+    end
+
+    # legacy component handler
+    def component(name, **attrs, &block)
       attrs[:classes] = class_names(attrs[:class])
       render "lookbook/components/#{name.underscore}", **attrs.except(:class), &block
     end
 
     def icon(name, size: 4, **attrs)
-      render_component "icon", name: name, size: size, **attrs
+      component "icon", name: name, size: size, **attrs
     end
 
     def code(language = "ruby", **opts, &block)
-      render_component "code", language: language, **opts, &block
+      component "code", language: language, **opts, &block
     end
 
     if Rails.version.to_f < 6.1
@@ -20,9 +33,22 @@ module Lookbook
       end
     end
 
-    alias_method :component, :render_component
-
     private
+
+    def component_class(ref)
+      klass = COMPONENT_CLASSES[ref]
+      if klass.nil?
+        ref = ref.to_s.tr("-", "_")
+        class_namespace = ref.camelize
+        begin
+          klass = "Lookbook::#{class_namespace}Component".constantize
+        rescue
+          klass = "Lookbook::#{class_namespace}::Component".constantize
+        end
+        COMPONENT_CLASSES[ref] = klass
+      end
+      klass
+    end
 
     def build_tag_values(*args)
       tag_values = []

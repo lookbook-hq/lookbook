@@ -2,7 +2,17 @@ import { install } from "@github/hotkey";
 import Alpine from "alpinejs";
 import Persist from "@alpinejs/persist";
 import Morph from "@alpinejs/morph";
+
+// Plugins
+
+Alpine.plugin(Persist);
+Alpine.plugin(Morph);
+
+//// OLD WORLD -----------------------------------------------
+
 import Tooltip from "@ryangjchandler/alpine-tooltip";
+
+Alpine.plugin(Tooltip);
 
 import app from "./components/app";
 import page from "./components/page";
@@ -27,12 +37,6 @@ import initNavStore from "./stores/nav";
 import initSidebarStore from "./stores/sidebar";
 import initInspectorStore from "./stores/inspector";
 import initPagesStore from "./stores/pages";
-
-// Plugins
-
-Alpine.plugin(Persist);
-Alpine.plugin(Morph);
-Alpine.plugin(Tooltip);
 
 // Stores
 
@@ -68,5 +72,4 @@ for (const el of document.querySelectorAll("[data-hotkey]")) {
   install(el);
 }
 
-window.Alpine = Alpine;
-Alpine.start();
+//// END OLD WORLD -----------------------------------------------

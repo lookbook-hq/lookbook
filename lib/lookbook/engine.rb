@@ -26,6 +26,8 @@ module Lookbook
     config.lookbook.preview_paths ||= []
     config.lookbook.page_paths ||= ["test/components/docs"]
 
+    config.autoload_paths << File.expand_path(Lookbook::Engine.root.join("app/components"))
+
     initializer "view_component.set_configs" do
       options = config.lookbook
       vc_options = config.view_component

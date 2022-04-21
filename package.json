@@ -7,6 +7,7 @@
       "source": [
         "./app/assets/lookbook/js/embed.js",
         "./app/assets/lookbook/js/app.js",
+        "./app/assets/lookbook/js/lookbook.js",
         "./app/assets/lookbook/css/app.css"
       ],
       "distDir": "./public/lookbook-assets"
@@ -23,6 +24,7 @@
   "author": "Mark Perkins",
   "license": "MIT",
   "devDependencies": {
+    "@parcel/resolver-glob": "^2.4.0",
     "@tailwindcss/forms": "^0.4.0",
     "@tailwindcss/typography": "^0.5.0",
     "autoprefixer": "^10.4.0",
@@ -42,7 +44,6 @@
     "@alpinejs/persist": "^3.9.1",
     "@github/hotkey": "^1.6.0",
     "@rails/actioncable": "^6.1.4",
-    "@ryangjchandler/alpine-tooltip": "^0.1.2",
     "alpinejs": "^3.9.1",
     "debounce": "^1.2.1",
     "iframe-resizer": "^4.3.2",

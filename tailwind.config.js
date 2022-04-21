@@ -1,8 +1,12 @@
 module.exports = {
   content: [
     "./app/views/**/*.html.erb",
+    "./app/components/**/*.html.erb",
+    "./app/components/**/*.rb",
     "./app/assets/**/*.js",
     "./app/controllers/**/*.rb",
+    "./test/components/**/*.rb",
+    "./test/components/**/*.html.erb",
   ],
   theme: {
     extend: {

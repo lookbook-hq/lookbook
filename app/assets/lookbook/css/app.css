@@ -18,7 +18,7 @@
   }
 
   [x-cloak] {
-    display: none !important;
+    /* display: none !important; */
   }
 
   pre[class*="language-"] {
