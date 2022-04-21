@@ -47,6 +47,9 @@ module Lookbook
         if params[:path] == @preview&.lookup_path
           redirect_to show_path "#{params[:path]}/#{@preview.default_example.name}"
         end
+      else
+        first_example = Lookbook.previews.find(params[:path])&.examples&.first
+        redirect_to show_path(first_example.lookup_path) if first_example
       end
     end
 
