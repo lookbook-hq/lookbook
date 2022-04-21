@@ -1,0 +1,56 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "./theme.css";
+@import "./tooltip.css";
+
+@import-glob "../../../components/lookbook/**/*/component.css";
+
+@layer base {
+  html {
+    @apply scroll-smooth h-screen;
+  }
+
+  @media screen and (prefers-reduced-motion: reduce) {
+    html {
+      @apply scroll-auto;
+    }
+  }
+
+  body {
+    @apply text-lookbook-text font-sans text-sm antialiased overflow-hidden;
+  }
+
+  [x-cloak] {
+    @apply !hidden;
+  }
+
+  pre[class*="language-"] {
+    @apply !p-0 !m-0;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-1 h-1;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply transition-colors rounded-full	bg-clip-content bg-lookbook-scrollbar-thumb;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-lookbook-scrollbar-thumb-hover;
+  }
+}
+
+@layer components {
+  .form-input {
+    @apply text-lookbook-input-text placeholder:text-lookbook-input-text-placeholder placeholder:italic;
+    @apply border-lookbook-input-border focus:ring-lookbook-input-border-focus focus:border-lookbook-input-border-focus;
+    @apply rounded-md text-sm w-full;
+  }
+}

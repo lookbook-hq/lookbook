@@ -34,8 +34,7 @@ module Lookbook
 
           {
             code: relevant_lines.join("\n").lstrip,
-            start_line: start_line - empty_start_lines,
-            end_line: end_line - empty_start_lines,
+            start_line: start_line,
             highlighted_line: highlighted_line - empty_start_lines
           }
         end

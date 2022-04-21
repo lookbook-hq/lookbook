@@ -11,5 +11,7 @@ Lookbook::Engine.routes.draw do
   end
 
   get "/preview/*path", to: "previews#preview", as: :preview
-  get "/*path", to: "previews#show", as: :show
+  get "/inspect/*path", to: "previews#show", as: :inspect
+
+  get "/*path", to: "previews#show_legacy", as: :inspect_legacy
 end

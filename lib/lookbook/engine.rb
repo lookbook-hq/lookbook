@@ -10,7 +10,7 @@ module Lookbook
     end
 
     def logger
-      @logger ||= Rails.logger
+      @logger ||= Rails.env.development? ? Logger.new($stdout) : Rails.logger
     end
 
     def version
@@ -34,8 +34,8 @@ module Lookbook
 
       options.project_name ||= options.project_name == false ? nil : options.project_name || "Lookbook"
       options.auto_refresh = true if options.auto_refresh.nil?
+      options.log_level ||= 1
       options.sort_examples = false if options.sort_examples.nil?
-      options.debug = false unless options.debug == true
 
       options.preview_paths = options.preview_paths.map(&:to_s)
       options.preview_paths += vc_options.preview_paths
@@ -64,6 +64,10 @@ module Lookbook
       options.parser_registry_path ||= Rails.root.join("tmp/storage/.yardoc")
 
       options.experimental_features = false unless options.experimental_features.present?
+    end
+
+    initializer "lookbook.logging.development" do
+      Lookbook.logger.level = Lookbook.config.log_level if Rails.env.development?
     end
 
     initializer "lookbook.parser.tags" do
@@ -155,6 +159,10 @@ module Lookbook
 
       def parser
         @parser ||= Lookbook::Parser.new(config.lookbook.preview_paths, config.lookbook.parser_registry_path)
+      end
+
+      def log_level
+        Lookbook.logger.level
       end
 
       attr_reader :preview_controller

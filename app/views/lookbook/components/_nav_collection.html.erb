@@ -1,5 +1,0 @@
-<%= component "nav_group", node: node do %>
-  <% node.items.each do |item| %>
-    <%= component "nav_#{item.type}", node: item %>
-  <% end %>
-<% end %>

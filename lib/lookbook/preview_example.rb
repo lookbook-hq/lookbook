@@ -8,7 +8,7 @@ module Lookbook
     def initialize(name, preview)
       @name = name
       @preview = preview
-      @example_inspector = CodeInspector.new("#{@preview.name}##{name}")
+      @example_inspector = SourceInspector.new("#{@preview.name}##{name}")
     end
 
     def id
@@ -17,6 +17,10 @@ module Lookbook
 
     def path
       "#{@preview.path}/#{name}"
+    end
+
+    def url_path
+      inspect_path lookup_path
     end
 
     def label

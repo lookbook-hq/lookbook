@@ -1,18 +1,7 @@
-<div class="p-4 h-full bg-white overflow-auto" data-morph-strategy="replace">
-  <%= component "code", wrap: "vertical" do -%>
-    <% if examples.many? %>
-      <% examples.each do |example| -%>
-        <%== "\n<!-- #{example[:label]} -->\n#{beautify(example[:html])}" %>
-      <% end %>
-    <% else -%>
-      <%== beautify(examples.first[:html]) %>
-    <% end %>
-  <% end %>
-  <% if defined?(clipboard_id) %>
-    <template id="<%= clipboard_id %>">
-      <% examples.each do |example| -%>
-        <%== beautify(example[:html]) %>
-      <%- end %>
-    </template>
-  <% end %>
-</div>
+<%= render_component :code, line_numbers: true, full_height: true do -%>
+  <% if rendered_examples.many? -%>
+    <% rendered_examples.each do |example| -%><%== "<!-- #{example[:label]} -->\n#{beautify(example[:html])}\n\n" -%><% end %>
+  <%- else -%>
+    <%== beautify(rendered_examples.first[:html]) -%>
+  <%- end %>
+<% end %>

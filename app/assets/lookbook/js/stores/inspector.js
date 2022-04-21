@@ -1,25 +1,17 @@
-import config from "../config";
-
-export default function createInspectorStore(Alpine) {
-  const { drawer, preview } = config.inspector;
+export default function initInspectorStore(Alpine) {
   return {
-    drawer: {
-      hidden: Alpine.$persist(false).as("drawer-hidden"),
-      orientation: Alpine.$persist(drawer.orientation).as("drawer-orientation"),
-      panel: Alpine.$persist(drawer.defaultPanel).as("drawer-panel"),
-      height: Alpine.$persist(drawer.defaultHeight).as("drawer-height"),
-      width: Alpine.$persist(drawer.defaultWidth).as("drawer-width"),
-      minWidth: drawer.minWidth,
-      minHeight: drawer.minHeight,
-      visibleTabCount: Infinity,
-    },
     preview: {
-      width: Alpine.$persist("100%").as("preview-width"),
-      height: Alpine.$persist("100%").as("preview-height"),
-      panel: Alpine.$persist(preview.defaultPanel).as("preview-panel"),
+      activeTab: Alpine.$persist("").as("inspector-preview-active-tab"),
+      width: Alpine.$persist("100%").as("inspector-preview-width"),
+      height: Alpine.$persist("100%").as("inspector-preview-height"),
       lastWidth: null,
       lastHeight: null,
       resizing: false,
+    },
+
+    drawer: {
+      hidden: Alpine.$persist(false).as("inspector-drawer-hidden"),
+      activeTab: Alpine.$persist("").as("inspector-drawer-active-tab"),
     },
   };
 }

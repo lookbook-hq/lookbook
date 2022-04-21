@@ -18,6 +18,10 @@ module Lookbook
       "#{@preview.path}/#{name}"
     end
 
+    def url_path
+      inspect_path lookup_path
+    end
+
     def label
       name.titleize
     end

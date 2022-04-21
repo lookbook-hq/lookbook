@@ -1,0 +1,49 @@
+<%= render_component_tag class: "px-4 py-3" do %>
+  <div class="flex items-start max-w-[800px]">
+    <div class="flex-none py-2 w-[200px]" >
+      <label for="param-<%= @name %>" class="font-bold cursor-pointer">
+        <%= label %>
+      </label>
+    </div>
+    <div class="flex-grow">
+      <% if field_type == "text" %>
+      
+        <input
+          class="form-input"
+          value="<%= value %>"
+          type="<%= @input_type %>"
+          x-bind="bindings.input">
+
+      <% elsif field_type == "textarea" %>
+
+        <textarea
+          class="form-input"
+          rows="4"
+          x-bind="bindings.input"><%= value %></textarea>
+
+      <% elsif field_type == "select" %>
+
+        <select
+          class="form-input"
+          x-bind="bindings.input"
+          x-model="value">
+          <%= options_for_select(@options, value) %>
+        </select>
+
+      <% elsif field_type == "toggle" %>
+
+        <button type="button"
+          class="<%= value == true ? "bg-lookbook-toggle-bg-active" : "bg-lookbook-toggle-bg" %> relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-input-border-focus"
+          role="switch"
+          @click.stop="value = !value">
+          <span
+            aria-hidden="true"
+            class="<%= value == true ? "translate-x-5" : "translate-x-0" %>  pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow ring-0 transition ease-in-out duration-200"
+          ></span>
+        </button>
+
+      <% end %>
+    </div>
+  </div>
+<% end %>
+

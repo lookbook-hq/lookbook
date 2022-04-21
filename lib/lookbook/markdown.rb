@@ -19,12 +19,10 @@ module Lookbook
     class Renderer < Redcarpet::Render::HTML
       def block_code(code, language = "ruby")
         line_numbers = language.to_s.end_with? "-numbered"
-        ApplicationController.render "lookbook/components/_code", locals: {
-          code: code,
+        ApplicationController.render(Lookbook::Code::Component.new(code, {
           language: language.to_s.chomp("-numbered"),
           line_numbers: line_numbers
-        },
-        layout: nil
+        }), layout: nil)
       end
     end
   end

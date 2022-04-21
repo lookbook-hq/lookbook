@@ -1,5 +1,7 @@
 module Lookbook
   module Utils
+    include Lookbook::Engine.routes.url_helpers
+
     POSITION_PREFIX_REGEX = /^(\d+?)[-_]/
     FRONTMATTER_REGEX = /\A---(.|\n)*?---/
 
@@ -7,7 +9,7 @@ module Lookbook
 
     def generate_id(*args)
       parts = args.map { |arg| arg.to_s.parameterize.underscore }
-      parts.join("-").tr("/", "-").tr("_", "-").delete_prefix("-").delete_suffix("-").gsub("--", "-")
+      parts.join("-").tr("/_", "-").delete_prefix("-").delete_suffix("-").gsub("--", "-")
     end
 
     def preview_class_basename(klass)
@@ -48,6 +50,12 @@ module Lookbook
 
     def to_preview_path(*args)
       args.flatten.map { |arg| preview_class_name(arg) }.join("/")
+    end
+
+    protected
+
+    def default_url_options
+      {}
     end
 
     private

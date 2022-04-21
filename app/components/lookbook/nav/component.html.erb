@@ -1,0 +1,31 @@
+<%= render_component_tag class: "flex flex-col overflow-hidden h-full",
+  "@filter:change.stop": "filter($event.detail.text)" do %>
+  
+  <%= render_component :toolbar do |toolbar| %>
+    <% toolbar.section padded: true do %>
+      <h4><%= label %></h4>
+    <% end %>
+  <% end %>
+
+  <% if filter %>
+    <div class="p-2 pb-0">
+      <%= filter %>
+    </div>
+  <% end %>
+
+  <div class="overflow-auto">
+    <% if items.any? %>
+      <ul class="py-2" x-ref="items" x-show="!empty" x-cloak>
+        <%= safe_join(items) %>
+      </ul>
+      <div class="p-4 text-center" x-show="empty" x-cloak>
+        <h4 class="opacity-50 italic">No matching <%= label.downcase %>.</h4>
+      </div>
+    <% else %>
+      <div class="p-4 text-center">
+        <h4 class="opacity-50 italic">No <%= label.downcase %> available.</h4>
+      </div>
+    <% end %>
+  </div>
+
+<% end %>

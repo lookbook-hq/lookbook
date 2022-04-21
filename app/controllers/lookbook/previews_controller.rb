@@ -1,5 +1,7 @@
 module Lookbook
   class PreviewsController < ApplicationController
+    layout "lookbook/inspector"
+
     def self.controller_path
       "lookbook/previews"
     end
@@ -14,12 +16,11 @@ module Lookbook
           render html: render_examples(examples_data)
         rescue => exception
           render_in_layout "lookbook/error",
-            layout: "lookbook/basic",
-            error: prettify_error(exception),
-            disable_header: true
+            layout: "lookbook/standalone",
+            error: prettify_error(exception)
         end
       else
-        render_in_layout "not_found"
+        show_404 layout: "lookbook/standalone"
       end
     end
 
@@ -27,30 +28,55 @@ module Lookbook
       if @example
         begin
           set_params
-          @examples = examples_data
+          @rendered_examples = examples_data
           @drawer_panels = drawer_panels.filter { |name, panel| panel[:show] }
           @preview_panels = preview_panels.filter { |name, panel| panel[:show] }
         rescue => exception
-          render_in_layout "lookbook/error", error: prettify_error(exception)
+          render_in_layout "lookbook/error", layout: "lookbook/inspector", error: prettify_error(exception)
         end
       else
-        render_in_layout "not_found"
+        show_404
       end
+    end
+
+    def show_legacy
+      Lookbook.logger.warn("Legacy URL path detected. These paths are deprecated and will be removed in a future version")
+      redirect_to inspect_path params[:path]
     end
 
     private
 
     def lookup_entities
       @example = Lookbook.previews.find_example(params[:path])
-      if @example
+      if @example.present?
         @preview = @example.preview
         if params[:path] == @preview&.lookup_path
-          redirect_to show_path "#{params[:path]}/#{@preview.default_example.name}"
+          redirect_to inspect_path "#{params[:path]}/#{@preview.default_example.name}"
         end
       else
-        first_example = Lookbook.previews.find(params[:path])&.examples&.first
-        redirect_to show_path(first_example.lookup_path) if first_example
+        @preview = Lookbook.previews.find(params[:path])
+        if @preview.present?
+          first_example = @preview.examples.first
+          redirect_to inspect_path(first_example.lookup_path) if first_example
+        else
+          @preview = Lookbook.previews.find(path_segments.slice(0, path_segments.size - 1).join("/"))
+        end
       end
+    end
+
+    def show_404(layout: nil)
+      locals = if @preview
+        {
+          message: "Example not found",
+          description: "The '#{@preview.label}' preview does not have an example named '#{path_segments.last}'."
+        }
+      else
+        {
+          message: "Not found",
+          description: "Looked for '#{params[:path]}'.<br>The preview may have been renamed or deleted."
+        }
+      end
+      render_in_layout "lookbook/404", layout: layout, **locals
     end
 
     def set_title
@@ -77,7 +103,7 @@ module Lookbook
     end
 
     def render_examples(examples)
-      preview_controller.process(:render_in_layout_to_string, "layouts/lookbook/preview", {examples: examples}, @preview.layout)
+      preview_controller.process(:render_in_layout_to_string, "layouts/lookbook/preview", {rendered_examples: examples}, @preview.layout)
     end
 
     def set_params
@@ -99,21 +125,22 @@ module Lookbook
     def preview_panels
       {
         preview: {
+          id: "preview-panel-preview",
           label: "Preview",
           template: "lookbook/previews/panels/preview",
-          srcdoc: Lookbook.config.preview_srcdoc ? render_examples(examples_data).gsub("\"", "&quot;") : nil,
           hotkey: "v",
           show: true,
           disabled: false,
           copy: false
         },
         output: {
+          id: "preview-panel-html",
           label: "HTML",
           template: "lookbook/previews/panels/output",
-          hotkey: "o",
+          hotkey: "h",
           show: true,
           disabled: false,
-          copy: true
+          copy: false
         }
       }
     end
@@ -121,26 +148,31 @@ module Lookbook
     def drawer_panels
       {
         source: {
+          id: "drawer-panel-source",
           label: "Source",
           template: "lookbook/previews/panels/source",
           hotkey: "s",
           show: true,
           disabled: false,
-          copy: true
+          copy: @rendered_examples.map { |e| e[:source] }.join("\n")
         },
         notes: {
+          id: "drawer-panel-notes",
           label: "Notes",
           template: "lookbook/previews/panels/notes",
           hotkey: "n",
           show: true,
-          disabled: @examples.filter { |e| e[:notes].present? }.none?
+          copy: false,
+          disabled: @rendered_examples.filter { |e| e[:notes].present? }.none?
         },
         params: {
+          id: "drawer-panel-params",
           label: "Params",
           template: "lookbook/previews/panels/params",
           hotkey: "p",
           show: true,
-          disabled: @example.type == :group || @example.params.none?
+          disabled: @example.type == :group || @example.params.none?,
+          copy: false
         }
       }
     end
@@ -151,10 +183,6 @@ module Lookbook
       controller.request = request
       controller.response = response
       @preview_controller ||= controller
-    end
-
-    def render_in_layout(path, layout: nil, **locals)
-      render path, layout: layout.presence || (params[:lookbook_embed] ? "lookbook/basic" : "lookbook/application"), locals: locals
     end
 
     def prettify_error(exception)
@@ -177,6 +205,10 @@ module Lookbook
         end
       end
       Lookbook::Error.new(exception, **(error_params || {}))
+    end
+
+    def path_segments
+      params[:path].split("/")
     end
   end
 end

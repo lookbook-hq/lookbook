@@ -1,71 +1,33 @@
-<div
-  id="page"
-  class="grid grid-rows-[40px_1fr] bg-gray-50 h-full"
-  x-data="page"
-  @click="checkForNavigation"
-  @page:changed.window="scrollToTop">
-  <%= component "header" do %>
-    <div id="page-banner-<%= @page.id %>" class="flex items-center ml-auto pr-2">
-      <% if @previous_page %>
-        <a ref="header-previous-page"
-          href="<%= page_path @previous_page.lookup_path %>"
-          x-tooltip.theme.lookbook="`Previous page`"
-          class="flex-none p-1">
-          <%= icon "chevron-left", size: 4, class: "hover:text-indigo-800" %>
-        </a>
-      <% else %>
-        <span ref="header-previous-page" class="flex-none p-1">
-          <%= icon "chevron-left", size: 4, class: "opacity-20" %>
-        </span>
-      <% end %>
+<div class="px-4 md:px-10 pt-8 md:pt-12 overflow-auto scroll-smooth w-full max-h-full pb-12" x-ref="scroller">
+  <div class="w-full max-w-3xl mx-auto h-full flex flex-col">
+    <% if @page.header? %>
+      <header class="mb-8 prose max-w-none flex-none">
+        <h1><%= @page.title %></h1>
+      </header>
+    <% end %>
 
-      <% if @next_page %>
-        <a ref="header-next-page"
-          href="<%= page_path @next_page.lookup_path %>"
-          x-tooltip.theme.lookbook="`Next page`"
-          class="flex-none p-1">
-            <%= icon "chevron-right", size: 4, class: "hover:text-indigo-800" %>
+    <%= render_component :prose, markdown: false, class: "max-w-none flex-none" do %>
+      <%= @page_content %>
+    <% end %>
+    
+    <% if @page.footer? %>
+      <footer class="flex items-center justify-between border-t border-gray-300 mt-12 pt-8 pb-10 ">
+        <% if @previous_page %>
+          <a href="<%= page_path @previous_page.lookup_path %>"
+            class="flex items-center flex-none">
+            <%= render_component :icon, :arrow_left, size: 4, class: "hover:text-indigo-800" %>
+            <span class="ml-2 underline"><%= @previous_page.title %></span>
           </a>
-      <% else %>
-        <span ref="header-next-page" class="flex-none p-1">
-          <%= icon "chevron-right", size: 4, class: "opacity-20" %>
-        </span>
-      <% end %>
-    </div>
-  <% end %>
-  <div class="px-4 md:px-10 w-full pt-8 md:pt-12 overflow-auto pb-10 scroll-smooth" x-ref="scroller">
-    <div class="w-full max-w-3xl mx-auto text-gray-600">
-      <% if @page.header? %>
-        <header id="page-header-<%= @page.id %>" class="mb-10 prose max-w-none">
-          <h1><%= @page.title %></h1>
-        </header>
-      <% end %>
-      <div id="page-main-<%= @page.id %>" data-morph-strategy="replace">
-        <div class="prose max-w-none prose-a:text-indigo-900">
-          <%= @page_content %>
-        </div>
-      </div>
-      <% if @page.footer? %>
-        <footer id="page-footer-<%= @page.id %>" class="flex items-center justify-between border-t border-gray-300 mt-12 pt-8">
-          <% if @previous_page %>
-            <a ref="footer-previous-page"
-              href="<%= page_path @previous_page.lookup_path %>"
-              class="flex items-center flex-none">
-              <%= icon "arrow-left", size: 4, class: "hover:text-indigo-800" %>
-              <span class="ml-2 underline"><%= @previous_page.title %></span>
-            </a>
-          <% end %>
+        <% end %>
 
-          <% if @next_page %>
-            <a ref="footer-next-page"
-              href="<%= page_path @next_page.lookup_path %>"
-              class="flex items-center flex-none ml-auto">
-              <span class="mr-2 underline"><%= @next_page.title %></span>
-              <%= icon "arrow-right", size: 4, class: "hover:text-indigo-800" %>
-            </a>
-          <% end %>
-        </footer>
-      <% end %>
-    </div>
+        <% if @next_page %>
+          <a href="<%= page_path @next_page.lookup_path %>"
+            class="flex items-center flex-none ml-auto">
+            <span class="mr-2 underline"><%= @next_page.title %></span>
+            <%= render_component :icon, :arrow_right, size: 4, class: "hover:text-indigo-800" %>
+          </a>
+        <% end %>
+      </footer>
+    <% end %>
   </div>
 </div>

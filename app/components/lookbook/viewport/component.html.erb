@@ -1,0 +1,49 @@
+<%= render_component_tag class: "h-full min-h-0 w-full overflow-hidden", "@viewport:reload.window": "reloadIframe" do %>
+  <div
+    x-ref="wrapper"
+    class="mx-auto h-full w-full"
+    :style="`<% if @resize_width %>max-width: ${maxWidth};<% end %> <% if @resize_height %>max-height: ${maxHeight};<% end %>`">
+    <div
+      class="grid bg-white relative -inset-px <%= "grid-cols-[1fr_17px]" if @resize_width %> <%= "grid-rows-[1fr_17px]" if @resize_height %>"
+      style="width: calc(100% + 2px); height: calc(100% + 2px)">
+      <iframe seamless
+        id="<%= helpers.generate_id("viewport-iframe-", @src) %>",
+        x-ref="iframe"
+        class="h-full w-full border border-lookbook-divider"
+        :class="{ 'pointer-events-none': reflowing }"
+        src="<%= @src %>"
+        frameborder="0"
+        @load="$dispatch('viewport:loaded')"></iframe>
+        <% if @resize_width %>
+          <div
+            class="resize-handle border-r border-t border-lookbook-divider cursor-[col-resize]"
+            @pointerdown="onResizeWidthStart"
+            @dblclick="toggleFullWidth">
+            <svg class="h-4 w-4 pointer-events-none" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5h2v14H8zM14 5h2v14h-2z"></path>
+            </svg>
+          </div>
+        <% end %>
+        <% if @resize_height %>
+          <div
+            class="resize-handle border-b border-l border-lookbook-divider cursor-[col-resize]"
+            @pointerdown="onResizeHeightStart"
+            @dblclick="toggleFullHeight">
+            <svg class="h-4 w-4 pointer-events-none rotate-90" fill="currentColor" viewBox="0 0 24 24" >
+              <path d="M8 5h2v14H8zM14 5h2v14h-2z"></path>
+            </svg>
+          </div>
+        <% end %>
+        <% if @resize_height && @resize_width %>
+          <div
+            class="resize-handle border-r border-b border-lookbook-divider cursor-[nwse-resize]"
+            @pointerdown="onResizeStart"
+            @dblclick="toggleFullSize">
+            <svg class="h-3.5 w-3.5 pointer-events-none rotate-45 relative -top-px -left-px" fill="currentColor" viewBox="0 0 24 24" >
+              <path d="M8 5h2v14H8zM14 5h2v14h-2z"></path>
+            </svg>
+          </div>
+        <% end %>
+    </div>
+  </div>
+<% end %>

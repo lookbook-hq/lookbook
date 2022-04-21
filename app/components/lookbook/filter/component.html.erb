@@ -1,0 +1,17 @@
+<%= render_component_tag do %>
+  <div class="relative">
+  <input
+    type="text"
+    class="form-input text-sm"
+    placeholder="<%== @placeholder %>"
+    x-ref="input"
+    x-model="<%= @model %>"
+    x-effect="$dispatch('filter:change', { text })"
+    @keydown.esc="clear"
+    @keydown.f.stop.prevent.window="focus"
+    @keydown.stop>
+    <button class="text-lookbook-button-text hover:text-lookbook-button-text-hover focus:ring-0 focus:outline-none absolute top-1/2 right-3 -translate-y-1/2" @click="clear" :class="{hidden: !active}">
+      <%= render_component :icon, :x, size: 3 %>
+    </button>
+</div>
+<% end %>

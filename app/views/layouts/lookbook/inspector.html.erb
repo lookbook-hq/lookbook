@@ -1,0 +1,10 @@
+<%= content_for :main do %>
+  <main class="h-screen">
+  <% if @error.present? %>
+    <%= render_component :toolbar %>
+  <% end %>    
+  <%= yield %>
+</main>
+<% end %>
+
+<%= render template: "layouts/lookbook/application" %>

@@ -1,20 +1,11 @@
-<div class="p-4 h-full overflow-auto bg-gray-50 space-y-6" data-morph-strategy="replace">
-  <% if examples.many? %>
-    <% examples.each do |example| %>
-      <%= component "code", language: example[:source_lang][:name], wrap: "vertical" do -%>
-        <%== "#{sprintf example[:source_lang][:comment], example[:label]}\n#{example[:source]}" %>
-      <% end %>
+<div class="h-full">
+  <% if rendered_examples.many? %>
+    <%= render_component :code, language: rendered_examples.first[:source_lang][:name], line_numbers: true, full_height: true do -%>
+<%- rendered_examples.each.with_index(1) do |example, i| -%>
+<%== "#{sprintf example[:source_lang][:comment], example[:label]}\n#{example[:source]}\n#{"\n" if i < rendered_examples.size}" %><% end %>
     <% end %>
   <% else %>
-    <%= component "code", language: examples.first[:source_lang][:name] do -%>
-      <%== examples.first[:source] %>
-    <% end %>
-  <% end %>
-  <% if defined?(clipboard_id) %>
-    <template id="<%= clipboard_id %>">
-      <% examples.each do |example| -%>
-        <%== example[:source] %>
-      <%- end %>
-    </template>
+    <% example = rendered_examples.first %>
+    <%= render_component :code, language: example[:source_lang][:name], line_numbers: true, full_height: true do %><%== example[:source] %><% end %>
   <% end %>
 </div>

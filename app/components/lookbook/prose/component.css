@@ -1,0 +1,12 @@
+@layer components {
+  [data-component="prose"] {
+    [data-component="code"] {
+      @apply border border-lookbook-divider rounded-md;
+    }
+
+    [data-component="embed"],
+    [data-component="code"] {
+      @apply my-8;
+    }
+  }
+}

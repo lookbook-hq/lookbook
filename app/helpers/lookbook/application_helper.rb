@@ -16,5 +16,9 @@ module Lookbook
         home_path
       end
     end
+
+    def generate_id(*args)
+      args.map { |args| args.delete_prefix("/").tr("&?=/_\-", "-") }.join("-")
+    end
   end
 end

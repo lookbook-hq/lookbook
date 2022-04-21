@@ -1,5 +1,5 @@
-<% if examples.many? %>
-  <% examples.each do |example| %>
+<% if rendered_examples.many? %>
+  <% rendered_examples.each do |example| %>
     <div style="all: unset; margin-bottom: 30px; display: block;">
       <h6 style="all: unset; display: block; color: #999; font-family: sans-serif; font-size: 14px; margin-top: 0; margin-bottom: 10px;">
         <%= example[:label] %>
@@ -8,7 +8,7 @@
     </div>
   <% end %>
 <% else %>
-  <%= examples.first[:html] %>
+  <%= rendered_examples.first[:html] %>
 <% end %>
 
 <% if params[:lookbook_embed] == "true" %>

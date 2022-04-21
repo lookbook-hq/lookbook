@@ -1,75 +1,87 @@
-import { install } from "@github/hotkey";
-import Alpine from "alpinejs";
-import Persist from "@alpinejs/persist";
-import Morph from "@alpinejs/morph";
+import packageJson from "~/package.json";
+import createSocket from "./lib/socket";
+import { morph } from "./helpers/dom";
+import { fetchHTML } from "./helpers/request";
 
-// Plugins
+export default function app() {
+  return {
+    version: Alpine.$persist("").as("lookbook-version"),
 
-Alpine.plugin(Persist);
-Alpine.plugin(Morph);
+    location: window.location,
 
-//// OLD WORLD -----------------------------------------------
+    init() {
+      this.validateStorage();
 
-import Tooltip from "@ryangjchandler/alpine-tooltip";
+      if (window.SOCKET_PATH) {
+        const socket = createSocket(window.SOCKET_PATH);
+        socket.addListener("Lookbook::ReloadChannel", () => this.updateDOM());
+      }
+    },
 
-Alpine.plugin(Tooltip);
+    navigateTo(path) {
+      this.debug(`Navigating to ${path}`);
+      history.pushState({}, null, path);
+      this.$dispatch("popstate");
+    },
 
-import app from "./components/app";
-import page from "./components/page";
-import inspector from "./components/inspector";
-import previewWindow from "./components/preview-window";
-import filter from "./components/filter";
-import param from "./components/param";
-import sidebar from "./components/sidebar";
-import nav from "./components/nav";
-import navItem from "./components/nav-item";
-import navGroup from "./components/nav-group";
-import splitter from "./components/splitter";
-import tabs from "./components/tabs";
-import copy from "./components/copy";
-import code from "./components/code";
-import sizes from "./components/sizes";
-import embed from "./components/embed";
+    async handleNavigation() {
+      this.debug("Navigating to ", window.location.pathname);
+      this.$dispatch("navigation:start");
+      this.location = window.location;
+      await this.updateDOM();
+      this.$dispatch("navigation:complete");
+    },
 
-import initFilterStore from "./stores/filter";
-import initLayoutStore from "./stores/layout";
-import initNavStore from "./stores/nav";
-import initSidebarStore from "./stores/sidebar";
-import initInspectorStore from "./stores/inspector";
-import initPagesStore from "./stores/pages";
+    hijax(evt) {
+      const link = evt.target.closest("a[href]");
+      if (link && !isExternalLink(link)) {
+        evt.preventDefault();
+        this.navigateTo(link.href);
+      }
+    },
 
-// Stores
+    async updateDOM() {
+      this.debug("Starting DOM update");
+      this.$dispatch("dom:update-start");
+      try {
+        const { fragment, title } = await fetchHTML(
+          window.location,
+          `#${this.$root.id}`
+        );
+        morph(this.$root, fragment);
+        document.title = title;
+        this.$dispatch("dom:update-complete");
+        this.debug("DOM update complete");
+      } catch (err) {
+        this.error(err);
+        window.location.reload();
+      }
+    },
 
-Alpine.store("filter", initFilterStore(Alpine));
-Alpine.store("layout", initLayoutStore(Alpine));
-Alpine.store("nav", initNavStore(Alpine));
-Alpine.store("sidebar", initSidebarStore(Alpine));
-Alpine.store("inspector", initInspectorStore(Alpine));
-Alpine.store("pages", initPagesStore(Alpine));
+    validateStorage() {
+      if (
+        this.version &&
+        this.version.split(".")[0] !== packageJson.version.split(".")[0]
+      ) {
+        localStorage.clear();
+        this.warn(`
+          The data in localStorage is incomaptible with this version of Lookbook.
+          Storage data has been cleared.
+        `);
+      }
+      this.version = packageJson.version;
+    },
 
-// Components
-
-Alpine.data("app", app);
-Alpine.data("page", page);
-Alpine.data("sidebar", sidebar);
-Alpine.data("splitter", splitter);
-Alpine.data("previewWindow", previewWindow);
-Alpine.data("copy", copy);
-Alpine.data("code", code);
-Alpine.data("inspector", inspector);
-Alpine.data("filter", filter);
-Alpine.data("param", param);
-Alpine.data("sizes", sizes);
-Alpine.data("nav", nav);
-Alpine.data("tabs", tabs);
-Alpine.data("navItem", navItem);
-Alpine.data("navGroup", navGroup);
-Alpine.data("embed", embed);
-
-// Init
-
-for (const el of document.querySelectorAll("[data-hotkey]")) {
-  install(el);
+    ...Alpine.$log,
+  };
 }
 
-//// END OLD WORLD -----------------------------------------------
+function isExternalLink(link) {
+  if (link.getAttribute("target") === "_blank") {
+    return true;
+  }
+  if (link.href) {
+    return link.host !== window.location.host;
+  }
+  return false;
+}

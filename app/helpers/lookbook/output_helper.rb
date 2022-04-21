@@ -4,12 +4,12 @@ module Lookbook
       Lookbook::Markdown.render(block ? capture(&block) : text)
     end
 
-    def highlight(source, language, opts = {})
-      Lookbook::CodeFormatter.highlight(source, language, opts)
+    def highlight(source = nil, **opts)
+      Lookbook::CodeFormatter.highlight(source, **opts)
     end
 
-    def beautify(source, language = "html")
-      Lookbook::CodeFormatter.beautify(source, language)
+    def beautify(source, **opts)
+      Lookbook::CodeFormatter.beautify(source, **opts)
     end
   end
 end

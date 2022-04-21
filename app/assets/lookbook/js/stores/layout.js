@@ -1,15 +1,69 @@
 import config from "../config";
+import { addMediaQueryListener } from "../helpers/layout";
+import { log } from "../plugins/logger";
 
-export default function createLayoutStore() {
+const { sidebar, main, inspector } = config;
+
+export default function initLayoutStore(Alpine) {
   return {
     init() {
-      this.desktop = window.innerWidth >= config.desktopWidth;
+      addMediaQueryListener(
+        `(min-width: ${config.desktopWidth}px)`,
+        (matches) => {
+          this._isDesktop = matches;
+          log.debug(
+            `Media query 'desktop': ${matches ? "✅ match" : "❌ no match"}`
+          );
+        }
+      );
     },
-    reflowing: false,
-    desktop: true,
-    desktopWidth: config.desktopWidth,
+
+    get desktop() {
+      return this._isDesktop;
+    },
+
     get mobile() {
       return !this.desktop;
     },
+
+    reflowing: false,
+
+    // Main app sidebar/content layout
+    main: {
+      split: Alpine.$persist({
+        direction: "vertical",
+        sizes: [`${sidebar.defaultWidth}px`, "1fr"],
+      }).as("main-split"),
+      opts: {
+        minSizes: [sidebar.minWidth, main.minWidth],
+      },
+    },
+
+    // Sidebar sections layout
+    sidebar: {
+      split: Alpine.$persist({
+        direction: "horizontal",
+        sizes: ["50%", "50%"],
+      }).as("sidebar-split"),
+      opts: {
+        minSizes: [sidebar.minSectionHeight, sidebar.minSectionHeight],
+      },
+    },
+
+    // Inspector drawer/preview layout
+    inspector: {
+      split: Alpine.$persist({
+        direction: "horizontal",
+        horizontalSizes: ["1fr", `${inspector.drawer.defaultHeight}px`],
+        verticalSizes: ["1fr", `${inspector.drawer.defaultWidth}px`],
+      }).as("inspector-split"),
+      opts: {
+        minSizes: [sidebar.minWidth, main.minWidth],
+      },
+    },
+
+    // protected
+
+    _isDesktop: true,
   };
 }

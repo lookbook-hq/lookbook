@@ -1,5 +1,5 @@
 module Lookbook
-  class Preview
+  class Preview < Collection
     include Utils
 
     delegate :name, :render_args, to: :@preview
@@ -7,7 +7,7 @@ module Lookbook
 
     def initialize(preview)
       @preview = preview
-      @preview_inspector = CodeInspector.new(@preview.name)
+      @preview_inspector = SourceInspector.new(@preview.name)
     end
 
     def id
@@ -52,6 +52,10 @@ module Lookbook
       @examples = @examples.compact
     end
 
+    def items
+      examples.reject { |i| i.hidden? }
+    end
+
     def default_example
       examples.first
     end
@@ -65,6 +69,10 @@ module Lookbook
         Dir["#{preview_path}/#{name.underscore}.rb"].first
       end
       Pathname.new(Dir["#{base_path}/#{name.underscore}.rb"].first)
+    end
+
+    def url_path
+      inspect_path lookup_path
     end
 
     def preview_paths
@@ -85,6 +93,10 @@ module Lookbook
 
     def display_params
       Lookbook.config.preview_display_params.deep_merge(@preview_inspector&.display_params)
+    end
+
+    def collapsible?
+      true
     end
 
     class << self

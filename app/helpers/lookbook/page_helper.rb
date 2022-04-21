@@ -14,28 +14,15 @@ module Lookbook
 
       preview_lookup = args.first.is_a?(Symbol) ? args.first : preview_class_name(args.first)
       preview = Lookbook.previews.find(preview_lookup)
-
       example = args[1] ? preview&.example(args[1]) : preview&.default_example
 
-      if example
-        @embed_counter += 1
-        render_component "embed",
-          id: generate_id("embed", url_for, example.lookup_path, @embed_counter - 1),
-          example: example,
-          params: params,
-          opts: opts
-      else
-        embed_not_found
-      end
-    end
+      embed_id = "#{url_for}/embed/#{example.lookup_path}".delete_prefix("/").tr("/", "-")
 
-    protected
-
-    def embed_not_found
-      component "not_found", {
-        title: "Preview not found",
-        text: "The preview may have been renamed or deleted."
-      }
+      render_component :embed,
+        embed_id,
+        example: example,
+        params: params,
+        opts: opts
     end
   end
 end

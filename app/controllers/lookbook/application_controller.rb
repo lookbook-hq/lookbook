@@ -24,5 +24,10 @@ module Lookbook
     def feature_enabled?(feature)
       Lookbook::Features.enabled?(feature)
     end
+
+    def render_in_layout(path, layout: nil, **locals)
+      @error = locals[:error]
+      render path, layout: layout.presence || (params[:lookbook_embed] ? "lookbook/basic" : "lookbook/application"), locals: locals
+    end
   end
 end

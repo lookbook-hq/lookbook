@@ -48,6 +48,12 @@ module Lookbook
       reject { |i| i.hidden? }
     end
 
+    def non_empty_items
+      items.filter do |item|
+        !item.is_a?(Lookbook::Collection) || item.items.any?
+      end
+    end
+
     def add(item)
       @ordered_entities = nil
       @tree = nil
@@ -132,6 +138,10 @@ module Lookbook
         end
       end
       @tree
+    end
+
+    def collapsible?
+      false
     end
 
     def type

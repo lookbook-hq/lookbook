@@ -1,25 +1,19 @@
-<% items = examples.filter { |example| example[:notes].present? } %>
-<div class="text-gray-600 bg-gray-50 h-full overflow-auto" data-morph-strategy="replace">
-  <% if items.many? %>
-    <div class="divide-y divide-dashed divide-gray-300">
-      <% items.each do |item| %>
-        <div class="px-4 pt-3 pb-6 relative">
-          <h6 class="text-[11px] text-gray-500 italic inline-block uppercase tracking-wide mb-4">
-            <%= item[:label] %>
-          </h6>
-          <div class="prose prose-sm prose-a:text-indigo-900">
-            <%= markdown(item[:notes]) %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  <% else %>
-    <div class="p-4 prose prose-sm prose-a:text-indigo-900">
-      <% if items.any? %>
-        <%= markdown(items.first[:notes]) %>
-      <% else %>
-        <em class='opacity-50'>No notes provided.</em>
-      <% end %>
-    </div>
-  <% end %>
-</div>
+<% items = rendered_examples.filter { |example| example[:notes].present? } %>
+<% if items.many? %>
+  <div class="divide-y divide-dashed divide-lookbook-divider bg-lookbook-prose-bg h-full w-full">
+    <% items.each do |item| %>
+      <div class="px-4 py-6 relative">
+        <h6 class="italic font-mono mb-4 opacity-40">
+          # <%= item[:label] %>
+        </h6>
+        <%= render_component :prose, content: item[:notes] %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="p-4 py-4 bg-lookbook-prose-bg w-full h-full">
+    <%= render_component :prose do %>
+      <%== items.any? ? items.first[:notes] : "<em class='opacity-50'>No notes provided.</em>" %>
+    <% end %>
+  </div>
+<% end %>

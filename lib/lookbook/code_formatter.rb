@@ -4,16 +4,16 @@ require "htmlbeautifier"
 module Lookbook
   module CodeFormatter
     class << self
-      def highlight(source, language, opts = {})
-        source&.strip! unless opts[:strip] == false
+      def highlight(source, **opts)
         source&.gsub!("&gt;", ">")&.gsub!("&lt;", "<")
-        language ||= "ruby"
-        formatter = Formatter.new(opts)
+        language = opts[:language] || "ruby"
+        formatter = Formatter.new(**opts)
         lexer = Rouge::Lexer.find(language.to_s) || Rouge::Lexer.find("plaintext")
         formatter.format(lexer.lex(source)).html_safe
       end
 
-      def beautify(source, language = "html")
+      def beautify(source, **opts)
+        language = opts[:language] || "html"
         source = source.strip
         result = language.downcase == "html" ? HtmlBeautifier.beautify(source) : source
         result.strip.html_safe
@@ -22,23 +22,45 @@ module Lookbook
   end
 
   class Formatter < Rouge::Formatters::HTML
-    def initialize(opts = {})
+    def initialize(**opts)
       @opts = opts
       @highlight_lines = opts[:highlight_lines].to_a || []
-      @start_line = opts[:start_line] || 0
+      @start_line = opts[:start_line] || 1
+      @language = opts[:language]
     end
 
     def stream(tokens, &block)
-      token_lines(tokens).each_with_index do |line_tokens, i|
-        yield "<div class='line #{"highlighted-line" if @highlight_lines.include?(i + 1)}'>"
-        yield "<span class='line-number'>#{@start_line + i}</span>" if @opts[:line_numbers]
-        yield "<span class='line-content'>"
+      lines = token_lines(tokens)
+
+      yield "<div class='wrapper'>"
+
+      if @opts[:line_numbers]
+        yield "<div class='line-numbers'>"
+        lines.each.with_index do |line, i|
+          yield "<div class='line #{"highlighted" if highlighted?(i)}'><span class='line-number'>#{line_number(i)}</span></div>"
+        end
+        yield "</div>"
+      end
+
+      yield "<pre class='code highlight' data-lang='#{@language}'><code>"
+      lines.each.with_index do |line_tokens, i|
+        yield "<div class='line#{" highlighted" if highlighted?(i)}'>"
         line_tokens.each do |token, value|
           yield span(token, value)
         end
-        yield "</span>"
         yield "</div>"
       end
+      yield "</code></pre>"
+
+      yield "</div>"
+    end
+
+    def highlighted?(i)
+      @highlight_lines.include?(i + 1)
+    end
+
+    def line_number(i)
+      @start_line + i
     end
   end
 end

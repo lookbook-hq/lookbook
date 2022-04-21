@@ -33,6 +33,10 @@ module Lookbook
       @lookup_path ||= to_lookup_path(path)
     end
 
+    def url_path
+      page_path lookup_path
+    end
+
     def full_path
       Rails.root.join(@pathname.to_s)
     end

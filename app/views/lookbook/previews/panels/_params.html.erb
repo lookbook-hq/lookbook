@@ -1,17 +1,13 @@
-<div class="bg-gray-50 h-full overflow-auto">
-  <% if @example.type == :group %>
-    <div class="p-4 prose prose-sm">
-      <em class='opacity-50'>Params are not yet supported for grouped examples.</em>
-    </div>
-  <% elsif @example.params.none? %>
-    <div class="p-4 prose prose-sm">
+<% if @example.params.none? %>
+  <div class="p-4 w-full h-full bg-lookbook-prose-bg">
+    <%= render_component :prose do %>
       <em class='opacity-50'>No params configured.</em>
-    </div>
-  <% else %>
-    <div class="py-3">
-      <% @example.params.each_with_index do |param, i| %>
-        <%= component "param", param: param, i: i %>
-      <% end %>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="py-3 h-full">
+    <% @example.params.each_with_index do |param, i| %>
+      <%= render_component :param_field, **param %>
+    <% end %>
+  </div>
+<% end %>

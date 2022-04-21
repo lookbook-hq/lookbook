@@ -1,0 +1,50 @@
+@import "tippy.js/dist/tippy";
+@import "tippy.js/dist/border";
+
+.tippy-box[data-theme~="lookbook"] {
+  @apply text-xs opacity-90;
+
+  background-color: var(--lookbook-tooltip-bg);
+  color: var(--lookbook-tooltip-text);
+
+  &[data-placement^="top"] > .tippy-arrow::before {
+    border-top-color: var(--lookbook-tooltip-bg);
+  }
+
+  &[data-placement^="bottom"] > .tippy-arrow::before {
+    border-bottom-color: var(--lookbook-tooltip-bg);
+  }
+
+  &[data-placement^="left"] > .tippy-arrow::before {
+    border-left-color: var(--lookbook-tooltip-bg);
+  }
+
+  &[data-placement^="right"] > .tippy-arrow::before {
+    border-right-color: var(--lookbook-tooltip-bg);
+  }
+}
+
+/* .tippy-box[data-theme~="menu"] {
+  border: 1px solid theme("colors.gray.300");
+  @apply bg-white text-gray-600 shadow-md rounded;
+
+  & > .tippy-content {
+    padding: 0;
+  }
+
+  &[data-placement^="top"] > .tippy-arrow::before {
+    border-top-color: white;
+  }
+
+  &[data-placement^="bottom"] > .tippy-arrow::before {
+    border-bottom-color: white;
+  }
+
+  &[data-placement^="left"] > .tippy-arrow::before {
+    border-left-color: white;
+  }
+
+  &[data-placement^="right"] > .tippy-arrow::before {
+    border-right-color: white;
+  }
+} */

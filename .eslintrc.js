@@ -12,5 +12,6 @@ module.exports = {
   rules: {},
   globals: {
     Alpine: "readable",
+    log: "readable",
   },
 };

@@ -1,21 +1,29 @@
-export default function createNavStore(Alpine) {
+export default function initNavStore(Alpine) {
   return {
-    open: Alpine.$persist([]).as("nav-open"),
-    active: Alpine.$persist(null).as("nav-active"),
-    isOpen(id) {
-      return this.open.includes(id);
+    previews: {
+      filter: {
+        raw: Alpine.$persist("").as("previews-filter-text"),
+        get text() {
+          return this.raw.replace(/\s/g, "").toLowerCase();
+        },
+        get active() {
+          return this.text.length > 0;
+        },
+      },
+      open: Alpine.$persist([]).as("previews-nav-open"),
     },
-    setOpen(id) {
-      this.open.push(id);
-    },
-    setClosed(id) {
-      const index = this.open.indexOf(id);
-      if (index > -1) {
-        this.open.splice(index, 1);
-      }
-    },
-    toggle(id) {
-      this.isOpen(id) ? this.setClosed(id) : this.setOpen(id);
+
+    pages: {
+      filter: {
+        raw: Alpine.$persist("").as("pages-filter-text"),
+        get text() {
+          return this.raw.replace(/\s/g, "").toLowerCase();
+        },
+        get active() {
+          return this.text.length > 0;
+        },
+      },
+      open: Alpine.$persist([]).as("pages-nav-open"),
     },
   };
 }

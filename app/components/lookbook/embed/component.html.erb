@@ -1,0 +1,48 @@
+<% if @example.present? %>
+  <%= render_component_tag class: "not-prose border border-lookbook-divider rounded-md overflow-hidden" do %>
+
+    <%= render_component :toolbar do |toolbar| %>
+      <% toolbar.section padded: true do %>
+        <h3 class="">
+          <%= @example.preview.label %> (<%= @example.label %>)
+        </h3>
+      <% end %>
+        <% toolbar.section align: :right, divide: :left do %>
+          <%= render_component :button_group do |group| %>
+          <% group.button icon: :eye,
+            href: helpers.lookbook.inspect_path(@example.path, @params),
+            tooltip: "View in Inspector" %>
+          <% group.button icon: :external_link,
+            href: helpers.lookbook.inspect_path(@example.path, @params),
+            tooltip: "Open in new window",
+            target: "_blank" %>
+        <% end %>  
+      <% end %>
+    <% end %>
+
+    <div
+      x-show="tab === 'preview'"
+      @viewport:loaded="loadResizer"
+      @dom:update-complete="loadResizer"
+      @viewport:resize-progress="resizeIframe($event.detail.width)">
+      <%= render_component :viewport,
+        helpers.lookbook.preview_path(@example.path, @params.merge(lookbook_embed: true)),
+        "store",
+        resize_height: false,
+        class: "mb-[-2px]" %>
+    </div>
+
+  <% end %>
+<% else %>
+<%= render_component_tag class: "bg-white flex flex-col items-center justify-center border-2 border-dashed border-gray-200 p-6 rounded-md not-prose" do %>
+  <div class="px-4 text-center">
+    <%= render_component :icon, :alert_triangle, size: 6, class: "text-red-300 mx-auto" %>
+    <div class="mt-2 max-w-xs">
+      <h5 class="text-base">Preview not found</h5>
+      <p class="mt-1 opacity-50 text-sm">
+        The preview may have been renamed or deleted
+      </p>
+    </div>
+  </div>
+  <% end %>
+<% end %>

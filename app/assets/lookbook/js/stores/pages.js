@@ -1,5 +1,5 @@
-export default function createNavStore(Alpine) {
+export default function initPagesStore(Alpine) {
   return {
-    embeds: {},
+    embeds: Alpine.$persist({}).as("pages-embeds"),
   };
 }

@@ -4,6 +4,14 @@ module Lookbook
       generate_id("page-collection", lookup_path || "root")
     end
 
+    def label
+      "Pages"
+    end
+
+    def type
+      :page_collection
+    end
+
     def self.describe_as
       "pages"
     end

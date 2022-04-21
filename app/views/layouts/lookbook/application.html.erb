@@ -1,29 +1,78 @@
 <%= content_for :body do %>
+
   <div
     id="app"
     x-data="app"
-    :style="`grid-template-columns: ${$store.sidebar.width}px 1px 1fr;`"
-    :class="{'grid': $store.sidebar.open && $store.layout.desktop}"
-    @popstate.window="await update(); $dispatch('page:changed')"
-    @refresh.window="update"
-    @resize.window="$store.layout.desktop = window.innerWidth >= $store.layout.desktopWidth"
+    @popstate.window="handleNavigation"
+    @click.document="hijax"
     class="w-screen h-screen">
-    <%= component "sidebar" %>
-    <div
-      x-data="splitter('vertical', {minSize: $store.sidebar.minWidth})"
-      class="h-full gutter border-r border-gray-300 relative"
-      x-show="$store.sidebar.open && $store.layout.desktop"
-      x-effect="$store.sidebar.width = Math.min(splits[0] || $store.sidebar.width, $store.sidebar.maxWidth)"
-      x-cloak>
-      <div class="w-[9px] h-full bg-transparent hover:bg-indigo-100 hover:bg-opacity-20 transition absolute top-0 bottom-0 -translate-x-1/2 cursor-[col-resize] z-10"></div>
-    </div>
-    <main
-      id="main"
-      class="h-full overflow-hidden w-full"
-      x-show="$store.layout.desktop || ($store.layout.mobile && !$store.sidebar.open)"
-      x-cloak>
-      <%= yield %>
-    </main>
+    <%= render_component :split_layout, "$store.layout.main" do |layout| %>
+
+      <% layout.pane class: "flex flex-col bg-lookbook-sidebar-bg relative" do %>
+      
+        <%= render_component :toolbar do |toolbar| %>
+          <% if config.project_name %>
+            <% toolbar.section padded: true do %>
+              <a
+                href="<%= landing_path %>"
+                class="text-xs truncate uppercase font-black tracking-wide pr-2 text-lookbook-branding-text">
+                <%= config.project_name %>
+              </a>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <%= render_component :split_layout, "$store.layout.sidebar" do |layout| %>
+          <% layout.pane class: "overflow-hidden" do %>
+            <%= render_component :nav, Lookbook.previews, "$store.nav.previews", {
+              label: "Previews",
+              collapse_singles: true
+            } do |nav| %>
+              <% nav.filter("$store.nav.previews.filter", placeholder: "Filter by preview name&hellip;") %>
+            <% end %>
+          <% end %>
+
+          <% layout.pane class: "overflow-hidden" do %>
+            <%= render_component :nav, Lookbook.pages, "$store.nav.pages", label: "Pages" %>
+          <% end %>
+        <% end %>
+
+        <% if Lookbook::Preview.errors.any? %>
+          <div x-data="{hidden: false}" class="flex-none border-t border-lookbook-divider absolute bottom-0 left-0 right-0" x-show="!hidden">
+            <%= render_component :toolbar do |toolbar| %>
+              <% toolbar.section padded: true, class: "flex items-center" do %>
+                <%= render_component :icon, :alert_triangle, size: 4, class: "text-red-700" %>
+                <span class="ml-2">Preview load errors</span>
+              <% end %>
+              <% toolbar.section align: :right do %>
+                <% render_component :button, icon: :x, "@click": "hidden = !hidden" %>
+              <% end %>
+            <% end %>
+
+            <div class="h-full max-h-[300px] overflow-hidden">
+              <div class="bg-red-50 w-full overflow-auto h-full">
+                <ul class="text-sm divide-y divide-red-200">
+                  <% Lookbook::Preview.errors.each do |error| %>
+                    <% error = error.is_a?(Lookbook::Error) ? error : Lookbook::Error.new(error) %>
+                    <li class="px-4 py-3">
+                      <h4 class="break-all leading-tight text-xs ">
+                        <%= error.file_name %><%= ":#{error.line_number}" if error.line_number %>
+                      </h4>
+                      <pre class="text-red-800 text-xs mt-2 whitespace-pre-wrap opacity-80 font-mono"><%= error.message %></pre>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+
+      <% layout.pane class: "overflow-hidden" do %>
+        <%= content_for?(:main) ? yield(:main) : yield %>
+      <% end %>
+
+    <% end %>
   </div>
 <% end %>
 

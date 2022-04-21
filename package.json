@@ -6,9 +6,8 @@
     "app": {
       "source": [
         "./app/assets/lookbook/js/embed.js",
-        "./app/assets/lookbook/js/app.js",
         "./app/assets/lookbook/js/lookbook.js",
-        "./app/assets/lookbook/css/app.css"
+        "./app/assets/lookbook/css/lookbook.css"
       ],
       "distDir": "./public/lookbook-assets"
     }
@@ -23,32 +22,36 @@
   },
   "author": "Mark Perkins",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
+    "@alpinejs/collapse": "^3.10.2",
+    "@alpinejs/morph": "^3.10.2",
+    "@alpinejs/persist": "^3.10.2",
     "@parcel/resolver-glob": "^2.4.0",
+    "@rails/actioncable": "^6.1.4",
+    "@ryangjchandler/alpine-tooltip": "^1.2.0",
     "@tailwindcss/forms": "^0.4.0",
     "@tailwindcss/typography": "^0.5.0",
+    "alpinejs": "^3.10.2",
     "autoprefixer": "^10.4.0",
+    "debounce": "^1.2.1",
+    "iframe-resizer": "^4.3.2",
+    "loglevel": "^1.8.0",
+    "loglevel-plugin-prefix": "^0.8.4",
+    "parcel": "^2.0.1",
+    "postcss": "^8.4.5",
+    "postcss-import": "^14.0.2",
+    "postcss-import-ext-glob": "^2.0.1",
+    "split-grid": "^1.0.11",
+    "tailwindcss": "^3.0.6",
+    "tippy.js": "^6.3.2"
+  },
+  "devDependencies": {
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.2",
-    "parcel": "^2.0.1",
-    "postcss": "^8.4.5",
-    "postcss-import": "^14.0.2",
     "prettier": "2.3.2",
-    "release-it": "^14.11.6",
-    "tailwindcss": "^3.0.6"
-  },
-  "dependencies": {
-    "@alpinejs/morph": "^3.9.1",
-    "@alpinejs/persist": "^3.9.1",
-    "@github/hotkey": "^1.6.0",
-    "@rails/actioncable": "^6.1.4",
-    "alpinejs": "^3.9.1",
-    "debounce": "^1.2.1",
-    "iframe-resizer": "^4.3.2",
-    "split-grid": "^1.0.11",
-    "tippy.js": "^6.3.2"
+    "release-it": "^14.11.6"
   },
   "release-it": {
     "git": {

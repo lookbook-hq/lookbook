@@ -1,0 +1,42 @@
+<%= content_for :main do %>
+  <div
+    class="flex flex-col h-screen"
+    x-data="{}"
+    @navigation:complete.window="$refs.scroller.scrollTop = 0">
+
+    <%= render_component :toolbar do |toolbar| %>
+      <% toolbar.section align: :right do %>
+        <% if @previous_page %>
+          <a href="<%= page_path @previous_page.lookup_path %>"
+            x-tooltip.theme.lookbook="`Previous page`"
+            class="flex-none p-1">
+            <%= render_component :icon, :chevron_left, size: 4, class: "hover:text-indigo-800" %>
+          </a>
+        <% else %>
+          <span class="flex-none p-1">
+            <%= render_component :icon, :chevron_left, size: 4, class: "opacity-20" %>
+          </span>
+        <% end %>
+
+        <% if @next_page %>
+          <a href="<%= page_path @next_page.lookup_path %>"
+            x-tooltip.theme.lookbook="`Next page`"
+            class="flex-none p-1">
+              <%= render_component :icon, :chevron_right, size: 4, class: "hover:text-indigo-800" %>
+            </a>
+        <% else %>
+          <span class="flex-none p-1">
+            <%= render_component :icon, :chevron_right, size: 4, class: "opacity-20" %>
+          </span>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <div class="h-full flex-grow">
+      <%= yield %>
+    </div>
+    
+  </div>
+<% end %>
+
+<%= render template: "layouts/lookbook/application" %>

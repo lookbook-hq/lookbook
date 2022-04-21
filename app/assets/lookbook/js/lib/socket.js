@@ -1,5 +1,6 @@
 import { createConsumer } from "@rails/actioncable";
 import debounce from "debounce";
+import { log } from "../plugins/logger";
 
 export default function socket(endpoint) {
   const uid = (Date.now() + ((Math.random() * 100) | 0)).toString();
@@ -8,14 +9,14 @@ export default function socket(endpoint) {
     addListener(channel, callback) {
       consumer.subscriptions.create(channel, {
         received: debounce((data) => {
-          console.log("Lookbook files changed");
+          log.debug("Lookbook files changed");
           callback(data);
         }, 200),
         connected() {
-          console.log("Lookbook websocket connected");
+          log.info("Lookbook websocket connected");
         },
         disconnected() {
-          console.log("Lookbook websocket disconnected");
+          log.info("Lookbook websocket disconnected");
         },
       });
     },
