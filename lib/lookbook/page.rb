@@ -19,7 +19,7 @@ module Lookbook
 
     def initialize(path, base_path)
       @pathname = Pathname.new path
-      @base_path = base_path
+      @base_path = Pathname.new base_path
       @options = nil
       @errors = []
     end
