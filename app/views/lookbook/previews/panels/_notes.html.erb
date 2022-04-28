@@ -1,4 +1,4 @@
-<% items = examples.filter { |example| example[:notes].present? } %>
+<% items = examples.select { |example| example[:notes].present? } %>
 <div class="text-gray-600 bg-gray-50 h-full overflow-auto" data-morph-strategy="replace">
   <% if items.many? %>
     <div class="divide-y divide-dashed divide-gray-300">

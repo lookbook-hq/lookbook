@@ -28,8 +28,8 @@ module Lookbook
         begin
           set_params
           @examples = examples_data
-          @drawer_panels = drawer_panels.filter { |name, panel| panel[:show] }
-          @preview_panels = preview_panels.filter { |name, panel| panel[:show] }
+          @drawer_panels = drawer_panels.select { |name, panel| panel[:show] }
+          @preview_panels = preview_panels.select { |name, panel| panel[:show] }
         rescue => exception
           render_in_layout "lookbook/error", error: prettify_error(exception)
         end
@@ -133,7 +133,7 @@ module Lookbook
           template: "lookbook/previews/panels/notes",
           hotkey: "n",
           show: true,
-          disabled: @examples.filter { |e| e[:notes].present? }.none?
+          disabled: @examples.select { |e| e[:notes].present? }.none?
         },
         params: {
           label: "Params",
