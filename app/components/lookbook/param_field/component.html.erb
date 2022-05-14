@@ -12,20 +12,20 @@
           class="form-input"
           value="<%= value %>"
           type="<%= @input_type %>"
-          x-bind="bindings.input">
+          x-bind="bindings.input || {}">
 
       <% elsif field_type == "textarea" %>
 
         <textarea
           class="form-input"
           rows="4"
-          x-bind="bindings.input"><%= value %></textarea>
+          x-bind="bindings.input || {}"><%= value %></textarea>
 
       <% elsif field_type == "select" %>
 
         <select
           class="form-input"
-          x-bind="bindings.input"
+          x-bind="bindings.input || {}"
           x-model="value">
           <%= options_for_select(@options, value) %>
         </select>

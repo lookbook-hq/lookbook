@@ -1770,6 +1770,16 @@ pre[class*="language-"] {
   margin-right: calc(1.5rem * var(--tw-space-x-reverse));
   margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
+<<<<<<< HEAD
+=======
+
+.space-x-1 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(.25rem * var(--tw-space-x-reverse) );
+  margin-left: calc(.25rem * calc(1 - var(--tw-space-x-reverse) ) );
+}
+
+>>>>>>> c9a6dcb (Add preview dimensions display)
 .divide-y > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0;
   border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
@@ -2083,6 +2093,15 @@ pre[class*="language-"] {
 .\!text-lookbook-tabs-text-disabled {
   color: var(--lookbook-tabs-text--disabled) !important;
 }
+<<<<<<< HEAD
+=======
+
+.text-gray-500 {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity) );
+}
+
+>>>>>>> c9a6dcb (Add preview dimensions display)
 .underline {
   text-decoration-line: underline;
 }
@@ -2098,6 +2117,26 @@ pre[class*="language-"] {
 .opacity-40 {
   opacity: 0.4;
 }
+<<<<<<< HEAD
+=======
+
+.opacity-100 {
+  opacity: 1;
+}
+
+.opacity-30 {
+  opacity: .3;
+}
+
+.\!opacity-100 {
+  opacity: 1 !important;
+}
+
+.opacity-70 {
+  opacity: .7;
+}
+
+>>>>>>> c9a6dcb (Add preview dimensions display)
 .shadow {
   --tw-shadow: 0 1px 3px 0 #0000001a, 0 1px 2px -1px #0000001a;
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color),
@@ -2499,6 +2538,14 @@ pre[class*="language-"] {
 .hover\:text-lookbook-tabs-text-hover:hover {
   color: var(--lookbook-tabs-text--hover);
 }
+<<<<<<< HEAD
+=======
+
+.hover\:opacity-100:hover {
+  opacity: 1;
+}
+
+>>>>>>> c9a6dcb (Add preview dimensions display)
 .focus\:outline-none:focus {
   outline-offset: 2px;
   outline: 2px solid #0000;

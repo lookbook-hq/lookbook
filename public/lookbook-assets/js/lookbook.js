@@ -295,7 +295,7 @@ window.log = _logger.log;
 window.Alpine = _alpinejsDefault.default;
 _alpinejsDefault.default.start();
 
-},{"alpinejs":"69hXP","@alpinejs/morph":"h2FeS","@alpinejs/persist":"hOl6K","@ryangjchandler/alpine-tooltip":"j3Uyt","./plugins/logger":"a8yvv","./stores/layout":"2QNcl","./stores/nav":"dYphZ","./stores/inspector":"1tdkQ","./app":"bkyhi","./helpers/build":"a7dEL","../../../components/lookbook/*/component.js":"lflvV","../../../components/lookbook/*/*/component.js":"lT8lG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./stores/pages":"hvNyC"}],"69hXP":[function(require,module,exports) {
+},{"alpinejs":"69hXP","@alpinejs/morph":"h2FeS","@alpinejs/persist":"hOl6K","@ryangjchandler/alpine-tooltip":"j3Uyt","./plugins/logger":"a8yvv","./stores/layout":"2QNcl","./stores/nav":"dYphZ","./stores/inspector":"1tdkQ","./app":"bkyhi","./helpers/build":"a7dEL","../../../components/lookbook/*/component.js":"akleQ","../../../components/lookbook/*/*/component.js":"lT8lG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./stores/pages":"hvNyC"}],"69hXP":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>module_default
@@ -7152,77 +7152,66 @@ exports.default = socket;
 =======
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lflvV":[function(require,module,exports) {
-const _temp0 = require("../copy_button/component.js");
-const _temp1 = require("../button/component.js");
-const _temp2 = require("../code/component.js");
-const _temp3 = require("../embed/component.js");
-const _temp4 = require("../filter/component.js");
-const _temp5 = require("../nav/component.js");
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"akleQ":[function(require,module,exports) {
+const _temp0 = require("../button/component.js");
+const _temp1 = require("../code/component.js");
+const _temp2 = require("../copy_button/component.js");
+const _temp3 = require("../dimensions_display/component.js");
+const _temp4 = require("../embed/component.js");
+const _temp5 = require("../filter/component.js");
 const _temp6 = require("../icon/component.js");
-const _temp7 = require("../param_field/component.js");
-const _temp8 = require("../split_layout/component.js");
-const _temp9 = require("../tabbed_content/component.js");
-const _temp10 = require("../tabs/component.js");
-const _temp11 = require("../viewport/component.js");
+const _temp7 = require("../nav/component.js");
+const _temp8 = require("../param_field/component.js");
+const _temp9 = require("../split_layout/component.js");
+const _temp10 = require("../tabbed_content/component.js");
+const _temp11 = require("../tabs/component.js");
+const _temp12 = require("../viewport/component.js");
 module.exports = {
-    "copy_button": _temp0,
-    "button": _temp1,
-    "code": _temp2,
-    "embed": _temp3,
-    "filter": _temp4,
-    "nav": _temp5,
+    "button": _temp0,
+    "code": _temp1,
+    "copy_button": _temp2,
+    "dimensions_display": _temp3,
+    "embed": _temp4,
+    "filter": _temp5,
     "icon": _temp6,
-    "param_field": _temp7,
-    "split_layout": _temp8,
-    "tabbed_content": _temp9,
-    "tabs": _temp10,
-    "viewport": _temp11
+    "nav": _temp7,
+    "param_field": _temp8,
+    "split_layout": _temp9,
+    "tabbed_content": _temp10,
+    "tabs": _temp11,
+    "viewport": _temp12
 };
 
-},{"../copy_button/component.js":"1HiHq","../button/component.js":"lQApy","../code/component.js":"2jedY","../embed/component.js":"hM4Uf","../filter/component.js":"c1bw6","../nav/component.js":"bGQJL","../icon/component.js":"2RhL0","../param_field/component.js":"b93Nq","../split_layout/component.js":"dX3DZ","../tabbed_content/component.js":"4BnLZ","../tabs/component.js":"dvr8m","../viewport/component.js":"6kmWp"}],"1HiHq":[function(require,module,exports) {
+},{"../button/component.js":"lQApy","../code/component.js":"2jedY","../copy_button/component.js":"1HiHq","../dimensions_display/component.js":"kFxrd","../embed/component.js":"hM4Uf","../filter/component.js":"c1bw6","../icon/component.js":"2RhL0","../nav/component.js":"bGQJL","../param_field/component.js":"b93Nq","../split_layout/component.js":"dX3DZ","../tabbed_content/component.js":"4BnLZ","../tabs/component.js":"dvr8m","../viewport/component.js":"6kmWp"}],"lQApy":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _tippy = require("~/app/assets/lookbook/js/lib/tippy");
 var _tippyDefault = parcelHelpers.interopDefault(_tippy);
-var _component = require("../button/component");
-var _componentDefault = parcelHelpers.interopDefault(_component);
-function copyButtonComponent(target = null) {
-    const button = _componentDefault.default();
+function buttonComponent() {
     return {
-        ...button,
-        done: false,
         init () {
-            button.init.bind(this)();
-            if (target === null) this._copyTarget = this.$refs.copyContent;
-            else this._copyTarget = typeof target === "string" ? document.querySelector(target) : target;
-            this._notificationTippy = _tippyDefault.default(this.$el, {
-                content: "Copied!",
-                trigger: "manual"
+            this._initTippy();
+        },
+        startSpin () {
+            this._spinning = true;
+        },
+        stopSpin (delay = 0) {
+            setTimeout(()=>this._spinning = false
+            , delay);
+        },
+        _spinning: false,
+        _initTippy () {
+            if (this.$refs.tooltip) this._labelTippy = _tippyDefault.default(this.$refs.icon, {
+                triggerTarget: this.$el,
+                content: this.$refs.tooltip.innerHTML
             });
         },
-        async copyToClipboard () {
-            await window.navigator.clipboard.writeText(this.getContent());
-            this.done = true;
-            this._notificationTippy.show();
-            this._labelTippy.hide();
-            setTimeout(()=>{
-                this.done = false;
-                this._notificationTippy.hide();
-            }, 1000);
-        },
-        getContent () {
-            const decoder = document.createElement("textarea");
-            decoder.innerHTML = this._copyTarget ? this._copyTarget.innerHTML : "";
-            return decoder.value.trim();
-        },
-        _copyTarget: null,
-        _notificationTippy: null
+        _labelTippy: null
     };
 }
-exports.default = copyButtonComponent;
+exports.default = buttonComponent;
 
-},{"~/app/assets/lookbook/js/lib/tippy":"6zhil","../button/component":"lQApy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6zhil":[function(require,module,exports) {
+},{"~/app/assets/lookbook/js/lib/tippy":"6zhil","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6zhil":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _tippyJs = require("tippy.js");
@@ -10422,42 +10411,85 @@ var createPopper = /*#__PURE__*/ _createPopperJs.popperGenerator({
     defaultModifiers: defaultModifiers
 }); // eslint-disable-next-line import/no-unused-modules
 
-},{"./createPopper.js":"cHuNp","./modifiers/eventListeners.js":"hBKsL","./modifiers/popperOffsets.js":"6I679","./modifiers/computeStyles.js":"gDlm2","./modifiers/applyStyles.js":"4iMn4","./modifiers/offset.js":"3GKVY","./modifiers/flip.js":"fv5wq","./modifiers/preventOverflow.js":"1AMhb","./modifiers/arrow.js":"31HFW","./modifiers/hide.js":"2g4OF","./popper-lite.js":false,"./modifiers/index.js":"cap3W","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lQApy":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _tippy = require("~/app/assets/lookbook/js/lib/tippy");
-var _tippyDefault = parcelHelpers.interopDefault(_tippy);
-function buttonComponent() {
-    return {
-        init () {
-            this._initTippy();
-        },
-        startSpin () {
-            this._spinning = true;
-        },
-        stopSpin (delay = 0) {
-            setTimeout(()=>this._spinning = false
-            , delay);
-        },
-        _spinning: false,
-        _initTippy () {
-            if (this.$refs.tooltip) this._labelTippy = _tippyDefault.default(this.$refs.icon, {
-                triggerTarget: this.$el,
-                content: this.$refs.tooltip.innerHTML
-            });
-        },
-        _labelTippy: null
-    };
-}
-exports.default = buttonComponent;
-
-},{"~/app/assets/lookbook/js/lib/tippy":"6zhil","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2jedY":[function(require,module,exports) {
+},{"./createPopper.js":"cHuNp","./modifiers/eventListeners.js":"hBKsL","./modifiers/popperOffsets.js":"6I679","./modifiers/computeStyles.js":"gDlm2","./modifiers/applyStyles.js":"4iMn4","./modifiers/offset.js":"3GKVY","./modifiers/flip.js":"fv5wq","./modifiers/preventOverflow.js":"1AMhb","./modifiers/arrow.js":"31HFW","./modifiers/hide.js":"2g4OF","./popper-lite.js":false,"./modifiers/index.js":"cap3W","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2jedY":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 function codeComponent() {
     return {};
 }
 exports.default = codeComponent;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1HiHq":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _tippy = require("~/app/assets/lookbook/js/lib/tippy");
+var _tippyDefault = parcelHelpers.interopDefault(_tippy);
+var _component = require("../button/component");
+var _componentDefault = parcelHelpers.interopDefault(_component);
+function copyButtonComponent(target = null) {
+    const button = _componentDefault.default();
+    return {
+        ...button,
+        done: false,
+        init () {
+            button.init.bind(this)();
+            if (target === null) this._copyTarget = this.$refs.copyContent;
+            else this._copyTarget = typeof target === "string" ? document.querySelector(target) : target;
+            this._notificationTippy = _tippyDefault.default(this.$el, {
+                content: "Copied!",
+                trigger: "manual"
+            });
+        },
+        async copyToClipboard () {
+            await window.navigator.clipboard.writeText(this.getContent());
+            this.done = true;
+            this._notificationTippy.show();
+            this._labelTippy.hide();
+            setTimeout(()=>{
+                this.done = false;
+                this._notificationTippy.hide();
+            }, 1000);
+        },
+        getContent () {
+            const decoder = document.createElement("textarea");
+            decoder.innerHTML = this._copyTarget ? this._copyTarget.innerHTML : "";
+            return decoder.value.trim();
+        },
+        _copyTarget: null,
+        _notificationTippy: null
+    };
+}
+exports.default = copyButtonComponent;
+
+},{"~/app/assets/lookbook/js/lib/tippy":"6zhil","../button/component":"lQApy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kFxrd":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function dimensionsDisplayComponent(targetSelector) {
+    return {
+        width: 0,
+        height: 0,
+        resizing: false,
+        init () {
+            const target = document.querySelector(targetSelector);
+            this.width = Math.round(target.clientWidth);
+            this.height = Math.round(target.clientHeight);
+            this.createObserver();
+        },
+        createObserver () {
+            this.observer = new ResizeObserver((entries)=>{
+                const rect = entries[0].contentRect;
+                this.width = Math.round(rect.width);
+                this.height = Math.round(rect.height);
+            });
+            console.log(document.querySelector(targetSelector));
+            this.observer.observe(document.querySelector(targetSelector));
+        },
+        tearDown () {
+            this.observer.disconnect();
+        }
+    };
+}
+exports.default = dimensionsDisplayComponent;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hM4Uf":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -11437,6 +11469,7 @@ exports.default = embedComponent;
               li(n) && ["html", "body"].indexOf(ai(n)) < 0;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             ) {
               var i = wi(n);
               if (
@@ -11664,6 +11697,18 @@ exports.default = embedComponent;
         l
       );
 =======
+=======
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2RhL0":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function iconComponent(iconName) {
+    return {
+        iconName
+    };
+}
+exports.default = iconComponent;
+
+>>>>>>> c9a6dcb (Add preview dimensions display)
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bGQJL":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -11704,6 +11749,7 @@ function navComponent(store) {
 }
 exports.default = navComponent;
 
+<<<<<<< HEAD
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2RhL0":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -12075,6 +12121,17 @@ function iconComponent(iconName) {
                   }),
                   a && c.removeEventListener("resize", n.update, Ui);
               }
+=======
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"b93Nq":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function paramFieldComponent({ name , value  }) {
+    return {
+        name,
+        value,
+        init () {
+            this.$watch("value", ()=>this.update()
+>>>>>>> c9a6dcb (Add preview dimensions display)
             );
           },
           data: {},

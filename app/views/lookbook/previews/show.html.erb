@@ -14,7 +14,13 @@
           <% end %>
         <% end %>
 
-        <% toolbar.section align: :right, divide: :left do %>
+        <% toolbar.section align: :right, padded: true do %>
+          <%= render_component :dimensions_display,
+            "[data-component=viewport] iframe",
+            x_show: "$store.inspector.preview.activeTab === 'preview'" %>
+        <% end %>
+
+        <% toolbar.section divide: :left do %>
           <%= render_component :button_group do |group| %>
             <% if feature_enabled? :pages %>
               <% group.button icon: :code,
