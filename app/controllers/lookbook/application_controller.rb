@@ -6,6 +6,8 @@ module Lookbook
     helper Lookbook::OutputHelper
     helper Lookbook::ComponentHelper
 
+    before_action :load_theme_css
+
     def self.controller_path
       "lookbook"
     end
@@ -20,6 +22,18 @@ module Lookbook
     end
 
     protected
+
+    def load_theme_css
+      @theme_css = nil
+      theme_file = Lookbook.config.ui_theme_css
+      if theme_file.present?
+        if File.exist? theme_file
+          @theme_css = File.read(theme_file)
+        else
+          Lookbook.logger.warn "Could not find theme file #{Lookbook.config.ui_theme_css}"
+        end
+      end
+    end
 
     def feature_enabled?(feature)
       Lookbook::Features.enabled?(feature)

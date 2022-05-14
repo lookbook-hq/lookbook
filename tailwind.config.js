@@ -1,4 +1,4 @@
-const theme = require("./theme.json");
+const lookbookTheme = require("./theme.json");
 
 module.exports = {
   content: [
@@ -15,7 +15,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ...theme,
+        ...lookbookTheme,
       },
       fontFamily: {
         mono: "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace",

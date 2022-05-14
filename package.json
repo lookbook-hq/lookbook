@@ -13,9 +13,12 @@
     }
   },
   "scripts": {
-    "dev": "npm run theme:generate && parcel watch",
-    "build": "npm run theme:generate && parcel build --no-cache",
-    "theme:generate": "bin/generate-theme",
+    "dev": "parcel watch",
+    "build": "parcel build --no-cache",
+    "theme:generate": "npm run theme:generate:default && npm run theme:generate:blue && npm run theme:generate:zinc",
+    "theme:generate:default": "bin/generate-theme",
+    "theme:generate:blue": "bin/generate-theme --name=blue --accent=blue",
+    "theme:generate:zinc": "bin/generate-theme --name=zinc --accent=zinc",
     "clean": "rm -rf .parcel-cache",
     "lint:fix": "standardrb --fix && prettier --write .",
     "release": "release-it",
@@ -34,6 +37,7 @@
     "@tailwindcss/typography": "^0.5.0",
     "alpinejs": "^3.10.2",
     "autoprefixer": "^10.4.0",
+    "command-line-args": "^5.2.1",
     "debounce": "^1.2.1",
     "iframe-resizer": "^4.3.2",
     "loglevel": "^1.8.0",

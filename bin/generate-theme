@@ -1,30 +1,46 @@
 #!/usr/bin/env node
+
 const fs = require("fs");
-const themeConfig = require("../theme.config")();
 
-// CSS variables
+const options = require("command-line-args")([
+  { name: "name", type: String },
+  { name: "base", type: String },
+  { name: "accent", type: String },
+]);
 
-const cssThemeLines = [":root {"];
-Object.keys(themeConfig).forEach((key) => {
-  cssThemeLines.push(`  --lookbook-${kebabCase(key)}: ${themeConfig[key]};`);
-});
-cssThemeLines.push("}");
+const themeConfig = require("../theme.config")(options);
 
-write("./app/assets/lookbook/css/theme.css", cssThemeLines.join("\n"));
+const themeCSS = generateThemeCSS(options);
+write(
+  `./app/assets/lookbook/css/themes/${
+    options.name ? options.name : "default"
+  }.css`,
+  themeCSS
+);
 
 // Tailwind classes
 
-const theme = {
-  lookbook: {},
-};
-
-Object.keys(themeConfig).forEach((key) => {
-  theme.lookbook[kebabCase(key)] = `var(--lookbook-${kebabCase(key)})`;
-});
-
-write("./theme.json", JSON.stringify(theme));
+const tailwindJSON = generateTailwindJSON();
+write("./theme.json", tailwindJSON);
 
 // Utils
+
+function generateThemeCSS(options) {
+  const cssThemeLines = [options.name ? `.theme-${options.name} {` : ":root {"];
+  Object.keys(themeConfig).forEach((key) => {
+    cssThemeLines.push(`  --lookbook-${kebabCase(key)}: ${themeConfig[key]};`);
+  });
+  cssThemeLines.push("}");
+  return cssThemeLines.join("\n");
+}
+
+function generateTailwindJSON() {
+  const theme = { lookbook: {} };
+  Object.keys(themeConfig).forEach((key) => {
+    theme.lookbook[kebabCase(key)] = `var(--lookbook-${kebabCase(key)})`;
+  });
+  return JSON.stringify(theme);
+}
 
 function write(path, content) {
   try {
