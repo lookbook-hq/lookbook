@@ -39,11 +39,11 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply transition-colors rounded-full	bg-clip-content bg-lookbook-scrollbar-thumb;
+    @apply transition-colors rounded-full	bg-clip-content bg-lookbook-scrollbar;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-lookbook-scrollbar-thumb-hover;
+    @apply bg-lookbook-scrollbar-hover;
   }
 }
 
@@ -51,6 +51,6 @@
   .form-input {
     @apply text-lookbook-input-text placeholder:text-lookbook-input-text-placeholder placeholder:italic;
     @apply border-lookbook-input-border focus:ring-lookbook-input-border-focus focus:border-lookbook-input-border-focus;
-    @apply rounded-md text-sm w-full;
+    @apply rounded-md text-sm w-full bg-lookbook-input;
   }
 }

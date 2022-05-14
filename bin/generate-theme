@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+const fs = require("fs");
+const themeConfig = require("../theme.config")();
+
+// CSS variables
+
+const cssThemeLines = [":root {"];
+Object.keys(themeConfig).forEach((key) => {
+  cssThemeLines.push(`  --lookbook-${kebabCase(key)}: ${themeConfig[key]};`);
+});
+cssThemeLines.push("}");
+
+write("./app/assets/lookbook/css/theme.css", cssThemeLines.join("\n"));
+
+// Tailwind classes
+
+const theme = {
+  lookbook: {},
+};
+
+Object.keys(themeConfig).forEach((key) => {
+  theme.lookbook[kebabCase(key)] = `var(--lookbook-${kebabCase(key)})`;
+});
+
+write("./theme.json", JSON.stringify(theme));
+
+// Utils
+
+function write(path, content) {
+  try {
+    fs.writeFileSync(path, content);
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+}
+
+function kebabCase(str) {
+  return str.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+}

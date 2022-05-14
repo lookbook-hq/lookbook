@@ -13,8 +13,9 @@
     }
   },
   "scripts": {
-    "dev": "parcel watch",
-    "build": "parcel build --no-cache",
+    "dev": "npm run theme:generate && parcel watch",
+    "build": "npm run theme:generate && parcel build --no-cache",
+    "theme:generate": "bin/generate-theme",
     "clean": "rm -rf .parcel-cache",
     "lint:fix": "standardrb --fix && prettier --write .",
     "release": "release-it",

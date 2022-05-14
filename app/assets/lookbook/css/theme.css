@@ -1,54 +1,39 @@
 :root {
   --lookbook-text: theme("colors.zinc.800");
   --lookbook-divider: theme("colors.zinc.300");
-
   --lookbook-branding-text: theme("colors.black");
-
   --lookbook-button-text: theme("colors.zinc.400");
-  --lookbook-button-text--hover: theme("colors.indigo.600");
-
-  --lookbook-draggable-hint: rgb(224 231 255 / 0.2);
-
-  --lookbook-tooltip-bg: theme("colors.indigo.500");
+  --lookbook-button-text-hover: theme("colors.indigo.600");
+  --lookbook-tooltip: theme("colors.indigo.500");
   --lookbook-tooltip-text: theme("colors.white");
-
-  --lookbook-scrollbar-thumb: theme("colors.zinc.200");
-  --lookbook-scrollbar-thumb--hover: theme("colors.zinc.300");
-
-  --lookbook-sidebar-bg: theme("colors.zinc.50");
-
-  --lookbook-toolbar-bg: theme("colors.white");
+  --lookbook-scrollbar: theme("colors.zinc.200");
+  --lookbook-scrollbar-hover: theme("colors.zinc.300");
+  --lookbook-toolbar: theme("colors.white");
   --lookbook-toolbar-divider: var(--lookbook-divider);
-
   --lookbook-nav-text: var(--lookbook-text);
-  --lookbook-nav-chevron: theme("colors.zinc.500");
+  --lookbook-nav-toggle: theme("colors.zinc.500");
   --lookbook-nav-icon: theme("colors.indigo.500");
-  --lookbook-nav-item-bg--hover: theme("colors.zinc.100");
-  --lookbook-nav-item-bg--active: theme("colors.indigo.50");
-
-  --lookbook-input-bg: theme("colors.white");
+  --lookbook-nav-item-hover: theme("colors.zinc.100");
+  --lookbook-nav-item-active: theme("colors.indigo.50");
+  --lookbook-input: theme("colors.white");
   --lookbook-input-border: theme("colors.zinc.300");
-  --lookbook-input-border--focus: theme("colors.indigo.200");
+  --lookbook-input-border-focus: theme("colors.indigo.200");
   --lookbook-input-text: theme("colors.zinc.600");
-  --lookbook-input-text--placeholder: theme("colors.zinc.400");
-
-  --lookbook-toggle-bg: theme("colors.zinc.300");
-  --lookbook-toggle-bg--active: theme("colors.indigo.500");
-
-  --lookbook-drawer-bg: theme("colors.zinc.50");
-
-  --lookbook-prose-bg: theme("colors.white");
+  --lookbook-input-text-placeholder: theme("colors.zinc.400");
+  --lookbook-input-toggle: theme("colors.zinc.300");
+  --lookbook-input-toggle-active: theme("colors.indigo.500");
+  --lookbook-prose: theme("colors.white");
   --lookbook-prose-text: theme("colors.zinc.600");
   --lookbook-prose-link: theme("colors.indigo.900");
-
-  --lookbook-tabs-active-highlight: theme("colors.indigo.400");
   --lookbook-tabs-text: theme("colors.zinc.500");
-  --lookbook-tabs-text--hover: theme("colors.zinc.700");
-  --lookbook-tabs-text--disabled: theme("colors.zinc.300");
-
+  --lookbook-tabs-text-hover: theme("colors.zinc.700");
+  --lookbook-tabs-text-disabled: theme("colors.zinc.300");
+  --lookbook-tabs-highlight: theme("colors.indigo.400");
   --lookbook-viewport-handle: theme("colors.white");
-  --lookbook-viewport-handle-icon: theme("colors.zinc.500");
-  --lookbook-viewport-handle-icon--hover: theme("colors.zinc.700");
-
-  --lookbook-page-bg: theme("colors.zinc.50");
+  --lookbook-viewport-handle-icon: theme("colors.zinc.300");
+  --lookbook-viewport-handle-icon-hover: theme("colors.zinc.700");
+  --lookbook-sidebar: theme("colors.zinc.50");
+  --lookbook-page: theme("colors.white");
+  --lookbook-drawer: theme("colors.zinc.50");
+  --lookbook-draggable-hint: rgb(224 231 255 / 0.2);
 }

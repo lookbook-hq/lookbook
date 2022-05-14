@@ -4,23 +4,23 @@
 .tippy-box[data-theme~="lookbook"] {
   @apply text-xs opacity-90;
 
-  background-color: var(--lookbook-tooltip-bg);
+  background-color: var(--lookbook-tooltip);
   color: var(--lookbook-tooltip-text);
 
   &[data-placement^="top"] > .tippy-arrow::before {
-    border-top-color: var(--lookbook-tooltip-bg);
+    border-top-color: var(--lookbook-tooltip);
   }
 
   &[data-placement^="bottom"] > .tippy-arrow::before {
-    border-bottom-color: var(--lookbook-tooltip-bg);
+    border-bottom-color: var(--lookbook-tooltip);
   }
 
   &[data-placement^="left"] > .tippy-arrow::before {
-    border-left-color: var(--lookbook-tooltip-bg);
+    border-left-color: var(--lookbook-tooltip);
   }
 
   &[data-placement^="right"] > .tippy-arrow::before {
-    border-right-color: var(--lookbook-tooltip-bg);
+    border-right-color: var(--lookbook-tooltip);
   }
 }
 

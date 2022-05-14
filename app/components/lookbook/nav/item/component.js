@@ -56,7 +56,7 @@ export default function navItemComponent({ id, matchers }) {
         ["x-ref"]: "toggle",
       },
       link: {
-        [":class"]: "{'!bg-lookbook-nav-item-bg-active':active}",
+        [":class"]: "{'!bg-lookbook-nav-item-active':active}",
         ["x-ref"]: "link",
       },
     },

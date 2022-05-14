@@ -8,7 +8,7 @@
     class="w-screen h-screen">
     <%= render_component :split_layout, "$store.layout.main" do |layout| %>
 
-      <% layout.pane class: "flex flex-col bg-lookbook-sidebar-bg relative" do %>
+      <% layout.pane class: "flex flex-col bg-lookbook-sidebar relative" do %>
       
         <%= render_component :toolbar do |toolbar| %>
           <% if config.project_name %>
