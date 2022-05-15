@@ -2,7 +2,7 @@
   <div x-ref="tabs" class="flex items-stretch h-10 space-x-6 select-none min-w-0">
     <%= safe_join(tabs) %>
   </div>
-  <div x-ref="dropdownTrigger" class="absolute" x-show="visibleTabsCount < tabs.length" :style="{left: `${triggerLeft}px`}">
+  <div x-ref="dropdownTrigger" class="absolute" x-show="hasHiddenTabs" :style="{left: `${triggerLeft}px`}">
     <%= render_component :button, icon: :chevrons_right, x_show: "visibleTabsCount > 0" %>
     <%= render_component :button, icon: :menu, class: "-ml-3", x_show: "visibleTabsCount === 0" %>
   </div>

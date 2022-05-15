@@ -19,7 +19,7 @@ module Lookbook
       embed_id = "#{url_for}/embed/#{example.lookup_path}".delete_prefix("/").tr("/", "-")
 
       render_component :embed,
-        embed_id,
+        id: embed_id,
         example: example,
         params: params,
         opts: opts

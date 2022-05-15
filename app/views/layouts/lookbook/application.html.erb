@@ -10,7 +10,7 @@
     <%= render_component :toolbar do |toolbar| %>
       <% toolbar.section padded: true do %>
         <%= render_component :branding,
-          config.project_name,
+          text: config.project_name,
           href: landing_path if config.project_name %>
       <% end %>
       <% toolbar.section padded: true, align: :right do %>
@@ -29,7 +29,7 @@
     <% end %>
     
     <%= render_component :split_layout,
-      "$store.layout.main",
+      alpine_data: "$store.layout.main",
       ":class": "$store.layout.mobile && '!block'" do |layout| %>
 
       <% layout.pane class: "flex flex-col bg-lookbook-sidebar relative translate-x-0",
@@ -41,19 +41,23 @@
         "@click.outside": "closeMobileSidebar",
         x_cloak: true do %>
 
-        <%= render_component :split_layout, "$store.layout.sidebar" do |layout| %>
+        <%= render_component :split_layout, alpine_data: "$store.layout.sidebar" do |layout| %>
           <% layout.pane class: "overflow-hidden" do %>
-            <%= render_component :nav, Lookbook.previews, "$store.nav.previews", {
+            <%= render_component :nav,
+              collection: Lookbook.previews,
+              alpine_data: "$store.nav.previews",
               label: "Previews",
-              collapse_singles: true
-            } do |nav| %>
-              <% nav.filter("$store.nav.previews.filter", placeholder: "Filter by preview name&hellip;") %>
+              collapse_singles: true do |nav| %>
+              <% nav.filter store: "$store.nav.previews.filter", placeholder: "Filter by preview name&hellip;" %>
             <% end %>
           <% end %>
 
           <% if Lookbook.pages.any? %>
             <% layout.pane class: "overflow-hidden" do %>
-              <%= render_component :nav, Lookbook.pages, "$store.nav.pages", label: "Pages" %>
+              <%= render_component :nav,
+                collection: Lookbook.pages,
+                alpine_data: "$store.nav.pages",
+                label: "Pages" %>
             <% end %>
           <% end %>
 
@@ -63,7 +67,7 @@
           <div x-data="{hidden: false}" class="flex-none border-t border-lookbook-divider absolute bottom-0 left-0 right-0" x-show="!hidden">
             <%= render_component :toolbar do |toolbar| %>
               <% toolbar.section padded: true, class: "flex items-center" do %>
-                <%= render_component :icon, :alert_triangle, size: 4, class: "text-red-700" %>
+                <%= render_component :icon, name: :alert_triangle, size: 4, class: "text-red-700" %>
                 <span class="ml-2">Preview load errors</span>
               <% end %>
               <% toolbar.section align: :right do %>

@@ -39,9 +39,10 @@ Alpine.store("pages", initPagesStore(Alpine));
 Alpine.data("app", app);
 
 [componentScripts, subComponentScripts].forEach((scripts) => {
-  getComponents(scripts).forEach((component) =>
-    Alpine.data(component.name, component)
-  );
+  const components = getComponents(scripts);
+  Object.keys(components).forEach((name) => {
+    Alpine.data(`${name}Component`, components[name]);
+  });
 });
 
 // Init

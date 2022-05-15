@@ -1,4 +1,4 @@
 <%= render_component :viewport,
-  lookbook.preview_path(request.query_parameters.merge(lookbook_timestamp: Time.now)),
-  "$store.inspector.preview"
+  src: lookbook.preview_path(request.query_parameters.merge(lookbook_timestamp: Time.now)),
+  alpine_data: "$store.inspector.preview"
   %>

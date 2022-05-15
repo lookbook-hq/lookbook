@@ -1,5 +1,5 @@
 <%= render_component :split_layout,
-  "$store.layout.inspector",
+  alpine_data: "$store.layout.inspector",
   ":class": "$store.inspector.drawer.hidden && '!grid-rows-[1fr] !grid-cols-[1fr]'" do |layout| %>
 
   <%= layout.pane class: "flex flex-col h-full overflow-hidden",
@@ -8,17 +8,17 @@
     <%= render_component :toolbar do |toolbar| %>
       <% toolbar.section ":class": "layoutResizing && 'overflow-hidden'" do %>
         <%= render_component :tabs,
-          "$store.inspector.preview",
+          alpine_data: "$store.inspector.preview",
           id: "inspector-preview-tabs" do |tabs| %>
           <%= @preview_panels.each do |key, panel| %>
-            <% tabs.tab key, **panel.extract!(:label, :id, :hotkey, :disabled) %>
+            <% tabs.tab ref: key, **panel.extract!(:label, :id, :hotkey, :disabled) %>
           <% end %>
         <% end %>
       <% end %>
 
       <% toolbar.section align: :right, padded: true, class: "flex-none" do %>
         <%= render_component :dimensions_display,
-          "[data-component=viewport] iframe",
+          target: "[data-component=viewport] iframe",
           x_show: "$store.inspector.preview.activeTab === 'preview'" %>
       <% end %>
 
@@ -51,10 +51,10 @@
 
     <div class="h-full relative overflow-auto">
       <%= render_component :tabbed_content,
-        "$store.inspector.preview",
+        alpine_data: "$store.inspector.preview",
         id: "inspector-preview-content" do |content| %>
         <%= @preview_panels.each do |key, panel| %>
-          <% content.section key, id: panel[:id] do %>
+          <% content.section ref: key, id: panel[:id] do %>
             <%= render panel[:template],
               preview: @preview,
               example: @example,
@@ -71,10 +71,10 @@
     <%= render_component :toolbar do |toolbar| %>
       <% toolbar.section ":class": "layoutResizing && 'overflow-hidden'" do %>
         <%= render_component :tabs,
-          "$store.inspector.drawer",
+          alpine_data: "$store.inspector.drawer",
           id: "inspector-drawer-tabs" do |tabs| %>
           <%= @drawer_panels.each do |key, panel| %>
-            <% tabs.tab key, **panel.extract!(:label, :id, :hotkey, :disabled) %>
+            <% tabs.tab ref: key, **panel.extract!(:label, :id, :hotkey, :disabled) %>
           <% end %>
         <% end %>
       <% end %>
@@ -119,10 +119,10 @@
 
     <div class="h-full overflow-auto">
       <%= render_component :tabbed_content,
-        "$store.inspector.drawer",
+        alpine_data: "$store.inspector.drawer",
         id: "inspector-drawer-content" do |content| %>
         <% @drawer_panels.each do |key, panel| %>
-          <% content.section key, id: panel[:id] do %>
+          <% content.section ref: key, id: panel[:id] do %>
             <%= render panel[:template],
               preview: @preview,
               example: @example,

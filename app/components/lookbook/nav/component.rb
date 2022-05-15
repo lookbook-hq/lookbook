@@ -3,8 +3,7 @@ module Lookbook
     renders_one :filter, Lookbook::Filter::Component
 
     def initialize(
-      collection,
-      alpine_args = nil,
+      collection:,
       label: nil,
       collapse_singles: false,
       **attrs
@@ -14,7 +13,7 @@ module Lookbook
       @item_args = {
         collapse_singles: collapse_singles
       }
-      super(alpine_args, **attrs)
+      super(**attrs)
     end
 
     def label
@@ -23,10 +22,9 @@ module Lookbook
 
     def items
       @collection.non_empty_items.map do |item|
-        render Lookbook::Nav::Item::Component.new item, {
+        render Lookbook::Nav::Item::Component.new item,
           depth: 1,
           **@item_args
-        }
       end
     end
 

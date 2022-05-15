@@ -1,6 +1,6 @@
 module Lookbook
   class Tabs::Component < Lookbook::Component
-    renders_many :tabs, ->(ref = nil, **attrs) do
+    renders_many :tabs, ->(ref: nil, **attrs) do
       @tab_counter += 1
       ref ||= "tab-#{@tab_counter}"
       id = "#{@id}-#{ref}"
@@ -18,10 +18,10 @@ module Lookbook
       Lookbook::Tabs::DropdownTab::Component.new(ref: "dropdown-#{ref}", **attrs)
     end
 
-    def initialize(*args, id:, **html_attrs)
+    def initialize(id:, **html_attrs)
       @id = id
       @tab_counter = 0
-      super(*args, id: id, **html_attrs)
+      super(id: id, **html_attrs)
     end
 
     protected

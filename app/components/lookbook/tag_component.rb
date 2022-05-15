@@ -2,7 +2,7 @@ module Lookbook
   class TagComponent < ViewComponent::Base
     include Lookbook::ComponentHelper
 
-    def initialize(tag = :div, name: nil, cloak: false, **html_attrs)
+    def initialize(tag: :div, name: nil, cloak: false, **html_attrs)
       @tag = tag
       html_attrs[:class] = class_names(html_attrs[:class]) if html_attrs[:class]
       html_attrs[:data] ||= {}

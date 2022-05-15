@@ -26,7 +26,7 @@ module Lookbook
 
     protected
 
-    def alpine_args
+    def alpine_data
       "{name: '#{@name}', value: #{value.to_json}}"
     end
 

@@ -1,6 +1,6 @@
 module Lookbook
   class Embed::Component < Lookbook::Component
-    def initialize(id, example: nil, params: {}, opts: {}, **html_attrs)
+    def initialize(id:, example: nil, params: {}, opts: {}, **html_attrs)
       @id = id
       @example = example
       @params = params
@@ -10,7 +10,7 @@ module Lookbook
 
     protected
 
-    def alpine_args
+    def alpine_data
       [@id.to_json, "$store.pages.embeds"].join(",")
     end
 

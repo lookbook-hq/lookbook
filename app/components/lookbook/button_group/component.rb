@@ -1,8 +1,10 @@
 module Lookbook
   class ButtonGroup::Component < Lookbook::Component
-    renders_many :buttons, ->(*args, copy: nil, **attrs) do
+    renders_many :buttons, ->(copy: nil, **attrs) do
+      p "=============="
+      p copy
       attrs[:size] = @size
-      copy.present? ? CopyButton::Component.new(*args, target: copy, **attrs) : Button::Component.new(*args, **attrs)
+      copy.present? ? CopyButton::Component.new(target: copy, **attrs) : Button::Component.new(**attrs)
     end
 
     def initialize(size: :md, **html_attrs)

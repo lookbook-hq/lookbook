@@ -27,7 +27,7 @@
       @viewport:resize-progress="resizeIframe($event.detail.width)">
       <%= render_component :viewport,
         helpers.lookbook.preview_path(@example.path, @params.merge(lookbook_embed: true)),
-        "store",
+        alpine_data: "store",
         resize_height: false,
         class: "mb-[-2px]" %>
     </div>
@@ -36,7 +36,7 @@
 <% else %>
 <%= render_component_tag class: "bg-white flex flex-col items-center justify-center border-2 border-dashed border-gray-200 p-6 rounded-md not-prose" do %>
   <div class="px-4 text-center">
-    <%= render_component :icon, :alert_triangle, size: 6, class: "text-red-300 mx-auto" %>
+    <%= render_component :icon, name: :alert_triangle, size: 6, class: "text-red-300 mx-auto" %>
     <div class="mt-2 max-w-xs">
       <h5 class="text-base">Preview not found</h5>
       <p class="mt-1 opacity-50 text-sm">

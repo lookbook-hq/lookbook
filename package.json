@@ -19,7 +19,7 @@
   },
   "scripts": {
     "dev": "parcel watch",
-    "build": "parcel build --no-cache",
+    "build": "parcel build --no-cache --no-optimize",
     "theme:generate": "npm run theme:generate:default && npm run theme:generate:blue && npm run theme:generate:zinc",
     "theme:generate:default": "bin/generate-theme",
     "theme:generate:blue": "bin/generate-theme --name=blue --accent=blue",

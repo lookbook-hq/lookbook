@@ -1,2 +1,0 @@
-class PreviewController < ViewComponentsController
-end

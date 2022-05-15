@@ -39,10 +39,9 @@ module Lookbook
     def children
       @children ||= if collection? && !collapsed?
         item.non_empty_items.map do |item|
-          render Lookbook::Nav::Item::Component.new item, {
+          render Lookbook::Nav::Item::Component.new item,
             depth: (@depth + 1),
             collapse_singles: @collapse_singles
-          }
         end
       else
         []
@@ -71,7 +70,7 @@ module Lookbook
 
     protected
 
-    def alpine_args
+    def alpine_data
       {
         id: @item.id,
         matchers: item.is_a?(Lookbook::Collection) ? nil : item.matchers

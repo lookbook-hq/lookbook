@@ -2,23 +2,15 @@ module Lookbook
   module ComponentHelper
     COMPONENT_CLASSES = {} # cache for constantized references
 
-    def render_component(ref, *args, **attrs, &block)
+    def render_component(ref, **attrs, &block)
       klass = component_class(ref)
-      comp = attrs.key?(:content) ? klass.new(*args, **attrs.except(:content)).with_content(attrs[:content]) : klass.new(*args, **attrs)
+      comp = attrs.key?(:content) ? klass.new(**attrs.except(:content)).with_content(attrs[:content]) : klass.new(**attrs)
       render comp, &block
     end
 
-    def render_tag(*args, &block)
-      render_component :tag, *args, &block
+    def render_tag(tag = :div, **attrs, &block)
+      render Lookbook::TagComponent.new(tag: tag, **attrs), &block
     end
-
-    # def icon(name, size: 4, **attrs)
-    #   component "icon", name: name, size: size, **attrs
-    # end
-
-    # def code(language = "ruby", **opts, &block)
-    #   component "code", language: language, **opts, &block
-    # end
 
     if Rails.version.to_f < 6.1
       def class_names(*args)

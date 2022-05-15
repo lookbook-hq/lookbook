@@ -1,7 +1,7 @@
 module Lookbook
   class Code::Component < Lookbook::Component
     def initialize(
-      source = nil,
+      source: nil,
       language: :html,
       line_numbers: false,
       highlight_lines: [],

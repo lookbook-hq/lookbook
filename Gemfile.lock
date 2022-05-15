@@ -54,6 +54,7 @@ GEM
     crass (1.0.6)
     erubi (1.10.0)
     ffi (1.15.5)
+    foreman (0.87.2)
     htmlbeautifier (1.4.2)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
@@ -149,6 +150,7 @@ PLATFORMS
 
 DEPENDENCIES
   capybara (~> 3.3)
+  foreman
   lookbook!
   shoulda (~> 4.0)
   sqlite3 (~> 1.4)

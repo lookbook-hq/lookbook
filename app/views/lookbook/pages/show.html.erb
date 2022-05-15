@@ -15,7 +15,7 @@
         <% if @previous_page %>
           <a href="<%= page_path @previous_page.lookup_path %>"
             class="flex items-center flex-none">
-            <%= render_component :icon, :arrow_left, size: 4, class: "hover:text-indigo-800" %>
+            <%= render_component name: :icon, :arrow_left, size: 4, class: "hover:text-indigo-800" %>
             <span class="ml-2 underline"><%= @previous_page.title %></span>
           </a>
         <% end %>
@@ -24,7 +24,7 @@
           <a href="<%= page_path @next_page.lookup_path %>"
             class="flex items-center flex-none ml-auto">
             <span class="mr-2 underline"><%= @next_page.title %></span>
-            <%= render_component :icon, :arrow_right, size: 4, class: "hover:text-indigo-800" %>
+            <%= render_component name: :icon, :arrow_right, size: 4, class: "hover:text-indigo-800" %>
           </a>
         <% end %>
       </footer>

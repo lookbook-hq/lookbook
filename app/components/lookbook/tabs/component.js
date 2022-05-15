@@ -85,6 +85,10 @@ export default function tabsComponent(store) {
       return el.getAttribute("data-disabled") == "true";
     },
 
+    hasHiddenTabs() {
+      return this.visibleTabsCount < this.tabs.length;
+    },
+
     // protected
 
     _lastMeasuredWidth: 0,

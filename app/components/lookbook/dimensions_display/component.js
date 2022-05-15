@@ -3,9 +3,7 @@ import { observeSize } from "@helpers/layout";
 export default function dimensionsDisplayComponent(targetSelector) {
   return {
     width: 0,
-
     height: 0,
-
     resizing: false,
 
     init() {
