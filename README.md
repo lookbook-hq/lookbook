@@ -476,13 +476,9 @@ end
 
 ---
 
-<h2 id="pages">🚧 Documentation Pages [experimental]</h2>
+<h2 id="pages">Documentation Pages</h2>
 
 If you need to add more long-form documentation to live alongside your component previews you can do so using Lookbook's markdown-powered `pages` system.
-
-> ⚠️ This feature is currently flagged as an **experimental** feature which requires [feature opt-in](#experimental-features) to use. Its API and implementation may change before it is released.
-> 
-> To enable support for pages in your project, add `config.lookbook.experimental_features = [:pages]` into your application configuration file.
 
 ### Pages demo 
 
@@ -808,10 +804,7 @@ To opt into individual experimental features, include the name of the feature in
 config.lookbook.experimental_features = ["feature_name"]
 ```
 
-The current experimental features that can be opted into are:
-
-- `pages`: Markdown-powered documentation pages with embeddable previews
-
+> There are currently no experimental features that can be opted into.
 
 #### Opting into all experimental features (not recommended!)
 

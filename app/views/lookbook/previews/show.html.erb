@@ -24,14 +24,12 @@
 
       <% toolbar.section divide: :left, class: "flex-none" do %>
         <%= render_component :button_group do |group| %>
-          <% if feature_enabled? :pages %>
-            <% group.button icon: :code,
-              tooltip: "Copy page embed code",
-              copy: true do %>
-                &lt;%= embed <%= @preview.preview_class %>, :<%= @example.name %>, params: <%= request.query_parameters.deep_symbolize_keys.to_s %> %&gt;
-            <% end %>
+          <% group.button icon: :code,
+            tooltip: "Copy page embed code",
+            copy: true do %>
+              &lt;%= embed <%= @preview.preview_class %>, :<%= @example.name %>, params: <%= request.query_parameters.deep_symbolize_keys.to_s %> %&gt;
           <% end %>
-
+          
           <% group.button icon: :refresh_cw,
             tooltip: "Refresh preview",
             "@click.stop": "startSpin(); $dispatch('viewport:reload'); stopSpin(500);" %>

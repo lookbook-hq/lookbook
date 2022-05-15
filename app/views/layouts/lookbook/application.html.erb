@@ -51,9 +51,12 @@
             <% end %>
           <% end %>
 
-          <% layout.pane class: "overflow-hidden" do %>
-            <%= render_component :nav, Lookbook.pages, "$store.nav.pages", label: "Pages" %>
+          <% if Lookbook.pages.any? %>
+            <% layout.pane class: "overflow-hidden" do %>
+              <%= render_component :nav, Lookbook.pages, "$store.nav.pages", label: "Pages" %>
+            <% end %>
           <% end %>
+
         <% end %>
 
         <% if Lookbook::Preview.errors.any? %>

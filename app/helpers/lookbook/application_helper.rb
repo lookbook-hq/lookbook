@@ -9,7 +9,7 @@ module Lookbook
     end
 
     def landing_path
-      landing = feature_enabled?(:pages) ? Lookbook.pages.find(&:landing) || Lookbook.pages.first : nil
+      landing = Lookbook.pages.find(&:landing) || Lookbook.pages.first
       if landing.present?
         page_path(landing.lookup_path)
       else

@@ -14,7 +14,7 @@ export default function navItemComponent({ id, matchers }) {
     },
 
     get children() {
-      return Array.from(this.$refs.items.children);
+      return this.$refs.items ? Array.from(this.$refs.items.children) : [];
     },
 
     get isCollection() {

@@ -5,7 +5,9 @@ export default function navComponent(store) {
     children: [],
 
     init() {
-      this.children = Array.from(this.$refs.items.children);
+      this.children = this.$refs.items
+        ? Array.from(this.$refs.items.children)
+        : [];
     },
 
     isOpen(id) {
