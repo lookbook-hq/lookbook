@@ -34,7 +34,7 @@
 
           <% group.button icon: :refresh_cw,
             tooltip: "Refresh preview",
-            "@click.stop": "startSpin(); $dispatch('viewport:reload-start'); stopSpin(500);" %>
+            "@click.stop": "startSpin(); $dispatch('viewport:reload'); stopSpin(500);" %>
 
           <% group.button icon: :external_link,
             href: lookbook.preview_path(@example.lookup_path),
