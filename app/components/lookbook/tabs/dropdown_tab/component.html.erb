@@ -1,0 +1,14 @@
+<%= render_component_tag :button,
+  x_ref: @ref,
+  class: "whitespace-nowrap px-4 py-2 border-l-2 cursor-pointer block w-full text-left",
+  ":class": "{
+    'border-lookbook-tabs-highlight': isSelected($el),
+    'border-transparent text-lookbook-tabs-text hover:text-lookbook-tabs-text-hover': !isSelected($el),
+    'hidden': visibleTabsCount >= #{@position}
+  }",
+  "@click.prevent": "selectTab($el)",
+  data: {
+    disabled: @disabled
+  } do %>
+  <%= label %>
+<% end %>

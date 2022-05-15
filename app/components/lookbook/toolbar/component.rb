@@ -13,13 +13,14 @@ module Lookbook
 
     renders_many :sections, ->(align: :nil, divide: nil, padded: false, **attrs, &block) do
       Lookbook::TagComponent.new class: [
+        "min-w-0",
         {
           "px-4": padded,
           "#{DIVIDE_CLASSES[divide]}": divide.present?,
           "#{ALIGN_CLASSES[align]}": align.present?
         },
         attrs[:class]
-      ], &block
+      ], **attrs.except(:class), &block
     end
   end
 end

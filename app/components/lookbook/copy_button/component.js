@@ -1,5 +1,5 @@
 import tippy from "~/app/assets/lookbook/js/lib/tippy";
-import buttonComponent from "../button/component";
+import buttonComponent from "@components/button/component";
 
 export default function copyButtonComponent(target = null) {
   const button = buttonComponent();

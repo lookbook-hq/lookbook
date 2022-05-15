@@ -1,4 +1,4 @@
-import { observeSize } from "../../../assets/lookbook/js/helpers/layout";
+import { observeSize } from "@helpers/layout";
 
 export default function dimensionsDisplayComponent(targetSelector) {
   return {

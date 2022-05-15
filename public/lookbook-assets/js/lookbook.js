@@ -6751,7 +6751,7 @@ function isExternalLink(link) {
 }
 
 },{"~/package.json":"dIKiH","./lib/socket":"8T56f","./helpers/dom":"3rv1J","./helpers/request":"12Op4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dIKiH":[function(require,module,exports) {
-module.exports = JSON.parse("{\"name\":\"lookbook\",\"version\":\"0.8.1\",\"description\":\"A native development UI for ViewComponent\",\"targets\":{\"app\":{\"source\":[\"./app/assets/lookbook/js/embed.js\",\"./app/assets/lookbook/js/lookbook.js\",\"./app/assets/lookbook/css/lookbook.css\"],\"distDir\":\"./public/lookbook-assets\"}},\"scripts\":{\"dev\":\"parcel watch\",\"build\":\"parcel build --no-cache\",\"theme:generate\":\"npm run theme:generate:default && npm run theme:generate:blue && npm run theme:generate:zinc\",\"theme:generate:default\":\"bin/generate-theme\",\"theme:generate:blue\":\"bin/generate-theme --name=blue --accent=blue\",\"theme:generate:zinc\":\"bin/generate-theme --name=zinc --accent=zinc\",\"clean\":\"rm -rf .parcel-cache\",\"lint:fix\":\"standardrb --fix && prettier --write .\",\"release\":\"release-it\",\"release:dry-run\":\"release-it --dry-run\"},\"author\":\"Mark Perkins\",\"license\":\"MIT\",\"dependencies\":{\"@alpinejs/collapse\":\"^3.10.2\",\"@alpinejs/morph\":\"^3.10.2\",\"@alpinejs/persist\":\"^3.10.2\",\"@parcel/resolver-glob\":\"^2.4.0\",\"@rails/actioncable\":\"^6.1.4\",\"@ryangjchandler/alpine-tooltip\":\"^1.2.0\",\"@tailwindcss/forms\":\"^0.4.0\",\"@tailwindcss/typography\":\"^0.5.0\",\"alpinejs\":\"^3.10.2\",\"autoprefixer\":\"^10.4.0\",\"command-line-args\":\"^5.2.1\",\"debounce\":\"^1.2.1\",\"iframe-resizer\":\"^4.3.2\",\"loglevel\":\"^1.8.0\",\"loglevel-plugin-prefix\":\"^0.8.4\",\"parcel\":\"^2.0.1\",\"postcss\":\"^8.4.5\",\"postcss-import\":\"^14.0.2\",\"postcss-import-ext-glob\":\"^2.0.1\",\"split-grid\":\"^1.0.11\",\"tailwindcss\":\"^3.0.6\",\"tippy.js\":\"^6.3.2\"},\"devDependencies\":{\"eslint\":\"^7.32.0\",\"eslint-config-airbnb-base\":\"^14.2.1\",\"eslint-config-prettier\":\"^8.3.0\",\"eslint-plugin-import\":\"^2.25.2\",\"prettier\":\"2.3.2\",\"release-it\":\"^14.11.6\"},\"release-it\":{\"git\":{\"commitMessage\":\"release v${version}\"},\"github\":{\"release\":true},\"npm\":{\"publish\":false},\"hooks\":{\"before:init\":[\"bundle install\",\"rake test\"],\"after:bump\":\"npm run build\",\"after:version:bump\":\"rake 'lookbook:release:bump_version[${version}]' && bundle\",\"after:release\":\"rake 'lookbook:release:build_and_push'\"}}}");
+module.exports = JSON.parse("{\"name\":\"lookbook\",\"version\":\"0.8.1\",\"description\":\"A native development UI for ViewComponent\",\"targets\":{\"app\":{\"source\":[\"./app/assets/lookbook/js/embed.js\",\"./app/assets/lookbook/js/lookbook.js\",\"./app/assets/lookbook/css/lookbook.css\"],\"distDir\":\"./public/lookbook-assets\"}},\"alias\":{\"@helpers/*\":\"./app/assets/lookbook/js/helpers/$1\",\"@lib/*\":\"./app/assets/lookbook/js/lib/$1\",\"@components/*\":\"./app/components/lookbook/$1\"},\"scripts\":{\"dev\":\"parcel watch\",\"build\":\"parcel build --no-cache\",\"theme:generate\":\"npm run theme:generate:default && npm run theme:generate:blue && npm run theme:generate:zinc\",\"theme:generate:default\":\"bin/generate-theme\",\"theme:generate:blue\":\"bin/generate-theme --name=blue --accent=blue\",\"theme:generate:zinc\":\"bin/generate-theme --name=zinc --accent=zinc\",\"clean\":\"rm -rf .parcel-cache\",\"lint:fix\":\"standardrb --fix && prettier --write .\",\"release\":\"release-it\",\"release:dry-run\":\"release-it --dry-run\"},\"author\":\"Mark Perkins\",\"license\":\"MIT\",\"dependencies\":{\"@alpinejs/collapse\":\"^3.10.2\",\"@alpinejs/morph\":\"^3.10.2\",\"@alpinejs/persist\":\"^3.10.2\",\"@parcel/resolver-glob\":\"^2.4.0\",\"@rails/actioncable\":\"^6.1.4\",\"@ryangjchandler/alpine-tooltip\":\"^1.2.0\",\"@tailwindcss/forms\":\"^0.4.0\",\"@tailwindcss/typography\":\"^0.5.0\",\"alpinejs\":\"^3.10.2\",\"autoprefixer\":\"^10.4.0\",\"command-line-args\":\"^5.2.1\",\"debounce\":\"^1.2.1\",\"iframe-resizer\":\"^4.3.2\",\"loglevel\":\"^1.8.0\",\"loglevel-plugin-prefix\":\"^0.8.4\",\"parcel\":\"^2.0.1\",\"postcss\":\"^8.4.5\",\"postcss-import\":\"^14.0.2\",\"postcss-import-ext-glob\":\"^2.0.1\",\"split-grid\":\"^1.0.11\",\"tailwindcss\":\"^3.0.6\",\"tippy.js\":\"^6.3.2\"},\"devDependencies\":{\"eslint\":\"^7.32.0\",\"eslint-config-airbnb-base\":\"^14.2.1\",\"eslint-config-prettier\":\"^8.3.0\",\"eslint-plugin-import\":\"^2.25.2\",\"prettier\":\"2.3.2\",\"release-it\":\"^14.11.6\"},\"release-it\":{\"git\":{\"commitMessage\":\"release v${version}\"},\"github\":{\"release\":true},\"npm\":{\"publish\":false},\"hooks\":{\"before:init\":[\"bundle install\",\"rake test\"],\"after:bump\":\"npm run build\",\"after:version:bump\":\"rake 'lookbook:release:bump_version[${version}]' && bundle\",\"after:release\":\"rake 'lookbook:release:build_and_push'\"}}}");
 
 },{}],"8T56f":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -10674,7 +10674,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _tippy = require("~/app/assets/lookbook/js/lib/tippy");
 var _tippyDefault = parcelHelpers.interopDefault(_tippy);
-var _component = require("../button/component");
+var _component = require("@components/button/component");
 var _componentDefault = parcelHelpers.interopDefault(_component);
 function copyButtonComponent(target = null) {
     const button = _componentDefault.default();
@@ -10711,10 +10711,10 @@ function copyButtonComponent(target = null) {
 }
 exports.default = copyButtonComponent;
 
-},{"~/app/assets/lookbook/js/lib/tippy":"6zhil","../button/component":"lQApy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kFxrd":[function(require,module,exports) {
+},{"~/app/assets/lookbook/js/lib/tippy":"6zhil","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@components/button/component":"lQApy"}],"kFxrd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _layout = require("../../../assets/lookbook/js/helpers/layout");
+var _layout = require("@helpers/layout");
 function dimensionsDisplayComponent(targetSelector) {
     return {
         width: 0,
@@ -10739,7 +10739,7 @@ function dimensionsDisplayComponent(targetSelector) {
 }
 exports.default = dimensionsDisplayComponent;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../assets/lookbook/js/helpers/layout":"128Lz"}],"hM4Uf":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@helpers/layout":"128Lz"}],"hM4Uf":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _iframeResizer = require("iframe-resizer/js/iframeResizer");
@@ -13125,11 +13125,12 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _splitGrid = require("split-grid");
 var _splitGridDefault = parcelHelpers.interopDefault(_splitGrid);
-var _layout = require("../../../assets/lookbook/js/helpers/layout");
+var _layout = require("@helpers/layout");
 function splitLayoutComponent({ split , opts  }) {
     let splitter = null;
 >>>>>>> 8a8eeb1 (Automate basic theme generation)
     return {
+<<<<<<< HEAD
 <<<<<<< HEAD
       box: t,
       content: n.find(function (e) {
@@ -13227,6 +13228,9 @@ function splitLayoutComponent({ split , opts  }) {
         clearDelayTimeouts: function () {
           clearTimeout(n), clearTimeout(i), cancelAnimationFrame(r);
 =======
+=======
+        layoutResizing: false,
+>>>>>>> 6b3547a (Responsive improvements)
         layoutWidth: null,
         layoutHeight: null,
         forceOrientation: null,
@@ -13367,9 +13371,36 @@ function splitLayoutComponent({ split , opts  }) {
                 })(i, b.unmount)
               : b.unmount();
         },
+<<<<<<< HEAD
         hideWithInteractivity: function (e) {
           0;
           C().addEventListener("mousemove", g), Sr(io, g), g(e);
+=======
+        initSplit () {
+            if (this._gutters.length) {
+                this._destroySplit();
+                const dir = this.horizontal ? "row" : "column";
+                splitter = _splitGridDefault.default({
+                    [`${dir}Gutters`]: gutterSplits(this._gutters),
+                    [`${dir}MinSizes`]: sizeSplits(this.minSizes),
+                    snapOffset: 0,
+                    dragInterval: 1,
+                    writeStyle () {},
+                    onDrag: (dir, gutterTrack, style)=>{
+                        const splits = style.split(" ").map((value, i)=>i % 2 == 0 ? value : null
+                        ).filter((v)=>v
+                        );
+                        this._setSplits(splits);
+                    },
+                    onDragStart: ()=>{
+                        this.layoutResizing = true;
+                    },
+                    onDragEnd: ()=>{
+                        this.layoutResizing = false;
+                    }
+                });
+            }
+>>>>>>> 6b3547a (Responsive improvements)
         },
         enable: function () {
           b.state.isEnabled = !0;
@@ -13858,7 +13889,7 @@ function sizeSplits(sizes) {
     return splits;
 }
 
-},{"split-grid":"c7zSd","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../assets/lookbook/js/helpers/layout":"128Lz"}],"c7zSd":[function(require,module,exports) {
+},{"split-grid":"c7zSd","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@helpers/layout":"128Lz"}],"c7zSd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var numeric = function(value, unit) {
@@ -15427,6 +15458,7 @@ var parseValue = function(value) {
             },
           });
         }
+<<<<<<< HEAD
         var e;
       },
       bindings: {
@@ -15478,6 +15510,102 @@ var parseValue = function(value) {
         return e.activeTab === this._getRef(t);
       },
       _getRef: (e) => e.getAttribute("x-ref"),
+=======
+    };
+}
+exports.default = tabbedContentComponent;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dvr8m":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _debounce = require("debounce");
+var _debounceDefault = parcelHelpers.interopDefault(_debounce);
+var _tippy = require("~/app/assets/lookbook/js/lib/tippy");
+var _tippyDefault = parcelHelpers.interopDefault(_tippy);
+var _layout = require("@helpers/layout");
+function tabsComponent(store) {
+    const initial = store.activeTab || null;
+    return {
+        visibleTabsCount: 0,
+        triggerLeft: 0,
+        get tabs () {
+            return Array.from(this.$refs.tabs.children);
+        },
+        get dropdownTabs () {
+            return Array.from(this.$refs.dropdown.children);
+        },
+        get tabWidths () {
+            return this.tabs.map((tab)=>getFullWidth(tab)
+            );
+        },
+        init () {
+            this.$nextTick(()=>{
+                const initialTab = initial ? this.tabs.find((t)=>this._getRef(t) === initial
+                ) : this.tabs[0];
+                this.selectTab(initialTab);
+                this.dropdown = _tippyDefault.default(this.$refs.dropdownTrigger, {
+                    content: this.$refs.dropdown,
+                    theme: "menu",
+                    interactive: true,
+                    trigger: "click",
+                    appendTo: this.$root
+                });
+                this.parentObserver = _layout.observeSize(this.$root.parentElement, _debounceDefault.default(this.handleResize.bind(this), 10));
+                this.$watch("visibleTabsCount", (value)=>{
+                    this.debug(`'#${this.$root.id}' visible tabs count:`, value);
+                });
+            });
+        },
+        handleResize ({ width  }) {
+            if (width === this._lastMeasuredWidth) return;
+            if (width === this.$root.offsetWidth) {
+                this.visibleTabsCount = this.tabs.length;
+                return;
+            }
+            let sumTabWidths = 60;
+            let triggerLeft = 20;
+            let visibleTabsCount = 0;
+            this.tabWidths.forEach((tabWidth)=>{
+                sumTabWidths += tabWidth;
+                if (sumTabWidths < width) {
+                    triggerLeft += tabWidth;
+                    visibleTabsCount++;
+                }
+            });
+            this.visibleTabsCount = visibleTabsCount;
+            this.triggerLeft = triggerLeft;
+            this._lastMeasuredWidth = width;
+        },
+        selectTab (el) {
+            store.activeTab = this._getRef(el);
+        },
+        isSelected (el) {
+            return store.activeTab === this._getRef(el);
+        },
+        isDisabled (el) {
+            return el.getAttribute("data-disabled") == "true";
+        },
+        // protected
+        _lastMeasuredWidth: 0,
+        _getRef (el) {
+            return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
+        }
+    };
+}
+exports.default = tabsComponent;
+function getFullWidth(el) {
+    const style = window.getComputedStyle(el, null);
+    return el.offsetWidth + parseInt(style.getPropertyValue("margin-left")) + parseInt(style.getPropertyValue("margin-right"));
+}
+
+},{"debounce":"6mekx","~/app/assets/lookbook/js/lib/tippy":"6zhil","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@helpers/layout":"128Lz"}],"6kmWp":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function viewportComponent(store) {
+    store = store || {
+        width: "100%",
+        height: "100%"
+>>>>>>> 6b3547a (Responsive improvements)
     };
   }
   t(Bo), n(Bo, "default", () => qo);

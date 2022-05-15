@@ -1,10 +1,12 @@
 import Split from "split-grid";
-import { observeSize } from "../../../assets/lookbook/js/helpers/layout";
+import { observeSize } from "@helpers/layout";
 
 export default function splitLayoutComponent({ split, opts }) {
   let splitter = null;
 
   return {
+    layoutResizing: false,
+
     layoutWidth: null,
 
     layoutHeight: null,
@@ -76,6 +78,12 @@ export default function splitLayoutComponent({ split, opts }) {
               .map((value, i) => (i % 2 == 0 ? value : null))
               .filter((v) => v);
             this._setSplits(splits);
+          },
+          onDragStart: () => {
+            this.layoutResizing = true;
+          },
+          onDragEnd: () => {
+            this.layoutResizing = false;
           },
         });
       }

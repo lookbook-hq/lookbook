@@ -5,12 +5,14 @@
   ":class": "{
     'border-lookbook-tabs-highlight': isSelected($el),
     'border-transparent text-lookbook-tabs-text hover:text-lookbook-tabs-text-hover': !isSelected($el),
-    '!text-lookbook-tabs-text-disabled': isDisabled($el)
+    '!text-lookbook-tabs-text-disabled': isDisabled($el),
+    'invisible pointer-events-none relative z-[-1]': visibleTabsCount < #{@position}
   }",
-  "@click": "$event.preventDefault(); selectTab($el)",
+  "@click.prevent": "selectTab($el)",
   "@keydown.window.prevent.#{@hotkey}": @hotkey.present? ? "$el.click()" : nil,
   data: {
     disabled: @disabled
-  } do %>
+  },
+  cloak: true do %>
   <%= label %>
 <% end %>

@@ -12,6 +12,11 @@
       "distDir": "./public/lookbook-assets"
     }
   },
+  "alias": {
+    "@helpers/*": "./app/assets/lookbook/js/helpers/$1",
+    "@lib/*": "./app/assets/lookbook/js/lib/$1",
+    "@components/*": "./app/components/lookbook/$1"
+  },
   "scripts": {
     "dev": "parcel watch",
     "build": "parcel build --no-cache",

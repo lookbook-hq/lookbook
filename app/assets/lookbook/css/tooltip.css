@@ -24,7 +24,7 @@
   }
 }
 
-/* .tippy-box[data-theme~="menu"] {
+.tippy-box[data-theme~="menu"] {
   border: 1px solid theme("colors.gray.300");
   @apply bg-white text-gray-600 shadow-md rounded;
 
@@ -47,4 +47,4 @@
   &[data-placement^="right"] > .tippy-arrow::before {
     border-right-color: white;
   }
-} */
+}

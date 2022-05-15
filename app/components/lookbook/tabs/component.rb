@@ -4,7 +4,18 @@ module Lookbook
       @tab_counter += 1
       ref ||= "tab-#{@tab_counter}"
       id = "#{@id}-#{ref}"
-      Lookbook::Tabs::Tab::Component.new(ref: ref, id: id, **attrs)
+      attrs = {
+        ref: ref,
+        id: id,
+        position: @tab_counter,
+        **attrs
+      }
+      dropdown_tab(**attrs)
+      Lookbook::Tabs::Tab::Component.new(**attrs)
+    end
+
+    renders_many :dropdown_tabs, ->(ref:, **attrs) do
+      Lookbook::Tabs::DropdownTab::Component.new(ref: "dropdown-#{ref}", **attrs)
     end
 
     def initialize(*args, id:, **html_attrs)

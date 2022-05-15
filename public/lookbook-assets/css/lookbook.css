@@ -1390,6 +1390,19 @@ pre[class*="language-"] {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
+<<<<<<< HEAD
+=======
+
+[data-component="tabs-dropdown-tab"]:not(.hidden) {
+  border-bottom-width: 1px;
+  border-bottom-color: var(--lookbook-divider);
+}
+
+[data-component="tabs-dropdown-tab"]:not(.hidden):last-child {
+  border-bottom-width: 0;
+}
+
+>>>>>>> 6b3547a (Responsive improvements)
 [data-component="toolbar"] .toolbar-sections > * {
   height: 2.5rem;
   white-space: nowrap;
@@ -1467,6 +1480,14 @@ pre[class*="language-"] {
 <<<<<<< HEAD
 =======
 
+.visible {
+  visibility: visible;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
 .\!absolute {
   position: absolute !important;
 }
@@ -1522,6 +1543,7 @@ pre[class*="language-"] {
   left: 0;
 }
 
+<<<<<<< HEAD
 .right-2 {
   right: .5rem;
 }
@@ -1530,6 +1552,8 @@ pre[class*="language-"] {
   top: .5rem;
 >>>>>>> ed13e14 (Add back in responsive behaviours)
 }
+=======
+>>>>>>> 6b3547a (Responsive improvements)
 .top-1\/2 {
   top: 50%;
 }
@@ -1555,14 +1579,6 @@ pre[class*="language-"] {
   z-index: 50;
 }
 
-.z-40 {
-  z-index: 40;
-}
-
-.z-10 {
-  z-index: 10;
-}
-
 .z-\[-1\] {
   z-index: -1;
 }
@@ -1571,7 +1587,14 @@ pre[class*="language-"] {
   z-index: 40 !important;
 }
 
+<<<<<<< HEAD
 >>>>>>> ed13e14 (Add back in responsive behaviours)
+=======
+.z-10 {
+  z-index: 10;
+}
+
+>>>>>>> 6b3547a (Responsive improvements)
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -1635,6 +1658,18 @@ pre[class*="language-"] {
 }
 <<<<<<< HEAD
 =======
+
+.-ml-2 {
+  margin-left: -.5rem;
+}
+
+.-ml-4 {
+  margin-left: -1rem;
+}
+
+.-ml-3 {
+  margin-left: -.75rem;
+}
 
 .\!block {
   display: block !important;
@@ -1740,6 +1775,18 @@ pre[class*="language-"] {
 .w-3 {
   width: 0.75rem;
 }
+<<<<<<< HEAD
+=======
+
+.min-w-0 {
+  min-width: 0;
+}
+
+.min-w-\[100px\] {
+  min-width: 100px;
+}
+
+>>>>>>> 6b3547a (Responsive improvements)
 .max-w-sm {
   max-width: 24rem;
 }
@@ -2003,11 +2050,25 @@ pre[class*="language-"] {
 .border-b {
   border-bottom-width: 1px;
 }
+<<<<<<< HEAD
 .border-r {
   border-right-width: 1px;
 }
 .border-l {
   border-left-width: 1px;
+=======
+
+.border-l {
+  border-left-width: 1px;
+}
+
+.border-r {
+  border-right-width: 1px;
+}
+
+.border-l-2 {
+  border-left-width: 2px;
+>>>>>>> 6b3547a (Responsive improvements)
 }
 .border-b-2 {
   border-bottom-width: 2px;
@@ -2177,6 +2238,14 @@ pre[class*="language-"] {
 .pb-1 {
   padding-bottom: 0.25rem;
 }
+<<<<<<< HEAD
+=======
+
+.text-left {
+  text-align: left;
+}
+
+>>>>>>> 6b3547a (Responsive improvements)
 .text-center {
   text-align: center;
 }
@@ -2602,6 +2671,38 @@ pre[class*="language-"] {
 }
 <<<<<<< HEAD
 =======
+
+.tippy-box[data-theme~="menu"] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity) );
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity) );
+  --tw-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  border: 1px solid #d1d5db;
+  border-radius: .25rem;
+}
+
+.tippy-box[data-theme~="menu"] > .tippy-content {
+  padding: 0;
+}
+
+.tippy-box[data-theme~="menu"][data-placement^="top"] > .tippy-arrow:before {
+  border-top-color: #fff;
+}
+
+.tippy-box[data-theme~="menu"][data-placement^="bottom"] > .tippy-arrow:before {
+  border-bottom-color: #fff;
+}
+
+.tippy-box[data-theme~="menu"][data-placement^="left"] > .tippy-arrow:before {
+  border-left-color: #fff;
+}
+
+.tippy-box[data-theme~="menu"][data-placement^="right"] > .tippy-arrow:before {
+  border-right-color: #fff;
+}
 
 .theme-blue {
   --lookbook-text: #27272a;
