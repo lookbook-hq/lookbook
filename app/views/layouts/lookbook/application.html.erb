@@ -87,7 +87,7 @@
         <% end %>
       <% end %>
 
-      <% layout.pane class: "overflow-hidden" do %>
+      <% layout.pane class: "overflow-hidden", ":class": "$store.layout.mobile && 'w-screen'" do %>
         <%= content_for?(:main) ? yield(:main) : yield %>
       <% end %>
 

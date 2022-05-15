@@ -5,7 +5,7 @@ module Lookbook
     ICON_SIZES = {
       sm: 3.5,
       md: 4,
-      lg: 5
+      lg: 6
     }
 
     def initialize(icon: nil, tooltip: nil, disabled: false, size: :md, href: nil, **html_attrs)
