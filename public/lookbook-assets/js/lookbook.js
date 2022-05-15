@@ -7791,7 +7791,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $469f5334e0f56b62$exports = {};
+var $5ed4c7dff2bb721e$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11392,6 +11392,46 @@ function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
 }
 
 
+var $99486586f6691564$exports = {};
+
+$parcel$defineInteropFlag($99486586f6691564$exports);
+
+$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
+function $99486586f6691564$export$2e2bcd8739ae039() {
+    return {};
+}
+
+
+var $e398acaded942bbe$exports = {};
+
+$parcel$defineInteropFlag($e398acaded942bbe$exports);
+
+$parcel$export($e398acaded942bbe$exports, "default", () => $e398acaded942bbe$export$2e2bcd8739ae039);
+
+function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
+    return {
+        width: 0,
+        height: 0,
+        resizing: false,
+        init () {
+            const target = document.querySelector(targetSelector);
+            this.width = Math.round(target.clientWidth);
+            this.height = Math.round(target.clientHeight);
+            this.createObserver();
+        },
+        createObserver () {
+            this.observer = $9930d46698775b42$export$a2214cc2adb2dc44(document.querySelector(targetSelector), ({ width: width , height: height  })=>{
+                this.width = width;
+                this.height = height;
+            });
+        },
+        tearDown () {
+            this.observer.disconnect();
+        }
+    };
+}
+
+
 var $47a1c62621be0c54$exports = {};
 
 $parcel$defineInteropFlag($47a1c62621be0c54$exports);
@@ -11430,36 +11470,6 @@ function $47a1c62621be0c54$export$2e2bcd8739ae039(target = null) {
         },
         _copyTarget: null,
         _notificationTippy: null
-    };
-}
-
-
-var $e398acaded942bbe$exports = {};
-
-$parcel$defineInteropFlag($e398acaded942bbe$exports);
-
-$parcel$export($e398acaded942bbe$exports, "default", () => $e398acaded942bbe$export$2e2bcd8739ae039);
-
-function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
-    return {
-        width: 0,
-        height: 0,
-        resizing: false,
-        init () {
-            const target = document.querySelector(targetSelector);
-            this.width = Math.round(target.clientWidth);
-            this.height = Math.round(target.clientHeight);
-            this.createObserver();
-        },
-        createObserver () {
-            this.observer = $9930d46698775b42$export$a2214cc2adb2dc44(document.querySelector(targetSelector), ({ width: width , height: height  })=>{
-                this.width = width;
-                this.height = height;
-            });
-        },
-        tearDown () {
-            this.observer.disconnect();
-        }
     };
 }
 
@@ -12321,16 +12331,6 @@ function $e1f51f020443edd4$export$2e2bcd8739ae039(id, embedStore) {
             this.$el.querySelector("iframe").iFrameResizer.resize();
         }
     };
-}
-
-
-var $99486586f6691564$exports = {};
-
-$parcel$defineInteropFlag($99486586f6691564$exports);
-
-$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
-function $99486586f6691564$export$2e2bcd8739ae039() {
-    return {};
 }
 
 
@@ -13268,12 +13268,12 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$469f5334e0f56b62$exports = {
+$5ed4c7dff2bb721e$exports = {
     "button": $cbd28b10fa9798c7$exports,
-    "copy_button": $47a1c62621be0c54$exports,
-    "dimensions_display": $e398acaded942bbe$exports,
-    "embed": $e1f51f020443edd4$exports,
     "code": $99486586f6691564$exports,
+    "dimensions_display": $e398acaded942bbe$exports,
+    "copy_button": $47a1c62621be0c54$exports,
+    "embed": $e1f51f020443edd4$exports,
     "filter": $e9904a14dabf652d$exports,
     "icon": $36506012e0c6e9e3$exports,
     "nav": $d92d9d5253f84566$exports,
@@ -13367,7 +13367,7 @@ $caa9439642c6336c$export$2e2bcd8739ae039.store("pages", $9954130d663b77bc$export
 // Components
 $caa9439642c6336c$export$2e2bcd8739ae039.data("app", $d709d0f4027033b2$export$2e2bcd8739ae039);
 [
-    $469f5334e0f56b62$exports,
+    $5ed4c7dff2bb721e$exports,
     $3f92713eb2b168a5$exports
 ].forEach((scripts)=>{
     const components = $5439cede634b2921$export$4e811121b221213b(scripts);

@@ -1,0 +1,35 @@
+<%= content_for :body do %>
+  <div
+    id="app"
+    x-data="app"
+    @popstate.window="handleNavigation"
+    @click.document="hijax"
+    @navigation:start="closeMobileSidebar"
+    class="w-screen h-screen grid grid-rows-[40px_1fr] relative">
+
+    <%= render_component :toolbar do |toolbar| %>
+      <% toolbar.section padded: true do %>
+        <%= render_component :branding,
+          text: config.project_name,
+          href: landing_path if config.project_name %>
+      <% end %>
+      <% toolbar.section padded: true, align: :right do %>
+        <%= render_component :button,
+            icon: :menu,
+            "@click.stop": "toggleSidebar",
+            class: "-mr-2",
+            x_show: "$store.layout.mobile && sidebarHidden" %>
+         <%= render_component :button,
+            icon: :x,
+            "@click.stop": "toggleSidebar",
+            class: "-mr-2",
+            x_show: "$store.layout.mobile && !sidebarHidden",
+            "@keydown.esc.window": "closeMobileSidebar" %>
+      <% end %>
+    <% end %>
+    
+    <%= content_for?(:shell) ? yield(:shell) : yield %>
+  </div>
+<% end %>
+
+<%= render template: "layouts/lookbook/skeleton" %>

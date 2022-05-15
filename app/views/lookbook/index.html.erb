@@ -1,1 +1,14 @@
-index
+<div class="flex flex-col h-full w-full">
+  <div class="flex flex-col items-center justify-center h-full">
+    <div class="p-4 text-center mx-auto">
+      <%= render_component :icon, name: :layers, size: 10, class: "opacity-30 mx-auto" %>
+      <div class="mt-6 text-base opacity-40">
+        <% if Lookbook.previews.any? %>
+          <h5>Select a preview to get started</h5>
+        <% else %>
+          <p>Create a <a href="https://viewcomponent.org/guide/previews.html" target="_blank">preview file</a> to get started.</p>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

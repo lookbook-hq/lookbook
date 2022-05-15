@@ -1750,12 +1750,16 @@ pre[class*="language-"] {
   margin-top: 2rem;
 }
 
-.-mr-2 {
-  margin-right: -.5rem;
+.mt-6 {
+  margin-top: 1.5rem;
 }
 
 .ml-2 {
   margin-left: .5rem;
+}
+
+.-mr-2 {
+  margin-right: -.5rem;
 }
 
 .mt-12 {
@@ -2579,6 +2583,14 @@ pre[class*="language-"] {
   opacity: .5;
 }
 
+.opacity-30 {
+  opacity: .3;
+}
+
+.opacity-40 {
+  opacity: .4;
+}
+
 .opacity-80 {
   opacity: .8;
 }
@@ -2593,14 +2605,6 @@ pre[class*="language-"] {
 
 .opacity-90 {
   opacity: .9;
-}
-
-.opacity-40 {
-  opacity: .4;
-}
-
-.opacity-30 {
-  opacity: .3;
 }
 
 .\!opacity-100 {

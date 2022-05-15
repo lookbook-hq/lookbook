@@ -23,9 +23,7 @@ module Workbench
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
-    config.view_component.preview_paths << Rails.root.join("../../test/components/previews")
+    config.view_component.preview_paths << Rails.root.join("../../test/components/previews").to_s
     config.view_component.view_component_path = "../../app/components"
-
-    config.generators.system_tests = nil
   end
 end

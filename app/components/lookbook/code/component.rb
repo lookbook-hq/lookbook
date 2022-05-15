@@ -1,5 +1,7 @@
 module Lookbook
   class Code::Component < Lookbook::Component
+    include Lookbook::OutputHelper
+
     def initialize(
       source: nil,
       language: :html,
@@ -11,7 +13,7 @@ module Lookbook
       full_height: false,
       **html_attrs
     )
-      @source = source
+      @source_code = source
       @highlight_opts = {
         language: language,
         line_numbers: line_numbers,
@@ -30,7 +32,7 @@ module Lookbook
     end
 
     def source
-      (@source || content).strip_heredoc.strip
+      (@source_code || content).strip_heredoc.strip
     end
 
     def numbered?

@@ -6,5 +6,5 @@
       "h-full": full_height?
     } 
   ] do %>
-  <%= helpers.highlight source, **@highlight_opts %>
+  <%= Lookbook::CodeFormatter.highlight(source, **@highlight_opts) %>
 <% end %>

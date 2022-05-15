@@ -4,7 +4,7 @@ module Lookbook
       Lookbook::Markdown.render(block ? capture(&block) : text)
     end
 
-    def highlight(source = nil, **opts)
+    def highlight(source, **opts)
       Lookbook::CodeFormatter.highlight(source, **opts)
     end
 

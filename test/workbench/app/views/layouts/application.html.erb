@@ -6,10 +6,11 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application" %>
+    <link href="/lookbook-assets/css/lookbook.css?v=<%= Lookbook::VERSION %>" rel="stylesheet">
+    <script src="/lookbook-assets/js/lookbook.js?v=<%= Lookbook.version %>" defer></script>
   </head>
 
-  <body>
+  <body style="padding: 24px">
     <%= yield %>
   </body>
 </html>
