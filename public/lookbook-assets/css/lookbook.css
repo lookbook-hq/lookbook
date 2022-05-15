@@ -1293,8 +1293,14 @@ pre[class*="language-"] {
   background-color: #eaf2f5;
 }
 [data-component="code"] {
+<<<<<<< HEAD
   padding: 1rem;
   font-size: 0.875rem;
+=======
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: .875rem;
+>>>>>>> ed13e14 (Add back in responsive behaviours)
   line-height: 1.25rem;
   overflow-x: hidden;
 }
@@ -1303,6 +1309,8 @@ pre[class*="language-"] {
   line-height: 1.625;
 }
 [data-component="code"] .code {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   overflow-x: auto;
   overflow-y: hidden;
 }
@@ -1390,8 +1398,13 @@ pre[class*="language-"] {
   display: flex;
 }
 [data-component="toolbar"] [data-component="button-group"] {
+<<<<<<< HEAD
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+=======
+  padding-left: .45rem;
+  padding-right: .45rem;
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 }
 [data-component="toolbar"] [data-component="tabs"] {
   margin-bottom: -1px;
@@ -1451,6 +1464,14 @@ pre[class*="language-"] {
 .pointer-events-none {
   pointer-events: none;
 }
+<<<<<<< HEAD
+=======
+
+.\!absolute {
+  position: absolute !important;
+}
+
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 .absolute {
   position: absolute;
 }
@@ -1460,12 +1481,21 @@ pre[class*="language-"] {
 .sticky {
   position: sticky;
 }
+<<<<<<< HEAD
+=======
+
+.inset-0 {
+  inset: 0;
+}
+
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 .-inset-px {
   inset: -1px;
 }
 .top-0 {
   top: 0;
 }
+<<<<<<< HEAD
 .bottom-0 {
   bottom: 0;
 }
@@ -1474,6 +1504,31 @@ pre[class*="language-"] {
 }
 .right-0 {
   right: 0;
+=======
+
+.right-0 {
+  right: 0;
+}
+
+.bottom-0 {
+  bottom: 0;
+}
+
+.top-\[40px\] {
+  top: 40px;
+}
+
+.left-0 {
+  left: 0;
+}
+
+.right-2 {
+  right: .5rem;
+}
+
+.top-2 {
+  top: .5rem;
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 }
 .top-1\/2 {
   top: 50%;
@@ -1490,9 +1545,33 @@ pre[class*="language-"] {
 .-left-4 {
   left: -1rem;
 }
+<<<<<<< HEAD
 .z-10 {
   z-index: 10;
 }
+=======
+
+.z-50 {
+  z-index: 50;
+}
+
+.z-40 {
+  z-index: 40;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+.z-\[-1\] {
+  z-index: -1;
+}
+
+.\!z-40 {
+  z-index: 40 !important;
+}
+
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -1516,6 +1595,14 @@ pre[class*="language-"] {
 .mt-8 {
   margin-top: 2rem;
 }
+<<<<<<< HEAD
+=======
+
+.-mr-2 {
+  margin-right: -.5rem;
+}
+
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 .ml-2 {
   margin-left: 0.5rem;
 }
@@ -1546,6 +1633,14 @@ pre[class*="language-"] {
 .mr-1\.5 {
   margin-right: 0.375rem;
 }
+<<<<<<< HEAD
+=======
+
+.\!block {
+  display: block !important;
+}
+
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 .block {
   display: block;
 }
@@ -1576,6 +1671,18 @@ pre[class*="language-"] {
 .h-full {
   height: 100%;
 }
+<<<<<<< HEAD
+=======
+
+.h-\[calc\(100\%_-_40px\)\] {
+  height: calc(100% - 40px);
+}
+
+.h-\[calc\(100vh_-_40px\)\] {
+  height: calc(100vh - 40px);
+}
+
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 .h-6 {
   height: 1.5rem;
 }
@@ -1639,6 +1746,14 @@ pre[class*="language-"] {
 .max-w-screen-lg {
   max-width: 1024px;
 }
+<<<<<<< HEAD
+=======
+
+.max-w-\[420px\] {
+  max-width: 420px;
+}
+
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 .max-w-3xl {
   max-width: 48rem;
 }
@@ -1660,6 +1775,20 @@ pre[class*="language-"] {
 .flex-grow {
   flex-grow: 1;
 }
+<<<<<<< HEAD
+=======
+
+.translate-x-0 {
+  --tw-translate-x: 0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y) ) rotate(var(--tw-rotate) ) skewX(var(--tw-skew-x) ) skewY(var(--tw-skew-y) ) scaleX(var(--tw-scale-x) ) scaleY(var(--tw-scale-y) );
+}
+
+.translate-x-full {
+  --tw-translate-x: 100%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y) ) rotate(var(--tw-rotate) ) skewX(var(--tw-skew-x) ) skewY(var(--tw-skew-y) ) scaleX(var(--tw-scale-x) ) scaleY(var(--tw-scale-y) );
+}
+
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 .-translate-y-1\/2 {
   --tw-translate-y: -50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y))
@@ -1672,12 +1801,16 @@ pre[class*="language-"] {
     rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+<<<<<<< HEAD
 .translate-x-0 {
   --tw-translate-x: 0px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y))
     rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+=======
+
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 .-translate-x-1\/2 {
   --tw-translate-x: -50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y))
@@ -1741,6 +1874,14 @@ pre[class*="language-"] {
 .grid-cols-\[1fr_17px\] {
   grid-template-columns: 1fr 17px;
 }
+<<<<<<< HEAD
+=======
+
+.grid-rows-\[40px_1fr\] {
+  grid-template-rows: 40px 1fr;
+}
+
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 .\!grid-rows-\[1fr\] {
   grid-template-rows: 1fr !important;
 }
@@ -1765,6 +1906,7 @@ pre[class*="language-"] {
 .justify-between {
   justify-content: space-between;
 }
+<<<<<<< HEAD
 .space-x-6 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(1.5rem * var(--tw-space-x-reverse));
@@ -1772,6 +1914,8 @@ pre[class*="language-"] {
 }
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 
 .space-x-1 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
@@ -1779,7 +1923,16 @@ pre[class*="language-"] {
   margin-left: calc(.25rem * calc(1 - var(--tw-space-x-reverse) ) );
 }
 
+<<<<<<< HEAD
 >>>>>>> c9a6dcb (Add preview dimensions display)
+=======
+.space-x-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1.5rem * var(--tw-space-x-reverse) );
+  margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse) ) );
+}
+
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 .divide-y > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0;
   border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
@@ -1807,6 +1960,14 @@ pre[class*="language-"] {
 .overflow-y-auto {
   overflow-y: auto;
 }
+<<<<<<< HEAD
+=======
+
+.overflow-y-hidden {
+  overflow-y: hidden;
+}
+
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 .scroll-smooth {
   scroll-behavior: smooth;
 }
@@ -1890,8 +2051,23 @@ pre[class*="language-"] {
 .bg-lookbook-sidebar-bg {
   background-color: var(--lookbook-sidebar-bg);
 }
+<<<<<<< HEAD
 .bg-lookbook-drawer-bg {
   background-color: var(--lookbook-drawer-bg);
+=======
+
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity) );
+}
+
+.bg-lookbook-page {
+  background-color: var(--lookbook-page);
+}
+
+.bg-lookbook-drawer {
+  background-color: var(--lookbook-drawer);
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 }
 .bg-lookbook-prose-bg {
   background-color: var(--lookbook-prose-bg);
@@ -1973,9 +2149,13 @@ pre[class*="language-"] {
 .pb-10 {
   padding-bottom: 2.5rem;
 }
+<<<<<<< HEAD
 .pr-2 {
   padding-right: 0.5rem;
 }
+=======
+
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 .pt-8 {
   padding-top: 2rem;
 }
@@ -2061,13 +2241,25 @@ pre[class*="language-"] {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
+<<<<<<< HEAD
 .text-lookbook-branding-text {
   color: var(--lookbook-branding-text);
 }
+=======
+
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 .text-red-800 {
   --tw-text-opacity: 1;
   color: rgb(153 27 27 / var(--tw-text-opacity));
 }
+<<<<<<< HEAD
+=======
+
+.text-lookbook-branding-text {
+  color: var(--lookbook-branding-text);
+}
+
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 .text-lookbook-button-text {
   color: var(--lookbook-button-text);
 }
@@ -2096,12 +2288,15 @@ pre[class*="language-"] {
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 .text-gray-500 {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity) );
 }
 
 >>>>>>> c9a6dcb (Add preview dimensions display)
+=======
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 .underline {
   text-decoration-line: underline;
 }
@@ -2111,6 +2306,18 @@ pre[class*="language-"] {
 .opacity-80 {
   opacity: 0.8;
 }
+<<<<<<< HEAD
+=======
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.\!opacity-30 {
+  opacity: .3 !important;
+}
+
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 .opacity-20 {
   opacity: 0.2;
 }
@@ -2119,10 +2326,6 @@ pre[class*="language-"] {
 }
 <<<<<<< HEAD
 =======
-
-.opacity-100 {
-  opacity: 1;
-}
 
 .opacity-30 {
   opacity: .3;
@@ -2176,6 +2379,16 @@ pre[class*="language-"] {
   transition-duration: 0.15s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
+<<<<<<< HEAD
+=======
+
+.transition-opacity {
+  transition-property: opacity;
+  transition-duration: .15s;
+  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 .transition-all {
   transition-property: all;
   transition-duration: 0.15s;
@@ -2578,8 +2791,14 @@ pre[class*="language-"] {
     padding-left: 2.5rem;
     padding-right: 2.5rem;
   }
+<<<<<<< HEAD
   .md\:pt-12 {
     padding-top: 3rem;
+=======
+
+  .md\:pt-10 {
+    padding-top: 2.5rem;
+>>>>>>> ed13e14 (Add back in responsive behaviours)
   }
 }
 /*# sourceMappingURL=lookbook.css.map */

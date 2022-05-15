@@ -6,4 +6,16 @@ function addMediaQueryListener(condition, callback) {
   return mediaQueryList;
 }
 
-export { addMediaQueryListener };
+function observeSize(element, callback = () => {}) {
+  const observer = new ResizeObserver((entries) => {
+    const rect = entries[0].contentRect;
+    callback({
+      width: Math.round(rect.width),
+      height: Math.round(rect.height),
+    });
+  });
+  observer.observe(element);
+  return observer;
+}
+
+export { addMediaQueryListener, observeSize };

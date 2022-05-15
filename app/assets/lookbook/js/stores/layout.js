@@ -16,10 +16,26 @@ export default function initLayoutStore(Alpine) {
           );
         }
       );
+
+      addMediaQueryListener(
+        `(min-width: ${config.wideDesktopWidth}px)`,
+        (matches) => {
+          this._isWideDesktop = matches;
+          log.debug(
+            `Media query 'wide desktop': ${
+              matches ? "✅ match" : "❌ no match"
+            }`
+          );
+        }
+      );
     },
 
     get desktop() {
       return this._isDesktop;
+    },
+
+    get wideDesktop() {
+      return this._isWideDesktop;
     },
 
     get mobile() {
@@ -34,17 +50,39 @@ export default function initLayoutStore(Alpine) {
         direction: "vertical",
         sizes: [`${sidebar.defaultWidth}px`, "1fr"],
       }).as("main-split"),
+
       opts: {
         minSizes: [sidebar.minWidth, main.minWidth],
       },
     },
 
-    // Sidebar sections layout
+    // Sidebar visibility and sections
     sidebar: {
+      _hiddenDesktop: Alpine.$persist(false).as("sidebar-hidden-desktop"),
+
+      _hiddenMobile: Alpine.$persist(true).as("sidebar-hidden-mobile"),
+
+      set hidden(value) {
+        if (Alpine.store("layout").desktop) {
+          this._hiddenDesktop = value;
+        } else {
+          this._hiddenMobile = value;
+        }
+      },
+
+      get hidden() {
+        const isDesktop = Alpine.store("layout").desktop;
+        return (
+          (isDesktop && this._hiddenDesktop) ||
+          (!isDesktop && this._hiddenMobile)
+        );
+      },
+
       split: Alpine.$persist({
         direction: "horizontal",
         sizes: ["50%", "50%"],
       }).as("sidebar-split"),
+
       opts: {
         minSizes: [sidebar.minSectionHeight, sidebar.minSectionHeight],
       },
@@ -57,6 +95,7 @@ export default function initLayoutStore(Alpine) {
         horizontalSizes: ["1fr", `${inspector.drawer.defaultHeight}px`],
         verticalSizes: ["1fr", `${inspector.drawer.defaultWidth}px`],
       }).as("inspector-split"),
+
       opts: {
         minSizes: [sidebar.minWidth, main.minWidth],
       },
@@ -65,5 +104,7 @@ export default function initLayoutStore(Alpine) {
     // protected
 
     _isDesktop: true,
+
+    _isWideDesktop: true,
   };
 }

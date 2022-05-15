@@ -1,5 +1,6 @@
 export default {
   desktopWidth: 768,
+  wideDesktopWidth: 1200,
   sidebar: {
     defaultWidth: 280,
     minWidth: 200,

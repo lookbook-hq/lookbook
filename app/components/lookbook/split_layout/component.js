@@ -1,15 +1,28 @@
 import Split from "split-grid";
+import { observeSize } from "../../../assets/lookbook/js/helpers/layout";
 
 export default function splitLayoutComponent({ split, opts }) {
   let splitter = null;
 
   return {
+    layoutWidth: null,
+
+    layoutHeight: null,
+
+    forceOrientation: null,
+
     get vertical() {
+      if (this.forceOrientation) {
+        return this.forceOrientation === "vertical";
+      }
       return split.direction === "vertical";
     },
 
     get horizontal() {
-      return !this.vertical;
+      if (this.forceOrientation) {
+        return this.forceOrientation === "horizontal";
+      }
+      return split.direction === "horizontal";
     },
 
     get splits() {
@@ -30,6 +43,13 @@ export default function splitLayoutComponent({ split, opts }) {
       } else {
         return opts.minSizes || [];
       }
+    },
+
+    init() {
+      observeSize(this.$el, ({ width, height }) => {
+        this.layoutWidth = width;
+        this.layoutHeight = height;
+      });
     },
 
     switchOrientation() {

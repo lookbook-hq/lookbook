@@ -295,7 +295,7 @@ window.log = _logger.log;
 window.Alpine = _alpinejsDefault.default;
 _alpinejsDefault.default.start();
 
-},{"alpinejs":"69hXP","@alpinejs/morph":"h2FeS","@alpinejs/persist":"hOl6K","@ryangjchandler/alpine-tooltip":"j3Uyt","./plugins/logger":"a8yvv","./stores/layout":"2QNcl","./stores/nav":"dYphZ","./stores/inspector":"1tdkQ","./app":"bkyhi","./helpers/build":"a7dEL","../../../components/lookbook/*/component.js":"akleQ","../../../components/lookbook/*/*/component.js":"lT8lG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./stores/pages":"hvNyC"}],"69hXP":[function(require,module,exports) {
+},{"alpinejs":"69hXP","@alpinejs/morph":"h2FeS","@alpinejs/persist":"hOl6K","@ryangjchandler/alpine-tooltip":"j3Uyt","./plugins/logger":"a8yvv","./stores/layout":"2QNcl","./stores/nav":"dYphZ","./stores/inspector":"1tdkQ","./stores/pages":"hvNyC","./app":"bkyhi","./helpers/build":"a7dEL","../../../components/lookbook/*/component.js":"akleQ","../../../components/lookbook/*/*/component.js":"lT8lG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"69hXP":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>module_default
@@ -6068,6 +6068,7 @@ function queueFlush() {
                       "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
                   } catch (e) {}
                 }
+<<<<<<< HEAD
               })();
           }),
           (s.enableAll = function (e) {
@@ -6122,10 +6123,68 @@ function queueFlush() {
         },
         nameFormatter: function (e) {
           return e || "root";
+=======
+                originalMethod.apply(undefined, args);
+            };
+        }
+        if (!configs[name]) logger.methodFactory = methodFactory;
+        // for remove inherited format option if template option preset
+        config = config || {};
+        if (config.template) config.format = undefined;
+        configs[name] = merge({}, parent, config);
+        logger.setLevel(logger.getLevel());
+        if (!loglevel) logger.warn('It is necessary to call the function reg() of loglevel-plugin-prefix before calling apply. From the next release, it will throw an error. See more: https://github.com/kutuluk/loglevel-plugin-prefix/blob/master/README.md');
+        return logger;
+    };
+    var api = {
+        reg: reg,
+        apply: apply
+    };
+    var save;
+    if (root) {
+        save = root.prefix;
+        api.noConflict = function() {
+            if (root.prefix === api) root.prefix = save;
+            return api;
+        };
+    }
+    return api;
+});
+
+},{}],"2QNcl":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _config = require("../config");
+var _configDefault = parcelHelpers.interopDefault(_config);
+var _layout = require("../helpers/layout");
+var _logger = require("../plugins/logger");
+const { sidebar , main , inspector  } = _configDefault.default;
+function initLayoutStore(Alpine) {
+    return {
+        init () {
+            _layout.addMediaQueryListener(`(min-width: ${_configDefault.default.desktopWidth}px)`, (matches)=>{
+                this._isDesktop = matches;
+                _logger.log.debug(`Media query 'desktop': ${matches ? "✅ match" : "❌ no match"}`);
+            });
+            _layout.addMediaQueryListener(`(min-width: ${_configDefault.default.wideDesktopWidth}px)`, (matches)=>{
+                this._isWideDesktop = matches;
+                _logger.log.debug(`Media query 'wide desktop': ${matches ? "✅ match" : "❌ no match"}`);
+            });
+        },
+        get desktop () {
+            return this._isDesktop;
+        },
+        get wideDesktop () {
+            return this._isWideDesktop;
+        },
+        get mobile () {
+            return !this.desktop;
+>>>>>>> ed13e14 (Add back in responsive behaviours)
         },
         timestampFormatter: function (e) {
           return e.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
         },
+<<<<<<< HEAD
         format: void 0,
       },
       r = {},
@@ -6134,6 +6193,33 @@ function queueFlush() {
           if (!e || !e.getLogger)
             throw new TypeError("Argument is not a root logger");
           t = e;
+=======
+        // Sidebar visibility and sections
+        sidebar: {
+            _hiddenDesktop: Alpine.$persist(false).as("sidebar-hidden-desktop"),
+            _hiddenMobile: Alpine.$persist(true).as("sidebar-hidden-mobile"),
+            set hidden (value){
+                if (Alpine.store("layout").desktop) this._hiddenDesktop = value;
+                else this._hiddenMobile = value;
+            },
+            get hidden () {
+                const isDesktop = Alpine.store("layout").desktop;
+                return isDesktop && this._hiddenDesktop || !isDesktop && this._hiddenMobile;
+            },
+            split: Alpine.$persist({
+                direction: "horizontal",
+                sizes: [
+                    "50%",
+                    "50%"
+                ]
+            }).as("sidebar-split"),
+            opts: {
+                minSizes: [
+                    sidebar.minSectionHeight,
+                    sidebar.minSectionHeight
+                ]
+            }
+>>>>>>> ed13e14 (Add back in responsive behaviours)
         },
         apply: function (e, n) {
           if (!e || !e.setLevel)
@@ -6189,6 +6275,7 @@ function queueFlush() {
             e
           );
         },
+<<<<<<< HEAD
       };
     return (
       e &&
@@ -6234,6 +6321,87 @@ function queueFlush() {
             i.push(Date.now()),
               (e = t.logger).log.apply(e, ["[ActionCable]"].concat(i));
           }
+=======
+        // protected
+        _isDesktop: true,
+        _isWideDesktop: true
+    };
+}
+exports.default = initLayoutStore;
+
+},{"../config":"i1E5F","../helpers/layout":"128Lz","../plugins/logger":"a8yvv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"i1E5F":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = {
+    desktopWidth: 768,
+    wideDesktopWidth: 1200,
+    sidebar: {
+        defaultWidth: 280,
+        minWidth: 200,
+        minSectionHeight: 200
+    },
+    main: {
+        minWidth: 200
+    },
+    inspector: {
+        drawer: {
+            defaultHeight: 300,
+            defaultWidth: 500,
+            minWidth: 350,
+            minHeight: 200
+        },
+        preview: {
+            minHeight: 200,
+            minWidth: 200
+        }
+    }
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"128Lz":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "addMediaQueryListener", ()=>addMediaQueryListener
+);
+parcelHelpers.export(exports, "observeSize", ()=>observeSize
+);
+function addMediaQueryListener(condition, callback) {
+    const mediaQueryList = window.matchMedia(condition);
+    const handleChange = (mql)=>callback(mql.matches)
+    ;
+    handleChange(mediaQueryList);
+    mediaQueryList.addEventListener("change", (mql)=>handleChange(mql)
+    );
+    return mediaQueryList;
+}
+function observeSize(element, callback = ()=>{}) {
+    const observer = new ResizeObserver((entries)=>{
+        const rect = entries[0].contentRect;
+        callback({
+            width: Math.round(rect.width),
+            height: Math.round(rect.height)
+        });
+    });
+    observer.observe(element);
+    return observer;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dYphZ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function initNavStore(Alpine) {
+    return {
+        previews: {
+            filter: {
+                raw: Alpine.$persist("").as("previews-filter-text"),
+                get text () {
+                    return this.raw.replace(/\s/g, "").toLowerCase();
+                },
+                get active () {
+                    return this.text.length > 0;
+                }
+            },
+            open: Alpine.$persist([]).as("previews-nav-open")
+>>>>>>> ed13e14 (Add back in responsive behaviours)
         },
       },
       i =
@@ -6249,6 +6417,7 @@ function queueFlush() {
                 ? "symbol"
                 : typeof e;
             },
+<<<<<<< HEAD
       r = function (e, t) {
         if (!(e instanceof t))
           throw new TypeError("Cannot call a class as a function");
@@ -6395,6 +6564,78 @@ function queueFlush() {
           ping: "ping",
           confirmation: "confirm_subscription",
           rejection: "reject_subscription",
+=======
+            open: Alpine.$persist([]).as("pages-nav-open")
+        }
+    };
+}
+exports.default = initNavStore;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1tdkQ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function initInspectorStore(Alpine) {
+    return {
+        minVerticalSplitWidth: 800,
+        preview: {
+            activeTab: Alpine.$persist("").as("inspector-preview-active-tab"),
+            width: Alpine.$persist("100%").as("inspector-preview-width"),
+            height: Alpine.$persist("100%").as("inspector-preview-height"),
+            lastWidth: null,
+            lastHeight: null,
+            resizing: false
+        },
+        drawer: {
+            hidden: Alpine.$persist(false).as("inspector-drawer-hidden"),
+            activeTab: Alpine.$persist("").as("inspector-drawer-active-tab")
+        }
+    };
+}
+exports.default = initInspectorStore;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hvNyC":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function initPagesStore(Alpine) {
+    return {
+        embeds: Alpine.$persist({}).as("pages-embeds")
+    };
+}
+exports.default = initPagesStore;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bkyhi":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _packageJson = require("~/package.json");
+var _packageJsonDefault = parcelHelpers.interopDefault(_packageJson);
+var _socket = require("./lib/socket");
+var _socketDefault = parcelHelpers.interopDefault(_socket);
+var _dom = require("./helpers/dom");
+var _request = require("./helpers/request");
+function app() {
+    return {
+        version: Alpine.$persist("").as("lookbook-version"),
+        location: window.location,
+        init () {
+            this.validateStorage();
+            if (window.SOCKET_PATH) {
+                const socket = _socketDefault.default(window.SOCKET_PATH);
+                socket.addListener("Lookbook::ReloadChannel", ()=>this.updateDOM()
+                );
+            }
+        },
+        navigateTo (path) {
+            this.debug(`Navigating to ${path}`);
+            history.pushState({}, null, path);
+            this.$dispatch("popstate");
+        },
+        async handleNavigation () {
+            this.debug("Navigating to ", window.location.pathname);
+            this.$dispatch("navigation:start");
+            this.location = window.location;
+            await this.updateDOM();
+            this.$dispatch("navigation:complete");
+>>>>>>> ed13e14 (Add back in responsive behaviours)
         },
         disconnect_reasons: {
           unauthorized: "unauthorized",
@@ -6489,6 +6730,15 @@ function queueFlush() {
         `);
             }
             this.version = _packageJsonDefault.default.version;
+        },
+        toggleSidebar () {
+            this.$store.layout.sidebar.hidden = !this.$store.layout.sidebar.hidden;
+        },
+        closeMobileSidebar () {
+            if (this.$store.layout.mobile && !this.sidebarHidden) this.toggleSidebar();
+        },
+        get sidebarHidden () {
+            return this.$store.layout.sidebar.hidden;
         },
         ...Alpine.$log
     };
@@ -10464,6 +10714,7 @@ exports.default = copyButtonComponent;
 },{"~/app/assets/lookbook/js/lib/tippy":"6zhil","../button/component":"lQApy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kFxrd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _layout = require("../../../assets/lookbook/js/helpers/layout");
 function dimensionsDisplayComponent(targetSelector) {
     return {
         width: 0,
@@ -10476,13 +10727,10 @@ function dimensionsDisplayComponent(targetSelector) {
             this.createObserver();
         },
         createObserver () {
-            this.observer = new ResizeObserver((entries)=>{
-                const rect = entries[0].contentRect;
-                this.width = Math.round(rect.width);
-                this.height = Math.round(rect.height);
+            this.observer = _layout.observeSize(document.querySelector(targetSelector), ({ width , height  })=>{
+                this.width = width;
+                this.height = height;
             });
-            console.log(document.querySelector(targetSelector));
-            this.observer.observe(document.querySelector(targetSelector));
         },
         tearDown () {
             this.observer.disconnect();
@@ -10491,7 +10739,7 @@ function dimensionsDisplayComponent(targetSelector) {
 }
 exports.default = dimensionsDisplayComponent;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hM4Uf":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../assets/lookbook/js/helpers/layout":"128Lz"}],"hM4Uf":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _iframeResizer = require("iframe-resizer/js/iframeResizer");
@@ -12877,10 +13125,12 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _splitGrid = require("split-grid");
 var _splitGridDefault = parcelHelpers.interopDefault(_splitGrid);
+var _layout = require("../../../assets/lookbook/js/helpers/layout");
 function splitLayoutComponent({ split , opts  }) {
     let splitter = null;
 >>>>>>> 8a8eeb1 (Automate basic theme generation)
     return {
+<<<<<<< HEAD
       box: t,
       content: n.find(function (e) {
         return e.classList.contains(mr);
@@ -12976,6 +13226,18 @@ function splitLayoutComponent({ split , opts  }) {
         plugins: y,
         clearDelayTimeouts: function () {
           clearTimeout(n), clearTimeout(i), cancelAnimationFrame(r);
+=======
+        layoutWidth: null,
+        layoutHeight: null,
+        forceOrientation: null,
+        get vertical () {
+            if (this.forceOrientation) return this.forceOrientation === "vertical";
+            return split.direction === "vertical";
+        },
+        get horizontal () {
+            if (this.forceOrientation) return this.forceOrientation === "horizontal";
+            return split.direction === "horizontal";
+>>>>>>> ed13e14 (Add back in responsive behaviours)
         },
         setProps: function (t) {
           0;
@@ -13003,6 +13265,7 @@ function splitLayoutComponent({ split , opts  }) {
         setContent: function (e) {
           b.setProps({ content: e });
         },
+<<<<<<< HEAD
         show: function () {
           0;
           var e = b.state.isVisible,
@@ -13060,6 +13323,16 @@ function splitLayoutComponent({ split , opts  }) {
               e.contains(x) || e.appendChild(x);
               (b.state.isMounted = !0), K(), !1;
             })();
+=======
+        init () {
+            _layout.observeSize(this.$el, ({ width , height  })=>{
+                this.layoutWidth = width;
+                this.layoutHeight = height;
+            });
+        },
+        switchOrientation () {
+            split.direction = this.vertical ? "horizontal" : "vertical";
+>>>>>>> ed13e14 (Add back in responsive behaviours)
         },
         hide: function () {
           0;
@@ -13159,6 +13432,7 @@ function splitLayoutComponent({ split , opts  }) {
       }),
       b
     );
+<<<<<<< HEAD
     function E() {
       var e = b.props.touch;
       return Array.isArray(e) ? e : [e, 0];
@@ -13565,6 +13839,42 @@ function splitLayoutComponent({ split , opts  }) {
           }));
       },
       _labelTippy: null,
+=======
+    return values.slice(0, -1).join(" ");
+}
+function gutterSplits(gutters) {
+    return gutters.map((element, i)=>{
+        return {
+            track: i * 2 + 1,
+            element
+        };
+    });
+}
+function sizeSplits(sizes) {
+    const splits = {};
+    sizes.forEach((value, i)=>{
+        if (value !== null) splits[i * 2] = value;
+    });
+    return splits;
+}
+
+},{"split-grid":"c7zSd","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../assets/lookbook/js/helpers/layout":"128Lz"}],"c7zSd":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var numeric = function(value, unit) {
+    return Number(value.slice(0, -1 * unit.length));
+};
+var parseValue = function(value) {
+    if (value.endsWith('px')) return {
+        value: value,
+        type: 'px',
+        numeric: numeric(value, 'px')
+    };
+    if (value.endsWith('fr')) return {
+        value: value,
+        type: 'fr',
+        numeric: numeric(value, 'fr')
+>>>>>>> ed13e14 (Add back in responsive behaviours)
     };
   }
   var lo = {};
@@ -15610,6 +15920,7 @@ function splitLayoutComponent({ split , opts  }) {
             )),
             (this.version = e(ti).version);
         },
+<<<<<<< HEAD
         ...Alpine.$log,
       };
     }),
@@ -15634,4 +15945,22 @@ function splitLayoutComponent({ split , opts  }) {
     (window.Alpine = En),
     En.start();
 })();
+=======
+        bindings: {
+            toggle: {
+                ["@click.stop"]: "toggle",
+                ["x-ref"]: "toggle"
+            },
+            link: {
+                [":class"]: "{'!bg-lookbook-nav-item-active':active}",
+                ["x-ref"]: "link"
+            }
+        }
+    };
+}
+exports.default = navItemComponent;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["j0SZm","7KyuE"], "7KyuE", "parcelRequirea49c")
+
+>>>>>>> ed13e14 (Add back in responsive behaviours)
 //# sourceMappingURL=lookbook.js.map

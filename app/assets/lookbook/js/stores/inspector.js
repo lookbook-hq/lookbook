@@ -1,5 +1,7 @@
 export default function initInspectorStore(Alpine) {
   return {
+    minVerticalSplitWidth: 800,
+
     preview: {
       activeTab: Alpine.$persist("").as("inspector-preview-active-tab"),
       width: Alpine.$persist("100%").as("inspector-preview-width"),

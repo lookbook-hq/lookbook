@@ -1,129 +1,138 @@
-  <%= render_component :split_layout,
-    "$store.layout.inspector",
-    ":class": "$store.inspector.drawer.hidden && '!grid-rows-[1fr] !grid-cols-[1fr]'" do |layout| %>
-    <%= layout.pane class: "flex flex-col h-full overflow-hidden" do %>
-    
-      <%= render_component :toolbar do |toolbar| %>
-        <% toolbar.section do %>
-          <%= render_component :tabs,
-            "$store.inspector.preview",
-            id: "inspector-preview-tabs" do |tabs| %>
-            <%= @preview_panels.each do |key, panel| %>
-              <% tabs.tab key, **panel %>
-            <% end %>
-          <% end %>
-        <% end %>
+<%= render_component :split_layout,
+  "$store.layout.inspector",
+  ":class": "$store.inspector.drawer.hidden && '!grid-rows-[1fr] !grid-cols-[1fr]'" do |layout| %>
 
-        <% toolbar.section align: :right, padded: true do %>
-          <%= render_component :dimensions_display,
-            "[data-component=viewport] iframe",
-            x_show: "$store.inspector.preview.activeTab === 'preview'" %>
-        <% end %>
-
-        <% toolbar.section divide: :left do %>
-          <%= render_component :button_group do |group| %>
-            <% if feature_enabled? :pages %>
-              <% group.button icon: :code,
-                tooltip: "Copy page embed code",
-                copy: true do %>
-                  &lt;%= embed <%= @preview.preview_class %>, :<%= @example.name %>, params: <%= request.query_parameters.deep_symbolize_keys.to_s %> %&gt;
-              <% end %>
-            <% end %>
-
-            <% group.button icon: :refresh_cw,
-              tooltip: "Refresh preview",
-              "@click.stop": "startSpin(); $dispatch('viewport:reload-start'); stopSpin(500);" %>
-
-            <% group.button icon: :external_link,
-              href: lookbook.preview_path(@example.lookup_path),
-              tooltip: "Open preview in new window",
-              target: "_blank" %>
-
-            <% group.button icon: "vertical ? 'sidebar' : 'credit-card'",
-              tooltip: "Show drawer",
-              "@click": "$store.inspector.drawer.hidden = false",
-              class: "rotate-180",
-              x_show: "$store.inspector.drawer.hidden",
-              cloak: true %>
-          <% end %>
-        <% end %>
-      <% end %> 
-
-      <div class="h-full relative overflow-auto">
-        <%= render_component :tabbed_content,
+  <%= layout.pane class: "flex flex-col h-full overflow-hidden",
+    x_effect: "forceOrientation = (layoutWidth < $store.inspector.minVerticalSplitWidth) ? 'horizontal' : null" do %>
+  
+    <%= render_component :toolbar do |toolbar| %>
+      <% toolbar.section do %>
+        <%= render_component :tabs,
           "$store.inspector.preview",
-          id: "inspector-preview-content" do |content| %>
+          id: "inspector-preview-tabs" do |tabs| %>
           <%= @preview_panels.each do |key, panel| %>
-            <% content.section key, id: panel[:id] do %>
-              <%= render panel[:template],
-                preview: @preview,
-                example: @example,
-                rendered_examples: @rendered_examples,
-                **panel %>
+            <% tabs.tab key, **panel %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <% toolbar.section align: :right, padded: true do %>
+        <%= render_component :dimensions_display,
+          "[data-component=viewport] iframe",
+          x_show: "$store.inspector.preview.activeTab === 'preview'" %>
+      <% end %>
+
+      <% toolbar.section divide: :left do %>
+        <%= render_component :button_group do |group| %>
+          <% if feature_enabled? :pages %>
+            <% group.button icon: :code,
+              tooltip: "Copy page embed code",
+              copy: true do %>
+                &lt;%= embed <%= @preview.preview_class %>, :<%= @example.name %>, params: <%= request.query_parameters.deep_symbolize_keys.to_s %> %&gt;
             <% end %>
           <% end %>
+
+          <% group.button icon: :refresh_cw,
+            tooltip: "Refresh preview",
+            "@click.stop": "startSpin(); $dispatch('viewport:reload-start'); stopSpin(500);" %>
+
+          <% group.button icon: :external_link,
+            href: lookbook.preview_path(@example.lookup_path),
+            tooltip: "Open preview in new window",
+            target: "_blank" %>
+
+          <% group.button icon: "vertical ? 'sidebar' : 'credit-card'",
+            tooltip: "Show drawer",
+            "@click": "$store.inspector.drawer.hidden = false",
+            class: "rotate-180",
+            x_show: "$store.inspector.drawer.hidden",
+            cloak: true %>
         <% end %>
-      </div>
-    <% end %>
+      <% end %>
+    <% end %> 
 
-    <%= layout.pane class: "flex flex-col h-full overflow-hidden bg-lookbook-drawer", x_show: "!$store.inspector.drawer.hidden" do %>
-
-      <%= render_component :toolbar do |toolbar| %>
-        <% toolbar.section do %>
-          <%= render_component :tabs,
-            "$store.inspector.drawer",
-            id: "inspector-drawer-tabs" do |tabs| %>
-            <%= @drawer_panels.each do |key, panel| %>
-              <% tabs.tab key, **panel %>
-            <% end %>
+    <div class="h-full relative overflow-auto">
+      <%= render_component :tabbed_content,
+        "$store.inspector.preview",
+        id: "inspector-preview-content" do |content| %>
+        <%= @preview_panels.each do |key, panel| %>
+          <% content.section key, id: panel[:id] do %>
+            <%= render panel[:template],
+              preview: @preview,
+              example: @example,
+              rendered_examples: @rendered_examples,
+              **panel %>
           <% end %>
         <% end %>
-
-        <% toolbar.section align: :right, divide: :left do %>
-          <%= render_component :button_group do |group| %>
-
-            <%= @drawer_panels.each do |key, panel| %>
-              <% group.button icon: :clipboard,
-                tooltip: "Copy to clipboard",
-                copy: !!panel[:copy],
-                disabled: panel[:disabled] || !panel[:copy],
-                x_show: "$store.inspector.drawer.activeTab === '#{key}'",
-                cloak: true do %>
-                <%== panel[:copy] ? panel[:copy] : "" %>
-                <% end %>
-            <% end %>            
-
-            <% group.button icon: :corner_up_right,
-              tooltip: "Move drawer to right",
-              "@click": "switchOrientation",
-              x_show: "horizontal",
-              cloak: true %>
-            <% group.button icon: :corner_left_down,
-              tooltip: "Move drawer to bottom",
-              "@click": "switchOrientation",
-              x_show: "vertical",
-              cloak: true %>
-
-            <% group.button icon: :x_circle,
-              tooltip: "Hide drawer",
-              "@click": "$store.inspector.drawer.hidden = true",
-              cloak: true %>
-          <% end %>
-        <% end %>
-      <% end %> 
-
-      <div class="h-full overflow-auto">
-        <%= render_component :tabbed_content, "$store.inspector.drawer", id: "inspector-drawer-content" do |content| %>
-          <% @drawer_panels.each do |key, panel| %>
-            <% content.section key, id: panel[:id] do %>
-              <%= render panel[:template],
-                preview: @preview,
-                example: @example,
-                rendered_examples: @rendered_examples,
-                **panel %>
-            <% end %>
-          <% end %>
-        <% end %>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   <% end %>
+
+  <%= layout.pane class: "flex flex-col h-full overflow-hidden bg-lookbook-drawer", x_show: "!$store.inspector.drawer.hidden" do %>
+
+    <%= render_component :toolbar do |toolbar| %>
+      <% toolbar.section do %>
+        <%= render_component :tabs,
+          "$store.inspector.drawer",
+          id: "inspector-drawer-tabs" do |tabs| %>
+          <%= @drawer_panels.each do |key, panel| %>
+            <% tabs.tab key, **panel %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <% toolbar.section align: :right, divide: :left do %>
+        <%= render_component :button_group do |group| %>
+
+          <%= @drawer_panels.each do |key, panel| %>
+            <% group.button icon: :clipboard,
+              tooltip: "Copy to clipboard",
+              copy: !!panel[:copy],
+              disabled: panel[:disabled] || !panel[:copy],
+              x_show: "$store.inspector.drawer.activeTab === '#{key}'",
+              cloak: true do %>
+              <%== panel[:copy] ? panel[:copy] : "" %>
+              <% end %>
+          <% end %>            
+
+          <% group.button icon: :corner_up_right,
+            tooltip: "Move drawer to right",
+            "@click": "switchOrientation",
+            x_show: "horizontal && layoutWidth > $store.inspector.minVerticalSplitWidth",
+            cloak: true %>
+          <% group.button icon: :corner_up_right,
+            x_show: "horizontal && layoutWidth <= $store.inspector.minVerticalSplitWidth",
+            disabled: true,
+            cloak: true %>
+
+          <% group.button icon: :corner_left_down,
+            tooltip: "Move drawer to bottom",
+            "@click": "switchOrientation",
+            x_show: "vertical",
+            cloak: true %>
+
+          <% group.button icon: :x_circle,
+            tooltip: "Hide drawer",
+            "@click": "$store.inspector.drawer.hidden = true",
+            cloak: true %>
+        <% end %>
+      <% end %>
+    <% end %> 
+
+    <div class="h-full overflow-auto">
+      <%= render_component :tabbed_content,
+        "$store.inspector.drawer",
+        id: "inspector-drawer-content" do |content| %>
+        <% @drawer_panels.each do |key, panel| %>
+          <% content.section key, id: panel[:id] do %>
+            <%= render panel[:template],
+              preview: @preview,
+              example: @example,
+              rendered_examples: @rendered_examples,
+              **panel %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

@@ -2,7 +2,7 @@
 
 @layer components {
   [data-component="code"] {
-    @apply text-sm p-4 overflow-x-hidden;
+    @apply text-sm px-4 overflow-x-hidden;
 
     & .line {
       min-height: 1.625em;
@@ -10,7 +10,7 @@
     }
 
     & .code {
-      @apply overflow-x-auto overflow-y-hidden;
+      @apply overflow-x-auto overflow-y-hidden py-4;
     }
 
     /* Line numbers */

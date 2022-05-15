@@ -1,26 +1,45 @@
 <%= content_for :body do %>
-
   <div
     id="app"
     x-data="app"
     @popstate.window="handleNavigation"
     @click.document="hijax"
-    class="w-screen h-screen">
-    <%= render_component :split_layout, "$store.layout.main" do |layout| %>
+    @navigation:start="closeMobileSidebar"
+    class="w-screen h-screen grid grid-rows-[40px_1fr] relative">
 
-      <% layout.pane class: "flex flex-col bg-lookbook-sidebar relative" do %>
-      
-        <%= render_component :toolbar do |toolbar| %>
-          <% if config.project_name %>
-            <% toolbar.section padded: true do %>
-              <a
-                href="<%= landing_path %>"
-                class="text-xs truncate uppercase font-black tracking-wide pr-2 text-lookbook-branding-text">
-                <%= config.project_name %>
-              </a>
-            <% end %>
-          <% end %>
-        <% end %>
+    <%= render_component :toolbar do |toolbar| %>
+      <% toolbar.section padded: true do %>
+        <%= render_component :branding,
+          config.project_name,
+          href: landing_path if config.project_name %>
+      <% end %>
+      <% toolbar.section padded: true, align: :right do %>
+        <%= render_component :button,
+            icon: :menu,
+            "@click.stop": "toggleSidebar",
+            class: "-mr-2",
+            x_show: "$store.layout.mobile && sidebarHidden" %>
+         <%= render_component :button,
+            icon: :x,
+            "@click.stop": "toggleSidebar",
+            class: "-mr-2",
+            x_show: "$store.layout.mobile && !sidebarHidden",
+            "@keydown.esc.window": "closeMobileSidebar" %>
+      <% end %>
+    <% end %>
+    
+    <%= render_component :split_layout,
+      "$store.layout.main",
+      ":class": "$store.layout.mobile && '!block'" do |layout| %>
+
+      <% layout.pane class: "flex flex-col bg-lookbook-sidebar relative translate-x-0",
+        ":class": "{
+          'transition': $store.layout.mobile,
+          'translate-x-full': $store.layout.mobile && sidebarHidden,
+          '!absolute right-0 bottom-0 top-[40px] h-[calc(100%_-_40px)] w-full max-w-[420px] z-50 border-l border-lookbook-divider': $store.layout.mobile
+        }",
+        "@click.outside": "closeMobileSidebar",
+        x_cloak: true do %>
 
         <%= render_component :split_layout, "$store.layout.sidebar" do |layout| %>
           <% layout.pane class: "overflow-hidden" do %>
@@ -73,7 +92,9 @@
       <% end %>
 
     <% end %>
+    <div class="absolute opacity-0 bg-black inset-0 top-[40px] z-[-1] transition-opacity" :class="($store.layout.mobile && !sidebarHidden) && '!opacity-30 !z-40'" data-cloak></div>
   </div>
+  
 <% end %>
 
 <%= render template: "layouts/lookbook/skeleton" %>

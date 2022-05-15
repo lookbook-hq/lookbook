@@ -5,7 +5,8 @@
     }
 
     & [data-component="button-group"] {
-      @apply px-2;
+      padding-left: 0.45rem;
+      padding-right: 0.45rem;
     }
 
     & [data-component="tabs"] {

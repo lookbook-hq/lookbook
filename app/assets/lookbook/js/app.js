@@ -72,6 +72,20 @@ export default function app() {
       this.version = packageJson.version;
     },
 
+    toggleSidebar() {
+      this.$store.layout.sidebar.hidden = !this.$store.layout.sidebar.hidden;
+    },
+
+    closeMobileSidebar() {
+      if (this.$store.layout.mobile && !this.sidebarHidden) {
+        this.toggleSidebar();
+      }
+    },
+
+    get sidebarHidden() {
+      return this.$store.layout.sidebar.hidden;
+    },
+
     ...Alpine.$log,
   };
 }

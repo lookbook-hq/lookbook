@@ -1,3 +1,5 @@
+import { observeSize } from "../../../assets/lookbook/js/helpers/layout";
+
 export default function dimensionsDisplayComponent(targetSelector) {
   return {
     width: 0,
@@ -14,13 +16,13 @@ export default function dimensionsDisplayComponent(targetSelector) {
     },
 
     createObserver() {
-      this.observer = new ResizeObserver((entries) => {
-        const rect = entries[0].contentRect;
-        this.width = Math.round(rect.width);
-        this.height = Math.round(rect.height);
-      });
-      console.log(document.querySelector(targetSelector));
-      this.observer.observe(document.querySelector(targetSelector));
+      this.observer = observeSize(
+        document.querySelector(targetSelector),
+        ({ width, height }) => {
+          this.width = width;
+          this.height = height;
+        }
+      );
     },
 
     tearDown() {

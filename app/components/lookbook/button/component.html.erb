@@ -9,11 +9,7 @@
   ],
   disabled: @disabled do %>
   <span x-ref="icon">
-    <% if icon %>
-      <%= icon %>
-    <% else %>
-      <%= render_component :icon, @icon, size: icon_size, ":class": "{'animate-spin': _spinning}" %>
-    <% end %>
+    <%= icon || render_component(:icon, @icon, size: icon_size, ":class": "{'animate-spin': _spinning}") %>
   </span>
   <% if @tooltip %>
     <label class="hidden" x-ref="tooltip"><%= @tooltip %></label>
