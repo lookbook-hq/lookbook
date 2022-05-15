@@ -16,26 +16,10 @@ export default function initLayoutStore(Alpine) {
           );
         }
       );
-
-      addMediaQueryListener(
-        `(min-width: ${config.wideDesktopWidth}px)`,
-        (matches) => {
-          this._isWideDesktop = matches;
-          log.debug(
-            `Media query 'wide desktop': ${
-              matches ? "✅ match" : "❌ no match"
-            }`
-          );
-        }
-      );
     },
 
     get desktop() {
       return this._isDesktop;
-    },
-
-    get wideDesktop() {
-      return this._isWideDesktop;
     },
 
     get mobile() {
@@ -97,14 +81,12 @@ export default function initLayoutStore(Alpine) {
       }).as("inspector-split"),
 
       opts: {
-        minSizes: [sidebar.minWidth, main.minWidth],
+        minSizes: [inspector.drawer.minWidth, inspector.drawer.minWidth],
       },
     },
 
     // protected
 
     _isDesktop: true,
-
-    _isWideDesktop: true,
   };
 }

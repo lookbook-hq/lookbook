@@ -1575,14 +1575,6 @@ pre[class*="language-"] {
 }
 =======
 
-.top-2 {
-  top: .5rem;
-}
-
-.right-1 {
-  right: .25rem;
-}
-
 .z-50 {
   z-index: 50;
 }
@@ -1673,14 +1665,6 @@ pre[class*="language-"] {
 }
 <<<<<<< HEAD
 =======
-
-.-ml-2 {
-  margin-left: -.5rem;
-}
-
-.-ml-4 {
-  margin-left: -1rem;
-}
 
 .-ml-3 {
   margin-left: -.75rem;
@@ -1792,6 +1776,10 @@ pre[class*="language-"] {
 }
 <<<<<<< HEAD
 =======
+
+.w-\[140px\] {
+  width: 140px;
+}
 
 .min-w-0 {
   min-width: 0;
@@ -2180,6 +2168,7 @@ pre[class*="language-"] {
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 .bg-white\/20 {
   background-color: #fff3;
 }
@@ -2209,6 +2198,8 @@ pre[class*="language-"] {
 }
 
 >>>>>>> d32ac84 (Page fixes)
+=======
+>>>>>>> 3250a10 (More responsive improvements)
 .stroke-current {
   stroke: currentColor;
 }
@@ -2233,6 +2224,7 @@ pre[class*="language-"] {
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 .p-0\.5 {
   padding: .125rem;
 }
@@ -2242,6 +2234,8 @@ pre[class*="language-"] {
 }
 
 >>>>>>> d32ac84 (Page fixes)
+=======
+>>>>>>> 3250a10 (More responsive improvements)
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -2308,32 +2302,16 @@ pre[class*="language-"] {
 <<<<<<< HEAD
 =======
 
-.\!pr-0 {
-  padding-right: 0 !important;
+.pt-1 {
+  padding-top: .25rem;
 }
 
 .pr-0 {
   padding-right: 0;
 }
 
-.pl-0 {
-  padding-left: 0;
-}
-
-.pr-1 {
-  padding-right: .25rem;
-}
-
 .pl-1 {
   padding-left: .25rem;
-}
-
-.pr-2 {
-  padding-right: .5rem;
-}
-
-.pt-1 {
-  padding-top: .25rem;
 }
 
 .pr-0\.5 {
@@ -2342,6 +2320,14 @@ pre[class*="language-"] {
 
 .pl-0\.5 {
   padding-left: .125rem;
+}
+
+.pl-0 {
+  padding-left: 0;
+}
+
+.pr-2 {
+  padding-right: .5rem;
 }
 
 .text-left {

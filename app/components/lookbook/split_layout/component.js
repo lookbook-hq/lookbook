@@ -81,9 +81,11 @@ export default function splitLayoutComponent({ split, opts }) {
           },
           onDragStart: () => {
             this.layoutResizing = true;
+            this.$dispatch("layout:resize-start", { layout: this });
           },
           onDragEnd: () => {
             this.layoutResizing = false;
+            this.$dispatch("layout:resize-end", { layout: this });
           },
         });
       }

@@ -295,7 +295,7 @@ window.log = _logger.log;
 window.Alpine = _alpinejsDefault.default;
 _alpinejsDefault.default.start();
 
-},{"alpinejs":"69hXP","@alpinejs/morph":"h2FeS","@alpinejs/persist":"hOl6K","@ryangjchandler/alpine-tooltip":"j3Uyt","./plugins/logger":"a8yvv","./stores/layout":"2QNcl","./stores/nav":"dYphZ","./stores/inspector":"1tdkQ","./stores/pages":"hvNyC","./app":"bkyhi","./helpers/build":"a7dEL","../../../components/lookbook/*/component.js":"akleQ","../../../components/lookbook/*/*/component.js":"lT8lG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"69hXP":[function(require,module,exports) {
+},{"alpinejs":"69hXP","@alpinejs/morph":"h2FeS","@alpinejs/persist":"hOl6K","@ryangjchandler/alpine-tooltip":"j3Uyt","./plugins/logger":"a8yvv","./stores/layout":"2QNcl","./stores/nav":"dYphZ","./stores/inspector":"1tdkQ","./stores/pages":"hvNyC","./app":"bkyhi","./helpers/build":"a7dEL","../../../components/lookbook/*/component.js":"4fi7S","../../../components/lookbook/*/*/component.js":"lT8lG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"69hXP":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>module_default
@@ -6166,16 +6166,9 @@ function initLayoutStore(Alpine) {
                 this._isDesktop = matches;
                 _logger.log.debug(`Media query 'desktop': ${matches ? "✅ match" : "❌ no match"}`);
             });
-            _layout.addMediaQueryListener(`(min-width: ${_configDefault.default.wideDesktopWidth}px)`, (matches)=>{
-                this._isWideDesktop = matches;
-                _logger.log.debug(`Media query 'wide desktop': ${matches ? "✅ match" : "❌ no match"}`);
-            });
         },
         get desktop () {
             return this._isDesktop;
-        },
-        get wideDesktop () {
-            return this._isWideDesktop;
         },
         get mobile () {
             return !this.desktop;
@@ -6221,6 +6214,7 @@ function initLayoutStore(Alpine) {
             }
 >>>>>>> ed13e14 (Add back in responsive behaviours)
         },
+<<<<<<< HEAD
         apply: function (e, n) {
           if (!e || !e.setLevel)
             throw new TypeError("Argument is not a logger");
@@ -6274,6 +6268,27 @@ function initLayoutStore(Alpine) {
               ),
             e
           );
+=======
+        // Inspector drawer/preview layout
+        inspector: {
+            split: Alpine.$persist({
+                direction: "horizontal",
+                horizontalSizes: [
+                    "1fr",
+                    `${inspector.drawer.defaultHeight}px`
+                ],
+                verticalSizes: [
+                    "1fr",
+                    `${inspector.drawer.defaultWidth}px`
+                ]
+            }).as("inspector-split"),
+            opts: {
+                minSizes: [
+                    inspector.drawer.minWidth,
+                    inspector.drawer.minWidth
+                ]
+            }
+>>>>>>> 3250a10 (More responsive improvements)
         },
 <<<<<<< HEAD
       };
@@ -6323,8 +6338,7 @@ function initLayoutStore(Alpine) {
           }
 =======
         // protected
-        _isDesktop: true,
-        _isWideDesktop: true
+        _isDesktop: true
     };
 }
 exports.default = initLayoutStore;
@@ -7402,66 +7416,89 @@ exports.default = socket;
 =======
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"akleQ":[function(require,module,exports) {
-const _temp0 = require("../button/component.js");
-const _temp1 = require("../code/component.js");
-const _temp2 = require("../copy_button/component.js");
-const _temp3 = require("../dimensions_display/component.js");
-const _temp4 = require("../embed/component.js");
-const _temp5 = require("../filter/component.js");
-const _temp6 = require("../icon/component.js");
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4fi7S":[function(require,module,exports) {
+const _temp0 = require("../code/component.js");
+const _temp1 = require("../copy_button/component.js");
+const _temp2 = require("../dimensions_display/component.js");
+const _temp3 = require("../embed/component.js");
+const _temp4 = require("../button/component.js");
+const _temp5 = require("../icon/component.js");
+const _temp6 = require("../filter/component.js");
 const _temp7 = require("../nav/component.js");
 const _temp8 = require("../param_field/component.js");
-const _temp9 = require("../split_layout/component.js");
-const _temp10 = require("../tabbed_content/component.js");
-const _temp11 = require("../tabs/component.js");
-const _temp12 = require("../viewport/component.js");
+const _temp9 = require("../param_fieldset/component.js");
+const _temp10 = require("../split_layout/component.js");
+const _temp11 = require("../tabbed_content/component.js");
+const _temp12 = require("../tabs/component.js");
+const _temp13 = require("../viewport/component.js");
 module.exports = {
-    "button": _temp0,
-    "code": _temp1,
-    "copy_button": _temp2,
-    "dimensions_display": _temp3,
-    "embed": _temp4,
-    "filter": _temp5,
-    "icon": _temp6,
+    "code": _temp0,
+    "copy_button": _temp1,
+    "dimensions_display": _temp2,
+    "embed": _temp3,
+    "button": _temp4,
+    "icon": _temp5,
+    "filter": _temp6,
     "nav": _temp7,
     "param_field": _temp8,
-    "split_layout": _temp9,
-    "tabbed_content": _temp10,
-    "tabs": _temp11,
-    "viewport": _temp12
+    "param_fieldset": _temp9,
+    "split_layout": _temp10,
+    "tabbed_content": _temp11,
+    "tabs": _temp12,
+    "viewport": _temp13
 };
 
-},{"../button/component.js":"lQApy","../code/component.js":"2jedY","../copy_button/component.js":"1HiHq","../dimensions_display/component.js":"kFxrd","../embed/component.js":"hM4Uf","../filter/component.js":"c1bw6","../icon/component.js":"2RhL0","../nav/component.js":"bGQJL","../param_field/component.js":"b93Nq","../split_layout/component.js":"dX3DZ","../tabbed_content/component.js":"4BnLZ","../tabs/component.js":"dvr8m","../viewport/component.js":"6kmWp"}],"lQApy":[function(require,module,exports) {
+},{"../code/component.js":"2jedY","../copy_button/component.js":"1HiHq","../dimensions_display/component.js":"kFxrd","../embed/component.js":"hM4Uf","../button/component.js":"lQApy","../icon/component.js":"2RhL0","../filter/component.js":"c1bw6","../nav/component.js":"bGQJL","../param_field/component.js":"b93Nq","../param_fieldset/component.js":"352pw","../split_layout/component.js":"dX3DZ","../tabbed_content/component.js":"4BnLZ","../tabs/component.js":"dvr8m","../viewport/component.js":"6kmWp"}],"2jedY":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function codeComponent() {
+    return {};
+}
+exports.default = codeComponent;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1HiHq":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _tippy = require("~/app/assets/lookbook/js/lib/tippy");
 var _tippyDefault = parcelHelpers.interopDefault(_tippy);
-function buttonComponent() {
+var _component = require("@components/button/component");
+var _componentDefault = parcelHelpers.interopDefault(_component);
+function copyButtonComponent(target = null) {
+    const button = _componentDefault.default();
     return {
+        ...button,
+        done: false,
         init () {
-            this._initTippy();
-        },
-        startSpin () {
-            this._spinning = true;
-        },
-        stopSpin (delay = 0) {
-            setTimeout(()=>this._spinning = false
-            , delay);
-        },
-        _spinning: false,
-        _initTippy () {
-            if (this.$refs.tooltip) this._labelTippy = _tippyDefault.default(this.$refs.icon, {
-                triggerTarget: this.$el,
-                content: this.$refs.tooltip.innerHTML
+            button.init.bind(this)();
+            if (target === null) this._copyTarget = this.$refs.copyContent;
+            else this._copyTarget = typeof target === "string" ? document.querySelector(target) : target;
+            this._notificationTippy = _tippyDefault.default(this.$el, {
+                content: "Copied!",
+                trigger: "manual"
             });
         },
-        _labelTippy: null
+        async copyToClipboard () {
+            await window.navigator.clipboard.writeText(this.getContent());
+            this.done = true;
+            this._notificationTippy.show();
+            this._labelTippy.hide();
+            setTimeout(()=>{
+                this.done = false;
+                this._notificationTippy.hide();
+            }, 1000);
+        },
+        getContent () {
+            const decoder = document.createElement("textarea");
+            decoder.innerHTML = this._copyTarget ? this._copyTarget.innerHTML : "";
+            return decoder.value.trim();
+        },
+        _copyTarget: null,
+        _notificationTippy: null
     };
 }
-exports.default = buttonComponent;
+exports.default = copyButtonComponent;
 
-},{"~/app/assets/lookbook/js/lib/tippy":"6zhil","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6zhil":[function(require,module,exports) {
+},{"~/app/assets/lookbook/js/lib/tippy":"6zhil","@components/button/component":"lQApy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6zhil":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _tippyJs = require("tippy.js");
@@ -10661,57 +10698,36 @@ var createPopper = /*#__PURE__*/ _createPopperJs.popperGenerator({
     defaultModifiers: defaultModifiers
 }); // eslint-disable-next-line import/no-unused-modules
 
-},{"./createPopper.js":"cHuNp","./modifiers/eventListeners.js":"hBKsL","./modifiers/popperOffsets.js":"6I679","./modifiers/computeStyles.js":"gDlm2","./modifiers/applyStyles.js":"4iMn4","./modifiers/offset.js":"3GKVY","./modifiers/flip.js":"fv5wq","./modifiers/preventOverflow.js":"1AMhb","./modifiers/arrow.js":"31HFW","./modifiers/hide.js":"2g4OF","./popper-lite.js":false,"./modifiers/index.js":"cap3W","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2jedY":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-function codeComponent() {
-    return {};
-}
-exports.default = codeComponent;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1HiHq":[function(require,module,exports) {
+},{"./createPopper.js":"cHuNp","./modifiers/eventListeners.js":"hBKsL","./modifiers/popperOffsets.js":"6I679","./modifiers/computeStyles.js":"gDlm2","./modifiers/applyStyles.js":"4iMn4","./modifiers/offset.js":"3GKVY","./modifiers/flip.js":"fv5wq","./modifiers/preventOverflow.js":"1AMhb","./modifiers/arrow.js":"31HFW","./modifiers/hide.js":"2g4OF","./popper-lite.js":false,"./modifiers/index.js":"cap3W","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lQApy":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _tippy = require("~/app/assets/lookbook/js/lib/tippy");
 var _tippyDefault = parcelHelpers.interopDefault(_tippy);
-var _component = require("@components/button/component");
-var _componentDefault = parcelHelpers.interopDefault(_component);
-function copyButtonComponent(target = null) {
-    const button = _componentDefault.default();
+function buttonComponent() {
     return {
-        ...button,
-        done: false,
         init () {
-            button.init.bind(this)();
-            if (target === null) this._copyTarget = this.$refs.copyContent;
-            else this._copyTarget = typeof target === "string" ? document.querySelector(target) : target;
-            this._notificationTippy = _tippyDefault.default(this.$el, {
-                content: "Copied!",
-                trigger: "manual"
+            this._initTippy();
+        },
+        startSpin () {
+            this._spinning = true;
+        },
+        stopSpin (delay = 0) {
+            setTimeout(()=>this._spinning = false
+            , delay);
+        },
+        _spinning: false,
+        _initTippy () {
+            if (this.$refs.tooltip) this._labelTippy = _tippyDefault.default(this.$refs.icon, {
+                triggerTarget: this.$el,
+                content: this.$refs.tooltip.innerHTML
             });
         },
-        async copyToClipboard () {
-            await window.navigator.clipboard.writeText(this.getContent());
-            this.done = true;
-            this._notificationTippy.show();
-            this._labelTippy.hide();
-            setTimeout(()=>{
-                this.done = false;
-                this._notificationTippy.hide();
-            }, 1000);
-        },
-        getContent () {
-            const decoder = document.createElement("textarea");
-            decoder.innerHTML = this._copyTarget ? this._copyTarget.innerHTML : "";
-            return decoder.value.trim();
-        },
-        _copyTarget: null,
-        _notificationTippy: null
+        _labelTippy: null
     };
 }
-exports.default = copyButtonComponent;
+exports.default = buttonComponent;
 
-},{"~/app/assets/lookbook/js/lib/tippy":"6zhil","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@components/button/component":"lQApy"}],"kFxrd":[function(require,module,exports) {
+},{"~/app/assets/lookbook/js/lib/tippy":"6zhil","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kFxrd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _layout = require("@helpers/layout");
@@ -10739,7 +10755,7 @@ function dimensionsDisplayComponent(targetSelector) {
 }
 exports.default = dimensionsDisplayComponent;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@helpers/layout":"128Lz"}],"hM4Uf":[function(require,module,exports) {
+},{"@helpers/layout":"128Lz","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hM4Uf":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _iframeResizer = require("iframe-resizer/js/iframeResizer");
@@ -11591,6 +11607,30 @@ exports.default = embedComponent;
         };
 >>>>>>> 8a8eeb1 (Automate basic theme generation)
     }
+<<<<<<< HEAD
+=======
+    if (window.jQuery) createJQueryPublicMethod(window.jQuery);
+    if (typeof define === 'function' && define.amd) define([], factory);
+    else if (typeof module.exports === 'object') // Node for browserfy
+    module.exports = factory();
+    window.iFrameResize = window.iFrameResize || factory();
+})();
+
+},{}],"2RhL0":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function iconComponent(iconName) {
+    return {
+        iconName
+    };
+}
+exports.default = iconComponent;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c1bw6":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function filterComponent(store) {
+>>>>>>> 3250a10 (More responsive improvements)
     return {
       width: n.width / i,
       height: n.height / r,
@@ -11716,6 +11756,7 @@ exports.default = embedComponent;
               fi(n) && (n = n.host);
               li(n) && ["html", "body"].indexOf(ai(n)) < 0;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
             ) {
@@ -11957,6 +11998,8 @@ function iconComponent(iconName) {
 exports.default = iconComponent;
 
 >>>>>>> c9a6dcb (Add preview dimensions display)
+=======
+>>>>>>> 3250a10 (More responsive improvements)
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bGQJL":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -13120,7 +13163,23 @@ function paramFieldComponent({ name , value  }) {
 }
 exports.default = paramFieldComponent;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dX3DZ":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"352pw":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _layout = require("@helpers/layout");
+function paramFieldsetComponent() {
+    return {
+        narrow: false,
+        init () {
+            _layout.observeSize(this.$el, ({ width  })=>{
+                this.narrow = width < 450;
+            });
+        }
+    };
+}
+exports.default = paramFieldsetComponent;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@helpers/layout":"128Lz"}],"dX3DZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _splitGrid = require("split-grid");
@@ -13394,9 +13453,15 @@ function splitLayoutComponent({ split , opts  }) {
                     },
                     onDragStart: ()=>{
                         this.layoutResizing = true;
+                        this.$dispatch("layout:resize-start", {
+                            layout: this
+                        });
                     },
                     onDragEnd: ()=>{
                         this.layoutResizing = false;
+                        this.$dispatch("layout:resize-end", {
+                            layout: this
+                        });
                     }
                 });
             }
@@ -13889,7 +13954,7 @@ function sizeSplits(sizes) {
     return splits;
 }
 
-},{"split-grid":"c7zSd","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@helpers/layout":"128Lz"}],"c7zSd":[function(require,module,exports) {
+},{"split-grid":"c7zSd","@helpers/layout":"128Lz","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c7zSd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var numeric = function(value, unit) {
@@ -15598,7 +15663,7 @@ function getFullWidth(el) {
     return el.offsetWidth + parseInt(style.getPropertyValue("margin-left")) + parseInt(style.getPropertyValue("margin-right"));
 }
 
-},{"debounce":"6mekx","~/app/assets/lookbook/js/lib/tippy":"6zhil","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@helpers/layout":"128Lz"}],"6kmWp":[function(require,module,exports) {
+},{"debounce":"6mekx","~/app/assets/lookbook/js/lib/tippy":"6zhil","@helpers/layout":"128Lz","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6kmWp":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 function viewportComponent(store) {
@@ -15660,6 +15725,7 @@ function viewportComponent(store) {
         reloadIframe() {
           this.$refs.iframe.contentWindow.location.reload();
         },
+<<<<<<< HEAD
         start() {
           this.$dispatch("viewport:resize-start"),
             (this.$store.layout.reflowing = !0),
@@ -15669,6 +15735,21 @@ function viewportComponent(store) {
           (this.$store.layout.reflowing = !1),
             (this.store.resizing = !1),
             this.$dispatch("viewport:resize-complete");
+=======
+        start () {
+            this.$dispatch("viewport:resize-start", {
+                viewport: this
+            });
+            this.$store.layout.reflowing = true;
+            this.store.resizing = true;
+        },
+        end () {
+            this.$store.layout.reflowing = false;
+            this.store.resizing = false;
+            this.$dispatch("viewport:resize-complete", {
+                viewport: this
+            });
+>>>>>>> 3250a10 (More responsive improvements)
         },
         onResizeStart(e) {
           this.onResizeWidthStart(e), this.onResizeHeightStart(e);
@@ -15686,8 +15767,14 @@ function viewportComponent(store) {
             n = Math.min(Math.max(Math.round(t), 200), this.parentWidth);
           (this.store.width = n === this.parentWidth ? "100%" : n),
             this.$dispatch("viewport:resize-progress", {
+<<<<<<< HEAD
               width: this.store.width,
               height: this.store.height,
+=======
+                width: this.store.width,
+                height: this.store.height,
+                viewport: this
+>>>>>>> 3250a10 (More responsive improvements)
             });
         },
         onResizeWidthStart(e) {
@@ -15704,6 +15791,7 @@ function viewportComponent(store) {
             window.removeEventListener("pointerup", this.onResizeWidthEnd),
             this.end();
         },
+<<<<<<< HEAD
         toggleFullWidth() {
           this.$dispatch("viewport:resize-start");
           const { width: t, lastWidth: n } = e;
@@ -15711,6 +15799,21 @@ function viewportComponent(store) {
             ? (this.store.width = n)
             : ((this.store.lastWidth = t), (this.store.width = "100%")),
             this.$dispatch("viewport:resize-complete");
+=======
+        toggleFullWidth () {
+            this.$dispatch("viewport:resize-start", {
+                viewport: this
+            });
+            const { width , lastWidth  } = store;
+            if (width === "100%" && lastWidth) this.store.width = lastWidth;
+            else {
+                this.store.lastWidth = width;
+                this.store.width = "100%";
+            }
+            this.$dispatch("viewport:resize-complete", {
+                viewport: this
+            });
+>>>>>>> 3250a10 (More responsive improvements)
         },
         onResizeHeight(e) {
           const t =
@@ -15718,8 +15821,14 @@ function viewportComponent(store) {
             n = Math.min(Math.max(Math.round(t), 200), this.parentHeight);
           (this.store.height = n === this.parentHeight ? "100%" : n),
             this.$dispatch("viewport:resize-progress", {
+<<<<<<< HEAD
               width: this.store.width,
               height: this.store.height,
+=======
+                width: this.store.width,
+                height: this.store.height,
+                viewport: this
+>>>>>>> 3250a10 (More responsive improvements)
             });
         },
         onResizeHeightStart(e) {
@@ -15736,6 +15845,7 @@ function viewportComponent(store) {
             window.removeEventListener("pointerup", this.onResizeHeightEnd),
             this.end();
         },
+<<<<<<< HEAD
         toggleFullHeight() {
           this.$dispatch("viewport:resize-start");
           const { height: t, lastHeight: n } = e;
@@ -15766,6 +15876,38 @@ function viewportComponent(store) {
   var Jo = {},
     Ko = {};
   function Zo({ id: e, matchers: t }) {
+=======
+        toggleFullHeight () {
+            this.$dispatch("viewport:resize-start", {
+                viewport: this
+            });
+            const { height , lastHeight  } = store;
+            if (height === "100%" && lastHeight) this.store.height = lastHeight;
+            else {
+                this.store.lastHeight = height;
+                this.store.height = "100%";
+            }
+            this.$dispatch("viewport:resize-complete", {
+                viewport: this
+            });
+        }
+    };
+}
+exports.default = viewportComponent;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lT8lG":[function(require,module,exports) {
+const _temp0 = require("../../nav/item/component.js");
+module.exports = {
+    "nav": {
+        "item": _temp0
+    }
+};
+
+},{"../../nav/item/component.js":"3BO4E"}],"3BO4E":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function navItemComponent({ id , matchers  }) {
+>>>>>>> 3250a10 (More responsive improvements)
     return {
       filteredOut: !1,
       get open() {

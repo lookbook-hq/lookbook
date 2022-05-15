@@ -6,8 +6,10 @@
   </div>
 <% else %>
   <div class="py-3 h-full">
-    <% @example.params.each_with_index do |param, i| %>
-      <%= render_component :param_field, **param %>
+    <%= render_component :param_fieldset do |fieldset| %>
+      <% @example.params.each do |param| %>
+        <% fieldset.param_field **param %>
+      <% end %>
     <% end %>
   </div>
 <% end %>

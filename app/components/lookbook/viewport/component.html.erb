@@ -12,7 +12,7 @@
         :class="{ 'pointer-events-none': reflowing }"
         src="<%= @src %>"
         frameborder="0"
-        @load="$dispatch('viewport:loaded')"></iframe>
+        @load="$dispatch('viewport:loaded', {viewport: this})"></iframe>
         <% if @resize_width %>
           <div
             class="resize-handle border-r border-t border-lookbook-divider cursor-[col-resize]"

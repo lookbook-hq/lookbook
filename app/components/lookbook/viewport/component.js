@@ -30,7 +30,7 @@ export default function viewportComponent(store) {
     },
 
     start() {
-      this.$dispatch("viewport:resize-start");
+      this.$dispatch("viewport:resize-start", { viewport: this });
       this.$store.layout.reflowing = true;
       this.store.resizing = true;
     },
@@ -38,7 +38,7 @@ export default function viewportComponent(store) {
     end() {
       this.$store.layout.reflowing = false;
       this.store.resizing = false;
-      this.$dispatch("viewport:resize-complete");
+      this.$dispatch("viewport:resize-complete", { viewport: this });
     },
 
     onResizeStart(e) {
@@ -69,6 +69,7 @@ export default function viewportComponent(store) {
       this.$dispatch("viewport:resize-progress", {
         width: this.store.width,
         height: this.store.height,
+        viewport: this,
       });
     },
 
@@ -89,7 +90,7 @@ export default function viewportComponent(store) {
     },
 
     toggleFullWidth() {
-      this.$dispatch("viewport:resize-start");
+      this.$dispatch("viewport:resize-start", { viewport: this });
       const { width, lastWidth } = store;
       if (width === "100%" && lastWidth) {
         this.store.width = lastWidth;
@@ -97,7 +98,7 @@ export default function viewportComponent(store) {
         this.store.lastWidth = width;
         this.store.width = "100%";
       }
-      this.$dispatch("viewport:resize-complete");
+      this.$dispatch("viewport:resize-complete", { viewport: this });
     },
 
     onResizeHeight(e) {
@@ -112,6 +113,7 @@ export default function viewportComponent(store) {
       this.$dispatch("viewport:resize-progress", {
         width: this.store.width,
         height: this.store.height,
+        viewport: this,
       });
     },
 
@@ -132,7 +134,7 @@ export default function viewportComponent(store) {
     },
 
     toggleFullHeight() {
-      this.$dispatch("viewport:resize-start");
+      this.$dispatch("viewport:resize-start", { viewport: this });
       const { height, lastHeight } = store;
       if (height === "100%" && lastHeight) {
         this.store.height = lastHeight;
@@ -140,7 +142,7 @@ export default function viewportComponent(store) {
         this.store.lastHeight = height;
         this.store.height = "100%";
       }
-      this.$dispatch("viewport:resize-complete");
+      this.$dispatch("viewport:resize-complete", { viewport: this });
     },
   };
 }

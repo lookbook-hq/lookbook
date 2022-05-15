@@ -1,10 +1,12 @@
 <%= render_component_tag class: "px-4 py-3" do %>
-  <div class="flex items-start max-w-[800px]">
-    <div class="flex-none py-2 w-[200px]" >
-      <label for="param-<%= @name %>" class="font-bold cursor-pointer">
-        <%= label %>
-      </label>
-    </div>
+  <div class="flex items-start max-w-[800px]" :class="narrow && '!block'">
+    
+    <label
+      for="param-<%= @name %>"
+      class="block font-bold cursor-pointer flex-none py-2 w-[140px] truncate pr-2">
+      <%= label %>
+    </label>
+    
     <div class="flex-grow">
       <% if field_type == "text" %>
       
