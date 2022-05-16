@@ -1,0 +1,3 @@
+test:
+  service: Disk
+  root: /Users/mark/Projects/allmarkedup/lookbook/tmp/storage

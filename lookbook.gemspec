@@ -21,11 +21,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency "listen", "~> 3.0"
   spec.add_dependency "yard", "~> 0.9.25"
   spec.add_dependency "htmlbeautifier", "~> 1.3"
-
-  spec.add_development_dependency "sqlite3", "~> 1.4"
-  spec.add_development_dependency "shoulda", "~> 4.0"
-  spec.add_development_dependency "warning", "~> 1.2"
-  spec.add_development_dependency "standard", "~> 1.1"
-  spec.add_development_dependency "capybara", "~> 3.3"
-  spec.add_development_dependency "foreman"
 end
