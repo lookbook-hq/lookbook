@@ -98,7 +98,8 @@ module Lookbook
         html: preview_controller.process(:render_example_to_string, @preview, example.name),
         source: has_template ? example.template_source(render_args[:template]) : example.method_source,
         source_lang: has_template ? example.template_lang(render_args[:template]) : example.source_lang,
-        params: example.params
+        params: example.params,
+        display: example.display_params
       }
     end
 
