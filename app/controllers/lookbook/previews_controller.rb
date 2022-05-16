@@ -103,7 +103,11 @@ module Lookbook
     end
 
     def render_examples(examples)
-      preview_controller.process(:render_in_layout_to_string, "layouts/lookbook/preview", {rendered_examples: examples}, @preview.layout)
+      opts = {layout: @preview.layout}
+      if params[:lookbook_embed] == "true"
+        opts[:append_html] = "<script src=\"/lookbook-assets/js/embed.js?v=#{Lookbook.version}\"></script>".html_safe
+      end
+      preview_controller.process(:render_in_layout_to_string, "lookbook/preview", {examples: examples}, **opts)
     end
 
     def set_params
