@@ -1,4 +1,6 @@
 # @label Toolbar Button
+# @display layout 'grid'
+# @display cols 3
 class ButtonComponentPreview < ViewComponent::Preview
   # @!group Examples
 
@@ -11,6 +13,19 @@ class ButtonComponentPreview < ViewComponent::Preview
   # The tooltip appears when hovering over the button.
   def tooltip
     render Lookbook::Button::Component.new icon: :book, tooltip: "An example tooltip"
+  end
+
+  def disabled
+    render Lookbook::Button::Component.new icon: :book, disabled: true
+  end
+
+  # @label With click handler
+  def click
+    render Lookbook::Button::Component.new icon: :book, '@click': "console.log('button clicked')"
+  end
+
+  def link
+    render Lookbook::Button::Component.new icon: :book, href: "https://example.com"
   end
 
   # @!endgroup

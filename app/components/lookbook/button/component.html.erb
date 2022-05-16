@@ -1,7 +1,7 @@
 <%= render_component_tag tag_name,
   href: @href,
   class: [
-    "bg-white text-lookbook-button-text #{padding}",
+    "block bg-white text-lookbook-button-text #{padding}",
     {
       "hover:text-lookbook-button-text-hover": !@disabled,
       "cursor-[not-allowed] opacity-50": @disabled
@@ -14,5 +14,7 @@
   <% if @tooltip %>
     <label class="hidden" x-ref="tooltip"><%= @tooltip %></label>
   <% end %>
-  <div><%== content if content %></div>
+  <% if content %>
+    <div><%== content %></div>
+  <% end %>
 <% end %>
