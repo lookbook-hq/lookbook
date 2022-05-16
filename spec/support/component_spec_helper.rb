@@ -1,5 +1,5 @@
-module ComponentsHelper
-  def rendered_html
+module ComponentSpecHelper
+  def html
     Capybara.string(rendered_component)
   end
 end

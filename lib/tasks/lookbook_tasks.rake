@@ -7,6 +7,13 @@ namespace :lookbook do
     sh "bundle exec rspec"
   end
 
+  namespace :test do
+    desc "Start a server to view the test app"
+    task :serve do
+      sh "bundle exec rackup"
+    end
+  end
+
   namespace :previews do
     desc "Preparse the previews"
     task :preparse do

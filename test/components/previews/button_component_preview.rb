@@ -21,7 +21,7 @@ class ButtonComponentPreview < ViewComponent::Preview
 
   # @label With click handler
   def click
-    render Lookbook::Button::Component.new icon: :book, '@click': "console.log('button clicked')"
+    render Lookbook::Button::Component.new icon: :book, "@click": "console.log('button clicked')"
   end
 
   def link

@@ -251,6 +251,7 @@ DEPENDENCIES
   rspec-rails (~> 6.0.0.rc1)
   sqlite3 (~> 1.4)
   standard (~> 1.1)
+  view_component
 
 BUNDLED WITH
    2.2.25
