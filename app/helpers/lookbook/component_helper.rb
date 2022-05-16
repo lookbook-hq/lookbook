@@ -27,9 +27,9 @@ module Lookbook
         ref = ref.to_s.tr("-", "_")
         class_namespace = ref.camelize
         begin
-          klass = "Lookbook::#{class_namespace}Component".constantize
-        rescue
           klass = "Lookbook::#{class_namespace}::Component".constantize
+        rescue
+          klass = "Lookbook::#{class_namespace}Component".constantize
         end
         COMPONENT_CLASSES[ref] = klass
       end
