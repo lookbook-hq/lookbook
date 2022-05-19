@@ -30,7 +30,7 @@ export default function viewportComponent(store) {
     },
 
     start() {
-      this.$dispatch("viewport:resize-start", { viewport: this });
+      this.$dispatch("viewport:resize-start", this._resizeData);
       this.$store.layout.reflowing = true;
       this.store.resizing = true;
     },
@@ -38,7 +38,7 @@ export default function viewportComponent(store) {
     end() {
       this.$store.layout.reflowing = false;
       this.store.resizing = false;
-      this.$dispatch("viewport:resize-complete", { viewport: this });
+      this.$dispatch("viewport:resize-complete", this._resizeData);
     },
 
     onResizeStart(e) {
@@ -66,11 +66,7 @@ export default function viewportComponent(store) {
       );
       this.store.width =
         boundedWidth === this.parentWidth ? "100%" : boundedWidth;
-      this.$dispatch("viewport:resize-progress", {
-        width: this.store.width,
-        height: this.store.height,
-        viewport: this,
-      });
+      this.$dispatch("viewport:resize-progress", this._resizeData);
     },
 
     onResizeWidthStart(e) {
@@ -90,7 +86,7 @@ export default function viewportComponent(store) {
     },
 
     toggleFullWidth() {
-      this.$dispatch("viewport:resize-start", { viewport: this });
+      this.$dispatch("viewport:resize-start", this._resizeData);
       const { width, lastWidth } = store;
       if (width === "100%" && lastWidth) {
         this.store.width = lastWidth;
@@ -98,7 +94,7 @@ export default function viewportComponent(store) {
         this.store.lastWidth = width;
         this.store.width = "100%";
       }
-      this.$dispatch("viewport:resize-complete", { viewport: this });
+      this.$dispatch("viewport:resize-complete", this._resizeData);
     },
 
     onResizeHeight(e) {
@@ -110,11 +106,7 @@ export default function viewportComponent(store) {
       );
       this.store.height =
         boundedHeight === this.parentHeight ? "100%" : boundedHeight;
-      this.$dispatch("viewport:resize-progress", {
-        width: this.store.width,
-        height: this.store.height,
-        viewport: this,
-      });
+      this.$dispatch("viewport:resize-progress", this._resizeData);
     },
 
     onResizeHeightStart(e) {
@@ -134,7 +126,7 @@ export default function viewportComponent(store) {
     },
 
     toggleFullHeight() {
-      this.$dispatch("viewport:resize-start", { viewport: this });
+      this.$dispatch("viewport:resize-start", this._resizeData);
       const { height, lastHeight } = store;
       if (height === "100%" && lastHeight) {
         this.store.height = lastHeight;
@@ -142,7 +134,17 @@ export default function viewportComponent(store) {
         this.store.lastHeight = height;
         this.store.height = "100%";
       }
-      this.$dispatch("viewport:resize-complete", { viewport: this });
+      this.$dispatch("viewport:resize-complete", this._resizeData);
+    },
+
+    // protected
+
+    get _resizeData() {
+      return {
+        width: this.store.width,
+        height: this.store.height,
+        viewport: this,
+      };
     },
   };
 }
