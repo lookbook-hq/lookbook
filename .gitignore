@@ -1,10 +1,9 @@
 .bundle/
 log/*.log
 pkg/
-
 node_modules/
 .DS_Store
-
 tmp/
-
 .parcel-cache
+.yardoc
+

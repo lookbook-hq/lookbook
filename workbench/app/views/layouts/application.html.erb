@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Workbench</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link href="/lookbook-assets/css/lookbook.css?v=<%= Lookbook::VERSION %>" rel="stylesheet">
+    <script src="/lookbook-assets/js/lookbook.js?v=<%= Lookbook.version %>" defer></script>
+  </head>
+
+  <body style="padding: 24px; overflow: auto;">
+    <%= yield %>
+  </body>
+</html>
