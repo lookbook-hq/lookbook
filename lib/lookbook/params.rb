@@ -1,3 +1,5 @@
+require "active_model"
+
 module Lookbook
   module Params
     class << self

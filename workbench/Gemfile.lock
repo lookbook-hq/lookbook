@@ -3,6 +3,7 @@ PATH
   specs:
     lookbook (0.8.1)
       actioncable
+      activemodel
       htmlbeautifier (~> 1.3)
       listen (~> 3.0)
       railties (>= 5.0)
