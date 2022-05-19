@@ -1,6 +1,8 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+ruby "3.0.2"
+
 group :development, :test do
   gem "sqlite3", "~> 1.4"
   gem "standard", "~> 1.1"
