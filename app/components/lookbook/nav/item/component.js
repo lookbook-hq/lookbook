@@ -27,7 +27,6 @@ export default function navItemComponent({ id, matchers }) {
 
     async filter(text) {
       if (this.isCollection) {
-        await this.$nextTick();
         this.filteredOut = true;
         this.children.forEach(async (child) => {
           const data = Alpine.$data(child);

@@ -16,10 +16,10 @@
         <% end %>
       <% end %>
 
-      <% toolbar.section align: :right, padded: true, class: "flex-none" do %>
+      <% toolbar.section align: :right, padded: true, class: "flex-none min-w-[140px]", ":class": "{invisible: $store.inspector.preview.activeTab !== 'preview'}" do %>
         <%= render_component :dimensions_display,
           target: "[data-component=viewport] iframe",
-          x_show: "$store.inspector.preview.activeTab === 'preview'" %>
+          class: "ml-auto" %>
       <% end %>
 
       <% toolbar.section divide: :left, class: "flex-none" do %>

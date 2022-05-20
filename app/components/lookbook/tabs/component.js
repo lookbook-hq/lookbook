@@ -23,10 +23,6 @@ export default function tabsComponent(store) {
 
     init() {
       this.$nextTick(() => {
-        const initialTab = initial
-          ? this.tabs.find((t) => this._getRef(t) === initial)
-          : this.tabs[0];
-        this.selectTab(initialTab);
 
         this.dropdown = tippy(this.$refs.dropdownTrigger, {
           content: this.$refs.dropdown,
@@ -35,6 +31,11 @@ export default function tabsComponent(store) {
           trigger: "click",
           appendTo: this.$root,
         });
+
+        const initialTab = initial
+          ? this.tabs.find((t) => this._getRef(t) === initial)
+          : this.tabs[0];
+        this.selectTab(initialTab);
 
         this.parentObserver = observeSize(
           this.$root.parentElement,
@@ -75,6 +76,7 @@ export default function tabsComponent(store) {
 
     selectTab(el) {
       store.activeTab = this._getRef(el);
+      this.dropdown.hide();
     },
 
     isSelected(el) {

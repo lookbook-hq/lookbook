@@ -26,8 +26,10 @@ export default function embedComponent(id, embedStore) {
     },
 
     resizeIframe(width) {
-      this.store.width = width;
-      this.$el.querySelector("iframe").iFrameResizer.resize();
+      if (width !== this.store.width) {
+        this.store.width = width;
+        this.$el.querySelector("iframe").iFrameResizer.resize();
+      }
     },
   };
 }

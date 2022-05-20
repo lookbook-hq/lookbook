@@ -1482,6 +1482,7 @@ pre[class*="language-"] {
 }
 
 [data-component="code"].numbered .line-number {
+  min-width: 1.4em;
   padding-top: 4px;
   font-size: .75rem;
   line-height: 1rem;
@@ -1928,6 +1929,10 @@ pre[class*="language-"] {
 
 .w-3 {
   width: .75rem;
+}
+
+.min-w-\[140px\] {
+  min-width: 140px;
 }
 
 .min-w-0 {

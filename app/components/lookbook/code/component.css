@@ -29,6 +29,7 @@
       }
 
       & .line-number {
+        min-width: 1.4em;
         @apply text-xs block pt-[4px];
       }
 
