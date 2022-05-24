@@ -34,7 +34,7 @@ module Lookbook
 
       options.project_name ||= options.project_name == false ? nil : options.project_name || "Lookbook"
       options.auto_refresh = true if options.auto_refresh.nil?
-      options.log_level ||= 1
+      options.log_level ||= 2
       options.sort_examples = false if options.sort_examples.nil?
 
       options.preview_paths = options.preview_paths.map(&:to_s)
@@ -52,13 +52,14 @@ module Lookbook
       options.preview_display_params ||= {}.with_indifferent_access
 
       options.listen = Rails.env.development? if options.listen.nil?
+      options.listen_use_polling = false if options.listen_use_polling.nil?
       options.listen_paths = options.listen_paths.map(&:to_s)
       options.listen_paths += options.preview_paths
       options.listen_paths << (vc_options.view_component_path || Rails.root.join("app/components"))
       options.listen_paths.filter! { |path| Dir.exist? path }
 
       options.cable_mount_path ||= "/lookbook-cable"
-      options.cable_logger ||= Rails.logger
+      options.cable_logger ||= Lookbook.logger
 
       options.runtime_parsing = !Rails.env.production? if options.runtime_parsing.nil?
       options.parser_registry_path ||= Rails.root.join("tmp/storage/.yardoc")
@@ -89,27 +90,28 @@ module Lookbook
       @preview_controller.include(Lookbook::PreviewController)
 
       if config.lookbook.listen
-        @preview_listener = Listen.to(*config.lookbook.listen_paths, only: /\.(rb|html.*)$/) do |modified, added, removed|
+        Listen.logger = Lookbook.logger
+        @preview_listener = Listen.to(
+          *config.lookbook.listen_paths,
+          only: /\.(rb|html.*)$/,
+          force_polling: Lookbook.config.listen_use_polling
+        ) do |modified, added, removed|
           begin
             parser.parse
           rescue
           end
           Lookbook::Preview.clear_cache
-          Lookbook::Engine.websocket&.broadcast("reload", {
-            modified: modified,
-            removed: removed,
-            added: added
-          })
+          Lookbook::Engine.websocket&.broadcast("reload", {})
         end
         @preview_listener.start
 
         if Lookbook::Features.enabled?(:pages)
-          @page_listener = Listen.to(*config.lookbook.page_paths.filter { |dir| Dir.exist? dir }, only: /\.(html.*|md.*)$/) do |modified, added, removed|
-            Lookbook::Engine.websocket&.broadcast("reload", {
-              modified: modified,
-              removed: removed,
-              added: added
-            })
+          @page_listener = Listen.to(
+            *config.lookbook.page_paths.filter { |dir| Dir.exist? dir },
+            only: /\.(html.*|md.*)$/,
+            force_polling: Lookbook.config.listen_use_polling
+          ) do |modified, added, removed|
+            Lookbook::Engine.websocket&.broadcast("reload", {})
           end
           @page_listener.start
         end
@@ -129,8 +131,11 @@ module Lookbook
     end
 
     at_exit do
-      @preview_listener&.stop
-      @page_listener&.stop
+      if config.lookbook.listen
+        Lookbook.logger.debug "Stopping listeners"
+        @preview_listener.stop
+        @page_listener.stop
+      end
     end
 
     class << self
