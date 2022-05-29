@@ -81,8 +81,9 @@ export default function initLayoutStore(Alpine) {
       }).as("inspector-split"),
 
       opts: {
-        minSizes: [inspector.drawer.minWidth, inspector.drawer.minWidth],
-      },
+        minVerticalSizes: [inspector.drawer.minWidth, inspector.drawer.minWidth],
+        minHorizontalSizes: [inspector.drawer.minHeight, inspector.drawer.minHeight],
+      }, 
     },
 
     // protected
