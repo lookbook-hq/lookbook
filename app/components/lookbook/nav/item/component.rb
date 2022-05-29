@@ -53,7 +53,7 @@ module Lookbook
     end
 
     def nav_icon(entity)
-      ICONS[entity.type]
+      ICONS[entity.type] || :file
     end
 
     def collection?

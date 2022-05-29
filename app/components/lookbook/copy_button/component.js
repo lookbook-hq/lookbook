@@ -26,7 +26,9 @@ export default function copyButtonComponent(target = null) {
       await window.navigator.clipboard.writeText(this.getContent());
       this.done = true;
       this._notificationTippy.show();
-      this._labelTippy.hide();
+      if (this._labelTippy) {
+        this._labelTippy.hide();
+      }
       setTimeout(() => {
         this.done = false;
         this._notificationTippy.hide();

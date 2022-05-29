@@ -1,9 +1,11 @@
 <%= render_component_tag class: "flex flex-col overflow-hidden h-full",
   "@filter:change.stop": "filter($event.detail.text)" do %>
   
-  <%= render_component :toolbar do |toolbar| %>
-    <% toolbar.section padded: true do %>
-      <h4 class="pt-1"><%= label %></h4>
+  <% if label.present? %>
+    <%= render_component :toolbar do |toolbar| %>
+      <% toolbar.section padded: true do %>
+        <h4 class="pt-1"><%= label %></h4>
+      <% end %>
     <% end %>
   <% end %>
 

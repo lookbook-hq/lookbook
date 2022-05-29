@@ -1,2 +1,2 @@
 ignore:
-  - "test/dummy/**/*"
+  - "spec/dummy/**/*"

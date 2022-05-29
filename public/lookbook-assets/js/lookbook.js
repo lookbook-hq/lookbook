@@ -6899,7 +6899,7 @@ function $9930d46698775b42$export$33d4bfa367d0ee08(condition, callback) {
 }
 function $9930d46698775b42$export$a2214cc2adb2dc44(element, callback = ()=>{}) {
     const observer = new ResizeObserver((entries)=>{
-        const rect = entries[0].contentRect;
+        const rect = entries[0].target.getBoundingClientRect();
         callback({
             width: Math.round(rect.width),
             height: Math.round(rect.height)
@@ -6983,9 +6983,13 @@ function $aabd7bdddb195dac$export$2e2bcd8739ae039(Alpine) {
                 ]
             }).as("inspector-split"),
             opts: {
-                minSizes: [
+                minVerticalSizes: [
                     $aabd7bdddb195dac$var$inspector.drawer.minWidth,
                     $aabd7bdddb195dac$var$inspector.drawer.minWidth
+                ],
+                minHorizontalSizes: [
+                    $aabd7bdddb195dac$var$inspector.drawer.minHeight,
+                    $aabd7bdddb195dac$var$inspector.drawer.minHeight
                 ]
             }
         },
@@ -6995,30 +6999,27 @@ function $aabd7bdddb195dac$export$2e2bcd8739ae039(Alpine) {
 }
 
 
+function $c1c96367c0368286$export$2e2bcd8739ae039(Alpine, name) {
+    return {
+        raw: Alpine.$persist("").as(name),
+        get text () {
+            return this.raw.replace(/\s/g, "").toLowerCase();
+        },
+        get active () {
+            return this.text.length > 0;
+        }
+    };
+}
+
+
 function $45e94a9374456304$export$2e2bcd8739ae039(Alpine) {
     return {
         previews: {
-            filter: {
-                raw: Alpine.$persist("").as("previews-filter-text"),
-                get text () {
-                    return this.raw.replace(/\s/g, "").toLowerCase();
-                },
-                get active () {
-                    return this.text.length > 0;
-                }
-            },
+            filter: $c1c96367c0368286$export$2e2bcd8739ae039(Alpine, "previews-filter-text"),
             open: Alpine.$persist([]).as("previews-nav-open")
         },
         pages: {
-            filter: {
-                raw: Alpine.$persist("").as("pages-filter-text"),
-                get text () {
-                    return this.raw.replace(/\s/g, "").toLowerCase();
-                },
-                get active () {
-                    return this.text.length > 0;
-                }
-            },
+            filter: $c1c96367c0368286$export$2e2bcd8739ae039(Alpine, "pages-filter-text"),
             open: Alpine.$persist([]).as("pages-nav-open")
         }
     };
@@ -7051,8 +7052,22 @@ function $9954130d663b77bc$export$2e2bcd8739ae039(Alpine) {
 }
 
 
+
+function $af7ba71c6eecd94a$export$2e2bcd8739ae039(Alpine) {
+    return {
+        filter: $c1c96367c0368286$export$2e2bcd8739ae039(Alpine, "workbench-filter"),
+        nav: {
+            open: Alpine.$persist([]).as("workbench-nav-open"),
+            location: {
+                pathname: null
+            }
+        }
+    };
+}
+
+
 var $1cec3e2af7710087$exports = {};
-$1cec3e2af7710087$exports = JSON.parse("{\"name\":\"lookbook\",\"version\":\"0.8.2\",\"description\":\"A native development UI for ViewComponent\",\"targets\":{\"app\":{\"source\":[\"./app/assets/lookbook/js/embed.js\",\"./app/assets/lookbook/js/lookbook.js\",\"./app/assets/lookbook/css/lookbook.css\"],\"distDir\":\"./public/lookbook-assets\"}},\"alias\":{\"@helpers/*\":\"./app/assets/lookbook/js/helpers/$1\",\"@lib/*\":\"./app/assets/lookbook/js/lib/$1\",\"@components/*\":\"./app/components/lookbook/$1\"},\"scripts\":{\"dev\":\"parcel watch\",\"build\":\"parcel build --no-cache --no-optimize\",\"theme:generate\":\"npm run theme:generate:default && npm run theme:generate:blue && npm run theme:generate:zinc\",\"theme:generate:default\":\"bin/generate-theme\",\"theme:generate:blue\":\"bin/generate-theme --name=blue --accent=blue\",\"theme:generate:zinc\":\"bin/generate-theme --name=zinc --accent=zinc\",\"clean\":\"rm -rf .parcel-cache\",\"lint:fix\":\"standardrb --fix && prettier --write .\",\"release\":\"release-it\",\"release:dry-run\":\"release-it --dry-run\"},\"author\":\"Mark Perkins\",\"license\":\"MIT\",\"dependencies\":{\"@alpinejs/collapse\":\"^3.10.2\",\"@alpinejs/morph\":\"^3.10.2\",\"@alpinejs/persist\":\"^3.10.2\",\"@parcel/resolver-glob\":\"^2.4.0\",\"@rails/actioncable\":\"^6.1.4\",\"@ryangjchandler/alpine-tooltip\":\"^1.2.0\",\"@tailwindcss/forms\":\"^0.4.0\",\"@tailwindcss/typography\":\"^0.5.0\",\"alpinejs\":\"^3.10.2\",\"autoprefixer\":\"^10.4.0\",\"command-line-args\":\"^5.2.1\",\"debounce\":\"^1.2.1\",\"iframe-resizer\":\"^4.3.2\",\"loglevel\":\"^1.8.0\",\"loglevel-plugin-prefix\":\"^0.8.4\",\"parcel\":\"^2.0.1\",\"postcss\":\"^8.4.5\",\"postcss-import\":\"^14.0.2\",\"postcss-import-ext-glob\":\"^2.0.1\",\"split-grid\":\"^1.0.11\",\"tailwindcss\":\"^3.0.6\",\"tippy.js\":\"^6.3.2\"},\"devDependencies\":{\"eslint\":\"^7.32.0\",\"eslint-config-airbnb-base\":\"^14.2.1\",\"eslint-config-prettier\":\"^8.3.0\",\"eslint-plugin-import\":\"^2.25.2\",\"prettier\":\"2.3.2\",\"release-it\":\"^14.11.6\"},\"release-it\":{\"git\":{\"commitMessage\":\"release v${version}\"},\"github\":{\"release\":true},\"npm\":{\"publish\":false},\"hooks\":{\"before:init\":[\"bundle install\",\"rake test\"],\"after:bump\":\"npm run build\",\"after:version:bump\":\"rake 'lookbook:release:bump_version[${version}]' && bundle\",\"after:release\":\"rake 'lookbook:release:build_and_push'\"}}}");
+$1cec3e2af7710087$exports = JSON.parse("{\"name\":\"lookbook\",\"version\":\"0.8.2\",\"description\":\"A native development UI for ViewComponent\",\"targets\":{\"app\":{\"source\":[\"./app/assets/lookbook/js/embed.js\",\"./app/assets/lookbook/js/lookbook.js\",\"./app/assets/lookbook/css/lookbook.css\"],\"distDir\":\"./public/lookbook-assets\"}},\"alias\":{\"@helpers/*\":\"./app/assets/lookbook/js/helpers/$1\",\"@lib/*\":\"./app/assets/lookbook/js/lib/$1\",\"@components/*\":\"./app/components/lookbook/$1\"},\"scripts\":{\"dev\":\"parcel watch\",\"build\":\"parcel build --no-cache --no-optimize\",\"theme:generate\":\"npm run theme:generate:default && npm run theme:generate:blue && npm run theme:generate:zinc\",\"theme:generate:default\":\"bin/generate-theme\",\"theme:generate:blue\":\"bin/generate-theme --name=blue --accent=blue\",\"theme:generate:zinc\":\"bin/generate-theme --name=zinc --accent=zinc\",\"clean\":\"rm -rf .parcel-cache\",\"lint:fix\":\"standardrb --fix && prettier --write .\",\"release\":\"release-it\",\"release:dry-run\":\"release-it --dry-run\"},\"author\":\"Mark Perkins\",\"license\":\"MIT\",\"dependencies\":{\"@alpinejs/collapse\":\"^3.10.2\",\"@alpinejs/morph\":\"^3.10.2\",\"@alpinejs/persist\":\"^3.10.2\",\"@parcel/resolver-glob\":\"^2.4.0\",\"@rails/actioncable\":\"^6.1.4\",\"@ryangjchandler/alpine-tooltip\":\"^1.2.0\",\"@tailwindcss/forms\":\"^0.4.0\",\"@tailwindcss/typography\":\"^0.5.0\",\"alpinejs\":\"^3.10.2\",\"autoprefixer\":\"^10.4.0\",\"command-line-args\":\"^5.2.1\",\"debounce\":\"^1.2.1\",\"iframe-resizer\":\"^4.3.2\",\"loglevel\":\"^1.8.0\",\"loglevel-plugin-prefix\":\"^0.8.4\",\"parcel\":\"^2.0.1\",\"postcss\":\"^8.4.5\",\"postcss-import\":\"^14.0.2\",\"postcss-import-ext-glob\":\"^2.0.1\",\"split-grid\":\"^1.0.11\",\"tailwindcss\":\"^3.0.6\",\"tippy.js\":\"^6.3.2\"},\"devDependencies\":{\"@prettier/plugin-ruby\":\"^3.1.2\",\"eslint\":\"^7.32.0\",\"eslint-config-airbnb-base\":\"^14.2.1\",\"eslint-config-prettier\":\"^8.3.0\",\"eslint-plugin-import\":\"^2.25.2\",\"prettier\":\"2.3.2\",\"release-it\":\"^14.11.6\"},\"release-it\":{\"git\":{\"commitMessage\":\"release v${version}\"},\"github\":{\"release\":true},\"npm\":{\"publish\":false},\"hooks\":{\"before:init\":[\"bundle install\",\"rake test\"],\"after:bump\":\"npm run build\",\"after:version:bump\":\"rake 'lookbook:release:bump_version[${version}]' && bundle\",\"after:release\":\"rake 'lookbook:release:build_and_push'\"}}}");
 
 
 var $7d6b1fa982d8364d$exports = {};
@@ -7791,7 +7806,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $6ac511bd70676264$exports = {};
+var $aa5e3083d1b53361$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11402,6 +11417,78 @@ function $99486586f6691564$export$2e2bcd8739ae039() {
 }
 
 
+var $47a1c62621be0c54$exports = {};
+
+$parcel$defineInteropFlag($47a1c62621be0c54$exports);
+
+$parcel$export($47a1c62621be0c54$exports, "default", () => $47a1c62621be0c54$export$2e2bcd8739ae039);
+
+
+function $47a1c62621be0c54$export$2e2bcd8739ae039(target = null) {
+    const button = $cbd28b10fa9798c7$export$2e2bcd8739ae039();
+    return {
+        ...button,
+        done: false,
+        init () {
+            button.init.bind(this)();
+            if (target === null) this._copyTarget = this.$refs.copyContent;
+            else this._copyTarget = typeof target === "string" ? document.querySelector(target) : target;
+            this._notificationTippy = $d6f449055c23f07a$export$2e2bcd8739ae039(this.$el, {
+                content: "Copied!",
+                trigger: "manual"
+            });
+        },
+        async copyToClipboard () {
+            await window.navigator.clipboard.writeText(this.getContent());
+            this.done = true;
+            this._notificationTippy.show();
+            if (this._labelTippy) this._labelTippy.hide();
+            setTimeout(()=>{
+                this.done = false;
+                this._notificationTippy.hide();
+            }, 1000);
+        },
+        getContent () {
+            const decoder = document.createElement("textarea");
+            decoder.innerHTML = this._copyTarget ? this._copyTarget.innerHTML : "";
+            return decoder.value.trim();
+        },
+        _copyTarget: null,
+        _notificationTippy: null
+    };
+}
+
+
+var $e398acaded942bbe$exports = {};
+
+$parcel$defineInteropFlag($e398acaded942bbe$exports);
+
+$parcel$export($e398acaded942bbe$exports, "default", () => $e398acaded942bbe$export$2e2bcd8739ae039);
+
+function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
+    return {
+        width: 0,
+        height: 0,
+        resizing: false,
+        init () {
+            const target = document.querySelector(targetSelector);
+            this.width = Math.round(target.clientWidth);
+            this.height = Math.round(target.clientHeight);
+            this.createObserver();
+        },
+        createObserver () {
+            this.observer = $9930d46698775b42$export$a2214cc2adb2dc44(document.querySelector(targetSelector), ({ width: width , height: height  })=>{
+                this.width = width;
+                this.height = height;
+            });
+        },
+        tearDown () {
+            this.observer.disconnect();
+        }
+    };
+}
+
+
 var $e1f51f020443edd4$exports = {};
 
 $parcel$defineInteropFlag($e1f51f020443edd4$exports);
@@ -12259,78 +12346,6 @@ function $e1f51f020443edd4$export$2e2bcd8739ae039(id, embedStore) {
                 this.store.width = width;
                 this.$el.querySelector("iframe").iFrameResizer.resize();
             }
-        }
-    };
-}
-
-
-var $47a1c62621be0c54$exports = {};
-
-$parcel$defineInteropFlag($47a1c62621be0c54$exports);
-
-$parcel$export($47a1c62621be0c54$exports, "default", () => $47a1c62621be0c54$export$2e2bcd8739ae039);
-
-
-function $47a1c62621be0c54$export$2e2bcd8739ae039(target = null) {
-    const button = $cbd28b10fa9798c7$export$2e2bcd8739ae039();
-    return {
-        ...button,
-        done: false,
-        init () {
-            button.init.bind(this)();
-            if (target === null) this._copyTarget = this.$refs.copyContent;
-            else this._copyTarget = typeof target === "string" ? document.querySelector(target) : target;
-            this._notificationTippy = $d6f449055c23f07a$export$2e2bcd8739ae039(this.$el, {
-                content: "Copied!",
-                trigger: "manual"
-            });
-        },
-        async copyToClipboard () {
-            await window.navigator.clipboard.writeText(this.getContent());
-            this.done = true;
-            this._notificationTippy.show();
-            this._labelTippy.hide();
-            setTimeout(()=>{
-                this.done = false;
-                this._notificationTippy.hide();
-            }, 1000);
-        },
-        getContent () {
-            const decoder = document.createElement("textarea");
-            decoder.innerHTML = this._copyTarget ? this._copyTarget.innerHTML : "";
-            return decoder.value.trim();
-        },
-        _copyTarget: null,
-        _notificationTippy: null
-    };
-}
-
-
-var $e398acaded942bbe$exports = {};
-
-$parcel$defineInteropFlag($e398acaded942bbe$exports);
-
-$parcel$export($e398acaded942bbe$exports, "default", () => $e398acaded942bbe$export$2e2bcd8739ae039);
-
-function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
-    return {
-        width: 0,
-        height: 0,
-        resizing: false,
-        init () {
-            const target = document.querySelector(targetSelector);
-            this.width = Math.round(target.clientWidth);
-            this.height = Math.round(target.clientHeight);
-            this.createObserver();
-        },
-        createObserver () {
-            this.observer = $9930d46698775b42$export$a2214cc2adb2dc44(document.querySelector(targetSelector), ({ width: width , height: height  })=>{
-                this.width = width;
-                this.height = height;
-            });
-        },
-        tearDown () {
-            this.observer.disconnect();
         }
     };
 }
@@ -13259,12 +13274,12 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$6ac511bd70676264$exports = {
+$aa5e3083d1b53361$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
-    "embed": $e1f51f020443edd4$exports,
     "copy_button": $47a1c62621be0c54$exports,
     "dimensions_display": $e398acaded942bbe$exports,
+    "embed": $e1f51f020443edd4$exports,
     "filter": $e9904a14dabf652d$exports,
     "icon": $36506012e0c6e9e3$exports,
     "nav": $d92d9d5253f84566$exports,
@@ -13290,7 +13305,7 @@ function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id , matchers: matchers 
             return this.isOpen(id);
         },
         get active () {
-            if (this.$refs.link) return this.location.pathname === this.$refs.link.getAttribute("href");
+            if (this.$refs.link) return this.location && this.location.pathname === this.$refs.link.getAttribute("href");
             return false;
         },
         get children () {
@@ -13357,7 +13372,7 @@ $caa9439642c6336c$export$2e2bcd8739ae039.store("pages", $9954130d663b77bc$export
 // Components
 $caa9439642c6336c$export$2e2bcd8739ae039.data("app", $d709d0f4027033b2$export$2e2bcd8739ae039);
 [
-    $6ac511bd70676264$exports,
+    $aa5e3083d1b53361$exports,
     $3f92713eb2b168a5$exports
 ].forEach((scripts)=>{
     const components = $5439cede634b2921$export$4e811121b221213b(scripts);

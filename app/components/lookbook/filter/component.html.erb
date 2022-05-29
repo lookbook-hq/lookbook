@@ -7,11 +7,12 @@
     x-ref="input"
     x-model="<%= @model %>"
     x-effect="$dispatch('filter:change', { text, filter: this })"
-    @keydown.esc="clear"
+    @keydown.esc.stop="clear"
     @keydown.f.stop.prevent.window="focus"
     @keydown.stop>
     <button class="text-lookbook-button-text hover:text-lookbook-button-text-hover focus:ring-0 focus:outline-none absolute top-1/2 right-3 -translate-y-1/2" @click="clear" :class="{hidden: !active}">
       <%= render_component :icon, name: :x, size: 3 %>
     </button>
 </div>
+<span x-text="$store.workbench.filter.raw"></span>
 <% end %>

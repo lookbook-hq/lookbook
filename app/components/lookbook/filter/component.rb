@@ -1,7 +1,7 @@
 module Lookbook
   class Filter::Component < Lookbook::Component
-    def initialize(store:, placeholder: "Type to filter&hellip;", **html_attrs)
-      @model = "#{store}.raw"
+    def initialize(store: nil, placeholder: "Type to filter&hellip;", **html_attrs)
+      @model = store.nil? ? "{}" : "#{store}.raw"
       @placeholder = placeholder
       super(alpine_data: store, **html_attrs)
     end

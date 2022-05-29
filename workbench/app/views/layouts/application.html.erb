@@ -8,9 +8,24 @@
 
     <link href="/lookbook-assets/css/lookbook.css?v=<%= Lookbook::VERSION %>" rel="stylesheet">
     <script src="/lookbook-assets/js/lookbook.js?v=<%= Lookbook.version %>" defer></script>
+    <script>
+      window.addEventListener('DOMContentLoaded', function() {
+        Alpine.store("workbench", {
+          filter: {
+            raw: "",
+            get text() {
+              return this.raw.replace(/\s/g, "").toLowerCase();
+            },
+            get active() {
+              return this.text.length > 0;
+            },
+          }
+        });    
+      });
+    </script>
   </head>
 
-  <body style="padding: 24px; overflow: auto;">
+  <body style="padding: 24px; overflow: auto; max-width: 1200px; margin: 0 auto;">
     <%= yield %>
   </body>
 </html>

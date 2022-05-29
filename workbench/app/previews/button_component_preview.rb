@@ -30,7 +30,7 @@ class ButtonComponentPreview < ViewComponent::Preview
 
   # @!endgroup
 
-  # @param icon select [book, [refresh, refresh_cw], [thumbs up, thumbs_up], [check box, check_square]]
+  # @param icon (see IconComponentPreview#default)
   # @param size select [sm,md,lg]
   # @param tooltip
   def playground(icon: :book, size: :md, tooltip: "An example tooltip")

@@ -1241,11 +1241,6 @@ pre[class*="language-"] {
   font-style: italic;
 }
 
-.theme-github-light .highlight .err {
-  color: #a61717;
-  background-color: #e3d2d2;
-}
-
 .theme-github-light .highlight .k, .theme-github-light .highlight .o {
   font-weight: bold;
 }

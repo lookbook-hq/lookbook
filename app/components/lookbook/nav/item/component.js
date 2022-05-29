@@ -8,7 +8,10 @@ export default function navItemComponent({ id, matchers }) {
 
     get active() {
       if (this.$refs.link) {
-        return this.location.pathname === this.$refs.link.getAttribute("href");
+        return (
+          this.location &&
+          this.location.pathname === this.$refs.link.getAttribute("href")
+        );
       }
       return false;
     },

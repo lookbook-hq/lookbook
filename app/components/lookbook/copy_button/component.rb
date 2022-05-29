@@ -1,6 +1,6 @@
 module Lookbook
   class CopyButton::Component < Lookbook::Component
-    def initialize(target:, icon: :code, **attrs)
+    def initialize(target: nil, icon: :code, **attrs)
       @icon = icon
       @target = target
       @button_attrs = attrs
