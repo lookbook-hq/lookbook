@@ -8,7 +8,7 @@ function addMediaQueryListener(condition, callback) {
 
 function observeSize(element, callback = () => {}) {
   const observer = new ResizeObserver((entries) => {
-    const rect = entries[0].contentRect;
+    const rect = entries[0].target.getBoundingClientRect();
     callback({
       width: Math.round(rect.width),
       height: Math.round(rect.height),
