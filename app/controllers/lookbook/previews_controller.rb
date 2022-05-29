@@ -176,7 +176,7 @@ module Lookbook
           template: "lookbook/previews/panels/params",
           hotkey: "p",
           show: true,
-          disabled: @example.type == :group || @example.params.none?,
+          disabled: @example.params.none?,
           copy: false
         }
       }
