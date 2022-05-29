@@ -1,21 +1,12 @@
 module Lookbook
-  class PreviewGroup
-    include Utils
-
+  class PreviewGroup < Entity
     attr_reader :name, :examples, :preview
 
     def initialize(name, preview, examples)
       @name = name
       @preview = preview
       @examples = examples
-    end
-
-    def id
-      generate_id(lookup_path)
-    end
-
-    def path
-      "#{@preview.path}/#{name}"
+      super("#{@preview.path}/#{name}")
     end
 
     def url_path

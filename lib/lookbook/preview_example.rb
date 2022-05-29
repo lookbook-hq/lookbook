@@ -1,7 +1,5 @@
 module Lookbook
-  class PreviewExample
-    include Utils
-
+  class PreviewExample < Entity
     attr_reader :name, :preview
     delegate :params, :position, :group, :notes, :hidden?, :source, to: :@example_inspector
 
@@ -9,14 +7,11 @@ module Lookbook
       @name = name
       @preview = preview
       @example_inspector = SourceInspector.new("#{@preview.name}##{name}")
+      super("#{@preview.path}/#{name}")
     end
 
     def id
       generate_id(@preview.id, name)
-    end
-
-    def path
-      "#{@preview.path}/#{name}"
     end
 
     def url_path

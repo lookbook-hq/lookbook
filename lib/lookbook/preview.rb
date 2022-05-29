@@ -8,6 +8,7 @@ module Lookbook
     def initialize(preview)
       @preview = preview
       @preview_inspector = SourceInspector.new(@preview.name)
+      super(preview_class_name(preview_class_basename(@preview.name)))
     end
 
     def id
@@ -58,10 +59,6 @@ module Lookbook
 
     def default_example
       examples.first
-    end
-
-    def path
-      preview_class_name(preview_class_basename(name))
     end
 
     def full_path

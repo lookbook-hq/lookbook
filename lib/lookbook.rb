@@ -14,6 +14,7 @@ module Lookbook
   autoload :PageCollection, "lookbook/page_collection"
   autoload :Features, "lookbook/features"
   autoload :Collection, "lookbook/collection"
+  autoload :Entity, "lookbook/entity"
   autoload :Parser, "lookbook/parser"
   autoload :Preview, "lookbook/preview"
   autoload :PreviewCollection, "lookbook/preview_collection"

@@ -1,23 +1,24 @@
 module Lookbook
-  class Collection
-    include Utils
+  class Collection < Entity
     include Enumerable
 
-    attr_reader :path
     delegate :size, :each, to: :items
 
     def initialize(path = "", items = [])
+      @items = []
       if path.is_a?(Array)
-        @items = path
+        items = path
         path = ""
-      else
-        @items = items
       end
+      
       @path = path.delete_prefix("/").delete_suffix("/")
+      super(@path)
+
+      items.each { |item| add(item) }
     end
 
     def id
-      generate_id(lookup_path || "root")
+      lookup_path.present? ? super : "root"
     end
 
     def name
@@ -28,20 +29,12 @@ module Lookbook
       name&.titleize
     end
 
-    def lookup_path
-      @lookup_path ||= to_lookup_path(@path)
-    end
-
     def position
       @position ||= parse_position_prefix(basename).first
     end
 
-    def hierarchy_depth
-      @path ? @path.split("/").size : 0
-    end
-
     def items
-      @items.sort_by { |item| [item.hierarchy_depth, item.position, item.label] }
+      @items.sort_by { |item| [item.hierarchy_depth, item&.position, item.label] }
     end
 
     def visible_items

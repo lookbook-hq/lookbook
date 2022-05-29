@@ -1,6 +1,5 @@
 module Lookbook
-  class Page
-    include Utils
+  class Page < Entity
 
     FRONTMATTER_FIELDS = [
       :id,
@@ -22,15 +21,9 @@ module Lookbook
       @base_path = base_path
       @options = nil
       @errors = []
-    end
-
-    def path
       rel_path = @pathname.relative_path_from(@base_path)
-      (rel_path.dirname.to_s == "." ? name : "#{rel_path.dirname}/#{name}")
-    end
-
-    def lookup_path
-      @lookup_path ||= to_lookup_path(path)
+      page_path = (rel_path.dirname.to_s == "." ? name : "#{rel_path.dirname}/#{name}")
+      super(page_path)
     end
 
     def url_path
@@ -73,16 +66,16 @@ module Lookbook
       normalize_matchers(label)
     end
 
-    def hierarchy_depth
-      path.split("/").size
-    end
-
     def parent_collections_names
       File.dirname(path).split("/")
     end
 
     def type
       :page
+    end
+
+    def position
+      options[:position]
     end
 
     def method_missing(method_name, *args, &block)
