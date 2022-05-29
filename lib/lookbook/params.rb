@@ -3,11 +3,16 @@ require "active_model"
 module Lookbook
   module Params
     class << self
-      def build_param(param, default)
+      def build_param(param, default: nil, **opts)
         input, options_str = param.text.present? ? param.text.split(" ", 2) : [nil, ""]
         type = param.types&.first
-        options = if options_str.end_with?(".json")
-          JSON.parse(File.read(Rails.root.join(options_str)))
+        options = if options_str.present? && options_str.end_with?(".json")
+          json_path = if options_str.start_with?(".")
+            File.expand_path(options_str, File.dirname(param.object.files.first[0]))
+          else
+            Rails.root.join(options_str)
+          end
+          JSON.parse(File.read(json_path))
         else
           YAML.safe_load(options_str || "~")
         end

@@ -62,7 +62,7 @@ module Lookbook
 
     def params
       code_object&.tags("param")&.map do |param|
-        Lookbook::Params.build_param(param, parameter_defaults[param.name])
+        Lookbook::Params.build_param(param, default: parameter_defaults[param.name])
       end
     end
 
