@@ -6,7 +6,11 @@ module Lookbook
       def build_param(param, default)
         input, options_str = param.text.present? ? param.text.split(" ", 2) : [nil, ""]
         type = param.types&.first
-        options = YAML.safe_load(options_str || "~")
+        options = if options_str.end_with?(".json")
+          JSON.parse(File.read(Rails.root.join(options_str)))
+        else
+          YAML.safe_load(options_str || "~")
+        end
         input ||= guess_input(type, default)
         type ||= guess_type(input, default)
         {
