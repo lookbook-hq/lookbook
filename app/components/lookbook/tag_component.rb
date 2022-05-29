@@ -12,7 +12,8 @@ module Lookbook
     end
 
     def call
-      tag.public_send(@tag, escape_attributes: false, class: @class, **@html_attrs) do
+      @html_attrs[Rails.version.to_f < 7.0 ? :escape_attributes : :escape] = false
+      tag.public_send(@tag, **@html_attrs) do
         content
       end
     end
