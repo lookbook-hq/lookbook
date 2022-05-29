@@ -11,6 +11,7 @@ import initLayoutStore from "./stores/layout";
 import initNavStore from "./stores/nav";
 import initInspectorStore from "./stores/inspector";
 import initPagesStore from "./stores/pages";
+import initWorkbenchStore from "./stores/workbench";
 
 import app from "./app";
 
@@ -33,6 +34,10 @@ Alpine.store("layout", initLayoutStore(Alpine));
 Alpine.store("nav", initNavStore(Alpine));
 Alpine.store("inspector", initInspectorStore(Alpine));
 Alpine.store("pages", initPagesStore(Alpine));
+
+if (process.env.NODE_ENV !== "production") {
+  Alpine.store("workbench", initWorkbenchStore(Alpine));
+}
 
 // Components
 
