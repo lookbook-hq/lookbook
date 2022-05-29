@@ -8,7 +8,7 @@ const options = require("command-line-args")([
   { name: "accent", type: String },
 ]);
 
-const themeConfig = require("../theme.config")(options);
+const themeConfig = require("../theme/config")(options);
 
 const themeCSS = generateThemeCSS(options);
 write(
@@ -21,7 +21,7 @@ write(
 // Tailwind classes
 
 const tailwindJSON = generateTailwindJSON();
-write("./theme.json", tailwindJSON);
+write("./theme/theme.json", tailwindJSON);
 
 // Utils
 
