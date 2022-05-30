@@ -1,7 +1,7 @@
 <% if @example.present? %>
-  <%= render_component_tag class: "not-prose border border-lookbook-divider rounded-md overflow-hidden" do %>
+  <%= render_component_tag class: "not-prose border-b border-lookbook-divider rounded-sm overflow-hidden" do %>
 
-    <%= render_component :toolbar do |toolbar| %>
+    <%= render_component :toolbar, class: "border border-b-0 border-lookbook-divider" do |toolbar| %>
       <% toolbar.section padded: true do %>
         <h3 class="">
           <%= @example.preview.label %> (<%= @example.label %>)
