@@ -91,7 +91,7 @@ module Lookbook
 
       if config.lookbook.listen
         Listen.logger = Lookbook.logger
-        @preview_listener = Listen.to(
+        preview_listener = Listen.to(
           *config.lookbook.listen_paths,
           only: /\.(rb|html.*)$/,
           force_polling: Lookbook.config.listen_use_polling
@@ -103,17 +103,17 @@ module Lookbook
           Lookbook::Preview.clear_cache
           Lookbook::Engine.websocket&.broadcast("reload", {})
         end
-        @preview_listener.start
+        Lookbook::Engine.register_listener(preview_listener)
 
         if Lookbook::Features.enabled?(:pages)
-          @page_listener = Listen.to(
+          page_listener = Listen.to(
             *config.lookbook.page_paths.filter { |dir| Dir.exist? dir },
             only: /\.(html.*|md.*)$/,
             force_polling: Lookbook.config.listen_use_polling
           ) do |modified, added, removed|
             Lookbook::Engine.websocket&.broadcast("reload", {})
           end
-          @page_listener.start
+          Lookbook::Engine.register_listener(page_listener)
         end
       end
 
@@ -133,8 +133,9 @@ module Lookbook
     at_exit do
       if config.lookbook.listen
         Lookbook.logger.debug "Stopping listeners"
-        @preview_listener.stop
-        @page_listener.stop
+        Lookbook::Engine.listeners.each do |listener|
+          listener.stop
+        end
       end
     end
 
@@ -175,6 +176,15 @@ module Lookbook
 
       def app_name
         Rails.application.class.module_parent_name.underscore
+      end
+
+      def register_listener(listener)
+        listener.start
+        listeners << to_add
+      end
+
+      def listeners
+        @listeners ||= []
       end
 
       attr_reader :preview_controller
