@@ -1,5 +1,7 @@
 module Lookbook
   class Prose::Component < Lookbook::Component
+    include Lookbook::OutputHelper
+
     def initialize(size: :md, markdown: true, **html_attrs)
       @size = size
       @markdown = markdown
@@ -7,7 +9,7 @@ module Lookbook
     end
 
     def rendered_content
-      @markdown ? helpers.markdown(content) : content
+      @markdown ? markdown(content) : content
     end
 
     def size_class
