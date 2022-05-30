@@ -1,6 +1,7 @@
 import debounce from "debounce";
 import tippy from "~/app/assets/lookbook/js/lib/tippy";
 import { observeSize } from "@helpers/layout";
+import { getElementSize } from "@helpers/dom";
 
 export default function tabsComponent(store) {
   const initial = store.activeTab || null;
@@ -18,12 +19,13 @@ export default function tabsComponent(store) {
     },
 
     get tabWidths() {
-      return this.tabs.map((tab) => getFullWidth(tab));
+      return this.tabs.map(
+        (tab) => getElementSize(tab, { includeMargins: true }).width
+      );
     },
 
     init() {
       this.$nextTick(() => {
-
         this.dropdown = tippy(this.$refs.dropdownTrigger, {
           content: this.$refs.dropdown,
           theme: "menu",
@@ -99,13 +101,4 @@ export default function tabsComponent(store) {
       return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
     },
   };
-}
-
-function getFullWidth(el) {
-  const style = window.getComputedStyle(el, null);
-  return (
-    el.offsetWidth +
-    parseInt(style.getPropertyValue("margin-left")) +
-    parseInt(style.getPropertyValue("margin-right"))
-  );
 }

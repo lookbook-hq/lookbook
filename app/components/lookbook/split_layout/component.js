@@ -1,9 +1,8 @@
 import Split from "split-grid";
 import { observeSize } from "@helpers/layout";
 
-export default function splitLayoutComponent({ split, opts }) {
+export default function splitLayoutComponent({ split, opts = {} }) {
   let splitter = null;
-
   return {
     layoutResizing: false,
 

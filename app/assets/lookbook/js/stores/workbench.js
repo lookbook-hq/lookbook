@@ -10,5 +10,20 @@ export default function initWorkbenchStore(Alpine, { prefix }) {
         pathname: null,
       },
     },
+    horizontalSplitLayout: {
+      split: Alpine.$persist({
+        direction: "horizontal",
+        sizes: ["50%", "50%"],
+      }).as(prefixString("workbench-horizontal-split", prefix)),
+    },
+    verticalSplitLayout: {
+      split: Alpine.$persist({
+        direction: "vertical",
+        sizes: ["40%", "30%", "30%"],
+      }).as(prefixString("workbench-vertical-split", prefix)),
+    },
+    tabbedPanels: {
+      activeTab: "tab-1",
+    },
   };
 }

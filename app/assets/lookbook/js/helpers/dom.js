@@ -16,4 +16,20 @@ function morph(from, to) {
   });
 }
 
-export { morph };
+function getElementSize(el, opts = {}) {
+  const style = window.getComputedStyle(el, null);
+  return {
+    width: opts.includeMargins
+      ? el.offsetWidth +
+        parseInt(style.getPropertyValue("margin-left")) +
+        parseInt(style.getPropertyValue("margin-right"))
+      : el.offsetWidth,
+    height: opts.includeMargins
+      ? el.offsetHeight +
+        parseInt(style.getPropertyValue("margin-top")) +
+        parseInt(style.getPropertyValue("margin-bottom"))
+      : el.offsetHeight,
+  };
+}
+
+export { morph, getElementSize };

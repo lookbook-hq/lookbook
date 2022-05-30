@@ -1,16 +1,14 @@
 module Lookbook
   class TabbedContent::Component < Lookbook::Component
-    renders_many :sections, ->(ref: nil, id: nil, **attrs) do
+    renders_many :sections, ->(ref: nil, **attrs) do
       @section_counter += 1
       ref ||= "tab-#{@section_counter}"
-      id ||= "#{@id}-#{ref}"
-      Lookbook::TabbedContent::Section::Component.new ref: ref, id: id, **attrs
+      Lookbook::TabbedContent::Section::Component.new ref: ref, **attrs
     end
 
-    def initialize(id:, **html_attrs)
-      @id = id
+    def initialize(**html_attrs)
       @section_counter = 0
-      super(id: id, **html_attrs)
+      super(**html_attrs)
     end
 
     protected

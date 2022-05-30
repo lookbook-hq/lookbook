@@ -13,7 +13,7 @@ module Lookbook
     end
 
     def preview_class_basename(klass)
-      class_name(klass).to_s.chomp("ComponentPreview").chomp("Component::Preview").chomp("::Preview").chomp("Component").chomp("::")
+      class_name(klass).to_s.chomp("ComponentPreview").chomp("Component::Preview").chomp("::Preview").chomp("Component").chomp("Preview").chomp("::")
     end
 
     def preview_class_name(klass)

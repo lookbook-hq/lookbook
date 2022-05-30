@@ -9,7 +9,7 @@ module Lookbook
     end
 
     def rendered_content
-      @markdown ? markdown(content) : content
+      @markdown ? markdown(content.strip_heredoc) : helpers.raw(content)
     end
 
     def size_class

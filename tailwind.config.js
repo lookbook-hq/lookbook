@@ -9,8 +9,10 @@ module.exports = {
     "./app/components/**/*.js",
     "./app/assets/**/*.js",
     "./app/controllers/**/*.rb",
-    "./test/components/**/*.rb",
-    "./test/components/**/*.html.erb",
+    "./spec/components/**/*.rb",
+    "./spec/components/**/*.html.erb",
+    "./workbench/app/previews/**/*.html.erb",
+    "./workbench/app/views/**/*.html.erb",
   ],
   theme: {
     extend: {
