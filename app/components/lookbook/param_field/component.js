@@ -20,6 +20,10 @@ export default function paramFieldComponent({ name, value }) {
       return this.$root.reportValidity ? this.$root.reportValidity() : true;
     },
 
+    get isNarrowLayout() {
+      return this.narrow || false;
+    },
+
     bindings: {
       input: {
         [":id"]: "`param-${name}`",

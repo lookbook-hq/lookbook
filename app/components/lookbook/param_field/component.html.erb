@@ -1,6 +1,5 @@
 <%= render_component_tag class: "px-4 py-3" do %>
-  <div class="flex items-start max-w-[800px]" :class="narrow && '!block'">
-    
+  <div class="flex items-start max-w-[800px]" :class="isNarrowLayout && '!block'">
     <label
       for="param-<%= @name %>"
       class="block font-bold cursor-pointer flex-none py-2 w-[140px] truncate pr-2">
@@ -13,7 +12,7 @@
         <input
           class="form-input"
           value="<%= value %>"
-          type="<%= @input_type %>"
+          type="<%= input_type %>"
           x-bind="bindings.input || {}">
 
       <% elsif field_type == "textarea" %>
@@ -29,7 +28,7 @@
           class="form-input"
           x-bind="bindings.input || {}"
           x-model="value">
-          <%= options_for_select(@options, value) %>
+          <%= options_for_select(@options || [], value) %>
         </select>
 
       <% elsif field_type == "toggle" %>

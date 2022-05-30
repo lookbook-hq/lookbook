@@ -16,12 +16,16 @@ module Lookbook
     end
 
     def value
-      val = params.key?(@name) ? params[@name] : @default_value
+      val = @value.presence || @default_value
       @type == "Boolean" ? val == "true" || val == true : val
     end
 
     def field_type
       @input.to_s
+    end
+
+    def input_type
+      @input_type.nil? && field_type == "text" ? "text" : nil
     end
 
     protected

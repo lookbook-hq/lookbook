@@ -1,6 +1,6 @@
 module Lookbook
   class ParamFieldset::Component < Lookbook::Component
-    renders_many :param_fields, Lookbook::ParamField::Component
+    renders_many :fields, Lookbook::ParamField::Component
 
     protected
 

@@ -1,5 +1,3 @@
 <%= render_component_tag do %>
-  <% param_fields.each do |param_field| %>
-    <%= param_field %>
-  <% end %>
+  <%= safe_join(fields) %>
 <% end %>
