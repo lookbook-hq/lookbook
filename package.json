@@ -18,7 +18,7 @@
     "@components/*": "./app/components/lookbook/$1"
   },
   "scripts": {
-    "dev": "parcel watch",
+    "dev": "parcel watch -p 5111",
     "build": "parcel build --no-cache --no-optimize",
     "theme:generate": "npm run theme:generate:default && npm run theme:generate:blue && npm run theme:generate:zinc",
     "theme:generate:default": "bin/generate-theme",
