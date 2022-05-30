@@ -74,8 +74,16 @@ module Lookbook
       :page
     end
 
+    def id
+      options[:id]
+    end
+
     def position
       options[:position]
+    end
+
+    def hidden
+      options[:hidden]
     end
 
     def method_missing(method_name, *args, &block)

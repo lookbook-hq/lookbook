@@ -22,7 +22,8 @@
           <%= render_component :button,
             size: :lg,
             icon: :chevron_left,
-            class: "opacity-50 pointer-default hover:text-lookbook-button-text pr-0.5 bg-transparent" %>
+            disabled: true,
+            class: "opacity-50 !cursor-default pr-0.5 bg-transparent" %>
         <% end %>
 
         <% if @next_page %>
@@ -36,7 +37,8 @@
           <%= render_component :button,
             size: :lg,
             icon: :chevron_right,
-            class: "opacity-50 pointer-default hover:text-lookbook-button-text pl-0.5 bg-transparent" %>
+            disabled: true,
+            class: "opacity-50 !cursor-default pl-0.5 bg-transparent" %>
         <% end %>
         </div>
       </div>

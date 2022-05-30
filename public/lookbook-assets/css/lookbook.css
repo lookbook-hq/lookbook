@@ -2028,6 +2028,10 @@ pre[class*="language-"] {
   animation: spin 1s linear infinite;
 }
 
+.\!cursor-default {
+  cursor: default !important;
+}
+
 .cursor-\[not-allowed\] {
   cursor: not-allowed;
 }
@@ -3013,10 +3017,6 @@ pre[class*="language-"] {
 .hover\:text-gray-900:hover {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity) );
-}
-
-.hover\:text-lookbook-button-text:hover {
-  color: var(--lookbook-button-text);
 }
 
 .hover\:text-indigo-800:hover {
