@@ -104,7 +104,7 @@ module Lookbook
           "tel",
           "text",
           "url"
-        ].include? input
+        ].include? input.to_s
       end
 
       def safe_parse_yaml(value, fallback)

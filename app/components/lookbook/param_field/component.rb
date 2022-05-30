@@ -25,7 +25,7 @@ module Lookbook
     end
 
     def input_type
-      @input_type.nil? && field_type == "text" ? "text" : nil
+      @input_type.nil? && field_type == "text" ? "text" : @input_type
     end
 
     protected
