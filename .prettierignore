@@ -2,3 +2,4 @@ public/
 test/
 node_modules/
 *.md
+docs/*.md
