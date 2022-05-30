@@ -5,10 +5,8 @@ Lookbook::Engine.routes.draw do
 
   root to: "application#index", as: :home
 
-  if Lookbook::Features.enabled?(:pages)
-    get "/#{Lookbook.config.page_route}", to: "pages#index", as: :page_index
-    get "/#{Lookbook.config.page_route}/*path", to: "pages#show", as: :page
-  end
+  get "/#{Lookbook.config.page_route}", to: "pages#index", as: :page_index
+  get "/#{Lookbook.config.page_route}/*path", to: "pages#show", as: :page
 
   get "/preview/*path", to: "previews#preview", as: :preview
   get "/inspect/*path", to: "previews#show", as: :inspect

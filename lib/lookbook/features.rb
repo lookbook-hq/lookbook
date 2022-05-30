@@ -1,6 +1,6 @@
 module Lookbook
   module Features
-    EXPERIMENTAL_FEATURES = [:pages]
+    EXPERIMENTAL_FEATURES = []
 
     def self.experimental_feature?(name)
       EXPERIMENTAL_FEATURES.include?(name.to_sym)

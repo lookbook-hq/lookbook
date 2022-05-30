@@ -105,16 +105,14 @@ module Lookbook
         end
         Lookbook::Engine.register_listener(preview_listener)
 
-        if Lookbook::Features.enabled?(:pages)
-          page_listener = Listen.to(
-            *config.lookbook.page_paths.filter { |dir| Dir.exist? dir },
-            only: /\.(html.*|md.*)$/,
-            force_polling: Lookbook.config.listen_use_polling
-          ) do |modified, added, removed|
-            Lookbook::Engine.websocket&.broadcast("reload", {})
-          end
-          Lookbook::Engine.register_listener(page_listener)
+        page_listener = Listen.to(
+          *config.lookbook.page_paths.filter { |dir| Dir.exist? dir },
+          only: /\.(html.*|md.*)$/,
+          force_polling: Lookbook.config.listen_use_polling
+        ) do |modified, added, removed|
+          Lookbook::Engine.websocket&.broadcast("reload", {})
         end
+        Lookbook::Engine.register_listener(page_listener)
       end
 
       if config.lookbook.runtime_parsing
@@ -180,7 +178,7 @@ module Lookbook
 
       def register_listener(listener)
         listener.start
-        listeners << to_add
+        listeners << listener
       end
 
       def listeners
