@@ -1,4 +1,4 @@
-export default function paramFieldComponent({ name, value }) {
+export default function paramsEditorFieldComponent({ name, value }) {
   return {
     name,
     value,

@@ -4,6 +4,7 @@
 class ButtonComponentPreview < ViewComponent::Preview
   # @!group Examples
 
+  # @display centered true
   def default
     render Lookbook::Button::Component.new icon: :book
   end

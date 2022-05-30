@@ -1,11 +1,12 @@
-<%= render_component_tag class: "h-full min-h-0 w-full overflow-hidden", "@viewport:reload.window": "reloadIframe" do %>
+<%= render_component_tag class: "h-full min-h-0 w-full overflow-hidden relative", "@viewport:reload.window": "reloadIframe" do %>
+    <div class="absolute border border-lookbook-divider w-full h-full"></div>
   <div
     x-ref="wrapper"
-    class="mx-auto h-full w-full"
+    class="mx-auto h-full w-full border border-b-0 border-lookbook-divider relative"
     :style="`<% if @resize_width %>max-width: ${maxWidth};<% end %> <% if @resize_height %>max-height: ${maxHeight};<% end %>`">
     <div
       class="grid bg-white relative -inset-px <%= "grid-cols-[1fr_17px]" if @resize_width %> <%= "grid-rows-[1fr_17px]" if @resize_height %>"
-      style="width: calc(100% + 2px); height: calc(100% + 2px)">
+      style="width: calc(100% + 2px); height: calc(100% + 1px)">
       <iframe seamless
         x-ref="iframe"
         class="h-full w-full border border-lookbook-divider"
@@ -15,7 +16,7 @@
         @load="$dispatch('viewport:loaded', {viewport: this})"></iframe>
         <% if @resize_width %>
           <div
-            class="resize-handle border-r border-t border-lookbook-divider cursor-[col-resize]"
+            class="resize-handle border-r border-t border-lookbook-divider cursor-[col-resize] <%= "border-b" unless @resize_height %>"
             @pointerdown="onResizeWidthStart"
             @dblclick="toggleFullWidth">
             <svg class="h-4 w-4 pointer-events-none" fill="currentColor" viewBox="0 0 24 24">
@@ -25,7 +26,7 @@
         <% end %>
         <% if @resize_height %>
           <div
-            class="resize-handle border-b border-l border-lookbook-divider cursor-[col-resize]"
+            class="resize-handle border-b border-l border-lookbook-divider cursor-[col-resize] <%= "border-r" unless @resize_width %>"
             @pointerdown="onResizeHeightStart"
             @dblclick="toggleFullHeight">
             <svg class="h-4 w-4 pointer-events-none rotate-90" fill="currentColor" viewBox="0 0 24 24" >

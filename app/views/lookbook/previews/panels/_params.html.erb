@@ -6,9 +6,9 @@
   </div>
 <% else %>
   <div class="py-3 h-full">
-    <%= render_component :param_fieldset do |fieldset| %>
+    <%= render_component :params_editor do |editor| %>
       <% @example.params.each do |param| %>
-        <% fieldset.field **param, value: params[param[:name]] %>
+        <% editor.field **param, value: params[param[:name]] %>
       <% end %>
     <% end %>
   </div>

@@ -1,6 +1,6 @@
 import { observeSize } from "@helpers/layout";
 
-export default function paramFieldsetComponent() {
+export default function paramsEditorComponent() {
   return {
     narrow: false,
     init() {

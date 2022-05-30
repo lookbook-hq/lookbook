@@ -1,4 +1,6 @@
 <%= render_component :viewport,
   src: lookbook.preview_path(request.query_parameters.merge(lookbook_timestamp: Time.now)),
-  alpine_data: "$store.inspector.preview"
+  alpine_data: "$store.inspector.preview",
+  class: "-inset-px relative",
+  style: "width: calc(100% + 2px); height: calc(100% + 2px)"
   %>

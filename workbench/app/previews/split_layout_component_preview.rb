@@ -1,3 +1,4 @@
+# @display centered true
 class SplitLayoutComponentPreview < ViewComponent::Preview
   def two_panes_horizontal
   end

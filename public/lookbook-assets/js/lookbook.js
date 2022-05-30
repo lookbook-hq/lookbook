@@ -7106,7 +7106,7 @@ function $af7ba71c6eecd94a$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
 
 
 var $1cec3e2af7710087$exports = {};
-$1cec3e2af7710087$exports = JSON.parse("{\"name\":\"lookbook\",\"version\":\"0.8.2\",\"description\":\"A native development UI for ViewComponent\",\"targets\":{\"app\":{\"source\":[\"./app/assets/lookbook/js/embed.js\",\"./app/assets/lookbook/js/lookbook.js\",\"./app/assets/lookbook/css/lookbook.css\"],\"distDir\":\"./public/lookbook-assets\"}},\"alias\":{\"@helpers/*\":\"./app/assets/lookbook/js/helpers/$1\",\"@lib/*\":\"./app/assets/lookbook/js/lib/$1\",\"@components/*\":\"./app/components/lookbook/$1\"},\"scripts\":{\"dev\":\"parcel watch\",\"build\":\"parcel build --no-cache --no-optimize\",\"theme:generate\":\"npm run theme:generate:default && npm run theme:generate:blue && npm run theme:generate:zinc\",\"theme:generate:default\":\"bin/generate-theme\",\"theme:generate:blue\":\"bin/generate-theme --name=blue --accent=blue\",\"theme:generate:zinc\":\"bin/generate-theme --name=zinc --accent=zinc\",\"clean\":\"rm -rf .parcel-cache\",\"lint:fix\":\"standardrb --fix && prettier --write .\",\"release\":\"release-it\",\"release:dry-run\":\"release-it --dry-run\"},\"author\":\"Mark Perkins\",\"license\":\"MIT\",\"dependencies\":{\"@alpinejs/collapse\":\"^3.10.2\",\"@alpinejs/morph\":\"^3.10.2\",\"@alpinejs/persist\":\"^3.10.2\",\"@parcel/resolver-glob\":\"^2.4.0\",\"@rails/actioncable\":\"^6.1.4\",\"@ryangjchandler/alpine-tooltip\":\"^1.2.0\",\"@tailwindcss/forms\":\"^0.4.0\",\"@tailwindcss/typography\":\"^0.5.0\",\"alpinejs\":\"^3.10.2\",\"autoprefixer\":\"^10.4.0\",\"command-line-args\":\"^5.2.1\",\"debounce\":\"^1.2.1\",\"iframe-resizer\":\"^4.3.2\",\"loglevel\":\"^1.8.0\",\"loglevel-plugin-prefix\":\"^0.8.4\",\"parcel\":\"^2.0.1\",\"postcss\":\"^8.4.5\",\"postcss-import\":\"^14.0.2\",\"postcss-import-ext-glob\":\"^2.0.1\",\"split-grid\":\"^1.0.11\",\"tailwindcss\":\"^3.0.6\",\"tippy.js\":\"^6.3.2\"},\"devDependencies\":{\"@prettier/plugin-ruby\":\"^3.1.2\",\"eslint\":\"^7.32.0\",\"eslint-config-airbnb-base\":\"^14.2.1\",\"eslint-config-prettier\":\"^8.3.0\",\"eslint-plugin-import\":\"^2.25.2\",\"prettier\":\"2.3.2\",\"release-it\":\"^14.11.6\"},\"release-it\":{\"git\":{\"commitMessage\":\"release v${version}\"},\"github\":{\"release\":true},\"npm\":{\"publish\":false},\"hooks\":{\"before:init\":[\"bundle install\",\"rake test\"],\"after:bump\":\"npm run build\",\"after:version:bump\":\"rake 'lookbook:release:bump_version[${version}]' && bundle\",\"after:release\":\"rake 'lookbook:release:build_and_push'\"}}}");
+$1cec3e2af7710087$exports = JSON.parse("{\"name\":\"lookbook\",\"version\":\"0.8.2\",\"description\":\"A native development UI for ViewComponent\",\"targets\":{\"app\":{\"source\":[\"./app/assets/lookbook/js/embed.js\",\"./app/assets/lookbook/js/lookbook.js\",\"./app/assets/lookbook/css/lookbook.css\"],\"distDir\":\"./public/lookbook-assets\"}},\"alias\":{\"@helpers/*\":\"./app/assets/lookbook/js/helpers/$1\",\"@lib/*\":\"./app/assets/lookbook/js/lib/$1\",\"@components/*\":\"./app/components/lookbook/$1\"},\"scripts\":{\"dev\":\"parcel watch\",\"build\":\"parcel build --no-cache --no-optimize\",\"theme:generate\":\"npm run theme:generate:default && npm run theme:generate:blue && npm run theme:generate:zinc\",\"theme:generate:default\":\"bin/generate-theme\",\"theme:generate:blue\":\"bin/generate-theme --name=blue --accent=blue\",\"theme:generate:zinc\":\"bin/generate-theme --name=zinc --accent=zinc\",\"clean\":\"rm -rf .parcel-cache\",\"lint:fix\":\"standardrb --fix && prettier --write .\",\"release\":\"release-it\",\"release:dry-run\":\"release-it --dry-run\",\"workbench\":\"concurrently \\\"npm:workbench:serve\\\" \\\"npm:dev\\\"\",\"workbench:serve\":\"cd workbench; bin/rails s -p 4545\"},\"author\":\"Mark Perkins\",\"license\":\"MIT\",\"dependencies\":{\"@alpinejs/collapse\":\"^3.10.2\",\"@alpinejs/morph\":\"^3.10.2\",\"@alpinejs/persist\":\"^3.10.2\",\"@parcel/resolver-glob\":\"^2.4.0\",\"@rails/actioncable\":\"^6.1.4\",\"@ryangjchandler/alpine-tooltip\":\"^1.2.0\",\"@tailwindcss/forms\":\"^0.4.0\",\"@tailwindcss/typography\":\"^0.5.0\",\"alpinejs\":\"^3.10.2\",\"autoprefixer\":\"^10.4.0\",\"command-line-args\":\"^5.2.1\",\"debounce\":\"^1.2.1\",\"iframe-resizer\":\"^4.3.2\",\"loglevel\":\"^1.8.0\",\"loglevel-plugin-prefix\":\"^0.8.4\",\"parcel\":\"^2.0.1\",\"postcss\":\"^8.4.5\",\"postcss-import\":\"^14.0.2\",\"postcss-import-ext-glob\":\"^2.0.1\",\"split-grid\":\"^1.0.11\",\"tailwindcss\":\"^3.0.6\",\"tippy.js\":\"^6.3.2\"},\"devDependencies\":{\"@prettier/plugin-ruby\":\"^3.1.2\",\"eslint\":\"^7.32.0\",\"eslint-config-airbnb-base\":\"^14.2.1\",\"eslint-config-prettier\":\"^8.3.0\",\"eslint-plugin-import\":\"^2.25.2\",\"prettier\":\"2.3.2\",\"release-it\":\"^14.11.6\"},\"release-it\":{\"git\":{\"commitMessage\":\"release v${version}\"},\"github\":{\"release\":true},\"npm\":{\"publish\":false},\"hooks\":{\"before:init\":[\"bundle install\",\"rake test\"],\"after:bump\":\"npm run build\",\"after:version:bump\":\"rake 'lookbook:release:bump_version[${version}]' && bundle\",\"after:release\":\"rake 'lookbook:release:build_and_push'\"}}}");
 
 
 var $7d6b1fa982d8364d$exports = {};
@@ -7852,7 +7852,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $23d983d035423d43$exports = {};
+var $b40b0b74537cbda1$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11505,6 +11505,36 @@ function $47a1c62621be0c54$export$2e2bcd8739ae039(target = null) {
 }
 
 
+var $e398acaded942bbe$exports = {};
+
+$parcel$defineInteropFlag($e398acaded942bbe$exports);
+
+$parcel$export($e398acaded942bbe$exports, "default", () => $e398acaded942bbe$export$2e2bcd8739ae039);
+
+function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
+    return {
+        width: 0,
+        height: 0,
+        resizing: false,
+        init () {
+            const target = document.querySelector(targetSelector);
+            this.width = Math.round(target.clientWidth);
+            this.height = Math.round(target.clientHeight);
+            this.createObserver();
+        },
+        createObserver () {
+            this.observer = $9930d46698775b42$export$a2214cc2adb2dc44(document.querySelector(targetSelector), ({ width: width , height: height  })=>{
+                this.width = width;
+                this.height = height;
+            });
+        },
+        tearDown () {
+            this.observer.disconnect();
+        }
+    };
+}
+
+
 var $e1f51f020443edd4$exports = {};
 
 $parcel$defineInteropFlag($e1f51f020443edd4$exports);
@@ -12367,36 +12397,6 @@ function $e1f51f020443edd4$export$2e2bcd8739ae039(id, embedStore) {
 }
 
 
-var $e398acaded942bbe$exports = {};
-
-$parcel$defineInteropFlag($e398acaded942bbe$exports);
-
-$parcel$export($e398acaded942bbe$exports, "default", () => $e398acaded942bbe$export$2e2bcd8739ae039);
-
-function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
-    return {
-        width: 0,
-        height: 0,
-        resizing: false,
-        init () {
-            const target = document.querySelector(targetSelector);
-            this.width = Math.round(target.clientWidth);
-            this.height = Math.round(target.clientHeight);
-            this.createObserver();
-        },
-        createObserver () {
-            this.observer = $9930d46698775b42$export$a2214cc2adb2dc44(document.querySelector(targetSelector), ({ width: width , height: height  })=>{
-                this.width = width;
-                this.height = height;
-            });
-        },
-        tearDown () {
-            this.observer.disconnect();
-        }
-    };
-}
-
-
 var $e9904a14dabf652d$exports = {};
 
 $parcel$defineInteropFlag($e9904a14dabf652d$exports);
@@ -12476,52 +12476,13 @@ function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
 }
 
 
-var $de51565904afed2c$exports = {};
+var $b63b9c6d236b3f65$exports = {};
 
-$parcel$defineInteropFlag($de51565904afed2c$exports);
+$parcel$defineInteropFlag($b63b9c6d236b3f65$exports);
 
-$parcel$export($de51565904afed2c$exports, "default", () => $de51565904afed2c$export$2e2bcd8739ae039);
-function $de51565904afed2c$export$2e2bcd8739ae039({ name: name , value: value  }) {
-    return {
-        name: name,
-        value: value,
-        init () {
-            this.$watch("value", ()=>this.update()
-            );
-        },
-        update () {
-            if (this.validate()) {
-                const searchParams = new URLSearchParams(window.location.search);
-                searchParams.set(this.name, this.value);
-                const path = location.href.replace(location.search, "");
-                this.navigateTo(`${path}?${searchParams.toString()}`);
-            }
-        },
-        validate () {
-            return this.$root.reportValidity ? this.$root.reportValidity() : true;
-        },
-        get isNarrowLayout () {
-            return this.narrow || false;
-        },
-        bindings: {
-            input: {
-                [":id"]: "`param-${name}`",
-                ["x-ref"]: "input",
-                ["x-model.debounce.200"]: "value",
-                ["@keydown.stop"]: true
-            }
-        }
-    };
-}
+$parcel$export($b63b9c6d236b3f65$exports, "default", () => $b63b9c6d236b3f65$export$2e2bcd8739ae039);
 
-
-var $8e0ebb7644f30c26$exports = {};
-
-$parcel$defineInteropFlag($8e0ebb7644f30c26$exports);
-
-$parcel$export($8e0ebb7644f30c26$exports, "default", () => $8e0ebb7644f30c26$export$2e2bcd8739ae039);
-
-function $8e0ebb7644f30c26$export$2e2bcd8739ae039() {
+function $b63b9c6d236b3f65$export$2e2bcd8739ae039() {
     return {
         narrow: false,
         init () {
@@ -13109,6 +13070,92 @@ function $d69ee878996183ed$export$2e2bcd8739ae039(store) {
 }
 
 
+var $0db07828cadc68e0$exports = {};
+
+$parcel$defineInteropFlag($0db07828cadc68e0$exports);
+
+$parcel$export($0db07828cadc68e0$exports, "default", () => $0db07828cadc68e0$export$2e2bcd8739ae039);
+
+
+
+
+function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
+    const initial = store.activeTab || null;
+    return {
+        visibleTabsCount: 0,
+        triggerLeft: 0,
+        get tabs () {
+            return Array.from(this.$refs.tabs.children);
+        },
+        get dropdownTabs () {
+            return Array.from(this.$refs.dropdown.children);
+        },
+        get tabWidths () {
+            return this.tabs.map((tab)=>$e263283f97229955$export$bdf7e699b242f476(tab, {
+                    includeMargins: true
+                }).width
+            );
+        },
+        init () {
+            this.$nextTick(()=>{
+                this.dropdown = $d6f449055c23f07a$export$2e2bcd8739ae039(this.$refs.dropdownTrigger, {
+                    content: this.$refs.dropdown,
+                    theme: "menu",
+                    interactive: true,
+                    trigger: "click",
+                    appendTo: this.$root
+                });
+                const initialTab = initial ? this.tabs.find((t)=>this._getRef(t) === initial
+                ) : this.tabs[0];
+                this.selectTab(initialTab);
+                this.parentObserver = $9930d46698775b42$export$a2214cc2adb2dc44(this.$root.parentElement, (/*@__PURE__*/$parcel$interopDefault($d3ec6a576bb30dc9$exports))(this.handleResize.bind(this), 10));
+                this.$watch("visibleTabsCount", (value)=>{
+                    this.debug(`'#${this.$root.id}' visible tabs count:`, value);
+                });
+            });
+        },
+        handleResize ({ width: width  }) {
+            if (width === this._lastMeasuredWidth) return;
+            if (width === this.$root.offsetWidth) {
+                this.visibleTabsCount = this.tabs.length;
+                return;
+            }
+            let sumTabWidths = 60;
+            let triggerLeft = 20;
+            let visibleTabsCount = 0;
+            this.tabWidths.forEach((tabWidth)=>{
+                sumTabWidths += tabWidth;
+                if (sumTabWidths < width) {
+                    triggerLeft += tabWidth;
+                    visibleTabsCount++;
+                }
+            });
+            this.visibleTabsCount = visibleTabsCount;
+            this.triggerLeft = triggerLeft;
+            this._lastMeasuredWidth = width;
+        },
+        selectTab (el) {
+            store.activeTab = this._getRef(el);
+            this.dropdown.hide();
+        },
+        isSelected (el) {
+            return store.activeTab === this._getRef(el);
+        },
+        isDisabled (el) {
+            return el.getAttribute("data-disabled") == "true";
+        },
+        hasHiddenTabs () {
+            return this.visibleTabsCount < this.tabs.length;
+        },
+        // protected
+        _lastMeasuredWidth: 0,
+        _getRef (el) {
+            return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
+        }
+    };
+}
+
+
 var $6d64716f0b34fdf4$exports = {};
 
 $parcel$defineInteropFlag($6d64716f0b34fdf4$exports);
@@ -13236,111 +13283,24 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-var $0db07828cadc68e0$exports = {};
-
-$parcel$defineInteropFlag($0db07828cadc68e0$exports);
-
-$parcel$export($0db07828cadc68e0$exports, "default", () => $0db07828cadc68e0$export$2e2bcd8739ae039);
-
-
-
-
-function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
-    const initial = store.activeTab || null;
-    return {
-        visibleTabsCount: 0,
-        triggerLeft: 0,
-        get tabs () {
-            return Array.from(this.$refs.tabs.children);
-        },
-        get dropdownTabs () {
-            return Array.from(this.$refs.dropdown.children);
-        },
-        get tabWidths () {
-            return this.tabs.map((tab)=>$e263283f97229955$export$bdf7e699b242f476(tab, {
-                    includeMargins: true
-                }).width
-            );
-        },
-        init () {
-            this.$nextTick(()=>{
-                this.dropdown = $d6f449055c23f07a$export$2e2bcd8739ae039(this.$refs.dropdownTrigger, {
-                    content: this.$refs.dropdown,
-                    theme: "menu",
-                    interactive: true,
-                    trigger: "click",
-                    appendTo: this.$root
-                });
-                const initialTab = initial ? this.tabs.find((t)=>this._getRef(t) === initial
-                ) : this.tabs[0];
-                this.selectTab(initialTab);
-                this.parentObserver = $9930d46698775b42$export$a2214cc2adb2dc44(this.$root.parentElement, (/*@__PURE__*/$parcel$interopDefault($d3ec6a576bb30dc9$exports))(this.handleResize.bind(this), 10));
-                this.$watch("visibleTabsCount", (value)=>{
-                    this.debug(`'#${this.$root.id}' visible tabs count:`, value);
-                });
-            });
-        },
-        handleResize ({ width: width  }) {
-            if (width === this._lastMeasuredWidth) return;
-            if (width === this.$root.offsetWidth) {
-                this.visibleTabsCount = this.tabs.length;
-                return;
-            }
-            let sumTabWidths = 60;
-            let triggerLeft = 20;
-            let visibleTabsCount = 0;
-            this.tabWidths.forEach((tabWidth)=>{
-                sumTabWidths += tabWidth;
-                if (sumTabWidths < width) {
-                    triggerLeft += tabWidth;
-                    visibleTabsCount++;
-                }
-            });
-            this.visibleTabsCount = visibleTabsCount;
-            this.triggerLeft = triggerLeft;
-            this._lastMeasuredWidth = width;
-        },
-        selectTab (el) {
-            store.activeTab = this._getRef(el);
-            this.dropdown.hide();
-        },
-        isSelected (el) {
-            return store.activeTab === this._getRef(el);
-        },
-        isDisabled (el) {
-            return el.getAttribute("data-disabled") == "true";
-        },
-        hasHiddenTabs () {
-            return this.visibleTabsCount < this.tabs.length;
-        },
-        // protected
-        _lastMeasuredWidth: 0,
-        _getRef (el) {
-            return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
-        }
-    };
-}
-
-
-$23d983d035423d43$exports = {
+$b40b0b74537cbda1$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
-    "embed": $e1f51f020443edd4$exports,
     "dimensions_display": $e398acaded942bbe$exports,
+    "embed": $e1f51f020443edd4$exports,
     "filter": $e9904a14dabf652d$exports,
     "icon": $36506012e0c6e9e3$exports,
     "nav": $d92d9d5253f84566$exports,
-    "param_field": $de51565904afed2c$exports,
-    "param_fieldset": $8e0ebb7644f30c26$exports,
+    "params_editor": $b63b9c6d236b3f65$exports,
     "split_layout": $506dabb2bf255b38$exports,
     "tabbed_content": $d69ee878996183ed$exports,
-    "viewport": $6d64716f0b34fdf4$exports,
-    "tabs": $0db07828cadc68e0$exports
+    "tabs": $0db07828cadc68e0$exports,
+    "viewport": $6d64716f0b34fdf4$exports
 };
 
 
-var $3f92713eb2b168a5$exports = {};
+var $e4eab7529959b73b$exports = {};
 var $9b24cbeb3a465447$exports = {};
 
 $parcel$defineInteropFlag($9b24cbeb3a465447$exports);
@@ -13399,9 +13359,51 @@ function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id , matchers: matchers 
 }
 
 
-$3f92713eb2b168a5$exports = {
+var $fa8073e5be19dff9$exports = {};
+
+$parcel$defineInteropFlag($fa8073e5be19dff9$exports);
+
+$parcel$export($fa8073e5be19dff9$exports, "default", () => $fa8073e5be19dff9$export$2e2bcd8739ae039);
+function $fa8073e5be19dff9$export$2e2bcd8739ae039({ name: name , value: value  }) {
+    return {
+        name: name,
+        value: value,
+        init () {
+            this.$watch("value", ()=>this.update()
+            );
+        },
+        update () {
+            if (this.validate()) {
+                const searchParams = new URLSearchParams(window.location.search);
+                searchParams.set(this.name, this.value);
+                const path = location.href.replace(location.search, "");
+                this.navigateTo(`${path}?${searchParams.toString()}`);
+            }
+        },
+        validate () {
+            return this.$root.reportValidity ? this.$root.reportValidity() : true;
+        },
+        get isNarrowLayout () {
+            return this.narrow || false;
+        },
+        bindings: {
+            input: {
+                [":id"]: "`param-${name}`",
+                ["x-ref"]: "input",
+                ["x-model.debounce.200"]: "value",
+                ["@keydown.stop"]: true
+            }
+        }
+    };
+}
+
+
+$e4eab7529959b73b$exports = {
     "nav": {
         "item": $9b24cbeb3a465447$exports
+    },
+    "params_editor": {
+        "field": $fa8073e5be19dff9$exports
     }
 };
 
@@ -13429,8 +13431,8 @@ $caa9439642c6336c$export$2e2bcd8739ae039.store("pages", $9954130d663b77bc$export
 // Components
 $caa9439642c6336c$export$2e2bcd8739ae039.data("app", $d709d0f4027033b2$export$2e2bcd8739ae039);
 [
-    $23d983d035423d43$exports,
-    $3f92713eb2b168a5$exports
+    $b40b0b74537cbda1$exports,
+    $e4eab7529959b73b$exports
 ].forEach((scripts)=>{
     const components = $5439cede634b2921$export$4e811121b221213b(scripts);
     Object.keys(components).forEach((name)=>{

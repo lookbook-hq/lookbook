@@ -1,3 +1,4 @@
+# @display centered true
 class EmbedComponentPreview < ViewComponent::Preview
   def basic
     render Lookbook::Embed::Component.new(

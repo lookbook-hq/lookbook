@@ -1,3 +1,4 @@
+# @display centered true
 class TabbedPanelsPreview < ViewComponent::Preview
   # Collapsable tabs
   # ----------------

@@ -27,7 +27,9 @@
     "clean": "rm -rf .parcel-cache",
     "lint:fix": "standardrb --fix && prettier --write .",
     "release": "release-it",
-    "release:dry-run": "release-it --dry-run"
+    "release:dry-run": "release-it --dry-run",
+    "workbench": "concurrently \"npm:workbench:serve\" \"npm:dev\"",
+    "workbench:serve": "cd workbench; bin/rails s -p 4545"
   },
   "author": "Mark Perkins",
   "license": "MIT",

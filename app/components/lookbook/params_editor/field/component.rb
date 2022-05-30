@@ -1,5 +1,5 @@
 module Lookbook
-  class ParamField::Component < Lookbook::Component
+  class ParamsEditor::Field::Component < Lookbook::Component
     def initialize(input:, name:, default: nil, value: nil, input_type: nil, type: nil, options: nil, **html_attrs)
       @input = input
       @name = name
@@ -35,7 +35,7 @@ module Lookbook
     end
 
     def alpine_component
-      "paramFieldComponent"
+      "paramsEditorFieldComponent"
     end
   end
 end
