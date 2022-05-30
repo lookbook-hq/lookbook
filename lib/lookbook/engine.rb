@@ -173,6 +173,10 @@ module Lookbook
         Lookbook.logger.level
       end
 
+      def app_name
+        Rails.application.class.module_parent_name.underscore
+      end
+
       attr_reader :preview_controller
     end
   end

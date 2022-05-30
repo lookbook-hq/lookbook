@@ -1,15 +1,22 @@
 import initFilterStore from "./filter";
+import { prefixString } from "../helpers/string";
 
-export default function initNavStore(Alpine) {
+export default function initNavStore(Alpine, { prefix }) {
   return {
     previews: {
-      filter: initFilterStore(Alpine, "previews-filter-text"),
-      open: Alpine.$persist([]).as("previews-nav-open"),
+      filter: initFilterStore(
+        Alpine,
+        prefixString("previews-filter-text", prefix)
+      ),
+      open: Alpine.$persist([]).as(prefixString("previews-nav-open", prefix)),
     },
 
     pages: {
-      filter: initFilterStore(Alpine, "pages-filter-text"),
-      open: Alpine.$persist([]).as("pages-nav-open"),
+      filter: initFilterStore(
+        Alpine,
+        prefixString("pages-filter-text", prefix)
+      ),
+      open: Alpine.$persist([]).as(prefixString("pages-nav-open", prefix)),
     },
   };
 }

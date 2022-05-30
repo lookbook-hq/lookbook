@@ -6911,8 +6911,13 @@ function $9930d46698775b42$export$a2214cc2adb2dc44(element, callback = ()=>{}) {
 
 
 
+function $7ae6ae39c2ec9059$export$2ce3c33e50a76e49(string, prefix = null) {
+    return prefix ? `${prefix}-${string}` : string;
+}
+
+
 const { sidebar: $aabd7bdddb195dac$var$sidebar , main: $aabd7bdddb195dac$var$main , inspector: $aabd7bdddb195dac$var$inspector  } = $4d527fa4ac70acba$export$2e2bcd8739ae039;
-function $aabd7bdddb195dac$export$2e2bcd8739ae039(Alpine) {
+function $aabd7bdddb195dac$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
     return {
         init () {
             $9930d46698775b42$export$33d4bfa367d0ee08(`(min-width: ${$4d527fa4ac70acba$export$2e2bcd8739ae039.desktopWidth}px)`, (matches)=>{
@@ -6935,7 +6940,7 @@ function $aabd7bdddb195dac$export$2e2bcd8739ae039(Alpine) {
                     `${$aabd7bdddb195dac$var$sidebar.defaultWidth}px`,
                     "1fr"
                 ]
-            }).as("main-split"),
+            }).as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("main-split", prefix)),
             opts: {
                 minSizes: [
                     $aabd7bdddb195dac$var$sidebar.minWidth,
@@ -6945,8 +6950,8 @@ function $aabd7bdddb195dac$export$2e2bcd8739ae039(Alpine) {
         },
         // Sidebar visibility and sections
         sidebar: {
-            _hiddenDesktop: Alpine.$persist(false).as("sidebar-hidden-desktop"),
-            _hiddenMobile: Alpine.$persist(true).as("sidebar-hidden-mobile"),
+            _hiddenDesktop: Alpine.$persist(false).as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("sidebar-hidden-desktop", prefix)),
+            _hiddenMobile: Alpine.$persist(true).as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("sidebar-hidden-mobile", prefix)),
             set hidden (value){
                 if (Alpine.store("layout").desktop) this._hiddenDesktop = value;
                 else this._hiddenMobile = value;
@@ -6961,11 +6966,19 @@ function $aabd7bdddb195dac$export$2e2bcd8739ae039(Alpine) {
                     "50%",
                     "50%"
                 ]
-            }).as("sidebar-split"),
+            }).as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("sidebar-split", prefix)),
             opts: {
                 minSizes: [
                     $aabd7bdddb195dac$var$sidebar.minSectionHeight,
                     $aabd7bdddb195dac$var$sidebar.minSectionHeight
+                ]
+            }
+        },
+        singleSectionSidebar: {
+            split: {
+                direction: "horizontal",
+                sizes: [
+                    "100%"
                 ]
             }
         },
@@ -6981,15 +6994,15 @@ function $aabd7bdddb195dac$export$2e2bcd8739ae039(Alpine) {
                     "1fr",
                     `${$aabd7bdddb195dac$var$inspector.drawer.defaultWidth}px`
                 ]
-            }).as("inspector-split"),
+            }).as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("inspector-split", prefix)),
             opts: {
                 minVerticalSizes: [
                     $aabd7bdddb195dac$var$inspector.drawer.minWidth,
-                    $aabd7bdddb195dac$var$inspector.drawer.minWidth
+                    $aabd7bdddb195dac$var$inspector.drawer.minWidth, 
                 ],
                 minHorizontalSizes: [
                     $aabd7bdddb195dac$var$inspector.drawer.minHeight,
-                    $aabd7bdddb195dac$var$inspector.drawer.minHeight
+                    $aabd7bdddb195dac$var$inspector.drawer.minHeight, 
                 ]
             }
         },
@@ -7012,52 +7025,56 @@ function $c1c96367c0368286$export$2e2bcd8739ae039(Alpine, name) {
 }
 
 
-function $45e94a9374456304$export$2e2bcd8739ae039(Alpine) {
+
+function $45e94a9374456304$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
     return {
         previews: {
-            filter: $c1c96367c0368286$export$2e2bcd8739ae039(Alpine, "previews-filter-text"),
-            open: Alpine.$persist([]).as("previews-nav-open")
+            filter: $c1c96367c0368286$export$2e2bcd8739ae039(Alpine, $7ae6ae39c2ec9059$export$2ce3c33e50a76e49("previews-filter-text", prefix)),
+            open: Alpine.$persist([]).as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("previews-nav-open", prefix))
         },
         pages: {
-            filter: $c1c96367c0368286$export$2e2bcd8739ae039(Alpine, "pages-filter-text"),
-            open: Alpine.$persist([]).as("pages-nav-open")
+            filter: $c1c96367c0368286$export$2e2bcd8739ae039(Alpine, $7ae6ae39c2ec9059$export$2ce3c33e50a76e49("pages-filter-text", prefix)),
+            open: Alpine.$persist([]).as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("pages-nav-open", prefix))
         }
     };
 }
 
 
-function $6a63819b7ed6d0ed$export$2e2bcd8739ae039(Alpine) {
+
+function $6a63819b7ed6d0ed$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
     return {
         minVerticalSplitWidth: 800,
         preview: {
-            activeTab: Alpine.$persist("").as("inspector-preview-active-tab"),
-            width: Alpine.$persist("100%").as("inspector-preview-width"),
-            height: Alpine.$persist("100%").as("inspector-preview-height"),
+            activeTab: Alpine.$persist("").as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("inspector-preview-active-tab", prefix)),
+            width: Alpine.$persist("100%").as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("inspector-preview-width", prefix)),
+            height: Alpine.$persist("100%").as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("inspector-preview-height", prefix)),
             lastWidth: null,
             lastHeight: null,
             resizing: false
         },
         drawer: {
-            hidden: Alpine.$persist(false).as("inspector-drawer-hidden"),
-            activeTab: Alpine.$persist("").as("inspector-drawer-active-tab")
+            hidden: Alpine.$persist(false).as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("inspector-drawer-hidden", prefix)),
+            activeTab: Alpine.$persist("").as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("inspector-drawer-active-tab", prefix))
         }
     };
 }
 
 
-function $9954130d663b77bc$export$2e2bcd8739ae039(Alpine) {
+
+function $9954130d663b77bc$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
     return {
-        embeds: Alpine.$persist({}).as("pages-embeds")
+        embeds: Alpine.$persist({}).as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("pages-embeds", prefix))
     };
 }
 
 
 
-function $af7ba71c6eecd94a$export$2e2bcd8739ae039(Alpine) {
+
+function $af7ba71c6eecd94a$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
     return {
-        filter: $c1c96367c0368286$export$2e2bcd8739ae039(Alpine, "workbench-filter"),
+        filter: $c1c96367c0368286$export$2e2bcd8739ae039(Alpine, $7ae6ae39c2ec9059$export$2ce3c33e50a76e49("workbench-filter", prefix)),
         nav: {
-            open: Alpine.$persist([]).as("workbench-nav-open"),
+            open: Alpine.$persist([]).as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("workbench-nav-open", prefix)),
             location: {
                 pathname: null
             }
@@ -7806,7 +7823,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $aa5e3083d1b53361$exports = {};
+var $f7552cd1b471b9cb$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11407,16 +11424,6 @@ function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
 }
 
 
-var $99486586f6691564$exports = {};
-
-$parcel$defineInteropFlag($99486586f6691564$exports);
-
-$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
-function $99486586f6691564$export$2e2bcd8739ae039() {
-    return {};
-}
-
-
 var $47a1c62621be0c54$exports = {};
 
 $parcel$defineInteropFlag($47a1c62621be0c54$exports);
@@ -11456,6 +11463,16 @@ function $47a1c62621be0c54$export$2e2bcd8739ae039(target = null) {
         _copyTarget: null,
         _notificationTippy: null
     };
+}
+
+
+var $99486586f6691564$exports = {};
+
+$parcel$defineInteropFlag($99486586f6691564$exports);
+
+$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
+function $99486586f6691564$export$2e2bcd8739ae039() {
+    return {};
 }
 
 
@@ -12430,6 +12447,24 @@ function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
 }
 
 
+var $8e0ebb7644f30c26$exports = {};
+
+$parcel$defineInteropFlag($8e0ebb7644f30c26$exports);
+
+$parcel$export($8e0ebb7644f30c26$exports, "default", () => $8e0ebb7644f30c26$export$2e2bcd8739ae039);
+
+function $8e0ebb7644f30c26$export$2e2bcd8739ae039() {
+    return {
+        narrow: false,
+        init () {
+            $9930d46698775b42$export$a2214cc2adb2dc44(this.$el, ({ width: width  })=>{
+                this.narrow = width < 450;
+            });
+        }
+    };
+}
+
+
 var $de51565904afed2c$exports = {};
 
 $parcel$defineInteropFlag($de51565904afed2c$exports);
@@ -12461,24 +12496,6 @@ function $de51565904afed2c$export$2e2bcd8739ae039({ name: name , value: value  }
                 ["x-model.debounce.200"]: "value",
                 ["@keydown.stop"]: true
             }
-        }
-    };
-}
-
-
-var $8e0ebb7644f30c26$exports = {};
-
-$parcel$defineInteropFlag($8e0ebb7644f30c26$exports);
-
-$parcel$export($8e0ebb7644f30c26$exports, "default", () => $8e0ebb7644f30c26$export$2e2bcd8739ae039);
-
-function $8e0ebb7644f30c26$export$2e2bcd8739ae039() {
-    return {
-        narrow: false,
-        init () {
-            $9930d46698775b42$export$a2214cc2adb2dc44(this.$el, ({ width: width  })=>{
-                this.narrow = width < 450;
-            });
         }
     };
 }
@@ -13274,17 +13291,17 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$aa5e3083d1b53361$exports = {
+$f7552cd1b471b9cb$exports = {
     "button": $cbd28b10fa9798c7$exports,
-    "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
+    "code": $99486586f6691564$exports,
     "dimensions_display": $e398acaded942bbe$exports,
     "embed": $e1f51f020443edd4$exports,
     "filter": $e9904a14dabf652d$exports,
     "icon": $36506012e0c6e9e3$exports,
     "nav": $d92d9d5253f84566$exports,
-    "param_field": $de51565904afed2c$exports,
     "param_fieldset": $8e0ebb7644f30c26$exports,
+    "param_field": $de51565904afed2c$exports,
     "split_layout": $506dabb2bf255b38$exports,
     "tabbed_content": $d69ee878996183ed$exports,
     "tabs": $0db07828cadc68e0$exports,
@@ -13365,14 +13382,23 @@ $caa9439642c6336c$export$2e2bcd8739ae039.plugin($512e3a9270ec7803$export$2e2bcd8
 $caa9439642c6336c$export$2e2bcd8739ae039.plugin($69a8ec8dbeef3157$export$2e2bcd8739ae039);
 $caa9439642c6336c$export$2e2bcd8739ae039.plugin($2be3bf71ec224090$export$2e2bcd8739ae039);
 // Stores
-$caa9439642c6336c$export$2e2bcd8739ae039.store("layout", $aabd7bdddb195dac$export$2e2bcd8739ae039($caa9439642c6336c$export$2e2bcd8739ae039));
-$caa9439642c6336c$export$2e2bcd8739ae039.store("nav", $45e94a9374456304$export$2e2bcd8739ae039($caa9439642c6336c$export$2e2bcd8739ae039));
-$caa9439642c6336c$export$2e2bcd8739ae039.store("inspector", $6a63819b7ed6d0ed$export$2e2bcd8739ae039($caa9439642c6336c$export$2e2bcd8739ae039));
-$caa9439642c6336c$export$2e2bcd8739ae039.store("pages", $9954130d663b77bc$export$2e2bcd8739ae039($caa9439642c6336c$export$2e2bcd8739ae039));
+const $d73574cc5e9b9e72$var$prefix = window.APP_NAME;
+$caa9439642c6336c$export$2e2bcd8739ae039.store("layout", $aabd7bdddb195dac$export$2e2bcd8739ae039($caa9439642c6336c$export$2e2bcd8739ae039, {
+    prefix: $d73574cc5e9b9e72$var$prefix
+}));
+$caa9439642c6336c$export$2e2bcd8739ae039.store("nav", $45e94a9374456304$export$2e2bcd8739ae039($caa9439642c6336c$export$2e2bcd8739ae039, {
+    prefix: $d73574cc5e9b9e72$var$prefix
+}));
+$caa9439642c6336c$export$2e2bcd8739ae039.store("inspector", $6a63819b7ed6d0ed$export$2e2bcd8739ae039($caa9439642c6336c$export$2e2bcd8739ae039, {
+    prefix: $d73574cc5e9b9e72$var$prefix
+}));
+$caa9439642c6336c$export$2e2bcd8739ae039.store("pages", $9954130d663b77bc$export$2e2bcd8739ae039($caa9439642c6336c$export$2e2bcd8739ae039, {
+    prefix: $d73574cc5e9b9e72$var$prefix
+}));
 // Components
 $caa9439642c6336c$export$2e2bcd8739ae039.data("app", $d709d0f4027033b2$export$2e2bcd8739ae039);
 [
-    $aa5e3083d1b53361$exports,
+    $f7552cd1b471b9cb$exports,
     $3f92713eb2b168a5$exports
 ].forEach((scripts)=>{
     const components = $5439cede634b2921$export$4e811121b221213b(scripts);

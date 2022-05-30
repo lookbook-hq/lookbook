@@ -1,10 +1,11 @@
 import config from "../config";
 import { addMediaQueryListener } from "../helpers/layout";
 import { log } from "../plugins/logger";
+import { prefixString } from "../helpers/string";
 
 const { sidebar, main, inspector } = config;
 
-export default function initLayoutStore(Alpine) {
+export default function initLayoutStore(Alpine, { prefix }) {
   return {
     init() {
       addMediaQueryListener(
@@ -33,7 +34,7 @@ export default function initLayoutStore(Alpine) {
       split: Alpine.$persist({
         direction: "vertical",
         sizes: [`${sidebar.defaultWidth}px`, "1fr"],
-      }).as("main-split"),
+      }).as(prefixString("main-split", prefix)),
 
       opts: {
         minSizes: [sidebar.minWidth, main.minWidth],
@@ -42,9 +43,13 @@ export default function initLayoutStore(Alpine) {
 
     // Sidebar visibility and sections
     sidebar: {
-      _hiddenDesktop: Alpine.$persist(false).as("sidebar-hidden-desktop"),
+      _hiddenDesktop: Alpine.$persist(false).as(
+        prefixString("sidebar-hidden-desktop", prefix)
+      ),
 
-      _hiddenMobile: Alpine.$persist(true).as("sidebar-hidden-mobile"),
+      _hiddenMobile: Alpine.$persist(true).as(
+        prefixString("sidebar-hidden-mobile", prefix)
+      ),
 
       set hidden(value) {
         if (Alpine.store("layout").desktop) {
@@ -65,10 +70,17 @@ export default function initLayoutStore(Alpine) {
       split: Alpine.$persist({
         direction: "horizontal",
         sizes: ["50%", "50%"],
-      }).as("sidebar-split"),
+      }).as(prefixString("sidebar-split", prefix)),
 
       opts: {
         minSizes: [sidebar.minSectionHeight, sidebar.minSectionHeight],
+      },
+    },
+
+    singleSectionSidebar: {
+      split: {
+        direction: "horizontal",
+        sizes: ["100%"],
       },
     },
 
@@ -78,12 +90,18 @@ export default function initLayoutStore(Alpine) {
         direction: "horizontal",
         horizontalSizes: ["1fr", `${inspector.drawer.defaultHeight}px`],
         verticalSizes: ["1fr", `${inspector.drawer.defaultWidth}px`],
-      }).as("inspector-split"),
+      }).as(prefixString("inspector-split", prefix)),
 
       opts: {
-        minVerticalSizes: [inspector.drawer.minWidth, inspector.drawer.minWidth],
-        minHorizontalSizes: [inspector.drawer.minHeight, inspector.drawer.minHeight],
-      }, 
+        minVerticalSizes: [
+          inspector.drawer.minWidth,
+          inspector.drawer.minWidth,
+        ],
+        minHorizontalSizes: [
+          inspector.drawer.minHeight,
+          inspector.drawer.minHeight,
+        ],
+      },
     },
 
     // protected

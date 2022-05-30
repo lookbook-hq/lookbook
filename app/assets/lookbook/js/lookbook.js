@@ -29,14 +29,14 @@ Alpine.plugin(Tooltip);
 Alpine.plugin(Logger);
 
 // Stores
-
-Alpine.store("layout", initLayoutStore(Alpine));
-Alpine.store("nav", initNavStore(Alpine));
-Alpine.store("inspector", initInspectorStore(Alpine));
-Alpine.store("pages", initPagesStore(Alpine));
+const prefix = window.APP_NAME;
+Alpine.store("layout", initLayoutStore(Alpine, { prefix }));
+Alpine.store("nav", initNavStore(Alpine, { prefix }));
+Alpine.store("inspector", initInspectorStore(Alpine, { prefix }));
+Alpine.store("pages", initPagesStore(Alpine, { prefix }));
 
 if (process.env.NODE_ENV !== "production") {
-  Alpine.store("workbench", initWorkbenchStore(Alpine));
+  Alpine.store("workbench", initWorkbenchStore(Alpine, { prefix }));
 }
 
 // Components

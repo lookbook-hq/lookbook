@@ -16,6 +16,7 @@
 
   <script>
     window.LOG_LEVEL = <%= Lookbook::Engine.log_level %>;
+    window.APP_NAME = "<%= Lookbook::Engine.app_name %>";
     <% if Lookbook::Engine.websocket %>
     window.SOCKET_PATH = "<%= Lookbook::Engine.websocket_mount_path %>";
     <% end %>

@@ -1,10 +1,11 @@
 import initFilterStore from "./filter";
+import { prefixString } from "../helpers/string";
 
-export default function initWorkbenchStore(Alpine) {
+export default function initWorkbenchStore(Alpine, { prefix }) {
   return {
-    filter: initFilterStore(Alpine, "workbench-filter"),
+    filter: initFilterStore(Alpine, prefixString("workbench-filter", prefix)),
     nav: {
-      open: Alpine.$persist([]).as("workbench-nav-open"),
+      open: Alpine.$persist([]).as(prefixString("workbench-nav-open", prefix)),
       location: {
         pathname: null,
       },
