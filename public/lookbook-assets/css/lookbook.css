@@ -2186,6 +2186,10 @@ pre[class*="language-"] {
   word-break: break-all;
 }
 
+.rounded-sm {
+  border-radius: .125rem;
+}
+
 .rounded-md {
   border-radius: .375rem;
 }

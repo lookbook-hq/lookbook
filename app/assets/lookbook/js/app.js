@@ -10,7 +10,7 @@ export default function app() {
     location: window.location,
 
     init() {
-      this.validateStorage();
+      // this.validateStorage();
 
       if (window.SOCKET_PATH) {
         const socket = createSocket(window.SOCKET_PATH);

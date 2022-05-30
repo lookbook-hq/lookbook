@@ -1,16 +1,24 @@
 <%= render_component_tag class: "h-full min-h-0 w-full overflow-hidden relative", "@viewport:reload.window": "reloadIframe" do %>
-    <div class="absolute border border-lookbook-divider w-full h-full"></div>
+  <div class="absolute border border-lookbook-divider w-full h-full"></div>
   <div
     x-ref="wrapper"
     class="mx-auto h-full w-full border border-b-0 border-lookbook-divider relative"
-    :style="`<% if @resize_width %>max-width: ${maxWidth};<% end %> <% if @resize_height %>max-height: ${maxHeight};<% end %>`">
+    :style="`<% if @resize_width %>max-width: ${maxWidth};<% end %>
+      <% if @resize_height && @max_height.present? %>
+        max-height: min(${maxHeight}, <%= @max_height %>px);
+      <% elsif @resize_height %>
+        max-height: ${maxHeight};
+      <% elsif @max_height.present? %>
+        max-height: <%= @max_height %>px;
+      <% end %>`">
     <div
       class="grid bg-white relative -inset-px <%= "grid-cols-[1fr_17px]" if @resize_width %> <%= "grid-rows-[1fr_17px]" if @resize_height %>"
-      style="width: calc(100% + 2px); height: calc(100% + 1px)">
+      style="width: calc(100% + 2px); height: calc(100% + 1px); <%= "max-height: #{@max_height}px;" if @max_height.present? %>">
       <iframe seamless
         x-ref="iframe"
         class="h-full w-full border border-lookbook-divider"
         :class="{ 'pointer-events-none': reflowing }"
+        style="<%= "max-height: #{@max_height}px;" if @max_height.present? %>"
         src="<%= @src %>"
         frameborder="0"
         @load="$dispatch('viewport:loaded', {viewport: this})"></iframe>

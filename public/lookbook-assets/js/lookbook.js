@@ -7106,7 +7106,7 @@ function $af7ba71c6eecd94a$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
 
 
 var $1cec3e2af7710087$exports = {};
-$1cec3e2af7710087$exports = JSON.parse("{\"name\":\"lookbook\",\"version\":\"0.8.2\",\"description\":\"A native development UI for ViewComponent\",\"targets\":{\"app\":{\"source\":[\"./app/assets/lookbook/js/embed.js\",\"./app/assets/lookbook/js/lookbook.js\",\"./app/assets/lookbook/css/lookbook.css\"],\"distDir\":\"./public/lookbook-assets\"}},\"alias\":{\"@helpers/*\":\"./app/assets/lookbook/js/helpers/$1\",\"@lib/*\":\"./app/assets/lookbook/js/lib/$1\",\"@components/*\":\"./app/components/lookbook/$1\"},\"scripts\":{\"dev\":\"parcel watch\",\"build\":\"parcel build --no-cache --no-optimize\",\"theme:generate\":\"npm run theme:generate:default && npm run theme:generate:blue && npm run theme:generate:zinc\",\"theme:generate:default\":\"bin/generate-theme\",\"theme:generate:blue\":\"bin/generate-theme --name=blue --accent=blue\",\"theme:generate:zinc\":\"bin/generate-theme --name=zinc --accent=zinc\",\"clean\":\"rm -rf .parcel-cache\",\"lint:fix\":\"standardrb --fix && prettier --write .\",\"release\":\"release-it\",\"release:dry-run\":\"release-it --dry-run\",\"workbench\":\"concurrently \\\"npm:workbench:serve\\\" \\\"npm:dev\\\"\",\"workbench:serve\":\"cd workbench; bin/rails s -p 4545\"},\"author\":\"Mark Perkins\",\"license\":\"MIT\",\"dependencies\":{\"@alpinejs/collapse\":\"^3.10.2\",\"@alpinejs/morph\":\"^3.10.2\",\"@alpinejs/persist\":\"^3.10.2\",\"@parcel/resolver-glob\":\"^2.4.0\",\"@rails/actioncable\":\"^6.1.4\",\"@ryangjchandler/alpine-tooltip\":\"^1.2.0\",\"@tailwindcss/forms\":\"^0.4.0\",\"@tailwindcss/typography\":\"^0.5.0\",\"alpinejs\":\"^3.10.2\",\"autoprefixer\":\"^10.4.0\",\"command-line-args\":\"^5.2.1\",\"debounce\":\"^1.2.1\",\"iframe-resizer\":\"^4.3.2\",\"loglevel\":\"^1.8.0\",\"loglevel-plugin-prefix\":\"^0.8.4\",\"parcel\":\"^2.0.1\",\"postcss\":\"^8.4.5\",\"postcss-import\":\"^14.0.2\",\"postcss-import-ext-glob\":\"^2.0.1\",\"split-grid\":\"^1.0.11\",\"tailwindcss\":\"^3.0.6\",\"tippy.js\":\"^6.3.2\"},\"devDependencies\":{\"@prettier/plugin-ruby\":\"^3.1.2\",\"eslint\":\"^7.32.0\",\"eslint-config-airbnb-base\":\"^14.2.1\",\"eslint-config-prettier\":\"^8.3.0\",\"eslint-plugin-import\":\"^2.25.2\",\"prettier\":\"2.3.2\",\"release-it\":\"^14.11.6\"},\"release-it\":{\"git\":{\"commitMessage\":\"release v${version}\"},\"github\":{\"release\":true},\"npm\":{\"publish\":false},\"hooks\":{\"before:init\":[\"bundle install\",\"rake test\"],\"after:bump\":\"npm run build\",\"after:version:bump\":\"rake 'lookbook:release:bump_version[${version}]' && bundle\",\"after:release\":\"rake 'lookbook:release:build_and_push'\"}}}");
+$1cec3e2af7710087$exports = JSON.parse("{\"name\":\"lookbook\",\"version\":\"0.8.2\",\"description\":\"A native development UI for ViewComponent\",\"targets\":{\"app\":{\"source\":[\"./app/assets/lookbook/js/embed.js\",\"./app/assets/lookbook/js/lookbook.js\",\"./app/assets/lookbook/css/lookbook.css\"],\"distDir\":\"./public/lookbook-assets\"}},\"alias\":{\"@helpers/*\":\"./app/assets/lookbook/js/helpers/$1\",\"@lib/*\":\"./app/assets/lookbook/js/lib/$1\",\"@components/*\":\"./app/components/lookbook/$1\"},\"scripts\":{\"dev\":\"parcel watch -p 5111\",\"build\":\"parcel build --no-cache --no-optimize\",\"theme:generate\":\"npm run theme:generate:default && npm run theme:generate:blue && npm run theme:generate:zinc\",\"theme:generate:default\":\"bin/generate-theme\",\"theme:generate:blue\":\"bin/generate-theme --name=blue --accent=blue\",\"theme:generate:zinc\":\"bin/generate-theme --name=zinc --accent=zinc\",\"clean\":\"rm -rf .parcel-cache\",\"lint:fix\":\"standardrb --fix && prettier --write .\",\"release\":\"release-it\",\"release:dry-run\":\"release-it --dry-run\",\"workbench\":\"concurrently \\\"npm:workbench:serve\\\" \\\"npm:dev\\\"\",\"workbench:serve\":\"cd workbench; bin/rails s -p 4545\"},\"author\":\"Mark Perkins\",\"license\":\"MIT\",\"dependencies\":{\"@alpinejs/collapse\":\"^3.10.2\",\"@alpinejs/morph\":\"^3.10.2\",\"@alpinejs/persist\":\"^3.10.2\",\"@parcel/resolver-glob\":\"^2.4.0\",\"@rails/actioncable\":\"^6.1.4\",\"@ryangjchandler/alpine-tooltip\":\"^1.2.0\",\"@tailwindcss/forms\":\"^0.4.0\",\"@tailwindcss/typography\":\"^0.5.0\",\"alpinejs\":\"^3.10.2\",\"autoprefixer\":\"^10.4.0\",\"command-line-args\":\"^5.2.1\",\"debounce\":\"^1.2.1\",\"iframe-resizer\":\"^4.3.2\",\"loglevel\":\"^1.8.0\",\"loglevel-plugin-prefix\":\"^0.8.4\",\"parcel\":\"^2.0.1\",\"postcss\":\"^8.4.5\",\"postcss-import\":\"^14.0.2\",\"postcss-import-ext-glob\":\"^2.0.1\",\"split-grid\":\"^1.0.11\",\"tailwindcss\":\"^3.0.6\",\"tippy.js\":\"^6.3.2\"},\"devDependencies\":{\"@prettier/plugin-ruby\":\"^3.1.2\",\"eslint\":\"^7.32.0\",\"eslint-config-airbnb-base\":\"^14.2.1\",\"eslint-config-prettier\":\"^8.3.0\",\"eslint-plugin-import\":\"^2.25.2\",\"prettier\":\"2.3.2\",\"release-it\":\"^14.11.6\"},\"release-it\":{\"git\":{\"commitMessage\":\"release v${version}\"},\"github\":{\"release\":true},\"npm\":{\"publish\":false},\"hooks\":{\"before:init\":[\"bundle install\",\"rake test\"],\"after:bump\":\"npm run build\",\"after:version:bump\":\"rake 'lookbook:release:bump_version[${version}]' && bundle\",\"after:release\":\"rake 'lookbook:release:build_and_push'\"}}}");
 
 
 var $7d6b1fa982d8364d$exports = {};
@@ -7762,7 +7762,7 @@ function $d709d0f4027033b2$export$2e2bcd8739ae039() {
         version: Alpine.$persist("").as("lookbook-version"),
         location: window.location,
         init () {
-            this.validateStorage();
+            // this.validateStorage();
             if (window.SOCKET_PATH) {
                 const socket = $ccd45e92e751836d$export$2e2bcd8739ae039(window.SOCKET_PATH);
                 socket.addListener("Lookbook::ReloadChannel", ()=>this.updateDOM()
@@ -7852,7 +7852,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $b40b0b74537cbda1$exports = {};
+var $15cdb2a3107397fd$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -12387,11 +12387,8 @@ function $e1f51f020443edd4$export$2e2bcd8739ae039(id, embedStore) {
             this.resizer = this.$el.querySelector("iframe").iFrameResizer;
             this.resizer.resize();
         },
-        resizeIframe (width) {
-            if (width !== this.store.width) {
-                this.store.width = width;
-                this.$el.querySelector("iframe").iFrameResizer.resize();
-            }
+        resizeIframe () {
+            this.$el.querySelector("iframe").iFrameResizer.resize();
         }
     };
 }
@@ -13046,30 +13043,6 @@ function $506dabb2bf255b38$var$sizeSplits(sizes) {
 }
 
 
-var $d69ee878996183ed$exports = {};
-
-$parcel$defineInteropFlag($d69ee878996183ed$exports);
-
-$parcel$export($d69ee878996183ed$exports, "default", () => $d69ee878996183ed$export$2e2bcd8739ae039);
-function $d69ee878996183ed$export$2e2bcd8739ae039(store) {
-    return {
-        get id () {
-            return this.$root.id;
-        },
-        get sections () {
-            return Array.from(this.$refs.sections.children);
-        },
-        isActive (el) {
-            return store.activeTab === this._getRef(el);
-        },
-        // protected
-        _getRef (el) {
-            return el.getAttribute("x-ref");
-        }
-    };
-}
-
-
 var $0db07828cadc68e0$exports = {};
 
 $parcel$defineInteropFlag($0db07828cadc68e0$exports);
@@ -13283,7 +13256,31 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$b40b0b74537cbda1$exports = {
+var $d69ee878996183ed$exports = {};
+
+$parcel$defineInteropFlag($d69ee878996183ed$exports);
+
+$parcel$export($d69ee878996183ed$exports, "default", () => $d69ee878996183ed$export$2e2bcd8739ae039);
+function $d69ee878996183ed$export$2e2bcd8739ae039(store) {
+    return {
+        get id () {
+            return this.$root.id;
+        },
+        get sections () {
+            return Array.from(this.$refs.sections.children);
+        },
+        isActive (el) {
+            return store.activeTab === this._getRef(el);
+        },
+        // protected
+        _getRef (el) {
+            return el.getAttribute("x-ref");
+        }
+    };
+}
+
+
+$15cdb2a3107397fd$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
@@ -13294,9 +13291,9 @@ $b40b0b74537cbda1$exports = {
     "nav": $d92d9d5253f84566$exports,
     "params_editor": $b63b9c6d236b3f65$exports,
     "split_layout": $506dabb2bf255b38$exports,
-    "tabbed_content": $d69ee878996183ed$exports,
     "tabs": $0db07828cadc68e0$exports,
-    "viewport": $6d64716f0b34fdf4$exports
+    "viewport": $6d64716f0b34fdf4$exports,
+    "tabbed_content": $d69ee878996183ed$exports
 };
 
 
@@ -13431,7 +13428,7 @@ $caa9439642c6336c$export$2e2bcd8739ae039.store("pages", $9954130d663b77bc$export
 // Components
 $caa9439642c6336c$export$2e2bcd8739ae039.data("app", $d709d0f4027033b2$export$2e2bcd8739ae039);
 [
-    $b40b0b74537cbda1$exports,
+    $15cdb2a3107397fd$exports,
     $e4eab7529959b73b$exports
 ].forEach((scripts)=>{
     const components = $5439cede634b2921$export$4e811121b221213b(scripts);

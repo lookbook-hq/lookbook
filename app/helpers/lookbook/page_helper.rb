@@ -11,7 +11,7 @@ module Lookbook
       end
     end
 
-    def embed(*args, params: {}, type: :preview, **opts)
+    def embed(*args, params: {}, type: :preview, max_height: nil, **opts)
       return unless args.any?
 
       @embed_counter ||= 0
@@ -26,6 +26,7 @@ module Lookbook
         id: embed_id,
         example: example,
         params: params,
+        max_height: max_height,
         opts: opts
     end
   end

@@ -25,11 +25,8 @@ export default function embedComponent(id, embedStore) {
       this.resizer.resize();
     },
 
-    resizeIframe(width) {
-      if (width !== this.store.width) {
-        this.store.width = width;
-        this.$el.querySelector("iframe").iFrameResizer.resize();
-      }
+    resizeIframe() {
+      this.$el.querySelector("iframe").iFrameResizer.resize();
     },
   };
 }
