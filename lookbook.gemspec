@@ -22,4 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "listen", "~> 3.0"
   spec.add_dependency "yard", "~> 0.9.25"
   spec.add_dependency "htmlbeautifier", "~> 1.3"
+  spec.add_dependency "htmlentities"
 end

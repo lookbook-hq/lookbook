@@ -1,11 +1,13 @@
 require "rouge"
 require "htmlbeautifier"
+require 'htmlentities'
 
 module Lookbook
   module CodeFormatter
     class << self
       def highlight(source, **opts)
-        source&.gsub!("&gt;", ">")&.gsub!("&lt;", "<")
+        coder = HTMLEntities.new
+        source = coder.decode source
         language = opts[:language] || "ruby"
         formatter = Formatter.new(**opts)
         lexer = Rouge::Lexer.find(language.to_s) || Rouge::Lexer.find("plaintext")
