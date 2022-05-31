@@ -22,6 +22,10 @@ module Lookbook
         config: config
       }
     end
+
+    def configure
+      yield(config)
+    end
   end
 
   class Engine < Rails::Engine
@@ -72,7 +76,8 @@ module Lookbook
       options.parser_registry_path ||= Rails.root.join("tmp/storage/.yardoc")
 
       options.ui_theme ||= :default
-      options.ui_theme_css = options.ui_theme_css.present? ? Rails.root.join(options.ui_theme_css) : nil
+      options.ui_styles ||= nil
+      options.ui_stylesheet ||= options.ui_stylesheet.present? ? Rails.root.join(options.ui_stylesheet) : nil
 
       options.experimental_features = false unless options.experimental_features.present?
     end
