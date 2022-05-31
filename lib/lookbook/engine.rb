@@ -16,6 +16,12 @@ module Lookbook
     def version
       Lookbook::VERSION
     end
+
+    def debug_data
+      {
+        config: config
+      }
+    end
   end
 
   class Engine < Rails::Engine
@@ -50,6 +56,7 @@ module Lookbook
       options.preview_controller = vc_options.preview_controller if options.preview_controller.nil?
       options.preview_srcdoc = false if options.preview_srcdoc.nil?
       options.preview_display_params ||= {}.with_indifferent_access
+      options.preview_options ||= {}.with_indifferent_access
 
       options.listen = Rails.env.development? if options.listen.nil?
       options.listen_use_polling = false if options.listen_use_polling.nil?

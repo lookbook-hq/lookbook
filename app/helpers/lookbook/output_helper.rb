@@ -11,5 +11,9 @@ module Lookbook
     def beautify(source, **opts)
       Lookbook::CodeFormatter.beautify(source, **opts)
     end
+
+    def pretty_json(obj)
+      JSON.pretty_generate(obj)
+    end
   end
 end

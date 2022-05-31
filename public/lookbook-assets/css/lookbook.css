@@ -2611,6 +2611,11 @@ pre[class*="language-"] {
   color: var(--lookbook-branding-text);
 }
 
+.text-green-600 {
+  --tw-text-opacity: 1;
+  color: rgb(22 163 74 / var(--tw-text-opacity) );
+}
+
 .text-lookbook-prose-text {
   color: var(--lookbook-prose-text);
 }

@@ -30,6 +30,13 @@
   <title><%= [@title, config.project_name || "Lookbook"].compact.join(" :: ") %></title>
 </head>
 <body class="theme-<%= config.ui_theme %>">
+  
   <%= yield :body %>
+  
+  <% if Rails.env.development? %>
+    <div id="debug-data" class="hidden" x-cloak>
+      <%= pretty_json(Lookbook.debug_data) %>
+    </div>
+  <% end %>
 </body>
 </html>
