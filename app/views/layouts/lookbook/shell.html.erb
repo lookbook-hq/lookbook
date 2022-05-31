@@ -9,7 +9,7 @@
     @menu:hide="enableTooltips"
     class="w-screen h-screen grid grid-rows-[40px_1fr] relative">
 
-    <%= render_component :toolbar do |toolbar| %>
+    <%= render_component :toolbar, class: "group" do |toolbar| %>
       <% toolbar.section padded: true do %>
         <%= render_component :branding,
           text: config.project_name,
@@ -19,22 +19,24 @@
         <%= render_component :button_group do |group| %>
 
           <% if Rails.env == "development" %>
-            <% group.button icon: :info do |menu| %>
-              <% menu.item class: "overflow-hidden" do %>
-                <%= tag.div class: "px-4 py-2 min-w-0" do %>
-                  <a href="https://github.com/allmarkedup/lookbook" target="_blank" class="flex items-center">
-                    <span class="text-xs mr-auto">Lookbook v<%= Lookbook::VERSION %></span>
+            <% group.button icon: :help_circle, class: "opacity-30 group-hover:opacity-100 transition" do |menu| %>
+              <% menu.section class: "overflow-hidden" do %>
+                <%= tag.div class: "px-3 py-2 min-w-0 text-xs flex items-center min-w-[180px]" do %>
+                  <span class="opacity-60 mr-1">Lookbook</span>
+                  <span>v<%= Lookbook::VERSION %></span>
+                  <a href="https://github.com/allmarkedup/lookbook" target="_blank" class="ml-auto opacity-70">
                     <%= render_component :icon, name: :github, size: 3 %>
                   </a>
                 <% end %>
               <% end %>
-              <% menu.item do %>
-                <%= tag.div class: "px-4 py-2" do %>
-                  <span
-                    class="block bg-red-600 hover:bg-red-700 transition text-white px-3 py-1.5 text-xs"
+
+              <% menu.section do %>
+                <%= tag.div class: "px-3 py-2" do %>
+                  <a href="#"
+                    class="text-xs text-lookbook-prose-link underline"
                     @click.stop="localStorage.clear(); window.location.reload();">
-                    clear local storage
-                  </span>
+                    Clear local storage
+                  </a>
                 <% end %>
               <% end %>
             <% end %>

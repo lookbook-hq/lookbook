@@ -5,9 +5,7 @@
   "@keydown.esc.stop": "hideMenu" do %>
   <div class="hidden" x-ref="menu">
     <div class="bg-white divide-y divide-lookbook-divider text-left">
-      <% items.each do |item| %>
-        <%== item %>
-      <% end %>
+      <%== safe_join(sections) %>
     </div>
   </div>
 <% end %>

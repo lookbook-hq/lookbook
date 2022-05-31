@@ -15,7 +15,7 @@ export default function menuButtonComponent() {
         interactive: true,
         arrow: true,
         zIndex: 99999,
-        appendTo: this.$el,
+        // appendTo: "parent",
         onShow: () => this.$dispatch("menu:show", { menu: this }),
         onHide: () => this.$dispatch("menu:hide", { menu: this }),
       });

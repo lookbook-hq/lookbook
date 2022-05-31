@@ -12,7 +12,8 @@ module Workbench
 
     config.view_component.preview_paths << Rails.root.join("app/previews").to_s
     config.view_component.view_component_path = "../../app/components"
-
     config.view_component.preview_controller = "PreviewController"
+
+    config.lookbook.page_paths << Rails.root.join("docs").to_s
   end
 end

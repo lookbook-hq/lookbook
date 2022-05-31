@@ -1754,16 +1754,16 @@ pre[class*="language-"] {
   margin-left: .5rem;
 }
 
-.mr-auto {
-  margin-right: auto;
-}
-
-.mt-12 {
-  margin-top: 3rem;
+.mr-1 {
+  margin-right: .25rem;
 }
 
 .ml-auto {
   margin-left: auto;
+}
+
+.mt-12 {
+  margin-top: 3rem;
 }
 
 .mr-2 {
@@ -1786,8 +1786,8 @@ pre[class*="language-"] {
   margin-left: -.75rem;
 }
 
-.mr-1 {
-  margin-right: .25rem;
+.mr-auto {
+  margin-right: auto;
 }
 
 .mr-1\.5 {
@@ -1928,6 +1928,10 @@ pre[class*="language-"] {
 
 .min-w-0 {
   min-width: 0;
+}
+
+.min-w-\[180px\] {
+  min-width: 180px;
 }
 
 .min-w-\[140px\] {
@@ -2301,11 +2305,6 @@ pre[class*="language-"] {
   background-color: #0000;
 }
 
-.bg-red-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(220 38 38 / var(--tw-bg-opacity) );
-}
-
 .bg-lookbook-drawer {
   background-color: var(--lookbook-drawer);
 }
@@ -2400,19 +2399,14 @@ pre[class*="language-"] {
   padding-right: .75rem;
 }
 
-.py-1\.5 {
-  padding-top: .375rem;
-  padding-bottom: .375rem;
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .py-1 {
   padding-top: .25rem;
   padding-bottom: .25rem;
-}
-
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 
 .px-1 {
@@ -2569,9 +2563,8 @@ pre[class*="language-"] {
   color: rgb(153 27 27 / var(--tw-text-opacity) );
 }
 
-.text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity) );
+.text-lookbook-prose-link {
+  color: var(--lookbook-prose-link);
 }
 
 .text-lookbook-branding-text {
@@ -2647,12 +2640,16 @@ pre[class*="language-"] {
   opacity: .9;
 }
 
-.\!opacity-100 {
-  opacity: 1 !important;
+.opacity-60 {
+  opacity: .6;
 }
 
 .opacity-70 {
   opacity: .7;
+}
+
+.\!opacity-100 {
+  opacity: 1 !important;
 }
 
 .shadow {
@@ -3038,11 +3035,6 @@ pre[class*="language-"] {
   --lookbook-draggable-hint: #e0e7ff33;
 }
 
-.hover\:bg-red-700:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(185 28 28 / var(--tw-bg-opacity) );
-}
-
 .hover\:bg-lookbook-draggable-hint:hover {
   background-color: var(--lookbook-draggable-hint);
 }
@@ -3106,6 +3098,10 @@ pre[class*="language-"] {
 .focus-visible\:outline-none:focus-visible {
   outline-offset: 2px;
   outline: 2px solid #0000;
+}
+
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1;
 }
 
 .prose-a\:text-lookbook-prose-link :is(:where(a):not(:where([class~="not-prose"] *))) {
