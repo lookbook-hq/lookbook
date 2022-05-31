@@ -8,7 +8,9 @@ export default function buttonComponent() {
   return {
     init() {
       if (this.$refs.tooltip) {
-        tooltip = initTooltip(this);
+        tooltip = initTooltip(this, {
+          target: this.$refs.icon,
+        });
       }
 
       if (this.$refs.dropdown) {

@@ -1,11 +1,11 @@
 import tippy from "../lib/tippy";
 
-function tooltipCreator() {
+function tooltipCreator({ target }) {
   const content =
     this.$el.dataset.tooltipText ||
     (this.$refs.tooltip ? this.$refs.tooltip.innerHTML : null);
   if (content) {
-    return tippy(this.$refs.tooltipTarget || this.$el, {
+    return tippy(target || this.$refs.tooltipTarget || this.$el, {
       delay: [200, 0],
       content,
       theme: "tooltip",
@@ -15,8 +15,8 @@ function tooltipCreator() {
   }
 }
 
-function initTooltip(context) {
-  return tooltipCreator.bind(context)();
+function initTooltip(context, opts) {
+  return tooltipCreator.bind(context)(opts || {});
 }
 
 export default function tooltipComponent() {
