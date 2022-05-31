@@ -4,9 +4,12 @@ require "action_cable/engine"
 require "listen"
 
 module Lookbook
+
+  autoload :Config, "lookbook/config"
+  
   class << self
     def config
-      @config ||= Engine.config.lookbook
+      @config ||= Config.new
     end
 
     def logger
@@ -33,55 +36,18 @@ module Lookbook
   class Engine < Rails::Engine
     isolate_namespace Lookbook
 
-    config.lookbook = ActiveSupport::OrderedOptions.new
-    config.lookbook.listen_paths ||= []
-    config.lookbook.preview_paths ||= []
-    config.lookbook.page_paths ||= ["test/components/docs"]
-
+    config.lookbook = Lookbook.config
     config.autoload_paths << File.expand_path(Lookbook::Engine.root.join("app/components"))
 
-    initializer "view_component.set_configs" do
+    initializer "lookbook.config" do
       options = config.lookbook
       vc_options = config.view_component
-
-      options.project_name ||= options.project_name == false ? nil : options.project_name || "Lookbook"
-      options.auto_refresh = true if options.auto_refresh.nil?
-      options.log_level ||= 2
-      options.sort_examples = false if options.sort_examples.nil?
-
-      options.preview_paths = options.preview_paths.map(&:to_s)
+      
       options.preview_paths += vc_options.preview_paths
+      options.preview_controller ||= vc_options.preview_controller
 
-      options.page_paths = options.page_paths.map(&:to_s)
-      options.page_controller = "Lookbook::PageController" if options.page_controller.nil?
-      options.page_route ||= "pages"
-      options.page_options ||= {}.with_indifferent_access
-
-      options.markdown_options = Markdown::DEFAULT_OPTIONS.merge(options.markdown_options || {})
-
-      options.preview_controller = vc_options.preview_controller if options.preview_controller.nil?
-      options.preview_srcdoc = false if options.preview_srcdoc.nil?
-      options.preview_display_params ||= {}.with_indifferent_access
-      options.preview_options ||= {}.with_indifferent_access
-
-      options.listen = Rails.env.development? if options.listen.nil?
-      options.listen_use_polling = false if options.listen_use_polling.nil?
-      options.listen_paths = options.listen_paths.map(&:to_s)
       options.listen_paths += options.preview_paths
-      options.listen_paths << (vc_options.view_component_path || Rails.root.join("app/components"))
-      options.listen_paths.filter! { |path| Dir.exist? path }
-
-      options.cable_mount_path ||= "/lookbook-cable"
-      options.cable_logger ||= Lookbook.logger
-
-      options.runtime_parsing = !Rails.env.production? if options.runtime_parsing.nil?
-      options.parser_registry_path ||= Rails.root.join("tmp/storage/.yardoc")
-
-      options.ui_theme ||= :default
-      options.ui_styles ||= nil
-      options.ui_stylesheet ||= options.ui_stylesheet.present? ? Rails.root.join(options.ui_stylesheet) : nil
-
-      options.experimental_features = false unless options.experimental_features.present?
+      options.listen_paths << (vc_options.view_component_path.presence || "app/components")
     end
 
     initializer "lookbook.logging.development" do
@@ -120,7 +86,7 @@ module Lookbook
         Lookbook::Engine.register_listener(preview_listener)
 
         page_listener = Listen.to(
-          *config.lookbook.page_paths.filter { |dir| Dir.exist? dir },
+          *config.lookbook.page_paths,
           only: /\.(html.*|md.*)$/,
           force_polling: Lookbook.config.listen_use_polling
         ) do |modified, added, removed|
