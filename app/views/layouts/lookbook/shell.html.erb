@@ -5,6 +5,8 @@
     @popstate.window="handleNavigation"
     @click.document="hijax"
     @navigation:start="closeMobileSidebar"
+    @menu:show="disableTooltips"
+    @menu:hide="enableTooltips"
     class="w-screen h-screen grid grid-rows-[40px_1fr] relative">
 
     <%= render_component :toolbar do |toolbar| %>
@@ -13,18 +15,39 @@
           text: config.project_name,
           href: landing_path if config.project_name %>
       <% end %>
-      <% toolbar.section padded: true, align: :right do %>
-        <%= render_component :button,
-            icon: :menu,
+      <% toolbar.section padded: false, align: :right, class: "flex items-center" do %>
+        <%= render_component :button_group do |group| %>
+
+          <% if Rails.env == "development" %>
+            <% group.button icon: :info do |menu| %>
+              <% menu.item class: "overflow-hidden" do %>
+                <%= tag.div class: "px-4 py-2 min-w-0" do %>
+                  <a href="https://github.com/allmarkedup/lookbook" target="_blank" class="flex items-center">
+                    <span class="text-xs mr-auto">Lookbook v<%= Lookbook::VERSION %></span>
+                    <%= render_component :icon, name: :github, size: 3 %>
+                  </a>
+                <% end %>
+              <% end %>
+              <% menu.item do %>
+                <%= tag.div class: "px-4 py-2" do %>
+                  <span
+                    class="block bg-red-600 hover:bg-red-700 transition text-white px-3 py-1.5 text-xs"
+                    @click.stop="localStorage.clear(); window.location.reload();">
+                    clear local storage
+                  </span>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+
+          <% group.button icon: :menu,
             "@click.stop": "toggleSidebar",
-            class: "-mr-2",
             x_show: "$store.layout.mobile && sidebarHidden" %>
-         <%= render_component :button,
-            icon: :x,
+         <% group.button icon: :x,
             "@click.stop": "toggleSidebar",
-            class: "-mr-2",
             x_show: "$store.layout.mobile && !sidebarHidden",
             "@keydown.esc.window": "closeMobileSidebar" %>
+        <% end %>    
       <% end %>
     <% end %>
     

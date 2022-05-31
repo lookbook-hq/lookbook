@@ -1,13 +1,14 @@
 <%= render_component_tag tag_name,
   href: @href,
   class: [
-    "block bg-white text-lookbook-button-text #{padding}",
+    "block bg-white text-lookbook-button-text focus:outline-none focus-visible:outline-none #{padding}",
     {
       "hover:text-lookbook-button-text-hover": !@disabled,
       "cursor-[not-allowed] opacity-50": @disabled
     }
   ],
-  disabled: @disabled do %>
+  disabled: @disabled,
+  x_effect: "$store.settings.showTooltips ? enableTooltip() : disableTooltip()" do %>
   <span x-ref="icon">
     <%= icon || render_component(:icon, name: @icon, size: icon_size, ":class": "{'animate-spin': _spinning}") %>
   </span>

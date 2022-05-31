@@ -28,7 +28,7 @@
     "lint:fix": "standardrb --fix && prettier --write .",
     "release": "release-it",
     "release:dry-run": "release-it --dry-run",
-    "workbench": "concurrently \"npm:workbench:serve\" \"npm:dev\"",
+    "workbench": "npm run clean & concurrently \"npm:workbench:serve\" \"npm:dev\"",
     "workbench:serve": "cd workbench; bin/rails s -p 4545"
   },
   "author": "Mark Perkins",
@@ -59,6 +59,7 @@
   },
   "devDependencies": {
     "@prettier/plugin-ruby": "^3.1.2",
+    "concurrently": "^7.2.1",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",

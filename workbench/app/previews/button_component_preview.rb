@@ -37,4 +37,10 @@ class ButtonComponentPreview < ViewComponent::Preview
   def playground(icon: :book, size: :md, tooltip: "An example tooltip")
     render Lookbook::Button::Component.new icon: icon, size: size, tooltip: tooltip
   end
+
+  def with_content
+    render Lookbook::Button::Component.new icon: :book do
+      tag.div "Some content within the button", class: "mt-2"
+    end
+  end
 end

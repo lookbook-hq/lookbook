@@ -7069,6 +7069,14 @@ function $9954130d663b77bc$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
 
 
 
+function $96e0343bbb13096b$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
+    return {
+        showTooltips: true
+    };
+}
+
+
+
 
 function $af7ba71c6eecd94a$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
     return {
@@ -7103,10 +7111,6 @@ function $af7ba71c6eecd94a$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
         }
     };
 }
-
-
-var $1cec3e2af7710087$exports = {};
-$1cec3e2af7710087$exports = JSON.parse("{\"name\":\"lookbook\",\"version\":\"0.8.2\",\"description\":\"A native development UI for ViewComponent\",\"targets\":{\"app\":{\"source\":[\"./app/assets/lookbook/js/embed.js\",\"./app/assets/lookbook/js/lookbook.js\",\"./app/assets/lookbook/css/lookbook.css\"],\"distDir\":\"./public/lookbook-assets\"}},\"alias\":{\"@helpers/*\":\"./app/assets/lookbook/js/helpers/$1\",\"@lib/*\":\"./app/assets/lookbook/js/lib/$1\",\"@components/*\":\"./app/components/lookbook/$1\"},\"scripts\":{\"dev\":\"parcel watch -p 5111\",\"build\":\"parcel build --no-cache --no-optimize\",\"theme:generate\":\"npm run theme:generate:default && npm run theme:generate:blue && npm run theme:generate:zinc\",\"theme:generate:default\":\"bin/generate-theme\",\"theme:generate:blue\":\"bin/generate-theme --name=blue --accent=blue\",\"theme:generate:zinc\":\"bin/generate-theme --name=zinc --accent=zinc\",\"clean\":\"rm -rf .parcel-cache\",\"lint:fix\":\"standardrb --fix && prettier --write .\",\"release\":\"release-it\",\"release:dry-run\":\"release-it --dry-run\",\"workbench\":\"concurrently \\\"npm:workbench:serve\\\" \\\"npm:dev\\\"\",\"workbench:serve\":\"cd workbench; bin/rails s -p 4545\"},\"author\":\"Mark Perkins\",\"license\":\"MIT\",\"dependencies\":{\"@alpinejs/collapse\":\"^3.10.2\",\"@alpinejs/morph\":\"^3.10.2\",\"@alpinejs/persist\":\"^3.10.2\",\"@parcel/resolver-glob\":\"^2.4.0\",\"@rails/actioncable\":\"^6.1.4\",\"@ryangjchandler/alpine-tooltip\":\"^1.2.0\",\"@tailwindcss/forms\":\"^0.4.0\",\"@tailwindcss/typography\":\"^0.5.0\",\"alpinejs\":\"^3.10.2\",\"autoprefixer\":\"^10.4.0\",\"command-line-args\":\"^5.2.1\",\"debounce\":\"^1.2.1\",\"iframe-resizer\":\"^4.3.2\",\"loglevel\":\"^1.8.0\",\"loglevel-plugin-prefix\":\"^0.8.4\",\"parcel\":\"^2.0.1\",\"postcss\":\"^8.4.5\",\"postcss-import\":\"^14.0.2\",\"postcss-import-ext-glob\":\"^2.0.1\",\"split-grid\":\"^1.0.11\",\"tailwindcss\":\"^3.0.6\",\"tippy.js\":\"^6.3.2\"},\"devDependencies\":{\"@prettier/plugin-ruby\":\"^3.1.2\",\"eslint\":\"^7.32.0\",\"eslint-config-airbnb-base\":\"^14.2.1\",\"eslint-config-prettier\":\"^8.3.0\",\"eslint-plugin-import\":\"^2.25.2\",\"prettier\":\"2.3.2\",\"release-it\":\"^14.11.6\"},\"release-it\":{\"git\":{\"commitMessage\":\"release v${version}\"},\"github\":{\"release\":true},\"npm\":{\"publish\":false},\"hooks\":{\"before:init\":[\"bundle install\",\"rake test\"],\"after:bump\":\"npm run build\",\"after:version:bump\":\"rake 'lookbook:release:bump_version[${version}]' && bundle\",\"after:release\":\"rake 'lookbook:release:build_and_push'\"}}}");
 
 
 var $7d6b1fa982d8364d$exports = {};
@@ -7741,6 +7745,11 @@ function $e263283f97229955$export$bdf7e699b242f476(el, opts = {}) {
         height: opts.includeMargins ? el.offsetHeight + parseInt(style.getPropertyValue("margin-top")) + parseInt(style.getPropertyValue("margin-bottom")) : el.offsetHeight
     };
 }
+function $e263283f97229955$export$b98882f166bb7ce2(link) {
+    if (link.getAttribute("target") === "_blank") return true;
+    if (link.href) return link.host !== window.location.host;
+    return false;
+}
 
 
 async function $e8e1f68a69f95ce8$export$51c59e2af49c1a92(url, selector) {
@@ -7757,12 +7766,12 @@ async function $e8e1f68a69f95ce8$export$51c59e2af49c1a92(url, selector) {
 }
 
 
+
 function $d709d0f4027033b2$export$2e2bcd8739ae039() {
     return {
         version: Alpine.$persist("").as("lookbook-version"),
         location: window.location,
         init () {
-            // this.validateStorage();
             if (window.SOCKET_PATH) {
                 const socket = $ccd45e92e751836d$export$2e2bcd8739ae039(window.SOCKET_PATH);
                 socket.addListener("Lookbook::ReloadChannel", ()=>this.updateDOM()
@@ -7783,7 +7792,7 @@ function $d709d0f4027033b2$export$2e2bcd8739ae039() {
         },
         hijax (evt) {
             const link = evt.target.closest("a[href]");
-            if (link && !$d709d0f4027033b2$var$isExternalLink(link)) {
+            if (link && !$e263283f97229955$export$b98882f166bb7ce2(link)) {
                 evt.preventDefault();
                 this.navigateTo(link.href);
             }
@@ -7802,32 +7811,23 @@ function $d709d0f4027033b2$export$2e2bcd8739ae039() {
                 window.location.reload();
             }
         },
-        validateStorage () {
-            if (this.version && this.version.split(".")[0] !== (/*@__PURE__*/$parcel$interopDefault($1cec3e2af7710087$exports)).version.split(".")[0]) {
-                localStorage.clear();
-                this.warn(`
-          The data in localStorage is incomaptible with this version of Lookbook.
-          Storage data has been cleared.
-        `);
-            }
-            this.version = (/*@__PURE__*/$parcel$interopDefault($1cec3e2af7710087$exports)).version;
-        },
         toggleSidebar () {
             this.$store.layout.sidebar.hidden = !this.$store.layout.sidebar.hidden;
         },
         closeMobileSidebar () {
             if (this.$store.layout.mobile && !this.sidebarHidden) this.toggleSidebar();
         },
+        disableTooltips () {
+            this.$store.settings.showTooltips = false;
+        },
+        enableTooltips () {
+            this.$store.settings.showTooltips = true;
+        },
         get sidebarHidden () {
             return this.$store.layout.sidebar.hidden;
         },
         ...Alpine.$log
     };
-}
-function $d709d0f4027033b2$var$isExternalLink(link) {
-    if (link.getAttribute("target") === "_blank") return true;
-    if (link.href) return link.host !== window.location.host;
-    return false;
 }
 
 
@@ -7852,7 +7852,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $15cdb2a3107397fd$exports = {};
+var $1ffacd2707df3a0f$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11430,9 +11430,17 @@ var $d6f449055c23f07a$export$2e2bcd8739ae039 = $b013befce1f6217f$export$2e2bcd87
 
 
 function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
+    let labelTippy = null;
     return {
         init () {
-            this._initTippy();
+            if (this.$refs.tooltip) labelTippy = $d6f449055c23f07a$export$2e2bcd8739ae039(this.$refs.icon, {
+                delay: [
+                    200,
+                    0
+                ],
+                triggerTarget: this.$el,
+                content: this.$refs.tooltip.innerHTML
+            });
         },
         startSpin () {
             this._spinning = true;
@@ -11441,14 +11449,16 @@ function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
             setTimeout(()=>this._spinning = false
             , delay);
         },
-        _spinning: false,
-        _initTippy () {
-            if (this.$refs.tooltip) this._labelTippy = $d6f449055c23f07a$export$2e2bcd8739ae039(this.$refs.icon, {
-                triggerTarget: this.$el,
-                content: this.$refs.tooltip.innerHTML
-            });
+        enableTooltip () {
+            if (labelTippy) labelTippy.enable();
         },
-        _labelTippy: null
+        disableTooltip () {
+            if (labelTippy) labelTippy.disable();
+        },
+        get _labelTippy () {
+            return labelTippy;
+        },
+        _spinning: false
     };
 }
 
@@ -11472,6 +11482,7 @@ $parcel$export($47a1c62621be0c54$exports, "default", () => $47a1c62621be0c54$exp
 
 function $47a1c62621be0c54$export$2e2bcd8739ae039(target = null) {
     const button = $cbd28b10fa9798c7$export$2e2bcd8739ae039();
+    let notificationTippy = null;
     return {
         ...button,
         done: false,
@@ -11479,7 +11490,7 @@ function $47a1c62621be0c54$export$2e2bcd8739ae039(target = null) {
             button.init.bind(this)();
             if (target === null) this._copyTarget = this.$refs.copyContent;
             else this._copyTarget = typeof target === "string" ? document.querySelector(target) : target;
-            this._notificationTippy = $d6f449055c23f07a$export$2e2bcd8739ae039(this.$el, {
+            notificationTippy = $d6f449055c23f07a$export$2e2bcd8739ae039(this.$el, {
                 content: "Copied!",
                 trigger: "manual"
             });
@@ -11487,11 +11498,11 @@ function $47a1c62621be0c54$export$2e2bcd8739ae039(target = null) {
         async copyToClipboard () {
             await window.navigator.clipboard.writeText(this.getContent());
             this.done = true;
-            this._notificationTippy.show();
+            notificationTippy.show();
             if (this._labelTippy) this._labelTippy.hide();
             setTimeout(()=>{
                 this.done = false;
-                this._notificationTippy.hide();
+                notificationTippy.hide();
             }, 1000);
         },
         getContent () {
@@ -11499,8 +11510,7 @@ function $47a1c62621be0c54$export$2e2bcd8739ae039(target = null) {
             decoder.innerHTML = this._copyTarget ? this._copyTarget.innerHTML : "";
             return decoder.value.trim();
         },
-        _copyTarget: null,
-        _notificationTippy: null
+        _copyTarget: null
     };
 }
 
@@ -12431,6 +12441,43 @@ function $36506012e0c6e9e3$export$2e2bcd8739ae039(iconName) {
 }
 
 
+var $349781c3487a02fb$exports = {};
+
+$parcel$defineInteropFlag($349781c3487a02fb$exports);
+
+$parcel$export($349781c3487a02fb$exports, "default", () => $349781c3487a02fb$export$2e2bcd8739ae039);
+
+
+function $349781c3487a02fb$export$2e2bcd8739ae039() {
+    const button = $cbd28b10fa9798c7$export$2e2bcd8739ae039();
+    let menuTippy = null;
+    return {
+        ...button,
+        async init () {
+            menuTippy = $d6f449055c23f07a$export$2e2bcd8739ae039(this.$el, {
+                content: this.$refs.menu.innerHTML,
+                trigger: "click",
+                theme: "menu",
+                interactive: true,
+                arrow: true,
+                zIndex: 99999,
+                appendTo: this.$el,
+                onShow: ()=>this.$dispatch("menu:show", {
+                        menu: this
+                    })
+                ,
+                onHide: ()=>this.$dispatch("menu:hide", {
+                        menu: this
+                    })
+            });
+        },
+        hideMenu () {
+            menuTippy.hide();
+        }
+    };
+}
+
+
 var $d92d9d5253f84566$exports = {};
 
 $parcel$defineInteropFlag($d92d9d5253f84566$exports);
@@ -13043,6 +13090,30 @@ function $506dabb2bf255b38$var$sizeSplits(sizes) {
 }
 
 
+var $d69ee878996183ed$exports = {};
+
+$parcel$defineInteropFlag($d69ee878996183ed$exports);
+
+$parcel$export($d69ee878996183ed$exports, "default", () => $d69ee878996183ed$export$2e2bcd8739ae039);
+function $d69ee878996183ed$export$2e2bcd8739ae039(store) {
+    return {
+        get id () {
+            return this.$root.id;
+        },
+        get sections () {
+            return Array.from(this.$refs.sections.children);
+        },
+        isActive (el) {
+            return store.activeTab === this._getRef(el);
+        },
+        // protected
+        _getRef (el) {
+            return el.getAttribute("x-ref");
+        }
+    };
+}
+
+
 var $0db07828cadc68e0$exports = {};
 
 $parcel$defineInteropFlag($0db07828cadc68e0$exports);
@@ -13256,31 +13327,7 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-var $d69ee878996183ed$exports = {};
-
-$parcel$defineInteropFlag($d69ee878996183ed$exports);
-
-$parcel$export($d69ee878996183ed$exports, "default", () => $d69ee878996183ed$export$2e2bcd8739ae039);
-function $d69ee878996183ed$export$2e2bcd8739ae039(store) {
-    return {
-        get id () {
-            return this.$root.id;
-        },
-        get sections () {
-            return Array.from(this.$refs.sections.children);
-        },
-        isActive (el) {
-            return store.activeTab === this._getRef(el);
-        },
-        // protected
-        _getRef (el) {
-            return el.getAttribute("x-ref");
-        }
-    };
-}
-
-
-$15cdb2a3107397fd$exports = {
+$1ffacd2707df3a0f$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
@@ -13288,12 +13335,13 @@ $15cdb2a3107397fd$exports = {
     "embed": $e1f51f020443edd4$exports,
     "filter": $e9904a14dabf652d$exports,
     "icon": $36506012e0c6e9e3$exports,
+    "menu_button": $349781c3487a02fb$exports,
     "nav": $d92d9d5253f84566$exports,
     "params_editor": $b63b9c6d236b3f65$exports,
     "split_layout": $506dabb2bf255b38$exports,
+    "tabbed_content": $d69ee878996183ed$exports,
     "tabs": $0db07828cadc68e0$exports,
-    "viewport": $6d64716f0b34fdf4$exports,
-    "tabbed_content": $d69ee878996183ed$exports
+    "viewport": $6d64716f0b34fdf4$exports
 };
 
 
@@ -13425,10 +13473,13 @@ $caa9439642c6336c$export$2e2bcd8739ae039.store("inspector", $6a63819b7ed6d0ed$ex
 $caa9439642c6336c$export$2e2bcd8739ae039.store("pages", $9954130d663b77bc$export$2e2bcd8739ae039($caa9439642c6336c$export$2e2bcd8739ae039, {
     prefix: $d73574cc5e9b9e72$var$prefix
 }));
+$caa9439642c6336c$export$2e2bcd8739ae039.store("settings", $96e0343bbb13096b$export$2e2bcd8739ae039($caa9439642c6336c$export$2e2bcd8739ae039, {
+    prefix: $d73574cc5e9b9e72$var$prefix
+}));
 // Components
 $caa9439642c6336c$export$2e2bcd8739ae039.data("app", $d709d0f4027033b2$export$2e2bcd8739ae039);
 [
-    $15cdb2a3107397fd$exports,
+    $1ffacd2707df3a0f$exports,
     $e4eab7529959b73b$exports
 ].forEach((scripts)=>{
     const components = $5439cede634b2921$export$4e811121b221213b(scripts);

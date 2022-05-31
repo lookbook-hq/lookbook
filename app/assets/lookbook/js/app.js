@@ -1,7 +1,7 @@
-import packageJson from "~/package.json";
 import createSocket from "./lib/socket";
 import { morph } from "./helpers/dom";
 import { fetchHTML } from "./helpers/request";
+import { isExternalLink } from "./helpers/dom";
 
 export default function app() {
   return {
@@ -10,8 +10,6 @@ export default function app() {
     location: window.location,
 
     init() {
-      // this.validateStorage();
-
       if (window.SOCKET_PATH) {
         const socket = createSocket(window.SOCKET_PATH);
         socket.addListener("Lookbook::ReloadChannel", () => this.updateDOM());
@@ -58,20 +56,6 @@ export default function app() {
       }
     },
 
-    validateStorage() {
-      if (
-        this.version &&
-        this.version.split(".")[0] !== packageJson.version.split(".")[0]
-      ) {
-        localStorage.clear();
-        this.warn(`
-          The data in localStorage is incomaptible with this version of Lookbook.
-          Storage data has been cleared.
-        `);
-      }
-      this.version = packageJson.version;
-    },
-
     toggleSidebar() {
       this.$store.layout.sidebar.hidden = !this.$store.layout.sidebar.hidden;
     },
@@ -82,20 +66,18 @@ export default function app() {
       }
     },
 
+    disableTooltips() {
+      this.$store.settings.showTooltips = false;
+    },
+
+    enableTooltips() {
+      this.$store.settings.showTooltips = true;
+    },
+
     get sidebarHidden() {
       return this.$store.layout.sidebar.hidden;
     },
 
     ...Alpine.$log,
   };
-}
-
-function isExternalLink(link) {
-  if (link.getAttribute("target") === "_blank") {
-    return true;
-  }
-  if (link.href) {
-    return link.host !== window.location.host;
-  }
-  return false;
 }

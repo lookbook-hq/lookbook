@@ -1754,8 +1754,8 @@ pre[class*="language-"] {
   margin-left: .5rem;
 }
 
-.-mr-2 {
-  margin-right: -.5rem;
+.mr-auto {
+  margin-right: auto;
 }
 
 .mt-12 {
@@ -1784,10 +1784,6 @@ pre[class*="language-"] {
 
 .-ml-3 {
   margin-left: -.75rem;
-}
-
-.mr-auto {
-  margin-right: auto;
 }
 
 .mr-1 {
@@ -1930,12 +1926,12 @@ pre[class*="language-"] {
   width: 1.25rem;
 }
 
-.min-w-\[140px\] {
-  min-width: 140px;
-}
-
 .min-w-0 {
   min-width: 0;
+}
+
+.min-w-\[140px\] {
+  min-width: 140px;
 }
 
 .min-w-\[100px\] {
@@ -2305,6 +2301,11 @@ pre[class*="language-"] {
   background-color: #0000;
 }
 
+.bg-red-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity) );
+}
+
 .bg-lookbook-drawer {
   background-color: var(--lookbook-drawer);
 }
@@ -2394,14 +2395,24 @@ pre[class*="language-"] {
   padding-bottom: .75rem;
 }
 
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+.px-3 {
+  padding-left: .75rem;
+  padding-right: .75rem;
+}
+
+.py-1\.5 {
+  padding-top: .375rem;
+  padding-bottom: .375rem;
 }
 
 .py-1 {
   padding-top: .25rem;
   padding-bottom: .25rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .px-1 {
@@ -2556,6 +2567,11 @@ pre[class*="language-"] {
 .text-red-800 {
   --tw-text-opacity: 1;
   color: rgb(153 27 27 / var(--tw-text-opacity) );
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity) );
 }
 
 .text-lookbook-branding-text {
@@ -2878,11 +2894,12 @@ pre[class*="language-"] {
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   border: 1px solid #d1d5db;
-  border-radius: .25rem;
 }
 
 .tippy-box[data-theme~="menu"] > .tippy-content {
+  border-radius: .25rem;
   padding: 0;
+  overflow: hidden;
 }
 
 .tippy-box[data-theme~="menu"][data-placement^="top"] > .tippy-arrow:before {
@@ -3021,6 +3038,11 @@ pre[class*="language-"] {
   --lookbook-draggable-hint: #e0e7ff33;
 }
 
+.hover\:bg-red-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity) );
+}
+
 .hover\:bg-lookbook-draggable-hint:hover {
   background-color: var(--lookbook-draggable-hint);
 }
@@ -3079,6 +3101,11 @@ pre[class*="language-"] {
 
 .focus\:ring-offset-2:focus {
   --tw-ring-offset-width: 2px;
+}
+
+.focus-visible\:outline-none:focus-visible {
+  outline-offset: 2px;
+  outline: 2px solid #0000;
 }
 
 .prose-a\:text-lookbook-prose-link :is(:where(a):not(:where([class~="not-prose"] *))) {

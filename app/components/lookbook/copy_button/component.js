@@ -3,6 +3,7 @@ import buttonComponent from "@components/button/component";
 
 export default function copyButtonComponent(target = null) {
   const button = buttonComponent();
+  let notificationTippy = null;
   return {
     ...button,
 
@@ -16,7 +17,7 @@ export default function copyButtonComponent(target = null) {
         this._copyTarget =
           typeof target === "string" ? document.querySelector(target) : target;
       }
-      this._notificationTippy = tippy(this.$el, {
+      notificationTippy = tippy(this.$el, {
         content: "Copied!",
         trigger: "manual",
       });
@@ -25,13 +26,13 @@ export default function copyButtonComponent(target = null) {
     async copyToClipboard() {
       await window.navigator.clipboard.writeText(this.getContent());
       this.done = true;
-      this._notificationTippy.show();
+      notificationTippy.show();
       if (this._labelTippy) {
         this._labelTippy.hide();
       }
       setTimeout(() => {
         this.done = false;
-        this._notificationTippy.hide();
+        notificationTippy.hide();
       }, 1000);
     },
 
@@ -42,7 +43,5 @@ export default function copyButtonComponent(target = null) {
     },
 
     _copyTarget: null,
-
-    _notificationTippy: null,
   };
 }

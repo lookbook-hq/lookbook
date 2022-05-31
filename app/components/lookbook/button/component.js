@@ -1,9 +1,16 @@
 import tippy from "~/app/assets/lookbook/js/lib/tippy";
 
 export default function buttonComponent() {
+  let labelTippy = null;
   return {
     init() {
-      this._initTippy();
+      if (this.$refs.tooltip) {
+        labelTippy = tippy(this.$refs.icon, {
+          delay: [200, 0],
+          triggerTarget: this.$el,
+          content: this.$refs.tooltip.innerHTML,
+        });
+      }
     },
 
     startSpin() {
@@ -14,17 +21,22 @@ export default function buttonComponent() {
       setTimeout(() => (this._spinning = false), delay);
     },
 
-    _spinning: false,
-
-    _initTippy() {
-      if (this.$refs.tooltip) {
-        this._labelTippy = tippy(this.$refs.icon, {
-          triggerTarget: this.$el,
-          content: this.$refs.tooltip.innerHTML,
-        });
+    enableTooltip() {
+      if (labelTippy) {
+        labelTippy.enable();
       }
     },
 
-    _labelTippy: null,
+    disableTooltip() {
+      if (labelTippy) {
+        labelTippy.disable();
+      }
+    },
+
+    get _labelTippy() {
+      return labelTippy;
+    },
+
+    _spinning: false,
   };
 }

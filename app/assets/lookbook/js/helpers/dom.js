@@ -32,4 +32,14 @@ function getElementSize(el, opts = {}) {
   };
 }
 
-export { morph, getElementSize };
+function isExternalLink(link) {
+  if (link.getAttribute("target") === "_blank") {
+    return true;
+  }
+  if (link.href) {
+    return link.host !== window.location.host;
+  }
+  return false;
+}
+
+export { morph, getElementSize, isExternalLink };
