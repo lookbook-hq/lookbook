@@ -1,7 +1,6 @@
 :root {
   --lookbook-text: theme("colors.zinc.800");
   --lookbook-divider: theme("colors.zinc.300");
-  --lookbook-branding-text: theme("colors.black");
   --lookbook-button-text: theme("colors.zinc.400");
   --lookbook-button-text-hover: theme("colors.indigo.600");
   --lookbook-tooltip: theme("colors.indigo.500");
@@ -35,5 +34,9 @@
   --lookbook-sidebar: theme("colors.zinc.50");
   --lookbook-page: theme("colors.white");
   --lookbook-drawer: theme("colors.zinc.50");
+  --lookbook-header: theme("colors.indigo.600");
+  --lookbook-header-text: theme("colors.white");
+  --lookbook-header-border: theme("colors.indigo.700");
+  --lookbook-branding-text: var(--lookbook-header-text);
   --lookbook-draggable-hint: rgb(224 231 255 / 0.2);
 }

@@ -9,46 +9,52 @@
     @dropdown:hide="enableTooltips"
     class="w-screen h-screen grid grid-rows-[40px_1fr] relative">
 
-    <%= render_component :toolbar, class: "group" do |toolbar| %>
-      <% toolbar.section padded: true do %>
-        <%= render_component :branding,
-          text: config.project_name,
-          href: landing_path if config.project_name %>
-      <% end %>
-      <% toolbar.section padded: false, align: :right, class: "flex items-center" do %>
-        <%= render_component :button_group do |group| %>
+    <%= render_component :header do |header| %>
+      <% header.branding { config.project_name } %>
+    <% end %>
 
-          <% if Rails.env == "development" %>
-            <% group.button icon: :help_circle, class: "opacity-30 group-hover:opacity-100 transition" do |button| %>
-              <% button.dropdown do %>
-                <%= tag.div class: "divide-y divide-lookbook-divider" do %>
-                  <div class="flex items-center text-xs px-3 py-2">
-                    <span class="opacity-60 mr-1">Lookbook</span>
-                    <span class="mr-6">v<%= Lookbook::VERSION %></span>
-                    <a href="https://github.com/allmarkedup/lookbook" target="_blank" class="ml-auto opacity-70">
-                      <%= render_component :icon, name: :github, size: 3 %>
-                    </a>
-                  </div>
-                  <div class="px-3 py-2">
-                    <a href="#"
-                      class="text-xs underline"
-                      @click.stop="localStorage.clear(); window.location.reload();">
-                      Clear local storage
-                    </a>
-                  </div>
+    <% if false %>
+      <%= render_component :toolbar, class: "group !bg-lookbook-header !text-lookbook-header-text" do |toolbar| %>
+        <% toolbar.section padded: true do %>
+          <%= render_component :branding,
+            text: config.project_name,
+            href: landing_path if config.project_name %>
+        <% end %>
+        <% toolbar.section padded: false, align: :right, class: "flex items-center" do %>
+          <%= render_component :button_group, class: "relative -top-px" do |group| %>
+            <% if Rails.env == "development" %>
+              <% group.button icon: :help_circle, class: "opacity-50 hover:opacity-100 transition !text-lookbook-header-text" do |button| %>
+                <% button.dropdown do %>
+                  <%= tag.div class: "divide-y divide-lookbook-divider" do %>
+                    <div class="flex items-center text-xs px-3 py-2">
+                      <span class="opacity-60 mr-1">Lookbook</span>
+                      <span class="mr-6">v<%= Lookbook::VERSION %></span>
+                      <a href="https://github.com/allmarkedup/lookbook" target="_blank" class="ml-auto opacity-70">
+                        <%= render_component :icon, name: :github, size: 3 %>
+                      </a>
+                    </div>
+                    <div class="px-3 py-2">
+                      <a href="#"
+                        class="text-xs underline"
+                        @click.stop="localStorage.clear(); window.location.reload();">
+                        Clear local storage
+                      </a>
+                    </div>
+                  <% end %>
                 <% end %>
               <% end %>
             <% end %>
-          <% end %>
-
-          <% group.button icon: :menu,
-            "@click.stop": "toggleSidebar",
-            x_show: "$store.layout.mobile && sidebarHidden" %>
-         <% group.button icon: :x,
-            "@click.stop": "toggleSidebar",
-            x_show: "$store.layout.mobile && !sidebarHidden",
-            "@keydown.esc.window": "closeMobileSidebar" %>
-        <% end %>    
+            <% group.button icon: :menu,
+              "@click.stop": "toggleSidebar",
+              x_show: "$store.layout.mobile && sidebarHidden",
+              class: "!text-lookbook-header-text" %>
+            <% group.button icon: :x,
+              "@click.stop": "toggleSidebar",
+              x_show: "$store.layout.mobile && !sidebarHidden",
+              "@keydown.esc.window": "closeMobileSidebar",
+              class: "!text-lookbook-header-text" %>
+          <% end %>    
+        <% end %>
       <% end %>
     <% end %>
     
@@ -57,3 +63,4 @@
 <% end %>
 
 <%= render template: "layouts/lookbook/skeleton" %>
+0

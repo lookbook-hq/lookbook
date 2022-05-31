@@ -26,7 +26,7 @@
 
 .tippy-box[data-theme~="menu"] {
   border: 1px solid theme("colors.gray.300");
-  @apply bg-white text-gray-600 shadow-md;
+  @apply bg-white text-gray-600 shadow-lg;
 
   & > .tippy-content {
     @apply rounded p-0 overflow-hidden;

@@ -6,8 +6,6 @@ module.exports = function (opts = {}) {
     text: base(800),
     divider: base(300),
 
-    brandingText: black,
-
     buttonText: base(400),
     buttonTextHover: accent(600),
 
@@ -50,6 +48,12 @@ module.exports = function (opts = {}) {
     sidebar: base(50),
     page: white,
     drawer: base(50),
+
+    header: accent(600),
+    headerText: white,
+    headerBorder: accent(700),
+
+    brandingText: "var(--lookbook-header-text)",
 
     draggableHint: "rgb(224 231 255 / 0.2)",
   };
