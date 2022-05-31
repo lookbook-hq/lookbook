@@ -2,7 +2,7 @@ import tippy from "tippy.js";
 
 tippy.setDefaultProps({
   allowHTML: true,
-  theme: "lookbook",
+  theme: "tooltip",
 });
 
 export default tippy;

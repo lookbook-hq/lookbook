@@ -1,34 +1,39 @@
 import tippy from "~/app/assets/lookbook/js/lib/tippy";
+import { initTooltip } from "~/app/assets/lookbook/js/components/tooltip";
 
 export default function buttonComponent() {
-  let labelTippy = null;
-  let dropdownTippy = null;
+  let tooltip = null;
+  let dropdown = null;
 
   return {
     init() {
       if (this.$refs.tooltip) {
-        labelTippy = tippy(this.$refs.icon, {
-          delay: [200, 0],
-          triggerTarget: this.$el,
-          content: this.$refs.tooltip.innerHTML,
-        });
+        tooltip = initTooltip(this);
       }
+
       if (this.$refs.dropdown) {
-        dropdownTippy = tippy(this.$el, {
+        dropdown = tippy(this.$el, {
           content: this.$refs.dropdown.innerHTML,
           trigger: "click",
           theme: "menu",
           triggerTarget: this.$el,
           interactive: true,
           zIndex: 99999,
-          onShow: () => this.$dispatch("dropdown:show", { dropdown: this }),
+          onShow: () => {
+            if (!this.$store.settings.showTooltips) {
+              return false;
+            }
+            this.$dispatch("dropdown:show", { dropdown: this });
+          },
           onHide: () => this.$dispatch("dropdown:hide", { dropdown: this }),
         });
       }
     },
 
     hideDropdown() {
-      dropdownTippy.hide();
+      if (dropdown) {
+        dropdown.hide();
+      }
     },
 
     startSpin() {
@@ -39,20 +44,8 @@ export default function buttonComponent() {
       setTimeout(() => (this._spinning = false), delay);
     },
 
-    enableTooltip() {
-      if (labelTippy) {
-        labelTippy.enable();
-      }
-    },
-
-    disableTooltip() {
-      if (labelTippy) {
-        labelTippy.disable();
-      }
-    },
-
-    get _labelTippy() {
-      return labelTippy;
+    get _tooltip() {
+      return tooltip;
     },
 
     _spinning: false,

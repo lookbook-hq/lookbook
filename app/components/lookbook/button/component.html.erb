@@ -8,7 +8,6 @@
     }
   ],
   disabled: @disabled,
-  x_effect: "$store.settings.showTooltips ? enableTooltip() : disableTooltip()",
   "@keydown.esc.stop": "hideDropdown" do %>
   <span x-ref="icon">
     <%= icon || render_component(:icon, name: @icon, size: icon_size, ":class": "{'animate-spin': _spinning}") %>

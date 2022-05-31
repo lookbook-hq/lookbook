@@ -16,10 +16,12 @@ import initWorkbenchStore from "./stores/workbench";
 
 import app from "./app";
 
-// Note: A ParcelJS issue prevents loading all depths of component JS files in one glob
+// Note: A ParcelJS issue prevents loading all depths of component JS files in one glob,
+// so need to split it up. Path aliases also do not work with the glob imports.
 import { getComponents } from "./helpers/build";
-import * as componentScripts from "../../../components/lookbook/*/component.js";
-import * as subComponentScripts from "../../../components/lookbook/*/*/component.js";
+import * as components from "../../../components/lookbook/*/component.js";
+import * as subComponents from "../../../components/lookbook/*/*/component.js";
+import * as jsComponents from "./components/*.js";
 
 // Plugins
 
@@ -45,7 +47,7 @@ if (process.env.NODE_ENV !== "production") {
 
 Alpine.data("app", app);
 
-[componentScripts, subComponentScripts].forEach((scripts) => {
+[components, subComponents, jsComponents].forEach((scripts) => {
   const components = getComponents(scripts);
   Object.keys(components).forEach((name) => {
     Alpine.data(`${name}Component`, components[name]);

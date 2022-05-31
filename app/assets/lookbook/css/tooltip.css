@@ -1,7 +1,7 @@
 @import "tippy.js/dist/tippy";
 @import "tippy.js/dist/border";
 
-.tippy-box[data-theme~="lookbook"] {
+.tippy-box[data-theme~="tooltip"] {
   @apply text-xs opacity-90;
 
   background-color: var(--lookbook-tooltip);

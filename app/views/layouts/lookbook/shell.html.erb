@@ -5,8 +5,6 @@
     @popstate.window="handleNavigation"
     @click.document="hijax"
     @navigation:start="closeMobileSidebar"
-    @dropdown:show="disableTooltips"
-    @dropdown:hide="enableTooltips"
     class="w-screen h-screen grid grid-rows-[40px_1fr] relative">
 
     <%= render_component :header do |header| %>

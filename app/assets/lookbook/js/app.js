@@ -66,14 +66,6 @@ export default function app() {
       }
     },
 
-    disableTooltips() {
-      this.$store.settings.showTooltips = false;
-    },
-
-    enableTooltips() {
-      this.$store.settings.showTooltips = true;
-    },
-
     get sidebarHidden() {
       return this.$store.layout.sidebar.hidden;
     },
