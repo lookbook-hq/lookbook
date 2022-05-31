@@ -3,6 +3,8 @@ import { observeSize } from "@helpers/layout";
 
 export default function splitLayoutComponent({ split, opts = {} }) {
   let splitter = null;
+  const shouldSplit = split.sizes !== null;
+
   return {
     layoutResizing: false,
 
@@ -62,7 +64,7 @@ export default function splitLayoutComponent({ split, opts = {} }) {
     },
 
     initSplit() {
-      if (this._gutters.length) {
+      if (shouldSplit && this._gutters.length) {
         this._destroySplit();
         const dir = this.horizontal ? "row" : "column";
         splitter = Split({
@@ -94,8 +96,10 @@ export default function splitLayoutComponent({ split, opts = {} }) {
       root: {
         [":style"]() {
           return {
-            "grid-template-columns": this.vertical && sizeStr(this.splits),
-            "grid-template-rows": this.horizontal && sizeStr(this.splits),
+            "grid-template-columns":
+              shouldSplit && this.vertical && sizeStr(this.splits),
+            "grid-template-rows":
+              shouldSplit && this.horizontal && sizeStr(this.splits),
           };
         },
       },

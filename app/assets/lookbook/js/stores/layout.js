@@ -80,7 +80,7 @@ export default function initLayoutStore(Alpine, { prefix }) {
     singleSectionSidebar: {
       split: {
         direction: "horizontal",
-        sizes: ["100%"],
+        sizes: null,
       },
     },
 

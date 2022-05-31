@@ -6977,9 +6977,7 @@ function $aabd7bdddb195dac$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
         singleSectionSidebar: {
             split: {
                 direction: "horizontal",
-                sizes: [
-                    "100%"
-                ]
+                sizes: null
             }
         },
         // Inspector drawer/preview layout
@@ -7852,7 +7850,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $1ffacd2707df3a0f$exports = {};
+var $bc5c0b1e347d1ad7$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11473,48 +11471,6 @@ function $99486586f6691564$export$2e2bcd8739ae039() {
 }
 
 
-var $47a1c62621be0c54$exports = {};
-
-$parcel$defineInteropFlag($47a1c62621be0c54$exports);
-
-$parcel$export($47a1c62621be0c54$exports, "default", () => $47a1c62621be0c54$export$2e2bcd8739ae039);
-
-
-function $47a1c62621be0c54$export$2e2bcd8739ae039(target = null) {
-    const button = $cbd28b10fa9798c7$export$2e2bcd8739ae039();
-    let notificationTippy = null;
-    return {
-        ...button,
-        done: false,
-        init () {
-            button.init.bind(this)();
-            if (target === null) this._copyTarget = this.$refs.copyContent;
-            else this._copyTarget = typeof target === "string" ? document.querySelector(target) : target;
-            notificationTippy = $d6f449055c23f07a$export$2e2bcd8739ae039(this.$el, {
-                content: "Copied!",
-                trigger: "manual"
-            });
-        },
-        async copyToClipboard () {
-            await window.navigator.clipboard.writeText(this.getContent());
-            this.done = true;
-            notificationTippy.show();
-            if (this._labelTippy) this._labelTippy.hide();
-            setTimeout(()=>{
-                this.done = false;
-                notificationTippy.hide();
-            }, 1000);
-        },
-        getContent () {
-            const decoder = document.createElement("textarea");
-            decoder.innerHTML = this._copyTarget ? this._copyTarget.innerHTML : "";
-            return decoder.value.trim();
-        },
-        _copyTarget: null
-    };
-}
-
-
 var $e398acaded942bbe$exports = {};
 
 $parcel$defineInteropFlag($e398acaded942bbe$exports);
@@ -12404,6 +12360,60 @@ function $e1f51f020443edd4$export$2e2bcd8739ae039(id, embedStore) {
 }
 
 
+var $47a1c62621be0c54$exports = {};
+
+$parcel$defineInteropFlag($47a1c62621be0c54$exports);
+
+$parcel$export($47a1c62621be0c54$exports, "default", () => $47a1c62621be0c54$export$2e2bcd8739ae039);
+
+
+function $47a1c62621be0c54$export$2e2bcd8739ae039(target = null) {
+    const button = $cbd28b10fa9798c7$export$2e2bcd8739ae039();
+    let notificationTippy = null;
+    return {
+        ...button,
+        done: false,
+        init () {
+            button.init.bind(this)();
+            if (target === null) this._copyTarget = this.$refs.copyContent;
+            else this._copyTarget = typeof target === "string" ? document.querySelector(target) : target;
+            notificationTippy = $d6f449055c23f07a$export$2e2bcd8739ae039(this.$el, {
+                content: "Copied!",
+                trigger: "manual"
+            });
+        },
+        async copyToClipboard () {
+            await window.navigator.clipboard.writeText(this.getContent());
+            this.done = true;
+            notificationTippy.show();
+            if (this._labelTippy) this._labelTippy.hide();
+            setTimeout(()=>{
+                this.done = false;
+                notificationTippy.hide();
+            }, 1000);
+        },
+        getContent () {
+            const decoder = document.createElement("textarea");
+            decoder.innerHTML = this._copyTarget ? this._copyTarget.innerHTML : "";
+            return decoder.value.trim();
+        },
+        _copyTarget: null
+    };
+}
+
+
+var $36506012e0c6e9e3$exports = {};
+
+$parcel$defineInteropFlag($36506012e0c6e9e3$exports);
+
+$parcel$export($36506012e0c6e9e3$exports, "default", () => $36506012e0c6e9e3$export$2e2bcd8739ae039);
+function $36506012e0c6e9e3$export$2e2bcd8739ae039(iconName) {
+    return {
+        iconName: iconName
+    };
+}
+
+
 var $e9904a14dabf652d$exports = {};
 
 $parcel$defineInteropFlag($e9904a14dabf652d$exports);
@@ -12425,18 +12435,6 @@ function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
         focus () {
             this.$refs.input.focus();
         }
-    };
-}
-
-
-var $36506012e0c6e9e3$exports = {};
-
-$parcel$defineInteropFlag($36506012e0c6e9e3$exports);
-
-$parcel$export($36506012e0c6e9e3$exports, "default", () => $36506012e0c6e9e3$export$2e2bcd8739ae039);
-function $36506012e0c6e9e3$export$2e2bcd8739ae039(iconName) {
-    return {
-        iconName: iconName
     };
 }
 
@@ -12978,6 +12976,7 @@ var $7cac9a0d4b75bf4e$export$2e2bcd8739ae039 = $7cac9a0d4b75bf4e$var$index;
 
 function $506dabb2bf255b38$export$2e2bcd8739ae039({ split: split , opts: opts = {}  }) {
     let splitter = null;
+    const shouldSplit = split.sizes !== null;
     return {
         layoutResizing: false,
         layoutWidth: null,
@@ -13014,7 +13013,7 @@ function $506dabb2bf255b38$export$2e2bcd8739ae039({ split: split , opts: opts = 
             this._gutters.push(this.$el);
         },
         initSplit () {
-            if (this._gutters.length) {
+            if (shouldSplit && this._gutters.length) {
                 this._destroySplit();
                 const dir = this.horizontal ? "row" : "column";
                 splitter = $7cac9a0d4b75bf4e$export$2e2bcd8739ae039({
@@ -13048,8 +13047,8 @@ function $506dabb2bf255b38$export$2e2bcd8739ae039({ split: split , opts: opts = 
             root: {
                 [":style"] () {
                     return {
-                        "grid-template-columns": this.vertical && $506dabb2bf255b38$var$sizeStr(this.splits),
-                        "grid-template-rows": this.horizontal && $506dabb2bf255b38$var$sizeStr(this.splits)
+                        "grid-template-columns": shouldSplit && this.vertical && $506dabb2bf255b38$var$sizeStr(this.splits),
+                        "grid-template-rows": shouldSplit && this.horizontal && $506dabb2bf255b38$var$sizeStr(this.splits)
                     };
                 }
             }
@@ -13327,14 +13326,14 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$1ffacd2707df3a0f$exports = {
+$bc5c0b1e347d1ad7$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
-    "copy_button": $47a1c62621be0c54$exports,
     "dimensions_display": $e398acaded942bbe$exports,
     "embed": $e1f51f020443edd4$exports,
-    "filter": $e9904a14dabf652d$exports,
+    "copy_button": $47a1c62621be0c54$exports,
     "icon": $36506012e0c6e9e3$exports,
+    "filter": $e9904a14dabf652d$exports,
     "menu_button": $349781c3487a02fb$exports,
     "nav": $d92d9d5253f84566$exports,
     "params_editor": $b63b9c6d236b3f65$exports,
@@ -13345,7 +13344,46 @@ $1ffacd2707df3a0f$exports = {
 };
 
 
-var $e4eab7529959b73b$exports = {};
+var $71b50ebcd41f31b8$exports = {};
+var $fa8073e5be19dff9$exports = {};
+
+$parcel$defineInteropFlag($fa8073e5be19dff9$exports);
+
+$parcel$export($fa8073e5be19dff9$exports, "default", () => $fa8073e5be19dff9$export$2e2bcd8739ae039);
+function $fa8073e5be19dff9$export$2e2bcd8739ae039({ name: name , value: value  }) {
+    return {
+        name: name,
+        value: value,
+        init () {
+            this.$watch("value", ()=>this.update()
+            );
+        },
+        update () {
+            if (this.validate()) {
+                const searchParams = new URLSearchParams(window.location.search);
+                searchParams.set(this.name, this.value);
+                const path = location.href.replace(location.search, "");
+                this.navigateTo(`${path}?${searchParams.toString()}`);
+            }
+        },
+        validate () {
+            return this.$root.reportValidity ? this.$root.reportValidity() : true;
+        },
+        get isNarrowLayout () {
+            return this.narrow || false;
+        },
+        bindings: {
+            input: {
+                [":id"]: "`param-${name}`",
+                ["x-ref"]: "input",
+                ["x-model.debounce.200"]: "value",
+                ["@keydown.stop"]: true
+            }
+        }
+    };
+}
+
+
 var $9b24cbeb3a465447$exports = {};
 
 $parcel$defineInteropFlag($9b24cbeb3a465447$exports);
@@ -13404,51 +13442,12 @@ function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id , matchers: matchers 
 }
 
 
-var $fa8073e5be19dff9$exports = {};
-
-$parcel$defineInteropFlag($fa8073e5be19dff9$exports);
-
-$parcel$export($fa8073e5be19dff9$exports, "default", () => $fa8073e5be19dff9$export$2e2bcd8739ae039);
-function $fa8073e5be19dff9$export$2e2bcd8739ae039({ name: name , value: value  }) {
-    return {
-        name: name,
-        value: value,
-        init () {
-            this.$watch("value", ()=>this.update()
-            );
-        },
-        update () {
-            if (this.validate()) {
-                const searchParams = new URLSearchParams(window.location.search);
-                searchParams.set(this.name, this.value);
-                const path = location.href.replace(location.search, "");
-                this.navigateTo(`${path}?${searchParams.toString()}`);
-            }
-        },
-        validate () {
-            return this.$root.reportValidity ? this.$root.reportValidity() : true;
-        },
-        get isNarrowLayout () {
-            return this.narrow || false;
-        },
-        bindings: {
-            input: {
-                [":id"]: "`param-${name}`",
-                ["x-ref"]: "input",
-                ["x-model.debounce.200"]: "value",
-                ["@keydown.stop"]: true
-            }
-        }
-    };
-}
-
-
-$e4eab7529959b73b$exports = {
-    "nav": {
-        "item": $9b24cbeb3a465447$exports
-    },
+$71b50ebcd41f31b8$exports = {
     "params_editor": {
         "field": $fa8073e5be19dff9$exports
+    },
+    "nav": {
+        "item": $9b24cbeb3a465447$exports
     }
 };
 
@@ -13479,8 +13478,8 @@ $caa9439642c6336c$export$2e2bcd8739ae039.store("settings", $96e0343bbb13096b$exp
 // Components
 $caa9439642c6336c$export$2e2bcd8739ae039.data("app", $d709d0f4027033b2$export$2e2bcd8739ae039);
 [
-    $1ffacd2707df3a0f$exports,
-    $e4eab7529959b73b$exports
+    $bc5c0b1e347d1ad7$exports,
+    $71b50ebcd41f31b8$exports
 ].forEach((scripts)=>{
     const components = $5439cede634b2921$export$4e811121b221213b(scripts);
     Object.keys(components).forEach((name)=>{

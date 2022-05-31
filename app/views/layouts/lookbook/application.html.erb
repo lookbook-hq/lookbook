@@ -12,7 +12,9 @@
       "@click.outside": "closeMobileSidebar",
       x_cloak: true do %>
 
-      <%= render_component :split_layout, alpine_data: "$store.layout.#{Lookbook.pages.any? ? "sidebar" : "singleSectionSidebar"}" do |layout| %>
+      <%= render_component :split_layout,
+        alpine_data: "$store.layout.#{Lookbook.pages.any? ? "sidebar" : "singleSectionSidebar"}",
+        style: "height: calc(100vh - 2.5rem);" do |layout| %>
         <% layout.pane class: "overflow-hidden" do %>
           <%= render_component :nav,
             collection: Lookbook.previews,

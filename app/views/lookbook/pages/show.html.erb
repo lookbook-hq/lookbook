@@ -10,7 +10,7 @@
       <%= @page_content %>
     <% end %>
     
-    <% if @page.footer? %>
+    <% if @page.footer? && @pages.many? %>
       <footer class="flex items-center justify-between border-t border-gray-300 mt-12 pt-8 pb-10 ">
         <% if @previous_page %>
           <a href="<%= page_path @previous_page.lookup_path %>"
