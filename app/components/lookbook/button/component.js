@@ -2,6 +2,8 @@ import tippy from "~/app/assets/lookbook/js/lib/tippy";
 
 export default function buttonComponent() {
   let labelTippy = null;
+  let dropdownTippy = null;
+
   return {
     init() {
       if (this.$refs.tooltip) {
@@ -11,6 +13,22 @@ export default function buttonComponent() {
           content: this.$refs.tooltip.innerHTML,
         });
       }
+      if (this.$refs.dropdown) {
+        dropdownTippy = tippy(this.$el, {
+          content: this.$refs.dropdown.innerHTML,
+          trigger: "click",
+          theme: "menu",
+          triggerTarget: this.$el,
+          interactive: true,
+          zIndex: 99999,
+          onShow: () => this.$dispatch("dropdown:show", { dropdown: this }),
+          onHide: () => this.$dispatch("dropdown:hide", { dropdown: this }),
+        });
+      }
+    },
+
+    hideDropdown() {
+      dropdownTippy.hide();
     },
 
     startSpin() {

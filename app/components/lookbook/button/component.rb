@@ -1,6 +1,7 @@
 module Lookbook
   class Button::Component < Lookbook::Component
     renders_one :icon, Lookbook::Icon::Component
+    renders_one :dropdown
 
     ICON_SIZES = {
       sm: 3.5,

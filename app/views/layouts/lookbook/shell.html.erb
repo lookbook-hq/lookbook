@@ -5,8 +5,8 @@
     @popstate.window="handleNavigation"
     @click.document="hijax"
     @navigation:start="closeMobileSidebar"
-    @menu:show="disableTooltips"
-    @menu:hide="enableTooltips"
+    @dropdown:show="disableTooltips"
+    @dropdown:hide="enableTooltips"
     class="w-screen h-screen grid grid-rows-[40px_1fr] relative">
 
     <%= render_component :toolbar, class: "group" do |toolbar| %>
@@ -19,24 +19,23 @@
         <%= render_component :button_group do |group| %>
 
           <% if Rails.env == "development" %>
-            <% group.button icon: :help_circle, class: "opacity-30 group-hover:opacity-100 transition" do |menu| %>
-              <% menu.section class: "overflow-hidden" do %>
-                <%= tag.div class: "px-3 py-2 min-w-0 text-xs flex items-center min-w-[180px]" do %>
-                  <span class="opacity-60 mr-1">Lookbook</span>
-                  <span>v<%= Lookbook::VERSION %></span>
-                  <a href="https://github.com/allmarkedup/lookbook" target="_blank" class="ml-auto opacity-70">
-                    <%= render_component :icon, name: :github, size: 3 %>
-                  </a>
-                <% end %>
-              <% end %>
-
-              <% menu.section do %>
-                <%= tag.div class: "px-3 py-2" do %>
-                  <a href="#"
-                    class="text-xs text-lookbook-prose-link underline"
-                    @click.stop="localStorage.clear(); window.location.reload();">
-                    Clear local storage
-                  </a>
+            <% group.button icon: :help_circle, class: "opacity-30 group-hover:opacity-100 transition" do |button| %>
+              <% button.dropdown do %>
+                <%= tag.div class: "divide-y divide-lookbook-divider" do %>
+                  <div class="flex items-center text-xs px-3 py-2">
+                    <span class="opacity-60 mr-1">Lookbook</span>
+                    <span class="mr-6">v<%= Lookbook::VERSION %></span>
+                    <a href="https://github.com/allmarkedup/lookbook" target="_blank" class="ml-auto opacity-70">
+                      <%= render_component :icon, name: :github, size: 3 %>
+                    </a>
+                  </div>
+                  <div class="px-3 py-2">
+                    <a href="#"
+                      class="text-xs underline"
+                      @click.stop="localStorage.clear(); window.location.reload();">
+                      Clear local storage
+                    </a>
+                  </div>
                 <% end %>
               <% end %>
             <% end %>

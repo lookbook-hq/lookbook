@@ -8,7 +8,8 @@
     }
   ],
   disabled: @disabled,
-  x_effect: "$store.settings.showTooltips ? enableTooltip() : disableTooltip()" do %>
+  x_effect: "$store.settings.showTooltips ? enableTooltip() : disableTooltip()",
+  "@keydown.esc.stop": "hideDropdown" do %>
   <span x-ref="icon">
     <%= icon || render_component(:icon, name: @icon, size: icon_size, ":class": "{'animate-spin': _spinning}") %>
   </span>
@@ -16,6 +17,13 @@
     <label class="hidden" x-ref="tooltip"><%= @tooltip %></label>
   <% end %>
   <% if content %>
-    <div><%== content %></div>
+    <div x-ref="content"><%== content %></div>
+  <% end %>
+  <% if dropdown %>
+    <div class="hidden" x-ref="dropdown">
+      <div class="bg-white divide-y divide-lookbook-divider text-left">
+        <%== dropdown %>
+      </div>
+    </div>
   <% end %>
 <% end %>

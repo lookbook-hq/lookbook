@@ -31,10 +31,10 @@ module Lookbook
     end
 
     def prepare_alpine_data(x_data = nil)
-      component_name = x_data || @html_attrs&.dig(:x_data) || alpine_component
-      if component_name.present?
+      alpine_component_name = x_data || @html_attrs&.dig(:x_data) || alpine_component
+      if alpine_component_name.present?
         args = Array.wrap(alpine_data)
-        args.any? ? "#{component_name}(#{safe_join(args)})" : component_name
+        args.any? ? "#{alpine_component_name}(#{safe_join(args).gsub("&quot;", "'").tr("\"", "'")})" : alpine_component_name
       end
     end
   end

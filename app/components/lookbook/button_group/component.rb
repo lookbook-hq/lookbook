@@ -4,8 +4,6 @@ module Lookbook
       attrs[:size] = @size
       instance = if copy.present?
         CopyButton::Component.new(target: copy, **attrs)
-      elsif block.present?
-        MenuButton::Component.new(**attrs)
       else
         Button::Component.new(**attrs)
       end

@@ -43,4 +43,12 @@ class ButtonComponentPreview < ViewComponent::Preview
       tag.div "Some content within the button", class: "mt-2"
     end
   end
+
+  def with_dropdown
+    render Lookbook::Button::Component.new icon: :book do |button|
+      button.dropdown do
+        "<div class='p-4'>Some dropdown content</div>".html_safe
+      end      
+    end
+  end
 end
