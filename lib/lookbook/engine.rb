@@ -19,6 +19,8 @@ module Lookbook
 
     def debug_data
       {
+        version: version,
+        env: Rails.env.to_s,
         config: config
       }
     end
