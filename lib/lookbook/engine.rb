@@ -104,17 +104,17 @@ module Lookbook
           end
           @page_listener.start
         end
+      end
 
-        if config.lookbook.runtime_parsing
-          parser.parse
-        else
-          unless File.exist?(config.lookbook.parser_registry_path)
-            Lookbook.logger.warn "
-              Runtime parsing is disabled but no registry file has been found.
-              Did you run `rake lookbook:preparse` before starting the app?
-              Expected to find registry file at #{config.lookbook.parser_registry_path}
-            "
-          end
+      if config.lookbook.runtime_parsing
+        parser.parse
+      else
+        unless File.exist?(config.lookbook.parser_registry_path)
+          Lookbook.logger.warn "
+            Runtime parsing is disabled but no registry file has been found.
+            Did you run `rake lookbook:preparse` before starting the app?
+            Expected to find registry file at #{config.lookbook.parser_registry_path}
+          "
         end
       end
     end
