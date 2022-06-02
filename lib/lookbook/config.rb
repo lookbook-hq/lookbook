@@ -46,8 +46,21 @@ module Lookbook
         parser_registry_path: "tmp/storage/.yardoc",
 
         ui_theme: :default,
-        experimental_features: false
+        ui_theme_overrides: ConfigOptions.new,
+        experimental_features: false,
       })
+    end
+
+    def ui_theme_overrides=(theme)
+      set(:ui_theme_overrides, ConfigOptions.new(theme))
+    end
+
+    def ui_theme_overrides(&block)
+      if block_given?
+        yield get(:ui_theme_overrides)
+      else
+        get(:ui_theme_overrides)
+      end
     end
 
     def [](key)
