@@ -1,3 +1,3 @@
 Lookbook.configure do |config|
-  config.page_paths << Rails.root.join("docs")
+  config.page_paths << "docs"
 end

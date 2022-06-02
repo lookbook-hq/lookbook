@@ -6,7 +6,7 @@ module Lookbook
     helper Lookbook::OutputHelper
     helper Lookbook::ComponentHelper
 
-    before_action :load_theme_css
+    before_action :generate_theme_overrides
 
     def self.controller_path
       "lookbook"
@@ -23,16 +23,8 @@ module Lookbook
 
     protected
 
-    def load_theme_css
-      @theme_css = nil
-      theme_file = Lookbook.config.ui_theme_css
-      if theme_file.present?
-        if File.exist? theme_file
-          @theme_css = File.read(theme_file)
-        else
-          Lookbook.logger.warn "Could not find theme file #{Lookbook.config.ui_theme_css}"
-        end
-      end
+    def generate_theme_overrides
+      @theme_overrides = Lookbook::Theme.new(Lookbook.config.ui_theme_overrides).to_css
     end
 
     def feature_enabled?(feature)

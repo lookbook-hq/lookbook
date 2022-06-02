@@ -39,15 +39,12 @@ module Lookbook
     config.lookbook = Lookbook.config
     config.autoload_paths << File.expand_path(Lookbook::Engine.root.join("app/components"))
 
-    initializer "lookbook.config" do
-      options = config.lookbook
-      vc_options = config.view_component
-      
-      options.preview_paths += vc_options.preview_paths
-      options.preview_controller ||= vc_options.preview_controller
+    initializer "lookbook.viewcomponent.config" do      
+      config.lookbook.preview_paths += config.view_component.preview_paths
+      config.lookbook.preview_controller ||= config.view_component.preview_controller
 
-      options.listen_paths += options.preview_paths
-      options.listen_paths << (vc_options.view_component_path.presence || "app/components")
+      config.lookbook.listen_paths += config.lookbook.preview_paths
+      config.lookbook.listen_paths << (config.view_component.view_component_path.presence || "app/components")
     end
 
     initializer "lookbook.logging.development" do

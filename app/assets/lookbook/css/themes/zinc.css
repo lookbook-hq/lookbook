@@ -1,4 +1,4 @@
-.theme-zinc {
+:root {
   --lookbook-text: theme("colors.zinc.800");
   --lookbook-divider: theme("colors.zinc.300");
   --lookbook-button-text: theme("colors.zinc.400");

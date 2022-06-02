@@ -7849,7 +7849,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $2a4696bf91bc917f$exports = {};
+var $b40b0b74537cbda1$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11433,9 +11433,9 @@ $parcel$defineInteropFlag($2ef98910f916db6b$exports);
 $parcel$export($2ef98910f916db6b$exports, "initTooltip", () => $2ef98910f916db6b$export$353372104066311a);
 $parcel$export($2ef98910f916db6b$exports, "default", () => $2ef98910f916db6b$export$2e2bcd8739ae039);
 
-function $2ef98910f916db6b$var$tooltipCreator() {
+function $2ef98910f916db6b$var$tooltipCreator({ target: target  }) {
     const content = this.$el.dataset.tooltipText || (this.$refs.tooltip ? this.$refs.tooltip.innerHTML : null);
-    if (content) return $d6f449055c23f07a$export$2e2bcd8739ae039(this.$refs.tooltipTarget || this.$el, {
+    if (content) return $d6f449055c23f07a$export$2e2bcd8739ae039(target || this.$refs.tooltipTarget || this.$el, {
         delay: [
             200,
             0
@@ -11446,8 +11446,8 @@ function $2ef98910f916db6b$var$tooltipCreator() {
         onShow: ()=>this.$store.settings.showTooltips
     });
 }
-function $2ef98910f916db6b$export$353372104066311a(context) {
-    return $2ef98910f916db6b$var$tooltipCreator.bind(context)();
+function $2ef98910f916db6b$export$353372104066311a(context, opts) {
+    return $2ef98910f916db6b$var$tooltipCreator.bind(context)(opts || {});
 }
 function $2ef98910f916db6b$export$2e2bcd8739ae039() {
     return {
@@ -11463,7 +11463,9 @@ function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
     let dropdown = null;
     return {
         init () {
-            if (this.$refs.tooltip) tooltip = $2ef98910f916db6b$export$353372104066311a(this);
+            if (this.$refs.tooltip) tooltip = $2ef98910f916db6b$export$353372104066311a(this, {
+                target: this.$refs.icon
+            });
             if (this.$refs.dropdown) dropdown = $d6f449055c23f07a$export$2e2bcd8739ae039(this.$el, {
                 content: this.$refs.dropdown.innerHTML,
                 trigger: "click",
@@ -11497,6 +11499,16 @@ function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
         },
         _spinning: false
     };
+}
+
+
+var $99486586f6691564$exports = {};
+
+$parcel$defineInteropFlag($99486586f6691564$exports);
+
+$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
+function $99486586f6691564$export$2e2bcd8739ae039() {
+    return {};
 }
 
 
@@ -11569,16 +11581,6 @@ function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
             this.observer.disconnect();
         }
     };
-}
-
-
-var $99486586f6691564$exports = {};
-
-$parcel$defineInteropFlag($99486586f6691564$exports);
-
-$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
-function $99486586f6691564$export$2e2bcd8739ae039() {
-    return {};
 }
 
 
@@ -12520,6 +12522,24 @@ function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
 }
 
 
+var $b63b9c6d236b3f65$exports = {};
+
+$parcel$defineInteropFlag($b63b9c6d236b3f65$exports);
+
+$parcel$export($b63b9c6d236b3f65$exports, "default", () => $b63b9c6d236b3f65$export$2e2bcd8739ae039);
+
+function $b63b9c6d236b3f65$export$2e2bcd8739ae039() {
+    return {
+        narrow: false,
+        init () {
+            $9930d46698775b42$export$a2214cc2adb2dc44(this.$el, ({ width: width  })=>{
+                this.narrow = width < 450;
+            });
+        }
+    };
+}
+
+
 var $506dabb2bf255b38$exports = {};
 
 $parcel$defineInteropFlag($506dabb2bf255b38$exports);
@@ -13073,24 +13093,6 @@ function $506dabb2bf255b38$var$sizeSplits(sizes) {
 }
 
 
-var $b63b9c6d236b3f65$exports = {};
-
-$parcel$defineInteropFlag($b63b9c6d236b3f65$exports);
-
-$parcel$export($b63b9c6d236b3f65$exports, "default", () => $b63b9c6d236b3f65$export$2e2bcd8739ae039);
-
-function $b63b9c6d236b3f65$export$2e2bcd8739ae039() {
-    return {
-        narrow: false,
-        init () {
-            $9930d46698775b42$export$a2214cc2adb2dc44(this.$el, ({ width: width  })=>{
-                this.narrow = width < 450;
-            });
-        }
-    };
-}
-
-
 var $d69ee878996183ed$exports = {};
 
 $parcel$defineInteropFlag($d69ee878996183ed$exports);
@@ -13328,17 +13330,17 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$2a4696bf91bc917f$exports = {
+$b40b0b74537cbda1$exports = {
     "button": $cbd28b10fa9798c7$exports,
+    "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
     "dimensions_display": $e398acaded942bbe$exports,
-    "code": $99486586f6691564$exports,
     "embed": $e1f51f020443edd4$exports,
     "filter": $e9904a14dabf652d$exports,
     "icon": $36506012e0c6e9e3$exports,
     "nav": $d92d9d5253f84566$exports,
-    "split_layout": $506dabb2bf255b38$exports,
     "params_editor": $b63b9c6d236b3f65$exports,
+    "split_layout": $506dabb2bf255b38$exports,
     "tabbed_content": $d69ee878996183ed$exports,
     "tabs": $0db07828cadc68e0$exports,
     "viewport": $6d64716f0b34fdf4$exports
@@ -13528,7 +13530,7 @@ $caa9439642c6336c$export$2e2bcd8739ae039.store("settings", $96e0343bbb13096b$exp
 // Components
 $caa9439642c6336c$export$2e2bcd8739ae039.data("app", $d709d0f4027033b2$export$2e2bcd8739ae039);
 [
-    $2a4696bf91bc917f$exports,
+    $b40b0b74537cbda1$exports,
     $e4eab7529959b73b$exports,
     $4979d2d897a1c01f$exports
 ].forEach((scripts)=>{

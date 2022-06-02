@@ -6,8 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
   <link href="/lookbook-assets/css/lookbook.css?v=<%= Lookbook::VERSION %>" rel="stylesheet">
-  <% if @theme_css %>
-    <style><%== @theme_css %></style>
+  <link href="/lookbook-assets/css/themes/<%= config.ui_theme %>.css?v=<%= Lookbook::VERSION %>" rel="stylesheet">
+  <% if @theme_overrides.present? %>
+    <style>
+      <%== @theme_overrides %>
+    </style>
   <% end %>
 
   <% if config.ui_favicon != false %>
@@ -29,7 +32,7 @@
   
   <title><%= [@title, config.project_name || "Lookbook"].compact.join(" :: ") %></title>
 </head>
-<body class="theme-<%= config.ui_theme %>">
+<body>
   
   <%= yield :body %>
   

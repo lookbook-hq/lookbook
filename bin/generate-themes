@@ -2,31 +2,28 @@
 
 const fs = require("fs");
 
-const options = require("command-line-args")([
-  { name: "name", type: String },
-  { name: "base", type: String },
-  { name: "accent", type: String },
-]);
-
-const themeConfig = require("../theme/config")(options);
-
-const themeCSS = generateThemeCSS(options);
-write(
-  `./app/assets/lookbook/css/themes/${
-    options.name ? options.name : "default"
-  }.css`,
-  themeCSS
-);
+const themes = [
+  { name: "indigo", accent: "indigo" },
+  { name: "blue", accent: "blue" },
+  { name: "zinc", accent: "zinc" },
+];
 
 // Tailwind classes
 
-const tailwindJSON = generateTailwindJSON();
+const tailwindJSON = generateTailwindJSON(require("../theme/config")());
 write("./theme/theme.json", tailwindJSON);
+
+themes.forEach((options) => {
+  const themeConfig = require("../theme/config")(options);
+  const themeCSS = generateThemeCSS(themeConfig);
+
+  write(`./app/assets/lookbook/css/themes/${options.name}.css`, themeCSS);
+});
 
 // Utils
 
-function generateThemeCSS(options) {
-  const cssThemeLines = [options.name ? `.theme-${options.name} {` : ":root {"];
+function generateThemeCSS(themeConfig) {
+  const cssThemeLines = [`:root {`];
   Object.keys(themeConfig).forEach((key) => {
     cssThemeLines.push(`  --lookbook-${kebabCase(key)}: ${themeConfig[key]};`);
   });
@@ -34,7 +31,7 @@ function generateThemeCSS(options) {
   return cssThemeLines.join("\n");
 }
 
-function generateTailwindJSON() {
+function generateTailwindJSON(themeConfig) {
   const theme = { lookbook: {} };
   Object.keys(themeConfig).forEach((key) => {
     theme.lookbook[kebabCase(key)] = `var(--lookbook-${kebabCase(key)})`;

@@ -7,7 +7,10 @@
       "source": [
         "./app/assets/lookbook/js/embed.js",
         "./app/assets/lookbook/js/lookbook.js",
-        "./app/assets/lookbook/css/lookbook.css"
+        "./app/assets/lookbook/css/lookbook.css",
+        "./app/assets/lookbook/css/themes/indigo.css",
+        "./app/assets/lookbook/css/themes/blue.css",
+        "./app/assets/lookbook/css/themes/zinc.css"
       ],
       "distDir": "./public/lookbook-assets"
     }
@@ -20,10 +23,7 @@
   "scripts": {
     "dev": "parcel watch -p 5111",
     "build": "parcel build --no-cache --no-optimize",
-    "theme:generate": "npm run theme:generate:default && npm run theme:generate:blue && npm run theme:generate:zinc",
-    "theme:generate:default": "bin/generate-theme",
-    "theme:generate:blue": "bin/generate-theme --name=blue --accent=blue",
-    "theme:generate:zinc": "bin/generate-theme --name=zinc --accent=zinc",
+    "themes:generate": "bin/generate-themes",
     "clean": "rm -rf .parcel-cache",
     "lint:fix": "standardrb --fix && prettier --write .",
     "release": "release-it",

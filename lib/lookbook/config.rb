@@ -45,14 +45,23 @@ module Lookbook
         runtime_parsing: !Rails.env.production?,
         parser_registry_path: "tmp/storage/.yardoc",
 
-        ui_theme: :default,
+        ui_theme: "indigo",
         ui_theme_overrides: ConfigOptions.new,
         experimental_features: false,
       })
     end
 
+    def ui_theme=(name)
+      name = name.to_s
+      if ["indigo", "zinc", "blue"].include?(name)
+        @store[:ui_theme] = name
+      else
+        Lookbook.logger.warn "'#{name}' is not a valid Lookbook theme. Falling back to default."
+      end
+    end
+
     def ui_theme_overrides=(theme)
-      set(:ui_theme_overrides, ConfigOptions.new(theme))
+       @store[:ui_theme_overrides] = ConfigOptions.new(theme)
     end
 
     def ui_theme_overrides(&block)
@@ -68,7 +77,7 @@ module Lookbook
     end
 
     def []=(key, value)
-      set(key.to_sym, value)
+      @store[key.to_sym] = value
     end
 
     def to_h
@@ -87,7 +96,7 @@ module Lookbook
 
     def normalize_paths(paths)
       paths.map! { |path| absolute_path(path) }
-      paths.filter! { |path| File.file?(path) || Dir.exist?(path) }
+      paths.filter! { |path| Dir.exist?(path) }
       paths
     end
 
@@ -106,9 +115,7 @@ module Lookbook
     end
 
     def set(name, *args)
-      setter_name = "set_#{name}".to_sym
-      args[0] = args.first.with_indifferent_access if args.first.is_a?(Hash)
-      respond_to?(setter_name, true) ? send(setter_name, *args) : @store.send(name, *args)
+      @store.send(name, *args)
     end
 
     def method_missing(name, *args)

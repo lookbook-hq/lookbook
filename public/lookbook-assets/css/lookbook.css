@@ -2137,6 +2137,12 @@ pre[class*="language-"] {
   margin-bottom: calc(.5rem * var(--tw-space-y-reverse) );
 }
 
+.space-x-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(.5rem * var(--tw-space-x-reverse) );
+  margin-left: calc(.5rem * calc(1 - var(--tw-space-x-reverse) ) );
+}
+
 .space-x-6 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(1.5rem * var(--tw-space-x-reverse) );
@@ -2949,135 +2955,6 @@ pre[class*="language-"] {
 
 .tippy-box[data-theme~="menu"][data-placement^="right"] > .tippy-arrow:before {
   border-right-color: #fff;
-}
-
-.theme-blue {
-  --lookbook-text: #27272a;
-  --lookbook-divider: #d4d4d8;
-  --lookbook-button-text: #a1a1aa;
-  --lookbook-button-text-hover: #2563eb;
-  --lookbook-tooltip: #3b82f6;
-  --lookbook-tooltip-text: #fff;
-  --lookbook-scrollbar: #e4e4e7;
-  --lookbook-scrollbar-hover: #d4d4d8;
-  --lookbook-toolbar: #fff;
-  --lookbook-toolbar-divider: var(--lookbook-divider);
-  --lookbook-nav-text: var(--lookbook-text);
-  --lookbook-nav-toggle: #71717a;
-  --lookbook-nav-icon: #3b82f6;
-  --lookbook-nav-item-hover: #f4f4f5;
-  --lookbook-nav-item-active: #eff6ff;
-  --lookbook-input: #fff;
-  --lookbook-input-border: #d4d4d8;
-  --lookbook-input-border-focus: #bfdbfe;
-  --lookbook-input-text: #52525b;
-  --lookbook-input-text-placeholder: #a1a1aa;
-  --lookbook-input-toggle: #d4d4d8;
-  --lookbook-input-toggle-active: #3b82f6;
-  --lookbook-prose: #fff;
-  --lookbook-prose-text: #52525b;
-  --lookbook-prose-link: #1e3a8a;
-  --lookbook-tabs-text: #71717a;
-  --lookbook-tabs-text-hover: #3f3f46;
-  --lookbook-tabs-text-disabled: #d4d4d8;
-  --lookbook-tabs-highlight: #60a5fa;
-  --lookbook-viewport-handle: #fff;
-  --lookbook-viewport-handle-icon: #d4d4d8;
-  --lookbook-viewport-handle-icon-hover: #3f3f46;
-  --lookbook-sidebar: #fafafa;
-  --lookbook-page: #fff;
-  --lookbook-drawer: #fafafa;
-  --lookbook-header: #2563eb;
-  --lookbook-header-text: #fff;
-  --lookbook-header-border: #1d4ed8;
-  --lookbook-branding-text: var(--lookbook-header-text);
-  --lookbook-draggable-hint: #e0e7ff33;
-}
-
-:root {
-  --lookbook-text: #27272a;
-  --lookbook-divider: #d4d4d8;
-  --lookbook-button-text: #a1a1aa;
-  --lookbook-button-text-hover: #4f46e5;
-  --lookbook-tooltip: #6366f1;
-  --lookbook-tooltip-text: #fff;
-  --lookbook-scrollbar: #e4e4e7;
-  --lookbook-scrollbar-hover: #d4d4d8;
-  --lookbook-toolbar: #fff;
-  --lookbook-toolbar-divider: var(--lookbook-divider);
-  --lookbook-nav-text: var(--lookbook-text);
-  --lookbook-nav-toggle: #71717a;
-  --lookbook-nav-icon: #6366f1;
-  --lookbook-nav-item-hover: #f4f4f5;
-  --lookbook-nav-item-active: #eef2ff;
-  --lookbook-input: #fff;
-  --lookbook-input-border: #d4d4d8;
-  --lookbook-input-border-focus: #c7d2fe;
-  --lookbook-input-text: #52525b;
-  --lookbook-input-text-placeholder: #a1a1aa;
-  --lookbook-input-toggle: #d4d4d8;
-  --lookbook-input-toggle-active: #6366f1;
-  --lookbook-prose: #fff;
-  --lookbook-prose-text: #52525b;
-  --lookbook-prose-link: #312e81;
-  --lookbook-tabs-text: #71717a;
-  --lookbook-tabs-text-hover: #3f3f46;
-  --lookbook-tabs-text-disabled: #d4d4d8;
-  --lookbook-tabs-highlight: #818cf8;
-  --lookbook-viewport-handle: #fff;
-  --lookbook-viewport-handle-icon: #d4d4d8;
-  --lookbook-viewport-handle-icon-hover: #3f3f46;
-  --lookbook-sidebar: #fafafa;
-  --lookbook-page: #fff;
-  --lookbook-drawer: #fafafa;
-  --lookbook-header: #4f46e5;
-  --lookbook-header-text: #fff;
-  --lookbook-header-border: #4338ca;
-  --lookbook-branding-text: var(--lookbook-header-text);
-  --lookbook-draggable-hint: #e0e7ff33;
-}
-
-.theme-zinc {
-  --lookbook-text: #27272a;
-  --lookbook-divider: #d4d4d8;
-  --lookbook-button-text: #a1a1aa;
-  --lookbook-button-text-hover: #52525b;
-  --lookbook-tooltip: #71717a;
-  --lookbook-tooltip-text: #fff;
-  --lookbook-scrollbar: #e4e4e7;
-  --lookbook-scrollbar-hover: #d4d4d8;
-  --lookbook-toolbar: #fff;
-  --lookbook-toolbar-divider: var(--lookbook-divider);
-  --lookbook-nav-text: var(--lookbook-text);
-  --lookbook-nav-toggle: #71717a;
-  --lookbook-nav-icon: #71717a;
-  --lookbook-nav-item-hover: #f4f4f5;
-  --lookbook-nav-item-active: #fafafa;
-  --lookbook-input: #fff;
-  --lookbook-input-border: #d4d4d8;
-  --lookbook-input-border-focus: #e4e4e7;
-  --lookbook-input-text: #52525b;
-  --lookbook-input-text-placeholder: #a1a1aa;
-  --lookbook-input-toggle: #d4d4d8;
-  --lookbook-input-toggle-active: #71717a;
-  --lookbook-prose: #fff;
-  --lookbook-prose-text: #52525b;
-  --lookbook-prose-link: #18181b;
-  --lookbook-tabs-text: #71717a;
-  --lookbook-tabs-text-hover: #3f3f46;
-  --lookbook-tabs-text-disabled: #d4d4d8;
-  --lookbook-tabs-highlight: #a1a1aa;
-  --lookbook-viewport-handle: #fff;
-  --lookbook-viewport-handle-icon: #d4d4d8;
-  --lookbook-viewport-handle-icon-hover: #3f3f46;
-  --lookbook-sidebar: #fafafa;
-  --lookbook-page: #fff;
-  --lookbook-drawer: #fafafa;
-  --lookbook-header: #52525b;
-  --lookbook-header-text: #fff;
-  --lookbook-header-border: #3f3f46;
-  --lookbook-branding-text: var(--lookbook-header-text);
-  --lookbook-draggable-hint: #e0e7ff33;
 }
 
 .hover\:bg-lookbook-draggable-hint:hover {

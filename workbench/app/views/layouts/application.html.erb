@@ -7,6 +7,7 @@
     <%= csp_meta_tag %>
 
     <link href="/lookbook-assets/css/lookbook.css?v=<%= Lookbook::VERSION %>" rel="stylesheet">
+    <link href="/lookbook-assets/css/themes/<%= Lookbook.config.ui_theme %>.css?v=<%= Lookbook::VERSION %>" rel="stylesheet">
     <script src="/lookbook-assets/js/lookbook.js?v=<%= Lookbook.version %>" defer></script>
   </head>
   <body class="p-8 overflow-auto h-screen<%= " mx-auto" if lookbook_display(:centered) %>" style="max-width: <%= lookbook_display(:max_width, "1200px") %>; max-height: <%= lookbook_display(:max_height, "100vh") %>;">

@@ -11,7 +11,7 @@ module Workbench
     config.load_defaults 7.0
 
     config.view_component.preview_paths << Rails.root.join("app/previews").to_s
-    config.view_component.view_component_path = "../../app/components"
+    config.view_component.view_component_path = Rails.root.join("../app/components").to_s
     config.view_component.preview_controller = "PreviewController"
   end
 end

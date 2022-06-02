@@ -4,7 +4,6 @@
 
 @import "./tooltip.css";
 
-@import-glob "./themes/*.css";
 @import-glob "../../../components/lookbook/**/*/component.css";
 
 @layer base {

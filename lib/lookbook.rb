@@ -24,6 +24,7 @@ module Lookbook
   autoload :SourceInspector, "lookbook/source_inspector"
   autoload :CodeFormatter, "lookbook/code_formatter"
   autoload :Markdown, "lookbook/markdown"
+  autoload :Theme, "lookbook/theme"
 
   class << self
     include Utils
