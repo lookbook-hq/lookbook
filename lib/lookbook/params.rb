@@ -37,7 +37,7 @@ module Lookbook
       def cast(value, type = "String")
         case type.downcase
         when "symbol"
-          value.delete_prefix(":").to_sym
+          value.presence&.delete_prefix(":")&.to_sym
         when "hash"
           result = safe_parse_yaml(value, {})
           unless result.is_a? Hash
