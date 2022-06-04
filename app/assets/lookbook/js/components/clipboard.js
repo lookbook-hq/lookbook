@@ -41,11 +41,7 @@ function initClipboard(context = {}) {
 }
 
 export default function clipboardComponent() {
-  return initClipboard({
-    init() {
-      console.log("clipboard init");
-    },
-  });
+  return initClipboard({});
 }
 
 export { initClipboard };
