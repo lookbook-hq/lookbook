@@ -11,7 +11,7 @@
 
 <%= render Lookbook::TabbedContent::Component.new(
   alpine_data: "$store.workbench.tabbedPanels",
-  class: "border border-gray-300 border-t-0 p-4 max-h-[400px]"
+  class: "border border-gray-300 border-t-0 p-4 !h-auto"
 ) do |content| %>
   <% content.section do %>
     First panel

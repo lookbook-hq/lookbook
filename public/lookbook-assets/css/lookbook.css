@@ -1886,16 +1886,16 @@ pre[class*="language-"] {
   height: 1.25rem;
 }
 
+.\!h-auto {
+  height: auto !important;
+}
+
 .max-h-\[300px\] {
   max-height: 300px;
 }
 
 .max-h-full {
   max-height: 100%;
-}
-
-.max-h-\[400px\] {
-  max-height: 400px;
 }
 
 .min-h-0 {

@@ -81,7 +81,7 @@ module Lookbook
     end
 
     def to_h
-      @store.map { |key, value| [key, get(key.to_sym)] }.to_h
+      @store.to_h
     end
 
     def to_json(*a)

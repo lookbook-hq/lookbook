@@ -86,6 +86,10 @@ module Lookbook
       options[:hidden]
     end
 
+    def label
+      options[:label]
+    end
+
     def method_missing(method_name, *args, &block)
       if args.none? && !block
         options[method_name]
