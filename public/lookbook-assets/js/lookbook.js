@@ -11517,39 +11517,53 @@ var $47a1c62621be0c54$exports = {};
 $parcel$defineInteropFlag($47a1c62621be0c54$exports);
 
 $parcel$export($47a1c62621be0c54$exports, "default", () => $47a1c62621be0c54$export$2e2bcd8739ae039);
+var $122263eab94cad08$exports = {};
+
+$parcel$defineInteropFlag($122263eab94cad08$exports);
+
+$parcel$export($122263eab94cad08$exports, "initClipboard", () => $122263eab94cad08$export$c6684e6159b21de3);
+$parcel$export($122263eab94cad08$exports, "default", () => $122263eab94cad08$export$2e2bcd8739ae039);
+
+function $122263eab94cad08$export$c6684e6159b21de3(context = {}) {
+    let copyTimeout = null;
+    return Object.assign(context, {
+        copied: false,
+        async copyToClipboard (target = null) {
+            let targetEl;
+            if (this.$refs.copyTarget) targetEl = this.$refs.copyTarget;
+            else if (typeof target === "string") targetEl = document.querySelector(target);
+            if (!targetEl) {
+                this.warn("Could not find copy target");
+                return false;
+            }
+            const content = $7ae6ae39c2ec9059$export$6cb344a21ca18aec(targetEl.innerText.trim());
+            await window.navigator.clipboard.writeText(content);
+            this.copied = true;
+            if (copyTimeout) clearTimeout(copyTimeout);
+            copyTimeout = setTimeout(()=>{
+                this.copied = false;
+                this.onCopyComplete();
+            }, 1000);
+            return content;
+        },
+        onCopyComplete () {}
+    });
+}
+function $122263eab94cad08$export$2e2bcd8739ae039() {
+    return $122263eab94cad08$export$c6684e6159b21de3({});
+}
 
 
-function $47a1c62621be0c54$export$2e2bcd8739ae039(target = null) {
+
+function $47a1c62621be0c54$export$2e2bcd8739ae039() {
     const button = $cbd28b10fa9798c7$export$2e2bcd8739ae039();
-    let notificationTippy = null;
     return {
         ...button,
-        done: false,
+        copied: false,
         init () {
             button.init.bind(this)();
-            if (target === null) this._copyTarget = this.$refs.copyContent;
-            else this._copyTarget = typeof target === "string" ? document.querySelector(target) : target;
-            notificationTippy = $d6f449055c23f07a$export$2e2bcd8739ae039(this.$el, {
-                content: "Copied!",
-                trigger: "manual"
-            });
-        },
-        async copyToClipboard () {
-            await window.navigator.clipboard.writeText(this.getContent());
-            this.done = true;
-            notificationTippy.show();
-            if (this._tooltip) this._tooltip.hide();
-            setTimeout(()=>{
-                this.done = false;
-                notificationTippy.hide();
-            }, 1000);
-        },
-        getContent () {
-            const decoder = document.createElement("textarea");
-            decoder.innerHTML = this._copyTarget ? this._copyTarget.innerHTML : "";
-            return decoder.value.trim();
-        },
-        _copyTarget: null
+            $122263eab94cad08$export$c6684e6159b21de3(this);
+        }
     };
 }
 
@@ -13146,7 +13160,7 @@ function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
         init () {
             this.$nextTick(()=>{
                 this.dropdown = $d6f449055c23f07a$export$2e2bcd8739ae039(this.$refs.dropdownTrigger, {
-                    content: this.$refs.dropdown,
+                    content: this.$refs.tabsDropdown,
                     theme: "menu",
                     interactive: true,
                     trigger: "click",
@@ -13456,46 +13470,6 @@ $e4eab7529959b73b$exports = {
 
 
 var $4979d2d897a1c01f$exports = {};
-var $122263eab94cad08$exports = {};
-
-$parcel$defineInteropFlag($122263eab94cad08$exports);
-
-$parcel$export($122263eab94cad08$exports, "initClipboard", () => $122263eab94cad08$export$c6684e6159b21de3);
-$parcel$export($122263eab94cad08$exports, "default", () => $122263eab94cad08$export$2e2bcd8739ae039);
-
-function $122263eab94cad08$export$c6684e6159b21de3(context = {}) {
-    let copyTimeout = null;
-    return Object.assign(context, {
-        copied: false,
-        async copyToClipboard (target = null) {
-            let targetEl;
-            if (this.$refs.copyTarget) targetEl = this.$refs.copyTarget;
-            else if (typeof target === "string") targetEl = document.querySelector(target);
-            if (!targetEl) {
-                this.warn("Could not find copy target");
-                return false;
-            }
-            const content = $7ae6ae39c2ec9059$export$6cb344a21ca18aec(targetEl.innerText.trim());
-            await window.navigator.clipboard.writeText(content);
-            this.copied = true;
-            if (copyTimeout) clearTimeout(copyTimeout);
-            copyTimeout = setTimeout(()=>{
-                this.copied = false;
-                this.onCopyComplete();
-            }, 1000);
-            return content;
-        },
-        onCopyComplete () {}
-    });
-}
-function $122263eab94cad08$export$2e2bcd8739ae039() {
-    return $122263eab94cad08$export$c6684e6159b21de3({
-        init () {
-            console.log("clipboard init");
-        }
-    });
-}
-
 
 
 $4979d2d897a1c01f$exports = {

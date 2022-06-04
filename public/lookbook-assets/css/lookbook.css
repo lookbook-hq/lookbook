@@ -1950,10 +1950,6 @@ pre[class*="language-"] {
   min-width: 0;
 }
 
-.min-w-\[100px\] {
-  min-width: 100px;
-}
-
 .max-w-sm {
   max-width: 24rem;
 }

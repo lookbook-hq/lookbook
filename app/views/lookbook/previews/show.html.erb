@@ -20,7 +20,7 @@
           class: "ml-auto opacity-30 hover:opacity-100" %>
       <% end %>
 
-      <% toolbar.section divide: :left, class: "flex-none" do %>
+      <% toolbar.section divide: :left, class: "flex-none relative z-10" do %>
         <%= render_component :button_group do |group| %>
           <% group.button icon: :code,
             tooltip: "Copy page embed code",
@@ -73,7 +73,7 @@
         <% end %>
       <% end %>
 
-      <% toolbar.section align: :right, divide: :left, class: "flex-none" do %>
+      <% toolbar.section align: :right, divide: :left, class: "flex-none relative z-10" do %>
         <%= render_component :button_group do |group| %>
 
           <%= @drawer_panels.each do |key, panel| %>

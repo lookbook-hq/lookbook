@@ -7,7 +7,7 @@
     <%= render_component :button, icon: :menu, class: "-ml-3", x_show: "visibleTabsCount === 0" %>
   </div>
   <div class="hidden">
-    <div x-ref="dropdown" class="min-w-[100px]" data-cloak>
+    <div x-ref="tabsDropdown" data-cloak>
       <%= safe_join(dropdown_tabs) %>
     </div>
   </div>

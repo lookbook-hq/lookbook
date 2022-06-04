@@ -27,7 +27,7 @@ export default function tabsComponent(store) {
     init() {
       this.$nextTick(() => {
         this.dropdown = tippy(this.$refs.dropdownTrigger, {
-          content: this.$refs.dropdown,
+          content: this.$refs.tabsDropdown,
           theme: "menu",
           interactive: true,
           trigger: "click",
