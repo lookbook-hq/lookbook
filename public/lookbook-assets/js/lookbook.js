@@ -7849,7 +7849,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $b40b0b74537cbda1$exports = {};
+var $b9ef41d6f5d97856$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -12449,9 +12449,15 @@ function $e1f51f020443edd4$export$2e2bcd8739ae039(id, embedStore) {
             }, this.$el.querySelector("iframe"));
             this.resizer = this.$el.querySelector("iframe").iFrameResizer;
             this.resizer.resize();
+            this.$dispatch("embed:resizer-loaded", {
+                resizer: this.resizer
+            });
         },
         resizeIframe () {
             this.$el.querySelector("iframe").iFrameResizer.resize();
+        },
+        cleanup () {
+            if (this.resizer) this.resizer.removeListeners();
         }
     };
 }
@@ -12531,24 +12537,6 @@ function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
             ).length;
             this.empty = matchedChildCount === 0;
             this.debug(`Children matching filter: ${matchedChildCount}/${this.children.length}`);
-        }
-    };
-}
-
-
-var $b63b9c6d236b3f65$exports = {};
-
-$parcel$defineInteropFlag($b63b9c6d236b3f65$exports);
-
-$parcel$export($b63b9c6d236b3f65$exports, "default", () => $b63b9c6d236b3f65$export$2e2bcd8739ae039);
-
-function $b63b9c6d236b3f65$export$2e2bcd8739ae039() {
-    return {
-        narrow: false,
-        init () {
-            $9930d46698775b42$export$a2214cc2adb2dc44(this.$el, ({ width: width  })=>{
-                this.narrow = width < 450;
-            });
         }
     };
 }
@@ -13107,6 +13095,24 @@ function $506dabb2bf255b38$var$sizeSplits(sizes) {
 }
 
 
+var $b63b9c6d236b3f65$exports = {};
+
+$parcel$defineInteropFlag($b63b9c6d236b3f65$exports);
+
+$parcel$export($b63b9c6d236b3f65$exports, "default", () => $b63b9c6d236b3f65$export$2e2bcd8739ae039);
+
+function $b63b9c6d236b3f65$export$2e2bcd8739ae039() {
+    return {
+        narrow: false,
+        init () {
+            $9930d46698775b42$export$a2214cc2adb2dc44(this.$el, ({ width: width  })=>{
+                this.narrow = width < 450;
+            });
+        }
+    };
+}
+
+
 var $d69ee878996183ed$exports = {};
 
 $parcel$defineInteropFlag($d69ee878996183ed$exports);
@@ -13142,6 +13148,7 @@ $parcel$export($0db07828cadc68e0$exports, "default", () => $0db07828cadc68e0$exp
 
 function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
     const initial = store.activeTab || null;
+    let dropdown = null;
     return {
         visibleTabsCount: 0,
         triggerLeft: 0,
@@ -13149,7 +13156,7 @@ function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
             return Array.from(this.$refs.tabs.children);
         },
         get dropdownTabs () {
-            return Array.from(this.$refs.dropdown.children);
+            return Array.from(this.$refs.tabsDropdown ? this.$refs.tabsDropdown.children : []);
         },
         get tabWidths () {
             return this.tabs.map((tab)=>$e263283f97229955$export$bdf7e699b242f476(tab, {
@@ -13159,7 +13166,7 @@ function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
         },
         init () {
             this.$nextTick(()=>{
-                this.dropdown = $d6f449055c23f07a$export$2e2bcd8739ae039(this.$refs.dropdownTrigger, {
+                dropdown = $d6f449055c23f07a$export$2e2bcd8739ae039(this.$refs.dropdownTrigger, {
                     content: this.$refs.tabsDropdown,
                     theme: "menu",
                     interactive: true,
@@ -13197,7 +13204,7 @@ function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
         },
         selectTab (el) {
             store.activeTab = this._getRef(el);
-            this.dropdown.hide();
+            dropdown.hide();
         },
         isSelected (el) {
             return store.activeTab === this._getRef(el);
@@ -13344,7 +13351,7 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$b40b0b74537cbda1$exports = {
+$b9ef41d6f5d97856$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
@@ -13353,8 +13360,8 @@ $b40b0b74537cbda1$exports = {
     "filter": $e9904a14dabf652d$exports,
     "icon": $36506012e0c6e9e3$exports,
     "nav": $d92d9d5253f84566$exports,
-    "params_editor": $b63b9c6d236b3f65$exports,
     "split_layout": $506dabb2bf255b38$exports,
+    "params_editor": $b63b9c6d236b3f65$exports,
     "tabbed_content": $d69ee878996183ed$exports,
     "tabs": $0db07828cadc68e0$exports,
     "viewport": $6d64716f0b34fdf4$exports
@@ -13371,7 +13378,7 @@ function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id , matchers: matchers 
     return {
         filteredOut: false,
         get open () {
-            return this.isOpen(id);
+            return this.isCollection && this.isOpen(id);
         },
         get active () {
             if (this.$refs.link) return this.location && this.location.pathname === this.$refs.link.getAttribute("href");
@@ -13504,7 +13511,7 @@ $caa9439642c6336c$export$2e2bcd8739ae039.store("settings", $96e0343bbb13096b$exp
 // Components
 $caa9439642c6336c$export$2e2bcd8739ae039.data("app", $d709d0f4027033b2$export$2e2bcd8739ae039);
 [
-    $b40b0b74537cbda1$exports,
+    $b9ef41d6f5d97856$exports,
     $e4eab7529959b73b$exports,
     $4979d2d897a1c01f$exports
 ].forEach((scripts)=>{

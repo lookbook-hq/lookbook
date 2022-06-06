@@ -3,7 +3,7 @@ export default function navItemComponent({ id, matchers }) {
     filteredOut: false,
 
     get open() {
-      return this.isOpen(id);
+      return this.isCollection && this.isOpen(id);
     },
 
     get active() {

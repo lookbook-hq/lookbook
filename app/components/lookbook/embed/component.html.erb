@@ -1,9 +1,9 @@
 <% if @example.present? %>
-  <%= render_component_tag class: "not-prose border-b border-lookbook-divider rounded-sm overflow-hidden" do %>
+  <%= render_component_tag class: "not-prose border-b border-lookbook-divider rounded-sm overflow-hidden", "@navigation:start.window": "cleanup" do %>
 
     <%= render_component :toolbar, class: "border border-b-0 border-lookbook-divider" do |toolbar| %>
       <% toolbar.section padded: true do %>
-        <h3 class="">
+        <h3>
           <%= @example.preview.label %> (<%= @example.label %>)
         </h3>
       <% end %>
@@ -16,7 +16,7 @@
             href: helpers.lookbook.inspect_path(@example.path, @params),
             tooltip: "Open in new window",
             target: "_blank" %>
-        <% end %>  
+        <% end %>
       <% end %>
     <% end %>
 

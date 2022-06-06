@@ -5,6 +5,7 @@ import { getElementSize } from "@helpers/dom";
 
 export default function tabsComponent(store) {
   const initial = store.activeTab || null;
+  let dropdown = null;
   return {
     visibleTabsCount: 0,
 
@@ -15,7 +16,9 @@ export default function tabsComponent(store) {
     },
 
     get dropdownTabs() {
-      return Array.from(this.$refs.dropdown.children);
+      return Array.from(
+        this.$refs.tabsDropdown ? this.$refs.tabsDropdown.children : []
+      );
     },
 
     get tabWidths() {
@@ -26,7 +29,7 @@ export default function tabsComponent(store) {
 
     init() {
       this.$nextTick(() => {
-        this.dropdown = tippy(this.$refs.dropdownTrigger, {
+        dropdown = tippy(this.$refs.dropdownTrigger, {
           content: this.$refs.tabsDropdown,
           theme: "menu",
           interactive: true,
@@ -78,7 +81,7 @@ export default function tabsComponent(store) {
 
     selectTab(el) {
       store.activeTab = this._getRef(el);
-      this.dropdown.hide();
+      dropdown.hide();
     },
 
     isSelected(el) {

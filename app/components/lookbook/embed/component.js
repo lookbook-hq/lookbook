@@ -23,10 +23,17 @@ export default function embedComponent(id, embedStore) {
       );
       this.resizer = this.$el.querySelector("iframe").iFrameResizer;
       this.resizer.resize();
+      this.$dispatch("embed:resizer-loaded", { resizer: this.resizer });
     },
 
     resizeIframe() {
       this.$el.querySelector("iframe").iFrameResizer.resize();
+    },
+
+    cleanup() {
+      if (this.resizer) {
+        this.resizer.removeListeners();
+      }
     },
   };
 }
