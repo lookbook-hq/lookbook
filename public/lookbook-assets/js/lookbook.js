@@ -7849,7 +7849,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $b9ef41d6f5d97856$exports = {};
+var $b40b0b74537cbda1$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -12542,6 +12542,24 @@ function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
 }
 
 
+var $b63b9c6d236b3f65$exports = {};
+
+$parcel$defineInteropFlag($b63b9c6d236b3f65$exports);
+
+$parcel$export($b63b9c6d236b3f65$exports, "default", () => $b63b9c6d236b3f65$export$2e2bcd8739ae039);
+
+function $b63b9c6d236b3f65$export$2e2bcd8739ae039() {
+    return {
+        narrow: false,
+        init () {
+            $9930d46698775b42$export$a2214cc2adb2dc44(this.$el, ({ width: width  })=>{
+                this.narrow = width < 450;
+            });
+        }
+    };
+}
+
+
 var $506dabb2bf255b38$exports = {};
 
 $parcel$defineInteropFlag($506dabb2bf255b38$exports);
@@ -13095,24 +13113,6 @@ function $506dabb2bf255b38$var$sizeSplits(sizes) {
 }
 
 
-var $b63b9c6d236b3f65$exports = {};
-
-$parcel$defineInteropFlag($b63b9c6d236b3f65$exports);
-
-$parcel$export($b63b9c6d236b3f65$exports, "default", () => $b63b9c6d236b3f65$export$2e2bcd8739ae039);
-
-function $b63b9c6d236b3f65$export$2e2bcd8739ae039() {
-    return {
-        narrow: false,
-        init () {
-            $9930d46698775b42$export$a2214cc2adb2dc44(this.$el, ({ width: width  })=>{
-                this.narrow = width < 450;
-            });
-        }
-    };
-}
-
-
 var $d69ee878996183ed$exports = {};
 
 $parcel$defineInteropFlag($d69ee878996183ed$exports);
@@ -13351,7 +13351,7 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$b9ef41d6f5d97856$exports = {
+$b40b0b74537cbda1$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
@@ -13360,8 +13360,8 @@ $b9ef41d6f5d97856$exports = {
     "filter": $e9904a14dabf652d$exports,
     "icon": $36506012e0c6e9e3$exports,
     "nav": $d92d9d5253f84566$exports,
-    "split_layout": $506dabb2bf255b38$exports,
     "params_editor": $b63b9c6d236b3f65$exports,
+    "split_layout": $506dabb2bf255b38$exports,
     "tabbed_content": $d69ee878996183ed$exports,
     "tabs": $0db07828cadc68e0$exports,
     "viewport": $6d64716f0b34fdf4$exports
@@ -13511,7 +13511,7 @@ $caa9439642c6336c$export$2e2bcd8739ae039.store("settings", $96e0343bbb13096b$exp
 // Components
 $caa9439642c6336c$export$2e2bcd8739ae039.data("app", $d709d0f4027033b2$export$2e2bcd8739ae039);
 [
-    $b9ef41d6f5d97856$exports,
+    $b40b0b74537cbda1$exports,
     $e4eab7529959b73b$exports,
     $4979d2d897a1c01f$exports
 ].forEach((scripts)=>{
