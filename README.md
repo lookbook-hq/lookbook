@@ -1,146 +1,78 @@
-<div align="center">
-<h1>👀 Lookbook 👀</h1>
+# Lookbook v1.0 [beta]
 
-<p>A component development and documentation tool for <a href="http://viewcomponent.org/">ViewComponent</a>-based projects.</p>
+This is the **beta development** branch for Lookbook v1.0.
 
-<div>
-<a href="https://rubygems.org/gems/lookbook"><img src="https://badge.fury.io/rb/lookbook.svg" alt="Gem version"></a>
-<a href="https://github.com/testdouble/standard"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Ruby Style Guide"></a>
-<a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg" alt="Code style: Prettier"></a>
-</div>
-</div>
+> See the [main branch](https://github.com/allmarkedup/lookbook/tree/main) for code and documentation for the current stable release.
 
----
+## 🚀 Release focus
 
-<div align="center">
-<a href="#installing">Installing</a> • <a href="#previews">Previews</a>  • <a href="#pages">Pages</a> •  <a href="docs/configuration.md">Configuration</a> 
-</div>
+The main goals of the v1.0 release are:
 
-<div align="center">
-<a href="docs/deployment.md">Deployment</a> • <a href="docs/tips.md">Tips</a> • <a href="docs/contributing.md">Contributing</a> • <a href="#license">License</a>
-</div>
+- [x] Rebuild app UI using ViewComponent components
+- [x] Improve usability of the small screen/mobile layout
+- [x] Add support for some limited UI color theme customisation
+- [x] Remove the `experimental` flag from the [Pages](https://github.com/allmarkedup/lookbook#pages)
+- [x] Improve the development/debugging setup, and allow previewing Lookbook's own components in Lookbook :-)
+- [ ] Improve the test setup and test coverage, switch to RSpec **[in progress]**
 
----
+**No breaking changes** are planned for user-facing features, although the app UI will include some minor visual updates and usability improvements.
 
-## Overview
+![Lookbook UI](.github/assets/lookbook_screenshot_v1.0_beta.png)
 
-**Lookbook** gives [ViewComponent](http://viewcomponent.org/) projects a powerful **development UI** for exploring, inspecting and testing components in isolation, plus a markdown-based **documentation engine** to help create and share integrated, long-form component docs. 
+## 👋 Testing and feedback - help wanted!
 
-Lookbook extends the native [ViewComponent preview functionality](https://viewcomponent.org/guide/previews.html) using [RDoc/Yard-style](docs/previews.md#annotations) comment tags/annotations. That means you don't need to learn a new DSL or create any extra files to get up and running, and you can easily drop Lookbook into (or take it out of!) your project at any time without rewriting your code.
+The bulk of the v1.0 'new feature' development work is now mostly complete, although testing and bug fixing is ongoing.
 
-![Lookbook UI](.github/assets/lookbook_screenshot.png)
+**If you are an existing Lookbook user** I'd greatly appreciate if you can kick the tyres on the v1.0 beta and open an issue with any bug reports, suggestions or feedback you might have.
 
-## Lookbook Demo App 
+### Main areas/points for testing:
 
-If you want to have a quick play with Lookbook, the easiest way is to [give the demo app](https://github.com/allmarkedup/lookbook-demo) a spin. It's a basic Rails/ViewComponent app with a few test components included to tinker with.
+- Existing Lookbook setups should continue to work **with no changes required**
+- There have been a number of small UI changes - do any of them negatively affect your experience of using Lookbook?
+- The Pages feature should work without opting in to any experimental features. 
+- It's now possible to pick from one of a small set of pre-defined UI themes (finer-grained customisation coming soon!). See below for details. Any thoughts on this?
 
-**Online demo: https://lookbook-demo-app.herokuapp.com/lookbook**
+> However absolutely any thoughts, comments or bug reports (even if unrelated to the specific areas above) would be much appreciated!
 
-If you'd rather dig in a bit more and run the demo app locally, the [demo repo](https://github.com/allmarkedup/lookbook-demo) contains instructions on how to get it up and running.
+### UI theming
 
----
-
-<h2 id="installing">Installing Lookbook</h2>
-
-### 1. Add as a dependency
-
-Add Lookbook to your `Gemfile` somewhere **after** the ViewComponent gem. For example:
+Lookbook now ships with a small set of pre-defined UI themes, which can be set using the `ui_theme` config option:
 
 ```ruby
-gem 'view_component', require: 'view_component/engine'
-gem 'lookbook'
+# config/application.rb (or similar)
+config.lookbook.ui_theme = "blue"
 ```
 
-### 2. Mount the Lookbook engine
+Currently available themes are:
 
-You then need to mount the Lookbook engine (at a path of your choosing) in your `routes.rb` file:
+- `indigo` (default)
+- `blue`
+- `zinc`
 
-```ruby
-Rails.application.routes.draw do
-  mount Lookbook::Engine, at: '/lookbook' if Rails.env.development?
-end
-```
-
-The `at` property determines the root URL that the Lookbook UI will be served at.
-
-Then you can start your app as normal and navigate to `http://localhost:3000/lookbook` (or whatever mount path you specified) to view your component previews in the Lookbook UI.
-
-<h2 id="previews">🔍 Component Previews</h2>
-
-You don't need to do anything special to see your ViewComponent previews and examples in Lookbook - just create them as normal and they'll automatically appear in the Lookbook UI. Preview templates, custom layouts and even bespoke [preview controllers](https://viewcomponent.org/guide/previews.html#configuring-preview-controller) should all work as you would expect.
-
-> If you are new to ViewComponent development, checkout the ViewComponent [documentation](https://viewcomponent.org/guide/) on how to get started developing your components and [creating previews](https://viewcomponent.org/guide/previews.html).
+> More themes and finer-grained customisation of theme colours is coming soon!
 
 
-To enhance the core ViewComponent preview functionality, Lookbook supports the annotation of preview classes with RDoc/Yard-style tag comments.
+## 🛠 Workbench
 
-An example annotated preview file might look something like this:
+As of this release, Lookbook's UI is itself built using ViewComponent components. To help with development it is possible to preview these components (in a Lookbook instance!) by running the included 'Workbench" app, as follows:
 
-```ruby
-# @label Basic Button
-# @display bg_color "#fff"
-class ButtonComponentPreview < ViewComponent::Preview
+1. Clone this repo
+2. Install dependencies: `bundle install & npm install`
+3. Start the Workbench: `foreman start`
+4. Open http://localhost:4545 in your browser to view the Workbench
 
-  # Primary button
-  # ---------------
-  # This is the button style you should use for most things.
-  #
-  # @label Primary
-  def default
-    render ButtonComponent.new do
-      "Click me"
-    end
-  end
-
-  # Button with icon
-  # ----------------
-  # This example uses dynamic preview parameters
-  # which can be edited live in the Lookbook UI
-  #
-  # @param text
-  # @param icon select [heart, cog, alert]
-  def icon(text: "Spread the love", icon: "heart")
-    render ButtonComponent.new(icon: icon) do
-      text
-    end
-  end
-end
-```
-
-Annotations can be used to generate 'live' parameter fields in dynamic component previews, to customise component labels in the navigation, to hide WIP components from the UI and much more.
-
-[Read more about previews &rarr;](docs/previews.md)
-
-<h2 id="pages">📖 Documentation Pages</h1>
-
-Lookbook comes with an easy-to-use, Markdown-powered 'pages' engine for writing longer-form documentation.
-
-'Live' component preview examples can be embedded in documentation pages to ensure no code duplications occurs and your documenation always stays up-to-date.
-
-Documentation pages are files with either a `.html.erb` or a `.md.erb` file extension, which live within the `test/components/docs` directory. YAML Frontmatter is supported.
-
-An example page might look like this:
-
-```markdown
----
-title: An example page
-label: Nice example
----
-
-This is an example page. If it has a `.md.erb` file extension its
-contents will be run through a Markdown parser/renderer before display. ERB can be used in here too!
-
-You can can access data about the page using the `@page` variable.
-The title of this page is "<%= @page.title %>".
-
-You can embed component previews in pages like this:
-
-<%= embed Elements:ButtonComponentPreview, :default %>
-```
+This will start the Workbench app in development mode and any changes to Lookbooks views or assets will immediately be visible in the UI.
 
 
+## 🚦 Running tests
 
-[Read more about creating documentation &rarr;](docs/pages.md)
+The test suite is in the process of being completely overhauled.
+
+Tests are now written using RSpec and the system now uses [Combustion](https://github.com/pat/combustion) under the hood.
+
+- Tests can be run using the `rake lookbook:test` or `bundle exec rspec` commands.
+- The dummy app that the tests are being run against can be viewed by running the `rake lookbook:test:serve` command and then browsing to http://localhost:9292/lookbook
+
 
 ---
 
