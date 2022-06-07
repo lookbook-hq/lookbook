@@ -1,5 +1,7 @@
 module Lookbook
   class PagesController < ApplicationController
+    helper_method :page_controller
+
     def self.controller_path
       "lookbook/pages"
     end
