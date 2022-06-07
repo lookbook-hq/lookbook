@@ -17,7 +17,11 @@ The main goals of the v1.0 release are:
 
 **No breaking changes** are planned for user-facing features, although the app UI will include some minor visual updates and usability improvements.
 
-![Lookbook UI](.github/assets/lookbook_screenshot_v1.0_beta.png)
+## Demo app
+
+There is a demo of the current v1.0-beta here: https://lookbook-demo-app-v1-0-beta.herokuapp.com/lookbook/
+
+[![Lookbook UI](.github/assets/lookbook_screenshot_v1.0_beta.png)](https://lookbook-demo-app-v1-0-beta.herokuapp.com/lookbook/)
 
 ## 👋 Testing and feedback - help wanted!
 
