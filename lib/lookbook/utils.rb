@@ -6,7 +6,7 @@ module Lookbook
     protected
 
     def generate_id(*args)
-      parts = args.map { |arg| arg.to_s.parameterize.underscore }
+      parts = args.map { |arg| arg.to_s.force_encoding("UTF-8").parameterize.underscore }
       parts.join("-").tr("/", "-").tr("_", "-").delete_prefix("-").delete_suffix("-").gsub("--", "-")
     end
 
