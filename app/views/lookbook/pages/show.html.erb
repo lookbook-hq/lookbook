@@ -49,19 +49,20 @@
               id="page-tabs"
               x-data="pageTabs"
               x-init="active = '<%= @page.tabs.first.tab %>'"
-              class="p-5 border border-gray-500">
-              <nav class="flex">
+              class="">
+              <nav class="flex py-2">
                 <% @page.tabs.each do |tab| %>
                   <button
-                    class="px-5 py-2 border"
-                    x-on:click="active = '<%= tab.tab %>'">
+                    class="px-5 border-b-2 font-bold"
+                    :class="active === '<%= tab.tab %>' ? 'border-gray-500' : 'border-gray-50'"
+                    x-on:click="changeTab('<%= tab.tab %>');">
                     <%= tab.label %>
                   </button>
                 <% end %>
               </nav>
 
               <% @page.tabs.each do |tab| %>
-                <div x-show="active === '<%= tab.tab %>'">
+                <div id="tab-<%= tab.tab %>" x-show="active === '<%= tab.tab %>'">
                   <%= page_controller.render_page(tab) %>
                 </div>
               <% end %>

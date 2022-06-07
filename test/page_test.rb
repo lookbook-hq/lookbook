@@ -16,7 +16,7 @@ module Lookbook
 
       should "add tabs to related page" do
         avatar = Page.all.items.find { |page| page.path == "avatar" }
-        assert avatar.tabs.length == 2
+        assert avatar.tabs.length == 3
       end
     end
   end
