@@ -165,7 +165,7 @@ module Lookbook
           end.partition { |page| page.type == :page }
 
         sorted_pages = pages
-          .uniq { |p| p.path }
+          .uniq { |page| page.path }
           .sort_by { |page| [page.position, page.label] }
 
         page_dict = sorted_pages.index_by(&:path)
