@@ -20,7 +20,7 @@ module Lookbook
 
     def initialize(path, base_path)
       @pathname = Pathname.new path
-      @base_path = base_path
+      @base_path = Pathname.new base_path
       @options = nil
       @errors = []
       @tabs = []
@@ -178,7 +178,7 @@ module Lookbook
       end
 
       def page_paths
-        Lookbook.config.page_paths.filter { |dir| Dir.exist? dir }
+        Lookbook.config.page_paths.select { |dir| Dir.exist? dir }
       end
     end
   end

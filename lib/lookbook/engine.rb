@@ -53,7 +53,7 @@ module Lookbook
       options.listen_paths = options.listen_paths.map(&:to_s)
       options.listen_paths += options.preview_paths
       options.listen_paths << (vc_options.view_component_path || Rails.root.join("app/components"))
-      options.listen_paths.filter! { |path| Dir.exist? path }
+      options.listen_paths.select! { |path| Dir.exist? path }
 
       options.cable_mount_path ||= "/lookbook-cable"
       options.cable_logger ||= Rails.logger
@@ -95,7 +95,7 @@ module Lookbook
         @preview_listener.start
 
         if Lookbook::Features.enabled?(:pages)
-          @page_listener = Listen.to(*config.lookbook.page_paths.filter { |dir| Dir.exist? dir }, only: /\.(html.*|md.*)$/) do |modified, added, removed|
+          @page_listener = Listen.to(*config.lookbook.page_paths.select { |dir| Dir.exist? dir }, only: /\.(html.*|md.*)$/) do |modified, added, removed|
             Lookbook::Engine.websocket&.broadcast("reload", {
               modified: modified,
               removed: removed,
@@ -104,17 +104,17 @@ module Lookbook
           end
           @page_listener.start
         end
+      end
 
-        if config.lookbook.runtime_parsing
-          parser.parse
-        else
-          unless File.exist?(config.lookbook.parser_registry_path)
-            Lookbook.logger.warn "
-              Runtime parsing is disabled but no registry file has been found.
-              Did you run `rake lookbook:preparse` before starting the app?
-              Expected to find registry file at #{config.lookbook.parser_registry_path}
-            "
-          end
+      if config.lookbook.runtime_parsing
+        parser.parse
+      else
+        unless File.exist?(config.lookbook.parser_registry_path)
+          Lookbook.logger.warn "
+            Runtime parsing is disabled but no registry file has been found.
+            Did you run `rake lookbook:preparse` before starting the app?
+            Expected to find registry file at #{config.lookbook.parser_registry_path}
+          "
         end
       end
     end
