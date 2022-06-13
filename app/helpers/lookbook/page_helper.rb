@@ -4,7 +4,7 @@ module Lookbook
 
     def page_path(id)
       page = id.is_a?(Page) ? id : Lookbook.pages.find(id)
-      lookbook.page_path page.lookup_path
+      lookbook_page_path page.lookup_path
     end
 
     def embed(*args, params: {}, type: :preview, **opts)

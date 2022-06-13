@@ -1,6 +1,6 @@
 <% examples = node.examples.reject(&:hidden?) %>
 <% if examples.many? %>
-  <%= component "nav_group", node: node, path: show_path(examples.first.path) do %>
+  <%= component "nav_group", node: node, path: lookbook_inspect_path(examples.first.path) do %>
     <% examples.each do |example| %>
       <%= component "nav_item", item: example, depth: example.hierarchy_depth + 1 %>
     <% end %>

@@ -14,7 +14,7 @@ module Lookbook
       if feature_enabled? :pages
         landing = Lookbook.pages.find(&:landing) || Lookbook.pages.first
         if landing.present?
-          redirect_to page_path(landing.lookup_path)
+          redirect_to lookbook_page_path(landing.lookup_path)
         end
       end
     end

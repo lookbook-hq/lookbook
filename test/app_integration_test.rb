@@ -29,12 +29,12 @@ module Lookbook
           @preview = find_preview("basic")
           @example = @preview.examples.first
           @example_path = @example.path
-          visit show_url @example_path
+          visit lookbook_inspect_url @example_path
         end
 
         should "render the correct preview in an iframe" do
           within "#inspector" do
-            assert page.has_selector?("iframe[src^='#{preview_path @example_path}']")
+            assert page.has_selector?("iframe[src^='#{lookbook_preview_path @example_path}']")
           end
         end
 
@@ -54,7 +54,7 @@ module Lookbook
       context "nested" do
         setup do
           @preview = find_preview("basic/nested")
-          visit show_url example_path(@preview)
+          visit lookbook_inspect_url example_path(@preview)
         end
 
         should "display the correct label in the nav" do
@@ -72,12 +72,12 @@ module Lookbook
         context "labelled" do
           setup do
             @example_path = example_path(@preview, "labelled")
-            visit show_url @example_path
+            visit lookbook_inspect_url @example_path
           end
 
           should "display the correct label in the nav" do
             within "#nav" do
-              assert page.has_selector?("a[href='#{show_path @example_path}']", text: "Relabelled")
+              assert page.has_selector?("a[href='#{lookbook_inspect_path @example_path}']", text: "Relabelled")
             end
           end
         end
@@ -85,12 +85,12 @@ module Lookbook
         context "hidden" do
           setup do
             @example_path = example_path(@preview, "hidden")
-            visit show_url @example_path
+            visit lookbook_inspect_url @example_path
           end
 
           should "not display in the nav" do
             within "#nav" do
-              assert page.has_no_selector?("a[href='#{show_path @example_path}']")
+              assert page.has_no_selector?("a[href='#{lookbook_inspect_path @example_path}']")
             end
           end
         end
@@ -99,7 +99,7 @@ module Lookbook
           setup do
             @example = @preview.example("with_notes")
             @example_path = @example.path
-            visit show_url @example_path
+            visit lookbook_inspect_url @example_path
           end
 
           should "renders the notes as markdown" do
@@ -119,7 +119,7 @@ module Lookbook
           context "default param type" do
             setup do
               @example = @preview.example("default_input")
-              visit show_url @example.path
+              visit lookbook_inspect_url @example.path
             end
 
             should "render a text input" do
@@ -132,7 +132,7 @@ module Lookbook
           context "text param" do
             setup do
               @example = @preview.example("text_input")
-              visit show_url @example.path
+              visit lookbook_inspect_url @example.path
             end
 
             should "render a text input" do
@@ -145,7 +145,7 @@ module Lookbook
           context "textarea param" do
             setup do
               @example = @preview.example("textarea_input")
-              visit show_url @example.path
+              visit lookbook_inspect_url @example.path
             end
 
             should "render a textarea" do
@@ -158,7 +158,7 @@ module Lookbook
           context "select param" do
             setup do
               @example = @preview.example("select_input")
-              visit show_url @example.path
+              visit lookbook_inspect_url @example.path
             end
 
             should "render a select" do
@@ -172,7 +172,7 @@ module Lookbook
 
       context "preview not found" do
         setup do
-          visit show_url "foo/bar"
+          visit lookbook_inspect_url "foo/bar"
         end
 
         should "display the 'preview not found' message" do
@@ -184,7 +184,7 @@ module Lookbook
     context "#preview" do
       context "basic" do
         setup do
-          visit preview_url example_path("basic")
+          visit lookbook_preview_url example_path("basic")
         end
 
         should "use the default layout" do
@@ -194,7 +194,7 @@ module Lookbook
 
       context "templated" do
         setup do
-          visit preview_url example_path("templated")
+          visit lookbook_preview_url example_path("templated")
         end
 
         should "render the preview template" do
@@ -204,7 +204,7 @@ module Lookbook
 
       context "with display params" do
         setup do
-          visit preview_url example_path("annotated", "with_display_params")
+          visit lookbook_preview_url example_path("annotated", "with_display_params")
         end
 
         should "have all the display params set" do
@@ -219,7 +219,7 @@ module Lookbook
       context "with custom layout" do
         context "ungrouped" do
           setup do
-            visit preview_url example_path("custom_layout")
+            visit lookbook_preview_url example_path("custom_layout")
           end
 
           should "use the custom layout" do
@@ -229,7 +229,7 @@ module Lookbook
 
         context "grouped" do
           setup do
-            visit preview_url example_path("custom_layout", "test")
+            visit lookbook_preview_url example_path("custom_layout", "test")
           end
 
           should "use the custom layout" do
@@ -245,7 +245,7 @@ module Lookbook
 
       context "hidden" do
         setup do
-          visit preview_url example_path("annotated", "hidden")
+          visit lookbook_preview_url example_path("annotated", "hidden")
         end
 
         should "still be rendered" do
@@ -255,7 +255,7 @@ module Lookbook
 
       context "grouped" do
         setup do
-          visit preview_url example_path("annotated", "misc")
+          visit lookbook_preview_url example_path("annotated", "misc")
         end
 
         should "render all components in the group" do
@@ -273,5 +273,6 @@ module Lookbook
         end
       end
     end
+
   end
 end

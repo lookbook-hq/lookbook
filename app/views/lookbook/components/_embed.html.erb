@@ -4,11 +4,11 @@
       <%= example.preview.label %> (<%= example.label %>)
     </div>
     <div class="ml-auto flex items-center space-x-3">
-      <a href="<%= lookbook.show_path(example.path, params) %>" class="" x-tooltip.theme.lookbook="`View in Inspector`">
+      <a href="<%= lookbook_inspect_path(example.path, params) %>" class="" x-tooltip.theme.lookbook="`View in Inspector`">
         <%= icon "eye", size: 4, class: "hover:text-indigo-800" %>
       </a>
       <a
-        href="<%= lookbook.preview_path(example.path, params) %>"
+        href="<%= lookbook_preview_path(example.path, params) %>"
         target="_blank"
         class="-top-px relative"
         x-tooltip.theme.lookbook="`Open in new window`">
@@ -21,7 +21,7 @@
       <iframe seamless
         id="<%= id %>-iframe"
         x-ref="iframe"
-        src="<%= lookbook.preview_path(example.path, params.merge(lookbook_embed: true)) %>"
+        src="<%= lookbook_preview_path(example.path, params.merge(lookbook_embed: true)) %>"
         class="min-w-full h-full w-px"
         :class="{ 'pointer-events-none': reflowing }"
         @load="recaclulateIframeHeight">

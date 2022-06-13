@@ -13,7 +13,7 @@ module Lookbook
       if landing.present?
         page_path(landing.lookup_path)
       else
-        home_path
+        lookbook_home_path
       end
     end
   end
