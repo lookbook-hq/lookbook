@@ -1,5 +1,8 @@
 module Lookbook
   class Theme
+
+    BASE_THEMES = [:indigo, :zinc, :blue]
+
     def initialize(config = {})
       @config = config
       @css = nil
@@ -17,6 +20,10 @@ module Lookbook
       else
         ""
       end
+    end
+
+    def self.valid_theme?(name)
+      BASE_THEMES.include? name.to_sym
     end
   end
 end

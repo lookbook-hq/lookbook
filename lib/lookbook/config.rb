@@ -1,24 +1,47 @@
 require "lookbook/markdown"
+require "lookbook/theme"
 
 module Lookbook
   class ConfigOptions < ActiveSupport::OrderedOptions
-    def initialize(**data)
+    def initialize(data = {}, hashes_as_options = true)
       super()
-      data.keys.each { |key| self[key.to_sym] = data[key] }
+      @hashes_as_options = hashes_as_options
+      set(data) if data.present?
     end
 
     def [](key)
-      super(key.to_sym)
+      super(normalize_key(key))
     end
 
     def []=(key, value)
-      super(key.to_sym, value)
+      super(normalize_key(key), normalize_value(value))
+    end
+
+    def set(data)
+      data.keys.each do |key|
+        self[normalize_key(key)] = normalize_value(data[key])
+      end
+      self
+    end
+
+    def method_missing(name, *args)
+      super(normalize_key(name), *args.map { |arg| normalize_value(arg) })
+    end
+
+    def normalize_key(key)
+      key.to_s.downcase.gsub("-", "_").to_sym
+    end
+
+    def normalize_value(value)
+      @hashes_as_options && value.is_a?(Hash) ? ConfigOptions.new(value) : value
     end
   end
 
   class Config
     def initialize
-      @store = ConfigOptions.new(**{
+      @options = ConfigOptions.new
+      
+      @options.set({
         project_name: "Lookbook",
         log_level: 2,
         auto_refresh: true,
@@ -26,12 +49,12 @@ module Lookbook
         page_controller: "Lookbook::PageController",
         page_route: "pages",
         page_paths: ["test/components/docs"],
-        page_options: ConfigOptions.new,
-        markdown_options: ConfigOptions.new(**Markdown::DEFAULT_OPTIONS),
+        page_options: {},
+        markdown_options: Markdown::DEFAULT_OPTIONS,
 
         preview_paths: [],
-        preview_display_params: ConfigOptions.new,
-        preview_options: ConfigOptions.new,
+        preview_display_params: {},
+        preview_options: {},
         preview_srcdoc: false,
         sort_examples: true,
 
@@ -46,22 +69,25 @@ module Lookbook
         parser_registry_path: "tmp/storage/.yardoc",
 
         ui_theme: "indigo",
-        ui_theme_overrides: ConfigOptions.new,
+        ui_theme_overrides: {},
+
+        inspector_panels: {},
+
         experimental_features: false,
       })
     end
 
     def ui_theme=(name)
       name = name.to_s
-      if ["indigo", "zinc", "blue"].include?(name)
-        @store[:ui_theme] = name
+      if Theme.valid_theme?(name)
+        @options[:ui_theme] = name
       else
-        Lookbook.logger.warn "'#{name}' is not a valid Lookbook theme. Falling back to default."
+        Lookbook.logger.warn "'#{name}' is not a valid Lookbook theme. Theme setting not changed."
       end
     end
 
     def ui_theme_overrides=(theme)
-       @store[:ui_theme_overrides] = ConfigOptions.new(**theme)
+      @options[:ui_theme_overrides] = theme
     end
 
     def ui_theme_overrides(&block)
@@ -77,11 +103,11 @@ module Lookbook
     end
 
     def []=(key, value)
-      @store[key.to_sym] = value
+      @options[key.to_sym] = value
     end
 
     def to_h
-      @store.to_h
+      @options.to_h
     end
 
     def to_json(*a)
@@ -111,11 +137,11 @@ module Lookbook
 
     def get(name)
       getter_name = "get_#{name}".to_sym
-      respond_to?(getter_name, true) ? send(getter_name, @store[name]) : @store[name]
+      respond_to?(getter_name, true) ? send(getter_name, @options[name]) : @options[name]
     end
 
     def set(name, *args)
-      @store.send(name, *args)
+      @options.send(name, *args)
     end
 
     def method_missing(name, *args)
