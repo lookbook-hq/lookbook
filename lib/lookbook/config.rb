@@ -61,7 +61,7 @@ module Lookbook
     end
 
     def ui_theme_overrides=(theme)
-       @store[:ui_theme_overrides] = ConfigOptions.new(theme)
+       @store[:ui_theme_overrides] = ConfigOptions.new(**theme)
     end
 
     def ui_theme_overrides(&block)
