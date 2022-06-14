@@ -25,6 +25,7 @@ module Lookbook
   autoload :CodeFormatter, "lookbook/code_formatter"
   autoload :Markdown, "lookbook/markdown"
   autoload :Theme, "lookbook/theme"
+  autoload :Store, "lookbook/store"
 
   class << self
     include Utils

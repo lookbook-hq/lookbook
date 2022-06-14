@@ -1,46 +1,12 @@
 require "lookbook/markdown"
 require "lookbook/theme"
+require "lookbook/store"
 
 module Lookbook
-  class ConfigOptions < ActiveSupport::OrderedOptions
-    def initialize(data = {}, hashes_as_options = true)
-      super()
-      @hashes_as_options = hashes_as_options
-      set(data) if data.present?
-    end
-
-    def [](key)
-      super(normalize_key(key))
-    end
-
-    def []=(key, value)
-      super(normalize_key(key), normalize_value(value))
-    end
-
-    def set(data)
-      data.keys.each do |key|
-        self[normalize_key(key)] = normalize_value(data[key])
-      end
-      self
-    end
-
-    def method_missing(name, *args)
-      super(normalize_key(name), *args.map { |arg| normalize_value(arg) })
-    end
-
-    def normalize_key(key)
-      key.to_s.downcase.gsub("-", "_").to_sym
-    end
-
-    def normalize_value(value)
-      @hashes_as_options && value.is_a?(Hash) ? ConfigOptions.new(value) : value
-    end
-  end
-
   class Config
     def initialize
-      @options = ConfigOptions.new
-      
+      @options = Store.new
+      foobar = "bax"
       @options.set({
         project_name: "Lookbook",
         log_level: 2,
@@ -71,10 +37,72 @@ module Lookbook
         ui_theme: "indigo",
         ui_theme_overrides: {},
 
-        inspector_panels: {},
+        inspector_panels: {
+          preview: {
+            pane: :main,
+            position: 1,
+            partial: "lookbook/previews/panels/preview",
+            hotkey: "v",
+            panel_classes: "overflow-hidden"
+          },
+          output: {
+            pane: :main,
+            position: 2,
+            partial: "lookbook/previews/panels/output",
+            label: "HTML",
+            hotkey: "h",
+          },
+          source: {
+            pane: :drawer,
+            position: 1,
+            partial: "lookbook/previews/panels/source",
+            label: "Source",
+            hotkey: "s",
+            copy: ->(data) { data.examples.map { |e| e[:source] }.join("\n") }
+          },
+          notes: {
+            pane: :drawer,
+            position: 2,
+            partial: "lookbook/previews/panels/notes",
+            label: "Notes",
+            hotkey: "n",
+            disabled: ->(data) { data.examples.filter { |e| e.notes.present? }.none? }
+          },
+          params: {
+            pane: :drawer,
+            position: 3,
+            partial: "lookbook/previews/panels/params",
+            label: "Params",
+            hotkey: "p",
+            disabled: ->(data) { data.preview.params.none? }
+          }
+        },
+
+        inspector_panel_defaults: {
+          id: ->(data) { "inspector-panel-#{data.name}" },
+          partial: "lookbook/previews/panels/content",
+          content: nil,
+          label: ->(data) { data.name.titleize },
+          pane: :drawer,
+          position: ->(data) { data.index_position },
+          hotkey: nil,
+          disabled: false,
+          show: true,
+          copy: nil,
+          panel_classes: nil,
+          locals: {}
+        },
 
         experimental_features: false,
       })
+    end
+
+    def inspector_panels(&block)
+      if block_given?
+        yield get(:inspector_panels)
+      else
+        get(:inspector_panels)
+      end
     end
 
     def ui_theme=(name)
@@ -84,10 +112,6 @@ module Lookbook
       else
         Lookbook.logger.warn "'#{name}' is not a valid Lookbook theme. Theme setting not changed."
       end
-    end
-
-    def ui_theme_overrides=(theme)
-      @options[:ui_theme_overrides] = theme
     end
 
     def ui_theme_overrides(&block)
@@ -115,6 +139,11 @@ module Lookbook
     end
     
     protected
+
+    def get_inspector_panels(panels)
+      panels.filter! { |key, panel| panel }
+      panels
+    end
 
     def get_project_name(name)
       name == false ? nil : name

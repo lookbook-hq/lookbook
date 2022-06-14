@@ -1,4 +1,4 @@
-<% if @example.params.none? %>
+<% if preview.params.none? %>
   <div class="p-4 w-full h-full bg-lookbook-prose">
     <%= render_component :prose do %>
       <em class='opacity-50'>No params configured.</em>
@@ -7,7 +7,7 @@
 <% else %>
   <div class="py-3 h-full">
     <%= render_component :params_editor do |editor| %>
-      <% @example.params.each do |param| %>
+      <% preview.params.each do |param| %>
         <% editor.field **param, value: params[param[:name]] %>
       <% end %>
     <% end %>

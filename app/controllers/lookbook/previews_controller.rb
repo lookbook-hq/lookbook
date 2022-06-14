@@ -8,12 +8,17 @@ module Lookbook
 
     before_action :lookup_entities, only: [:preview, :show]
     before_action :set_title
+    before_action :set_params
 
     def preview
       if @example
-        set_params
         begin
-          render html: render_examples(examples_data)
+          opts = {layout: @preview.layout}
+          if params[:lookbook_embed] == "true"
+            opts[:append_html] = "<script src=\"/lookbook-assets/js/embed.js?v=#{Lookbook.version}\"></script>".html_safe
+          end
+          preview_html = preview_controller.process(:render_in_layout_to_string, "lookbook/preview", inspector_data, **opts)
+          render html: preview_html
         rescue => exception
           render_in_layout "lookbook/error",
             layout: "lookbook/standalone",
@@ -27,10 +32,8 @@ module Lookbook
     def show
       if @example
         begin
-          set_params
-          @rendered_examples = examples_data
-          @drawer_panels = drawer_panels.filter { |name, panel| panel[:show] }
-          @preview_panels = preview_panels.filter { |name, panel| panel[:show] }
+          @main_panels = main_panels
+          @drawer_panels = drawer_panels
         rescue => exception
           render_in_layout "lookbook/error", layout: "lookbook/inspector", error: prettify_error(exception)
         end
@@ -79,107 +82,108 @@ module Lookbook
       render_in_layout "lookbook/404", layout: layout, **locals
     end
 
+    def target_examples
+      @example.type == :group ? @example.examples : [@example]
+    end
+
     def set_title
       @title = @example.present? ? [@example&.label, @preview&.label].compact.join(" :: ") : "Not found"
     end
 
-    def examples_data
-      @examples_data ||= (@example.type == :group ? @example.examples : [@example]).map do |example|
-        example_data(example)
-      end
-    end
-
-    def example_data(example)
-      render_args = @preview.render_args(example.name, params: preview_controller.params.permit!)
-      has_template = render_args[:template] != "view_components/preview"
-      {
-        label: example.label,
-        notes: example.notes,
-        html: preview_controller.process(:render_example_to_string, @preview, example.name),
-        source: has_template ? example.template_source(render_args[:template]) : example.method_source,
-        source_lang: has_template ? example.template_lang(render_args[:template]) : example.source_lang,
-        params: example.params,
-        display: example.display_params
-      }
-    end
-
-    def render_examples(examples)
-      opts = {layout: @preview.layout}
-      if params[:lookbook_embed] == "true"
-        opts[:append_html] = "<script src=\"/lookbook-assets/js/embed.js?v=#{Lookbook.version}\"></script>".html_safe
-      end
-      preview_controller.process(:render_in_layout_to_string, "lookbook/preview", {examples: examples}, **opts)
-    end
-
     def set_params
-      # cast known params to type
-      @example.params.each do |param|
-        if preview_controller.params.key?(param[:name])
-          preview_controller.params[param[:name]] = Lookbook::Params.cast(preview_controller.params[param[:name]], param[:type])
+      if @example
+        # cast known params to type
+        @example.params.each do |param|
+          if preview_controller.params.key?(param[:name])
+            preview_controller.params[param[:name]] = Lookbook::Params.cast(preview_controller.params[param[:name]], param[:type])
+          end
         end
+        # set display params
+        preview_controller.params.merge!({
+          lookbook: {
+            display: @example.display_params
+          }
+        })
+      end
+    end
+
+    def preview_params
+      preview_controller.params.permit!
+      preview_controller.params.to_h.select do |key, value|
+        !!@example.params.find { |param| param[:name] == key }
+      end
+    end
+
+    def inspector_data
+      return @inspector_data if @inspector_data.present?
+
+      request_data = {
+        preview_params: preview_params,
+        path: params[:path],
+        query_parameters: request.query_parameters,
+        original: request
+      }
+
+      preview_data = {
+        relative_path: @preview.full_path.relative_path_from(Rails.root.to_s),
+        full_path: @preview.full_path,
+        example_label: @example.label,
+        params: @example.params,
+      }
+      [:id, :label, :notes, :lookup_path, :full_path].each do |prop|
+        preview_data[prop] = @preview.public_send(prop)
       end
 
-      # set display params
-      preview_controller.params.merge!({
-        lookbook: {
-          display: @example.display_params
-        }
+      examples_data = target_examples.map do |example|
+        render_args = @preview.render_args(example.name, params: preview_controller.params)
+        has_template = render_args[:template] != "view_components/preview"
+        example_data = Lookbook::Store.new({
+          output: preview_controller.process(:render_example_to_string, @preview, example.name),
+          source: has_template ? example.template_source(render_args[:template]) : example.method_source,
+          source_lang: has_template ? example.template_lang(render_args[:template]) : example.source_lang,
+        })
+        [:id, :label, :notes, :lookup_path, :params, :display_params].each do |prop|
+          example_data[prop] = example.public_send(prop)
+        end
+        example_data
+      end
+
+      @inspector_data ||= Lookbook::Store.new({
+        request: request_data,
+        preview: preview_data,
+        examples: examples_data
       })
     end
 
-    def preview_panels
-      {
-        preview: {
-          id: "preview-panel-preview",
-          label: "Preview",
-          template: "lookbook/previews/panels/preview",
-          hotkey: "v",
-          show: true,
-          disabled: false,
-          copy: false
-        },
-        output: {
-          id: "preview-panel-html",
-          label: "HTML",
-          template: "lookbook/previews/panels/output",
-          hotkey: "h",
-          show: true,
-          disabled: false,
-          copy: false
+    def panels
+      return @panels if @panels.present?
+      @panels = []
+      Lookbook.config.inspector_panels.each do |name, config|
+        config_with_defaults = Lookbook.config.inspector_panel_defaults.merge(config)
+
+        callable_data = {
+          name: name.to_s,
+          index_position: (@panels.filter { |p| p.pane == config.pane }.size + 1),
+          **inspector_data
         }
-      }
+
+        resolved_config = config_with_defaults.transform_values do |value|
+          value.class == Proc ? value.call(Lookbook::Store.new(callable_data)) : value
+        end
+        resolved_config[:name] = name.to_s
+        
+        @panels << Lookbook::Store.new(resolved_config, deep: false)
+      end
+
+      @panels.filter(&:show).sort_by { |p| [p.position, p.label] }
+    end
+   
+    def main_panels
+      panels.filter { |panel| panel.pane == :main }
     end
 
     def drawer_panels
-      {
-        source: {
-          id: "drawer-panel-source",
-          label: "Source",
-          template: "lookbook/previews/panels/source",
-          hotkey: "s",
-          show: true,
-          disabled: false,
-          copy: @rendered_examples.map { |e| e[:source] }.join("\n")
-        },
-        notes: {
-          id: "drawer-panel-notes",
-          label: "Notes",
-          template: "lookbook/previews/panels/notes",
-          hotkey: "n",
-          show: true,
-          copy: false,
-          disabled: @rendered_examples.filter { |e| e[:notes].present? }.none?
-        },
-        params: {
-          id: "drawer-panel-params",
-          label: "Params",
-          template: "lookbook/previews/panels/params",
-          hotkey: "p",
-          show: true,
-          disabled: @example.params.none?,
-          copy: false
-        }
-      }
+      panels.filter { |panel| panel.pane == :drawer }
     end
 
     def preview_controller

@@ -1830,6 +1830,10 @@ pre[class*="language-"] {
   display: grid;
 }
 
+.contents {
+  display: contents;
+}
+
 .\!hidden {
   display: none !important;
 }
@@ -2430,11 +2434,6 @@ pre[class*="language-"] {
 .px-3 {
   padding-left: .75rem;
   padding-right: .75rem;
-}
-
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 
 .py-1 {

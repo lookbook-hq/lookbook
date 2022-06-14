@@ -7047,10 +7047,10 @@ function $45e94a9374456304$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
 function $6a63819b7ed6d0ed$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
     return {
         minVerticalSplitWidth: 800,
-        preview: {
-            activeTab: Alpine.$persist("").as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("inspector-preview-active-tab", prefix)),
-            width: Alpine.$persist("100%").as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("inspector-preview-width", prefix)),
-            height: Alpine.$persist("100%").as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("inspector-preview-height", prefix)),
+        main: {
+            activeTab: Alpine.$persist("").as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("inspector-main-active-tab", prefix)),
+            width: Alpine.$persist("100%").as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("inspector-main-width", prefix)),
+            height: Alpine.$persist("100%").as($7ae6ae39c2ec9059$export$2ce3c33e50a76e49("inspector-main-height", prefix)),
             lastWidth: null,
             lastHeight: null,
             resizing: false
@@ -7849,7 +7849,92 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $b40b0b74537cbda1$exports = {};
+var $fe04831617095043$exports = {};
+var $99486586f6691564$exports = {};
+
+$parcel$defineInteropFlag($99486586f6691564$exports);
+
+$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
+function $99486586f6691564$export$2e2bcd8739ae039() {
+    return {};
+}
+
+
+var $e398acaded942bbe$exports = {};
+
+$parcel$defineInteropFlag($e398acaded942bbe$exports);
+
+$parcel$export($e398acaded942bbe$exports, "default", () => $e398acaded942bbe$export$2e2bcd8739ae039);
+
+function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
+    return {
+        width: 0,
+        height: 0,
+        resizing: false,
+        target: null,
+        init () {
+            this.target = document.querySelector(targetSelector);
+            if (this.target) {
+                this.width = Math.round(this.target.clientWidth);
+                this.height = Math.round(this.target.clientHeight);
+                this.createObserver();
+            }
+        },
+        createObserver () {
+            if (this.target) this.observer = $9930d46698775b42$export$a2214cc2adb2dc44(document.querySelector(targetSelector), ({ width: width , height: height  })=>{
+                this.width = width;
+                this.height = height;
+            });
+        },
+        tearDown () {
+            if (this.observer) this.observer.disconnect();
+        }
+    };
+}
+
+
+var $47a1c62621be0c54$exports = {};
+
+$parcel$defineInteropFlag($47a1c62621be0c54$exports);
+
+$parcel$export($47a1c62621be0c54$exports, "default", () => $47a1c62621be0c54$export$2e2bcd8739ae039);
+var $122263eab94cad08$exports = {};
+
+$parcel$defineInteropFlag($122263eab94cad08$exports);
+
+$parcel$export($122263eab94cad08$exports, "initClipboard", () => $122263eab94cad08$export$c6684e6159b21de3);
+$parcel$export($122263eab94cad08$exports, "default", () => $122263eab94cad08$export$2e2bcd8739ae039);
+
+function $122263eab94cad08$export$c6684e6159b21de3(context = {}) {
+    let copyTimeout = null;
+    return Object.assign(context, {
+        copied: false,
+        async copyToClipboard (target = null) {
+            let targetEl;
+            if (this.$refs.copyTarget) targetEl = this.$refs.copyTarget;
+            else if (typeof target === "string") targetEl = document.querySelector(target);
+            if (!targetEl) {
+                this.warn("Could not find copy target");
+                return false;
+            }
+            const content = $7ae6ae39c2ec9059$export$6cb344a21ca18aec(targetEl.innerText.trim());
+            await window.navigator.clipboard.writeText(content);
+            this.copied = true;
+            if (copyTimeout) clearTimeout(copyTimeout);
+            copyTimeout = setTimeout(()=>{
+                this.copied = false;
+                this.onCopyComplete();
+            }, 1000);
+            return content;
+        },
+        onCopyComplete () {}
+    });
+}
+function $122263eab94cad08$export$2e2bcd8739ae039() {
+    return $122263eab94cad08$export$c6684e6159b21de3({});
+}
+
+
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11502,59 +11587,6 @@ function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
 }
 
 
-var $99486586f6691564$exports = {};
-
-$parcel$defineInteropFlag($99486586f6691564$exports);
-
-$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
-function $99486586f6691564$export$2e2bcd8739ae039() {
-    return {};
-}
-
-
-var $47a1c62621be0c54$exports = {};
-
-$parcel$defineInteropFlag($47a1c62621be0c54$exports);
-
-$parcel$export($47a1c62621be0c54$exports, "default", () => $47a1c62621be0c54$export$2e2bcd8739ae039);
-var $122263eab94cad08$exports = {};
-
-$parcel$defineInteropFlag($122263eab94cad08$exports);
-
-$parcel$export($122263eab94cad08$exports, "initClipboard", () => $122263eab94cad08$export$c6684e6159b21de3);
-$parcel$export($122263eab94cad08$exports, "default", () => $122263eab94cad08$export$2e2bcd8739ae039);
-
-function $122263eab94cad08$export$c6684e6159b21de3(context = {}) {
-    let copyTimeout = null;
-    return Object.assign(context, {
-        copied: false,
-        async copyToClipboard (target = null) {
-            let targetEl;
-            if (this.$refs.copyTarget) targetEl = this.$refs.copyTarget;
-            else if (typeof target === "string") targetEl = document.querySelector(target);
-            if (!targetEl) {
-                this.warn("Could not find copy target");
-                return false;
-            }
-            const content = $7ae6ae39c2ec9059$export$6cb344a21ca18aec(targetEl.innerText.trim());
-            await window.navigator.clipboard.writeText(content);
-            this.copied = true;
-            if (copyTimeout) clearTimeout(copyTimeout);
-            copyTimeout = setTimeout(()=>{
-                this.copied = false;
-                this.onCopyComplete();
-            }, 1000);
-            return content;
-        },
-        onCopyComplete () {}
-    });
-}
-function $122263eab94cad08$export$2e2bcd8739ae039() {
-    return $122263eab94cad08$export$c6684e6159b21de3({});
-}
-
-
-
 function $47a1c62621be0c54$export$2e2bcd8739ae039() {
     const button = $cbd28b10fa9798c7$export$2e2bcd8739ae039();
     return {
@@ -11567,35 +11599,6 @@ function $47a1c62621be0c54$export$2e2bcd8739ae039() {
     };
 }
 
-
-var $e398acaded942bbe$exports = {};
-
-$parcel$defineInteropFlag($e398acaded942bbe$exports);
-
-$parcel$export($e398acaded942bbe$exports, "default", () => $e398acaded942bbe$export$2e2bcd8739ae039);
-
-function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
-    return {
-        width: 0,
-        height: 0,
-        resizing: false,
-        init () {
-            const target = document.querySelector(targetSelector);
-            this.width = Math.round(target.clientWidth);
-            this.height = Math.round(target.clientHeight);
-            this.createObserver();
-        },
-        createObserver () {
-            this.observer = $9930d46698775b42$export$a2214cc2adb2dc44(document.querySelector(targetSelector), ({ width: width , height: height  })=>{
-                this.width = width;
-                this.height = height;
-            });
-        },
-        tearDown () {
-            this.observer.disconnect();
-        }
-    };
-}
 
 
 var $e1f51f020443edd4$exports = {};
@@ -12488,18 +12491,6 @@ function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
 }
 
 
-var $36506012e0c6e9e3$exports = {};
-
-$parcel$defineInteropFlag($36506012e0c6e9e3$exports);
-
-$parcel$export($36506012e0c6e9e3$exports, "default", () => $36506012e0c6e9e3$export$2e2bcd8739ae039);
-function $36506012e0c6e9e3$export$2e2bcd8739ae039(iconName) {
-    return {
-        iconName: iconName
-    };
-}
-
-
 var $d92d9d5253f84566$exports = {};
 
 $parcel$defineInteropFlag($d92d9d5253f84566$exports);
@@ -12542,6 +12533,18 @@ function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
 }
 
 
+var $36506012e0c6e9e3$exports = {};
+
+$parcel$defineInteropFlag($36506012e0c6e9e3$exports);
+
+$parcel$export($36506012e0c6e9e3$exports, "default", () => $36506012e0c6e9e3$export$2e2bcd8739ae039);
+function $36506012e0c6e9e3$export$2e2bcd8739ae039(iconName) {
+    return {
+        iconName: iconName
+    };
+}
+
+
 var $b63b9c6d236b3f65$exports = {};
 
 $parcel$defineInteropFlag($b63b9c6d236b3f65$exports);
@@ -12555,6 +12558,117 @@ function $b63b9c6d236b3f65$export$2e2bcd8739ae039() {
             $9930d46698775b42$export$a2214cc2adb2dc44(this.$el, ({ width: width  })=>{
                 this.narrow = width < 450;
             });
+        }
+    };
+}
+
+
+var $a87dacf5139b5e2f$exports = {};
+
+$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
+
+$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
+function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
+    return {
+        get id () {
+            return this.$root.id;
+        },
+        get panels () {
+            return Array.from(this.$refs.panels.children);
+        },
+        isActive (el) {
+            return store.activeTab === this._getRef(el);
+        },
+        // protected
+        _getRef (el) {
+            return el.getAttribute("x-ref");
+        }
+    };
+}
+
+
+var $0db07828cadc68e0$exports = {};
+
+$parcel$defineInteropFlag($0db07828cadc68e0$exports);
+
+$parcel$export($0db07828cadc68e0$exports, "default", () => $0db07828cadc68e0$export$2e2bcd8739ae039);
+
+
+
+
+function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
+    const initial = store.activeTab || null;
+    let dropdown = null;
+    return {
+        visibleTabsCount: 0,
+        triggerLeft: 0,
+        get tabs () {
+            return Array.from(this.$refs.tabs.children);
+        },
+        get dropdownTabs () {
+            return Array.from(this.$refs.tabsDropdown ? this.$refs.tabsDropdown.children : []);
+        },
+        get tabWidths () {
+            return this.tabs.map((tab)=>$e263283f97229955$export$bdf7e699b242f476(tab, {
+                    includeMargins: true
+                }).width
+            );
+        },
+        init () {
+            this.$nextTick(()=>{
+                dropdown = $d6f449055c23f07a$export$2e2bcd8739ae039(this.$refs.dropdownTrigger, {
+                    content: this.$refs.tabsDropdown,
+                    theme: "menu",
+                    interactive: true,
+                    trigger: "click",
+                    appendTo: this.$root
+                });
+                const initialTab = initial ? this.tabs.find((t)=>this._getRef(t) === initial
+                ) : this.tabs[0];
+                this.selectTab(initialTab);
+                this.parentObserver = $9930d46698775b42$export$a2214cc2adb2dc44(this.$root.parentElement, (/*@__PURE__*/$parcel$interopDefault($d3ec6a576bb30dc9$exports))(this.handleResize.bind(this), 10));
+                this.$watch("visibleTabsCount", (value)=>{
+                    this.debug(`'#${this.$root.id}' visible tabs count:`, value);
+                });
+            });
+        },
+        handleResize ({ width: width  }) {
+            if (width === this._lastMeasuredWidth) return;
+            if (width === this.$root.offsetWidth) {
+                this.visibleTabsCount = this.tabs.length;
+                return;
+            }
+            let sumTabWidths = 60;
+            let triggerLeft = 20;
+            let visibleTabsCount = 0;
+            this.tabWidths.forEach((tabWidth)=>{
+                sumTabWidths += tabWidth;
+                if (sumTabWidths < width) {
+                    triggerLeft += tabWidth;
+                    visibleTabsCount++;
+                }
+            });
+            this.visibleTabsCount = visibleTabsCount;
+            this.triggerLeft = triggerLeft;
+            this._lastMeasuredWidth = width;
+        },
+        selectTab (el) {
+            store.activeTab = this._getRef(el);
+            dropdown.hide();
+        },
+        isSelected (el) {
+            return store.activeTab === this._getRef(el);
+        },
+        isDisabled (el) {
+            return el.getAttribute("data-disabled") == "true";
+        },
+        hasHiddenTabs () {
+            return this.visibleTabsCount < this.tabs.length;
+        },
+        // protected
+        _lastMeasuredWidth: 0,
+        _getRef (el) {
+            return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
         }
     };
 }
@@ -13113,117 +13227,6 @@ function $506dabb2bf255b38$var$sizeSplits(sizes) {
 }
 
 
-var $d69ee878996183ed$exports = {};
-
-$parcel$defineInteropFlag($d69ee878996183ed$exports);
-
-$parcel$export($d69ee878996183ed$exports, "default", () => $d69ee878996183ed$export$2e2bcd8739ae039);
-function $d69ee878996183ed$export$2e2bcd8739ae039(store) {
-    return {
-        get id () {
-            return this.$root.id;
-        },
-        get sections () {
-            return Array.from(this.$refs.sections.children);
-        },
-        isActive (el) {
-            return store.activeTab === this._getRef(el);
-        },
-        // protected
-        _getRef (el) {
-            return el.getAttribute("x-ref");
-        }
-    };
-}
-
-
-var $0db07828cadc68e0$exports = {};
-
-$parcel$defineInteropFlag($0db07828cadc68e0$exports);
-
-$parcel$export($0db07828cadc68e0$exports, "default", () => $0db07828cadc68e0$export$2e2bcd8739ae039);
-
-
-
-
-function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
-    const initial = store.activeTab || null;
-    let dropdown = null;
-    return {
-        visibleTabsCount: 0,
-        triggerLeft: 0,
-        get tabs () {
-            return Array.from(this.$refs.tabs.children);
-        },
-        get dropdownTabs () {
-            return Array.from(this.$refs.tabsDropdown ? this.$refs.tabsDropdown.children : []);
-        },
-        get tabWidths () {
-            return this.tabs.map((tab)=>$e263283f97229955$export$bdf7e699b242f476(tab, {
-                    includeMargins: true
-                }).width
-            );
-        },
-        init () {
-            this.$nextTick(()=>{
-                dropdown = $d6f449055c23f07a$export$2e2bcd8739ae039(this.$refs.dropdownTrigger, {
-                    content: this.$refs.tabsDropdown,
-                    theme: "menu",
-                    interactive: true,
-                    trigger: "click",
-                    appendTo: this.$root
-                });
-                const initialTab = initial ? this.tabs.find((t)=>this._getRef(t) === initial
-                ) : this.tabs[0];
-                this.selectTab(initialTab);
-                this.parentObserver = $9930d46698775b42$export$a2214cc2adb2dc44(this.$root.parentElement, (/*@__PURE__*/$parcel$interopDefault($d3ec6a576bb30dc9$exports))(this.handleResize.bind(this), 10));
-                this.$watch("visibleTabsCount", (value)=>{
-                    this.debug(`'#${this.$root.id}' visible tabs count:`, value);
-                });
-            });
-        },
-        handleResize ({ width: width  }) {
-            if (width === this._lastMeasuredWidth) return;
-            if (width === this.$root.offsetWidth) {
-                this.visibleTabsCount = this.tabs.length;
-                return;
-            }
-            let sumTabWidths = 60;
-            let triggerLeft = 20;
-            let visibleTabsCount = 0;
-            this.tabWidths.forEach((tabWidth)=>{
-                sumTabWidths += tabWidth;
-                if (sumTabWidths < width) {
-                    triggerLeft += tabWidth;
-                    visibleTabsCount++;
-                }
-            });
-            this.visibleTabsCount = visibleTabsCount;
-            this.triggerLeft = triggerLeft;
-            this._lastMeasuredWidth = width;
-        },
-        selectTab (el) {
-            store.activeTab = this._getRef(el);
-            dropdown.hide();
-        },
-        isSelected (el) {
-            return store.activeTab === this._getRef(el);
-        },
-        isDisabled (el) {
-            return el.getAttribute("data-disabled") == "true";
-        },
-        hasHiddenTabs () {
-            return this.visibleTabsCount < this.tabs.length;
-        },
-        // protected
-        _lastMeasuredWidth: 0,
-        _getRef (el) {
-            return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
-        }
-    };
-}
-
-
 var $6d64716f0b34fdf4$exports = {};
 
 $parcel$defineInteropFlag($6d64716f0b34fdf4$exports);
@@ -13351,19 +13354,19 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$b40b0b74537cbda1$exports = {
-    "button": $cbd28b10fa9798c7$exports,
+$fe04831617095043$exports = {
     "code": $99486586f6691564$exports,
-    "copy_button": $47a1c62621be0c54$exports,
     "dimensions_display": $e398acaded942bbe$exports,
+    "copy_button": $47a1c62621be0c54$exports,
+    "button": $cbd28b10fa9798c7$exports,
     "embed": $e1f51f020443edd4$exports,
     "filter": $e9904a14dabf652d$exports,
-    "icon": $36506012e0c6e9e3$exports,
     "nav": $d92d9d5253f84566$exports,
+    "icon": $36506012e0c6e9e3$exports,
     "params_editor": $b63b9c6d236b3f65$exports,
-    "split_layout": $506dabb2bf255b38$exports,
-    "tabbed_content": $d69ee878996183ed$exports,
+    "tab_panels": $a87dacf5139b5e2f$exports,
     "tabs": $0db07828cadc68e0$exports,
+    "split_layout": $506dabb2bf255b38$exports,
     "viewport": $6d64716f0b34fdf4$exports
 };
 
@@ -13511,7 +13514,7 @@ $caa9439642c6336c$export$2e2bcd8739ae039.store("settings", $96e0343bbb13096b$exp
 // Components
 $caa9439642c6336c$export$2e2bcd8739ae039.data("app", $d709d0f4027033b2$export$2e2bcd8739ae039);
 [
-    $b40b0b74537cbda1$exports,
+    $fe04831617095043$exports,
     $e4eab7529959b73b$exports,
     $4979d2d897a1c01f$exports
 ].forEach((scripts)=>{

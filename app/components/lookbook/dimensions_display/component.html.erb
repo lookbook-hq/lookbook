@@ -3,7 +3,8 @@
   "@viewport:resize-start.window": "resizing = true",
   "@viewport:resize-complete.window": "resizing = false",
   "@dom:update-start.window": "tearDown",
-  "@dom:update-complete.window": "createObserver" do %>
+  "@dom:update-complete.window": "createObserver",
+  "x-show": "target" do %>
     <span x-text="`${width}px`"></span>
     <span class="opacity-70">x</span>
     <span x-text="`${height}px`"></span>

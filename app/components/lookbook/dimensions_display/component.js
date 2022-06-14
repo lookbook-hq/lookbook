@@ -5,26 +5,33 @@ export default function dimensionsDisplayComponent(targetSelector) {
     width: 0,
     height: 0,
     resizing: false,
+    target: null,
 
     init() {
-      const target = document.querySelector(targetSelector);
-      this.width = Math.round(target.clientWidth);
-      this.height = Math.round(target.clientHeight);
-      this.createObserver();
+      this.target = document.querySelector(targetSelector);
+      if (this.target) {
+        this.width = Math.round(this.target.clientWidth);
+        this.height = Math.round(this.target.clientHeight);
+        this.createObserver();
+      }
     },
 
     createObserver() {
-      this.observer = observeSize(
-        document.querySelector(targetSelector),
-        ({ width, height }) => {
-          this.width = width;
-          this.height = height;
-        }
-      );
+      if (this.target) {
+        this.observer = observeSize(
+          document.querySelector(targetSelector),
+          ({ width, height }) => {
+            this.width = width;
+            this.height = height;
+          }
+        );
+      }
     },
 
     tearDown() {
-      this.observer.disconnect();
+      if (this.observer) {
+        this.observer.disconnect();
+      }
     },
   };
 }

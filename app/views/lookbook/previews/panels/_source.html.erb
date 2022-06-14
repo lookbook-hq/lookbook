@@ -1,11 +1,11 @@
 <div class="h-full">
-  <% if rendered_examples.many? %>
-    <%= render_component :code, language: rendered_examples.first[:source_lang][:name], line_numbers: true, full_height: true do -%>
-<%- rendered_examples.each.with_index(1) do |example, i| -%>
-<%== "#{sprintf example[:source_lang][:comment], example[:label]}\n#{example[:source]}\n#{"\n" if i < rendered_examples.size}" %><% end %>
+  <% if examples.many? %>
+    <%= render_component :code, language: examples.first.source_lang[:name], line_numbers: true, full_height: true do -%>
+<%- examples.each.with_index(1) do |example, i| -%>
+<%== "#{sprintf example.source_lang[:comment], example.label}\n#{example.source}\n#{"\n" if i < examples.size}" %><% end %>
     <% end %>
   <% else %>
-    <% example = rendered_examples.first %>
-    <%= render_component :code, language: example[:source_lang][:name], line_numbers: true, full_height: true do %><%== example[:source] %><% end %>
+    <% example = examples.first %>
+    <%= render_component :code, language: example.source_lang[:name], line_numbers: true, full_height: true do %><%== example.source %><% end %>
   <% end %>
 </div>

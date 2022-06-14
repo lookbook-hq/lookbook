@@ -1,7 +1,7 @@
 <%= render_component :code, line_numbers: true, full_height: true do -%>
-  <% if rendered_examples.many? -%>
-    <% rendered_examples.each do |example| -%><%== "<!-- #{example[:label]} -->\n#{beautify(example[:html])}\n\n" -%><% end %>
+  <% if examples.many? -%>
+    <% examples.each do |example| -%><%== "<!-- #{example.label} -->\n#{beautify(example.output)}\n\n" -%><% end %>
   <%- else -%>
-    <%== beautify(rendered_examples.first[:html]) -%>
+    <%== beautify(examples.first.output) -%>
   <%- end %>
 <% end %>

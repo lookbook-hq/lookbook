@@ -1,11 +1,11 @@
-export default function tabbedContentComponent(store) {
+export default function tabPanelsComponent(store) {
   return {
     get id() {
       return this.$root.id;
     },
 
-    get sections() {
-      return Array.from(this.$refs.sections.children);
+    get panels() {
+      return Array.from(this.$refs.panels.children);
     },
 
     isActive(el) {

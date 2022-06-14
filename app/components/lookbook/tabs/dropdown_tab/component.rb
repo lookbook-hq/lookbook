@@ -1,7 +1,7 @@
 module Lookbook
   class Tabs::DropdownTab::Component < Lookbook::Component
-    def initialize(ref:, label: nil, hotkey: nil, disabled: nil, position: 0, **html_attrs)
-      @ref = ref
+    def initialize(name:, label: nil, hotkey: nil, disabled: nil, position: 0, **html_attrs)
+      @name = name
       @label = label
       @hotkey = hotkey
       @disabled = disabled
@@ -10,7 +10,7 @@ module Lookbook
     end
 
     def label
-      @label.presence || content
+      @label.presence || content || @name.titleize
     end
   end
 end

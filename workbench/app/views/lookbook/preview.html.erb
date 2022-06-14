@@ -26,13 +26,13 @@
   <% examples.each do |example| %>
     <div class="lookbook-preview-example">
       <h6 class="lookbook-preview-label">
-        <%= example[:label] %>
+        <%= example.label %>
       </h6>
-      <%= example[:html] %>
+      <%= example.output %>
     </div>
   <% end %>
   </div>
 <% else %>
   <%# Render a single example %>
-  <%= examples.first[:html] %>
+  <%= examples.first.output %>
 <% end %>

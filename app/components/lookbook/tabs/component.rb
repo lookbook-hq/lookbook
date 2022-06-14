@@ -1,19 +1,15 @@
 module Lookbook
   class Tabs::Component < Lookbook::Component
-    renders_many :tabs, ->(ref: nil, **attrs) do
+    renders_many :tabs, ->(**attrs) do
       @tab_counter += 1
-      ref ||= "tab-#{@tab_counter}"
-      attrs = {
-        ref: ref,
-        position: @tab_counter,
-        **attrs
-      }
+      attrs[:name] ||= "tab-#{@tab_counter}"
+      attrs[:position] ||= @tab_counter
       dropdown_tab(**attrs)
       Lookbook::Tabs::Tab::Component.new(**attrs)
     end
 
-    renders_many :dropdown_tabs, ->(ref:, **attrs) do
-      Lookbook::Tabs::DropdownTab::Component.new(ref: "dropdown-#{ref}", **attrs)
+    renders_many :dropdown_tabs, ->(name:, **attrs) do
+      Lookbook::Tabs::DropdownTab::Component.new(name: "dropdown-#{name}", **attrs)
     end
 
     def initialize(**html_attrs)
