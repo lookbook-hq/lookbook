@@ -7,7 +7,7 @@ RSpec.describe Lookbook::TabbedContent::Component, type: :component do
       content.section { "Second section" }
     end
 
-    expect(html).to have_css("[data-component=tabbed-content]")
+    expect(page).to have_css("[data-component=tabbed-content]")
   end
 
   it "includes all the expected content sections" do
@@ -17,6 +17,6 @@ RSpec.describe Lookbook::TabbedContent::Component, type: :component do
       content.section { "Third section" }
     end
 
-    expect(html).to have_css("[data-component=tabbed-content-section]", count: 3)
+    expect(page).to have_css("[data-component=tabbed-content-section]", count: 3)
   end
 end

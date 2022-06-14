@@ -9,7 +9,7 @@ RSpec.describe Lookbook::Tabs::Component, type: :component do
       tabs.tab label: "Second tab"
     end
 
-    expect(html).to have_css("[data-component=tabs]")
+    expect(page).to have_css("[data-component=tabs]")
   end
 
   it "includes all the tabs" do
@@ -19,6 +19,6 @@ RSpec.describe Lookbook::Tabs::Component, type: :component do
       tabs.tab label: "Third tab"
     end
 
-    expect(html).to have_css("[data-component=tabs-tab]", count: 3)
+    expect(page).to have_css("[data-component=tabs-tab]", count: 3)
   end
 end

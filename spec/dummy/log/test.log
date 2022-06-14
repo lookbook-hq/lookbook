@@ -1,81 +1,9 @@
-Started GET "/" for ::1 at 2022-06-06 23:33:34 +0100
-Started GET "/lookbook" for ::1 at 2022-06-06 23:33:38 +0100
+Started GET "/lookbook" for 127.0.0.1 at 2022-06-14 11:33:13 +0100
 Processing by Lookbook::ApplicationController#index as HTML
   Rendering layout /Users/mark/Projects/allmarkedup/lookbook/app/views/layouts/lookbook/shell.html.erb
   Rendering /Users/mark/Projects/allmarkedup/lookbook/app/views/lookbook/index.html.erb within layouts/lookbook/shell
-  Rendered /Users/mark/Projects/allmarkedup/lookbook/app/views/lookbook/index.html.erb within layouts/lookbook/shell (Duration: 5.1ms | Allocations: 2437)
+  Rendered /Users/mark/Projects/allmarkedup/lookbook/app/views/lookbook/index.html.erb within layouts/lookbook/shell (Duration: 0.4ms | Allocations: 507)
   Rendering /Users/mark/Projects/allmarkedup/lookbook/app/views/layouts/lookbook/skeleton.html.erb
-  Rendered /Users/mark/Projects/allmarkedup/lookbook/app/views/layouts/lookbook/skeleton.html.erb (Duration: 1.0ms | Allocations: 714)
-  Rendered layout /Users/mark/Projects/allmarkedup/lookbook/app/views/layouts/lookbook/shell.html.erb (Duration: 14.9ms | Allocations: 9206)
-Completed 200 OK in 35ms (Views: 20.1ms | Allocations: 13757)
-Started GET "/lookbook-assets/css/lookbook.css?v=1.0.0.beta.0" for ::1 at 2022-06-06 23:33:38 +0100
-Started GET "/lookbook-assets/css/themes/indigo.css?v=1.0.0.beta.0" for ::1 at 2022-06-06 23:33:38 +0100
-Started GET "/lookbook-assets/js/lookbook.js?v=1.0.0.beta.0" for ::1 at 2022-06-06 23:33:38 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:33:38 +0100
-Started GET "/lookbook-assets/feather-sprite.svg" for ::1 at 2022-06-06 23:33:38 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:33:44 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:33:48 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:33:54 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:34:02 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:34:11 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:34:22 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:34:33 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:34:44 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:34:57 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:35:09 +0100
-Started GET "/lookbook" for ::1 at 2022-06-06 23:35:16 +0100
-Processing by Lookbook::ApplicationController#index as HTML
-  Rendering layout /Users/mark/Projects/allmarkedup/lookbook/app/views/layouts/lookbook/shell.html.erb
-  Rendering /Users/mark/Projects/allmarkedup/lookbook/app/views/lookbook/index.html.erb within layouts/lookbook/shell
-  Rendered /Users/mark/Projects/allmarkedup/lookbook/app/views/lookbook/index.html.erb within layouts/lookbook/shell (Duration: 0.3ms | Allocations: 259)
-  Rendering /Users/mark/Projects/allmarkedup/lookbook/app/views/layouts/lookbook/skeleton.html.erb
-  Rendered /Users/mark/Projects/allmarkedup/lookbook/app/views/layouts/lookbook/skeleton.html.erb (Duration: 0.1ms | Allocations: 158)
-  Rendered layout /Users/mark/Projects/allmarkedup/lookbook/app/views/layouts/lookbook/shell.html.erb (Duration: 1.4ms | Allocations: 2232)
-Completed 200 OK in 2ms (Views: 1.9ms | Allocations: 2513)
-Started GET "/lookbook-assets/css/lookbook.css?v=1.0.0.beta.0" for ::1 at 2022-06-06 23:35:16 +0100
-Started GET "/lookbook-assets/css/themes/indigo.css?v=1.0.0.beta.0" for ::1 at 2022-06-06 23:35:16 +0100
-Started GET "/lookbook-assets/js/lookbook.js?v=1.0.0.beta.0" for ::1 at 2022-06-06 23:35:16 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554916741" for ::1 at 2022-06-06 23:35:16 +0100
-Started GET "/lookbook-assets/feather-sprite.svg" for ::1 at 2022-06-06 23:35:16 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:35:17 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554916741" for ::1 at 2022-06-06 23:35:22 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:35:23 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:35:37 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:35:51 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:36:06 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:36:21 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:36:37 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:36:53 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:37:09 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:37:27 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:37:42 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:38:00 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:38:18 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:38:36 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:38:52 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:39:12 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:39:30 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:39:49 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:40:10 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:41:11 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:42:19 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:43:40 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:44:36 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:45:31 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:46:40 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:47:35 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:48:38 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:49:38 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:50:30 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:51:40 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:52:36 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:53:38 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:54:37 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:55:37 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:56:37 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:57:37 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:58:37 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-06 23:59:37 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-07 00:00:37 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-07 00:01:37 +0100
-Started GET "/lookbook/lookbook-cable?uid=1654554818290" for ::1 at 2022-06-07 00:02:37 +0100
+  Rendered /Users/mark/Projects/allmarkedup/lookbook/app/views/layouts/lookbook/skeleton.html.erb (Duration: 0.6ms | Allocations: 688)
+  Rendered layout /Users/mark/Projects/allmarkedup/lookbook/app/views/layouts/lookbook/shell.html.erb (Duration: 2.5ms | Allocations: 3838)
+Completed 200 OK in 6ms (Views: 4.9ms | Allocations: 6317)

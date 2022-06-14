@@ -7,6 +7,6 @@ RSpec.describe Lookbook::SplitLayout::Component, type: :component do
       layout.pane { "Second pane" }
     end
 
-    expect(html).to have_css("[data-component=split-layout]")
+    expect(page).to have_css("[data-component=split-layout]")
   end
 end

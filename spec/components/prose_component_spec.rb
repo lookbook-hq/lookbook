@@ -6,7 +6,7 @@ RSpec.describe Lookbook::Prose::Component, type: :component do
       "This is the prose content"
     end
 
-    expect(html).to have_css("[data-component=prose]")
+    expect(page).to have_css("[data-component=prose]")
   end
 
   it "outputs the content" do
@@ -14,7 +14,7 @@ RSpec.describe Lookbook::Prose::Component, type: :component do
       "This is the prose content"
     end
 
-    expect(rendered_component).to include("This is the prose content")
+    expect(page).to have_content("This is the prose content")
   end
 
   it "renders markdown by default" do
@@ -22,6 +22,6 @@ RSpec.describe Lookbook::Prose::Component, type: :component do
       "This is the **prose** content"
     end
 
-    expect(html).to have_css("strong", text: "prose")
+    expect(page).to have_css("strong", text: "prose")
   end
 end

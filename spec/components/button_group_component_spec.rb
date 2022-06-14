@@ -6,6 +6,6 @@ RSpec.describe Lookbook::ButtonGroup::Component, type: :component do
       group.button icon: :book
     end
 
-    expect(html).to have_css("[data-component='button-group']")
+    expect(page).to have_css("[data-component='button-group']")
   end
 end

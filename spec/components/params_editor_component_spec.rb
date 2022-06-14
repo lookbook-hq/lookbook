@@ -6,6 +6,6 @@ RSpec.describe Lookbook::ParamsEditor::Component, type: :component do
       editor.field input: :text, name: "text param"
     end
 
-    expect(html).to have_css("[data-component=params-editor]")
+    expect(page).to have_css("[data-component=params-editor]")
   end
 end

@@ -6,6 +6,6 @@ RSpec.describe Lookbook::Code::Component, type: :component do
       "<p>Some code</p>"
     end
 
-    expect(html).to have_css("[data-component=code]")
+    expect(page).to have_css("[data-component=code]")
   end
 end
