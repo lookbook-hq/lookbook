@@ -88,7 +88,7 @@ module Lookbook
 
     def tab
       matches = full_path.to_s.match(%r{\[(?<tab>\w+)\]})
-      matches ? matches[:tab] : nil
+      matches ? remove_position_prefix(matches[:tab]) : nil
     end
 
     def tab?
@@ -128,7 +128,7 @@ module Lookbook
       end
       @options = Lookbook.config.page_options.deep_merge(frontmatter).with_indifferent_access
       @options[:id] = @options[:id] ? generate_id(@options[:id]) : generate_id(lookup_path)
-      @options[:label] ||= name.titleize
+      @options[:label] ||= (tab? ? tab : name).titleize
       @options[:title] ||= @options[:label]
       @options[:hidden] ||= false
       @options[:landing] ||= false
@@ -169,8 +169,9 @@ module Lookbook
           .sort_by { |page| [page.position, page.label] }
 
         page_dict = sorted_pages.index_by(&:path)
+        sorted_tabs = tabs.sort_by { |tab| [tab.position, tab.label] }
 
-        tabs.each do |tab|
+        sorted_tabs.each do |tab|
           page_dict[tab.path].tabs << tab
         end
 
