@@ -56,7 +56,7 @@
                     class="px-5 font-bold border-b-2 hover:border-indigo-100"
                     :class="active === '<%= tab.tab %>' ? 'border-gray-500' : 'border-gray-50'"
                     x-on:click="changeTab('<%= tab.tab %>');$dispatch('tab-switch')">
-                    <%= tab.label.presence || tab.tab %>
+                    <%= tab.label %>
                   </button>
                 <% end %>
               </nav>
