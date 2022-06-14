@@ -1,9 +1,0 @@
-Started GET "/lookbook" for 127.0.0.1 at 2022-06-14 11:33:13 +0100
-Processing by Lookbook::ApplicationController#index as HTML
-  Rendering layout /Users/mark/Projects/allmarkedup/lookbook/app/views/layouts/lookbook/shell.html.erb
-  Rendering /Users/mark/Projects/allmarkedup/lookbook/app/views/lookbook/index.html.erb within layouts/lookbook/shell
-  Rendered /Users/mark/Projects/allmarkedup/lookbook/app/views/lookbook/index.html.erb within layouts/lookbook/shell (Duration: 0.4ms | Allocations: 507)
-  Rendering /Users/mark/Projects/allmarkedup/lookbook/app/views/layouts/lookbook/skeleton.html.erb
-  Rendered /Users/mark/Projects/allmarkedup/lookbook/app/views/layouts/lookbook/skeleton.html.erb (Duration: 0.6ms | Allocations: 688)
-  Rendered layout /Users/mark/Projects/allmarkedup/lookbook/app/views/layouts/lookbook/shell.html.erb (Duration: 2.5ms | Allocations: 3838)
-Completed 200 OK in 6ms (Views: 4.9ms | Allocations: 6317)
