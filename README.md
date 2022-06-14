@@ -676,14 +676,13 @@ label: Website
 ---
 ```
 
-If you want them in a different order:
+If you want the tabs in a different order, you can use the `position` frontmatter:
 
 ```
-test/components/docs/
-  ├── 01_avatar.md.erb
-  ├── 01_avatar[1web].md.erb
-  ├── 01_avatar[2mobile].md.erb
-  ├── 01_avatar[3design].md.erb
+---
+label: Web
+position: 1
+---
 ```
 
 ---
