@@ -43,6 +43,32 @@
       <div id="page-main-<%= @page.id %>" data-morph-strategy="replace">
         <div class="prose max-w-none prose-a:text-indigo-900">
           <%= @page_content %>
+
+          <% if @page.tabs.any? %>
+            <div
+              id="page-tabs"
+              x-data="pageTabs"
+              x-init="active = '<%= @page.tabs.first.tab %>'"
+              class="">
+              <nav class="flex border-b border-gray-300">
+                <% @page.tabs.each do |tab| %>
+                  <button
+                    class="px-5 py-2 font-bold border-b-2 hover:border-gray-500"
+                    :class="active === '<%= tab.tab %>' ? '!border-gray-500 !cursor-default' : 'border-gray-50'"
+                    x-on:click="changeTab('<%= tab.tab %>');$dispatch('tab-switch')">
+                    <%= tab.label %>
+                  </button>
+                <% end %>
+              </nav>
+
+              <% @page.tabs.each do |tab| %>
+                <div id="tab-<%= tab.tab %>" x-show="active === '<%= tab.tab %>'">
+                  <%= page_controller.render_page(tab) %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+
         </div>
       </div>
       <% if @page.footer? %>

@@ -13,7 +13,7 @@
 ---
 
 <div align="center">
-<a href="#installing">Installing</a> • <a href="#previews">Previews</a>  • <a href="#pages">Pages</a> • <a href="#deployment">Deployment</a> • <a href="#config">Config</a> 
+<a href="#installing">Installing</a> • <a href="#previews">Previews</a>  • <a href="#pages">Pages</a> • <a href="#deployment">Deployment</a> • <a href="#config">Config</a>
 </div>
 
 ---
@@ -481,10 +481,10 @@ end
 If you need to add more long-form documentation to live alongside your component previews you can do so using Lookbook's markdown-powered `pages` system.
 
 > ⚠️ This feature is currently flagged as an **experimental** feature which requires [feature opt-in](#experimental-features) to use. Its API and implementation may change before it is released.
-> 
+>
 > To enable support for pages in your project, add `config.lookbook.experimental_features = [:pages]` into your application configuration file.
 
-### Pages demo 
+### Pages demo
 
 For an example of some pages in Lookbook, check out the [example pages](https://lookbook-demo-app.herokuapp.com/lookbook) in the Lookbook demo app and the associated [page files](https://github.com/allmarkedup/lookbook-demo/tree/main/test/components/docs) in the demo repo.
 
@@ -496,7 +496,7 @@ Pages must have  either a `.html.erb` or a `.md.erb` file extension. All pages a
 
 Pages can optionally make use of a **YAML frontmatter block** to customise the behaviour and content of the page itself.
 
-An example page might look like this: 
+An example page might look like this:
 
 ```markdown
 ---
@@ -510,7 +510,7 @@ contents will be run through a Markdown parser/renderer before display.
 Fenced code blocks are fully supported and will be highlighted appropriately.
 
 ERB can be used in here.
-The template will be rendered **before** being parsed as Markdown. 
+The template will be rendered **before** being parsed as Markdown.
 
 You can can access data about the page using the `@page` variable.
 The title of this page is "<%= @page.title %>".
@@ -656,6 +656,35 @@ The default language is `ruby`. To highlight a different language you need to sp
 
 > Lookbook uses [Rouge](https://github.com/rouge-ruby/rouge) for syntax highlighting. You can find a [full list of supported languages here](https://github.com/rouge-ruby/rouge/blob/master/docs/Languages.md).
 
+### Tabs
+
+You can break up your page's content into tabs. If your avatar page is named `01_avatar.md.erb`, by declaring a page named `01_avatar[web].md.erb` it will create a **web** tab on the page. Tabs like normal Pages can contain embedded previews and code examples.
+
+```
+test/components/docs/
+  ├── 01_avatar.md.erb
+  ├── 01_avatar[design].md.erb
+  ├── 01_avatar[mobile].md.erb
+  ├── 01_avatar[web].md.erb
+```
+
+By declaring the `label` frontmatter you can change the label shown on the tab:
+
+```
+---
+label: Website
+---
+```
+
+If you want the tabs in a different order, you can use the `position` frontmatter:
+
+```
+---
+label: Web
+position: 1
+---
+```
+
 ---
 
 ### Pages configuration
@@ -743,10 +772,10 @@ If for some reason you wish to enable file watching or runtime preview annotatio
 # config/environments/production.rb
 
 # enable file-change listening
-config.lookbook.listen = true 
+config.lookbook.listen = true
 
 # enable runtime preview parsing
-config.lookbook.runtime_parsing = true 
+config.lookbook.runtime_parsing = true
 ```
 
 <h2 id="config">General Configuration</h2>
@@ -778,7 +807,7 @@ config.lookbook.listen_paths << Rails.root.join('app/other/directory')
 If you want to change the favicon used by the Lookbook UI, you can provide a path to your own (or a data-uri string) using the `ui_favicon` option:
 
 ```ruby
-config.lookbook.ui_favicon = "/path/to/my/favicon.png" 
+config.lookbook.ui_favicon = "/path/to/my/favicon.png"
 ```
 
 > To disable the favicon entirely, set the value to `false`.
@@ -788,7 +817,7 @@ config.lookbook.ui_favicon = "/path/to/my/favicon.png"
 Specify a project name to display in the top left of the UI (instead of the default "Lookbook"):
 
 ```ruby
-config.lookbook.project_name = "My Project" 
+config.lookbook.project_name = "My Project"
 ```
 
 > If you don't want to display a project name at all, set the value to `false`.

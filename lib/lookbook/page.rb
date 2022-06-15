@@ -16,17 +16,22 @@ module Lookbook
     ]
 
     attr_reader :errors
+    attr_accessor :tabs
 
     def initialize(path, base_path)
       @pathname = Pathname.new path
       @base_path = Pathname.new base_path
       @options = nil
       @errors = []
+      @tabs = []
     end
 
     def path
       rel_path = @pathname.relative_path_from(@base_path)
-      (rel_path.dirname.to_s == "." ? name : "#{rel_path.dirname}/#{name}")
+
+      _path = (rel_path.dirname.to_s == "." ? name : "#{rel_path.dirname}/#{name}")
+      _path.gsub!("[#{tab}]", "") if tab?
+      _path
     end
 
     def lookup_path
@@ -78,7 +83,16 @@ module Lookbook
     end
 
     def type
-      :page
+      tab? ? :tab : :page
+    end
+
+    def tab
+      matches = full_path.to_s.match(%r{\[(?<tab>\w+)\]})
+      matches ? remove_position_prefix(matches[:tab]) : nil
+    end
+
+    def tab?
+      tab.present?
     end
 
     def method_missing(method_name, *args, &block)
@@ -114,7 +128,7 @@ module Lookbook
       end
       @options = Lookbook.config.page_options.deep_merge(frontmatter).with_indifferent_access
       @options[:id] = @options[:id] ? generate_id(@options[:id]) : generate_id(lookup_path)
-      @options[:label] ||= name.titleize
+      @options[:label] ||= (tab? ? tab : name).titleize
       @options[:title] ||= @options[:label]
       @options[:hidden] ||= false
       @options[:landing] ||= false
@@ -143,12 +157,24 @@ module Lookbook
       end
 
       def all
-        pages = Array(page_paths).map do |dir|
-          Dir["#{dir}/**/*.html.*", "#{dir}/**/*.md.*"].sort.map do |page|
-            Lookbook::Page.new(page, dir)
-          end
+        pages, tabs =
+          Array(page_paths).flat_map do |dir|
+            Dir["#{dir}/**/*.html.*", "#{dir}/**/*.md.*"].sort.map do |page|
+              page = Lookbook::Page.new(page, dir)
+            end
+          end.partition { |page| page.type == :page }
+
+        sorted_pages = pages
+          .uniq { |page| page.path }
+          .sort_by { |page| [page.position, page.label] }
+
+        page_dict = sorted_pages.index_by(&:path)
+        sorted_tabs = tabs.sort_by { |tab| [tab.position, tab.label] }
+
+        sorted_tabs.each do |tab|
+          page_dict[tab.path].tabs << tab
         end
-        sorted_pages = pages.flatten.uniq { |p| p.path }.sort_by { |page| [page.position, page.label] }
+
         PageCollection.new(sorted_pages)
       end
 
