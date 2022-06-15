@@ -1,6 +1,6 @@
-<nav id="nav" x-data="nav(<%= filterable %>)">
+<nav id="nav-<%= items.class.describe_as %>" x-data="nav(<%= filterable %>)">
   <% if items.any? %>
-    <ul x-ref="items" id="nav-<%= items.class.describe_as %>">
+    <ul x-ref="items" id="nav-<%= items.class.describe_as %>-items">
       <% items.each do |item| %>
         <%= component "nav_#{item.type}", node: item %>
       <% end %>

@@ -58,7 +58,7 @@
 }
 
 @layer components {
-  .unsectioned > #nav > ul > li > div {
+  .unsectioned > nav > ul > li > div {
     @apply py-1 border-b border-gray-300;
   }
 

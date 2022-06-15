@@ -19,7 +19,7 @@ module Lookbook
       end
 
       should "include the navigation" do
-        assert page.has_css?("#nav")
+        assert page.has_css?("#nav-previews")
       end
     end
 
@@ -58,7 +58,7 @@ module Lookbook
         end
 
         should "display the correct label in the nav" do
-          within "#nav" do
+          within "#nav-previews" do
             assert page.has_content?(@preview.label)
           end
         end
@@ -76,7 +76,7 @@ module Lookbook
           end
 
           should "display the correct label in the nav" do
-            within "#nav" do
+            within "#nav-previews" do
               assert page.has_selector?("a[href='#{lookbook_inspect_path @example_path}']", text: "Relabelled")
             end
           end
@@ -89,7 +89,7 @@ module Lookbook
           end
 
           should "not display in the nav" do
-            within "#nav" do
+            within "#nav-previews" do
               assert page.has_no_selector?("a[href='#{lookbook_inspect_path @example_path}']")
             end
           end
