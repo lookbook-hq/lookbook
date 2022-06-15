@@ -15,6 +15,7 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v1
+      - run: sudo chown -R root:root $GITHUB_WORKSPACE
       - name: standardrb
         uses: SennaLabs/action-standardrb@v0.0.3
         with:
