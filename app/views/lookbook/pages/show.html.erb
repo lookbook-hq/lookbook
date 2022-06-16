@@ -11,7 +11,7 @@
     <% end %>
 
     <% if @page.sections.any? %>
-      <%= render_component :page_tabs, markdown: false do |page_tabs| %>
+      <%= render_component :page_tabs, markdown: false, class: "mt-6" do |page_tabs| %>
         <% @page.sections.each do |section| %>
           <% page_tabs.tab name: "page-section-#{section.name}", label: section.label do %>
             <%= page_controller.render_page(section) %>
