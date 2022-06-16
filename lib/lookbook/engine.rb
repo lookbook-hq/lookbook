@@ -8,6 +8,10 @@ module Lookbook
   autoload :Config, "lookbook/config"
   
   class << self
+    def version
+      Lookbook::VERSION
+    end
+
     def config
       @config ||= Config.new
     end
@@ -20,24 +24,12 @@ module Lookbook
       @logger ||= Rails.env.development? ? Logger.new($stdout) : Rails.logger
     end
 
-    def version
-      Lookbook::VERSION
-    end
-
     def debug_data
       {
         version: version,
         env: Rails.env.to_s,
         config: config
       }
-    end
-
-    def on(event_name, &block)
-      if config.hooks[event_name].is_a? Array
-        config.hooks[event_name] << block
-      else
-        Lookbook.logger.error "'#{event_name}' is not a valid hook name"
-      end
     end
 
     def previews
@@ -48,8 +40,30 @@ module Lookbook
       Page.all
     end
 
+    def after_initialize(&block)
+      add_hook(:after_initialize, block)
+    end
+
+    def before_exit(&block)
+      add_hook(:before_exit, block)
+    end
+
+    def after_change(&block)
+      add_hook(:after_change, block)
+    end
+
+    def define_inspector_panel(name, opts = {})
+      config.inspector_panels[name] = opts
+    end
+
     def broadcast(event_name, data = {})
       Engine.websocket&.broadcast(event_name.to_s, data)
+    end
+
+    protected
+
+    def add_hook(event_name, block)
+      config.hooks[event_name] << block
     end
   end
 
@@ -102,7 +116,7 @@ module Lookbook
           end
           Lookbook::Preview.clear_cache
           Lookbook::Engine.reload_ui(changes)
-          Lookbook::Engine.run_hooks(:file_updated, changes)
+          Lookbook::Engine.run_hooks(:after_change, changes)
         end
         Lookbook::Engine.register_listener(preview_listener)
 
@@ -113,7 +127,7 @@ module Lookbook
         ) do |modified, added, removed|
           changes = { modified: modified, added: added, removed: removed }
           Lookbook::Engine.reload_ui(changes)
-          Lookbook::Engine.run_hooks(:file_updated, changes)
+          Lookbook::Engine.run_hooks(:after_change, changes)
         end
         Lookbook::Engine.register_listener(page_listener)
       end
@@ -130,7 +144,7 @@ module Lookbook
         end
       end
 
-      Lookbook::Engine.run_hooks(:start)
+      Lookbook::Engine.run_hooks(:after_initialize)
     end
 
     at_exit do
@@ -138,7 +152,7 @@ module Lookbook
         Lookbook.logger.debug "Stopping listeners"
         Lookbook::Engine.listeners.each { |listener| listener.stop } 
       end
-      Lookbook::Engine.run_hooks(:exit)
+      Lookbook::Engine.run_hooks(:before_exit)
     end
 
     class << self

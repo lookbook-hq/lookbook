@@ -40,9 +40,9 @@ module Lookbook
         ui_theme_overrides: {},
 
         hooks: {
-          start: [],
-          exit: [],
-          file_updated: [],
+          after_initialize: [],
+          before_exit: [],
+          after_change: [],
         },
 
         inspector_panels: {
