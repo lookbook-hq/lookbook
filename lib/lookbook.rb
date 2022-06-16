@@ -27,4 +27,5 @@ module Lookbook
   autoload :Markdown, "lookbook/markdown"
   autoload :Theme, "lookbook/theme"
   autoload :Store, "lookbook/store"
+  autoload :Component, "lookbook/component"
 end

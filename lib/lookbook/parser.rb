@@ -23,10 +23,6 @@ module Lookbook
       registry.get(path)
     end
 
-    # def yardoc_file_path
-    #   Rails&.root ? Rails.root.join(YARDOC_FILE_PATH) : YARDOC_FILE_PATH
-    # end
-
     class << self
       def define_tags
         YARD::Tags::Library.define_tag("Hidden status", :hidden)
@@ -34,6 +30,7 @@ module Lookbook
         YARD::Tags::Library.define_tag("Display", :display)
         YARD::Tags::Library.define_tag("Position", :position)
         YARD::Tags::Library.define_tag("ID", :id)
+        YARD::Tags::Library.define_tag("Component", :component)
       end
     end
   end

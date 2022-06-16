@@ -63,8 +63,10 @@ module Lookbook
       config.lookbook.preview_paths += config.view_component.preview_paths
       config.lookbook.preview_controller ||= config.view_component.preview_controller
 
+      config.lookbook.components_path = config.view_component.view_component_path if config.view_component.view_component_path.present?
+
       config.lookbook.listen_paths += config.lookbook.preview_paths
-      config.lookbook.listen_paths << (config.view_component.view_component_path.presence || "app/components")
+      config.lookbook.listen_paths << config.lookbook.components_path 
     end
 
     initializer "lookbook.logging.development" do

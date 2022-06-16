@@ -8,7 +8,7 @@ module Lookbook
     def initialize(preview)
       @preview = preview
       @preview_inspector = SourceInspector.new(@preview.name)
-      super(preview_class_name(preview_class_basename(@preview.name)))
+      super(preview_class_path(@preview.name))
     end
 
     def id
@@ -62,7 +62,7 @@ module Lookbook
     end
 
     def full_path
-      base_path = Array(preview_paths).detect do |preview_path|
+      base_path = Array(Lookbook.config.preview_paths).detect do |preview_path|
         Dir["#{preview_path}/#{name.underscore}.rb"].first
       end
       Pathname.new(Dir["#{base_path}/#{name.underscore}.rb"].first)
@@ -70,10 +70,6 @@ module Lookbook
 
     def url_path
       lookbook_inspect_path lookup_path
-    end
-
-    def preview_paths
-      ViewComponent::Base.preview_paths
     end
 
     def parent_collections_names
@@ -94,6 +90,27 @@ module Lookbook
 
     def collapsible?
       true
+    end
+
+    def component
+      components.first
+    end
+
+    def components
+      component_classes = @preview_inspector&.components.any? ? @preview_inspector&.components : [guess_component]
+      component_classes.map do |class_name|
+        Component.new(class_name.to_s)
+      end
+    end
+
+    protected
+
+    def guess_component
+      begin
+        name.chomp("Preview").constantize
+      rescue
+        nil
+      end
     end
 
     class << self

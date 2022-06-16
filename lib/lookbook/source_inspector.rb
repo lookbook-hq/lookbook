@@ -39,6 +39,16 @@ module Lookbook
       code_object&.tag(:position)&.text&.to_i || 10000
     end
 
+    def components
+      if code_object&.tags(:component).present?
+        code_object.tags(:component).map do |component|
+          component.text.constantize
+        end
+      else
+        []
+      end
+    end
+
     def display_params
       display_params = {}.with_indifferent_access
       if code_object&.tags(:display).present?

@@ -11,6 +11,8 @@ module Lookbook
         project_name: "Lookbook",
         log_level: 2,
         auto_refresh: true,
+
+        components_path: "app/components",
         
         page_controller: "Lookbook::PageController",
         page_route: "pages",
@@ -153,6 +155,10 @@ module Lookbook
 
     def get_project_name(name)
       name == false ? nil : name
+    end
+
+    def get_components_path(path)
+      absolute_path(path)
     end
 
     def normalize_paths(paths)
