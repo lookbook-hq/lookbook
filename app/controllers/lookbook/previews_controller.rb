@@ -120,7 +120,6 @@ module Lookbook
       context_data = {
         preview_params: preview_params,
         path: params[:path],
-        query_parameters: request.query_parameters,
       }
 
       example = @example
@@ -145,7 +144,9 @@ module Lookbook
       @inspector_data ||= Lookbook::Store.new({
         context: context_data,
         preview: preview,
-        examples: examples
+        examples: examples,
+        components: preview.components,
+        app: Lookbook
       })
     end
 
