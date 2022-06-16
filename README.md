@@ -29,25 +29,21 @@ The bulk of the v1.0 'new feature' development work is now mostly complete, alth
 
 **If you are an existing Lookbook user** I'd greatly appreciate if you can kick the tyres on the v1.0 beta and open an issue with any bug reports, suggestions or feedback you might have.
 
-### Main areas/points for testing:
+### Main areas/points for testing/feedback:
 
 - Existing Lookbook setups should continue to work **with no changes required**
-- There have been a number of small UI changes - do any of them negatively affect your experience of using Lookbook?
-- The Pages feature should work without opting in to any experimental features. 
-- It's now possible to pick from one of a small set of pre-defined UI themes (finer-grained customisation coming soon!). [See below](#ui-theming) for details. Any thoughts on this?
+- It's now possible to pick from one of a small set of pre-defined **UI themes** (plus finer-grained customisation coming soon). [See below](#ui-theming) for details.
+- You can now [extend Lookbook](#extending-lookbook) to more closely customise it to your needs - testing and feedback around this area would be a great help!
 
-> However absolutely any thoughts, comments or bug reports (even if unrelated to the specific areas above) would be much appreciated!
+> Any thoughts, comments or bug reports (even if unrelated to the specific areas above) would be much appreciated!
 
-## New features
 
-There are a number of new features that are planned for inclusion in the v1.0 release. They are:
-
-### UI theming
+## UI theming
 
 Lookbook now ships with a small set of pre-defined UI themes, which can be set using the `ui_theme` config option:
 
 ```ruby
-# config/application.rb (or similar)
+# config/application.rb
 config.lookbook.ui_theme = "blue"
 ```
 
@@ -59,25 +55,170 @@ Currently available themes are:
 
 > More themes and finer-grained customisation of theme colours is coming soon!
 
-### Inspector panels customisation
+## Extending Lookbook
 
-It is now possible to add, remove or customise tabbed panels in the preview inspector by editing the `lookbook.inspector_panels` configuration option.
+Lookbook now offers a number of ways to further customise it to your needs.
 
-By default Lookbook comes with **five** panels split between two resizable panes:
+### Lifecycle hooks
 
-1. The `main` pane - by default includes the `preview` and `output` (HTML) panels
-2. The `drawer` pane - by default includes the  `source`, `notes` and `params` panels
+A number of lifecycle hooks are available for use in triggering actions outside of Lookbook.
 
-These can be hidden, moved, reordered and/or added to as your project requires.
+All hook callback blocks are yielded a `Lookbook` instance as the first argument. Some hooks additionally supply other arguments, see below for details.
 
-#### Panel config overview
+#### `:after_initialize`
 
-Panels are defined as a hash with the following properties (all of which are actually optional):
+This is run once Lookbook has been set up and the initial parsing of files has been completed.
+
+```ruby
+Lookbook.after_initialize do |app|
+  puts "Lookbook version #{app.version} has started"
+  puts "There are #{app.previews.size} previews and #{app.pages.size} pages"
+  # other code here...
+end
+```
+
+#### `:after_change`
+
+Run each time a change is detected to a file that Lookbook is watching, unless listening for changes has been disabled in the config.
+
+Receives a hash as the second argument with `:modified`, `:added`, and `:removed` properties, each of which is an array of affected file paths.
+
+```ruby
+Lookbook.after_change do |app, changes|
+  puts "Modified files: #{changes.modified.join("\n")}"
+  puts "Added files: #{changes.added.join("\n")}"
+  puts "Removed files: #{changes.removed.join("\n")}"
+end
+```
+
+#### `:before_exit`
+
+Run when the current process exits, after Lookbook has stopped any listeners.
+
+```ruby
+Lookbook.after_initialize do |app|
+  puts "Shutting down..."
+end
+```
+
+### Adding a custom inspector panel/tab
+
+It's now possible to add custom inspector panels/tabs to Lookbook using the `:define_panel` method:
+
+```ruby
+Lookbook.define_panel(<name>, <opts>)
+```
+
+* `<name>`: A unique name for the panel
+* `<opts>`: A `Hash` of options (see below for details)
+
+For example, a very simple 'info' panel could be created as follows:
+
+```ruby
+# config/application.rb
+Lookbook.define_panel(:info, {
+  label: "Extra Info",
+  partial: "panels/info"
+})
+```
+
+```erb
+<!-- views/panels/_info.html.erb -->
+<div>
+  <h2>Some information</h2>
+  <ul>
+    <li>You are looking at the '<%= preview.label %>' preview</li>
+    <li>The preview file path is: '<%= preview.full_path %>'<li>
+    <li>There are <%= examples.size %> examples in this preview<li>
+  </ul>
+</div>
+```
+
+#### Panel templates
+
+The panel partial template will have access to any `locals` defined in the [panel options](#panel-options), plus the following variables:
+
+#### `panel`
+
+The resolved panel options object (see below for details)
+
+```erb
+<h2><%= panel.label =></h2>
+```
+
+#### `preview`
+
+An object representing the current preview:
+
+* `preview.id`
+* `preview.label`
+* `preview.full_path`
+* `preview.url_path`
+* ... 
+
+#### `examples`
+
+An array of objects representing the individual examples being rendered in the current preview. (For non-grouped previews, this array will always only have one item.)
+
+Each example has the following properties:
+
+* `example.output` - the rendered preview example output (String)
+* `example.source` - the example source code (String)
+* `example.source_lang` - a hash of information about the source language (Ruby or HTML/ERB, depending on whether the example uses a preview template)
+* `example.id`
+* `example.label`
+* `example.full_path`
+* `example.url_path`
+* ... 
+
+
+#### `components`
+
+An array of objects representing the components that are rendered in the preview. The components are 'guessed' from the Preview class name but if that doesn't work then they can be manually specified via annotations.
+
+Each component object has the following properties:
+
+* `component.name`
+* `component.full_path`
+* `component.dir_path`
+* `component.template_path`
+* `component.inline?`
+
+To manually specify one or more components in the preview class, you can use the `@component` tag at the class level:
+
+```ruby
+# @component Elements::BigDangerButton 
+class ButtonComponentPreview < ViewComponent::Preview
+
+  def default
+    render Elements::BigDangerButton.new do
+      "Click here"
+    end
+  end
+
+end
+```
+
+#### `context`
+
+An object containing data about the request context:
+
+* `context.preview_params`
+* `context.path`
+
+#### `app`
+
+The main `Lookbook` app instance.
+
+* `app.previews` - Array of preview objects
+* `app.pages` - Array of page objects
+* `app.logger` - Logger instance
+
+#### Panel options
 
 ```ruby
 {
   label: "New Panel",
-  pane: :drawer,
   position: 1,
   partial: "path/to/view_partial",
   content: "Some **markdown** content", 
@@ -85,11 +226,11 @@ Panels are defined as a hash with the following properties (all of which are act
   disabled: false,
   show: true,
   copy: "Content to be copied",
+  locals: {}
 }
 ```
 
 * `label`: the text to be displayed in the tab
-* `pane`: the panel location, either `:drawer` or `:main` (`:drawer` is the default)
 * `position`: used for ordering the tabs
 * `partial`: the path to the view template partial used to render the panel
 * `content`: the default partial renders and displays the contents of this (markdown supported)
@@ -99,7 +240,8 @@ Panels are defined as a hash with the following properties (all of which are act
 * `copy`: if present, the panel will display a copy button that copies the value of this property to the clipboard when clicked
 * `locals`: a `Hash` of local variables that will be made available to the partial when rendering the panel
 
-All panel config values can be provided either as a **simple static value** or as a **lambda function** which will receive a hash of data relating to the current preview/example. For example:
+
+All panel option values can be provided either as a **simple static value** or as a **lambda function** which will receive a hash of data relating to the currently active preview/example. For example:
 
 ```ruby
 {
@@ -108,31 +250,24 @@ All panel config values can be provided either as a **simple static value** or a
 }
 ```
 
-> **Work in progress!** There is more documentation to come on the data hash passed to lambdas.
+The `data` hash contains the same set of objects that are passed to the panel partial template:
+
+* `data.preview`
+* `data.examples`
+* `data.components`
+* `data.context`
+* `data.app`
+
+**See the [panel templates section above]((#panel-templates)) for more details.**
 
 #### Removing panels
 
-To remove a pane entirely from the UI, just set it's value to false in your `application.rb` (or wherever you do your configuration):
+To remove a panel entirely from the UI you can use the `Lookbook.remove_panel` method:
 
 ```ruby
-config.lookbook.inspector_panels.notes = false # remove the notes panel
+# config/application.rb
+Lookbook.remove_panel(:notes)
 ```
-
-#### Customising existing panels
-
-Existing panel configuration can be amended as needed. For example, to change the label on one of the default panels:
-
-```ruby
-config.lookbook.inspector_panels.notes.label = "Instructions"
-
-# or use block-style config
-config.lookbook.inspector_panels do |panels|
-  panels.notes.label = "Instructions"
-end
-```
-
-
-
 
 ## 🛠 Workbench
 
