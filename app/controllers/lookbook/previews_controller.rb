@@ -124,34 +124,29 @@ module Lookbook
         original: request
       }
 
-      preview_data = {
-        relative_path: @preview.full_path.relative_path_from(Rails.root.to_s),
-        full_path: @preview.full_path,
-        example_label: @example.label,
-        params: @example.params,
-      }
-      [:id, :label, :notes, :lookup_path, :full_path].each do |prop|
-        preview_data[prop] = @preview.public_send(prop)
-      end
+      example = @example
+      preview = @preview
+      preview.define_singleton_method(:params, proc {
+        example.params
+      })
 
-      examples_data = target_examples.map do |example|
+      examples = target_examples.map do |example|
         render_args = @preview.render_args(example.name, params: preview_controller.params)
         has_template = render_args[:template] != "view_components/preview"
-        example_data = Lookbook::Store.new({
-          output: preview_controller.process(:render_example_to_string, @preview, example.name),
-          source: has_template ? example.template_source(render_args[:template]) : example.method_source,
-          source_lang: has_template ? example.template_lang(render_args[:template]) : example.source_lang,
-        })
-        [:id, :label, :notes, :lookup_path, :params, :display_params].each do |prop|
-          example_data[prop] = example.public_send(prop)
-        end
-        example_data
+        output = preview_controller.process(:render_example_to_string, @preview, example.name)
+        source = has_template ? example.template_source(render_args[:template]) : example.method_source
+        source_lang = has_template ? example.template_lang(render_args[:template]) : example.lang
+        
+        example.define_singleton_method(:output, proc { output })
+        example.define_singleton_method(:source, proc { source })
+        example.define_singleton_method(:source_lang, proc { source_lang })
+        example
       end
 
       @inspector_data ||= Lookbook::Store.new({
         request: request_data,
-        preview: preview_data,
-        examples: examples_data
+        preview: preview,
+        examples: examples
       })
     end
 

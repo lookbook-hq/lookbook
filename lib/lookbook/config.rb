@@ -66,7 +66,7 @@ module Lookbook
             partial: "lookbook/previews/panels/source",
             label: "Source",
             hotkey: "s",
-            copy: ->(data) { data.examples.map { |e| e[:source] }.join("\n") }
+            copy: ->(data) { data.examples.map { |e| e.source }.join("\n") }
           },
           notes: {
             pane: :drawer,

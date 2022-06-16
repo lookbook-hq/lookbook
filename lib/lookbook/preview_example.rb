@@ -30,7 +30,7 @@ module Lookbook
       @example_inspector.source.split("\n")[1..-2].join("\n").strip_heredoc
     end
 
-    def source_lang
+    def lang
       Lookbook::Lang.find(:ruby)
     end
 
