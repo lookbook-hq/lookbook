@@ -15,14 +15,17 @@ module Lookbook
     ]
 
     attr_reader :errors
+    attr_accessor :sections
 
     def initialize(path, base_path)
       @pathname = Pathname.new path
       @base_path = base_path
       @options = nil
       @errors = []
+      @sections = []
+      @page_name = remove_position_prefix(path_name)
       rel_path = @pathname.relative_path_from(@base_path)
-      page_path = (rel_path.dirname.to_s == "." ? name : "#{rel_path.dirname}/#{name}")
+      page_path = rel_path.dirname.to_s == "." ? @page_name : "#{rel_path.dirname}/#{@page_name}"
       super(page_path)
     end
 
@@ -35,7 +38,7 @@ module Lookbook
     end
 
     def name
-      remove_position_prefix(path_name)
+      @page_name
     end
 
     def hidden?
@@ -73,7 +76,7 @@ module Lookbook
     def type
       :page
     end
-
+    
     def id
       options[:id]
     end
@@ -152,17 +155,37 @@ module Lookbook
       end
 
       def all
-        pages = Array(page_paths).map do |dir|
-          Dir["#{dir}/**/*.html.*", "#{dir}/**/*.md.*"].sort.map do |page|
-            Lookbook::Page.new(page, dir)
-          end
+         pages, sections =
+          Array(page_paths).flat_map do |dir|
+            Dir["#{dir}/**/*.html.*", "#{dir}/**/*.md.*"].sort.map do |path|
+              create(path, dir)
+            end
+          end.partition { |page| page.type == :page }
+
+        sorted_pages = pages
+          .uniq { |page| page.path }
+          .sort_by { |page| [page.position, page.label] }
+
+        page_dict = sorted_pages.index_by(&:path)
+        sorted_sections = sections.sort_by { |section| [section.position, section.label] }
+        
+        sorted_sections.each do |section|
+          page_dict[section.path].sections << section
         end
-        sorted_pages = pages.flatten.uniq { |p| p.path }.sort_by { |page| [page.position, page.label] }
+
         PageCollection.new(sorted_pages)
       end
 
       def page_paths
         Lookbook.config.page_paths.filter { |dir| Dir.exist? dir }
+      end
+
+      def section_path?(path)
+        !!path.match(%r{\[(.*?\w+)\]})
+      end
+
+      def create(path, base_path)
+        (section_path?(path) ? PageSection : Page).new(path, base_path)
       end
     end
   end
