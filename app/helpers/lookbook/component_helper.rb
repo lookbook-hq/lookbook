@@ -2,6 +2,10 @@ module Lookbook
   module ComponentHelper
     COMPONENT_CLASSES = {} # cache for constantized references
 
+    def icon(name, **attrs)
+      render_component :icon, name: name, **attrs
+    end
+
     def render_component(ref, **attrs, &block)
       klass = component_class(ref)
       comp = attrs.key?(:content) ? klass.new(**attrs.except(:content)).with_content(attrs[:content]) : klass.new(**attrs)

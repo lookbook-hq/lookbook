@@ -24,15 +24,10 @@
                         x-data="clipboardComponent"
                         @click.prevent.stop="copyToClipboard('#debug-data')">
                         <span x-show="copied" x-cloak>
-                          <%= render_component :icon,
-                            name: :check,
-                            size: 2.5,
-                            class: "text-green-600" %>
+                          <%= icon :check, size: 2.5, class: "text-green-600" %>
                         </span>
                         <span x-show="!copied">
-                          <%= render_component :icon,
-                            name: :clipboard,
-                            size: 2.5 %>
+                          <%= icon :clipboard, size: 2.5 %>
                         </span>
                         <span class="ml-2">Copy debug data</span>
                       </a>
@@ -41,7 +36,7 @@
                       <a href="#"
                         class="text-xs flex items-center hover:underline"
                         @click.stop="localStorage.clear(); window.location.reload();">
-                        <%= render_component :icon, name: :refresh_cw, size: 2.5 %>
+                        <%= icon  :refresh_cw, size: 2.5 %>
                         <span class="ml-2">Reset local storage</span>
                       </a>
                     </li>
@@ -52,10 +47,10 @@
                   <span class="mr-6">v<%= Lookbook::VERSION %></span>
                   <div class="flex items-center space-x-2">
                     <!-- a href="https://github.com/allmarkedup/lookbook" target="_blank" class="ml-auto opacity-70" title="Documentation">
-                      <%= render_component :icon, name: :book, size: 3 %>
+                      <%= icon  :book, size: 3 %>
                     </a -->
                     <a href="https://github.com/allmarkedup/lookbook" target="_blank" class="ml-auto opacity-70" title="Github">
-                      <%= render_component :icon, name: :github, size: 3 %>
+                      <%= icon  :github, size: 3 %>
                     </a>
                   </div>
                 </div>

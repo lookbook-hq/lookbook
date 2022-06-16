@@ -6,11 +6,11 @@
     style: "padding-left: #{left_pad}px",
     x_bind: "bindings.#{href.present? ? "link" : "toggle"}" do %>
     <div class="relative flex items-center">
-      <%= render_component :icon, name: nil,
+      <%= icon  nil,
         size: 3,
         class: "mr-1 text-lookbook-nav-toggle absolute -left-4",
         x_effect: "iconName = open ? 'chevron-down' : 'chevron-right'" if children? %>
-      <%= render_component :icon, name: nav_icon(@item), size: 3.5, class: "mr-1.5 text-lookbook-nav-icon" %>
+      <%= icon  nav_icon(@item), size: 3.5, class: "mr-1.5 text-lookbook-nav-icon" %>
       <span><%= label %></span>
     </div>
   <% end %>

@@ -40,7 +40,7 @@
         <div x-data="{hidden: false}" class="flex-none border-t border-lookbook-divider absolute bottom-0 left-0 right-0" x-show="!hidden">
           <%= render_component :toolbar do |toolbar| %>
             <% toolbar.section padded: true, class: "flex items-center" do %>
-              <%= render_component :icon, name: :alert_triangle, size: 4, class: "text-red-700" %>
+              <%= icon  :alert_triangle, size: 4, class: "text-red-700" %>
               <span class="ml-2">Preview load errors</span>
             <% end %>
             <% toolbar.section align: :right do %>
