@@ -3,7 +3,7 @@ Lookbook::Engine.routes.draw do
     mount Lookbook::Engine.websocket => Lookbook.config.cable_mount_path
   end
 
-  root to: "application#index", as: :home
+  root to: "application#index", as: :lookbook_home
 
   get "/#{Lookbook.config.page_route}", to: "pages#index", as: :page_index
   get "/#{Lookbook.config.page_route}/*path", to: "pages#show", as: :page
