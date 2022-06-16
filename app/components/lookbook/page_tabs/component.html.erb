@@ -9,7 +9,7 @@
   <%= render_component :tab_panels do |t| %>
     <% @tabs.each do |props| %>
       <% t.panel name: props[:name] do %>
-        <%= render_component :prose, markdown: false, class: "max-w-none flex-none" do %>
+        <%= render_component :prose, markdown: props[:markdown], class: "max-w-none flex-none" do %>
           <%== props[:content] %>
         <% end %>
       <% end %>

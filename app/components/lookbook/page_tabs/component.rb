@@ -3,7 +3,13 @@ module Lookbook
     renders_many :tabs, ->(**attrs, &block) do
       @tabs ||= []
       attrs[:content] = capture(&block)
+      attrs[:markdown] ||= @markdown
       @tabs << attrs
+    end
+
+    def initialize(markdown: true, **html_attrs)
+      @markdown = markdown
+      super(**html_attrs)
     end
 
     def before_render
