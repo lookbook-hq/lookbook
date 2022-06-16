@@ -1,6 +1,12 @@
 <%= render_component_tag :button,
   x_ref: @name,
-  class: "whitespace-nowrap px-4 py-2 border-l-2 cursor-pointer block w-full text-left",
+  class: [
+    "whitespace-nowrap px-4 border-l-2 cursor-pointer block w-full text-left",
+    {
+      "py-2": @theme == :toolbar,
+      "py-2 text-base": @theme == :page,
+    }
+  ],
   ":class": "{
     'border-lookbook-tabs-highlight': isSelected($el),
     'border-transparent text-lookbook-tabs-text hover:text-lookbook-tabs-text-hover': !isSelected($el),

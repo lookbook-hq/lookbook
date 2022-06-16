@@ -1,5 +1,11 @@
-<%= render_component_tag class: "px-4 flex items-center relative" do %>
-  <div x-ref="tabs" class="flex items-stretch h-10 space-x-6 select-none min-w-0">
+<%= render_component_tag class: "flex items-center relative" do %>
+  <div x-ref="tabs" class="<%= class_names [
+    "flex items-stretch select-none min-w-0",
+    {
+      "h-10 space-x-6": @theme == :toolbar,
+      "space-x-3": @theme == :page,
+    }
+  ] %>">
     <%= safe_join(tabs) %>
   </div>
   <div x-ref="dropdownTrigger" class="absolute" x-show="hasHiddenTabs" :style="{left: `${triggerLeft}px`}">

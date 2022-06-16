@@ -10,7 +10,7 @@
     }
 
     & [data-component="tabs"] {
-      @apply relative -mb-px;
+      @apply relative -mb-px px-4;
     }
   }
 }

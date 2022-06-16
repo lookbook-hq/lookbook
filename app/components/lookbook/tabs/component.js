@@ -4,12 +4,16 @@ import { observeSize } from "@helpers/layout";
 import { getElementSize } from "@helpers/dom";
 
 export default function tabsComponent(store) {
-  const initial = store.activeTab || null;
+  const initial = store ? store.activeTab : null;
   let dropdown = null;
   return {
     visibleTabsCount: 0,
 
     triggerLeft: 0,
+
+    get store() {
+      return store || this;
+    },
 
     get tabs() {
       return Array.from(this.$refs.tabs.children);
@@ -34,6 +38,7 @@ export default function tabsComponent(store) {
           theme: "menu",
           interactive: true,
           trigger: "click",
+          placement: "bottom",
           appendTo: this.$root,
         });
 
@@ -59,9 +64,12 @@ export default function tabsComponent(store) {
       }
 
       if (width === this.$root.offsetWidth) {
+        console.log("uep");
         this.visibleTabsCount = this.tabs.length;
         return;
       }
+
+      console.log(width);
 
       let sumTabWidths = 60;
       let triggerLeft = 20;
@@ -80,12 +88,12 @@ export default function tabsComponent(store) {
     },
 
     selectTab(el) {
-      store.activeTab = this._getRef(el);
+      this.store.activeTab = this._getRef(el);
       dropdown.hide();
     },
 
     isSelected(el) {
-      return store.activeTab === this._getRef(el);
+      return this.store.activeTab === this._getRef(el);
     },
 
     isDisabled(el) {

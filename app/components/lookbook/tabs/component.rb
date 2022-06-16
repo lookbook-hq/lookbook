@@ -4,6 +4,7 @@ module Lookbook
       @tab_counter += 1
       attrs[:name] ||= "tab-#{@tab_counter}"
       attrs[:position] ||= @tab_counter
+      attrs[:theme] ||= @theme
       dropdown_tab(**attrs)
       Lookbook::Tabs::Tab::Component.new(**attrs)
     end
@@ -12,7 +13,8 @@ module Lookbook
       Lookbook::Tabs::DropdownTab::Component.new(name: "dropdown-#{name}", **attrs)
     end
 
-    def initialize(**html_attrs)
+    def initialize(theme: :toolbar, **html_attrs)
+      @theme = theme
       @tab_counter = 0
       super(**html_attrs)
     end

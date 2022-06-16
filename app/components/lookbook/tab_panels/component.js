@@ -1,5 +1,9 @@
 export default function tabPanelsComponent(store) {
   return {
+    get store() {
+      return store || this;
+    },
+
     get id() {
       return this.$root.id;
     },
@@ -9,7 +13,7 @@ export default function tabPanelsComponent(store) {
     },
 
     isActive(el) {
-      return store.activeTab === this._getRef(el);
+      return this.store.activeTab === this._getRef(el);
     },
 
     // protected
