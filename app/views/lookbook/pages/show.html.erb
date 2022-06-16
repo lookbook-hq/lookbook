@@ -9,7 +9,17 @@
     <%= render_component :prose, markdown: false, class: "max-w-none flex-none" do %>
       <%= @page_content %>
     <% end %>
-    
+
+    <% if @page.sections.any? %>
+      <%= render_component :page_tabs do |page_tabs| %>
+        <% @page.sections.each do |section| %>
+          <% page_tabs.tab name: "page-section-#{section.name}", label: section.label do %>
+            <%= page_controller.render_page(section) %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+
     <% if @page.footer? && @pages.many? %>
       <footer class="flex items-center justify-between border-t border-gray-300 mt-12 pt-8 pb-10 ">
         <% if @previous_page %>

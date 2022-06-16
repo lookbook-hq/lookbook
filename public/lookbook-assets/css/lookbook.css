@@ -1557,6 +1557,8 @@ pre[class*="language-"] {
 
 [data-component="toolbar"] [data-component="tabs"] {
   margin-bottom: -1px;
+  padding-left: 1rem;
+  padding-right: 1rem;
   position: relative;
 }
 
@@ -1700,6 +1702,10 @@ pre[class*="language-"] {
   left: -1rem;
 }
 
+.-bottom-px {
+  bottom: -1px;
+}
+
 .z-50 {
   z-index: 50;
 }
@@ -1790,8 +1796,16 @@ pre[class*="language-"] {
   margin-top: .25rem;
 }
 
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
 .-ml-3 {
   margin-left: -.75rem;
+}
+
+.-mb-px {
+  margin-bottom: -1px;
 }
 
 .mr-auto {
@@ -2149,6 +2163,12 @@ pre[class*="language-"] {
   margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse) ) );
 }
 
+.space-x-3 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(.75rem * var(--tw-space-x-reverse) );
+  margin-left: calc(.75rem * calc(1 - var(--tw-space-x-reverse) ) );
+}
+
 .divide-y > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0;
   border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse) ) );
@@ -2446,6 +2466,11 @@ pre[class*="language-"] {
   padding-right: .25rem;
 }
 
+.px-2 {
+  padding-left: .5rem;
+  padding-right: .5rem;
+}
+
 .pb-10 {
   padding-bottom: 2.5rem;
 }
@@ -2540,6 +2565,11 @@ pre[class*="language-"] {
 .text-xs {
   font-size: .75rem;
   line-height: 1rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
 
 .font-bold {
