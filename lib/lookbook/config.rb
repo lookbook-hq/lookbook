@@ -6,7 +6,7 @@ module Lookbook
   class Config
     def initialize
       @options = Store.new
-      foobar = "bax"
+      
       @options.set({
         project_name: "Lookbook",
         log_level: 2,
@@ -44,6 +44,8 @@ module Lookbook
           before_exit: [],
           after_change: [],
         },
+
+        debug_menu: Rails.env.development?,
 
         experimental_features: false,
 
@@ -111,16 +113,41 @@ module Lookbook
       })
     end
 
+    def project_name
+      @options.project_name == false ? nil : @options.project_name
+    end
+
+    def components_path
+      absolute_path(@options.components_path)
+    end
+
+    def page_paths
+      normalize_paths(@options.page_paths)
+    end
+
+    def preview_paths
+      normalize_paths(@options.preview_paths)
+    end
+
+    def listen_paths
+      normalize_paths(@options.listen_paths)
+    end
+
+    def parser_registry_path
+      absolute_path(@options.parser_registry_path)
+    end
+
     def inspector_panels(&block)
+      panels = Store.new(@options.inspector_panels.select { |key, panel| panel != false })
       if block_given?
-        yield get(:inspector_panels)
+        yield panels
       else
-        get(:inspector_panels)
+        panels
       end
     end
 
     def define_inspector_panel(name, opts = {})
-      inspector_panels[name] = opts
+      @options.inspector_panels[name] = opts
       if opts[:position].present?
         pane = inspector_panels[name].pane.presence || :drawer
         siblings = inspector_panels.select do |key, panel|
@@ -136,9 +163,9 @@ module Lookbook
 
     def amend_inspector_panel(name, opts = {})
       if opts == false
-        inspector_panels[name] = false
+        @options.inspector_panels[name] = false
       else
-        inspector_panels[name].merge!(opts)
+        @options.inspector_panels[name].merge!(opts)
       end
     end
 
@@ -149,7 +176,7 @@ module Lookbook
     def ui_theme=(name)
       name = name.to_s
       if Theme.valid_theme?(name)
-        @options[:ui_theme] = name
+        @options.ui_theme = name
       else
         Lookbook.logger.warn "'#{name}' is not a valid Lookbook theme. Theme setting not changed."
       end
@@ -157,18 +184,27 @@ module Lookbook
 
     def ui_theme_overrides(&block)
       if block_given?
-        yield get(:ui_theme_overrides)
+        yield @options.ui_theme_overrides
       else
-        get(:ui_theme_overrides)
+        @options.ui_theme_overrides
       end
     end
 
     def [](key)
-      get(key.to_sym)
+      if respond_to? key.to_sym
+        public_send(key.to_sym)
+      else
+        @options[key.to_sym]
+      end
     end
 
     def []=(key, value)
-      @options[key.to_sym] = value
+      setter_key = "#{key}=".to_sym
+      if respond_to? setter_key
+        public_send(setter_key, value)
+      else
+        @options[key.to_sym] = value
+      end
     end
 
     def to_h
@@ -181,45 +217,17 @@ module Lookbook
     
     protected
 
-    def get_inspector_panels(panels)
-      panels.select! { |key, panel| panel }
-      panels
-    end
-
-    def get_project_name(name)
-      name == false ? nil : name
-    end
-
-    def get_components_path(path)
-      absolute_path(path)
-    end
-
     def normalize_paths(paths)
       paths.map! { |path| absolute_path(path) }
-      paths.select! { |path| Dir.exist?(path) }
-      paths
+      paths.select { |path| Dir.exist?(path) }
     end
 
     def absolute_path(path)
       File.absolute_path(path.to_s, Rails.root)
     end
 
-    alias_method :get_page_paths, :normalize_paths
-    alias_method :get_preview_paths, :normalize_paths
-    alias_method :get_listen_paths, :normalize_paths
-    alias_method :get_parser_registry_path, :absolute_path
-
-    def get(name)
-      getter_name = "get_#{name}".to_sym
-      respond_to?(getter_name, true) ? send(getter_name, @options[name]) : @options[name]
-    end
-
-    def set(name, *args)
-      @options.send(name, *args)
-    end
-
     def method_missing(name, *args)
-      args.any? ? set(name, *args) : get(name)
+      @options.send(name, *args)
     end
   end
 end

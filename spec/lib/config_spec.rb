@@ -41,5 +41,13 @@ RSpec.describe Lookbook::Config do
       expect(config.ui_theme_overrides.input_border).to eq "green"
     end
 
+    context "debug_menu" do
+      it "can be changed" do
+        before_value = config.debug_menu
+        config.debug_menu = !before_value
+        expect(config.debug_menu).to eq !before_value
+      end
+    end
+
   end
 end
