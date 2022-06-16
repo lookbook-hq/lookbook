@@ -27,16 +27,4 @@ module Lookbook
   autoload :Markdown, "lookbook/markdown"
   autoload :Theme, "lookbook/theme"
   autoload :Store, "lookbook/store"
-
-  class << self
-    include Utils
-
-    def previews
-      Preview.all
-    end
-
-    def pages
-      Page.all
-    end
-  end
 end

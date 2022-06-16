@@ -12,6 +12,10 @@ module Lookbook
       @config ||= Config.new
     end
 
+    def configure
+      yield(config)
+    end
+
     def logger
       @logger ||= Rails.env.development? ? Logger.new($stdout) : Rails.logger
     end
@@ -28,8 +32,24 @@ module Lookbook
       }
     end
 
-    def configure
-      yield(config)
+    def on(event_name, &block)
+      if config.hooks[event_name].is_a? Array
+        config.hooks[event_name] << block
+      else
+        Lookbook.logger.error "'#{event_name}' is not a valid hook name"
+      end
+    end
+
+    def previews
+      Preview.all
+    end
+
+    def pages
+      Page.all
+    end
+
+    def broadcast(event_name, data = {})
+      Engine.websocket&.broadcast(event_name.to_s, data)
     end
   end
 
@@ -73,12 +93,14 @@ module Lookbook
           only: /\.(rb|html.*)$/,
           force_polling: Lookbook.config.listen_use_polling
         ) do |modified, added, removed|
+          changes = { modified: modified, added: added, removed: removed }
           begin
             parser.parse
           rescue
           end
           Lookbook::Preview.clear_cache
-          Lookbook::Engine.websocket&.broadcast("reload", {})
+          Lookbook::Engine.reload_ui(changes)
+          Lookbook::Engine.run_hooks(:file_updated, changes)
         end
         Lookbook::Engine.register_listener(preview_listener)
 
@@ -87,7 +109,9 @@ module Lookbook
           only: /\.(html.*|md.*)$/,
           force_polling: Lookbook.config.listen_use_polling
         ) do |modified, added, removed|
-          Lookbook::Engine.websocket&.broadcast("reload", {})
+          changes = { modified: modified, added: added, removed: removed }
+          Lookbook::Engine.reload_ui(changes)
+          Lookbook::Engine.run_hooks(:file_updated, changes)
         end
         Lookbook::Engine.register_listener(page_listener)
       end
@@ -103,18 +127,20 @@ module Lookbook
           "
         end
       end
+
+      Lookbook::Engine.run_hooks(:start)
     end
 
     at_exit do
       if config.lookbook.listen
         Lookbook.logger.debug "Stopping listeners"
-        Lookbook::Engine.listeners.each do |listener|
-          listener.stop
-        end
+        Lookbook::Engine.listeners.each { |listener| listener.stop } 
       end
+      Lookbook::Engine.run_hooks(:exit)
     end
 
     class << self
+
       def websocket
         if config.lookbook.auto_refresh
           cable = ActionCable::Server::Configuration.new
@@ -160,6 +186,16 @@ module Lookbook
 
       def listeners
         @listeners ||= []
+      end
+
+      def run_hooks(event_name, *args)
+        Lookbook.config.hooks[event_name].each do |hook|
+          hook.call(Lookbook, *args)
+        end
+      end
+
+      def reload_ui(changed = {})
+        websocket&.broadcast("reload", changed)
       end
 
       attr_reader :preview_controller

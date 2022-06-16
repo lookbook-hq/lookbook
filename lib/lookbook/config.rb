@@ -37,6 +37,12 @@ module Lookbook
         ui_theme: "indigo",
         ui_theme_overrides: {},
 
+        hooks: {
+          start: [],
+          exit: [],
+          file_updated: [],
+        },
+
         inspector_panels: {
           preview: {
             pane: :main,
