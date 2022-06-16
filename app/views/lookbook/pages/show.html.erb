@@ -23,7 +23,7 @@
     <% if @page.footer? && @pages.many? %>
       <footer class="flex items-center justify-between border-t border-gray-300 mt-12 pt-8 pb-10 ">
         <% if @previous_page %>
-          <a href="<%= page_path @previous_page.lookup_path %>"
+          <a href="<%= lookbook_page_path @previous_page.lookup_path %>"
             class="flex items-center flex-none">
             <%= render_component :icon, name: :arrow_left, size: 4, class: "hover:text-indigo-800" %>
             <span class="ml-2 underline"><%= @previous_page.title %></span>
@@ -31,7 +31,7 @@
         <% end %>
 
         <% if @next_page %>
-          <a href="<%= page_path @next_page.lookup_path %>"
+          <a href="<%= lookbook_page_path @next_page.lookup_path %>"
             class="flex items-center flex-none ml-auto">
             <span class="mr-2 underline"><%= @next_page.title %></span>
             <%= render_component :icon, name: :arrow_right, size: 4, class: "hover:text-indigo-800" %>

@@ -5,7 +5,7 @@ module Lookbook
     def page_path(id)
       page = id.is_a?(Page) ? id : Lookbook.pages.find(id)
       if page.present?
-        lookbook.page_path page.lookup_path
+        lookbook_page_path page.lookup_path
       else
         Lookbook.logger.warn "Could not find page with id ':#{id}'"
       end

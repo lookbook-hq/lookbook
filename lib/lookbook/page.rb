@@ -30,7 +30,7 @@ module Lookbook
     end
 
     def url_path
-      page_path lookup_path
+      lookbook_page_path lookup_path
     end
 
     def full_path
