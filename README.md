@@ -11,6 +11,7 @@ The main goals of the v1.0 release are:
 - [x] Rebuild app UI using ViewComponent components
 - [x] Improve usability of the small screen/mobile layout
 - [x] Add support for some limited UI color theme customisation
+- [x] Add support for custom inspector panels
 - [x] Remove the `experimental` flag from the [Pages](https://github.com/allmarkedup/lookbook#pages)
 - [x] Improve the development/debugging setup, and allow previewing Lookbook's own components in Lookbook :-)
 - [ ] Improve the test setup and test coverage, switch to RSpec **[in progress]**
@@ -40,7 +41,7 @@ The bulk of the v1.0 'new feature' development work is now mostly complete, alth
 
 ## UI theming
 
-Lookbook now ships with a small set of pre-defined UI themes, which can be set using the `ui_theme` config option:
+Lookbook v1.0 ships with a small set of pre-defined UI themes, which can be set using the `ui_theme` config option:
 
 ```ruby
 # config/application.rb
@@ -57,7 +58,11 @@ Currently available themes are:
 
 ## Extending Lookbook
 
-Lookbook now offers a number of ways to further customise it to your needs.
+> Opening up Lookbook to more in-depth customisation is a work in progress and any feedback or use-case examples would be greatly appreciated!
+
+* [Lifecycle Hooks](#lifecycle-hooks)
+* [Adding inspector panels](#adding-inspector-panels)
+* [Removing inspector panels](#removing-inspector-panels)
 
 ### Lifecycle hooks
 
@@ -101,7 +106,7 @@ Lookbook.after_initialize do |app|
 end
 ```
 
-### Adding a custom inspector panel/tab
+### Adding inspector panels
 
 It's now possible to add custom inspector panels/tabs to Lookbook using the `:define_panel` method:
 
@@ -260,7 +265,7 @@ The `data` hash contains the same set of objects that are passed to the panel pa
 
 **See the [panel templates section above]((#panel-templates)) for more details.**
 
-#### Removing panels
+### Removing inspector panels
 
 To remove a panel entirely from the UI you can use the `Lookbook.remove_panel` method:
 
