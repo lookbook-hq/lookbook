@@ -16,7 +16,7 @@ module Lookbook
       class_name(klass).to_s.chomp("ComponentPreview").chomp("Component::Preview").chomp("::Preview").chomp("Component").chomp("Preview").chomp("::")
     end
 
-    def preview_class_name(klass)
+    def preview_class_path(klass)
       preview_class_basename(klass).underscore
     end
 
@@ -49,7 +49,7 @@ module Lookbook
     end
 
     def to_preview_path(*args)
-      args.flatten.map { |arg| preview_class_name(arg) }.join("/")
+      args.flatten.map { |arg| preview_class_path(arg) }.join("/")
     end
 
     protected

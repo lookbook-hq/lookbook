@@ -16,7 +16,7 @@ module Lookbook
 
       @embed_counter ||= 0
 
-      preview_lookup = args.first.is_a?(Symbol) ? args.first : preview_class_name(args.first)
+      preview_lookup = args.first.is_a?(Symbol) ? args.first : preview_class_path(args.first)
       preview = Lookbook.previews.find(preview_lookup)
       example = args[1] ? preview&.example(args[1]) : preview&.default_example
 
