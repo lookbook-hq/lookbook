@@ -8,8 +8,14 @@
   <link href="/lookbook-assets/css/lookbook.css?v=<%= Lookbook::VERSION %>" rel="stylesheet">
   <link href="/lookbook-assets/css/themes/<%= config.ui_theme %>.css?v=<%= Lookbook::VERSION %>" rel="stylesheet">
   <% if @theme_overrides.present? %>
-    <style>
+    <style media="all">
       <%== @theme_overrides %>
+    </style>
+  <% end %>
+
+  <% if content_for? :styles %>
+    <style media="all">
+      <%= content_for :styles %>
     </style>
   <% end %>
 

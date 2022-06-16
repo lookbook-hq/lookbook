@@ -53,7 +53,8 @@ module Lookbook
             position: 1,
             partial: "lookbook/previews/panels/preview",
             hotkey: "v",
-            panel_classes: "overflow-hidden"
+            panel_classes: "overflow-hidden",
+            padded: false
           },
           output: {
             pane: :main,
@@ -61,6 +62,7 @@ module Lookbook
             partial: "lookbook/previews/panels/output",
             label: "HTML",
             hotkey: "h",
+            padded: false
           },
           source: {
             pane: :drawer,
@@ -68,7 +70,8 @@ module Lookbook
             partial: "lookbook/previews/panels/source",
             label: "Source",
             hotkey: "s",
-            copy: ->(data) { data.examples.map { |e| e.source }.join("\n") }
+            copy: ->(data) { data.examples.map { |e| e.source }.join("\n") },
+            padded: false
           },
           notes: {
             pane: :drawer,
@@ -76,7 +79,8 @@ module Lookbook
             partial: "lookbook/previews/panels/notes",
             label: "Notes",
             hotkey: "n",
-            disabled: ->(data) { data.examples.select { |e| e.notes.present? }.none? }
+            disabled: ->(data) { data.examples.select { |e| e.notes.present? }.none? },
+            padded: false
           },
           params: {
             pane: :drawer,
@@ -84,7 +88,8 @@ module Lookbook
             partial: "lookbook/previews/panels/params",
             label: "Params",
             hotkey: "p",
-            disabled: ->(data) { data.preview.params.none? }
+            disabled: ->(data) { data.preview.params.none? },
+            padded: false
           }
         },
 
@@ -100,7 +105,8 @@ module Lookbook
           show: true,
           copy: nil,
           panel_classes: nil,
-          locals: {}
+          locals: {},
+          padded: true
         },
       })
     end
@@ -129,7 +135,15 @@ module Lookbook
     end
 
     def amend_inspector_panel(name, opts = {})
-      inspector_panels[name].merge!(opts)
+      if opts == false
+        inspector_panels[name] = false
+      else
+        inspector_panels[name].merge!(opts)
+      end
+    end
+
+    def remove_inspector_panel(name)
+      amend_inspector_panel(name, false)
     end
 
     def ui_theme=(name)

@@ -52,12 +52,16 @@ module Lookbook
       add_hook(:after_change, block)
     end
 
-    def define_inspector_panel(name, opts = {})
+    def define_panel(name, opts = {})
       config.define_inspector_panel(name, opts)
     end
 
-    def amend_inspector_panel(name, opts = {})
+    def amend_panel(name, opts = {})
       config.amend_inspector_panel(name, opts)
+    end
+
+    def remove_panel(name)
+      config.remove_inspector_panel(name)
     end
 
     def broadcast(event_name, data = {})

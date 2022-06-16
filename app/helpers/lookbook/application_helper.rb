@@ -20,5 +20,11 @@ module Lookbook
     def generate_id(*args)
       args.map { |args| args.delete_prefix("/").tr("&?=/_\-", "-") }.join("-")
     end
+
+    def append_styles(&block)
+      content_for :styles do
+        capture(&block)
+      end
+    end
   end
 end

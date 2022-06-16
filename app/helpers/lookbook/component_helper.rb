@@ -3,7 +3,7 @@ module Lookbook
     COMPONENT_CLASSES = {} # cache for constantized references
 
     def icon(name, **attrs)
-      render_component :icon, name: name, **attrs
+      render Lookbook::Icon::Component.new(name: name, **attrs)
     end
 
     def render_component(ref, **attrs, &block)
