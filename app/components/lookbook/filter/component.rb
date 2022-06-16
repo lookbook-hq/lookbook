@@ -1,5 +1,5 @@
 module Lookbook
-  class Filter::Component < Lookbook::Component
+  class Filter::Component < Lookbook::BaseComponent
     def initialize(store: nil, placeholder: "Type to filter&hellip;", **html_attrs)
       @model = store.nil? ? "{}" : "#{store}.raw"
       @placeholder = placeholder

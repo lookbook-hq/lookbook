@@ -1,5 +1,5 @@
 module Lookbook
-  class ParamsEditor::Component < Lookbook::Component
+  class ParamsEditor::Component < Lookbook::BaseComponent
     renders_many :fields, Lookbook::ParamsEditor::Field::Component
 
     protected

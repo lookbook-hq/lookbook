@@ -1,5 +1,5 @@
 module Lookbook
-  class Prose::Component < Lookbook::Component
+  class Prose::Component < Lookbook::BaseComponent
     include Lookbook::OutputHelper
 
     def initialize(size: :md, markdown: true, **html_attrs)

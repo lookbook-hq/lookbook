@@ -1,5 +1,5 @@
 module Lookbook
-  class Toolbar::Component < Lookbook::Component
+  class Toolbar::Component < Lookbook::BaseComponent
     DIVIDE_CLASSES = {
       left: "border-l",
       right: "border-r"

@@ -1,5 +1,5 @@
 module Lookbook
-  class Component < ViewComponent::Base
+  class BaseComponent < ViewComponent::Base
     include Lookbook::ComponentHelper
 
     def initialize(alpine_data: [], **html_attrs)

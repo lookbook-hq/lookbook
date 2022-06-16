@@ -1,5 +1,5 @@
 module Lookbook
-  class TabPanels::Panel::Component < Lookbook::Component
+  class TabPanels::Panel::Component < Lookbook::BaseComponent
     def initialize(name:, id: nil, **html_attrs)
       @name = name 
       @id = id || name

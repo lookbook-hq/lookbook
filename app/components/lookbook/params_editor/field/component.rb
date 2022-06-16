@@ -1,5 +1,5 @@
 module Lookbook
-  class ParamsEditor::Field::Component < Lookbook::Component
+  class ParamsEditor::Field::Component < Lookbook::BaseComponent
     def initialize(input:, name:, default: nil, value: nil, input_type: nil, type: nil, options: nil, **html_attrs)
       @input = input
       @name = name

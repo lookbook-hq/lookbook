@@ -1,5 +1,5 @@
 module Lookbook
-  class Tabs::Component < Lookbook::Component
+  class Tabs::Component < Lookbook::BaseComponent
     renders_many :tabs, ->(**attrs) do
       @tab_counter += 1
       attrs[:name] ||= "tab-#{@tab_counter}"

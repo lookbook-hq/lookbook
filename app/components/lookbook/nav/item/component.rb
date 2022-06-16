@@ -1,5 +1,5 @@
 module Lookbook
-  class Nav::Item::Component < Lookbook::Component
+  class Nav::Item::Component < Lookbook::BaseComponent
     ICONS = {
       page: :file,
       page_collection: :folder,

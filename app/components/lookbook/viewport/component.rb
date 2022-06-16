@@ -1,5 +1,5 @@
 module Lookbook
-  class Viewport::Component < Lookbook::Component
+  class Viewport::Component < Lookbook::BaseComponent
     def initialize(src:, resize_height: true, resize_width: true, max_height: nil, **html_attrs)
       @src = src
       @resize_height = resize_height

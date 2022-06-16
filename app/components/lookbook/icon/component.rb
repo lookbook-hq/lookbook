@@ -1,5 +1,5 @@
 module Lookbook
-  class Icon::Component < Lookbook::Component
+  class Icon::Component < Lookbook::BaseComponent
     def initialize(name:, size: 4, **html_attrs)
       @icon_name = name.is_a?(Symbol) ? name.to_s.tr("_", "-").to_json : name
       @size = size || 4

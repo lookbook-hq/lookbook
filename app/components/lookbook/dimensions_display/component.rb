@@ -1,5 +1,5 @@
 module Lookbook
-  class DimensionsDisplay::Component < Lookbook::Component
+  class DimensionsDisplay::Component < Lookbook::BaseComponent
     def initialize(target:, **html_attrs)
       @target = target
       super(**html_attrs)

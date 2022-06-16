@@ -1,5 +1,5 @@
 module Lookbook
-  class SplitLayout::Component < Lookbook::Component
+  class SplitLayout::Component < Lookbook::BaseComponent
     renders_many :panes, Lookbook::TagComponent
 
     protected

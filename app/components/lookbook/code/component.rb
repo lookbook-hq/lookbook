@@ -1,5 +1,5 @@
 module Lookbook
-  class Code::Component < Lookbook::Component
+  class Code::Component < Lookbook::BaseComponent
     include Lookbook::OutputHelper
 
     def initialize(

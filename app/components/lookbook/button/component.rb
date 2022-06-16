@@ -1,5 +1,5 @@
 module Lookbook
-  class Button::Component < Lookbook::Component
+  class Button::Component < Lookbook::BaseComponent
     renders_one :icon, Lookbook::Icon::Component
     renders_one :dropdown
 

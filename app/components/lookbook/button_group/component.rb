@@ -1,5 +1,5 @@
 module Lookbook
-  class ButtonGroup::Component < Lookbook::Component
+  class ButtonGroup::Component < Lookbook::BaseComponent
     renders_many :buttons, ->(copy: nil, **attrs, &block) do
       attrs[:size] = @size
       instance = if copy.present?

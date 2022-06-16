@@ -1,5 +1,5 @@
 module Lookbook
-  class PageTabs::Component < Lookbook::Component
+  class PageTabs::Component < Lookbook::BaseComponent
     renders_many :tabs, ->(**attrs, &block) do
       @tabs ||= []
       attrs[:content] = capture(&block)

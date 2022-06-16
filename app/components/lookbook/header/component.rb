@@ -1,5 +1,5 @@
 module Lookbook
-  class Header::Component < Lookbook::Component
+  class Header::Component < Lookbook::BaseComponent
     renders_one :branding
 
     def landing_path

@@ -1,5 +1,5 @@
 module Lookbook
-  class CopyButton::Component < Lookbook::Component
+  class CopyButton::Component < Lookbook::BaseComponent
     def initialize(target: nil, icon: :code, **attrs)
       @icon = icon
       @target = target

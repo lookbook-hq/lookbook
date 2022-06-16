@@ -1,5 +1,5 @@
 module Lookbook
-  class Nav::Component < Lookbook::Component
+  class Nav::Component < Lookbook::BaseComponent
     renders_one :filter, Lookbook::Filter::Component
 
     def initialize(

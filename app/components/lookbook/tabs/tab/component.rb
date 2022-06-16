@@ -1,5 +1,5 @@
 module Lookbook
-  class Tabs::Tab::Component < Lookbook::Component
+  class Tabs::Tab::Component < Lookbook::BaseComponent
     def initialize(name:, label: nil, hotkey: nil, disabled: nil, position: 0, theme: :toolbar, **html_attrs)
       @name = name
       @label = label
