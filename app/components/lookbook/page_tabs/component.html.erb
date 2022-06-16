@@ -1,0 +1,18 @@
+ <%= render_component_tag x_data: "{ activeTab: null }" do %>
+  <div class="flex w-full border-b border-lookbook-divider mb-6">
+    <%= render_component :tabs, theme: :page do |t| %>
+      <% @tabs.each do |props| %>
+        <%= t.tab **props %>
+      <% end %>
+    <% end %>
+  </div>
+  <%= render_component :tab_panels do |t| %>
+    <% @tabs.each do |props| %>
+      <% t.panel name: props[:name] do %>
+        <%= render_component :prose, markdown: false, class: "max-w-none flex-none" do %>
+          <%== props[:content] %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

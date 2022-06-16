@@ -1,5 +1,5 @@
 # @display centered true
-class TabbedPanelsPreview < ViewComponent::Preview
+class ToolbarTabsPreview < ViewComponent::Preview
   # Collapsable tabs
   # ----------------
   # 
