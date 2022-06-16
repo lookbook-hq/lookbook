@@ -16,7 +16,7 @@ export default function tabsComponent(store) {
     },
 
     get tabs() {
-      return Array.from(this.$refs.tabs.children);
+      return this.$refs.tabs ? Array.from(this.$refs.tabs.children) : [];
     },
 
     get dropdownTabs() {
