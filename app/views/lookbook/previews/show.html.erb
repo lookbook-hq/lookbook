@@ -38,7 +38,7 @@
             "@click.stop": "startSpin(); $dispatch('viewport:reload'); stopSpin(500);" %>
 
           <% group.button icon: :external_link,
-            href: lookbook.preview_path(@example.lookup_path),
+            href: lookbook_preview_path(@example.lookup_path),
             tooltip: "Open preview in new window",
             target: "_blank" %>
 

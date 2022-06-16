@@ -69,7 +69,7 @@ module Lookbook
     end
 
     def url_path
-      inspect_path lookup_path
+      lookbook_inspect_path lookup_path
     end
 
     def preview_paths

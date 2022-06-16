@@ -10,10 +10,10 @@
         <% toolbar.section align: :right, divide: :left do %>
           <%= render_component :button_group do |group| %>
           <% group.button icon: :eye,
-            href: helpers.lookbook.inspect_path(@example.path, @params),
+            href: helpers.lookbook_inspect_path(@example.path, @params),
             tooltip: "View in Inspector" %>
           <% group.button icon: :external_link,
-            href: helpers.lookbook.inspect_path(@example.path, @params),
+            href: helpers.lookbook_inspect_path(@example.path, @params),
             tooltip: "Open in new window",
             target: "_blank" %>
         <% end %>
@@ -27,7 +27,7 @@
       @viewport:resize-progress="resizeIframe"
       @viewport:resize-complete="resizeIframe"> 
       <%= render_component :viewport,
-        src: helpers.lookbook.preview_path(@example.path, @params.merge(lookbook_embed: true)),
+        src: helpers.lookbook_preview_path(@example.path, @params.merge(lookbook_embed: true)),
         alpine_data: "store",
         resize_height: false,
         max_height: @max_height,

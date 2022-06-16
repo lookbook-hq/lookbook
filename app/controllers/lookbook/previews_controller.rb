@@ -44,7 +44,7 @@ module Lookbook
 
     def show_legacy
       Lookbook.logger.warn("Legacy URL path detected. These paths are deprecated and will be removed in a future version")
-      redirect_to inspect_path params[:path]
+      redirect_to lookbook_inspect_path params[:path]
     end
 
     private
@@ -54,13 +54,13 @@ module Lookbook
       if @example.present?
         @preview = @example.preview
         if params[:path] == @preview&.lookup_path
-          redirect_to inspect_path "#{params[:path]}/#{@preview.default_example.name}"
+          redirect_to lookbook_inspect_path "#{params[:path]}/#{@preview.default_example.name}"
         end
       else
         @preview = Lookbook.previews.find(params[:path])
         if @preview.present?
           first_example = @preview.examples.first
-          redirect_to inspect_path(first_example.lookup_path) if first_example
+          redirect_to lookbook_inspect_path(first_example.lookup_path) if first_example
         else
           @preview = Lookbook.previews.find(path_segments.slice(0, path_segments.size - 1).join("/"))
         end
