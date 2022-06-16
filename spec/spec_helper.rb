@@ -2,10 +2,7 @@ require "bundler"
 
 Bundler.require :default, :development
 
-Combustion.path = "spec/dummy"
-Combustion.initialize! :action_controller, :action_view do
-  config.view_component.view_component_path = "../app/components"
-end
+require_relative "support/combustion"
 
 require "factory_bot"
 require "view_component/test_helpers"

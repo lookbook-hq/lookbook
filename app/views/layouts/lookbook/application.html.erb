@@ -3,7 +3,7 @@
     alpine_data: "$store.layout.main",
     ":class": "$store.layout.mobile && '!block'" do |layout| %>
 
-    <% layout.pane class: "flex flex-col bg-lookbook-sidebar relative translate-x-0",
+    <% layout.pane id: "app-sidebar", class: "flex flex-col bg-lookbook-sidebar relative translate-x-0",
       ":class": "{
         'transition': $store.layout.mobile,
         'translate-x-full': $store.layout.mobile && sidebarHidden,
@@ -17,6 +17,7 @@
         style: "height: calc(100vh - 2.5rem);" do |layout| %>
         <% layout.pane class: "overflow-hidden" do %>
           <%= render_component :nav,
+            id: "previews-nav",
             collection: Lookbook.previews,
             alpine_data: "$store.nav.previews",
             label: "Previews",
@@ -28,6 +29,7 @@
         <% if Lookbook.pages.any? %>
           <% layout.pane class: "overflow-hidden" do %>
             <%= render_component :nav,
+              id: "pages-nav",
               collection: Lookbook.pages,
               alpine_data: "$store.nav.pages",
               label: "Pages" %>
@@ -67,7 +69,7 @@
       <% end %>
     <% end %>
 
-    <% layout.pane class: "overflow-hidden", ":class": "$store.layout.mobile && 'w-screen'" do %>
+    <% layout.pane id: "app-main", class: "overflow-hidden", ":class": "$store.layout.mobile && 'w-screen'" do %>
       <%= content_for?(:main) ? yield(:main) : yield %>
     <% end %>
 

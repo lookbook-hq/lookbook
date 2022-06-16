@@ -1,17 +1,17 @@
 <div class="px-4 md:px-10 pt-8 md:pt-10 overflow-auto scroll-smooth w-full max-h-full pb-12" x-ref="scroller">
   <div class="w-full max-w-3xl mx-auto h-full flex flex-col">
     <% if @page.header? %>
-      <header class="mb-8 prose max-w-none flex-none">
+      <header id="page-header" class="mb-8 prose max-w-none flex-none">
         <h1><%= @page.title %></h1>
       </header>
     <% end %>
 
-    <%= render_component :prose, markdown: false, class: "max-w-none flex-none" do %>
+    <%= render_component :prose, id: "page-content", markdown: false, class: "max-w-none flex-none" do %>
       <%= @page_content %>
     <% end %>
 
     <% if @page.sections.any? %>
-      <%= render_component :page_tabs, markdown: false, class: "mt-6" do |page_tabs| %>
+      <%= render_component :page_tabs, id: "page-tabbed-sections", markdown: false, class: "mt-6" do |page_tabs| %>
         <% @page.sections.each do |section| %>
           <% page_tabs.tab name: "page-section-#{section.name}", label: section.label do %>
             <%= page_controller.render_page(section) %>
@@ -21,7 +21,7 @@
     <% end %>
 
     <% if @page.footer? && @pages.many? %>
-      <footer class="flex items-center justify-between border-t border-gray-300 mt-12 pt-8 pb-10 ">
+      <footer id="page-footer" class="flex items-center justify-between border-t border-gray-300 mt-12 pt-8 pb-10 ">
         <% if @previous_page %>
           <a href="<%= lookbook_page_path @previous_page.lookup_path %>"
             class="flex items-center flex-none">
