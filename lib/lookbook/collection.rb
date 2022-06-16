@@ -42,7 +42,7 @@ module Lookbook
     end
 
     def non_empty_items
-      items.filter do |item|
+      items.select do |item|
         !item.is_a?(Lookbook::Collection) || item.items.any?
       end
     end

@@ -163,7 +163,7 @@ module Lookbook
 
         callable_data = {
           name: name.to_s,
-          index_position: (@panels.filter { |p| p.pane == config.pane }.size + 1),
+          index_position: (@panels.select { |p| p.pane == config.pane }.size + 1),
           **inspector_data
         }
 
@@ -175,15 +175,15 @@ module Lookbook
         @panels << Lookbook::Store.new(resolved_config, deep: false)
       end
 
-      @panels.filter(&:show).sort_by { |p| [p.position, p.label] }
+      @panels.select(&:show).sort_by { |p| [p.position, p.label] }
     end
    
     def main_panels
-      panels.filter { |panel| panel.pane == :main }
+      panels.select { |panel| panel.pane == :main }
     end
 
     def drawer_panels
-      panels.filter { |panel| panel.pane == :drawer }
+      panels.select { |panel| panel.pane == :drawer }
     end
 
     def preview_controller

@@ -34,7 +34,7 @@ module Lookbook
     def examples
       return @examples if @examples.present?
       public_methods = @preview.public_instance_methods(false)
-      public_method_objects = @preview_inspector&.methods&.filter { |m| public_methods.include?(m.name) }
+      public_method_objects = @preview_inspector&.methods&.select { |m| public_methods.include?(m.name) }
       examples = (public_method_objects || []).map { |m| PreviewExample.new(m.name.to_s, self) }
       sorted = Lookbook.config.sort_examples ? examples.sort_by(&:label) : examples
       @examples = []

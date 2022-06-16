@@ -66,7 +66,7 @@ module Lookbook
             partial: "lookbook/previews/panels/notes",
             label: "Notes",
             hotkey: "n",
-            disabled: ->(data) { data.examples.filter { |e| e.notes.present? }.none? }
+            disabled: ->(data) { data.examples.select { |e| e.notes.present? }.none? }
           },
           params: {
             pane: :drawer,
@@ -141,7 +141,7 @@ module Lookbook
     protected
 
     def get_inspector_panels(panels)
-      panels.filter! { |key, panel| panel }
+      panels.select! { |key, panel| panel }
       panels
     end
 
@@ -151,7 +151,7 @@ module Lookbook
 
     def normalize_paths(paths)
       paths.map! { |path| absolute_path(path) }
-      paths.filter! { |path| Dir.exist?(path) }
+      paths.select! { |path| Dir.exist?(path) }
       paths
     end
 

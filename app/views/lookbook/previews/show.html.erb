@@ -80,7 +80,7 @@
 
       <% toolbar.section align: :right,  class: "flex-none relative z-10" do %>
         <%= render_component :button_group do |group| %>
-          <%= @drawer_panels.filter { |p| !p.disabled && p.copy }.each do |panel| %>
+          <%= @drawer_panels.select { |p| !p.disabled && p.copy }.each do |panel| %>
             <% group.button icon: :copy,
               tooltip: "Copy panel contents",
               copy: !!panel.copy,
