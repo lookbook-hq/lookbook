@@ -45,7 +45,7 @@ export default function tabsComponent(store) {
         const initialTab = initial
           ? this.tabs.find((t) => this._getRef(t) === initial)
           : this.tabs[0];
-        this.selectTab(initialTab);
+        this.selectTab(initialTab, true);
 
         this.parentObserver = observeSize(
           this.$root.parentElement,
@@ -64,12 +64,9 @@ export default function tabsComponent(store) {
       }
 
       if (width === this.$root.offsetWidth) {
-        console.log("uep");
         this.visibleTabsCount = this.tabs.length;
         return;
       }
-
-      console.log(width);
 
       let sumTabWidths = 60;
       let triggerLeft = 20;
@@ -87,9 +84,12 @@ export default function tabsComponent(store) {
       this._lastMeasuredWidth = width;
     },
 
-    selectTab(el) {
+    selectTab(el, initial = false) {
       this.store.activeTab = this._getRef(el);
       dropdown.hide();
+      if (!initial) {
+        this.$dispatch("tabs:change", { tabs: this });
+      }
     },
 
     isSelected(el) {

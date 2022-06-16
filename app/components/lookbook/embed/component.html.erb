@@ -25,7 +25,8 @@
       @viewport:loaded="loadResizer"
       @dom:update-complete="loadResizer"
       @viewport:resize-progress="resizeIframe"
-      @viewport:resize-complete="resizeIframe"> 
+      @viewport:resize-complete="resizeIframe"
+      @tabs:change.window="resizeIframe"> 
       <%= render_component :viewport,
         src: helpers.lookbook_preview_path(@example.path, @params.merge(lookbook_embed: true)),
         alpine_data: "store",
