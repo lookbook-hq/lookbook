@@ -7849,7 +7849,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $e44b48ce5635d6e0$exports = {};
+var $392c8629951fa7df$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -12466,6 +12466,31 @@ function $e1f51f020443edd4$export$2e2bcd8739ae039(id, embedStore) {
 }
 
 
+var $e9904a14dabf652d$exports = {};
+
+$parcel$defineInteropFlag($e9904a14dabf652d$exports);
+
+$parcel$export($e9904a14dabf652d$exports, "default", () => $e9904a14dabf652d$export$2e2bcd8739ae039);
+function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
+    return {
+        focussed: false,
+        get active () {
+            return store.active;
+        },
+        get text () {
+            return store.text;
+        },
+        clear () {
+            if (store.raw === "") this.$refs.input.blur();
+            else store.raw = "";
+        },
+        focus () {
+            this.$refs.input.focus();
+        }
+    };
+}
+
+
 var $36506012e0c6e9e3$exports = {};
 
 $parcel$defineInteropFlag($36506012e0c6e9e3$exports);
@@ -12474,6 +12499,24 @@ $parcel$export($36506012e0c6e9e3$exports, "default", () => $36506012e0c6e9e3$exp
 function $36506012e0c6e9e3$export$2e2bcd8739ae039(iconName) {
     return {
         iconName: iconName
+    };
+}
+
+
+var $b63b9c6d236b3f65$exports = {};
+
+$parcel$defineInteropFlag($b63b9c6d236b3f65$exports);
+
+$parcel$export($b63b9c6d236b3f65$exports, "default", () => $b63b9c6d236b3f65$export$2e2bcd8739ae039);
+
+function $b63b9c6d236b3f65$export$2e2bcd8739ae039() {
+    return {
+        narrow: false,
+        init () {
+            $9930d46698775b42$export$a2214cc2adb2dc44(this.$el, ({ width: width  })=>{
+                this.narrow = width < 450;
+            });
+        }
     };
 }
 
@@ -12515,49 +12558,6 @@ function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
             ).length;
             this.empty = matchedChildCount === 0;
             this.debug(`Children matching filter: ${matchedChildCount}/${this.children.length}`);
-        }
-    };
-}
-
-
-var $e9904a14dabf652d$exports = {};
-
-$parcel$defineInteropFlag($e9904a14dabf652d$exports);
-
-$parcel$export($e9904a14dabf652d$exports, "default", () => $e9904a14dabf652d$export$2e2bcd8739ae039);
-function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
-    return {
-        focussed: false,
-        get active () {
-            return store.active;
-        },
-        get text () {
-            return store.text;
-        },
-        clear () {
-            if (store.raw === "") this.$refs.input.blur();
-            else store.raw = "";
-        },
-        focus () {
-            this.$refs.input.focus();
-        }
-    };
-}
-
-
-var $b63b9c6d236b3f65$exports = {};
-
-$parcel$defineInteropFlag($b63b9c6d236b3f65$exports);
-
-$parcel$export($b63b9c6d236b3f65$exports, "default", () => $b63b9c6d236b3f65$export$2e2bcd8739ae039);
-
-function $b63b9c6d236b3f65$export$2e2bcd8739ae039() {
-    return {
-        narrow: false,
-        init () {
-            $9930d46698775b42$export$a2214cc2adb2dc44(this.$el, ({ width: width  })=>{
-                this.narrow = width < 450;
-            });
         }
     };
 }
@@ -13364,16 +13364,16 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$e44b48ce5635d6e0$exports = {
+$392c8629951fa7df$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
     "dimensions_display": $e398acaded942bbe$exports,
     "embed": $e1f51f020443edd4$exports,
-    "icon": $36506012e0c6e9e3$exports,
-    "nav": $d92d9d5253f84566$exports,
     "filter": $e9904a14dabf652d$exports,
+    "icon": $36506012e0c6e9e3$exports,
     "params_editor": $b63b9c6d236b3f65$exports,
+    "nav": $d92d9d5253f84566$exports,
     "tab_panels": $a87dacf5139b5e2f$exports,
     "split_layout": $506dabb2bf255b38$exports,
     "tabs": $0db07828cadc68e0$exports,
@@ -13524,7 +13524,7 @@ $caa9439642c6336c$export$2e2bcd8739ae039.store("settings", $96e0343bbb13096b$exp
 // Components
 $caa9439642c6336c$export$2e2bcd8739ae039.data("app", $d709d0f4027033b2$export$2e2bcd8739ae039);
 [
-    $e44b48ce5635d6e0$exports,
+    $392c8629951fa7df$exports,
     $e4eab7529959b73b$exports,
     $4979d2d897a1c01f$exports
 ].forEach((scripts)=>{

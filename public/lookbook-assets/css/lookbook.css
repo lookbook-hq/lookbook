@@ -1682,16 +1682,16 @@ pre[class*="language-"] {
   top: 39px;
 }
 
-.-top-px {
-  top: -1px;
-}
-
 .top-1\/2 {
   top: 50%;
 }
 
 .right-3 {
   right: .75rem;
+}
+
+.-top-px {
+  top: -1px;
 }
 
 .-left-px {
@@ -1764,20 +1764,12 @@ pre[class*="language-"] {
   margin-left: .5rem;
 }
 
-.mr-1 {
-  margin-right: .25rem;
-}
-
-.mr-6 {
-  margin-right: 1.5rem;
+.mt-12 {
+  margin-top: 3rem;
 }
 
 .ml-auto {
   margin-left: auto;
-}
-
-.mt-12 {
-  margin-top: 3rem;
 }
 
 .mr-2 {
@@ -1794,6 +1786,14 @@ pre[class*="language-"] {
 
 .mt-1 {
   margin-top: .25rem;
+}
+
+.mr-1 {
+  margin-right: .25rem;
+}
+
+.mr-6 {
+  margin-right: 1.5rem;
 }
 
 .mb-6 {
@@ -2353,16 +2353,16 @@ pre[class*="language-"] {
   background-color: #0000;
 }
 
-.\!bg-lookbook-header {
-  background-color: var(--lookbook-header) !important;
-}
-
 .bg-lookbook-drawer {
   background-color: var(--lookbook-drawer);
 }
 
 .bg-lookbook-prose {
   background-color: var(--lookbook-prose);
+}
+
+.\!bg-lookbook-header {
+  background-color: var(--lookbook-header) !important;
 }
 
 .bg-zinc-50 {
@@ -2625,10 +2625,6 @@ pre[class*="language-"] {
   color: rgb(153 27 27 / var(--tw-text-opacity) );
 }
 
-.\!text-lookbook-header-text {
-  color: var(--lookbook-header-text) !important;
-}
-
 .text-lookbook-button-text {
   color: var(--lookbook-button-text);
 }
@@ -2636,6 +2632,10 @@ pre[class*="language-"] {
 .text-green-500 {
   --tw-text-opacity: 1;
   color: rgb(34 197 94 / var(--tw-text-opacity) );
+}
+
+.\!text-lookbook-header-text {
+  color: var(--lookbook-header-text) !important;
 }
 
 .text-lookbook-branding-text {
@@ -2707,16 +2707,12 @@ pre[class*="language-"] {
   opacity: .9;
 }
 
-.opacity-60 {
-  opacity: .6;
+.\!opacity-100 {
+  opacity: 1 !important;
 }
 
 .opacity-70 {
   opacity: .7;
-}
-
-.\!opacity-100 {
-  opacity: 1 !important;
 }
 
 .shadow {
