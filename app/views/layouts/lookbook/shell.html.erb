@@ -7,7 +7,7 @@
     @navigation:start="closeMobileSidebar"
     class="w-screen h-screen grid grid-rows-[40px_1fr] relative">
 
-    <%= render_component :header, id: "app-header" do |header| %>
+    <%= render_component :header, id: "app-header", debug_menu: config.debug_menu do |header| %>
       <% header.branding { config.project_name } %>
     <% end %>
 

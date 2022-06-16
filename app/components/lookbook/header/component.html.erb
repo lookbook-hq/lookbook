@@ -12,7 +12,7 @@
 
     <% toolbar.section padded: false, align: :right, class: "flex items-center" do %>
       <%= render_component :button_group do |group| %>
-        <% if Rails.env.development? %>
+        <% if @debug_menu %>
           <% group.button icon: :help_circle, class: "opacity-50 hover:opacity-100 transition !text-lookbook-header-text" do |button| %>
             <% button.dropdown do %>
               <%= tag.div class: "divide-y divide-lookbook-divider min-w-[180px]" do %>
