@@ -117,11 +117,10 @@ module Lookbook
     def inspector_data
       return @inspector_data if @inspector_data.present?
 
-      request_data = {
+      context_data = {
         preview_params: preview_params,
         path: params[:path],
         query_parameters: request.query_parameters,
-        original: request
       }
 
       example = @example
@@ -144,7 +143,7 @@ module Lookbook
       end
 
       @inspector_data ||= Lookbook::Store.new({
-        request: request_data,
+        context: context_data,
         preview: preview,
         examples: examples
       })
