@@ -45,6 +45,8 @@ module Lookbook
           after_change: [],
         },
 
+        experimental_features: false,
+
         inspector_panels: {
           preview: {
             pane: :main,
@@ -100,8 +102,6 @@ module Lookbook
           panel_classes: nil,
           locals: {}
         },
-
-        experimental_features: false,
       })
     end
 
@@ -111,6 +111,25 @@ module Lookbook
       else
         get(:inspector_panels)
       end
+    end
+
+    def define_inspector_panel(name, opts = {})
+      inspector_panels[name] = opts
+      if opts[:position].present?
+        pane = inspector_panels[name].pane.presence || :drawer
+        siblings = inspector_panels.select do |key, panel|
+          panel.pane == pane && key != name.to_sym
+        end
+        siblings.each do |key, panel|
+          if panel.position >= opts[:position]
+            panel.position += 1
+          end
+        end
+      end
+    end
+
+    def amend_inspector_panel(name, opts = {})
+      inspector_panels[name].merge!(opts)
     end
 
     def ui_theme=(name)

@@ -53,7 +53,11 @@ module Lookbook
     end
 
     def define_inspector_panel(name, opts = {})
-      config.inspector_panels[name] = opts
+      config.define_inspector_panel(name, opts)
+    end
+
+    def amend_inspector_panel(name, opts = {})
+      config.amend_inspector_panel(name, opts)
     end
 
     def broadcast(event_name, data = {})

@@ -170,7 +170,7 @@ module Lookbook
         @panels << Lookbook::Store.new(resolved_config, deep: false)
       end
 
-      @panels.select(&:show).sort_by { |p| [p.position, p.label] }
+      @panels = @panels.select(&:show).sort_by { |p| [p.position, p.label] }
     end
    
     def main_panels
