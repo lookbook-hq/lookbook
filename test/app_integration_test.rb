@@ -14,8 +14,8 @@ module Lookbook
         visit lookbook_url
       end
 
-      should "render the welcome content" do
-        assert page.has_content?("Select a preview to get started")
+      should "renders the overview page" do
+        assert page.has_content?("Welcome to our Design System.")
       end
 
       should "include the navigation" do
