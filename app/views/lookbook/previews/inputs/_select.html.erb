@@ -2,6 +2,6 @@
   name="<%= name %>"
   class="form-input"
   x-model="value"
-  x-data="param('<%= name %>', '<%= value %>')">
+  x-data="param('<%= name %>', '<%= j(value) %>')">
   <%= options_for_select(options, value) %>
 </select>
