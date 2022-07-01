@@ -11,7 +11,7 @@ module Lookbook
     end
 
     def call
-      tag.public_send(@tag, **@html_attrs) do
+      tag.public_send(@tag, **@html_attrs, escape: false) do
         content
       end
     end
