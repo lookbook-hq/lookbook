@@ -10,7 +10,7 @@
         '!absolute right-0 bottom-0 top-[40px] h-[calc(100%_-_40px)] w-full max-w-[420px] z-50 border-l border-lookbook-divider': $store.layout.mobile
       }",
       "@click.outside": "closeMobileSidebar",
-      x_cloak: true do %>
+      cloak: true do %>
 
       <%= render_component :split_layout,
         alpine_data: "$store.layout.#{Lookbook.pages.any? ? "sidebar" : "singleSectionSidebar"}",

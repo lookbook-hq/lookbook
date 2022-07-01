@@ -1,10 +1,10 @@
 <%= render_component :button,
   name: "copy-button",
   **@button_attrs,
-  x_data: prepare_alpine_data,
+  "x-data": prepare_alpine_data,
   "@click.prevent": "copyToClipboard" do |button| %>
-  <% button.icon name: @icon, size: icon_size, x_show: "!copied", cloak: true %>
-  <%= icon  :check, size: icon_size, class: "text-green-500", x_show: "copied", cloak: true  %>
+  <% button.icon name: @icon, size: icon_size, "x-show": "!copied", cloak: true %>
+  <%= icon  :check, size: icon_size, class: "text-green-500", "x-show": "copied", cloak: true  %>
   <% if content %>
     <div x-ref="copyTarget" class="hidden"><%== content %></div>
   <% end %>

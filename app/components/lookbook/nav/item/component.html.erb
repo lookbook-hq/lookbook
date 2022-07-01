@@ -4,12 +4,12 @@
     href: href,
     class: "flex items-center py-1 select-none cursor-pointer text-lookbook-nav-text hover:bg-lookbook-nav-item-hover",
     style: "padding-left: #{left_pad}px",
-    x_bind: "bindings.#{href.present? ? "link" : "toggle"}" do %>
+    "x-bind": "bindings.#{href.present? ? "link" : "toggle"}" do %>
     <div class="relative flex items-center">
       <%= icon  nil,
         size: 3,
         class: "mr-1 text-lookbook-nav-toggle absolute -left-4",
-        x_effect: "iconName = open ? 'chevron-down' : 'chevron-right'" if children? %>
+        "x-effect": "iconName = open ? 'chevron-down' : 'chevron-right'" if children? %>
       <%= icon  nav_icon(@item), size: 3.5, class: "mr-1.5 text-lookbook-nav-icon" %>
       <span><%= label %></span>
     </div>

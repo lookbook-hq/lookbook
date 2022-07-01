@@ -1,4 +1,4 @@
-<%= render_component_tag class: "grid h-full w-full", x_bind: "bindings.root", x_effect: "initSplit" do %>
+<%= render_component_tag class: "grid h-full w-full", "x-bind": "bindings.root", "x-effect": "initSplit" do %>
   <% panes.each.with_index(1) do |pane, i| %>
     <%= pane %>
     <% if i < panes.size %>

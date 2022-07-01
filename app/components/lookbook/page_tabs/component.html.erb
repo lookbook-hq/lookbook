@@ -1,4 +1,4 @@
- <%= render_component_tag x_data: "{ activeTab: null }" do %>
+ <%= render_component_tag "x-data": "{ activeTab: null }" do %>
   <div class="flex w-full border-b border-lookbook-divider mb-6">
     <%= render_component :tabs, theme: :page do |t| %>
       <% @tabs.each do |props| %>

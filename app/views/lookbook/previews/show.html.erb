@@ -3,7 +3,7 @@
   ":class": "($store.inspector.drawer.hidden || #{@drawer_panels.none?}) && '!grid-rows-[1fr] !grid-cols-[1fr]'" do |layout| %>
 
   <%= layout.pane class: "flex flex-col h-full overflow-hidden",
-    x_effect: "forceOrientation = (layoutWidth < $store.inspector.minVerticalSplitWidth) ? 'horizontal' : null" do %>
+    "x-effect": "forceOrientation = (layoutWidth < $store.inspector.minVerticalSplitWidth) ? 'horizontal' : null" do %>
   
     <%= render_component :toolbar do |toolbar| %>
       <% toolbar.section ":class": "layoutResizing && 'overflow-hidden'" do %>
@@ -46,7 +46,7 @@
             tooltip: "Show drawer",
             "@click": "$store.inspector.drawer.hidden = false",
             class: "rotate-180",
-            x_show: "$store.inspector.drawer.hidden",
+            "x-show": "$store.inspector.drawer.hidden",
             cloak: true %>
         <% end %>
       <% end %>
@@ -64,7 +64,7 @@
   <% end %>
 
   <%= layout.pane class: "flex flex-col h-full overflow-hidden bg-lookbook-drawer",
-    x_show: "!$store.inspector.drawer.hidden && #{@drawer_panels.any?}" do %>
+    "x-show": "!$store.inspector.drawer.hidden && #{@drawer_panels.any?}" do %>
 
     <%= render_component :toolbar do |toolbar| %>
       <% toolbar.section ":class": "layoutResizing && 'overflow-hidden'" do %>
@@ -84,7 +84,7 @@
             <% group.button icon: :copy,
               tooltip: "Copy panel contents",
               copy: !!panel.copy,
-              x_show: "$store.inspector.drawer.activeTab === '#{panel.name}'",
+              "x-show": "$store.inspector.drawer.activeTab === '#{panel.name}'",
               cloak: true do %>
               <%== panel.copy ? panel.copy : "" %>
               <% end %>
@@ -98,18 +98,18 @@
           <% group.button icon: :corner_up_right,
             tooltip: "Move drawer to right",
             "@click": "switchOrientation",
-            x_show: "horizontal && layoutWidth > $store.inspector.minVerticalSplitWidth",
+            "x-show": "horizontal && layoutWidth > $store.inspector.minVerticalSplitWidth",
             cloak: true %>
 
           <% group.button icon: :corner_up_right,
-            x_show: "horizontal && layoutWidth <= $store.inspector.minVerticalSplitWidth",
+            "x-show": "horizontal && layoutWidth <= $store.inspector.minVerticalSplitWidth",
             disabled: true,
             cloak: true %>
 
           <% group.button icon: :corner_left_down,
             tooltip: "Move drawer to bottom",
             "@click": "switchOrientation",
-            x_show: "vertical",
+            "x-show": "vertical",
             cloak: true %>
 
           <% group.button icon: :x_circle,

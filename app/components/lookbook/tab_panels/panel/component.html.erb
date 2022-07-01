@@ -1,7 +1,7 @@
 <%= render_component_tag :section,
   id: @id,
-  x_ref: @name,
-  x_cloak: true,
+  "x-ref": @name,
+  cloak: true,
   class: "h-full",
   ":class": "{ hidden: !isActive($el) }" do %>
     <%== content %>

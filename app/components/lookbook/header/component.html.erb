@@ -60,11 +60,11 @@
         <% end %>
         <% group.button icon: :menu,
           "@click.stop": "toggleSidebar",
-          x_show: "$store.layout.mobile && sidebarHidden",
+          "x-show": "$store.layout.mobile && sidebarHidden",
           class: "!text-lookbook-header-text" %>
         <% group.button icon: :x,
           "@click.stop": "toggleSidebar",
-          x_show: "$store.layout.mobile && !sidebarHidden",
+          "x-show": "$store.layout.mobile && !sidebarHidden",
           "@keydown.esc.window": "closeMobileSidebar",
           class: "!text-lookbook-header-text" %>
       <% end %>    
