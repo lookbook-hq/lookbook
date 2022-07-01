@@ -4,5 +4,5 @@
   rows="4"
   @keyup.stop
   x-model="value"
-  x-data="param('<%= name %>', '<%= value %>', {debounce: 300})"
+  x-data="param('<%= name %>', '<%= j(value) %>', {debounce: 300})"
 ><%= value %></textarea>

@@ -124,7 +124,7 @@ module Lookbook
 
             should "render a text input" do
               within "#inspector-panel-#{@example.id}-params" do
-                assert page.has_field?("blurb", type: "text", with: "default text")
+                assert page.has_field?("blurb", type: "text", with: "default text and \"some\" 'quotes'")
               end
             end
           end
@@ -137,7 +137,7 @@ module Lookbook
 
             should "render a text input" do
               within "#inspector-panel-#{@example.id}-params" do
-                assert page.has_field?("blurb", type: "text", with: "default text")
+                assert page.has_field?("blurb", type: "text", with: "default text and \"some\" 'quotes'")
               end
             end
           end
@@ -150,7 +150,7 @@ module Lookbook
 
             should "render a textarea" do
               within "#inspector-panel-#{@example.id}-params" do
-                assert page.has_css?("textarea[name='blurb']", text: "default text")
+                assert page.has_css?("textarea[name='blurb']", text: "default text and \"some\" 'quotes'")
               end
             end
           end
@@ -163,7 +163,7 @@ module Lookbook
 
             should "render a select" do
               within "#inspector-panel-#{@example.id}-params" do
-                assert page.has_select?("blurb", with_selected: "option one", with_options: ["option one", "option two"])
+                assert page.has_select?("blurb", with_selected: "option 'one'", with_options: ["option 'one'", "option \"two\""])
               end
             end
           end
