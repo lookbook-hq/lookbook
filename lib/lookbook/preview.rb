@@ -122,14 +122,11 @@ module Lookbook
         !!find(path)
       end
 
-      def clear_cache
-        @previews = nil
-      end
-
       def all
         load_previews if preview_files.size > ViewComponent::Preview.descendants.size
 
-        return @previews if @previews.present?
+        @previews = nil if cache_invalid?
+        return @previews unless @previews.nil?
 
         previews = ViewComponent::Preview.descendants.map do |p|
           new(p)
@@ -144,14 +141,36 @@ module Lookbook
         end
 
         sorted_previews = previews.compact.sort_by { |preview| [preview.position, preview.label] }
-        @previews ||= PreviewCollection.new(sorted_previews)
+        @previews = PreviewCollection.new(sorted_previews)
+        mark_as_cached
+        @previews
       end
 
       def errors
         @errors ||= []
       end
 
+      def clear_cache
+        unless cache_invalid?
+          File.delete(cache_marker_path)
+        end
+      end
+
       protected
+
+      def cache_marker_path
+        Rails.root.join("tmp/cache/lookbook-previews")
+      end
+
+      def cache_invalid?
+        !File.exists?(cache_marker_path)
+      end
+
+      def mark_as_cached
+        cache_dir = File.dirname(cache_marker_path)
+        FileUtils.mkdir_p(cache_dir) unless File.exists?(cache_dir)
+        File.write(cache_marker_path, "{cached_at: #{Time.now}}")
+      end
 
       def load_previews
         @errors = []
