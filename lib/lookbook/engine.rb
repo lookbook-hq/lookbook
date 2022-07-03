@@ -166,6 +166,7 @@ module Lookbook
     class << self
 
       def websocket
+        return @websocket unless @websocket.nil?
         if config.lookbook.auto_refresh
           cable = ActionCable::Server::Configuration.new
           cable.cable = {adapter: "async"}.with_indifferent_access
@@ -176,9 +177,9 @@ module Lookbook
           @websocket ||= if Rails.version.to_f >= 6.0
             ActionCable::Server::Base.new(config: cable)
           else
-            websocket ||= ActionCable::Server::Base.new
-            websocket.config = cable
-            websocket
+            @websocket ||= ActionCable::Server::Base.new
+            @websocket.config = cable
+            @websocket
           end
         end
       end
