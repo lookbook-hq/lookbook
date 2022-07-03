@@ -14,14 +14,20 @@ module Lookbook
 
     def initialize(
       item,
+      nav_id:,
       depth: 1,
       collapse_singles: false,
       **html_attrs
     )
+      @nav_id = nav_id
       @item = item
       @depth = depth
       @collapse_singles = collapse_singles
       super(**html_attrs)
+    end
+
+    def id
+      "#{@nav_id}-#{@item.id}"
     end
 
     def left_pad
@@ -40,6 +46,7 @@ module Lookbook
       @children ||= if collection? && !collapsed?
         item.non_empty_items.map do |item|
           render Lookbook::Nav::Item::Component.new item,
+            nav_id: @nav_id,
             depth: (@depth + 1),
             collapse_singles: @collapse_singles
         end
@@ -52,8 +59,8 @@ module Lookbook
       collapsed? ? @item.first : @item
     end
 
-    def nav_icon(entity)
-      ICONS[entity.type] || :file
+    def nav_icon
+      ICONS[@item.type] || :file
     end
 
     def collection?

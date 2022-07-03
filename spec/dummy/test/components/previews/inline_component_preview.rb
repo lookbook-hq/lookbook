@@ -4,4 +4,10 @@ class InlineComponentPreview < ViewComponent::Preview
       "inline component content"
     end
   end
+
+  def another_example
+    render InlineComponent.new do
+      "Another inline component"
+    end
+  end
 end

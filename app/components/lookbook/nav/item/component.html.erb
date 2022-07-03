@@ -1,16 +1,22 @@
-<%= render_component_tag :li, id: @item.id, class: "list-none", "x-show": "!filteredOut", cloak: true do %>
-  
+<%= render_component_tag :li,
+  id: id,
+  class: "list-none",
+  "x-show": "!filteredOut",
+  data: {
+    "entity-type": item.type
+  },
+  cloak: true do %>
   <%= render_tag href.present? ? :a : :div,
     href: href,
     class: "flex items-center py-1 select-none cursor-pointer text-lookbook-nav-text hover:bg-lookbook-nav-item-hover",
     style: "padding-left: #{left_pad}px",
     "x-bind": "bindings.#{href.present? ? "link" : "toggle"}" do %>
     <div class="relative flex items-center">
-      <%= icon  nil,
+      <%= icon nil,
         size: 3,
         class: "mr-1 text-lookbook-nav-toggle absolute -left-4",
         "x-effect": "iconName = open ? 'chevron-down' : 'chevron-right'" if children? %>
-      <%= icon  nav_icon(@item), size: 3.5, class: "mr-1.5 text-lookbook-nav-icon" %>
+      <%= icon nav_icon, size: 3.5, class: "mr-1.5 text-lookbook-nav-icon" %>
       <span><%= label %></span>
     </div>
   <% end %>

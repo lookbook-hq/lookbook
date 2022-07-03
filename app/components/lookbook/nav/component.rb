@@ -4,20 +4,23 @@ module Lookbook
     renders_one :toolbar, Lookbook::Toolbar::Component
 
     def initialize(
+      id: nil,
       collection:,
       collapse_singles: false,
       **attrs
     )
+      @id = id.presence || "#{collection.id}-nav"
       @collection = collection.as_tree
       @item_args = {
         collapse_singles: collapse_singles
       }
-      super(**attrs)
+      super(**attrs, id: id)
     end
 
     def items
       @collection.non_empty_items.map do |item|
         render Lookbook::Nav::Item::Component.new item,
+          nav_id: @id,
           depth: 1,
           **@item_args
       end
