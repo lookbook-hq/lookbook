@@ -17,7 +17,7 @@ module Lookbook
       if landing.present?
         redirect_to lookbook_page_path(landing.lookup_path)
       else
-        render "lookbook/index", layout: Lookbook.previews.any? ? "lookbook/application" : "lookbook/shell"
+        render "lookbook/index"
       end
     end
 

@@ -1756,12 +1756,12 @@ pre[class*="language-"] {
   margin-top: 2rem;
 }
 
-.mt-6 {
-  margin-top: 1.5rem;
-}
-
 .ml-2 {
   margin-left: .5rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
 }
 
 .mt-12 {
@@ -1974,6 +1974,10 @@ pre[class*="language-"] {
 
 .max-w-screen-lg {
   max-width: 1024px;
+}
+
+.max-w-\[400px\] {
+  max-width: 400px;
 }
 
 .max-w-\[420px\] {
@@ -2687,12 +2691,12 @@ pre[class*="language-"] {
   opacity: .3;
 }
 
-.opacity-40 {
-  opacity: .4;
-}
-
 .opacity-80 {
   opacity: .8;
+}
+
+.opacity-40 {
+  opacity: .4;
 }
 
 .opacity-0 {

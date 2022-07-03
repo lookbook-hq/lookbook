@@ -154,6 +154,10 @@ module Lookbook
         !!find(path)
       end
 
+      def any?
+        all.any?
+      end
+
       def all
          pages, sections =
           Array(page_paths).flat_map do |dir|

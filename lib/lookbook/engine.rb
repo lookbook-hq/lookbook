@@ -36,8 +36,16 @@ module Lookbook
       Preview.all
     end
 
+    def previews?
+      Preview.any?
+    end
+
     def pages
       Page.all
+    end
+
+    def pages?
+      Page.any?
     end
 
     def after_initialize(&block)

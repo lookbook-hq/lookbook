@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "pages", type: :request do
+  before(:example) do
+    load_pages
+  end
+
   context "default" do
     it "should display the page header" do
       get Lookbook.pages.find("with_header").url_path
@@ -11,6 +15,11 @@ RSpec.describe "pages", type: :request do
       get Lookbook.pages.find("overview").url_path
       expect(html).to have_css("#page-content")
     end
+
+    it "includes the pages nav" do
+        get Lookbook.pages.find("overview").url_path
+        expect(html).to have_css("#pages-nav")
+      end
   end
 
   context "with tabs" do
@@ -18,5 +27,9 @@ RSpec.describe "pages", type: :request do
       get Lookbook.pages.find("sections").url_path
       expect(html).to have_css("#page-tabbed-sections")
     end
+  end
+
+  after(:example) do
+    unload_pages
   end
 end

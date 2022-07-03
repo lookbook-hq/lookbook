@@ -20,7 +20,7 @@ RSpec.describe Lookbook::Config do
       expect(config.ui_theme).to eq "zinc"
     end
 
-    it "keeps the default the theme name is not recognised" do
+    it "keeps the default if the theme name is not recognised" do
       default_theme = config.ui_theme
       config.ui_theme = "not_a_theme"
       expect(config.ui_theme).to eq default_theme

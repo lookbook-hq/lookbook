@@ -122,6 +122,10 @@ module Lookbook
         !!find(path)
       end
 
+      def any?
+        all.any?
+      end
+
       def all
         load_previews if preview_files.size > ViewComponent::Preview.descendants.size
 
@@ -155,6 +159,19 @@ module Lookbook
           File.delete(cache_marker_path)
         end
       end
+  def load_previews
+        @errors = []
+        preview_files.each do |file|
+          require_dependency file[:path]
+        rescue SyntaxError, StandardError => exception
+          @errors.push(
+            Lookbook::Error.new(exception,
+              title: "Preview #{exception.class}",
+              file_name: file[:rel_path],
+              file_path: file[:path])
+          )
+        end
+      end
 
       protected
 
@@ -172,20 +189,7 @@ module Lookbook
         File.write(cache_marker_path, "{cached_at: #{Time.now}}")
       end
 
-      def load_previews
-        @errors = []
-        preview_files.each do |file|
-          require_dependency file[:path]
-        rescue SyntaxError, StandardError => exception
-          @errors.push(
-            Lookbook::Error.new(exception,
-              title: "Preview #{exception.class}",
-              file_name: file[:rel_path],
-              file_path: file[:path])
-          )
-        end
-      end
-
+    
       def preview_files
         files = Array(Lookbook.config.preview_paths).map do |preview_path|
           Dir["#{preview_path}/**/*preview.rb"].map do |path|
