@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Lookbook API
+title: Configuration Options
 ---
 
 *Documentation coming soon.*

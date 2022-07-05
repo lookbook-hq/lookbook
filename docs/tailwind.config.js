@@ -4,11 +4,15 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   content: [
+    "./output/**/*.html",
     "./src/**/*.{html,md,liquid,erb,serb,rb}",
     "./frontend/javascript/**/*.js",
   ],
   theme: {
     extend: {
+      screens: {
+        "home-max": "1600px",
+      },
       fontFamily: {
         sans: ["Nunito", ...defaultTheme.fontFamily.sans],
       },

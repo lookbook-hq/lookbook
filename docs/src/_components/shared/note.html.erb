@@ -1,3 +1,8 @@
-<div class="p-4 bg-gray-100 prose max-w-none">
-  <%= markdownify content %>
+<div data-component="note" data-note-theme="<%= @theme %>" class="<%= root_classes %>">
+  <div class="note-tag">
+    <%= icon :message, style: :solid, size: :sm %>
+  </div>
+  <div class="prose max-w-none"> 
+    <%= markdownify content %>
+  </div>
 </div>

@@ -1,7 +1,7 @@
-const build = require("./config/esbuild.defaults.js")
+const build = require("./config/esbuild.defaults.js");
 
 // Update this if you need to configure a destination folder other than `output`
-const outputFolder = "output"
+const outputFolder = "output";
 
 // You can customize this as you wish, perhaps to add new esbuild plugins.
 //
@@ -26,6 +26,8 @@ const outputFolder = "output"
 // ```
 // const esbuildOptions = { publicPath: "/my_subfolder/_bridgetown/static" }
 // ```
-const esbuildOptions = {}
+const esbuildOptions = {
+  target: "es2017",
+};
 
-build(outputFolder, esbuildOptions)
+build(outputFolder, esbuildOptions);

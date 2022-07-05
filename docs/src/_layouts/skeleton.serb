@@ -21,14 +21,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ webpack_path :css }}" />
-    <script src="https://unpkg.com/feather-icons"></script>
+
+    <script src="https://kit.fontawesome.com/b039f5ee13.js" crossorigin="anonymous"></script>
     <script src="{{ webpack_path :js }}" defer></script>
     {{ live_reload_dev_js }}
   </head>
-  <body class="h-screen w-screen overflow-hidden{{ resource.data.layout }} {{ resource.data.page_class }}">
-    <div class="grid grid-rows-[48px_1fr] grid-flow-col h-screen w-screen overflow-hidden">
-      {{ render "header" }}
-      {{ yield }}
+  <body class="h-screen w-screen overflow-hidden {{ resource.data.page_class }}">
+    <div x-data="{ mobileNavOpen: false }" class="h-screen w-screen">
+      <div class="grid grid-rows-[48px_1fr] grid-flow-col h-screen w-screen">
+        {{ render "header" }}
+        {{ yield }}
+      </div>
+      {{ render "mobile_nav", current: resource }}
     </div>
   </body>
 </html>

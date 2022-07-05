@@ -4,6 +4,7 @@ layout: default
 ---
 
 It's quick and easy to get up and running with Lookbook.
+Follow this guide to get up and running quickly and then explore the rest of the docs to dive in deeper!
 
 ## 1. Install Lookbook
 
@@ -25,7 +26,7 @@ end
 ```
 
 {%= note do %}
-The `at` property determines the root URL that the Lookbook UI will be served at.
+The value of the `at` property in the `mount Lookbook::Engine, at:` statement determines the root URL that the Lookbook UI will be served at.
 {% end %}
 
 ## 2. Check Lookbook is running

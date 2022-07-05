@@ -2,35 +2,43 @@ guide:
   - label: Introduction
     items:
       - label: What is Lookbook?
-        url: /guide/overview
+        url: /guide/overview/
       - label: Getting Started
-        url: /guide/getting-started
+        url: /guide/getting-started/
       - label: Configuration
-        url: /guide/config
-      - label: Deploying
-        url: /guide/deploying
+        url: /guide/config/
+      - label: Deployment
+        url: /guide/deployment/
   - label: Previews
     items:
-      - label: Adding Previews
-        url: /guide/previews/adding
+      - label: Previews Overview
+        url: /guide/previews/overview/
       - label: Using Annotations
-        url: /guide/previews/annotating
+        url: /guide/previews/annotating/
       - label: Grouping Previews
-        url: /guide/previews/grouping
+        url: /guide/previews/grouping/
+      - label: Dynamic Params
+        url: /guide/previews/params/
+      - label: Display Options
+        url: /guide/previews/display/
   - label: Pages
     items:
       - label: Pages Overview
-        url: /guide/pages/overview
+        url: /guide/pages/overview/
       - label: Front Matter
-        url: /guide/pages/frontmatter
+        url: /guide/pages/frontmatter/
       - label: Embedding Previews
-        url: /guide/pages/embedding
+        url: /guide/pages/embedding/
   - label: Extending
     items:
       - label: Themes
-        url: /guide/extend/themes
+        url: /guide/extend/themes/
       - label: Inspector Panels
-        url: /guide/extend/panels
+        url: /guide/extend/panels/
       - label: Lifecycle Hooks
-        url: /guide/extend/hooks
-api: []
+        url: /guide/extend/hooks/
+api:
+  - label: Configuration
+    items:
+      - label: Configuration options
+        url: /api/config/

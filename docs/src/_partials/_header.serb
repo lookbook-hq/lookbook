@@ -1,25 +1,42 @@
-<header class="layout-container">
-  <div class="layout-column bg-gray-50 border-b border-gray-300">
+<header class="layout-container  border-b border-gray-300">
+  <div class="layout-column">
     <div class="layout-content flex items-center">
-      <a href="/" class="font-black tracking-[0.07em] uppercase text-indigo-600">Lookbook</a>
+      <a href="/" class="text-lg font-black tracking-[0.05em] uppercase text-indigo-600">Lookbook</a>
     </div>
   </div>
-  <div class="layout-column flex items-center border-b border-gray-300">
-    <div class="layout-content flex">
-      <nav class="ml-auto">
+  <div class="layout-column flex items-center !overflow-hidden">
+    <div class="layout-content flex items-center">
+      <div class="ml-auto md:hidden opacity-60 hover:opacity-100 flex items-center">
+        <button @click="mobileNavOpen = true" x-show="!mobileNavOpen" x-cloak>
+          {{ icon :bars_solid }}
+        </button>
+        <button @click="mobileNavOpen = false" x-show="mobileNavOpen" x-cloak>
+          {{ icon :xmark_solid }}
+        </button>
+      </div>
+      <nav class="ml-auto hidden md:block">
         <ul class="flex items-center space-x-8">
           <li>
-            <a href="/guide/overview">Guide</a>
+            <a href="/guide/overview"
+              class="{{ url_segment(resource) == "guide" ? "text-indigo-500" : "opacity-60 hover:opacity-100" }}">
+              <span>Guide</span>
+            </a>
           </li>
           <li>
-            <a href="/api/overview">API</a>
+            <a href="/api/config"
+              class="{{ url_segment(resource) == "api" ? "text-indigo-500" : "opacity-60 hover:opacity-100" }}">
+              <span>API</span>
+            </a>
           </li>
           <li>
-            <a href="{{ site.data.external.demo.url }}" target="_blank">Demo</a>
+            <a href="{{ site.data.external.demo.url }}" target="_blank" class="opacity-60 hover:opacity-100 flex items-center">
+              <span>Demo</span>
+              {{ icon :arrow_up_right_from_square_light, size: :xs, class: "ml-1.5 opacity-70 mt-px" }} 
+            </a>
           </li>
           <li>
-            <a href="{{ site.data.external.lookbook.github.home }}" target="_blank">
-              {{ icon "github" }}
+            <a href="{{ site.data.external.lookbook.github.home }}" target="_blank" class="opacity-60 hover:opacity-100">
+              {{ icon :github_brands }}
             </a>
           </li>
         </ul>
