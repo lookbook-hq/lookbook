@@ -1,0 +1,36 @@
+guide:
+  - label: Introduction
+    items:
+      - label: What is Lookbook?
+        url: /guide/overview
+      - label: Getting Started
+        url: /guide/getting-started
+      - label: Configuration
+        url: /guide/config
+      - label: Deploying
+        url: /guide/deploying
+  - label: Previews
+    items:
+      - label: Adding Previews
+        url: /guide/previews/adding
+      - label: Using Annotations
+        url: /guide/previews/annotating
+      - label: Grouping Previews
+        url: /guide/previews/grouping
+  - label: Pages
+    items:
+      - label: Pages Overview
+        url: /guide/pages/overview
+      - label: Front Matter
+        url: /guide/pages/frontmatter
+      - label: Embedding Previews
+        url: /guide/pages/embedding
+  - label: Extending
+    items:
+      - label: Themes
+        url: /guide/extend/themes
+      - label: Inspector Panels
+        url: /guide/extend/panels
+      - label: Lifecycle Hooks
+        url: /guide/extend/hooks
+api: []

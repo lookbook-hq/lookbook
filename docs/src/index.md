@@ -1,5 +1,6 @@
 ---
 layout: default
+title: Lookbook Documentation
 ---
 
-Lookbook docs
+Work in progress.

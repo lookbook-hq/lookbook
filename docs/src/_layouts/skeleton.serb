@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="{{ site.locale }}" class="h-screen w-screen bg-white">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    {% resource_title = strip_html(strip_newlines(resource.data.title)) %}
+    <title>
+      {% if resource_title != "Index" %}
+        {{ resource_title }} | {{ site.metadata.title }}
+      {% else %}
+        {{ site.metadata.title }}
+      {% end %}
+    </title>
+
+    <meta name="description" content="{{ site.metadata.description }}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ webpack_path :css }}" />
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="{{ webpack_path :js }}" defer></script>
+    {{ live_reload_dev_js }}
+  </head>
+  <body class="h-screen w-screen overflow-hidden{{ resource.data.layout }} {{ resource.data.page_class }}">
+    <div class="grid grid-rows-[48px_1fr] grid-flow-col h-screen w-screen overflow-hidden">
+      {{ render "header" }}
+      {{ yield }}
+    </div>
+  </body>
+</html>

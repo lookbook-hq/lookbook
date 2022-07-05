@@ -1,0 +1,36 @@
+---
+layout: skeleton
+---
+
+<div class="layout-container">
+  <div class="layout-column bg-gray-50">
+    <div class="layout-content py-8">
+      <div class="space-y-8">
+        {% site.data.nav.guide.each do |section| %}
+          <div class="">
+            <h4 class="text-lg font-bold mb-2">{{ section.label }}</h4>
+            <ul class="space-y-2">
+              {% section.items.each do |item| %}
+                <li>
+                  <a href="{{ item.url }}" class="opacity-60 hover:opacity-100">
+                    {{ item.label }}
+                  </a>
+                </li>
+              {% end %}
+            </ul>
+          </div>
+        {% end %}  
+      </div>
+    </div>
+  </div>
+  <div class="layout-column">
+    <main class="layout-content py-8">
+      <header class="mb-8">
+        <h1 class="text-4xl font-extralight text-indigo-600">{{ resource.data.title }}</h1>
+      </header>
+      <div class="prose max-w-none">
+        {{ yield }}
+      </div>
+    </main>
+  </div>
+</div>
