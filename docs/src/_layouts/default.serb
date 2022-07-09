@@ -3,19 +3,33 @@ layout: skeleton
 ---
 
 <div class="layout-container !block md:!grid">
-  <div class="layout-column bg-gray-50 !border-gray-300 !hidden md:!block overflow-y-scroll">
+  <div class="layout-column bg-gray-50 !border-gray-300 !hidden md:!block overflow-y-scroll scroll-smooth">
     <div class="layout-content py-8">
       {{ render "nav", current: resource }}
     </div>
   </div>
-  <div class="layout-column overflow-y-scroll h-full md:h-auto">
+  <div class="layout-column overflow-y-scroll h-full md:h-auto relative scroll-smooth">
     <main class="layout-content py-8">
-      <header class="mb-8">
-        <h1 class="text-4xl font-extralight text-indigo-600">{{ resource.data.title }}</h1>
-      </header>
-      <div id="content" class="prose max-w-none">
-        {{ yield }}
-      </div> 
+      <div class="xl:grid grid-cols-[1fr_220px] grid-row-auto gap-6">
+        <div id="page-main">
+          <header class="mb-8">
+            <h1 class="text-4xl font-extralight text-indigo-600">{{ resource.data.title }}</h1>
+          </header>
+          <div class="prose max-w-none max-w-[680px]">
+            {{ yield }}
+          </div>
+        </div>
+        <div id="page-sidebar" class="hidden xl:block" x-cloak>
+          <div
+          x-data="{tocHTML: ''}"
+          x-init="() => {
+            const toc = document.getElementById('markdown-toc');
+            if (toc) tocHTML = toc.outerHTML;
+          }"
+          x-html="tocHTML"
+          class="sticky top-8"></div>
+        </div>
+      </div>
     </main>
   </div>
 </div>

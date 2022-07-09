@@ -11,5 +11,14 @@ class Builders::Components < SiteBuilder
     helper :image, helpers_scope: true do |path, attrs = {}|
       view.render Shared::Image.new path: path, **attrs
     end
+
+    helper "toc", :toc_template
+  end
+
+  def toc_template(*)
+    <<~MD
+      * ...
+      {:toc}
+    MD
   end
 end

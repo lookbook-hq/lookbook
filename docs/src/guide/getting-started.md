@@ -6,6 +6,8 @@ layout: default
 It's quick and easy to get up and running with Lookbook.
 Follow this guide to get up and running quickly and then explore the rest of the docs to dive in deeper!
 
+{{ toc }}
+
 ## 1. Install Lookbook
 
 Add Lookbook to your `Gemfile` somewhere *after* the ViewComponent gem:
