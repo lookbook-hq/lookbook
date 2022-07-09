@@ -1,0 +1,29 @@
+<%= tag.div **attrs do %>
+  <div class="not-prose">
+    <h3 class="font-bold text-lg text-indigo-600 mb-4">
+      <%= title %>
+    </h3>
+    <% if metadata.any? %>
+      <ul>
+        <% metadata.each do |data| %>
+          <li>
+            <strong><%= data[:label] %>:</strong>
+            <span><%= data[:value] %></span>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  <div class="prose space-y-6">
+    <% if description %>
+      <div>
+        <%= markdownify description %>
+      </div>
+    <% end %>
+    <% if example %>
+      <div>
+        <%= markdownify example %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

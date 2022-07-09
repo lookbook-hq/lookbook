@@ -53,36 +53,68 @@
   }
 
   #markdown-toc {
+    @apply list-none relative pl-6 py-3 border-l border-gray-300 text-sm space-y-2 opacity-70 hover:opacity-100 transition;
+
+    a {
+      @apply no-underline hover:underline;
+    }
+
+    li {
+      @apply pl-4 relative;
+    }
+
+    li:before {
+      content: "→";
+      @apply text-xs absolute left-0 top-[2px];
+    }
+
     &:before {
-      @apply font-black mb-3 ml-1.5 mt-3 block uppercase tracking-wide text-xs;
       content: "On this page...";
+      @apply font-black mb-3 block uppercase tracking-wide text-xs;
     }
   }
 
   #page-main {
-    /* Table of contents */
-
-    * + #markdown-toc {
-      @apply mt-8;
-    }
-
     #markdown-toc {
-      @apply list-none px-4 py-2 border border-gray-300 rounded bg-gray-50 xl:hidden;
-
-      li {
-        @apply mt-1 mb-1;
-      }
-
-      a {
-        @apply no-underline hover:underline;
-      }
+      @apply hidden;
     }
 
     .prose h2 {
       @apply scroll-mt-6;
     }
 
-    /* Code highlighting */
+    .prose [data-component="note"] {
+      @apply my-8;
+
+      &:first-child {
+        @apply mt-0;
+      }
+
+      &:last-child {
+        @apply mb-0;
+      }
+    }
+
+    .prose [data-component="config-option"] {
+      @apply my-8;
+
+      &:first-child {
+        @apply mt-0;
+      }
+
+      &:last-child {
+        @apply mb-0;
+      }
+    }
+  }
+
+  .screenshot {
+    @apply shadow-2xl border border-gray-300 rounded-md max-w-[90%] mx-auto my-12;
+  }
+}
+
+@layer components {
+  #page-main {
 
     pre.highlight {
       @apply bg-white text-gray-800 border border-gray-200 rounded;
@@ -295,16 +327,6 @@
     pre.highlight .gc {
       color: #999;
       background-color: #eaf2f5;
-    }
-  }
-
-  #page-sidebar {
-    #markdown-toc {
-      @apply list-none relative -top-2 pl-6 py-2 border-l border-gray-300 text-sm space-y-2 opacity-70 hover:opacity-100 transition;
-
-      a {
-        @apply no-underline hover:underline;
-      }
     }
   }
 }

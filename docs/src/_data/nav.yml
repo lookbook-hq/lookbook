@@ -11,11 +11,13 @@ guide:
         url: /guide/deployment/
   - label: Previews
     items:
-      - label: Previews Overview
+      - label: Overview
         url: /guide/previews/overview/
       - label: Using Annotations
         url: /guide/previews/annotating/
-      - label: Grouping Previews
+      - label: Customising the Nav
+        url: /guide/previews/navigation/
+      - label: Grouping Examples
         url: /guide/previews/grouping/
       - label: Dynamic Params
         url: /guide/previews/params/
@@ -23,7 +25,7 @@ guide:
         url: /guide/previews/display/
   - label: Pages
     items:
-      - label: Pages Overview
+      - label: Overview
         url: /guide/pages/overview/
       - label: Front Matter
         url: /guide/pages/frontmatter/

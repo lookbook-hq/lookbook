@@ -2,12 +2,7 @@
   @apply py-4 px-6 rounded border relative;
 
   & .note-tag {
-    @apply px-1.5 py-1.5 absolute right-[-12px] top-[-8px] z-10 bg-white border rounded;
-  }
-
-  & .note-tag:after {
-    @apply absolute h-0 w-0 bottom-[-8px] right-[-1px] border-t-[8px] border-r-[12px] border-transparent;
-    content: "";
+    @apply px-1.5 py-1.5 absolute left-[-8px] top-[-8px] z-10 bg-white border rounded-full;
   }
 
   &[data-note-theme="info"] {

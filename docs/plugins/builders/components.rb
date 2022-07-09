@@ -12,6 +12,10 @@ class Builders::Components < SiteBuilder
       view.render Shared::Image.new path: path, **attrs
     end
 
+    helper :config_option, helpers_scope: true do |name, attrs = {}, &block|
+      view.render Shared::ConfigOption.new(name: name, **attrs), &block
+    end
+
     helper "toc", :toc_template
   end
 

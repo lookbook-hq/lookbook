@@ -1,0 +1,165 @@
+- name: project_name
+  group: project
+  type: String
+  default: "Lookbook"
+  example: config.lookbook.project_name = "Lookbook Demo"
+  description: The name of your project. Displayed in the Lookbook header.
+
+
+- name: log_level
+  group: debugging
+  type: Integer
+  default: 2
+  example: config.lookbook.log_level = 3
+  description: The minimum level to use for displaying log messages
+
+- name: debug_menu
+  group: debugging
+  type: Boolean
+  default: "`Rails.env.development?`"
+  example: "config.lookbook.debug_menu = false # always hide the debug menu"
+  description: Whether or not to show the debug menu in the Lookbook header.
+
+
+- name: preview_paths
+  group: previews
+  type: Array
+  example: config.lookbook.preview_paths = ["path/to/my/previews"]
+  description: Array of additional directory paths that Lookbook should look for previews in.
+
+- name: preview_display_params
+  group: previews
+  type: Hash
+  default: "{}"
+  example: "config.lookbook.preview_display_params = { bg_color: '#fff', max_width: '100%' }"
+  description: Default (fallback) display params that will be merged with any preview-specific display params and made available in the preview layout template.
+
+- name: sort_examples
+  group: previews
+  type: Boolean
+  default: false
+  example: "config.lookbook.sort_examples = true"
+  description: >
+    Whether or not to sort preview examples in the navigation alphabetically
+    (as opposed to displaying them in the order they are defined in the preview class).
+
+
+- name: page_route
+  group: pages
+  type: String
+  default: "pages"
+  example: config.lookbook.page_route = "docs"
+  description: The URL segment used to prefix page routes.
+
+- name: page_paths
+  group: pages
+  type: Array
+  example: config.lookbook.page_paths = ["path/to/my/pages"]
+  description: Array of additional directory paths that Lookbook should look for pages in.
+
+- name: page_options
+  group: pages
+  type: Hash
+  default: "{}"
+  example: "config.lookbook.page_options = {
+    footer: false,
+    data: {
+      brand_colors: {
+        red: \"#ff0000\"
+      }
+    }
+  }"
+  description: "Frontmatter defaults for pages.\n\n
+    These will be merged with any page-level frontmatter data. Options set in the frontmatter
+    will override those set at the global level (apart from 'data', which will be deep-merged
+    with the any globally defined data)."
+
+- name: markdown_options
+  group: rendering
+  type: Hash
+  default: "{}"
+  example: 'config.lookbook.markdown_options = {
+    autolink: true
+  }'
+  description: Redcarpet markdown options to override Lookbook's default settings.
+
+
+- name: ui_theme
+  group: ui
+  type: String
+  default: "indigo"
+  example: config.lookbook.ui_theme = "zinc"
+  description: The UI theme to use.
+
+- name: ui_theme_overrides
+  group: ui
+  type: Hash
+  default: "{}"
+  example: "config.lookbook.ui_theme_overrides = {
+    header: \"hotpink\"
+  }"
+  description: For overriding theme CSS variables with custom values.
+
+- name: auto_refresh
+  group: ui
+  type: Boolean
+  default: true
+  example: config.lookbook.auto_refresh = false
+  description: Whether or not the UI should auto-refresh to reflect changes made to files
+
+
+- name: listen
+  group: system
+  type: Boolean
+  default: "`Rails.env.development?`"
+  example: config.lookbook.listen = false
+  description: Whether or not Lookbook should listen for changes to files.
+
+- name: listen_paths
+  group: system
+  type: Array
+  example: config.lookbook.listen_paths = ["directory/to/watch"]
+  description: >
+    Specify additional directories to listen for changes in.
+    Component, preview and pages directories are always watched.
+
+- name: listen_extensions
+  group: system
+  type: Array
+  example: config.lookbook.listen_extensions = ["js", "css"]
+  description: > 
+    Specify additional extensions for file types that should be watched for changes.
+    Files with **.rb** and **.html.*** extensions are always watched.
+
+- name: listen_use_polling
+  group: system
+  type: Boolean
+  default: false
+  example: config.lookbook.listen_use_polling = true
+  description: >
+    Whether or not to use polling when listening for file changes.
+    Polling is slower but may work in certain setups where file listeners
+    do not detect changes correctly.
+
+- name: runtime_parsing
+  group: system
+  type: Boolean
+  default: "`!Rails.env.production?`"
+  example: "config.lookbook.runtime_parsing = false"
+  description: > 
+    Whether or not to perform an initial parse of the preview files when the application first starts. 
+    Disabled in production by default.
+
+- name: parser_registry_path
+  group: system
+  type: String
+  default: "tmp/storage/.yardoc"
+  example: config.lookbook.parser_registry_path = "path/to/temporary/storage"
+  description: The directory to write the (temporary) parser registry file to.
+
+- name: experimental_features
+  group: system
+  type: Boolean | Array
+  default: false
+  example: "config.lookbook.experimental_features = true # opt in to all experimental features"
+  description: Which experimental features to opt in to.

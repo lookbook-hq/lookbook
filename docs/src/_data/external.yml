@@ -1,4 +1,5 @@
 demo:
+  repo: https://github.com/allmarkedup/lookbook-demo
   url: https://lookbook-demo-app-v1-0-beta.herokuapp.com/lookbook
 lookbook:
   github:

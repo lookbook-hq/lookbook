@@ -19,7 +19,9 @@ title: Lookbook Documentation
   </header>
 </div>
 
-<div class="absolute left-1/2 -translate-x-1/2 bottom-0 w-full h-[30vw] max-w-[1400px] max-h-[50vh]">
+
+
+<div class="absolute left-1/2 -translate-x-1/2 bottom-0 w-full h-[30vw] max-w-[1400px] max-h-[min(50vh,_550px)]">
   {{ image "lookbook_preview_code.png", alt: "Screenshot of the a Lookbook preview class", class: "w-[50%] absolute top-[60px] left-[-100px] z-0" }}
   {{ image "lookbook_inspector_screenshot.png", alt: "Screenshot of the Lookbook UI", class: "w-[60%] absolute top-0 left-1/2 -translate-x-1/2 z-10" }}
   {{ image "lookbook_docs_screenshot.png", alt: "Screenshot of a Lookbook documentation page", class: "w-[50%] absolute top-[60px] right-[-100px] z-0" }}
