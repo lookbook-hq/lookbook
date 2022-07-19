@@ -1,41 +1,41 @@
 <% if @example.present? %>
-  <%= render_component_tag class: "not-prose border-b border-lookbook-divider rounded-sm overflow-hidden", "@navigation:start.window": "cleanup" do %>
+<%= render_component_tag class: "not-prose border-b border-lookbook-divider rounded-sm overflow-hidden", "@navigation:start.window": "cleanup" do %>
 
-    <%= render_component :toolbar, class: "border border-b-0 border-lookbook-divider" do |toolbar| %>
-      <% toolbar.section padded: true do %>
-        <h3>
-          <%= @example.preview.label %> (<%= @example.label %>)
-        </h3>
-      <% end %>
-        <% toolbar.section align: :right, divide: :left do %>
-          <%= render_component :button_group do |group| %>
-          <% group.button icon: :eye,
-            href: helpers.lookbook_inspect_path(@example.path, @params),
-            tooltip: "View in Inspector" %>
-          <% group.button icon: :external_link,
-            href: helpers.lookbook_inspect_path(@example.path, @params),
-            tooltip: "Open in new window",
-            target: "_blank" %>
-        <% end %>
+  <%= render_component :toolbar, class: "border border-b-0 border-lookbook-divider" do |toolbar| %>
+    <% toolbar.section padded: true do %>
+      <h3>
+        <%= @example.preview.label %> (<%= @example.label %>)
+      </h3>
+    <% end %>
+      <% toolbar.section align: :right, divide: :left do %>
+        <%= render_component :button_group do |group| %>
+        <% group.button icon: :eye,
+          href: helpers.lookbook_inspect_path(@example.path, @params),
+          tooltip: "View in Inspector" %>
+        <% group.button icon: :external_link,
+          href: helpers.lookbook_inspect_path(@example.path, @params),
+          tooltip: "Open in new window",
+          target: "_blank" %>
       <% end %>
     <% end %>
-
-    <div
-      x-show="tab === 'preview'"
-      @viewport:loaded="loadResizer"
-      @dom:update-complete="loadResizer"
-      @viewport:resize-progress="resizeIframe"
-      @viewport:resize-complete="resizeIframe"
-      @tabs:change.window="resizeIframe"> 
-      <%= render_component :viewport,
-        src: helpers.lookbook_preview_path(@example.path, @params.merge(lookbook_embed: true)),
-        alpine_data: "store",
-        resize_height: false,
-        max_height: @max_height,
-        class: "mb-[-2px]" %>
-    </div>
-
   <% end %>
+
+  <div
+    x-show="tab === 'preview'"
+    @viewport:loaded="loadResizer"
+    @dom:update-complete="loadResizer"
+    @viewport:resize-progress="resizeIframe"
+    @viewport:resize-complete="resizeIframe"
+    @tabs:change.window="resizeIframe"> 
+    <%= render_component :viewport,
+      src: helpers.lookbook_preview_path(@example.path, @params.merge(lookbook_embed: true)),
+      alpine_data: "store",
+      resize_height: false,
+      max_height: @max_height,
+      class: "mb-[-2px]" %>
+  </div>
+
+<% end %>
 <% else %>
 <%= render_component_tag class: "bg-white flex flex-col items-center justify-center border-2 border-dashed border-gray-200 p-6 rounded-md not-prose" do %>
   <div class="px-4 text-center">
@@ -47,5 +47,5 @@
       </p>
     </div>
   </div>
-  <% end %>
+<% end %>
 <% end %>

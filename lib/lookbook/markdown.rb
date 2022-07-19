@@ -8,7 +8,8 @@ module Lookbook
       disable_indented_code_blocks: true,
       strikethrough: true,
       highlight: true,
-      with_toc_data: true
+      with_toc_data: true,
+      lax_spacing: true
     }
 
     def self.render(text)
