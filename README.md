@@ -52,7 +52,7 @@ If you'd rather dig in a bit more and run the demo app locally, the [demo repo](
 Add Lookbook to your `Gemfile` somewhere **after** the ViewComponent gem. For example:
 
 ```ruby
-gem "view_component", require: "view_component/engine"
+gem "view_component"
 gem "lookbook"
 ```
 
