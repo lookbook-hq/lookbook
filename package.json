@@ -79,6 +79,7 @@
     },
     "hooks": {
       "before:init": [
+        "npm install",
         "bundle install",
         "rake test"
       ],
