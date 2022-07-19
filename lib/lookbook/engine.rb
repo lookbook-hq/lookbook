@@ -120,10 +120,11 @@ module Lookbook
 
       if config.lookbook.listen
         Listen.logger = Lookbook.logger
+        
         preview_listener = Listen.to(
           *config.lookbook.listen_paths,
-          only: /\.(rb|html.*)$/,
-          force_polling: Lookbook.config.listen_use_polling
+          only: /\.(#{config.lookbook.listen_extensions.join("|")})$/,
+          force_polling: config.lookbook.listen_use_polling
         ) do |modified, added, removed|
           changes = { modified: modified, added: added, removed: removed }
           begin
@@ -139,7 +140,7 @@ module Lookbook
         page_listener = Listen.to(
           *config.lookbook.page_paths,
           only: /\.(html.*|md.*)$/,
-          force_polling: Lookbook.config.listen_use_polling
+          force_polling: config.lookbook.listen_use_polling
         ) do |modified, added, removed|
           changes = { modified: modified, added: added, removed: removed }
           Lookbook::Engine.reload_ui(changes)

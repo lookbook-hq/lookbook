@@ -28,6 +28,7 @@ module Lookbook
 
         listen: Rails.env.development?,
         listen_paths: [],
+        listen_extensions: ["rb", "html.*"],
         listen_use_polling: false,
 
         cable_mount_path: "/lookbook-cable",
@@ -131,6 +132,12 @@ module Lookbook
 
     def listen_paths
       normalize_paths(@options.listen_paths)
+    end
+
+    def listen_extensions
+      @options.listen_extensions += ["rb", "html.*"]
+      @options.listen_extensions.uniq!
+      @options.listen_extensions
     end
 
     def parser_registry_path
