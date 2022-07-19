@@ -12,6 +12,7 @@ module Lookbook
     }
 
     def self.render(text)
+      text&.gsub!("<!-- BEGIN inline template -->", "")&.gsub!("<!-- END inline template -->", "")
       markdown = Redcarpet::Markdown.new(Renderer, Lookbook.config.markdown_options)
       markdown.render(text).html_safe
     end
