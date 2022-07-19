@@ -219,7 +219,8 @@ module Lookbook
 
     def normalize_paths(paths)
       paths.map! { |path| absolute_path(path) }
-      paths.select { |path| Dir.exist?(path) }
+      paths.select! { |path| Dir.exist?(path) }
+      paths
     end
 
     def absolute_path(path)
