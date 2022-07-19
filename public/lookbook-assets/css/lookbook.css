@@ -1984,10 +1984,6 @@ pre[class*="language-"] {
   max-width: 420px;
 }
 
-.max-w-3xl {
-  max-width: 48rem;
-}
-
 .max-w-none {
   max-width: none;
 }
