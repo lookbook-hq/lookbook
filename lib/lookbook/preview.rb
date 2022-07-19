@@ -129,7 +129,7 @@ module Lookbook
       def all
         load_previews if preview_files.size > ViewComponent::Preview.descendants.size
 
-        @previews = nil if cache_invalid?
+        @previews = nil if cache_stale?
         return @previews unless @previews.nil?
 
         previews = ViewComponent::Preview.descendants.map do |p|
@@ -146,7 +146,7 @@ module Lookbook
 
         sorted_previews = previews.compact.sort_by { |preview| [preview.position, preview.label] }
         @previews = PreviewCollection.new(sorted_previews)
-        mark_as_cached
+        mark_as_cached if Lookbook.config.listen == true
         @previews
       end
 
@@ -155,11 +155,35 @@ module Lookbook
       end
 
       def clear_cache
-        unless cache_invalid?
-          File.delete(cache_marker_path)
+        cache_dir = File.dirname(cache_marker_path)
+        FileUtils.mkdir_p(cache_dir) unless File.exists?(cache_dir)
+        File.write(cache_marker_path, Time.now.to_i)
+      end
+
+      protected
+
+      def cache_marker_path
+        Rails.root.join("tmp/cache/lookbook-previews")
+      end
+
+      def cache_stale?
+        return false if !File.exists?(cache_marker_path)
+        cache_timestamp = File.read(cache_marker_path).to_i
+        if @last_cache_timestamp.nil? || cache_timestamp > @last_cache_timestamp
+          @last_cache_timestamp = cache_timestamp
+          true
+        else
+          false
         end
       end
-  def load_previews
+
+      def mark_as_cached
+        cache_dir = File.dirname(cache_marker_path)
+        FileUtils.mkdir_p(cache_dir) unless File.exists?(cache_dir)
+        File.write(cache_marker_path, Time.now)
+      end
+
+      def load_previews
         @errors = []
         preview_files.each do |file|
           require_dependency file[:path]
@@ -172,23 +196,6 @@ module Lookbook
           )
         end
       end
-
-      protected
-
-      def cache_marker_path
-        Rails.root.join("tmp/cache/lookbook-previews")
-      end
-
-      def cache_invalid?
-        !File.exists?(cache_marker_path)
-      end
-
-      def mark_as_cached
-        cache_dir = File.dirname(cache_marker_path)
-        FileUtils.mkdir_p(cache_dir) unless File.exists?(cache_dir)
-        File.write(cache_marker_path, "{cached_at: #{Time.now}}")
-      end
-
     
       def preview_files
         files = Array(Lookbook.config.preview_paths).map do |preview_path|
