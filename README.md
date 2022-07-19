@@ -802,6 +802,14 @@ If you wish to add additional paths to listen for changes in, you can use the `l
 config.lookbook.listen_paths << Rails.root.join('app/other/directory')
 ```
 
+By default Lookbook listens for changes to files with the extensions `rb` and `html.*` (i.e. `.html.erb`).
+
+You can add additional extensions by using the `listen_extensions` option:
+
+```ruby
+config.lookbook.listen_extensions = ['js', 'scss'] # Will not overwrite default extensions
+```
+
 ### Custom favicon
 
 If you want to change the favicon used by the Lookbook UI, you can provide a path to your own (or a data-uri string) using the `ui_favicon` option:

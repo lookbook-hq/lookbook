@@ -23,6 +23,7 @@ module Lookbook
 
     config.lookbook = ActiveSupport::OrderedOptions.new
     config.lookbook.listen_paths ||= []
+    config.lookbook.listen_extensions ||= []
     config.lookbook.preview_paths ||= []
     config.lookbook.page_paths ||= ["test/components/docs"]
 
@@ -55,6 +56,9 @@ module Lookbook
       options.listen_paths << (vc_options.view_component_path || Rails.root.join("app/components"))
       options.listen_paths.select! { |path| Dir.exist? path }
 
+      options.listen_extensions += ["rb", "html.*"]
+      options.listen_extensions.uniq!
+
       options.cable_mount_path ||= "/lookbook-cable"
       options.cable_logger ||= Rails.logger
 
@@ -80,7 +84,7 @@ module Lookbook
       @preview_controller.include(Lookbook::PreviewController)
 
       if config.lookbook.listen
-        @preview_listener = Listen.to(*config.lookbook.listen_paths, only: /\.(rb|html.*)$/) do |modified, added, removed|
+        @preview_listener = Listen.to(*config.lookbook.listen_paths, only: /\.(#{config.lookbook.listen_extensions.join("|")})$/) do |modified, added, removed|
           begin
             parser.parse
           rescue
