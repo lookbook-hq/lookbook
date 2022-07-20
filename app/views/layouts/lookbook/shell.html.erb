@@ -7,6 +7,12 @@
     @navigation:start="closeMobileSidebar"
     class="w-screen h-screen grid grid-rows-[40px_1fr] relative">
 
+    <% if content_for? :panel_css %>
+      <style media="all" id="panel-styles">
+        <%= content_for :panel_css -%>
+      </style>
+    <% end %>
+
     <%= render_component :header, id: "app-header", debug_menu: config.debug_menu do |header| %>
       <% header.branding { config.project_name } %>
     <% end %>

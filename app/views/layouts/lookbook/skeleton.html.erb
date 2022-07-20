@@ -13,12 +13,6 @@
     </style>
   <% end %>
 
-  <% if content_for? :panel_css %>
-    <style media="all">
-      <%= content_for :panel_css %>
-    </style>
-  <% end %>
-
   <% if config.ui_favicon != false %>
     <link rel="icon" href="<%= config.ui_favicon || "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👀</text></svg>" %>">
   <% end %>
