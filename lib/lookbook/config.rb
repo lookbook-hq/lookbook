@@ -57,7 +57,8 @@ module Lookbook
             partial: "lookbook/previews/panels/preview",
             hotkey: "v",
             panel_classes: "overflow-hidden",
-            padded: false
+            padded: false,
+            system: true
           },
           output: {
             pane: :main,
@@ -65,7 +66,8 @@ module Lookbook
             partial: "lookbook/previews/panels/output",
             label: "HTML",
             hotkey: "h",
-            padded: false
+            padded: false,
+            system: true
           },
           source: {
             pane: :drawer,
@@ -74,7 +76,8 @@ module Lookbook
             label: "Source",
             hotkey: "s",
             copy: ->(data) { data.examples.map { |e| e.source }.join("\n") },
-            padded: false
+            padded: false,
+            system: true
           },
           notes: {
             pane: :drawer,
@@ -83,7 +86,8 @@ module Lookbook
             label: "Notes",
             hotkey: "n",
             disabled: ->(data) { data.examples.select { |e| e.notes.present? }.none? },
-            padded: false
+            padded: false,
+            system: true
           },
           params: {
             pane: :drawer,
@@ -92,7 +96,8 @@ module Lookbook
             label: "Params",
             hotkey: "p",
             disabled: ->(data) { data.preview.params.none? },
-            padded: false
+            padded: false,
+            system: true
           }
         },
 
@@ -109,7 +114,8 @@ module Lookbook
           copy: nil,
           panel_classes: nil,
           locals: {},
-          padded: true
+          padded: true,
+          system: false
         },
       })
     end

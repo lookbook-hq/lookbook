@@ -60,51 +60,9 @@ Currently available themes are:
 
 > Opening up Lookbook to more in-depth customisation is a work in progress and any feedback or use-case examples would be greatly appreciated!
 
-* [Lifecycle Hooks](#lifecycle-hooks)
 * [Adding inspector panels](#adding-inspector-panels)
 * [Removing inspector panels](#removing-inspector-panels)
-
-### Lifecycle hooks
-
-A number of lifecycle hooks are available for use in triggering actions outside of Lookbook.
-
-All hook callback blocks are yielded a `Lookbook` instance as the first argument. Some hooks additionally supply other arguments, see below for details.
-
-#### `:after_initialize`
-
-This is run once Lookbook has been set up and the initial parsing of files has been completed.
-
-```ruby
-Lookbook.after_initialize do |app|
-  puts "Lookbook version #{app.version} has started"
-  puts "There are #{app.previews.size} previews and #{app.pages.size} pages"
-  # other code here...
-end
-```
-
-#### `:after_change`
-
-Run each time a change is detected to a file that Lookbook is watching, unless listening for changes has been disabled in the config.
-
-Receives a hash as the second argument with `:modified`, `:added`, and `:removed` properties, each of which is an array of affected file paths.
-
-```ruby
-Lookbook.after_change do |app, changes|
-  puts "Modified files: #{changes.modified.join("\n")}"
-  puts "Added files: #{changes.added.join("\n")}"
-  puts "Removed files: #{changes.removed.join("\n")}"
-end
-```
-
-#### `:before_exit`
-
-Run when the current process exits, after Lookbook has stopped any listeners.
-
-```ruby
-Lookbook.after_initialize do |app|
-  puts "Shutting down..."
-end
-```
+* [Lifecycle Hooks](#lifecycle-hooks)
 
 ### Adding inspector panels
 
@@ -138,6 +96,23 @@ Lookbook.define_panel(:info, {
   </ul>
 </div>
 ```
+
+If you wish to specify custom CSS rules to style the contents of the panel, just include a `<style>` element in the panel partial template:
+
+```erb
+<style>
+  h3 {
+    color: green;
+  }
+</style>
+
+<div>
+  <h3>My Custom Panel</h3> <!-- will be styled green -->
+  ...
+</div>
+```
+
+The `<style>` element will be removed when the panel is rendered and any styles will automagically be scoped to the panel that they are defined in, so will not affect other panels or the styling of the UI in general.
 
 #### Panel templates
 
@@ -177,7 +152,7 @@ Each example has the following properties:
 * ... 
 
 
-#### `components`
+#### `components` (⚠️ experimental!)
 
 An array of objects representing the components that are rendered in the preview. The components are 'guessed' from the Preview class name but if that doesn't work then they can be manually specified via annotations.
 
@@ -272,6 +247,48 @@ To remove a panel entirely from the UI you can use the `Lookbook.remove_panel` m
 ```ruby
 # config/application.rb
 Lookbook.remove_panel(:notes)
+```
+
+### Lifecycle hooks
+
+A number of lifecycle hooks are available for use in triggering actions outside of Lookbook.
+
+All hook callback blocks are yielded a `Lookbook` instance as the first argument. Some hooks additionally supply other arguments, see below for details.
+
+#### `:after_initialize`
+
+This is run once Lookbook has been set up and the initial parsing of files has been completed.
+
+```ruby
+Lookbook.after_initialize do |app|
+  puts "Lookbook version #{app.version} has started"
+  puts "There are #{app.previews.size} previews and #{app.pages.size} pages"
+  # other code here...
+end
+```
+
+#### `:after_change`
+
+Run each time a change is detected to a file that Lookbook is watching, unless listening for changes has been disabled in the config.
+
+Receives a hash as the second argument with `:modified`, `:added`, and `:removed` properties, each of which is an array of affected file paths.
+
+```ruby
+Lookbook.after_change do |app, changes|
+  puts "Modified files: #{changes.modified.join("\n")}"
+  puts "Added files: #{changes.added.join("\n")}"
+  puts "Removed files: #{changes.removed.join("\n")}"
+end
+```
+
+#### `:before_exit`
+
+Run when the current process exits, after Lookbook has stopped any listeners.
+
+```ruby
+Lookbook.after_initialize do |app|
+  puts "Shutting down..."
+end
 ```
 
 ## 🛠 Workbench
