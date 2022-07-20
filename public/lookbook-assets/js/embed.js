@@ -1,24 +1,24 @@
 (() => {
 var $b2e1fd3e30ab1f5c$exports = {};
 (function(undefined) {
-    if (typeof window === 'undefined') return; // don't run for server side render
-    var autoResize = true, base = 10, bodyBackground = '', bodyMargin = 0, bodyMarginStr = '', bodyObserver = null, bodyPadding = '', calculateWidth = false, doubleEventList = {
+    if (typeof window === "undefined") return; // don't run for server side render
+    var autoResize = true, base = 10, bodyBackground = "", bodyMargin = 0, bodyMarginStr = "", bodyObserver = null, bodyPadding = "", calculateWidth = false, doubleEventList = {
         resize: 1,
         click: 1
-    }, eventCancelTimer = 128, firstRun = true, height1 = 1, heightCalcModeDefault = 'bodyOffset', heightCalcMode = heightCalcModeDefault, initLock = true, initMsg = '', inPageLinks = {}, interval = 32, intervalTimer = null, logging = false, mouseEvents = false, msgID = '[iFrameSizer]', msgIdLen = msgID.length, myID = '', resetRequiredMethods = {
+    }, eventCancelTimer = 128, firstRun = true, height1 = 1, heightCalcModeDefault = "bodyOffset", heightCalcMode = heightCalcModeDefault, initLock = true, initMsg = "", inPageLinks = {}, interval = 32, intervalTimer = null, logging = false, mouseEvents = false, msgID = "[iFrameSizer]", msgIdLen = msgID.length, myID = "", resetRequiredMethods = {
         max: 1,
         min: 1,
         bodyScroll: 1,
         documentElementScroll: 1
-    }, resizeFrom = 'child', sendPermit = true, target1 = window.parent, targetOriginDefault = '*', tolerance = 0, triggerLocked = false, triggerLockedTimer = null, throttledTimer = 16, width1 = 1, widthCalcModeDefault = 'scroll', widthCalcMode = widthCalcModeDefault, win = window, onMessage = function() {
-        warn('onMessage function not defined');
+    }, resizeFrom = "child", sendPermit = true, target1 = window.parent, targetOriginDefault = "*", tolerance = 0, triggerLocked = false, triggerLockedTimer = null, throttledTimer = 16, width1 = 1, widthCalcModeDefault = "scroll", widthCalcMode = widthCalcModeDefault, win = window, onMessage = function() {
+        warn("onMessage function not defined");
     }, onReady = function() {}, onPageInfo = function() {}, customCalcMethods = {
         height: function() {
-            warn('Custom height calculation function not defined');
+            warn("Custom height calculation function not defined");
             return document.documentElement.offsetHeight;
         },
         width: function() {
-            warn('Custom width calculation function not defined');
+            warn("Custom width calculation function not defined");
             return document.body.scrollWidth;
         }
     }, eventHandlersByName = {}, passiveSupported = false;
@@ -31,8 +31,8 @@ var $b2e1fd3e30ab1f5c$exports = {};
                 }
             }
         });
-        window.addEventListener('test', noop, options);
-        window.removeEventListener('test', noop, options);
+        window.addEventListener("test", noop, options);
+        window.removeEventListener("test", noop, options);
     } catch (error) {
     /* */ }
     function addEventListener(el, evt, func, options) {
@@ -73,23 +73,23 @@ var $b2e1fd3e30ab1f5c$exports = {};
         };
     }
     function formatLogMsg(msg) {
-        return msgID + '[' + myID + '] ' + msg;
+        return msgID + "[" + myID + "] " + msg;
     }
     function log(msg) {
-        if (logging && 'object' === typeof window.console) // eslint-disable-next-line no-console
+        if (logging && "object" === typeof window.console) // eslint-disable-next-line no-console
         console.log(formatLogMsg(msg));
     }
     function warn(msg) {
-        if ('object' === typeof window.console) // eslint-disable-next-line no-console
+        if ("object" === typeof window.console) // eslint-disable-next-line no-console
         console.warn(formatLogMsg(msg));
     }
     function init() {
         readDataFromParent();
-        log('Initialising iFrame (' + window.location.href + ')');
+        log("Initialising iFrame (" + window.location.href + ")");
         readDataFromPage();
         setMargin();
-        setBodyStyle('background', bodyBackground);
-        setBodyStyle('padding', bodyPadding);
+        setBodyStyle("background", bodyBackground);
+        setBodyStyle("padding", bodyPadding);
         injectClearFixIntoBodyElement();
         checkHeightMode();
         checkWidthMode();
@@ -98,14 +98,14 @@ var $b2e1fd3e30ab1f5c$exports = {};
         setupMouseEvents();
         startEventListeners();
         inPageLinks = setupInPageLinks();
-        sendSize('init', 'Init message from host page');
+        sendSize("init", "Init message from host page");
         onReady();
     }
     function readDataFromParent() {
         function strBool(str) {
-            return 'true' === str;
+            return "true" === str;
         }
-        var data = initMsg.substr(msgIdLen).split(':');
+        var data = initMsg.substr(msgIdLen).split(":");
         myID = data[0];
         bodyMargin = undefined !== data[1] ? Number(data[1]) : bodyMargin // For V1 compatibility
         ;
@@ -124,9 +124,9 @@ var $b2e1fd3e30ab1f5c$exports = {};
         mouseEvents = undefined !== data[15] ? Boolean(data[15]) : mouseEvents;
     }
     function depricate(key) {
-        var splitName = key.split('Callback');
+        var splitName = key.split("Callback");
         if (splitName.length === 2) {
-            var name = 'on' + splitName[0].charAt(0).toUpperCase() + splitName[0].slice(1);
+            var name = "on" + splitName[0].charAt(0).toUpperCase() + splitName[0].slice(1);
             this[name] = this[key];
             delete this[key];
             warn("Deprecated: '" + key + "' has been renamed '" + name + "'. The old method will be removed in the next major version.");
@@ -135,50 +135,50 @@ var $b2e1fd3e30ab1f5c$exports = {};
     function readDataFromPage() {
         function readData() {
             var data = window.iFrameResizer;
-            log('Reading data from page: ' + JSON.stringify(data));
+            log("Reading data from page: " + JSON.stringify(data));
             Object.keys(data).forEach(depricate, data);
-            onMessage = 'onMessage' in data ? data.onMessage : onMessage;
-            onReady = 'onReady' in data ? data.onReady : onReady;
-            targetOriginDefault = 'targetOrigin' in data ? data.targetOrigin : targetOriginDefault;
-            heightCalcMode = 'heightCalculationMethod' in data ? data.heightCalculationMethod : heightCalcMode;
-            widthCalcMode = 'widthCalculationMethod' in data ? data.widthCalculationMethod : widthCalcMode;
+            onMessage = "onMessage" in data ? data.onMessage : onMessage;
+            onReady = "onReady" in data ? data.onReady : onReady;
+            targetOriginDefault = "targetOrigin" in data ? data.targetOrigin : targetOriginDefault;
+            heightCalcMode = "heightCalculationMethod" in data ? data.heightCalculationMethod : heightCalcMode;
+            widthCalcMode = "widthCalculationMethod" in data ? data.widthCalculationMethod : widthCalcMode;
         }
         function setupCustomCalcMethods(calcMode, calcFunc) {
-            if ('function' === typeof calcMode) {
-                log('Setup custom ' + calcFunc + 'CalcMethod');
+            if ("function" === typeof calcMode) {
+                log("Setup custom " + calcFunc + "CalcMethod");
                 customCalcMethods[calcFunc] = calcMode;
-                calcMode = 'custom';
+                calcMode = "custom";
             }
             return calcMode;
         }
-        if ('iFrameResizer' in window && Object === window.iFrameResizer.constructor) {
+        if ("iFrameResizer" in window && Object === window.iFrameResizer.constructor) {
             readData();
-            heightCalcMode = setupCustomCalcMethods(heightCalcMode, 'height');
-            widthCalcMode = setupCustomCalcMethods(widthCalcMode, 'width');
+            heightCalcMode = setupCustomCalcMethods(heightCalcMode, "height");
+            widthCalcMode = setupCustomCalcMethods(widthCalcMode, "width");
         }
-        log('TargetOrigin for parent set to: ' + targetOriginDefault);
+        log("TargetOrigin for parent set to: " + targetOriginDefault);
     }
     function chkCSS(attr, value) {
-        if (-1 !== value.indexOf('-')) {
-            warn('Negative CSS value ignored for ' + attr);
-            value = '';
+        if (-1 !== value.indexOf("-")) {
+            warn("Negative CSS value ignored for " + attr);
+            value = "";
         }
         return value;
     }
     function setBodyStyle(attr, value) {
-        if (undefined !== value && '' !== value && 'null' !== value) {
+        if (undefined !== value && "" !== value && "null" !== value) {
             document.body.style[attr] = value;
-            log('Body ' + attr + ' set to "' + value + '"');
+            log("Body " + attr + ' set to "' + value + '"');
         }
     }
     function setMargin() {
         // If called via V1 script, convert bodyMargin from int to str
-        if (undefined === bodyMarginStr) bodyMarginStr = bodyMargin + 'px';
-        setBodyStyle('margin', chkCSS('margin', bodyMarginStr));
+        if (undefined === bodyMarginStr) bodyMarginStr = bodyMargin + "px";
+        setBodyStyle("margin", chkCSS("margin", bodyMarginStr));
     }
     function stopInfiniteResizingOfIFrame() {
-        document.documentElement.style.height = '';
-        document.body.style.height = '';
+        document.documentElement.style.height = "";
+        document.body.style.height = "";
         log('HTML & body height set to "auto"');
     }
     function manageTriggerEvent(options) {
@@ -202,124 +202,124 @@ var $b2e1fd3e30ab1f5c$exports = {};
             options.eventName = options.eventNames[0];
             options.eventNames.map(listener[options.method]);
         } else listener[options.method](options.eventName);
-        log(capitalizeFirstLetter(options.method) + ' event listener: ' + options.eventType);
+        log(capitalizeFirstLetter(options.method) + " event listener: " + options.eventType);
     }
     function manageEventListeners(method) {
         manageTriggerEvent({
             method: method,
-            eventType: 'Animation Start',
+            eventType: "Animation Start",
             eventNames: [
-                'animationstart',
-                'webkitAnimationStart'
+                "animationstart",
+                "webkitAnimationStart"
             ]
         });
         manageTriggerEvent({
             method: method,
-            eventType: 'Animation Iteration',
+            eventType: "Animation Iteration",
             eventNames: [
-                'animationiteration',
-                'webkitAnimationIteration'
+                "animationiteration",
+                "webkitAnimationIteration"
             ]
         });
         manageTriggerEvent({
             method: method,
-            eventType: 'Animation End',
+            eventType: "Animation End",
             eventNames: [
-                'animationend',
-                'webkitAnimationEnd'
+                "animationend",
+                "webkitAnimationEnd"
             ]
         });
         manageTriggerEvent({
             method: method,
-            eventType: 'Input',
-            eventName: 'input'
+            eventType: "Input",
+            eventName: "input"
         });
         manageTriggerEvent({
             method: method,
-            eventType: 'Mouse Up',
-            eventName: 'mouseup'
+            eventType: "Mouse Up",
+            eventName: "mouseup"
         });
         manageTriggerEvent({
             method: method,
-            eventType: 'Mouse Down',
-            eventName: 'mousedown'
+            eventType: "Mouse Down",
+            eventName: "mousedown"
         });
         manageTriggerEvent({
             method: method,
-            eventType: 'Orientation Change',
-            eventName: 'orientationchange'
+            eventType: "Orientation Change",
+            eventName: "orientationchange"
         });
         manageTriggerEvent({
             method: method,
-            eventType: 'Print',
+            eventType: "Print",
             eventName: [
-                'afterprint',
-                'beforeprint'
+                "afterprint",
+                "beforeprint"
             ]
         });
         manageTriggerEvent({
             method: method,
-            eventType: 'Ready State Change',
-            eventName: 'readystatechange'
+            eventType: "Ready State Change",
+            eventName: "readystatechange"
         });
         manageTriggerEvent({
             method: method,
-            eventType: 'Touch Start',
-            eventName: 'touchstart'
+            eventType: "Touch Start",
+            eventName: "touchstart"
         });
         manageTriggerEvent({
             method: method,
-            eventType: 'Touch End',
-            eventName: 'touchend'
+            eventType: "Touch End",
+            eventName: "touchend"
         });
         manageTriggerEvent({
             method: method,
-            eventType: 'Touch Cancel',
-            eventName: 'touchcancel'
+            eventType: "Touch Cancel",
+            eventName: "touchcancel"
         });
         manageTriggerEvent({
             method: method,
-            eventType: 'Transition Start',
+            eventType: "Transition Start",
             eventNames: [
-                'transitionstart',
-                'webkitTransitionStart',
-                'MSTransitionStart',
-                'oTransitionStart',
-                'otransitionstart'
+                "transitionstart",
+                "webkitTransitionStart",
+                "MSTransitionStart",
+                "oTransitionStart",
+                "otransitionstart"
             ]
         });
         manageTriggerEvent({
             method: method,
-            eventType: 'Transition Iteration',
+            eventType: "Transition Iteration",
             eventNames: [
-                'transitioniteration',
-                'webkitTransitionIteration',
-                'MSTransitionIteration',
-                'oTransitionIteration',
-                'otransitioniteration'
+                "transitioniteration",
+                "webkitTransitionIteration",
+                "MSTransitionIteration",
+                "oTransitionIteration",
+                "otransitioniteration"
             ]
         });
         manageTriggerEvent({
             method: method,
-            eventType: 'Transition End',
+            eventType: "Transition End",
             eventNames: [
-                'transitionend',
-                'webkitTransitionEnd',
-                'MSTransitionEnd',
-                'oTransitionEnd',
-                'otransitionend'
+                "transitionend",
+                "webkitTransitionEnd",
+                "MSTransitionEnd",
+                "oTransitionEnd",
+                "otransitionend"
             ]
         });
-        if ('child' === resizeFrom) manageTriggerEvent({
+        if ("child" === resizeFrom) manageTriggerEvent({
             method: method,
-            eventType: 'IFrame Resized',
-            eventName: 'resize'
+            eventType: "IFrame Resized",
+            eventName: "resize"
         });
     }
     function checkCalcMode(calcMode, calcModeDefault, modes, type) {
         if (calcModeDefault !== calcMode) {
             if (!(calcMode in modes)) {
-                warn(calcMode + ' is not a valid option for ' + type + 'CalculationMethod.');
+                warn(calcMode + " is not a valid option for " + type + "CalculationMethod.");
                 calcMode = calcModeDefault;
             }
             log(type + ' calculation method set to "' + calcMode + '"');
@@ -327,16 +327,16 @@ var $b2e1fd3e30ab1f5c$exports = {};
         return calcMode;
     }
     function checkHeightMode() {
-        heightCalcMode = checkCalcMode(heightCalcMode, heightCalcModeDefault, getHeight, 'height');
+        heightCalcMode = checkCalcMode(heightCalcMode, heightCalcModeDefault, getHeight, "height");
     }
     function checkWidthMode() {
-        widthCalcMode = checkCalcMode(widthCalcMode, widthCalcModeDefault, getWidth, 'width');
+        widthCalcMode = checkCalcMode(widthCalcMode, widthCalcModeDefault, getWidth, "width");
     }
     function startEventListeners() {
         if (true === autoResize) {
-            manageEventListeners('add');
+            manageEventListeners("add");
             setupMutationObserver();
-        } else log('Auto Resize disabled');
+        } else log("Auto Resize disabled");
     }
     //   function stopMsgsToParent() {
     //     log('Disable outgoing messages')
@@ -351,7 +351,7 @@ var $b2e1fd3e30ab1f5c$exports = {};
         bodyObserver.disconnect();
     }
     function stopEventListeners() {
-        manageEventListeners('remove');
+        manageEventListeners("remove");
         disconnectMutationObserver();
         clearInterval(intervalTimer);
     }
@@ -361,11 +361,11 @@ var $b2e1fd3e30ab1f5c$exports = {};
     //     if (true === autoResize) stopEventListeners()
     //   }
     function injectClearFixIntoBodyElement() {
-        var clearFix = document.createElement('div');
-        clearFix.style.clear = 'both';
+        var clearFix = document.createElement("div");
+        clearFix.style.clear = "both";
         // Guard against the following having been globally redefined in CSS.
-        clearFix.style.display = 'block';
-        clearFix.style.height = '0';
+        clearFix.style.display = "block";
+        clearFix.style.height = "0";
         document.body.appendChild(clearFix);
     }
     function setupInPageLinks() {
@@ -385,34 +385,34 @@ var $b2e1fd3e30ab1f5c$exports = {};
         function findTarget(location) {
             function jumpToTarget(target) {
                 var jumpPosition = getElementPosition(target);
-                log('Moving to in page link (#' + hash + ') at x: ' + jumpPosition.x + ' y: ' + jumpPosition.y);
-                sendMsg(jumpPosition.y, jumpPosition.x, 'scrollToOffset') // X&Y reversed at sendMsg uses height/width
+                log("Moving to in page link (#" + hash + ") at x: " + jumpPosition.x + " y: " + jumpPosition.y);
+                sendMsg(jumpPosition.y, jumpPosition.x, "scrollToOffset") // X&Y reversed at sendMsg uses height/width
                 ;
             }
-            var hash = location.split('#')[1] || location, hashData = decodeURIComponent(hash), target2 = document.getElementById(hashData) || document.getElementsByName(hashData)[0];
+            var hash = location.split("#")[1] || location, hashData = decodeURIComponent(hash), target2 = document.getElementById(hashData) || document.getElementsByName(hashData)[0];
             if (undefined !== target2) jumpToTarget(target2);
             else {
-                log('In page link (#' + hash + ') not found in iFrame, so sending to parent');
-                sendMsg(0, 0, 'inPageLink', '#' + hash);
+                log("In page link (#" + hash + ") not found in iFrame, so sending to parent");
+                sendMsg(0, 0, "inPageLink", "#" + hash);
             }
         }
         function checkLocationHash() {
             var hash = window.location.hash;
             var href = window.location.href;
-            if ('' !== hash && '#' !== hash) findTarget(href);
+            if ("" !== hash && "#" !== hash) findTarget(href);
         }
         function bindAnchors() {
             function setupLink(el) {
                 function linkClicked(e) {
                     e.preventDefault();
-                    /* jshint validthis:true */ findTarget(this.getAttribute('href'));
+                    /* jshint validthis:true */ findTarget(this.getAttribute("href"));
                 }
-                if ('#' !== el.getAttribute('href')) addEventListener(el, 'click', linkClicked);
+                if ("#" !== el.getAttribute("href")) addEventListener(el, "click", linkClicked);
             }
             Array.prototype.forEach.call(document.querySelectorAll('a[href^="#"]'), setupLink);
         }
         function bindLocationHash() {
-            addEventListener(window, 'hashchange', checkLocationHash);
+            addEventListener(window, "hashchange", checkLocationHash);
         }
         function initCheck() {
             // Check if page loaded with location hash after init resize
@@ -421,14 +421,14 @@ var $b2e1fd3e30ab1f5c$exports = {};
         function enableInPageLinks() {
             /* istanbul ignore else */ // Not testable in phantonJS
             if (Array.prototype.forEach && document.querySelectorAll) {
-                log('Setting up location.hash handlers');
+                log("Setting up location.hash handlers");
                 bindAnchors();
                 bindLocationHash();
                 initCheck();
-            } else warn('In page linking not fully supported in this browser! (See README.md for IE8 workaround)');
+            } else warn("In page linking not fully supported in this browser! (See README.md for IE8 workaround)");
         }
         if (inPageLinks.enable) enableInPageLinks();
-        else log('In page linking not enabled');
+        else log("In page linking not enabled");
         return {
             findTarget: findTarget
         };
@@ -436,17 +436,17 @@ var $b2e1fd3e30ab1f5c$exports = {};
     function setupMouseEvents() {
         if (mouseEvents !== true) return;
         function sendMouse(e) {
-            sendMsg(0, 0, e.type, e.screenY + ':' + e.screenX);
+            sendMsg(0, 0, e.type, e.screenY + ":" + e.screenX);
         }
         function addMouseListener(evt, name) {
-            log('Add event listener: ' + name);
+            log("Add event listener: " + name);
             addEventListener(window.document, evt, sendMouse);
         }
-        addMouseListener('mouseenter', 'Mouse Enter');
-        addMouseListener('mouseleave', 'Mouse Leave');
+        addMouseListener("mouseenter", "Mouse Enter");
+        addMouseListener("mouseleave", "Mouse Leave");
     }
     function setupPublicMethods() {
-        log('Enable public methods');
+        log("Enable public methods");
         win.parentIFrame = {
             autoResize: function autoResizeF(resize) {
                 if (true === resize && false === autoResize) {
@@ -456,41 +456,41 @@ var $b2e1fd3e30ab1f5c$exports = {};
                     autoResize = false;
                     stopEventListeners();
                 }
-                sendMsg(0, 0, 'autoResize', JSON.stringify(autoResize));
+                sendMsg(0, 0, "autoResize", JSON.stringify(autoResize));
                 return autoResize;
             },
             close: function closeF() {
-                sendMsg(0, 0, 'close');
+                sendMsg(0, 0, "close");
             // teardown()
             },
             getId: function getIdF() {
                 return myID;
             },
             getPageInfo: function getPageInfoF(callback) {
-                if ('function' === typeof callback) {
+                if ("function" === typeof callback) {
                     onPageInfo = callback;
-                    sendMsg(0, 0, 'pageInfo');
+                    sendMsg(0, 0, "pageInfo");
                 } else {
                     onPageInfo = function() {};
-                    sendMsg(0, 0, 'pageInfoStop');
+                    sendMsg(0, 0, "pageInfoStop");
                 }
             },
             moveToAnchor: function moveToAnchorF(hash) {
                 inPageLinks.findTarget(hash);
             },
             reset: function resetF() {
-                resetIFrame('parentIFrame.reset');
+                resetIFrame("parentIFrame.reset");
             },
             scrollTo: function scrollToF(x, y) {
-                sendMsg(y, x, 'scrollTo') // X&Y reversed at sendMsg uses height/width
+                sendMsg(y, x, "scrollTo") // X&Y reversed at sendMsg uses height/width
                 ;
             },
             scrollToOffset: function scrollToF(x, y) {
-                sendMsg(y, x, 'scrollToOffset') // X&Y reversed at sendMsg uses height/width
+                sendMsg(y, x, "scrollToOffset") // X&Y reversed at sendMsg uses height/width
                 ;
             },
             sendMessage: function sendMessageF(msg, targetOrigin) {
-                sendMsg(0, 0, 'message', JSON.stringify(msg), targetOrigin);
+                sendMsg(0, 0, "message", JSON.stringify(msg), targetOrigin);
             },
             setHeightCalculationMethod: function setHeightCalculationMethodF(heightCalculationMethod) {
                 heightCalcMode = heightCalculationMethod;
@@ -501,20 +501,20 @@ var $b2e1fd3e30ab1f5c$exports = {};
                 checkWidthMode();
             },
             setTargetOrigin: function setTargetOriginF(targetOrigin) {
-                log('Set targetOrigin: ' + targetOrigin);
+                log("Set targetOrigin: " + targetOrigin);
                 targetOriginDefault = targetOrigin;
             },
             size: function sizeF(customHeight, customWidth) {
-                var valString = '' + (customHeight || '') + (customWidth ? ',' + customWidth : '');
-                sendSize('size', 'parentIFrame.size(' + valString + ')', customHeight, customWidth);
+                var valString = "" + (customHeight || "") + (customWidth ? "," + customWidth : "");
+                sendSize("size", "parentIFrame.size(" + valString + ")", customHeight, customWidth);
             }
         };
     }
     function initInterval() {
         if (0 !== interval) {
-            log('setInterval: ' + interval + 'ms');
+            log("setInterval: " + interval + "ms");
             intervalTimer = setInterval(function() {
-                sendSize('interval', 'setInterval: ' + interval);
+                sendSize("interval", "setInterval: " + interval);
             }, Math.abs(interval));
         }
     }
@@ -523,41 +523,41 @@ var $b2e1fd3e30ab1f5c$exports = {};
         function addImageLoadListners(mutation) {
             function addImageLoadListener(element) {
                 if (false === element.complete) {
-                    log('Attach listeners to ' + element.src);
-                    element.addEventListener('load', imageLoaded, false);
-                    element.addEventListener('error', imageError, false);
+                    log("Attach listeners to " + element.src);
+                    element.addEventListener("load", imageLoaded, false);
+                    element.addEventListener("error", imageError, false);
                     elements.push(element);
                 }
             }
-            if (mutation.type === 'attributes' && mutation.attributeName === 'src') addImageLoadListener(mutation.target);
-            else if (mutation.type === 'childList') Array.prototype.forEach.call(mutation.target.querySelectorAll('img'), addImageLoadListener);
+            if (mutation.type === "attributes" && mutation.attributeName === "src") addImageLoadListener(mutation.target);
+            else if (mutation.type === "childList") Array.prototype.forEach.call(mutation.target.querySelectorAll("img"), addImageLoadListener);
         }
         function removeFromArray(element) {
             elements.splice(elements.indexOf(element), 1);
         }
         function removeImageLoadListener(element) {
-            log('Remove listeners from ' + element.src);
-            element.removeEventListener('load', imageLoaded, false);
-            element.removeEventListener('error', imageError, false);
+            log("Remove listeners from " + element.src);
+            element.removeEventListener("load", imageLoaded, false);
+            element.removeEventListener("error", imageError, false);
             removeFromArray(element);
         }
         function imageEventTriggered(event, type, typeDesc) {
             removeImageLoadListener(event.target);
-            sendSize(type, typeDesc + ': ' + event.target.src);
+            sendSize(type, typeDesc + ": " + event.target.src);
         }
         function imageLoaded(event) {
-            imageEventTriggered(event, 'imageLoad', 'Image loaded');
+            imageEventTriggered(event, "imageLoad", "Image loaded");
         }
         function imageError(event) {
-            imageEventTriggered(event, 'imageLoadFailed', 'Image load failed');
+            imageEventTriggered(event, "imageLoadFailed", "Image load failed");
         }
         function mutationObserved(mutations) {
-            sendSize('mutationObserver', 'mutationObserver: ' + mutations[0].target + ' ' + mutations[0].type);
+            sendSize("mutationObserver", "mutationObserver: " + mutations[0].target + " " + mutations[0].type);
             // Deal with WebKit / Blink asyncing image loading when tags are injected into the page
             mutations.forEach(addImageLoadListners);
         }
         function createMutationObserver() {
-            var target = document.querySelector('body'), config = {
+            var target = document.querySelector("body"), config = {
                 attributes: true,
                 attributeOldValue: false,
                 characterData: true,
@@ -566,15 +566,15 @@ var $b2e1fd3e30ab1f5c$exports = {};
                 subtree: true
             };
             observer = new MutationObserver(mutationObserved);
-            log('Create body MutationObserver');
+            log("Create body MutationObserver");
             observer.observe(target, config);
             return observer;
         }
         var elements = [], MutationObserver = window.MutationObserver || window.WebKitMutationObserver, observer = createMutationObserver();
         return {
             disconnect: function() {
-                if ('disconnect' in observer) {
-                    log('Disconnect body MutationObserver');
+                if ("disconnect" in observer) {
+                    log("Disconnect body MutationObserver");
                     observer.disconnect();
                     elements.forEach(removeImageLoadListener);
                 }
@@ -588,7 +588,7 @@ var $b2e1fd3e30ab1f5c$exports = {};
             if (forceIntervalTimer) initInterval();
             else bodyObserver = setupBodyMutationObserver();
         } else {
-            log('MutationObserver not supported in this browser!');
+            log("MutationObserver not supported in this browser!");
             initInterval();
         }
     }
@@ -605,19 +605,19 @@ var $b2e1fd3e30ab1f5c$exports = {};
     function chkEventThottle(timer) {
         if (timer > throttledTimer / 2) {
             throttledTimer = 2 * timer;
-            log('Event throttle increased to ' + throttledTimer + 'ms');
+            log("Event throttle increased to " + throttledTimer + "ms");
         }
     }
     // Idea from https://github.com/guardian/iframe-messenger
     function getMaxElement(side, elements) {
         var elementsLength = elements.length, elVal = 0, maxVal = 0, Side = capitalizeFirstLetter(side), timer = Date.now();
         for(var i = 0; i < elementsLength; i++){
-            elVal = elements[i].getBoundingClientRect()[side] + getComputedStyle('margin' + Side, elements[i]);
+            elVal = elements[i].getBoundingClientRect()[side] + getComputedStyle("margin" + Side, elements[i]);
             if (elVal > maxVal) maxVal = elVal;
         }
         timer = Date.now() - timer;
-        log('Parsed ' + elementsLength + ' HTML elements');
-        log('Element position calculated in ' + timer + 'ms');
+        log("Parsed " + elementsLength + " HTML elements");
+        log("Element position calculated in " + timer + "ms");
         chkEventThottle(timer);
         return maxVal;
     }
@@ -631,19 +631,19 @@ var $b2e1fd3e30ab1f5c$exports = {};
     }
     function getTaggedElements(side, tag) {
         function noTaggedElementsFound() {
-            warn('No tagged elements (' + tag + ') found on page');
-            return document.querySelectorAll('body *');
+            warn("No tagged elements (" + tag + ") found on page");
+            return document.querySelectorAll("body *");
         }
-        var elements = document.querySelectorAll('[' + tag + ']');
+        var elements = document.querySelectorAll("[" + tag + "]");
         if (elements.length === 0) noTaggedElementsFound();
         return getMaxElement(side, elements);
     }
     function getAllElements() {
-        return document.querySelectorAll('body *');
+        return document.querySelectorAll("body *");
     }
     var getHeight = {
         bodyOffset: function getBodyOffsetHeight() {
-            return document.body.offsetHeight + getComputedStyle('marginTop') + getComputedStyle('marginBottom');
+            return document.body.offsetHeight + getComputedStyle("marginTop") + getComputedStyle("marginBottom");
         },
         offset: function() {
             return getHeight.bodyOffset() // Backwards compatability
@@ -672,10 +672,10 @@ var $b2e1fd3e30ab1f5c$exports = {};
             ;
         },
         lowestElement: function getBestHeight() {
-            return Math.max(getHeight.bodyOffset() || getHeight.documentElementOffset(), getMaxElement('bottom', getAllElements()));
+            return Math.max(getHeight.bodyOffset() || getHeight.documentElementOffset(), getMaxElement("bottom", getAllElements()));
         },
         taggedElement: function getTaggedElementsHeight() {
-            return getTaggedElements('bottom', 'data-iframe-height');
+            return getTaggedElements("bottom", "data-iframe-height");
         }
     }, getWidth = {
         bodyScroll: function getBodyScrollWidth() {
@@ -703,10 +703,10 @@ var $b2e1fd3e30ab1f5c$exports = {};
             return Math.min.apply(null, getAllMeasurements(getWidth));
         },
         rightMostElement: function rightMostElement() {
-            return getMaxElement('right', getAllElements());
+            return getMaxElement("right", getAllElements());
         },
         taggedElement: function getTaggedElementsWidth() {
-            return getTaggedElements('right', 'data-iframe-width');
+            return getTaggedElements("right", "data-iframe-width");
         }
     };
     function sizeIFrame(triggerEvent, triggerEventDesc, customHeight, customWidth) {
@@ -735,7 +735,7 @@ var $b2e1fd3e30ab1f5c$exports = {};
             return heightCalcMode in resetRequiredMethods || calculateWidth && widthCalcMode in resetRequiredMethods;
         }
         function logIgnored() {
-            log('No change in size detected');
+            log("No change in size detected");
         }
         function checkDownSizing() {
             if (isForceResizableEvent() && isForceResizableCalcMode()) resetIFrame(triggerEventDesc);
@@ -744,7 +744,7 @@ var $b2e1fd3e30ab1f5c$exports = {};
             })) logIgnored();
         }
         var currentHeight, currentWidth;
-        if (isSizeChangeDetected() || 'init' === triggerEvent) {
+        if (isSizeChangeDetected() || "init" === triggerEvent) {
             lockTrigger();
             resizeIFrame();
         } else checkDownSizing();
@@ -756,27 +756,27 @@ var $b2e1fd3e30ab1f5c$exports = {};
                 reset: 1,
                 resetPage: 1,
                 init: 1
-            })) log('Trigger event: ' + triggerEventDesc);
+            })) log("Trigger event: " + triggerEventDesc);
         }
         function isDoubleFiredEvent() {
             return triggerLocked && triggerEvent in doubleEventList;
         }
         if (!isDoubleFiredEvent()) {
             recordTrigger();
-            if (triggerEvent === 'init') sizeIFrame(triggerEvent, triggerEventDesc, customHeight, customWidth);
+            if (triggerEvent === "init") sizeIFrame(triggerEvent, triggerEventDesc, customHeight, customWidth);
             else sizeIFrameThrottled(triggerEvent, triggerEventDesc, customHeight, customWidth);
-        } else log('Trigger event cancelled: ' + triggerEvent);
+        } else log("Trigger event cancelled: " + triggerEvent);
     }
     function lockTrigger() {
         if (!triggerLocked) {
             triggerLocked = true;
-            log('Trigger event lock on');
+            log("Trigger event lock on");
         }
         clearTimeout(triggerLockedTimer);
         triggerLockedTimer = setTimeout(function() {
             triggerLocked = false;
-            log('Trigger event lock off');
-            log('--');
+            log("Trigger event lock off");
+            log("--");
         }, eventCancelTimer);
     }
     function triggerReset(triggerEvent) {
@@ -787,19 +787,19 @@ var $b2e1fd3e30ab1f5c$exports = {};
     function resetIFrame(triggerEventDesc) {
         var hcm = heightCalcMode;
         heightCalcMode = heightCalcModeDefault;
-        log('Reset trigger event: ' + triggerEventDesc);
+        log("Reset trigger event: " + triggerEventDesc);
         lockTrigger();
-        triggerReset('reset');
+        triggerReset("reset");
         heightCalcMode = hcm;
     }
     function sendMsg(height, width, triggerEvent, msg, targetOrigin) {
         function setTargetOrigin() {
             if (undefined === targetOrigin) targetOrigin = targetOriginDefault;
-            else log('Message targetOrigin: ' + targetOrigin);
+            else log("Message targetOrigin: " + targetOrigin);
         }
         function sendToParent() {
-            var size = height + ':' + width, message = myID + ':' + size + ':' + triggerEvent + (undefined !== msg ? ':' + msg : '');
-            log('Sending message to host page (' + message + ')');
+            var size = height + ":" + width, message = myID + ":" + size + ":" + triggerEvent + (undefined !== msg ? ":" + msg : "");
+            log("Sending message to host page (" + message + ")");
             target1.postMessage(msgID + message, targetOrigin);
         }
         if (true === sendPermit) {
@@ -820,12 +820,12 @@ var $b2e1fd3e30ab1f5c$exports = {};
             },
             reset: function resetFromParent() {
                 if (!initLock) {
-                    log('Page size reset by host page');
-                    triggerReset('resetPage');
-                } else log('Page reset ignored by init');
+                    log("Page size reset by host page");
+                    triggerReset("resetPage");
+                } else log("Page reset ignored by init");
             },
             resize: function resizeFromParent() {
-                sendSize('resizeParent', 'Parent window requested size check');
+                sendSize("resizeParent", "Parent window requested size check");
             },
             moveToAnchor: function moveToAnchorF() {
                 inPageLinks.findTarget(getData());
@@ -835,35 +835,35 @@ var $b2e1fd3e30ab1f5c$exports = {};
             },
             pageInfo: function pageInfoFromParent() {
                 var msgBody = getData();
-                log('PageInfoFromParent called from parent: ' + msgBody);
+                log("PageInfoFromParent called from parent: " + msgBody);
                 onPageInfo(JSON.parse(msgBody));
-                log(' --');
+                log(" --");
             },
             message: function messageFromParent() {
                 var msgBody = getData();
-                log('onMessage called from parent: ' + msgBody);
+                log("onMessage called from parent: " + msgBody);
                 // eslint-disable-next-line sonarjs/no-extra-arguments
                 onMessage(JSON.parse(msgBody));
-                log(' --');
+                log(" --");
             }
         };
         function isMessageForUs() {
-            return msgID === ('' + event.data).substr(0, msgIdLen) // ''+ Protects against non-string messages
+            return msgID === ("" + event.data).substr(0, msgIdLen) // ''+ Protects against non-string messages
             ;
         }
         function getMessageType() {
-            return event.data.split(']')[1].split(':')[0];
+            return event.data.split("]")[1].split(":")[0];
         }
         function getData() {
-            return event.data.substr(event.data.indexOf(':') + 1);
+            return event.data.substr(event.data.indexOf(":") + 1);
         }
         function isMiddleTier() {
-            return !$b2e1fd3e30ab1f5c$exports && 'iFrameResize' in window || 'jQuery' in window && 'iFrameResize' in window.jQuery.prototype;
+            return !$b2e1fd3e30ab1f5c$exports && "iFrameResize" in window || "jQuery" in window && "iFrameResize" in window.jQuery.prototype;
         }
         function isInitMsg() {
             // Test if this message is from a child below us. This is an ugly test, however, updating
             // the message format would break backwards compatibity.
-            return event.data.split(':')[2] in {
+            return event.data.split(":")[2] in {
                 true: 1,
                 false: 1
             };
@@ -871,7 +871,7 @@ var $b2e1fd3e30ab1f5c$exports = {};
         function callFromParent() {
             var messageType = getMessageType();
             if (messageType in processRequestFromParent) processRequestFromParent[messageType]();
-            else if (!isMiddleTier() && !isInitMsg()) warn('Unexpected message (' + event.data + ')');
+            else if (!isMiddleTier() && !isInitMsg()) warn("Unexpected message (" + event.data + ")");
         }
         function processMessage() {
             if (false === firstRun) callFromParent();
@@ -883,10 +883,10 @@ var $b2e1fd3e30ab1f5c$exports = {};
     // Normally the parent kicks things off when it detects the iFrame has loaded.
     // If this script is async-loaded, then tell parent page to retry init.
     function chkLateLoaded() {
-        if ('loading' !== document.readyState) window.parent.postMessage('[iFrameResizerChild]Ready', '*');
+        if ("loading" !== document.readyState) window.parent.postMessage("[iFrameResizerChild]Ready", "*");
     }
-    addEventListener(window, 'message', receiver);
-    addEventListener(window, 'readystatechange', chkLateLoaded);
+    addEventListener(window, "message", receiver);
+    addEventListener(window, "readystatechange", chkLateLoaded);
     chkLateLoaded();
 })();
 
