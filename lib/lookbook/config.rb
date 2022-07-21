@@ -24,7 +24,7 @@ module Lookbook
         preview_display_params: {},
         preview_options: {},
         preview_srcdoc: false,
-        sort_examples: true,
+        sort_examples: false,
 
         listen: Rails.env.development?,
         listen_paths: [],
