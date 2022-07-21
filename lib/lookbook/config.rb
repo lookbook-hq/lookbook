@@ -22,8 +22,7 @@ module Lookbook
 
         preview_paths: [],
         preview_display_params: {},
-        preview_options: {},
-        preview_srcdoc: false,
+        preview_srcdoc: nil,
         sort_examples: false,
 
         listen: Rails.env.development?,
@@ -128,22 +127,33 @@ module Lookbook
       absolute_path(@options.components_path)
     end
 
+    def page_paths=(paths = [])
+      @options.page_paths += paths if paths.is_a? Array
+    end
+
     def page_paths
       normalize_paths(@options.page_paths)
+    end
+
+    def preview_paths=(paths = [])
+      @options.preview_paths += paths if paths.is_a? Array
     end
 
     def preview_paths
       normalize_paths(@options.preview_paths)
     end
 
+    def preview_srcdoc=(enable)
+      Lookbook.logger.warn "The `preview_srcdoc` config option is deprecated and will be removed in v2.0"
+    end
+
     def listen_paths
       normalize_paths(@options.listen_paths)
     end
 
-    def listen_extensions
-      @options.listen_extensions += ["rb", "html.*"]
+    def listen_extensions=(extensions = [])
+      @options.listen_extensions += extensions if extensions.is_a? Array
       @options.listen_extensions.uniq!
-      @options.listen_extensions
     end
 
     def parser_registry_path
@@ -231,8 +241,10 @@ module Lookbook
     protected
 
     def normalize_paths(paths)
-      paths.map! { |path| absolute_path(path) }
-      paths.select! { |path| Dir.exist?(path) }
+      paths.map! do |path|
+        full_path = absolute_path(path)
+        full_path if Dir.exist?(full_path)
+      end.compact!
       paths
     end
 
