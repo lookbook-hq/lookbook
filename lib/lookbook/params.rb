@@ -88,6 +88,8 @@ module Lookbook
 
       def input_text?(input)
         [
+          "date",
+          "datetime-local",
           "email",
           "number",
           "tel",
