@@ -8,3 +8,6 @@ node_modules/
 tmp/
 
 .parcel-cache
+.bridgetown-cache
+docs/output
+*-refresh.css
