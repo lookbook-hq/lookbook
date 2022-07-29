@@ -52,6 +52,14 @@ module Lookbook
             result = []
           end
           result
+        when "datetime"
+          begin
+            result = DateTime.parse(value)
+          rescue Date::Error
+            Lookbook.logger.debug "Failed to parse '#{value}' into a DateTime"
+            result = DateTime.now
+          end
+          result
         else
           begin
             type_class = "ActiveModel::Type::#{type}".constantize
@@ -81,6 +89,8 @@ module Lookbook
           "Boolean"
         elsif default.is_a? Symbol
           "Symbol"
+        elsif ["date", "datetime-local"].include?(input&.downcase) || default.is_a? DateTime
+          "DateTime"
         else
           "String"
         end
@@ -88,6 +98,8 @@ module Lookbook
 
       def input_text?(input)
         [
+          "date",
+          "datetime-local",
           "email",
           "number",
           "tel",

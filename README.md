@@ -341,6 +341,8 @@ The following **input field types** are available for use:
 
 ```ruby
 @param <name> text
+@param <name> date
+@param <name> datetime-local
 @param <name> email
 @param <name> number
 @param <name> url
