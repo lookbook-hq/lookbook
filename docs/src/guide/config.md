@@ -27,4 +27,4 @@ Below are some of the most commonly used configuration options. For the complete
 
 {% common_config = [:project_name, :debug_menu, :markdown_options] %}
 {% options = site.data.config_options.filter { |c| common_config.include?(c.name.to_sym) } %}
-{{ render "config_options", options: options }}
+{{ render "config_options_list", options: options }}

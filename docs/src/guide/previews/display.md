@@ -56,8 +56,14 @@ The `@display` tag can be applied at the preview (class) or at the example (meth
 @display <key> <value>
 ```
 
-- `<key>` must be a valid Ruby hash key name, without quotes or spaces
-- `<value>` will be parsed using the [Ruby YAML parser](https://yaml.org/YAML_for_ruby.html) to resolve the value
+{%= options_list do |list| %}
+  {% list.option name: "<key>" do %}
+    Must be a valid Ruby hash key name, without quotes or spaces
+  {% end %}
+  {% list.option name: "<value>" do %}
+    Will be parsed using the [Ruby YAML parser](https://yaml.org/YAML_for_ruby.html) to resolve the value
+  {% end %}
+{% end %}  
 
 
 {%= note :info do %}

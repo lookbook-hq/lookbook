@@ -1,23 +1,25 @@
 module Shared
-  class ConfigOption < Shared::Base
+  class ConfigOptionInfo < Shared::Base
     renders_one :description
     renders_one :example, ->(&block) do
       if block.present?
-        "```ruby\n#{capture(&block).strip_heredoc}```"
+        code = capture(&block)
+        "```ruby\n#{code.strip_heredoc.strip}\n```"
       end
     end
 
-    attr_reader :name, :title
+    attr_reader :name, :title, :example_lang
 
     def initialize(name: , type: nil, default: nil, title: nil, **attrs)
       @name = name
       @title = title || name.to_s
+      value = type.to_s == "String" ? "\"#{default}\"" : default
       @metadata = [{
         label: "Type",
         value: type
       },{
         label: "Default",
-        value: type.to_s == "String" ? "\"#{default}\"" : default
+        value: value.present? ? "<code>#{value}</code>".html_safe : nil
       }]
       @attrs = attrs
     end

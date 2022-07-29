@@ -48,7 +48,7 @@ The preview window can also be resized to make testing responsive components a s
 {{ image "inspector_quick_tour.gif", class: "screenshot" }}
 
 {%= note :info do %}
-You can browse some example component previews in the [Lookbook demo &rarr;](https://lookbook-demo-app-v1-0-beta.herokuapp.com/lookbook/inspect/elements/avatar/default)
+You can browse some example component previews in the [Lookbook demo &rarr;]({{ site.data.external.demo.url }}/inspect/elements/avatar/default)
 {% end %}
 
 ## Annotating preview files

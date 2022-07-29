@@ -1,0 +1,22 @@
+[data-component="options-list"] {
+
+  .options-list-label {
+    @apply font-semibold text-sm w-[1%] whitespace-nowrap px-2 py-1 align-top font-mono inline-block leading-6 text-indigo-600;
+  }
+
+  .options-list-description {
+    @apply py-1 pl-4 align-top;
+  }
+
+  .options-list-meta {
+    @apply space-x-2 text-xs mt-1 opacity-70 pb-1.5;
+  }
+
+  code {
+    @apply text-sm;
+  }
+
+  a {
+    @apply underline;
+  }
+}

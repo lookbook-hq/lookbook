@@ -7,29 +7,29 @@ title: Configuration Options
 
 ## Project
 
-{{ render "config_options", group: "project" }}
+{{ render "config_options_list", group: "project" }}
 
 ## Previews
 
-{{ render "config_options", group: "previews" }}
+{{ render "config_options_list", group: "previews" }}
 
 ## Pages
 
-{{ render "config_options", group: "pages" }}
+{{ render "config_options_list", group: "pages" }}
 
 ## Rendering
 
-{{ render "config_options", group: "rendering" }}
+{{ render "config_options_list", group: "rendering" }}
 
 ## UI
 
-{{ render "config_options", group: "ui" }}
+{{ render "config_options_list", group: "ui" }}
 
 ## Debugging
 
-{{ render "config_options", group: "debugging" }}
+{{ render "config_options_list", group: "debugging" }}
 
 ## System
 
-{{ render "config_options", group: "system" }}
+{{ render "config_options_list", group: "system" }}
 

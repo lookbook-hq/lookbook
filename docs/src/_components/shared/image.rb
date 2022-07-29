@@ -12,7 +12,7 @@ module Shared
     end
 
     def call
-      tag.img src: image_path, **attrs
+      tag.img src: image_path, **html_attrs
     end
   end
 end

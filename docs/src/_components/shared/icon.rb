@@ -18,7 +18,7 @@ module Shared
     end
 
     def call
-      tag.i class: "block fa-#{style} fa-#{icon_name} #{size_classes} #{attrs[:class]}"
+      tag.i class: "block fa-#{style} fa-#{icon_name} #{size_classes} #{html_attrs[:class]}"
     end
 
     protected

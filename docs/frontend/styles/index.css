@@ -94,18 +94,6 @@
         @apply mb-0;
       }
     }
-
-    .prose [data-component="config-option"] {
-      @apply my-8;
-
-      &:first-child {
-        @apply mt-0;
-      }
-
-      &:last-child {
-        @apply mb-0;
-      }
-    }
   }
 
   .screenshot {
@@ -117,7 +105,7 @@
   #page-main {
 
     pre.highlight {
-      @apply bg-white text-gray-800 border border-gray-200 rounded;
+      @apply bg-white text-gray-800 border border-gray-200 rounded font-mono;
     }
     pre.highlight .hll {
       background-color: #f8f8f8;

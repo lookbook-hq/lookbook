@@ -96,11 +96,24 @@ Tags are lines of structured text identified by their `@` prefix - for example `
 
 The following Lookbook-specific tags are available for use:
 
-- `@label` ([docs](/guide/previews/navigation/#custom-labels))
-- `@hidden` ([docs](/guide/previews/navigation/#hiding-previews))
-- `@!group ... @!endgroup` ([docs](/guide/previews/grouping/))
-- `@display` ([docs](/guide/previews/display/))
-- `@param` ([docs](/guide/previews/params/))
+
+{%= options_list do |list| %}
+  {% list.option name: "@label" do %}
+    Customise navigation labels ([read more](/guide/previews/navigation/#custom-labels))
+  {% end %}
+  {% list.option name: "@hidden" do %}
+    Hide previews from the navigation ([read more](/guide/previews/navigation/#hiding-previews))
+  {% end %}
+  {% list.option name: "@!group ... @!endgroup" do %}
+    Group previews together ([read more](/guide/previews/grouping/))
+  {% end %}
+  {% list.option name: "@display" do %}
+    Customise preview layouts ([read more](/guide/previews/display/))
+  {% end %}
+  {% list.option name: "@param" do %}
+    Define editable preview parameters ([read more](/guide/previews/params/))
+  {% end %}
+{% end %}
 
 ## Notes
 

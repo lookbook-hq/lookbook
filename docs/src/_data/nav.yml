@@ -27,10 +27,13 @@ guide:
     items:
       - label: Overview
         url: /guide/pages/overview/
-      - label: Front Matter
+      - label: Frontmatter
         url: /guide/pages/frontmatter/
+      - label: Variables & Helpers
+        url: /guide/pages/variables/
       - label: Embedding Previews
         url: /guide/pages/embedding/
+      
   - label: Extending
     items:
       - label: Themes

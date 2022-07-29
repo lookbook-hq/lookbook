@@ -1,6 +1,6 @@
-<%= tag.div **attrs do %>
+<%= tag.div **html_attrs do %>
   <div class="not-prose">
-    <h3 class="font-bold text-lg text-indigo-600 mb-4">
+    <h3 id="config-option-<%= name %>" class="font-bold text-lg text-indigo-600 mb-4">
       <%= title %>
     </h3>
     <% if metadata.any? %>
@@ -15,12 +15,12 @@
     <% end %>
   </div>
   <div class="prose space-y-6">
-    <% if description %>
+    <% if description? %>
       <div>
         <%= markdownify description %>
       </div>
     <% end %>
-    <% if example %>
+    <% if example? %>
       <div>
         <%= markdownify example %>
       </div>

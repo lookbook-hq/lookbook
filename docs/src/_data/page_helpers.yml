@@ -1,0 +1,37 @@
+- name: page_path
+  example_lang: erb
+  args: 
+    - name: <page>
+      type: Symbol | Page
+      description: The page to generate a path to. Can be a page `id` (`Symbol`) or a `Page` object instance. Page `id`s can be specified in the [YAML frontmatter](/guide/pages/frontmatter) for that page.
+  signature: "page_path <page>"
+  example: |
+    Visit the [about page](<%= page_path :about %>)
+    Go to the [next page](<%= page_path @next_page %>)
+  description: |
+    Returns the path to a page.
+
+- name: embed
+  example_lang: erb
+  args: 
+    - name: <preview>
+      type: Class
+      description: The Preview class to generate an embed for - eg. `Elements:ButtonComponentPreview`
+    - name: <example>
+      type: Symbol
+      description: The name of the example method to embed - eg. `:default`
+    - name: <opts?>
+      type: Hash
+      description: Optional hash of options, including for specifying params.
+  signature: "embed <preview>, <example>, <opts?>"
+  example: |
+    <!-- Basic embed -->
+    <%= embed Elements:ButtonComponentPreview, :default %>
+
+    <!-- With param values set -->
+    <%= embed Elements:ButtonComponentPreview, :default, params: {
+      icon: "plus",
+      text: "Add new"
+    } %>
+  description: |
+    Generates a live embed of a component preview. See the [docs on embedding previews](/guide/pages/embedding) for more info.

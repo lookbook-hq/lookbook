@@ -4,11 +4,11 @@ layout: default
 ---
 
 It's quick and easy to get up and running with Lookbook.
-Follow this guide to get up and running quickly and then explore the rest of the docs to dive in deeper!
+Follow this guide to get up and running quickly and then explore the rest of the docs to dive in deeper.
 
 {{ toc }}
 
-## 1. Install Lookbook
+## Install Lookbook
 
 Add Lookbook to your `Gemfile` somewhere *after* the ViewComponent gem:
 
@@ -31,7 +31,7 @@ end
 The value of the `at` property in the `mount Lookbook::Engine, at:` statement determines the root URL that the Lookbook UI will be served at.
 {% end %}
 
-## 2. Add a component and preview
+## Add a component and preview
 
 *You can skip this step if you are installing Lookbook into a project with existing components.*
 
@@ -43,7 +43,7 @@ bin/rails generate component Example title --preview
 
 This will generate an `ExampleComponent` class and corresponding template in `app/components`, and a `ExampleComponentPreview` [preview class](https://viewcomponent.org/guide/previews.html#previews) in `test/components/previews`.
 
-## 3. View the preview in Lookbook
+## View the preview in Lookbook
 
 Point your browser to `http://localhost:3000/lookbook` (or whatever mount path you specified) and click on the `Example` component link in the sidebar on the left.
 
@@ -51,7 +51,7 @@ You will see the component preview in the Lookbook UI.
 
 <!-- screenshot here -->
 
-## 4. Dive deeper
+## Dive deeper...
 
 Now that you have a component preview to experiment with, dig into the [preview docs](/guide/previews) to learn more about creating additional examples, [adding annotations](/guide/annotations) and more.
 

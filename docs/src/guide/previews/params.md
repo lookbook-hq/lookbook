@@ -37,9 +37,18 @@ The `@param` tag takes the following format:
 @param <name> <input_type> <opts?>
 ```
 
-- `<name>` - name of the preview param (should match example method argument key)
-- `<input_type>` - input field type to generate in the UI
-- `<opts?>` - YAML-encoded field options (or [path to a JSON file of options](#json-param-options)), used for some field types
+{%= options_list do |list| %}
+  {% list.option name: "<name>" do %}
+    Name of the preview param (should match example method argument key)
+  {% end %}
+  {% list.option name: "<input_type>" do %}
+    Input field type to generate in the UI
+  {% end %}
+  {% list.option name: "<opts?>" do %}
+    YAML-encoded field options (or [path to a JSON file of options](#json-param-options)), used for some field types
+  {% end %}
+{% end %}  
+
 
 ```ruby
 class ButtonComponentPreview < ViewComponent::Preview
@@ -90,7 +99,12 @@ Dropdown select field for selecting from a list of known options.
 @param <name> select <options>
 ```
 
-`<options>` should be a [YAML array](https://yaml.org/YAML_for_ruby.html#simple_inline_array) of options which must be formatted in the same style as the input for Rails' [`options_for_select`](https://apidock.com/rails/v6.0.0/ActionView/Helpers/FormOptionsHelper/options_for_select) helper:
+{%= options_list do |list| %}
+  {% list.option name: "<options>" do %}
+    A [YAML array](https://yaml.org/YAML_for_ruby.html#simple_inline_array) of options which must be formatted in the same style as the input for Rails' [`options_for_select`](https://apidock.com/rails/v6.0.0/ActionView/Helpers/FormOptionsHelper/options_for_select) helper.
+  {% end %}
+{% end %}  
+
 
 ```ruby
 # Basic options:
