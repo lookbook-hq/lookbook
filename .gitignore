@@ -8,3 +8,7 @@ tmp/
 .parcel-cache
 .yardoc
 
+.parcel-cache
+.bridgetown-cache
+docs/output
+*-refresh.css
