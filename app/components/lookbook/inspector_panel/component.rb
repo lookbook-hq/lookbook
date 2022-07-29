@@ -27,11 +27,10 @@ module Lookbook
             end
             style_tag.unlink
           end
-          @panel_html = panel_dom.to_html.html_safe
+          @panel_html = panel_dom.to_html.html_safe 
         end
-      else
-        @panel_html = content
       end
+      @panel_html ||= content
     end
   end
 end
