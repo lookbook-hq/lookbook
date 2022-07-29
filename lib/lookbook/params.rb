@@ -89,7 +89,7 @@ module Lookbook
           "Boolean"
         elsif default.is_a? Symbol
           "Symbol"
-        elsif ["date", "datetime-local"].include?(input&.downcase) || default.is_a? DateTime
+        elsif ["date", "datetime-local"].include?(input&.downcase) || default.is_a?(DateTime)
           "DateTime"
         else
           "String"
