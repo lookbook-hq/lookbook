@@ -1,6 +1,12 @@
 module Shared
   class OptionsList < Shared::Base
-    renders_many :options, "OptionListOption"
+    renders_many :options, ->(type = nil, **attrs, &block) do
+      if type == :divider
+        OptionListDivider.new(**attrs)
+      else
+        OptionListOption.new(**attrs)
+      end
+    end
 
     class OptionListOption < Shared::Base
 
@@ -23,11 +29,21 @@ module Shared
       end
       
       def call
-        tag.tr do
+        tag.tr class: "options-list-option" do
           safe_join([
             tag.td(class: "options-list-label") { @name },
             tag.td(class: "options-list-description") { description }
           ])
+        end
+      end
+    end
+
+    class OptionListDivider < Shared::Base            
+      def call
+        tag.tr class: "options-list-divider" do
+          tag.td(colspan: 2) do
+            tag.hr
+          end
         end
       end
     end

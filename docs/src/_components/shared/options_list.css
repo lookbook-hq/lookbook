@@ -12,6 +12,11 @@
     @apply space-x-2 text-xs mt-1 opacity-70 pb-1.5;
   }
 
+
+  .options-list-divider hr {
+    @apply h-0 border-b border-gray-300/70 border-dashed w-full my-2;
+  }
+
   code {
     @apply text-sm;
   }
