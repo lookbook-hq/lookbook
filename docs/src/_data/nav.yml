@@ -36,7 +36,7 @@ guide:
       
   - label: Extending
     items:
-      - label: Themes
+      - label: Theming
         url: /guide/extend/themes/
       - label: Inspector Panels
         url: /guide/extend/panels/

@@ -46,6 +46,8 @@ You can can access data about the page using the `@page` variable.
 The title of this page is "<%= @page.title %>".
 ```
 
+Because pages are rendered as ERB templates, it's possible to do things like [dynamically link to other pages](/guide/pages/variables/#method-page-path), [embed previews](/guide/pages/embedding/) directly in the page, [and more](/guide/pages/variables).
+
 ## Ordering pages and directories
 
 If you want to enforce a specific order for pages and directories in the Lookbook navigation you can prefix the file/directory basename with an 'order number' integer value followed by an underscore or hyphen.

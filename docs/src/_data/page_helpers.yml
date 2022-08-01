@@ -35,3 +35,24 @@
     } %>
   description: |
     Generates a live embed of a component preview. See the [docs on embedding previews](/guide/pages/embedding) for more info.
+
+
+- name: code
+  example_lang: erb
+  args: 
+    - name: <lang?>
+      type: Symbol
+      description: The language the code is written in. Defaults to `:ruby`
+  signature: "code <lang?> { <block_content> }"
+  example: |
+    <!-- Highlight Ruby code -->
+    <%= code do %>
+      # Ruby code to highlight goes here
+    <% end %>
+
+    <!-- Highlight a different language (HTML) -->
+    <%= code :html do %>
+      <!-- HTML code to highlight goes here -->
+    <% end %>
+  description: |
+    Helper to add syntax highlighting to blocks of code. An alternative to using markdown code blocks for templates that have markdown parsing disabled or for when more control is required.

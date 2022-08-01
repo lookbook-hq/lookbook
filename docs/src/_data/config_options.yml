@@ -95,7 +95,12 @@
   type: String
   default: "indigo"
   example: config.lookbook.ui_theme = "zinc"
-  description: The UI theme to use.
+  description: | 
+    The UI theme to use. Available options are:
+    
+    - `indigo` (default)
+    - `blue`
+    - `zinc`
 
 - name: ui_theme_overrides
   group: ui
