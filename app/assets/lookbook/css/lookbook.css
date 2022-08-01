@@ -50,6 +50,6 @@
   .form-input {
     @apply text-lookbook-input-text placeholder:text-lookbook-input-text-placeholder placeholder:italic;
     @apply border-lookbook-input-border focus:ring-lookbook-input-border-focus focus:border-lookbook-input-border-focus;
-    @apply rounded-md text-sm w-full bg-lookbook-input;
+    @apply rounded-md text-sm w-full bg-lookbook-input-bg;
   }
 }

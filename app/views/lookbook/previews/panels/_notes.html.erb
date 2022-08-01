@@ -1,6 +1,6 @@
 <% items = examples.select { |example| example.notes.present? } %>
 <% if items.many? %>
-  <div class="divide-y divide-dashed divide-lookbook-divider bg-lookbook-prose h-full w-full">
+  <div class="divide-y divide-dashed divide-lookbook-divider bg-lookbook-prose-bg h-full w-full">
     <% items.each do |item| %>
       <div class="px-4 py-6 relative">
         <h6 class="italic font-mono mb-4 opacity-40">
@@ -11,7 +11,7 @@
     <% end %>
   </div>
 <% else %>
-  <div class="p-4 bg-lookbook-prose w-full h-full">
+  <div class="p-4 bg-lookbook-prose-bg w-full h-full">
     <%= render_component :prose do %>
       <%== items.any? ? items.first.notes : "<em class='opacity-50'>No notes provided.</em>" %>
     <% end %>

@@ -4,11 +4,11 @@
     x-data="{}"
     @navigation:complete.window="$refs.scroller.scrollTop = 0">
   
-    <div class="h-full bg-lookbook-page relative">
+    <div class="h-full bg-lookbook-page-bg relative">
       <% unless @error %>
         
         <div class="absolute top-0 right-0 pt-1 pr-0 pl-1 pb-1 rounded-bl-md">
-          <div class="bg-lookbook-page opacity-90 absolute inset-0 w-full h-full z-0"></div>
+          <div class="bg-lookbook-page-bg opacity-90 absolute inset-0 w-full h-full z-0"></div>
           <div class="relative z-10 flex items-center">
           
           <% if @previous_page %>

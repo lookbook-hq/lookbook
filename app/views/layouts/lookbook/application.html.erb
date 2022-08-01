@@ -4,7 +4,7 @@
       alpine_data: "$store.layout.main",
       ":class": "$store.layout.mobile && '!block'" do |layout| %>
 
-      <% layout.pane id: "app-sidebar", class: "flex flex-col bg-lookbook-sidebar relative translate-x-0",
+      <% layout.pane id: "app-sidebar", class: "flex flex-col bg-lookbook-sidebar-bg relative translate-x-0",
         ":class": "{
           'transition': $store.layout.mobile,
           'translate-x-full': $store.layout.mobile && sidebarHidden,

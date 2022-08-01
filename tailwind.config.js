@@ -8,6 +8,7 @@ module.exports = {
     "./app/components/**/*.rb",
     "./app/components/**/*.js",
     "./app/assets/**/*.js",
+    // "./theme/theme.json",
     "./app/controllers/**/*.rb",
     "./spec/components/**/*.rb",
     "./spec/components/**/*.html.erb",
@@ -23,10 +24,8 @@ module.exports = {
         ...lookbookTheme,
       },
       fontFamily: {
-        mono:
-          "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace",
-        sans:
-          '"Nunito Sans", -apple-system, ".SFNSText-Regular", "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif',
+        mono: "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace",
+        sans: '"Nunito Sans", -apple-system, ".SFNSText-Regular", "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif',
       },
     },
   },

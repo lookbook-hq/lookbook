@@ -63,7 +63,7 @@
     </div>
   <% end %>
 
-  <%= layout.pane class: "flex flex-col h-full overflow-hidden bg-lookbook-drawer",
+  <%= layout.pane class: "flex flex-col h-full overflow-hidden bg-lookbook-drawer-bg",
     "x-show": "!$store.inspector.drawer.hidden && #{@drawer_panels.any?}" do %>
 
     <%= render_component :toolbar do |toolbar| %>
