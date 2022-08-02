@@ -1,0 +1,23 @@
+{%= object_list do |list| %}
+  {% objects.each do |object| %}
+    {% list.object name: object[:name], example_lang: (object[:example_lang] || :erb) do |item| %}
+      {% if object[:example] %}
+        {% item.example do %}
+          {%= object[:example] %}
+        {% end %}
+      {% end %}
+      {% if object[:description] %}
+        {% item.description do %}{{ object[:description] }}{% end %}
+      {% end %}
+      {% if (object[:methods] || []).any? %}
+        {% item.methods_list do |methods_list| %}
+          {% object[:methods].each do |m| %}
+            {% methods_list.option name: m[:name], type: m[:type] do %}
+              {%= m[:description] %}
+            {% end %}
+          {% end %}
+        {% end %}
+      {% end %}
+    {% end %}
+  {% end %}
+{% end %}

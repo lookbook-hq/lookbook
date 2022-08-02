@@ -32,6 +32,10 @@ class Builders::Components < SiteBuilder
       view.render Shared::OptionsList.new(**attrs), &block
     end
 
+    helper :object_list, helpers_scope: true do |attrs = {}, &block|
+      view.render Shared::ObjectList.new(**attrs), &block
+    end
+
     helper "toc", :toc_template
   end
 
