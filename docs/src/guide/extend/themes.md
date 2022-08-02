@@ -40,8 +40,6 @@ config.lookbook.ui_theme = "blue"
 
 {{ image "theme_zinc.png" }}
 
-{{toc}}
-
 
 ## Theme customisation
 
@@ -234,7 +232,11 @@ config.lookbook.ui_theme_overrides = {
 }
 ```
 
-If you are happy with the `base` color scale, there is no need to redefine it - often the default gray scale works well for many themes.
+{{ image "theme_custom_emerald.png" }}
+
+{%= note :info do %}
+If you are happy with the `base` color scale, there is no need to redefine it - the default gray scale should work well for most themes.
+{% end %}
 
 And you can always override a specific color variable too once you have defined your own scale:
 
@@ -319,3 +321,5 @@ config.lookbook.ui_theme_overrides = {
 {%= note :info do %}
 Themes often work best when the base colour is a type of gray, with the accent a brighter, more vibrant color.
 {% end %}
+
+{{toc}}

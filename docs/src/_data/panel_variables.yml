@@ -1,0 +1,79 @@
+- name: panel
+  example: |
+    <p>
+      This <%= panel.label %> panel can be switched
+      to using the keyboard shortcut <%= panel.hotkey %>
+    </p>
+  description: |
+    The **resolved** [panel options](#panel-options) object (see above for details)
+
+
+- name: preview
+  methods: 
+    - name: id
+      description: Unique reference ID
+    - name: label
+      description: Preview label, as used in the navigation
+    - name: full_path
+      description: Full filesystem path to the preview class file
+    - name: url_path
+      description: URL of the preview in Lookbook
+  example: |
+    <h2>This is the <%= preview.label %> preview</h2>
+  description: |
+    An object representing the current preview.
+
+  
+- name: examples
+  methods: 
+    - name: example.output
+      description: The rendered preview example output
+    - name: example.source
+      description: The example source code (String)
+    - name: example.source_lang
+      description: Hash of information about the source language (Ruby or HTML/ERB, depending on whether the example uses a preview template)
+    - name: example.id
+      description: ...
+    - name: example.label
+      description: ...
+    - name: example.full_path
+      description: ...
+    - name: example.url_path
+      description: ...
+  example: |
+    <p>This preview is showing <%= examples.size %> examples rendered together.</p>
+    <p>Here is the source code for each example:</p>
+    <% examples.each do |example| %>
+      <div>
+        <%= example.source %>
+      <div>
+    <% end %>
+  description: |
+    An array of objects representing the individual examples being rendered in the current preview. For **non-grouped** (i.e. regular) **previews**, this array will always **only have one item**.
+    
+    Each example object in the array has the following properties:
+
+- name: context
+  methods: 
+    - name: preview_params
+      description: Hash of supplied preview parameters, if any
+    - name: path
+      description: URL path of the current page
+  example: |
+    <p>Current URL path: <%= context.path %></p>
+  description: |
+    Request context data
+
+- name: app
+  methods: 
+    - name: previews
+      description: Collection of all preview objects
+    - name: pages
+      description: Collection of all page objects
+    - name: logger
+      description: Lookbook logger instance
+  example: |
+    <p>There are <%= app.previews.size %> previews available.</p>
+    <% Logger.info("Successfully output the number of previews") %>
+  description: |
+    The main `Lookbook` app instance.
