@@ -9,12 +9,13 @@ module Shared
       end
     end
 
-    attr_reader :name, :title, :example_lang
+    attr_reader :name, :title, :example_lang, :display_signature
 
     def initialize(name: , title: nil, example_lang: :erb, signature: nil, **attrs)
       @name = name
       @title = title || name.to_s
       @example_lang = example_lang
+      @display_signature = signature != false
       @signature = signature || name.to_s
       @attrs = attrs
     end

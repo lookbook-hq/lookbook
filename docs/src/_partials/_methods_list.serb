@@ -9,7 +9,7 @@
       {% if method[:description] %}
         {% item.description do %}{{ method[:description] }}{% end %}
       {% end %}
-      {% if method[:args].any? %}
+      {% if (method[:args] || []).any? %}
         {% item.options_list do |options| %}
           {% method[:args].each do |arg| %}
             {% options.option name: arg[:name], type: arg[:type] do %}

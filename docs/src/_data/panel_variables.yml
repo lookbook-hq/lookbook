@@ -64,6 +64,12 @@
   description: |
     Request context data
 
+- name: data
+  example: |
+    <p>Current URL path: <%= context.path %></p>
+  description: |
+    Shortcut for accessing the `Lookbook.data` store.
+
 - name: app
   methods: 
     - name: previews

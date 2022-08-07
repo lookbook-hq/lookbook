@@ -42,6 +42,7 @@ guide:
         url: /guide/extend/panels/
       - label: Lifecycle Hooks
         url: /guide/extend/hooks/
+        
 api:
   - label: Configuration
     items:

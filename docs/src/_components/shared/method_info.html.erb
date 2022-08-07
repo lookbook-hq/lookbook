@@ -10,9 +10,11 @@
         <%= markdownify description %>
       </div>
     <% end %>
-    <div>
-      <%= markdownify signature %>
-    </div>
+    <% if display_signature %>
+      <div>
+        <%= markdownify signature %>
+      </div>
+    <% end %>
     <% if options_list %>
       <%= options_list %>
     <% end %>

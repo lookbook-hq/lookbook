@@ -101,7 +101,7 @@ Lookbook.define_panel(:info, {
 })
 ```
 
-All panel option values can be provided either as a **simple static value** or as a **lambda function**. Lambdas will receive a data object relating to the currently active preview/example. For example:
+All panel option values can be provided either as a **simple static value** or as a **lambda function**. Lambdas receive a single object with data relating to the currently active preview/example. For example:
 
 ```ruby
 {
