@@ -48,6 +48,10 @@ module Lookbook
       Page.any?
     end
 
+    def data
+      @data ||= Store.new
+    end
+
     def after_initialize(&block)
       add_hook(:after_initialize, block)
     end
