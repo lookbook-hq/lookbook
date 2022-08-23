@@ -47,6 +47,16 @@ module Lookbook
       redirect_to lookbook_inspect_path params[:path]
     end
 
+    # Namespaced preview helpers
+
+    def lookbook_display(key, fallback = nil)
+      params.dig(:lookbook, :display, key.to_sym) || fallback
+    end
+
+    def lookbook_data(key, fallback = nil)
+      Lookbook.data.get(key, fallback)
+    end
+
     private
 
     def lookup_entities
@@ -98,10 +108,11 @@ module Lookbook
             preview_controller.params[param[:name]] = Lookbook::Params.cast(preview_controller.params[param[:name]], param[:type])
           end
         end
-        # set display params
+        # set display and data params
         preview_controller.params.merge!({
           lookbook: {
-            display: @example.display_params
+            display: @example.display_params,
+            data: Lookbook.data
           }
         })
       end
@@ -146,6 +157,7 @@ module Lookbook
         preview: preview,
         examples: examples,
         components: preview.components,
+        data: Lookbook.data,
         app: Lookbook
       })
     end
