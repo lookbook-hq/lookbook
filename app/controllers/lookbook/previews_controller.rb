@@ -156,7 +156,7 @@ module Lookbook
         context: context_data,
         preview: preview,
         examples: examples,
-        components: preview.components,
+        example: example,
         data: Lookbook.data,
         app: Lookbook
       })
