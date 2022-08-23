@@ -21,6 +21,14 @@ module Lookbook
       self
     end
 
+    def get(key, fallback = nil)
+      if self.key?(normalize_key(key))
+        self[normalize_key(key)]
+      else
+        fallback
+      end
+    end
+
     def method_missing(name, *args)
       super(normalize_key(name), *args.map { |arg| normalize_value(arg) })
     end
