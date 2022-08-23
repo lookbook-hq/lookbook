@@ -56,7 +56,7 @@
       <%= render_component :tab_panels, alpine_data: "$store.inspector.main" do |tabs| %>
         <% @main_panels.each do |panel| %>
           <% tabs.panel id: panel.id, name: panel.name, class: [panel.panel_classes, { "p-4": panel.padded, "prose": panel.prose }] do %>
-            <%= render panel.partial, **@inspector_data, panel: panel, data: Lookbook.data, **panel.locals %>
+            <%= render panel.partial, **@inspector_data, panel: panel, **panel.locals %>
           <% end %>
         <% end %>
       <% end %>
@@ -125,7 +125,7 @@
         <% @drawer_panels.each do |panel| %>
           <% tabs.panel id: panel.id, name: panel.name, class: [panel.panel_classes, { "p-4": panel.padded, "prose": panel.prose }]  do %>
             <%= render_component :inspector_panel, **panel.slice(:id, :name, :system) do %>
-              <%= render panel.partial, **@inspector_data, panel: panel, data: Lookbook.data, **panel.locals %>
+              <%= render panel.partial, **@inspector_data, panel: panel, **panel.locals %>
             <% end %>
           <% end %>
         <% end %>
