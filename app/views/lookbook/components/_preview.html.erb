@@ -47,7 +47,7 @@
               <%= icon "refresh-cw", size: 3.5, class: "hover:text-indigo-800" %>
           </button>
           <a
-            href="<%= lookbook_preview_path %>"
+            href="<%= lookbook_preview_path(request.query_parameters) %>"
             target="_blank"
             x-tooltip.theme.lookbook="`Open in new window`"
             data-hotkey="w">
