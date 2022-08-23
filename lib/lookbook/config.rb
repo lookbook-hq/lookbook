@@ -99,23 +99,6 @@ module Lookbook
             system: true
           }
         },
-
-        inspector_panel_defaults: {
-          id: ->(data) { "inspector-panel-#{data.name}" },
-          partial: "lookbook/previews/panels/content",
-          content: nil,
-          label: ->(data) { data.name.titleize },
-          pane: :drawer,
-          position: ->(data) { data.index_position },
-          hotkey: nil,
-          disabled: false,
-          show: true,
-          copy: nil,
-          panel_classes: nil,
-          locals: {},
-          padded: true,
-          system: false
-        },
       })
     end
 
@@ -170,16 +153,13 @@ module Lookbook
     end
 
     def define_inspector_panel(name, opts = {})
-      @options.inspector_panels[name] = opts
-      if opts[:position].present?
-        pane = inspector_panels[name].pane.presence || :drawer
-        siblings = inspector_panels.select do |key, panel|
-          panel.pane == pane && key != name.to_sym
-        end
-        siblings.each do |key, panel|
-          if panel.position >= opts[:position]
-            panel.position += 1
-          end
+      pane = opts[:pane].presence || :drawer
+      siblings = inspector_panels.select { |key, panel| panel.pane == pane }
+      opts[:position] ||= siblings.size + 1
+      @options.inspector_panels[name] = opts      
+      siblings.each do |key, panel|
+        if panel.position >= opts[:position]
+          panel.position += 1
         end
       end
     end
@@ -194,6 +174,25 @@ module Lookbook
 
     def remove_inspector_panel(name)
       amend_inspector_panel(name, false)
+    end
+
+    def inspector_panel_defaults
+      {
+        id: ->(data) { "inspector-panel-#{data.name}" },
+        partial: "lookbook/previews/panels/content",
+        content: nil,
+        label: ->(data) { data.name.titleize },
+        pane: :drawer,
+        position: ->(data) { data.index_position },
+        hotkey: nil,
+        disabled: false,
+        show: true,
+        copy: nil,
+        panel_classes: nil,
+        locals: {},
+        padded: true,
+        system: false
+      }
     end
 
     def ui_theme=(name)
