@@ -52,6 +52,10 @@ module Lookbook
       @data ||= Store.new
     end
 
+    def data=(props)
+      @data = Store.new(props)
+    end
+
     def after_initialize(&block)
       add_hook(:after_initialize, block)
     end
