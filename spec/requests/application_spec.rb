@@ -5,6 +5,7 @@ RSpec.describe "application", type: :request do
   context "header" do
     before(:context) do
       get lookbook_path
+      follow_redirect!
     end
 
     it "is displayed" do
@@ -19,6 +20,7 @@ RSpec.describe "application", type: :request do
   context "main" do
     before(:context) do
       get lookbook_path
+      follow_redirect!
     end
 
     it "is displayed" do
@@ -30,6 +32,7 @@ RSpec.describe "application", type: :request do
     before(:context) do
       load_previews
       get lookbook_path
+      follow_redirect!
     end
 
     it "displays the sidebar" do
