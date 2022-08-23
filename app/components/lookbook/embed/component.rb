@@ -11,6 +11,14 @@ module Lookbook
 
     protected
 
+    def lookbook_inspect_path(*args)
+      Lookbook::Engine.routes.url_helpers.lookbook_inspect_path(*args)
+    end
+
+    def lookbook_preview_path(*args)
+      Lookbook::Engine.routes.url_helpers.lookbook_preview_path(*args)
+    end
+
     def alpine_data
       [@id.to_json, "$store.pages.embeds"].join(",")
     end
