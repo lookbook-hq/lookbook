@@ -21,6 +21,10 @@ module Lookbook
       end
     end
 
+    def design
+      extract_params_from_tag(:design)
+    end
+
     def label
       code_object&.tag(:label)&.text
     end
@@ -40,20 +44,7 @@ module Lookbook
     end
 
     def display_params
-      display_params = {}.with_indifferent_access
-      if code_object&.tags(:display).present?
-        code_object.tags(:display).each do |tag|
-          parts = tag.text.strip.match(/^([^\s]*)\s?(.*)$/)
-          if parts.present?
-            begin
-              display_params[parts[1]] = YAML.safe_load(parts[2] || "~")
-            rescue SyntaxError => err
-              Lookbook.logger.error("\n👀 [Lookbook] Invalid JSON in @display tag.\n👀 [Lookbook] (#{err})\n")
-            end
-          end
-        end
-      end
-      display_params
+      extract_params_from_tag(:display)
     end
 
     def parameter_defaults
@@ -68,6 +59,25 @@ module Lookbook
 
     def methods
       code_object&.meths
+    end
+
+    private
+
+    def extract_params_from_tag(tag)
+      params = {}.with_indifferent_access
+      if code_object&.tags(tag).present?
+        code_object.tags(tag).each do |tag|
+          parts = tag.text.strip.match(/^([^\s]*)\s?(.*)$/)
+          if parts.present?
+            begin
+              params[parts[1]] = YAML.safe_load(parts[2] || "~")
+            rescue SyntaxError => err
+              Lookbook.logger.error("\n👀 [Lookbook] Invalid JSON in @#{tag} tag.\n👀 [Lookbook] (#{err})\n")
+            end
+          end
+        end
+      end
+      params
     end
   end
 end

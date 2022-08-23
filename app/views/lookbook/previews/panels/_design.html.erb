@@ -1,0 +1,32 @@
+<% items = examples.select { |example| example[:design].present? } %>
+
+<div class="text-gray-600 bg-gray-50 h-full overflow-auto" data-morph-strategy="replace">
+  <% if items.many? %>
+    <div class="divide-y divide-dashed divide-gray-300">
+      <% items.each do |item| %>
+        <% raise items %>
+        <div class="px-4 pt-3 pb-6 relative">
+          <h6 class="text-[11px] text-gray-500 italic inline-block uppercase tracking-wide mb-4">
+            <%= item[:label] %>
+          </h6>
+          <div class="prose prose-sm prose-a:text-indigo-900">
+            <% if items.first.key?(:figma) %>
+              <%= tag.iframe src: "https://www.figma.com/embed?embed_host=share&url=#{CGI.escape(item[:design][:figma])}", class: "w-screen h-screen" %>
+            <% end %>
+          </iframe>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="p-4 prose prose-sm prose-a:text-indigo-900">
+      <% if items.any? %>
+        <% if items.first[:design].key?(:figma) %>
+          <%= tag.iframe src: "https://www.figma.com/embed?embed_host=share&url=#{CGI.escape(items.first[:design][:figma])}", class: "w-screen h-screen" %>
+        <% end %>
+      <% else %>
+        <em class='opacity-50'>No design provided.</em>
+      <% end %>
+    </div>
+  <% end %>
+</div>

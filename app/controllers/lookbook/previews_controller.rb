@@ -67,6 +67,7 @@ module Lookbook
       render_args = @preview.render_args(example.name, params: preview_controller.params.permit!)
       has_template = render_args[:template] != "view_components/preview"
       {
+        design: example.design,
         label: example.label,
         notes: example.notes,
         html: preview_controller.process(:render_example_to_string, @preview, example.name),
@@ -127,6 +128,13 @@ module Lookbook
           show: true,
           disabled: false,
           copy: true
+        },
+        design: {
+          label: "Design",
+          template: "lookbook/previews/panels/design",
+          hotkey: "d",
+          show: true,
+          disabled: @examples.select { |e| e[:design].present? }.none?
         },
         notes: {
           label: "Notes",

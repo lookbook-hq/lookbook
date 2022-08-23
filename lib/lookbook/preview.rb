@@ -3,7 +3,7 @@ module Lookbook
     include Utils
 
     delegate :name, :render_args, to: :@preview
-    delegate :position, :group, :notes, :hidden?, to: :@preview_inspector
+    delegate :position, :group, :design, :notes, :hidden?, to: :@preview_inspector
 
     def initialize(preview)
       @preview = preview
@@ -16,6 +16,10 @@ module Lookbook
 
     def preview_class
       @preview.name
+    end
+
+    def design
+      @preview_inspector&.design&.presence || lookup_path.split("/").last.titleize
     end
 
     def label

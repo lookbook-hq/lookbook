@@ -26,6 +26,7 @@ module Lookbook
     class << self
       def define_tags
         YARD::Tags::Library.define_tag("Hidden status", :hidden)
+        YARD::Tags::Library.define_tag("Design", :design)
         YARD::Tags::Library.define_tag("Label", :label)
         YARD::Tags::Library.define_tag("Display", :display)
         YARD::Tags::Library.define_tag("Position", :position)
