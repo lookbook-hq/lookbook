@@ -66,9 +66,9 @@
 
 - name: data
   example: |
-    <p>Current URL path: <%= context.path %></p>
+    <p>My custom data variable value: <%= data.my_variable %></p>
   description: |
-    Shortcut for accessing the `Lookbook.data` store.
+    Shortcut for accessing the [`Lookbook.data` store](/guide/extend/data/).
 
 - name: app
   methods: 

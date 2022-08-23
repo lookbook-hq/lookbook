@@ -15,6 +15,8 @@ guide:
         url: /guide/previews/overview/
       - label: Using Annotations
         url: /guide/previews/annotating/
+      - label: Preview Layouts
+        url: /guide/previews/layouts/
       - label: Customising the Nav
         url: /guide/previews/navigation/
       - label: Grouping Examples
@@ -38,6 +40,8 @@ guide:
     items:
       - label: Theming
         url: /guide/extend/themes/
+      - label: Custom Data
+        url: /guide/extend/data/
       - label: Inspector Panels
         url: /guide/extend/panels/
       - label: Lifecycle Hooks

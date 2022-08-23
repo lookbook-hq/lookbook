@@ -8,8 +8,6 @@ By default, each preview example will be listed in the navigation and will be re
 However for previews of small components that may have many examples (e.g. an icon component with an example per available icon)
 it often makes more sense to group some or all of those examples so that they are all rendered together in a single preview.
 
-{{toc}}
-
 ## When to use groups
 
 The following `Header` component preview contains four examples:
@@ -162,7 +160,7 @@ In this case, the group `<label>` (if specified) has no effect, but the preview 
 ## Customising group rendering
 
 If you wish to customise the way that the grouped examples are displayed in the preview,
-you can override Lookbook's default preview template.
+you can override Lookbook's default rendered output template.
 
 To do so, create a new view template within your app at `./app/views/lookbook/preview.html.erb`.
 This is the template that will now be used to render all Lookbook previews (not just grouped ones!).
@@ -189,6 +187,8 @@ The default template looks as follows, and is worth using as a starting point:
 As you can see it needs to handle both the case where a single example is being rendered,
 and the case when multiple (i.e. grouped) examples are being rendered together.
 
-This will be rendered in the context of your own application/preview layout
+This will be rendered in the context of your own [application/preview layout](/guide/previews/layout/)
 so you are free to use any CSS styles or classes that your app provides, rather than the inline styles in the 
 default template contents.
+
+{{toc}}
