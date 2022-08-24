@@ -6,8 +6,17 @@ require "listen"
 module Lookbook
 
   autoload :Config, "lookbook/config"
-  
+  autoload :Data, "lookbook/data"
+  autoload :Hooks, "lookbook/hooks"
+  autoload :Panels, "lookbook/panels"
+  autoload :Tags, "lookbook/tags"
+
   class << self
+    include Lookbook::Data
+    include Lookbook::Hooks
+    include Lookbook::Panels
+    include Lookbook::Tags
+
     def version
       Lookbook::VERSION
     end
@@ -48,50 +57,12 @@ module Lookbook
       Page.any?
     end
 
-    def data
-      @data ||= Store.new
-    end
-
-    def data=(props)
-      @data = Store.new(props)
-    end
-
-    def after_initialize(&block)
-      add_hook(:after_initialize, block)
-    end
-
-    def before_exit(&block)
-      add_hook(:before_exit, block)
-    end
-
-    def after_change(&block)
-      add_hook(:after_change, block)
-    end
-
-    def define_panel(name, opts = {})
-      config.define_inspector_panel(name, opts)
-    end
-
-    def amend_panel(name, opts = {})
-      config.amend_inspector_panel(name, opts)
-    end
-
-    def remove_panel(name)
-      config.remove_inspector_panel(name)
-    end
-
     def broadcast(event_name, data = {})
       Engine.websocket&.broadcast(event_name.to_s, data)
     end
 
     def theme
       @theme ||= Lookbook::Theme.new(config.ui_theme, config.ui_theme_overrides)
-    end
-
-    protected
-
-    def add_hook(event_name, block)
-      config.hooks[event_name] << block
     end
   end
 

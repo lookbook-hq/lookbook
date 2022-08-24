@@ -11,6 +11,7 @@ module Lookbook
   autoload :Lang, "lookbook/lang"
   autoload :Params, "lookbook/params"
   autoload :Page, "lookbook/page"
+  autoload :Tag, "lookbook/tag"
   autoload :PageSection, "lookbook/page_section"
   autoload :PageCollection, "lookbook/page_collection"
   autoload :Features, "lookbook/features"
