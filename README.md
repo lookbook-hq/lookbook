@@ -14,7 +14,7 @@ _For code and documentation for the current stable release see the [main branch]
 
 The new (work-in-progress) **documentation site** for Lookbook v1.0 is available here:
 
-👉 **https://lookbook-docs-v1-beta.netlify.app/** 👈
+👉 **https://beta.lookbook.build/** 👈
 
 > Documentation source files are located in the `/docs` directory within this repository. The docs are built using [Bridgetown](https://www.bridgetownrb.com/).
 
