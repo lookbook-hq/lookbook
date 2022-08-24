@@ -60,151 +60,16 @@ config.lookbook.ui_theme_overrides = {
 The following variables can be overridden in your application config:
 
 {%= options_list do |list| %}
-  {% list.option name: "text" do %}
-    Base text color
+  {% site.data.theme_variables.group_by { |var| var[:group] }.each_with_index do |(key, vars), i| %}
+    {% vars.each do |var| %}
+      {% list.option name: var[:name] do %}
+        {{ var[:description] }}
+      {% end %}
+    {% end %}
+    {% unless i == vars.size - 1 %}
+      {% list.option :divider %}
+    {% end %}    
   {% end %}
-  {% list.option name: "divider" do %}
-    Base divider (line) color
-  {% end %}
-
-  {% list.option :divider %}
-
-  {% list.option name: "header_bg" do %}
-    Header background color
-  {% end %}
-  {% list.option name: "header_text" do %}
-    Header text color
-  {% end %}
-  {% list.option name: "header_border" do %}
-    Header bottom border color
-  {% end %}
-  {% list.option name: "branding_text" do %}
-    Project name text color (defaults to value of `header_text`)
-  {% end %}
-
-  {% list.option :divider %}
-
-  {% list.option name: "sidebar_bg" do %}
-    Sidebar background color
-  {% end %}
-  {% list.option name: "page_bg" do %}
-    Page background color
-  {% end %}
-  {% list.option name: "drawer_bg" do %}
-    Preview inspector drawer background color
-  {% end %}
-
-  {% list.option :divider %}
-
-  {% list.option name: "icon_button_stroke" do %}
-    Icon button stroke color
-  {% end %}
-  {% list.option name: "icon_button_stroke_hover" do %}
-    Icon button stroke color on hover
-  {% end %}
-
-  {% list.option name: "tooltip_bg" do %}
-    Tooltip background color
-  {% end %}
-  {% list.option name: "tooltip_text" do %}
-    Tooltip text color
-  {% end %}
-
-  {% list.option name: "scrollbar" do %}
-    Scrollbar background color
-  {% end %}
-  {% list.option name: "scrollbar_hover" do %}
-    Scrollbar background color on hover
-  {% end %}
-
-  {% list.option :divider %}
-
-  {% list.option name: "toolbar_bg" do %}
-    Toolbar background color
-  {% end %}
-  {% list.option name: "toolbar_divider" do %}
-    Toolbar divider color (defaults to value of `divider`)
-  {% end %}
-
-  {% list.option name: "tabs_text" do %}
-    Tabs text color
-  {% end %}
-  {% list.option name: "tabs_text_hover" do %}
-    Tabs text color on hover
-  {% end %}
-  {% list.option name: "tabs_text_disabled" do %}
-    Disabled tabs text color
-  {% end %}
-  {% list.option name: "tabs_border_active" do %}
-    Bottom border color for active tabs
-  {% end %}
-  
-  {% list.option :divider %}
-
-  {% list.option name: "nav_text" do %}
-    Navigation text color
-  {% end %}
-  {% list.option name: "nav_toggle" do %}
-    Navigation toggle (arrow) color
-  {% end %}
-  {% list.option name: "nav_icon_stroke" do %}
-    Navigation icon stroke color
-  {% end %}
-  {% list.option name: "nav_item_hover" do %}
-    Navigation item background color on hover
-  {% end %}
-  {% list.option name: "nav_item_active" do %}
-    Navigation item background color when active
-  {% end %}
-
-  {% list.option :divider %}
-
-  {% list.option name: "input_bg" do %}
-    Form input background color
-  {% end %}
-  {% list.option name: "input_border" do %}
-    Form input border color
-  {% end %}
-  {% list.option name: "input_border_focus" do %}
-    Form input border color on focus
-  {% end %}
-  {% list.option name: "input_text" do %}
-    Form input text color
-  {% end %}
-  {% list.option name: "input_text_placeholder" do %}
-    Form input placeholder text color
-  {% end %}
-  {% list.option name: "input_toggle" do %}
-    'Toggle' input background color
-  {% end %}
-  {% list.option name: "input_toggle_active" do %}
-    'Toggle' input background color when active
-  {% end %}
-
-  {% list.option :divider %}
-
-  {% list.option name: "prose_bg" do %}
-    Prose area background color
-  {% end %}
-  {% list.option name: "prose_text" do %}
-    Prose area text color
-  {% end %}
-  {% list.option name: "prose_link" do %}
-    Prose area link color
-  {% end %}
-
-  {% list.option :divider %}
-
-  {% list.option name: "viewport_handle" do %}
-    Viewport resize handle background color
-  {% end %}
-  {% list.option name: "viewport_handle_icon_stroke" do %}
-    Viewport resize handle icon stroke color
-  {% end %}
-  {% list.option name: "viewport_handle_icon_stroke_hover" do %}
-    Viewport resize handle icon stroke color on hover
-  {% end %}
-
 {% end %}
 
 ### Using color scales
