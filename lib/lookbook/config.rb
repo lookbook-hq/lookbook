@@ -38,6 +38,7 @@ module Lookbook
 
         ui_theme: "indigo",
         ui_theme_overrides: {},
+        ui_favicon: true,
 
         hooks: {
           after_initialize: [],

@@ -24,7 +24,7 @@ module Lookbook
     protected
 
     def generate_theme_overrides
-      @theme_overrides ||= Lookbook::Theme.new(Lookbook.config.ui_theme_overrides).to_css
+      @theme_overrides ||= Lookbook.theme.to_css
     end
 
     def feature_enabled?(feature)

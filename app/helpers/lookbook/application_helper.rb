@@ -4,6 +4,15 @@ module Lookbook
       Lookbook::Engine.config.lookbook
     end
 
+    def theme
+      Lookbook.theme
+    end
+
+    def asset_path(file, version: true)
+      path = "/lookbook-assets/#{file}".gsub("//", "/")
+      version ? "#{path}?v=#{Lookbook::VERSION}" : path
+    end
+
     def feature_enabled?(name)
       Lookbook::Features.enabled?(name)
     end

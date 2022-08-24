@@ -1,18 +1,47 @@
 module Lookbook
   class Theme
+    BASE_THEMES = {
+      indigo: {
+        favicon_light_mode: "#4F46E5",
+        favicon_dark_mode: "#818CF8"
+      },
+      zinc: {
+        favicon_light_mode: "#52525b",
+        favicon_dark_mode: "#E4E4E7"
+      },
+      blue: {
+        favicon_light_mode: "#2563EB",
+        favicon_dark_mode: "#60a5fa"
+      }
+    }
 
-    BASE_THEMES = [:indigo, :zinc, :blue]
-
-    def initialize(config = {})
-      @config = config
+    def initialize(base_theme, overrides = {})
+      @base_theme = base_theme
+      @overrides = overrides
       @css = nil
+    end
+
+    def favicon_light_mode
+      (
+        @overrides[:favicon_light_mode].presence ||
+        @overrides[:favicon].presence ||
+        BASE_THEMES[@base_theme.to_sym][:favicon_light_mode]
+      )
+    end
+
+    def favicon_dark_mode
+      (
+        @overrides[:favicon_dark_mode].presence ||
+        @overrides[:favicon].presence ||
+        BASE_THEMES[@base_theme.to_sym][:favicon_dark_mode]
+      )
     end
 
     def to_css
       return @css unless @css.nil?
-      @css ||= if @config.present?
+      @css ||= if @overrides.present?
         styles = [":root {"]
-        styles << @config.map do |key, value|
+        styles << @overrides.select { |key| !key.start_with?("favicon") }.map do |key, value|
           "  --lookbook-#{key.to_s.underscore.gsub("_","-")}: #{value};"
         end
         styles.push "}"
@@ -23,7 +52,7 @@ module Lookbook
     end
 
     def self.valid_theme?(name)
-      BASE_THEMES.include? name.to_sym
+      BASE_THEMES.key? name.to_sym
     end
   end
 end

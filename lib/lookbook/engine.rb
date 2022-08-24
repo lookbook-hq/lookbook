@@ -84,6 +84,10 @@ module Lookbook
       Engine.websocket&.broadcast(event_name.to_s, data)
     end
 
+    def theme
+      @theme ||= Lookbook::Theme.new(config.ui_theme, config.ui_theme_overrides)
+    end
+
     protected
 
     def add_hook(event_name, block)
