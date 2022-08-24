@@ -2,7 +2,7 @@ guide:
   - label: Introduction
     items:
       - label: What is Lookbook?
-        url: /guide/overview/
+        url: /guide/
       - label: Getting Started
         url: /guide/getting-started/
       - label: Configuration
@@ -12,7 +12,7 @@ guide:
   - label: Previews
     items:
       - label: Overview
-        url: /guide/previews/overview/
+        url: /guide/previews/
       - label: Using Annotations
         url: /guide/previews/annotating/
       - label: Preview Layouts
@@ -28,7 +28,7 @@ guide:
   - label: Pages
     items:
       - label: Overview
-        url: /guide/pages/overview/
+        url: /guide/pages/
       - label: Frontmatter
         url: /guide/pages/frontmatter/
       - label: Variables & Helpers

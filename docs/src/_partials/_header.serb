@@ -18,7 +18,7 @@
       <nav class="ml-auto hidden md:block">
         <ul class="flex items-center space-x-8">
           <li>
-            <a href="/guide/overview"
+            <a href="/guide/"
               class="{{ url_segment(resource) == "guide" ? "text-indigo-500" : "opacity-60 hover:opacity-100" }}">
               <span>Guide</span>
             </a>

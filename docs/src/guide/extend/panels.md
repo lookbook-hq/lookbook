@@ -129,7 +129,7 @@ The `data` hash provided as the single argument to any lambda functions contains
 
 ## Panel templates
 
-Panel template files are just regular ERB partials. Unlike [pages](/guide/pages/overview/) they are **not** additionally parsed as markdown.
+Panel template files are just regular ERB partials. Unlike [pages](/guide/pages/) they are **not** additionally parsed as markdown.
 
 Each panel is has access to a number of variables and helpers that can be used to build dynamic content.
 

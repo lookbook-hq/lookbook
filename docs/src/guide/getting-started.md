@@ -114,6 +114,6 @@ You can create as many example methods as you like in order to showcase all the 
 
 ## Dive deeper...
 
-Now that you have a component preview to experiment with, dig into the [preview docs](/guide/previews/overview) to learn more about adding [annotations](/guide/previews/annotations), using [preview layouts](/guide/previews/layouts), [grouping examples](/guide/previews/grouping) and more.
+Now that you have a component preview to experiment with, dig into the [preview docs](/guide/previews) to learn more about adding [annotations](/guide/previews/annotations), using [preview layouts](/guide/previews/layouts), [grouping examples](/guide/previews/grouping) and more.
 
 {{ toc }}

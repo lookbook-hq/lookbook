@@ -9,7 +9,7 @@ title: Lookbook Documentation
       Lookbook is a tool to help develop, test and document ViewComponents in isolation from your main application.
     </p>
     <div class="flex items-center justify-center mt-10 space-x-4 text-gray-400">
-      <a href="/guide/overview" class="underline text-indigo-400">Learn more</a>
+      <a href="/guide/" class="underline text-indigo-400">Learn more</a>
       <em>or</em>
       <a href="/guide/getting-started" class="flex items-center px-8 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-md shadow-md tracking-wide">
         <span class="mr-2">Get Started</span>
