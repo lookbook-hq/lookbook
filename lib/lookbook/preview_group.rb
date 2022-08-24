@@ -49,6 +49,14 @@ module Lookbook
       @preview.hierarchy_depth + 1
     end
 
+    def tags(name = nil)
+      examples.map { |example| example.tags(name) }.flatten
+    end
+
+    def tag(name = nil)
+      tags(name).first
+    end
+
     alias_method :lookup_path, :path
   end
 end

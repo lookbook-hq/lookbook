@@ -79,5 +79,14 @@ module Lookbook
     def methods
       code_object&.meths
     end
+
+    def tags(name = nil)
+      tag_objects = code_object&.tags(name).presence || []
+      Lookbook::Tags.process_tags(tag_objects)
+    end
+
+    def tag(name = nil)
+      tags(name).first
+    end
   end
 end

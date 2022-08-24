@@ -3,7 +3,7 @@ module Lookbook
     include Utils
 
     delegate :name, :render_args, to: :@preview
-    delegate :position, :group, :notes, :hidden?, to: :@preview_inspector
+    delegate :position, :group, :notes, :hidden?, :tags, :tag, to: :@preview_inspector
 
     def initialize(preview)
       @preview = preview

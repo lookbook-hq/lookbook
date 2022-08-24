@@ -24,13 +24,16 @@ module Lookbook
     end
 
     class << self
-      def define_tags
+      def define_tags(custom = {})
         YARD::Tags::Library.define_tag("Hidden status", :hidden)
         YARD::Tags::Library.define_tag("Label", :label)
         YARD::Tags::Library.define_tag("Display", :display)
         YARD::Tags::Library.define_tag("Position", :position)
         YARD::Tags::Library.define_tag("ID", :id)
         YARD::Tags::Library.define_tag("Component", :component)
+        custom.each do |name, opts|
+          YARD::Tags::Library.define_tag(name.to_s.titleize, name)
+        end
       end
     end
   end

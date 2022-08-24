@@ -23,6 +23,7 @@ module Lookbook
         preview_paths: [],
         preview_display_params: {},
         preview_srcdoc: nil,
+        preview_tags: {},
         sort_examples: false,
 
         listen: Rails.env.development?,

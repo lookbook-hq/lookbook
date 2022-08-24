@@ -87,7 +87,7 @@ module Lookbook
     end
 
     initializer "lookbook.parser.tags" do
-      Lookbook::Parser.define_tags
+      Lookbook::Parser.define_tags(Lookbook.config.preview_tags)
     end
 
     initializer "lookbook.assets.serve" do
