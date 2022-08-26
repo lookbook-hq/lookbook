@@ -7701,7 +7701,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $d7dd2361725f36fa$exports = {};
+var $2fcd86563ba828bc$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11354,6 +11354,16 @@ function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
 }
 
 
+var $99486586f6691564$exports = {};
+
+$parcel$defineInteropFlag($99486586f6691564$exports);
+
+$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
+function $99486586f6691564$export$2e2bcd8739ae039() {
+    return {};
+}
+
+
 var $47a1c62621be0c54$exports = {};
 
 $parcel$defineInteropFlag($47a1c62621be0c54$exports);
@@ -11410,13 +11420,73 @@ function $47a1c62621be0c54$export$2e2bcd8739ae039() {
 }
 
 
-var $99486586f6691564$exports = {};
+var $e398acaded942bbe$exports = {};
 
-$parcel$defineInteropFlag($99486586f6691564$exports);
+$parcel$defineInteropFlag($e398acaded942bbe$exports);
 
-$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
-function $99486586f6691564$export$2e2bcd8739ae039() {
-    return {};
+$parcel$export($e398acaded942bbe$exports, "default", () => $e398acaded942bbe$export$2e2bcd8739ae039);
+
+function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
+    return {
+        width: 0,
+        height: 0,
+        resizing: false,
+        target: null,
+        init () {
+            this.target = document.querySelector(targetSelector);
+            if (this.target) {
+                this.width = Math.round(this.target.clientWidth);
+                this.height = Math.round(this.target.clientHeight);
+                this.createObserver();
+            }
+        },
+        createObserver () {
+            if (this.target) this.observer = (0, $9930d46698775b42$export$a2214cc2adb2dc44)(document.querySelector(targetSelector), ({ width: width , height: height  })=>{
+                this.width = width;
+                this.height = height;
+            });
+        },
+        tearDown () {
+            if (this.observer) this.observer.disconnect();
+        }
+    };
+}
+
+
+var $e9904a14dabf652d$exports = {};
+
+$parcel$defineInteropFlag($e9904a14dabf652d$exports);
+
+$parcel$export($e9904a14dabf652d$exports, "default", () => $e9904a14dabf652d$export$2e2bcd8739ae039);
+function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
+    return {
+        focussed: false,
+        get active () {
+            return store.active;
+        },
+        get text () {
+            return store.text;
+        },
+        clear () {
+            if (store.raw === "") this.$refs.input.blur();
+            else store.raw = "";
+        },
+        focus () {
+            this.$refs.input.focus();
+        }
+    };
+}
+
+
+var $36506012e0c6e9e3$exports = {};
+
+$parcel$defineInteropFlag($36506012e0c6e9e3$exports);
+
+$parcel$export($36506012e0c6e9e3$exports, "default", () => $36506012e0c6e9e3$export$2e2bcd8739ae039);
+function $36506012e0c6e9e3$export$2e2bcd8739ae039(iconName) {
+    return {
+        iconName: iconName
+    };
 }
 
 
@@ -12285,76 +12355,6 @@ function $e1f51f020443edd4$export$2e2bcd8739ae039(id, embedStore) {
 }
 
 
-var $e398acaded942bbe$exports = {};
-
-$parcel$defineInteropFlag($e398acaded942bbe$exports);
-
-$parcel$export($e398acaded942bbe$exports, "default", () => $e398acaded942bbe$export$2e2bcd8739ae039);
-
-function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
-    return {
-        width: 0,
-        height: 0,
-        resizing: false,
-        target: null,
-        init () {
-            this.target = document.querySelector(targetSelector);
-            if (this.target) {
-                this.width = Math.round(this.target.clientWidth);
-                this.height = Math.round(this.target.clientHeight);
-                this.createObserver();
-            }
-        },
-        createObserver () {
-            if (this.target) this.observer = (0, $9930d46698775b42$export$a2214cc2adb2dc44)(document.querySelector(targetSelector), ({ width: width , height: height  })=>{
-                this.width = width;
-                this.height = height;
-            });
-        },
-        tearDown () {
-            if (this.observer) this.observer.disconnect();
-        }
-    };
-}
-
-
-var $e9904a14dabf652d$exports = {};
-
-$parcel$defineInteropFlag($e9904a14dabf652d$exports);
-
-$parcel$export($e9904a14dabf652d$exports, "default", () => $e9904a14dabf652d$export$2e2bcd8739ae039);
-function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
-    return {
-        focussed: false,
-        get active () {
-            return store.active;
-        },
-        get text () {
-            return store.text;
-        },
-        clear () {
-            if (store.raw === "") this.$refs.input.blur();
-            else store.raw = "";
-        },
-        focus () {
-            this.$refs.input.focus();
-        }
-    };
-}
-
-
-var $36506012e0c6e9e3$exports = {};
-
-$parcel$defineInteropFlag($36506012e0c6e9e3$exports);
-
-$parcel$export($36506012e0c6e9e3$exports, "default", () => $36506012e0c6e9e3$export$2e2bcd8739ae039);
-function $36506012e0c6e9e3$export$2e2bcd8739ae039(iconName) {
-    return {
-        iconName: iconName
-    };
-}
-
-
 var $d92d9d5253f84566$exports = {};
 
 $parcel$defineInteropFlag($d92d9d5253f84566$exports);
@@ -13210,14 +13210,14 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$d7dd2361725f36fa$exports = {
+$2fcd86563ba828bc$exports = {
     "button": $cbd28b10fa9798c7$exports,
-    "copy_button": $47a1c62621be0c54$exports,
     "code": $99486586f6691564$exports,
-    "embed": $e1f51f020443edd4$exports,
+    "copy_button": $47a1c62621be0c54$exports,
     "dimensions_display": $e398acaded942bbe$exports,
     "filter": $e9904a14dabf652d$exports,
     "icon": $36506012e0c6e9e3$exports,
+    "embed": $e1f51f020443edd4$exports,
     "nav": $d92d9d5253f84566$exports,
     "params_editor": $b63b9c6d236b3f65$exports,
     "split_layout": $506dabb2bf255b38$exports,
@@ -13367,7 +13367,7 @@ const $d73574cc5e9b9e72$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $d709d0f4027033b2$export$2e2bcd8739ae039));
 [
-    $d7dd2361725f36fa$exports,
+    $2fcd86563ba828bc$exports,
     $e4eab7529959b73b$exports,
     $4979d2d897a1c01f$exports
 ].forEach((scripts)=>{
