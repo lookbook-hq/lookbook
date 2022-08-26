@@ -102,13 +102,16 @@ module Lookbook
       @preview_controller = Lookbook.config.preview_controller.constantize
       @preview_controller.include(Lookbook::PreviewController)
 
-      if Rails.application&.server.present?
-        Lookbook.logger.info "Running in server context"
-        # Rails.application.server is only available for Rails >= v6.1.3.1
-        Rails.application.server { init_listeners }
+      if Gem::Version.new(Rails.version) >= Gem::Version.new("6.1.3.1")
+        # Rails.application.server is only available for newer Rails versions
+        Rails.application.server do
+          init_listeners
+        end
       else
-        # So fallback to not listening if running in a rake task
-        init_listeners unless File.basename($0) == "rake" || Rake.application.top_level_tasks.any?
+        # Fallback for older Rails versions - don't start listeners if running in a rake task.
+        unless File.basename($0) == "rake" || Rake.application.top_level_tasks.any?
+          init_listeners 
+        end
       end
 
       if config.lookbook.runtime_parsing
@@ -129,6 +132,7 @@ module Lookbook
     def init_listeners
       return unless config.lookbook.listen == true
       Listen.logger = Lookbook.logger
+      Lookbook.logger.info "Initializing listeners"
       
       preview_listener = Listen.to(
         *config.lookbook.listen_paths,
