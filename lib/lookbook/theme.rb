@@ -11,7 +11,7 @@ module Lookbook
       },
       blue: {
         favicon_light_mode: "#2563EB",
-        favicon_dark_mode: "#60a5fa"
+        favicon_dark_mode: "#60A5FA"
       }
     }
 
