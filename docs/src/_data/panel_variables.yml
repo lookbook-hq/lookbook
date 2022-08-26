@@ -32,6 +32,8 @@
       description: The example source code (String)
     - name: example.source_lang
       description: Hash of information about the source language (Ruby or HTML/ERB, depending on whether the example uses a preview template)
+    - name: example.tags(:tag_name)
+      description: Array of tag objects for any `@tag_name` tags added to the example method
     - name: example.id
       description: ...
     - name: example.label

@@ -3,14 +3,14 @@ layout: default
 title: Inspector Panels
 ---
 
-The Lookbook 'preview inspector' is where each preview is rendered alongside its source code, notes and more.
+The Lookbook **preview inspector** is where each preview is rendered alongside its source code, notes and more.
 
 The inspector is made up of a number of tabbed panels, grouped into two areas - the preview area at the top (with **Preview** and **HTML** tabs)
 and the drawer area at the bottom (with **Source**, **Notes**, and **Params** tabs).
 
 {{ image "lookbook_inspector_screenshot.png" }}
 
-It is possible to add custom tab panels into the drawer area as well as to hide, reposition or reorder the system-provided panels.
+It is possible to add custom tab panels into the drawer area, as well as to hide, reposition or reorder the system-provided panels.
 
 ## Adding a custom panel
 
@@ -60,7 +60,7 @@ Panel partial templates can be located anywhere within your app's `views` direct
 There are a number of available options when defining a panel.
 
 {%= options_list do |list| %}
-  {% list.option name: "label", type: "String" do %}
+  {% list.option name: "label", type: "Symbol" do %}
     The text to be displayed in the tab for the panel
   {% end %}
   {% list.option name: "partial", type: "String" do %}

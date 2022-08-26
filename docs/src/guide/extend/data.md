@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Custom data
+title: Global data
 ---
 
 Lookbook provides a global `Lookbook.data` object that can be used for storing arbitrary custom data that can then be used in [preview layout templates](/guide/previews/layouts) and/or [custom panels](/guide/extend/panels#object-data).

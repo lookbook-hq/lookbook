@@ -5,7 +5,7 @@ module Shared
     renders_one :example, ->(&block) do
       if block.present?
         code = capture(&block)
-        "```#{example_lang}\n#{code.strip_heredoc.strip}\n```"
+        "```#{example_lang}\n#{code.strip_heredoc.strip.gsub("&lt;", "<").gsub("&gt;", ">")}\n```"
       end
     end
 

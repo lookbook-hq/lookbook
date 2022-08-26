@@ -9,6 +9,8 @@ guide:
         url: /guide/config/
       - label: Deployment
         url: /guide/deployment/
+      - label: UI Themes
+        url: /guide/themes/
   - label: Previews
     items:
       - label: Overview
@@ -38,10 +40,10 @@ guide:
       
   - label: Extending
     items:
-      - label: Theming
-        url: /guide/extend/themes/
-      - label: Custom Data
+      - label: Global Data
         url: /guide/extend/data/
+      - label: Custom Tags
+        url: /guide/extend/tags/
       - label: Inspector Panels
         url: /guide/extend/panels/
       - label: Lifecycle Hooks

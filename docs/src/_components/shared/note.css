@@ -16,4 +16,8 @@
       @apply border-t-blue-200;
     }
   }
+
+  & .highlighter-rouge:last-child .highlight {
+    margin-bottom: 0 !important;
+  }
 }
