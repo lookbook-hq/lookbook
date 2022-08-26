@@ -1,5 +1,5 @@
 <div align="center">
-<h1>👀 Lookbook 👀</h1>
+<h1>Lookbook</h1>
 
 <p>A native development UI for <a href="http://viewcomponent.org/">ViewComponent</a></p>
 
@@ -13,7 +13,9 @@
 ---
 
 <div align="center">
-<a href="#installing">Installing</a> • <a href="#previews">Previews</a>  • <a href="#pages">Pages</a> • <a href="#deployment">Deployment</a> • <a href="#config">Config</a>
+
+<p><a href="#installing">Installing</a> • <a href="#previews">Previews</a>  • <a href="#pages">Pages</a> • <a href="#deployment">Deployment</a> • <a href="#config">Config</a></p>
+<p><a href="#beta-info">🚨 Lookbook v1.0 (beta) - testers wanted! 🚨</a></p>
 </div>
 
 ---
@@ -26,16 +28,31 @@ Lookbook uses [RDoc/Yard-style comment tags](#annotating-preview-files) to exten
 
 ![Lookbook UI](.github/assets/lookbook_screenshot.png)
 
-### Features
+---
 
-- Tree-style navigation menu with live search/filter
-- Resizable preview window for responsive testing
-- Highlighted preview source code and HTML output
-- Auto-updating UI when component or preview files are updated _(Rails v6.0+ only)_
-- Use comment tag annotations for granular customisation of the preview experience
-- Fully compatible with standard the ViewComponent preview system
-- In-browser live-editable preview parameters (similar to basic Storybook Controls/Knobs)
-- [**Experimental**] Markdown-powerered documentation pages with embeddable previews
+<div>
+<h3 id="beta-info">🚨 Lookbook v1.0 (beta) - testers wanted! 🚨</h3>
+
+<p>The Lookbook v1.0 release is coming soon with a bunch of new features and under-the hood improvements. <strong>Why not give it a try?</strong></p>
+
+<p>The codebase is pretty stable now and there will be no more major new features added before release. There are no (major) breaking changes so the upgrade process should be smooth and easy 🤞</p>
+
+<p>So <a href="https://beta.lookbook.build/guide/quick-start/">dive in and get started</a> and don't forget to <a href="https://github.com/allmarkedup/lookbook/issues">open an issue</a> or <a href="https://github.com/allmarkedup/lookbook/discussions">start a discussion</a> if you need any help with anything at all. Any comments, feedback or suggestsions will be much appreciated.</p>
+
+<h4>Useful Resources</h4>
+
+<p>👉 The <a href="https://lookbook-demo-app-v1-0-beta.herokuapp.com/lookbook">v1.0 demo app</a> is up and running and is worth checking out to get a feel for the UI updates and new features. <em>(The repo for the demo app <a href="https://github.com/allmarkedup/lookbook-demo/tree/v1.0-beta">is here</a> if you want to dig in further)</em></p>
+
+
+<p>👉 The brand-new <a href="https://beta.lookbook.build/">v1.0 documentation site</a> is still a work in progress but it already includes a lot of detail on the main new features such as UI themes and extensions and should help to get you up and running with the v1.0 beta in no time at all.</p>
+
+<p>👉 The <a href="https://github.com/allmarkedup/lookbook/tree/v1.0-beta">v1.0-beta branch</a> for those that want to go digging about in the code.</p>
+
+</div>
+
+---
+
+**⚠️ Note: The rest of the documentation on this page is related to the current, stable `v0.9.x` branch.**
 
 ## Lookbook demo
 
