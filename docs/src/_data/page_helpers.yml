@@ -1,6 +1,6 @@
 - name: page_path
   example_lang: erb
-  args: 
+  args:
     - name: <page>
       type: Symbol | Page
       description: The page to generate a path to. Can be a page `id` (`Symbol`) or a `Page` object instance. Page `id`s can be specified in the [YAML frontmatter](/guide/pages/frontmatter) for that page.
@@ -13,7 +13,7 @@
 
 - name: embed
   example_lang: erb
-  args: 
+  args:
     - name: <preview>
       type: Class
       description: The Preview class to generate an embed for - eg. `Elements:ButtonComponentPreview`
@@ -36,10 +36,9 @@
   description: |
     Generates a live embed of a component preview. See the [docs on embedding previews](/guide/pages/embedding) for more info.
 
-
 - name: code
   example_lang: erb
-  args: 
+  args:
     - name: <lang?>
       type: Symbol
       description: The language the code is written in. Defaults to `:ruby`

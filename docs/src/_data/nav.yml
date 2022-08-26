@@ -37,7 +37,7 @@ guide:
         url: /guide/pages/variables/
       - label: Embedding Previews
         url: /guide/pages/embedding/
-      
+
   - label: Extending
     items:
       - label: Global Data
@@ -48,7 +48,7 @@ guide:
         url: /guide/extend/panels/
       - label: Lifecycle Hooks
         url: /guide/extend/hooks/
-        
+
 api:
   - label: Configuration
     items:

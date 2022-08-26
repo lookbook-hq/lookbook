@@ -1,6 +1,6 @@
 - name: lookbook_display
   example_lang: erb
-  args: 
+  args:
     - name: <name>
       type: Symbol
       description: The display param name to get the value of
@@ -15,7 +15,7 @@
 
 - name: lookbook_data
   example_lang: erb
-  args: 
+  args:
     - name: <name>
       type: Symbol
       description: The data property to get the value of

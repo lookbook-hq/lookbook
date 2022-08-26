@@ -1,8 +1,10 @@
 public/
 test/
 node_modules/
+*.rb
 *.md
 *.html
+*.html.erb
 docs/output/
 .parcel-cache/
 pkg/

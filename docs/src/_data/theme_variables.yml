@@ -79,13 +79,13 @@
   group: 5
 
 - name: tabs_border_active
-  description: Bottom border color for active tabs 
+  description: Bottom border color for active tabs
   group: 5
-  
+
 - name: nav_text
   description: Navigation text color
   group: 6
-  
+
 - name: nav_toggle
   description: Navigation toggle (arrow) color
   group: 6
@@ -93,15 +93,15 @@
 - name: nav_icon_stroke
   description: Navigation icon stroke color
   group: 6
- 
+
 - name: nav_item_hover
   description: Navigation item background color on hover
   group: 6
-  
+
 - name: nav_item_active
   description: Navigation item background color when active
   group: 6
-  
+
 - name: input_bg
   description: Form input background color
   group: 7

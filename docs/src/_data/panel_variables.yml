@@ -7,9 +7,8 @@
   description: |
     The **resolved** [panel options](#panel-options) object (see above for details)
 
-
 - name: preview
-  methods: 
+  methods:
     - name: id
       description: Unique reference ID
     - name: label
@@ -23,9 +22,8 @@
   description: |
     An object representing the current preview.
 
-  
 - name: examples
-  methods: 
+  methods:
     - name: example.output
       description: The rendered preview example output
     - name: example.source
@@ -52,11 +50,11 @@
     <% end %>
   description: |
     An array of objects representing the individual examples being rendered in the current preview. For **non-grouped** (i.e. regular) **previews**, this array will always **only have one item**.
-    
+
     Each example object in the array has the following properties:
 
 - name: context
-  methods: 
+  methods:
     - name: preview_params
       description: Hash of supplied preview parameters, if any
     - name: path
@@ -73,7 +71,7 @@
     Shortcut for accessing the [`Lookbook.data` store](/guide/extend/data/).
 
 - name: app
-  methods: 
+  methods:
     - name: previews
       description: Collection of all preview objects
     - name: pages

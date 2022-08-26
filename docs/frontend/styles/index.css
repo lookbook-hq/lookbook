@@ -107,7 +107,6 @@
 
 @layer components {
   #page-main {
-
     pre.highlight {
       @apply bg-white text-gray-800 border border-gray-200 rounded font-mono;
     }

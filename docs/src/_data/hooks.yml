@@ -30,4 +30,3 @@
     end
   description: |
     Run when the current process exits, after Lookbook has stopped any listeners.
-
