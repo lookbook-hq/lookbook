@@ -65,7 +65,7 @@
       "before:init": [
         "npm install",
         "bundle install",
-        "rake test"
+        "rake test --trace"
       ],
       "after:bump": "npm run build",
       "after:version:bump": "rake 'lookbook:release:bump_version[${version}]' && bundle",
