@@ -1,7 +1,6 @@
 require_relative "../lookbook"
 
 namespace :lookbook do
-
   desc "Run the rspec tests"
   task :test do
     sh "bundle exec rspec"
@@ -16,7 +15,7 @@ namespace :lookbook do
 
   namespace :previews do
     desc "Preparse the previews"
-    task :preparse => :environment do
+    task preparse: :environment do
       Lookbook::Engine.parser.parse
       puts "Lookbook preview parsing complete"
     end

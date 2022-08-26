@@ -6,14 +6,14 @@ module Lookbook
   class Config
     def initialize
       @options = Store.new
-      
+
       @options.set({
         project_name: "Lookbook",
         log_level: 2,
         auto_refresh: true,
 
         components_path: "app/components",
-        
+
         page_controller: "Lookbook::PageController",
         page_route: "pages",
         page_paths: ["test/components/docs"],
@@ -44,7 +44,7 @@ module Lookbook
         hooks: {
           after_initialize: [],
           before_exit: [],
-          after_change: [],
+          after_change: []
         },
 
         debug_menu: Rails.env.development?,
@@ -100,7 +100,7 @@ module Lookbook
             padded: false,
             system: true
           }
-        },
+        }
       })
     end
 
@@ -147,7 +147,7 @@ module Lookbook
 
     def inspector_panels(&block)
       panels = Store.new(@options.inspector_panels.select { |key, panel| panel != false })
-      if block_given?
+      if block
         yield panels
       else
         panels
@@ -158,7 +158,7 @@ module Lookbook
       pane = opts[:pane].presence || :drawer
       siblings = inspector_panels.select { |key, panel| panel.pane == pane }
       opts[:position] ||= siblings.size + 1
-      @options.inspector_panels[name] = opts      
+      @options.inspector_panels[name] = opts
       siblings.each do |key, panel|
         if panel.position >= opts[:position]
           panel.position += 1
@@ -207,7 +207,7 @@ module Lookbook
     end
 
     def ui_theme_overrides(&block)
-      if block_given?
+      if block
         yield @options.ui_theme_overrides
       else
         @options.ui_theme_overrides
@@ -238,7 +238,7 @@ module Lookbook
     def to_json(*a)
       to_h.to_json(*a)
     end
-    
+
     protected
 
     def normalize_paths(paths)
@@ -255,6 +255,10 @@ module Lookbook
 
     def method_missing(name, *args)
       @options.send(name, *args)
+    end
+
+    def respond_to_missing?(name, *)
+      to_h.key? name
     end
   end
 end

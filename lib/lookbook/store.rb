@@ -22,7 +22,7 @@ module Lookbook
     end
 
     def get(key, fallback = nil)
-      if self.key?(normalize_key(key))
+      if key?(normalize_key(key))
         self[normalize_key(key)]
       else
         fallback
@@ -33,8 +33,12 @@ module Lookbook
       super(normalize_key(name), *args.map { |arg| normalize_value(arg) })
     end
 
+    def respond_to_missing?(name, *)
+      key?(name)
+    end
+
     def normalize_key(key)
-      key.to_s.downcase.gsub("-", "_").to_sym
+      key.to_s.downcase.tr("-", "_").to_sym
     end
 
     def normalize_value(value)

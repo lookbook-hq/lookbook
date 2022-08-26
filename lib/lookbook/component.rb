@@ -1,13 +1,12 @@
 module Lookbook
   class Component < Entity
-
     attr_accessor :name
 
     def initialize(name)
       @name = name
       super(path)
     end
-    
+
     def path
       name.underscore
     end

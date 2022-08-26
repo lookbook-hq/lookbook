@@ -97,7 +97,7 @@ module Lookbook
     end
 
     def components
-      component_classes = @preview_inspector&.components.any? ? @preview_inspector&.components : [guess_component]
+      component_classes = @preview_inspector&.components&.any? ? @preview_inspector&.components : [guess_component]
       component_classes.map do |class_name|
         Component.new(class_name.to_s)
       end
@@ -106,11 +106,9 @@ module Lookbook
     protected
 
     def guess_component
-      begin
-        name.chomp("Preview").constantize
-      rescue
-        nil
-      end
+      name.chomp("Preview").constantize
+    rescue
+      nil
     end
 
     class << self
@@ -156,7 +154,7 @@ module Lookbook
 
       def clear_cache
         cache_dir = File.dirname(cache_marker_path)
-        FileUtils.mkdir_p(cache_dir) unless File.exists?(cache_dir)
+        FileUtils.mkdir_p(cache_dir) unless File.exist?(cache_dir)
         File.write(cache_marker_path, Time.now.to_i)
       end
 
@@ -167,7 +165,7 @@ module Lookbook
       end
 
       def cache_stale?
-        return false if !File.exists?(cache_marker_path)
+        return false if !File.exist?(cache_marker_path)
         cache_timestamp = File.read(cache_marker_path).to_i
         if @last_cache_timestamp.nil? || cache_timestamp > @last_cache_timestamp
           @last_cache_timestamp = cache_timestamp
@@ -179,7 +177,7 @@ module Lookbook
 
       def mark_as_cached
         cache_dir = File.dirname(cache_marker_path)
-        FileUtils.mkdir_p(cache_dir) unless File.exists?(cache_dir)
+        FileUtils.mkdir_p(cache_dir) unless File.exist?(cache_dir)
         File.write(cache_marker_path, Time.now)
       end
 
@@ -196,7 +194,7 @@ module Lookbook
           )
         end
       end
-    
+
       def preview_files
         files = Array(Lookbook.config.preview_paths).map do |preview_path|
           Dir["#{preview_path}/**/*preview.rb"].map do |path|

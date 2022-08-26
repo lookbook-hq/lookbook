@@ -7,7 +7,7 @@ module Lookbook
         args = nil
       end
       opts[:args] = args
-      opts[:parser] = block if block_given?
+      opts[:parser] = block if block
       Lookbook.config.preview_tags[name] = opts
     end
 

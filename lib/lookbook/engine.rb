@@ -5,7 +5,6 @@ require "listen"
 require "rake"
 
 module Lookbook
-
   autoload :Config, "lookbook/config"
   autoload :Data, "lookbook/data"
   autoload :Hooks, "lookbook/hooks"
@@ -73,14 +72,14 @@ module Lookbook
     config.lookbook = Lookbook.config
     config.autoload_paths << File.expand_path(Lookbook::Engine.root.join("app/components"))
 
-    initializer "lookbook.viewcomponent.config" do      
+    initializer "lookbook.viewcomponent.config" do
       config.lookbook.preview_paths += config.view_component.preview_paths
       config.lookbook.preview_controller ||= config.view_component.preview_controller
 
       config.lookbook.components_path = config.view_component.view_component_path if config.view_component.view_component_path.present?
 
       config.lookbook.listen_paths += config.lookbook.preview_paths
-      config.lookbook.listen_paths << config.lookbook.components_path 
+      config.lookbook.listen_paths << config.lookbook.components_path
     end
 
     initializer "lookbook.logging.development" do
@@ -110,7 +109,7 @@ module Lookbook
       else
         # Fallback for older Rails versions - don't start listeners if running in a rake task.
         unless File.basename($0) == "rake" || Rake.application.top_level_tasks.any?
-          init_listeners 
+          init_listeners
         end
       end
 
@@ -133,13 +132,13 @@ module Lookbook
       return unless config.lookbook.listen == true
       Listen.logger = Lookbook.logger
       Lookbook.logger.info "Initializing listeners"
-      
+
       preview_listener = Listen.to(
         *config.lookbook.listen_paths,
         only: /\.(#{config.lookbook.listen_extensions.join("|")})$/,
         force_polling: config.lookbook.listen_use_polling
       ) do |modified, added, removed|
-        changes = { modified: modified, added: added, removed: removed }
+        changes = {modified: modified, added: added, removed: removed}
         begin
           Lookbook::Engine.parser.parse
         rescue
@@ -155,7 +154,7 @@ module Lookbook
         only: /\.(html.*|md.*)$/,
         force_polling: config.lookbook.listen_use_polling
       ) do |modified, added, removed|
-        changes = { modified: modified, added: added, removed: removed }
+        changes = {modified: modified, added: added, removed: removed}
         Lookbook::Engine.reload_ui(changes)
         Lookbook::Engine.run_hooks(:after_change, changes)
       end
@@ -165,13 +164,12 @@ module Lookbook
     at_exit do
       if Lookbook::Engine.listeners.any?
         Lookbook.logger.debug "Stopping listeners"
-        Lookbook::Engine.listeners.each { |listener| listener.stop } 
+        Lookbook::Engine.listeners.each { |listener| listener.stop }
       end
       Lookbook::Engine.run_hooks(:before_exit)
     end
 
     class << self
-
       def websocket
         return @websocket unless @websocket.nil?
         if config.lookbook.auto_refresh

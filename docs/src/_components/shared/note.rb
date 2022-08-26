@@ -1,7 +1,7 @@
 module Shared
   class Note < Shared::Base
     ICONS = {
-      info: :message_solid,
+      info: :message_solid
     }
 
     attr_reader :theme

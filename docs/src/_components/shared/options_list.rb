@@ -9,25 +9,24 @@ module Shared
     end
 
     class OptionListOption < Shared::Base
-
       def initialize(name:, default: nil, type: nil, **attrs)
         @name = name
         @default = default
         @type = type
         @attrs = attrs
       end
-      
+
       def description
         desc = markdownify content
         unless @default.nil? && @type.nil?
           desc = "#{desc}<div class='options-list-meta'>#{[
             ("<span>Type: #{@type}</span>" if @type),
-            ("<span>Default: #{@default}</span>" if @default),
+            ("<span>Default: #{@default}</span>" if @default)
           ].compact.join(",")}</div>"
         end
         desc.html_safe
       end
-      
+
       def call
         tag.tr class: "options-list-option" do
           safe_join([
@@ -38,7 +37,7 @@ module Shared
       end
     end
 
-    class OptionListDivider < Shared::Base            
+    class OptionListDivider < Shared::Base
       def call
         tag.tr class: "options-list-divider" do
           tag.td(colspan: 2) do

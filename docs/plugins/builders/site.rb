@@ -8,9 +8,7 @@ class Builders::Site < SiteBuilder
 
     helper :url_segment, helpers_scope: true do |resource, pos = 1|
       if resource.present?
-        resource.relative_url.split('/')[pos]
-      else
-        nil
+        resource.relative_url.split("/")[pos]
       end
     end
 

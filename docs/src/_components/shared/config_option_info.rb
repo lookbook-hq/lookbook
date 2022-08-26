@@ -10,14 +10,14 @@ module Shared
 
     attr_reader :name, :title, :example_lang
 
-    def initialize(name: , type: nil, default: nil, title: nil, **attrs)
+    def initialize(name:, type: nil, default: nil, title: nil, **attrs)
       @name = name
       @title = title || name.to_s
       value = type.to_s == "String" ? "\"#{default}\"" : default
       @metadata = [{
         label: "Type",
         value: type
-      },{
+      }, {
         label: "Default",
         value: value.present? ? "<code>#{value}</code>".html_safe : nil
       }]

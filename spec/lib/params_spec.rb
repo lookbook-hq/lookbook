@@ -20,11 +20,10 @@ RSpec.describe Lookbook::Params do
       it "can be loaded from a JSON file relative to the code object file" do
         tag = build(:param_tag,
           text: "select ../icons.json",
-          file: Rails.root.join("data/foobar/example_preview.rb")
-        )
+          file: Rails.root.join("data/foobar/example_preview.rb"))
         param_data = Lookbook::Params.build_param(tag)
         expect(param_data[:options]).to eq json
       end
-    end 
+    end
   end
 end

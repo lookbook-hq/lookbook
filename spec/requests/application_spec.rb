@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "application", type: :request do
-
   context "header" do
     before(:context) do
       get lookbook_path
@@ -47,7 +46,7 @@ RSpec.describe "application", type: :request do
       it "includes the expected number of examples" do
         visible_examples_count = 0
         Lookbook.previews.select { |p| !p.hidden? }.each do |preview|
-          visible_examples_count += preview.examples.select { |e| !e.hidden? }.count
+          visible_examples_count += preview.examples.count { |e| !e.hidden? }
         end
         expect(html).to have_css("#previews-nav [data-entity-type=example]", count: visible_examples_count)
       end
@@ -75,11 +74,11 @@ RSpec.describe "application", type: :request do
       end
 
       it "includes the expected number of pages" do
-        visible_pages_count = Lookbook.pages.select { |p| !p.hidden? }.size
+        visible_pages_count = Lookbook.pages.count { |p| !p.hidden? }
         expect(html).to have_css("#pages-nav [data-entity-type=page]", count: visible_pages_count)
       end
     end
-    
+
     after(:context) do
       unload_pages
     end

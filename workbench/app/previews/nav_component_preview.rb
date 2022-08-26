@@ -1,13 +1,12 @@
 class NavComponentPreview < ViewComponent::Preview
-  
   def basic
     render Lookbook::Nav::Component.new(
       collection: collection_from([
         "item_1",
         "item_2",
-        "item_3",
+        "item_3"
       ]),
-      alpine_data: "$store.workbench.nav",
+      alpine_data: "$store.workbench.nav"
     )
   end
 
@@ -20,10 +19,10 @@ class NavComponentPreview < ViewComponent::Preview
           "child_2",
           ["child_3", [
             "grandchild_1",
-            "grandchild_2",
+            "grandchild_2"
           ]]
         ]],
-        "item_3",
+        "item_3"
       ]),
       alpine_data: "$store.workbench.nav",
       "@click.stop.prevent": "console.log('Navigation is disabled in preview')"

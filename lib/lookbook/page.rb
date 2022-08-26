@@ -1,6 +1,5 @@
 module Lookbook
   class Page < Entity
-
     FRONTMATTER_FIELDS = [
       :id,
       :label,
@@ -76,7 +75,7 @@ module Lookbook
     def type
       :page
     end
-    
+
     def id
       options[:id]
     end
@@ -125,7 +124,7 @@ module Lookbook
         }))
       end
       @options = Lookbook.config.page_options.deep_merge(frontmatter).with_indifferent_access
-      @options[:id] = @options[:id] ? generate_id(@options[:id]) : generate_id(lookup_path)
+      @options[:id] = generate_id(@options[:id] || lookup_path)
       @options[:label] ||= name.titleize
       @options[:title] ||= @options[:label]
       @options[:hidden] ||= false
@@ -159,7 +158,7 @@ module Lookbook
       end
 
       def all
-         pages, sections =
+        pages, sections =
           Array(page_paths).flat_map do |dir|
             Dir["#{dir}/**/*.html.*", "#{dir}/**/*.md.*"].sort.map do |path|
               create(path, dir)
@@ -172,7 +171,7 @@ module Lookbook
 
         page_dict = sorted_pages.index_by(&:path)
         sorted_sections = sections.sort_by { |section| [section.position, section.label] }
-        
+
         sorted_sections.each do |section|
           page_dict[section.path].sections << section
         end

@@ -3,7 +3,7 @@ module Lookbook
     renders_many :panels, ->(**attrs) do
       @panel_counter += 1
       attrs[:name] ||= "tab-#{@panel_counter}"
-      Lookbook::TabPanels::Panel::Component.new **attrs
+      Lookbook::TabPanels::Panel::Component.new(**attrs)
     end
 
     def initialize(**html_attrs)

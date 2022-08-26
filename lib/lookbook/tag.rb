@@ -59,7 +59,7 @@ module Lookbook
         unless arg.is_a? Hash
           name = arg
           arg = {
-            name: name.to_sym,
+            name: name.to_sym
           }
         end
         arg[:parse] = false unless arg.key? :parse
@@ -103,6 +103,10 @@ module Lookbook
       else
         data[name] || args[name]
       end
+    end
+
+    def respond_to_missing?(name, *)
+      data.key?(name) || args.key?(name)
     end
   end
 end

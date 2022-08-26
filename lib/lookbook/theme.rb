@@ -42,7 +42,7 @@ module Lookbook
       @css ||= if @overrides.present?
         styles = [":root {"]
         styles << @overrides.select { |key| !key.start_with?("favicon") }.map do |key, value|
-          "  --lookbook-#{key.to_s.underscore.gsub("_","-")}: #{value};"
+          "  --lookbook-#{key.to_s.underscore.tr("_", "-")}: #{value};"
         end
         styles.push "}"
         styles.join("\n")

@@ -11,7 +11,7 @@ module Shared
 
     attr_reader :name, :title, :example_lang, :display_signature
 
-    def initialize(name: , title: nil, example_lang: :erb, signature: nil, **attrs)
+    def initialize(name:, title: nil, example_lang: :erb, signature: nil, **attrs)
       @name = name
       @title = title || name.to_s
       @example_lang = example_lang

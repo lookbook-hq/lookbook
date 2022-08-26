@@ -4,8 +4,7 @@ module Lookbook
     renders_one :toolbar, Lookbook::Toolbar::Component
 
     def initialize(
-      id: nil,
-      collection:,
+      collection:, id: nil,
       collapse_singles: false,
       **attrs
     )

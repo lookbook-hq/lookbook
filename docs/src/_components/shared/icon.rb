@@ -1,7 +1,7 @@
 module Shared
   class Icon < Shared::Base
     attr_reader :size, :name
-    
+
     def initialize(name:, size: :md, **attrs)
       @name = name
       @size = size
@@ -31,7 +31,7 @@ module Shared
       class_names({
         "h-3 w-3": size == :xs,
         "h-4 w-4": size == :sm,
-        "h-5 w-5": size == :md,
+        "h-5 w-5": size == :md
       })
     end
   end

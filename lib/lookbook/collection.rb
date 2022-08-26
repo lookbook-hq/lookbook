@@ -10,7 +10,7 @@ module Lookbook
         items = path
         path = ""
       end
-      
+
       @path = path.delete_prefix("/").delete_suffix("/")
       super(@path)
 

@@ -1,6 +1,6 @@
 require "rouge"
 require "htmlbeautifier"
-require 'htmlentities'
+require "htmlentities"
 
 module Lookbook
   module CodeFormatter

@@ -1,6 +1,5 @@
 module Lookbook
   class PageSection < Page
-
     def name
       return @name if @name.present?
       matches = full_path.to_s.match(%r{\[(?<name>\w+)\]})
@@ -24,8 +23,7 @@ module Lookbook
     end
 
     def lookup_path
-       "#{super}/#{name}"
+      "#{super}/#{name}"
     end
-
   end
 end

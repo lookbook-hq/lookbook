@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "landing", type: :request do
-  
   xcontext "no previews or pages" do
     before(:context) do
       get lookbook_path
@@ -22,7 +21,7 @@ RSpec.describe "landing", type: :request do
     it "shows the landing page" do
       expect(html).to have_css("#landing-with-content")
     end
-    
+
     after(:context) do
       unload_previews
     end

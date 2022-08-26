@@ -9,7 +9,7 @@ RSpec.describe Lookbook::Button::Component, type: :component do
 
   it "displays an icon" do
     render_inline(described_class.new(icon: :book))
-    
+
     expect(page).to have_css("[data-component=button] [data-component=icon]")
   end
 end

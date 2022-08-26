@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.0.2"
 
 group :development, :test do
-  gem "factory_bot", :require => false
+  gem "factory_bot", require: false
   gem "sqlite3", "~> 1.4"
   gem "standard", "~> 1.1"
   gem "combustion", "~> 1.3"

@@ -15,8 +15,8 @@ module Lookbook
 
     def before_render
       if @system == false
-        panel_dom = ::Nokogiri::HTML::fragment(content)
-        style_tags = panel_dom.css('style')
+        panel_dom = ::Nokogiri::HTML.fragment(content)
+        style_tags = panel_dom.css("style")
         if style_tags.any?
           css_parser = ::CssParser::Parser.new
           @panel_styles = ""
@@ -27,7 +27,7 @@ module Lookbook
             end
             style_tag.unlink
           end
-          @panel_html = panel_dom.to_html.html_safe 
+          @panel_html = panel_dom.to_html.html_safe
         end
       end
       @panel_html ||= content

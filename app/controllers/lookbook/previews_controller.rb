@@ -130,7 +130,7 @@ module Lookbook
 
       context_data = {
         preview_params: preview_params,
-        path: params[:path],
+        path: params[:path]
       }
 
       example = @example
@@ -145,7 +145,7 @@ module Lookbook
         output = preview_controller.process(:render_example_to_string, @preview, example.name)
         source = has_template ? example.template_source(render_args[:template]) : example.method_source
         source_lang = has_template ? example.template_lang(render_args[:template]) : example.lang
-        
+
         example.define_singleton_method(:output, proc { output })
         example.define_singleton_method(:source, proc { source })
         example.define_singleton_method(:source_lang, proc { source_lang })
@@ -170,21 +170,21 @@ module Lookbook
 
         callable_data = {
           name: name.to_s,
-          index_position: (@panels.select { |p| p.pane == config.pane }.size + 1),
+          index_position: (@panels.count { |p| p.pane == config.pane } + 1),
           **inspector_data
         }
 
         resolved_config = config_with_defaults.transform_values do |value|
-          value.class == Proc ? value.call(Lookbook::Store.new(callable_data)) : value
+          value.instance_of?(Proc) ? value.call(Lookbook::Store.new(callable_data)) : value
         end
         resolved_config[:name] = name.to_s
-        
+
         @panels << Lookbook::Store.new(resolved_config, deep: false)
       end
 
       @panels = @panels.select(&:show).sort_by { |p| [p.position, p.label] }
     end
-   
+
     def main_panels
       panels.select { |panel| panel.pane == :main }
     end

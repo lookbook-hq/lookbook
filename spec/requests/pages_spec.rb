@@ -17,9 +17,9 @@ RSpec.describe "pages", type: :request do
     end
 
     it "includes the pages nav" do
-        get Lookbook.pages.find("overview").url_path
-        expect(html).to have_css("#pages-nav")
-      end
+      get Lookbook.pages.find("overview").url_path
+      expect(html).to have_css("#pages-nav")
+    end
   end
 
   context "with tabs" do
