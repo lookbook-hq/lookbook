@@ -101,35 +101,39 @@ module Lookbook
       @preview_controller = Lookbook.config.preview_controller.constantize
       @preview_controller.include(Lookbook::PreviewController)
 
-      if config.lookbook.listen
-        Listen.logger = Lookbook.logger
-        
-        preview_listener = Listen.to(
-          *config.lookbook.listen_paths,
-          only: /\.(#{config.lookbook.listen_extensions.join("|")})$/,
-          force_polling: config.lookbook.listen_use_polling
-        ) do |modified, added, removed|
-          changes = { modified: modified, added: added, removed: removed }
-          begin
-            parser.parse
-          rescue
-          end
-          Lookbook::Preview.clear_cache
-          Lookbook::Engine.reload_ui(changes)
-          Lookbook::Engine.run_hooks(:after_change, changes)
-        end
-        Lookbook::Engine.register_listener(preview_listener)
+      Rails.application.server do
+        Lookbook.logger.info "Running in server context"
 
-        page_listener = Listen.to(
-          *config.lookbook.page_paths,
-          only: /\.(html.*|md.*)$/,
-          force_polling: config.lookbook.listen_use_polling
-        ) do |modified, added, removed|
-          changes = { modified: modified, added: added, removed: removed }
-          Lookbook::Engine.reload_ui(changes)
-          Lookbook::Engine.run_hooks(:after_change, changes)
+        if config.lookbook.listen
+          Listen.logger = Lookbook.logger
+          
+          preview_listener = Listen.to(
+            *config.lookbook.listen_paths,
+            only: /\.(#{config.lookbook.listen_extensions.join("|")})$/,
+            force_polling: config.lookbook.listen_use_polling
+          ) do |modified, added, removed|
+            changes = { modified: modified, added: added, removed: removed }
+            begin
+              parser.parse
+            rescue
+            end
+            Lookbook::Preview.clear_cache
+            Lookbook::Engine.reload_ui(changes)
+            Lookbook::Engine.run_hooks(:after_change, changes)
+          end
+          Lookbook::Engine.register_listener(preview_listener)
+  
+          page_listener = Listen.to(
+            *config.lookbook.page_paths,
+            only: /\.(html.*|md.*)$/,
+            force_polling: config.lookbook.listen_use_polling
+          ) do |modified, added, removed|
+            changes = { modified: modified, added: added, removed: removed }
+            Lookbook::Engine.reload_ui(changes)
+            Lookbook::Engine.run_hooks(:after_change, changes)
+          end
+          Lookbook::Engine.register_listener(page_listener)
         end
-        Lookbook::Engine.register_listener(page_listener)
       end
 
       if config.lookbook.runtime_parsing
@@ -148,7 +152,7 @@ module Lookbook
     end
 
     at_exit do
-      if config.lookbook.listen
+      if Lookbook::Engine.listeners.any?
         Lookbook.logger.debug "Stopping listeners"
         Lookbook::Engine.listeners.each { |listener| listener.stop } 
       end
@@ -169,9 +173,9 @@ module Lookbook
           @websocket ||= if Rails.version.to_f >= 6.0
             ActionCable::Server::Base.new(config: cable)
           else
-            @websocket ||= ActionCable::Server::Base.new
-            @websocket.config = cable
-            @websocket
+            ws = ActionCable::Server::Base.new
+            ws.config = cable
+            ws
           end
         end
       end
@@ -206,7 +210,7 @@ module Lookbook
       end
 
       def run_hooks(event_name, *args)
-        Lookbook.config.hooks[event_name].each do |hook|
+        config.lookbook.hooks[event_name].each do |hook|
           hook.call(Lookbook, *args)
         end
       end
