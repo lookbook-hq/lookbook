@@ -29,7 +29,8 @@
     "release": "release-it",
     "release:dry-run": "release-it --dry-run",
     "workbench": "npm run clean & concurrently \"npm:workbench:serve\" \"npm:dev\"",
-    "workbench:serve": "cd workbench; bin/rails s -p 4545"
+    "workbench:serve": "cd workbench; bin/rails s -p 4545",
+    "prepare": "husky install"
   },
   "author": "Mark Perkins",
   "license": "MIT",
@@ -64,8 +65,18 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.2",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "prettier": "2.3.2",
-    "release-it": "^14.11.6"
+    "release-it": "^15.4.0"
+  },
+  "lint-staged": {
+    "**/*": [
+      "prettier --write --ignore-unknown"
+    ],
+    "**/.rb": [
+      "standardrb --fix"
+    ]
   },
   "release-it": {
     "git": {

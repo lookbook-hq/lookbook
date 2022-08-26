@@ -2,6 +2,7 @@ public/
 test/
 node_modules/
 *.md
-docs/*.md
-docs/*.rb
-docs/**/*.rb
+*.html
+docs/output/
+.parcel-cache/
+pkg/
