@@ -6,13 +6,18 @@ layout: default
 It's quick and easy to get up and running with Lookbook.
 Follow this guide to get up and running quickly and then explore the rest of the docs to dive in deeper.
 
+{%= note :info do %}
+These docs are for **Lookbook v1.0**, which is still in development. You will need to use a v1.0 beta
+release in order to have access to all the features described here.
+{% end %}
+
 ## Install Lookbook
 
 Add Lookbook to your `Gemfile` somewhere *after* the ViewComponent gem:
 
 ```ruby
 gem "view_component"
-gem "lookbook"
+gem "lookbook", ">= {{ lookbook_version }}" # latest v1.0 beta release
 ```
 
 and then `bundle install` to install Lookbook.
@@ -26,10 +31,6 @@ Rails.application.routes.draw do
   end
 end
 ```
-
-{%= note :info do %}
-The value of the `at` property in the `mount Lookbook::Engine, at:` statement determines the root URL that the Lookbook UI will be served at.
-{% end %}
 
 ## Add a component and preview
 

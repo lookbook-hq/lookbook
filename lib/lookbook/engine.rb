@@ -2,6 +2,7 @@ require "rails"
 require "view_component"
 require "action_cable/engine"
 require "listen"
+require "rake"
 
 module Lookbook
 
@@ -101,43 +102,17 @@ module Lookbook
       @preview_controller = Lookbook.config.preview_controller.constantize
       @preview_controller.include(Lookbook::PreviewController)
 
-      Rails.application.server do
+      if Rails.application&.server.present?
         Lookbook.logger.info "Running in server context"
-
-        if config.lookbook.listen
-          Listen.logger = Lookbook.logger
-          
-          preview_listener = Listen.to(
-            *config.lookbook.listen_paths,
-            only: /\.(#{config.lookbook.listen_extensions.join("|")})$/,
-            force_polling: config.lookbook.listen_use_polling
-          ) do |modified, added, removed|
-            changes = { modified: modified, added: added, removed: removed }
-            begin
-              parser.parse
-            rescue
-            end
-            Lookbook::Preview.clear_cache
-            Lookbook::Engine.reload_ui(changes)
-            Lookbook::Engine.run_hooks(:after_change, changes)
-          end
-          Lookbook::Engine.register_listener(preview_listener)
-  
-          page_listener = Listen.to(
-            *config.lookbook.page_paths,
-            only: /\.(html.*|md.*)$/,
-            force_polling: config.lookbook.listen_use_polling
-          ) do |modified, added, removed|
-            changes = { modified: modified, added: added, removed: removed }
-            Lookbook::Engine.reload_ui(changes)
-            Lookbook::Engine.run_hooks(:after_change, changes)
-          end
-          Lookbook::Engine.register_listener(page_listener)
-        end
+        # Rails.application.server is only available for Rails >= v6.1.3.1
+        Rails.application.server { init_listeners }
+      else
+        # So fallback to not listening if running in a rake task
+        init_listeners unless File.basename($0) == "rake" || Rake.application.top_level_tasks.any?
       end
 
       if config.lookbook.runtime_parsing
-        parser.parse
+        Lookbook::Engine.parser.parse
       else
         unless File.exist?(config.lookbook.parser_registry_path)
           Lookbook.logger.warn "
@@ -149,6 +124,38 @@ module Lookbook
       end
 
       Lookbook::Engine.run_hooks(:after_initialize)
+    end
+
+    def init_listeners
+      return unless config.lookbook.listen == true
+      Listen.logger = Lookbook.logger
+      
+      preview_listener = Listen.to(
+        *config.lookbook.listen_paths,
+        only: /\.(#{config.lookbook.listen_extensions.join("|")})$/,
+        force_polling: config.lookbook.listen_use_polling
+      ) do |modified, added, removed|
+        changes = { modified: modified, added: added, removed: removed }
+        begin
+          Lookbook::Engine.parser.parse
+        rescue
+        end
+        Lookbook::Preview.clear_cache
+        Lookbook::Engine.reload_ui(changes)
+        Lookbook::Engine.run_hooks(:after_change, changes)
+      end
+      Lookbook::Engine.register_listener(preview_listener)
+
+      page_listener = Listen.to(
+        *config.lookbook.page_paths,
+        only: /\.(html.*|md.*)$/,
+        force_polling: config.lookbook.listen_use_polling
+      ) do |modified, added, removed|
+        changes = { modified: modified, added: added, removed: removed }
+        Lookbook::Engine.reload_ui(changes)
+        Lookbook::Engine.run_hooks(:after_change, changes)
+      end
+      Lookbook::Engine.register_listener(page_listener)
     end
 
     at_exit do
