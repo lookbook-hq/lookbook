@@ -23,8 +23,10 @@ end
 
 ## Common Options
 
-Below are some of the most commonly used configuration options. For the complete list of options check out the [configuration API docs](/api/config).
+Below are a few of the most commonly used configuration options. For the complete list of options check out the [configuration API docs](/api/config).
 
-{% common_config = [:project_name, :debug_menu, :markdown_options] %}
+{% common_config = [:project_name, :debug_menu, :ui_theme] %}
 {% options = site.data.config_options.filter { |c| common_config.include?(c.name.to_sym) } %}
 {{ render "config_options_list", options: options }}
+
+[Full list of configuration options &rarr;](/api/config)

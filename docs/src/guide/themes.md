@@ -1,9 +1,9 @@
 ---
 layout: default
-title: UI Themes
+title: Theming
 ---
 
-Lookbook provides some basic UI theming options to help you personalise your Lookbook installation.
+Lookbook provides some basic UI color theming options to help you personalise your Lookbook instance.
 
 ## Bundled themes
 

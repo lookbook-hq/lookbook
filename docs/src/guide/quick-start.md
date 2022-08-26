@@ -1,5 +1,5 @@
 ---
-title: Getting Started
+title: Quick Start
 layout: default
 ---
 

@@ -1,16 +1,16 @@
 guide:
-  - label: Introduction
+  - label: Getting Started
     items:
-      - label: What is Lookbook?
+      - label: Overview
         url: /guide/
-      - label: Getting Started
-        url: /guide/getting-started/
+      - label: Quick Start
+        url: /guide/quick-start/
       - label: Configuration
         url: /guide/config/
+      - label: Theming
+        url: /guide/themes/
       - label: Deployment
         url: /guide/deployment/
-      - label: UI Themes
-        url: /guide/themes/
   - label: Previews
     items:
       - label: Overview

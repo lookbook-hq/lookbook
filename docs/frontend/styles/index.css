@@ -94,6 +94,10 @@
         @apply mb-0;
       }
     }
+
+    .prose [data-component="config-option-list"] {
+      @apply my-10;
+    }
   }
 
   .screenshot {
