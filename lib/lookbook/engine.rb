@@ -2,6 +2,7 @@ require "rails"
 require "view_component"
 require "action_cable/engine"
 require "listen"
+require "rake"
 
 module Lookbook
   class << self
@@ -83,10 +84,32 @@ module Lookbook
       @preview_controller = Lookbook.config.preview_controller.constantize
       @preview_controller.include(Lookbook::PreviewController)
 
+      if Rails.application&.server.present?
+        # Rails.application.server is only available for Rails >= v6.1.3.1
+        Rails.application.server { init_listeners }
+      else
+        # So fallback to not listening if running in a rake task
+        init_listeners unless File.basename($0) == "rake" || Rake.application.top_level_tasks.any?
+      end
+
+      if config.lookbook.runtime_parsing
+        Lookbook::Engine.parser.parse
+      else
+        unless File.exist?(config.lookbook.parser_registry_path)
+          Lookbook.logger.warn "
+            Runtime parsing is disabled but no registry file has been found.
+            Did you run `rake lookbook:preparse` before starting the app?
+            Expected to find registry file at #{config.lookbook.parser_registry_path}
+          "
+        end
+      end
+    end
+
+    def init_listeners
       if config.lookbook.listen
         @preview_listener = Listen.to(*config.lookbook.listen_paths, only: /\.(#{config.lookbook.listen_extensions.join("|")})$/) do |modified, added, removed|
           begin
-            parser.parse
+            Lookbook::Engine.parser.parse
           rescue
           end
           Lookbook::Preview.clear_cache
@@ -109,18 +132,6 @@ module Lookbook
           @page_listener.start
         end
       end
-
-      if config.lookbook.runtime_parsing
-        parser.parse
-      else
-        unless File.exist?(config.lookbook.parser_registry_path)
-          Lookbook.logger.warn "
-            Runtime parsing is disabled but no registry file has been found.
-            Did you run `rake lookbook:preparse` before starting the app?
-            Expected to find registry file at #{config.lookbook.parser_registry_path}
-          "
-        end
-      end
     end
 
     at_exit do
@@ -141,9 +152,9 @@ module Lookbook
           @websocket ||= if Rails.version.to_f >= 6.0
             ActionCable::Server::Base.new(config: cable)
           else
-            @websocket ||= ActionCable::Server::Base.new
-            @websocket.config = cable
-            @websocket
+            ws = ActionCable::Server::Base.new
+            ws.config = cable
+            ws
           end
         end
       end
