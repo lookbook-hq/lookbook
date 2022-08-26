@@ -31,7 +31,8 @@ module Lookbook
     protected
 
     def alpine_data
-      "{name: '#{@name}', value: #{value.to_json}}"
+      escaped_value = value.is_a?(String) ? helpers.j(value) : value
+      "{name: '#{@name}', value: '#{escaped_value}'}"
     end
 
     def alpine_component
