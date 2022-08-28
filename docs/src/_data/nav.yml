@@ -5,6 +5,8 @@ guide:
         url: /guide/
       - label: Quick Start
         url: /guide/quick-start/
+      - label: Upgrade Guide
+        url: /guide/upgrading/
       - label: Configuration
         url: /guide/config/
       - label: Theming
