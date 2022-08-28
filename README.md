@@ -28,27 +28,28 @@ Lookbook uses [RDoc/Yard-style comment tags](#annotating-preview-files) to exten
 
 ![Lookbook UI](.github/assets/lookbook_screenshot.png)
 
----
 
-<div>
-<h3 id="beta-info">🚨 Lookbook v1.0 (beta) - testers wanted! 🚨</h3>
+<h2 id="beta-info">🚨 Lookbook v1.0 (beta)</h3>
 
-<p>The Lookbook v1.0 release is coming soon with a bunch of new features and under-the hood improvements. <strong>Why not give it a try?</strong></p>
+The Lookbook v1.0 release is coming soon with a bunch of new features and under-the hood improvements.
 
-<p>The codebase is pretty stable now and there will be no more major new features added before release. There are no (major) breaking changes so the upgrade process should be smooth and easy 🤞</p>
+### Testing out the beta
 
-<p>So <a href="https://beta.lookbook.build/guide/quick-start/">dive in and get started</a> and don't forget to <a href="https://github.com/allmarkedup/lookbook/issues">open an issue</a> or <a href="https://github.com/allmarkedup/lookbook/discussions">start a discussion</a> if you need any help with anything at all. Any comments, feedback or suggestsions will be much appreciated.</p>
+If you are already using Lookbook in your project, just update the Lookbook gem to the latest beta release and then head over to the [beta documentation site](https://beta.lookbook.build/) to read more about the new features.
+
+```ruby
+gem "lookbook", ">= 1.0.0.beta.7"
+```
+
+If you are **new to Lookbook** then check out the <a href="https://beta.lookbook.build/guide/quick-start/">v1.0 quick start guide</a> for more detailed instructions on installing Lookbook in your project
+
+> Please do <a href="https://github.com/allmarkedup/lookbook/issues">open an issue</a> or <a href="https://github.com/allmarkedup/lookbook/discussions">start a discussion</a> if you need any help with anything. Comments, feedback and suggestions are always appreciated!
 
 <h4>Useful Resources</h4>
 
-<p>👉 The <a href="https://lookbook-demo-app-v1-0-beta.herokuapp.com/lookbook">v1.0 demo app</a> is up and running and is worth checking out to get a feel for the UI updates and new features. <em>(The repo for the demo app <a href="https://github.com/allmarkedup/lookbook-demo/tree/v1.0-beta">is here</a> if you want to dig in further)</em></p>
-
-
-<p>👉 The brand-new <a href="https://beta.lookbook.build/">v1.0 documentation site</a> is still a work in progress but it already includes a lot of detail on the main new features such as UI themes and extensions and should help to get you up and running with the v1.0 beta in no time at all.</p>
-
-<p>👉 The <a href="https://github.com/allmarkedup/lookbook/tree/v1.0-beta">v1.0-beta branch</a> for those that want to go digging about in the code.</p>
-
-</div>
+* 👉 <a href="https://lookbook-demo-app-v1-0-beta.herokuapp.com/lookbook">v1.0 demo app</a> <em>(The repo for the demo app <a href="https://github.com/allmarkedup/lookbook-demo/tree/v1.0-beta">is here</a> if you want to dig in further)</em>
+* 👉 <a href="https://beta.lookbook.build/">v1.0 documentation site</a> _(work in progress!)_
+* 👉 <a href="https://github.com/allmarkedup/lookbook/tree/v1.0-beta">v1.0-beta branch</a> 
 
 ---
 
