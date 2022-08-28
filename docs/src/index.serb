@@ -11,7 +11,7 @@ title: Lookbook Documentation
     <div class="flex items-center justify-center mt-10 space-x-4 text-gray-400">
       <a href="{{ site.data.external.demo.url }}" class="underline text-indigo-400" target="_blank">View the demo</a>
       <em>or</em>
-      <a href="/guide/quick-start" class="flex items-center px-8 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-md shadow-md tracking-wide">
+      <a href="/guide/" class="flex items-center px-8 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-md shadow-md tracking-wide">
         <span class="mr-2">Get Started</span>
         {{ icon :chevrons_right_solid, size: :xs }}
       </a>

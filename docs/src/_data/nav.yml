@@ -9,8 +9,6 @@ guide:
         url: /guide/upgrading/
       - label: Configuration
         url: /guide/config/
-      - label: Theming
-        url: /guide/themes/
       - label: Deployment
         url: /guide/deployment/
   - label: Previews
@@ -39,7 +37,12 @@ guide:
         url: /guide/pages/variables/
       - label: Embedding Previews
         url: /guide/pages/embedding/
-
+  - label: Themes
+    items:
+      - label: Overview
+        url: /guide/themes/
+      - label: Theme Customisation
+        url: /guide/themes/customisation/
   - label: Extending
     items:
       - label: Global Data

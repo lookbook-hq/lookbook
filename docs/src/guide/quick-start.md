@@ -7,8 +7,7 @@ It's quick and easy to get up and running with Lookbook.
 Follow this guide to get up and running quickly and then explore the rest of the docs to dive in deeper.
 
 {%= note :info do %}
-These docs are for **Lookbook v1.0**, which is still in development. You will need to use a v1.0 beta
-release in order to have access to all the features described here.
+If you are **already using Lookbook in your project** then head over to the [upgrade guide](/guide/upgrading) instead for details on how to update to the latest version.
 {% end %}
 
 ## Install Lookbook
@@ -44,17 +43,17 @@ bin/rails generate component Example title --preview
 
 This will generate an `ExampleComponent` class and corresponding template in `app/components`, and a `ExampleComponentPreview` [preview class](https://viewcomponent.org/guide/previews.html#previews) in `test/components/previews`.
 
-## View the preview in Lookbook
+## Open the preview in the Lookbook UI
 
-Now start the server (if it isn't already running), point your browser to `http://localhost:3000/lookbook` and click on the `Example` component link in the sidebar on the left.
+Start the server (if it isn't already running), point your browser to `http://localhost:3000/lookbook` and click on the `Example` component link in the sidebar on the left.
 
-You will see the component preview in the Lookbook UI - nothing much to look at yet but it's a start!
+You will see the component preview in the Lookbook UI. It's nothing much to look at yet but it's a good start!
 
 {{ image "get_started_example_component.png" }}
 
-## Make some changes
+## Making changes
 
-Now let's make some changes to the generated component files.
+Now let's make some changes to the component files created by the generator.
 
 ### Edit the component template
 
@@ -115,6 +114,6 @@ You can create as many example methods as you like in order to showcase all the 
 
 ## Dive deeper...
 
-Now that you have a component preview to experiment with, dig into the [preview docs](/guide/previews) to learn more about adding [annotations](/guide/previews/annotations), using [preview layouts](/guide/previews/layouts), [grouping examples](/guide/previews/grouping) and more.
+Now that you have a component preview to experiment with you can dig into the [preview docs](/guide/previews) to learn more about adding [annotations](/guide/previews/annotations), using [preview layouts](/guide/previews/layouts), [grouping examples](/guide/previews/grouping) and more.
 
 {{ toc }}
