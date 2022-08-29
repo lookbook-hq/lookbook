@@ -1,0 +1,42 @@
+description: Represents an annotated ViewComponent preview class.
+
+attrs:
+  - name: .id
+    description: Unique ID for the preview
+  - name: .label
+    description: Label for the preview, used in navigation
+  - name: .full_path
+    description: Full filesystem path to the preview class file
+  - name: .url_path
+    description: URL of the preview in Lookbook
+  - name: .examples
+    description: |
+      Array of all the [preview examples](/api/entities/preview_example/) defined in the preview class
+
+methods:
+  - name: .tags
+    purpose: Returns an array of [tag objects](/api/entities/tag/) representing all tags that have been applied of the specified type.
+    signature: preview.tags(<tag_type?>)
+    example_lang: erb
+    args:
+      - name: <tag_type?>
+        type: Symbol
+        description: Optional tag type to filter by - e.g. `:todo`
+    description: |
+      If no tag type is provided then **all** tags are returned.
+    example: |
+      <ul id="todo-list">
+        <% preview.tags(:todo).each do |todo| %>
+          <li><%= todo.task %></li>
+        <% end %>
+      </ul>
+
+  - name: .tag
+    purpose: Returns the first [Tag](/api/entities/tag/) of type `<tag_type>` that has been applied.
+    signature: preview.tag(<tag_type?>)
+    example_lang: erb
+    args:
+      - name: <tag_type?>
+        type: Symbol
+        description: Optional tag type to filter by - e.g. `:status`
+    example: '<p>Preview status: "<%= preview.tag(:status).label %>"</p>'

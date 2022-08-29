@@ -114,10 +114,10 @@ The `data` hash provided as the single argument to any lambda functions contains
 
 {%= options_list do |list| %}
   {% list.option name: "data.preview" do %}
-    Object representing the current preview
+    [Preview object](/api/entities/preview/) representing the current preview
   {% end %}
   {% list.option name: "data.examples" do %}
-    Array of examples rendered in the current preview
+    Array of [examples](/api/entities/example/) that are included in the current preview
   {% end %}
   {% list.option name: "data.context" do %}
     Data about the request context

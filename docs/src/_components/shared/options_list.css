@@ -7,6 +7,10 @@
     @apply py-1 pl-4 align-top;
   }
 
+  .options-list-description p + p {
+    @apply mt-2;
+  }
+
   .options-list-meta {
     @apply space-x-2 text-xs mt-1 opacity-70 pb-1.5;
   }

@@ -3,14 +3,14 @@
   args:
     - name: <name>
       type: Symbol
-      description: The display param name to get the value of
+      purpose: The display param name to get the value of
     - name: <fallback?>
       optional: true
-      description: Optional fallback value if the display param is not set
+      purpose: Optional fallback value if the display param is not set
   signature: "lookbook_display <name> <fallback?>"
   example: |
     <div style="max-width: <%= lookbook_display(:max_width, "100%") %>">...</div>
-  description: |
+  purpose: |
     Returns a [display parameter](/guide/previews/display) value or optional fallback.
 
 - name: lookbook_data
@@ -18,12 +18,12 @@
   args:
     - name: <name>
       type: Symbol
-      description: The data property to get the value of
+      purpose: The data property to get the value of
     - name: <fallback?>
       optional: true
-      description: Optional fallback value if the data is not set
+      purpose: Optional fallback value if the data is not set
   signature: "lookbook_data <name> <fallback?>"
   example: |
     <p>Made by <%= lookbook_data(:company_name, "Acme Widgets") %></p>
-  description: |
+  purpose: |
     Returns a custom [data property](/guide/extend/data) property value or optional fallback.

@@ -55,7 +55,17 @@ guide:
         url: /guide/extend/hooks/
 
 api:
-  - label: Configuration
+  - label: General
     items:
-      - label: Configuration options
+      - label: Configuration Options
         url: /api/config/
+  - label: Entities
+    items:
+      - label: Page
+        url: /api/entities/page/
+      - label: Preview
+        url: /api/entities/preview/
+      - label: PreviewExample
+        url: /api/entities/preview_example/
+      - label: Tag
+        url: /api/entities/tag/

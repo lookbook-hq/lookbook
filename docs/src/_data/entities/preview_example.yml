@@ -1,0 +1,45 @@
+description: Represents a single, annotated example method within a ViewComponent preview class.
+
+attrs:
+  - name: .id
+    description: Unique ID for the example
+  - name: .label
+    description: Label for the example, used in navigation
+  - name: .full_path
+    description: Full filesystem path to the parent preview class file
+  - name: .url_path
+    description: URL of the preview example in Lookbook
+  - name: .output
+    description: The rendered preview example output
+  - name: .source
+    description: The source code for the example
+  - name: .source_lang
+    description: Hash of information about the source language (Ruby or HTML/ERB, depending on whether the example uses a preview template)
+
+methods:
+  - name: .tags
+    purpose: Returns an array of [Tag objects](/api/entities/tag/) representing all tags that have been applied of the specified type.
+    signature: preview_example.tags(<tag_type?>)
+    example_lang: erb
+    args:
+      - name: <tag_type?>
+        type: Symbol
+        description: Optional tag type to filter by - e.g. `:todo`
+    description: |
+      If no tag type is provided then **all** tags are returned.
+    example: |
+      <ul id="todo-list">
+        <% preview_example.tags(:todo).each do |todo| %>
+          <li><%= todo.task %></li>
+        <% end %>
+      </ul>
+
+  - name: .tag
+    purpose: Returns the first [Tag](/api/entities/tag/) of type `<tag_type>` that has been applied.
+    signature: preview_example.tag(<tag_type?>)
+    example_lang: erb
+    args:
+      - name: <tag_type?>
+        type: Symbol
+        description: Optional tag type to filter by - e.g. `:status`
+    example: '<p>Preview status: "<%= preview_example.tag(:status).label %>"</p>'

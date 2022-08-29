@@ -5,18 +5,25 @@
     </h3>
   </div>   
   <div class="prose space-y-6">
+    <% if purpose %>
+      <div>
+        <%= markdownify purpose %>
+      </div>
+    <% end %>
+    <div>
+      <% if display_signature %>
+        <div class="method-signature">
+          <%= markdownify signature %>
+        </div>
+      <% end %>
+      <% if options_list %>
+        <%= options_list %>
+      <% end %>
+    </div>
     <% if description %>
       <div>
         <%= markdownify description %>
       </div>
-    <% end %>
-    <% if display_signature %>
-      <div>
-        <%= markdownify signature %>
-      </div>
-    <% end %>
-    <% if options_list %>
-      <%= options_list %>
     <% end %>
     <% if example %>
       <div>

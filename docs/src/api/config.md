@@ -3,7 +3,7 @@ layout: default
 title: Configuration Options
 ---
 
-{{toc}}
+All of the available Lookbook [configuration](/guide/config/) options.
 
 ## Project
 
@@ -33,3 +33,4 @@ title: Configuration Options
 
 {{ render "config_options_list", group: "system" }}
 
+{{toc}}

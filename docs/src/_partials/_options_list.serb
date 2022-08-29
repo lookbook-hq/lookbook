@@ -1,0 +1,7 @@
+{%= options_list do |list| %}
+  {% options.each do |opt| %}
+    {% list.option name: opt[:name] do %}
+      {{ opt[:description] }}
+    {% end %}
+  {% end %}
+{% end %}

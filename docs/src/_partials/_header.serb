@@ -24,7 +24,7 @@
             </a>
           </li>
           <li>
-            <a href="/api/config"
+            <a href="/api/"
               class="{{ url_segment(resource) == "api" ? "text-indigo-500" : "opacity-60 hover:opacity-100" }}">
               <span>API</span>
             </a>

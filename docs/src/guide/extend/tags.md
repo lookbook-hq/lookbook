@@ -49,7 +49,7 @@ Because tag arguments are _space-separated_, argument values that need to contai
 
 ### Tag body parsing
 
-By default, Lookbook will attempt to parse the tag body into a set of arguments and options.
+By default, Lookbook will attempt to parse the tag body into a set of argument values and options.
 To make this possible an array of argument names (in the order which the values will appear in the tag body) needs be provided when [defining a new tag](#adding-tags).
 
 If your desired custom tag structure does not fit the standard format outlined above,
@@ -159,64 +159,19 @@ The keywords for this preview are: <%= tag.keywords.join(" | ") %>
 
 ## Accessing tag data in panel templates
 
-Both `preview` and `example` entities (available in panel templates) have`.tag` and `.tags` methods for accessing tag data.
+An array of related tags is available via the `.tags` method on both `preview` and `example` objects in [panel templates](/guide/extend/panels#panel-templates):
 
-{%= method_list do |list| %}
-  {% list.method name: "entity.tags", signature: "entity.tags <tag_name?>", example_lang: :erb do |item| %}
-      {% item.example do %}
-        &lt;% link_tags = example.tags(:link) %&gt;
-        <ul>
-          &lt;% link_tags.each do |link| %&gt;
-            <li>
-              <a href="&lt;%= link.href %&gt;">&lt;%= link.text %&gt;</a>
-            </li>
-          &lt;% end %&gt;
-        </ul>
-      {% end %}
-      {% item.options_list do |options| %}  
-        {% options.option name: "<tag_name?>", type: "Symbol" do %}
-          Optional tag name. If provided only tags of that type will be returned, otherwise _all_ tags will be returned.
-        {% end %}
-      {% end %}  
-      {% item.description do %}        
-        For when more than one instance of a tag may be added, the `.tags` method returns an array of `<tag_name>`-type tag objects (or _all_ tag objects if no `<tag_name>` argument is provided).
+```erb
+<ul id="todo-list">
+  <% preview.tags(:todo).each do |todo| %>
+    <li><%= todo.task %></li>
+  <% end %>
+</ul>
 
-        For example, an imaginary `@link` tag might allow adding one or more documentation or related articles links to the preview example,
-        and the custom panel could display those links to the end-user.
-      {% end %}    
-  {% end %}
-{% end %}
-
-{%= note :info do %}
-If you only expect a maximum of **one** instance of a particular tag to be added to the entity, then you can use the
-singular `entity.tag(<tag_name?>)` method instead to return just the first matching result.
-{% end %}
-
-
-### Tag object properties
-
-{%= options_list do |list| %}
-  {% list.option name: "tag.tag_name" do %}
-    Tag name
-  {% end %}
-  {% list.option name: "tag.tag_body" do %}
-    The raw tag body string
-  {% end %}
-  {% list.option name: "tag.args" do %}
-    Arguments hash
-  {% end %}
-  {% list.option name: "tag.opts" do %}
-    Options hash
-  {% end %}
-{% end %}
-
-Additionally, all `tags.args` entries are automatically made accessible as properties directly on the `tag` object itself:
-
-```rb
-tag.args[:foo] = "bar"
-tag.foo # --> "bar"
+<p>Preview example status: "<%= example.tag(:status).current_status %>"</p>
 ```
 
+See the [Preview](/api/entities/preview) and [PreviewExample](/api/entities/preview_example) API docs for more details. 
 
 {{toc}}
 

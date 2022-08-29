@@ -1,3 +1,5 @@
+require "cgi"
+
 module Shared
   class OptionsList < Shared::Base
     renders_many :options, ->(type = nil, **attrs, &block) do
@@ -17,7 +19,7 @@ module Shared
       end
 
       def description
-        desc = markdownify content
+        desc = markdownify CGI.unescapeHTML(content)
         unless @default.nil? && @type.nil?
           desc = "#{desc}<div class='options-list-meta'>#{[
             ("<span>Type: #{@type}</span>" if @type),

@@ -1,6 +1,6 @@
 {%= method_list do |list| %}
   {% methods.each do |method| %}
-    {% list.method name: method[:name], signature: method[:signature], example_lang: (method[:example_lang] || :ruby) do |item| %}
+    {% list.method name: method[:name], purpose: method[:purpose], signature: method[:signature], example_lang: (method[:example_lang] || :ruby) do |item| %}
       {% if method[:example] %}
         {% item.example do %}
           {%= method[:example] %}

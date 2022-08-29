@@ -1,0 +1,45 @@
+---
+layout: default
+---
+{%
+  entity_data = resource.data.entity_data.present? ? site.data.entities[resource.data.entity_data] : {}
+  attributes = entity_data&.dig(:attrs) || []
+  methods = entity_data&.dig(:methods) || []
+%}
+
+{% if entity_data&.description.present? %}
+  <div class="mb-8">
+    {{ markdownify entity_data.description }}
+  </div>
+{% end %}
+
+{% if yield %}
+  <div class="text-lg mb-8">
+    {{ markdownify yield }}
+  </div>
+{% end %}
+
+{% if attributes.any? || methods.any? %}
+
+  <div class="space-y-8">
+    {% if attributes.any? %}
+      <section>
+        <h2 class="mt-0">Attributes</h2>
+        {{ render "attributes_list", options: attributes }}
+        {% if entity_data[:attrs_notes].present? %}
+          <div class="mt-8">
+            {{ markdownify entity_data[:attrs_notes] }}
+          </div>
+        {% end %}
+      </section>
+    {% end %}
+
+    {% if methods.any? %}
+      <section>
+        <h2 class="mt-0">Methods</h2>
+        {{ render "methods_list", methods: methods }}
+      </section>
+    {% end %}
+  </div>
+
+{% end %}
