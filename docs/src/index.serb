@@ -2,25 +2,29 @@
 layout: full
 title: Lookbook Documentation
 ---
-<div class="h-full w-full flex items-center justify-center pb-[30vw] home-max:pb-[50vh]">
+<div class="h-full w-full flex items-center justify-center home-max:pb-[50vh] home-smalltall:pb-[40vw]  home-widetall:pb-[30vw] ">
   <header class="text-center mb-12 mt-6">
-    <h1 class="text-4xl font-extralight">A Development UI for ViewComponent</h1> 
-    <p class="mt-6 text-lg max-w-[500px] mx-auto">
+    <h1 class="text-3xl sm:text-4xl font-extralight">A Development UI for <span class="text-indigo-600">ViewComponent</span></h1> 
+    <p class="mt-6 text-base sm:text-lg max-w-[500px] mx-auto">
       Lookbook is a tool to help develop, test and document ViewComponents in isolation from your main application.
     </p>
-    <div class="flex items-center justify-center mt-10 space-x-4 text-gray-400">
-      <a href="{{ site.data.external.demo.url }}" class="underline text-indigo-400" target="_blank">View the demo</a>
-      <em>or</em>
+    <div class="flex flex-col sm:flex-row items-center justify-center mt-6 sm:mt-10 space-x-4 text-gray-400">
+      <a href="{{ site.data.external.demo.url }}" class="underline text-indigo-400 whitespace-nowrap hidden sm:block" target="_blank">View the demo</a>
+      <em class="hidden sm:block">or</em>
       <a href="/guide/" class="flex items-center px-8 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-md shadow-md tracking-wide">
-        <span class="mr-2">Get Started</span>
-        {{ icon :chevrons_right_solid, size: :xs }}
+        <span class="mx-auto flex items-center">
+          <span class="mr-2  whitespace-nowrap">Get Started</span>
+          {{ icon :chevrons_right_solid, size: :xs }}
+        </span>
       </a>
     </div>
   </header>
 </div>
 
-<div class="absolute left-1/2 -translate-x-1/2 bottom-0 w-full h-[30vw] max-w-[1400px] max-h-[min(50vh,_550px)]">
-  {{ image "lookbook_preview_code.png", alt: "Screenshot of the a Lookbook preview class", class: "w-[50%] absolute top-[60px] left-[-100px] z-0" }}
-  {{ image "lookbook_inspector_screenshot.png", alt: "Screenshot of the Lookbook UI", class: "w-[60%] absolute top-0 left-1/2 -translate-x-1/2 z-10" }}
-  {{ image "lookbook_docs_screenshot.png", alt: "Screenshot of a Lookbook documentation page", class: "w-[50%] absolute top-[60px] right-[-100px] z-0" }}
+{{ image "lookbook_inspector_screenshot.png", alt: "Screenshot of the Lookbook UI", class: "w-[100%] max-w-[1000px] absolute bottom-[-30vh] h-md:bottom-[-150px] left-1/2 -translate-x-1/2 z-10 block home-smallshort:hidden sm:hidden" }}
+
+<div class="absolute left-1/2 -translate-x-1/2 bottom-0 w-full h-[40vw] home-smalltall:h-[50vw] sm:h-[30vw] max-w-[1400px] max-h-[min(50vh,_550px)] hidden home-widetall:block">
+  {{ image "lookbook_preview_code.png", alt: "Screenshot of the a Lookbook preview class", class: "w-[50%] absolute top-[60px] left-[-100px] z-0 hidden sm:block" }}
+  {{ image "lookbook_inspector_screenshot.png", alt: "Screenshot of the Lookbook UI", class: "sm:w-[60%] absolute top-0 left-1/2 -translate-x-1/2 z-10" }}
+  {{ image "lookbook_docs_screenshot.png", alt: "Screenshot of a Lookbook documentation page", class: "w-[50%] absolute top-[60px] right-[-100px] z-0  hidden sm:block" }}
 </div>
