@@ -192,7 +192,6 @@ module Lookbook
         copy: nil,
         panel_classes: nil,
         locals: {},
-        padded: true,
         system: false
       }
     end

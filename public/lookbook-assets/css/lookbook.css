@@ -1664,6 +1664,11 @@ pre[class*="language-"] {
   stroke-linejoin: round;
 }
 
+.lookbook-panel {
+  min-height: 100%;
+  padding: 1rem;
+}
+
 [data-component="prose"] [data-component="code"] {
   border-width: 1px;
   border-color: var(--lookbook-divider);

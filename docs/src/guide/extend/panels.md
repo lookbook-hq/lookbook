@@ -41,7 +41,7 @@ Lookbook.define_panel(:info, {
 
 ```erb
 <!-- views/panels/_info.html.erb -->
-<div>
+<div class="lookbook-panel">
   <h2>Some information</h2>
   <ul>
     <li>You are looking at the '<%= preview.label %>' preview</li>
@@ -131,6 +131,14 @@ The `data` hash provided as the single argument to any lambda functions contains
 
 Panel template files are just regular ERB partials. Unlike [pages](/guide/pages/) they are **not** additionally parsed as markdown.
 
+To match the padding and styles of the system panels you should ensure your panel's content is in an element with the `.lookbook-panel` class applied to it.
+
+```html
+<div class="lookbook-panel">
+  <!-- your panel content here -->
+</div>
+```
+
 Each panel is has access to a number of variables and helpers that can be used to build dynamic content.
 
 ### Variables
@@ -158,6 +166,19 @@ If you wish to specify custom CSS rules to style the contents of the panel, just
 
 {%= note :info do %}
 The `<style>` element will be removed when the panel is rendered and any styles will be automagically **scoped to the panel that they are defined in**, so they will not affect other panels or leak out to affect the styling of the UI in general.
+{% end %}
+
+### Utility classes
+
+There are a number of utility classes available for use in panels to make it easier to match the look and feel of the rest of the Lookbook UI.
+
+{%= options_list do |list| %}
+  {% list.option name: ".lookbook-panel" do %}
+    Apply to the panel's root element
+  {% end %}
+  {% list.option name: ".prose" do %}
+    Apply to text content containers. Adds default prose styles to child elements.
+  {% end %}
 {% end %}
 
 ## Editing system panels
