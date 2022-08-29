@@ -1,6 +1,8 @@
 module Lookbook
   class PreviewsController < ApplicationController
     layout "lookbook/inspector"
+    
+    helper Lookbook::PreviewHelper
 
     def self.controller_path
       "lookbook/previews"
@@ -45,16 +47,6 @@ module Lookbook
     def show_legacy
       Lookbook.logger.warn("Legacy URL path detected. These paths are deprecated and will be removed in a future version")
       redirect_to lookbook_inspect_path params[:path]
-    end
-
-    # Namespaced preview helpers
-
-    def lookbook_display(key, fallback = nil)
-      params.dig(:lookbook, :display, key.to_sym) || fallback
-    end
-
-    def lookbook_data(key, fallback = nil)
-      Lookbook.data.get(key, fallback)
     end
 
     private

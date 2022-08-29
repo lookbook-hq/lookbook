@@ -1,6 +1,11 @@
 module Lookbook
   module PreviewHelper
-    # Left intentionally empty.
-    # Included for backwards compatability.
+    def lookbook_display(key, fallback = nil)
+      params.dig(:lookbook, :display, key.to_sym) || fallback
+    end
+
+    def lookbook_data(key, fallback = nil)
+      Lookbook.data.get(key, fallback)
+    end
   end
 end
