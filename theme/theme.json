@@ -59,6 +59,7 @@
     "header-bg": "var(--lookbook-header-bg)",
     "header-text": "var(--lookbook-header-text)",
     "header-border": "var(--lookbook-header-border)",
+    "blank-slate-title": "var(--lookbook-blank-slate-title)",
     "branding-text": "var(--lookbook-branding-text)",
     "draggable-hint": "var(--lookbook-draggable-hint)"
   }

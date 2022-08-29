@@ -76,6 +76,8 @@ module.exports = function (opts = {}) {
     headerText: "var(--lookbook-white)",
     headerBorder: "var(--lookbook-accent-700)",
 
+    blankSlateTitle: "var(--lookbook-accent-600)",
+
     brandingText: "var(--lookbook-header-text)",
 
     draggableHint: "rgb(224 231 255 / 0.2)",

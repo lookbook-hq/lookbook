@@ -2122,10 +2122,6 @@ pre[class*="language-"] {
   max-width: 1024px;
 }
 
-.max-w-\[400px\] {
-  max-width: 400px;
-}
-
 .max-w-\[420px\] {
   max-width: 420px;
 }
@@ -2769,6 +2765,10 @@ pre[class*="language-"] {
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
+.text-lookbook-blank-slate-title {
+  color: var(--lookbook-blank-slate-title);
+}
+
 .text-red-800 {
   --tw-text-opacity: 1;
   color: rgb(153 27 27 / var(--tw-text-opacity));
@@ -2840,16 +2840,12 @@ pre[class*="language-"] {
   opacity: .5;
 }
 
-.opacity-30 {
-  opacity: .3;
+.opacity-60 {
+  opacity: .6;
 }
 
 .opacity-80 {
   opacity: .8;
-}
-
-.opacity-40 {
-  opacity: .4;
 }
 
 .opacity-0 {
@@ -2862,6 +2858,14 @@ pre[class*="language-"] {
 
 .opacity-90 {
   opacity: .9;
+}
+
+.opacity-30 {
+  opacity: .3;
+}
+
+.opacity-40 {
+  opacity: .4;
 }
 
 .\!opacity-100 {

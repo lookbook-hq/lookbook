@@ -1,27 +1,14 @@
 <div id="landing" class="flex flex-col items-center justify-center h-full w-full">
-  <div class="p-4 text-center mx-auto">
-    <% if Lookbook.previews? %>
-      <div id="landing-with-content">
-        <h5 class="text-lg opacity-50"><%= config.project_name %></h5>
-        <div class="mt-2 italic opacity-30 max-w-[400px]">
-          <p>
-            Select a preview from the nav to get started.
-          </p>
-        </div>
-      </div>
-    <% else %>
-      <div id="landing-no-content">
-        <h5 class="text-lg font-bold opacity-80"><%= config.project_name %></h5>
-        <div class="mt-3 italic opacity-40 max-w-[400px]">
-          <p>
-            Nothing here yet! 
-            <a class="underline" href="https://viewcomponent.org/guide/previews.html" target="_blank">
-              Create a preview
-            </a>
-            to get started.
-          </p>
-        </div>
-      </div>
-    <% end %>
+  <div class="text-center" id="landing-<%= Lookbook.previews? ? "with" : "no" %>-content">
+    <h5 class="text-base text-lookbook-blank-slate-title truncate uppercase font-black tracking-wider mb-2">
+      <%= config.project_name %>
+    </h5>
+    <div class="opacity-60">
+      <% if Lookbook.previews? %>
+        <p>Select a preview from the nav to get started.</p>
+      <% else %>
+        <p><a class="underline" href="https://beta.lookbook.build/guide/previews" target="_blank">Create a preview</a> to get started.</p>
+      <% end %>
+    </div>
   </div>
 </div>

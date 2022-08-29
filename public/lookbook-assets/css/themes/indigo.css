@@ -58,6 +58,7 @@
   --lookbook-header-bg: var(--lookbook-accent-600);
   --lookbook-header-text: var(--lookbook-white);
   --lookbook-header-border: var(--lookbook-accent-700);
+  --lookbook-blank-slate-title: var(--lookbook-accent-600);
   --lookbook-branding-text: var(--lookbook-header-text);
   --lookbook-draggable-hint: #e0e7ff33;
 }
