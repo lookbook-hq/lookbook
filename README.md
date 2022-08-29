@@ -1,49 +1,53 @@
-# Lookbook v1.0 [beta]
+# Lookbook v1.0
 
-**This is the development branch for Lookbook v1.0.** _For code and documentation for the current stable release see the [main branch](https://github.com/allmarkedup/lookbook/tree/main)._
+> **This is the Lookbook v1.0 BETA development branch.**<br>
+>_For code and documentation for the current stable release see the [main branch](https://github.com/allmarkedup/lookbook/tree/main)._
 
----
 
-**This v1.0 beta is still under active development.** However no breaking changes are envisaged to the current implementation and it should now be stable enough to be used for day-to-day development. Give it a try! 🎉
+## Get started
 
----
- 
-## Documentation
+If you are already using Lookbook in your project, just update the Lookbook gem to the latest beta release and then head over to the [beta documentation site](https://beta.lookbook.build/) to read more about the new features.
 
-The new (work-in-progress) **documentation site** for Lookbook v1.0 is available here:
+```ruby
+gem "lookbook", ">= 1.0.0.beta.7"
+```
 
-**https://beta.lookbook.build/**
+If you are **new to Lookbook** then check out the <a href="https://beta.lookbook.build/guide/quick-start/">v1.0 quick start guide</a> for more detailed instructions on installing Lookbook in your project
 
-> Documentation source files are located in the `/docs` directory within this repository. The docs are built using [Bridgetown](https://www.bridgetownrb.com/).
 
-## Demo app
+<h4>Useful Resources</h4>
 
-There is a demo of the latest v1.0 beta here:
+* 👉 <a href="https://beta.lookbook.build/">v1.0 docs</a>
+* 👉 <a href="https://lookbook-demo-app-v1-0-beta.herokuapp.com/lookbook">v1.0 demo app</a> <em>(The repo for the demo <a href="https://github.com/allmarkedup/lookbook-demo/tree/v1.0-beta">is here</a> if you want to dig in further)</em>
 
-**https://lookbook-demo-app-v1-0-beta.herokuapp.com/lookbook/**
+
+
+## Changes and new features in v1.0
+
+Lookbook v1.0 includes a completely re-written UI, many under-the hood improvements and a some exciting new customisation options.
+
+### Frontend changes:
+
+* Completely re-written UI - now built with ViewComponents
+* New [UI themes and customisation options](https://beta.lookbook.build/guide/themes/)
+* Improved small-screen/mobile view
+* Debug menu
+* ...and many other small visual and usability improvements
+
+### New options for extending Lookbook:
+
+* Define [custom tags](https://beta.lookbook.build/guide/extend/tags/) for preview file annotations
+* Create [your own tab panels](https://beta.lookbook.build/guide/extend/panels/) - with complete control over content/layout and access to all Lookbook data
+* Use [lifecycle hooks](https://beta.lookbook.build/guide/extend/hooks/) to run your own code when Lookbook starts up, when files change or at shutdown
+
+### Other changes
+
+* 'Workbench' app for developing Lookbook's UI components in Lookbook
+* New Rspec-based test suite and dummy app
+* All new documentation site built using [Bridgetown](https://www.bridgetownrb.com/)
+
 
 [![Lookbook UI](.github/assets/lookbook_screenshot_v1.0_beta.png)](https://lookbook-demo-app-v1-0-beta.herokuapp.com/lookbook/)
-
-
-## Release focus
-
-The main goals of the v1.0 release are:
-
-- [x] Rebuild app UI using ViewComponent components
-- [x] Improve usability of the small screen/mobile layout
-- [x] Add support for basic UI color theme customisation
-- [x] Allow users to extend Lookbook with custom panels, tags and more
-- [x] Remove the `experimental` flag from the [Pages](https://github.com/allmarkedup/lookbook#pages)
-- [x] Improve the development/debugging setup
-- [ ] Improve the test setup and test coverage, switch to RSpec **[in progress]**
-
-There will be **no intentional breaking changes** for user-facing features, so upgrading to v1.0 should be easy.
-
-## Testing and feedback - help wanted!
-
-The bulk of the v1.0 'new feature' development work is now mostly complete, although testing and bug fixing is ongoing.
-
-**If you are an existing Lookbook user** I'd greatly appreciate if you can kick the tyres on the v1.0 beta and open an issue with any bug reports, suggestions or feedback you might have, either about Lookbook itself or the [new docs site](https://beta.lookbook.build).
 
 ## Workbench
 

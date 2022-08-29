@@ -1,6 +1,6 @@
 # Lookbook Docs
 
-WIP Loookbook documentation site. Built with Bridgetown.
+Lookbook documentation site. Built with Bridgetown.
 
 ## Development
 
