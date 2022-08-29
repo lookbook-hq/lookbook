@@ -11,7 +11,7 @@ module Lookbook
     end
 
     def id
-      generate_id(@preview.id, name)
+      @example_inspector&.id || generate_id(@preview.id, name)
     end
 
     def url_path
