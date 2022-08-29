@@ -13,7 +13,12 @@ module Lookbook
       @pages = Lookbook.pages
       @next_page = @pages.find_next(@page)
       @previous_page = @pages.find_previous(@page)
-      content = render_to_string inline: @page.content
+      content = render_to_string inline: @page.content, locals: {
+        page: @page,
+        next_page: @next_page,
+        previous_page: @previous_page,
+        pages: @pages
+      }
       @page.markdown? ? Lookbook::Markdown.render(content) : content
     end
   end
