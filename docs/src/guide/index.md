@@ -3,9 +3,9 @@ layout: default
 title: What is Lookbook?
 ---
 
-Lookbook is a tool to help develop, test and document [ViewComponents](https://viewcomponent.org).
+Lookbook is a tool to help develop, test and document [ViewComponents](https://viewcomponent.org) in isolation.
 
-It provides a UI to let you browse your component library and develop, test and document each of your components in isolation.
+It provides a UI to let you browse your component library and preview your components alongside code samples and documentation.
 
 Lookbook is built on top of ViewComponent's native [preview classes](https://viewcomponent.org/guide/previews.html) so works out-of-the-box for new and existing projects alike.
 
