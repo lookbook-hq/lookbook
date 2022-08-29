@@ -10,37 +10,39 @@ module Lookbook
     end
 
     def hidden?
-      if code_object&.tag(:hidden)
+      @hidden ||= if code_object&.tag(:hidden)
         code_object.tag(:hidden).text.strip != "false"
+      else
+        false
       end
     end
 
     def id
-      if code_object&.tag(:id)&.text&.present?
+      @id ||= if code_object&.tag(:id)&.text&.present?
         generate_id(code_object&.tag(:id)&.text)
       end
     end
 
     def label
-      code_object&.tag(:label)&.text
+      @label ||= code_object&.tag(:label)&.text
     end
 
     def notes
-      if code_object&.docstring
+      @notes ||= if code_object&.docstring
         code_object.docstring.to_s.strip
       end
     end
 
     def group
-      code_object&.group
+      @group ||= code_object&.group
     end
 
     def position
-      code_object&.tag(:position)&.text&.to_i || 10000
+      @position ||= code_object&.tag(:position)&.text&.to_i || 10000
     end
 
     def components
-      if code_object&.tags(:component).present?
+      @components ||= if code_object&.tags(:component).present?
         code_object.tags(:component).map do |component|
           component.text.constantize
         end
@@ -50,7 +52,8 @@ module Lookbook
     end
 
     def display_params
-      display_params = {}.with_indifferent_access
+      return @display_params unless @display_params.nil?
+      @display_params = {}.with_indifferent_access
       if code_object&.tags(:display).present?
         code_object.tags(:display).each do |tag|
           parts = tag.text.strip.match(/^([^\s]*)\s?(.*)$/)
@@ -63,11 +66,11 @@ module Lookbook
           end
         end
       end
-      display_params
+      @display_params
     end
 
     def parameter_defaults
-      code_object&.parameters&.map { |str| Params.parse_method_param_str(str) }&.compact&.to_h
+      @param_defaults ||= code_object&.parameters&.map { |str| Params.parse_method_param_str(str) }&.compact&.to_h
     end
 
     def params
@@ -77,12 +80,13 @@ module Lookbook
     end
 
     def methods
-      code_object&.meths
+      @methods ||= code_object&.meths
     end
 
     def tags(name = nil)
+      return @tags unless @tags.nil?
       tag_objects = code_object&.tags(name).presence || []
-      Lookbook::Tags.process_tags(tag_objects)
+      @tags ||= Lookbook::Tags.process_tags(tag_objects)
     end
 
     def tag(name = nil)
