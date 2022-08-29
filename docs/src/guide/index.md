@@ -1,6 +1,6 @@
 ---
 layout: default
-title: What is Lookbook?
+title: Lookbook Overview
 ---
 
 Lookbook is a tool to help develop, test and document [ViewComponents](https://viewcomponent.org) in isolation.
