@@ -5,8 +5,14 @@
 # @custom a custom tag
 # @custom another instance of it
 class AnnotatedComponentPreview < ViewComponent::Preview
+  
+  # @id annotated-default
+  # @label Annotated Example
   # @hidden
-  def hidden_example
+  # @unregistered this tag is not recognised
+  # @custom a custom tag
+  # @custom another instance of it
+  def default
     render StandardComponent.new do
       "standard component content"
     end

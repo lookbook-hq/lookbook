@@ -1,6 +1,6 @@
 class StandardComponentPreview < ViewComponent::Preview
   def default
-    render StandardComponent.new do
+    render StandardComponent.new id: "default" do
       "standard component content"
     end
   end
