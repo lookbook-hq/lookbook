@@ -37,6 +37,10 @@ module Lookbook
       @items.sort_by { |item| [item.hierarchy_depth, item&.position, item.label] }
     end
 
+    def clear
+      @items = []
+    end
+
     def visible_items
       reject { |i| i.hidden? }
     end
@@ -68,14 +72,15 @@ module Lookbook
 
     def find(lookup = nil, &block)
       if lookup
-        lookup.is_a?(Symbol) ? find_by_id(lookup.to_s.tr("_", "-")) : find_by_path(lookup)
+        lookup.is_a?(Symbol) ? find_by_id(lookup) : find_by_path(lookup)
       elsif block
         items.find(&block)
       end
     end
 
     def find_by_id(id)
-      items.find { |i| i.id == id }
+      id = id.to_s.tr("_", "-")
+      items.find { |i| i.id.to_s == id }
     end
 
     def find_by_path(path)
