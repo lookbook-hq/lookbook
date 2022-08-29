@@ -83,6 +83,10 @@
       @apply scroll-mt-6;
     }
 
+    .prose hr {
+      @apply border-gray-300;
+    }
+
     .prose [data-component="note"] {
       @apply my-8;
 

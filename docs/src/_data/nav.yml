@@ -55,10 +55,12 @@ guide:
         url: /guide/extend/hooks/
 
 api:
-  - label: General
+  - label: Application
     items:
       - label: Configuration Options
         url: /api/config/
+      - label: Extension APIs
+        url: /api/extensions/
   - label: Entities
     items:
       - label: Page

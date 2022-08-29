@@ -59,32 +59,7 @@ Panel partial templates can be located anywhere within your app's `views` direct
 
 There are a number of available options when defining a panel.
 
-{%= options_list do |list| %}
-  {% list.option name: "label", type: "Symbol" do %}
-    The text to be displayed in the tab for the panel
-  {% end %}
-  {% list.option name: "partial", type: "String" do %}
-    The path to the view template partial used to render the panel
-  {% end %}
-  {% list.option name: "hotkey", type: "String" do %}
-    [keyboard shortcut](https://alpinejs.dev/directives/on#keyboard-events) to make panel become the active tab
-  {% end %}
-  {% list.option name: "disabled", type: "Boolean", default: false do %}
-    Disabled tabs are still accessible but are greyed out in the UI
-  {% end %}
-  {% list.option name: "show", type: "Boolean", default: true do %}
-    Whether or not to display the tab/panel
-  {% end %}
-  {% list.option name: "copy", type: "String" do %}
-    If present, the panel will display a copy button that copies the value of this property to the clipboard when clicked
-  {% end %}
-  {% list.option name: "position", type: "Integer" do %}
-    Position of the tab in the tab list
-  {% end %}
-  {% list.option name: "locals", type: "Hash" do %}
-    A `Hash` of local variables that will be passed to the panel when it is rendered
-  {% end %}
-{% end %}
+{{ render "options_list", options: site.data.panels[:options] }}
 
 ```ruby
 Lookbook.define_panel(:info, {

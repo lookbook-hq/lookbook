@@ -1,0 +1,13 @@
+methods:
+  - name: .define_tag
+    signature: Lookbook.define_tag(<name>, <opts?>)
+    args:
+      - name: <name>
+        type: Symbol
+        description: A unique, 'slug-friendly' name for the panel
+      - name: <arg_names?>
+        type: Array
+        description: Array of positional argument names to match to values when parsing the tag body contents
+    example: |
+      Lookbook.define_tag(:status, [:current_status])
+    purpose: Add a [custom tag](/guide/extend/tags/) for use when annotating component previews

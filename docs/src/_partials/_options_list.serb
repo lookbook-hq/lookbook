@@ -1,6 +1,6 @@
 {%= options_list do |list| %}
   {% options.each do |opt| %}
-    {% list.option name: opt[:name] do %}
+    {% list.option name: opt[:name], type: opt[:type], default: opt[:default] do %}
       {{ opt[:description] }}
     {% end %}
   {% end %}

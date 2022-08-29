@@ -1,4 +1,4 @@
-- name: after_initialize
+- name: .after_initialize
   signature: false
   example: |
     Lookbook.after_initialize do |app|
@@ -9,7 +9,7 @@
   description: |
     Run once Lookbook has been set up and the initial parsing of files has been completed.
 
-- name: after_change
+- name: .after_change
   signature: false
   example: |
     Lookbook.after_change do |app, changes|
@@ -22,7 +22,7 @@
 
     Receives a hash as the second argument with `:modified`, `:added`, and `:removed` properties, each of which is an array of affected file paths.
 
-- name: before_exit
+- name: .before_exit
   signature: false
   example: |
     Lookbook.after_initialize do |app|

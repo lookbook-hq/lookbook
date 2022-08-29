@@ -1,15 +1,34 @@
-description: Represents a page of documentation.
+description: Represents a documentation page.
 
 attrs:
   - name: .id
     description: Unique page ID
+    type: String
+
   - name: .label
     description: Label for the page, used in navigation
+    type: String
+
   - name: .title
     description: Page title
+    type: String
+
   - name: .url_path
     description: URL of the page
+    type: String
+
   - name: .full_path
     description: Full filesystem path to the page file
+    type: String
+
+  - name: .hidden?
+    type: Boolean
+    description: Whether or not the page should show in the nav
+
   - name: .data
+    type: Hash
     description: Hash of user-defined data
+
+  - name: .content
+    type: String
+    description: Raw (unrendered) page template contents
