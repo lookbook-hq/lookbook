@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "application", type: :request do
   context "header" do
     before(:context) do
-      get lookbook_path
+      get lookbook_home_path
       follow_redirect!
     end
 
@@ -18,7 +18,7 @@ RSpec.describe "application", type: :request do
 
   context "main" do
     before(:context) do
-      get lookbook_path
+      get lookbook_home_path
       follow_redirect!
     end
 
@@ -29,8 +29,7 @@ RSpec.describe "application", type: :request do
 
   context "with previews" do
     before(:context) do
-      load_previews
-      get lookbook_path
+      get lookbook_home_path
       follow_redirect!
     end
 
@@ -51,16 +50,11 @@ RSpec.describe "application", type: :request do
         expect(html).to have_css("#previews-nav [data-entity-type=example]", count: visible_examples_count)
       end
     end
-
-    after(:context) do
-      unload_previews
-    end
   end
 
   context "with pages" do
     before(:context) do
-      load_pages
-      get lookbook_path
+      get lookbook_home_path
       follow_redirect!
     end
 
@@ -77,10 +71,6 @@ RSpec.describe "application", type: :request do
         visible_pages_count = Lookbook.pages.count { |p| !p.hidden? }
         expect(html).to have_css("#pages-nav [data-entity-type=page]", count: visible_pages_count)
       end
-    end
-
-    after(:context) do
-      unload_pages
     end
   end
 end

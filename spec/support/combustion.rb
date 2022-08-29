@@ -6,8 +6,5 @@ Combustion.initialize! :action_controller, :action_view do
   config.lookbook.project_name = "Lookbook Test App"
   config.lookbook.listen = false
 
-  config.after_initialize do
-    config.lookbook.preview_paths = []
-    config.lookbook.page_paths = []
-  end
+  Lookbook.define_tag(:custom)
 end
