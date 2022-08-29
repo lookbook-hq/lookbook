@@ -1,5 +1,11 @@
 # Lookbook v1.0
 
+<div>
+<a href="https://rubygems.org/gems/lookbook"><img src="https://img.shields.io/gem/v/lookbook?include_prereleases" alt="Gem version"></a>
+<img src="https://github.com/allmarkedup/lookbook/actions/workflows/ci.yml/badge.svg?branch=v1.0-beta" alt="CI status">
+</div>
+<br>
+
 > **This is the Lookbook v1.0 BETA development branch.**<br>
 >_For code and documentation for the current stable release see the [main branch](https://github.com/allmarkedup/lookbook/tree/main)._
 
@@ -9,7 +15,7 @@
 If you are already using Lookbook in your project, just update the Lookbook gem to the latest beta release and then head over to the [beta documentation site](https://beta.lookbook.build/) to read more about the new features.
 
 ```ruby
-gem "lookbook", ">= 1.0.0.beta.7"
+gem "lookbook", ">= 1.0.0.beta.8"
 ```
 
 If you are **new to Lookbook** then check out the <a href="https://beta.lookbook.build/guide/quick-start/">v1.0 quick start guide</a> for more detailed instructions on installing Lookbook in your project

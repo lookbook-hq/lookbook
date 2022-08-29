@@ -206,7 +206,11 @@ module Lookbook
       end
 
       def app_name
-        name = Rails.application.class&.module_parent_name.presence || Rails.application.class.parent_name
+        name = if Gem::Version.new(Rails.version) >= Gem::Version.new("6.1")
+          Rails.application.class.module_parent_name
+        else
+          Rails.application.class.parent_name
+        end
         name.underscore
       end
 
