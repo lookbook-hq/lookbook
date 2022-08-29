@@ -6,13 +6,13 @@ module Lookbook
       @tag = tag
       html_attrs[:data] ||= {}
       html_attrs[:data][:component] = name if name.present?
-      html_attrs["x-cloak"] = true if cloak == true
+      html_attrs[:"x-cloak"] = true if cloak == true
       html_attrs[self.class.escape_attribute_key] = false
       @html_attrs = html_attrs
     end
 
     def call
-      tag.public_send(@tag, **@html_attrs) do
+      tag.public_send(@tag.to_sym, **@html_attrs) do
         content
       end
     end

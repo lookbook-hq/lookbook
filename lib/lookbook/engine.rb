@@ -206,7 +206,8 @@ module Lookbook
       end
 
       def app_name
-        Rails.application.class.module_parent_name.underscore
+        name = Rails.application.class&.module_parent_name.presence || Rails.application.class.parent_name
+        name.underscore
       end
 
       def register_listener(listener)
