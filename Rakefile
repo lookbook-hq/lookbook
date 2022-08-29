@@ -5,13 +5,11 @@ load "lib/tasks/lookbook_tasks.rake"
 load "rails/tasks/statistics.rake"
 
 require "bundler/gem_tasks"
-require "rake/testtask"
 require "standard/rake"
 
-Rake::TestTask.new(:test) do |t|
-  t.libs << "test"
-  t.pattern = "test/**/*_test.rb"
-  t.verbose = false
+begin
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new(:spec)
+  task default: :spec
+rescue LoadError
 end
-
-task default: :test

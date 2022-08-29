@@ -1,7 +1,16 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+gemspec
 
-ruby "3.0.2"
+rails_version = (ENV["RAILS_VERSION"] || "~> 7.0.0").to_s
+
+gem "rails", rails_version == "main" ? {git: "https://github.com/rails/rails", ref: "main"} : rails_version
+
+if RUBY_VERSION >= "3.1"
+  gem "net-imap", require: false
+  gem "net-pop", require: false
+  gem "net-smtp", require: false
+end
 
 group :development, :test do
   gem "factory_bot", require: false
@@ -11,8 +20,7 @@ group :development, :test do
   gem "actionpack"
   gem "foreman"
   gem "capybara"
-  gem "rails", "~> 7.0.3"
-  gem "rspec-rails", "~> 6.0.0.rc1"
+  gem "appraisal"
+  gem "rspec-rails", "~> 5"
 end
 
-gemspec
