@@ -93,7 +93,7 @@ RSpec.describe Lookbook::PreviewExample do
     end
 
     context ".tag" do
-      it "returns the first of all Tag object when no type is specified" do 
+      it "returns the first of all Tag object when no type is specified" do
         tag = example.tag
         first_tag = example.tags.first
         expect(tag).to be_a Lookbook::Tag

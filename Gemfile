@@ -23,4 +23,3 @@ group :development, :test do
   gem "appraisal"
   gem "rspec-rails", "~> 5"
 end
-

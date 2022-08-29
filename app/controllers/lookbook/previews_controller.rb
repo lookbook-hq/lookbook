@@ -1,7 +1,7 @@
 module Lookbook
   class PreviewsController < ApplicationController
     layout "lookbook/inspector"
-    
+
     helper Lookbook::PreviewHelper
 
     def self.controller_path

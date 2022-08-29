@@ -201,7 +201,7 @@ module Lookbook
             {
               path: path,
               base_path: preview_path,
-              rel_path: Pathname(path).relative_path_from(Pathname.new preview_path).to_s
+              rel_path: Pathname(path).relative_path_from(Pathname.new(preview_path)).to_s
             }
           end
         end
