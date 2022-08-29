@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        rails_version: ["5.2.6", "6.0.4.4", "6.1.4.4", "7.0.2.3", "main"]
+        rails_version: ["5.2.6", "6.0.4.4", "6.1.4.4", "7.0.2.3"]
         ruby_version: ["2.5", "2.6", "2.7", "3.0", "3.1"]
         exclude:
           - rails_version: "5.2.6"
@@ -22,10 +22,6 @@ jobs:
           - rails_version: "7.0.2.3"
             ruby_version: "2.5"
           - rails_version: "7.0.2.3"
-            ruby_version: "2.6"
-          - rails_version: "main"
-            ruby_version: "2.5"
-          - rails_version: "main"
             ruby_version: "2.6"
     steps:
       - uses: actions/checkout@master
@@ -41,7 +37,7 @@ jobs:
         run: |
           bundle config path vendor/bundle
           bundle update
-          bundle exec rspec
+          bundle exec rake spec
         env:
           RAISE_ON_WARNING: 1
           MEASURE_COVERAGE: false
