@@ -84,9 +84,8 @@ module Lookbook
     end
 
     def tags(name = nil)
-      return @tags unless @tags.nil?
       tag_objects = code_object&.tags(name).presence || []
-      @tags ||= Lookbook::Tags.process_tags(tag_objects)
+      Lookbook::Tags.process_tags(tag_objects)
     end
 
     def tag(name = nil)
