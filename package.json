@@ -91,7 +91,7 @@
       "before:init": [
         "npm install",
         "bundle install",
-        "rake test"
+        "rake spec"
       ],
       "after:bump": [
         "npm run lint:fix",
