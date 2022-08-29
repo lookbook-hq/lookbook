@@ -15,7 +15,7 @@ module Lookbook
       return [] if tag_objects.none?
       tag_objects.map do |tag_object|
         opts = Lookbook.config.preview_tags[tag_object.tag_name] || {}
-        Lookbook::Tag.new(tag_object, opts[:args], opts.except(:args))
+        Lookbook::Tag.new(tag_object, opts[:args], **opts.except(:args))
       end.compact
     end
   end
