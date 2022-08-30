@@ -1,5 +1,6 @@
 module Lookbook
   class ApplicationController < ActionController::Base
+    content_security_policy false, if: -> { Rails.env.development? }
     protect_from_forgery with: :exception
 
     helper Lookbook::ApplicationHelper
