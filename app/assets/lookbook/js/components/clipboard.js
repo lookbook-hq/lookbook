@@ -19,7 +19,7 @@ function initClipboard(context = {}) {
         return false;
       }
 
-      const content = decodeEntities(targetEl.innerText.trim());
+      const content = decodeEntities(targetEl.innerHTML.trim());
 
       await window.navigator.clipboard.writeText(content);
       this.copied = true;
