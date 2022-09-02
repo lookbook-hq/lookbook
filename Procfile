@@ -1,1 +1,0 @@
-workbench: npm run workbench
