@@ -16,7 +16,7 @@ Add Lookbook to your `Gemfile` somewhere *after* the ViewComponent gem:
 
 ```ruby
 gem "view_component"
-gem "lookbook", ">= {{ lookbook_version }}" # latest v1.0 beta release
+gem "lookbook"
 ```
 
 and then `bundle install` to install Lookbook.

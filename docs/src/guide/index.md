@@ -10,8 +10,7 @@ It provides a UI to let you browse your component library and preview your compo
 Lookbook is built on top of ViewComponent's native [preview classes](https://viewcomponent.org/guide/previews.html) so works out-of-the-box for new and existing projects alike.
 
 {%= note :info do %}
-**These docs are for Lookbook v1.0 which is still in development**. You will need to use a v1.0 beta
-release in order to have access to all the features described in these pages.
+**This documentation is for Lookbook v1.0+**. Documentation for older releases can be found in the [0.9.x branch of the Lookbook repo &rarr;](https://github.com/allmarkedup/lookbook/tree/0.9.x)
 {% end %}
 
 {{ image "lookbook_inspector_screenshot.png" }}
