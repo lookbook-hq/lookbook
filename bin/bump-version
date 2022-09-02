@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/lookbook/version"
+
+version_file = File.expand_path("#{File.dirname(__FILE__)}/../lib/lookbook/version.rb")
+current_version = Lookbook::VERSION.to_s
+new_version = ARGV[0].sub("v", "").tr("-", ".")
+file = File.open(version_file)
+contents = file.read
+File.write(version_file, contents.gsub(current_version, new_version))
