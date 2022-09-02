@@ -33,6 +33,12 @@ Lookbook's UI is itself built using ViewComponents. To preview these components 
 
 The `workbench` app will be started in development mode and any changes to Lookbook's views or assets will immediately be reflected in the UI.
 
+### Docs site
+
+The [Lookbook docs site](https://lookbook.build) is built using [Bridgetown](https://www.bridgetownrb.com/) and the source files can be found in the `./docs` directory.
+
+To see a local version of the site run `bin/docs` from the root of this repo and then visit http://localhost:4000 in your browser.
+
 ### Testing
 
 Lookbook uses RSpec for testing.
