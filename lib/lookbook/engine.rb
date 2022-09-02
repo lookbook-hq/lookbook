@@ -1,4 +1,3 @@
-require "rails"
 require "view_component"
 require "action_cable/engine"
 require "listen"
