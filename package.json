@@ -28,8 +28,6 @@
     "lint:fix": "standardrb --fix && prettier --write .",
     "release": "release-it",
     "release:dry-run": "release-it --dry-run",
-    "workbench": "npm run clean & concurrently \"npm:workbench:serve\" \"npm:dev\"",
-    "workbench:serve": "cd workbench; bin/rails s -p 4545",
     "prepare": "husky install"
   },
   "author": "Mark Perkins",

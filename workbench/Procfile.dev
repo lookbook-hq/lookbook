@@ -1,0 +1,2 @@
+web: bundle exec rails server -p 4545
+assets: npm run dev
