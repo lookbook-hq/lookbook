@@ -25,9 +25,8 @@ module Lookbook
             css_parser.each_selector do |selector, declarations, specificity|
               @panel_styles += "##{id} #{selector} { #{declarations} }\n"
             end
-            style_tag.unlink
           end
-          @panel_html = panel_dom.to_html.html_safe
+          @panel_html = content.gsub(/<style(?:\s[^>]*)?>.*<\/style>/, "").html_safe
         end
       end
       @panel_html ||= content
