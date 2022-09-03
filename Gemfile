@@ -27,5 +27,3 @@ group :test do
   gem "selenium-webdriver"
   gem "puma"
 end
-
-  

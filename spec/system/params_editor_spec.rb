@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Params editor", :type => :system do
+RSpec.describe "Params editor", type: :system do
   before do
     driven_by(:selenium_chrome_headless)
   end
@@ -12,7 +12,7 @@ RSpec.describe "Params editor", :type => :system do
       visit lookbook_inspect_path("standard/example_with_params")
 
       click_on "Params"
-      fill_in "param-title", :with => content
+      fill_in "param-title", with: content
       click_on "HTML"
 
       within("#inspector-panel-output") do
@@ -26,12 +26,12 @@ RSpec.describe "Params editor", :type => :system do
       visit lookbook_inspect_path("standard/example_with_params")
 
       click_on "Params"
-      fill_in "param-title", :with => content
+      fill_in "param-title", with: content
       click_on "HTML"
 
       within("#inspector-panel-output") do
         expect(page).to have_text(content)
       end
     end
-  end 
+  end
 end
