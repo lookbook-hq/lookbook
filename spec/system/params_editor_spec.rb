@@ -1,10 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Params editor", type: :system do
-  before do
-    driven_by(:selenium_chrome_headless)
-  end
-
   context "text-field" do
     it "updates rendered HTML when the field content changes" do
       content = "This is the title"

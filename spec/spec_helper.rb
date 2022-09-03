@@ -26,4 +26,6 @@ RSpec.configure do |config|
   config.include Lookbook::Engine.routes.url_helpers
 
   config.filter_rails_from_backtrace!
+
+  Capybara.default_driver = :selenium_chrome
 end
