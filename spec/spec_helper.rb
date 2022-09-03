@@ -12,6 +12,7 @@ require_relative "support/component_spec_helper"
 require_relative "support/request_spec_helper"
 require_relative "support/paths_helper"
 require_relative "support/factories"
+require_relative "support/headless"
 
 RSpec.configure do |config|
   config.include ViewComponent::TestHelpers, type: :component

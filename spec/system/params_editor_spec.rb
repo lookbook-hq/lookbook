@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Params editor", js: true, type: :system do
+RSpec.describe "Params editor", type: :system do
   context "text-field" do
     it "updates rendered HTML when the field content changes" do
       content = "This is the title"
