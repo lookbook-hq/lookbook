@@ -35,7 +35,7 @@ module Lookbook
       alpine_component_name = x_data || @html_attrs&.dig(:"x-data") || alpine_component
       if alpine_component_name.present?
         args = Array.wrap(alpine_data)
-        args.any? ? "#{alpine_component_name}(#{safe_join(args).gsub("&quot;", "'").tr("\"", "'")})" : alpine_component_name
+        args.any? ? "#{alpine_component_name}(#{safe_join(args)})" : alpine_component_name
       end
     end
   end
