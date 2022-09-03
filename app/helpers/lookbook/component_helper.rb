@@ -6,6 +6,10 @@ module Lookbook
       render Lookbook::Icon::Component.new(name: name, **attrs)
     end
 
+    def code(**attrs, &block)
+      render Lookbook::Code::Component.new(**attrs), &block
+    end
+
     def render_component(ref, **attrs, &block)
       klass = component_class(ref)
       comp = attrs.key?(:content) ? klass.new(**attrs.except(:content)).with_content(attrs[:content]) : klass.new(**attrs)
