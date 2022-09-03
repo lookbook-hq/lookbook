@@ -57,7 +57,9 @@
     "tippy.js": "^6.3.2"
   },
   "devDependencies": {
+    "commitizen": "^4.2.5",
     "concurrently": "^7.2.1",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
@@ -97,6 +99,11 @@
       ],
       "after:version:bump": "./bin/bump-version ${version} && bundle",
       "after:release": "./bin/release ${version}"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
