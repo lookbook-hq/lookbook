@@ -23,7 +23,7 @@ end
 group :test do
   gem "factory_bot", require: false
   gem "rspec-rails", "~> 5"
-  gem 'capybara', '>= 3.26'
-  gem 'selenium-webdriver'
+  gem "capybara", ">= 3.26"
+  gem "selenium-webdriver"
   gem "puma"
 end

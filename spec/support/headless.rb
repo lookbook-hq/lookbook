@@ -12,7 +12,7 @@ Capybara.register_driver :selenium_chrome_headless do |app|
     opts.add_preference(:download, default_directory: Capybara.save_path)
   end
 
-  Capybara::Selenium::Driver.new(app, **{ browser: :chrome, options_key => browser_options })
+  Capybara::Selenium::Driver.new(app, **{:browser => :chrome, options_key => browser_options})
 end
 
 RSpec.configure do |config|
