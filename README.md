@@ -1,12 +1,12 @@
 # Lookbook
 
 <div>
-<a href="https://rubygems.org/gems/lookbook"><img src="https://img.shields.io/gem/v/lookbook?include_prereleases" alt="Gem version"></a>
+<a href="https://rubygems.org/gems/lookbook"><img src="https://img.shields.io/gem/v/lookbook" alt="Gem version"></a>
 <a href="https://github.com/allmarkedup/lookbook/actions/workflows/ci.yml"><img src="https://github.com/allmarkedup/lookbook/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI status"></a>
 </div>
 <br>
 
-A tool to help develop, test and document [ViewComponents](https://viewcomponent.org/) in isolation.
+A tool to help browse, develop, test & document [ViewComponents](https://viewcomponent.org/) in your app.
 
 ## Documentation
 
