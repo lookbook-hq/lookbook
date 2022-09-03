@@ -2,7 +2,7 @@
 
 <div>
 <a href="https://rubygems.org/gems/lookbook"><img src="https://img.shields.io/gem/v/lookbook?include_prereleases" alt="Gem version"></a>
-<img src="https://github.com/allmarkedup/lookbook/actions/workflows/ci.yml/badge.svg?branch=v1.0-beta" alt="CI status">
+<a href="https://github.com/allmarkedup/lookbook/actions/workflows/ci.yml"><img src="https://github.com/allmarkedup/lookbook/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI status"></a>
 </div>
 <br>
 
