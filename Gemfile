@@ -22,7 +22,6 @@ end
 
 group :test do
   gem "factory_bot", require: false
-  gem "combustion", "~> 1.3"
   gem "capybara"
   gem "rspec-rails", "~> 5"
   gem "selenium-webdriver"
