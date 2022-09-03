@@ -6,7 +6,7 @@
 </div>
 <br>
 
-A tool to help browse, develop, test & document [ViewComponents](https://viewcomponent.org/) in your app.
+A tool to help browse, develop, test & document [ViewComponents](https://viewcomponent.org/) in Ruby on Rails apps.
 
 ## Documentation
 
