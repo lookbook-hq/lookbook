@@ -13,12 +13,20 @@ if RUBY_VERSION >= "3.1"
 end
 
 group :development, :test do
-  gem "factory_bot", require: false
   gem "sqlite3", "~> 1.4"
   gem "standard", "~> 1.1"
   gem "combustion", "~> 1.3"
   gem "actionpack"
-  gem "capybara"
   gem "appraisal"
-  gem "rspec-rails", "~> 5"
 end
+
+group :test do
+  gem "factory_bot", require: false
+  gem "combustion", "~> 1.3"
+  gem "capybara"
+  gem "rspec-rails", "~> 5"
+  gem "selenium-webdriver"
+  gem "puma"
+end
+
+  

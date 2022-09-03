@@ -1,7 +1,7 @@
 <%= render_component_tag class: "px-4 py-3" do %>
   <div class="flex items-start max-w-[800px]" :class="isNarrowLayout && '!block'">
     <label
-      for="param-<%= @name %>"
+      for="param-<%= name %>"
       class="block font-bold cursor-pointer flex-none py-2 w-[140px] truncate pr-2">
       <%= label %>
     </label>
@@ -27,7 +27,8 @@
         <select
           class="form-input"
           x-bind="bindings.input || {}"
-          x-model="value">
+          x-model="value"
+          name="<%= name %>">
           <%= options_for_select(@options || [], value) %>
         </select>
 

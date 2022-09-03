@@ -26,7 +26,7 @@ RSpec.describe Lookbook::Preview do
       end
 
       it "includes all the public example methods in the class" do
-        expect(preview.examples.size).to eq 3
+        expect(preview.examples.size).to eq 4
       end
     end
   end
