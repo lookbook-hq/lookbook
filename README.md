@@ -17,9 +17,9 @@ A tool to help browse, develop, test & document [ViewComponents](https://viewcom
 
 ## Demo
 
-**Online Demo:** [https://lookbook-demo-app-v1-0-beta.herokuapp.com/lookbook](https://lookbook-demo-app-v1-0-beta.herokuapp.com/lookbook) 
+**Online Demo:** [https://lookbook-demo-app.herokuapp.com/lookbook](https://lookbook-demo-app.herokuapp.com/lookbook) 
 
-[![Lookbook UI](.github/assets/lookbook_screenshot_v1.0_beta.png)](https://lookbook-demo-app-v1-0-beta.herokuapp.com/lookbook/)
+[![Lookbook UI](.github/assets/lookbook_screenshot_v1.0_beta.png)](https://lookbook-demo-app.herokuapp.com/lookbook/)
 
 
 ## Development

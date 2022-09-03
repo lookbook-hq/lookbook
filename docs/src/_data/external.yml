@@ -1,6 +1,6 @@
 demo:
-  repo: https://github.com/allmarkedup/lookbook-demo
-  url: https://lookbook-demo-app-v1-0-beta.herokuapp.com/lookbook
+  repo: https://github.com/allmarkedup/lookbook-demo-app
+  url: https://lookbook-demo-app.herokuapp.com/lookbook
 lookbook:
   github:
     home: https://github.com/allmarkedup/lookbook
