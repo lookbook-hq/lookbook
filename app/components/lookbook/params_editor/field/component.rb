@@ -1,5 +1,7 @@
 module Lookbook
   class ParamsEditor::Field::Component < Lookbook::BaseComponent
+    attr_reader :name
+
     def initialize(input:, name:, default: nil, value: nil, input_type: nil, type: nil, options: nil, **html_attrs)
       @input = input
       @name = name
@@ -12,7 +14,7 @@ module Lookbook
     end
 
     def label
-      @name.titleize
+      name.titleize
     end
 
     def value
@@ -32,7 +34,7 @@ module Lookbook
 
     def alpine_data
       escaped_value = helpers.raw json_escape(value.to_json)
-      "{name: '#{@name}', value: #{escaped_value}}"
+      "{name: '#{name}', value: #{escaped_value}}"
     end
 
     def alpine_component

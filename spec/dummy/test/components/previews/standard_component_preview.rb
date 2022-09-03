@@ -17,6 +17,13 @@ class StandardComponentPreview < ViewComponent::Preview
     end
   end
 
+  # @param title [String]
+  def example_with_params(title: nil)
+    render StandardComponent.new(title: title) do
+      "standard component with title param example"
+    end
+  end
+
   protected 
 
   def not_an_example
