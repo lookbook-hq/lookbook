@@ -6,7 +6,7 @@ next_page = nav_next(resource.relative_url)
 prev_page = nav_prev(resource.relative_url)
 %}
 <div class="layout-container !block md:!grid">
-  <div class="layout-column bg-gray-50 !border-gray-300 !hidden md:!block overflow-y-scroll scroll-smooth">
+  <div id="sidebar" class="layout-column bg-gray-50 !border-gray-300 !hidden md:!block overflow-y-scroll" data-turbo-maintain-scroll>
     <div class="layout-content py-8">
       {{ render "nav", current: resource }}
     </div>
