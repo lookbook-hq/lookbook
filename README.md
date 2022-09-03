@@ -1,13 +1,8 @@
 <div align="center">
 <h1>Lookbook</h1>
 
-<p>A native development UI for <a href="http://viewcomponent.org/">ViewComponent</a></p>
-
-<div>
-<a href="https://rubygems.org/gems/lookbook"><img src="https://badge.fury.io/rb/lookbook.svg" alt="Gem version">
-<a href="https://github.com/testdouble/standard"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Ruby Style Guide">
-<a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg" alt="Code style: Prettier">
-</div>
+<h3>🚨 These are legacy docs for Lookbook v0.9.x releases! 🚨</h3>
+<p>For docs on the <strong>latest Lookbook v1.x</strong> releases see the <a href="https://lookbook.build">Lookbook docs site</a> or the <a href="https://github.com/allmarkedup/lookbook">main branch</a> of this repo.</p>
 </div>
 
 ---
@@ -15,7 +10,6 @@
 <div align="center">
 
 <p><a href="#installing">Installing</a> • <a href="#previews">Previews</a>  • <a href="#pages">Pages</a> • <a href="#deployment">Deployment</a> • <a href="#config">Config</a></p>
-<p><a href="#beta-info">🚨 Lookbook v1.0 (beta) - testers wanted! 🚨</a></p>
 </div>
 
 ---
@@ -29,39 +23,7 @@ Lookbook uses [RDoc/Yard-style comment tags](#annotating-preview-files) to exten
 ![Lookbook UI](.github/assets/lookbook_screenshot.png)
 
 
-<h2 id="beta-info">🚨 Lookbook v1.0 (beta)</h3>
 
-The Lookbook v1.0 release is coming soon with a bunch of new features and under-the hood improvements.
-
-### Testing out the beta
-
-If you are already using Lookbook in your project, just update the Lookbook gem to the latest beta release and then head over to the [beta documentation site](https://beta.lookbook.build/) to read more about the new features.
-
-```ruby
-gem "lookbook", ">= 1.0.0.beta.7"
-```
-
-If you are **new to Lookbook** then check out the <a href="https://beta.lookbook.build/guide/quick-start/">v1.0 quick start guide</a> for more detailed instructions on installing Lookbook in your project
-
-> Please do <a href="https://github.com/allmarkedup/lookbook/issues">open an issue</a> or <a href="https://github.com/allmarkedup/lookbook/discussions">start a discussion</a> if you need any help with anything. Comments, feedback and suggestions are always appreciated!
-
-<h4>Useful Resources</h4>
-
-* 👉 <a href="https://lookbook-demo-app-v1-0-beta.herokuapp.com/lookbook">v1.0 demo app</a> <em>(The repo for the demo app <a href="https://github.com/allmarkedup/lookbook-demo/tree/v1.0-beta">is here</a> if you want to dig in further)</em>
-* 👉 <a href="https://beta.lookbook.build/">v1.0 documentation site</a> _(work in progress!)_
-* 👉 <a href="https://github.com/allmarkedup/lookbook/tree/v1.0-beta">v1.0-beta branch</a> 
-
----
-
-**⚠️ Note: The rest of the documentation on this page is related to the current, stable `v0.9.x` branch.**
-
-## Lookbook demo
-
-If you want to have a quick play with Lookbook, the easiest way is to [give the demo app](https://github.com/allmarkedup/lookbook-demo) a spin. It's a basic Rails/ViewComponent app with a few test components included to tinker with.
-
-**Online demo: https://lookbook-demo-app.herokuapp.com/lookbook**
-
-If you'd rather dig in a bit more and run the demo app locally, the [demo repo](https://github.com/allmarkedup/lookbook-demo) contains instructions on how to get it up and running.
 
 ## Installing
 
@@ -71,7 +33,7 @@ Add Lookbook to your `Gemfile` somewhere **after** the ViewComponent gem. For ex
 
 ```ruby
 gem "view_component"
-gem "lookbook"
+gem "lookbook", "~> 0.9.7"
 ```
 
 ### 2. Mount the Lookbook engine
