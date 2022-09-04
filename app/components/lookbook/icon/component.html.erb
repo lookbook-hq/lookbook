@@ -1,4 +1,4 @@
-<%= render_component_tag :i, style: "height: #{size_rems}; width: #{size_rems}" do %>
+<%= render_component_tag :i, style: "height: #{size_rems}; width: #{size_rems}; #{@html_attrs[:style]}" do %>
   <svg>
     <use :href="`/lookbook-assets/feather-sprite.svg#${iconName}`" x-cloak />
   </svg>
