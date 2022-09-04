@@ -3,15 +3,34 @@ description: Represents an annotated ViewComponent preview class.
 attrs:
   - name: .id
     description: Unique ID for the preview
+    type: String
+
   - name: .label
     description: Label for the preview, used in navigation
+    type: String
+
   - name: .full_path
     description: Full filesystem path to the preview class file
+    type: Pathname
+
   - name: .url_path
     description: URL of the preview in Lookbook
+    type: Pathname
+
   - name: .examples
     description: |
       Array of all the [preview examples](/api/entities/preview_example/) defined in the preview class
+    type: Array
+
+  - name: .components
+    description: |
+      Array of all the [components](/api/entities/component/) used in the preview - usually just one!
+    type: Array
+
+  - name: .component
+    description: |
+      The first (and normally only) [component](/api/entities/component/) used in the preview
+    type: Component
 
 methods:
   - name: .tags
