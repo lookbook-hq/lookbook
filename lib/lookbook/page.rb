@@ -33,7 +33,7 @@ module Lookbook
     end
 
     def full_path
-      Rails.root.join(@pathname.to_s)
+      Pathname.new Rails.root.join(@pathname.to_s)
     end
 
     def name
