@@ -38,6 +38,6 @@ Our brand color hex value is <%= page.data[:brand_colors][:red] %>
 
 The following helpers are available to use in your page templates. 
 
-{{ render "methods_list", methods: site.data.page_helpers }}
+{{ render "methods_list", methods: site.data.helpers }}
 
 {{toc}}

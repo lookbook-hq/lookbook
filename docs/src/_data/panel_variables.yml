@@ -27,9 +27,9 @@
 
 - name: context
   methods:
-    - name: preview_params
+    - name: context.preview_params
       description: Hash of supplied preview parameters, if any
-    - name: path
+    - name: context.path
       description: URL path of the current page
   example: |
     <p>Current URL path: <%= context.path %></p>
@@ -44,14 +44,14 @@
 
 - name: app
   methods:
-    - name: previews
+    - name: app.previews
       description: Array of all preview objects
-    - name: pages
+    - name: app.pages
       description: Array of all page objects
-    - name: logger
+    - name: app.logger
       description: Lookbook logger instance
   example: |
     <p>There are <%= app.previews.size %> previews available.</p>
-    <% Logger.info("Successfully output the number of previews") %>
+    <% app.logger.info("Successfully output the number of previews") %>
   description: |
     The main `Lookbook` app instance.

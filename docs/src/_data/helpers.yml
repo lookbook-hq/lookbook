@@ -1,5 +1,6 @@
 - name: page_path
   purpose: Returns the path to a page.
+  only: [pages]
   example_lang: erb
   args:
     - name: <page>
@@ -12,6 +13,7 @@
 
 - name: embed
   purpose: Generates a live embed of a component preview.
+  only: [pages]
   example_lang: erb
   args:
     - name: <preview>
@@ -57,3 +59,21 @@
   description: |
     The `code` helper is an alternative to using markdown code blocks for
     templates that have markdown parsing disabled, or for when more control is required.
+
+- name: icon
+  purpose: Displays an icon.
+  example_lang: erb
+  args:
+    - name: <icon_name>
+      type: Symbol
+      description: The name of the icon to display
+    - name: <opts?>
+      type: Hash
+      description: Hash of options
+  signature: "icon(<icon_name>, <opts?>)"
+  example: |
+    <%= icon :trash %>
+    <%= icon :camera, size: 6, style: "color: red;" %>
+  description: |
+    Lookbook uses icons from the [Feather Icons](https://feathericons.com/) set and a full list of available icon
+    names can be found on that site.

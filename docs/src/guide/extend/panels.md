@@ -122,6 +122,18 @@ Any `locals` defined in the [panel options](#panel-options) will be available, p
 
 {{ render "objects_list", objects: site.data.panel_variables }}
 
+### Helpers
+
+The following helpers are available in panel templates:
+
+{%
+panel_helpers = site.data.helpers.filter do |h|
+  h[:only].nil? || h[:only].include?("panels")
+end
+%}
+
+{{ render "methods_list", methods: panel_helpers }}
+
 ## Styling panel content
 
 If you wish to specify custom CSS rules to style the contents of the panel, just include a `<style>` element in the panel partial template:
