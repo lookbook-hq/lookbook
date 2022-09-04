@@ -61,11 +61,15 @@ module Lookbook
       examples.first
     end
 
+    def rel_path
+      "#{name.underscore}.rb"
+    end
+
     def full_path
       base_path = Array(Lookbook.config.preview_paths).detect do |preview_path|
-        Dir["#{preview_path}/#{name.underscore}.rb"].first
+        Dir["#{preview_path}/#{rel_path}"].first
       end
-      Pathname.new(Dir["#{base_path}/#{name.underscore}.rb"].first)
+      Pathname.new(Dir["#{base_path}/#{rel_path}"].first)
     end
 
     def url_path

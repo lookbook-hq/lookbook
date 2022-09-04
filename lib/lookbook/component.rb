@@ -11,6 +11,10 @@ module Lookbook
       name.underscore
     end
 
+    def rel_path
+      Pathname.new("#{path}.rb")
+    end
+
     def full_path
       Pathname.new("#{Lookbook.config.components_path}/#{path}.rb")
     end

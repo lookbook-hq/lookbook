@@ -13,7 +13,7 @@ module Lookbook
       :data
     ]
 
-    attr_reader :errors
+    attr_reader :errors, :rel_path
     attr_accessor :sections
 
     def initialize(path, base_path)
@@ -23,8 +23,8 @@ module Lookbook
       @errors = []
       @sections = []
       @page_name = remove_position_prefix(path_name)
-      rel_path = @pathname.relative_path_from(@base_path)
-      page_path = rel_path.dirname.to_s == "." ? @page_name : "#{rel_path.dirname}/#{@page_name}"
+      @rel_path = @pathname.relative_path_from(@base_path)
+      page_path = @rel_path.dirname.to_s == "." ? @page_name : "#{@rel_path.dirname}/#{@page_name}"
       super(page_path)
     end
 
