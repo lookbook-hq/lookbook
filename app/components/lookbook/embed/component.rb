@@ -2,7 +2,7 @@ module Lookbook
   class Embed::Component < Lookbook::BaseComponent
     def initialize(id:, example:, params: {}, opts: {}, max_height: nil, **html_attrs)
       @id = id
-      @example = example
+      @target = example
       @params = params
       @opts = opts
       @max_height = max_height

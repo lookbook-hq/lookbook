@@ -13,7 +13,7 @@ module Lookbook
     before_action :set_params
 
     def preview
-      if @example
+      if @target
         begin
           opts = {layout: @preview.layout}
           if params[:lookbook_embed] == "true"
@@ -32,7 +32,7 @@ module Lookbook
     end
 
     def show
-      if @example
+      if @target
         begin
           @main_panels = main_panels
           @drawer_panels = drawer_panels
@@ -52,9 +52,9 @@ module Lookbook
     private
 
     def lookup_entities
-      @example = Lookbook.previews.find_example(params[:path])
-      if @example.present?
-        @preview = @example.preview
+      @target = Lookbook.previews.find_example(params[:path])
+      if @target.present?
+        @preview = @target.preview
         if params[:path] == @preview&.lookup_path
           redirect_to lookbook_inspect_path "#{params[:path]}/#{@preview.default_example.name}"
         end
@@ -85,17 +85,17 @@ module Lookbook
     end
 
     def target_examples
-      @example.type == :group ? @example.examples : [@example]
+      @target.type == :group ? @target.examples : [@target]
     end
 
     def set_title
-      @title = @example.present? ? [@example&.label, @preview&.label].compact.join(" :: ") : "Not found"
+      @title = @target.present? ? [@target&.label, @preview&.label].compact.join(" :: ") : "Not found"
     end
 
     def set_params
-      if @example
+      if @target
         # cast known params to type
-        @example.params.each do |param|
+        @target.params.each do |param|
           if preview_controller.params.key?(param[:name])
             preview_controller.params[param[:name]] = Lookbook::Params.cast(preview_controller.params[param[:name]], param[:type])
           end
@@ -103,7 +103,7 @@ module Lookbook
         # set display and data params
         preview_controller.params.merge!({
           lookbook: {
-            display: @example.display_params,
+            display: @target.display_params,
             data: Lookbook.data
           }
         })
@@ -113,7 +113,7 @@ module Lookbook
     def preview_params
       preview_controller.params.permit!
       preview_controller.params.to_h.select do |key, value|
-        !!@example.params.find { |param| param[:name] == key }
+        !!@target.params.find { |param| param[:name] == key }
       end
     end
 
@@ -125,12 +125,7 @@ module Lookbook
         path: params[:path]
       }
 
-      example = @example
       preview = @preview
-      preview.define_singleton_method(:params, proc {
-        example.params
-      })
-
       examples = target_examples.map do |example|
         render_args = @preview.render_args(example.name, params: preview_controller.params)
         has_template = render_args[:template] != "view_components/preview"
@@ -144,11 +139,18 @@ module Lookbook
         example
       end
 
+      target = @target.type == :group ? @target : examples.find { |e| e.lookup_path == @target.lookup_path }
+
+      preview.define_singleton_method(:params, proc {
+        target.params
+      })
+
       @inspector_data ||= Lookbook::Store.new({
         context: context_data,
         preview: preview,
         examples: examples,
-        example: example,
+        example: examples.first,
+        target: target,
         data: Lookbook.data,
         app: Lookbook
       })
@@ -198,7 +200,7 @@ module Lookbook
         {
           file_path: @preview&.full_path,
           line_number: 0,
-          source_code: @example&.source
+          source_code: @target&.source
         }
       elsif exception.is_a?(ActionView::Template::Error) & exception.message.include?("implements a reserved method")
         message_parts = exception.message.split("\n").first.split

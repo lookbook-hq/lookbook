@@ -29,7 +29,7 @@
             <% group.button icon: :code,
               tooltip: "Copy page embed code",
               copy: true do %>
-                &lt;%= embed <%= @preview.preview_class %>, :<%= @example.name %>, params: <%= request.query_parameters.deep_symbolize_keys.to_s %> %&gt;
+                &lt;%= embed <%= @preview.preview_class %>, :<%= @target.name %>, params: <%= request.query_parameters.deep_symbolize_keys.to_s %> %&gt;
             <% end %>
           <% end %>
           
@@ -38,7 +38,7 @@
             "@click.stop": "startSpin(); $dispatch('viewport:reload'); stopSpin(500);" %>
 
           <% group.button icon: :external_link,
-            href: lookbook_preview_path(@example.lookup_path, request.query_parameters),
+            href: lookbook_preview_path(@target.lookup_path, request.query_parameters),
             tooltip: "Open preview in new window",
             target: "_blank" %>
 
