@@ -103,13 +103,11 @@ module Lookbook
         # Rails.application.server is only available for newer Rails versions
         Rails.application.server do
           init_listeners
-          Lookbook::Engine.init_websocket
         end
       else
         # Fallback for older Rails versions - don't start listeners if running in a rake task.
         unless Lookbook::Engine.prevent_listening?
           init_listeners
-          Lookbook::Engine.init_websocket
         end
       end
 
@@ -170,8 +168,9 @@ module Lookbook
         register_listener(page_listener)
       end
 
-      def init_websocket
+      def websocket
         config = Lookbook.config
+        return @websocket unless @websocket.nil?
         return unless config.auto_refresh == true
         Lookbook.logger.info "Initializing websocket"
 
@@ -181,7 +180,7 @@ module Lookbook
         cable.connection_class = -> { Lookbook::Connection }
         cable.logger = config.cable_logger
 
-        @websocket = if Gem::Version.new(Rails.version) >= Gem::Version.new(6.0)
+        @websocket ||= if Gem::Version.new(Rails.version) >= Gem::Version.new(6.0)
           ActionCable::Server::Base.new(config: cable)
         else
           ws = ActionCable::Server::Base.new
@@ -191,11 +190,11 @@ module Lookbook
       end
 
       def websocket_mount_path
-        "#{mounted_path}#{config.lookbook.cable_mount_path}" if websocket
+        "#{mounted_path}#{config.lookbook.cable_mount_path}" if websocket?
       end
 
       def websocket?
-        !!websocket
+        websocket.present?
       end
 
       def mounted_path
@@ -254,7 +253,7 @@ module Lookbook
         end
       end
 
-      attr_reader :preview_controller, :websocket
+      attr_reader :preview_controller
     end
   end
 end
