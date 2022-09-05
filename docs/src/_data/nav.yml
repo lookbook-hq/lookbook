@@ -69,6 +69,8 @@ api:
         url: /api/entities/preview/
       - label: PreviewExample
         url: /api/entities/preview_example/
+      - label: PreviewGroup
+        url: /api/entities/preview_group/
       - label: Component
         url: /api/entities/component/
       - label: Tag

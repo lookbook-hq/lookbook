@@ -3,18 +3,35 @@ description: Represents a single, annotated example method within a ViewComponen
 attrs:
   - name: .id
     description: Unique ID for the example
+    type: String
+
   - name: .label
     description: Label for the example, used in navigation
+    type: String
+
   - name: .full_path
     description: Full filesystem path to the parent preview class file
+    type: Pathname
+
   - name: .url_path
     description: URL of the preview example in Lookbook
+    type: String
+
   - name: .output
     description: The rendered preview example output
+    type: String
+
   - name: .source
     description: The source code for the example
+    type: String
+
   - name: .source_lang
     description: Hash of information about the source language (Ruby or HTML/ERB, depending on whether the example uses a preview template)
+    type: Hash
+
+  - name: .type
+    description: The entity type. Returns `:example`
+    type: Symbol
 
 methods:
   - name: .tags

@@ -1,0 +1,35 @@
+description: Represents a group of [examples](/guide/api/example) within a preview.
+
+attrs:
+  - name: .label
+    description: Label for the group, used in navigation
+    type: String
+
+  - name: .url_path
+    description: URL of the group in Lookbook
+    type: String
+
+  - name: .type
+    description: The entity type. Returns `:group`
+    type: Symbol
+
+methods:
+  - name: .tags
+    purpose: Returns an array of [Tag objects](/api/entities/tag/) for the group
+    signature: group.tags(<tag_type?>)
+    example_lang: erb
+    args:
+      - name: <tag_type?>
+        type: Symbol
+        description: Optional tag type to filter by - e.g. `:todo`
+    description: |
+      Groups cannot have tags set on themselves directly so the tags are the result of **merging the tags of
+      all examples in the group** together.
+
+      If no tag type is provided then **all** tags are returned.
+    example: |
+      <ul id="todo-list">
+        <% group.tags(:todo).each do |todo| %>
+          <li><%= todo.task %></li>
+        <% end %>
+      </ul>

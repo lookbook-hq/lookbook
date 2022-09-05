@@ -12,6 +12,12 @@
   example: |
     <h2>This is the <%= preview.label %> preview</h2>
 
+- name: target
+  description: |
+    An object representing the [example](/api/entities/preview_example/) or [group of examples](/api/entities/preview_group/) currently being rendered
+  example: |
+    <h2>Currently rendering '<%= target.label %>' which is <%= "not" unless target.type == :group %> a group.</h2>
+
 - name: examples
   example: |
     <p>This preview is showing <%= examples.size %> examples rendered together.</p>

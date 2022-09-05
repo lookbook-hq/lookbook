@@ -32,6 +32,10 @@ attrs:
       The first (and normally only) [component](/api/entities/component/) used in the preview
     type: Component
 
+  - name: .type
+    description: The entity type. Returns `:preview`
+    type: Symbol
+
 methods:
   - name: .tags
     purpose: Returns an array of [tag objects](/api/entities/tag/) representing all tags that have been applied of the specified type.

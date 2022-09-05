@@ -32,3 +32,7 @@ attrs:
   - name: .content
     type: String
     description: Raw (unrendered) page template contents
+
+  - name: .type
+    description: The entity type. Returns `:page`
+    type: Symbol
