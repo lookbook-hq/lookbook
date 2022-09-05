@@ -79,10 +79,11 @@
   },
   "release-it": {
     "git": {
-      "commitMessage": "release v${version}"
+      "commitMessage": "chore(${branchName}) release ${version}"
     },
     "github": {
-      "release": true
+      "release": true,
+      "releaseName": "Release ${version}"
     },
     "npm": {
       "publish": false
