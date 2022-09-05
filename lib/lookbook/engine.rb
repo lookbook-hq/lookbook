@@ -174,7 +174,7 @@ module Lookbook
         config = Lookbook.config
         return unless config.auto_refresh == true
         Lookbook.logger.info "Initializing websocket"
-        
+
         cable = ActionCable::Server::Configuration.new
         cable.cable = {adapter: "async"}.with_indifferent_access
         cable.mount_path = config.cable_mount_path
