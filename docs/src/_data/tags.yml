@@ -11,3 +11,82 @@ methods:
     example: |
       Lookbook.define_tag(:status, [:current_status])
     purpose: Add a [custom tag](/guide/extend/tags/) for use when annotating component previews
+
+tags:
+  - name: label
+    signature: "@label <text>"
+    args:
+      - name: <text>
+        type: String
+        description: Text to use for the label
+    purpose: "[Sets the label](/guide/previews/navigation/#custom-labels) displayed in the nav."
+    example: |
+      # @label Primary Button
+      def main_but
+
+  - name: hidden
+    signature: "@hidden <value?>"
+    args:
+      - name: <value?>
+        type: String
+        default: "`true`"
+        description: Whether to hide the entity or not
+    purpose: "[Prevents the target from appearing](/guide/previews/navigation/#hiding-previews) in the nav."
+    example: |
+      # @label hidden
+      def not_ready
+
+  - name: group
+    signature: "@!group <name?> ... @!endgroup"
+    args:
+      - name: <name?>
+        type: String
+        description: Optional group name. Will default to the name of the first example in the group if not provided.
+    purpose: Groups examples together for [rendering in a single preview](/guide/previews/grouping).
+    example: |
+      # @!group
+      def example_one
+      end
+      def example_two
+      end
+      # @!endgroup
+
+  - name: param
+    signature: "@param <name> [<type?>] <input_type?> <opts?>"
+    args:
+      - name: <name>
+        type: String
+        description: Name of the example method parameter that this should be used for
+      - name: <type?>
+        type: String
+        description: Optional data type to cast the value to before passing to the example as a parameter. Must be wrapped in square brackets.
+      - name: <input_type?>
+        type: String
+        description: The type of form input to render. Will be guessed if not provided
+      - name: <opts?>
+        type: Array (YAML formatted) | String
+        description: YAML-encoded field options (or path to a JSON file of options), used for some field types
+    purpose: |
+      Specifies a [dynamic preview parameter](/guide/previews/params) that will be editiable in the UI via a form input.
+      **Not valid for preview classes. Example methods only.**
+    example: |
+      # @param theme [Symbol] select [primary, secondary, danger]
+      def example(theme: :primary)
+
+  - name: display
+    signature: "@display <key> <value>"
+    purpose: Sets the value of a [display variable](/guide/previews/display) for use in preview layouts.
+    example: |
+      # @param theme [Symbol] select [primary, secondary, danger]
+      def example(theme: :primary)
+
+  - name: component
+    signature: "@component <class_name>"
+    purpose: |
+      Identifies the component being rendered in the preview. Only necessary when it is not possible to guess it from the preview class name.
+    example: |
+      # @component Elements::ButtonComponent
+      # @component Elements::ToggleComponent
+      class InteractiveComponentsPreview < ViewComponent::Preview
+    description: |
+      Can be applied multiple times if there is more than one component being rendered,

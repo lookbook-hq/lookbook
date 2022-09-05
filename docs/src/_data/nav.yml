@@ -55,12 +55,14 @@ guide:
         url: /guide/extend/data/
 
 api:
-  - label: Application
+  - label: General
     items:
       - label: Configuration Options
         url: /api/config/
       - label: Extension APIs
         url: /api/extensions/
+      - label: Tags Reference
+        url: /api/tags/
   - label: Entities
     items:
       - label: Page

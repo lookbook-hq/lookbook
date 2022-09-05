@@ -7,6 +7,11 @@ Lookbook extends the standard ViewComponent preview classes using [Yard-style](h
 
 Comment annotations can be added at the class (preview) or method (preview example) level, and can contain a mix of [text content](#notes) and [tags](#tags).
 
+{%= note :info do %}
+See the [Tags Reference](/api/tags/) page for full details of all available tags.
+{% end %}
+
+
 ## Annotated preview file example
 
 Below is an example of an ViewComponent preview file with annotations.
@@ -92,27 +97,24 @@ end
 
 ## Tags
 
-Tags are lines of structured text identified by their `@` prefix - for example `@hidden`. They provide extra information to Lookbook about how to render the preview.
+Tags are lines of structured text identified by their `@` prefix - for example `@hidden`. They provide extra information to Lookbook about how to render the preview or represent items in the navigation.
 
-The following Lookbook-specific tags are available for use:
+In the following example, the preview class has one tag applied to it (`@label`) and the example method has two (`@display` and `@param`)
 
+```rb
+# @label Basic Button
+class ButtonComponentPreview < ViewComponent::Preview
+  # @display bg_color red
+  # @param icon select [heart, cog, alert]
+  def icon(icon: "heart")
+    render ButtonComponent.new(icon: icon) do
+      "Spread the love"
+    end
+  end
+```
 
-{%= options_list do |list| %}
-  {% list.option name: "@label" do %}
-    Customise navigation labels ([read more](/guide/previews/navigation/#custom-labels))
-  {% end %}
-  {% list.option name: "@hidden" do %}
-    Hide previews from the navigation ([read more](/guide/previews/navigation/#hiding-previews))
-  {% end %}
-  {% list.option name: "@!group ... @!endgroup" do %}
-    Group previews together ([read more](/guide/previews/grouping/))
-  {% end %}
-  {% list.option name: "@display" do %}
-    Customise preview layouts ([read more](/guide/previews/display/))
-  {% end %}
-  {% list.option name: "@param" do %}
-    Define editable preview parameters ([read more](/guide/previews/params/))
-  {% end %}
+{%= note :info do %}
+The [Tags Reference](/api/tags/) page contains a **full list of all available tags**, and the other pages in this section explore some of the tags and their usage in more detail.
 {% end %}
 
 ## Notes
