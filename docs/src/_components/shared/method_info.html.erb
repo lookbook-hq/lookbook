@@ -1,16 +1,21 @@
 <%= tag.div **html_attrs do %>
-  <div class="not-prose">
-    <h3 id="method-<%= name.gsub("_", "-") %>" class="font-bold text-lg text-indigo-600 mb-4">
+  <div class="not-prose mb-4">
+    <h3 id="method-<%= name.gsub("_", "-") %>" class="font-bold text-lg text-indigo-600">
         <%= title %>
     </h3>
-  </div>   
-  <div class="prose space-y-6">
     <% if purpose %>
-      <div>
+      <div class="mt-3 prose">
         <%= markdownify purpose %>
       </div>
     <% end %>
-    <div>
+  </div>
+  <div class="prose space-y-6">
+   <% if description %>
+      <div class="italic opacity-70">
+        <%= markdownify description %>
+      </div>
+    <% end %>
+    <div class="method-signature-detail">
       <% if display_signature %>
         <div class="method-signature">
           <%= markdownify signature %>
@@ -20,13 +25,8 @@
         <%= options_list %>
       <% end %>
     </div>
-    <% if description %>
-      <div>
-        <%= markdownify description %>
-      </div>
-    <% end %>
     <% if example %>
-      <div>
+      <div class="method-example">
         <%= markdownify example %>
       </div>
     <% end %>

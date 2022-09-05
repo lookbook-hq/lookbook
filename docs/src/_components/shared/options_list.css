@@ -4,7 +4,7 @@
   }
 
   .options-list-description {
-    @apply py-1 pl-4 align-top;
+    @apply py-1 pl-4 align-top text-sm;
   }
 
   .options-list-description p + p {

@@ -12,4 +12,8 @@
     @apply border border-gray-200 border-t-0;
     @apply rounded-t-none !important;
   }
+
+  .method-signature-detail + .method-example {
+    @apply mt-4;
+  }
 }
