@@ -1,5 +1,5 @@
 Lookbook::Engine.routes.draw do
-  if Lookbook.config.auto_refresh
+  if Lookbook::Engine.websocket?
     mount Lookbook::Engine.websocket => Lookbook.config.cable_mount_path
   end
 

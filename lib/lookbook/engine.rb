@@ -1,7 +1,6 @@
 require "view_component"
 require "action_cable/engine"
 require "listen"
-require "rake"
 
 module Lookbook
   autoload :Config, "lookbook/config"
@@ -104,11 +103,13 @@ module Lookbook
         # Rails.application.server is only available for newer Rails versions
         Rails.application.server do
           init_listeners
+          Lookbook::Engine.init_websocket
         end
       else
         # Fallback for older Rails versions - don't start listeners if running in a rake task.
-        unless File.basename($0) == "rake" || Rake.application.top_level_tasks.any?
+        unless Lookbook::Engine.prevent_listening?
           init_listeners
+          Lookbook::Engine.init_websocket
         end
       end
 
@@ -127,69 +128,74 @@ module Lookbook
       Lookbook::Engine.run_hooks(:after_initialize)
     end
 
-    def init_listeners
-      return unless config.lookbook.listen == true
-      Listen.logger = Lookbook.logger
-      Lookbook.logger.info "Initializing listeners"
-
-      preview_listener = Listen.to(
-        *config.lookbook.listen_paths,
-        only: /\.(#{config.lookbook.listen_extensions.join("|")})$/,
-        force_polling: config.lookbook.listen_use_polling
-      ) do |modified, added, removed|
-        changes = {modified: modified, added: added, removed: removed}
-        begin
-          Lookbook::Engine.parser.parse
-        rescue
-        end
-        Lookbook::Preview.clear_cache
-        Lookbook::Engine.reload_ui(changes)
-        Lookbook::Engine.run_hooks(:after_change, changes)
-      end
-      Lookbook::Engine.register_listener(preview_listener)
-
-      page_listener = Listen.to(
-        *config.lookbook.page_paths,
-        only: /\.(html.*|md.*)$/,
-        force_polling: config.lookbook.listen_use_polling
-      ) do |modified, added, removed|
-        changes = {modified: modified, added: added, removed: removed}
-        Lookbook::Engine.reload_ui(changes)
-        Lookbook::Engine.run_hooks(:after_change, changes)
-      end
-      Lookbook::Engine.register_listener(page_listener)
-    end
-
     at_exit do
       if Lookbook::Engine.listeners.any?
         Lookbook.logger.debug "Stopping listeners"
-        Lookbook::Engine.listeners.each { |listener| listener.stop }
+        Lookbook::Engine.stop_listeners
       end
       Lookbook::Engine.run_hooks(:before_exit)
     end
 
     class << self
-      def websocket
-        return @websocket unless @websocket.nil?
-        if config.lookbook.auto_refresh
-          cable = ActionCable::Server::Configuration.new
-          cable.cable = {adapter: "async"}.with_indifferent_access
-          cable.mount_path = config.lookbook.cable_mount_path
-          cable.connection_class = -> { Lookbook::Connection }
-          cable.logger = config.lookbook.cable_logger
+      def init_listeners
+        config = Lookbook.config
+        return unless config.listen == true
+        Listen.logger = Lookbook.logger
 
-          @websocket ||= if Rails.version.to_f >= 6.0
-            ActionCable::Server::Base.new(config: cable)
-          else
-            ws = ActionCable::Server::Base.new
-            ws.config = cable
-            ws
+        preview_listener = Listen.to(
+          *config.listen_paths,
+          only: /\.(#{config.listen_extensions.join("|")})$/,
+          force_polling: config.listen_use_polling
+        ) do |modified, added, removed|
+          changes = {modified: modified, added: added, removed: removed}
+          begin
+            parser.parse
+          rescue
           end
+          Lookbook::Preview.clear_cache
+          reload_ui(changes)
+          run_hooks(:after_change, changes)
+        end
+        register_listener(preview_listener)
+
+        page_listener = Listen.to(
+          *config.page_paths,
+          only: /\.(html.*|md.*)$/,
+          force_polling: config.listen_use_polling
+        ) do |modified, added, removed|
+          changes = {modified: modified, added: added, removed: removed}
+          reload_ui(changes)
+          run_hooks(:after_change, changes)
+        end
+        register_listener(page_listener)
+      end
+
+      def init_websocket
+        config = Lookbook.config
+        return unless config.auto_refresh == true
+        Lookbook.logger.info "Initializing websocket"
+        
+        cable = ActionCable::Server::Configuration.new
+        cable.cable = {adapter: "async"}.with_indifferent_access
+        cable.mount_path = config.cable_mount_path
+        cable.connection_class = -> { Lookbook::Connection }
+        cable.logger = config.cable_logger
+
+        @websocket = if Gem::Version.new(Rails.version) >= Gem::Version.new(6.0)
+          ActionCable::Server::Base.new(config: cable)
+        else
+          ws = ActionCable::Server::Base.new
+          ws.config = cable
+          ws
         end
       end
 
       def websocket_mount_path
         "#{mounted_path}#{config.lookbook.cable_mount_path}" if websocket
+      end
+
+      def websocket?
+        !!websocket
       end
 
       def mounted_path
@@ -222,6 +228,10 @@ module Lookbook
         @listeners ||= []
       end
 
+      def stop_listeners
+        listeners.each { |listener| listener.stop }
+      end
+
       def run_hooks(event_name, *args)
         config.lookbook.hooks[event_name].each do |hook|
           hook.call(Lookbook, *args)
@@ -232,7 +242,19 @@ module Lookbook
         websocket&.broadcast("reload", changed)
       end
 
-      attr_reader :preview_controller
+      def prevent_listening?
+        Rails.env.test? || running_in_rake_task?
+      end
+
+      def running_in_rake_task?
+        if defined?(Rake) && Rake.respond_to?(:application)
+          File.basename($0) == "rake" || Rake.application.top_level_tasks.any?
+        else
+          false
+        end
+      end
+
+      attr_reader :preview_controller, :websocket
     end
   end
 end
