@@ -35,7 +35,7 @@ module Lookbook
       if data.is_a? String
         "\'#{json_escape data}\'"
       else
-        json_escape data.to_json.gsub("\"", "\'")
+        json_escape data.to_json.tr("\"", "\'")
       end
     end
 
@@ -43,7 +43,7 @@ module Lookbook
       alpine_component_name = x_data || @html_attrs&.dig(:"x-data") || alpine_component
       if alpine_component_name.present?
         args = Array.wrap(alpine_data).compact
-        func = args.any? ? "#{alpine_component_name}(#{args.join(",")})" : alpine_component_name
+        args.any? ? "#{alpine_component_name}(#{args.join(",")})" : alpine_component_name
       end
     end
   end
