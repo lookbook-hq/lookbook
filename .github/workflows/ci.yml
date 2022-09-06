@@ -42,7 +42,7 @@ jobs:
         run: |
           bundle config path vendor/bundle
           bundle update
-          bundle exec rake spec
+          bundle exec appraisal rspec
         env:
           RAISE_ON_WARNING: 1
           MEASURE_COVERAGE: false
