@@ -77,6 +77,8 @@ Single line fields, useful for short strings of text or numbers.
 @param <name> number
 @param <name> url
 @param <name> tel
+@param <name> date
+@param <name> datetime-local
 ```
 
 {%= note :info do %}
