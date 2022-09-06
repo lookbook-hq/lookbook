@@ -6,7 +6,8 @@ module Lookbook
       render Lookbook::Icon::Component.new(name: name, **attrs)
     end
 
-    def code(**attrs, &block)
+    def code(language = :html, **attrs, &block)
+      attrs[:language] = language
       render Lookbook::Code::Component.new(**attrs), &block
     end
 
