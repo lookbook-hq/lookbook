@@ -50,6 +50,10 @@ If you want to have a quick play with Lookbook, the easiest way is to [give the 
 
 If you'd rather dig in a bit more and run the demo app locally, the [demo repo]({{ site.data.external.demo.repo }}) contains instructions on how to get it up and running.
 
+## Who uses Lookbook?
 
+* [Clio](https://www.clio.com/)
+
+Using Lookbook? [Send a pull request](https://github.com/allmarkedup/lookbook/edit/main/docs/src/guide/index.md) to update this list!
 
 {{ toc }}
