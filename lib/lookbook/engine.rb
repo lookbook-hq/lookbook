@@ -171,7 +171,7 @@ module Lookbook
       def websocket
         config = Lookbook.config
         return @websocket unless @websocket.nil?
-        return unless config.auto_refresh == true
+        return unless config.auto_refresh == true && !Rails.env.test?
         Lookbook.logger.info "Initializing websocket"
 
         cable = ActionCable::Server::Configuration.new
