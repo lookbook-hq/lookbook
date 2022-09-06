@@ -31,11 +31,19 @@ module Lookbook
       nil
     end
 
+    def alpine_encode(data)
+      if data.is_a? String
+        "\'#{json_escape data}\'"
+      else
+        json_escape data.to_json.gsub("\"", "\'")
+      end
+    end
+
     def prepare_alpine_data(x_data = nil)
       alpine_component_name = x_data || @html_attrs&.dig(:"x-data") || alpine_component
       if alpine_component_name.present?
-        args = Array.wrap(alpine_data)
-        args.any? ? "#{alpine_component_name}(#{safe_join(args)})" : alpine_component_name
+        args = Array.wrap(alpine_data).compact
+        func = args.any? ? "#{alpine_component_name}(#{args.join(",")})" : alpine_component_name
       end
     end
   end

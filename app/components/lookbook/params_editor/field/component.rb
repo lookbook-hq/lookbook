@@ -33,7 +33,7 @@ module Lookbook
     protected
 
     def alpine_data
-      escaped_value = helpers.raw json_escape(value.to_json)
+      escaped_value = json_escape(value.to_json)
       "{name: '#{name}', value: #{escaped_value}}"
     end
 

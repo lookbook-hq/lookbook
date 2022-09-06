@@ -20,7 +20,7 @@ module Lookbook
     end
 
     def alpine_data
-      [@id.to_json, "$store.pages.embeds"].join(",")
+      [alpine_encode(@id), "$store.pages.embeds"].join(",")
     end
 
     def alpine_component

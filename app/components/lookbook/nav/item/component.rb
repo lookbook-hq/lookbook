@@ -78,10 +78,10 @@ module Lookbook
     protected
 
     def alpine_data
-      {
+      alpine_encode({
         id: @item.id,
         matchers: item.is_a?(Lookbook::Collection) ? nil : item.matchers
-      }.to_json
+      })
     end
 
     def alpine_component

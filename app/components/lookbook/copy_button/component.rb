@@ -13,7 +13,7 @@ module Lookbook
     protected
 
     def alpine_data
-      content ? nil : @target.to_json
+      content ? nil : alpine_encode(@target)
     end
 
     def alpine_component

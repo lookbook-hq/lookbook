@@ -1,7 +1,7 @@
 module Lookbook
   class Icon::Component < Lookbook::BaseComponent
     def initialize(name:, size: 4, **html_attrs)
-      @icon_name = name.is_a?(Symbol) ? name.to_s.tr("_", "-").to_json : name
+      @alpine_data = name.is_a?(Symbol) ? alpine_encode(name.to_s.tr("_", "-")) : name
       @size = size || 4
       super(**html_attrs)
     end
@@ -11,10 +11,6 @@ module Lookbook
     end
 
     protected
-
-    def alpine_data
-      @icon_name
-    end
 
     def alpine_component
       "iconComponent"
