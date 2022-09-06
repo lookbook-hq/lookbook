@@ -24,4 +24,12 @@ RSpec.describe "pages", type: :request do
       expect(html).to have_css("#page-tabbed-sections")
     end
   end
+
+  context "with code helper" do
+    it "should display the highlighted code" do
+      get Lookbook.pages.find("code").url_path
+      expect(html).to have_css("[data-component=code] [data-lang=html]")
+      expect(html).to have_css("[data-component=code] [data-lang=ruby]")
+    end
+  end
 end
