@@ -53,6 +53,7 @@ If you'd rather dig in a bit more and run the demo app locally, the [demo repo](
 ## Who uses Lookbook?
 
 * [Clio](https://www.clio.com/)
+* [Within3](https://within3.com/)
 
 Using Lookbook? [Send a pull request](https://github.com/allmarkedup/lookbook/edit/main/docs/src/guide/index.md) to update this list!
 
