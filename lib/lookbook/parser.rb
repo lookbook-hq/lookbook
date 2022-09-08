@@ -3,24 +3,27 @@ require "yard"
 module Lookbook
   class Parser
     attr_reader :registry_path
-    def initialize(paths, registry_path)
+    def initialize(paths)
       @paths = paths.map { |p| "#{p}/**/*preview.rb" }
-      @registry_path = registry_path.to_s
-      YARD::Registry.yardoc_file = registry_path
-    end
-
-    def parse
-      YARD::Registry.clear
-      YARD::Registry.lock_for_writing do
-        YARD.parse(@paths)
-        YARD::Registry.save(false, registry_path)
+      @after_parse_callbacks = []
+      @after_parse_once_callbacks = []
+      
+      YARD::Parser::SourceParser.after_parse_list do
+        [*@after_parse_callbacks, *@after_parse_once_callbacks].each do |callback|
+          callback.call(YARD::Registry)
+        end
+        @after_parse_once_callback = []
       end
     end
 
-    def get_code_object(path)
-      registry = YARD::RegistryStore.new
-      registry.load!(registry_path)
-      registry.get(path)
+    def parse(&block)
+      @after_parse_once_callbacks << block if block
+      YARD::Registry.clear
+      YARD.parse(@paths)
+    end
+
+    def after_parse(&block)
+      @after_parse_callbacks << block
     end
 
     class << self

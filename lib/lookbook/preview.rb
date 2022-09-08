@@ -5,9 +5,9 @@ module Lookbook
     delegate :name, :render_args, to: :@preview
     delegate :position, :group, :notes, :hidden?, :tags, :tag, to: :@preview_inspector
 
-    def initialize(preview)
+    def initialize(preview, code_object)
       @preview = preview
-      @preview_inspector = SourceInspector.new(@preview.name)
+      @preview_inspector = SourceInspector.new(code_object)
       super(preview_class_path(@preview.name))
     end
 
@@ -35,7 +35,7 @@ module Lookbook
       return @examples if @examples.present?
       public_methods = @preview.public_instance_methods(false)
       public_method_objects = @preview_inspector&.methods&.select { |m| public_methods.include?(m.name) }
-      examples = (public_method_objects || []).map { |m| PreviewExample.new(m.name.to_s, self) }
+      examples = (public_method_objects || []).map { |m| PreviewExample.new(m.name.to_s, self, m) }
       sorted = Lookbook.config.sort_examples ? examples.sort_by(&:label) : examples
       @examples = []
       if @preview_inspector&.groups&.any?
@@ -129,88 +129,23 @@ module Lookbook
       end
 
       def all
-        load_previews if preview_files.size > ViewComponent::Preview.descendants.size
-
-        @previews = nil if cache_stale?
-        return @previews unless @previews.nil?
-
-        previews = ViewComponent::Preview.descendants.map do |p|
-          new(p)
-        rescue
-          Rails.logger.error "[lookbook] error instantiating preview\n#{exception.full_message}"
-        end
-
-        if errors.any?
-          errors.each do |error|
-            Rails.logger.error "[lookbook] preview error\n#{error.full_message}\n"
-          end
-        end
-
-        sorted_previews = previews.compact.sort_by { |preview| [preview.position, preview.label] }
-        @previews = PreviewCollection.new(sorted_previews)
-        mark_as_cached if Lookbook.config.listen == true
-        @previews
+        @previews ||= PreviewCollection.new([])
       end
 
       def errors
         @errors ||= []
       end
 
-      def clear_cache
-        cache_dir = File.dirname(cache_marker_path)
-        FileUtils.mkdir_p(cache_dir) unless File.exist?(cache_dir)
-        File.write(cache_marker_path, Time.now.to_i)
-      end
+      def load!(registry)
+        previews = registry.all(:class).map do |code_object|
+          klass = code_object.path.constantize
+          new(klass, code_object) if klass.ancestors.include?(ViewComponent::Preview)
+        rescue
+        end.compact
 
-      protected
-
-      def cache_marker_path
-        Rails.root.join("tmp/cache/lookbook-previews")
-      end
-
-      def cache_stale?
-        return false if !File.exist?(cache_marker_path)
-        cache_timestamp = File.read(cache_marker_path).to_i
-        if @last_cache_timestamp.nil? || cache_timestamp > @last_cache_timestamp
-          @last_cache_timestamp = cache_timestamp
-          true
-        else
-          false
-        end
-      end
-
-      def mark_as_cached
-        cache_dir = File.dirname(cache_marker_path)
-        FileUtils.mkdir_p(cache_dir) unless File.exist?(cache_dir)
-        File.write(cache_marker_path, Time.now)
-      end
-
-      def load_previews
-        @errors = []
-        preview_files.each do |file|
-          require_dependency file[:path]
-        rescue SyntaxError, StandardError => exception
-          @errors.push(
-            Lookbook::Error.new(exception,
-              title: "Preview #{exception.class}",
-              file_name: file[:rel_path],
-              file_path: file[:path])
-          )
-        end
-      end
-
-      def preview_files
-        files = Array(Lookbook.config.preview_paths).map do |preview_path|
-          Dir["#{preview_path}/**/*preview.rb"].map do |path|
-            {
-              path: path,
-              base_path: preview_path,
-              rel_path: Pathname(path).relative_path_from(Pathname.new(preview_path)).to_s
-            }
-          end
-        end
-        files.flatten
-      end
+        sorted_previews = previews.compact.sort_by { |preview| [preview.position, preview.label] }
+        @previews = PreviewCollection.new(sorted_previews)
+      end    
     end
 
     alias_method :lookup_path, :path

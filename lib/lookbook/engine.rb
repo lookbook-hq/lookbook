@@ -99,6 +99,17 @@ module Lookbook
       @preview_controller = Lookbook.config.preview_controller.constantize
       @preview_controller.include(Lookbook::PreviewController)
 
+      parser.after_parse do |registry|
+        begin
+          Preview.load!(registry)
+          reload_ui
+        rescue NameError
+          # Ignore name errors 
+        rescue exception
+          Lookbook.logger.error Lookbook::Error.new(exception)
+        end
+      end
+
       if Gem::Version.new(Rails.version) >= Gem::Version.new("6.1.3.1")
         # Rails.application.server is only available for newer Rails versions
         Rails.application.server do
@@ -111,19 +122,9 @@ module Lookbook
         end
       end
 
-      if config.lookbook.runtime_parsing
-        Lookbook::Engine.parser.parse
-      else
-        unless File.exist?(config.lookbook.parser_registry_path)
-          Lookbook.logger.warn "
-            Runtime parsing is disabled but no registry file has been found.
-            Did you run `rake lookbook:preparse` before starting the app?
-            Expected to find registry file at #{config.lookbook.parser_registry_path}
-          "
-        end
+      parser.parse do
+        Lookbook::Engine.run_hooks(:after_initialize)
       end
-
-      Lookbook::Engine.run_hooks(:after_initialize)
     end
 
     at_exit do
@@ -140,32 +141,30 @@ module Lookbook
         return unless config.listen == true
         Listen.logger = Lookbook.logger
 
-        preview_listener = Listen.to(
-          *config.listen_paths,
-          only: /\.(#{config.listen_extensions.join("|")})$/,
-          force_polling: config.listen_use_polling
-        ) do |modified, added, removed|
-          changes = {modified: modified, added: added, removed: removed}
-          begin
+        if config.listen_paths.any?
+          preview_listener = Listen.to(
+            *config.listen_paths,
+            only: /\.(#{config.listen_extensions.join("|")})$/,
+            force_polling: config.listen_use_polling
+          ) do |modified, added, removed|
             parser.parse
-          rescue
+            run_hooks(:after_change, { modified: modified, added: added, removed: removed })
           end
-          Lookbook::Preview.clear_cache
-          reload_ui(changes)
-          run_hooks(:after_change, changes)
+          register_listener(preview_listener)
         end
-        register_listener(preview_listener)
 
-        page_listener = Listen.to(
-          *config.page_paths,
-          only: /\.(html.*|md.*)$/,
-          force_polling: config.listen_use_polling
-        ) do |modified, added, removed|
-          changes = {modified: modified, added: added, removed: removed}
-          reload_ui(changes)
-          run_hooks(:after_change, changes)
+        if config.page_paths.any?
+          page_listener = Listen.to(
+            *config.page_paths,
+            only: /\.(html.*|md.*)$/,
+            force_polling: config.listen_use_polling
+          ) do |modified, added, removed|
+            changes = {modified: modified, added: added, removed: removed}
+            reload_ui
+            run_hooks(:after_change, changes)
+          end
+          register_listener(page_listener)
         end
-        register_listener(page_listener)
       end
 
       def websocket
@@ -202,7 +201,7 @@ module Lookbook
       end
 
       def parser
-        @parser ||= Lookbook::Parser.new(config.lookbook.preview_paths, config.lookbook.parser_registry_path)
+        @parser ||= Lookbook::Parser.new(config.lookbook.preview_paths)
       end
 
       def log_level
@@ -237,8 +236,8 @@ module Lookbook
         end
       end
 
-      def reload_ui(changed = {})
-        websocket&.broadcast("reload", changed)
+      def reload_ui
+        websocket&.broadcast("reload", {})
       end
 
       def prevent_listening?

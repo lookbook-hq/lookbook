@@ -34,7 +34,6 @@ module Lookbook
         cable_mount_path: "/lookbook-cable",
         cable_logger: Lookbook.logger,
 
-        runtime_parsing: !Rails.env.production?,
         parser_registry_path: "tmp/storage/.yardoc",
 
         ui_theme: "indigo",
@@ -102,6 +101,10 @@ module Lookbook
           }
         }
       })
+    end
+
+    def runtime_parsing=(value)
+      Lookbook.logger.warn "The `runtime_parsing` config option has been deprecated and will be removed in v2.0"
     end
 
     def project_name

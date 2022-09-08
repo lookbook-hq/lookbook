@@ -3,10 +3,10 @@ module Lookbook
     attr_reader :name, :preview
     delegate :params, :position, :group, :notes, :hidden?, :source, :tags, :tag, to: :@example_inspector
 
-    def initialize(name, preview)
+    def initialize(name, preview, code_object)
       @name = name
       @preview = preview
-      @example_inspector = SourceInspector.new("#{@preview.name}##{name}")
+      @example_inspector = SourceInspector.new(code_object)
       super("#{@preview.path}/#{name}")
     end
 

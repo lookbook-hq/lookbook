@@ -4,8 +4,7 @@ namespace :lookbook do
   namespace :previews do
     desc "Preparse the previews"
     task preparse: :environment do
-      Lookbook::Engine.parser.parse
-      puts "Lookbook preview parsing complete"
+      puts "The lookbook:preparse task is no longer required and will be removed in v2.0"
     end
   end
 end

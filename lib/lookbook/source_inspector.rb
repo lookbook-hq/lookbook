@@ -5,8 +5,8 @@ module Lookbook
     attr_reader :code_object
     delegate :groups, :source, to: :@code_object, allow_nil: true
 
-    def initialize(taggable_object_path)
-      @code_object = Lookbook::Engine.parser.get_code_object(taggable_object_path)
+    def initialize(code_object)
+      @code_object = code_object
     end
 
     def hidden?
