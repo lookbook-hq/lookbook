@@ -77,8 +77,8 @@ tags:
     signature: "@display <key> <value>"
     purpose: Sets the value of a [display variable](/guide/previews/display) for use in preview layouts.
     example: |
-      # @param theme [Symbol] select [primary, secondary, danger]
-      def example(theme: :primary)
+      # @display bg_color "#000" 
+      def light_on_dark
 
   - name: component
     signature: "@component <class_name>"
