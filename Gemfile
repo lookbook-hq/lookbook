@@ -2,10 +2,6 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gemspec
 
-rails_version = (ENV["RAILS_VERSION"] || "~> 7.0.0").to_s
-
-gem "rails", rails_version == "main" ? {git: "https://github.com/rails/rails", ref: "main"} : rails_version
-
 if RUBY_VERSION >= "3.1"
   gem "net-imap", require: false
   gem "net-pop", require: false
