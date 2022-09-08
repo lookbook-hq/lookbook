@@ -7623,14 +7623,131 @@ async function $e8e1f68a69f95ce8$export$51c59e2af49c1a92(url, selector) {
 
 
 
+/* eslint-disable no-undefined,no-param-reassign,no-shadow */ /**
+ * Throttle execution of a function. Especially useful for rate limiting
+ * execution of handlers on events like resize and scroll.
+ *
+ * @param {number} delay -                  A zero-or-greater delay in milliseconds. For event callbacks, values around 100 or 250 (or even higher)
+ *                                            are most useful.
+ * @param {Function} callback -               A function to be executed after delay milliseconds. The `this` context and all arguments are passed through,
+ *                                            as-is, to `callback` when the throttled-function is executed.
+ * @param {object} [options] -              An object to configure options.
+ * @param {boolean} [options.noTrailing] -   Optional, defaults to false. If noTrailing is true, callback will only execute every `delay` milliseconds
+ *                                            while the throttled-function is being called. If noTrailing is false or unspecified, callback will be executed
+ *                                            one final time after the last throttled-function call. (After the throttled-function has not been called for
+ *                                            `delay` milliseconds, the internal counter is reset).
+ * @param {boolean} [options.noLeading] -   Optional, defaults to false. If noLeading is false, the first throttled-function call will execute callback
+ *                                            immediately. If noLeading is true, the first the callback execution will be skipped. It should be noted that
+ *                                            callback will never executed if both noLeading = true and noTrailing = true.
+ * @param {boolean} [options.debounceMode] - If `debounceMode` is true (at begin), schedule `clear` to execute after `delay` ms. If `debounceMode` is
+ *                                            false (at end), schedule `callback` to execute after `delay` ms.
+ *
+ * @returns {Function} A new, throttled, function.
+ */ function $c5d017602d25d050$export$de363e709c412c8a(delay, callback, options1) {
+    var _ref = options1 || {}, _ref$noTrailing = _ref.noTrailing, noTrailing = _ref$noTrailing === void 0 ? false : _ref$noTrailing, _ref$noLeading = _ref.noLeading, noLeading = _ref$noLeading === void 0 ? false : _ref$noLeading, _ref$debounceMode = _ref.debounceMode, debounceMode = _ref$debounceMode === void 0 ? undefined : _ref$debounceMode;
+    /*
+   * After wrapper has stopped being called, this timeout ensures that
+   * `callback` is executed at the proper times in `throttle` and `end`
+   * debounce modes.
+   */ var timeoutID;
+    var cancelled = false; // Keep track of the last time `callback` was executed.
+    var lastExec = 0; // Function to clear existing timeout
+    function clearExistingTimeout() {
+        if (timeoutID) clearTimeout(timeoutID);
+    } // Function to cancel next exec
+    function cancel(options) {
+        var _ref2 = options || {}, _ref2$upcomingOnly = _ref2.upcomingOnly, upcomingOnly = _ref2$upcomingOnly === void 0 ? false : _ref2$upcomingOnly;
+        clearExistingTimeout();
+        cancelled = !upcomingOnly;
+    }
+    /*
+   * The `wrapper` function encapsulates all of the throttling / debouncing
+   * functionality and when executed will limit the rate at which `callback`
+   * is executed.
+   */ function wrapper() {
+        for(var _len = arguments.length, arguments_ = new Array(_len), _key = 0; _key < _len; _key++)arguments_[_key] = arguments[_key];
+        var self = this;
+        var elapsed = Date.now() - lastExec;
+        if (cancelled) return;
+         // Execute `callback` and update the `lastExec` timestamp.
+        function exec() {
+            lastExec = Date.now();
+            callback.apply(self, arguments_);
+        }
+        /*
+     * If `debounceMode` is true (at begin) this is used to clear the flag
+     * to allow future `callback` executions.
+     */ function clear() {
+            timeoutID = undefined;
+        }
+        if (!noLeading && debounceMode && !timeoutID) /*
+       * Since `wrapper` is being called for the first time and
+       * `debounceMode` is true (at begin), execute `callback`
+       * and noLeading != true.
+       */ exec();
+        clearExistingTimeout();
+        if (debounceMode === undefined && elapsed > delay) {
+            if (noLeading) {
+                /*
+         * In throttle mode with noLeading, if `delay` time has
+         * been exceeded, update `lastExec` and schedule `callback`
+         * to execute after `delay` ms.
+         */ lastExec = Date.now();
+                if (!noTrailing) timeoutID = setTimeout(debounceMode ? clear : exec, delay);
+            } else /*
+         * In throttle mode without noLeading, if `delay` time has been exceeded, execute
+         * `callback`.
+         */ exec();
+        } else if (noTrailing !== true) /*
+       * In trailing throttle mode, since `delay` time has not been
+       * exceeded, schedule `callback` to execute `delay` ms after most
+       * recent execution.
+       *
+       * If `debounceMode` is true (at begin), schedule `clear` to execute
+       * after `delay` ms.
+       *
+       * If `debounceMode` is false (at end), schedule `callback` to
+       * execute after `delay` ms.
+       */ timeoutID = setTimeout(debounceMode ? clear : exec, debounceMode === undefined ? delay - elapsed : delay);
+    }
+    wrapper.cancel = cancel; // Return the wrapper function.
+    return wrapper;
+}
+/* eslint-disable no-undefined */ /**
+ * Debounce execution of a function. Debouncing, unlike throttling,
+ * guarantees that a function is only executed a single time, either at the
+ * very beginning of a series of calls, or at the very end.
+ *
+ * @param {number} delay -               A zero-or-greater delay in milliseconds. For event callbacks, values around 100 or 250 (or even higher) are most useful.
+ * @param {Function} callback -          A function to be executed after delay milliseconds. The `this` context and all arguments are passed through, as-is,
+ *                                        to `callback` when the debounced-function is executed.
+ * @param {object} [options] -           An object to configure options.
+ * @param {boolean} [options.atBegin] -  Optional, defaults to false. If atBegin is false or unspecified, callback will only be executed `delay` milliseconds
+ *                                        after the last debounced-function call. If atBegin is true, callback will be executed only at the first debounced-function call.
+ *                                        (After the throttled-function has not been called for `delay` milliseconds, the internal counter is reset).
+ *
+ * @returns {Function} A new, debounced function.
+ */ function $c5d017602d25d050$export$61fc7d43ac8f84b0(delay, callback, options) {
+    var _ref = options || {}, _ref$atBegin = _ref.atBegin, atBegin = _ref$atBegin === void 0 ? false : _ref$atBegin;
+    return $c5d017602d25d050$export$de363e709c412c8a(delay, callback, {
+        debounceMode: atBegin !== false
+    });
+}
+
+
 function $d709d0f4027033b2$export$2e2bcd8739ae039() {
     return {
         version: Alpine.$persist("").as("lookbook-version"),
         location: window.location,
         init () {
+            this.updateDOMAfterNavigation = (0, $c5d017602d25d050$export$de363e709c412c8a)(200, this.updateDOM);
+            this.updateDOMAfterChanges = (0, $c5d017602d25d050$export$61fc7d43ac8f84b0)(200, this.updateDOM, {
+                atBegin: true
+            });
             if (window.SOCKET_PATH) {
+                console.log("SOCKET CREATED");
                 const socket = (0, $ccd45e92e751836d$export$2e2bcd8739ae039)(window.SOCKET_PATH);
-                socket.addListener("Lookbook::ReloadChannel", ()=>this.updateDOM());
+                socket.addListener("Lookbook::ReloadChannel", ()=>this.updateDOMAfterChanges());
             }
         },
         navigateTo (path) {
@@ -7642,7 +7759,7 @@ function $d709d0f4027033b2$export$2e2bcd8739ae039() {
             this.debug("Navigating to ", window.location.pathname);
             this.$dispatch("navigation:start");
             this.location = window.location;
-            await this.updateDOM();
+            await this.updateDOMAfterNavigation();
             this.$dispatch("navigation:complete");
         },
         hijax (evt) {
@@ -7701,7 +7818,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $d865a31e17cd1079$exports = {};
+var $5a1160331e703b26$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11364,6 +11481,62 @@ function $99486586f6691564$export$2e2bcd8739ae039() {
 }
 
 
+var $47a1c62621be0c54$exports = {};
+
+$parcel$defineInteropFlag($47a1c62621be0c54$exports);
+
+$parcel$export($47a1c62621be0c54$exports, "default", () => $47a1c62621be0c54$export$2e2bcd8739ae039);
+var $122263eab94cad08$exports = {};
+
+$parcel$defineInteropFlag($122263eab94cad08$exports);
+
+$parcel$export($122263eab94cad08$exports, "initClipboard", () => $122263eab94cad08$export$c6684e6159b21de3);
+$parcel$export($122263eab94cad08$exports, "default", () => $122263eab94cad08$export$2e2bcd8739ae039);
+
+function $122263eab94cad08$export$c6684e6159b21de3(context = {}) {
+    let copyTimeout = null;
+    return Object.assign(context, {
+        copied: false,
+        async copyToClipboard (target = null) {
+            let targetEl;
+            if (this.$refs.copyTarget) targetEl = this.$refs.copyTarget;
+            else if (typeof target === "string") targetEl = document.querySelector(target);
+            if (!targetEl) {
+                this.warn("Could not find copy target");
+                return false;
+            }
+            const content = (0, $7ae6ae39c2ec9059$export$6cb344a21ca18aec)(targetEl.innerHTML.trim());
+            await window.navigator.clipboard.writeText(content);
+            this.copied = true;
+            if (copyTimeout) clearTimeout(copyTimeout);
+            copyTimeout = setTimeout(()=>{
+                this.copied = false;
+                this.onCopyComplete();
+            }, 1000);
+            return content;
+        },
+        onCopyComplete () {}
+    });
+}
+function $122263eab94cad08$export$2e2bcd8739ae039() {
+    return $122263eab94cad08$export$c6684e6159b21de3({});
+}
+
+
+
+function $47a1c62621be0c54$export$2e2bcd8739ae039() {
+    const button = (0, $cbd28b10fa9798c7$export$2e2bcd8739ae039)();
+    return {
+        ...button,
+        copied: false,
+        init () {
+            button.init.bind(this)();
+            (0, $122263eab94cad08$export$c6684e6159b21de3)(this);
+        }
+    };
+}
+
+
 var $e398acaded942bbe$exports = {};
 
 $parcel$defineInteropFlag($e398acaded942bbe$exports);
@@ -11392,6 +11565,31 @@ function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
         },
         tearDown () {
             if (this.observer) this.observer.disconnect();
+        }
+    };
+}
+
+
+var $e9904a14dabf652d$exports = {};
+
+$parcel$defineInteropFlag($e9904a14dabf652d$exports);
+
+$parcel$export($e9904a14dabf652d$exports, "default", () => $e9904a14dabf652d$export$2e2bcd8739ae039);
+function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
+    return {
+        focussed: false,
+        get active () {
+            return store.active;
+        },
+        get text () {
+            return store.text;
+        },
+        clear () {
+            if (store.raw === "") this.$refs.input.blur();
+            else store.raw = "";
+        },
+        focus () {
+            this.$refs.input.focus();
         }
     };
 }
@@ -12262,87 +12460,6 @@ function $e1f51f020443edd4$export$2e2bcd8739ae039(id, embedStore) {
 }
 
 
-var $e9904a14dabf652d$exports = {};
-
-$parcel$defineInteropFlag($e9904a14dabf652d$exports);
-
-$parcel$export($e9904a14dabf652d$exports, "default", () => $e9904a14dabf652d$export$2e2bcd8739ae039);
-function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
-    return {
-        focussed: false,
-        get active () {
-            return store.active;
-        },
-        get text () {
-            return store.text;
-        },
-        clear () {
-            if (store.raw === "") this.$refs.input.blur();
-            else store.raw = "";
-        },
-        focus () {
-            this.$refs.input.focus();
-        }
-    };
-}
-
-
-var $47a1c62621be0c54$exports = {};
-
-$parcel$defineInteropFlag($47a1c62621be0c54$exports);
-
-$parcel$export($47a1c62621be0c54$exports, "default", () => $47a1c62621be0c54$export$2e2bcd8739ae039);
-var $122263eab94cad08$exports = {};
-
-$parcel$defineInteropFlag($122263eab94cad08$exports);
-
-$parcel$export($122263eab94cad08$exports, "initClipboard", () => $122263eab94cad08$export$c6684e6159b21de3);
-$parcel$export($122263eab94cad08$exports, "default", () => $122263eab94cad08$export$2e2bcd8739ae039);
-
-function $122263eab94cad08$export$c6684e6159b21de3(context = {}) {
-    let copyTimeout = null;
-    return Object.assign(context, {
-        copied: false,
-        async copyToClipboard (target = null) {
-            let targetEl;
-            if (this.$refs.copyTarget) targetEl = this.$refs.copyTarget;
-            else if (typeof target === "string") targetEl = document.querySelector(target);
-            if (!targetEl) {
-                this.warn("Could not find copy target");
-                return false;
-            }
-            const content = (0, $7ae6ae39c2ec9059$export$6cb344a21ca18aec)(targetEl.innerHTML.trim());
-            await window.navigator.clipboard.writeText(content);
-            this.copied = true;
-            if (copyTimeout) clearTimeout(copyTimeout);
-            copyTimeout = setTimeout(()=>{
-                this.copied = false;
-                this.onCopyComplete();
-            }, 1000);
-            return content;
-        },
-        onCopyComplete () {}
-    });
-}
-function $122263eab94cad08$export$2e2bcd8739ae039() {
-    return $122263eab94cad08$export$c6684e6159b21de3({});
-}
-
-
-
-function $47a1c62621be0c54$export$2e2bcd8739ae039() {
-    const button = (0, $cbd28b10fa9798c7$export$2e2bcd8739ae039)();
-    return {
-        ...button,
-        copied: false,
-        init () {
-            button.init.bind(this)();
-            (0, $122263eab94cad08$export$c6684e6159b21de3)(this);
-        }
-    };
-}
-
-
 var $36506012e0c6e9e3$exports = {};
 
 $parcel$defineInteropFlag($36506012e0c6e9e3$exports);
@@ -12964,6 +13081,33 @@ function $506dabb2bf255b38$var$sizeSplits(sizes) {
 }
 
 
+var $a87dacf5139b5e2f$exports = {};
+
+$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
+
+$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
+function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
+    return {
+        get store () {
+            return store || this;
+        },
+        get id () {
+            return this.$root.id;
+        },
+        get panels () {
+            return Array.from(this.$refs.panels.children);
+        },
+        isActive (el) {
+            return this.store.activeTab === this._getRef(el);
+        },
+        // protected
+        _getRef (el) {
+            return el.getAttribute("x-ref");
+        }
+    };
+}
+
+
 var $0db07828cadc68e0$exports = {};
 
 $parcel$defineInteropFlag($0db07828cadc68e0$exports);
@@ -13051,33 +13195,6 @@ function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
         _lastMeasuredWidth: 0,
         _getRef (el) {
             return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
-        }
-    };
-}
-
-
-var $a87dacf5139b5e2f$exports = {};
-
-$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
-
-$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
-function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
-    return {
-        get store () {
-            return store || this;
-        },
-        get id () {
-            return this.$root.id;
-        },
-        get panels () {
-            return Array.from(this.$refs.panels.children);
-        },
-        isActive (el) {
-            return this.store.activeTab === this._getRef(el);
-        },
-        // protected
-        _getRef (el) {
-            return el.getAttribute("x-ref");
         }
     };
 }
@@ -13210,19 +13327,19 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$d865a31e17cd1079$exports = {
+$5a1160331e703b26$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
-    "dimensions_display": $e398acaded942bbe$exports,
-    "embed": $e1f51f020443edd4$exports,
-    "filter": $e9904a14dabf652d$exports,
     "copy_button": $47a1c62621be0c54$exports,
+    "dimensions_display": $e398acaded942bbe$exports,
+    "filter": $e9904a14dabf652d$exports,
+    "embed": $e1f51f020443edd4$exports,
     "icon": $36506012e0c6e9e3$exports,
     "nav": $d92d9d5253f84566$exports,
     "params_editor": $b63b9c6d236b3f65$exports,
     "split_layout": $506dabb2bf255b38$exports,
-    "tabs": $0db07828cadc68e0$exports,
     "tab_panels": $a87dacf5139b5e2f$exports,
+    "tabs": $0db07828cadc68e0$exports,
     "viewport": $6d64716f0b34fdf4$exports
 };
 
@@ -13367,7 +13484,7 @@ const $d73574cc5e9b9e72$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $d709d0f4027033b2$export$2e2bcd8739ae039));
 [
-    $d865a31e17cd1079$exports,
+    $5a1160331e703b26$exports,
     $e4eab7529959b73b$exports,
     $4979d2d897a1c01f$exports
 ].forEach((scripts)=>{

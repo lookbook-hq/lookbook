@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <div class="overflow-auto">
+  <div class="overflow-auto h-full">
     <% if items.any? %>
       <ul class="py-2" x-ref="items" x-show="!empty" x-cloak>
         <%= safe_join(items) %>
