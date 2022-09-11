@@ -31,7 +31,7 @@ module Lookbook
         listen_extensions: ["rb", "html.*"],
         listen_use_polling: false,
 
-        cable_mount_path: "/lookbook-cable",
+        cable_mount_path: "/cable",
         cable_logger: Lookbook.logger,
 
         parser_registry_path: "tmp/storage/.yardoc",
@@ -248,7 +248,7 @@ module Lookbook
         full_path = absolute_path(path)
         full_path if Dir.exist?(full_path)
       end.compact!
-      paths
+      paths.uniq
     end
 
     def absolute_path(path)

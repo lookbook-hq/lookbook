@@ -175,7 +175,7 @@ module Lookbook
 
         cable = ActionCable::Server::Configuration.new
         cable.cable = {adapter: "async"}.with_indifferent_access
-        cable.mount_path = config.cable_mount_path
+        cable.mount_path = nil
         cable.connection_class = -> { Lookbook::Connection }
         cable.logger = config.cable_logger
 
