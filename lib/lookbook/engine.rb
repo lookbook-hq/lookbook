@@ -127,9 +127,9 @@ module Lookbook
         return unless config.listen == true
         Listen.logger = Lookbook.logger
 
-        if config.listen_paths.any?
-          preview_listener = Listen.to(
-            *config.listen_paths,
+        listen_paths = config.listen_paths.uniq
+        if listen_paths.any?
+          preview_listener = Listen.to(*listen_paths,
             only: /\.(#{config.listen_extensions.join("|")})$/,
             force_polling: config.listen_use_polling
           ) do |modified, added, removed|
@@ -140,9 +140,9 @@ module Lookbook
           register_listener(preview_listener)
         end
 
-        if config.page_paths.any?
-          page_listener = Listen.to(
-            *config.page_paths,
+        page_paths = config.page_paths.uniq
+        if page_paths.any?
+          page_listener = Listen.to(*page_paths,
             only: /\.(html.*|md.*)$/,
             force_polling: config.listen_use_polling
           ) do |modified, added, removed|

@@ -248,7 +248,7 @@ module Lookbook
         full_path = absolute_path(path)
         full_path if Dir.exist?(full_path)
       end.compact!
-      paths.uniq
+      paths
     end
 
     def absolute_path(path)
