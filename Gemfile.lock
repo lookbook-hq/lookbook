@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lookbook (1.0.5)
+    lookbook (1.0.6)
       actioncable
       css_parser
       htmlbeautifier (~> 1.3)

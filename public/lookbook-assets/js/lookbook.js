@@ -7755,7 +7755,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $730b795bb0498251$exports = {};
+var $4dba57edf150b96d$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -13018,33 +13018,6 @@ function $506dabb2bf255b38$var$sizeSplits(sizes) {
 }
 
 
-var $a87dacf5139b5e2f$exports = {};
-
-$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
-
-$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
-function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
-    return {
-        get store () {
-            return store || this;
-        },
-        get id () {
-            return this.$root.id;
-        },
-        get panels () {
-            return Array.from(this.$refs.panels.children);
-        },
-        isActive (el) {
-            return this.store.activeTab === this._getRef(el);
-        },
-        // protected
-        _getRef (el) {
-            return el.getAttribute("x-ref");
-        }
-    };
-}
-
-
 var $0db07828cadc68e0$exports = {};
 
 $parcel$defineInteropFlag($0db07828cadc68e0$exports);
@@ -13132,6 +13105,33 @@ function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
         _lastMeasuredWidth: 0,
         _getRef (el) {
             return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
+        }
+    };
+}
+
+
+var $a87dacf5139b5e2f$exports = {};
+
+$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
+
+$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
+function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
+    return {
+        get store () {
+            return store || this;
+        },
+        get id () {
+            return this.$root.id;
+        },
+        get panels () {
+            return Array.from(this.$refs.panels.children);
+        },
+        isActive (el) {
+            return this.store.activeTab === this._getRef(el);
+        },
+        // protected
+        _getRef (el) {
+            return el.getAttribute("x-ref");
         }
     };
 }
@@ -13264,7 +13264,7 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$730b795bb0498251$exports = {
+$4dba57edf150b96d$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
@@ -13275,51 +13275,13 @@ $730b795bb0498251$exports = {
     "nav": $d92d9d5253f84566$exports,
     "params_editor": $b63b9c6d236b3f65$exports,
     "split_layout": $506dabb2bf255b38$exports,
-    "tab_panels": $a87dacf5139b5e2f$exports,
     "tabs": $0db07828cadc68e0$exports,
+    "tab_panels": $a87dacf5139b5e2f$exports,
     "viewport": $6d64716f0b34fdf4$exports
 };
 
 
-var $71b50ebcd41f31b8$exports = {};
-var $fa8073e5be19dff9$exports = {};
-
-$parcel$defineInteropFlag($fa8073e5be19dff9$exports);
-
-$parcel$export($fa8073e5be19dff9$exports, "default", () => $fa8073e5be19dff9$export$2e2bcd8739ae039);
-function $fa8073e5be19dff9$export$2e2bcd8739ae039({ name: name , value: value  }) {
-    return {
-        name: name,
-        value: value,
-        init () {
-            this.$watch("value", ()=>this.update());
-        },
-        update () {
-            if (this.validate()) {
-                const searchParams = new URLSearchParams(window.location.search);
-                searchParams.set(this.name, this.value);
-                const path = location.href.replace(location.search, "");
-                this.navigateTo(`${path}?${searchParams.toString()}`);
-            }
-        },
-        validate () {
-            return this.$root.reportValidity ? this.$root.reportValidity() : true;
-        },
-        get isNarrowLayout () {
-            return this.narrow || false;
-        },
-        bindings: {
-            input: {
-                [":id"]: "`param-${name}`",
-                ["x-ref"]: "input",
-                ["x-model.debounce.200"]: "value",
-                ["@keydown.stop"]: true
-            }
-        }
-    };
-}
-
-
+var $e4eab7529959b73b$exports = {};
 var $9b24cbeb3a465447$exports = {};
 
 $parcel$defineInteropFlag($9b24cbeb3a465447$exports);
@@ -13376,12 +13338,50 @@ function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id , matchers: matchers 
 }
 
 
-$71b50ebcd41f31b8$exports = {
-    "params_editor": {
-        "field": $fa8073e5be19dff9$exports
-    },
+var $fa8073e5be19dff9$exports = {};
+
+$parcel$defineInteropFlag($fa8073e5be19dff9$exports);
+
+$parcel$export($fa8073e5be19dff9$exports, "default", () => $fa8073e5be19dff9$export$2e2bcd8739ae039);
+function $fa8073e5be19dff9$export$2e2bcd8739ae039({ name: name , value: value  }) {
+    return {
+        name: name,
+        value: value,
+        init () {
+            this.$watch("value", ()=>this.update());
+        },
+        update () {
+            if (this.validate()) {
+                const searchParams = new URLSearchParams(window.location.search);
+                searchParams.set(this.name, this.value);
+                const path = location.href.replace(location.search, "");
+                this.navigateTo(`${path}?${searchParams.toString()}`);
+            }
+        },
+        validate () {
+            return this.$root.reportValidity ? this.$root.reportValidity() : true;
+        },
+        get isNarrowLayout () {
+            return this.narrow || false;
+        },
+        bindings: {
+            input: {
+                [":id"]: "`param-${name}`",
+                ["x-ref"]: "input",
+                ["x-model.debounce.200"]: "value",
+                ["@keydown.stop"]: true
+            }
+        }
+    };
+}
+
+
+$e4eab7529959b73b$exports = {
     "nav": {
         "item": $9b24cbeb3a465447$exports
+    },
+    "params_editor": {
+        "field": $fa8073e5be19dff9$exports
     }
 };
 
@@ -13421,8 +13421,8 @@ const $d73574cc5e9b9e72$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $d709d0f4027033b2$export$2e2bcd8739ae039));
 [
-    $730b795bb0498251$exports,
-    $71b50ebcd41f31b8$exports,
+    $4dba57edf150b96d$exports,
+    $e4eab7529959b73b$exports,
     $4979d2d897a1c01f$exports
 ].forEach((scripts)=>{
     const components1 = (0, $5439cede634b2921$export$4e811121b221213b)(scripts);

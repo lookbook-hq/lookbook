@@ -131,8 +131,7 @@ module Lookbook
         if listen_paths.any?
           preview_listener = Listen.to(*listen_paths,
             only: /\.(#{config.listen_extensions.join("|")})$/,
-            force_polling: config.listen_use_polling
-          ) do |modified, added, removed|
+            force_polling: config.listen_use_polling) do |modified, added, removed|
             parser.parse do
               run_hooks(:after_change, {modified: modified, added: added, removed: removed})
             end
@@ -144,8 +143,7 @@ module Lookbook
         if page_paths.any?
           page_listener = Listen.to(*page_paths,
             only: /\.(html.*|md.*)$/,
-            force_polling: config.listen_use_polling
-          ) do |modified, added, removed|
+            force_polling: config.listen_use_polling) do |modified, added, removed|
             changes = {modified: modified, added: added, removed: removed}
             reload_ui
             run_hooks(:after_change, changes)
