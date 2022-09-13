@@ -1,5 +1,5 @@
 <% content_for :shell do %>
-  <% if Lookbook.previews? || Lookbook.pages? %>
+  <% if @previews.any? || @pages.any? %>
     <%= render_component :split_layout,
       alpine_data: "$store.layout.main",
       ":class": "$store.layout.mobile && '!block'" do |layout| %>
@@ -14,14 +14,14 @@
         cloak: true do %>
 
         <%= render_component :split_layout,
-          alpine_data: "$store.layout.#{Lookbook.pages? && Lookbook.previews? ? "sidebar" : "singleSectionSidebar"}",
+          alpine_data: "$store.layout.#{@pages.any? && @previews.any? ? "sidebar" : "singleSectionSidebar"}",
           style: "height: calc(100vh - 2.5rem);" do |layout| %>
 
-          <% if Lookbook.previews? %>
+          <% if @previews.any? %>
             <% layout.pane class: "overflow-hidden" do %>
               <%= render_component :nav,
                 id: "previews-nav",
-                collection: Lookbook.previews,
+                collection: @previews,
                 alpine_data: "$store.nav.previews",
                 collapse_singles: true do |nav| %>
                 <%= nav.toolbar do |toolbar| %>
@@ -34,11 +34,11 @@
             <% end %>
           <% end %>
 
-          <% if Lookbook.pages? %>
+          <% if @pages.any? %>
             <% layout.pane class: "overflow-hidden" do %>
               <%= render_component :nav,
                 id: "pages-nav",
-                collection: Lookbook.pages,
+                collection: @pages,
                 alpine_data: "$store.nav.pages" do |nav| %>
                 <%= nav.toolbar do |toolbar| %>
                   <% toolbar.section padded: true do %>
@@ -48,36 +48,6 @@
               <% end %>
             <% end %>
           <% end %>
-        <% end %>
-
-        <% if Lookbook::Preview.errors.any? %>
-          <div x-data="{hidden: false}" class="flex-none border-t border-lookbook-divider absolute bottom-0 left-0 right-0" x-show="!hidden">
-            <%= render_component :toolbar do |toolbar| %>
-              <% toolbar.section padded: true, class: "flex items-center" do %>
-                <%= icon  :alert_triangle, size: 4, class: "text-red-700" %>
-                <span class="ml-2">Preview load errors</span>
-              <% end %>
-              <% toolbar.section align: :right do %>
-                <% render_component :button, icon: :x, "@click": "hidden = !hidden" %>
-              <% end %>
-            <% end %>
-
-            <div class="h-full max-h-[300px] overflow-hidden">
-              <div class="bg-red-50 w-full overflow-auto h-full">
-                <ul class="text-sm divide-y divide-red-200">
-                  <% Lookbook::Preview.errors.each do |error| %>
-                    <% error = error.is_a?(Lookbook::Error) ? error : Lookbook::Error.new(error) %>
-                    <li class="px-4 py-3">
-                      <h4 class="break-all leading-tight text-xs ">
-                        <%= error.file_name %><%= ":#{error.line_number}" if error.line_number %>
-                      </h4>
-                      <pre class="text-red-800 text-xs mt-2 whitespace-pre-wrap opacity-80 font-mono"><%= error.message %></pre>
-                    </li>
-                  <% end %>
-                </ul>
-              </div>
-            </div>
-          </div>
         <% end %>
       <% end %>
 

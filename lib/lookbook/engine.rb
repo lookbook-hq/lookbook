@@ -35,7 +35,7 @@ module Lookbook
       {
         version: version,
         env: Rails.env.to_s,
-        config: config
+        config: config.to_h
       }
     end
 
@@ -147,8 +147,9 @@ module Lookbook
             only: /\.(#{config.listen_extensions.join("|")})$/,
             force_polling: config.listen_use_polling
           ) do |modified, added, removed|
-            parser.parse
-            run_hooks(:after_change, { modified: modified, added: added, removed: removed })
+            parser.parse do
+              run_hooks(:after_change, { modified: modified, added: added, removed: removed })
+            end
           end
           register_listener(preview_listener)
         end

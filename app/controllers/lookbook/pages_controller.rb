@@ -18,7 +18,6 @@ module Lookbook
     end
 
     def show
-      @pages = Lookbook.pages
       @page = @pages.find_by_path(params[:path])
       if @page
         @next_page = @pages.find_next(@page)

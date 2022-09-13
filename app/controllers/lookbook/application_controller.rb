@@ -11,6 +11,7 @@ module Lookbook
     helper Lookbook::ComponentHelper
 
     before_action :generate_theme_overrides
+    before_action :assign_collections
 
     def self.controller_path
       "lookbook"
@@ -29,6 +30,11 @@ module Lookbook
 
     def generate_theme_overrides
       @theme_overrides ||= Lookbook.theme.to_css
+    end
+
+    def assign_collections
+      @previews = Preview.all
+      @pages = Page.all
     end
 
     def feature_enabled?(feature)

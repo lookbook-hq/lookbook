@@ -1,10 +1,10 @@
 <div id="landing" class="flex flex-col items-center justify-center h-full w-full">
-  <div class="text-center" id="landing-<%= Lookbook.previews? ? "with" : "no" %>-content">
+  <div class="text-center" id="landing-<%= @previews.any? ? "with" : "no" %>-content">
     <h5 class="text-base text-lookbook-blank-slate-title truncate uppercase font-black tracking-wider mb-2">
       <%= config.project_name %>
     </h5>
     <div class="opacity-60">
-      <% if Lookbook.previews? %>
+      <% if @previews.any? %>
         <p>Select a preview from the nav to get started.</p>
       <% else %>
         <p><a class="underline" href="https://lookbook.build/guide/previews" target="_blank">Create a preview</a> to get started.</p>

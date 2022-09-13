@@ -25,7 +25,7 @@
 
       <% toolbar.section divide: :left, class: "flex-none relative z-10" do %>
         <%= render_component :button_group do |group| %>
-          <% if Lookbook.pages.any? %>
+          <% if @pages.any? %>
             <% group.button icon: :code,
               tooltip: "Copy page embed code",
               copy: true do %>
