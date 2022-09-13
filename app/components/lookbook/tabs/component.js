@@ -1,4 +1,4 @@
-import debounce from "debounce";
+import { debounce } from "throttle-debounce";
 import tippy from "~/app/assets/lookbook/js/lib/tippy";
 import { observeSize } from "@helpers/layout";
 import { getElementSize } from "@helpers/dom";
@@ -49,7 +49,7 @@ export default function tabsComponent(store) {
 
         this.parentObserver = observeSize(
           this.$root.parentElement,
-          debounce(this.handleResize.bind(this), 10)
+          debounce(10, this.handleResize.bind(this))
         );
 
         this.$watch("visibleTabsCount", (value) => {

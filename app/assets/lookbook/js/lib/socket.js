@@ -1,5 +1,5 @@
 import { createConsumer } from "@rails/actioncable";
-import debounce from "debounce";
+import { debounce } from "throttle-debounce";
 import { log } from "../plugins/logger";
 
 export default function socket(endpoint) {
@@ -8,10 +8,14 @@ export default function socket(endpoint) {
   return {
     addListener(channel, callback) {
       consumer.subscriptions.create(channel, {
-        received: debounce((data) => {
-          log.debug("Lookbook files changed");
-          callback(data);
-        }, 200),
+        received: debounce(
+          200,
+          (data) => {
+            log.debug("Lookbook files changed");
+            callback(data);
+          },
+          { atBegin: true }
+        ),
         connected() {
           log.info("Lookbook websocket connected");
         },

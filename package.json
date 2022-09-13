@@ -44,7 +44,6 @@
     "alpinejs": "^3.10.2",
     "autoprefixer": "^10.4.0",
     "command-line-args": "^5.2.1",
-    "debounce": "^1.2.1",
     "iframe-resizer": "^4.3.2",
     "loglevel": "^1.8.0",
     "loglevel-plugin-prefix": "^0.8.4",

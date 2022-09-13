@@ -2,7 +2,6 @@ import createSocket from "./lib/socket";
 import { morph } from "./helpers/dom";
 import { fetchHTML } from "./helpers/request";
 import { isExternalLink } from "./helpers/dom";
-import { throttle, debounce } from "throttle-debounce";
 
 export default function app() {
   return {
@@ -11,16 +10,10 @@ export default function app() {
     location: window.location,
 
     init() {
-      this.updateDOMAfterNavigation = throttle(200, this.updateDOM);
-      this.updateDOMAfterChanges = debounce(200, this.updateDOM, {
-        atBegin: true,
-      });
       if (window.SOCKET_PATH) {
         console.log("SOCKET CREATED");
         const socket = createSocket(window.SOCKET_PATH);
-        socket.addListener("Lookbook::ReloadChannel", () =>
-          this.updateDOMAfterChanges()
-        );
+        socket.addListener("Lookbook::ReloadChannel", () => this.updateDOM());
       }
     },
 
@@ -34,7 +27,7 @@ export default function app() {
       this.debug("Navigating to ", window.location.pathname);
       this.$dispatch("navigation:start");
       this.location = window.location;
-      await this.updateDOMAfterNavigation();
+      await this.updateDOM();
       this.$dispatch("navigation:complete");
     },
 

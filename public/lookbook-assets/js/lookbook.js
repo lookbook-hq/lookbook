@@ -7496,133 +7496,6 @@ var $7d6b1fa982d8364d$exports = {};
 });
 
 
-var $d3ec6a576bb30dc9$exports = {};
-/**
- * Returns a function, that, as long as it continues to be invoked, will not
- * be triggered. The function will be called after it stops being called for
- * N milliseconds. If `immediate` is passed, trigger the function on the
- * leading edge, instead of the trailing. The function also has a property 'clear' 
- * that is a function which will clear the timer to prevent previously scheduled executions. 
- *
- * @source underscore.js
- * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
- * @param {Function} function to wrap
- * @param {Number} timeout in ms (`100`)
- * @param {Boolean} whether to execute at the beginning (`false`)
- * @api public
- */ function $d3ec6a576bb30dc9$var$debounce(func, wait, immediate) {
-    var timeout, args, context, timestamp, result;
-    if (null == wait) wait = 100;
-    function later() {
-        var last = Date.now() - timestamp;
-        if (last < wait && last >= 0) timeout = setTimeout(later, wait - last);
-        else {
-            timeout = null;
-            if (!immediate) {
-                result = func.apply(context, args);
-                context = args = null;
-            }
-        }
-    }
-    var debounced = function() {
-        context = this;
-        args = arguments;
-        timestamp = Date.now();
-        var callNow = immediate && !timeout;
-        if (!timeout) timeout = setTimeout(later, wait);
-        if (callNow) {
-            result = func.apply(context, args);
-            context = args = null;
-        }
-        return result;
-    };
-    debounced.clear = function() {
-        if (timeout) {
-            clearTimeout(timeout);
-            timeout = null;
-        }
-    };
-    debounced.flush = function() {
-        if (timeout) {
-            result = func.apply(context, args);
-            context = args = null;
-            clearTimeout(timeout);
-            timeout = null;
-        }
-    };
-    return debounced;
-}
-// Adds compatibility for ES modules
-$d3ec6a576bb30dc9$var$debounce.debounce = $d3ec6a576bb30dc9$var$debounce;
-$d3ec6a576bb30dc9$exports = $d3ec6a576bb30dc9$var$debounce;
-
-
-
-function $ccd45e92e751836d$export$2e2bcd8739ae039(endpoint) {
-    const uid = (Date.now() + (Math.random() * 100 | 0)).toString();
-    const consumer = (0, $7d6b1fa982d8364d$exports.createConsumer)(`${endpoint}?uid=${uid}`);
-    return {
-        addListener (channel, callback) {
-            consumer.subscriptions.create(channel, {
-                received: (0, (/*@__PURE__*/$parcel$interopDefault($d3ec6a576bb30dc9$exports)))((data)=>{
-                    (0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports))).debug("Lookbook files changed");
-                    callback(data);
-                }, 200),
-                connected () {
-                    (0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports))).info("Lookbook websocket connected");
-                },
-                disconnected () {
-                    (0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports))).info("Lookbook websocket disconnected");
-                }
-            });
-        }
-    };
-}
-
-
-function $e263283f97229955$export$2e5e8c41f5d4e7c7(from, to) {
-    Alpine.morph(from, to, {
-        key (el) {
-            return el.getAttribute("key") ? el.getAttribute("key") : el.id;
-        },
-        lookahead: true,
-        updating (el, toEl, childrenOnly, skip) {
-            if (el.getAttribute && el.getAttribute("data-morph-strategy") === "replace") {
-                el.innerHTML = toEl.innerHTML;
-                return skip();
-            }
-        }
-    });
-}
-function $e263283f97229955$export$bdf7e699b242f476(el, opts = {}) {
-    const style = window.getComputedStyle(el, null);
-    return {
-        width: opts.includeMargins ? el.offsetWidth + parseInt(style.getPropertyValue("margin-left")) + parseInt(style.getPropertyValue("margin-right")) : el.offsetWidth,
-        height: opts.includeMargins ? el.offsetHeight + parseInt(style.getPropertyValue("margin-top")) + parseInt(style.getPropertyValue("margin-bottom")) : el.offsetHeight
-    };
-}
-function $e263283f97229955$export$b98882f166bb7ce2(link) {
-    if (link.getAttribute("target") === "_blank") return true;
-    if (link.href) return link.host !== window.location.host;
-    return false;
-}
-
-
-async function $e8e1f68a69f95ce8$export$51c59e2af49c1a92(url, selector) {
-    const response = await fetch(url || window.document.location);
-    if (response.ok) {
-        const html = await response.text();
-        const doc = new DOMParser().parseFromString(html, "text/html");
-        return {
-            fragment: selector ? doc.querySelector(selector).outerHTML : null,
-            title: doc.title,
-            doc: doc
-        };
-    } else throw new Error(`Error fetching HTML from ${url}`);
-}
-
-
-
 /* eslint-disable no-undefined,no-param-reassign,no-shadow */ /**
  * Throttle execution of a function. Especially useful for rate limiting
  * execution of handlers on events like resize and scroll.
@@ -7735,19 +7608,83 @@ async function $e8e1f68a69f95ce8$export$51c59e2af49c1a92(url, selector) {
 }
 
 
+
+function $ccd45e92e751836d$export$2e2bcd8739ae039(endpoint) {
+    const uid = (Date.now() + (Math.random() * 100 | 0)).toString();
+    const consumer = (0, $7d6b1fa982d8364d$exports.createConsumer)(`${endpoint}?uid=${uid}`);
+    return {
+        addListener (channel, callback) {
+            consumer.subscriptions.create(channel, {
+                received: (0, $c5d017602d25d050$export$61fc7d43ac8f84b0)(200, (data)=>{
+                    (0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports))).debug("Lookbook files changed");
+                    callback(data);
+                }, {
+                    atBegin: true
+                }),
+                connected () {
+                    (0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports))).info("Lookbook websocket connected");
+                },
+                disconnected () {
+                    (0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports))).info("Lookbook websocket disconnected");
+                }
+            });
+        }
+    };
+}
+
+
+function $e263283f97229955$export$2e5e8c41f5d4e7c7(from, to) {
+    Alpine.morph(from, to, {
+        key (el) {
+            return el.getAttribute("key") ? el.getAttribute("key") : el.id;
+        },
+        lookahead: true,
+        updating (el, toEl, childrenOnly, skip) {
+            if (el.getAttribute && el.getAttribute("data-morph-strategy") === "replace") {
+                el.innerHTML = toEl.innerHTML;
+                return skip();
+            }
+        }
+    });
+}
+function $e263283f97229955$export$bdf7e699b242f476(el, opts = {}) {
+    const style = window.getComputedStyle(el, null);
+    return {
+        width: opts.includeMargins ? el.offsetWidth + parseInt(style.getPropertyValue("margin-left")) + parseInt(style.getPropertyValue("margin-right")) : el.offsetWidth,
+        height: opts.includeMargins ? el.offsetHeight + parseInt(style.getPropertyValue("margin-top")) + parseInt(style.getPropertyValue("margin-bottom")) : el.offsetHeight
+    };
+}
+function $e263283f97229955$export$b98882f166bb7ce2(link) {
+    if (link.getAttribute("target") === "_blank") return true;
+    if (link.href) return link.host !== window.location.host;
+    return false;
+}
+
+
+async function $e8e1f68a69f95ce8$export$51c59e2af49c1a92(url, selector) {
+    const response = await fetch(url || window.document.location);
+    if (response.ok) {
+        const html = await response.text();
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        return {
+            fragment: selector ? doc.querySelector(selector).outerHTML : null,
+            title: doc.title,
+            doc: doc
+        };
+    } else throw new Error(`Error fetching HTML from ${url}`);
+}
+
+
+
 function $d709d0f4027033b2$export$2e2bcd8739ae039() {
     return {
         version: Alpine.$persist("").as("lookbook-version"),
         location: window.location,
         init () {
-            this.updateDOMAfterNavigation = (0, $c5d017602d25d050$export$de363e709c412c8a)(200, this.updateDOM);
-            this.updateDOMAfterChanges = (0, $c5d017602d25d050$export$61fc7d43ac8f84b0)(200, this.updateDOM, {
-                atBegin: true
-            });
             if (window.SOCKET_PATH) {
                 console.log("SOCKET CREATED");
                 const socket = (0, $ccd45e92e751836d$export$2e2bcd8739ae039)(window.SOCKET_PATH);
-                socket.addListener("Lookbook::ReloadChannel", ()=>this.updateDOMAfterChanges());
+                socket.addListener("Lookbook::ReloadChannel", ()=>this.updateDOM());
             }
         },
         navigateTo (path) {
@@ -7759,7 +7696,7 @@ function $d709d0f4027033b2$export$2e2bcd8739ae039() {
             this.debug("Navigating to ", window.location.pathname);
             this.$dispatch("navigation:start");
             this.location = window.location;
-            await this.updateDOMAfterNavigation();
+            await this.updateDOM();
             this.$dispatch("navigation:complete");
         },
         hijax (evt) {
@@ -7818,7 +7755,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $5a1160331e703b26$exports = {};
+var $730b795bb0498251$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11570,31 +11507,6 @@ function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
 }
 
 
-var $e9904a14dabf652d$exports = {};
-
-$parcel$defineInteropFlag($e9904a14dabf652d$exports);
-
-$parcel$export($e9904a14dabf652d$exports, "default", () => $e9904a14dabf652d$export$2e2bcd8739ae039);
-function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
-    return {
-        focussed: false,
-        get active () {
-            return store.active;
-        },
-        get text () {
-            return store.text;
-        },
-        clear () {
-            if (store.raw === "") this.$refs.input.blur();
-            else store.raw = "";
-        },
-        focus () {
-            this.$refs.input.focus();
-        }
-    };
-}
-
-
 var $e1f51f020443edd4$exports = {};
 
 $parcel$defineInteropFlag($e1f51f020443edd4$exports);
@@ -12460,6 +12372,31 @@ function $e1f51f020443edd4$export$2e2bcd8739ae039(id, embedStore) {
 }
 
 
+var $e9904a14dabf652d$exports = {};
+
+$parcel$defineInteropFlag($e9904a14dabf652d$exports);
+
+$parcel$export($e9904a14dabf652d$exports, "default", () => $e9904a14dabf652d$export$2e2bcd8739ae039);
+function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
+    return {
+        focussed: false,
+        get active () {
+            return store.active;
+        },
+        get text () {
+            return store.text;
+        },
+        clear () {
+            if (store.raw === "") this.$refs.input.blur();
+            else store.raw = "";
+        },
+        focus () {
+            this.$refs.input.focus();
+        }
+    };
+}
+
+
 var $36506012e0c6e9e3$exports = {};
 
 $parcel$defineInteropFlag($36506012e0c6e9e3$exports);
@@ -13149,7 +13086,7 @@ function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
                 });
                 const initialTab = initial1 ? this.tabs.find((t)=>this._getRef(t) === initial1) : this.tabs[0];
                 this.selectTab(initialTab, true);
-                this.parentObserver = (0, $9930d46698775b42$export$a2214cc2adb2dc44)(this.$root.parentElement, (0, (/*@__PURE__*/$parcel$interopDefault($d3ec6a576bb30dc9$exports)))(this.handleResize.bind(this), 10));
+                this.parentObserver = (0, $9930d46698775b42$export$a2214cc2adb2dc44)(this.$root.parentElement, (0, $c5d017602d25d050$export$61fc7d43ac8f84b0)(10, this.handleResize.bind(this)));
                 this.$watch("visibleTabsCount", (value)=>{
                     this.debug(`'#${this.$root.id}' visible tabs count:`, value);
                 });
@@ -13327,13 +13264,13 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$5a1160331e703b26$exports = {
+$730b795bb0498251$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
     "dimensions_display": $e398acaded942bbe$exports,
-    "filter": $e9904a14dabf652d$exports,
     "embed": $e1f51f020443edd4$exports,
+    "filter": $e9904a14dabf652d$exports,
     "icon": $36506012e0c6e9e3$exports,
     "nav": $d92d9d5253f84566$exports,
     "params_editor": $b63b9c6d236b3f65$exports,
@@ -13484,7 +13421,7 @@ const $d73574cc5e9b9e72$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $d709d0f4027033b2$export$2e2bcd8739ae039));
 [
-    $5a1160331e703b26$exports,
+    $730b795bb0498251$exports,
     $e4eab7529959b73b$exports,
     $4979d2d897a1c01f$exports
 ].forEach((scripts)=>{
