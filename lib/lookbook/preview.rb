@@ -109,6 +109,9 @@ module Lookbook
 
     protected
 
+    @preview_objects = nil
+    @previews = nil
+
     def guess_component
       name.chomp("Preview").constantize
     rescue
@@ -129,22 +132,29 @@ module Lookbook
       end
 
       def all
-        @previews ||= PreviewCollection.new([])
+        if @previews.nil? && @preview_objects.present?
+          previews = @preview_objects.map do |code_object|
+            klass = code_object.path.constantize
+            new(klass, code_object) if klass.ancestors.include?(ViewComponent::Preview)
+          rescue => exception
+            Lookbook.logger.error Lookbook::Error.new(exception)
+          end.compact
+
+          sorted_previews = previews.compact.sort_by { |preview| [preview.position, preview.label] }
+          @previews = PreviewCollection.new(sorted_previews)
+        else
+          PreviewCollection.new([])
+        end
+        @previews
       end
 
       def errors
         @errors ||= []
       end
 
-      def load!(registry)
-        previews = registry.all(:class).map do |code_object|
-          klass = code_object.path.constantize
-          new(klass, code_object) if klass.ancestors.include?(ViewComponent::Preview)
-        rescue
-        end.compact
-
-        sorted_previews = previews.compact.sort_by { |preview| [preview.position, preview.label] }
-        @previews = PreviewCollection.new(sorted_previews)
+      def load!(preview_objects)
+        @preview_objects = preview_objects
+        @previews = nil
       end    
     end
 

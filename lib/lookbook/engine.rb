@@ -43,16 +43,8 @@ module Lookbook
       Preview.all
     end
 
-    def previews?
-      Preview.any?
-    end
-
     def pages
       Page.all
-    end
-
-    def pages?
-      Page.any?
     end
 
     def broadcast(event_name, data = {})
@@ -100,14 +92,8 @@ module Lookbook
       @preview_controller.include(Lookbook::PreviewController)
 
       parser.after_parse do |registry|
-        begin
-          Preview.load!(registry)
-          reload_ui
-        rescue NameError
-          # Ignore name errors 
-        rescue exception
-          Lookbook.logger.error Lookbook::Error.new(exception)
-        end
+        Preview.load!(registry.all(:class))
+        reload_ui
       end
 
       if Gem::Version.new(Rails.version) >= Gem::Version.new("6.1.3.1")
