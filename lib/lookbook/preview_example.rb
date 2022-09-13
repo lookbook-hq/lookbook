@@ -35,7 +35,8 @@ module Lookbook
     end
 
     def template_source(template_path)
-      File.read(full_template_path(template_path))
+      source_path = full_template_path(template_path)
+      source_path ? File.read(source_path) : nil
     end
 
     def template_lang(template_path)
@@ -56,11 +57,17 @@ module Lookbook
 
     protected
 
+    def strip_ext(path)
+      path.sub(/\..*$/, "")
+    end
+
     def full_template_path(template_path)
+      template_path = strip_ext template_path
       base_path = Array(Lookbook.config.preview_paths).detect do |p|
         Dir["#{p}/#{template_path}.html.*"].first
       end
-      Pathname.new(Dir["#{base_path}/#{template_path}.html.*"].first)
+      path = Dir["#{base_path}/#{template_path}.html.*"].first
+      path ? Pathname.new(path) : nil
     end
 
     class << self
