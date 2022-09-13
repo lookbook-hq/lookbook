@@ -138,6 +138,7 @@ module Lookbook
             new(klass, code_object) if klass.ancestors.include?(ViewComponent::Preview)
           rescue => exception
             Lookbook.logger.error Lookbook::Error.new(exception)
+            nil
           end.compact
 
           sorted_previews = previews.compact.sort_by { |preview| [preview.position, preview.label] }
