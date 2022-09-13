@@ -1,6 +1,6 @@
 Lookbook::Engine.routes.draw do
   if Lookbook::Engine.websocket?
-    mount Lookbook::Engine.websocket => Lookbook.config.cable_mount_path, as: :cable
+    mount Lookbook::Engine.websocket => Lookbook.config.cable_mount_path, :as => :cable
   end
 
   root to: "application#index", as: :lookbook_home

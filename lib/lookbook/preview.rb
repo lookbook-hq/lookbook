@@ -156,7 +156,7 @@ module Lookbook
       def load!(preview_objects)
         @preview_objects = preview_objects
         @previews = nil
-      end    
+      end
     end
 
     alias_method :lookup_path, :path

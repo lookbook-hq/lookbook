@@ -134,7 +134,7 @@ module Lookbook
             force_polling: config.listen_use_polling
           ) do |modified, added, removed|
             parser.parse do
-              run_hooks(:after_change, { modified: modified, added: added, removed: removed })
+              run_hooks(:after_change, {modified: modified, added: added, removed: removed})
             end
           end
           register_listener(preview_listener)

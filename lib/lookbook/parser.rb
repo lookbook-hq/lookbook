@@ -8,7 +8,7 @@ module Lookbook
       @after_parse_callbacks = []
       @after_parse_once_callbacks = []
       @parsing = false
-      
+
       YARD::Parser::SourceParser.after_parse_list do
         [*@after_parse_callbacks, *@after_parse_once_callbacks].each do |callback|
           callback.call(YARD::Registry)
