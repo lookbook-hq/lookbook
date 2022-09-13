@@ -1,11 +1,11 @@
 module Lookbook
   module Data
     def data
-      @data ||= Store.new
+      @data ||= Store.new({}, true)
     end
 
     def data=(props)
-      @data = Store.new(props)
+      @data = Store.new(props, true)
     end
   end
 end

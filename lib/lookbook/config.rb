@@ -5,7 +5,7 @@ require "lookbook/store"
 module Lookbook
   class Config
     def initialize
-      @options = Store.new
+      @options = Store.new({}, true)
 
       @options.set({
         project_name: "Lookbook",

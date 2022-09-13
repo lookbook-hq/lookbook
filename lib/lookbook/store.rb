@@ -1,6 +1,6 @@
 module Lookbook
   class Store < ActiveSupport::OrderedOptions
-    def initialize(data = {}, deep = true)
+    def initialize(data = {}, deep = false)
       super()
       @deep = deep
       set(data) if data.present?
@@ -42,7 +42,7 @@ module Lookbook
     end
 
     def normalize_value(value)
-      @deep && value.is_a?(Hash) ? Store.new(value) : value
+      @deep && !value.is_a?(Store) && value.is_a?(Hash) ? Store.new(value, @deep) : value
     end
   end
 end

@@ -158,22 +158,25 @@ module Lookbook
 
     def panels
       return @panels if @panels.present?
-      @panels = []
-      Lookbook.config.inspector_panels.each do |name, config|
+      inspector_data_hash = inspector_data.to_h
+      panel_counts = {}
+
+      @panels = Lookbook.config.inspector_panels.map do |name, config|
         config_with_defaults = Lookbook.config.inspector_panel_defaults.merge(config)
+        panel_counts[config_with_defaults[:pane].to_sym] ||= 0
+        panel_counts[config_with_defaults[:pane].to_sym] += 1
 
         callable_data = {
           name: name.to_s,
-          index_position: (@panels.count { |p| p.pane == config.pane } + 1),
-          **inspector_data
+          index_position: panel_counts[config_with_defaults[:pane].to_sym],
+          **inspector_data_hash
         }
 
         resolved_config = config_with_defaults.transform_values do |value|
           value.instance_of?(Proc) ? value.call(Lookbook::Store.new(callable_data)) : value
         end
         resolved_config[:name] = name.to_s
-
-        @panels << Lookbook::Store.new(resolved_config, deep: false)
+        Store.new(resolved_config)
       end
 
       @panels = @panels.select(&:show).sort_by { |p| [p.position, p.label] }
