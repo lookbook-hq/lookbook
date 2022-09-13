@@ -7755,7 +7755,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $4dba57edf150b96d$exports = {};
+var $1c9a2bdb939ee07b$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -13018,98 +13018,6 @@ function $506dabb2bf255b38$var$sizeSplits(sizes) {
 }
 
 
-var $0db07828cadc68e0$exports = {};
-
-$parcel$defineInteropFlag($0db07828cadc68e0$exports);
-
-$parcel$export($0db07828cadc68e0$exports, "default", () => $0db07828cadc68e0$export$2e2bcd8739ae039);
-
-
-
-
-function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
-    const initial1 = store ? store.activeTab : null;
-    let dropdown = null;
-    return {
-        visibleTabsCount: 0,
-        triggerLeft: 0,
-        get store () {
-            return store || this;
-        },
-        get tabs () {
-            return this.$refs.tabs ? Array.from(this.$refs.tabs.children) : [];
-        },
-        get dropdownTabs () {
-            return Array.from(this.$refs.tabsDropdown ? this.$refs.tabsDropdown.children : []);
-        },
-        get tabWidths () {
-            return this.tabs.map((tab)=>(0, $e263283f97229955$export$bdf7e699b242f476)(tab, {
-                    includeMargins: true
-                }).width);
-        },
-        init () {
-            this.$nextTick(()=>{
-                dropdown = (0, $d6f449055c23f07a$export$2e2bcd8739ae039)(this.$refs.dropdownTrigger, {
-                    content: this.$refs.tabsDropdown,
-                    theme: "menu",
-                    interactive: true,
-                    trigger: "click",
-                    placement: "bottom",
-                    appendTo: this.$root
-                });
-                const initialTab = initial1 ? this.tabs.find((t)=>this._getRef(t) === initial1) : this.tabs[0];
-                this.selectTab(initialTab, true);
-                this.parentObserver = (0, $9930d46698775b42$export$a2214cc2adb2dc44)(this.$root.parentElement, (0, $c5d017602d25d050$export$61fc7d43ac8f84b0)(10, this.handleResize.bind(this)));
-                this.$watch("visibleTabsCount", (value)=>{
-                    this.debug(`'#${this.$root.id}' visible tabs count:`, value);
-                });
-            });
-        },
-        handleResize ({ width: width  }) {
-            if (width === this._lastMeasuredWidth) return;
-            if (width === this.$root.offsetWidth) {
-                this.visibleTabsCount = this.tabs.length;
-                return;
-            }
-            let sumTabWidths = 60;
-            let triggerLeft = 20;
-            let visibleTabsCount = 0;
-            this.tabWidths.forEach((tabWidth)=>{
-                sumTabWidths += tabWidth;
-                if (sumTabWidths < width) {
-                    triggerLeft += tabWidth;
-                    visibleTabsCount++;
-                }
-            });
-            this.visibleTabsCount = visibleTabsCount;
-            this.triggerLeft = triggerLeft;
-            this._lastMeasuredWidth = width;
-        },
-        selectTab (el, initial = false) {
-            this.store.activeTab = this._getRef(el);
-            dropdown.hide();
-            if (!initial) this.$dispatch("tabs:change", {
-                tabs: this
-            });
-        },
-        isSelected (el) {
-            return this.store.activeTab === this._getRef(el);
-        },
-        isDisabled (el) {
-            return el.getAttribute("data-disabled") == "true";
-        },
-        hasHiddenTabs () {
-            return this.visibleTabsCount < this.tabs.length;
-        },
-        // protected
-        _lastMeasuredWidth: 0,
-        _getRef (el) {
-            return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
-        }
-    };
-}
-
-
 var $a87dacf5139b5e2f$exports = {};
 
 $parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
@@ -13264,7 +13172,99 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$4dba57edf150b96d$exports = {
+var $0db07828cadc68e0$exports = {};
+
+$parcel$defineInteropFlag($0db07828cadc68e0$exports);
+
+$parcel$export($0db07828cadc68e0$exports, "default", () => $0db07828cadc68e0$export$2e2bcd8739ae039);
+
+
+
+
+function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
+    const initial1 = store ? store.activeTab : null;
+    let dropdown = null;
+    return {
+        visibleTabsCount: 0,
+        triggerLeft: 0,
+        get store () {
+            return store || this;
+        },
+        get tabs () {
+            return this.$refs.tabs ? Array.from(this.$refs.tabs.children) : [];
+        },
+        get dropdownTabs () {
+            return Array.from(this.$refs.tabsDropdown ? this.$refs.tabsDropdown.children : []);
+        },
+        get tabWidths () {
+            return this.tabs.map((tab)=>(0, $e263283f97229955$export$bdf7e699b242f476)(tab, {
+                    includeMargins: true
+                }).width);
+        },
+        init () {
+            this.$nextTick(()=>{
+                dropdown = (0, $d6f449055c23f07a$export$2e2bcd8739ae039)(this.$refs.dropdownTrigger, {
+                    content: this.$refs.tabsDropdown,
+                    theme: "menu",
+                    interactive: true,
+                    trigger: "click",
+                    placement: "bottom",
+                    appendTo: this.$root
+                });
+                const initialTab = initial1 ? this.tabs.find((t)=>this._getRef(t) === initial1) : this.tabs[0];
+                this.selectTab(initialTab, true);
+                this.parentObserver = (0, $9930d46698775b42$export$a2214cc2adb2dc44)(this.$root.parentElement, (0, $c5d017602d25d050$export$61fc7d43ac8f84b0)(10, this.handleResize.bind(this)));
+                this.$watch("visibleTabsCount", (value)=>{
+                    this.debug(`'#${this.$root.id}' visible tabs count:`, value);
+                });
+            });
+        },
+        handleResize ({ width: width  }) {
+            if (width === this._lastMeasuredWidth) return;
+            if (width === this.$root.offsetWidth) {
+                this.visibleTabsCount = this.tabs.length;
+                return;
+            }
+            let sumTabWidths = 60;
+            let triggerLeft = 20;
+            let visibleTabsCount = 0;
+            this.tabWidths.forEach((tabWidth)=>{
+                sumTabWidths += tabWidth;
+                if (sumTabWidths < width) {
+                    triggerLeft += tabWidth;
+                    visibleTabsCount++;
+                }
+            });
+            this.visibleTabsCount = visibleTabsCount;
+            this.triggerLeft = triggerLeft;
+            this._lastMeasuredWidth = width;
+        },
+        selectTab (el, initial = false) {
+            this.store.activeTab = this._getRef(el);
+            dropdown.hide();
+            if (!initial) this.$dispatch("tabs:change", {
+                tabs: this
+            });
+        },
+        isSelected (el) {
+            return this.store.activeTab === this._getRef(el);
+        },
+        isDisabled (el) {
+            return el.getAttribute("data-disabled") == "true";
+        },
+        hasHiddenTabs () {
+            return this.visibleTabsCount < this.tabs.length;
+        },
+        // protected
+        _lastMeasuredWidth: 0,
+        _getRef (el) {
+            return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
+        }
+    };
+}
+
+
+$1c9a2bdb939ee07b$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
@@ -13275,9 +13275,9 @@ $4dba57edf150b96d$exports = {
     "nav": $d92d9d5253f84566$exports,
     "params_editor": $b63b9c6d236b3f65$exports,
     "split_layout": $506dabb2bf255b38$exports,
-    "tabs": $0db07828cadc68e0$exports,
     "tab_panels": $a87dacf5139b5e2f$exports,
-    "viewport": $6d64716f0b34fdf4$exports
+    "viewport": $6d64716f0b34fdf4$exports,
+    "tabs": $0db07828cadc68e0$exports
 };
 
 
@@ -13421,7 +13421,7 @@ const $d73574cc5e9b9e72$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $d709d0f4027033b2$export$2e2bcd8739ae039));
 [
-    $4dba57edf150b96d$exports,
+    $1c9a2bdb939ee07b$exports,
     $e4eab7529959b73b$exports,
     $4979d2d897a1c01f$exports
 ].forEach((scripts)=>{
