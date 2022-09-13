@@ -11,7 +11,10 @@ module Lookbook
       opts = {}
       opts[:layout] = nil
       opts[:locals] = locals if locals.present?
-      render html: render_to_string(template, **opts)
+
+      with_optional_annotations do
+        render html: render_to_string(template, **opts)
+      end
     end
 
     def render_in_layout_to_string(template, locals, opts = {})
@@ -21,6 +24,21 @@ module Lookbook
         html += opts[:append_html]
       end
       render html: html
+    end
+
+    def with_optional_annotations
+      if Lookbook.config.disable_action_view_annotations
+        original_value = ActionView::Base.annotate_rendered_view_with_filenames
+        ActionView::Base.annotate_rendered_view_with_filenames = false
+
+        res = yield
+
+        ActionView::Base.annotate_rendered_view_with_filenames = original_value
+
+        res
+      else
+        yield
+      end
     end
   end
 end
