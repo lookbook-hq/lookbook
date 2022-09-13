@@ -7,7 +7,7 @@ module Lookbook
     end
 
     def code(language = :html, **attrs, &block)
-      attrs[:language] = language
+      attrs[:language] ||= language
       render Lookbook::Code::Component.new(**attrs), &block
     end
 
