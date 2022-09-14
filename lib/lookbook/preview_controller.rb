@@ -27,7 +27,7 @@ module Lookbook
     end
 
     def with_optional_annotations
-      if Lookbook.config.disable_action_view_annotations
+      if Lookbook.config.preview_disable_action_view_annotations
         original_value = ActionView::Base.annotate_rendered_view_with_filenames
         ActionView::Base.annotate_rendered_view_with_filenames = false
 

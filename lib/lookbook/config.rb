@@ -41,7 +41,7 @@ module Lookbook
         ui_theme_overrides: {},
         ui_favicon: true,
 
-        disable_action_view_annotations: false,
+        preview_disable_action_view_annotations: false,
 
         hooks: {
           after_initialize: [],
