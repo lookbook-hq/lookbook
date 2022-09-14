@@ -11,8 +11,10 @@ class StandardComponentPreview < ViewComponent::Preview
     end
   end
 
-  def third_example
-    render StandardComponent.new do
+  def mutli_line_def_example(foo: "bar",
+      this: "that"
+    )
+    render StandardComponent.new id: "multi-line" do
       "standard component content 3"
     end
   end

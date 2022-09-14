@@ -27,7 +27,7 @@ module Lookbook
     end
 
     def method_source
-      @example_inspector.source.split("\n")[1..-2].join("\n").strip_heredoc
+      @example_inspector.source.sub(/^def \w+\s?(\([^\)]+\))?/m, "").split("\n")[0..-2].join("\n").strip_heredoc.strip
     end
 
     def lang
