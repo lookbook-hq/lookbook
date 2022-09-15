@@ -33,4 +33,10 @@ All of the available Lookbook [configuration](/guide/config/) options.
 
 {{ render "config_options_list", group: "system" }}
 
+## [Deprecated]
+
+These options are no longer relevant in the latest releases of Lookbook.
+
+{{ render "config_options_list", group: "deprecated" }}
+
 {{toc}}

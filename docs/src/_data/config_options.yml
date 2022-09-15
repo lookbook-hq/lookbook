@@ -156,25 +156,30 @@
     Polling is slower but may work in certain setups where file listeners
     do not detect changes correctly.
 
-- name: runtime_parsing
-  group: system
-  type: Boolean
-  default: "!Rails.env.production?"
-  example: "config.lookbook.runtime_parsing = false"
-  description: |
-    Whether or not to perform an initial parse of the preview files when the application first starts. 
-    Disabled in production by default.
-
-- name: parser_registry_path
-  group: system
-  type: String
-  default: "tmp/storage/.yardoc"
-  example: config.lookbook.parser_registry_path = "path/to/temporary/storage"
-  description: The directory to write the (temporary) parser registry file to.
-
 - name: experimental_features
   group: system
   type: Boolean | Array
   default: false
   example: "config.lookbook.experimental_features = true # opt in to all experimental features"
   description: Which experimental features to opt in to.
+
+- name: runtime_parsing
+  group: deprecated
+  type: Boolean
+  default: "!Rails.env.production?"
+  example: "config.lookbook.runtime_parsing = false"
+  description: |
+    **As of v1.0.7 this option is no longer used.**
+
+    Whether or not to perform an initial parse of the preview files when the application first starts. 
+    Disabled in production by default.
+
+- name: parser_registry_path
+  group: deprecated
+  type: String
+  default: "tmp/storage/.yardoc"
+  example: config.lookbook.parser_registry_path = "path/to/temporary/storage"
+  description: |
+    **As of v1.0.7 this option is no longer used** - the parser no longer writes to the filesystem.
+
+    The directory to write the (temporary) parser registry file to.
