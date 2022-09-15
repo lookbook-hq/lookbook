@@ -54,6 +54,7 @@ If you'd rather dig in a bit more and run the demo app locally, the [demo repo](
 
 * [Clio](https://www.clio.com/)
 * [CoverageBook](https://coveragebook.com/)
+* [FreeAgent](https://www.freeagent.com/)
 * [Within3](https://within3.com/)
 * And [many more...](https://github.com/allmarkedup/lookbook/network/dependents?package_id=UGFja2FnZS0xMDM0MzQ1)
 
