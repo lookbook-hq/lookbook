@@ -95,6 +95,7 @@
         "rake spec"
       ],
       "after:bump": [
+        "bundle exec appraisal install",
         "npm run lint:fix",
         "npm run build"
       ],
