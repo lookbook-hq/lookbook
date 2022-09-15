@@ -143,10 +143,12 @@ module Lookbook
 
           sorted_previews = previews.compact.sort_by { |preview| [preview.position, preview.label] }
           @previews = PreviewCollection.new(sorted_previews)
-        else
+          @previews
+        elsif !@preview_objects.present?
           PreviewCollection.new([])
+        else
+          @previews
         end
-        @previews
       end
 
       def errors
