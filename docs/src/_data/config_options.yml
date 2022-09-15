@@ -36,6 +36,13 @@
     }
   description: Default (fallback) display params that will be merged with any preview-specific display params and made available in the preview layout template.
 
+- name: preview_disable_action_view_annotations
+  group: previews
+  type: Boolean
+  default: true
+  example: "config.lookbook.preview_disable_action_view_annotations = true"
+  description: "Turns off action view filename annotations when generating rendered component source."
+
 - name: sort_examples
   group: previews
   type: Boolean
@@ -164,13 +171,6 @@
   default: "tmp/storage/.yardoc"
   example: config.lookbook.parser_registry_path = "path/to/temporary/storage"
   description: The directory to write the (temporary) parser registry file to.
-
-- name: preview_disable_action_view_annotations
-  group: string
-  type: Boolean
-  default: true
-  example: "config.lookbook.preview_disable_action_view_annotations = true"
-  description: "Turns off action view filename annotations when generating rendered component source."
 
 - name: experimental_features
   group: system
