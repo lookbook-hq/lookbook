@@ -165,6 +165,13 @@
   example: config.lookbook.parser_registry_path = "path/to/temporary/storage"
   description: The directory to write the (temporary) parser registry file to.
 
+- name: preview_disable_action_view_annotations
+  group: string
+  type: Boolean
+  default: true
+  example: "config.lookbook.preview_disable_action_view_annotations = true"
+  description: "Turns off action view filename annotations when generating rendered component source."
+
 - name: experimental_features
   group: system
   type: Boolean | Array
