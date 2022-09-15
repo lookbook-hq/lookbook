@@ -12,7 +12,7 @@ module Lookbook
     end
 
     def call
-      @html_attrs[:class] = helpers.class_names(@html_attrs[:class])
+      @html_attrs[:class] = class_names(@html_attrs[:class])
       tag.public_send(@tag.to_sym, **@html_attrs) do
         content
       end
