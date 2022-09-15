@@ -174,7 +174,7 @@ module Lookbook
       end
 
       def websocket_mount_path
-        "#{mounted_path}#{config.lookbook.cable_mount_path}".gsub("//","/") if websocket?
+        "#{mounted_path}#{config.lookbook.cable_mount_path}".gsub("//", "/") if websocket?
       end
 
       def websocket?

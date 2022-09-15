@@ -16,7 +16,7 @@ RSpec.describe Lookbook::PreviewExample do
         source_lines = example.method_source.split("\n")
         expect(source_lines.first.strip).to eq "render StandardComponent.new id: \"default\" do"
       end
-      
+
       it "handles multi-line method definitions" do
         multi_line_def_example = preview.example("mutli_line_def_example")
         source_lines = multi_line_def_example.method_source.split("\n")
