@@ -28,7 +28,7 @@ module Lookbook
     end
 
     def logger
-      @logger ||= Rails.env.development? ? Logger.new($stdout) : Rails.logger
+      @logger ||= (Rails.logger || Logger.new($stdout))
     end
 
     def debug_data
@@ -131,6 +131,7 @@ module Lookbook
         if listen_paths.any?
           preview_listener = Listen.to(*listen_paths,
             only: /\.(#{config.listen_extensions.join("|")})$/,
+            wait_for_delay: 0.5,
             force_polling: config.listen_use_polling) do |modified, added, removed|
             parser.parse do
               run_hooks(:after_change, {modified: modified, added: added, removed: removed})
