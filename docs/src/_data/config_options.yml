@@ -10,7 +10,10 @@
   type: Integer
   default: 2
   example: config.lookbook.log_level = 3
-  description: The minimum level to use for displaying log messages
+  description: |
+    The minimum level to use for displaying log messages.
+    _Only applicable if no logger has been set in the parent application_, otherwise Lookbook
+    will use that logger and the log level value that has been set on it.
 
 - name: debug_menu
   group: debugging
