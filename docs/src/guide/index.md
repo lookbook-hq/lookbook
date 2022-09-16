@@ -52,6 +52,7 @@ If you'd rather dig in a bit more and run the demo app locally, the [demo repo](
 
 ## Who uses Lookbook?
 
+* [Aluuno](https://aluuno.com/)
 * [Clio](https://www.clio.com/)
 * [CoverageBook](https://coveragebook.com/)
 * [FreeAgent](https://www.freeagent.com/)
