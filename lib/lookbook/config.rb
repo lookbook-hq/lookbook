@@ -33,7 +33,6 @@ module Lookbook
         listen_use_polling: false,
 
         cable_mount_path: "/cable",
-        cable_logger: Lookbook.logger,
 
         parser_registry_path: "tmp/storage/.yardoc",
 
@@ -59,7 +58,7 @@ module Lookbook
             hotkey: "v",
             panel_classes: "overflow-hidden",
             padded: false,
-            system: true
+            system: true 
           },
           output: {
             pane: :main,

@@ -28,7 +28,13 @@ module Lookbook
     end
 
     def logger
-      @logger ||= (Rails.logger || Logger.new($stdout))
+      @logger ||= if Rails.logger.present?
+        Rails.logger
+      else
+        logger = Logger.new($stdout)
+        logger.log_level = config.log_level
+        logger
+      end
     end
 
     def debug_data
@@ -70,10 +76,6 @@ module Lookbook
 
       config.lookbook.listen_paths += config.lookbook.preview_paths
       config.lookbook.listen_paths << config.lookbook.components_path
-    end
-
-    initializer "lookbook.logging.development" do
-      Lookbook.logger.level = Lookbook.config.log_level if Rails.env.development?
     end
 
     initializer "lookbook.parser.tags" do
@@ -163,7 +165,7 @@ module Lookbook
         cable.cable = {adapter: "async"}.with_indifferent_access
         cable.mount_path = nil
         cable.connection_class = -> { Lookbook::Connection }
-        cable.logger = config.cable_logger
+        cable.logger = Lookbook.logger
 
         @websocket ||= if Gem::Version.new(Rails.version) >= Gem::Version.new(6.0)
           ActionCable::Server::Base.new(config: cable)
