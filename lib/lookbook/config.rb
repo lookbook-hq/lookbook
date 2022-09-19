@@ -40,6 +40,8 @@ module Lookbook
         ui_theme_overrides: {},
         ui_favicon: true,
 
+        base_auth: false,
+
         hooks: {
           after_initialize: [],
           before_exit: [],
@@ -58,7 +60,7 @@ module Lookbook
             hotkey: "v",
             panel_classes: "overflow-hidden",
             padded: false,
-            system: true 
+            system: true
           },
           output: {
             pane: :main,
