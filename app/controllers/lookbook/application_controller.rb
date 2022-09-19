@@ -1,5 +1,7 @@
 module Lookbook
   class ApplicationController < ActionController::Base
+    before_action :base_auth, if: config.base_auth && Rails.env.production?
+
     if respond_to?(:content_security_policy)
       content_security_policy false, if: -> { Rails.env.development? }
     end
@@ -27,6 +29,10 @@ module Lookbook
     end
 
     protected
+
+    def base_auth
+      http_basic_authenticate_with name: ENV['LOOKBOOK_BASE_AUTH_NAME'], password: ENV['LOOKBOOK_BASE_AUTH_PASSWORD']
+    end
 
     def generate_theme_overrides
       @theme_overrides ||= Lookbook.theme.to_css
