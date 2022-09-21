@@ -73,9 +73,9 @@ module Lookbook
       @param_defaults ||= code_object&.parameters&.map { |str| Params.parse_method_param_str(str) }&.compact&.to_h
     end
 
-    def params
+    def params(eval_scope: nil)
       code_object&.tags("param")&.map do |param|
-        Lookbook::Params.build_param(param, default: parameter_defaults[param.name])
+        Lookbook::Params.build_param(param, default: parameter_defaults[param.name], eval_scope: eval_scope)
       end
     end
 

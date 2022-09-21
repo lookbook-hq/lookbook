@@ -15,8 +15,12 @@ module Lookbook
       @preview_inspector&.id || generate_id(lookup_path)
     end
 
-    def preview_class
+    def preview_class_name
       @preview.name
+    end
+
+    def preview_class
+      @preview
     end
 
     def label

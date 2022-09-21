@@ -10,6 +10,7 @@ module Lookbook
   autoload :Utils, "lookbook/utils"
   autoload :Lang, "lookbook/lang"
   autoload :Params, "lookbook/params"
+  autoload :TagOptions, "lookbook/tag_options"
   autoload :Page, "lookbook/page"
   autoload :Tag, "lookbook/tag"
   autoload :PageSection, "lookbook/page_section"

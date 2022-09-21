@@ -26,7 +26,7 @@ RSpec.describe Lookbook::Params do
       end
 
       it "should return nil and log a warning if the file is not found" do
-        expect(Lookbook.logger).to receive(:warn)
+        expect(Lookbook.logger).to receive(:warn).with(Lookbook::Error)
         tag = build(:param_tag, text: "select data/file_does_not_exist.json")
         param_data = Lookbook::Params.build_param(tag)
         expect(param_data[:options]).to eq nil
@@ -51,11 +51,41 @@ RSpec.describe Lookbook::Params do
       end
 
       it "should return nil and log a warning if the file is not found" do
-        expect(Lookbook.logger).to receive(:warn)
+        expect(Lookbook.logger).to receive(:warn).with(Lookbook::Error)
         tag = build(:param_tag, text: "select data/file_does_not_exist.yml")
         param_data = Lookbook::Params.build_param(tag)
         expect(param_data[:options]).to eq nil
       end
     end
+
+    context "options eval" do
+      it "is disabled by default" do
+        expect(Lookbook.logger).to receive(:warn).with(Lookbook::Error)
+        tag = build(:param_tag, text: "select {{ SELECT_OPTS }}")
+        param_data = Lookbook::Params.build_param(tag)
+        expect(param_data[:options]).to eq nil
+      end
+
+      context "when enabled" do
+        before { Lookbook.config.preview_params_eval_enabled = true }
+        after { Lookbook.config.preview_params_eval_enabled = false }
+
+        let(:tag) { build(:param_tag, text: "select {{ SELECT_OPTS }}") }
+        
+        it "does not log a warning" do
+          expect(Lookbook.logger).not_to receive(:warn)
+          Lookbook::Params.build_param(tag, eval_scope: SelectOptsContext.new)
+        end
+  
+        it "is evaluated in the expected scope" do
+          param_data = Lookbook::Params.build_param(tag, eval_scope: SelectOptsContext.new)
+          expect(param_data[:options]).to eq SelectOptsContext::SELECT_OPTS
+        end
+      end           
+    end
   end
+end
+
+class SelectOptsContext
+  SELECT_OPTS = %w[one two three]
 end

@@ -29,7 +29,7 @@
             <% group.button icon: :code,
               tooltip: "Copy page embed code",
               copy: true do %>
-                &lt;%= embed <%= @preview.preview_class %>, :<%= @target.name %>, params: <%= request.query_parameters.deep_symbolize_keys.to_s %> %&gt;
+                &lt;%= embed <%= @preview.preview_class_name %>, :<%= @target.name %>, params: <%= request.query_parameters.deep_symbolize_keys.to_s %> %&gt;
             <% end %>
           <% end %>
           
