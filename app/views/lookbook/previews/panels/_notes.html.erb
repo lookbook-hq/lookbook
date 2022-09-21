@@ -6,13 +6,13 @@
         <h6 class="italic font-mono mb-4 opacity-40">
           # <%= item.label %>
         </h6>
-        <%= render_component :prose, content: item.notes %>
+        <%= lookbook_render :prose, content: item.notes %>
       </div>
     <% end %>
   </div>
 <% else %>
   <div class="px-4 py-6 bg-lookbook-prose-bg w-full h-full">
-    <%= render_component :prose do %>
+    <%= lookbook_render :prose do %>
       <%== items.any? ? items.first.notes : "<em class='opacity-50'>No notes provided.</em>" %>
     <% end %>
   </div>

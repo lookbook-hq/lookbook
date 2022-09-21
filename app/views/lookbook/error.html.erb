@@ -24,7 +24,7 @@ error = error.is_a?(Lookbook::Error) ? error : Lookbook::Error.new(error)
 
     <% if error.source_code %>
       <div class="mx-8 border border-red-200 max-w-screen-lg">
-        <%= render_component :code,
+        <%= lookbook_render :code,
           language: error.file_lang,
           highlight_lines: [error.source_code[:highlighted_line]],
           start_line: error.source_code[:start_line],

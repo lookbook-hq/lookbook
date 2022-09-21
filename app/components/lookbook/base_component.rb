@@ -12,11 +12,10 @@ module Lookbook
       merged_classes = class_names(attrs[:class], @html_attrs[:class])
       merged_attrs = @html_attrs.except(:class).deep_merge(attrs.except(:class))
 
-      render Lookbook::TagComponent.new(tag: tag,
-        name: component_name,
+      lookbook_tag tag, name: component_name,
         **merged_attrs,
         "x-data": prepare_alpine_data(merged_attrs[:"x-data"]),
-        class: merged_classes), &block
+        class: merged_classes, &block
     end
 
     def component_name

@@ -45,7 +45,7 @@ module Lookbook
     def children
       @children ||= if collection? && !collapsed?
         item.non_empty_items.map do |item|
-          render Lookbook::Nav::Item::Component.new item,
+          lookbook_render Lookbook::Nav::Item::Component.new item,
             nav_id: @nav_id,
             depth: (@depth + 1),
             collapse_singles: @collapse_singles

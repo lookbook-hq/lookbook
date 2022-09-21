@@ -1,11 +1,11 @@
 <div class="p-4 bg-lookbook-prose-bg h-full">
   <% if panel.content.present? %>
-    <%= render_component :prose, markdown: true do %>
+    <%= lookbook_render :prose, markdown: true do %>
       <%== panel.content %>
     <% end %>
   <% else %>
     <% if Rails.env.development? %>
-      <%= render_component :prose do %>
+      <%= lookbook_render :prose do %>
         <em class='opacity-50'>No content has been defined for this panel.</em>
       <% end %>
     <% end %>

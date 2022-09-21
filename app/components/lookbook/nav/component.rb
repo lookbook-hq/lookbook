@@ -18,7 +18,7 @@ module Lookbook
 
     def items
       @collection.non_empty_items.map do |item|
-        render Lookbook::Nav::Item::Component.new item,
+        lookbook_render Lookbook::Nav::Item::Component.new item,
           nav_id: @id,
           depth: 1,
           **@item_args

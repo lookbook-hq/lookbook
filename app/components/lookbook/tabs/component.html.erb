@@ -9,8 +9,8 @@
     <%= safe_join(tabs) %>
   </div>
   <div x-ref="dropdownTrigger" class="absolute" x-show="hasHiddenTabs" :style="{left: `${triggerLeft}px`}">
-    <%= render_component :button, icon: :chevrons_right, "x-show": "visibleTabsCount > 0" %>
-    <%= render_component :button, icon: :menu, class: "-ml-3", "x-show": "visibleTabsCount === 0" %>
+    <%= lookbook_render :button, icon: :chevrons_right, "x-show": "visibleTabsCount > 0" %>
+    <%= lookbook_render :button, icon: :menu, class: "-ml-3", "x-show": "visibleTabsCount === 0" %>
   </div>
   <div class="hidden">
     <div x-ref="tabsDropdown" data-cloak>
