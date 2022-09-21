@@ -6,16 +6,7 @@ module Lookbook
       def build_param(param, default: nil, **opts)
         input, options_str = param.text.present? ? param.text.split(" ", 2) : [nil, ""]
         type = param.types&.first
-        options = if options_str.present? && options_str.end_with?(".json")
-          json_path = if options_str.start_with?(".")
-            File.expand_path(options_str, File.dirname(param.object.files.first[0]))
-          else
-            Rails.root.join(options_str)
-          end
-          JSON.parse(File.read(json_path))
-        else
-          YAML.safe_load(options_str || "~")
-        end
+        options = resolve_options(options_str, param)
         input ||= guess_input(type, default)
         type ||= guess_type(input, default)
         {
@@ -82,6 +73,34 @@ module Lookbook
       end
 
       private
+
+      def resolve_options(options_str, param)
+        begin
+          if options_str.present?
+            if options_str.end_with?(".json") || options_str.end_with?(".yml")
+              file_path = resolve_options_file_path(options_str, param)
+              options_str = File.read(file_path)
+            end
+            if file_path.extname == "json"
+              JSON.parse(options_str)
+            else
+              YAML.safe_load(options_str || "~")
+            end
+          end
+        rescue => exception
+          Lookbook.logger.warn Lookbook::Error.new(exception)
+          nil
+        end
+      end
+
+      def resolve_options_file_path(options_str, param)
+        path = if options_str.start_with?(".")
+          File.expand_path(options_str, File.dirname(param.object.files.first[0]))
+        else
+          Rails.root.join(options_str)
+        end
+        Pathname.new path
+      end
 
       def guess_input(type, default)
         if type&.downcase == "boolean" || (type.blank? && boolean?(default))
