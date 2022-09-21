@@ -13,7 +13,7 @@ module Lookbook
     }
 
     def self.render(text)
-      text&.gsub!(/<!-- (BEGIN|END) (.*) -->/, "")
+      Utils.strip_action_view_annotations!(text)
       markdown = Redcarpet::Markdown.new(Renderer, Lookbook.config.markdown_options)
       markdown.render(text).html_safe
     end
