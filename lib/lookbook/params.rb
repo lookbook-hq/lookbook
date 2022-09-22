@@ -8,7 +8,7 @@ module Lookbook
         type = param.types&.first
 
         options = Lookbook::TagOptions.new(options_str,
-          base_dir: param.object.files.any? ? File.dirname(param.object.files.first[0]) : nil,
+          base_dir: (File.dirname(param.object.files.first[0]) if param.object.files.any?),
           eval_scope: eval_scope)
 
         input ||= guess_input(type, default)

@@ -5,13 +5,15 @@ module Lookbook
     attr_reader :data, :arg_names
     attr_accessor :args, :opts
 
-    def initialize(tag_object, arg_names = nil, parser: nil, **options)
+    def initialize(tag_object, arg_names = nil, parser: nil, eval_scope: nil, file: nil, **options)
       @tag_object = tag_object
       @arg_names = arg_names
       @args = {}
       @opts = {}
       @options = options
       @parser = parser
+      @eval_scope = eval_scope
+      @file = file
       @data = Store.new
       run_parser
     end
@@ -43,8 +45,17 @@ module Lookbook
 
     def parse_opts
       return @opts if @options[:parse_options] == false
-      parsed_opts = parse_yaml(opts_str)
-      @opts = parsed_opts.is_a?(Hash) ? parsed_opts.with_indifferent_access : {}
+      tag_opts = Lookbook::TagOptions.new(opts_str,
+        eval_scope: @eval_scope,
+        base_dir: File.dirname(@file)
+      )
+      options = tag_opts.resolve || {}
+      @opts = if options.is_a?(Hash)
+        options.with_indifferent_access
+      else
+        Lookbook.logger.warn "'@#{tag_name}' tag options should resolve to a Hash"
+        options
+      end
     end
 
     def run_parser

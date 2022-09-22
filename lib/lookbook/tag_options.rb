@@ -3,7 +3,7 @@ module Lookbook
     EVAL_OPTION_REGEX = /^\{\{\s?(.*)\s?\}\}$/
 
     def initialize(options_str, eval_scope: nil, base_dir: nil)
-      @options_str = options_str.strip
+      @options_str = options_str.is_a?(String) ? options_str.strip : ""
       @eval_scope = eval_scope
       @base_dir = base_dir
     end

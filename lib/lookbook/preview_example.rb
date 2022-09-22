@@ -1,12 +1,12 @@
 module Lookbook
   class PreviewExample < Entity
     attr_reader :name, :preview
-    delegate :position, :group, :notes, :hidden?, :source, :tags, :tag, to: :@example_inspector
+    delegate :params, :position, :group, :notes, :hidden?, :source, :tags, :tag, to: :@example_inspector
 
     def initialize(name, preview, code_object)
       @name = name
       @preview = preview
-      @example_inspector = SourceInspector.new(code_object)
+      @example_inspector = SourceInspector.new(code_object, eval_scope: @preview.preview_class.new)
       super("#{@preview.path}/#{name}")
     end
 
@@ -53,10 +53,6 @@ module Lookbook
 
     def hierarchy_depth
       @preview.hierarchy_depth + 1
-    end
-
-    def params
-      @example_inspector.params(eval_scope: @preview.preview_class.new)
     end
 
     protected
