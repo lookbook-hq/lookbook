@@ -7662,8 +7662,15 @@ var _dom = require("./helpers/dom");
 var _request = require("./helpers/request");
 function app() {
     return {
+        _requestsInProgress: 0,
         version: Alpine.$persist("").as("lookbook-version"),
         location: window.location,
+        get sidebarHidden () {
+            return this.$store.layout.sidebar.hidden;
+        },
+        get loading () {
+            return this._requestsInProgress > 0;
+        },
         init () {
             if (window.SOCKET_PATH) {
                 console.log("SOCKET CREATED");
@@ -7693,10 +7700,12 @@ function app() {
         async updateDOM () {
             this.debug("Starting DOM update");
             this.$dispatch("dom:update-start");
+            this.requestStart();
             try {
                 const { fragment , title  } = await (0, _request.fetchHTML)(window.location, `#${this.$root.id}`);
                 (0, _dom.morph)(this.$root, fragment);
                 document.title = title;
+                this.requestEnd();
                 this.$dispatch("dom:update-complete");
                 this.debug("DOM update complete");
             } catch (err) {
@@ -7710,8 +7719,11 @@ function app() {
         closeMobileSidebar () {
             if (this.$store.layout.mobile && !this.sidebarHidden) this.toggleSidebar();
         },
-        get sidebarHidden () {
-            return this.$store.layout.sidebar.hidden;
+        requestStart () {
+            this._requestsInProgress += 1;
+        },
+        requestEnd () {
+            if (this._requestsInProgress > 0) this._requestsInProgress -= 1;
         },
         ...Alpine.$log
     };

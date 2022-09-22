@@ -5,9 +5,19 @@ import { isExternalLink } from "./helpers/dom";
 
 export default function app() {
   return {
+    _requestsInProgress: 0,
+
     version: Alpine.$persist("").as("lookbook-version"),
 
     location: window.location,
+
+    get sidebarHidden() {
+      return this.$store.layout.sidebar.hidden;
+    },
+
+    get loading() {
+      return this._requestsInProgress > 0;
+    },
 
     init() {
       if (window.SOCKET_PATH) {
@@ -42,6 +52,7 @@ export default function app() {
     async updateDOM() {
       this.debug("Starting DOM update");
       this.$dispatch("dom:update-start");
+      this.requestStart();
       try {
         const { fragment, title } = await fetchHTML(
           window.location,
@@ -49,6 +60,7 @@ export default function app() {
         );
         morph(this.$root, fragment);
         document.title = title;
+        this.requestEnd();
         this.$dispatch("dom:update-complete");
         this.debug("DOM update complete");
       } catch (err) {
@@ -67,8 +79,14 @@ export default function app() {
       }
     },
 
-    get sidebarHidden() {
-      return this.$store.layout.sidebar.hidden;
+    requestStart() {
+      this._requestsInProgress += 1;
+    },
+
+    requestEnd() {
+      if (this._requestsInProgress > 0) {
+        this._requestsInProgress -= 1;
+      }
     },
 
     ...Alpine.$log,

@@ -1922,20 +1922,20 @@ pre[class*="language-"] {
   margin-bottom: 1rem;
 }
 
-.mb-\[-2px\] {
-  margin-bottom: -2px;
-}
-
-.mt-1 {
-  margin-top: .25rem;
-}
-
 .mr-1 {
   margin-right: .25rem;
 }
 
 .mr-6 {
   margin-right: 1.5rem;
+}
+
+.mb-\[-2px\] {
+  margin-bottom: -2px;
+}
+
+.mt-1 {
+  margin-top: .25rem;
 }
 
 .mb-6 {
@@ -2268,12 +2268,6 @@ pre[class*="language-"] {
   justify-content: space-between;
 }
 
-.space-x-1 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(.25rem * var(--tw-space-x-reverse));
-  margin-left: calc(.25rem * calc(1 - var(--tw-space-x-reverse)) );
-}
-
 .space-y-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(.5rem * calc(1 - var(--tw-space-y-reverse)) );
@@ -2284,6 +2278,12 @@ pre[class*="language-"] {
   --tw-space-x-reverse: 0;
   margin-right: calc(.5rem * var(--tw-space-x-reverse));
   margin-left: calc(.5rem * calc(1 - var(--tw-space-x-reverse)) );
+}
+
+.space-x-1 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(.25rem * var(--tw-space-x-reverse));
+  margin-left: calc(.25rem * calc(1 - var(--tw-space-x-reverse)) );
 }
 
 .space-x-6 > :not([hidden]) ~ :not([hidden]) {
@@ -2481,13 +2481,13 @@ pre[class*="language-"] {
   background-color: var(--lookbook-prose-bg);
 }
 
-.\!bg-lookbook-header-bg {
-  background-color: var(--lookbook-header-bg) !important;
-}
-
 .bg-zinc-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(250 250 250 / var(--tw-bg-opacity));
+}
+
+.\!bg-lookbook-header-bg {
+  background-color: var(--lookbook-header-bg) !important;
 }
 
 .bg-lookbook-divider {
@@ -2761,17 +2761,17 @@ pre[class*="language-"] {
   color: rgb(34 197 94 / var(--tw-text-opacity));
 }
 
+.text-green-600 {
+  --tw-text-opacity: 1;
+  color: rgb(22 163 74 / var(--tw-text-opacity));
+}
+
 .\!text-lookbook-header-text {
   color: var(--lookbook-header-text) !important;
 }
 
 .text-lookbook-branding-text {
   color: var(--lookbook-branding-text);
-}
-
-.text-green-600 {
-  --tw-text-opacity: 1;
-  color: rgb(22 163 74 / var(--tw-text-opacity));
 }
 
 .text-lookbook-prose-text {
@@ -2806,6 +2806,10 @@ pre[class*="language-"] {
   color: var(--lookbook-tabs-text-disabled) !important;
 }
 
+.text-lookbook-header-text {
+  color: var(--lookbook-header-text);
+}
+
 .underline {
   text-decoration-line: underline;
 }
@@ -2838,16 +2842,24 @@ pre[class*="language-"] {
   opacity: .4;
 }
 
-.\!opacity-100 {
-  opacity: 1 !important;
+.opacity-80 {
+  opacity: .8;
 }
 
 .opacity-70 {
   opacity: .7;
 }
 
-.opacity-80 {
-  opacity: .8;
+.\!opacity-100 {
+  opacity: 1 !important;
+}
+
+.opacity-25 {
+  opacity: .25;
+}
+
+.opacity-75 {
+  opacity: .75;
 }
 
 .shadow {
