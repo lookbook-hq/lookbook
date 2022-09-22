@@ -1,12 +1,12 @@
 <% if preview.params.none? %>
   <div class="p-4 w-full h-full bg-lookbook-prose-bg">
-    <%= render_component :prose do %>
+    <%= lookbook_render :prose do %>
       <em class='opacity-50'>No params configured.</em>
     <% end %>
   </div>
 <% else %>
   <div class="py-3 h-full">
-    <%= render_component :params_editor do |editor| %>
+    <%= lookbook_render :params_editor do |editor| %>
       <% preview.params.each do |param| %>
         <% editor.field **param, value: params[param[:name]] %>
       <% end %>

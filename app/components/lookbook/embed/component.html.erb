@@ -1,14 +1,14 @@
 <% if @target.present? %>
 <%= render_component_tag class: "not-prose border-b border-lookbook-divider rounded-sm overflow-hidden", "@navigation:start.window": "cleanup" do %>
 
-  <%= render_component :toolbar, class: "border border-b-0 border-lookbook-divider" do |toolbar| %>
+  <%= lookbook_render :toolbar, class: "border border-b-0 border-lookbook-divider" do |toolbar| %>
     <% toolbar.section padded: true do %>
       <h3>
         <%= @target.preview.label %> (<%= @target.label %>)
       </h3>
     <% end %>
     <% toolbar.section align: :right, divide: :left do %>
-      <%= render_component :button_group do |group| %>
+      <%= lookbook_render :button_group do |group| %>
         <% group.button icon: :eye,
           href: lookbook_inspect_path(@target.path, @params),
           tooltip: "View in Inspector" %>
@@ -27,7 +27,7 @@
     @viewport:resize-progress="resizeIframe"
     @viewport:resize-complete="resizeIframe"
     @tabs:change.window="resizeIframe"> 
-    <%= render_component :viewport,
+    <%= lookbook_render :viewport,
       src: lookbook_preview_path(@target.path, @params.merge(lookbook_embed: true)),
       alpine_data: "store",
       resize_height: false,

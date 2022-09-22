@@ -3,22 +3,26 @@ module Lookbook
     COMPONENT_CLASSES = {} # cache for constantized references
 
     def icon(name, **attrs)
-      render Lookbook::Icon::Component.new(name: name, **attrs)
+      lookbook_render :icon, name: name, **attrs
     end
 
     def code(language = :html, **attrs, &block)
       attrs[:language] ||= language
-      render Lookbook::Code::Component.new(**attrs), &block
+      lookbook_render :code, **attrs, &block
     end
 
-    def render_component(ref, **attrs, &block)
-      klass = component_class(ref)
-      comp = attrs.key?(:content) ? klass.new(**attrs.except(:content)).with_content(attrs[:content]) : klass.new(**attrs)
-      render comp, &block
+    def lookbook_tag(tag = :div, **attrs, &block)
+      lookbook_render :tag, tag: tag, **attrs, &block
     end
 
-    def render_tag(tag = :div, **attrs, &block)
-      render Lookbook::TagComponent.new(tag: tag, **attrs), &block
+    def lookbook_render(ref, **attrs, &block)
+      comp = if ref.is_a? ViewComponent::Base
+        ref
+      else
+        klass = component_class(ref)
+        comp = attrs.key?(:content) ? klass.new(**attrs.except(:content)).with_content(attrs[:content]) : klass.new(**attrs)
+      end
+      public_send render_method_name, comp, &block unless attrs.key?(:content)
     end
 
     unless respond_to? :class_names
@@ -49,6 +53,14 @@ module Lookbook
     end
 
     private
+
+    def render_method_name
+      if Rails.application.config.view_component.render_monkey_patch_enabled || Rails.version.to_f >= 6.1
+        :render
+      else
+        :render_component
+      end
+    end
 
     def component_class(ref)
       klass = COMPONENT_CLASSES[ref]

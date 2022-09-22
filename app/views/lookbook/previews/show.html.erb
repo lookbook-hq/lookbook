@@ -1,13 +1,13 @@
-<%= render_component :split_layout,
+<%= lookbook_render :split_layout,
   alpine_data: "$store.layout.inspector",
   ":class": "($store.inspector.drawer.hidden || #{@drawer_panels.none?}) && '!grid-rows-[1fr] !grid-cols-[1fr]'" do |layout| %>
 
   <%= layout.pane class: "flex flex-col h-full overflow-hidden",
     "x-effect": "forceOrientation = (layoutWidth < $store.inspector.minVerticalSplitWidth) ? 'horizontal' : null" do %>
   
-    <%= render_component :toolbar do |toolbar| %>
+    <%= lookbook_render :toolbar do |toolbar| %>
       <% toolbar.section ":class": "layoutResizing && 'overflow-hidden'" do %>
-        <%= render_component :tabs, alpine_data: "$store.inspector.main" do |tabs| %>
+        <%= lookbook_render :tabs, alpine_data: "$store.inspector.main" do |tabs| %>
           <%= @main_panels.each do |panel| %>
             <% tabs.tab name: panel.name,
               label: panel.label,
@@ -18,13 +18,13 @@
       <% end %>
 
       <% toolbar.section align: :right, padded: true, class: "flex-none min-w-[140px]", ":class": "{invisible: $store.inspector.main.activeTab !== 'preview'}" do %>
-        <%= render_component :dimensions_display,
+        <%= lookbook_render :dimensions_display,
           target: "[data-component=viewport] iframe",
           class: "ml-auto opacity-30 hover:opacity-100" %>
       <% end %>
 
       <% toolbar.section divide: :left, class: "flex-none relative z-10" do %>
-        <%= render_component :button_group do |group| %>
+        <%= lookbook_render :button_group do |group| %>
           <% if @pages.any? %>
             <% group.button icon: :code,
               tooltip: "Copy page embed code",
@@ -53,7 +53,7 @@
     <% end %>
 
     <div class="h-full relative overflow-auto">
-      <%= render_component :tab_panels, alpine_data: "$store.inspector.main" do |tabs| %>
+      <%= lookbook_render :tab_panels, alpine_data: "$store.inspector.main" do |tabs| %>
         <% @main_panels.each do |panel| %>
           <% tabs.panel id: panel.id, name: panel.name, class: panel.panel_classes do %>
             <%= render panel.partial, **@inspector_data, panel: panel, **panel.locals %>
@@ -66,9 +66,9 @@
   <%= layout.pane class: "flex flex-col h-full overflow-hidden bg-lookbook-drawer-bg",
     "x-show": "!$store.inspector.drawer.hidden && #{@drawer_panels.any?}" do %>
 
-    <%= render_component :toolbar do |toolbar| %>
+    <%= lookbook_render :toolbar do |toolbar| %>
       <% toolbar.section ":class": "layoutResizing && 'overflow-hidden'" do %>
-        <%= render_component :tabs, alpine_data: "$store.inspector.drawer" do |tabs| %>
+        <%= lookbook_render :tabs, alpine_data: "$store.inspector.drawer" do |tabs| %>
           <%= @drawer_panels.each do |panel| %>
             <% tabs.tab name: panel.name,
               label: panel.label,
@@ -79,7 +79,7 @@
       <% end %>
 
       <% toolbar.section align: :right,  class: "flex-none relative z-10" do %>
-        <%= render_component :button_group do |group| %>
+        <%= lookbook_render :button_group do |group| %>
           <%= @drawer_panels.select { |p| !p.disabled && p.copy }.each do |panel| %>
             <% group.button icon: :copy,
               tooltip: "Copy panel contents",
@@ -93,7 +93,7 @@
       <% end %>
 
       <% toolbar.section divide: :left, class: "flex-none relative z-10" do %>
-        <%= render_component :button_group do |group| %>
+        <%= lookbook_render :button_group do |group| %>
 
           <% group.button icon: :corner_up_right,
             tooltip: "Move drawer to right",
@@ -121,10 +121,10 @@
     <% end %> 
 
     <div class="h-full overflow-auto">
-      <%= render_component :tab_panels, alpine_data: "$store.inspector.drawer" do |tabs| %>
+      <%= lookbook_render :tab_panels, alpine_data: "$store.inspector.drawer" do |tabs| %>
         <% @drawer_panels.each do |panel| %>
           <% tabs.panel id: panel.id, name: panel.name, class: panel.panel_classes  do %>
-            <%= render_component :inspector_panel, **panel.slice(:id, :name, :system) do %>
+            <%= lookbook_render :inspector_panel, **panel.slice(:id, :name, :system) do %>
               <%= render panel.partial, **@inspector_data, panel: panel, **panel.locals %>
             <% end %>
           <% end %>

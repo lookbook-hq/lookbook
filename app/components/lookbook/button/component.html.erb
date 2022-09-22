@@ -10,7 +10,7 @@
   disabled: @disabled,
   "@keydown.esc.stop": "hideDropdown" do %>
   <span x-ref="icon">
-    <%= icon || render_component(:icon, name: @icon, size: icon_size, ":class": "{'animate-spin': _spinning}") %>
+    <%= icon || lookbook_render(:icon, name: @icon, size: icon_size, ":class": "{'animate-spin': _spinning}") %>
   </span>
   <% if @tooltip %>
     <label class="hidden" x-ref="tooltip"><%= @tooltip %></label>

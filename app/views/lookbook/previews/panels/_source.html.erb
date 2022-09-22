@@ -1,11 +1,11 @@
 <div class="h-full">
   <% if examples.many? %>
-    <%= render_component :code, language: examples.first.source_lang[:name], line_numbers: true, full_height: true do -%>
+    <%= lookbook_render :code, language: examples.first.source_lang[:name], line_numbers: true, full_height: true do -%>
 <%- examples.each.with_index(1) do |example, i| -%>
 <%== "#{sprintf example.source_lang[:comment], example.label}\n#{example.source}\n#{"\n" if i < examples.size}" %><% end %>
     <% end %>
   <% else %>
     <% example = examples.first %>
-    <%= render_component :code, language: example.source_lang[:name], line_numbers: true, full_height: true do %><%== example.source %><% end %>
+    <%= lookbook_render :code, language: example.source_lang[:name], line_numbers: true, full_height: true do %><%== example.source %><% end %>
   <% end %>
 </div>
