@@ -12,32 +12,20 @@ module Lookbook
       opts[:layout] = nil
       opts[:locals] = locals if locals.present?
 
-      with_optional_annotations do
+      Utils.with_optional_action_view_annotations do
         render html: render_to_string(template, **opts)
       end
     end
 
     def render_in_layout_to_string(template, locals, opts = {})
       append_view_path Lookbook::Engine.root.join("app/views")
-      html = render_to_string(template, locals: locals, **determine_layout(opts[:layout]))
-      if opts[:append_html].present?
-        html += opts[:append_html]
-      end
-      render html: html
-    end
-
-    def with_optional_annotations
-      if ActionView::Base.respond_to?(:annotate_rendered_view_with_filenames) && Lookbook.config.preview_disable_action_view_annotations
-        original_value = ActionView::Base.annotate_rendered_view_with_filenames
-        ActionView::Base.annotate_rendered_view_with_filenames = false
-
-        res = yield
-
-        ActionView::Base.annotate_rendered_view_with_filenames = original_value
-
-        res
-      else
-        yield
+      
+      Utils.with_optional_action_view_annotations do
+        html = render_to_string(template, locals: locals, **determine_layout(opts[:layout]))
+        if opts[:append_html].present?
+          html += opts[:append_html]
+        end
+        render html: html
       end
     end
   end

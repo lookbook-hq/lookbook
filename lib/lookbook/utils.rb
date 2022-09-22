@@ -4,6 +4,29 @@ module Lookbook
 
     POSITION_PREFIX_REGEX = /^(\d+?)[-_]/
     FRONTMATTER_REGEX = /\A---(.|\n)*?---/
+    ACTION_VIEW_ANNOTATIONS_REGEX = /<!-- (BEGIN|END) (.*) -->/
+
+    def self.strip_action_view_annotations!(text)
+      text&.gsub!(ACTION_VIEW_ANNOTATIONS_REGEX, "")
+    end
+
+    def self.without_action_view_annotations
+      original_value = ActionView::Base.annotate_rendered_view_with_filenames
+      ActionView::Base.annotate_rendered_view_with_filenames = false
+      res = yield
+      ActionView::Base.annotate_rendered_view_with_filenames = original_value
+      res
+    end
+
+    def self.with_optional_action_view_annotations
+      if ActionView::Base.respond_to?(:annotate_rendered_view_with_filenames) && Lookbook.config.preview_disable_action_view_annotations
+        self.without_action_view_annotations do
+          yield
+        end
+      else
+        yield
+      end
+    end
 
     protected
 
