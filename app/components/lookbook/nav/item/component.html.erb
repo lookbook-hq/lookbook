@@ -3,21 +3,21 @@
   class: "list-none",
   "x-show": "!filteredOut",
   data: {
-    "entity-type": item.type
+    "entity-type": @item.type
   },
   cloak: true do %>
   <%= lookbook_tag href.present? ? :a : :div,
     href: href,
-    class: "flex items-center py-1 select-none cursor-pointer text-lookbook-nav-text hover:bg-lookbook-nav-item-hover",
+    class: "flex items-center py-1 select-none cursor-pointer text-lookbook-nav-text hover:bg-lookbook-nav-item-hover transition",
     style: "padding-left: #{left_pad}px",
     "x-bind": "bindings.#{href.present? ? "link" : "toggle"}" do %>
-    <div class="relative flex items-center">
+    <div class="relative flex items-center w-full">
       <%= icon nil,
         size: 3,
         class: "mr-1 text-lookbook-nav-toggle absolute -left-4",
         "x-effect": "iconName = open ? 'chevron-down' : 'chevron-right'" if children? %>
       <%= icon nav_icon, size: 3.5, class: "mr-1.5 text-lookbook-nav-icon-stroke" %>
-      <span <% if @item.type == :preview %>class="font-bold"<% end %>><%= label %></span>
+      <span class="truncate <% if @item.type == :preview %>font-bold<% end %>"><%= label %></span>
     </div>
   <% end %>
   
