@@ -32,7 +32,7 @@ module Lookbook
         Rails.logger
       else
         logger = Logger.new($stdout)
-        logger.log_level = config.log_level
+        logger.level = config.log_level
         logger
       end
     end
