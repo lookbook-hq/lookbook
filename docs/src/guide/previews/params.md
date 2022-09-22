@@ -53,7 +53,7 @@ The `@param` tag takes the following format:
 ```ruby
 class ButtonComponentPreview < ViewComponent::Preview
   # @param arrow toggle
-  # @param theme select [primary, secondary, danger]
+  # @param theme select { choices: [primary, secondary, danger] }
   # @param content text #
   def default(content: 'Click me', theme: 'primary', arrow: true)
     render Elements::ButtonComponent.new(theme: theme, arrow: arrow) do
@@ -222,6 +222,29 @@ end
 {%= note :info do %}
 Use of `eval` to evaluate aribtrary strings as code is often frowned upon. However here the only code strings being evaluated are written by those who have access to the preview classes in the codebase. No user-inputed data is _ever_ `eval`'d.
 {% end %}
+
+## Common options
+
+Some options are supported across all `@param` field types:
+
+{%= options_list do |list| %}
+  {% list.option name: "label" do %}
+    Customise the field label
+  {% end %}
+  {% list.option name: "hint" do %}
+    Add a short text hint about how the field should be used.
+    Displayed as a tooltip when hovering over a '?' icon next to the label.
+  {% end %}
+{% end %} 
+
+{% raw %}
+```ruby
+# @param call_to_action text { label: "Button text", hint: "The text that is rendered in the button" }
+def button(call_to_action: "Click me")
+  # ...
+end
+```
+{% endraw %}
 
 ## Default values
 

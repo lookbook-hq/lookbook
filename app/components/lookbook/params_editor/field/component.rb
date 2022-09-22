@@ -14,7 +14,7 @@ module Lookbook
     end
 
     def label
-      name.titleize
+      options[:label] || name.titleize
     end
 
     def value
