@@ -2,35 +2,48 @@
   <div class="flex items-start max-w-[800px]" :class="isNarrowLayout && '!block'">
     <label
       for="param-<%= name %>"
-      class="block font-bold cursor-pointer flex-none py-2 w-[140px] truncate pr-2">
+      class="flex items-center font-bold cursor-pointer flex-none py-2 w-[140px] truncate pr-2">
       <%= label %>
+      <% if field_hint %>
+        <span x-data="tooltipComponent" class="ml-1">
+          <%= icon :help_circle, size: 3.5, class: "opacity-60 hover:opacity-100 transition" %>
+          <div class="hidden" x-ref="tooltip">
+            <%= field_hint %>
+          </div>
+        </span>
+      <% end %>
     </label>
     
     <div class="flex-grow">
       <% if field_type == "text" %>
-      
-        <input
-          class="form-input"
-          value="<%= value %>"
-          type="<%= input_type %>"
-          x-bind="bindings.input || {}">
+
+        <%= text_field_tag name, value, {
+          **field_options,
+          class: "form-input",
+          type: input_type,
+          "x-bind": "bindings.input || {}",
+        } %>
 
       <% elsif field_type == "textarea" %>
 
-        <textarea
-          class="form-input"
-          rows="4"
-          x-bind="bindings.input || {}"><%= value %></textarea>
+        <%= text_area_tag name, value, {
+          rows: 4,
+          **field_options,
+          class: "form-input",
+          "x-bind": "bindings.input || {}"
+        } %>
 
       <% elsif field_type == "select" %>
-
-        <select
-          class="form-input"
-          x-bind="bindings.input || {}"
-          x-model="value"
-          name="<%= name %>">
-          <%= options_for_select(@options || [], value) %>
-        </select>
+      
+        <%= select_tag name,
+          options_for_select(field_options[:choices] || [], value),
+          {
+            **field_options.except(:choices),
+            class: "form-input",
+            "x-bind": "bindings.input || {}",
+            "x-model": "value"
+          }
+        %>
 
       <% elsif field_type == "toggle" %>
         <button type="button"

@@ -9,12 +9,12 @@ module Lookbook
       @default_value = default
       @input_type = input_type
       @type = type
-      @options = options
+      @options = options || {}
       super(**html_attrs)
     end
 
     def label
-      name.titleize
+      options[:label] || name.titleize
     end
 
     def value
@@ -28,6 +28,23 @@ module Lookbook
 
     def input_type
       @input_type.nil? && field_type == "text" ? "text" : @input_type
+    end
+
+    def options
+      opts = if @options.is_a?(Array) && field_type == "select"
+        { choices: @options }
+      else
+        @options
+      end
+      opts.with_indifferent_access
+    end
+
+    def field_options
+      options.except(:hint)
+    end
+
+    def field_hint
+      options[:hint]
     end
 
     protected

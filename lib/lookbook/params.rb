@@ -3,26 +3,22 @@ require "active_model"
 module Lookbook
   module Params
     class << self
-      def build_param(param, default: nil, **opts)
+      def build_param(param, default: nil, eval_scope: nil)
         input, options_str = param.text.present? ? param.text.split(" ", 2) : [nil, ""]
         type = param.types&.first
-        options = if options_str.present? && options_str.end_with?(".json")
-          json_path = if options_str.start_with?(".")
-            File.expand_path(options_str, File.dirname(param.object.files.first[0]))
-          else
-            Rails.root.join(options_str)
-          end
-          JSON.parse(File.read(json_path))
-        else
-          YAML.safe_load(options_str || "~")
-        end
+
+        options = Lookbook::TagOptions.new(options_str,
+          base_dir: (File.dirname(param.object.files.first[0]) if param.object.files.any?),
+          eval_scope: eval_scope)
+
         input ||= guess_input(type, default)
         type ||= guess_type(input, default)
+
         {
           name: param.name,
           input: input_text?(input) ? "text" : input,
           input_type: (input if input_text?(input)),
-          options: options,
+          options: options.resolve,
           type: type,
           default: default
         }

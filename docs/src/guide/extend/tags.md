@@ -94,9 +94,13 @@ All parsed argument values can be then accessed as properties of the tag object 
 <p>Current status: <%= tag.current_status # 'wip' %></p>
 ```
 
-## Options example
+## Tag options
 
-An (optional!) set of options can be provided at the end of the tag body content. Options should be provided as a YAML-formatted hash.
+An (optional!) set of options can be provided at the end of the tag body content.
+
+Options can hard-coded (formatted as a YAML hash), can be imported from a JSON/YAML file or generated dynamically. Custom tag options are handled in exactly the same way as `@param` tag options so [check out the documentation](/guide/previews/params/#param-options) for more detals on how options can be specified.
+
+The example below will use the simplest option - hard-coding the options as a YAML hash.
 
 {%= note :info do %}
 The `@status` example above doesn't need any changes in order to support accepting options - the parser will automatically handle them if they are found in the tag body.

@@ -11,11 +11,16 @@ module Lookbook
       Lookbook.config.preview_tags[name] = opts
     end
 
-    def self.process_tags(tag_objects)
+    def self.process_tags(tag_objects, file: nil, eval_scope: nil)
       return [] if tag_objects.none?
       tag_objects.map do |tag_object|
         opts = Lookbook.config.preview_tags[tag_object.tag_name] || {}
-        Lookbook::Tag.new(tag_object, opts[:args], **opts.except(:args))
+        Lookbook::Tag.new(tag_object,
+          opts[:args],
+          **opts.except(:args),
+          file: file,
+          eval_scope: eval_scope
+        )
       end.compact
     end
   end

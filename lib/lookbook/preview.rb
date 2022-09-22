@@ -7,7 +7,7 @@ module Lookbook
 
     def initialize(preview, code_object)
       @preview = preview
-      @preview_inspector = SourceInspector.new(code_object)
+      @preview_inspector = SourceInspector.new(code_object, eval_scope: preview_class.new)
       super(preview_class_path(@preview.name))
     end
 
@@ -15,8 +15,12 @@ module Lookbook
       @preview_inspector&.id || generate_id(lookup_path)
     end
 
-    def preview_class
+    def preview_class_name
       @preview.name
+    end
+
+    def preview_class
+      @preview
     end
 
     def label

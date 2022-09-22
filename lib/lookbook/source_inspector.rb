@@ -5,8 +5,9 @@ module Lookbook
     attr_reader :code_object
     delegate :groups, :source, to: :@code_object, allow_nil: true
 
-    def initialize(code_object)
+    def initialize(code_object, eval_scope: nil)
       @code_object = code_object
+      @eval_scope = eval_scope
     end
 
     def hidden?
@@ -75,7 +76,10 @@ module Lookbook
 
     def params
       code_object&.tags("param")&.map do |param|
-        Lookbook::Params.build_param(param, default: parameter_defaults[param.name])
+        Lookbook::Params.build_param(param,
+          default: parameter_defaults[param.name],
+          eval_scope: @eval_scope
+        )
       end
     end
 
@@ -85,7 +89,10 @@ module Lookbook
 
     def tags(name = nil)
       tag_objects = code_object&.tags(name).presence || []
-      Lookbook::Tags.process_tags(tag_objects)
+      Lookbook::Tags.process_tags(tag_objects,
+        eval_scope: @eval_scope,
+        file: (code_object.files.first[0] if code_object.files.any?)
+      )
     end
 
     def tag(name = nil)
