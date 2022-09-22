@@ -4,11 +4,11 @@
       for="param-<%= name %>"
       class="flex items-center font-bold cursor-pointer flex-none py-2 w-[140px] truncate pr-2">
       <%= label %>
-      <% if field_hint %>
+      <% if hint %>
         <span x-data="tooltipComponent" class="ml-1">
           <%= icon :help_circle, size: 3.5, class: "opacity-60 hover:opacity-100 transition" %>
           <div class="hidden" x-ref="tooltip">
-            <%= field_hint %>
+            <%= hint %>
           </div>
         </span>
       <% end %>
@@ -34,11 +34,11 @@
         } %>
 
       <% elsif field_type == "select" %>
-      
+        
         <%= select_tag name,
-          options_for_select(field_options[:choices] || [], value),
+          options_for_select(config_options[:choices] || [], value),
           {
-            **field_options.except(:choices),
+            **field_options,
             class: "form-input",
             "x-bind": "bindings.input || {}",
             "x-model": "value"

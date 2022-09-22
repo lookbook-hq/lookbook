@@ -39,6 +39,7 @@ module Lookbook
         YARD::Tags::Library.define_tag("Position", :position)
         YARD::Tags::Library.define_tag("ID", :id)
         YARD::Tags::Library.define_tag("Component", :component)
+        YARD::Tags::Library.define_tag("Param", :param, :with_name)
         custom.each do |name, opts|
           YARD::Tags::Library.define_tag(name.to_s.titleize, name)
         end

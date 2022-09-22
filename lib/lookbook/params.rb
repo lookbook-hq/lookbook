@@ -2,15 +2,27 @@ require "active_model"
 
 module Lookbook
   module Params
+    TYPE_MATCH_REGEXP = /^(\[\s?([A-Z]{1}\w+)\s?\])/
+
     class << self
       def build_param(param, default: nil, eval_scope: nil)
-        input, options_str = param.text.present? ? param.text.split(" ", 2) : [nil, ""]
-        type = param.types&.first
+        text = (param.text.presence || "").strip
 
-        options = Lookbook::TagOptions.new(options_str,
+        type = nil
+        type_match = text.match(TYPE_MATCH_REGEXP)
+        unless type_match.nil?
+          type = type_match[2]
+          text.gsub!(TYPE_MATCH_REGEXP, "").strip!
+        end
+
+        text, options_str = Lookbook::TagOptions.extract_options(text)
+        input, rest = text.split(" ", 2)
+
+        tag_options = Lookbook::TagOptions.new(options_str,
           base_dir: (File.dirname(param.object.files.first[0]) if param.object.files.any?),
           eval_scope: eval_scope)
 
+        type ||= tag_options.option(:type)
         input ||= guess_input(type, default)
         type ||= guess_type(input, default)
 
@@ -18,7 +30,7 @@ module Lookbook
           name: param.name,
           input: input_text?(input) ? "text" : input,
           input_type: (input if input_text?(input)),
-          options: options.resolve,
+          options: tag_options.options,
           type: type,
           default: default
         }
