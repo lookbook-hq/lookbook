@@ -17,13 +17,7 @@
         <% end %>
       <% end %>
 
-      <% toolbar.section align: :right, padded: true, class: "flex-none min-w-[140px]", ":class": "{invisible: $store.inspector.main.activeTab !== 'preview'}" do %>
-        <%= lookbook_render :dimensions_display,
-          target: "[data-component=viewport] iframe",
-          class: "ml-auto opacity-30 hover:opacity-100" %>
-      <% end %>
-
-      <% toolbar.section divide: :left, class: "flex-none relative z-10" do %>
+      <% toolbar.section divide: :left, align: :right, class: "flex-none relative z-10" do %>
         <%= lookbook_render :button_group do |group| %>
           <% if @pages.any? %>
             <% group.button icon: :code,

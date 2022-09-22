@@ -1725,7 +1725,7 @@ pre[class*="language-"] {
 }
 
 [data-component="viewport"] .resize-handle:hover {
-  background-color: rgb(224 231 255 / var(--tw-bg-opacity));
+  background-color: var(--lookbook-draggable-hint);
   --tw-bg-opacity: .2;
 }
 
@@ -1832,6 +1832,10 @@ pre[class*="language-"] {
   right: .75rem;
 }
 
+.right-\[17px\] {
+  right: 17px;
+}
+
 .-top-px {
   top: -1px;
 }
@@ -1846,6 +1850,38 @@ pre[class*="language-"] {
 
 .-bottom-px {
   bottom: -1px;
+}
+
+.bottom-\[17px\] {
+  bottom: 17px;
+}
+
+.bottom-\[18px\] {
+  bottom: 18px;
+}
+
+.right-\[18px\] {
+  right: 18px;
+}
+
+.bottom-\[16px\] {
+  bottom: 16px;
+}
+
+.right-\[16px\] {
+  right: 16px;
+}
+
+.bottom-\[14px\] {
+  bottom: 14px;
+}
+
+.bottom-\[12px\] {
+  bottom: 12px;
+}
+
+.right-\[12px\] {
+  right: 12px;
 }
 
 .z-50 {
@@ -2014,6 +2050,14 @@ pre[class*="language-"] {
   height: calc(100vh - 40px);
 }
 
+.h-3\.5 {
+  height: .875rem;
+}
+
+.h-3 {
+  height: .75rem;
+}
+
 .h-\[9px\] {
   height: 9px;
 }
@@ -2024,14 +2068,6 @@ pre[class*="language-"] {
 
 .h-4 {
   height: 1rem;
-}
-
-.h-3\.5 {
-  height: .875rem;
-}
-
-.h-3 {
-  height: .75rem;
 }
 
 .h-6 {
@@ -2062,20 +2098,20 @@ pre[class*="language-"] {
   width: 100vw;
 }
 
-.w-\[9px\] {
-  width: 9px;
-}
-
-.w-4 {
-  width: 1rem;
-}
-
 .w-3\.5 {
   width: .875rem;
 }
 
 .w-3 {
   width: .75rem;
+}
+
+.w-\[9px\] {
+  width: 9px;
+}
+
+.w-4 {
+  width: 1rem;
 }
 
 .w-\[140px\] {
@@ -2366,6 +2402,14 @@ pre[class*="language-"] {
   border-bottom-left-radius: .375rem;
 }
 
+.rounded-bl-sm {
+  border-bottom-left-radius: .125rem;
+}
+
+.rounded-tl-sm {
+  border-top-left-radius: .125rem;
+}
+
 .border {
   border-width: 1px;
 }
@@ -2502,6 +2546,10 @@ pre[class*="language-"] {
   background-color: var(--lookbook-viewport-handle);
 }
 
+.bg-lookbook-draggable-hint {
+  background-color: var(--lookbook-draggable-hint);
+}
+
 .\!bg-lookbook-nav-item-active {
   background-color: var(--lookbook-nav-item-active) !important;
 }
@@ -2512,6 +2560,26 @@ pre[class*="language-"] {
 
 .bg-lookbook-input-toggle {
   background-color: var(--lookbook-input-toggle);
+}
+
+.bg-gray-50\/60 {
+  background-color: #f9fafb99;
+}
+
+.bg-gray-100\/60 {
+  background-color: #f3f4f699;
+}
+
+.bg-gray-100\/80 {
+  background-color: #f3f4f6cc;
+}
+
+.bg-opacity-60 {
+  --tw-bg-opacity: .6;
+}
+
+.bg-opacity-80 {
+  --tw-bg-opacity: .8;
 }
 
 .stroke-current {
@@ -2643,16 +2711,40 @@ pre[class*="language-"] {
   padding-right: .5rem;
 }
 
-.pt-2\.5 {
-  padding-top: .625rem;
+.pl-3 {
+  padding-left: .75rem;
 }
 
 .pb-1\.5 {
   padding-bottom: .375rem;
 }
 
+.pt-2\.5 {
+  padding-top: .625rem;
+}
+
 .pt-2 {
   padding-top: .5rem;
+}
+
+.pr-1\.5 {
+  padding-right: .375rem;
+}
+
+.pl-2 {
+  padding-left: .5rem;
+}
+
+.pr-1 {
+  padding-right: .25rem;
+}
+
+.pt-1\.5 {
+  padding-top: .375rem;
+}
+
+.pl-1\.5 {
+  padding-left: .375rem;
 }
 
 .text-left {
@@ -2774,6 +2866,10 @@ pre[class*="language-"] {
   color: var(--lookbook-branding-text);
 }
 
+.text-lookbook-header-text {
+  color: var(--lookbook-header-text);
+}
+
 .text-lookbook-prose-text {
   color: var(--lookbook-prose-text);
 }
@@ -2804,10 +2900,6 @@ pre[class*="language-"] {
 
 .\!text-lookbook-tabs-text-disabled {
   color: var(--lookbook-tabs-text-disabled) !important;
-}
-
-.text-lookbook-header-text {
-  color: var(--lookbook-header-text);
 }
 
 .underline {
@@ -3127,11 +3219,6 @@ pre[class*="language-"] {
 
 .hover\:bg-lookbook-draggable-hint:hover {
   background-color: var(--lookbook-draggable-hint);
-}
-
-.hover\:bg-indigo-100:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(224 231 255 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-lookbook-nav-item-hover:hover {

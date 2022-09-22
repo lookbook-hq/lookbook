@@ -11,6 +11,17 @@
       <% elsif @max_height.present? %>
         max-height: <%= @max_height %>px;
       <% end %>`">
+  
+    <div
+      class="absolute z-10 pointer-events-none pr-1 pl-2 pt-1.5 pb-1 bg-gray-100/80 rounded-tl-sm top-0 <%= @resize_width ? "right-[18px]" : "right-0" %>"
+      x-ref="dimensions"
+      x-show="store.resizing"
+      x-cloak
+      x-transition:enter.opacity.duration.300ms
+      x-transition:leave.opacity.duration.500ms.delay.600ms>
+      <%= lookbook_render :dimensions_display, target: "[data-component=viewport] iframe" %>
+    </div>
+
     <div
       class="grid bg-white relative -inset-px <%= "grid-cols-[1fr_17px]" if @resize_width %> <%= "grid-rows-[1fr_17px]" if @resize_height %>"
       style="width: calc(100% + 2px); height: calc(100% + 1px); <%= "max-height: #{@max_height}px;" if @max_height.present? %>">
