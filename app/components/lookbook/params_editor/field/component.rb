@@ -30,6 +30,16 @@ module Lookbook
       @input_type.nil? && field_type == "text" ? "text" : @input_type
     end
 
+    def options
+      if @options.is_a?(Array) && field_type == "select"
+        {
+          option_tags: @options
+        }
+      else
+        @options || {}
+      end
+    end
+
     protected
 
     def alpine_data
