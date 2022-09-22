@@ -4,6 +4,7 @@ module Lookbook
     renders_one :dropdown
 
     ICON_SIZES = {
+      xs: 3,
       sm: 3.5,
       md: 4,
       lg: 6
@@ -23,7 +24,7 @@ module Lookbook
     end
 
     def padding
-      @size == :sm ? "p-1" : "p-2"
+      [:xs, :sm].include?(@size) ? "p-1" : "p-2"
     end
 
     def tag_name

@@ -25,6 +25,10 @@ export default function navComponent(store) {
       }
     },
 
+    closeAll() {
+      store.open.length = 0;
+    },
+
     toggleOpen(id) {
       this.isOpen(id) ? this.setClosed(id) : this.setOpen(id);
     },

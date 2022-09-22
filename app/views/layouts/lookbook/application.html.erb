@@ -28,6 +28,13 @@
                   <% toolbar.section padded: true do %>
                     <h4 class="pt-1">Previews</h4>
                   <% end %>
+                  <% toolbar.section align: :right, padded: false do %>
+                    <%= render_component :button_group, size: :xs do |group| %>
+                      <% group.button icon: :minus_square,
+                        tooltip: "Collapse all",
+                        "@click": "closeAll" %>
+                    <% end %>
+                  <% end %>
                 <% end %>
                 <% nav.filter store: "$store.nav.previews.filter", placeholder: "Filter previews by name&hellip;" %>
               <% end %>
@@ -43,6 +50,13 @@
                 <%= nav.toolbar do |toolbar| %>
                   <% toolbar.section padded: true do %>
                     <h4 class="pt-1">Pages</h4>
+                  <% end %>
+                  <% toolbar.section align: :right, padded: false do %>
+                    <%= render_component :button_group, size: :xs do |group| %>
+                      <% group.button icon: :minus_square,
+                        tooltip: "Collapse all",
+                        "@click": "closeAll" %>
+                    <% end %>
                   <% end %>
                 <% end %>
               <% end %>
