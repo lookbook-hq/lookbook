@@ -19,18 +19,18 @@
       <% elsif field_type == "textarea" %>
 
         <%= text_area_tag name, value, {
+          rows: 4,
           **options,
           class: "form-input",
-          rows: 4,
           "x-bind": "bindings.input || {}"
         } %>
 
       <% elsif field_type == "select" %>
-
+      
         <%= select_tag name,
-          options_for_select(options[:option_tags] || [], value),
+          options_for_select(options[:choices] || [], value),
           {
-            **options.except(:option_tags),
+            **options.except(:choices),
             class: "form-input",
             "x-bind": "bindings.input || {}",
             "x-model": "value"

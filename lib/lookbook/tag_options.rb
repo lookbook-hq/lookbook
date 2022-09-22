@@ -46,14 +46,14 @@ module Lookbook
     end
 
     def evaluate
-      if Lookbook.config.preview_params_eval_enabled == true
+      if Lookbook.config.preview_params_options_eval == true
         if @eval_scope.nil?
           raise "Preview params eval must be scoped to an object"
         else
           evaluatable? ? @eval_scope.instance_eval(statement) : nil
         end
       else
-        raise "The config option `preview_params_eval_enabled` must be set to `true` before param options can be evaluated at runtime"
+        raise "The config option `preview_params_options_eval` must be set to `true` before param options can be evaluated at runtime"
       end
     end
 

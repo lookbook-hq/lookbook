@@ -39,8 +39,8 @@ RSpec.describe Lookbook::TagOptions do
   end
 
   context ".evaluate" do
-    before { Lookbook.config.preview_params_eval_enabled = true }
-    after { Lookbook.config.preview_params_eval_enabled = false }
+    before { Lookbook.config.preview_params_options_eval = true }
+    after { Lookbook.config.preview_params_options_eval = false }
     
     context "with valid statement and scope" do
       let(:tag_opts) { described_class.new("{{ SELECT_OPTS }}", eval_scope: SelectOptsContext.new) }

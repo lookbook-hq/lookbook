@@ -67,8 +67,8 @@ RSpec.describe Lookbook::Params do
       end
 
       context "when enabled" do
-        before { Lookbook.config.preview_params_eval_enabled = true }
-        after { Lookbook.config.preview_params_eval_enabled = false }
+        before { Lookbook.config.preview_params_options_eval = true }
+        after { Lookbook.config.preview_params_options_eval = false }
 
         let(:tag) { build(:param_tag, text: "select {{ SELECT_OPTS }}") }
         

@@ -33,10 +33,10 @@ module Lookbook
     def options
       if @options.is_a?(Array) && field_type == "select"
         {
-          option_tags: @options
+          choices: @options
         }
       else
-        @options || {}
+        (@options || {}).with_indifferent_access
       end
     end
 
