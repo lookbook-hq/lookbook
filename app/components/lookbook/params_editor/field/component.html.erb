@@ -2,15 +2,23 @@
   <div class="flex items-start max-w-[800px]" :class="isNarrowLayout && '!block'">
     <label
       for="param-<%= name %>"
-      class="block font-bold cursor-pointer flex-none py-2 w-[140px] truncate pr-2">
+      class="flex items-center font-bold cursor-pointer flex-none py-2 w-[140px] truncate pr-2">
       <%= label %>
+      <% if field_hint %>
+        <span x-data="tooltipComponent" class="ml-1">
+          <%= icon :help_circle, size: 3.5, class: "opacity-60 hover:opacity-100 transition" %>
+          <div class="hidden" x-ref="tooltip">
+            <%= field_hint %>
+          </div>
+        </span>
+      <% end %>
     </label>
     
     <div class="flex-grow">
       <% if field_type == "text" %>
 
         <%= text_field_tag name, value, {
-          **options,
+          **field_options,
           class: "form-input",
           type: input_type,
           "x-bind": "bindings.input || {}",
@@ -20,7 +28,7 @@
 
         <%= text_area_tag name, value, {
           rows: 4,
-          **options,
+          **field_options,
           class: "form-input",
           "x-bind": "bindings.input || {}"
         } %>
@@ -28,9 +36,9 @@
       <% elsif field_type == "select" %>
       
         <%= select_tag name,
-          options_for_select(options[:choices] || [], value),
+          options_for_select(field_options[:choices] || [], value),
           {
-            **options.except(:choices),
+            **field_options.except(:choices),
             class: "form-input",
             "x-bind": "bindings.input || {}",
             "x-model": "value"
