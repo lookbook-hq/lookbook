@@ -22,7 +22,11 @@ module Lookbook
         klass = component_class(ref)
         comp = attrs.key?(:content) ? klass.new(**attrs.except(:content)).with_content(attrs[:content]) : klass.new(**attrs)
       end
-      public_send render_method_name, comp, &block unless attrs.key?(:content)
+      if block_given? && !attrs.key?(:content)
+        public_send render_method_name, comp, &block
+      else
+        public_send render_method_name, comp
+      end
     end
 
     unless respond_to? :class_names

@@ -12,56 +12,24 @@
 
     <% toolbar.section padded: false, align: :right, class: "flex items-center" do %>
       <%= lookbook_render :button_group do |group| %>
+      
         <% if @debug_menu %>
           <% group.button icon: :help_circle, class: "opacity-50 hover:opacity-100 transition !text-lookbook-header-text" do |button| %>
-            <% button.dropdown do %>
-              <%= tag.div class: "divide-y divide-lookbook-divider min-w-[180px]" do %>
-                <div class="px-3 py-3">
-                  <ul class="space-y-2 opacity-80">
-                    <li>
-                      <a href="#"
-                        class="text-xs flex items-center hover:underline"
-                        x-data="clipboardComponent"
-                        @click.prevent.stop="copyToClipboard('#debug-data')">
-                        <span x-show="copied" x-cloak>
-                          <%= icon :check, size: 2.5, class: "text-green-600" %>
-                        </span>
-                        <span x-show="!copied">
-                          <%= icon :clipboard, size: 2.5 %>
-                        </span>
-                        <span class="ml-2">Copy debug data</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#"
-                        class="text-xs flex items-center hover:underline"
-                        @click.stop="localStorage.clear(); window.location.reload();">
-                        <%= icon  :refresh_cw, size: 2.5 %>
-                        <span class="ml-2">Reset local storage</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="flex items-center text-xs px-3 py-2 bg-zinc-50">
-                  <span class="opacity-70 mr-1">Lookbook</span>
-                  <span class="mr-6">v<%= Lookbook::VERSION %></span>
-                  <div class="flex items-center space-x-2">
-                    <a href="https://lookbook.build/guide" target="_blank" class="ml-auto opacity-70" title="Documentation">
-                      <%= icon :book, size: 3 %>
-                    </a>
-                    <a href="https://github.com/allmarkedup/lookbook" target="_blank" class="ml-auto opacity-70" title="Github">
-                      <%= icon :github, size: 3 %>
-                    </a>
-                  </div>
-                </div>
-              <% end %>
+            <% menu = lookbook_render :debug_menu,
+              version: Lookbook::VERSION,
+              docs_url: "https://lookbook.build/guide",
+              repo_url: "https://github.com/allmarkedup/lookbook" do %>
+              <%= helpers.pretty_json(Lookbook.debug_data) %>
             <% end %>
+            <% button.dropdown({}).with_content(menu) %>
           <% end %>
         <% end %>
+
         <% group.button icon: :menu,
           "@click.stop": "toggleSidebar",
           "x-show": "$store.layout.mobile && sidebarHidden",
           class: "!text-lookbook-header-text" %>
+
         <% group.button icon: :x,
           "@click.stop": "toggleSidebar",
           "x-show": "$store.layout.mobile && !sidebarHidden",

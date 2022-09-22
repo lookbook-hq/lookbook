@@ -31,6 +31,10 @@ module Lookbook
       @href.present? ? :a : :button
     end
 
+    def dropdown?
+      dropdown.present?
+    end
+
     protected
 
     def alpine_component

@@ -29,7 +29,7 @@
                     <h4 class="pt-1">Previews</h4>
                   <% end %>
                   <% toolbar.section align: :right, padded: false do %>
-                    <%= render_component :button_group, size: :xs do |group| %>
+                    <%= lookbook_render :button_group, size: :xs do |group| %>
                       <% group.button icon: :minus_square,
                         tooltip: "Collapse all",
                         "@click": "closeAll" %>
@@ -52,7 +52,7 @@
                     <h4 class="pt-1">Pages</h4>
                   <% end %>
                   <% toolbar.section align: :right, padded: false do %>
-                    <%= render_component :button_group, size: :xs do |group| %>
+                    <%= lookbook_render :button_group, size: :xs do |group| %>
                       <% group.button icon: :minus_square,
                         tooltip: "Collapse all",
                         "@click": "closeAll" %>
