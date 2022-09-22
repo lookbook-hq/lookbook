@@ -45,7 +45,7 @@ The `@param` tag takes the following format:
     Input field type to generate in the UI
   {% end %}
   {% list.option name: "<opts?>" do %}
-    YAML-encoded field options (or [path to a JSON file of options](#json-param-options)), used for some field types
+    Hash of options for customising field types where supported. 
   {% end %}
 {% end %}  
 
@@ -103,20 +103,23 @@ Dropdown select field for selecting from a list of known options.
 
 {%= options_list do |list| %}
   {% list.option name: "<options>" do %}
-    A [YAML array](https://yaml.org/YAML_for_ruby.html#simple_inline_array) of options which must be formatted in the same style as the input for Rails' [`options_for_select`](https://apidock.com/rails/v6.0.0/ActionView/Helpers/FormOptionsHelper/options_for_select) helper.
+    A Hash of options to pass to the select. The value of the `choices` property should be an array of options which must be formatted in the same style as the input for Rails' [`options_for_select`](https://apidock.com/rails/v6.0.0/ActionView/Helpers/FormOptionsHelper/options_for_select) helper.
+    
+    The standard way to define options is as a YAML-formatted hash, but there are other ways to specify options data 
+    to help keep things DRY or to reduce the need for hard-coding long lists of option values. See the docs on [specifying param options](#param-options) for more detail.
   {% end %}
 {% end %}  
 
 
 ```ruby
 # Basic options:
-# @param theme select [primary, secondary, danger]
+# @param theme select { choices: [primary, secondary, danger] }
 
 # With custom labels (each item itself an array of [label, value]):
-# @param theme select [[Primary theme, primary], [Secondary theme, secondary], [Danger theme, danger]]
+# @param theme select { choices: [[Primary theme, primary], [Secondary theme, secondary], [Danger theme, danger]] }
 
 # With empty option (`~` in YAML)
-# @param theme select [~, primary, secondary, danger]
+# @param theme select { choices: [~, primary, secondary, danger] }
 ```
 
 {%= note :info do %}
@@ -131,18 +134,40 @@ On/off switch for toggling boolean values.
 @param <name> toggle
 ```
 
-## Importing param options from a JSON file
-{: #json-param-options}
+## Specifying param options
+{: #param-options}
 
-In some cases, where there are a lot of potential options (such as a list of icons for an icon component) it can make sense to store that data in a JSON file instead of trying to fit it all in one huge comment.
+Most param field types support customising their look or behaviour using options, allowing you to specify choices for select fields, customise the number of rows in a text field, and so on.
 
-It is possible to import JSON data from a file by providing its path as the `options` argument in the `@param` tag:
+The options hash must always placed at the end of the `@param` tag annotation, and there are a number or ways to specify or import the properties you need.
+
+### YAML-encoded hash
+
+The simplest way to specify options for a param field is to hard-code it as a YAML-formatted hash, as in the case for the list of `select` options in the example below:
 
 ```ruby
-# @param theme select data/theme-select-data.json
+# @param theme select { choices: [primary, secondary, danger] }
 ```
 
-Files **must** have a `.json` extension, and by default paths are resolved relative to the application root directory.
+This is straightforward and useful for simple cases, but if you have a long list of choices or you want to reference values elsewhere to prevent duplication then hard-coding the data might not be the ideal solution
+
+### Importing from a file
+
+It is possible to import YAML/JSON data from a file by providing the file path in place of the YAML-formatted options hash:
+
+```ruby
+# @param theme select data/theme-select-data.yml
+```
+
+```yml
+# data/theme-select-data.yml
+choices:
+  - primary
+  - secondary
+  - danger
+```
+
+Files **must** have a `.json` or `.yml` extension, and by default paths are resolved relative to the application root directory.
 
 However, if the path starts with `./` or `../` then the path will be **resolved relative** to the current preview file. For example:
 
@@ -150,6 +175,53 @@ However, if the path starts with `./` or `../` then the path will be **resolved 
 # @param theme select ./theme-select-data.json
 # @param theme select ../data/theme-select-data.json
 ```
+
+This method can be useful if you have a set of data that you want to share between previews, or need non-technical people to be able to edit.
+
+### Dynamic param options <small>(since v1.1)</small>
+{: #dynamic-param-options}
+
+Since v1.1 Lookbook has supported generating options dynamically. That means you can use Ruby code to reference a private method in your preview class, pull options from component class constants, or access data from pretty much anywhere in your app.
+
+If you wish to use this feature you will first need to enable it in the config - it is **disabled** by default:
+
+```rb
+config.lookbook.preview_params_options_eval = true
+```
+
+You can then write a Ruby expression within two 'double-mustache brackets' in place of the YAML-formatted options. This expression should resolve to a Hash that will be used as the options for the `@param` definition.
+
+{% raw %}
+```ruby
+# @param theme select {{ ButtonComponent::THEMES }}
+```
+{% endraw %}
+
+The expressions are evaluated in the context of your preview class, so it's possible to create a private method that generates the param options and call it directly:
+
+{% raw %}
+```ruby
+class ButtonComponent::Preview < ViewComponent::Preview
+  # @param theme select {{ button_theme_options }}
+  def button(theme: :danger)
+    # ...
+  end
+
+  private
+
+  def button_theme_options
+    {
+      choices: %i[primary secondary danger],
+      include_blank: true
+    }
+  end
+end
+```
+{% endraw %}
+
+{%= note :info do %}
+Use of `eval` to evaluate aribtrary strings as code is often frowned upon. However here the only code strings being evaluated are written by those who have access to the preview classes in the codebase. No user-inputed data is _ever_ `eval`'d.
+{% end %}
 
 ## Default values
 
