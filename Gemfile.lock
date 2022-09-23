@@ -9,7 +9,7 @@ PATH
       listen (~> 3.0)
       railties (>= 5.0)
       redcarpet (~> 3.5)
-      rouge (~> 3.26)
+      rouge (>= 3.26, < 5.0)
       view_component (~> 2.0)
       yard (~> 0.9.25)
 
@@ -120,7 +120,7 @@ GEM
     redcarpet (3.5.1)
     regexp_parser (2.5.0)
     rexml (3.2.5)
-    rouge (3.30.0)
+    rouge (4.0.0)
     rspec-core (3.11.0)
       rspec-support (~> 3.11.0)
     rspec-expectations (3.11.0)

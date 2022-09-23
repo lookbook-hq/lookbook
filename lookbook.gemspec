@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "railties", ">= 5.0"
   spec.add_dependency "view_component", "~> 2.0"
   spec.add_dependency "redcarpet", "~> 3.5"
-  spec.add_dependency "rouge", "~> 3.26"
+  spec.add_dependency "rouge", ">= 3.26", "< 5.0"
   spec.add_dependency "listen", "~> 3.0"
   spec.add_dependency "yard", "~> 0.9.25"
   spec.add_dependency "htmlbeautifier", "~> 1.3"
