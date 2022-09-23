@@ -47,7 +47,7 @@
     "iframe-resizer": "^4.3.2",
     "loglevel": "^1.8.0",
     "loglevel-plugin-prefix": "^0.8.4",
-    "parcel": "^2.0.1",
+    "parcel": "^2.7.0",
     "postcss": "^8.4.5",
     "postcss-import": "^14.0.2",
     "postcss-import-ext-glob": "^2.0.1",
