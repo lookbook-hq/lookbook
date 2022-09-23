@@ -25,11 +25,11 @@ RSpec.describe Lookbook::Params do
         expect(param_data[:options]).to eq json_data
       end
 
-      it "should return nil and log a warning if the file is not found" do
+      it "should return an empty hash and log a warning if the file is not found" do
         expect(Lookbook.logger).to receive(:warn).with(Lookbook::Error)
         tag = build(:param_tag, text: "select data/file_does_not_exist.json")
         param_data = Lookbook::Params.build_param(tag)
-        expect(param_data[:options]).to eq nil
+        expect(param_data[:options]).to eq({})
       end
     end
 
@@ -50,11 +50,12 @@ RSpec.describe Lookbook::Params do
         expect(param_data[:options]).to eq yaml_data
       end
 
-      it "should return nil and log a warning if the file is not found" do
+      it "should return an empty hash and log a warning if the file is not found" do
         expect(Lookbook.logger).to receive(:warn).with(Lookbook::Error)
         tag = build(:param_tag, text: "select data/file_does_not_exist.yml")
         param_data = Lookbook::Params.build_param(tag)
-        expect(param_data[:options]).to eq nil
+        expect(param_data[:options]).to eq({})
+
       end
     end
 
@@ -63,7 +64,7 @@ RSpec.describe Lookbook::Params do
         expect(Lookbook.logger).to receive(:warn).with(Lookbook::Error)
         tag = build(:param_tag, text: "select {{ SELECT_OPTS }}")
         param_data = Lookbook::Params.build_param(tag)
-        expect(param_data[:options]).to eq nil
+        expect(param_data[:options]).to eq({})
       end
 
       context "when enabled" do

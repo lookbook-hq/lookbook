@@ -21,8 +21,8 @@ module Lookbook
     end
 
     def resolve
-      begin
-        @resolved_options ||= if @options_str.present?
+      @resolved_options ||= begin
+        if @options_str.present?
           if @options_str.end_with?(".json") || @options_str.end_with?(".yml")
             file_path = resolve_file_path
             if file_path
@@ -38,12 +38,12 @@ module Lookbook
           elsif evaluatable?
             evaluate
           else
-            YAML.safe_load(@options_str || "~")
+            YAML.safe_load(@options_str || "{}")
           end
         end
       rescue => exception
         Lookbook.logger.warn Lookbook::Error.new(exception)
-        {}
+        Hash.new
       end
     end
 
@@ -61,7 +61,7 @@ module Lookbook
         if @eval_scope.nil?
           raise "Preview params eval must be scoped to an object"
         else
-          evaluatable? ? @eval_scope.instance_eval(statement) : nil
+          @eval_scope.instance_eval(statement)
         end
       else
         raise "The config option `preview_params_options_eval` must be set to `true` before param options can be evaluated at runtime"
@@ -88,17 +88,16 @@ module Lookbook
     def self.resolveable?(str)
       return unless str.is_a?(String)
       str.strip!
-      str.end_with?(".json") ||
-        str.end_with?(".yml") ||
-        str.match?(YAML_ARRAY_MATCH) ||
-        str.match?(YAML_HASH_MATCH) ||
-        str.match?(EVAL_OPTION_MATCH)
+      [YAML_ARRAY_MATCH, YAML_HASH_MATCH, EVAL_OPTION_MATCH, FILE_PATH_MATCH].each do |regexp|
+        return true if str.match?(regexp)
+      end
+      false
     end
 
     private
 
     def statement
-      eval_match_data[2].strip if evaluatable?
+      evaluatable? ? eval_match_data[2].strip : "{}"
     end
 
     def evaluatable?
@@ -106,7 +105,7 @@ module Lookbook
     end
 
     def eval_match_data
-      @match_data ||= @options_str.match(EVAL_OPTION_MATCH)
+      @eval_match_data ||= @options_str.match(EVAL_OPTION_MATCH)
     end
   end
 end

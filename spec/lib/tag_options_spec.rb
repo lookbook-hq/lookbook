@@ -6,6 +6,9 @@ RSpec.describe Lookbook::TagOptions do
   let(:yaml_data_path) { Rails.root.join("data/icons.yml") }
   let(:yaml_data) { YAML.safe_load(File.read(yaml_data_path)) }
 
+  before { Lookbook.config.preview_params_options_eval = true }
+  after { Lookbook.config.preview_params_options_eval = false }
+
   context ".resolve_file_path" do
     context "with relative paths" do
       let(:json_tag_opts) { described_class.new("../dummy/data/icons.json", base_dir: Rails.root) }
@@ -38,10 +41,7 @@ RSpec.describe Lookbook::TagOptions do
     end
   end
 
-  context ".evaluate" do
-    before { Lookbook.config.preview_params_options_eval = true }
-    after { Lookbook.config.preview_params_options_eval = false }
-    
+  context ".evaluate" do    
     context "with valid statement and scope" do
       let(:tag_opts) { described_class.new("{{ SELECT_OPTS }}", eval_scope: SelectOptsContext.new) }
 
@@ -61,8 +61,8 @@ RSpec.describe Lookbook::TagOptions do
     context "with invalid syntax" do
       let(:tag_opts) { described_class.new("{ SELECT_OPTS }}", eval_scope: SelectOptsContext.new) }
 
-      it "returns nil" do
-        expect(tag_opts.evaluate).to be nil
+      it "returns an empty hash" do
+        expect(tag_opts.evaluate).to eq({})
       end
     end
   end
@@ -74,7 +74,7 @@ RSpec.describe Lookbook::TagOptions do
     end
 
     it "correctly identifies a yaml file to load" do
-      tag_opts = described_class.new("data/icons.yaml")
+      tag_opts = described_class.new("data/icons.yml")
       expect(tag_opts.resolve).to eq json_data
     end
 
