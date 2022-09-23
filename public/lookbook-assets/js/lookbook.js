@@ -7821,7 +7821,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $730b795bb0498251$exports = {};
+var $dd2f915f784e0722$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -12530,24 +12530,6 @@ function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
 }
 
 
-var $b63b9c6d236b3f65$exports = {};
-
-$parcel$defineInteropFlag($b63b9c6d236b3f65$exports);
-
-$parcel$export($b63b9c6d236b3f65$exports, "default", () => $b63b9c6d236b3f65$export$2e2bcd8739ae039);
-
-function $b63b9c6d236b3f65$export$2e2bcd8739ae039() {
-    return {
-        narrow: false,
-        init () {
-            (0, $9930d46698775b42$export$a2214cc2adb2dc44)(this.$el, ({ width: width  })=>{
-                this.narrow = width < 450;
-            });
-        }
-    };
-}
-
-
 var $506dabb2bf255b38$exports = {};
 
 $parcel$defineInteropFlag($506dabb2bf255b38$exports);
@@ -13344,7 +13326,7 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$730b795bb0498251$exports = {
+$dd2f915f784e0722$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
@@ -13353,7 +13335,6 @@ $730b795bb0498251$exports = {
     "filter": $e9904a14dabf652d$exports,
     "icon": $36506012e0c6e9e3$exports,
     "nav": $d92d9d5253f84566$exports,
-    "params_editor": $b63b9c6d236b3f65$exports,
     "split_layout": $506dabb2bf255b38$exports,
     "tab_panels": $a87dacf5139b5e2f$exports,
     "tabs": $0db07828cadc68e0$exports,
@@ -13361,7 +13342,7 @@ $730b795bb0498251$exports = {
 };
 
 
-var $e4eab7529959b73b$exports = {};
+var $c43230a66e7bc31a$exports = {};
 var $9b24cbeb3a465447$exports = {};
 
 $parcel$defineInteropFlag($9b24cbeb3a465447$exports);
@@ -13418,12 +13399,30 @@ function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id , matchers: matchers 
 }
 
 
-var $fa8073e5be19dff9$exports = {};
+var $1a7a7298eec5b755$exports = {};
 
-$parcel$defineInteropFlag($fa8073e5be19dff9$exports);
+$parcel$defineInteropFlag($1a7a7298eec5b755$exports);
 
-$parcel$export($fa8073e5be19dff9$exports, "default", () => $fa8073e5be19dff9$export$2e2bcd8739ae039);
-function $fa8073e5be19dff9$export$2e2bcd8739ae039({ name: name , value: value  }) {
+$parcel$export($1a7a7298eec5b755$exports, "default", () => $1a7a7298eec5b755$export$2e2bcd8739ae039);
+
+function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
+    return {
+        narrow: false,
+        init () {
+            (0, $9930d46698775b42$export$a2214cc2adb2dc44)(this.$el, ({ width: width  })=>{
+                this.narrow = width < 450;
+            });
+        }
+    };
+}
+
+
+var $e773f8ef556b41ff$exports = {};
+
+$parcel$defineInteropFlag($e773f8ef556b41ff$exports);
+
+$parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
+function $e773f8ef556b41ff$export$2e2bcd8739ae039({ name: name , value: value  }) {
     return {
         name: name,
         value: value,
@@ -13456,12 +13455,13 @@ function $fa8073e5be19dff9$export$2e2bcd8739ae039({ name: name , value: value  }
 }
 
 
-$e4eab7529959b73b$exports = {
+$c43230a66e7bc31a$exports = {
     "nav": {
         "item": $9b24cbeb3a465447$exports
     },
-    "params_editor": {
-        "field": $fa8073e5be19dff9$exports
+    "params": {
+        "editor": $1a7a7298eec5b755$exports,
+        "field": $e773f8ef556b41ff$exports
     }
 };
 
@@ -13501,8 +13501,8 @@ const $d73574cc5e9b9e72$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $d709d0f4027033b2$export$2e2bcd8739ae039));
 [
-    $730b795bb0498251$exports,
-    $e4eab7529959b73b$exports,
+    $dd2f915f784e0722$exports,
+    $c43230a66e7bc31a$exports,
     $4979d2d897a1c01f$exports
 ].forEach((scripts)=>{
     const components = (0, $5439cede634b2921$export$4e811121b221213b)(scripts);

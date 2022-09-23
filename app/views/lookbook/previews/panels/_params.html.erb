@@ -6,7 +6,7 @@
   </div>
 <% else %>
   <div class="py-3 h-full">
-    <%= lookbook_render :params_editor do |editor| %>
+    <%= lookbook_render "params/editor" do |editor| %>
       <% preview.params.each do |param| %>
         <% editor.field **param, value: params[param[:name]] %>
       <% end %>
