@@ -63,7 +63,7 @@ GEM
       thor (>= 0.14.6)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
-    css_parser (1.11.0)
+    css_parser (1.12.0)
       addressable
     diff-lcs (1.5.0)
     erubi (1.11.0)
@@ -87,6 +87,8 @@ GEM
     minitest (5.16.3)
     nio4r (2.5.8)
     nokogiri (1.13.8-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
     parallel (1.22.1)
     parser (3.1.2.1)
@@ -159,6 +161,7 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     sqlite3 (1.5.0-arm64-darwin)
+    sqlite3 (1.5.0-x86_64-linux)
     standard (1.16.1)
       rubocop (= 1.35.1)
       rubocop-performance (= 1.14.3)
@@ -183,6 +186,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  x86_64-linux
 
 DEPENDENCIES
   actionpack
