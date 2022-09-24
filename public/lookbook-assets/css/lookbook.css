@@ -238,6 +238,7 @@ select {
   appearance: none;
   color-adjust: exact;
   vertical-align: middle;
+  -webkit-user-select: none;
   user-select: none;
   height: 1rem;
   width: 1rem;
@@ -1606,6 +1607,7 @@ pre[class*="language-"] {
   width: min-content;
   z-index: 10;
   height: 100%;
+  -webkit-user-select: none;
   user-select: none;
   border-style: dashed;
   border-right-width: 1px;
@@ -1648,7 +1650,7 @@ pre[class*="language-"] {
 [data-component="icon"] {
   flex: none;
   line-height: 1;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter, backdrop-filter;
   transition-duration: .15s;
   transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   display: block;
@@ -1731,9 +1733,10 @@ pre[class*="language-"] {
 
 [data-component="viewport"] .resize-handle {
   touch-action: none;
+  -webkit-user-select: none;
   user-select: none;
   color: var(--lookbook-viewport-handle-icon-stroke);
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter, backdrop-filter;
   transition-duration: .15s;
   transition-timing-function: cubic-bezier(.4, 0, .2, 1);
 }
@@ -1832,8 +1835,8 @@ pre[class*="language-"] {
   right: .75rem;
 }
 
-.right-\[17px\] {
-  right: 17px;
+.right-\[18px\] {
+  right: 18px;
 }
 
 .-top-px {
@@ -1850,38 +1853,6 @@ pre[class*="language-"] {
 
 .-bottom-px {
   bottom: -1px;
-}
-
-.bottom-\[17px\] {
-  bottom: 17px;
-}
-
-.bottom-\[18px\] {
-  bottom: 18px;
-}
-
-.right-\[18px\] {
-  right: 18px;
-}
-
-.bottom-\[16px\] {
-  bottom: 16px;
-}
-
-.right-\[16px\] {
-  right: 16px;
-}
-
-.bottom-\[14px\] {
-  bottom: 14px;
-}
-
-.bottom-\[12px\] {
-  bottom: 12px;
-}
-
-.right-\[12px\] {
-  right: 12px;
 }
 
 .z-50 {
@@ -1992,6 +1963,10 @@ pre[class*="language-"] {
 
 .mr-1\.5 {
   margin-right: .375rem;
+}
+
+.ml-1 {
+  margin-left: .25rem;
 }
 
 .block {
@@ -2126,10 +2101,6 @@ pre[class*="language-"] {
   width: 1.25rem;
 }
 
-.min-w-\[140px\] {
-  min-width: 140px;
-}
-
 .min-w-\[180px\] {
   min-width: 180px;
 }
@@ -2221,7 +2192,7 @@ pre[class*="language-"] {
 }
 
 .animate-spin {
-  animation: spin 1s linear infinite;
+  animation: 1s linear infinite spin;
 }
 
 .\!cursor-default {
@@ -2249,6 +2220,7 @@ pre[class*="language-"] {
 }
 
 .select-none {
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -2402,10 +2374,6 @@ pre[class*="language-"] {
   border-bottom-left-radius: .375rem;
 }
 
-.rounded-bl-sm {
-  border-bottom-left-radius: .125rem;
-}
-
 .rounded-tl-sm {
   border-top-left-radius: .125rem;
 }
@@ -2546,8 +2514,8 @@ pre[class*="language-"] {
   background-color: var(--lookbook-viewport-handle);
 }
 
-.bg-lookbook-draggable-hint {
-  background-color: var(--lookbook-draggable-hint);
+.bg-gray-100\/80 {
+  background-color: #f3f4f6cc;
 }
 
 .\!bg-lookbook-nav-item-active {
@@ -2560,26 +2528,6 @@ pre[class*="language-"] {
 
 .bg-lookbook-input-toggle {
   background-color: var(--lookbook-input-toggle);
-}
-
-.bg-gray-50\/60 {
-  background-color: #f9fafb99;
-}
-
-.bg-gray-100\/60 {
-  background-color: #f3f4f699;
-}
-
-.bg-gray-100\/80 {
-  background-color: #f3f4f6cc;
-}
-
-.bg-opacity-60 {
-  --tw-bg-opacity: .6;
-}
-
-.bg-opacity-80 {
-  --tw-bg-opacity: .8;
 }
 
 .stroke-current {
@@ -2707,44 +2655,32 @@ pre[class*="language-"] {
   padding-bottom: 0;
 }
 
-.pr-2 {
-  padding-right: .5rem;
-}
-
-.pl-3 {
-  padding-left: .75rem;
-}
-
-.pb-1\.5 {
-  padding-bottom: .375rem;
-}
-
-.pt-2\.5 {
-  padding-top: .625rem;
-}
-
-.pt-2 {
-  padding-top: .5rem;
-}
-
-.pr-1\.5 {
-  padding-right: .375rem;
+.pr-1 {
+  padding-right: .25rem;
 }
 
 .pl-2 {
   padding-left: .5rem;
 }
 
-.pr-1 {
-  padding-right: .25rem;
-}
-
 .pt-1\.5 {
   padding-top: .375rem;
 }
 
-.pl-1\.5 {
-  padding-left: .375rem;
+.pr-2 {
+  padding-right: .5rem;
+}
+
+.pt-2\.5 {
+  padding-top: .625rem;
+}
+
+.pb-1\.5 {
+  padding-bottom: .375rem;
+}
+
+.pt-2 {
+  padding-top: .5rem;
 }
 
 .text-left {
@@ -2926,10 +2862,6 @@ pre[class*="language-"] {
   opacity: .9;
 }
 
-.opacity-30 {
-  opacity: .3;
-}
-
 .opacity-40 {
   opacity: .4;
 }
@@ -2982,7 +2914,7 @@ pre[class*="language-"] {
 }
 
 .transition {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter, backdrop-filter;
   transition-duration: .15s;
   transition-timing-function: cubic-bezier(.4, 0, .2, 1);
 }
