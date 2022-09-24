@@ -29,9 +29,9 @@ module Lookbook
         {
           name: param.name,
           input: input_text?(input) ? "text" : input,
-          input_type: (input if input_text?(input)),
+          type: (input if input_text?(input)),
           options: tag_options.options,
-          type: type,
+          value_type: type,
           default: default
         }
       end

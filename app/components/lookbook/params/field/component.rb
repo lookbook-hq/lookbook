@@ -1,17 +1,17 @@
 module Lookbook
   module Params
     class Field::Component < Lookbook::BaseComponent
-      KNOWN_OPTIONS = %i[label hint type input choices].freeze
+      KNOWN_OPTIONS = %i[label hint value_type input choices].freeze
 
-      attr_reader :name
+      attr_reader :name, :input
 
-      def initialize(input:, name:, default: nil, value: nil, input_type: nil, type: nil, options: nil, **html_attrs)
-        @input = input
+      def initialize(input:, name:, default: nil, value: nil, type: nil, value_type: nil, options: nil, **html_attrs)
+        @input = input.to_s
         @name = name
         @value = value
         @default_value = default
-        @input_type = input_type
         @type = type
+        @value_type = value_type
         @options = options || {}
         super(**html_attrs)
       end
@@ -22,15 +22,11 @@ module Lookbook
 
       def value
         val = @value.presence || @default_value
-        @type == "Boolean" ? val == "true" || val == true : val
+        @value_type == "Boolean" ? val == "true" || val == true : val
       end
 
-      def field_type
-        @input.to_s
-      end
-
-      def input_type
-        @input_type.nil? && field_type == "text" ? "text" : @input_type
+      def type
+        "text" if input == "text" && @type.nil?
       end
 
       def hint
@@ -47,7 +43,7 @@ module Lookbook
 
       def options
         return @all_options if @all_options.present?
-        opts = if @options.is_a?(Array) && field_type == "select"
+        opts = if @options.is_a?(Array) && input == "select"
           { choices: @options }
         else
           @options
