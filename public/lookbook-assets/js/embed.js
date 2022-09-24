@@ -5,12 +5,12 @@ var $b2e1fd3e30ab1f5c$exports = {};
     var autoResize = true, base = 10, bodyBackground = "", bodyMargin = 0, bodyMarginStr = "", bodyObserver = null, bodyPadding = "", calculateWidth = false, doubleEventList = {
         resize: 1,
         click: 1
-    }, eventCancelTimer = 128, firstRun = true, height1 = 1, heightCalcModeDefault = "bodyOffset", heightCalcMode = heightCalcModeDefault, initLock = true, initMsg = "", inPageLinks = {}, interval = 32, intervalTimer = null, logging = false, mouseEvents = false, msgID = "[iFrameSizer]", msgIdLen = msgID.length, myID = "", resetRequiredMethods = {
+    }, eventCancelTimer = 128, firstRun = true, height = 1, heightCalcModeDefault = "bodyOffset", heightCalcMode = heightCalcModeDefault, initLock = true, initMsg = "", inPageLinks = {}, interval = 32, intervalTimer = null, logging = false, mouseEvents = false, msgID = "[iFrameSizer]", msgIdLen = msgID.length, myID = "", resetRequiredMethods = {
         max: 1,
         min: 1,
         bodyScroll: 1,
         documentElementScroll: 1
-    }, resizeFrom = "child", sendPermit = true, target1 = window.parent, targetOriginDefault = "*", tolerance = 0, triggerLocked = false, triggerLockedTimer = null, throttledTimer = 16, width1 = 1, widthCalcModeDefault = "scroll", widthCalcMode = widthCalcModeDefault, win = window, onMessage = function() {
+    }, resizeFrom = "child", sendPermit = true, target = window.parent, targetOriginDefault = "*", tolerance = 0, triggerLocked = false, triggerLockedTimer = null, throttledTimer = 16, width = 1, widthCalcModeDefault = "scroll", widthCalcMode = widthCalcModeDefault, win = window, onMessage = function() {
         warn("onMessage function not defined");
     }, onReady = function() {}, onPageInfo = function() {}, customCalcMethods = {
         height: function() {
@@ -389,8 +389,8 @@ var $b2e1fd3e30ab1f5c$exports = {};
                 sendMsg(jumpPosition.y, jumpPosition.x, "scrollToOffset") // X&Y reversed at sendMsg uses height/width
                 ;
             }
-            var hash = location.split("#")[1] || location, hashData = decodeURIComponent(hash), target2 = document.getElementById(hashData) || document.getElementsByName(hashData)[0];
-            if (undefined !== target2) jumpToTarget(target2);
+            var hash = location.split("#")[1] || location, hashData = decodeURIComponent(hash), target = document.getElementById(hashData) || document.getElementsByName(hashData)[0];
+            if (undefined !== target) jumpToTarget(target);
             else {
                 log("In page link (#" + hash + ") not found in iFrame, so sending to parent");
                 sendMsg(0, 0, "inPageLink", "#" + hash);
@@ -711,9 +711,9 @@ var $b2e1fd3e30ab1f5c$exports = {};
     };
     function sizeIFrame(triggerEvent, triggerEventDesc, customHeight, customWidth) {
         function resizeIFrame() {
-            height1 = currentHeight;
-            width1 = currentWidth;
-            sendMsg(height1, width1, triggerEvent);
+            height = currentHeight;
+            width = currentWidth;
+            sendMsg(height, width, triggerEvent);
         }
         function isSizeChangeDetected() {
             function checkTolarance(a, b) {
@@ -722,7 +722,7 @@ var $b2e1fd3e30ab1f5c$exports = {};
             }
             currentHeight = undefined !== customHeight ? customHeight : getHeight[heightCalcMode]();
             currentWidth = undefined !== customWidth ? customWidth : getWidth[widthCalcMode]();
-            return checkTolarance(height1, currentHeight) || calculateWidth && checkTolarance(width1, currentWidth);
+            return checkTolarance(height, currentHeight) || calculateWidth && checkTolarance(width, currentWidth);
         }
         function isForceResizableEvent() {
             return !(triggerEvent in {
@@ -780,9 +780,9 @@ var $b2e1fd3e30ab1f5c$exports = {};
         }, eventCancelTimer);
     }
     function triggerReset(triggerEvent) {
-        height1 = getHeight[heightCalcMode]();
-        width1 = getWidth[widthCalcMode]();
-        sendMsg(height1, width1, triggerEvent);
+        height = getHeight[heightCalcMode]();
+        width = getWidth[widthCalcMode]();
+        sendMsg(height, width, triggerEvent);
     }
     function resetIFrame(triggerEventDesc) {
         var hcm = heightCalcMode;
@@ -800,7 +800,7 @@ var $b2e1fd3e30ab1f5c$exports = {};
         function sendToParent() {
             var size = height + ":" + width, message = myID + ":" + size + ":" + triggerEvent + (undefined !== msg ? ":" + msg : "");
             log("Sending message to host page (" + message + ")");
-            target1.postMessage(msgID + message, targetOrigin);
+            target.postMessage(msgID + message, targetOrigin);
         }
         if (true === sendPermit) {
             setTargetOrigin();
@@ -811,7 +811,7 @@ var $b2e1fd3e30ab1f5c$exports = {};
         var processRequestFromParent = {
             init: function initFromParent() {
                 initMsg = event.data;
-                target1 = event.source;
+                target = event.source;
                 init();
                 firstRun = false;
                 setTimeout(function() {
