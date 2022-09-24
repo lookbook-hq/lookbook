@@ -1,60 +1,26 @@
 <%= render_component_tag class: "px-4 py-3" do %>
   <div class="flex items-start max-w-[800px]" :class="isNarrowLayout && '!block'">
     <label
-      for="param-<%= name %>"
+      for="param-<%= @name %>"
       class="flex items-center font-bold cursor-pointer flex-none py-2 w-[140px] truncate pr-2">
-      <%= label %>
-      <% if hint %>
+      <%== @label %>
+      <% if @hint %>
         <span x-data="tooltipComponent" class="ml-1">
           <%= icon :help_circle, size: 3.5, class: "opacity-60 hover:opacity-100 transition" %>
           <div class="hidden" x-ref="tooltip">
-            <%= hint %>
+            <%= @hint %>
           </div>
         </span>
       <% end %>
     </label>
-    
+
     <div class="flex-grow">
-      <% if input == "text" %>
-
-        <%= text_field_tag name, value, {
-          **field_options,
-          class: "form-input",
-          type: type,
-          "x-bind": "bindings.input || {}",
-        } %>
-
-      <% elsif input == "textarea" %>
-
-        <%= text_area_tag name, value, {
-          rows: 4,
-          **field_options,
-          class: "form-input",
-          "x-bind": "bindings.input || {}"
-        } %>
-
-      <% elsif input == "select" %>
-        
-        <%= select_tag name,
-          options_for_select(config_options[:choices] || [], value),
-          {
-            **field_options,
-            class: "form-input",
-            "x-bind": "bindings.input || {}",
-            "x-model": "value"
-          }
-        %>
-
-      <% elsif input == "toggle" %>
-        <button type="button"
-          class="<%= value == true ? "bg-lookbook-input-toggle-active" : "bg-lookbook-input-toggle" %> relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-input-border-focus"
-          role="switch"
-          @click.stop="value = !value">
-          <span
-            aria-hidden="true"
-            class="<%= value == true ? "translate-x-5" : "translate-x-0" %>  pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow ring-0 transition ease-in-out duration-200"
-          ></span>
-        </button>
+      <% if input? %>
+        <%= input %>
+      <% elsif error? %>
+        <div class="p-2 text-red-500 italic">
+          <%= error %>
+        </div>
       <% end %>
     </div>
   </div>

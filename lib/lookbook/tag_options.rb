@@ -11,13 +11,9 @@ module Lookbook
       @base_dir = base_dir
     end
 
-    def option(key)
-      options = resolve
-      options[key] if options.is_a?(Hash)
-    end
-
     def options
-      resolve
+      opts = resolve
+      resolve.is_a?(Hash) ? resolve.symbolize_keys : resolve
     end
 
     def resolve
@@ -40,6 +36,8 @@ module Lookbook
           else
             YAML.safe_load(@options_str || "{}")
           end
+        else
+          Hash.new
         end
       rescue => exception
         Lookbook.logger.warn Lookbook::Error.new(exception)

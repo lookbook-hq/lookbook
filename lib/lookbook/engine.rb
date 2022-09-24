@@ -60,6 +60,13 @@ module Lookbook
     def theme
       @theme ||= Lookbook::Theme.new(config.ui_theme, config.ui_theme_overrides)
     end
+
+    def define_param_input(input, render_target, opts = nil)
+      config.preview_param_inputs[input.to_sym] = {
+        render_target: render_target,
+        default_options: opts || {}
+      }
+    end
   end
 
   class Engine < Rails::Engine
@@ -92,6 +99,8 @@ module Lookbook
     config.after_initialize do
       @preview_controller = Lookbook.config.preview_controller.constantize
       @preview_controller.include(Lookbook::PreviewController)
+
+      init_preview_param_inputs
 
       parser.after_parse do |registry|
         Preview.load!(registry.all(:class))
@@ -152,6 +161,14 @@ module Lookbook
             run_hooks(:after_change, changes)
           end
           register_listener(page_listener)
+        end
+      end
+
+      def init_preview_param_inputs
+        Lookbook::Params::INPUT_HANDLERS.each do |input_name, target|
+          unless Lookbook.config.preview_param_inputs.key?(input_name.to_sym)
+            Lookbook.define_param_input(input_name, target, {})
+          end
         end
       end
 

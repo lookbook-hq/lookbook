@@ -7821,7 +7821,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $dd2f915f784e0722$exports = {};
+var $1f889267678ff167$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -13326,7 +13326,7 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$dd2f915f784e0722$exports = {
+$1f889267678ff167$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
@@ -13422,7 +13422,34 @@ var $e773f8ef556b41ff$exports = {};
 $parcel$defineInteropFlag($e773f8ef556b41ff$exports);
 
 $parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
-function $e773f8ef556b41ff$export$2e2bcd8739ae039({ name: name , value: value  }) {
+function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
+    return {
+        get isNarrowLayout () {
+            return this.narrow || false;
+        }
+    };
+}
+
+
+$c43230a66e7bc31a$exports = {
+    "nav": {
+        "item": $9b24cbeb3a465447$exports
+    },
+    "params": {
+        "editor": $1a7a7298eec5b755$exports,
+        "field": $e773f8ef556b41ff$exports
+    }
+};
+
+
+var $6c10158820e535ef$exports = {};
+
+var $7f7fff78376549af$exports = {};
+
+$parcel$defineInteropFlag($7f7fff78376549af$exports);
+
+$parcel$export($7f7fff78376549af$exports, "default", () => $7f7fff78376549af$export$2e2bcd8739ae039);
+function $7f7fff78376549af$export$2e2bcd8739ae039({ name: name , value: value  }) {
     return {
         name: name,
         value: value,
@@ -13440,13 +13467,8 @@ function $e773f8ef556b41ff$export$2e2bcd8739ae039({ name: name , value: value  }
         validate () {
             return this.$root.reportValidity ? this.$root.reportValidity() : true;
         },
-        get isNarrowLayout () {
-            return this.narrow || false;
-        },
         bindings: {
             input: {
-                [":id"]: "`param-${name}`",
-                ["x-ref"]: "input",
                 ["x-model.debounce.200"]: "value",
                 ["@keydown.stop"]: true
             }
@@ -13455,22 +13477,10 @@ function $e773f8ef556b41ff$export$2e2bcd8739ae039({ name: name , value: value  }
 }
 
 
-$c43230a66e7bc31a$exports = {
-    "nav": {
-        "item": $9b24cbeb3a465447$exports
-    },
-    "params": {
-        "editor": $1a7a7298eec5b755$exports,
-        "field": $e773f8ef556b41ff$exports
-    }
-};
 
-
-var $4979d2d897a1c01f$exports = {};
-
-
-$4979d2d897a1c01f$exports = {
+$6c10158820e535ef$exports = {
     "clipboard": $122263eab94cad08$exports,
+    "params_input": $7f7fff78376549af$exports,
     "tooltip": $2ef98910f916db6b$exports
 };
 
@@ -13501,12 +13511,13 @@ const $d73574cc5e9b9e72$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $d709d0f4027033b2$export$2e2bcd8739ae039));
 [
-    $dd2f915f784e0722$exports,
+    $1f889267678ff167$exports,
     $c43230a66e7bc31a$exports,
-    $4979d2d897a1c01f$exports
+    $6c10158820e535ef$exports
 ].forEach((scripts)=>{
     const components = (0, $5439cede634b2921$export$4e811121b221213b)(scripts);
     Object.keys(components).forEach((name)=>{
+        console.log(name);
         (0, $caa9439642c6336c$export$2e2bcd8739ae039).data(`${name}Component`, components[name]);
     });
 });
