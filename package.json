@@ -37,7 +37,7 @@
     "@alpinejs/morph": "^3.10.2",
     "@alpinejs/persist": "^3.10.2",
     "@parcel/resolver-glob": "^2.4.0",
-    "@rails/actioncable": "^6.1.4",
+    "@rails/actioncable": "^7.0.4",
     "@ryangjchandler/alpine-tooltip": "^1.2.0",
     "@tailwindcss/forms": "^0.4.0",
     "@tailwindcss/typography": "^0.5.0",
