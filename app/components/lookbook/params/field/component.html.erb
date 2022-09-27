@@ -1,28 +1,27 @@
-<%= render_component_tag class: "px-4 py-3" do %>
-  <div class="flex items-start max-w-[800px]" :class="isNarrowLayout && '!block'">
-    <label
-      for="param-<%= @name %>"
-      class="flex items-center font-bold cursor-pointer flex-none py-2 w-[140px] truncate pr-2">
-      <%== @label %>
-      <% if @hint %>
-        <span x-data="tooltipComponent" class="ml-1">
-          <%= icon :help_circle, size: 3.5, class: "opacity-60 hover:opacity-100 transition" %>
+<%= render_component_tag :tr do %>  
+  <td class="param-label">
+    <label for="param-<%= @name %>">
+      <span class="mr-0.5"><%== @label %></span>
+      <% if hint? %>
+        <span x-data="tooltipComponent" class="inline-block cursor-help relative top-[2px]">
+          <%= icon :help_circle, size: 3.5, class: "opacity-40 hover:opacity-100 transition" %>
           <div class="hidden" x-ref="tooltip">
             <%= @hint %>
           </div>
         </span>
       <% end %>
     </label>
-
-    <div class="flex-grow">
-      <% if input? %>
-        <%= input %>
-      <% elsif error? %>
-        <div class="p-2 text-red-500 italic">
-          <%= error %>
-        </div>
-      <% end %>
+  </td>
+  <td class="param-description <%= "param-description-empty" unless description? %>">
+    <% if description? %>
+      <p class="opacity-70"><%= @description %></p>
+    <% else %>
+      <p class="italic opacity-40">&mdash;</p>
+    <% end %>
+  </td>
+  <td class="param-input">
+    <div class="param-input-wrapper">
+      <%= input %>
     </div>
-  </div>
+  </td>
 <% end %>
-

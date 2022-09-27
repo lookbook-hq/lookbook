@@ -1,8 +1,8 @@
 module Lookbook
   class TagOptions
     EVAL_OPTION_MATCH = /(\{\{\s?(.*)\s?\}\})$/
-    YAML_HASH_MATCH = /(\{(.*)\})$/
-    YAML_ARRAY_MATCH = /(\[(.*)\])$/
+    YAML_HASH_MATCH = /(\{(.*?)\})$/m
+    YAML_ARRAY_MATCH = /(\[(.*?)\])$/m
     FILE_PATH_MATCH = /(\S+\.(json|yml))$/
 
     def initialize(options_str, eval_scope: nil, base_dir: nil)

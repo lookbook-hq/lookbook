@@ -13342,7 +13342,7 @@ $1f889267678ff167$exports = {
 };
 
 
-var $c43230a66e7bc31a$exports = {};
+var $04e9d9c56925ae59$exports = {};
 var $9b24cbeb3a465447$exports = {};
 
 $parcel$defineInteropFlag($9b24cbeb3a465447$exports);
@@ -13399,24 +13399,6 @@ function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id , matchers: matchers 
 }
 
 
-var $1a7a7298eec5b755$exports = {};
-
-$parcel$defineInteropFlag($1a7a7298eec5b755$exports);
-
-$parcel$export($1a7a7298eec5b755$exports, "default", () => $1a7a7298eec5b755$export$2e2bcd8739ae039);
-
-function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
-    return {
-        narrow: false,
-        init () {
-            (0, $9930d46698775b42$export$a2214cc2adb2dc44)(this.$el, ({ width: width  })=>{
-                this.narrow = width < 450;
-            });
-        }
-    };
-}
-
-
 var $e773f8ef556b41ff$exports = {};
 
 $parcel$defineInteropFlag($e773f8ef556b41ff$exports);
@@ -13431,13 +13413,31 @@ function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
 }
 
 
-$c43230a66e7bc31a$exports = {
+var $1a7a7298eec5b755$exports = {};
+
+$parcel$defineInteropFlag($1a7a7298eec5b755$exports);
+
+$parcel$export($1a7a7298eec5b755$exports, "default", () => $1a7a7298eec5b755$export$2e2bcd8739ae039);
+
+function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
+    return {
+        narrow: false,
+        init () {
+            (0, $9930d46698775b42$export$a2214cc2adb2dc44)(this.$el, ({ width: width  })=>{
+                this.narrow = width < 500;
+            });
+        }
+    };
+}
+
+
+$04e9d9c56925ae59$exports = {
     "nav": {
         "item": $9b24cbeb3a465447$exports
     },
     "params": {
-        "editor": $1a7a7298eec5b755$exports,
-        "field": $e773f8ef556b41ff$exports
+        "field": $e773f8ef556b41ff$exports,
+        "editor": $1a7a7298eec5b755$exports
     }
 };
 
@@ -13512,7 +13512,7 @@ const $d73574cc5e9b9e72$var$prefix = window.APP_NAME;
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $d709d0f4027033b2$export$2e2bcd8739ae039));
 [
     $1f889267678ff167$exports,
-    $c43230a66e7bc31a$exports,
+    $04e9d9c56925ae59$exports,
     $6c10158820e535ef$exports
 ].forEach((scripts)=>{
     const components = (0, $5439cede634b2921$export$4e811121b221213b)(scripts);
