@@ -39,7 +39,7 @@
     "@parcel/resolver-glob": "^2.4.0",
     "@rails/actioncable": "^6.1.4",
     "@ryangjchandler/alpine-tooltip": "^1.2.0",
-    "@tailwindcss/forms": "^0.4.0",
+    "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.0",
     "alpinejs": "^3.10.2",
     "autoprefixer": "^10.4.0",
