@@ -26,7 +26,7 @@ module Lookbook
               @panel_styles += "##{id} #{selector} { #{declarations} }\n"
             end
           end
-          @panel_html = content.gsub(/<style(?:\s[^>]*)?>.*<\/style>/, "").html_safe
+          @panel_html = content.gsub(/<style(?:\s[^>]*)?>.*<\/style>/m, "").html_safe
         end
       end
       @panel_html ||= content
