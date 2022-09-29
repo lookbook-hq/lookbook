@@ -34,7 +34,7 @@ The editable text field will appear under the 'Params' tab in the preview inspec
 The `@param` tag takes the following format:
 
 ```ruby
-@param <name> <input_type> <opts?>
+@param <name> <input_type> <description?> <opts?>
 ```
 
 {%= options_list do |list| %}
@@ -44,8 +44,11 @@ The `@param` tag takes the following format:
   {% list.option name: "<input_type>" do %}
     Input field type to generate in the UI
   {% end %}
+  {% list.option name: "<description?>" do %}
+    Optional short description of what the param is used for, supplied as a double-quoted string.
+  {% end %}
   {% list.option name: "<opts?>" do %}
-    Hash of options for customising field types where supported. 
+    Optional hash of options for customising the field display. See the [param options section](#param-options) for more info.
   {% end %}
 {% end %}  
 
@@ -54,7 +57,7 @@ The `@param` tag takes the following format:
 class ButtonComponentPreview < ViewComponent::Preview
   # @param arrow toggle
   # @param theme select { choices: [primary, secondary, danger] }
-  # @param content text #
+  # @param content text "The text to display in the button"
   def default(content: 'Click me', theme: 'primary', arrow: true)
     render Elements::ButtonComponent.new(theme: theme, arrow: arrow) do
       content
@@ -95,21 +98,11 @@ Multi-line textarea field for longer-form content.
 
 ### 📝 Select box
 
-Dropdown select field for selecting from a list of known options.
+Dropdown select field for selecting from a list of known items.
 
 ```ruby
-@param <name> select <options>
+@param <name> select <opts>
 ```
-
-{%= options_list do |list| %}
-  {% list.option name: "<options>" do %}
-    A Hash of options to pass to the select. The value of the `choices` property should be an array of options which must be formatted in the same style as the input for Rails' [`options_for_select`](https://apidock.com/rails/v6.0.0/ActionView/Helpers/FormOptionsHelper/options_for_select) helper.
-    
-    The standard way to define options is as a YAML-formatted hash, but there are other ways to specify options data 
-    to help keep things DRY or to reduce the need for hard-coding long lists of option values. See the docs on [specifying param options](#param-options) for more detail.
-  {% end %}
-{% end %}  
-
 
 ```ruby
 # Basic options:
@@ -122,10 +115,6 @@ Dropdown select field for selecting from a list of known options.
 # @param theme select { choices: [~, primary, secondary, danger] }
 ```
 
-{%= note :info do %}
-In most cases YAML does not require quoting of strings, however if you are running into issues check out the [Ruby YAML docs](https://yaml.org/YAML_for_ruby.html) for a complete syntax reference.
-{% end %}
-
 ### 📝 Toggle
 
 On/off switch for toggling boolean values.
@@ -134,16 +123,31 @@ On/off switch for toggling boolean values.
 @param <name> toggle
 ```
 
-## Specifying param options
+## Options
 {: #param-options}
 
-Most param field types support customising their look or behaviour using options, allowing you to specify choices for select fields, customise the number of rows in a text field, and so on.
+`@param` options provide a way to further customise the display of each field in the Lookbook UI.
 
-The options hash must always placed at the end of the `@param` tag annotation, and there are a number or ways to specify or import the properties you need.
+See the [options reference section](#options-reference) for details of available options. Any 'unknown' options will be used to generate HTML attributes for the relevant input element.
 
-### YAML-encoded hash
+Options can be [provided inline](#inline-options) (in YAML hash format), [dynamically generated](#dynamic-options) via a preview class instance method or [loaded from a file](#file-options).
 
-The simplest way to specify options for a param field is to hard-code it as a YAML-formatted hash, as in the case for the list of `select` options in the example below:
+```ruby
+# Inline:
+# @param theme select { choices: [primary, secondary, danger] }
+
+# Dynamic:
+# @param theme select :name_of_method_that_returns_options
+
+# File:
+# @param theme select ./path/to/options.yml
+```
+
+Note that the options hash, method or file reference should always be placed at the very end of the `@param` tag annotation.
+
+### Inline options
+
+The simplest way to specify options for a param field is to hard-code it as a YAML-formatted hash. For example, as in the case for the list of `select` options in the example below:
 
 ```ruby
 # @param theme select { choices: [primary, secondary, danger] }
@@ -151,9 +155,50 @@ The simplest way to specify options for a param field is to hard-code it as a YA
 
 This is straightforward and useful for simple cases, but if you have a long list of choices or you want to reference values elsewhere to prevent duplication then hard-coding the data might not be the ideal solution
 
-### Importing from a file
+### Dynamic options <small>(since v1.1)</small>
+{: #dynamic-options}
 
-It is possible to import YAML/JSON data from a file by providing the file path in place of the YAML-formatted options hash:
+To clean up `@param` tags you can use a private method (in your preview class) that returns a hash of param options, and reference it via it's symbolized name:
+
+```ruby
+# @param theme select :method_that_returns_options
+```
+
+Note that you cannot pass any arguments to the method.
+
+{% raw %}
+```ruby
+class ButtonComponent::Preview < ViewComponent::Preview
+  # @param theme select :theme_options
+  def button(theme: :danger)
+    # ...
+  end
+
+  private
+
+  def theme_options
+    {
+      choices: %i[primary secondary danger],
+      include_blank: true
+    }
+  end
+end
+```
+{% endraw %}
+
+Dynamic options depend on **runtime code evaluation** and require enabling in your config before they can be used:
+
+```rb
+config.lookbook.preview_params_options_eval = true
+```
+
+{%= note :info do %}
+Use of `eval` to evaluate arbitrary strings can be a security concern. However Lookbook never `eval`'s _any_ user-inputed content - only comments added to the source code itself.
+{% end %}
+
+### File options
+
+It is possible to import YAML/JSON data from a file by providing the file path:
 
 ```ruby
 # @param theme select data/theme-select-data.yml
@@ -176,75 +221,21 @@ However, if the path starts with `./` or `../` then the path will be **resolved 
 # @param theme select ../data/theme-select-data.json
 ```
 
-This method can be useful if you have a set of data that you want to share between previews, or need non-technical people to be able to edit.
+### Options reference
 
-### Dynamic param options <small>(since v1.1)</small>
-{: #dynamic-param-options}
-
-Since v1.1 Lookbook has supported generating options dynamically. That means you can use Ruby code to reference a private method in your preview class, pull options from component class constants, or access data from pretty much anywhere in your app.
-
-If you wish to use this feature you will first need to enable it in the config - it is **disabled** by default:
-
-```rb
-config.lookbook.preview_params_options_eval = true
-```
-
-You can then write a Ruby expression within two 'double-mustache brackets' in place of the YAML-formatted options. This expression should resolve to a Hash that will be used as the options for the `@param` definition.
-
-{% raw %}
-```ruby
-# @param theme select {{ ButtonComponent::THEMES }}
-```
-{% endraw %}
-
-The expressions are evaluated in the context of your preview class, so it's possible to create a private method that generates the param options and call it directly:
-
-{% raw %}
-```ruby
-class ButtonComponent::Preview < ViewComponent::Preview
-  # @param theme select {{ button_theme_options }}
-  def button(theme: :danger)
-    # ...
-  end
-
-  private
-
-  def button_theme_options
-    {
-      choices: %i[primary secondary danger],
-      include_blank: true
-    }
-  end
-end
-```
-{% endraw %}
-
-{%= note :info do %}
-Use of `eval` to evaluate aribtrary strings as code is often frowned upon. However here the only code strings being evaluated are written by those who have access to the preview classes in the codebase. No user-inputed data is _ever_ `eval`'d.
-{% end %}
-
-## Common options
-
-Some options are supported across all `@param` field types:
+All of the below options are optional, although specific inputs may require or rely on additional options (such as the `choices` option for select inputs).
 
 {%= options_list do |list| %}
   {% list.option name: "label" do %}
-    Customise the field label
+    Custom label text
+  {% end %}
+  {% list.option name: "description" do %}
+    Short description of what the param is used for. An alternative to providing the description in the main body of the annotation.
   {% end %}
   {% list.option name: "hint" do %}
-    Add a short text hint about how the field should be used.
-    Displayed as a tooltip when hovering over a '?' icon next to the label.
+    Help text. Displayed as a tooltip when hovering over a '?' icon next to the label.
   {% end %}
-{% end %} 
-
-{% raw %}
-```ruby
-# @param call_to_action text { label: "Button text", hint: "The text that is rendered in the button" }
-def button(call_to_action: "Click me")
-  # ...
-end
-```
-{% endraw %}
+{% end %}
 
 ## Default values
 
@@ -271,7 +262,7 @@ Most dynamic param values are passed to the example method as strings, with the 
 
 In some cases, you may want to type cast the parameter value to something else (for example a `Symbol`) before using it when initializing the component.
 
-To help with this, a `type` option can be specified in the `@param` definition to automatically cast the dynamic value to a different type:
+To help with this, a `type` can be specified in the `@param` definition to automatically cast the dynamic value to a different type:
 
 ```ruby
 # @param <name> [<type>] <input_type> <opts?>
