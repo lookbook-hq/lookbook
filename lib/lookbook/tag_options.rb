@@ -1,9 +1,12 @@
 module Lookbook
   class TagOptions
+    SYMBOL_MATCH = /(:([a-zA-Z_\d]+))$/
     EVAL_OPTION_MATCH = /(\{\{\s?(.*)\s?\}\})$/
     YAML_HASH_MATCH = /(\{(.*?)\})$/m
     YAML_ARRAY_MATCH = /(\[(.*?)\])$/m
     FILE_PATH_MATCH = /(\S+\.(json|yml))$/
+
+    MATCHERS = [YAML_ARRAY_MATCH, YAML_HASH_MATCH, SYMBOL_MATCH, EVAL_OPTION_MATCH, FILE_PATH_MATCH]
 
     def initialize(options_str, eval_scope: nil, base_dir: nil)
       @options_str = options_str.is_a?(String) ? options_str.strip : ""
@@ -71,7 +74,7 @@ module Lookbook
       str.strip!
       opts_str = ""
 
-      [YAML_ARRAY_MATCH, YAML_HASH_MATCH, EVAL_OPTION_MATCH, FILE_PATH_MATCH].each do |regexp|
+      MATCHERS.each do |regexp|
         match_data = str.match(regexp)
         unless match_data.nil?
           str.gsub!(regexp, "").strip!
@@ -86,7 +89,7 @@ module Lookbook
     def self.resolveable?(str)
       return unless str.is_a?(String)
       str.strip!
-      [YAML_ARRAY_MATCH, YAML_HASH_MATCH, EVAL_OPTION_MATCH, FILE_PATH_MATCH].each do |regexp|
+      MATCHERS.each do |regexp|
         return true if str.match?(regexp)
       end
       false
@@ -103,7 +106,7 @@ module Lookbook
     end
 
     def eval_match_data
-      @eval_match_data ||= @options_str.match(EVAL_OPTION_MATCH)
+      @eval_match_data ||= @options_str.match(EVAL_OPTION_MATCH) || @options_str.match(SYMBOL_MATCH)
     end
   end
 end
