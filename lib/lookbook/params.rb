@@ -3,6 +3,7 @@ require "active_model"
 module Lookbook
   module Params
     VALUE_TYPE_MATCH_REGEXP = /^(\[\s?([A-Z]{1}\w+)\s?\])/
+    DESCRIPTION_MATCH_REGEXP = /\"(.*[^\\])\"$/
 
     PARAM_OPTION_KEYS = %i{name, input label hint description value_type value_default}.freeze
 
@@ -22,7 +23,7 @@ module Lookbook
     class << self
       def build_param(param, default: nil, eval_scope: nil)
         
-        input, value_type, options_str, rest = parse_param_tag_text(param.text)
+        input, value_type, options_str, description = parse_param_tag_text(param.text)
 
         tag_options = Lookbook::TagOptions.new(options_str,
           base_dir: (File.dirname(param.object.files.first[0]) if param.object.files.any?),
@@ -44,7 +45,7 @@ module Lookbook
           name: param.name.to_s,
           label: param_options[:label] || param.name.titleize,
           hint: param_options[:hint],
-          description: param_options[:description],
+          description: description || param_options[:description],
           input: input.to_s,
           input_options: input_options,
           value: nil,
@@ -58,16 +59,22 @@ module Lookbook
         text = (text.presence || "").strip
 
         value_type = nil
-        value_type_match = text.match(VALUE_TYPE_MATCH_REGEXP)
-        unless value_type_match.nil?
-          value_type = value_type_match[2]
+        text.match(VALUE_TYPE_MATCH_REGEXP) do |m|
+          value_type = m[2]
           text.gsub!(VALUE_TYPE_MATCH_REGEXP, "").strip!
         end
 
         text, options_str = Lookbook::TagOptions.extract_options(text)
+
+        description = nil
+        text.match(DESCRIPTION_MATCH_REGEXP) do |m|
+          description = m[1]
+          text.gsub!(DESCRIPTION_MATCH_REGEXP, "").strip!
+        end
+
         input, rest = text.split(" ", 2)
 
-        [input, value_type, options_str, rest]
+        [input, value_type, options_str, description, rest]
       end
 
       def parse_method_param_str(param_str)
