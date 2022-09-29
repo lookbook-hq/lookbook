@@ -12,7 +12,7 @@ module Lookbook
         @input_options = input_options
         @value_default = value_default
         @value_type = value_type
-        @config = config
+        @config = config || {}
         super(**html_attrs)
       end
 
@@ -25,14 +25,18 @@ module Lookbook
       end
 
       def input
+        target = @config[:render_target]
+
         begin
-          if @target
-            @target.is_a?(String) ? render(@target, **@input_props) : render(@target.new(**@input_props))
+          if target
+            tag.div "x-data": "paramsInputComponent({name: '#{@name}', value: #{escaped_value}})" do
+              target.is_a?(String) ? render(target, **render_props) : render(target.new(**render_props))
+            end
           else
             input_error "No param input defined for input type '#{@input_name}'."
           end
         rescue ::ActionView::MissingTemplate => exception
-          input_error "Param input '#{config[:render_target]}' could not be found."
+          input_error "Param input '#{@config[:render_target]}' could not be found."
         rescue => exception
           input_error exception.message
         end
@@ -42,30 +46,35 @@ module Lookbook
         tag.div error, class: "p-2 text-red-500 italic"
       end
 
-      def before_render
-        if @config.present?
-          @target = @config[:render_target]
-          @input_props = @config[:default_options].merge(@input_options).symbolize_keys
+      def value
+        val = @value.presence || @value_default
+        @value_type.downcase == "boolean" ? val == "true" || val == true : val
+      end
 
-          value = @value.presence || @value_default
-          value = @value_type.downcase == "boolean" ? value == "true" || value == true : value
+      def escaped_value
+        json_escape(value.to_json)
+      end
 
-          @input_props.merge!({
-            name: @name,
-            input: @input_name,
-            value: value,
-            value_type: @value_type,
-            value_default: @value_default
-          })
-        end
+      def input_options
+        config_options = @config.fetch(:input_options, {})
+        opts = config_options.merge(@input_options).symbolize_keys
+        opts[:id] = "param-#{@name}"
+        opts
+      end
+
+      def render_props
+        {
+          name: @name,
+          input: @input_name,
+          value: value,
+          value_type: @value_type,
+          value_default: @value_default,
+          input_options: input_options.except(:choices),
+          choices: input_options[:choices]
+        }
       end
 
       protected
-
-      def alpine_data
-        escaped_value = json_escape(@value.to_json)
-        "{name: '#{@name}', value: #{escaped_value}}"
-      end
 
       def alpine_component
         "paramsFieldComponent"

@@ -4,7 +4,7 @@ module Lookbook
   module Params
     VALUE_TYPE_MATCH_REGEXP = /^(\[\s?([A-Z]{1}\w+)\s?\])/
 
-    PARAM_OPTION_KEYS = %i{input label hint description value_type value_default}.freeze
+    PARAM_OPTION_KEYS = %i{name, input label hint description value_type value_default}.freeze
 
     INPUT_HANDLERS = {
       select: "Lookbook::Params::SelectComponent",

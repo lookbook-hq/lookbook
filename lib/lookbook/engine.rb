@@ -61,10 +61,10 @@ module Lookbook
       @theme ||= Lookbook::Theme.new(config.ui_theme, config.ui_theme_overrides)
     end
 
-    def define_param_input(input, render_target, opts = nil)
+    def define_param_input(input, render_target, input_options = nil)
       config.preview_param_inputs[input.to_sym] = {
         render_target: render_target,
-        default_options: opts || {}
+        input_options: input_options || {}
       }
     end
   end

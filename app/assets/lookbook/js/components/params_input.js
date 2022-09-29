@@ -19,12 +19,5 @@ export default function paramsInputComponent({ name, value }) {
     validate() {
       return this.$root.reportValidity ? this.$root.reportValidity() : true;
     },
-
-    bindings: {
-      input: {
-        ["x-model.debounce.200"]: "value",
-        ["@keydown.stop"]: true,
-      },
-    },
   };
 }

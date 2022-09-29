@@ -9,8 +9,8 @@ module Lookbook
         ]
       end
 
-      def html_options
-        @options.merge({
+      def input_options
+        super.merge({
           "@click.stop": "value = !value",
           role: "switch",
           type: "button",
@@ -18,12 +18,8 @@ module Lookbook
         })
       end
 
-      def input_bindings
-        false
-      end
-
       def call
-        button_tag **html_options do
+        button_tag **input_options do
           tag.span "aria-hidden": true, class: helpers.class_names([
             "pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow ring-0 transition ease-in-out duration-200",
             value == true ? "translate-x-5" : "translate-x-0"
