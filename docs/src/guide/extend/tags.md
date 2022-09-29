@@ -17,8 +17,7 @@ Lookbook tags take the following form:
 
 The `<tag_body>` is a string of arbitrary free text which can be anything you want.
 
-_However_, in practice most tags expect this text to contain one or more **space-separated** positional arguments
-which can optionally be followed by a set of **YAML-encoded** tag options in the last part of the text, which looks more like this:
+_However_ in practice most tags expect this text to contain one or more **space-separated** positional arguments, optionally followed by a set of options:
 
 ```rb
 @tag_name <arg_1> <arg_2> ... <arg_x> <opts?>
@@ -27,16 +26,16 @@ which can optionally be followed by a set of **YAML-encoded** tag options in the
 The `@param` tag provides a good example of this in action:
 
 ```rb
-@param rating select [Bad, Good, Average]
+@param rating select { choices: [Bad, Good, Average] }
 ```
 
 In the above example the `@param` tag body will be parsed to extract the following information:
 
-|                  | name         | value                        | type   |
-|------------------|--------------|------------------------------|--------|
-| 1st argument     | `param_name` | `rating`                     | String |
-| 2nd argument     | `field_type` | `select`                     | String |
-| rest of tag body | `options`    | `["Bad", "Good", "Average"]` | Array  |
+|                  | name         | value                                     | type   |
+|------------------|--------------|-------------------------------------------|--------|
+| 1st argument     | `param_name` | `rating`                                  | String |
+| 2nd argument     | `field_type` | `select`                                  | String |
+| rest of tag body | `options`    | `{ choices: ["Bad", "Good", "Average"] }` | Hash   |
 
 
 {%= note :info do %}
@@ -98,9 +97,9 @@ All parsed argument values can be then accessed as properties of the tag object 
 
 An (optional!) set of options can be provided at the end of the tag body content.
 
-Options can hard-coded (formatted as a YAML hash), can be imported from a JSON/YAML file or generated dynamically. Custom tag options are handled in exactly the same way as `@param` tag options so [check out the documentation](/guide/previews/params/#param-options) for more detals on how options can be specified.
+Options can provided inline (as a YAML hash), imported from a JSON/YAML file or generated dynamically. Custom tag options are handled in exactly the same way as `@param` tag options so [check out the param options documentation](/guide/previews/params/#param-options) for more detals on how options can be specified.
 
-The example below will use the simplest option - hard-coding the options as a YAML hash.
+The example below will use the simplest option - an inline, YAML-formatted hash.
 
 {%= note :info do %}
 The `@status` example above doesn't need any changes in order to support accepting options - the parser will automatically handle them if they are found in the tag body.
