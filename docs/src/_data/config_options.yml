@@ -15,6 +15,13 @@
     _Only applicable if no logger has been set in the parent application_, otherwise Lookbook
     will use that logger and the log level value that has been set on it.
 
+- name: log_use_rails_logger
+  group: debugging
+  type: Boolean
+  default: true
+  example: config.lookbook.log_use_rails_logger = true
+  description: Whether or not Lookbook should use the Rails logger when it is present.
+
 - name: debug_menu
   group: debugging
   type: Boolean

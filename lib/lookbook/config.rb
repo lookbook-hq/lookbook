@@ -10,6 +10,7 @@ module Lookbook
       @options.set({
         project_name: "Lookbook",
         log_level: 2,
+        log_use_rails_logger: true,
         auto_refresh: true,
 
         components_path: "app/components",
