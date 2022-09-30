@@ -25,21 +25,19 @@ module Lookbook
       end
 
       def input
-        target = @config[:render_target]
+        target = @config[:partial]
 
-        begin
-          if target
-            tag.div "x-data": "paramsInputComponent({name: '#{@name}', value: #{escaped_value}})" do
-              target.is_a?(String) ? render(target, **render_props) : render(target.new(**render_props))
-            end
-          else
-            input_error "No param input defined for input type '#{@input_name}'."
+        if target
+          tag.div "x-data": "paramsInputComponent({name: '#{@name}', value: #{escaped_value}})" do
+            render(target, **render_props)
           end
-        rescue ::ActionView::MissingTemplate => exception
-          input_error "Param input '#{@config[:render_target]}' could not be found."
-        rescue => exception
-          input_error exception.message
+        else
+          input_error "No param input defined for input type '#{@input_name}'."
         end
+      rescue ::ActionView::MissingTemplate => exception
+        input_error "Param input partial '#{@config[:partial]}' could not be found."
+      rescue => exception
+        input_error exception.message
       end
 
       def input_error(error)

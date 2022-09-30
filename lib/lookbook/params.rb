@@ -7,21 +7,6 @@ module Lookbook
 
     PARAM_OPTION_KEYS = %i{name, input label hint description value_type value_default}.freeze
 
-    INPUT_HANDLERS = {
-      select: "Lookbook::Params::SelectComponent",
-      textarea: "Lookbook::Params::TextAreaComponent",
-      toggle: "Lookbook::Params::ToggleComponent",
-      text: "Lookbook::Params::TextComponent",
-      email: "Lookbook::Params::TextComponent",
-      number: "Lookbook::Params::TextComponent",
-      tel: "Lookbook::Params::TextComponent",
-      url: "Lookbook::Params::TextComponent",
-      date: "Lookbook::Params::TextComponent",
-      datetime_local: "Lookbook::Params::TextComponent",
-      color: "Lookbook::Params::ColorComponent",
-      range: "Lookbook::Params::RangeComponent",
-    }.freeze
-
     class << self
       def build_param(param, default: nil, eval_scope: nil)
         
@@ -134,15 +119,8 @@ module Lookbook
 
       def inputs
         @inputs ||= Lookbook.config.preview_param_inputs.map do |name, config|
-          target = config[:render_target]
-          if target.is_a? String
-            target = begin
-              target.constantize
-            rescue
-              target
-            end
-          end
-          [name, {**config, render_target: target}]
+          config = { partial: config } if config.is_a?(String)
+          [name, {input_options: {}}.merge(config)]
         end.to_h
       end
 

@@ -47,7 +47,20 @@
 }
 
 @layer components {
-  .form-input:not([type="range"]) {
+  [type="text"],
+  [type="email"],
+  [type="url"],
+  [type="password"],
+  [type="number"],
+  [type="date"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="search"],
+  [type="tel"],
+  [type="time"],
+  [type="week"],
+  textarea,
+  select {
     @apply text-lookbook-input-text placeholder:text-lookbook-input-text-placeholder placeholder:italic;
     @apply border-lookbook-input-border focus:ring-lookbook-input-border-focus focus:border-lookbook-input-border-focus;
     @apply rounded-md text-sm w-full bg-lookbook-input-bg block;
