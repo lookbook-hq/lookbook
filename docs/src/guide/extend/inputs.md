@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Custom Inputs for Params
+title: Custom Inputs for @params
 beta: true
 ---
 
@@ -40,7 +40,8 @@ Lookbook.define_param_input(:url, "inputs/url")
 <div style="display: flex; align-items: center;">
   <strong>https://</strong>
   <div style="padding-left: 6px">
-    <%= text_field_tag(name, value, **input_options,
+    <%= text_field_tag(name, value,
+        **input_options,
         type: "url",
         "x-model": "value"
       ) %>
@@ -105,6 +106,23 @@ This could be done in an `@click` handler or however makes sense for the input y
 See the [Alpine documentation on event handling](https://alpinejs.dev/directives/on) for details on listening and responding to events.
 {% end %}
 
+## Styling inputs
+
+If you wish to specify custom CSS rules to style the contents of the input partial, just include a `<style>` element in  the template:
+
+```erb
+<style>
+  input {
+    border: 1px solid hotpink;
+  }
+</style>
+
+<input type="text"> <!-- will have a hotpink border -->
+```
+
+{%= note :info do %}
+The `<style>` element will be removed when the input is rendered and any styles will be automagically **scoped to the input partial that they are defined in**, so they will not affect other inputs or leak out to affect the styling of the UI in general.
+{% end %}
 
 {{toc}}
 

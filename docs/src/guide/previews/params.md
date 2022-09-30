@@ -68,7 +68,12 @@ end
 
 ## Input types
 
-The following input field types are available for use:
+The available input field types are listed below.
+
+{%= note :info do %}
+If you require a type of input that is _not_ provided by Lookbook (or wish to override an existing one) then you
+can also [add your own custom inputs](/guide/extend/inputs) quickly and easily.
+{% end %}
 
 ### 📝 Text-style inputs
 
@@ -83,10 +88,6 @@ Single line fields, useful for short strings of text or numbers.
 @param <name> date
 @param <name> datetime-local
 ```
-
-{%= note :info do %}
-The above types only differ in the validation constraints they impose on the input field.
-{% end %}
 
 ### 📝 Textarea
 
