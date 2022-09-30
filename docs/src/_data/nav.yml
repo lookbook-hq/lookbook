@@ -45,10 +45,12 @@ guide:
         url: /guide/themes/customisation/
   - label: Extending
     items:
-      - label: Custom Tags
-        url: /guide/extend/tags/
       - label: Inspector Panels
         url: /guide/extend/panels/
+      - label: Param Inputs
+        url: /guide/extend/inputs/
+      - label: Custom Tags
+        url: /guide/extend/tags/
       - label: Lifecycle Hooks
         url: /guide/extend/hooks/
       - label: Global Data
