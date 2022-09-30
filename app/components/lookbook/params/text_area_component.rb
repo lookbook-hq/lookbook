@@ -6,8 +6,7 @@ module Lookbook
           rows: 4,
           **input_options,
           class: "form-input",
-          "x-model.debounce.200": "value",
-          "@keydown.stop": true
+          "x-model.debounce.200": "value"
         )
       end
     end

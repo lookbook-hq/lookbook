@@ -1,4 +1,4 @@
-<%= render_component_tag :tr do %>  
+<%= render_component_tag :tr, "@keydown.stop": true do %>  
   <td class="param-label">
     <label for="param-<%= @name %>">
       <span class="mr-0.5"><%== @label %></span>

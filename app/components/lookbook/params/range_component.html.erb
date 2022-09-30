@@ -5,8 +5,7 @@
   <div class="w-full px-2">
     <%= text_field_tag(name, value, **input_options,
       type: "range",
-      "x-model.debounce.300": "value",
-      "@keydown.stop": true
+      "x-model.debounce.300": "value"
     ) %>
   </div>
   <div class="flex-none px-2 opacity-60">

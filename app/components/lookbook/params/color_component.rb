@@ -5,8 +5,7 @@ module Lookbook
         text_field_tag(name, value,
           **input_options,
           type: "color",
-          "x-model.throttle.300": "value",
-          "@keydown.stop": true
+          "x-model.throttle.300": "value"
         )
       end
     end
