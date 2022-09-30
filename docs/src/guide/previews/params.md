@@ -123,6 +123,22 @@ On/off switch for toggling boolean values.
 @param <name> toggle
 ```
 
+### 📝 Color
+
+Color picker input. Provides a six-letter hex code in the format `#ff0000`.
+
+```ruby
+@param <name> color
+```
+
+### 📝 Range
+
+Range slider input. `min`, `max` and `step` values should be provided via the [options hash](#param-options).
+
+```ruby
+@param <name> range { min: 0, max: 10, step: 1 }
+```
+
 ## Options
 {: #param-options}
 
@@ -262,16 +278,31 @@ Most dynamic param values are passed to the example method as strings, with the 
 
 In some cases, you may want to type cast the parameter value to something else (for example a `Symbol`) before using it when initializing the component.
 
-To help with this, a `type` can be specified in the `@param` definition to automatically cast the dynamic value to a different type:
+To help with this, a `type` can be specified in the `@param` definition to automatically cast the dynamic value to a different type.
+
+The type can **either** be provided in the body of the `@param` tag, surrounded by square brackets:
 
 ```ruby
 # @param <name> [<type>] <input_type> <opts?>
 ```
 
-In the example below, the value of the `theme` param (by default a string) will be automatically cast to a Symbol, ready for use in instantiating the component.
+**or** as the value of the `value_type` key in the param options:
 
 ```ruby
-# @param theme [Symbol] select [primary, secondary, danger]
+# @param <name> <input_type> { value_type: "<type>" }
+```
+
+Both examples below are equivalent, and the value of the `theme` param (by default a string) will be automatically cast to a Symbol, ready for use in instantiating the component.
+
+```ruby
+# @param theme [Symbol] select { choices: [primary, secondary, danger] }
+def default(theme: :primary)
+  render Elements::ButtonComponent.new(theme: theme) do
+    'Click me'
+  end
+end
+
+# @param theme select { choices: [primary, secondary, danger], value_type: "Symbol" }
 def default(theme: :primary)
   render Elements::ButtonComponent.new(theme: theme) do
     'Click me'
