@@ -73,7 +73,7 @@
     "**/*": [
       "prettier --write --ignore-unknown"
     ],
-    "**/.rb": [
+    "**/*.rb": [
       "standardrb --fix"
     ]
   },
