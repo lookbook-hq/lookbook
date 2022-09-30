@@ -25,6 +25,7 @@ module Lookbook
   autoload :PreviewExample, "lookbook/preview_example"
   autoload :PreviewGroup, "lookbook/preview_group"
   autoload :SourceInspector, "lookbook/source_inspector"
+  autoload :TemplateParser, "lookbook/template_parser"
   autoload :CodeFormatter, "lookbook/code_formatter"
   autoload :Markdown, "lookbook/markdown"
   autoload :Theme, "lookbook/theme"

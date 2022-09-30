@@ -14,3 +14,8 @@
     </table>
   </div>
 <% end %>
+
+<% if param_styles %>
+  <% content_for :user_styles do %><%= param_styles %>
+  <% end %>
+<% end %>
