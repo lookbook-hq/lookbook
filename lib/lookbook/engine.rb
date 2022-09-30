@@ -28,7 +28,7 @@ module Lookbook
     end
 
     def logger
-      @logger ||= if Rails.logger.present?
+      @logger ||= if Rails.logger.present? && config.log_use_rails_logger
         Rails.logger
       else
         logger = Logger.new($stdout)
