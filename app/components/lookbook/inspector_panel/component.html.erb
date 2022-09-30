@@ -1,6 +1,7 @@
 <%= render_component_tag :div, class: "h-full" do %>
-  <% if panel_styles %>
-    <% content_for :panel_css do %><%= panel_styles %><% end %>
-  <% end %>
   <%= panel_html %>
+<% end %>
+
+<% if panel_styles %>
+  <% content_for :user_styles do %><%= panel_styles %><% end %>
 <% end %>

@@ -7,9 +7,9 @@
     @navigation:start="closeMobileSidebar"
     class="w-screen h-screen grid grid-rows-[40px_1fr] relative">
 
-    <% if content_for? :panel_css %>
-      <style media="all" id="panel-styles">
-        <%= content_for :panel_css -%>
+    <% if content_for? :user_styles %>
+      <style media="all" id="user-styles">
+        <%= content_for :user_styles -%>
       </style>
     <% end %>
 
