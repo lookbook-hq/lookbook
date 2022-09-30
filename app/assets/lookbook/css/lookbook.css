@@ -47,9 +47,70 @@
 }
 
 @layer components {
-  .form-input {
+  .form-input:not([type="range"]) {
     @apply text-lookbook-input-text placeholder:text-lookbook-input-text-placeholder placeholder:italic;
     @apply border-lookbook-input-border focus:ring-lookbook-input-border-focus focus:border-lookbook-input-border-focus;
     @apply rounded-md text-sm w-full bg-lookbook-input-bg block;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  input[type="range"]:focus {
+    outline: none;
+  }
+
+  input[type="range"]::-webkit-slider-runnable-track {
+    @apply bg-lookbook-input-toggle;
+    border-radius: 0.5rem;
+    height: 0.5rem;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    @apply bg-lookbook-input-toggle-active;
+    margin-top: -4px;
+    border-radius: 0.5rem;
+    height: 1rem;
+    width: 1rem;
+  }
+
+  input[type="range"]::-moz-range-track {
+    @apply bg-lookbook-input-toggle;
+    border-radius: 0.5rem;
+    height: 0.5rem;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    @apply bg-lookbook-input-toggle-active;
+    border: none;
+    border-radius: 0.5rem;
+    height: 1rem;
+    width: 1rem;
+  }
+
+  input[type="range"]:focus::-webkit-slider-thumb,
+  input[type="range"]:focus::-moz-range-thumb {
+    @apply outline-1 outline-lookbook-input-toggle-active outline-offset-2;
+  }
+
+  input[type="color"] {
+    -webkit-appearance: none;
+    width: 46px;
+    @apply border border-lookbook-input-border rounded-lg cursor-pointer;
+  }
+
+  input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  input[type="color"]::-webkit-color-swatch {
+    @apply border-0 rounded-lg;
   }
 }

@@ -7821,7 +7821,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $1f889267678ff167$exports = {};
+var $0b388991f7dc3f65$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11495,62 +11495,6 @@ function $99486586f6691564$export$2e2bcd8739ae039() {
 }
 
 
-var $47a1c62621be0c54$exports = {};
-
-$parcel$defineInteropFlag($47a1c62621be0c54$exports);
-
-$parcel$export($47a1c62621be0c54$exports, "default", () => $47a1c62621be0c54$export$2e2bcd8739ae039);
-var $122263eab94cad08$exports = {};
-
-$parcel$defineInteropFlag($122263eab94cad08$exports);
-
-$parcel$export($122263eab94cad08$exports, "initClipboard", () => $122263eab94cad08$export$c6684e6159b21de3);
-$parcel$export($122263eab94cad08$exports, "default", () => $122263eab94cad08$export$2e2bcd8739ae039);
-
-function $122263eab94cad08$export$c6684e6159b21de3(context = {}) {
-    let copyTimeout = null;
-    return Object.assign(context, {
-        copied: false,
-        async copyToClipboard (target = null) {
-            let targetEl;
-            if (this.$refs.copyTarget) targetEl = this.$refs.copyTarget;
-            else if (typeof target === "string") targetEl = document.querySelector(target);
-            if (!targetEl) {
-                this.warn("Could not find copy target");
-                return false;
-            }
-            const content = (0, $7ae6ae39c2ec9059$export$6cb344a21ca18aec)(targetEl.innerHTML.trim());
-            await window.navigator.clipboard.writeText(content);
-            this.copied = true;
-            if (copyTimeout) clearTimeout(copyTimeout);
-            copyTimeout = setTimeout(()=>{
-                this.copied = false;
-                this.onCopyComplete();
-            }, 1000);
-            return content;
-        },
-        onCopyComplete () {}
-    });
-}
-function $122263eab94cad08$export$2e2bcd8739ae039() {
-    return $122263eab94cad08$export$c6684e6159b21de3({});
-}
-
-
-
-function $47a1c62621be0c54$export$2e2bcd8739ae039() {
-    const button = (0, $cbd28b10fa9798c7$export$2e2bcd8739ae039)();
-    return {
-        ...button,
-        copied: false,
-        init () {
-            button.init.bind(this)();
-            (0, $122263eab94cad08$export$c6684e6159b21de3)(this);
-        }
-    };
-}
-
-
 var $e398acaded942bbe$exports = {};
 
 $parcel$defineInteropFlag($e398acaded942bbe$exports);
@@ -12474,6 +12418,62 @@ function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
 }
 
 
+var $47a1c62621be0c54$exports = {};
+
+$parcel$defineInteropFlag($47a1c62621be0c54$exports);
+
+$parcel$export($47a1c62621be0c54$exports, "default", () => $47a1c62621be0c54$export$2e2bcd8739ae039);
+var $122263eab94cad08$exports = {};
+
+$parcel$defineInteropFlag($122263eab94cad08$exports);
+
+$parcel$export($122263eab94cad08$exports, "initClipboard", () => $122263eab94cad08$export$c6684e6159b21de3);
+$parcel$export($122263eab94cad08$exports, "default", () => $122263eab94cad08$export$2e2bcd8739ae039);
+
+function $122263eab94cad08$export$c6684e6159b21de3(context = {}) {
+    let copyTimeout = null;
+    return Object.assign(context, {
+        copied: false,
+        async copyToClipboard (target = null) {
+            let targetEl;
+            if (this.$refs.copyTarget) targetEl = this.$refs.copyTarget;
+            else if (typeof target === "string") targetEl = document.querySelector(target);
+            if (!targetEl) {
+                this.warn("Could not find copy target");
+                return false;
+            }
+            const content = (0, $7ae6ae39c2ec9059$export$6cb344a21ca18aec)(targetEl.innerHTML.trim());
+            await window.navigator.clipboard.writeText(content);
+            this.copied = true;
+            if (copyTimeout) clearTimeout(copyTimeout);
+            copyTimeout = setTimeout(()=>{
+                this.copied = false;
+                this.onCopyComplete();
+            }, 1000);
+            return content;
+        },
+        onCopyComplete () {}
+    });
+}
+function $122263eab94cad08$export$2e2bcd8739ae039() {
+    return $122263eab94cad08$export$c6684e6159b21de3({});
+}
+
+
+
+function $47a1c62621be0c54$export$2e2bcd8739ae039() {
+    const button = (0, $cbd28b10fa9798c7$export$2e2bcd8739ae039)();
+    return {
+        ...button,
+        copied: false,
+        init () {
+            button.init.bind(this)();
+            (0, $122263eab94cad08$export$c6684e6159b21de3)(this);
+        }
+    };
+}
+
+
 var $36506012e0c6e9e3$exports = {};
 
 $parcel$defineInteropFlag($36506012e0c6e9e3$exports);
@@ -13326,13 +13326,13 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$1f889267678ff167$exports = {
+$0b388991f7dc3f65$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
-    "copy_button": $47a1c62621be0c54$exports,
     "dimensions_display": $e398acaded942bbe$exports,
     "embed": $e1f51f020443edd4$exports,
     "filter": $e9904a14dabf652d$exports,
+    "copy_button": $47a1c62621be0c54$exports,
     "icon": $36506012e0c6e9e3$exports,
     "nav": $d92d9d5253f84566$exports,
     "split_layout": $506dabb2bf255b38$exports,
@@ -13342,7 +13342,7 @@ $1f889267678ff167$exports = {
 };
 
 
-var $04e9d9c56925ae59$exports = {};
+var $c43230a66e7bc31a$exports = {};
 var $9b24cbeb3a465447$exports = {};
 
 $parcel$defineInteropFlag($9b24cbeb3a465447$exports);
@@ -13399,20 +13399,6 @@ function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id , matchers: matchers 
 }
 
 
-var $e773f8ef556b41ff$exports = {};
-
-$parcel$defineInteropFlag($e773f8ef556b41ff$exports);
-
-$parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
-function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
-    return {
-        get isNarrowLayout () {
-            return this.narrow || false;
-        }
-    };
-}
-
-
 var $1a7a7298eec5b755$exports = {};
 
 $parcel$defineInteropFlag($1a7a7298eec5b755$exports);
@@ -13431,13 +13417,27 @@ function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
 }
 
 
-$04e9d9c56925ae59$exports = {
+var $e773f8ef556b41ff$exports = {};
+
+$parcel$defineInteropFlag($e773f8ef556b41ff$exports);
+
+$parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
+function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
+    return {
+        get isNarrowLayout () {
+            return this.narrow || false;
+        }
+    };
+}
+
+
+$c43230a66e7bc31a$exports = {
     "nav": {
         "item": $9b24cbeb3a465447$exports
     },
     "params": {
-        "field": $e773f8ef556b41ff$exports,
-        "editor": $1a7a7298eec5b755$exports
+        "editor": $1a7a7298eec5b755$exports,
+        "field": $e773f8ef556b41ff$exports
     }
 };
 
@@ -13466,12 +13466,6 @@ function $7f7fff78376549af$export$2e2bcd8739ae039({ name: name , value: value  }
         },
         validate () {
             return this.$root.reportValidity ? this.$root.reportValidity() : true;
-        },
-        bindings: {
-            input: {
-                ["x-model.debounce.200"]: "value",
-                ["@keydown.stop"]: true
-            }
         }
     };
 }
@@ -13511,8 +13505,8 @@ const $d73574cc5e9b9e72$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $d709d0f4027033b2$export$2e2bcd8739ae039));
 [
-    $1f889267678ff167$exports,
-    $04e9d9c56925ae59$exports,
+    $0b388991f7dc3f65$exports,
+    $c43230a66e7bc31a$exports,
     $6c10158820e535ef$exports
 ].forEach((scripts)=>{
     const components = (0, $5439cede634b2921$export$4e811121b221213b)(scripts);

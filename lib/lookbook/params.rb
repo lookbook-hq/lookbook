@@ -17,7 +17,9 @@ module Lookbook
       tel: "Lookbook::Params::TextComponent",
       url: "Lookbook::Params::TextComponent",
       date: "Lookbook::Params::TextComponent",
-      'datetime-local': "Lookbook::Params::TextComponent",
+      datetime_local: "Lookbook::Params::TextComponent",
+      color: "Lookbook::Params::ColorComponent",
+      range: "Lookbook::Params::RangeComponent",
     }.freeze
 
     class << self
@@ -54,7 +56,7 @@ module Lookbook
         }
       end
 
-      # Parses param tag strings with the format: `[<value_type>] <input> <opts?>`
+      # Parses param tag strings with the format: `[<value_type>] <input> <description?> <opts?>`
       def parse_param_tag_text(text)
         text = (text.presence || "").strip
 

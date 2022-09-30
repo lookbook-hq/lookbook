@@ -4,7 +4,8 @@ module Lookbook
       renders_many :fields, ->(input:, description: nil, **attrs) do
         @field_count = @field_count + 1
         @descriptions = true if description.present?
-        Lookbook::Params::Field::Component.new(input: input, description: description, index: @field_count, config: @inputs[input.to_sym], **attrs)
+        input_config = @inputs[input.gsub("-", "_").to_sym]
+        Lookbook::Params::Field::Component.new(input: input, description: description, index: @field_count, config: input_config, **attrs)
       end
 
       def initialize(inputs: {}, **html_attrs)

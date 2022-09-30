@@ -166,7 +166,7 @@ module Lookbook
 
       def init_preview_param_inputs
         Lookbook::Params::INPUT_HANDLERS.each do |input_name, target|
-          unless Lookbook.config.preview_param_inputs.key?(input_name.to_sym)
+          unless Lookbook.config.preview_param_inputs.key?(input_name)
             Lookbook.define_param_input(input_name, target, {})
           end
         end
