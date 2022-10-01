@@ -47,8 +47,7 @@ module Lookbook
       return @opts if @options[:parse_options] == false
       tag_opts = Lookbook::TagOptions.new(opts_str,
         eval_scope: @eval_scope,
-        base_dir: File.dirname(@file)
-      )
+        base_dir: File.dirname(@file))
       options = tag_opts.resolve || {}
       @opts = if options.is_a?(Hash)
         options.with_indifferent_access

@@ -41,7 +41,7 @@ RSpec.describe Lookbook::TagOptions do
     end
   end
 
-  context ".evaluate" do    
+  context ".evaluate" do
     context "with valid statement and scope" do
       let(:tag_opts) { described_class.new("{{ SELECT_OPTS }}", eval_scope: SelectOptsContext.new) }
 

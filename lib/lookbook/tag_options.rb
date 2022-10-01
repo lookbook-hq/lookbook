@@ -15,14 +15,13 @@ module Lookbook
     end
 
     def options
-      opts = resolve
       resolve.is_a?(Hash) ? resolve.symbolize_keys : resolve
     end
 
     def resolve
       @resolved_options ||= begin
         if @options_str.present?
-          if @options_str.end_with?(".json") || @options_str.end_with?(".yml")
+          if @options_str.end_with?(".json", ".yml")
             file_path = resolve_file_path
             if file_path
               options_file_content = File.read(file_path)
@@ -40,11 +39,11 @@ module Lookbook
             YAML.safe_load(@options_str || "{}")
           end
         else
-          Hash.new
+          {}
         end
       rescue => exception
         Lookbook.logger.warn Lookbook::Error.new(exception)
-        Hash.new
+        {}
       end
     end
 
@@ -82,7 +81,7 @@ module Lookbook
           break
         end
       end
-      
+
       [str, opts_str]
     end
 

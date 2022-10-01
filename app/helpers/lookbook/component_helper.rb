@@ -20,9 +20,9 @@ module Lookbook
         ref
       else
         klass = component_class(ref)
-        comp = attrs.key?(:content) ? klass.new(**attrs.except(:content)).with_content(attrs[:content]) : klass.new(**attrs)
+        attrs.key?(:content) ? klass.new(**attrs.except(:content)).with_content(attrs[:content]) : klass.new(**attrs)
       end
-      if block_given? && !attrs.key?(:content)
+      if block && !attrs.key?(:content)
         public_send render_method_name, comp, &block
       else
         public_send render_method_name, comp

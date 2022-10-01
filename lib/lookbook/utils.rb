@@ -20,7 +20,7 @@ module Lookbook
 
     def self.with_optional_action_view_annotations
       if ActionView::Base.respond_to?(:annotate_rendered_view_with_filenames) && Lookbook.config.preview_disable_action_view_annotations
-        self.without_action_view_annotations do
+        without_action_view_annotations do
           yield
         end
       else

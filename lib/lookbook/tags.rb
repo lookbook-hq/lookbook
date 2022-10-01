@@ -19,8 +19,7 @@ module Lookbook
           opts[:args],
           **opts.except(:args),
           file: file,
-          eval_scope: eval_scope
-        )
+          eval_scope: eval_scope)
       end.compact
     end
   end

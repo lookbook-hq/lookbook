@@ -79,8 +79,7 @@ module Lookbook
       @params[:param] ||= code_object&.tags("param")&.map do |param|
         Lookbook::Params.build_param(param,
           default: parameter_defaults[param.name],
-          eval_scope: @eval_scope
-        )
+          eval_scope: @eval_scope)
       end
     end
 
@@ -92,8 +91,7 @@ module Lookbook
       tag_objects = code_object&.tags(name).presence || []
       Lookbook::Tags.process_tags(tag_objects,
         eval_scope: @eval_scope,
-        file: (code_object.files.first[0] if code_object.files.any?)
-      )
+        file: (code_object.files.first[0] if code_object.files.any?))
     end
 
     def tag(name = nil)

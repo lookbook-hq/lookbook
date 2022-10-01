@@ -4,8 +4,6 @@ require "lookbook/store"
 
 module Lookbook
   class Config
-
-
     def initialize
       @options = Store.new({}, true)
 
@@ -40,7 +38,7 @@ module Lookbook
           tel: "lookbook/previews/inputs/text",
           url: "lookbook/previews/inputs/text",
           date: "lookbook/previews/inputs/text",
-          datetime_local: "lookbook/previews/inputs/text",
+          datetime_local: "lookbook/previews/inputs/text"
         },
         preview_params_options_eval: false,
         sort_examples: false,
@@ -76,7 +74,7 @@ module Lookbook
             hotkey: "v",
             panel_classes: "overflow-hidden",
             padded: false,
-            system: true 
+            system: true
           },
           output: {
             pane: :main,
@@ -117,7 +115,7 @@ module Lookbook
             padded: false,
             system: true
           }
-        },
+        }
       })
     end
 
