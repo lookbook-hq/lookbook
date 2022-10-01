@@ -13,6 +13,7 @@ PATH
       rouge (>= 3.26, < 5.0)
       view_component (~> 2.0)
       yard (~> 0.9.25)
+      zeitwerk (~> 2.5)
 
 GEM
   remote: https://rubygems.org/
