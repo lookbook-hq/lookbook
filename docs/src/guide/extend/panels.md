@@ -17,15 +17,18 @@ It is possible to add custom tab panels into the drawer area, as well as to hide
 You can add a custom inspector panel using the `Lookbook.define_panel` method when you configure your Lookbook installation:
 
 ```ruby
-Lookbook.define_panel(<name>, <opts>)
+Lookbook.define_panel(<name>, <partial_path>, <opts?>)
 ```
 
 {%= options_list do |list| %}
   {% list.option name: "<name>", type: "Symbol | String" do %}
     A unique name for the panel
   {% end %}
-  {% list.option name: "<opts>", type: "Hash" do %}
-    A `Hash` of panel options ([see below](#panel-options) for details)
+  {% list.option name: "<partial_path>", type: "String" do %}
+    Path to the partial template used to render the panel
+  {% end %}
+  {% list.option name: "<opts?>", type: "Hash" do %}
+    Optional `Hash` of panel options ([see below](#panel-options) for details)
   {% end %}
 {% end %}
 
@@ -33,14 +36,13 @@ For example, a very simple 'info' panel could be created as follows:
 
 ```ruby
 # config/application.rb
-Lookbook.define_panel(:info, {
-  label: "Extra Info",
-  partial: "panels/info"
+Lookbook.define_panel(:info, "panels/info", {
+  label: "Extra Info"
 })
 ```
 
 ```erb
-<!-- views/panels/_info.html.erb -->
+<!-- app/views/panels/_info.html.erb -->
 <div class="lookbook-panel">
   <h2>Some information</h2>
   <ul>
@@ -62,10 +64,9 @@ There are a number of available options when defining a panel.
 {{ render "options_list", options: site.data.panels[:options] }}
 
 ```ruby
-Lookbook.define_panel(:info, {
+Lookbook.define_panel(:info, "path/to/view_partial", {
   label: "New Panel",
   position: 1,
-  partial: "path/to/view_partial",
   hotkey: "ctrl.n",
   disabled: false,
   show: true,

@@ -1,9 +1,6 @@
 options: &panel-opts
   - name: label
     description: The text to be displayed in the tab for the panel
-  - name: partial
-    type: String
-    description: The path to the view template partial used to render the panel
   - name: hotkey
     type: String
     description: "[keyboard shortcut](https://alpinejs.dev/directives/on#keyboard-events) to make panel become the active tab"
