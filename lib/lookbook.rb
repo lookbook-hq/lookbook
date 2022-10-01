@@ -1,4 +1,5 @@
 require "zeitwerk"
+require "ostruct"
 require "lookbook/version"
 
 loader = Zeitwerk::Loader.for_gem
@@ -8,7 +9,6 @@ loader.setup
 
 module Lookbook
   class << self
-    include Lookbook::Data
     include Lookbook::Hooks
     include Lookbook::Panels
     include Lookbook::Tags
@@ -23,6 +23,15 @@ module Lookbook
 
     def configure
       yield(config)
+    end
+
+    def data
+      @data ||= ActiveSupport::OrderedOptions.new
+    end
+
+    def data=(new_data)
+      @data.clear
+      @data.merge! new_data
     end
 
     def logger
