@@ -1,118 +1,118 @@
 module Lookbook
   class Config
-    def initialize
-      @options = Store.new({}, true)
+    DEFAULTS = {
+      project_name: "Lookbook",
+      log_level: 2,
+      log_use_rails_logger: true,
+      auto_refresh: true,
 
-      @options.set({
-        project_name: "Lookbook",
-        log_level: 2,
-        log_use_rails_logger: true,
-        auto_refresh: true,
+      components_path: "app/components",
 
-        components_path: "app/components",
+      page_controller: "Lookbook::PageController",
+      page_route: "pages",
+      page_paths: ["test/components/docs"],
+      page_options: {},
+      markdown_options: Markdown::DEFAULT_OPTIONS,
 
-        page_controller: "Lookbook::PageController",
-        page_route: "pages",
-        page_paths: ["test/components/docs"],
-        page_options: {},
-        markdown_options: Markdown::DEFAULT_OPTIONS,
+      preview_paths: [],
+      preview_display_params: {},
+      preview_srcdoc: nil,
+      preview_tags: {},
+      preview_disable_action_view_annotations: true,
+      preview_param_inputs: {
+        select: "lookbook/previews/inputs/select",
+        textarea: "lookbook/previews/inputs/textarea",
+        toggle: "lookbook/previews/inputs/toggle",
+        color: "lookbook/previews/inputs/color",
+        range: "lookbook/previews/inputs/range",
+        text: "lookbook/previews/inputs/text",
+        email: "lookbook/previews/inputs/text",
+        number: "lookbook/previews/inputs/text",
+        tel: "lookbook/previews/inputs/text",
+        url: "lookbook/previews/inputs/text",
+        date: "lookbook/previews/inputs/text",
+        datetime_local: "lookbook/previews/inputs/text"
+      },
+      preview_params_options_eval: false,
+      sort_examples: false,
 
-        preview_paths: [],
-        preview_display_params: {},
-        preview_srcdoc: nil,
-        preview_tags: {},
-        preview_disable_action_view_annotations: true,
-        preview_param_inputs: {
-          select: "lookbook/previews/inputs/select",
-          textarea: "lookbook/previews/inputs/textarea",
-          toggle: "lookbook/previews/inputs/toggle",
-          color: "lookbook/previews/inputs/color",
-          range: "lookbook/previews/inputs/range",
-          text: "lookbook/previews/inputs/text",
-          email: "lookbook/previews/inputs/text",
-          number: "lookbook/previews/inputs/text",
-          tel: "lookbook/previews/inputs/text",
-          url: "lookbook/previews/inputs/text",
-          date: "lookbook/previews/inputs/text",
-          datetime_local: "lookbook/previews/inputs/text"
+      listen: Rails.env.development?,
+      listen_paths: [],
+      listen_extensions: ["rb", "html.*"],
+      listen_use_polling: false,
+
+      cable_mount_path: "/cable",
+
+      parser_registry_path: "tmp/storage/.yardoc",
+
+      ui_theme: "indigo",
+      ui_theme_overrides: {},
+      ui_favicon: true,
+
+      hooks: {
+        after_initialize: [],
+        before_exit: [],
+        after_change: []
+      },
+
+      debug_menu: Rails.env.development?,
+
+      experimental_features: false,
+
+      inspector_panels: {
+        preview: {
+          pane: :main,
+          position: 1,
+          partial: "lookbook/previews/panels/preview",
+          hotkey: "v",
+          panel_classes: "overflow-hidden",
+          padded: false,
+          system: true
         },
-        preview_params_options_eval: false,
-        sort_examples: false,
-
-        listen: Rails.env.development?,
-        listen_paths: [],
-        listen_extensions: ["rb", "html.*"],
-        listen_use_polling: false,
-
-        cable_mount_path: "/cable",
-
-        parser_registry_path: "tmp/storage/.yardoc",
-
-        ui_theme: "indigo",
-        ui_theme_overrides: {},
-        ui_favicon: true,
-
-        hooks: {
-          after_initialize: [],
-          before_exit: [],
-          after_change: []
+        output: {
+          pane: :main,
+          position: 2,
+          partial: "lookbook/previews/panels/output",
+          label: "HTML",
+          hotkey: "h",
+          padded: false,
+          system: true
         },
-
-        debug_menu: Rails.env.development?,
-
-        experimental_features: false,
-
-        inspector_panels: {
-          preview: {
-            pane: :main,
-            position: 1,
-            partial: "lookbook/previews/panels/preview",
-            hotkey: "v",
-            panel_classes: "overflow-hidden",
-            padded: false,
-            system: true
-          },
-          output: {
-            pane: :main,
-            position: 2,
-            partial: "lookbook/previews/panels/output",
-            label: "HTML",
-            hotkey: "h",
-            padded: false,
-            system: true
-          },
-          source: {
-            pane: :drawer,
-            position: 1,
-            partial: "lookbook/previews/panels/source",
-            label: "Source",
-            hotkey: "s",
-            copy: ->(data) { data.examples.map { |e| e.source }.join("\n") },
-            padded: false,
-            system: true
-          },
-          notes: {
-            pane: :drawer,
-            position: 2,
-            partial: "lookbook/previews/panels/notes",
-            label: "Notes",
-            hotkey: "n",
-            disabled: ->(data) { data.examples.select { |e| e.notes.present? }.none? },
-            padded: false,
-            system: true
-          },
-          params: {
-            pane: :drawer,
-            position: 3,
-            partial: "lookbook/previews/panels/params",
-            label: "Params",
-            hotkey: "p",
-            disabled: ->(data) { data.preview.params.none? },
-            padded: false,
-            system: true
-          }
+        source: {
+          pane: :drawer,
+          position: 1,
+          partial: "lookbook/previews/panels/source",
+          label: "Source",
+          hotkey: "s",
+          copy: ->(data) { data.examples.map { |e| e.source }.join("\n") },
+          padded: false,
+          system: true
+        },
+        notes: {
+          pane: :drawer,
+          position: 2,
+          partial: "lookbook/previews/panels/notes",
+          label: "Notes",
+          hotkey: "n",
+          disabled: ->(data) { data.examples.select { |e| e.notes.present? }.none? },
+          padded: false,
+          system: true
+        },
+        params: {
+          pane: :drawer,
+          position: 3,
+          partial: "lookbook/previews/panels/params",
+          label: "Params",
+          hotkey: "p",
+          disabled: ->(data) { data.preview.params.none? },
+          padded: false,
+          system: true
         }
-      })
+      }
+    }
+
+    def initialize
+      @options = Store.new(Config::DEFAULTS, recursive: true)
     end
 
     def runtime_parsing=(value)

@@ -31,8 +31,8 @@ RSpec.describe Lookbook::Config do
     it "supports setting theme vars as a hash" do
       config.ui_theme_overrides = {
         divider: "red",
-        "toolbar-divider": "blue",
-        input_BORDER: "green"
+        toolbar_divider: "blue",
+        input_border: "green"
       }
 
       expect(config.ui_theme_overrides.divider).to eq "red"

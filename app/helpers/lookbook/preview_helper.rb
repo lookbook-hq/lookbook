@@ -5,7 +5,7 @@ module Lookbook
     end
 
     def lookbook_data(key, fallback = nil)
-      Lookbook.data.get(key, fallback)
+      Lookbook.data.fetch(key, fallback)
     end
   end
 end
