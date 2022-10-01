@@ -1,6 +1,6 @@
 methods:
   - name: .define_tag
-    signature: Lookbook.define_tag(<name>, <opts?>)
+    signature: Lookbook.define_tag(<name>, <arg_names?>)
     args:
       - name: <name>
         type: Symbol

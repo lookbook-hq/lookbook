@@ -24,18 +24,20 @@ options: &panel-opts
 
 methods:
   - name: .define_panel
-    signature: Lookbook.define_panel(<name>, <opts?>)
+    signature: Lookbook.define_panel(<name>, <partial_path>, <opts?>)
     args:
       - name: <name>
-        type: Symbol
+        type: Symbol | String
         description: A unique, 'slug-friendly' name for the panel
+      - name: <name>
+        type: String
+        description: Path to the partial template used to render the panel
       - name: <opts?>
         type: Hash
         description: Hash of [panel options](#panel-options)
     example: |
-      Lookbook.define_panel(:info, {
-        label: "Extra Info",
-        partial: "panels/info"
+      Lookbook.define_panel(:info, "panels/info", {
+        label: "Extra Info"
       })
     purpose: Add a custom [inspector panel](/guide/extend/panels/) to the Lookbook instance.
 
@@ -43,7 +45,7 @@ methods:
     signature: Lookbook.remove_panel(<name>)
     args:
       - name: <name>
-        type: Symbol
+        type: Symbol | String
         description: The name of the panel to remove
     example: |
       Lookbook.remove_panel(:info)
@@ -53,7 +55,7 @@ methods:
     signature: Lookbook.amend_panel(<name>, <opts?>)
     args:
       - name: <name>
-        type: Symbol
+        type: Symbol | String
         description: The name of the panel to remove
       - name: <opts?>
         type: Hash
