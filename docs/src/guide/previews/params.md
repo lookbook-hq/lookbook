@@ -147,18 +147,23 @@ Range slider input. `min`, `max` and `step` values should be provided via the [o
 
 See the [options reference section](#options-reference) for details of available options. Any 'unknown' options will be used to generate HTML attributes for the relevant input element.
 
-Options can be [provided inline](#inline-options) (in YAML hash format), [dynamically generated](#dynamic-options) via a preview class instance method or [loaded from a file](#file-options).
+Options can be [provided inline](#inline-options) (in YAML hash format), [dynamically generated](#dynamic-options) via a preview class instance method or evaluated Ruby statement, or [loaded from a file](#file-options).
 
+{% raw %}
 ```ruby
 # Inline:
 # @param theme select { choices: [primary, secondary, danger] }
 
-# Dynamic:
+# Dynamic - method reference:
 # @param theme select :name_of_method_that_returns_options
+
+# Dynamic - evaluated Ruby statement:
+# @param theme select {{ FooComponent::OPTIONS }}
 
 # File:
 # @param theme select ./path/to/options.yml
 ```
+{% endraw %}
 
 Note that the options hash, method or file reference should always be placed at the very end of the `@param` tag annotation.
 
@@ -175,7 +180,21 @@ This is straightforward and useful for simple cases, but if you have a long list
 ### Dynamic options <small>(since v1.1)</small>
 {: #dynamic-options}
 
-To clean up `@param` tags you can use a private method (in your preview class) that returns a hash of param options, and reference it via it's symbolized name:
+For more flexibility it is possible to generate the options hash dynamically from Ruby code.
+
+{%= note :info do %}
+Dynamic options depend on **runtime code evaluation** and require enabling in your config before they can be used:
+
+```rb
+config.lookbook.preview_params_options_eval = true
+```
+
+Use of `eval` to evaluate arbitrary strings can be a security concern. However Lookbook never `eval`'s _any_ user-inputed content - only comments that have been added to the preview file source code itself.
+{% end %}
+
+#### Using a method
+
+You can use a private method (in your preview class) that returns a hash of param options, and reference it via it's symbolized name:
 
 ```ruby
 # @param theme select :method_that_returns_options
@@ -203,15 +222,18 @@ end
 ```
 {% endraw %}
 
-Dynamic options depend on **runtime code evaluation** and require enabling in your config before they can be used:
+#### Using a Ruby statement
 
-```rb
-config.lookbook.preview_params_options_eval = true
+For maximum flexibility it is also possible to evaluate arbitrary Ruby statements to generate the options.
+
+The statement must be placed within double curly brackets and will be evaluated in the context of the current preview class, as with the method reference technique above.
+
+{% raw %}
+```ruby
+# @param theme select {{ ButtonComponent::THEMES }}
 ```
+{% endraw %}
 
-{%= note :info do %}
-Use of `eval` to evaluate arbitrary strings can be a security concern. However Lookbook never `eval`'s _any_ user-inputed content - only comments added to the source code itself.
-{% end %}
 
 ### File options
 
