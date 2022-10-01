@@ -7,9 +7,11 @@ RSpec.describe "Params editor", type: :system do
 
       visit lookbook_inspect_path("standard/example_with_params")
 
-      click_on "Params"
-      fill_in "param-title", with: content
-      click_on "HTML"
+      within("#app-main") do
+        click_on "Params"
+        fill_in "param-title", with: content
+        click_on "HTML"
+      end
 
       within("#inspector-panel-output") do
         expect(page).to have_text(content)
@@ -21,9 +23,11 @@ RSpec.describe "Params editor", type: :system do
 
       visit lookbook_inspect_path("standard/example_with_params")
 
-      click_on "Params"
-      fill_in "param-title", with: content
-      click_on "HTML"
+      within("#app-main") do
+        click_on "Params"
+        fill_in "param-title", with: content
+        click_on "HTML"
+      end
 
       within("#inspector-panel-output") do
         expect(page).to have_text(content)

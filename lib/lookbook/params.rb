@@ -2,38 +2,66 @@ require "active_model"
 
 module Lookbook
   module Params
-    TYPE_MATCH_REGEXP = /^(\[\s?([A-Z]{1}\w+)\s?\])/
+    VALUE_TYPE_MATCH_REGEXP = /^(\[\s?([A-Z]{1}\w+)\s?\])/
+    DESCRIPTION_MATCH_REGEXP = /"(.*[^\\])"$/
+
+    PARAM_OPTION_KEYS = %i[name input label hint description value_type value_default].freeze
 
     class << self
       def build_param(param, default: nil, eval_scope: nil)
-        text = (param.text.presence || "").strip
-
-        type = nil
-        type_match = text.match(TYPE_MATCH_REGEXP)
-        unless type_match.nil?
-          type = type_match[2]
-          text.gsub!(TYPE_MATCH_REGEXP, "").strip!
-        end
-
-        text, options_str = Lookbook::TagOptions.extract_options(text)
-        input, rest = text.split(" ", 2)
+        input, value_type, options_str, description = parse_param_tag_text(param.text)
 
         tag_options = Lookbook::TagOptions.new(options_str,
           base_dir: (File.dirname(param.object.files.first[0]) if param.object.files.any?),
-          eval_scope: eval_scope)
+          eval_scope: eval_scope).options
 
-        type ||= tag_options.option(:type)
-        input ||= guess_input(type, default)
-        type ||= guess_type(input, default)
+        if tag_options.is_a? Array
+          # handle special case legacy situation for selects where
+          # options are an array of choices rather than a Hash
+          tag_options = {choices: tag_options}
+        end
+
+        param_options = tag_options.select { |key| PARAM_OPTION_KEYS.include? key }
+        input_options = tag_options.except(*PARAM_OPTION_KEYS)
+
+        value_type ||= param_options[:value_type]
+        input ||= param_options[:input] || guess_input(value_type, default)
+        name = param.name.to_s
 
         {
-          name: param.name,
-          input: input_text?(input) ? "text" : input,
-          input_type: (input if input_text?(input)),
-          options: tag_options.options,
-          type: type,
-          default: default
+          name: name,
+          label: param_options[:label] || name.titleize,
+          hint: param_options[:hint],
+          description: description || param_options[:description],
+          input: input.to_s.tr("_", "-"),
+          input_options: input_options,
+          value: nil,
+          value_type: value_type || guess_value_type(input, default),
+          value_default: default
         }
+      end
+
+      # Parses param tag strings with the format: `[<value_type>] <input> <description?> <opts?>`
+      def parse_param_tag_text(text)
+        text = (text.presence || "").strip
+
+        value_type = nil
+        text.match(VALUE_TYPE_MATCH_REGEXP) do |m|
+          value_type = m[2]
+          text.gsub!(VALUE_TYPE_MATCH_REGEXP, "").strip!
+        end
+
+        text, options_str = Lookbook::TagOptions.extract_options(text)
+
+        description = nil
+        text.match(DESCRIPTION_MATCH_REGEXP) do |m|
+          description = m[1]
+          text.gsub!(DESCRIPTION_MATCH_REGEXP, "").strip!
+        end
+
+        input, rest = text.split(" ", 2)
+
+        [input, value_type, options_str, description, rest]
       end
 
       def parse_method_param_str(param_str)
@@ -89,17 +117,24 @@ module Lookbook
         end
       end
 
+      def inputs
+        @inputs ||= Lookbook.config.preview_param_inputs.map do |name, config|
+          config = {partial: config} if config.is_a?(String)
+          [name, {input_options: {}}.merge(config)]
+        end.to_h
+      end
+
       private
 
-      def guess_input(type, default)
-        if type&.downcase == "boolean" || (type.blank? && boolean?(default))
+      def guess_input(value_type, default)
+        if value_type&.downcase == "boolean" || (value_type.blank? && boolean?(default))
           "toggle"
         else
           "text"
         end
       end
 
-      def guess_type(input, default)
+      def guess_value_type(input, default)
         if input&.downcase == "toggle"
           "Boolean"
         elsif input&.downcase == "number"
@@ -113,18 +148,6 @@ module Lookbook
         else
           "String"
         end
-      end
-
-      def input_text?(input)
-        [
-          "date",
-          "datetime-local",
-          "email",
-          "number",
-          "tel",
-          "text",
-          "url"
-        ].include? input.to_s
       end
 
       def safe_parse_yaml(value, fallback)

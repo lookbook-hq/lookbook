@@ -1,4 +1,4 @@
-export default function paramsEditorFieldComponent({ name, value }) {
+export default function paramsInputComponent({ name, value }) {
   return {
     name,
     value,
@@ -18,19 +18,6 @@ export default function paramsEditorFieldComponent({ name, value }) {
 
     validate() {
       return this.$root.reportValidity ? this.$root.reportValidity() : true;
-    },
-
-    get isNarrowLayout() {
-      return this.narrow || false;
-    },
-
-    bindings: {
-      input: {
-        [":id"]: "`param-${name}`",
-        ["x-ref"]: "input",
-        ["x-model.debounce.200"]: "value",
-        ["@keydown.stop"]: true,
-      },
     },
   };
 }

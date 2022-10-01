@@ -21,7 +21,7 @@ Lookbook.define_panel(<name>, <opts>)
 ```
 
 {%= options_list do |list| %}
-  {% list.option name: "<name>", type: "String" do %}
+  {% list.option name: "<name>", type: "Symbol | String" do %}
     A unique name for the panel
   {% end %}
   {% list.option name: "<opts>", type: "Hash" do %}
@@ -155,6 +155,19 @@ If you wish to specify custom CSS rules to style the contents of the panel, just
 The `<style>` element will be removed when the panel is rendered and any styles will be automagically **scoped to the panel that they are defined in**, so they will not affect other panels or leak out to affect the styling of the UI in general.
 {% end %}
 
+### Utility classes
+
+There are a number of utility classes available for use in panels to make it easier to match the look and feel of the rest of the Lookbook UI.
+
+{%= options_list do |list| %}
+  {% list.option name: ".lookbook-panel" do %}
+    Apply to the panel's root element
+  {% end %}
+  {% list.option name: ".prose" do %}
+    Apply to text content containers. Adds default prose styles to child elements.
+  {% end %}
+{% end %}
+
 ## Adding JavaScript
 
 Lookbook uses [Alpine JS](https://alpinejs.dev/) for its UI, and it is available for use in panel templates too. It's a great way to add interactivity without ever having to touch a script tag.
@@ -175,19 +188,6 @@ Check out the [Alpine JS documentation](https://alpinejs.dev/) for more informat
 {%= note :info do %}
 Because of the way that new content is loaded in to the UI when navigation occurs, adding arbitrary JavaScript in a `script` tag within
 the panel template may not always work as expected, so it is recommended to use Alpine for adding interactivity where required.
-{% end %}
-
-### Utility classes
-
-There are a number of utility classes available for use in panels to make it easier to match the look and feel of the rest of the Lookbook UI.
-
-{%= options_list do |list| %}
-  {% list.option name: ".lookbook-panel" do %}
-    Apply to the panel's root element
-  {% end %}
-  {% list.option name: ".prose" do %}
-    Apply to text content containers. Adds default prose styles to child elements.
-  {% end %}
 {% end %}
 
 ## Editing system panels

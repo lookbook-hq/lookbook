@@ -15,6 +15,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "css_parser"
   spec.add_dependency "actioncable"
+  spec.add_dependency "activemodel"
   spec.add_dependency "railties", ">= 5.0"
   spec.add_dependency "view_component", "~> 2.0"
   spec.add_dependency "redcarpet", "~> 3.5"

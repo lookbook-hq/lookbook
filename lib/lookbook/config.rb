@@ -4,6 +4,8 @@ require "lookbook/store"
 
 module Lookbook
   class Config
+
+
     def initialize
       @options = Store.new({}, true)
 
@@ -26,6 +28,20 @@ module Lookbook
         preview_srcdoc: nil,
         preview_tags: {},
         preview_disable_action_view_annotations: true,
+        preview_param_inputs: {
+          select: "lookbook/previews/inputs/select",
+          textarea: "lookbook/previews/inputs/textarea",
+          toggle: "lookbook/previews/inputs/toggle",
+          color: "lookbook/previews/inputs/color",
+          range: "lookbook/previews/inputs/range",
+          text: "lookbook/previews/inputs/text",
+          email: "lookbook/previews/inputs/text",
+          number: "lookbook/previews/inputs/text",
+          tel: "lookbook/previews/inputs/text",
+          url: "lookbook/previews/inputs/text",
+          date: "lookbook/previews/inputs/text",
+          datetime_local: "lookbook/previews/inputs/text",
+        },
         preview_params_options_eval: false,
         sort_examples: false,
 
@@ -101,7 +117,7 @@ module Lookbook
             padded: false,
             system: true
           }
-        }
+        },
       })
     end
 

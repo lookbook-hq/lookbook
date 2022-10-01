@@ -60,6 +60,13 @@ module Lookbook
     def theme
       @theme ||= Lookbook::Theme.new(config.ui_theme, config.ui_theme_overrides)
     end
+
+    def define_param_input(input, partial, input_options = nil)
+      config.preview_param_inputs[input.to_sym] = {
+        partial: partial,
+        input_options: input_options || {}
+      }
+    end
   end
 
   class Engine < Rails::Engine

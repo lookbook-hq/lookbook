@@ -97,7 +97,7 @@ module Lookbook
         # cast known params to type
         @target.params.each do |param|
           if preview_controller.params.key?(param[:name])
-            preview_controller.params[param[:name]] = Lookbook::Params.cast(preview_controller.params[param[:name]], param[:type])
+            preview_controller.params[param[:name]] = Lookbook::Params.cast(preview_controller.params[param[:name]], param[:value_type])
           end
         end
         # set display and data params

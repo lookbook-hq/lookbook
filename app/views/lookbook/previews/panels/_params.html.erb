@@ -5,8 +5,8 @@
     <% end %>
   </div>
 <% else %>
-  <div class="py-3 h-full">
-    <%= lookbook_render :params_editor do |editor| %>
+  <div class="h-full overflow-x-hidden">
+    <%= lookbook_render "params/editor", inputs: Lookbook::Params.inputs do |editor| %>
       <% preview.params.each do |param| %>
         <% editor.field **param, value: params[param[:name]] %>
       <% end %>

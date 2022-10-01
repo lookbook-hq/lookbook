@@ -19,7 +19,7 @@ import app from "./app";
 // Note: A ParcelJS issue prevents loading all depths of component JS files in one glob,
 // so need to split it up. Path aliases also do not work with the glob imports.
 import { getComponents } from "./helpers/build";
-import * as components from "../../../components/lookbook/*/component.js";
+import * as components from "../../../components/lookbook/*/*component.js";
 import * as subComponents from "../../../components/lookbook/*/*/component.js";
 import * as jsComponents from "./components/*.js";
 
@@ -50,6 +50,7 @@ Alpine.data("app", app);
 [components, subComponents, jsComponents].forEach((scripts) => {
   const components = getComponents(scripts);
   Object.keys(components).forEach((name) => {
+    console.log(name);
     Alpine.data(`${name}Component`, components[name]);
   });
 });

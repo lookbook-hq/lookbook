@@ -5,7 +5,7 @@ export default function paramsEditorComponent() {
     narrow: false,
     init() {
       observeSize(this.$el, ({ width }) => {
-        this.narrow = width < 450;
+        this.narrow = width < 500;
       });
     },
   };

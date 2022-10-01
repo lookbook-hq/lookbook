@@ -1,26 +1,27 @@
-- activity
-- airplay
-- alert-circle
-- alert-octagon
-- alert-triangle
-- align-center
-- align-justify
-- align-left
-- align-right
-- anchor
-- aperture
-- archive
-- arrow-down-circle
-- arrow-down-left
-- arrow-down-right
-- arrow-down
-- arrow-left-circle
-- arrow-left
-- arrow-right-circle
-- arrow-right
-- arrow-up-circle
-- arrow-up-left
-- arrow-up-right
-- arrow-up
-- at-sign
-- award
+choices:
+  - activity
+  - airplay
+  - alert-circle
+  - alert-octagon
+  - alert-triangle
+  - align-center
+  - align-justify
+  - align-left
+  - align-right
+  - anchor
+  - aperture
+  - archive
+  - arrow-down-circle
+  - arrow-down-left
+  - arrow-down-right
+  - arrow-down
+  - arrow-left-circle
+  - arrow-left
+  - arrow-right-circle
+  - arrow-right
+  - arrow-up-circle
+  - arrow-up-left
+  - arrow-up-right
+  - arrow-up
+  - at-sign
+  - award
