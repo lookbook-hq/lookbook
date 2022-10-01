@@ -46,7 +46,7 @@ prev_page = nav_prev(resource.relative_url)
               if (toc) tocHTML = toc.outerHTML;
             }"
             x-html="tocHTML"
-            class="sticky top-8"></div>
+            class="sticky top-8" data-turbo="false"></div>
         </div>
       </div>
     </main>
