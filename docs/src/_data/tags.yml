@@ -52,25 +52,28 @@ tags:
       # @!endgroup
 
   - name: param
-    signature: "@param <name> [<type?>] <input_type?> <opts?>"
+    signature: "@param <name> [<type?>] <input_type?> <description?> <opts?>"
     args:
       - name: <name>
         type: String
-        description: Name of the example method parameter that this should be used for
+        description: Name of the example method parameter that this should be used for.
       - name: <type?>
         type: String
         description: Optional data type to cast the value to before passing to the example as a parameter. Must be wrapped in square brackets.
       - name: <input_type?>
         type: String
-        description: The type of form input to render. Will be guessed if not provided
+        description: The type of form input to render. Will be guessed if not provided.
+      - name: <description?>
+        type: String
+        description: Optional short description of what the param is used for, supplied as a double-quoted string.
       - name: <opts?>
-        type: Array (YAML formatted) | String
-        description: YAML-encoded field options (or path to a JSON file of options), used for some field types
+        type: Hash
+        description: Hash of param options
     purpose: |
       Specifies a [dynamic preview parameter](/guide/previews/params) that will be editiable in the UI via a form input.
       **Not valid for preview classes. Example methods only.**
     example: |
-      # @param theme [Symbol] select [primary, secondary, danger]
+      # @param theme [Symbol] select { choices: [primary, secondary, danger] }
       def example(theme: :primary)
 
   - name: display
