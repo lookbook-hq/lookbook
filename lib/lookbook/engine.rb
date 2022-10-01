@@ -3,77 +3,11 @@ require "action_cable/engine"
 require "listen"
 
 module Lookbook
-  autoload :Config, "lookbook/config"
-  autoload :Data, "lookbook/data"
-  autoload :Hooks, "lookbook/hooks"
-  autoload :Panels, "lookbook/panels"
-  autoload :Tags, "lookbook/tags"
-
-  class << self
-    include Lookbook::Data
-    include Lookbook::Hooks
-    include Lookbook::Panels
-    include Lookbook::Tags
-
-    def version
-      Lookbook::VERSION
-    end
-
-    def config
-      @config ||= Config.new
-    end
-
-    def configure
-      yield(config)
-    end
-
-    def logger
-      @logger ||= if Rails.logger.present? && config.log_use_rails_logger
-        Rails.logger
-      else
-        logger = Logger.new($stdout)
-        logger.level = config.log_level
-        logger
-      end
-    end
-
-    def debug_data
-      {
-        version: version,
-        env: Rails.env.to_s,
-        config: config.to_h
-      }
-    end
-
-    def previews
-      Preview.all
-    end
-
-    def pages
-      Page.all
-    end
-
-    def broadcast(event_name, data = {})
-      Engine.websocket&.broadcast(event_name.to_s, data)
-    end
-
-    def theme
-      @theme ||= Lookbook::Theme.new(config.ui_theme, config.ui_theme_overrides)
-    end
-
-    def define_param_input(input, partial, input_options = nil)
-      config.preview_param_inputs[input.to_sym] = {
-        partial: partial,
-        input_options: input_options || {}
-      }
-    end
-  end
-
   class Engine < Rails::Engine
     isolate_namespace Lookbook
 
-    config.lookbook = Lookbook.config
     config.autoload_paths << File.expand_path(Lookbook::Engine.root.join("app/components"))
+    config.lookbook = Lookbook.config
 
     initializer "lookbook.viewcomponent.config" do
       config.lookbook.preview_paths += config.view_component.preview_paths

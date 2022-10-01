@@ -1,7 +1,3 @@
-require "lookbook/markdown"
-require "lookbook/theme"
-require "lookbook/store"
-
 module Lookbook
   class Config
     def initialize
