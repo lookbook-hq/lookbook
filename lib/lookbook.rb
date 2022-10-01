@@ -26,12 +26,11 @@ module Lookbook
     end
 
     def data
-      @data ||= ActiveSupport::OrderedOptions.new
+      @data ||= Store.new
     end
 
     def data=(new_data)
-      @data.clear
-      @data.merge! new_data
+      @data = Store.new(new_data)
     end
 
     def logger
