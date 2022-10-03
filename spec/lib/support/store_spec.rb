@@ -60,4 +60,32 @@ RSpec.describe Lookbook::Store do
       expect(store.fetch("not_me", "oops")).to eql "oops"
     end
   end
+
+  context "getters and setters" do
+    let(:store) do
+      Lookbook::Store.new({
+        do_this: true,
+        dont_do_this: false,
+        done: false
+      })
+    end
+
+    it "calls getters if present" do
+      store.define_singleton_method(:do_that) { "Do this: #{do_this}" }
+
+      expect(store.do_that).to eq "Do this: true"
+    end
+
+    it "calls setters if present" do
+      store.define_singleton_method(:done=) do |value|
+        self[:done] = value == "yes"
+      end
+
+      store.done = "no"
+      expect(store.done).to eq false
+
+      store.done = "yes"
+      expect(store.done).to eq true
+    end
+  end
 end

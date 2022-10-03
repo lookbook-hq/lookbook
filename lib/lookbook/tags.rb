@@ -1,23 +1,14 @@
 module Lookbook
   module Tags
-    def define_tag(name, args = nil, opts = {}, &block)
-      name = name.to_s.downcase.underscore.to_sym
-      if args.is_a? Hash
-        opts = args
-        args = nil
-      end
-      opts[:args] = args
-      opts[:parser] = block if block
-      Lookbook.config.preview_tags[name] = opts
-    end
-
     def self.process_tags(tag_objects, file: nil, eval_scope: nil)
       return [] if tag_objects.none?
       tag_objects.map do |tag_object|
-        opts = Lookbook.config.preview_tags[tag_object.tag_name] || {}
+        tag_config = Engine.tags.get_tag(tag_object.tag_name).to_h
+        tag_opts = tag_config[:opts].to_h
         Lookbook::Tag.new(tag_object,
-          opts[:args],
-          **opts.except(:args),
+          tag_opts[:named_args],
+          parser: tag_opts[:args_parser],
+          **tag_opts.except(:named_args, :args_parser),
           file: file,
           eval_scope: eval_scope)
       end.compact

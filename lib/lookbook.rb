@@ -1,24 +1,21 @@
 require "zeitwerk"
-require "ostruct"
 require "lookbook/version"
 
 loader = Zeitwerk::Loader.for_gem
 loader.ignore("#{__dir__}/lookbook.rb")
 loader.push_dir("#{__dir__}/lookbook", namespace: Lookbook)
+loader.collapse("#{__dir__}/lookbook/*")
+loader.collapse("#{__dir__}/lookbook/support/*")
 loader.setup
 
 module Lookbook
   class << self
-    include Lookbook::Hooks
-    include Lookbook::Panels
-    include Lookbook::Tags
-
     def version
       Lookbook::VERSION
     end
 
     def config
-      @config ||= Config.new
+      @config ||= ConfigStore.init_from_config
     end
 
     def configure
@@ -47,7 +44,12 @@ module Lookbook
       {
         version: version,
         env: Rails.env.to_s,
-        config: config.to_h
+        config: [
+          config.to_h,
+          {panels: Engine.panels.to_h},
+          {inputs: Engine.inputs.to_h},
+          {tags: Engine.tags.to_h}
+        ].inject(:merge)
       }
     end
 
@@ -67,13 +69,42 @@ module Lookbook
       @theme ||= Lookbook::Theme.new(config.ui_theme, config.ui_theme_overrides)
     end
 
-    def define_param_input(input, partial, input_options = nil)
-      config.preview_param_inputs[input.to_sym] = {
-        partial: partial,
-        input_options: input_options || {}
-      }
+    def define_param_input(*args)
+      Engine.inputs.add_input(*args)
+    end
+
+    def define_panel(name, *args)
+      Engine.panels.add_panel(name, :drawer, *args)
+    end
+
+    def amend_panel(*args)
+      Engine.panels.update_panel(*args)
+    end
+
+    def remove_panel(name)
+      Engine.panels.remove_panel(name)
+    end
+
+    def define_tag(name, args = nil, &block)
+      Engine.tags.add_tag(name, {
+        named_args: args.to_a,
+        args_parser: block
+      })
+    end
+
+    def after_initialize(&block)
+      Engine.hooks.add_hook(:after_initialize, block)
+    end
+
+    def before_exit(&block)
+      Engine.hooks.add_hook(:before_exit, block)
+    end
+
+    def after_change(&block)
+      Engine.hooks.add_hook(:after_change, block)
     end
   end
 end
 
+require "rails"
 require "lookbook/engine"

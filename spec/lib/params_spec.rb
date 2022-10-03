@@ -95,7 +95,7 @@ RSpec.describe Lookbook::Params do
 
           it "is evaluated in the expected scope" do
             param_data = Lookbook::Params.build_param(tag, eval_scope: SelectOptsContext.new)
-            expect(param_data[:input_options][:choices]).to match_array(SelectOptsContext::SELECT_OPTS)
+            expect(param_data[:input_options]).to match_array(SelectOptsContext::SELECT_OPTS)
           end
         end
       end

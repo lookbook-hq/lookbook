@@ -7,7 +7,7 @@
   
     <%= lookbook_render :toolbar do |toolbar| %>
       <% toolbar.section ":class": "layoutResizing && 'overflow-hidden'" do %>
-        <%= lookbook_render :tabs, alpine_data: "$store.inspector.main" do |tabs| %>
+        <%= lookbook_render :tabs, alpine_data: "$store.inspector.main", id: "inspector-tabs-main" do |tabs| %>
           <%= @main_panels.each do |panel| %>
             <% tabs.tab name: panel.name,
               label: panel.label,
@@ -47,10 +47,12 @@
     <% end %>
 
     <div class="h-full relative overflow-auto">
-      <%= lookbook_render :tab_panels, alpine_data: "$store.inspector.main" do |tabs| %>
+      <%= lookbook_render :tab_panels, alpine_data: "$store.inspector.main", id: "inspector-panels-main" do |tabs| %>
         <% @main_panels.each do |panel| %>
-          <% tabs.panel id: panel.id, name: panel.name, class: panel.panel_classes do %>
-            <%= render panel.partial, **@inspector_data, panel: panel, **panel.locals %>
+          <% tabs.panel name: panel.name do %>
+            <%= lookbook_render :inspector_panel, name: panel.name do %>
+              <%= render panel.partial, **@inspector_data, panel: panel, **panel.locals %>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>
@@ -62,7 +64,7 @@
 
     <%= lookbook_render :toolbar do |toolbar| %>
       <% toolbar.section ":class": "layoutResizing && 'overflow-hidden'" do %>
-        <%= lookbook_render :tabs, alpine_data: "$store.inspector.drawer" do |tabs| %>
+        <%= lookbook_render :tabs, alpine_data: "$store.inspector.drawer", id: "inspector-tabs-drawer" do |tabs| %>
           <%= @drawer_panels.each do |panel| %>
             <% tabs.tab name: panel.name,
               label: panel.label,
@@ -115,10 +117,10 @@
     <% end %> 
 
     <div class="h-full overflow-auto">
-      <%= lookbook_render :tab_panels, alpine_data: "$store.inspector.drawer" do |tabs| %>
+      <%= lookbook_render :tab_panels, alpine_data: "$store.inspector.drawer", id: "inspector-panels-drawer" do |tabs| %>
         <% @drawer_panels.each do |panel| %>
-          <% tabs.panel id: panel.id, name: panel.name, class: panel.panel_classes  do %>
-            <%= lookbook_render :inspector_panel, **panel.slice(:id, :name, :system) do %>
+          <% tabs.panel name: panel.name do %>
+            <%= lookbook_render :inspector_panel, name: panel.name do %>
               <%= render panel.partial, **@inspector_data, panel: panel, **panel.locals %>
             <% end %>
           <% end %>

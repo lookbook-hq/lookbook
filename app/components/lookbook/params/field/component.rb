@@ -59,7 +59,7 @@ module Lookbook
       end
 
       def input_options
-        config_options = @config.fetch(:input_options, {})
+        config_options = @config.fetch(:opts, {})
         opts = config_options.merge(@input_options).symbolize_keys
         opts[:id] = "param-#{@name}"
         opts
@@ -79,7 +79,6 @@ module Lookbook
 
       def render_input
         target = @config[:partial]
-
         if target
           render(target, **render_props)
         else
@@ -88,9 +87,6 @@ module Lookbook
       rescue ::ActionView::MissingTemplate => exception
         Lookbook.logger.error exception
         input_error "Param input partial '#{@config[:partial]}' could not be found."
-      rescue => exception
-        Lookbook.logger.error exception
-        input_error exception.message
       end
 
       def alpine_component

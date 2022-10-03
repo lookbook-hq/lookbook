@@ -1,0 +1,48 @@
+shared:
+  select:
+    partial: lookbook/previews/inputs/select
+    opts: {}
+
+  textarea:
+    partial: lookbook/previews/inputs/textarea
+    opts: {}
+
+  toggle:
+    partial: lookbook/previews/inputs/toggle
+    opts: {}
+
+  color:
+    partial: lookbook/previews/inputs/color
+    opts: {}
+
+  range:
+    partial: lookbook/previews/inputs/range
+    opts: {}
+
+  text:
+    partial: lookbook/previews/inputs/text
+    opts: {}
+
+  email:
+    partial: lookbook/previews/inputs/text
+    opts: {}
+
+  number:
+    partial: lookbook/previews/inputs/text
+    opts: {}
+
+  tel:
+    partial: lookbook/previews/inputs/text
+    opts: {}
+
+  url:
+    partial: lookbook/previews/inputs/text
+    opts: {}
+
+  date:
+    partial: lookbook/previews/inputs/text
+    opts: {}
+
+  datetime_local:
+    partial: lookbook/previews/inputs/text
+    opts: {}

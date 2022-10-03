@@ -6,28 +6,31 @@ module Lookbook
   class Engine < Rails::Engine
     isolate_namespace Lookbook
 
-    config.autoload_paths << File.expand_path(Lookbook::Engine.root.join("app/components"))
-    config.lookbook = Lookbook.config
+    config.autoload_paths << File.expand_path(root.join("app/components"))
 
     initializer "lookbook.viewcomponent.config" do
-      config.lookbook.preview_paths += config.view_component.preview_paths
-      config.lookbook.preview_controller ||= config.view_component.preview_controller
+      Lookbook.config.preview_paths += config.view_component.preview_paths
+      Lookbook.config.preview_controller ||= config.view_component.preview_controller
 
-      config.lookbook.components_path = config.view_component.view_component_path if config.view_component.view_component_path.present?
+      Lookbook.config.components_path = config.view_component.view_component_path if config.view_component.view_component_path.present?
 
-      config.lookbook.listen_paths += config.lookbook.preview_paths
-      config.lookbook.listen_paths << config.lookbook.components_path
+      Lookbook.config.listen_paths += Lookbook.config.preview_paths
+      Lookbook.config.listen_paths << Lookbook.config.components_path
     end
 
     initializer "lookbook.parser.tags" do
-      Lookbook::Parser.define_tags(Lookbook.config.preview_tags)
+      Lookbook::Parser.define_tags(Engine.tags)
     end
 
     initializer "lookbook.assets.serve" do
       config.app_middleware.use(
         Rack::Static,
-        urls: ["/lookbook-assets"], root: Lookbook::Engine.root.join("public").to_s
+        urls: ["/lookbook-assets"], root: root.join("public").to_s
       )
+    end
+
+    config.before_configuration do
+      config.lookbook = Lookbook.config
     end
 
     config.after_initialize do
@@ -46,22 +49,22 @@ module Lookbook
         end
       else
         # Fallback for older Rails versions - don't start listeners if running in a rake task.
-        unless Lookbook::Engine.prevent_listening?
+        unless prevent_listening?
           init_listeners
         end
       end
 
       parser.parse do
-        Lookbook::Engine.run_hooks(:after_initialize)
+        run_hooks(:after_initialize)
       end
     end
 
     at_exit do
-      if Lookbook::Engine.listeners.any?
+      if listeners.any?
         Lookbook.logger.debug "Stopping listeners"
-        Lookbook::Engine.stop_listeners
+        stop_listeners
       end
-      Lookbook::Engine.run_hooks(:before_exit)
+      run_hooks(:before_exit)
     end
 
     class << self
@@ -69,7 +72,7 @@ module Lookbook
         config = Lookbook.config
         return unless config.listen == true
 
-        listen_paths = config.listen_paths.uniq
+        listen_paths = PathUtils.normalize_all(config.listen_paths)
         if listen_paths.any?
           preview_listener = Listen.to(*listen_paths,
             only: /\.(#{config.listen_extensions.join("|")})$/,
@@ -82,7 +85,7 @@ module Lookbook
           register_listener(preview_listener)
         end
 
-        page_paths = config.page_paths.uniq
+        page_paths = PathUtils.normalize_all(config.page_paths)
         if page_paths.any?
           page_listener = Listen.to(*page_paths,
             only: /\.(html.*|md.*)$/,
@@ -117,7 +120,7 @@ module Lookbook
       end
 
       def websocket_mount_path
-        "#{mounted_path}#{config.lookbook.cable_mount_path}".gsub("//", "/") if websocket?
+        "#{mounted_path}/cable".gsub("//", "/") if websocket?
       end
 
       def websocket?
@@ -125,11 +128,12 @@ module Lookbook
       end
 
       def mounted_path
-        Lookbook::Engine.routes.find_script_name({})
+        routes.find_script_name({})
       end
 
       def parser
-        @parser ||= Lookbook::Parser.new(config.lookbook.preview_paths)
+        preview_paths = PathUtils.normalize_all(Lookbook.config.preview_paths)
+        @parser ||= Lookbook::Parser.new(preview_paths)
       end
 
       def log_level
@@ -159,7 +163,7 @@ module Lookbook
       end
 
       def run_hooks(event_name, *args)
-        config.lookbook.hooks[event_name].each do |hook|
+        hooks.for_event(event_name).each do |hook|
           hook.call(Lookbook, *args)
         end
       end
@@ -178,6 +182,22 @@ module Lookbook
         else
           false
         end
+      end
+
+      def panels
+        @panels ||= PanelStore.init_from_config
+      end
+
+      def inputs
+        @inputs ||= InputStore.init_from_config
+      end
+
+      def tags
+        @tags ||= TagStore.init_from_config
+      end
+
+      def hooks
+        @hooks ||= HookStore.init_from_config
       end
 
       attr_reader :preview_controller

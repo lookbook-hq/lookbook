@@ -1,0 +1,4 @@
+shared:
+  after_initialize: []
+  before_exit: []
+  after_change: []

@@ -180,7 +180,7 @@ module Lookbook
       end
 
       def page_paths
-        Lookbook.config.page_paths.select { |dir| Dir.exist? dir }
+        PathUtils.normalize_all(Lookbook.config.page_paths)
       end
 
       def section_path?(path)

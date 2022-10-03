@@ -14,13 +14,13 @@ RSpec.describe Lookbook::PreviewExample do
     context ".method_source" do
       it "returns the example method source code" do
         source_lines = example.method_source.split("\n")
-        expect(source_lines.first.strip).to eq "render StandardComponent.new id: \"default\" do"
+        expect(source_lines.first.strip).to eq "render StandardComponent.new title: \"default\" do"
       end
 
       it "handles multi-line method definitions" do
         multi_line_def_example = preview.example("mutli_line_def_example")
         source_lines = multi_line_def_example.method_source.split("\n")
-        expect(source_lines.first.strip).to eq "render StandardComponent.new id: \"multi-line\" do"
+        expect(source_lines.first.strip).to eq "render StandardComponent.new title: \"multi-line\" do"
       end
     end
   end

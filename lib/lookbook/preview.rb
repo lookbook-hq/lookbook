@@ -70,7 +70,7 @@ module Lookbook
     end
 
     def full_path
-      base_path = Array(Lookbook.config.preview_paths).detect do |preview_path|
+      base_path = preview_paths.detect do |preview_path|
         Dir["#{preview_path}/#{rel_path}"].first
       end
       Pathname.new(Dir["#{base_path}/#{rel_path}"].first)
@@ -109,6 +109,10 @@ module Lookbook
       component_classes.map do |class_name|
         Component.new(class_name.to_s)
       end
+    end
+
+    def preview_paths
+      PathUtils.normalize_all(Lookbook.config.preview_paths)
     end
 
     protected
