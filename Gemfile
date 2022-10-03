@@ -9,7 +9,7 @@ if RUBY_VERSION >= "3.1"
 end
 
 group :development, :test do
-  gem "sqlite3", "~> 1.4"
+  gem "sqlite3", "~> 1.5"
   gem "standard", "~> 1.1"
   gem "combustion", "~> 1.3"
   gem "actionpack"
