@@ -34,7 +34,7 @@
   "license": "MIT",
   "dependencies": {
     "@alpinejs/collapse": "^3.10.3",
-    "@alpinejs/morph": "^3.10.2",
+    "@alpinejs/morph": "^3.10.4",
     "@alpinejs/persist": "^3.10.2",
     "@parcel/resolver-glob": "^2.4.0",
     "@rails/actioncable": "^6.1.4",
