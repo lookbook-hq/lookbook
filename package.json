@@ -48,7 +48,7 @@
     "loglevel": "^1.8.0",
     "loglevel-plugin-prefix": "^0.8.4",
     "parcel": "^2.7.0",
-    "postcss": "^8.4.5",
+    "postcss": "^8.4.17",
     "postcss-import": "^15.0.0",
     "postcss-import-ext-glob": "^2.0.1",
     "split-grid": "^1.0.11",
