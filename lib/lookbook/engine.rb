@@ -68,7 +68,6 @@ module Lookbook
       def init_listeners
         config = Lookbook.config
         return unless config.listen == true
-        Listen.logger = Lookbook.logger
 
         listen_paths = config.listen_paths.uniq
         if listen_paths.any?
