@@ -22,8 +22,8 @@ module Lookbook
       @example_inspector.label.presence || name.titleize
     end
 
-    def display_params
-      @preview.display_params.merge(@example_inspector.display_params)
+    def display_options
+      @preview.display_options.merge(@example_inspector.display_options)
     end
 
     def method_source

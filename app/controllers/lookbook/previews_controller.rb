@@ -103,7 +103,7 @@ module Lookbook
         # set display and data params
         preview_controller.params.merge!({
           lookbook: {
-            display: @target.display_params,
+            display: @target.display_options,
             data: Lookbook.data
           }
         })

@@ -25,10 +25,10 @@ module Lookbook
       examples.map(&:params).flatten.uniq { |param| param[:name] }
     end
 
-    def display_params
+    def display_options
       merged = {}
       examples.reverse.map do |example|
-        merged.merge! example.display_params
+        merged.merge! example.display_options
       end
       merged
     end

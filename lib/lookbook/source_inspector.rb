@@ -52,9 +52,9 @@ module Lookbook
       end
     end
 
-    def display_params
-      return @display_params unless @display_params.nil?
-      @display_params = code_object.tags(:display).to_a.each do |tag|
+    def display_options
+      return @display_options unless @display_options.nil?
+      @display_options = code_object.tags(:display).to_a.map do |tag|
         KeyValueTagParser.call(tag.text)
       end.to_h.with_indifferent_access
     end
