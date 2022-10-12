@@ -1,6 +1,8 @@
-<%= lookbook_render :viewport,
-  src: lookbook_preview_path(request.query_parameters.merge(lookbook_timestamp: Time.now)),
-  alpine_data: "$store.inspector.main",
-  class: "-inset-px relative",
-  style: "width: calc(100% + 2px); height: calc(100% + 2px)"
-  %>
+<div class="overflow-hidden h-full w-full">
+  <%= lookbook_render :viewport,
+    src: lookbook_preview_path(request.query_parameters.merge(lookbook_timestamp: Time.now)),
+    alpine_data: "$store.inspector.main",
+    class: "-inset-px relative",
+    style: "width: calc(100% + 2px); height: calc(100% + 2px)"
+    %>
+</div>

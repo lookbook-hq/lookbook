@@ -43,15 +43,15 @@ RSpec.describe Lookbook::TagOptions do
 
   context ".evaluate" do
     context "with valid statement and scope" do
-      let(:tag_opts) { described_class.new("{{ SELECT_OPTS }}", eval_scope: SelectOptsContext.new) }
+      let(:tag_opts) { described_class.new("{{ SELECT_OPTS }}", eval_scope: TagOptsContext.new) }
 
       it "evaluates the string in the context of the scope object" do
-        expect(tag_opts.evaluate).to eq SelectOptsContext::SELECT_OPTS
+        expect(tag_opts.evaluate).to eq TagOptsContext::SELECT_OPTS
       end
     end
 
     context "with invalid statement" do
-      let(:tag_opts) { described_class.new("{{ SELECT_OOOPS }}", eval_scope: SelectOptsContext.new) }
+      let(:tag_opts) { described_class.new("{{ SELECT_OOOPS }}", eval_scope: TagOptsContext.new) }
 
       it "evaluates the string in the context of the scope object" do
         expect { tag_opts.evaluate }.to raise_error NameError
@@ -59,7 +59,7 @@ RSpec.describe Lookbook::TagOptions do
     end
 
     context "with invalid syntax" do
-      let(:tag_opts) { described_class.new("{ SELECT_OPTS }}", eval_scope: SelectOptsContext.new) }
+      let(:tag_opts) { described_class.new("{ SELECT_OPTS }}", eval_scope: TagOptsContext.new) }
 
       it "returns an empty hash" do
         expect(tag_opts.evaluate).to eq({})
@@ -79,17 +79,17 @@ RSpec.describe Lookbook::TagOptions do
     end
 
     it "correctly identifies an evaluatable string for eval'ing" do
-      tag_opts = described_class.new("{{ SELECT_OPTS }}", eval_scope: SelectOptsContext.new)
-      expect(tag_opts.resolve).to eq SelectOptsContext::SELECT_OPTS
+      tag_opts = described_class.new("{{ SELECT_OPTS }}", eval_scope: TagOptsContext.new)
+      expect(tag_opts.resolve).to match_array(TagOptsContext::SELECT_OPTS)
     end
 
     it "correctly identifies a YAML string for parsing" do
       tag_opts = described_class.new("[one, two, three]")
-      expect(tag_opts.resolve).to eq ["one", "two", "three"]
+      expect(tag_opts.resolve).to match_array(["one", "two", "three"])
     end
   end
 end
 
-class SelectOptsContext
+class TagOptsContext
   SELECT_OPTS = %w[one two three]
 end

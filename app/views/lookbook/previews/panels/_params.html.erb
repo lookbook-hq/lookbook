@@ -6,7 +6,7 @@
   </div>
 <% else %>
   <div class="h-full overflow-x-hidden">
-    <%= lookbook_render "params/editor", inputs: Lookbook::Params.inputs do |editor| %>
+    <%= lookbook_render "params/editor", inputs: Lookbook::Engine.inputs do |editor| %>
       <% preview.params.each do |param| %>
         <% editor.field **param, value: params[param[:name]] %>
       <% end %>

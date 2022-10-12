@@ -117,13 +117,6 @@ module Lookbook
         end
       end
 
-      def inputs
-        @inputs ||= Lookbook.config.preview_param_inputs.map do |name, config|
-          config = {partial: config} if config.is_a?(String)
-          [name, {input_options: {}}.merge(config)]
-        end.to_h
-      end
-
       private
 
       def guess_input(value_type, default)

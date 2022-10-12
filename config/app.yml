@@ -1,0 +1,36 @@
+shared:
+  project_name: Lookbook
+  log_level: 2
+  log_use_rails_logger: true
+  auto_refresh: true
+  components_path: app/components
+  page_controller: Lookbook::PageController
+  page_route: pages
+  page_paths: [test/components/docs]
+  page_options: {}
+  markdown_options:
+    tables: true
+    fenced_code_blocks: true
+    disable_indented_code_blocks: true
+    strikethrough: true
+    highlight: true
+    with_toc_data: true
+    lax_spacing: true
+  sort_examples: false
+  preview_paths: []
+  preview_display_params: {}
+  preview_disable_action_view_annotations: true
+  preview_params_options_eval: false
+  listen: false
+  listen_paths: []
+  listen_extensions: [rb, html.*]
+  listen_use_polling: false
+  ui_theme: indigo
+  ui_theme_overrides: {}
+  ui_favicon: true
+  debug_menu: false
+  experimental_features: false
+
+development:
+  listen: true
+  debug_menu: true

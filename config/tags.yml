@@ -1,0 +1,29 @@
+shared:
+  hidden:
+    label: Hidden status
+    opts: {}
+
+  label:
+    label: Label
+    opts: {}
+
+  display:
+    label: Display
+    opts: {}
+
+  position:
+    label: Position
+    opts: {}
+
+  id:
+    label: Id
+    opts: {}
+
+  component:
+    label: Component
+    opts: {}
+
+  param:
+    label: Param
+    yard_parser: with_name
+    opts: {}

@@ -2,19 +2,9 @@ require "redcarpet"
 
 module Lookbook
   class Markdown
-    DEFAULT_OPTIONS = {
-      tables: true,
-      fenced_code_blocks: true,
-      disable_indented_code_blocks: true,
-      strikethrough: true,
-      highlight: true,
-      with_toc_data: true,
-      lax_spacing: true
-    }
-
     def self.render(text)
       Utils.strip_action_view_annotations!(text)
-      markdown = Redcarpet::Markdown.new(Renderer, Lookbook.config.markdown_options)
+      markdown = Redcarpet::Markdown.new(Renderer, Lookbook.config.markdown_options.to_h)
       markdown.render(text).html_safe
     end
 
