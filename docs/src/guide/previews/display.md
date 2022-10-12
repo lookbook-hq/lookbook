@@ -71,16 +71,70 @@ Ruby YAML does not (generally) require quoting of string values. However in some
 
 Any `@display` params set at the preview (class) level with be merged with those set on individual example methods.
 
-## Display option defaults
+## Configuration
 
-Default values for display options can be defined in your [config](/api/config/#preview_display_options):
+Default values for display options can be defined in your app config file:
 
 ```ruby
 # config/application.rb
-config.lookbook.preview_display_options = { bg_color: '#fff', max_width: '100%' }
+config.lookbook.preview_display_options = {
+  bg_color: '#fff',
+  max_width: '100%'
+}
 ```
 
 Default display params will be available to all previews.
 Any preview or example-level `@display` values with the same name will take precedence and override default ones.
+
+## Dynamic display options
+
+"Dynamic" display options are **global**, **persistent** display option values that can be **changed on-the-fly** in the Lookbook UI.
+
+For example if your app has both a 'light' and a 'dark' CSS theme implemented, setting up a dynamic `theme` display option will allow users to easily switch between themes when previewing components.
+
+{{ image "dynamic_display_options.gif", class: "screenshot" }}
+
+Dynamic display options are defined in the `preview_display_options` config (just like 'regular' [display option default values](#configuration)) but define an array of possible values instead of just a single one:
+
+```ruby
+# config/application.rb
+config.lookbook.preview_display_options = {
+  bg_color: '#fff', # default bg_color value
+  theme: ["light", "dark"] # dynamic 'theme' display option
+}
+```
+
+The array of option choices will be passed through Rails' [`options_for_select` helper](https://apidock.com/rails/v6.1.3.1/ActionView/Helpers/FormOptionsHelper/options_for_select) to generate the select dropdown options.
+
+The display option value can then be accessed in layout templates in exactly the same way as 'regular' display options:
+
+```erb
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="<%= params[:lookbook][:display][:theme] %>.css" rel="stylesheet" />
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>
+```
+
+### Per-preview overrides
+
+If a preview or preview example defines a value for a dynamic display option using the `@display` tag,
+then that value will be used for the current preview and the option-picker dropdown will be hidden on that page.
+
+```ruby
+class FooComponentPreview < ViewComponent::Preview
+  # @display theme light
+  def default
+  end
+end
+```
+
+In the example above, the `default` preview example will set the `theme` display option value to `light` and it will not be possible to choose a different theme whilst viewing that preview.
+
+Overridden values like these **are not persisted** across other previews.
 
 {{toc}}
