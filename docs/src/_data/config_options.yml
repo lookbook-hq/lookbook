@@ -35,12 +35,12 @@
   example: config.lookbook.preview_paths = ["path/to/my/previews"]
   description: Array of additional directory paths that Lookbook should look for previews in.
 
-- name: preview_display_params
+- name: preview_display_options
   group: previews
   type: Hash
   default: "{}"
   example: |
-    config.lookbook.preview_display_params = {
+    config.lookbook.preview_display_options = {
       bg_color: "#fff",
       max_width: "100%"
     }

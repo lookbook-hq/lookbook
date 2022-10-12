@@ -13,8 +13,6 @@ and you can then add whatever logic you need into your layout to handle each cas
 By default ViewComponent will use your regular application layout for displaying the rendered example. However it's often better to create a seperate layout that you can customise and use specifically for previewing your components. See the ViewComponent [preview docs](https://viewcomponent.org/guide/previews.html) for instructions on how to set that up.
 {% end %}
 
-{{toc}}
-
 ## Basic example
 
 Add key/value pairs of display data using the `@display` comment tag:
@@ -73,14 +71,16 @@ Ruby YAML does not (generally) require quoting of string values. However in some
 
 Any `@display` params set at the preview (class) level with be merged with those set on individual example methods.
 
-## Global display params
+## Display option defaults
 
-Global (fallback) display params can be defined via a [configuration option](/api/config/#preview_display_params):
+Default values for display options can be defined in your [config](/api/config/#preview_display_options):
 
 ```ruby
 # config/application.rb
-config.lookbook.preview_display_params = { bg_color: '#fff', max_width: '100%' }
+config.lookbook.preview_display_options = { bg_color: '#fff', max_width: '100%' }
 ```
 
-Globally defined display params will be available to all previews.
-Any preview or example-level `@display` values with the same name will take precedence and override a globally-set one.
+Default display params will be available to all previews.
+Any preview or example-level `@display` values with the same name will take precedence and override default ones.
+
+{{toc}}

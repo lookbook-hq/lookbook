@@ -18,7 +18,7 @@ shared:
     lax_spacing: true
   sort_examples: false
   preview_paths: []
-  preview_display_params: {}
+  preview_display_options: {}
   preview_disable_action_view_annotations: true
   preview_params_options_eval: false
   listen: false
