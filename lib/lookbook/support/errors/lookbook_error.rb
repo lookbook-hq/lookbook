@@ -1,11 +1,21 @@
 module Lookbook
   class LookbookError < StandardError
-    def initialize(msg = nil, scope = nil)
-      unless msg.nil?
-        scope_str = scope.nil? ? "[#{scope}]" : ""
-        msg = "#{scope_str} #{msg}".strip
-      end
+    attr_reader :scope, :original, :message
+
+    def initialize(msg = nil, scope: nil, original: nil)
+      @scope = scope
+      @original = original
+      @message = msg
       super(msg)
+    end
+
+    def full_message
+      if msg.nil?
+        message
+      else
+        scope_str = scope.nil? ? "[#{scope}]" : ""
+        "#{scope_str} #{message}".strip
+      end
     end
   end
 end

@@ -54,20 +54,9 @@ module Lookbook
 
     def display_params
       return @display_params unless @display_params.nil?
-      @display_params = {}.with_indifferent_access
-      if code_object&.tags(:display).present?
-        code_object.tags(:display).each do |tag|
-          parts = tag.text.strip.match(/^([^\s]*)\s?(.*)$/)
-          if parts.present?
-            begin
-              display_params[parts[1]] = YAML.safe_load(parts[2] || "~")
-            rescue SyntaxError => err
-              Lookbook.logger.error("\n👀 [Lookbook] Invalid JSON in @display tag.\n👀 [Lookbook] (#{err})\n")
-            end
-          end
-        end
-      end
-      @display_params
+      @display_params = code_object.tags(:display).to_a.each do |tag|
+        KeyValueTagParser.call(tag.text)
+      end.to_h.with_indifferent_access
     end
 
     def parameter_defaults

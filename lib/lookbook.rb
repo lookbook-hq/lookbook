@@ -5,7 +5,7 @@ loader = Zeitwerk::Loader.for_gem
 loader.ignore("#{__dir__}/lookbook.rb")
 loader.push_dir("#{__dir__}/lookbook", namespace: Lookbook)
 loader.collapse("#{__dir__}/lookbook/*")
-loader.collapse("#{__dir__}/lookbook/support/*")
+loader.collapse("#{__dir__}/lookbook/*/*")
 loader.setup
 
 module Lookbook

@@ -49,7 +49,7 @@ module Lookbook
       if Theme.valid_theme?(name)
         store[:ui_theme] = name
       else
-        raise ConfigError.new("'#{name}' is not a valid Lookbook theme. ", "app.config")
+        raise ConfigError.new("'#{name}' is not a valid Lookbook theme. ", scope: "app.config")
       end
     end
 
