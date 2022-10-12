@@ -54,9 +54,14 @@ module Lookbook
 
     def display_options
       return @display_options unless @display_options.nil?
-      @display_options = code_object.tags(:display).to_a.map do |tag|
-        KeyValueTagParser.call(tag.text)
-      end.to_h.with_indifferent_access
+      tags = code_object.tags(:display).to_a
+      pairs = tags.map { KeyValueTagParser.call(_1.text) }
+
+      # dynamic params set at the entity level are
+      # not (yet) supported so filter them out.
+      pairs.select! { |pair| !pair[1].is_a?(Array) && !pair[1].is_a?(Hash) }
+
+      pairs.to_h.symbolize_keys
     end
 
     def parameter_defaults

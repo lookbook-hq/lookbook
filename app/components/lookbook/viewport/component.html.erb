@@ -25,7 +25,7 @@
     <div
       class="grid bg-white relative -inset-px <%= "grid-cols-[1fr_17px]" if @resize_width %> <%= "grid-rows-[1fr_17px]" if @resize_height %>"
       style="width: calc(100% + 2px); height: calc(100% + 1px); <%= "max-height: #{@max_height}px;" if @max_height.present? %>">
-      <iframe seamless
+      <iframe seamless<%= " id=#{@iframe_id}" if @iframe_id.present? %>
         x-ref="iframe"
         class="h-full w-full border border-lookbook-divider"
         :class="{ 'pointer-events-none': reflowing }"

@@ -5,7 +5,7 @@
   <%= layout.pane class: "flex flex-col h-full overflow-hidden",
     "x-effect": "forceOrientation = (layoutWidth < $store.inspector.minVerticalSplitWidth) ? 'horizontal' : null" do %>
   
-    <%= lookbook_render :toolbar do |toolbar| %>
+    <%= lookbook_render :toolbar, id: "main-toolbar" do |toolbar| %>
       <% toolbar.section ":class": "layoutResizing && 'overflow-hidden'" do %>
         <%= lookbook_render :tabs, alpine_data: "$store.inspector.main", id: "inspector-tabs-main" do |tabs| %>
           <%= @main_panels.each do |panel| %>
@@ -17,7 +17,17 @@
         <% end %>
       <% end %>
 
-      <% toolbar.section divide: :left, align: :right, class: "flex-none relative z-10" do %>
+      <% toolbar.section align: :right, class: "flex-none" do %>
+        <% if @dynamic_display_options.any? %>
+          <%= lookbook_render "display_options/editor" do |editor| %>
+            <% @dynamic_display_options.each do |key, opts| %>
+              <% editor.field name: key, opts: opts, value: @static_display_options[key] %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <% toolbar.section divide: :left, class: "flex-none relative z-10" do %>
         <%= lookbook_render :button_group do |group| %>
           <% if @pages.any? %>
             <% group.button icon: :code,
@@ -62,7 +72,7 @@
   <%= layout.pane class: "flex flex-col h-full overflow-hidden bg-lookbook-drawer-bg",
     "x-show": "!$store.inspector.drawer.hidden && #{@drawer_panels.any?}" do %>
 
-    <%= lookbook_render :toolbar do |toolbar| %>
+    <%= lookbook_render :toolbar, id: "drawer-toolbar" do |toolbar| %>
       <% toolbar.section ":class": "layoutResizing && 'overflow-hidden'" do %>
         <%= lookbook_render :tabs, alpine_data: "$store.inspector.drawer", id: "inspector-tabs-drawer" do |tabs| %>
           <%= @drawer_panels.each do |panel| %>

@@ -1691,6 +1691,25 @@ pre[class*="language-"] {
   background-color: rgb(254 252 232 / var(--tw-bg-opacity));
 }
 
+[data-component="display-options-field"] [type="text"], [data-component="display-options-field"] [type="email"], [data-component="display-options-field"] [type="url"], [data-component="display-options-field"] [type="password"], [data-component="display-options-field"] [type="number"], [data-component="display-options-field"] [type="date"], [data-component="display-options-field"] [type="datetime-local"], [data-component="display-options-field"] [type="month"], [data-component="display-options-field"] [type="search"], [data-component="display-options-field"] [type="tel"], [data-component="display-options-field"] [type="time"], [data-component="display-options-field"] [type="week"], [data-component="display-options-field"] textarea, [data-component="display-options-field"] select {
+  padding: .26rem .6rem;
+  font-size: .8rem;
+  line-height: 1.1rem;
+}
+
+[data-component="display-options-field"] label {
+  cursor: pointer;
+  color: var(--lookbook-input-text);
+  font-size: .82rem;
+}
+
+[data-component="display-options-field"] select {
+  background-position: right .4rem center;
+  background-size: 1.2em 1.2em;
+  border-radius: .375rem;
+  padding-right: 1.5rem;
+}
+
 [data-component="icon"] {
   flex: none;
   line-height: 1;
@@ -2504,6 +2523,12 @@ input[type="color"]::-webkit-color-swatch {
   margin-bottom: calc(.75rem * var(--tw-space-y-reverse));
 }
 
+.space-x-1\.5 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(.375rem * var(--tw-space-x-reverse));
+  margin-left: calc(.375rem * calc(1 - var(--tw-space-x-reverse)) );
+}
+
 .divide-y > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0;
   border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)) );
@@ -2926,6 +2951,10 @@ input[type="color"]::-webkit-color-swatch {
   line-height: 1rem;
 }
 
+.text-\[0\.82rem\] {
+  font-size: .82rem;
+}
+
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -3019,6 +3048,10 @@ input[type="color"]::-webkit-color-swatch {
 
 .text-lookbook-viewport-handle-icon-stroke {
   color: var(--lookbook-viewport-handle-icon-stroke);
+}
+
+.text-lookbook-input-text {
+  color: var(--lookbook-input-text);
 }
 
 .text-lookbook-nav-text {

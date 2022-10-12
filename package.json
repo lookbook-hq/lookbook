@@ -45,6 +45,7 @@
     "autoprefixer": "^10.4.0",
     "command-line-args": "^5.2.1",
     "iframe-resizer": "^4.3.2",
+    "js-cookie": "^3.0.1",
     "loglevel": "^1.8.0",
     "loglevel-plugin-prefix": "^0.8.4",
     "parcel": "^2.7.0",
