@@ -29,6 +29,12 @@
 
       <% toolbar.section divide: :left, class: "flex-none relative z-10" do %>
         <%= lookbook_render :button_group do |group| %>
+          <% group.button icon: :link,
+            tooltip: "Copy preview URL",
+            copy: true do %>
+            <%= lookbook_inspect_url(@target.lookup_path, request.query_parameters) %>
+          <% end %>
+
           <% if @pages.any? %>
             <% group.button icon: :code,
               tooltip: "Copy page embed code",

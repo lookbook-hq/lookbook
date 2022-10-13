@@ -1,4 +1,7 @@
-import Cookies from "js-cookie";
+import {
+  parseSearchParamValue,
+  buildSearchParamValue,
+} from "~/app/assets/lookbook/js/helpers/string";
 
 export default function displayOptionsFieldComponent({ name, value }) {
   return {
@@ -10,8 +13,15 @@ export default function displayOptionsFieldComponent({ name, value }) {
     },
 
     update() {
-      Cookies.set(`lookbook-display-${name}`, this.value);
-      this.$dispatch("viewport:reload");
+      const searchParams = new URLSearchParams(window.location.search);
+      const display = searchParams.get("_display");
+
+      const displayParams = display ? parseSearchParamValue(display) : {};
+      displayParams[this.name] = this.value;
+      searchParams.set("_display", buildSearchParamValue(displayParams));
+
+      const path = location.href.replace(location.search, "");
+      this.navigateTo(`${path}?${searchParams.toString()}`);
     },
   };
 }
