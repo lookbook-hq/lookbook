@@ -94,22 +94,27 @@ module Lookbook
     end
 
     def set_display_options
-      opts = @target.display_options
-      @dynamic_display_options = opts.select { _2.is_a?(Array) || _2.is_a?(Hash) }
-      @static_display_options = opts.except(*@dynamic_display_options.keys)
+      @dynamic_display_options = []
+      @static_display_options = []
 
-      if params[:_display]
-        display_params = SearchParamParser.call(params[:_display])
-        display_params.each do |name, value|
-          if @dynamic_display_options.key?(name)
-            cookies["lookbook-display-#{name}"] = value
+      if @target.present?
+        opts = @target.display_options
+        @dynamic_display_options = opts.select { _2.is_a?(Array) || _2.is_a?(Hash) }
+        @static_display_options = opts.except(*@dynamic_display_options.keys)
+
+        if params[:_display]
+          display_params = SearchParamParser.call(params[:_display])
+          display_params.each do |name, value|
+            if @dynamic_display_options.key?(name)
+              cookies["lookbook-display-#{name}"] = value
+            end
           end
         end
-      end
 
-      @dynamic_display_options.each do |name, opts|
-        choices = opts.is_a?(Hash) ? opts[:choices].to_a : opts
-        @static_display_options[name] ||= cookies.fetch("lookbook-display-#{name}", choices.first)
+        @dynamic_display_options.each do |name, opts|
+          choices = opts.is_a?(Hash) ? opts[:choices].to_a : opts
+          @static_display_options[name] ||= cookies.fetch("lookbook-display-#{name}", choices.first)
+        end
       end
     end
 
