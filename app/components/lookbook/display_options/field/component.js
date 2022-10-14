@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import {
   parseSearchParamValue,
   buildSearchParamValue,
@@ -13,6 +14,8 @@ export default function displayOptionsFieldComponent({ name, value }) {
     },
 
     update() {
+      Cookies.set(`lookbook-display-${name}`, this.value);
+
       const searchParams = new URLSearchParams(window.location.search);
       const display = searchParams.get("_display");
 

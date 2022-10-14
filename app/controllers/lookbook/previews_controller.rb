@@ -115,6 +115,13 @@ module Lookbook
           choices = opts.is_a?(Hash) ? opts[:choices].to_a : opts
           @static_display_options[name] ||= cookies.fetch("lookbook-display-#{name}", choices.first)
         end
+
+        unless params[:_display]
+          display_params = @dynamic_display_options.map do |name, opts|
+            [name, @static_display_options[name]]
+          end.to_h
+          request.query_parameters[:_display] = SearchParamBuilder.call(display_params)
+        end
       end
     end
 
