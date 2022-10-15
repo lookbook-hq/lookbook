@@ -179,9 +179,15 @@ RSpec.describe Lookbook::ConfigStore do
         end
       end
 
-      context "preview_display_params" do
+      context "preview_display_options" do
         it "is a hash" do
-          expect(config.preview_display_params).to be_a Hash
+          expect(config.preview_display_options).to be_a Hash
+        end
+      end
+
+      context "preview_display_params" do
+        it "is an alias for preview_display_options" do
+          expect(config.preview_display_params).to eql config.preview_display_options
         end
       end
 

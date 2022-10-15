@@ -52,22 +52,16 @@ module Lookbook
       end
     end
 
-    def display_params
-      return @display_params unless @display_params.nil?
-      @display_params = {}.with_indifferent_access
-      if code_object&.tags(:display).present?
-        code_object.tags(:display).each do |tag|
-          parts = tag.text.strip.match(/^([^\s]*)\s?(.*)$/)
-          if parts.present?
-            begin
-              display_params[parts[1]] = YAML.safe_load(parts[2] || "~")
-            rescue SyntaxError => err
-              Lookbook.logger.error("\n👀 [Lookbook] Invalid JSON in @display tag.\n👀 [Lookbook] (#{err})\n")
-            end
-          end
-        end
-      end
-      @display_params
+    def display_options
+      return @display_options unless @display_options.nil?
+      tags = code_object.tags(:display).to_a
+      pairs = tags.map { KeyValueTagParser.call(_1.text) }
+
+      # dynamic params set at the entity level are
+      # not (yet) supported so filter them out.
+      pairs.select! { |pair| !pair[1].is_a?(Array) && !pair[1].is_a?(Hash) }
+
+      pairs.to_h.symbolize_keys
     end
 
     def parameter_defaults

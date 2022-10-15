@@ -51,7 +51,7 @@ module Lookbook
           opts: DEFAULTS.merge(opts.to_h)
         })
       else
-        raise ConfigError.new("inputs must define a partial path", "inputs.config")
+        raise ConfigError.new("inputs must define a partial path", scope: "inputs.config")
       end
     end
   end

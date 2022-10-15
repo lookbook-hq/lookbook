@@ -92,8 +92,8 @@ module Lookbook
       @preview.instance_variable_get(:@layout)
     end
 
-    def display_params
-      Lookbook.config.preview_display_params.deep_merge(@preview_inspector&.display_params)
+    def display_options
+      Lookbook.config.preview_display_options.deep_merge(@preview_inspector&.display_options)
     end
 
     def collapsible?

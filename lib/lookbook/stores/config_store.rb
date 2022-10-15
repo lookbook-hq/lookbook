@@ -23,6 +23,16 @@ module Lookbook
       store[:preview_paths] += paths.to_a
     end
 
+    def preview_display_params
+      Lookbook.logger.warn "The `preview_display_params` config option has been renamed to `preview_display_options` and will be removed in v2.0"
+      store[:preview_display_options]
+    end
+
+    def preview_display_params=(options)
+      Lookbook.logger.warn "The `preview_display_params` config option has been renamed to `preview_display_options` and will be removed in v2.0"
+      store[:preview_display_options] = options.to_h
+    end
+
     def listen_extensions=(extensions = nil)
       store[:listen_extensions] ||= []
       store[:listen_extensions] += extensions.to_a
@@ -39,7 +49,7 @@ module Lookbook
       if Theme.valid_theme?(name)
         store[:ui_theme] = name
       else
-        raise ConfigError.new("'#{name}' is not a valid Lookbook theme. ", "app.config")
+        raise ConfigError.new("'#{name}' is not a valid Lookbook theme. ", scope: "app.config")
       end
     end
 

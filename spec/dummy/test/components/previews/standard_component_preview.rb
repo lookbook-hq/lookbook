@@ -25,6 +25,13 @@ class StandardComponentPreview < ViewComponent::Preview
     end
   end
 
+  # @display theme dark
+  def theme_override_example
+    render StandardComponent.new do
+      "dark theme only"
+    end
+  end
+
   protected
 
   def not_an_example

@@ -21,7 +21,7 @@ module Lookbook
 
     def add_panel(name, group_name, *args)
       if get_panel(name)
-        raise ConfigError.new("panel with name '#{name}' already exists", "panels.config")
+        raise ConfigError.new("panel with name '#{name}' already exists", scope: "panels.config")
       else
         panel = build_config(name, group_name, *args)
         insert_at_position(group_name, panel.position, panel)
@@ -83,7 +83,7 @@ module Lookbook
         end
         Store.new(resolved)
       else
-        raise ConfigError.new(":name key is required when resolving config", "panels.config")
+        raise ConfigError.new(":name key is required when resolving config", scope: "panels.config")
       end
     end
 
@@ -130,12 +130,12 @@ module Lookbook
         opts[:group] = group_name.to_sym
         Store.new(DEFAULTS.merge(opts))
       else
-        raise ConfigError.new("panels must define a partial path", "panels.config")
+        raise ConfigError.new("panels must define a partial path", scope: "panels.config")
       end
     end
 
     def not_found!(name)
-      raise ConfigError.new("could not find panel named '#{name}'", "panels.config")
+      raise ConfigError.new("could not find panel named '#{name}'", scope: "panels.config")
     end
   end
 end

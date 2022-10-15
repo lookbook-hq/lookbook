@@ -13,7 +13,7 @@ module Lookbook
     def add_tag(name, opts = nil)
       name = name.to_sym
       if store.key?(name)
-        raise ConfigError.new("tag with name '#{name}' already exists", "tags.config")
+        raise ConfigError.new("tag with name '#{name}' already exists", scope: "tags.config")
       else
         store[name] = build_config(name, opts)
       end

@@ -10,6 +10,7 @@ module Lookbook
 
     before_action :lookup_entities, only: [:preview, :show]
     before_action :set_title
+    before_action :set_display_options
     before_action :set_params
 
     def preview
@@ -92,6 +93,38 @@ module Lookbook
       @title = @target.present? ? [@target&.label, @preview&.label].compact.join(" :: ") : "Not found"
     end
 
+    def set_display_options
+      @dynamic_display_options = []
+      @static_display_options = []
+
+      if @target.present?
+        opts = @target.display_options
+        @dynamic_display_options = opts.select { _2.is_a?(Array) || _2.is_a?(Hash) }
+        @static_display_options = opts.except(*@dynamic_display_options.keys)
+
+        if params[:_display]
+          display_params = SearchParamParser.call(params[:_display])
+          display_params.each do |name, value|
+            if @dynamic_display_options.key?(name)
+              cookies["lookbook-display-#{name}"] = value
+            end
+          end
+        end
+
+        @dynamic_display_options.each do |name, opts|
+          choices = opts.is_a?(Hash) ? opts[:choices].to_a : opts
+          @static_display_options[name] ||= cookies.fetch("lookbook-display-#{name}", choices.first)
+        end
+
+        unless params[:_display]
+          display_params = @dynamic_display_options.map do |name, opts|
+            [name, @static_display_options[name]]
+          end.to_h
+          request.query_parameters[:_display] = SearchParamBuilder.call(display_params)
+        end
+      end
+    end
+
     def set_params
       if @target
         # cast known params to type
@@ -103,7 +136,7 @@ module Lookbook
         # set display and data params
         preview_controller.params.merge!({
           lookbook: {
-            display: @target.display_params,
+            display: @static_display_options,
             data: Lookbook.data
           }
         })

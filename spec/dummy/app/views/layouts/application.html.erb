@@ -6,7 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lookbook Test App</title>
 </head>
-<body style="padding: 24px; font-family: sans-serif;">
+<body
+  style="padding: 24px; font-family: sans-serif;"
+  data-theme="<%= params.dig(:lookbook, :display, :theme) || "none" %>"
+  data-language="<%= params.dig(:lookbook, :display, :language) || "none" %>">
 
   <%= yield %>
   

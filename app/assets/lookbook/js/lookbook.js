@@ -50,7 +50,6 @@ Alpine.data("app", app);
 [components, subComponents, jsComponents].forEach((scripts) => {
   const components = getComponents(scripts);
   Object.keys(components).forEach((name) => {
-    console.log(name);
     Alpine.data(`${name}Component`, components[name]);
   });
 });
