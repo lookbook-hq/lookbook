@@ -100,7 +100,11 @@ Dynamic display options are defined in the `preview_display_options` config (jus
 # config/application.rb
 config.lookbook.preview_display_options = {
   bg_color: '#fff', # default bg_color value
-  theme: ["light", "dark"] # dynamic 'theme' display option
+  theme: ["light", "dark"], # dynamic 'theme' display option
+  lang: [
+    ["English", "en"],
+    ["French", "fr"]
+  ]
 }
 ```
 
