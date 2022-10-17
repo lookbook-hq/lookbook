@@ -11488,6 +11488,14 @@ function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
         hideDropdown () {
             if (dropdown) dropdown.hide();
         },
+        updateDropdown () {
+            if (dropdown) {
+                dropdown.hide();
+                this.$nextTick(()=>{
+                    dropdown.setContent(this.$refs.dropdown.innerHTML);
+                });
+            }
+        },
         startSpin () {
             this._spinning = true;
         },

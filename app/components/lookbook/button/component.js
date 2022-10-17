@@ -38,6 +38,15 @@ export default function buttonComponent() {
       }
     },
 
+    updateDropdown() {
+      if (dropdown) {
+        dropdown.hide();
+        this.$nextTick(() => {
+          dropdown.setContent(this.$refs.dropdown.innerHTML);
+        });
+      }
+    },
+
     startSpin() {
       this._spinning = true;
     },

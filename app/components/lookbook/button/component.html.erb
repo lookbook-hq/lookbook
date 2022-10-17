@@ -8,7 +8,8 @@
     }
   ],
   disabled: @disabled,
-  "@keydown.esc.stop": "hideDropdown" do %>
+  "@keydown.esc.stop": "hideDropdown",
+  "@navigation:complete.window": "updateDropdown" do %>
   <span x-ref="icon">
     <%= icon || lookbook_render(:icon, name: @icon, size: icon_size, ":class": "{'animate-spin': _spinning}") %>
   </span>
