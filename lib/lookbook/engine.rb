@@ -8,18 +8,17 @@ module Lookbook
 
     config.autoload_paths << File.expand_path(root.join("app/components"))
 
-    initializer "lookbook.viewcomponent.config" do
-      Lookbook.config.preview_paths += config.view_component.preview_paths
-      Lookbook.config.preview_controller ||= config.view_component.preview_controller
-
-      Lookbook.config.components_path = config.view_component.view_component_path if config.view_component.view_component_path.present?
-
-      Lookbook.config.listen_paths += Lookbook.config.preview_paths
-      Lookbook.config.listen_paths << Lookbook.config.components_path
+    config.before_configuration do
+      config.lookbook = Lookbook.config
     end
 
-    initializer "lookbook.parser.tags" do
-      Lookbook::Parser.define_tags(Engine.tags)
+    initializer "lookbook.viewcomponent.config_sync" do
+      opts.preview_paths += config.view_component.preview_paths
+      opts.preview_controller ||= config.view_component.preview_controller
+
+      if config.view_component.view_component_path.present?
+        opts.components_path = config.view_component.view_component_path
+      end
     end
 
     initializer "lookbook.assets.serve" do
@@ -29,184 +28,132 @@ module Lookbook
       )
     end
 
-    config.before_configuration do
-      config.lookbook = Lookbook.config
+    initializer "lookbook.file_watcher.paths" do
+      opts.listen_paths += opts.preview_paths
+      opts.listen_paths << opts.components_path
+    end
+
+    initializer "lookbook.file_watcher.previews" do
+      file_watcher.watch(opts.listen_paths, opts.listen_extensions, wait_for_delay: 0.5) do |changes|
+        parser.parse { run_hooks(:after_change, changes) }
+      end
+    end
+
+    initializer "lookbook.file_watcher.pages" do
+      file_watcher.watch(opts.page_paths, opts.page_extensions) do |changes|
+        self.class.websocket.broadcast(:reload)
+        run_hooks(:after_change, changes)
+      end
+    end
+
+    initializer "lookbook.parser.setup" do
+      Parser.define_tags(Engine.tags)
+    end
+
+    initializer "lookbook.parser.register_callback" do
+      parser.after_parse do |registry|
+        Preview.load!(registry.all(:class))
+        self.class.websocket.broadcast(:reload)
+      end
     end
 
     config.after_initialize do
-      @preview_controller = Lookbook.config.preview_controller.constantize
+      @preview_controller = opts.preview_controller.constantize
       @preview_controller.include(Lookbook::PreviewController)
+    end
 
-      parser.after_parse do |registry|
-        Preview.load!(registry.all(:class))
-        reload_ui
-      end
-
-      if Gem::Version.new(Rails.version) >= Gem::Version.new("6.1.3.1")
-        # Rails.application.server is only available for newer Rails versions
-        Rails.application.server do
-          init_listeners
+    config.after_initialize do
+      if listen?
+        if Gem::Version.new(Rails.version) >= Gem::Version.new("6.1.3.1")
+          # Rails.application.server is only available for newer Rails versions
+          Rails.application.server { file_watcher.start }
+        elsif process.supports_listening?
+          file_watcher.start
         end
+        # Fallback for older Rails versions
+      end
+    end
+
+    config.after_initialize do
+      parser.parse { run_hooks(:after_initialize) }
+    end
+
+    def opts
+      Lookbook.config
+    end
+
+    def run_hooks(event_name, *args)
+      self.class.hooks.for_event(event_name).each do |hook|
+        hook.call(Lookbook, *args)
+      end
+    end
+
+    def parser
+      preview_paths = PathUtils.normalize_all(opts.preview_paths)
+      @parser ||= Parser.new(preview_paths)
+    end
+
+    def file_watcher
+      @file_watcher ||= FileWatcher.new(force_polling: opts.listen_use_polling)
+    end
+
+    def process
+      @process ||= Process.new(env: Rails.env)
+    end
+
+    def listen?
+      opts.listen && process.supports_listening?
+    end
+
+    def self.mount_path
+      routes.find_script_name({})
+    end
+
+    def self.mounted?
+      mount_path.present?
+    end
+
+    def self.app_name
+      name = if Gem::Version.new(Rails.version) >= Gem::Version.new("6.1")
+        Rails.application.class.module_parent_name
       else
-        # Fallback for older Rails versions - don't start listeners if running in a rake task.
-        unless prevent_listening?
-          init_listeners
-        end
+        Rails.application.class.parent_name
       end
+      name.underscore
+    end
 
-      parser.parse do
-        run_hooks(:after_initialize)
+    def self.websocket
+      if mounted?
+        use_websocket = opts.auto_refresh && opts.listen && process.supports_listening?
+        @websocket ||= use_websocket ? Websocket.new(mount_path, logger: Lookbook.logger) : Websocket.noop
+      else
+        Websocket.noop
       end
+    end
+
+    def self.panels
+      @panels ||= PanelStore.init_from_config
+    end
+
+    def self.inputs
+      @inputs ||= InputStore.init_from_config
+    end
+
+    def self.tags
+      @tags ||= TagStore.init_from_config
+    end
+
+    def self.hooks
+      @hooks ||= HookStore.init_from_config
+    end
+
+    def self.preview_controller
+      @preview_controller
     end
 
     at_exit do
-      if listeners.any?
-        Lookbook.logger.debug "Stopping listeners"
-        stop_listeners
-      end
+      file_watcher.stop
       run_hooks(:before_exit)
-    end
-
-    class << self
-      def init_listeners
-        config = Lookbook.config
-        return unless config.listen == true
-
-        listen_paths = PathUtils.normalize_all(config.listen_paths)
-        if listen_paths.any?
-          preview_listener = Listen.to(*listen_paths,
-            only: /\.(#{config.listen_extensions.join("|")})$/,
-            wait_for_delay: 0.5,
-            force_polling: config.listen_use_polling) do |modified, added, removed|
-            parser.parse do
-              run_hooks(:after_change, {modified: modified, added: added, removed: removed})
-            end
-          end
-          register_listener(preview_listener)
-        end
-
-        page_paths = PathUtils.normalize_all(config.page_paths)
-        if page_paths.any?
-          page_listener = Listen.to(*page_paths,
-            only: /\.(html.*|md.*)$/,
-            force_polling: config.listen_use_polling) do |modified, added, removed|
-            changes = {modified: modified, added: added, removed: removed}
-            reload_ui
-            run_hooks(:after_change, changes)
-          end
-          register_listener(page_listener)
-        end
-      end
-
-      def websocket
-        return @websocket unless @websocket.nil?
-        return unless start_websocket?
-        Lookbook.logger.info "Initializing websocket"
-
-        cable = ActionCable::Server::Configuration.new
-        cable.cable = {adapter: "async"}.with_indifferent_access
-        cable.mount_path = nil
-        cable.connection_class = -> { Lookbook::Connection }
-        cable.logger = Lookbook.logger
-
-        @websocket ||= if Gem::Version.new(Rails.version) >= Gem::Version.new(6.0)
-          ActionCable::Server::Base.new(config: cable)
-        else
-          ws = ActionCable::Server::Base.new
-          ws.config = cable
-          ws
-        end
-      end
-
-      def websocket_mount_path
-        "#{mounted_path}/cable".gsub("//", "/") if websocket?
-      end
-
-      def websocket?
-        websocket.present?
-      end
-
-      def mounted_path
-        routes.find_script_name({})
-      end
-
-      def parser
-        preview_paths = PathUtils.normalize_all(Lookbook.config.preview_paths)
-        @parser ||= Lookbook::Parser.new(preview_paths)
-      end
-
-      def log_level
-        Lookbook.logger.level
-      end
-
-      def app_name
-        name = if Gem::Version.new(Rails.version) >= Gem::Version.new("6.1")
-          Rails.application.class.module_parent_name
-        else
-          Rails.application.class.parent_name
-        end
-        name.underscore
-      end
-
-      def register_listener(listener)
-        listener.start
-        listeners << listener
-      end
-
-      def listeners
-        @listeners ||= []
-      end
-
-      def stop_listeners
-        listeners.each { |listener| listener.stop }
-      end
-
-      def run_hooks(event_name, *args)
-        hooks.for_event(event_name).each do |hook|
-          hook.call(Lookbook, *args)
-        end
-      end
-
-      def reload_ui
-        websocket&.broadcast("reload", {})
-      end
-
-      def prevent_listening?
-        Rails.env.test? || running_in_rake_task?
-      end
-
-      def start_websocket?
-        Lookbook.config.auto_refresh == true &&
-          Lookbook.config.listen == true &&
-          !Rails.env.test? &&
-          !Rails.const_defined?(:Console)
-      end
-
-      def running_in_rake_task?
-        if defined?(Rake) && Rake.respond_to?(:application)
-          File.basename($0) == "rake" || Rake.application.top_level_tasks.any?
-        else
-          false
-        end
-      end
-
-      def panels
-        @panels ||= PanelStore.init_from_config
-      end
-
-      def inputs
-        @inputs ||= InputStore.init_from_config
-      end
-
-      def tags
-        @tags ||= TagStore.init_from_config
-      end
-
-      def hooks
-        @hooks ||= HookStore.init_from_config
-      end
-
-      attr_reader :preview_controller
     end
   end
 end

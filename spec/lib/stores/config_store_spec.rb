@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Lookbook::ConfigStore do
-  [:development, :production].each do |env|
+  [:development, :production, :test].each do |env|
     context "with '#{env}' defaults" do
       let(:config) do
         Lookbook::ConfigStore.init_from_config(env: env)
@@ -54,8 +54,19 @@ RSpec.describe Lookbook::ConfigStore do
       end
 
       context "auto_refresh" do
-        it "is enabled by default" do
-          expect(config.auto_refresh).to be true
+        case env
+        when :development
+          it "is enabled in development" do
+            expect(config.auto_refresh).to be true
+          end
+        when :test
+          it "is disabled in test" do
+            expect(config.auto_refresh).to be false
+          end
+        when :production
+          it "is disabled in production" do
+            expect(config.auto_refresh).to be false
+          end
         end
 
         it "can be changed" do
@@ -216,12 +227,17 @@ RSpec.describe Lookbook::ConfigStore do
       end
 
       context "listen" do
-        if env == :development
+        case env
+        when :development
           it "is enabled in development" do
             expect(config.listen).to be true
           end
-        elsif env == :production
+        when :production
           it "is disabled in production" do
+            expect(config.listen).to be false
+          end
+        when :test
+          it "is disabled in test" do
             expect(config.listen).to be false
           end
         end
@@ -346,13 +362,18 @@ RSpec.describe Lookbook::ConfigStore do
       end
 
       context "debug_menu" do
-        if env == :development
+        case env
+        when :development
           it "is enabled in development" do
             expect(config.debug_menu).to be true
           end
-        elsif env == :production
+        when :production
           it "is disabled in production" do
             expect(config.debug_menu).to be false
+          end
+        when :test
+          it "is enabled in test" do
+            expect(config.debug_menu).to be true
           end
         end
 

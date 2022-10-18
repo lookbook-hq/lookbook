@@ -2,11 +2,12 @@ shared:
   project_name: Lookbook
   log_level: 2
   log_use_rails_logger: true
-  auto_refresh: true
+  auto_refresh: false
   components_path: app/components
   page_controller: Lookbook::PageController
   page_route: pages
   page_paths: [test/components/docs]
+  page_extensions: [html.*, md.*]
   page_options: {}
   markdown_options:
     tables: true
@@ -33,4 +34,10 @@ shared:
 
 development:
   listen: true
+  auto_refresh: true
+  debug_menu: true
+
+test:
+  listen: false
+  auto_refresh: false
   debug_menu: true

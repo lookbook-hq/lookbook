@@ -18,6 +18,12 @@ module Lookbook
       store[:page_paths] += paths.to_a
     end
 
+    def page_extensions=(extensions = nil)
+      store[:page_extensions] ||= []
+      store[:page_extensions] += extensions.to_a
+      store[:page_extensions].uniq!
+    end
+
     def preview_paths=(paths = nil)
       store[:preview_paths] ||= []
       store[:preview_paths] += paths.to_a
