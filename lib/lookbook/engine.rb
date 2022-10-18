@@ -99,9 +99,8 @@ module Lookbook
       end
 
       def websocket
-        config = Lookbook.config
         return @websocket unless @websocket.nil?
-        return unless config.auto_refresh == true && config.listen == true && !Rails.env.test?
+        return unless start_websocket?
         Lookbook.logger.info "Initializing websocket"
 
         cable = ActionCable::Server::Configuration.new
@@ -174,6 +173,13 @@ module Lookbook
 
       def prevent_listening?
         Rails.env.test? || running_in_rake_task?
+      end
+
+      def start_websocket?
+        Lookbook.config.auto_refresh == true &&
+          Lookbook.config.listen == true &&
+          !Rails.env.test? &&
+          !Rails.const_defined?(:Console)
       end
 
       def running_in_rake_task?
