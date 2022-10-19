@@ -1,10 +1,8 @@
 name: CI
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: ["**"]
+  - push
+  - pull_request
 
 jobs:
   test:
@@ -12,28 +10,39 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: [2.7, 3.0, 3.1]
-        appraisal: ["rails-6.0", "rails-6.1", "rails-7.0"]
+        ruby:
+          - "2.5"
+          - "2.7"
+          - "3.0"
+          - "3.1"
+        rails:
+          - "5.2"
+          - "6.0"
+          - "6.1"
+          - "7.0"
+        exclude:
+          - ruby: "2.5"
+            rails: "7.0"
+          - ruby: "2.5"
+            rails: "6.1"
+          - ruby: "2.5"
+            rails: "6.0"
+          - ruby: "2.7"
+            rails: "5.2"
+          - ruby: "3.0"
+            rails: "5.2"
+          - ruby: "3.1"
+            rails: "5.2"
+
+    env:
+      BUNDLE_GEMFILE: gemfiles/${{ matrix.rails }}.gemfile
+
     steps:
       - uses: actions/checkout@v2
-
-      - name: Set up Ruby ${{ matrix.ruby }}
-        uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-          bundler-cache: false
-
-      - name: Set system gem command
-        run: gem update --system
-
-      - name: Install bundler
-        run: gem install bundler
-
-      - name: Bundle for Appraisal
-        run: bundle
-
-      - name: Install Appraisal dependencies
-        run: bundle exec appraisal ${{ matrix.appraisal }} bundle
-
-      - name: Run tests
-        run: bundle exec appraisal ${{ matrix.appraisal }} rspec
+      - name: Setup project
+        run: bundle install
+      - name: Run test
+        run: bundle exec appraisal ${{ matrix.rails }} rspec
