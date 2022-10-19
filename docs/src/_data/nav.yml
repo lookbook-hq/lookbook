@@ -11,6 +11,8 @@ guide:
         url: /guide/config/
       - label: Deployment
         url: /guide/deployment/
+      - label: Troubleshooting
+        url: /guide/troubleshooting/
   - label: Previews
     items:
       - label: Overview
