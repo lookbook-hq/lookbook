@@ -46,11 +46,7 @@ module Lookbook
       end
     end
 
-    initializer "lookbook.parser.setup" do
-      Parser.define_tags(Engine.tags)
-    end
-
-    initializer "lookbook.parser.register_callback" do
+    initializer "lookbook.parser.preview_load_callback" do
       parser.after_parse do |registry|
         Preview.load!(registry.all(:class))
         self.class.websocket.broadcast(:reload)
@@ -59,18 +55,17 @@ module Lookbook
 
     config.after_initialize do
       @preview_controller = opts.preview_controller.constantize
-      @preview_controller.include(Lookbook::PreviewController)
+      @preview_controller.class_eval do
+        include Lookbook::PreviewController
+        helper Lookbook::PreviewHelper
+      end
     end
 
     config.after_initialize do
-      if listen?
-        if Gem::Version.new(Rails.version) >= Gem::Version.new("6.1.3.1")
-          # Rails.application.server is only available for newer Rails versions
-          Rails.application.server { file_watcher.start }
-        elsif process.supports_listening?
-          file_watcher.start
-        end
-        # Fallback for older Rails versions
+      if Rails.application.respond_to?(:server)
+        Rails.application.server { file_watcher.start if listen? }
+      elsif process.supports_listening?
+        file_watcher.start if listen?
       end
     end
 
@@ -89,8 +84,7 @@ module Lookbook
     end
 
     def parser
-      preview_paths = PathUtils.normalize_all(opts.preview_paths)
-      @parser ||= Parser.new(preview_paths)
+      @parser ||= PreviewParser.new(opts.preview_paths, Engine.tags)
     end
 
     def file_watcher
@@ -114,7 +108,7 @@ module Lookbook
     end
 
     def self.app_name
-      name = if Gem::Version.new(Rails.version) >= Gem::Version.new("6.1")
+      name = if Rails.application.class.respond_to?(:module_parent_name)
         Rails.application.class.module_parent_name
       else
         Rails.application.class.parent_name
