@@ -38,9 +38,20 @@ module Lookbook
       Store.new({
         name: name.to_sym,
         label: opts[:label] || name.to_s.titleize,
-        yard_parser: opts[:yard_parser]&.to_sym,
+        tag_type: get_tag_type(opts.fetch(:tag_type, "BaseTag")),
         opts: opts[:opts].to_h
       })
+    end
+
+    def get_tag_type(tag_type)
+      if tag_type.present?
+        return tag_type if tag_type.is_a?(Class)
+        begin
+          "Lookbook::#{tag_type}".constantize
+        rescue
+          tag_type&.to_sym
+        end
+      end
     end
   end
 end

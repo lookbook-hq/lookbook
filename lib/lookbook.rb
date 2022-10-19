@@ -88,7 +88,8 @@ module Lookbook
     def define_tag(name, args = nil, &block)
       Engine.tags.add_tag(name, {
         named_args: args.to_a,
-        args_parser: block
+        args_parser: block,
+        tag_type: CustomTag
       })
     end
 
