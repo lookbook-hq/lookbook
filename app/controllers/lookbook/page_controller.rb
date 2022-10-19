@@ -19,7 +19,7 @@ module Lookbook
         previous_page: @previous_page,
         pages: @pages
       }
-      @page.markdown? ? Lookbook::Markdown.render(content) : content
+      @page.markdown? ? MarkdownRenderer.call(content, Lookbook.config.markdown_options) : content
     end
   end
 end

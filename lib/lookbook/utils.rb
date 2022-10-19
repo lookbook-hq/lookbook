@@ -4,10 +4,9 @@ module Lookbook
 
     POSITION_PREFIX_REGEX = /^(\d+?)[-_]/
     FRONTMATTER_REGEX = /\A---(.|\n)*?---/
-    ACTION_VIEW_ANNOTATIONS_REGEX = /<!-- (BEGIN|END) (.*) -->/
 
     def self.strip_action_view_annotations!(text)
-      text&.gsub!(ACTION_VIEW_ANNOTATIONS_REGEX, "")
+      ActionViewAnnotationsStripper.call(text)
     end
 
     def self.without_action_view_annotations
