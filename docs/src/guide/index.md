@@ -15,32 +15,7 @@ Lookbook is built on top of ViewComponent's native [preview classes](https://vie
 
 {{ image "lookbook_inspector_screenshot.png" }}
 
-## Lookbook v1.0 - Changes and new features
-
-Lookbook v1.0 includes a completely re-written UI, many under-the hood improvements and a some exciting new customisation options.
-
-### Frontend changes:
-
-* Completely re-written UI - now built with ViewComponents
-* New [UI themes and customisation options](/guide/themes/)
-* Improved small-screen/mobile view
-* Debug menu
-* ...and many other small visual and usability improvements
-
-### New options for extending Lookbook:
-
-* Define [custom tags](/guide/extend/tags/) for preview file annotations
-* Create [your own tab panels](/guide/extend/panels/) - with complete control over content/layout and access to all Lookbook data
-* Use [lifecycle hooks](/guide/extend/hooks/) to run your own code when Lookbook starts up, when files change or at shutdown
-
-### Other changes
-
-* 'Workbench' app for developing Lookbook's UI components in Lookbook
-* New Rspec-based test suite and dummy app
-* All new documentation site (this one!) built using [Bridgetown](https://www.bridgetownrb.com/)
-
 ---
-
 
 ## Lookbook Demo
 
@@ -50,13 +25,20 @@ If you want to have a quick play with Lookbook, the easiest way is to [give the 
 
 If you'd rather dig in a bit more and run the demo app locally, the [demo repo]({{ site.data.external.demo.repo }}) contains instructions on how to get it up and running.
 
+---
+
 ## Who uses Lookbook?
 
 * [Aluuno](https://aluuno.com/)
 * [Clio](https://www.clio.com/)
 * [CoverageBook](https://coveragebook.com/)
 * [FreeAgent](https://www.freeagent.com/)
+* [Gitlab](https://www.gitlab.com/)
+* [Github](https://www.github.com/)
+* [Podia](https://www.podia.com/)
+* [Polaris ViewComponents](https://github.com/baoagency/polaris_view_components)
 * [Within3](https://within3.com/)
+* [Wrapbook](https://wrapbook.com/)
 * And [many more...](https://github.com/allmarkedup/lookbook/network/dependents?package_id=UGFja2FnZS0xMDM0MzQ1)
 
 Using Lookbook? [Send a pull request](https://github.com/allmarkedup/lookbook/edit/main/docs/src/guide/index.md) to update this list!
