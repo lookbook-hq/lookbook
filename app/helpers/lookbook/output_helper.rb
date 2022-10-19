@@ -4,12 +4,12 @@ module Lookbook
       MarkdownRenderer.call(block ? capture(&block) : text, Lookbook.config.markdown_options)
     end
 
-    def highlight(source, **opts)
-      Lookbook::CodeFormatter.highlight(source, **opts)
+    def highlight(*args, **opts)
+      CodeHighlighter.call(*args, **opts)
     end
 
-    def beautify(source, **opts)
-      Lookbook::CodeFormatter.beautify(source, **opts)
+    def beautify(*args, **opts)
+      CodeBeautifier.call(*args, **opts)
     end
 
     def pretty_json(obj)

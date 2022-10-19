@@ -13,12 +13,16 @@ module Lookbook
       @pages = Lookbook.pages
       @next_page = @pages.find_next(@page)
       @previous_page = @pages.find_previous(@page)
-      content = render_to_string inline: @page.content, locals: {
-        page: @page,
-        next_page: @next_page,
-        previous_page: @previous_page,
-        pages: @pages
-      }
+
+      content = ActionViewAnnotationsHandler.call(disable_annotations: true) do
+        render_to_string inline: @page.content, locals: {
+          page: @page,
+          next_page: @next_page,
+          previous_page: @previous_page,
+          pages: @pages
+        }
+      end
+
       @page.markdown? ? MarkdownRenderer.call(content, Lookbook.config.markdown_options) : content
     end
   end
