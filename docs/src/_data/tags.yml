@@ -4,7 +4,7 @@ methods:
     args:
       - name: <name>
         type: Symbol
-        description: A unique, 'slug-friendly' name for the panel
+        description: A unique, 'slug-friendly' name for the tag
       - name: <arg_names?>
         type: Array
         description: Array of positional argument names to match to values when parsing the tag body contents

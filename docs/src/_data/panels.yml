@@ -29,7 +29,7 @@ methods:
       - name: <name>
         type: Symbol | String
         description: A unique, 'slug-friendly' name for the panel
-      - name: <name>
+      - name: <partial_path>
         type: String
         description: Path to the partial template used to render the panel
       - name: <opts?>

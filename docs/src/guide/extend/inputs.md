@@ -18,7 +18,7 @@ Lookbook.define_param_input(<name>, <partial_path>, <opts?>)
 
 {%= options_list do |list| %}
   {% list.option name: "<name>", type: "Symbol | String" do %}
-    A unique name for the panel
+    A unique name for the input
   {% end %}
   {% list.option name: "<partial_path>", type: "String" do %}
     Path to the partial template used to render the input

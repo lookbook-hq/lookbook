@@ -1,0 +1,16 @@
+methods:
+  - name: .define_param_input
+    signature: Lookbook.define_param_input(<name>, <partial_path>, <opts?>)
+    args:
+      - name: <name>
+        type: Symbol
+        description: A unique, 'slug-friendly' name for the input
+      - name: <partial_path>
+        type: String
+        description: Path to the partial template used to render the input
+      - name: <opts?>
+        type: Hash
+        description: Hash of input options
+    example: |
+      Lookbook.define_param_input(:url, "inputs/url")
+    purpose: Add a [custom param input](/guide/extend/inputs/) for use with `@param` tags
