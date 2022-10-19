@@ -30,17 +30,14 @@ module Lookbook
       end
 
       def before_render
-        tpl = TemplateParser.new(render_input)
-        Editor::Component.add_styles(@input_name, tpl.styles)
+        styles, html = StylesExtractor.call(render_input)
+        Editor::Component.add_styles(@input_name, styles)
 
         wrapper_attrs = {
           data: {"param-input": @input_name},
           "x-data": "paramsInputComponent({name: '#{@name}', value: #{escaped_value}})"
         }
-
-        @rendered_input = tag.div(**wrapper_attrs) do
-          tpl.content
-        end
+        @rendered_input = tag.div(**wrapper_attrs) { html.html_safe }
       end
 
       protected

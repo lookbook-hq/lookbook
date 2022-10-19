@@ -13,7 +13,7 @@ module Lookbook
       :data
     ]
 
-    attr_reader :errors, :rel_path
+    attr_reader :errors, :rel_path, :content, :frontmatter
     attr_accessor :sections
 
     def initialize(path, base_path)
@@ -22,9 +22,12 @@ module Lookbook
       @options = nil
       @errors = []
       @sections = []
+      @frontmatter = {}
+      @content = ""
       @page_name = remove_position_prefix(path_name)
       @rel_path = @pathname.relative_path_from(@base_path)
       page_path = @rel_path.dirname.to_s == "." ? @page_name : "#{@rel_path.dirname}/#{@page_name}"
+      extract_frontmatter(file_contents)
       super(page_path)
     end
 
@@ -58,10 +61,6 @@ module Lookbook
 
     def get(key)
       options[key]
-    end
-
-    def content
-      @content ||= strip_frontmatter(file_contents).strip
     end
 
     def matchers
@@ -112,17 +111,6 @@ module Lookbook
 
     def options
       return @options if @options
-      begin
-        frontmatter = (get_frontmatter(file_contents) || {}).deep_symbolize_keys
-      rescue => exception
-        frontmatter = {}
-        line_number_match = exception.message.match(/.*line\s(\d+)/)
-        @errors.push(Lookbook::Error.new(exception, **{
-          title: "YAML frontmatter parsing error",
-          file_path: @pathname.to_s,
-          line_number: line_number_match ? line_number_match[1] : false
-        }))
-      end
       @options = Lookbook.config.page_options.deep_merge(frontmatter).with_indifferent_access
       @options[:id] = generate_id(@options[:id] || lookup_path)
       @options[:label] ||= name.titleize
@@ -134,6 +122,17 @@ module Lookbook
       @options[:header] = true unless @options.key? :header
       @options[:footer] = true unless @options.key? :footer
       @options
+    end
+
+    def extract_frontmatter(content)
+      @frontmatter, @content = FrontmatterExtractor.call(content)
+    rescue => exception
+      line_number_match = exception.message.match(/.*line\s(\d+)/)
+      @errors.push(Lookbook::Error.new(exception, **{
+        title: "YAML frontmatter parsing error",
+        file_path: @pathname.to_s,
+        line_number: line_number_match ? line_number_match[1] : false
+      }))
     end
 
     def path_name

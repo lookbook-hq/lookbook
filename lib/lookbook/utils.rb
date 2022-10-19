@@ -36,14 +36,6 @@ module Lookbook
       parse_position_prefix(str).last
     end
 
-    def get_frontmatter(str)
-      parse_frontmatter(str).first
-    end
-
-    def strip_frontmatter(str)
-      parse_frontmatter(str).last
-    end
-
     def to_lookup_path(path)
       path.split("/").map { |segment| remove_position_prefix(segment) }.join("/")
     end
@@ -59,15 +51,6 @@ module Lookbook
     end
 
     private
-
-    def parse_frontmatter(content)
-      frontmatter = content.match(FRONTMATTER_REGEX)
-      if frontmatter.nil?
-        [{}, content]
-      else
-        [YAML.safe_load(frontmatter[0]), content.gsub(FRONTMATTER_REGEX, "")]
-      end
-    end
 
     def parse_position_prefix(str)
       pos = str.match(POSITION_PREFIX_REGEX)

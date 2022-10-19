@@ -1,5 +1,3 @@
-require "css_parser"
-
 module Lookbook
   class InspectorPanel::Component < Lookbook::BaseComponent
     attr_reader :panel_styles, :panel_html
@@ -14,9 +12,9 @@ module Lookbook
     end
 
     def before_render
-      tpl = TemplateParser.new(content)
-      @panel_styles = tpl.styles.map { |s| "##{id} #{s}" }.join("\n")
-      @panel_html = tpl.content
+      styles, html = StylesExtractor.call(content)
+      @panel_styles = styles.map { |s| "##{id} #{s}" }.join("\n")
+      @panel_html = html.html_safe
     end
   end
 end
