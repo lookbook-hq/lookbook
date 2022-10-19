@@ -38,3 +38,4 @@ To fix the issue you can either use one of the `link_to` forms that work (see be
 
 <%= link_to "Click here", controller: "demo", action: "index" %>  ❌ doesn't work
 ```
+{{toc}}
