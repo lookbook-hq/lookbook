@@ -8,3 +8,4 @@ node_modules/
 docs/output/
 .parcel-cache/
 pkg/
+spec/fixtures

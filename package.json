@@ -75,7 +75,7 @@
       "prettier --write --ignore-unknown"
     ],
     "**/*.rb": [
-      "standardrb --fix"
+      "bundle exec standardrb --fix"
     ]
   },
   "release-it": {

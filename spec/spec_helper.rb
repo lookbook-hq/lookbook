@@ -8,11 +8,8 @@ require "factory_bot"
 require "view_component/test_helpers"
 require "rspec/rails"
 require "capybara/rspec"
-require_relative "support/component_spec_helper"
-require_relative "support/request_spec_helper"
-require_relative "support/paths_helper"
-require_relative "support/factories"
-require_relative "support/headless"
+
+Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
 
 RSpec.configure do |config|
   config.include ViewComponent::TestHelpers, type: :component
