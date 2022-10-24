@@ -27,3 +27,8 @@ shared:
     label: Param
     yard_parser: with_name
     opts: {}
+
+  logical_path:
+    label: Logical path
+    named_args: [logical_path]
+    opts: {}

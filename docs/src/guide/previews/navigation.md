@@ -29,6 +29,23 @@ class FooComponentPreview < ViewComponent::Preview
 end
 ```
 
+## Logical Paths
+
+Use the `@logical_path` annotation tag to change the nav folder the preview will appear in.
+
+```ruby
+@logical_path <path>
+```
+
+The `@logical_path` tag can only be used on preview classes:
+
+```ruby
+# @logical_path path/to/my/component
+class FooComponentPreview < ViewComponent::Preview
+  # ...
+end
+```
+
 ## Hiding previews
 
 By default, all previews and examples are shown in the preview navigation.

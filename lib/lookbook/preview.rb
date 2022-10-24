@@ -8,7 +8,8 @@ module Lookbook
     def initialize(preview, code_object)
       @preview = preview
       @preview_inspector = SourceInspector.new(code_object, eval_scope: preview_class.new)
-      super(preview_class_path(@preview.name))
+      logical_path = @preview_inspector.tag(:logical_path)&.logical_path
+      super(logical_path || preview_class_path(@preview.name))
     end
 
     def id

@@ -6,9 +6,9 @@ module Lookbook
         tag_config = Engine.tags.get_tag(tag_object.tag_name).to_h
         tag_opts = tag_config[:opts].to_h
         Lookbook::Tag.new(tag_object,
-          tag_opts[:named_args],
+          tag_config[:named_args],
           parser: tag_opts[:args_parser],
-          **tag_opts.except(:named_args, :args_parser),
+          **tag_opts.except(:args_parser),
           file: file,
           eval_scope: eval_scope)
       end.compact

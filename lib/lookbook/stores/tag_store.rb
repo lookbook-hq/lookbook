@@ -39,7 +39,8 @@ module Lookbook
         name: name.to_sym,
         label: opts[:label] || name.to_s.titleize,
         yard_parser: opts[:yard_parser]&.to_sym,
-        opts: opts[:opts].to_h
+        opts: opts[:opts].to_h,
+        named_args: opts[:named_args]
       })
     end
   end
