@@ -1,35 +1,28 @@
 shared:
   hidden:
     label: Hidden status
-    tag_type: HiddenTag
     opts: {}
 
   label:
     label: Label
-    tag_type: LabelTag
     opts: {}
 
   display:
     label: Display
-    tag_type: DisplayTag
     opts: {}
 
   position:
     label: Position
-    tag_type: PositionTag
     opts: {}
 
   id:
     label: Id
-    tag_type: IdTag
     opts: {}
 
   component:
     label: Component
-    tag_type: ComponentTag
     opts: {}
 
   param:
     label: Param
-    tag_type: ParamTag
     opts: {}

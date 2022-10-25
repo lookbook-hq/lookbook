@@ -1,9 +1,7 @@
 module Lookbook
-  class ComponentTag < BaseTag
+  class ComponentTag < YardTag
     def value
-      @text.constantize
+      text.constantize
     end
-
-    alias_method :klass, :value
   end
 end

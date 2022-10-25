@@ -1,20 +1,13 @@
 module Lookbook
   module Params
     class Editor::Component < Lookbook::BaseComponent
-      renders_many :fields, ->(input:, description: nil, **attrs) do
+      renders_many :fields, ->(**attrs) do
         @field_count += 1
-        @descriptions = true if description.present?
-        input_config = @inputs[input.tr("-", "_").to_sym]
-        Lookbook::Params::Field::Component.new(input: input,
-          description: description,
-          index: @field_count,
-          config: input_config, **attrs)
+        Lookbook::Params::Field::Component.new(**attrs, index: @field_count)
       end
 
-      def initialize(inputs: nil, **html_attrs)
-        @inputs = inputs.to_h
+      def initialize(**html_attrs)
         @field_count = -1
-        @descriptions = false
         @@input_styles = {}
         super(**html_attrs)
       end

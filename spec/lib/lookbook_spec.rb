@@ -114,8 +114,7 @@ RSpec.describe Lookbook do
           args = [:one]
           expect(tags_config).to receive(:add_tag).with("foo", {
             named_args: args,
-            args_parser: nil,
-            tag_type: Lookbook::CustomTag
+            after_parse: nil
           })
 
           Lookbook.define_tag("foo", args)
@@ -128,8 +127,7 @@ RSpec.describe Lookbook do
           block = -> {}
           expect(tags_config).to receive(:add_tag).with("bar", {
             named_args: args,
-            args_parser: block,
-            tag_type: Lookbook::CustomTag
+            after_parse: block
           })
           Lookbook.define_tag("bar", args, &block)
         end

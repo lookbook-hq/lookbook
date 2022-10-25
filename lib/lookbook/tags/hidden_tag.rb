@@ -1,7 +1,7 @@
 module Lookbook
-  class HiddenTag < BaseTag
+  class HiddenTag < YardTag
     def value
-      @text != "false"
+      text != "false"
     end
 
     def to_s

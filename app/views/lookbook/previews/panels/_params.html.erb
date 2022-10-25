@@ -1,4 +1,4 @@
-<% if preview.params.none? %>
+<% if @params.none? %>
   <div class="p-4 w-full h-full bg-lookbook-prose-bg">
     <%= lookbook_render :prose do %>
       <em class='opacity-50'>No params configured.</em>
@@ -6,9 +6,9 @@
   </div>
 <% else %>
   <div class="h-full overflow-x-hidden">
-    <%= lookbook_render "params/editor", inputs: Lookbook::Engine.inputs do |editor| %>
-      <% preview.params.each do |param| %>
-        <% editor.field **param, value: params[param[:name]] %>
+    <%= lookbook_render "params/editor" do |editor| %>
+      <% @params.each do |param| %>
+        <% editor.field param: param %>
       <% end %>
     <% end %>
   </div>

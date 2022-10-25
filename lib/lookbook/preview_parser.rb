@@ -46,7 +46,7 @@ module Lookbook
 
     def define_tags(tags = nil)
       tags.to_h.each do |name, tag|
-        YARD::Tags::Library.define_tag(tag[:label], name, tag[:tag_type])
+        YARD::Tags::Library.define_tag(tag[:label], name, Lookbook::TagProvider)
       end
     end
   end

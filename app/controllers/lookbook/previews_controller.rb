@@ -126,14 +126,24 @@ module Lookbook
     end
 
     def set_params
+      @params = []
+
       if @target
-        # cast known params to type
-        @target.params.each do |param|
-          if preview_controller.params.key?(param[:name])
-            preview_controller.params[param[:name]] = Lookbook::Params.cast(preview_controller.params[param[:name]], param[:value_type])
+        @params = @target.tags("param").map do |param_tag|
+          Param.from_tag(
+            param_tag,
+            value: preview_controller.params[param_tag.name]
+          )
+        end
+
+        # cast known param values to correct type
+        @params.each do |param|
+          if preview_controller.params.key?(param.name)
+            preview_controller.params[param.name] = param.cast_value
           end
         end
-        # set display and data params
+
+        # set display and data params for use in preview layouts
         preview_controller.params.merge!({
           lookbook: {
             display: @static_display_options,
@@ -146,7 +156,7 @@ module Lookbook
     def preview_params
       preview_controller.params.permit!
       preview_controller.params.to_h.select do |key, value|
-        !!@target.params.find { |param| param[:name] == key }
+        !!@params.find { |param_tag| param_tag.name == key.to_s }
       end
     end
 
@@ -174,9 +184,8 @@ module Lookbook
 
       target = @target.type == :group ? @target : examples.find { |e| e.lookup_path == @target.lookup_path }
 
-      preview.define_singleton_method(:params, proc {
-        target.params
-      })
+      preview_params = @params
+      preview.define_singleton_method(:params, proc { preview_params })
 
       @inspector_data ||= Lookbook::Store.new({
         context: context_data,

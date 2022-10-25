@@ -1,89 +1,41 @@
 module Lookbook
   module Params
     class Field::Component < Lookbook::BaseComponent
-      def initialize(name:, input:, index:, label: nil, hint: nil, description: nil, value: nil, value_default: nil, value_type: nil, input_options: {}, config: nil, **html_attrs)
-        @input_name = input
-        @name = name
-        @label = label || name.titleize
-        @hint = hint
-        @description = description
-        @value = value
+      attr_reader :param, :rendered_input
+
+      def initialize(param:, index:, **html_attrs)
+        @param = param
         @index = index
-        @input_options = input_options
-        @value_default = value_default
-        @value_type = value_type
-        @config = config || {}
         @rendered_input = nil
         super(**html_attrs)
       end
 
-      def hint?
-        @hint.present?
-      end
-
-      def description?
-        @description.present?
-      end
-
-      def input
-        @rendered_input
-      end
-
       def before_render
         styles, html = StylesExtractor.call(render_input)
-        Editor::Component.add_styles(@input_name, styles)
+        Editor::Component.add_styles(param.input, styles)
 
+        escaped_value = json_escape(param.value.to_json)
         wrapper_attrs = {
-          data: {"param-input": @input_name},
-          "x-data": "paramsInputComponent({name: '#{@name}', value: #{escaped_value}})"
+          data: {"param-input": param.input},
+          "x-data": "paramsInputComponent({name: '#{param.name}', value: #{escaped_value}})"
         }
         @rendered_input = tag.div(**wrapper_attrs) { html.html_safe }
       end
 
       protected
 
-      def input_error(error)
-        tag.div error, class: "p-2 text-red-500 italic"
-      end
-
-      def value
-        val = @value.presence || @value_default
-        @value_type.downcase == "boolean" ? val == "true" || val == true : val
-      end
-
-      def escaped_value
-        json_escape(value.to_json)
-      end
-
-      def input_options
-        config_options = @config.fetch(:opts, {})
-        opts = config_options.merge(@input_options).symbolize_keys
-        opts[:id] = "param-#{@name}"
-        opts
-      end
-
-      def render_props
-        {
-          name: @name,
-          input: @input_name,
-          value: value,
-          value_type: @value_type,
-          value_default: @value_default,
-          input_options: input_options.except(:choices),
-          choices: input_options[:choices]
-        }
-      end
-
       def render_input
-        target = @config[:partial]
-        if target
-          render(target, **render_props)
-        else
-          input_error "No param input defined for input type '#{@input_name}'."
-        end
-      rescue ::ActionView::MissingTemplate => exception
-        Lookbook.logger.error exception
-        input_error "Param input partial '#{@config[:partial]}' could not be found."
+        input_options = param.input_options.to_h
+        input_options[:id] = "param-#{param.name}"
+
+        render(param.input_partial,
+          name: param.name,
+          input: param.input,
+          value: param.value,
+          value_type: param.value_type,
+          value_default: param.value_default,
+          input_options: input_options.except(:choices),
+          choices: input_options[:choices])
       end
 
       def alpine_component

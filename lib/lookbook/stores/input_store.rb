@@ -18,11 +18,11 @@ module Lookbook
     end
 
     def add_input(input, *args)
-      store[input.to_sym] = build_config(input, *args)
+      store[normalize_name(input)] = build_config(input, *args)
     end
 
     def get_input(input)
-      store[input.to_sym]
+      store[normalize_name(input)]
     end
 
     def self.init_from_config
@@ -34,6 +34,10 @@ module Lookbook
     end
 
     protected
+
+    def normalize_name(name)
+      name.to_s.tr("-", "_").to_sym
+    end
 
     def build_config(name, *args)
       partial = nil
@@ -48,7 +52,7 @@ module Lookbook
         Store.new({
           name: name.to_sym,
           partial: partial,
-          opts: DEFAULTS.merge(opts.to_h)
+          options: DEFAULTS.merge(opts.to_h)
         })
       else
         raise ConfigError.new("inputs must define a partial path", scope: "inputs.config")

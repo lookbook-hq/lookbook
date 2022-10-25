@@ -1,5 +1,5 @@
 module Lookbook
-  class DisplayTag < BaseTag
+  class DisplayTag < YardTag
     def key
       parts.first
     end
@@ -9,7 +9,7 @@ module Lookbook
     end
 
     def parts
-      @parts ||= KeyValueTagParser.call(@text)
+      @parts ||= KeyValueTagParser.call(text)
     end
   end
 end

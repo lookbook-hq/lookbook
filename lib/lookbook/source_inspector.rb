@@ -11,7 +11,7 @@ module Lookbook
     end
 
     def hidden?
-      @hidden ||= !!tag_value(:hidden)
+      @hidden ||= tag_value(:hidden) || false
     end
 
     def id
@@ -31,35 +31,23 @@ module Lookbook
     end
 
     def position
-      @position ||= tag_value(:position, 10000)
+      @position ||= tag_value(:position) || 10000
     end
 
     def components
-      @components ||= Array(code_object.tags(:component)).map(&:klass)
+      @components ||= Array(code_object.tags(:component)).map(&:value)
     end
 
     def display_options
       return @display_options unless @display_options.nil?
-      pairs = Array(code_object.tags(:display)).map(&:parts)
 
-      # dynamic params set at the entity level are
-      # not (yet) supported so filter them out.
-      pairs.select! { |pair| !pair[1].is_a?(Array) && !pair[1].is_a?(Hash) }
-
-      pairs.to_h.symbolize_keys
-    end
-
-    def parameter_defaults
-      @param_defaults ||= code_object.parameters.map { |str| Params.parse_method_param_str(str) }.compact.to_h
-    end
-
-    def params
-      @params ||= {}
-      @params[:param] ||= Array(code_object.tags("param")).map do |param|
-        Lookbook::Params.build_param(param,
-          default: parameter_defaults[param.name],
-          eval_scope: @eval_scope)
+      # Dynamic params set at the entity level are
+      # not (yet?) supported so filter them out.
+      display_tags = Array(code_object.tags(:display)).select do |tag|
+        !(tag.value.is_a?(Array) || tag.value.is_a?(Hash))
       end
+
+      display_tags.map { |tag| [tag.key.to_sym, tag.value] }.to_h
     end
 
     def methods
@@ -67,10 +55,7 @@ module Lookbook
     end
 
     def tags(name = nil)
-      tag_objects = Array(code_object.tags(name))
-      Lookbook::Tags.process_tags(tag_objects,
-        eval_scope: @eval_scope,
-        file: (code_object.files.first[0] if code_object.files.any?))
+      code_object.tags(name)
     end
 
     def tag(name = nil)
@@ -79,8 +64,8 @@ module Lookbook
 
     protected
 
-    def tag_value(tag_name, fallback = nil)
-      code_object&.tag(tag_name)&.value || fallback
+    def tag_value(tag_name)
+      code_object.tag(tag_name).value if code_object.has_tag?(tag_name)
     end
   end
 end

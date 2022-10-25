@@ -14,19 +14,15 @@ module Lookbook
     end
 
     def page_paths=(paths = nil)
-      store[:page_paths] ||= []
-      store[:page_paths] += paths.to_a
+      store[:page_paths].push(*paths.to_a)
     end
 
     def page_extensions=(extensions = nil)
-      store[:page_extensions] ||= []
-      store[:page_extensions] += extensions.to_a
-      store[:page_extensions].uniq!
+      store[:page_extensions].push(*extensions.to_a).uniq!
     end
 
     def preview_paths=(paths = nil)
-      store[:preview_paths] ||= []
-      store[:preview_paths] += paths.to_a
+      store[:preview_paths].push(*paths.to_a)
     end
 
     def preview_display_params
@@ -40,13 +36,10 @@ module Lookbook
     end
 
     def listen_extensions=(extensions = nil)
-      store[:listen_extensions] ||= []
-      store[:listen_extensions] += extensions.to_a
-      store[:listen_extensions].uniq!
+      store[:listen_extensions].push(*extensions.to_a).uniq!
     end
 
     def markdown_options=(options = nil)
-      store[:markdown_options] ||= {}
       store[:markdown_options].merge!(options.to_h)
     end
 

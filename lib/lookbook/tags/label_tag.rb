@@ -1,4 +1,4 @@
 module Lookbook
-  class LabelTag < BaseTag
+  class LabelTag < YardTag
   end
 end
