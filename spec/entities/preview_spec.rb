@@ -80,7 +80,7 @@ RSpec.describe Lookbook::Preview do
         expect(tags).to be_a Array
 
         tags.each do |tag|
-          expect(tag).to be_a Lookbook::Tag
+          expect(tag).to be_a Lookbook::YardTag
         end
       end
 
@@ -89,11 +89,11 @@ RSpec.describe Lookbook::Preview do
       end
 
       it "includes only the matching tags when a type is specified" do
-        custom_tags = preview.tags(:custom)
+        custom_tags = preview.tags(:customtag)
         expect(custom_tags.size).to eq 2
 
         custom_tags.each do |tag|
-          expect(tag.tag_name).to eq :custom
+          expect(tag.tag_name).to eq "customtag"
         end
       end
 
@@ -106,15 +106,15 @@ RSpec.describe Lookbook::Preview do
       it "returns the first of all Tag object when no type is specified" do
         tag = preview.tag
         first_tag = preview.tags.first
-        expect(tag).to be_a Lookbook::Tag
+        expect(tag).to be_a Lookbook::YardTag
         expect(tag.tag_name).to eq first_tag.tag_name
         expect(tag.tag_body).to eq first_tag.tag_body
       end
 
       it "returns the first of the matching Tag objects when a type is specified" do
-        custom_tag = preview.tag(:custom)
-        first_custom_tag = preview.tags(:custom).first
-        expect(custom_tag.tag_name).to eq :custom
+        custom_tag = preview.tag(:customtag)
+        first_custom_tag = preview.tags(:customtag).first
+        expect(custom_tag.tag_name).to eq "customtag"
         expect(custom_tag.tag_body).to eq first_custom_tag.tag_body
       end
     end

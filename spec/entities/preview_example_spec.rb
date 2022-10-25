@@ -76,7 +76,7 @@ RSpec.describe Lookbook::PreviewExample do
         expect(tags).to be_a Array
 
         tags.each do |tag|
-          expect(tag).to be_a Lookbook::Tag
+          expect(tag).to be_a Lookbook::YardTag
         end
       end
 
@@ -85,11 +85,11 @@ RSpec.describe Lookbook::PreviewExample do
       end
 
       it "includes only the matching tags when a type is specified" do
-        custom_tags = example.tags(:custom)
+        custom_tags = example.tags(:customtag)
         expect(custom_tags.size).to eq 2
 
         custom_tags.each do |tag|
-          expect(tag.tag_name).to eq :custom
+          expect(tag.tag_name).to eq "customtag"
         end
       end
 
@@ -102,15 +102,15 @@ RSpec.describe Lookbook::PreviewExample do
       it "returns the first of all Tag object when no type is specified" do
         tag = example.tag
         first_tag = example.tags.first
-        expect(tag).to be_a Lookbook::Tag
+        expect(tag).to be_a Lookbook::YardTag
         expect(tag.tag_name).to eq first_tag.tag_name
         expect(tag.tag_body).to eq first_tag.tag_body
       end
 
       it "returns the first of the matching Tag objects when a type is specified" do
-        custom_tag = example.tag(:custom)
-        first_custom_tag = example.tags(:custom).first
-        expect(custom_tag.tag_name).to eq :custom
+        custom_tag = example.tag(:customtag)
+        first_custom_tag = example.tags(:customtag).first
+        expect(custom_tag.tag_name).to eq "customtag"
         expect(custom_tag.tag_body).to eq first_custom_tag.tag_body
       end
     end
