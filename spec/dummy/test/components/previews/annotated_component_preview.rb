@@ -4,8 +4,9 @@
 # @unregistered this tag is not recognised
 # @custom a custom tag
 # @custom another instance of it
+# @logical_path foo/bar/annotated_component
 class AnnotatedComponentPreview < ViewComponent::Preview
-  
+
   # @id annotated-default
   # @label Annotated Example
   # @hidden
