@@ -10,7 +10,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   tab-size: 4;
-  font-family: Nunito Sans, -apple-system, \.SFNSText-Regular, San Francisco, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, \.SFNSText-Regular, San Francisco, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif;
   line-height: 1.5;
 }
 
@@ -171,6 +171,10 @@ img, svg, video, canvas, audio, iframe, embed, object {
 img, video {
   max-width: 100%;
   height: auto;
+}
+
+[hidden] {
+  display: none;
 }
 
 [type="text"], [type="email"], [type="url"], [type="password"], [type="number"], [type="date"], [type="datetime-local"], [type="month"], [type="search"], [type="tel"], [type="time"], [type="week"], [multiple], textarea, select {
@@ -338,7 +342,7 @@ body {
   color: var(--lookbook-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: Nunito Sans, -apple-system, \.SFNSText-Regular, San Francisco, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, \.SFNSText-Regular, San Francisco, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: .875rem;
   line-height: 1.25rem;
   overflow: hidden;
@@ -1412,11 +1416,6 @@ pre[class*="language-"] {
   margin-bottom: 0;
 }
 
-.theme-github-light {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
 .theme-github-light .highlight .hll {
   background-color: #f8f8f8;
   border: 1px solid #ccc;
@@ -2164,10 +2163,6 @@ input[type="color"]::-webkit-color-swatch {
   margin-left: -.75rem;
 }
 
-.-mb-px {
-  margin-bottom: -1px;
-}
-
 .mr-auto {
   margin-right: auto;
 }
@@ -2286,6 +2281,10 @@ input[type="color"]::-webkit-color-swatch {
 
 .w-full {
   width: 100%;
+}
+
+.w-\[160px\] {
+  width: 160px;
 }
 
 .w-screen {
@@ -2563,10 +2562,6 @@ input[type="color"]::-webkit-color-swatch {
   overflow-x: hidden;
 }
 
-.overflow-y-hidden {
-  overflow-y: hidden;
-}
-
 .scroll-smooth {
   scroll-behavior: smooth;
 }
@@ -2625,12 +2620,12 @@ input[type="color"]::-webkit-color-swatch {
   border-left-width: 1px;
 }
 
-.border-r {
-  border-right-width: 1px;
-}
-
 .border-b-0 {
   border-bottom-width: 0;
+}
+
+.border-r {
+  border-right-width: 1px;
 }
 
 .border-l-2 {
@@ -2745,24 +2740,12 @@ input[type="color"]::-webkit-color-swatch {
   background-color: var(--lookbook-toolbar-bg);
 }
 
-.bg-lookbook-viewport-handle {
-  background-color: var(--lookbook-viewport-handle);
-}
-
 .bg-gray-100\/80 {
   background-color: #f3f4f6cc;
 }
 
 .\!bg-lookbook-nav-item-active {
   background-color: var(--lookbook-nav-item-active) !important;
-}
-
-.stroke-current {
-  stroke: currentColor;
-}
-
-.stroke-2 {
-  stroke-width: 2px;
 }
 
 .p-4 {
@@ -2777,12 +2760,12 @@ input[type="color"]::-webkit-color-swatch {
   padding: .5rem;
 }
 
-.p-3 {
-  padding: .75rem;
-}
-
 .p-6 {
   padding: 1.5rem;
+}
+
+.p-3 {
+  padding: .75rem;
 }
 
 .p-8 {
@@ -2829,11 +2812,6 @@ input[type="color"]::-webkit-color-swatch {
   padding-bottom: .25rem;
 }
 
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
 .px-1 {
   padding-left: .25rem;
   padding-right: .25rem;
@@ -2841,6 +2819,10 @@ input[type="color"]::-webkit-color-swatch {
 
 .pb-10 {
   padding-bottom: 2.5rem;
+}
+
+.pb-4 {
+  padding-bottom: 1rem;
 }
 
 .pt-1 {
@@ -2883,10 +2865,6 @@ input[type="color"]::-webkit-color-swatch {
   padding-top: .5rem;
 }
 
-.pt-\[4px\] {
-  padding-top: 4px;
-}
-
 .pb-0 {
   padding-bottom: 0;
 }
@@ -2919,16 +2897,12 @@ input[type="color"]::-webkit-color-swatch {
   text-align: center;
 }
 
-.align-middle {
-  vertical-align: middle;
-}
-
 .font-mono {
   font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
 }
 
 .font-sans {
-  font-family: Nunito Sans, -apple-system, \.SFNSText-Regular, San Francisco, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, \.SFNSText-Regular, San Francisco, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 .text-base {
@@ -2949,10 +2923,6 @@ input[type="color"]::-webkit-color-swatch {
 .text-xs {
   font-size: .75rem;
   line-height: 1rem;
-}
-
-.text-\[0\.82rem\] {
-  font-size: .82rem;
 }
 
 .text-lg {
@@ -2982,6 +2952,10 @@ input[type="color"]::-webkit-color-swatch {
 
 .leading-tight {
   line-height: 1.25;
+}
+
+.tracking-wide {
+  letter-spacing: .025em;
 }
 
 .tracking-wider {
@@ -3044,14 +3018,6 @@ input[type="color"]::-webkit-color-swatch {
 
 .text-lookbook-prose-text {
   color: var(--lookbook-prose-text);
-}
-
-.text-lookbook-viewport-handle-icon-stroke {
-  color: var(--lookbook-viewport-handle-icon-stroke);
-}
-
-.text-lookbook-input-text {
-  color: var(--lookbook-input-text);
 }
 
 .text-lookbook-nav-text {
@@ -3409,10 +3375,6 @@ input[type="color"]::-webkit-color-swatch {
 
 .hover\:text-lookbook-icon-button-stroke-hover:hover {
   color: var(--lookbook-icon-button-stroke-hover);
-}
-
-.hover\:text-lookbook-viewport-handle-icon-stroke-hover:hover {
-  color: var(--lookbook-viewport-handle-icon-stroke-hover);
 }
 
 .hover\:text-lookbook-tabs-text-hover:hover {
