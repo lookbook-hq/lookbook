@@ -2,9 +2,10 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gemspec
 
+gem "standard", "~> 1.1"
+
 group :development, :test do
   gem "sqlite3", "~> 1.5"
-  gem "standard", "~> 1.1"
   gem "combustion", "~> 1.3"
   gem "actionpack"
   gem "appraisal"
