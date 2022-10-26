@@ -11,85 +11,61 @@ module Lookbook
     end
 
     def hidden?
-      @hidden ||= if code_object&.tag(:hidden)
-        code_object.tag(:hidden).text.strip != "false"
-      else
-        false
-      end
+      @hidden ||= tag_value(:hidden) || false
     end
 
     def id
-      @id ||= if code_object&.tag(:id)&.text&.present?
-        generate_id(code_object&.tag(:id)&.text)
-      end
+      @id ||= tag_value(:id)
     end
 
     def label
-      @label ||= code_object&.tag(:label)&.text
+      @label ||= tag_value(:label)
     end
 
     def notes
-      @notes ||= if code_object&.docstring
-        code_object.docstring.to_s.strip
-      end
+      @notes ||= code_object.docstring&.to_s&.strip
     end
 
     def group
-      @group ||= code_object&.group
+      @group ||= code_object.group
     end
 
     def position
-      @position ||= code_object&.tag(:position)&.text&.to_i || 10000
+      @position ||= tag_value(:position) || 10000
     end
 
     def components
-      @components ||= if code_object&.tags(:component).present?
-        code_object.tags(:component).map do |component|
-          component.text.constantize
-        end
-      else
-        []
-      end
+      @components ||= Array(code_object.tags(:component)).map(&:value)
     end
 
     def display_options
       return @display_options unless @display_options.nil?
-      tags = code_object.tags(:display).to_a
-      pairs = tags.map { KeyValueTagParser.call(_1.text) }
 
-      # dynamic params set at the entity level are
-      # not (yet) supported so filter them out.
-      pairs.select! { |pair| !pair[1].is_a?(Array) && !pair[1].is_a?(Hash) }
-
-      pairs.to_h.symbolize_keys
-    end
-
-    def parameter_defaults
-      @param_defaults ||= code_object&.parameters&.map { |str| Params.parse_method_param_str(str) }&.compact&.to_h
-    end
-
-    def params
-      @params ||= {}
-      @params[:param] ||= code_object&.tags("param")&.map do |param|
-        Lookbook::Params.build_param(param,
-          default: parameter_defaults[param.name],
-          eval_scope: @eval_scope)
+      # Dynamic params set at the entity level are
+      # not (yet?) supported so filter them out.
+      display_tags = Array(code_object.tags(:display)).select do |tag|
+        !(tag.value.is_a?(Array) || tag.value.is_a?(Hash))
       end
+
+      display_tags.map { |tag| [tag.key.to_sym, tag.value] }.to_h
     end
 
     def methods
-      @methods ||= code_object&.meths
+      @methods ||= code_object.meths
     end
 
     def tags(name = nil)
-      tag_objects = code_object&.tags(name).presence || []
-      Lookbook::Tags.process_tags(tag_objects,
-        eval_scope: @eval_scope,
-        file: (code_object.files.first[0] if code_object.files.any?))
+      code_object.tags(name)
     end
 
     def tag(name = nil)
       tags(name).first
+    end
+
+    protected
+
+    def tag_value(tag_name)
+      code_object.tag(tag_name).value if code_object.has_tag?(tag_name)
     end
   end
 end

@@ -1,3 +1,4 @@
 ignore:
   - "spec/dummy/**/*"
+  - "spec/fixtures/**/*"
   - "**/*/puma.rb"

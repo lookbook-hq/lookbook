@@ -34,12 +34,10 @@ module Lookbook
     protected
 
     def build_config(name, opts = nil)
-      opts = opts.to_h
       Store.new({
         name: name.to_sym,
-        label: opts[:label] || name.to_s.titleize,
-        yard_parser: opts[:yard_parser]&.to_sym,
-        opts: opts[:opts].to_h
+        label: name.to_s.titleize,
+        options: opts.to_h
       })
     end
   end

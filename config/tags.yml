@@ -25,5 +25,4 @@ shared:
 
   param:
     label: Param
-    yard_parser: with_name
     opts: {}

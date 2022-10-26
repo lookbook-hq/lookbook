@@ -1,6 +1,7 @@
 require "view_component"
 require "action_cable/engine"
 require "listen"
+require "yard"
 
 module Lookbook
   class Engine < Rails::Engine

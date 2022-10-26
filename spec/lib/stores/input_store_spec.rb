@@ -23,8 +23,8 @@ RSpec.describe Lookbook::InputStore do
 
           expect(example).to_not be nil
           expect(example.name).to eql :input_name
-          expect(example.opts).to be_a Hash
-          expect(example.opts.blank?).to be true
+          expect(example.options).to be_a Hash
+          expect(example.options.blank?).to be true
         end
 
         it "adds the input with opts" do
@@ -34,7 +34,7 @@ RSpec.describe Lookbook::InputStore do
 
           expect(example).to_not be nil
           expect(example.name).to eql :input_name
-          expect(example.opts).to include(opts)
+          expect(example.options).to include(opts)
         end
       end
     end

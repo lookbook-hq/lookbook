@@ -6,7 +6,7 @@
     "entity-type": item.type
   },
   cloak: true do %>
-  <%= lookbook_tag href.present? ? :a : :div,
+  <%= lookbook_tag href.present? ? :a : :button,
     href: href,
     class: "flex items-center py-1 select-none cursor-pointer text-lookbook-nav-text hover:bg-lookbook-nav-item-hover transition",
     style: "padding-left: #{left_pad}px",

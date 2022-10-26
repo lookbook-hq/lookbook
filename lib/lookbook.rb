@@ -6,6 +6,7 @@ loader.ignore("#{__dir__}/lookbook.rb")
 loader.push_dir("#{__dir__}/lookbook", namespace: Lookbook)
 loader.collapse("#{__dir__}/lookbook/*")
 loader.collapse("#{__dir__}/lookbook/*/*")
+loader.collapse("#{__dir__}/lookbook/*/*/*")
 loader.setup
 
 module Lookbook
@@ -88,7 +89,7 @@ module Lookbook
     def define_tag(name, args = nil, &block)
       Engine.tags.add_tag(name, {
         named_args: args.to_a,
-        args_parser: block
+        after_parse: block
       })
     end
 

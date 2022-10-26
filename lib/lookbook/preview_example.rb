@@ -1,7 +1,7 @@
 module Lookbook
   class PreviewExample < Entity
     attr_reader :name, :preview
-    delegate :params, :position, :group, :notes, :hidden?, :source, :tags, :tag, to: :@example_inspector
+    delegate :position, :group, :notes, :hidden?, :source, :tags, :tag, to: :@example_inspector
 
     def initialize(name, preview, code_object)
       @name = name

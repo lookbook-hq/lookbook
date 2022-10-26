@@ -4,4 +4,10 @@ class UnannotatedComponentPreview < ViewComponent::Preview
       "standard component content"
     end
   end
+
+  def second
+    render StandardComponent.new do
+      "second standard component content"
+    end
+  end
 end
