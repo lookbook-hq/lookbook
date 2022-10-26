@@ -1,10 +1,23 @@
 module Lookbook
   class CustomTag < YardTag
-    def initialize(tag_name, text, *args)
-      @config = Engine.tags.get_tag(tag_name)
+    attr_reader :arg_names, :tag_args
+
+    def initialize(tag_name, text = nil, *args)
+      tag_definition = Engine.tags.get_tag(tag_name)
+      unless tag_definition
+        raise ParserError.new "Unknown custom tag type '#{tag_name}'"
+      end
+
+      super(tag_name, text.to_s, *args)
+
       @custom_attributes = Store.new
+      @arg_names = tag_definition.options.fetch(:named_args, [])
+      @after_parse = tag_definition.options.fetch(:after_parse, nil)
+
       validate_arg_names
-      super(tag_name, text, *args)
+
+      @tag_args = parse_tag
+      @after_parse.call(self) if @after_parse.respond_to?(:call)
     end
 
     # Method aliases to keep compatability with
@@ -14,24 +27,13 @@ module Lookbook
 
     protected
 
-    def arg_names
-      @config.fetch(:named_args, [])
-    end
-
-    def tag_args
-      @tag_args ||= parse_tag
-    end
-
     def parse_tag
       text_tokens = Shellwords.split(text)
       values = text_tokens.slice(0, arg_names.size)
 
-      tag_args = arg_names.map.with_index do |name, i|
+      arg_names.map.with_index do |name, i|
         [name.to_sym, values[i]]
       end.to_h
-
-      @config.fetch(:after_parse) { proc {} }.call(self)
-      tag_args
     end
 
     def validate_arg_names
@@ -46,7 +48,7 @@ module Lookbook
       if name.end_with? "="
         @custom_attributes[name.to_s.chomp("=")] = args.first
       else
-        @custom_attributes[name] || tag_args[name]
+        @custom_attributes.public_send(name, *args) || tag_args[name]
       end
     end
 

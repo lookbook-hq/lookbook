@@ -15,22 +15,13 @@ RSpec.describe Lookbook::TagStore do
 
         expect(tag).not_to be nil
         expect(tag.label).to eq "Tag Name"
-        expect(tag.yard_parser).to be nil
-        expect(tag.opts).to be_a Hash
+        expect(tag.options).to be_a Hash
       end
 
       it "throws an error if the tag already exists" do
         config.add_tag(:tag_name)
 
         expect { config.add_tag(:tag_name) }.to raise_error Lookbook::ConfigError
-      end
-
-      it "adds a tag with a label" do
-        config.add_tag(:tag_name, {
-          label: "Foo"
-        })
-
-        expect(config.get_tag(:tag_name).label).to eq "Foo"
       end
     end
   end

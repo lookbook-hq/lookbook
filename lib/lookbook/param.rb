@@ -1,7 +1,6 @@
 module Lookbook
   class Param
     attr_reader :name, :options, :value_default, :description
-    attr_writer :value
 
     def initialize(name:, input: nil, description: nil, value_type: nil, value_default: nil, value: nil, options: {})
       @name = name
