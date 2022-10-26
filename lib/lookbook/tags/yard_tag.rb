@@ -1,7 +1,7 @@
 module Lookbook
   class YardTag < ::YARD::Tags::Tag
     def initialize(*args)
-      if args.size == 1
+      if args.size < 2
         tag_name = self.class.name.demodulize.underscore.chomp("_tag")
         super(tag_name, args.first, nil, @name)
       else
@@ -21,6 +21,9 @@ module Lookbook
       value.to_s
     end
 
+    # The `value` attribute should be overriden in child classes
+    # to return the resolved value of the tag, where appropriate.
+    # i.e. for the @hidden tag this would return boolean true/false.
     alias_method :value, :text
 
     protected
