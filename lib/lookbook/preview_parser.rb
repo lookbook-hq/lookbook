@@ -26,7 +26,7 @@ module Lookbook
     end
 
     def paths
-      PathUtils.normalize_all(@paths).map { "#{_1}/**/*preview.rb" }
+      PathUtils.normalize_all(@paths).map { |path| "#{path}/**/*preview.rb" }
     end
 
     protected
@@ -39,7 +39,7 @@ module Lookbook
     end
 
     def run_callbacks
-      callbacks.each { _1.call(YARD::Registry) }
+      callbacks.each { |cb| cb.call(YARD::Registry) }
       @after_parse_once_callbacks = []
       @parsing = false
     end

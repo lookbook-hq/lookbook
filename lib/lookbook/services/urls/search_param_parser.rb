@@ -8,7 +8,7 @@ module Lookbook
 
     def call
       pairs_str = param_value.split("|")
-      pairs = pairs_str.map { [*_1.split(":").map(&:strip)] }
+      pairs = pairs_str.map { |pair| [*pair.split(":").map(&:strip)] }
       pairs.to_h.symbolize_keys
     end
   end

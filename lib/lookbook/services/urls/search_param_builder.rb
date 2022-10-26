@@ -7,7 +7,7 @@ module Lookbook
     end
 
     def call
-      data.map { "#{_1}:#{_2}" }.join("|")
+      data.map { |k, v| "#{k}:#{v}" }.join("|")
     end
   end
 end

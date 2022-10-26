@@ -21,14 +21,14 @@ module Lookbook
     def start
       if listeners.any?
         Lookbook.logger.debug "Starting listeners"
-        listeners.each { _1.start }
+        listeners.each { |l| l.start }
       end
     end
 
     def stop
       if listeners.any?
         Lookbook.logger.debug "Stopping listeners"
-        listeners.each { _1.stop }
+        listeners.each { |l| l.stop }
       end
     end
 

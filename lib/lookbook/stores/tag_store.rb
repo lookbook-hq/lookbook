@@ -7,7 +7,7 @@ module Lookbook
 
     def initialize(config = nil)
       @store = {}
-      config.to_h.each { add_tag(_1, _2) }
+      config.to_h.each { |k, v| add_tag(k, v) }
     end
 
     def add_tag(name, opts = nil)

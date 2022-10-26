@@ -3,7 +3,7 @@ module Lookbook
     def initialize(initial_data = nil, opts = {})
       @recursive = opts[:recursive] || false
       super()
-      initial_data.to_h.each { self[_1] = _2 }
+      initial_data.to_h.each { |k, v| self[k] = v }
     end
 
     def []=(key, value)
