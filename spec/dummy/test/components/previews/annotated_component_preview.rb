@@ -1,6 +1,5 @@
 # @id annotated_test
 # @label Annotated Label
-# @hidden true
 # @unregistered this tag is not recognised
 # @customtag a custom tag
 # @customtag another instance of it
@@ -14,6 +13,21 @@ class AnnotatedComponentPreview < ViewComponent::Preview
   def default
     render StandardComponent.new do
       "standard component content"
+    end
+  end
+
+  # @label Param example
+  # @param text
+  def another_example(text: "another component content")
+    render StandardComponent.new do
+      text
+    end
+  end
+
+  # This is a note about the third example
+  def third_example
+    render StandardComponent.new do
+      "third component content"
     end
   end
 end

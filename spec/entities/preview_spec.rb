@@ -53,6 +53,16 @@ RSpec.describe Lookbook::Preview do
     end
   end
 
+  context "hidden" do
+    let(:preview) { Lookbook.previews.find_by_id(:hidden) }
+
+    context ".hidden?" do
+      it "is set by the annotation" do
+        expect(preview.hidden?).to eq true
+      end
+    end
+  end
+
   context "with annotations" do
     let(:preview) { Lookbook.previews.find_by_id(:annotated_test) }
 
@@ -68,12 +78,6 @@ RSpec.describe Lookbook::Preview do
       end
     end
 
-    context ".hidden?" do
-      it "is set by the annotation" do
-        expect(preview.hidden?).to eq true
-      end
-    end
-
     context ".tags" do
       it "returns an array of Tag objects" do
         tags = preview.tags
@@ -85,7 +89,7 @@ RSpec.describe Lookbook::Preview do
       end
 
       it "includes all the known tags when no type is specified" do
-        expect(preview.tags.size).to eq 5
+        expect(preview.tags.size).to eq 4
       end
 
       it "includes only the matching tags when a type is specified" do

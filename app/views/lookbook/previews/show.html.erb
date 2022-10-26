@@ -1,6 +1,9 @@
 <%= lookbook_render :split_layout,
   alpine_data: "$store.layout.inspector",
-  ":class": "($store.inspector.drawer.hidden || #{@drawer_panels.none?}) && '!grid-rows-[1fr] !grid-cols-[1fr]'" do |layout| %>
+  ":class": "($store.inspector.drawer.hidden || #{@drawer_panels.none?}) && '!grid-rows-[1fr] !grid-cols-[1fr]'",
+  data: {
+    "preview-target": @target.id
+  } do |layout| %>
 
   <%= layout.pane class: "flex flex-col h-full overflow-hidden",
     "x-effect": "forceOrientation = (layoutWidth < $store.inspector.minVerticalSplitWidth) ? 'horizontal' : null" do %>
