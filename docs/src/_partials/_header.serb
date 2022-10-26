@@ -1,8 +1,10 @@
 <header class="layout-container border-b border-gray-300 relative z-50">
   <div class="layout-column">
     <div class="layout-content flex items-center">
-      <a href="/" class="text-lg font-black tracking-[0.05em] uppercase text-indigo-600">Lookbook</a>
-      <span class="text-xs ml-3 relative top-[1.5px] opacity-40">v{{ lookbook_version }}</span>
+      <a href="/" class="">
+        {{ image "lookbook_logo.svg", class: "w-[130px]" }}
+      </a>
+      <span class="text-xs ml-3 relative top-[3.5px] opacity-40">v{{ lookbook_version }}</span>
     </div>
   </div>
   <div class="layout-column flex items-center !overflow-hidden">
