@@ -1,11 +1,11 @@
 module Lookbook
-  class PreviewsController < ApplicationController
+  class InspectorController < ApplicationController
     layout "lookbook/inspector"
 
     helper Lookbook::PreviewHelper
 
     def self.controller_path
-      "lookbook/previews"
+      "lookbook/inspector"
     end
 
     before_action :lookup_entities, only: [:preview, :show]
