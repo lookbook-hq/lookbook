@@ -1,5 +1,9 @@
 module Lookbook
-  module PreviewController
+  module PreviewActions
+    def self.included(klass)
+      klass.helper Lookbook::PreviewHelper
+    end
+
     def render_example_to_string(preview, example_name)
       prepend_application_view_paths
       prepend_preview_examples_view_path

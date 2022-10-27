@@ -54,12 +54,15 @@ module Lookbook
       end
     end
 
+    # The preview controller handles the rendering of individual previews.
+    #
+    # Lookbook injects some actions into whichever controller has been
+    # specified by the user in order to render previews within the context of
+    # the particular controller class instance so that any before_action/after_action
+    # callbacks will be correctly processed.
     config.after_initialize do
       @preview_controller = opts.preview_controller.constantize
-      @preview_controller.class_eval do
-        include Lookbook::PreviewController
-        helper Lookbook::PreviewHelper
-      end
+      @preview_controller.class_eval { include Lookbook::PreviewActions }
     end
 
     config.after_initialize do
