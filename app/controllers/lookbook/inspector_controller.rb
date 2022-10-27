@@ -1,11 +1,11 @@
 module Lookbook
-  class PreviewsController < ApplicationController
+  class InspectorController < ApplicationController
     layout "lookbook/inspector"
 
     helper Lookbook::PreviewHelper
 
     def self.controller_path
-      "lookbook/previews"
+      "lookbook/inspector"
     end
 
     before_action :lookup_entities, only: [:preview, :show]
@@ -219,25 +219,15 @@ module Lookbook
     end
 
     def prettify_error(exception)
-      error_params = if exception.is_a?(ViewComponent::PreviewTemplateError)
-        {
+      error_params = {}
+      if exception.is_a?(ViewComponent::PreviewTemplateError)
+        error_params = {
           file_path: @preview&.full_path,
           line_number: 0,
           source_code: @target&.source
         }
-      elsif exception.is_a?(ActionView::Template::Error) & exception.message.include?("implements a reserved method")
-        message_parts = exception.message.split("\n").first.split
-        component_class = message_parts.first.constantize
-        naughty_method = message_parts.last.delete("#").delete("`").delete(".")
-        method = component_class.instance_method(naughty_method.to_sym)
-        if method
-          {
-            file_path: method.source_location.first,
-            line_number: method.source_location[1]
-          }
-        end
       end
-      Lookbook::Error.new(exception, **(error_params || {}))
+      Lookbook::Error.new(exception, **error_params)
     end
 
     def path_segments

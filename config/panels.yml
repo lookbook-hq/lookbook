@@ -1,30 +1,30 @@
 shared:
   main:
     - name: preview
-      partial: lookbook/previews/panels/preview
+      partial: lookbook/inspector/panels/preview
       label: Preview
       hotkey: v
 
     - name: output
-      partial: lookbook/previews/panels/output
+      partial: lookbook/inspector/panels/output
       label: HTML
       hotkey: h
 
   drawer:
     - name: source
-      partial: lookbook/previews/panels/source
+      partial: lookbook/inspector/panels/source
       label: Source
       hotkey: s
       copy: "->(data) { data.examples.map { |e| e.source }.join(\n) }"
 
     - name: notes
-      partial: lookbook/previews/panels/notes
+      partial: lookbook/inspector/panels/notes
       label: Notes
       hotkey: n
       disabled: ->(data) { data.examples.select { |e| e.notes.present? }.none? }
 
     - name: params
-      partial: lookbook/previews/panels/params
+      partial: lookbook/inspector/panels/params
       label: Params
       hotkey: p
       disabled: ->(data) { data.preview.params.none? }
