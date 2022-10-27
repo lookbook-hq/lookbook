@@ -4,6 +4,9 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    ignore:
+      - dependency-name: "@rails/actioncable" # we want to stay pinned to the 6.x branch for greater comaptability
+        versions: ["7.x"]
 
   - package-ecosystem: "bundler"
     directory: "/"
