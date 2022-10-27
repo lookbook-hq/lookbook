@@ -45,5 +45,17 @@ module Lookbook
       @error = locals[:error]
       render path, layout: layout.presence || (params[:lookbook_embed] ? "lookbook/basic" : "lookbook/application"), locals: locals
     end
+
+    def prettify_error(exception)
+      error_params = {}
+      if exception.is_a?(ViewComponent::PreviewTemplateError)
+        error_params = {
+          file_path: @preview&.full_path,
+          line_number: 0,
+          source_code: @target&.source
+        }
+      end
+      Lookbook::Error.new(exception, **error_params)
+    end
   end
 end
