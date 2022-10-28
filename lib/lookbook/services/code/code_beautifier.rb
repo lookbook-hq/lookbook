@@ -14,6 +14,8 @@ module Lookbook
       stripped_source = source.strip
       result = language.downcase == "html" ? HtmlBeautifier.beautify(stripped_source, opts) : stripped_source
       result.to_s.strip.html_safe
+    rescue
+      source.strip.html_safe
     end
   end
 end

@@ -60,5 +60,15 @@ RSpec.describe "inspector", type: :request do
         expect(html).to have_css("[data-panel=params] textarea[name=textarea]")
       end
     end
+
+    context "output panel" do
+      context "multi-line tags" do
+        it "does not raise an exception" do
+          get lookbook_inspect_path("multiline_tag/default")
+
+          expect(response.status).not_to eq 500
+        end
+      end
+    end
   end
 end
