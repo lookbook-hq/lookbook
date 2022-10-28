@@ -78,6 +78,12 @@ RSpec.describe Lookbook::Preview do
       end
     end
 
+    context ".path" do
+      it "uses the logical path" do
+        expect(preview.path).to eq "foo/bar/annotated"
+      end
+    end
+
     context ".tags" do
       it "returns an array of Tag objects" do
         tags = preview.tags
@@ -89,7 +95,7 @@ RSpec.describe Lookbook::Preview do
       end
 
       it "includes all the known tags when no type is specified" do
-        expect(preview.tags.size).to eq 4
+        expect(preview.tags.size).to eq 5
       end
 
       it "includes only the matching tags when a type is specified" do

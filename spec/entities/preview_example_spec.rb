@@ -70,6 +70,12 @@ RSpec.describe Lookbook::PreviewExample do
       end
     end
 
+    context ".path" do
+      it "uses the logical path" do
+        expect(example.path).to eq "foo/bar/annotated/default"
+      end
+    end
+
     context ".tags" do
       it "returns an array of Tag objects" do
         tags = example.tags

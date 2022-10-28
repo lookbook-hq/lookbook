@@ -98,6 +98,11 @@ RSpec.describe "preview navigation", type: :system do
     let(:examples) { preview.examples }
     let(:preview_item_selector) { "#previews-nav-annotated-test" }
 
+    before do
+      click_on("Foo")
+      click_on("Bar")
+    end
+
     context "has preview link" do
       it "with an custom label" do
         expect(page).to have_css(preview_item_selector, text: "Annotated Label")
