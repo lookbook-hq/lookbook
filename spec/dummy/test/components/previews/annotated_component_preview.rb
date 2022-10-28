@@ -3,6 +3,7 @@
 # @unregistered this tag is not recognised
 # @customtag a custom tag
 # @customtag another instance of it
+# @logical_path foo/bar
 class AnnotatedComponentPreview < ViewComponent::Preview
   # @id annotated-default
   # @label Annotated Example
