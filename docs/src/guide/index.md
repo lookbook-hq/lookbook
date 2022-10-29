@@ -43,4 +43,14 @@ If you'd rather dig in a bit more and run the demo app locally, the [demo repo](
 
 Using Lookbook? [Send a pull request](https://github.com/allmarkedup/lookbook/edit/main/docs/src/guide/index.md) to update this list!
 
+---
+
+## Related blog posts
+
+* [ViewComponent in the Wild II: supercharging your components](https://evilmartians.com/chronicles/viewcomponent-in-the-wild-supercharging-your-components)
+* [From partials to ViewComponents: writing reusable front-end code in Rails](https://dev.to/nejremeslnici/from-partials-to-viewcomponents-writing-reusable-front-end-code-in-rails-1c9o)
+
+<br>
+
+
 {{ toc }}
