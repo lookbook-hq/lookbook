@@ -2,7 +2,7 @@
   <% panes.each.with_index(1) do |pane, i| %>
     <%= pane %>
     <% if i < panes.size %>
-      <div class="bg-lookbook-divider relative" x-init="registerGutter">
+      <div class="bg-lookbook-divider relative z-50" x-init="registerGutter">
         <div class="absolute z-10 bg-transparent hover:bg-lookbook-draggable-hint transition-all" :class="{
           'w-[9px] h-full -translate-x-1/2 cursor-[col-resize]': vertical,
           'h-[9px] w-full -translate-y-1/2 cursor-[row-resize]': horizontal
