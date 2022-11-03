@@ -5,7 +5,7 @@
     <% end %>
   </div>
 <% else %>
-  <div class="h-full overflow-x-hidden">
+  <div class="p-4 w-full h-full overflow-x-hidden">
     <%= lookbook_render "params/editor" do |editor| %>
       <% @params.each do |param| %>
         <% editor.field param: param %>
