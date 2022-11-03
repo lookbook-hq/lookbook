@@ -1,3 +1,4 @@
+@import "./highlight_github.css";
 @import "./highlight_github_light.css";
 
 @layer components {
@@ -25,7 +26,7 @@
 
       & .line-numbers {
         width: min-content;
-        @apply bg-white border-r border-dashed border-lookbook-divider z-10 h-full p-3 select-none text-gray-400 text-right;
+        @apply border-r border-dashed z-10 h-full p-3 select-none text-right;
       }
 
       & .line-number {

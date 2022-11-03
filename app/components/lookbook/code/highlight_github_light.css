@@ -2,6 +2,10 @@
   .theme-github-light {
     @apply bg-white;
 
+    & .line-numbers {
+      @apply bg-white text-gray-400 border-lookbook-divider;
+    }
+
     & .highlight {
       & .hll {
         background-color: #f8f8f8;
