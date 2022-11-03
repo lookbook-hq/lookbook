@@ -20,6 +20,7 @@
   --lookbook-base-700: #3f3f46;
   --lookbook-base-800: #27272a;
   --lookbook-base-900: #18181b;
+  --lookbook-draggable-hint: #e0e7ff33;
   --lookbook-text: var(--lookbook-base-800);
   --lookbook-divider: var(--lookbook-base-300);
   --lookbook-icon-button-stroke: var(--lookbook-base-400);
@@ -50,6 +51,7 @@
   --lookbook-tabs-text-disabled: var(--lookbook-base-300);
   --lookbook-tabs-border-active: var(--lookbook-accent-400);
   --lookbook-viewport-handle: var(--lookbook-white);
+  --lookbook-viewport-handle-hover: var(--lookbook-draggable-hint);
   --lookbook-viewport-handle-icon-stroke: var(--lookbook-base-300);
   --lookbook-viewport-handle-icon-stroke-hover: var(--lookbook-base-700);
   --lookbook-sidebar-bg: var(--lookbook-base-50);
@@ -60,7 +62,6 @@
   --lookbook-header-border: var(--lookbook-accent-700);
   --lookbook-blank-slate-title: var(--lookbook-accent-600);
   --lookbook-branding-text: var(--lookbook-header-text);
-  --lookbook-draggable-hint: #e0e7ff33;
 }
 
 /*# sourceMappingURL=indigo.css.map */

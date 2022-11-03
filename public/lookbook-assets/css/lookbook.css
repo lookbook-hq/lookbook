@@ -1660,7 +1660,7 @@ pre[class*="language-"] {
 }
 
 [data-component="viewport"] .resize-handle:hover {
-  background-color: var(--lookbook-draggable-hint);
+  background-color: var(--lookbook-viewport-handle-hover);
   --tw-bg-opacity: .2;
 }
 

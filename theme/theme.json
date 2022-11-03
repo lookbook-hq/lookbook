@@ -21,6 +21,7 @@
     "base-700": "var(--lookbook-base-700)",
     "base-800": "var(--lookbook-base-800)",
     "base-900": "var(--lookbook-base-900)",
+    "draggable-hint": "var(--lookbook-draggable-hint)",
     "text": "var(--lookbook-text)",
     "divider": "var(--lookbook-divider)",
     "icon-button-stroke": "var(--lookbook-icon-button-stroke)",
@@ -51,6 +52,7 @@
     "tabs-text-disabled": "var(--lookbook-tabs-text-disabled)",
     "tabs-border-active": "var(--lookbook-tabs-border-active)",
     "viewport-handle": "var(--lookbook-viewport-handle)",
+    "viewport-handle-hover": "var(--lookbook-viewport-handle-hover)",
     "viewport-handle-icon-stroke": "var(--lookbook-viewport-handle-icon-stroke)",
     "viewport-handle-icon-stroke-hover": "var(--lookbook-viewport-handle-icon-stroke-hover)",
     "sidebar-bg": "var(--lookbook-sidebar-bg)",
@@ -60,7 +62,6 @@
     "header-text": "var(--lookbook-header-text)",
     "header-border": "var(--lookbook-header-border)",
     "blank-slate-title": "var(--lookbook-blank-slate-title)",
-    "branding-text": "var(--lookbook-branding-text)",
-    "draggable-hint": "var(--lookbook-draggable-hint)"
+    "branding-text": "var(--lookbook-branding-text)"
   }
 }
