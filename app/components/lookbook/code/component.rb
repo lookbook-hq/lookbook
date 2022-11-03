@@ -9,7 +9,8 @@ module Lookbook
       highlight_lines: [],
       start_line: 1,
       wrap: false,
-      theme: :github_light,
+      theme: nil,
+      dark: false,
       full_height: false,
       **html_attrs
     )
@@ -23,6 +24,7 @@ module Lookbook
       @highlight_lines = highlight_lines
       @wrap = wrap
       @theme = theme
+      @dark = dark
       @full_height = full_height
       super(**html_attrs)
     end
@@ -44,7 +46,16 @@ module Lookbook
     end
 
     def full_height?
-      @full_height == true
+      @full_height
+    end
+
+    def is_dark?
+      @dark
+    end
+
+    def before_render
+      @theme ||= (config.code_options && config.code_options[:theme]&.to_sym) || :github
+      @dark ||= ActiveModel::Type::Boolean.new.cast((config.code_options && config.code_options[:dark]) || false)
     end
 
     protected

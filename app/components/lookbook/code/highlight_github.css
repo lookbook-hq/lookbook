@@ -12,7 +12,7 @@
   --dark-blue-3: #447fcf;
   --dark-blue-4: #009988;
   --dark-red-1: #a61717;
-  --dark-red-2: #311;
+  --dark-red-2: #331111;
   --dark-red-3: #e50808;
   --dark-red-4: #520000;
   --dark-red-5: #d22323;
@@ -63,10 +63,10 @@
   --hl-error-bg: var(--light-red-2);
   --hl-subtle-fg: var(--light-gray-2);
   --hl-entity: var(--light-purple-1);
-  --hl-keyword: var(--light-gray-3);
+  --hl-keyword: var(--light-black);
   --hl-output: var(--light-gray-4);
   --hl-operator: var(--light-black);
-  --hl-punctuation: var(--light-subtle-fg);
+  --hl-punctuation: var(--light-gray-6);
   --hl-string: var(--light-red-3);
   --hl-string-other: var(--light-red-3);
   --hl-string-regex: var(--light-green-2);
@@ -81,7 +81,7 @@
   --hl-subheading: var(--light-purple-1);
   --hl-keyword-crude: var(--light-black);
   --hl-keyword-subtle: var(--light-blue-1);
-  --hl-number: var(--light--blue-2);
+  --hl-number: var(--light-blue-2);
   --hl-attribute: var(--light-blue-3);
   --hl-builtin: var(--light-blue-4);
   --hl-builtin-pseudo: var(--light-gray-5);
@@ -139,6 +139,7 @@
     --hl-word: var(--dark-green-2);
     --hl-whitespace: var(--dark-gray-7);
   }
+}
 
 .theme-github {
   background-color: var(--hl-bg);
@@ -385,12 +386,19 @@
     } /* Literal.Number.Integer.Long */
 
     /* Make line numbers unselectable: excludes line numbers from copy-paste user ops */
-    .line-number {-webkit-user-select:none;-moz-user-select:none;}
+    .line-number {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+    }
 
     /* Mozilla specific */
-    .line-number::-moz-selection {background-color:transparent;}
+    .line-number::-moz-selection {
+      background-color: transparent;
+    }
 
     /* Other major browsers */
-    .line-number::selection {background-color:transparent;}
+    .line-number::selection {
+      background-color: transparent;
+    }
   }
 }

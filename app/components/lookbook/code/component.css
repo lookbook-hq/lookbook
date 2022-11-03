@@ -1,5 +1,4 @@
 @import "./highlight_github.css";
-@import "./highlight_github_light.css";
 
 @layer components {
   [data-component="code"] {

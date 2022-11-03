@@ -1416,204 +1416,6 @@ pre[class*="language-"] {
   margin-bottom: 0;
 }
 
-.theme-github-light .highlight .hll {
-  background-color: #f8f8f8;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  padding: 6px 10px;
-}
-
-.theme-github-light .highlight .c {
-  color: #998;
-  font-style: italic;
-}
-
-.theme-github-light .highlight .k, .theme-github-light .highlight .o {
-  font-weight: bold;
-}
-
-.theme-github-light .highlight .cm {
-  color: #998;
-  font-style: italic;
-}
-
-.theme-github-light .highlight .cp {
-  color: #999;
-  font-weight: bold;
-}
-
-.theme-github-light .highlight .c1 {
-  color: #998;
-  font-style: italic;
-}
-
-.theme-github-light .highlight .cs {
-  color: #999;
-  font-style: italic;
-  font-weight: bold;
-}
-
-.theme-github-light .highlight .gd {
-  color: #000;
-  background-color: #fdd;
-}
-
-.theme-github-light .highlight .gd .x {
-  color: #000;
-  background-color: #faa;
-}
-
-.theme-github-light .highlight .ge {
-  font-style: italic;
-}
-
-.theme-github-light .highlight .gr {
-  color: #a00;
-}
-
-.theme-github-light .highlight .gh {
-  color: #999;
-}
-
-.theme-github-light .highlight .gi {
-  color: #000;
-  background-color: #dfd;
-}
-
-.theme-github-light .highlight .gi .x {
-  color: #000;
-  background-color: #afa;
-}
-
-.theme-github-light .highlight .go {
-  color: #888;
-}
-
-.theme-github-light .highlight .gp {
-  color: #555;
-}
-
-.theme-github-light .highlight .gs {
-  font-weight: bold;
-}
-
-.theme-github-light .highlight .gu {
-  color: purple;
-  font-weight: bold;
-}
-
-.theme-github-light .highlight .gt {
-  color: #a00;
-}
-
-.theme-github-light .highlight .kc, .theme-github-light .highlight .kd, .theme-github-light .highlight .kn, .theme-github-light .highlight .kp, .theme-github-light .highlight .kr {
-  font-weight: bold;
-}
-
-.theme-github-light .highlight .kt {
-  color: #458;
-  font-weight: bold;
-}
-
-.theme-github-light .highlight .m {
-  color: #099;
-}
-
-.theme-github-light .highlight .s {
-  color: #d14;
-}
-
-.theme-github-light .highlight .\!s {
-  color: #d14 !important;
-}
-
-.theme-github-light .highlight .n {
-  color: #333;
-}
-
-.theme-github-light .highlight .na {
-  color: teal;
-}
-
-.theme-github-light .highlight .nb {
-  color: #0086b3;
-}
-
-.theme-github-light .highlight .nc {
-  color: #458;
-  font-weight: bold;
-}
-
-.theme-github-light .highlight .no {
-  color: teal;
-}
-
-.theme-github-light .highlight .ni {
-  color: purple;
-}
-
-.theme-github-light .highlight .ne, .theme-github-light .highlight .nf {
-  color: #900;
-  font-weight: bold;
-}
-
-.theme-github-light .highlight .nn {
-  color: #555;
-}
-
-.theme-github-light .highlight .nt {
-  color: navy;
-}
-
-.theme-github-light .highlight .nv {
-  color: teal;
-}
-
-.theme-github-light .highlight .ow {
-  font-weight: bold;
-}
-
-.theme-github-light .highlight .w {
-  color: #bbb;
-}
-
-.theme-github-light .highlight .mf, .theme-github-light .highlight .mh, .theme-github-light .highlight .mi, .theme-github-light .highlight .mo {
-  color: #099;
-}
-
-.theme-github-light .highlight .sb, .theme-github-light .highlight .sc, .theme-github-light .highlight .sd, .theme-github-light .highlight .s2, .theme-github-light .highlight .se, .theme-github-light .highlight .sh, .theme-github-light .highlight .si, .theme-github-light .highlight .sx {
-  color: #d14;
-}
-
-.theme-github-light .highlight .sr {
-  color: #009926;
-}
-
-.theme-github-light .highlight .s1 {
-  color: #d14;
-}
-
-.theme-github-light .highlight .ss {
-  color: #990073;
-}
-
-.theme-github-light .highlight .bp {
-  color: #999;
-}
-
-.theme-github-light .highlight .vc, .theme-github-light .highlight .vg, .theme-github-light .highlight .vi {
-  color: teal;
-}
-
-.theme-github-light .highlight .il {
-  color: #099;
-}
-
-.theme-github-light .highlight .gc {
-  color: #999;
-  background-color: #eaf2f5;
-}
-
 [data-component="code"] {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -1652,14 +1454,9 @@ pre[class*="language-"] {
   height: 100%;
   -webkit-user-select: none;
   user-select: none;
+  text-align: right;
   border-style: dashed;
   border-right-width: 1px;
-  border-color: var(--lookbook-divider);
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-  text-align: right;
-  --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity));
   padding: .75rem;
 }
 
@@ -3353,6 +3150,399 @@ input[type="color"]::-webkit-color-swatch {
 
 .tippy-box[data-theme~="menu"][data-placement^="right"] > .tippy-arrow:before {
   border-right-color: #fff;
+}
+
+.theme-github {
+  --dark-bg: #111;
+  --dark-gray-1: #404040;
+  --dark-gray-2: #d0d0d0;
+  --dark-gray-3: #ccc;
+  --dark-gray-4: #777;
+  --dark-gray-5: #aaa;
+  --dark-gray-6: #bbb;
+  --dark-gray-7: #666;
+  --dark-blue-1: #3677a9;
+  --dark-blue-2: #24909d;
+  --dark-blue-3: #447fcf;
+  --dark-blue-4: #098;
+  --dark-red-1: #a61717;
+  --dark-red-2: #311;
+  --dark-red-3: #e50808;
+  --dark-red-4: #520000;
+  --dark-red-5: #d22323;
+  --dark-red-6: #cd2828;
+  --dark-yellow-1: #e9b96e;
+  --dark-yellow-2: orange;
+  --dark-orange: #d2691e;
+  --dark-white: #fff;
+  --dark-green-1: #589819;
+  --dark-green-2: #6ab825;
+  --dark-green-3: #4ca;
+  --light-bg: #fff;
+  --light-gray-1: #f8f8f8;
+  --light-gray-2: #27272a;
+  --light-gray-3: #ccc;
+  --light-gray-4: #888;
+  --light-gray-5: #999;
+  --light-gray-6: #555;
+  --light-gray-7: #bbb;
+  --light-yellow-1: #998;
+  --light-red-1: #a61717;
+  --light-red-2: #e3d2d2;
+  --light-red-3: #d14;
+  --light-red-4: #fdd;
+  --light-red-5: #a00;
+  --light-red-6: #900;
+  --light-purple-1: purple;
+  --light-purple-2: #990073;
+  --light-black: #000;
+  --light-green-1: #dfd;
+  --light-green-2: #009926;
+  --light-blue-1: #458;
+  --light-blue-2: #099;
+  --light-blue-3: teal;
+  --light-blue-4: #0086b3;
+  --light-blue-5: #3c5d5d;
+  --light-blue-6: navy;
+  --hl-bg: var(--light-bg);
+  --hl-hll-bg: var(--light-gray-1);
+  --hl-border: var(--light-gray-2);
+  --hl-comment: var(--light-yellow-1);
+  --hl-comment-preproc: var(--light-gray-5);
+  --hl-comment-special-fg: var(--light-gray-5);
+  --hl-comment-special-bg: transparent;
+  --hl-error-fg: var(--light-red-1);
+  --hl-error-bg: var(--light-red-2);
+  --hl-subtle-fg: var(--light-gray-2);
+  --hl-entity: var(--light-purple-1);
+  --hl-keyword: var(--light-black);
+  --hl-output: var(--light-gray-4);
+  --hl-operator: var(--light-black);
+  --hl-punctuation: var(--light-gray-6);
+  --hl-string: var(--light-red-3);
+  --hl-string-other: var(--light-red-3);
+  --hl-string-regex: var(--light-green-2);
+  --hl-string-symbol: var(--light-purple-2);
+  --hl-deleted-fg: var(--light-black);
+  --hl-deleted-bg: var(--light-red-4);
+  --hl-danger: var(--light-red-5);
+  --hl-heading: var(--light-gray-5);
+  --hl-inserted-fg: var(--light-black);
+  --hl-inserted-bg: var(--light-green-1);
+  --hl-prompt: var(--light-gray-6);
+  --hl-subheading: var(--light-purple-1);
+  --hl-keyword-crude: var(--light-black);
+  --hl-keyword-subtle: var(--light-blue-1);
+  --hl-number: var(--light-blue-2);
+  --hl-attribute: var(--light-blue-3);
+  --hl-builtin: var(--light-blue-4);
+  --hl-builtin-pseudo: var(--light-gray-5);
+  --hl-class: var(--light-blue-1);
+  --hl-variable: var(--light-blue-3);
+  --hl-decorator: var(--light-blue-5);
+  --hl-exception: var(--light-red-6);
+  --hl-function: var(--light-red-6);
+  --hl-namespace: var(--light-gray-6);
+  --hl-tag: var(--light-blue-6);
+  --hl-word: var(--light-black);
+  --hl-whitespace: var(--light-gray-7);
+}
+
+.theme-github.dark {
+  --hl-bg: var(--dark-bg);
+  --hl-hll-bg: var(--dark-gray-1);
+  --hl-border: var(--dark-gray-2);
+  --hl-comment: var(--dark-blue-1);
+  --hl-comment-preproc: var(--dark-orange);
+  --hl-comment-special-fg: var(--dark-red-3);
+  --hl-comment-special-bg: var(--dark-red-4);
+  --hl-error-fg: var(--dark-red-1);
+  --hl-error-bg: var(--dark-red-2);
+  --hl-subtle-fg: var(--dark-gray-2);
+  --hl-entity: var(--dark-gray-2);
+  --hl-keyword: var(--dark-gray-3);
+  --hl-output: var(--dark-gray-3);
+  --hl-operator: var(--dark-gray-4);
+  --hl-punctuation: var(--dark-yellow-1);
+  --hl-string: var(--dark-orange);
+  --hl-string-other: var(--dark-yellow-2);
+  --hl-string-regex: var(--dark-red-6);
+  --hl-string-symbol: var(--dark-orange);
+  --hl-deleted-fg: var(--dark-red-5);
+  --hl-deleted-bg: transparent;
+  --hl-danger: var(--dark-red-5);
+  --hl-heading: var(--dark-white);
+  --hl-inserted-fg: var(--dark-green-1);
+  --hl-inserted-bg: transparent;
+  --hl-prompt: var(--dark-gray-5);
+  --hl-subheading: var(--dark-white);
+  --hl-keyword-crude: var(--dark-green-2);
+  --hl-keyword-subtle: var(--dark-green-2);
+  --hl-number: var(--dark-red-6);
+  --hl-attribute: var(--dark-gray-6);
+  --hl-builtin: var(--dark-blue-2);
+  --hl-builtin-pseudo: var(--dark-blue-2);
+  --hl-class: var(--dark-blue-3);
+  --hl-variable: var(--dark-green-3);
+  --hl-decorator: var(--dark-yellow-2);
+  --hl-exception: var(--dark-gray-6);
+  --hl-function: var(--dark-blue-4);
+  --hl-namespace: var(--dark-blue-3);
+  --hl-tag: var(--dark-green-2);
+  --hl-word: var(--dark-green-2);
+  --hl-whitespace: var(--dark-gray-7);
+}
+
+.theme-github {
+  background-color: var(--hl-bg);
+}
+
+.theme-github .line-numbers {
+  background-color: var(--hl-bg);
+  border-color: var(--hl-border);
+  color: var(--hl-border);
+}
+
+.theme-github .highlight .hll {
+  background-color: var(--hl-hll-bg);
+}
+
+.theme-github .highlight .c {
+  color: var(--hl-comment);
+  font-style: italic;
+}
+
+.theme-github .highlight .err {
+  color: var(--hl-error-fg);
+  background-color: var(--hl-error-bg);
+}
+
+.theme-github .highlight .g {
+  color: var(--hl-subtle-fg);
+}
+
+.theme-github .highlight .k {
+  color: var(--hl-keyword);
+  font-weight: bold;
+}
+
+.theme-github .highlight .l {
+  color: var(--hl-subtle-fg);
+}
+
+.theme-github .highlight .n, .theme-github .highlight .h {
+  color: var(--hl-keyword);
+}
+
+.theme-github .highlight .o {
+  color: var(--hl-operator);
+  font-weight: bold;
+}
+
+.theme-github .highlight .x {
+  color: var(--hl-subtle-fg);
+}
+
+.theme-github .highlight .p {
+  color: var(--hl-punctuation);
+}
+
+.theme-github .highlight .cm {
+  color: var(--hl-comment);
+  font-style: italic;
+}
+
+.theme-github .highlight .cp {
+  color: var(--hl-comment-preproc);
+  font-weight: bold;
+}
+
+.theme-github .highlight .c1 {
+  color: var(--hl-comment);
+  font-style: italic;
+}
+
+.theme-github .highlight .cs {
+  color: var(--hl-comment-special-fg);
+  background-color: var(--hl-comment-special-bg);
+  font-style: italic;
+  font-weight: bold;
+}
+
+.theme-github .highlight .gd {
+  color: var(--hl-deleted-fg);
+  background-color: var(--hl-deleted-bg);
+}
+
+.theme-github .highlight .ge {
+  color: var(--hl-subtle-fg);
+  font-style: italic;
+}
+
+.theme-github .highlight .gr {
+  color: var(--hl-danger);
+}
+
+.theme-github .highlight .gh {
+  color: var(--hl-heading);
+}
+
+.theme-github .highlight .gi {
+  color: var(--hl-inserted-fg);
+  background-color: var(--hl-inserted-bg);
+}
+
+.theme-github .highlight .go {
+  color: var(--hl-output);
+}
+
+.theme-github .highlight .gp {
+  color: var(--hl-prompt);
+}
+
+.theme-github .highlight .gs {
+  color: var(--hl-subtle-fg);
+  font-weight: bold;
+}
+
+.theme-github .highlight .gu {
+  color: var(--hl-subheading);
+  font-weight: bold;
+}
+
+.theme-github .highlight .gt {
+  color: var(--hl-danger);
+}
+
+.theme-github .highlight .kc, .theme-github .highlight .kd, .theme-github .highlight .kn, .theme-github .highlight .kp, .theme-github .highlight .kr {
+  color: var(--hl-keyword-crude);
+  font-weight: bold;
+}
+
+.theme-github .highlight .kt {
+  color: var(--hl-keyword-subtle);
+  font-weight: bold;
+}
+
+.theme-github .highlight .ld {
+  color: var(--hl-subtle-fg);
+}
+
+.theme-github .highlight .m {
+  color: var(--hl-number);
+}
+
+.theme-github .highlight .s {
+  color: var(--hl-string);
+}
+
+.theme-github .highlight .na {
+  color: var(--hl-attribute);
+}
+
+.theme-github .highlight .nb {
+  color: var(--hl-builtin);
+}
+
+.theme-github .highlight .nc {
+  color: var(--hl-class);
+  font-weight: bold;
+}
+
+.theme-github .highlight .no {
+  color: var(--hl-variable);
+}
+
+.theme-github .highlight .nd {
+  color: var(--hl-decorator);
+}
+
+.theme-github .highlight .ni {
+  color: var(--hl-entity);
+}
+
+.theme-github .highlight .ne {
+  color: var(--hl-exception);
+  font-weight: bold;
+}
+
+.theme-github .highlight .nf {
+  color: var(--hl-function);
+  font-weight: bold;
+}
+
+.theme-github .highlight .nl {
+  color: var(--hl-subtle-fg);
+}
+
+.theme-github .highlight .nn {
+  color: var(--hl-namespace);
+}
+
+.theme-github .highlight .nx, .theme-github .highlight .py {
+  color: var(--hl-subtle-fg);
+}
+
+.theme-github .highlight .nt {
+  color: var(--hl-tag);
+}
+
+.theme-github .highlight .nv {
+  color: var(--hl-variable);
+}
+
+.theme-github .highlight .ow {
+  color: var(--hl-word);
+  font-weight: bold;
+}
+
+.theme-github .highlight .w {
+  color: var(--hl-whitespace);
+}
+
+.theme-github .highlight .mf, .theme-github .highlight .mh, .theme-github .highlight .mi, .theme-github .highlight .mo {
+  color: var(--hl-number);
+}
+
+.theme-github .highlight .sb, .theme-github .highlight .sc, .theme-github .highlight .sd, .theme-github .highlight .s2, .theme-github .highlight .se, .theme-github .highlight .sh, .theme-github .highlight .si {
+  color: var(--hl-string);
+}
+
+.theme-github .highlight .sx {
+  color: var(--hl-string-other);
+}
+
+.theme-github .highlight .sr {
+  color: var(--hl-string-regex);
+}
+
+.theme-github .highlight .s1 {
+  color: var(--hl-string);
+}
+
+.theme-github .highlight .ss {
+  color: var(--hl-string-symbol);
+}
+
+.theme-github .highlight .bp {
+  color: var(--hl-builtin-pseudo);
+}
+
+.theme-github .highlight .vc, .theme-github .highlight .vg, .theme-github .highlight .vi {
+  color: var(--hl-variable);
+}
+
+.theme-github .highlight .il {
+  color: var(--hl-number);
+}
+
+.theme-github .highlight .line-number {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+.theme-github .highlight .line-number::selection {
+  background-color: #0000;
 }
 
 .hover\:bg-lookbook-draggable-hint:hover {

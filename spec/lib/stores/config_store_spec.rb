@@ -172,6 +172,21 @@ RSpec.describe Lookbook::ConfigStore do
         end
       end
 
+      context "code_options" do
+        it "is a hash of options" do
+          expect(config.code_options).to be_a Hash
+        end
+
+        it "merges existing options when set as a hash" do
+          config.code_options = {
+            theme: :github
+          }
+
+          expect(config.code_options.theme).to be :github
+          expect(config.code_options.dark).to be false
+        end
+      end
+
       context "sort_examples" do
         it "is disabled by default" do
           expect(config.sort_examples).to be false

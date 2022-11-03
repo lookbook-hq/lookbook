@@ -3,7 +3,8 @@
     {
       "numbered": numbered?,
       "focussed": focussed?,
-      "h-full": full_height?
+      "h-full": full_height?,
+      "dark": is_dark?
     } 
   ] do %>
   <%= Lookbook::CodeHighlighter.call(source, **@highlight_opts) %>
