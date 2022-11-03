@@ -1529,9 +1529,8 @@ pre[class*="language-"] {
 }
 
 [data-component="params-editor"] table:not(.linear) thead tr {
-  --tw-border-opacity: 1;
   border-bottom-width: 1px;
-  border-color: rgb(209 213 219 / var(--tw-border-opacity));
+  border-color: var(--lookbook-divider);
 }
 
 [data-component="params-editor"] table:not(.linear) thead th {
@@ -1550,9 +1549,8 @@ pre[class*="language-"] {
 }
 
 [data-component="params-editor"] table:not(.linear) tbody tr + tr td {
-  --tw-border-opacity: 1;
   border-top-width: 1px;
-  border-color: rgb(229 231 235 / var(--tw-border-opacity));
+  border-color: var(--lookbook-divider);
 }
 
 [data-component="params-editor"] table:not(.linear) tbody td {
@@ -1577,9 +1575,8 @@ pre[class*="language-"] {
 }
 
 [data-component="params-editor"] table.linear tr:not(:last-child) {
-  --tw-border-opacity: 1;
   border-bottom-width: 1px;
-  border-color: rgb(229 231 235 / var(--tw-border-opacity));
+  border-color: var(--lookbook-divider);
 }
 
 [data-component="params-editor"] table.linear tr > :not([hidden]) ~ :not([hidden]) {
