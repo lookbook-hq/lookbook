@@ -3,7 +3,7 @@
     table:not(.linear) {
       thead {
         tr {
-          @apply border-b border-gray-300;
+          @apply border-b border-lookbook-divider;
         }
 
         th {
@@ -21,7 +21,7 @@
 
       tbody {
         tr + tr td {
-          @apply border-t border-gray-200;
+          @apply border-t border-lookbook-divider;
         }
 
         td {
@@ -53,7 +53,7 @@
       }
 
       tr:not(:last-child) {
-        @apply border-b border-gray-200;
+        @apply border-b border-lookbook-divider;
       }
 
       tr {

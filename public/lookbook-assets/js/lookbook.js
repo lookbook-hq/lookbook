@@ -13372,7 +13372,95 @@ $1f889267678ff167$exports = {
 };
 
 
-var $fe98e3f2bf49b28f$exports = {};
+var $ff11946be31eba32$exports = {};
+var $9b24cbeb3a465447$exports = {};
+
+$parcel$defineInteropFlag($9b24cbeb3a465447$exports);
+
+$parcel$export($9b24cbeb3a465447$exports, "default", () => $9b24cbeb3a465447$export$2e2bcd8739ae039);
+function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id , matchers: matchers  }) {
+    return {
+        filteredOut: false,
+        get open () {
+            return this.isCollection && this.isOpen(id);
+        },
+        get active () {
+            if (this.$refs.link) return this.location && this.location.pathname === this.$refs.link.getAttribute("href");
+            return false;
+        },
+        get children () {
+            return this.$refs.items ? Array.from(this.$refs.items.children) : [];
+        },
+        get isCollection () {
+            return !this.$refs.link;
+        },
+        toggle () {
+            this.toggleOpen(id);
+        },
+        async filter (text) {
+            if (this.isCollection) {
+                this.filteredOut = true;
+                this.children.forEach(async (child)=>{
+                    const data = Alpine.$data(child);
+                    await data.filter(text);
+                    if (!data.filteredOut) this.filteredOut = false;
+                });
+            } else this.filteredOut = !this.match(text);
+            return this;
+        },
+        match (text) {
+            if (text.length) {
+                const matched = (matchers || []).map((m)=>m.includes(text));
+                return matched.filter((m)=>m).length;
+            }
+            return true;
+        },
+        bindings: {
+            toggle: {
+                ["@click.stop"]: "toggle",
+                ["x-ref"]: "toggle"
+            },
+            link: {
+                [":class"]: "{'!bg-lookbook-nav-item-active':active}",
+                ["x-ref"]: "link"
+            }
+        }
+    };
+}
+
+
+var $1a7a7298eec5b755$exports = {};
+
+$parcel$defineInteropFlag($1a7a7298eec5b755$exports);
+
+$parcel$export($1a7a7298eec5b755$exports, "default", () => $1a7a7298eec5b755$export$2e2bcd8739ae039);
+
+function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
+    return {
+        narrow: false,
+        init () {
+            (0, $9930d46698775b42$export$a2214cc2adb2dc44)(this.$el, ({ width: width  })=>{
+                this.narrow = width < 500;
+            });
+        }
+    };
+}
+
+
+var $e773f8ef556b41ff$exports = {};
+
+$parcel$defineInteropFlag($e773f8ef556b41ff$exports);
+
+$parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
+function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
+    return {
+        get isNarrowLayout () {
+            return this.narrow || false;
+        }
+    };
+}
+
+
 var $6a9b69d9cc7f810f$exports = {};
 
 $parcel$defineInteropFlag($6a9b69d9cc7f810f$exports);
@@ -13491,104 +13579,16 @@ function $6a9b69d9cc7f810f$export$2e2bcd8739ae039({ name: name , value: value  }
 }
 
 
-var $9b24cbeb3a465447$exports = {};
-
-$parcel$defineInteropFlag($9b24cbeb3a465447$exports);
-
-$parcel$export($9b24cbeb3a465447$exports, "default", () => $9b24cbeb3a465447$export$2e2bcd8739ae039);
-function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id , matchers: matchers  }) {
-    return {
-        filteredOut: false,
-        get open () {
-            return this.isCollection && this.isOpen(id);
-        },
-        get active () {
-            if (this.$refs.link) return this.location && this.location.pathname === this.$refs.link.getAttribute("href");
-            return false;
-        },
-        get children () {
-            return this.$refs.items ? Array.from(this.$refs.items.children) : [];
-        },
-        get isCollection () {
-            return !this.$refs.link;
-        },
-        toggle () {
-            this.toggleOpen(id);
-        },
-        async filter (text) {
-            if (this.isCollection) {
-                this.filteredOut = true;
-                this.children.forEach(async (child)=>{
-                    const data = Alpine.$data(child);
-                    await data.filter(text);
-                    if (!data.filteredOut) this.filteredOut = false;
-                });
-            } else this.filteredOut = !this.match(text);
-            return this;
-        },
-        match (text) {
-            if (text.length) {
-                const matched = (matchers || []).map((m)=>m.includes(text));
-                return matched.filter((m)=>m).length;
-            }
-            return true;
-        },
-        bindings: {
-            toggle: {
-                ["@click.stop"]: "toggle",
-                ["x-ref"]: "toggle"
-            },
-            link: {
-                [":class"]: "{'!bg-lookbook-nav-item-active':active}",
-                ["x-ref"]: "link"
-            }
-        }
-    };
-}
-
-
-var $1a7a7298eec5b755$exports = {};
-
-$parcel$defineInteropFlag($1a7a7298eec5b755$exports);
-
-$parcel$export($1a7a7298eec5b755$exports, "default", () => $1a7a7298eec5b755$export$2e2bcd8739ae039);
-
-function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
-    return {
-        narrow: false,
-        init () {
-            (0, $9930d46698775b42$export$a2214cc2adb2dc44)(this.$el, ({ width: width  })=>{
-                this.narrow = width < 500;
-            });
-        }
-    };
-}
-
-
-var $e773f8ef556b41ff$exports = {};
-
-$parcel$defineInteropFlag($e773f8ef556b41ff$exports);
-
-$parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
-function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
-    return {
-        get isNarrowLayout () {
-            return this.narrow || false;
-        }
-    };
-}
-
-
-$fe98e3f2bf49b28f$exports = {
-    "display_options": {
-        "field": $6a9b69d9cc7f810f$exports
-    },
+$ff11946be31eba32$exports = {
     "nav": {
         "item": $9b24cbeb3a465447$exports
     },
     "params": {
         "editor": $1a7a7298eec5b755$exports,
         "field": $e773f8ef556b41ff$exports
+    },
+    "display_options": {
+        "field": $6a9b69d9cc7f810f$exports
     }
 };
 
@@ -13657,7 +13657,7 @@ const $d73574cc5e9b9e72$var$prefix = window.APP_NAME;
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $d709d0f4027033b2$export$2e2bcd8739ae039));
 [
     $1f889267678ff167$exports,
-    $fe98e3f2bf49b28f$exports,
+    $ff11946be31eba32$exports,
     $6c10158820e535ef$exports
 ].forEach((scripts)=>{
     const components = (0, $5439cede634b2921$export$4e811121b221213b)(scripts);
