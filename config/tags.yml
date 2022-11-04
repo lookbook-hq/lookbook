@@ -26,3 +26,7 @@ shared:
   param:
     label: Param
     opts: {}
+
+  logical_path:
+    label: Logical Path
+    opts: {}

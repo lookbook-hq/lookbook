@@ -38,6 +38,11 @@ module Lookbook
       @components ||= Array(code_object.tags(:component)).map(&:value)
     end
 
+    def logical_path
+      path = tag_value(:logical_path)
+      path&.delete_prefix("/")&.delete_suffix("/")
+    end
+
     def display_options
       return @display_options unless @display_options.nil?
 
