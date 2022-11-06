@@ -54,7 +54,8 @@
 
   --hl-bg: var(--light-bg);
   --hl-hll-bg: var(--light-gray-1);
-  --hl-border: var(--light-gray-2);
+  --hl-border: var(--light-gray-3);
+  --hl-line-number: var(--light-gray-2);
   --hl-comment: var(--light-yellow-1);
   --hl-comment-preproc: var(--light-gray-5);
   --hl-comment-special-fg: var(--light-gray-5);
@@ -98,7 +99,8 @@
   &.dark {
     --hl-bg: var(--dark-bg);
     --hl-hll-bg: var(--dark-gray-1);
-    --hl-border: var(--dark-gray-2);
+    --hl-border: var(--dark-gray-4);
+    --hl-line-number: var(--dark-gray-2);
     --hl-comment: var(--dark-blue-1);
     --hl-comment-preproc: var(--dark-orange);
     --hl-comment-special-fg: var(--dark-red-3);
@@ -147,7 +149,7 @@
   .line-numbers {
     background-color: var(--hl-bg);
     border-color: var(--hl-border);
-    color: var(--hl-border);
+    color: var(--hl-line-number);
   }
 
   .highlight {
