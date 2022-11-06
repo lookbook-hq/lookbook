@@ -14,6 +14,7 @@ RSpec.describe Lookbook::FileWatcher do
     after do
       file_watcher.stop
       File.write(text_file_path, "")
+      File.write(json_file_path, "")
     end
 
     it "can watch for changes" do
@@ -21,9 +22,9 @@ RSpec.describe Lookbook::FileWatcher do
       json_callback = ->(changes) { puts "json callback" }
 
       expect(text_callback).to receive(:call)
-      expect(json_callback).to receive(:call)
-
       file_watcher.watch(fixtures_path, &text_callback)
+
+      expect(json_callback).to receive(:call)
       file_watcher.watch(fixtures_path, ["json"], &json_callback)
 
       file_watcher.start
