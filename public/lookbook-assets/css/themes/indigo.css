@@ -20,9 +20,9 @@
   --lookbook-base-700: #3f3f46;
   --lookbook-base-800: #27272a;
   --lookbook-base-900: #18181b;
-  --lookbook-draggable-hint: #e0e7ff33;
   --lookbook-text: var(--lookbook-base-800);
   --lookbook-divider: var(--lookbook-base-300);
+  --lookbook-draggable-hint: #e0e7ff33;
   --lookbook-icon-button-stroke: var(--lookbook-base-400);
   --lookbook-icon-button-stroke-hover: var(--lookbook-accent-600);
   --lookbook-tooltip-bg: var(--lookbook-accent-500);

@@ -29,6 +29,8 @@ module.exports = function (opts = {}) {
     text: "var(--lookbook-base-800)",
     divider: "var(--lookbook-base-300)",
 
+    draggableHint: "rgb(224 231 255 / 0.2)",
+
     iconButtonStroke: "var(--lookbook-base-400)",
     iconButtonStrokeHover: "var(--lookbook-accent-600)",
 
@@ -65,6 +67,7 @@ module.exports = function (opts = {}) {
     tabsBorderActive: "var(--lookbook-accent-400)",
 
     viewportHandle: "var(--lookbook-white)",
+    viewportHandleHover: "var(--lookbook-draggable-hint)",
     viewportHandleIconStroke: "var(--lookbook-base-300)",
     viewportHandleIconStrokeHover: "var(--lookbook-base-700)",
 
@@ -79,8 +82,6 @@ module.exports = function (opts = {}) {
     blankSlateTitle: "var(--lookbook-accent-600)",
 
     brandingText: "var(--lookbook-header-text)",
-
-    draggableHint: "rgb(224 231 255 / 0.2)",
   };
 
   function base(depth) {

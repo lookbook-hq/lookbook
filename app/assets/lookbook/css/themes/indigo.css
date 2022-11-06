@@ -20,9 +20,9 @@
   --lookbook-base-700: theme("colors.zinc.700");
   --lookbook-base-800: theme("colors.zinc.800");
   --lookbook-base-900: theme("colors.zinc.900");
-  --lookbook-draggable-hint: rgb(224 231 255 / 0.2);
   --lookbook-text: var(--lookbook-base-800);
   --lookbook-divider: var(--lookbook-base-300);
+  --lookbook-draggable-hint: rgb(224 231 255 / 0.2);
   --lookbook-icon-button-stroke: var(--lookbook-base-400);
   --lookbook-icon-button-stroke-hover: var(--lookbook-accent-600);
   --lookbook-tooltip-bg: var(--lookbook-accent-500);
