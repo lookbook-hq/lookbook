@@ -34,6 +34,10 @@
   description: Preview inspector drawer background color
   group: 3
 
+- name: params_editor_bg
+  description: Params editor table background color
+  group: 3
+
 - name: icon_button_stroke
   description: Icon button stroke color
   group: 4
@@ -144,6 +148,10 @@
 
 - name: viewport_handle
   description: Viewport resize handle background color
+  group: 9
+
+- name: viewport_handle_hover
+  description: Viewport resize handle background color on hover
   group: 9
 
 - name: viewport_handle_icon_stroke

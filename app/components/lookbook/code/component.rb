@@ -54,8 +54,8 @@ module Lookbook
     end
 
     def before_render
-      @theme ||= (config.code_options && config.code_options[:theme]&.to_sym) || :github
-      @dark ||= ActiveModel::Type::Boolean.new.cast((config.code_options && config.code_options[:dark]) || false)
+      @theme ||= (config.highlighter_options && config.highlighter_options[:theme]&.to_sym) || :github
+      @dark ||= ActiveModel::Type::Boolean.new.cast((config.highlighter_options && config.highlighter_options[:dark]) || false)
     end
 
     protected

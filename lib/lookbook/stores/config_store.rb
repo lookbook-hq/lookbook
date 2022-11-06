@@ -43,8 +43,8 @@ module Lookbook
       store[:markdown_options].merge!(options.to_h)
     end
 
-    def code_options=(options = nil)
-      store[:code_options].merge!(options.to_h)
+    def highlighter_options=(options = nil)
+      store[:highlighter_options].merge!(options.to_h)
     end
 
     def ui_theme=(name)

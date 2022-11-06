@@ -111,17 +111,6 @@
     }
   description: Redcarpet markdown options to override Lookbook's default settings.
 
-- name: code_options
-  group: ui
-  type: Hash
-  default: "{ theme: :github, dark: false }"
-  example: |
-    config.lookbook.code_options = {
-      theme: :github,
-      dark: true
-    }
-  description: Options for code component to set theme and its scheme
-
 - name: ui_theme
   group: ui
   type: String
@@ -143,6 +132,20 @@
       header: "hotpink"
     }
   description: For overriding theme CSS variables with custom values.
+
+- name: highlighter_options
+  group: ui
+  type: Hash
+  default: "{ theme: :github, dark: false }"
+  example: |
+    config.lookbook.highlighter_options = {
+      theme: :github,
+      dark: true
+    }
+
+    # or
+    config.lookbook.highlighter_options.dark = true
+  description: Code syntax highlighting options. Note that `:github` is the only theme that is currently supported.
 
 - name: auto_refresh
   group: ui
