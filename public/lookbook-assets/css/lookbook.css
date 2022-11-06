@@ -2746,6 +2746,10 @@ input[type="color"]::-webkit-color-swatch {
   background-color: var(--lookbook-nav-item-active) !important;
 }
 
+.bg-lookbook-params-editor-bg {
+  background-color: var(--lookbook-params-editor-bg);
+}
+
 .p-4 {
   padding: 1rem;
 }

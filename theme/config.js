@@ -74,6 +74,7 @@ module.exports = function (opts = {}) {
     sidebarBg: "var(--lookbook-base-50)",
     pageBg: "var(--lookbook-white)",
     drawerBg: "var(--lookbook-base-50)",
+    paramsEditorBg: "var(--lookbook-white)",
 
     headerBg: "var(--lookbook-accent-600)",
     headerText: "var(--lookbook-white)",

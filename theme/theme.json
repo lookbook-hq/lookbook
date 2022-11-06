@@ -58,6 +58,7 @@
     "sidebar-bg": "var(--lookbook-sidebar-bg)",
     "page-bg": "var(--lookbook-page-bg)",
     "drawer-bg": "var(--lookbook-drawer-bg)",
+    "params-editor-bg": "var(--lookbook-params-editor-bg)",
     "header-bg": "var(--lookbook-header-bg)",
     "header-text": "var(--lookbook-header-text)",
     "header-border": "var(--lookbook-header-border)",

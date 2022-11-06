@@ -57,6 +57,7 @@
   --lookbook-sidebar-bg: var(--lookbook-base-50);
   --lookbook-page-bg: var(--lookbook-white);
   --lookbook-drawer-bg: var(--lookbook-base-50);
+  --lookbook-params-editor-bg: var(--lookbook-white);
   --lookbook-header-bg: var(--lookbook-accent-600);
   --lookbook-header-text: var(--lookbook-white);
   --lookbook-header-border: var(--lookbook-accent-700);
