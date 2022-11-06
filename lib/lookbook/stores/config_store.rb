@@ -43,6 +43,10 @@ module Lookbook
       store[:markdown_options].merge!(options.to_h)
     end
 
+    def code_options=(options = nil)
+      store[:code_options].merge!(options.to_h)
+    end
+
     def ui_theme=(name)
       name = name.to_s
       if Theme.valid_theme?(name)

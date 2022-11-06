@@ -17,6 +17,9 @@ shared:
     highlight: true
     with_toc_data: true
     lax_spacing: true
+  code_options:
+    theme: github
+    dark: false
   sort_examples: false
   preview_paths: []
   preview_display_options: {}
