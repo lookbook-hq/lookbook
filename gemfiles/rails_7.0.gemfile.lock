@@ -273,7 +273,7 @@ DEPENDENCIES
   lookbook!
   puma
   rails (~> 7.0.0)
-  rspec-rails (~> 5)
+  rspec-rails (>= 5.0.0)
   selenium-webdriver
   sqlite3 (~> 1.5)
   standard (~> 1.1)
