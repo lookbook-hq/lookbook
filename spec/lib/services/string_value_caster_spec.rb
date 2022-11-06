@@ -13,6 +13,10 @@ RSpec.describe Lookbook::StringValueCaster do
       expect(described_class.call(DateTime.now, :string)).to eq DateTime.now.to_s
       expect(described_class.call("a string", :string)).to eq "a string"
     end
+
+    it "casts empty values to nil" do
+      expect(described_class.call("", :string)).to be nil
+    end
   end
 
   context "cast to symbol" do
@@ -20,13 +24,22 @@ RSpec.describe Lookbook::StringValueCaster do
       expect(described_class.call("thing_name", :symbol)).to eq :thing_name
       expect(described_class.call(":thing_name", :symbol)).to eq :thing_name
     end
+
+    it "casts empty values to nil" do
+      expect(described_class.call("", :symbol)).to be nil
+    end
   end
 
   context "cast to hash" do
     it "casts the value to a hash" do
       result = described_class.call("{ foo: 'bar' }", :hash)
+
       expect(result).to be_a Hash
       expect(result[:foo]).to eq "bar"
+    end
+
+    it "casts empty values to nil" do
+      expect(described_class.call("", :hash)).to be nil
     end
 
     it "raises an exception if the cast fails" do
@@ -44,6 +57,10 @@ RSpec.describe Lookbook::StringValueCaster do
       expect(result).to match_array ["one", "two"]
     end
 
+    it "casts empty values to nil" do
+      expect(described_class.call("", :array)).to be nil
+    end
+
     it "raises an exception if the cast fails" do
       expect { described_class.call("[ one, ", :array) }.to raise_error Psych::SyntaxError
     end
@@ -58,6 +75,10 @@ RSpec.describe Lookbook::StringValueCaster do
       expect(described_class.call("1981-04-15", :datetime)).to be_a DateTime
     end
 
+    it "casts empty values to nil" do
+      expect(described_class.call("", :datetime)).to be nil
+    end
+
     it "raises an exception if the cast fails" do
       expect { described_class.call("#fail", :datetime) }.to raise_error Date::Error
     end
@@ -69,6 +90,10 @@ RSpec.describe Lookbook::StringValueCaster do
       expect(described_class.call("false", :boolean)).to be false
       expect(described_class.call("anything", :boolean)).to be true
     end
+
+    it "casts empty values to nil" do
+      expect(described_class.call("", :boolean)).to be nil
+    end
   end
 
   context "cast to integer" do
@@ -77,6 +102,10 @@ RSpec.describe Lookbook::StringValueCaster do
       expect(described_class.call("123.456", :integer)).to be 123
       expect(described_class.call("#fail", :integer)).to be 0
     end
+
+    it "casts empty values to nil" do
+      expect(described_class.call("", :integer)).to be nil
+    end
   end
 
   context "cast to float" do
@@ -84,6 +113,10 @@ RSpec.describe Lookbook::StringValueCaster do
       expect(described_class.call("123", :float)).to eq 123.0
       expect(described_class.call("123.456", :float)).to be 123.456
       expect(described_class.call("#fail", :float)).to be 0.0
+    end
+
+    it "casts empty values to nil" do
+      expect(described_class.call("", :float)).to be nil
     end
   end
 end

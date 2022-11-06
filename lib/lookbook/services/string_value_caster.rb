@@ -13,6 +13,7 @@ module Lookbook
     end
 
     def call
+      return @nil if @value.empty?
       public_send(@cast_method)
     rescue => exception
       Lookbook.logger.debug "Failed to parse '#{@value}' into a '#{@type}' [#{exception}]"
