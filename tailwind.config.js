@@ -29,6 +29,7 @@ module.exports = {
     "./workbench/app/views/**/*.html.erb",
   ],
   safelist: [
+    ".theme-github-light",
     ".lookbook-panel",
     ".hll",
     ".c",
