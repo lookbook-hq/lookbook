@@ -29,6 +29,31 @@ class FooComponentPreview < ViewComponent::Preview
 end
 ```
 
+## Navigation paths
+
+Use the `@logical_path` tag to change the location that the preview will appear in within the nav tree.
+
+```ruby
+@logical_path <directory_path>
+```
+
+The `@logical_path` value should be the path to the nav directory that you wish to display the preview within.
+
+{%= note :info do %}
+Note that the provided path is just a virtual construct - it does not have to really exist anywhere in your app. 
+{% end %}
+
+```ruby
+# @logical_path elements/base
+class FooComponentPreview < ViewComponent::Preview
+  # ...
+end
+```
+
+In the example above, the `FooComponentPreview` would exist in the navigation at `Elements > Base > Foo` rather than at the top level of the nav tree.
+
+The `@logical_path` tag can only be used on preview classes, not on example methods.
+
 ## Hiding previews
 
 By default, all previews and examples are shown in the preview navigation.
