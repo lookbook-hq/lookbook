@@ -24,6 +24,19 @@ tags:
       # @label Primary Button
       def main_but
 
+  - name: logical_path
+    signature: "@logical_path <directory_path>"
+    args:
+      - name: <directory_path>
+        type: String
+        description: Nav tree directory path
+    purpose: "[Sets a custom nav directory location](/guide/previews/navigation/#navigation-paths) for the preview to be displayed within."
+    example: |
+      # @logical_path path/to/directory
+      class FooComponentPreview < ViewComponent::Preview
+        # ...
+      end
+
   - name: hidden
     signature: "@hidden <value?>"
     args:
