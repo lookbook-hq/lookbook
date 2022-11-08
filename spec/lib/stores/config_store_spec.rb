@@ -187,6 +187,21 @@ RSpec.describe Lookbook::ConfigStore do
         end
       end
 
+      context "prose_options" do
+        it "is a hash of options" do
+          expect(config.prose_options).to be_a Hash
+        end
+
+        it "merges existing options when set as a hash" do
+          config.prose_options = {
+            theme: :slate
+          }
+
+          expect(config.prose_options.theme).to be :slate
+          expect(config.prose_options.invert_colors).to be false
+        end
+      end
+
       context "sort_examples" do
         it "is disabled by default" do
           expect(config.sort_examples).to be false

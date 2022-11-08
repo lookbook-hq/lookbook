@@ -39,6 +39,10 @@ module Lookbook
       store[:listen_extensions].push(*extensions.to_a).uniq!
     end
 
+    def prose_options=(options = nil)
+      store[:prose_options].merge!(options.to_h)
+    end
+
     def markdown_options=(options = nil)
       store[:markdown_options].merge!(options.to_h)
     end

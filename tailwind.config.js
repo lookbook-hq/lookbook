@@ -30,6 +30,11 @@ module.exports = {
   ],
   safelist: [
     ".theme-github-light",
+    ".prose-gray",
+    ".prose-slate",
+    ".prose-zinc",
+    ".prose-neutral",
+    ".prose-stone",
     ".lookbook-panel",
     ".hll",
     ".c",

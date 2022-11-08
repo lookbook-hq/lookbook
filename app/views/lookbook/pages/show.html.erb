@@ -1,9 +1,9 @@
 <div class="px-4 md:px-10 pt-8 md:pt-10 overflow-auto scroll-smooth w-full max-h-full pb-12" x-ref="scroller">
   <div class="w-full max-w-screen-lg mx-auto h-full flex flex-col">
     <% if @page.header? %>
-      <header id="page-header" class="mb-8 prose max-w-none flex-none">
+      <%= lookbook_render :prose, tag: :header, id: "page-header", markdown: false, class: "mb-8 prose max-w-none flex-none" do %>
         <h1><%= @page.title %></h1>
-      </header>
+      <% end %>
     <% end %>
 
     <%= lookbook_render :prose, id: "page-content", markdown: false, class: "max-w-none flex-none" do %>

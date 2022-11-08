@@ -20,6 +20,9 @@ shared:
   highlighter_options:
     theme: github
     dark: false
+  prose_options:
+    theme: gray
+    invert_colors: false
   sort_examples: false
   preview_paths: []
   preview_display_options: {}

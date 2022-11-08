@@ -147,6 +147,20 @@
     config.lookbook.highlighter_options.dark = true
   description: Code syntax highlighting options. Note that `:github` is the only theme that is currently supported.
 
+- name: prose_options
+  group: ui
+  type: Hash
+  default: "{ theme: :gray, invert_colors: false }"
+  example: |
+    config.lookbook.prose_options = {
+      theme: :gray,
+      invert_colors: true
+    }
+
+    # or
+    config.lookbook.prose_options.invert_colors = true
+  description: Prose options. Available themes are :gray, :slate, :zinc, :neutral and :stone
+
 - name: auto_refresh
   group: ui
   type: Boolean
