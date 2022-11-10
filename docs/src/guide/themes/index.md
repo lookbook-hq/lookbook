@@ -21,6 +21,12 @@ Lookbook ships with a small number of pre-defined UI color themes:
   {% list.option name: "zinc" do %}
     Zinc (gray) theme
   {% end %}
+  {% list.option name: "green" do %}
+    Green theme (new!)
+  {% end %}
+  {% list.option name: "rose" do %}
+    Rose theme (new!)
+  {% end %}
 {% end %}
 
 You can use the theme of your choosing by setting the `ui_theme` [config option](/api/config/#config-option-ui-theme):
@@ -43,4 +49,12 @@ config.lookbook.ui_theme = "blue"
 ### Zinc:
 
 {{ image "theme_zinc.png" }}
+
+### Green:
+
+{{ image "theme_green.png" }}
+
+### Rose:
+
+{{ image "theme_rose.png" }}
 
