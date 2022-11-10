@@ -7843,7 +7843,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $1f889267678ff167$exports = {};
+var $f6e2dfca641390ee$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11515,16 +11515,6 @@ function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
 }
 
 
-var $99486586f6691564$exports = {};
-
-$parcel$defineInteropFlag($99486586f6691564$exports);
-
-$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
-function $99486586f6691564$export$2e2bcd8739ae039() {
-    return {};
-}
-
-
 var $47a1c62621be0c54$exports = {};
 
 $parcel$defineInteropFlag($47a1c62621be0c54$exports);
@@ -11611,6 +11601,16 @@ function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
             if (this.observer) this.observer.disconnect();
         }
     };
+}
+
+
+var $99486586f6691564$exports = {};
+
+$parcel$defineInteropFlag($99486586f6691564$exports);
+
+$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
+function $99486586f6691564$export$2e2bcd8739ae039() {
+    return {};
 }
 
 
@@ -12560,6 +12560,252 @@ function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
 }
 
 
+var $a87dacf5139b5e2f$exports = {};
+
+$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
+
+$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
+function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
+    return {
+        get store () {
+            return store || this;
+        },
+        get id () {
+            return this.$root.id;
+        },
+        get panels () {
+            return Array.from(this.$refs.panels.children);
+        },
+        isActive (el) {
+            return this.store.activeTab === this._getRef(el);
+        },
+        // protected
+        _getRef (el) {
+            return el.getAttribute("x-ref");
+        }
+    };
+}
+
+
+var $0db07828cadc68e0$exports = {};
+
+$parcel$defineInteropFlag($0db07828cadc68e0$exports);
+
+$parcel$export($0db07828cadc68e0$exports, "default", () => $0db07828cadc68e0$export$2e2bcd8739ae039);
+
+
+
+
+function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
+    const initial = store ? store.activeTab : null;
+    let dropdown = null;
+    return {
+        visibleTabsCount: 0,
+        triggerLeft: 0,
+        get store () {
+            return store || this;
+        },
+        get tabs () {
+            return this.$refs.tabs ? Array.from(this.$refs.tabs.children) : [];
+        },
+        get dropdownTabs () {
+            return Array.from(this.$refs.tabsDropdown ? this.$refs.tabsDropdown.children : []);
+        },
+        get tabWidths () {
+            return this.tabs.map((tab)=>(0, $e263283f97229955$export$bdf7e699b242f476)(tab, {
+                    includeMargins: true
+                }).width);
+        },
+        init () {
+            this.$nextTick(()=>{
+                dropdown = (0, $d6f449055c23f07a$export$2e2bcd8739ae039)(this.$refs.dropdownTrigger, {
+                    content: this.$refs.tabsDropdown,
+                    theme: "menu",
+                    interactive: true,
+                    trigger: "click",
+                    placement: "bottom",
+                    appendTo: this.$root
+                });
+                const initialTab = initial ? this.tabs.find((t)=>this._getRef(t) === initial) : this.tabs[0];
+                this.selectTab(initialTab, true);
+                this.parentObserver = (0, $9930d46698775b42$export$a2214cc2adb2dc44)(this.$root.parentElement, (0, $c5d017602d25d050$export$61fc7d43ac8f84b0)(10, this.handleResize.bind(this)));
+                this.$watch("visibleTabsCount", (value)=>{
+                    this.debug(`'#${this.$root.id}' visible tabs count:`, value);
+                });
+            });
+        },
+        handleResize ({ width: width  }) {
+            if (width === this._lastMeasuredWidth) return;
+            if (width === this.$root.offsetWidth) {
+                this.visibleTabsCount = this.tabs.length;
+                return;
+            }
+            let sumTabWidths = 60;
+            let triggerLeft = 20;
+            let visibleTabsCount = 0;
+            this.tabWidths.forEach((tabWidth)=>{
+                sumTabWidths += tabWidth;
+                if (sumTabWidths < width) {
+                    triggerLeft += tabWidth;
+                    visibleTabsCount++;
+                }
+            });
+            this.visibleTabsCount = visibleTabsCount;
+            this.triggerLeft = triggerLeft;
+            this._lastMeasuredWidth = width;
+        },
+        selectTab (el, initial = false) {
+            this.store.activeTab = this._getRef(el);
+            dropdown.hide();
+            if (!initial) this.$dispatch("tabs:change", {
+                tabs: this
+            });
+        },
+        isSelected (el) {
+            return this.store.activeTab === this._getRef(el);
+        },
+        isDisabled (el) {
+            return el.getAttribute("data-disabled") == "true";
+        },
+        hasHiddenTabs () {
+            return this.visibleTabsCount < this.tabs.length;
+        },
+        // protected
+        _lastMeasuredWidth: 0,
+        _getRef (el) {
+            return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
+        }
+    };
+}
+
+
+var $6d64716f0b34fdf4$exports = {};
+
+$parcel$defineInteropFlag($6d64716f0b34fdf4$exports);
+
+$parcel$export($6d64716f0b34fdf4$exports, "default", () => $6d64716f0b34fdf4$export$2e2bcd8739ae039);
+function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
+    store = store || {
+        width: "100%",
+        height: "100%"
+    };
+    store.resizing = false;
+    return {
+        store: store,
+        get maxWidth () {
+            return this.store.width === "100%" ? "100%" : `${store.width}px`;
+        },
+        get maxHeight () {
+            return this.store.height === "100%" ? "100%" : `${store.height}px`;
+        },
+        get parentWidth () {
+            return Math.round(this.$root.clientWidth);
+        },
+        get parentHeight () {
+            return Math.round(this.$root.clientHeight);
+        },
+        get reflowing () {
+            return this.$store.layout.reflowing;
+        },
+        reloadIframe () {
+            this.$refs.iframe.contentWindow.location.reload();
+        },
+        start () {
+            this.$dispatch("viewport:resize-start", this._resizeData);
+            this.$store.layout.reflowing = true;
+            this.store.resizing = true;
+        },
+        end () {
+            this.$store.layout.reflowing = false;
+            this.store.resizing = false;
+            this.$dispatch("viewport:resize-complete", this._resizeData);
+        },
+        onResizeStart (e) {
+            this.onResizeWidthStart(e);
+            this.onResizeHeightStart(e);
+        },
+        toggleFullSize () {
+            const { height: height , width: width  } = store;
+            if (height === "100%" && width === "100%") {
+                this.toggleFullHeight();
+                this.toggleFullWidth();
+            } else {
+                if (height !== "100%") this.toggleFullHeight();
+                if (width !== "100%") this.toggleFullWidth();
+            }
+        },
+        onResizeWidth (e) {
+            const width = this.resizeStartWidth - (this.resizeStartPositionX - e.pageX) * 2;
+            const boundedWidth = Math.min(Math.max(Math.round(width), 200), this.parentWidth);
+            this.store.width = boundedWidth === this.parentWidth ? "100%" : boundedWidth;
+            this.$dispatch("viewport:resize-progress", this._resizeData);
+        },
+        onResizeWidthStart (e) {
+            this.start();
+            this.onResizeWidth = this.onResizeWidth.bind(this);
+            this.onResizeWidthEnd = this.onResizeWidthEnd.bind(this);
+            this.resizeStartPositionX = e.pageX;
+            this.resizeStartWidth = this.$refs.wrapper.clientWidth;
+            window.addEventListener("pointermove", this.onResizeWidth);
+            window.addEventListener("pointerup", this.onResizeWidthEnd);
+        },
+        onResizeWidthEnd () {
+            window.removeEventListener("pointermove", this.onResizeWidth);
+            window.removeEventListener("pointerup", this.onResizeWidthEnd);
+            this.end();
+        },
+        toggleFullWidth () {
+            this.$dispatch("viewport:resize-start", this._resizeData);
+            const { width: width , lastWidth: lastWidth  } = store;
+            if (width === "100%" && lastWidth) this.store.width = lastWidth;
+            else {
+                this.store.lastWidth = width;
+                this.store.width = "100%";
+            }
+            this.$dispatch("viewport:resize-complete", this._resizeData);
+        },
+        onResizeHeight (e) {
+            const height = this.resizeStartHeight - (this.resizeStartPositionY - e.pageY);
+            const boundedHeight = Math.min(Math.max(Math.round(height), 200), this.parentHeight);
+            this.store.height = boundedHeight === this.parentHeight ? "100%" : boundedHeight;
+            this.$dispatch("viewport:resize-progress", this._resizeData);
+        },
+        onResizeHeightStart (e) {
+            this.start();
+            this.onResizeHeight = this.onResizeHeight.bind(this);
+            this.onResizeHeightEnd = this.onResizeHeightEnd.bind(this);
+            this.resizeStartPositionY = e.pageY;
+            this.resizeStartHeight = this.$refs.wrapper.clientHeight;
+            window.addEventListener("pointermove", this.onResizeHeight);
+            window.addEventListener("pointerup", this.onResizeHeightEnd);
+        },
+        onResizeHeightEnd () {
+            window.removeEventListener("pointermove", this.onResizeHeight);
+            window.removeEventListener("pointerup", this.onResizeHeightEnd);
+            this.end();
+        },
+        toggleFullHeight () {
+            this.$dispatch("viewport:resize-start", this._resizeData);
+            const { height: height , lastHeight: lastHeight  } = store;
+            if (height === "100%" && lastHeight) this.store.height = lastHeight;
+            else {
+                this.store.lastHeight = height;
+                this.store.height = "100%";
+            }
+            this.$dispatch("viewport:resize-complete", this._resizeData);
+        },
+        // protected
+        get _resizeData () {
+            return {
+                width: this.store.width,
+                height: this.store.height,
+                viewport: this
+            };
+        }
+    };
+}
+
+
 var $506dabb2bf255b38$exports = {};
 
 $parcel$defineInteropFlag($506dabb2bf255b38$exports);
@@ -13110,265 +13356,19 @@ function $506dabb2bf255b38$var$sizeSplits(sizes) {
 }
 
 
-var $a87dacf5139b5e2f$exports = {};
-
-$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
-
-$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
-function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
-    return {
-        get store () {
-            return store || this;
-        },
-        get id () {
-            return this.$root.id;
-        },
-        get panels () {
-            return Array.from(this.$refs.panels.children);
-        },
-        isActive (el) {
-            return this.store.activeTab === this._getRef(el);
-        },
-        // protected
-        _getRef (el) {
-            return el.getAttribute("x-ref");
-        }
-    };
-}
-
-
-var $0db07828cadc68e0$exports = {};
-
-$parcel$defineInteropFlag($0db07828cadc68e0$exports);
-
-$parcel$export($0db07828cadc68e0$exports, "default", () => $0db07828cadc68e0$export$2e2bcd8739ae039);
-
-
-
-
-function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
-    const initial = store ? store.activeTab : null;
-    let dropdown = null;
-    return {
-        visibleTabsCount: 0,
-        triggerLeft: 0,
-        get store () {
-            return store || this;
-        },
-        get tabs () {
-            return this.$refs.tabs ? Array.from(this.$refs.tabs.children) : [];
-        },
-        get dropdownTabs () {
-            return Array.from(this.$refs.tabsDropdown ? this.$refs.tabsDropdown.children : []);
-        },
-        get tabWidths () {
-            return this.tabs.map((tab)=>(0, $e263283f97229955$export$bdf7e699b242f476)(tab, {
-                    includeMargins: true
-                }).width);
-        },
-        init () {
-            this.$nextTick(()=>{
-                dropdown = (0, $d6f449055c23f07a$export$2e2bcd8739ae039)(this.$refs.dropdownTrigger, {
-                    content: this.$refs.tabsDropdown,
-                    theme: "menu",
-                    interactive: true,
-                    trigger: "click",
-                    placement: "bottom",
-                    appendTo: this.$root
-                });
-                const initialTab = initial ? this.tabs.find((t)=>this._getRef(t) === initial) : this.tabs[0];
-                this.selectTab(initialTab, true);
-                this.parentObserver = (0, $9930d46698775b42$export$a2214cc2adb2dc44)(this.$root.parentElement, (0, $c5d017602d25d050$export$61fc7d43ac8f84b0)(10, this.handleResize.bind(this)));
-                this.$watch("visibleTabsCount", (value)=>{
-                    this.debug(`'#${this.$root.id}' visible tabs count:`, value);
-                });
-            });
-        },
-        handleResize ({ width: width  }) {
-            if (width === this._lastMeasuredWidth) return;
-            if (width === this.$root.offsetWidth) {
-                this.visibleTabsCount = this.tabs.length;
-                return;
-            }
-            let sumTabWidths = 60;
-            let triggerLeft = 20;
-            let visibleTabsCount = 0;
-            this.tabWidths.forEach((tabWidth)=>{
-                sumTabWidths += tabWidth;
-                if (sumTabWidths < width) {
-                    triggerLeft += tabWidth;
-                    visibleTabsCount++;
-                }
-            });
-            this.visibleTabsCount = visibleTabsCount;
-            this.triggerLeft = triggerLeft;
-            this._lastMeasuredWidth = width;
-        },
-        selectTab (el, initial = false) {
-            this.store.activeTab = this._getRef(el);
-            dropdown.hide();
-            if (!initial) this.$dispatch("tabs:change", {
-                tabs: this
-            });
-        },
-        isSelected (el) {
-            return this.store.activeTab === this._getRef(el);
-        },
-        isDisabled (el) {
-            return el.getAttribute("data-disabled") == "true";
-        },
-        hasHiddenTabs () {
-            return this.visibleTabsCount < this.tabs.length;
-        },
-        // protected
-        _lastMeasuredWidth: 0,
-        _getRef (el) {
-            return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
-        }
-    };
-}
-
-
-var $6d64716f0b34fdf4$exports = {};
-
-$parcel$defineInteropFlag($6d64716f0b34fdf4$exports);
-
-$parcel$export($6d64716f0b34fdf4$exports, "default", () => $6d64716f0b34fdf4$export$2e2bcd8739ae039);
-function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
-    store = store || {
-        width: "100%",
-        height: "100%"
-    };
-    store.resizing = false;
-    return {
-        store: store,
-        get maxWidth () {
-            return this.store.width === "100%" ? "100%" : `${store.width}px`;
-        },
-        get maxHeight () {
-            return this.store.height === "100%" ? "100%" : `${store.height}px`;
-        },
-        get parentWidth () {
-            return Math.round(this.$root.clientWidth);
-        },
-        get parentHeight () {
-            return Math.round(this.$root.clientHeight);
-        },
-        get reflowing () {
-            return this.$store.layout.reflowing;
-        },
-        reloadIframe () {
-            this.$refs.iframe.contentWindow.location.reload();
-        },
-        start () {
-            this.$dispatch("viewport:resize-start", this._resizeData);
-            this.$store.layout.reflowing = true;
-            this.store.resizing = true;
-        },
-        end () {
-            this.$store.layout.reflowing = false;
-            this.store.resizing = false;
-            this.$dispatch("viewport:resize-complete", this._resizeData);
-        },
-        onResizeStart (e) {
-            this.onResizeWidthStart(e);
-            this.onResizeHeightStart(e);
-        },
-        toggleFullSize () {
-            const { height: height , width: width  } = store;
-            if (height === "100%" && width === "100%") {
-                this.toggleFullHeight();
-                this.toggleFullWidth();
-            } else {
-                if (height !== "100%") this.toggleFullHeight();
-                if (width !== "100%") this.toggleFullWidth();
-            }
-        },
-        onResizeWidth (e) {
-            const width = this.resizeStartWidth - (this.resizeStartPositionX - e.pageX) * 2;
-            const boundedWidth = Math.min(Math.max(Math.round(width), 200), this.parentWidth);
-            this.store.width = boundedWidth === this.parentWidth ? "100%" : boundedWidth;
-            this.$dispatch("viewport:resize-progress", this._resizeData);
-        },
-        onResizeWidthStart (e) {
-            this.start();
-            this.onResizeWidth = this.onResizeWidth.bind(this);
-            this.onResizeWidthEnd = this.onResizeWidthEnd.bind(this);
-            this.resizeStartPositionX = e.pageX;
-            this.resizeStartWidth = this.$refs.wrapper.clientWidth;
-            window.addEventListener("pointermove", this.onResizeWidth);
-            window.addEventListener("pointerup", this.onResizeWidthEnd);
-        },
-        onResizeWidthEnd () {
-            window.removeEventListener("pointermove", this.onResizeWidth);
-            window.removeEventListener("pointerup", this.onResizeWidthEnd);
-            this.end();
-        },
-        toggleFullWidth () {
-            this.$dispatch("viewport:resize-start", this._resizeData);
-            const { width: width , lastWidth: lastWidth  } = store;
-            if (width === "100%" && lastWidth) this.store.width = lastWidth;
-            else {
-                this.store.lastWidth = width;
-                this.store.width = "100%";
-            }
-            this.$dispatch("viewport:resize-complete", this._resizeData);
-        },
-        onResizeHeight (e) {
-            const height = this.resizeStartHeight - (this.resizeStartPositionY - e.pageY);
-            const boundedHeight = Math.min(Math.max(Math.round(height), 200), this.parentHeight);
-            this.store.height = boundedHeight === this.parentHeight ? "100%" : boundedHeight;
-            this.$dispatch("viewport:resize-progress", this._resizeData);
-        },
-        onResizeHeightStart (e) {
-            this.start();
-            this.onResizeHeight = this.onResizeHeight.bind(this);
-            this.onResizeHeightEnd = this.onResizeHeightEnd.bind(this);
-            this.resizeStartPositionY = e.pageY;
-            this.resizeStartHeight = this.$refs.wrapper.clientHeight;
-            window.addEventListener("pointermove", this.onResizeHeight);
-            window.addEventListener("pointerup", this.onResizeHeightEnd);
-        },
-        onResizeHeightEnd () {
-            window.removeEventListener("pointermove", this.onResizeHeight);
-            window.removeEventListener("pointerup", this.onResizeHeightEnd);
-            this.end();
-        },
-        toggleFullHeight () {
-            this.$dispatch("viewport:resize-start", this._resizeData);
-            const { height: height , lastHeight: lastHeight  } = store;
-            if (height === "100%" && lastHeight) this.store.height = lastHeight;
-            else {
-                this.store.lastHeight = height;
-                this.store.height = "100%";
-            }
-            this.$dispatch("viewport:resize-complete", this._resizeData);
-        },
-        // protected
-        get _resizeData () {
-            return {
-                width: this.store.width,
-                height: this.store.height,
-                viewport: this
-            };
-        }
-    };
-}
-
-
-$1f889267678ff167$exports = {
+$f6e2dfca641390ee$exports = {
     "button": $cbd28b10fa9798c7$exports,
-    "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
     "dimensions_display": $e398acaded942bbe$exports,
+    "code": $99486586f6691564$exports,
     "embed": $e1f51f020443edd4$exports,
     "filter": $e9904a14dabf652d$exports,
     "icon": $36506012e0c6e9e3$exports,
     "nav": $d92d9d5253f84566$exports,
-    "split_layout": $506dabb2bf255b38$exports,
     "tab_panels": $a87dacf5139b5e2f$exports,
     "tabs": $0db07828cadc68e0$exports,
-    "viewport": $6d64716f0b34fdf4$exports
+    "viewport": $6d64716f0b34fdf4$exports,
+    "split_layout": $506dabb2bf255b38$exports
 };
 
 
@@ -13656,7 +13656,7 @@ const $d73574cc5e9b9e72$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $d709d0f4027033b2$export$2e2bcd8739ae039));
 [
-    $1f889267678ff167$exports,
+    $f6e2dfca641390ee$exports,
     $fe98e3f2bf49b28f$exports,
     $6c10158820e535ef$exports
 ].forEach((scripts)=>{

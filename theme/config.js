@@ -6,6 +6,8 @@ module.exports = function (opts = {}) {
       { name: "indigo", accent: "indigo" },
       { name: "blue", accent: "blue" },
       { name: "zinc", accent: "zinc" },
+      { name: "green", accent: "green" },
+      { name: "rose", accent: "rose" },
     ],
 
     variables: {

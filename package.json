@@ -10,7 +10,9 @@
         "./app/assets/lookbook/css/lookbook.css",
         "./app/assets/lookbook/css/themes/indigo.css",
         "./app/assets/lookbook/css/themes/blue.css",
-        "./app/assets/lookbook/css/themes/zinc.css"
+        "./app/assets/lookbook/css/themes/zinc.css",
+        "./app/assets/lookbook/css/themes/green.css",
+        "./app/assets/lookbook/css/themes/rose.css"
       ],
       "distDir": "./public/lookbook-assets"
     }
