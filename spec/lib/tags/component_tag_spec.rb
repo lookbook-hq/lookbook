@@ -11,10 +11,10 @@ RSpec.describe Lookbook::ComponentTag do
       expect(tag.value).to eq ::InlineComponent
     end
 
-    it "raises an exception if the component doesn't exit" do
+    it "does not raise an exception if the component doesn't exist" do
       tag = described_class.new("DoesntExistComponent")
 
-      expect { tag.value }.to raise_error NameError
+      expect { tag.value }.not_to raise_error
     end
 
     it "returns nil if no component is specified" do

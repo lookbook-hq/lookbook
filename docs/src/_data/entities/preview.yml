@@ -9,12 +9,16 @@ attrs:
     description: Label for the preview, used in navigation
     type: String
 
-  - name: .full_path
-    description: Full filesystem path to the preview class file
-    type: Pathname
+  - name: .path
+    description: Unique preview reference path.
+    type: String
 
   - name: .url_path
-    description: URL of the preview in Lookbook
+    description: URL path of the preview
+    type: String
+
+  - name: .file_path
+    description: Absolute filesystem path to the preview class file
     type: Pathname
 
   - name: .examples

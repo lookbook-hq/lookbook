@@ -9,16 +9,12 @@ attrs:
     description: Label for the example, used in navigation
     type: String
 
-  - name: .full_path
+  - name: .file_path
     description: Full filesystem path to the parent preview class file
     type: Pathname
 
   - name: .url_path
     description: URL of the preview example in Lookbook
-    type: String
-
-  - name: .output
-    description: The rendered preview example output
     type: String
 
   - name: .source

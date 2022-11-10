@@ -77,6 +77,8 @@ api:
         url: /api/entities/preview_example/
       - label: PreviewGroup
         url: /api/entities/preview_group/
+      - label: RenderedExample
+        url: /api/entities/rendered_example/
       - label: Component
         url: /api/entities/component/
       - label: Tag

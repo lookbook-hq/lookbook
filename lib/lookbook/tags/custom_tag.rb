@@ -1,5 +1,7 @@
 module Lookbook
   class CustomTag < YardTag
+    supports_options
+
     attr_reader :arg_names, :tag_args
 
     def initialize(tag_name, text = nil, *args)

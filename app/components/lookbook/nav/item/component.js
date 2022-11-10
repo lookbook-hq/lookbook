@@ -1,4 +1,8 @@
 export default function navItemComponent({ id, matchers }) {
+  matchers = matchers.map((matcher) =>
+    matcher.replace(/\s/g, "").toLowerCase()
+  );
+
   return {
     filteredOut: false,
 

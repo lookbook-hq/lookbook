@@ -21,9 +21,8 @@
             <% layout.pane class: "overflow-hidden" do %>
               <%= lookbook_render :nav,
                 id: "previews-nav",
-                collection: @previews,
-                alpine_data: "$store.nav.previews",
-                collapse_singles: true do |nav| %>
+                tree: @previews.to_tree,
+                alpine_data: "$store.nav.previews" do |nav| %>
                 <%= nav.toolbar do |toolbar| %>
                   <% toolbar.section padded: true do %>
                     <h4 class="pt-1">Previews</h4>
@@ -45,7 +44,7 @@
             <% layout.pane class: "overflow-hidden" do %>
               <%= lookbook_render :nav,
                 id: "pages-nav",
-                collection: @pages,
+                tree: @pages.to_tree,
                 alpine_data: "$store.nav.pages" do |nav| %>
                 <%= nav.toolbar do |toolbar| %>
                   <% toolbar.section padded: true do %>

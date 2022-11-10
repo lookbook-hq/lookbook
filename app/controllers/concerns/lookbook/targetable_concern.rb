@@ -14,19 +14,19 @@ module Lookbook
     end
 
     def lookup_entities
-      @target = Lookbook.previews.find_example(params[:path])
+      @target = Lookbook.previews.find_example_by_path(params[:path])
       if @target.present?
         @preview = @target.preview
-        if params[:path] == @preview&.lookup_path
-          redirect_to lookbook_inspect_path "#{params[:path]}/#{@preview.default_example.name}"
+        if params[:path] == @preview&.path
+          redirect_to lookbook_inspect_path("#{params[:path]}/#{@preview.default_example.name}", params.permit!)
         end
       else
-        @preview = Lookbook.previews.find(params[:path])
+        @preview = Lookbook.previews.find_by_path(params[:path])
         if @preview.present?
-          first_example = @preview.examples.first
-          redirect_to lookbook_inspect_path(first_example.lookup_path) if first_example
+          default_example = @preview.default_example
+          redirect_to lookbook_inspect_path(default_example.path, params.permit!) if default_example
         else
-          @preview = Lookbook.previews.find(path_segments.slice(0, path_segments.size - 1).join("/"))
+          @preview = Lookbook.previews.find_by_path(path_segments.slice(0, path_segments.size - 1).join("/"))
         end
       end
     end
@@ -89,46 +89,21 @@ module Lookbook
       end
 
       preview_controller.params.permit!
-      @preview_params = preview_controller.params.to_h.select do |key, value|
-        !!@params.find { |param_tag| param_tag.name == key.to_s }
-      end
     end
 
     def inspector_data
       return @inspector_data if @inspector_data.present?
 
-      context_data = {
-        preview_params: @preview_params,
-        path: params[:path]
-      }
-
-      preview = @preview
-      target_examples = (@target.type == :group) ? @target.examples : [@target]
-
-      examples = target_examples.map do |example|
-        render_args = @preview.render_args(example.name, params: preview_controller.params)
-        has_template = render_args[:template] != "view_components/preview"
+      rendered_examples = @target.examples.map do |example|
         output = preview_controller.process(:render_example_to_string, @preview, example.name)
-        source = has_template ? example.template_source(render_args[:template]) : example.method_source
-        source_lang = has_template ? example.template_lang(render_args[:template]) : example.lang
-
-        example.define_singleton_method(:output, proc { output })
-        example.define_singleton_method(:source, proc { source })
-        example.define_singleton_method(:source_lang, proc { source_lang })
-        example
+        RenderedExample.new(example, output, preview_controller.params)
       end
 
-      target = (@target.type == :group) ? @target : examples.find { |e| e.lookup_path == @target.lookup_path }
-
-      params_ref = @params
-      preview.define_singleton_method(:params, proc { params_ref })
-
       @inspector_data ||= Lookbook::Store.new({
-        context: context_data,
-        preview: preview,
-        examples: examples,
-        example: examples.first,
-        target: target,
+        context: Store.new({params: @params, path: params[:path]}),
+        preview: @preview,
+        examples: rendered_examples,
+        target: @target,
         data: Lookbook.data,
         app: Lookbook
       })

@@ -17,9 +17,9 @@ attrs:
     description: URL of the page
     type: String
 
-  - name: .full_path
+  - name: .file_path
     description: Full filesystem path to the page file
-    type: String
+    type: Pathname
 
   - name: .hidden?
     type: Boolean

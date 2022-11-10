@@ -82,7 +82,7 @@ All panel option values can be provided either as a **simple static value** or a
 ```ruby
 {
   label: "Params",
-  disabled: ->(data) { data.preview.params.none? } # grey out the Params tab if no params are set for the current preview
+  disabled: ->(data) { data.context.params.none? } # grey out the Params tab if no params are set for the current preview
 }
 ```
 
@@ -93,7 +93,7 @@ The `data` hash provided as the single argument to any lambda functions contains
     [Preview object](/api/entities/preview/) representing the current preview
   {% end %}
   {% list.option name: "data.examples" do %}
-    Array of [examples](/api/entities/example/) that are included in the current preview
+    Array of [rendered examples](/api/entities/rendered_example/) that are present in the current preview
   {% end %}
   {% list.option name: "data.context" do %}
     Data about the request context

@@ -2,7 +2,7 @@
 class HiddenComponentPreview < ViewComponent::Preview
   def default
     render StandardComponent.new do
-      "standard component content"
+      "hidden component content"
     end
   end
 end

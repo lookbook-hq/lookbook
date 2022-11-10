@@ -28,12 +28,12 @@
       <div>
     <% end %>
   description: |
-    An array of [preview example objects](/api/entities/preview_example/) representing the individual
+    An array of [rendered example objects](/api/entities/rendered_example/) representing the individual
     examples rendered in the current preview. For **non-grouped** (i.e. regular) **previews**, this array will always **only have one item**.
 
 - name: context
   methods:
-    - name: context.preview_params
+    - name: context.params
       description: Hash of supplied preview parameters, if any
     - name: context.path
       description: URL path of the current page

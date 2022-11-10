@@ -3,7 +3,7 @@ module Lookbook
     include Utils
 
     def page_path(id)
-      page = id.is_a?(Page) ? id : Lookbook.pages.find(id)
+      page = id.is_a?(Page) ? id : Lookbook.pages.find_by_id(id)
       if page.present?
         lookbook_page_path page.lookup_path
       else
@@ -16,10 +16,13 @@ module Lookbook
 
       @embed_counter ||= 0
 
-      preview_lookup = args.first.is_a?(Symbol) ? args.first : preview_class_path(args.first)
-      preview = Lookbook.previews.find(preview_lookup)
-      example = args[1] ? preview&.example(args[1]) : preview&.default_example
+      preview = if args.first.is_a?(Symbol)
+        Lookbook.previews.find_by_path(args.first)
+      else
+        Lookbook.previews.find_by_preview_class(args.first)
+      end
 
+      example = args[1] ? preview&.example(args[1]) : preview&.default_example
       embed_id = "#{url_for}/embed/#{example.lookup_path}".delete_prefix("/").tr("/", "-")
 
       lookbook_render :embed,

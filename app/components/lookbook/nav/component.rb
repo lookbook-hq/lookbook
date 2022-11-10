@@ -3,25 +3,18 @@ module Lookbook
     renders_one :filter, Lookbook::Filter::Component
     renders_one :toolbar, Lookbook::Toolbar::Component
 
-    def initialize(
-      collection:, id: nil,
-      collapse_singles: false,
-      **attrs
-    )
-      @id = id.presence || "#{collection.id}-nav"
-      @collection = collection.as_tree
-      @item_args = {
-        collapse_singles: collapse_singles
-      }
+    attr_reader :id, :tree
+
+    def initialize(tree:, id: nil, **attrs)
+      @id = id
+      @tree = tree
       super(**attrs, id: id)
     end
 
     def items
-      @collection.non_empty_items.map do |item|
-        lookbook_render Lookbook::Nav::Item::Component.new item,
-          nav_id: @id,
-          depth: 1,
-          **@item_args
+      tree.map do |node|
+        item_class = node.type == :directory ? Nav::Directory::Component : Nav::Entity::Component
+        lookbook_render item_class.new node, nav_id: id
       end
     end
 

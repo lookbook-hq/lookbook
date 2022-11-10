@@ -3,6 +3,8 @@ module Lookbook
     VALUE_TYPE_MATCHER = /^(\[\s?([A-Z]{1}\w+)\s?\])/
     DESCRIPTION_MATCHER = /"(.*[^\\])"$/
 
+    supports_options
+
     attr_reader :tag_args
 
     def initialize(text)
