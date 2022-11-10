@@ -21,10 +21,14 @@
     "@components/*": "./app/components/lookbook/$1"
   },
   "scripts": {
-    "dev": "parcel watch -p 5111",
-    "build": "parcel build --no-cache --no-optimize",
+    "dev": "npm run watch",
+    "watch": "npm run parcel:clean && concurrently npm:parcel:watch npm:themes:watch",
+    "build": "npm run parcel:clean && npm run themes:generate && npm run parcel:build",
+    "parcel:clean": "rm -rf .parcel-cache",
+    "parcel:watch": "parcel watch -p 5111",
+    "parcel:build": "parcel build --no-cache --no-optimize",
     "themes:generate": "bin/generate-themes",
-    "clean": "rm -rf .parcel-cache",
+    "themes:watch": "watch 'npm run themes:generate' ./theme --filter=./theme/watch.js",
     "lint:fix": "standardrb --fix && prettier --write .",
     "release": "release-it",
     "release:dry-run": "release-it --dry-run",
@@ -68,7 +72,8 @@
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "2.7.1",
-    "release-it": "^15.5.0"
+    "release-it": "^15.5.0",
+    "watch": "^1.0.2"
   },
   "lint-staged": {
     "**/*": [

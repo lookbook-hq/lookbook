@@ -1,21 +1,16 @@
 #!/usr/bin/env node
 
 const fs = require("fs");
-
-const themes = [
-  { name: "indigo", accent: "indigo" },
-  { name: "blue", accent: "blue" },
-  { name: "zinc", accent: "zinc" },
-];
+const config = require("../theme/config")();
 
 // Tailwind classes
 
-const tailwindJSON = generateTailwindJSON(require("../theme/config")());
+const tailwindJSON = generateTailwindJSON(config.variables);
 write("./theme/theme.json", tailwindJSON);
 
-themes.forEach((options) => {
+config.themes.forEach((options) => {
   const themeConfig = require("../theme/config")(options);
-  const themeCSS = generateThemeCSS(themeConfig);
+  const themeCSS = generateThemeCSS(themeConfig.variables);
 
   write(`./app/assets/lookbook/css/themes/${options.name}.css`, themeCSS);
 });
