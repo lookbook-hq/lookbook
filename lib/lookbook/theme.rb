@@ -14,12 +14,12 @@ module Lookbook
         favicon_dark_mode: "#60A5FA"
       },
       green: {
-        favicon_light_mode: "#2563EB",
-        favicon_dark_mode: "#60A5FA"
+        favicon_light_mode: "#16a34a",
+        favicon_dark_mode: "#66E093"
       },
       rose: {
-        favicon_light_mode: "#2563EB",
-        favicon_dark_mode: "#60A5FA"
+        favicon_light_mode: "#E11D48",
+        favicon_dark_mode: "#FFA0B5"
       }
     }
 
