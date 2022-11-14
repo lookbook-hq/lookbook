@@ -46,7 +46,7 @@
     "@rails/actioncable": "^6.1.4",
     "@ryangjchandler/alpine-tooltip": "^1.2.0",
     "@tailwindcss/forms": "^0.5.3",
-    "@tailwindcss/typography": "^0.5.0",
+    "@tailwindcss/typography": "^0.5.8",
     "alpinejs": "^3.10.5",
     "autoprefixer": "^10.4.13",
     "command-line-args": "^5.2.1",
