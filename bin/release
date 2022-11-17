@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
-rake build && gem push pkg/lookbook-${1/-/.}.gem
+rake build
+
+printf "\n✅ Lookbook v${1/-/.} gem built."
+printf "\n🚨 You must now push the gem to Rubygems to complete the release. MFA code is required! 🚨"
+printf "\n\n👉 gem push pkg/lookbook-${1/-/.}.gem --otp MFA_CODE_HERE\n\n"
