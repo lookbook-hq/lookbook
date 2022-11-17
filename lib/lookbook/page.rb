@@ -26,7 +26,7 @@ module Lookbook
       @content = ""
       @page_name = remove_position_prefix(path_name)
       @rel_path = @pathname.relative_path_from(@base_path)
-      page_path = @rel_path.dirname.to_s == "." ? @page_name : "#{@rel_path.dirname}/#{@page_name}"
+      page_path = (@rel_path.dirname.to_s == ".") ? @page_name : "#{@rel_path.dirname}/#{@page_name}"
       extract_frontmatter(file_contents)
       super(page_path)
     end

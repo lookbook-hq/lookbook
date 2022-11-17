@@ -5,7 +5,7 @@ module Lookbook
     def value
       if text.present?
         int = text.to_i
-        int == 0 ? DEFAULT_POSITION : int
+        (int == 0) ? DEFAULT_POSITION : int
       else
         DEFAULT_POSITION
       end

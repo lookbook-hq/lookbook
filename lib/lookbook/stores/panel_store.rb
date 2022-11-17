@@ -96,7 +96,7 @@ module Lookbook
       config.each do |group, panels|
         panels.map! do |opts|
           opts.transform_values! do |value|
-            value.is_a?(String) && value.start_with?("->") ? eval(value) : value # standard:disable Security/Eval
+            (value.is_a?(String) && value.start_with?("->")) ? eval(value) : value # standard:disable Security/Eval
           end
         end
       end
@@ -111,7 +111,7 @@ module Lookbook
     end
 
     def insert_index(position, items_count)
-      index = position == 0 ? 1 : (position || 0).to_int
+      index = (position == 0) ? 1 : (position || 0).to_int
       last_position = items_count + 1
       index = last_position if index > last_position
       index - 1

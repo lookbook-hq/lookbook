@@ -13,7 +13,7 @@ module Shared
     def initialize(name:, type: nil, default: nil, title: nil, **attrs)
       @name = name
       @title = title || name.to_s
-      value = type.to_s == "String" ? "\"#{default}\"" : default
+      value = (type.to_s == "String") ? "\"#{default}\"" : default
       @metadata = [{
         label: "Type",
         value: type

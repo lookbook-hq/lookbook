@@ -32,9 +32,9 @@ module Lookbook
 
     def alpine_encode(data)
       if data.is_a? String
-        "\'#{json_escape data}\'"
+        "'#{json_escape data}'"
       else
-        json_escape data.to_json.tr("\"", "\'")
+        json_escape data.to_json.tr("\"", "'")
       end
     end
 

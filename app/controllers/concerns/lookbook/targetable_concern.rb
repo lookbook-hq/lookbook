@@ -103,7 +103,7 @@ module Lookbook
       }
 
       preview = @preview
-      target_examples = @target.type == :group ? @target.examples : [@target]
+      target_examples = (@target.type == :group) ? @target.examples : [@target]
 
       examples = target_examples.map do |example|
         render_args = @preview.render_args(example.name, params: preview_controller.params)
@@ -118,7 +118,7 @@ module Lookbook
         example
       end
 
-      target = @target.type == :group ? @target : examples.find { |e| e.lookup_path == @target.lookup_path }
+      target = (@target.type == :group) ? @target : examples.find { |e| e.lookup_path == @target.lookup_path }
 
       params_ref = @params
       preview.define_singleton_method(:params, proc { params_ref })

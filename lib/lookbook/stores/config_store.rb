@@ -10,7 +10,7 @@ module Lookbook
     end
 
     def project_name=(name)
-      store[:project_name] = name == false ? nil : name
+      store[:project_name] = (name == false) ? nil : name
     end
 
     def page_paths=(paths = nil)

@@ -71,7 +71,7 @@ module Lookbook
     protected
 
     def normalize_value(value)
-      @recursive && !value.is_a?(Store) && value.is_a?(Hash) ? Store.new(value, recursive: @recursive) : value
+      (@recursive && !value.is_a?(Store) && value.is_a?(Hash)) ? Store.new(value, recursive: @recursive) : value
     end
   end
 end

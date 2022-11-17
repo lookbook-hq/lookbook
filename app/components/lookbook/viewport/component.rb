@@ -10,7 +10,7 @@ module Lookbook
     end
 
     def generate_id(*args)
-      args.map { |args| args.delete_prefix("/").tr("&?=/_\-", "-") }.join("-")
+      args.map { |args| args.delete_prefix("/").tr("&?=/_-", "-") }.join("-")
     end
 
     protected

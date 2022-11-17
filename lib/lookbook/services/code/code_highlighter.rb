@@ -11,7 +11,7 @@ module Lookbook
     end
 
     def opts
-      @opts.is_a?(String) || @opts.is_a?(Symbol) ? {language: @opts} : @opts.to_h
+      (@opts.is_a?(String) || @opts.is_a?(Symbol)) ? {language: @opts} : @opts.to_h
     end
 
     def call
