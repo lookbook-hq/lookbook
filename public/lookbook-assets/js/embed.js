@@ -1,5 +1,14 @@
 (() => {
 var $b2e1fd3e30ab1f5c$exports = {};
+/*
+ * File: iframeResizer.contentWindow.js
+ * Desc: Include this file in any page being loaded into an iframe
+ *       to force the iframe to resize to the content size.
+ * Requires: iframeResizer.js on host page.
+ * Doc: https://github.com/davidjbradshaw/iframe-resizer
+ * Author: David J. Bradshaw - dave@bradshaw.net
+ *
+ */ // eslint-disable-next-line sonarjs/cognitive-complexity, no-shadow-restricted-names
 (function(undefined) {
     if (typeof window === "undefined") return; // don't run for server side render
     var autoResize = true, base = 10, bodyBackground = "", bodyMargin = 0, bodyMarginStr = "", bodyObserver = null, bodyPadding = "", calculateWidth = false, doubleEventList = {
