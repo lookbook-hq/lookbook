@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.homepage = "https://github.com/allmarkedup/lookbook"
   spec.summary = "A native development UI for ViewComponent"
   spec.license = "MIT"
-  spec.metadata = { "rubygems_mfa_required": "true" }
+  spec.metadata = { "rubygems_mfa_required" => "true" }
 
   spec.files = Dir["{app,config,lib,public}/**/*", "LICENSE.txt", "README.md"]
   spec.require_paths = ["lib"]
