@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    lookbook (1.0.8)
+    lookbook (1.3.3)
       actioncable
       concurrent-ruby
       css_parser
