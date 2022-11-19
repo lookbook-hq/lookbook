@@ -9,7 +9,7 @@ If you are running into problems and nothing here is relevant then head over to 
 
 ## 🚨 Forking servers - changes not showing up
 
-Lookbook does not play nicely when using a forking server such as Puma in [clustered mode](https://github.com/puma/puma#clustered-mode) (i.e. with a `WEB_CONCURRENCY` value of > 1). This is due to a [limitation of the underlying library](https://github.com/allmarkedup/lookbook/issues/98#issuecomment-1253796251) that is used to watch for changes.
+Lookbook does not play nicely when using a forking server such as Puma in [clustered mode](https://github.com/puma/puma#clustered-mode) (i.e. with a `WEB_CONCURRENCY` value of > 1). This is due to a [limitation of the underlying library](https://github.com/ViewComponent/lookbook/issues/98#issuecomment-1253796251) that is used to watch for changes.
 
 If running in clustered mode, any changes made to preview files or components will not appear in Lookbook without restarting the server.
 

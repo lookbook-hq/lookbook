@@ -10,7 +10,7 @@ Contributions to this project are released to the public under the [MIT license]
 
 ## Filing an issue
 
-> Please think carefully before using the issue tracker for personal support requests. Whilst we will do our best to help answer them it will take time away from development work and you may be better off starting [a discussion](https://github.com/allmarkedup/lookbook/discussions) instead where fellow community members may be able to help out.
+> Please think carefully before using the issue tracker for personal support requests. Whilst we will do our best to help answer them it will take time away from development work and you may be better off starting [a discussion](https://github.com/ViewComponent/lookbook/discussions) instead where fellow community members may be able to help out.
 
 **A good issue report is always welcome!**
 

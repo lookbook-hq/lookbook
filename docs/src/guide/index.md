@@ -10,7 +10,7 @@ It provides a UI to let you browse your component library and preview your compo
 Lookbook is built on top of ViewComponent's native [preview classes](https://viewcomponent.org/guide/previews.html) so works out-of-the-box for new and existing projects alike.
 
 {%= note :info do %}
-**This documentation is for Lookbook v1.0+**. Documentation for older releases can be found in the [0.9.x branch of the Lookbook repo &rarr;](https://github.com/allmarkedup/lookbook/tree/0.9.x)
+**This documentation is for Lookbook v1.0+**. Documentation for older releases can be found in the [0.9.x branch of the Lookbook repo &rarr;](https://github.com/ViewComponent/lookbook/tree/0.9.x)
 {% end %}
 
 {{ image "lookbook_inspector_screenshot.png" }}
@@ -39,9 +39,9 @@ If you'd rather dig in a bit more and run the demo app locally, the [demo repo](
 * [Polaris ViewComponents](https://github.com/baoagency/polaris_view_components)
 * [Within3](https://within3.com/)
 * [Wrapbook](https://wrapbook.com/)
-* And [many more...](https://github.com/allmarkedup/lookbook/network/dependents?package_id=UGFja2FnZS0xMDM0MzQ1)
+* And [many more...](https://github.com/ViewComponent/lookbook/network/dependents?package_id=UGFja2FnZS0xMDM0MzQ1)
 
-Using Lookbook? [Send a pull request](https://github.com/allmarkedup/lookbook/edit/main/docs/src/guide/index.md) to update this list!
+Using Lookbook? [Send a pull request](https://github.com/ViewComponent/lookbook/edit/main/docs/src/guide/index.md) to update this list!
 
 ---
 

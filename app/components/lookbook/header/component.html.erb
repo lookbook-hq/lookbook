@@ -25,7 +25,7 @@
             <% menu = lookbook_render :debug_menu,
               version: Lookbook::VERSION,
               docs_url: "https://lookbook.build/guide",
-              repo_url: "https://github.com/allmarkedup/lookbook" do %>
+              repo_url: "https://github.com/ViewComponent/lookbook" do %>
               <%= helpers.pretty_json(Lookbook.debug_data) %>
             <% end %>
             <% button.dropdown({}).with_content(menu) %>
