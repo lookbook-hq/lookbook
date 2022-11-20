@@ -13,7 +13,7 @@ module Lookbook
 
     def items
       tree.map do |node|
-        item_class = node.type == :directory ? Nav::Directory::Component : Nav::Entity::Component
+        item_class = (node.type == :directory) ? Nav::Directory::Component : Nav::Entity::Component
         lookbook_render item_class.new node, nav_id: id
       end
     end
