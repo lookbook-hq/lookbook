@@ -34,7 +34,7 @@ If you'd rather dig in a bit more and run the demo app locally, the [demo repo](
 * [CoverageBook](https://coveragebook.com/)
 * [FreeAgent](https://www.freeagent.com/)
 * [Gitlab](https://www.gitlab.com/)
-* [Github](https://www.github.com/)
+* [GitHub](https://www.github.com/)
 * [Podia](https://www.podia.com/)
 * [Polaris ViewComponents](https://github.com/baoagency/polaris_view_components)
 * [Within3](https://within3.com/)
