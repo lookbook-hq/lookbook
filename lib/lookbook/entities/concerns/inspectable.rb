@@ -4,7 +4,7 @@ module Lookbook
 
     included do
       def source
-        source_code = if source_file_path
+        source_code = if custom_source?
           File.read(source_file_path)
         else
           src = CodeIndenter.call(code_object.source)
@@ -19,7 +19,11 @@ module Lookbook
       end
 
       def source_lang
-        source_file_path ? Lang.guess(source_file_path, :ruby) : Lang.find(:ruby)
+        custom_source? ? Lang.guess(source_file_path, :ruby) : Lang.find(:ruby)
+      end
+
+      def custom_source?
+        source_file_path.present?
       end
 
       protected

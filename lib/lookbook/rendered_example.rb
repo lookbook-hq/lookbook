@@ -31,7 +31,7 @@ module Lookbook
     end
 
     def has_custom_template?
-      template != "view_components/preview"
+      template != "view_components/preview" && !custom_source?
     end
   end
 end
