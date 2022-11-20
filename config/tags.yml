@@ -30,3 +30,7 @@ shared:
   logical_path:
     label: Logical Path
     opts: {}
+
+  source:
+    label: Source file
+    opts: {}

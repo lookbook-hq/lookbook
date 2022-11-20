@@ -11,8 +11,8 @@ module Lookbook
       @permit_eval = permit_eval
       @fail_silently = fail_silently
       @fallback = fallback
-      @base_dir = base_dir
-      @file = file
+      @base_dir = base_dir.to_s
+      @file = file.to_s
     end
 
     def call

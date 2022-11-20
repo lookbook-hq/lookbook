@@ -13,7 +13,7 @@ methods:
     purpose: Add a [custom tag](/guide/extend/tags/) for use when annotating component previews
 
 tags:
-  - name: label
+  - name: "@label"
     signature: "@label <text>"
     args:
       - name: <text>
@@ -24,7 +24,7 @@ tags:
       # @label Primary Button
       def main_but
 
-  - name: logical_path
+  - name: "@logical_path"
     signature: "@logical_path <directory_path>"
     args:
       - name: <directory_path>
@@ -37,7 +37,7 @@ tags:
         # ...
       end
 
-  - name: hidden
+  - name: "@hidden"
     signature: "@hidden <value?>"
     args:
       - name: <value?>
@@ -49,7 +49,7 @@ tags:
       # @label hidden
       def not_ready
 
-  - name: group
+  - name: "@!group"
     signature: "@!group <name?> ... @!endgroup"
     args:
       - name: <name?>
@@ -64,7 +64,7 @@ tags:
       end
       # @!endgroup
 
-  - name: param
+  - name: "@param"
     signature: "@param <name> [<type?>] <input_type?> <description?> <opts?>"
     args:
       - name: <name>
@@ -89,14 +89,14 @@ tags:
       # @param theme [Symbol] select { choices: [primary, secondary, danger] }
       def example(theme: :primary)
 
-  - name: display
+  - name: "@display"
     signature: "@display <key> <value>"
     purpose: Sets the value of a [display variable](/guide/previews/display) for use in preview layouts.
     example: |
       # @display bg_color "#000" 
       def light_on_dark
 
-  - name: component
+  - name: "@component"
     signature: "@component <class_name>"
     purpose: |
       Identifies the component being rendered in the preview. Only necessary when it is not possible to guess it from the preview class name.
@@ -106,3 +106,16 @@ tags:
       class InteractiveComponentsPreview < ViewComponent::Preview
     description: |
       Can be applied multiple times if there is more than one component being rendered,
+
+  - name: "@source"
+    signature: "@source <file_path>"
+    args:
+      - name: <file_path>
+        type: String
+        description: |
+          File path. Will be resolved relative to the current preview file if it begins with a "." (i.e. `./component.js`),
+          otherwise it will be resolved relative to the base preview directory
+    purpose: Replace the default content of the 'Source' panel with the contents of the specified file
+    example: |
+      # @source ./component.js
+      def default_example

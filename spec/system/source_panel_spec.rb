@@ -1,13 +1,15 @@
 require "rails_helper"
 
-RSpec.describe "Output panel", type: :system do
-  context "multi-line tags" do
-    it "does not raise an exception" do
-      visit lookbook_inspect_path("multiline_tag")
+RSpec.describe "Source panel", type: :system do
+  context "custom source file provided by @source tag" do
+    it "renders the file contents" do
+      visit lookbook_inspect_path("custom_source")
 
-      click_on("HTML")
+      click_on("Source")
 
-      expect(page).to have_css "#panel-output .code"
+      within("#panel-source .code") do
+        expect(page).to have_content "export default {}"
+      end
     end
   end
 end

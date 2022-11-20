@@ -1,6 +1,6 @@
 <%= tag.div **html_attrs do %>
   <div class="not-prose">
-    <h3 id="method-<%= name.gsub("_", "-").gsub(".", "") %>" class="font-bold text-lg text-indigo-600">
+    <h3 id="method-<%= name.gsub("_", "-").gsub(".", "").gsub("@", "") %>" class="font-bold text-lg text-indigo-600">
         <%= title %>
     </h3>
   </div>

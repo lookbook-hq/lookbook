@@ -15,7 +15,7 @@ module Lookbook
     end
 
     def source_lang
-      has_custom_template? ? template_lang(template) : example.lang
+      has_custom_template? ? template_lang(template) : example.source_lang
     end
 
     protected

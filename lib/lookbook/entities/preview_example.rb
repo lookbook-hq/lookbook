@@ -38,10 +38,6 @@ module Lookbook
       [self]
     end
 
-    def lang
-      Lookbook::Lang.find(:ruby)
-    end
-
     def template_source(template_path)
       source_path = template_file_path(template_path)
       source_path ? File.read(source_path) : nil
@@ -65,6 +61,7 @@ module Lookbook
     end
 
     alias_method :parent, :preview
+    alias_method :lang, :source_lang
 
     protected
 
