@@ -90,85 +90,85 @@ module Lookbook
     end
 
     def parser
-      @parser ||= PreviewParser.new(opts.preview_paths, Engine.tags)
+      @_parser ||= PreviewParser.new(opts.preview_paths, Engine.tags)
     end
 
     def file_watcher
-      @file_watcher ||= FileWatcher.new(force_polling: opts.listen_use_polling)
+      @_file_watcher ||= FileWatcher.new(force_polling: opts.listen_use_polling)
     end
 
     def process
-      @process ||= Process.new(env: Rails.env)
+      @_process ||= Process.new(env: Rails.env)
     end
 
     def listen?
       opts.listen && process.supports_listening?
     end
 
-    def self.mount_path
-      routes.find_script_name({})
-    end
-
-    def self.mounted?
-      mount_path.present?
-    end
-
-    def self.app_name
-      name = if Rails.application.class.respond_to?(:module_parent_name)
-        Rails.application.class.module_parent_name
-      else
-        Rails.application.class.parent_name
+    class << self
+      def mount_path
+        routes.find_script_name({})
       end
-      name.underscore
-    end
 
-    def self.websocket
-      if mounted?
-        use_websocket = opts.auto_refresh && opts.listen && process.supports_listening?
-        @websocket ||= use_websocket ? Websocket.new(mount_path, logger: Lookbook.logger) : Websocket.noop
-      else
-        Websocket.noop
+      def mounted?
+        mount_path.present?
       end
-    end
 
-    def self.panels
-      @panels ||= PanelStore.init_from_config
-    end
+      def app_name
+        name = if Rails.application.class.respond_to?(:module_parent_name)
+          Rails.application.class.module_parent_name
+        else
+          Rails.application.class.parent_name
+        end
+        name.underscore
+      end
 
-    def self.inputs
-      @inputs ||= InputStore.init_from_config
-    end
+      def websocket
+        if mounted?
+          use_websocket = opts.auto_refresh && opts.listen && process.supports_listening?
+          @websocket ||= use_websocket ? Websocket.new(mount_path, logger: Lookbook.logger) : Websocket.noop
+        else
+          Websocket.noop
+        end
+      end
 
-    def self.tags
-      @tags ||= TagStore.init_from_config
-    end
+      def panels
+        @_panels ||= PanelStore.init_from_config
+      end
 
-    def self.hooks
-      @hooks ||= HookStore.init_from_config
-    end
+      def inputs
+        @_inputs ||= InputStore.init_from_config
+      end
 
-    def self.component_paths
-      @component_paths ||= Array(PathUtils.to_absolute(opts.components_path))
-    end
+      def tags
+        @_tags ||= TagStore.init_from_config
+      end
 
-    def self.page_paths
-      @page_paths ||= PathUtils.normalize_paths(opts.page_paths)
-    end
+      def hooks
+        @_hooks ||= HookStore.init_from_config
+      end
 
-    def self.preview_paths
-      @preview_paths ||= PathUtils.normalize_paths(opts.preview_paths)
-    end
+      def component_paths
+        @_component_paths ||= Array(PathUtils.to_absolute(opts.components_path))
+      end
 
-    def self.pages
-      @pages ||= PageCollection.new
-    end
+      def page_paths
+        @_page_paths ||= PathUtils.normalize_paths(opts.page_paths)
+      end
 
-    def self.previews
-      @previews ||= PreviewCollection.new
-    end
+      def preview_paths
+        @_preview_paths ||= PathUtils.normalize_paths(opts.preview_paths)
+      end
 
-    def self.preview_controller
-      @preview_controller
+      def pages
+        @_pages ||= PageCollection.new
+      end
+
+      def previews
+        @_previews ||= PreviewCollection.new
+      end
+
+      attr_reader :preview_controller
     end
 
     at_exit do

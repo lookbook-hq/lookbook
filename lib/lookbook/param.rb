@@ -33,10 +33,10 @@ module Lookbook
     end
 
     def input_options
-      return @input_options if @input_options
+      return @_input_options if @_input_options
 
       runtime_options = options.except([*methods, :name, :value_default, :description])
-      @input_options ||= Store.new(input_config.options.merge(runtime_options))
+      @_input_options ||= Store.new(input_config.options.merge(runtime_options))
     end
 
     def input_partial

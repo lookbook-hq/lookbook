@@ -16,7 +16,7 @@ module Lookbook
     end
 
     def config
-      @config ||= ConfigStore.init_from_config
+      @_config ||= ConfigStore.init_from_config
     end
 
     def configure
@@ -28,15 +28,15 @@ module Lookbook
     end
 
     def data
-      @data ||= Store.new
+      @_data ||= Store.new
     end
 
     def data=(new_data)
-      @data = Store.new(new_data)
+      @_data = Store.new(new_data)
     end
 
     def logger
-      @logger ||= if Rails.logger.present? && config.log_use_rails_logger
+      @_logger ||= if Rails.logger.present? && config.log_use_rails_logger
         Rails.logger
       else
         logger = Logger.new($stdout)
@@ -71,7 +71,7 @@ module Lookbook
     end
 
     def theme
-      @theme ||= Lookbook::Theme.new(config.ui_theme, config.ui_theme_overrides)
+      @_theme ||= Lookbook::Theme.new(config.ui_theme, config.ui_theme_overrides)
     end
 
     def define_param_input(*args)
