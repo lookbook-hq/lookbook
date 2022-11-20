@@ -1,5 +1,3 @@
-require "active_model"
-
 module Lookbook
   class Code::Component < Lookbook::BaseComponent
     include Lookbook::OutputHelper
@@ -56,8 +54,8 @@ module Lookbook
     end
 
     def before_render
-      @theme ||= (config.highlighter_options && config.highlighter_options[:theme]&.to_sym) || :github
-      @dark ||= ::ActiveModel::Type::Boolean.new.cast((config.highlighter_options && config.highlighter_options[:dark]) || false)
+      @theme ||= Lookbook.config.highlighter_options.fetch(:theme, :github).to_sym
+      @dark ||= !!Lookbook.config.highlighter_options.fetch(:dark, false)
     end
 
     protected

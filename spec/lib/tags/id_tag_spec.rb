@@ -11,7 +11,7 @@ RSpec.describe Lookbook::IdTag do
       expect(tag.value).to eq "test"
 
       tag = described_class.new("test one")
-      expect(tag.value).to eq Lookbook::AttributeUtils.entity_id("test one")
+      expect(tag.value).to eq Lookbook::Utils.id("test one")
     end
   end
 end

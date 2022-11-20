@@ -26,16 +26,30 @@ module Lookbook
     # i.e. for the @hidden tag this would return boolean true/false.
     alias_method :value, :text
 
+    def self.supports_options(value = true)
+      @supports_options = !!value
+    end
+
+    def self.supports_options?
+      @supports_options.nil? ? false : @supports_options
+    end
+
+    supports_options
+
     protected
 
     def tag_parts
       if @tag_parts.nil?
-        options, text = TagOptionsParser.call(@text, {
-          file: host_file,
-          base_dir: (File.dirname(host_file) if host_file),
-          eval_context: host_class_instance,
-          permit_eval: Lookbook.config.preview_params_options_eval
-        })
+        options, text = if self.class.supports_options?
+          TagOptionsParser.call(@text, {
+            file: host_file,
+            base_dir: (File.dirname(host_file) if host_file),
+            eval_context: host_class_instance,
+            permit_eval: Lookbook.config.preview_params_options_eval
+          })
+        else
+          [{}, @text]
+        end
       end
       @tag_parts ||= {options: options, text: text}
     end

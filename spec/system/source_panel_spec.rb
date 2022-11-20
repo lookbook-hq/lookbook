@@ -7,7 +7,7 @@ RSpec.describe "Output panel", type: :system do
 
       click_on("HTML")
 
-      expect(page).to have_css "#lookbook-panel-output .code"
+      expect(page).to have_css "#panel-output .code"
     end
   end
 end

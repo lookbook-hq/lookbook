@@ -1444,6 +1444,39 @@ pre[class*="language-"] {
   padding: 1rem;
 }
 
+[data-component="nav"] .nav-action {
+  width: 100%;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  color: var(--lookbook-nav-text);
+  align-items: center;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter, backdrop-filter;
+  transition-duration: .15s;
+  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  display: flex;
+}
+
+[data-component="nav"] .nav-action:hover {
+  background-color: var(--lookbook-nav-item-hover);
+}
+
+[data-component="nav"] .nav-action-inner {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+[data-component="nav"] .nav-toggle-icon {
+  color: var(--lookbook-nav-toggle);
+  margin-right: .25rem;
+  position: absolute;
+  left: -1rem;
+}
+
 [data-component="params-editor"] table:not(.linear) thead tr {
   border-bottom-width: 1px;
   border-color: var(--lookbook-divider);
@@ -1759,10 +1792,6 @@ input[type="color"]::-webkit-color-swatch {
 
 .-left-px {
   left: -1px;
-}
-
-.-left-4 {
-  left: -1rem;
 }
 
 .top-\[2px\] {
@@ -2519,11 +2548,6 @@ input[type="color"]::-webkit-color-swatch {
   padding-bottom: .75rem;
 }
 
-.py-1 {
-  padding-top: .25rem;
-  padding-bottom: .25rem;
-}
-
 .px-1 {
   padding-left: .25rem;
   padding-right: .25rem;
@@ -2730,14 +2754,6 @@ input[type="color"]::-webkit-color-swatch {
 
 .text-lookbook-prose-text {
   color: var(--lookbook-prose-text);
-}
-
-.text-lookbook-nav-text {
-  color: var(--lookbook-nav-text);
-}
-
-.text-lookbook-nav-toggle {
-  color: var(--lookbook-nav-toggle);
 }
 
 .text-lookbook-nav-icon-stroke {
@@ -3464,10 +3480,6 @@ input[type="color"]::-webkit-color-swatch {
 
 .hover\:bg-lookbook-draggable-hint:hover {
   background-color: var(--lookbook-draggable-hint);
-}
-
-.hover\:bg-lookbook-nav-item-hover:hover {
-  background-color: var(--lookbook-nav-item-hover);
 }
 
 .hover\:text-gray-900:hover {

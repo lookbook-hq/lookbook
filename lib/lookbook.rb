@@ -23,6 +23,10 @@ module Lookbook
       yield(config)
     end
 
+    def engine
+      Engine
+    end
+
     def data
       @data ||= Store.new
     end
@@ -55,11 +59,11 @@ module Lookbook
     end
 
     def previews
-      Preview.all
+      Engine.previews
     end
 
     def pages
-      Page.all
+      Engine.pages
     end
 
     def broadcast(event_name, data = {})

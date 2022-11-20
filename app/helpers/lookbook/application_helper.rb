@@ -18,7 +18,7 @@ module Lookbook
     end
 
     def landing_path
-      landing = Lookbook.pages.find(&:landing) || Lookbook.pages.first
+      landing = Lookbook.pages.find(&:landing?) || Lookbook.pages.first
       if landing.present?
         lookbook_page_path landing.lookup_path
       else

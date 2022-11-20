@@ -26,7 +26,7 @@ module Lookbook
     end
 
     def paths
-      PathUtils.normalize_all(@paths).map { |path| "#{path}/**/*preview.rb" }
+      PathUtils.normalize_paths(@paths).map { |path| "#{path}/**/*preview.rb" }
     end
 
     protected

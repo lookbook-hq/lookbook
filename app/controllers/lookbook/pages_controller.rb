@@ -9,9 +9,9 @@ module Lookbook
     end
 
     def index
-      landing = Lookbook.pages.find(&:landing) || Lookbook.pages.first
+      landing = Lookbook.pages.find(&:landing?) || Lookbook.pages.first
       if landing.present?
-        redirect_to lookbook_page_path landing.lookup_path
+        redirect_to lookbook_page_path(landing.path)
       else
         show_404
       end
@@ -20,21 +20,15 @@ module Lookbook
     def show
       @page = @pages.find_by_path(params[:path])
       if @page
-        @next_page = @pages.find_next(@page)
-        @previous_page = @pages.find_previous(@page)
-        if @page.errors.any?
+        @next_page = @pages.next(@page)
+        @previous_page = @pages.previous(@page)
+        begin
+          @page_content = page_controller.render_page(@page)
+          @title = @page.title
+        rescue => exception
           render_in_layout "lookbook/error",
             layout: "lookbook/page",
-            error: @page.errors.first
-        else
-          begin
-            @page_content = page_controller.render_page(@page)
-            @title = @page.title
-          rescue => exception
-            render_in_layout "lookbook/error",
-              layout: "lookbook/page",
-              error: Lookbook::Error.new(exception, file_path: @page.full_path, source_code: @page.content)
-          end
+            error: Lookbook::Error.new(exception, file_path: @page.file_path, source_code: @page.content)
         end
       else
         show_404

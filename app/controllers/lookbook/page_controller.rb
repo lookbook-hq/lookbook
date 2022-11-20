@@ -11,8 +11,8 @@ module Lookbook
     def render_page(page, locals = {})
       @page = page
       @pages = Lookbook.pages
-      @next_page = @pages.find_next(@page)
-      @previous_page = @pages.find_previous(@page)
+      @next_page = @pages.next(@page)
+      @previous_page = @pages.previous(@page)
 
       content = ActionViewAnnotationsHandler.call(disable_annotations: true) do
         render_to_string inline: @page.content, locals: {

@@ -42,15 +42,16 @@ module Lookbook
 
     initializer "lookbook.file_watcher.pages" do
       file_watcher.watch(opts.page_paths, opts.page_extensions) do |changes|
-        self.class.websocket.broadcast(:reload)
+        Engine.pages.load(Engine.page_paths)
+        Engine.websocket.broadcast(:reload)
         run_hooks(:after_change, changes)
       end
     end
 
-    initializer "lookbook.parser.preview_load_callback" do
-      parser.after_parse do |registry|
-        Preview.load!(registry.all(:class))
-        self.class.websocket.broadcast(:reload)
+    initializer "lookbook.parser.previews_load_callback" do
+      parser.after_parse do |code_objects|
+        Engine.previews.load(code_objects.all(:class))
+        Engine.websocket.broadcast(:reload)
       end
     end
 
@@ -74,6 +75,7 @@ module Lookbook
     end
 
     config.after_initialize do
+      Engine.pages.load(Engine.page_paths)
       parser.parse { run_hooks(:after_initialize) }
     end
 
@@ -82,7 +84,7 @@ module Lookbook
     end
 
     def run_hooks(event_name, *args)
-      self.class.hooks.for_event(event_name).each do |hook|
+      Engine.hooks.for_event(event_name).each do |hook|
         hook.call(Lookbook, *args)
       end
     end
@@ -143,6 +145,26 @@ module Lookbook
 
     def self.hooks
       @hooks ||= HookStore.init_from_config
+    end
+
+    def self.component_paths
+      @component_paths ||= Array(PathUtils.to_absolute(opts.components_path))
+    end
+
+    def self.page_paths
+      @page_paths ||= PathUtils.normalize_paths(opts.page_paths)
+    end
+
+    def self.preview_paths
+      @preview_paths ||= PathUtils.normalize_paths(opts.preview_paths)
+    end
+
+    def self.pages
+      @pages ||= PageCollection.new
+    end
+
+    def self.previews
+      @previews ||= PreviewCollection.new
     end
 
     def self.preview_controller

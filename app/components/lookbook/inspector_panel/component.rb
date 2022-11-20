@@ -8,7 +8,7 @@ module Lookbook
     end
 
     def id
-      AttributeUtils.dom_id("panel", @name)
+      Utils.id("panel", @name)
     end
 
     def before_render

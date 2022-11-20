@@ -27,4 +27,4 @@ shared:
       partial: lookbook/inspector/panels/params
       label: Params
       hotkey: p
-      disabled: ->(data) { data.preview.params.none? }
+      disabled: ->(data) { data.context.params.none? }

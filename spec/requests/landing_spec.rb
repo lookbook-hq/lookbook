@@ -7,7 +7,7 @@ RSpec.describe "landing", type: :request do
     end
 
     it "redirects to the landing page" do
-      expect(html).to redirect_to Lookbook.pages.find(&:landing).url_path
+      expect(html).to redirect_to Lookbook.pages.find(&:landing?).url_path
     end
   end
 end

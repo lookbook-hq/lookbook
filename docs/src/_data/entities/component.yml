@@ -5,19 +5,19 @@ attrs:
     description: Component class name, e.g. `Elements::ButtonComponent`
     type: String
 
-  - name: .rel_path
-    description: Component class file path, relative to the components directory.
-    type: Pathname
-
-  - name: .full_path
+  - name: .file_path
     description: Full filesystem path to the component class file
     type: Pathname
 
-  - name: .dir_path
+  - name: .relative_file_path
+    description: Component class file path, relative to the components directory.
+    type: Pathname
+
+  - name: .directory_path
     description: Directory containing the component class file
     type: Pathname
 
-  - name: .template_path
+  - name: .template_file_path
     description: Path to the component template file, if present
     type: Pathname
 

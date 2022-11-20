@@ -1,87 +1,44 @@
 module Lookbook
   class Nav::Item::Component < Lookbook::BaseComponent
-    ICONS = {
-      page: :file,
-      page_collection: :folder,
-      preview_collection: :folder,
-      preview: :layers,
-      example: :eye,
-      group: :eye,
-      collection: :folder
-    }.freeze
+    delegate :label, :depth, to: :node
 
-    delegate :label, to: :@item
+    attr_reader :node, :nav_id
 
-    def initialize(
-      item,
-      nav_id:,
-      depth: 1,
-      collapse_singles: false,
-      **html_attrs
-    )
+    def initialize(node, nav_id:, **html_attrs)
+      @node = node
       @nav_id = nav_id
-      @item = item
-      @depth = depth
-      @collapse_singles = collapse_singles
       super(**html_attrs)
     end
 
     def id
-      "#{@nav_id}-#{@item.id}"
+      "#{nav_id}-#{node.id}"
     end
 
     def left_pad
-      ((@depth - 1) * 12) + 24
-    end
-
-    def href
-      if collapsed?
-        item.url_path
-      elsif !collection?
-        item.url_path
-      end
+      ((depth - 1) * 12) + 24
     end
 
     def children
-      @children ||= if collection? && !collapsed?
-        item.non_empty_items.map do |item|
-          lookbook_render Lookbook::Nav::Item::Component.new item,
-            nav_id: @nav_id,
-            depth: (@depth + 1),
-            collapse_singles: @collapse_singles
-        end
-      else
-        []
-      end
-    end
-
-    def item
-      collapsed? ? @item.first : @item
+      @children ||= node.map { |node| render_item(node) }
     end
 
     def nav_icon
-      ICONS[@item.type] || :file
-    end
-
-    def collection?
-      @item.is_a? Lookbook::Collection
+      :folder
     end
 
     def children?
-      children.any? if collection? && !collapsed?
+      children.any?
     end
 
-    def collapsed?
-      @collapse_singles == true && collection? && @item.collapsible? && @item.one?
+    def render_item(node)
+      item_class = node.type == :directory ? Nav::Directory::Component : Nav::Entity::Component
+      lookbook_render item_class.new node, nav_id: nav_id
     end
 
     protected
 
     def alpine_data
-      alpine_encode({
-        id: @item.id,
-        matchers: item.is_a?(Lookbook::Collection) ? nil : item.matchers
-      })
+      alpine_encode({id: node.id, matchers: []})
     end
 
     def alpine_component

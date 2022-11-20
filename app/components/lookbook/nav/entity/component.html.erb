@@ -2,22 +2,20 @@
   id: id,
   class: "list-none",
   "x-show": "!filteredOut",
-  data: {
-    "entity-type": item.type
-  },
+  data: { "entity-type": type },
   cloak: true do %>
   <%= lookbook_tag href.present? ? :a : :button,
     href: href,
-    class: "flex w-full items-center py-1 select-none cursor-pointer text-lookbook-nav-text hover:bg-lookbook-nav-item-hover transition",
+    class: "nav-action",
     style: "padding-left: #{left_pad}px",
     "x-bind": "bindings.#{href.present? ? "link" : "toggle"}" do %>
-    <div class="relative flex items-center w-full">
+    <div class="nav-action-inner">
       <%= icon nil,
         size: 3,
-        class: "mr-1 text-lookbook-nav-toggle absolute -left-4",
+        class: "nav-toggle-icon",
         "x-effect": "iconName = open ? 'chevron-down' : 'chevron-right'" if children? %>
       <%= icon nav_icon, size: 3.5, class: "mr-1.5 text-lookbook-nav-icon-stroke" %>
-      <span class="truncate <% if @item.type == :preview %>font-bold<% end %>"><%= label %></span>
+      <span class="truncate <% if node.type == :preview %>font-bold<% end %>"><%= label %></span>
     </div>
   <% end %>
   

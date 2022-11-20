@@ -8,7 +8,7 @@ module Lookbook
     end
 
     def watch(paths, extensions = ".*", opts = nil, &block)
-      paths = PathUtils.normalize_all(paths)
+      paths = PathUtils.normalize_paths(paths)
 
       if paths.any?
         opts = opts.to_h

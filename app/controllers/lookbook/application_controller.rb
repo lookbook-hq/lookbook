@@ -9,16 +9,16 @@ module Lookbook
     helper Lookbook::ComponentHelper
 
     before_action :generate_theme_overrides
-    before_action :assign_collections
+    before_action :assign_instance_vars
 
     def self.controller_path
       "lookbook"
     end
 
     def index
-      landing = Lookbook.pages.find(&:landing) || Lookbook.pages.first
+      landing = Lookbook.pages.find(&:landing?) || Lookbook.pages.first
       if landing.present?
-        redirect_to lookbook_page_path(landing.lookup_path)
+        redirect_to lookbook_page_path(landing.path)
       else
         render "lookbook/index"
       end
@@ -30,9 +30,11 @@ module Lookbook
       @theme_overrides ||= Lookbook.theme.to_css
     end
 
-    def assign_collections
-      @previews = Preview.all
-      @pages = Page.all
+    def assign_instance_vars
+      @previews = Lookbook.previews
+      @pages = Lookbook.pages
+      @config = Lookbook.config
+      @engine = Lookbook.engine
     end
 
     def feature_enabled?(feature)
@@ -48,7 +50,7 @@ module Lookbook
       error_params = {}
       if exception.is_a?(ViewComponent::PreviewTemplateError)
         error_params = {
-          file_path: @preview&.full_path,
+          file_path: @preview&.file_path,
           line_number: 0,
           source_code: @target&.source
         }

@@ -16,7 +16,7 @@
               size: :lg,
               icon: :chevron_left,
               tooltip: "Previous page",
-              href: lookbook_page_path(@previous_page.lookup_path),
+              href: lookbook_page_path(@previous_page.path),
               class: "pr-0.5 bg-transparent" %>
           <% else %>
             <%= lookbook_render :button,
@@ -31,7 +31,7 @@
               size: :lg,
               icon: :chevron_right,
               tooltip: "Next page",
-              href: lookbook_page_path(@next_page.lookup_path),
+              href: lookbook_page_path(@next_page.path),
               class: "pl-0.5 bg-transparent" %>
           <% else %>
             <%= lookbook_render :button,

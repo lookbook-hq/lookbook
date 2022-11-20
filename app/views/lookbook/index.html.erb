@@ -1,6 +1,6 @@
 <div id="landing" class="flex flex-col items-center justify-center h-full w-full">
   <div class="text-center" id="landing-<%= @previews.any? ? "with" : "no" %>-content">
-  <% if config.project_name.downcase == "lookbook" %>
+  <% if @config.project_name.downcase == "lookbook" %>
     <div class="flex justify-center pb-4">
       <svg class="flex-none mx-auto w-[140px]" viewBox="0 0 275 36">
         <g fill-rule="nonzero" fill="none">
@@ -9,9 +9,9 @@
         </g>
       </svg>
     </div>
-  <% elsif config.project_name != false %>
+  <% elsif @config.project_name != false %>
     <h5 class="text-base text-lookbook-blank-slate-title truncate uppercase font-black tracking-wide mb-2">
-      <%= config.project_name %>
+      <%= @config.project_name %>
     </h5>
   <% end %>
     <div class="opacity-60">
