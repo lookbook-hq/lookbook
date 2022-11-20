@@ -43,7 +43,7 @@ module Lookbook
         options, text = if self.class.supports_options?
           TagOptionsParser.call(@text, {
             file: host_file,
-            base_dir: (File.dirname(host_file) if host_file),
+            base_dir: host_file&.dirname,
             eval_context: host_class_instance,
             permit_eval: Lookbook.config.preview_params_options_eval
           })
@@ -54,9 +54,23 @@ module Lookbook
       @tag_parts ||= {options: options, text: text}
     end
 
+    def resolve_path(path)
+      return unless host_file
+
+      dir = path.start_with?(".") ? host_file.dirname : host_file_base_directory
+      Pathname(File.expand_path(path, dir))
+    end
+
     def host_file
       location = object&.files&.first # [file, line_number]
-      location&.first
+      Pathname(location.first) if location
+    end
+
+    def host_file_base_directory
+      return unless host_file
+
+      directories = Engine.preview_paths.map(&:to_s).sort_by(&:length).reverse
+      directories.first { |dir| host_file.to_s.start_with?(dir) }
     end
 
     def host_class_instance

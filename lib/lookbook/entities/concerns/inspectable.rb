@@ -4,18 +4,37 @@ module Lookbook
 
     included do
       def source
-        src = CodeIndenter.call(code_object.source)
-        formatted = begin
-          send(:format_source, src)
-        rescue NoMethodError
-          src
+        source_code = if source_file_path
+          File.read(source_file_path)
+        else
+          src = CodeIndenter.call(code_object.source)
+          begin
+            send(:format_source, src)
+          rescue NoMethodError
+            src
+          end
         end
-        formatted.strip_heredoc.strip
+
+        source_code.strip_heredoc.strip
+      end
+
+      def source_lang
+        source_file_path ? Lang.guess(source_file_path, :ruby) : Lang.find(:ruby)
       end
 
       protected
 
       attr_reader :code_object
+
+      def source_file_path
+        @_source_path ||= if code_object.has_tag?(:source)
+          source_path = code_object.tag(:source).value
+          unless source_path.present? && File.exist?(source_path)
+            raise LookbookError, "Could not find source file '#{source_path}'"
+          end
+          source_path
+        end
+      end
     end
   end
 end

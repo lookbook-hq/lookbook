@@ -31,6 +31,24 @@ module Lookbook
           ext: ".slim",
           label: "Slim",
           comment: "<!-- %s -->"
+        },
+        {
+          name: "tsx",
+          ext: ".tsx",
+          label: "TypeScript",
+          comment: "// %s"
+        },
+        {
+          name: "js",
+          ext: ".js",
+          label: "JavasScript",
+          comment: "// %s"
+        },
+        {
+          name: "css",
+          ext: ".css",
+          label: "CSS",
+          comment: "/* %s */"
         }
       ]
 
@@ -38,9 +56,10 @@ module Lookbook
         LANGUAGES.find { |l| l[:name] == name.to_s }
       end
 
-      def guess(path)
+      def guess(path, fallback_name = nil)
         ext = File.extname(path)
-        LANGUAGES.find { |l| l[:ext] == ext }
+        lang = LANGUAGES.find { |l| l[:ext] == ext }
+        lang || (find(fallback_name) if fallback_name)
       end
     end
   end
