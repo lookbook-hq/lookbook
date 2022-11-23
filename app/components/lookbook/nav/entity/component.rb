@@ -8,7 +8,7 @@ module Lookbook
     }.freeze
 
     def nav_icon
-      ICONS[type] || :file
+      ICONS[collapsed? ? :preview : node.type] || :file
     end
 
     def href
