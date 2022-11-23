@@ -22,7 +22,7 @@ module Lookbook
     end
 
     def resolve_path(path, base_dir)
-      path.start_with?(".") ? File.expand_path(path, base_dir) : Rails.root.join(path)
+      Pathname(path.start_with?(".") ? File.expand_path(path, base_dir) : Rails.root.join(path))
     end
   end
 end
