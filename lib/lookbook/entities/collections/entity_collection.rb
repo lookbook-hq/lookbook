@@ -23,20 +23,20 @@ module Lookbook
 
     def find_by_id(id)
       id = Utils.id(id)
-      find { |entity| entity.id == id }
+      entities.find { |entity| entity.id == id }
     end
 
     def find_by_path(path)
-      find { |entity| entity.path.to_s == path.to_s }
+      entities.find { |entity| entity.path.to_s == path.to_s }
     end
 
     def next(entity)
-      index = find_index { |i| i.path == entity.path }
+      index = entities.find_index { |i| i.path == entity.path }
       entities[index + 1] unless index.nil?
     end
 
     def previous(entity)
-      index = find_index { |i| i.path == entity.path }
+      index = entities.find_index { |i| i.path == entity.path }
       entities[index - 1] if !index.nil? && index > 0
     end
 
@@ -49,7 +49,7 @@ module Lookbook
     end
 
     def flat_map(...)
-      map(...).map(&:to_a).flatten
+      entities.map(...).map(&:to_a).flatten
     end
 
     protected
