@@ -1,12 +1,12 @@
 module Lookbook
-  class Process
+  class RuntimeContext
     attr_reader :env
 
     def initialize(env: Rails.env)
       @env = env
     end
 
-    def supports_listening?
+    def web?
       !rake_task? && !Rails.const_defined?(:Console)
     end
 

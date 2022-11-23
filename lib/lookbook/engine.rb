@@ -1,6 +1,5 @@
 require "view_component"
 require "action_cable/engine"
-require "listen"
 require "yard"
 
 module Lookbook
@@ -25,33 +24,15 @@ module Lookbook
     initializer "lookbook.assets.serve" do
       config.app_middleware.use(
         Rack::Static,
-        urls: ["/lookbook-assets"], root: root.join("public").to_s
+        urls: ["/lookbook-assets"],
+        root: root.join("public").to_s
       )
     end
 
-    initializer "lookbook.file_watcher.paths" do
-      opts.listen_paths += opts.preview_paths
-      opts.listen_paths << opts.components_path
-    end
-
-    initializer "lookbook.file_watcher.previews" do
-      file_watcher.watch(opts.listen_paths, opts.listen_extensions, wait_for_delay: 0.5) do |changes|
-        parser.parse { run_hooks(:after_change, changes) }
-      end
-    end
-
-    initializer "lookbook.file_watcher.pages" do
-      file_watcher.watch(opts.page_paths, opts.page_extensions) do |changes|
-        Engine.pages.load(Engine.page_paths)
-        Engine.websocket.broadcast(:reload)
-        run_hooks(:after_change, changes)
-      end
-    end
-
-    initializer "lookbook.parser.previews_load_callback" do
-      parser.after_parse do |code_objects|
-        Engine.previews.load(code_objects.all(:class))
-        Engine.websocket.broadcast(:reload)
+    config.after_initialize do |app|
+      if Engine.reloading?
+        reloaders.add(:previews, Engine.preview_watch_paths, opts.listen_extensions, &method(:load_previews))
+        reloaders.add(:pages, Engine.page_watch_paths, opts.page_extensions, &method(:load_pages))
       end
     end
 
@@ -67,52 +48,35 @@ module Lookbook
     end
 
     config.after_initialize do
-      if Rails.application.respond_to?(:server)
-        Rails.application.server { file_watcher.start if listen? }
-      elsif process.supports_listening?
-        file_watcher.start if listen?
-      end
-    end
-
-    config.after_initialize do
-      Engine.pages.load(Engine.page_paths)
-      parser.parse { run_hooks(:after_initialize) }
+      load_previews
+      load_pages
+      Engine.run_hooks(:after_initialize)
     end
 
     def opts
       Lookbook.config
     end
 
-    def run_hooks(event_name, *args)
-      Engine.hooks.for_event(event_name).each do |hook|
-        hook.call(Lookbook, *args)
-      end
-    end
-
     def parser
       @_parser ||= PreviewParser.new(opts.preview_paths, Engine.tags)
     end
 
-    def file_watcher
-      @_file_watcher ||= FileWatcher.new(force_polling: opts.listen_use_polling)
+    def reloaders
+      @_reloaders ||= Reloaders.new
     end
 
-    def process
-      @_process ||= Process.new(env: Rails.env)
+    def load_previews
+      Engine.parser.parse do |code_objects|
+        Engine.previews.load(code_objects.all(:class))
+      end
     end
 
-    def listen?
-      opts.listen && process.supports_listening?
+    def load_pages
+      Engine.pages.load(Engine.page_paths)
     end
 
     class << self
-      def mount_path
-        routes.find_script_name({})
-      end
-
-      def mounted?
-        mount_path.present?
-      end
+      attr_reader :preview_controller
 
       def app_name
         name = if Rails.application.class.respond_to?(:module_parent_name)
@@ -123,13 +87,32 @@ module Lookbook
         name.underscore
       end
 
+      def mount_path
+        routes.find_script_name({})
+      end
+
+      def mounted?
+        mount_path.present?
+      end
+
+      def reloading?
+        Rails.application.config.reload_classes_only_on_change
+      end
+
+      def supports_websockets?
+        reloading? && runtime_context.web? && Reloaders.evented?
+      end
+
       def websocket
         if mounted?
-          use_websocket = opts.auto_refresh && opts.listen && process.supports_listening?
-          @websocket ||= use_websocket ? Websocket.new(mount_path, logger: Lookbook.logger) : Websocket.noop
+          @websocket ||= supports_websockets? ? Websocket.new(mount_path, logger: Lookbook.logger) : Websocket.noop
         else
           Websocket.noop
         end
+      end
+
+      def runtime_context
+        @_runtime_context ||= RuntimeContext.new(env: Rails.env)
       end
 
       def panels
@@ -148,6 +131,12 @@ module Lookbook
         @_hooks ||= HookStore.init_from_config
       end
 
+      def run_hooks(event_name, *args)
+        hooks.for_event(event_name).each do |hook|
+          hook.call(Lookbook, *args)
+        end
+      end
+
       def component_paths
         @_component_paths ||= Array(PathUtils.to_absolute(opts.components_path))
       end
@@ -156,8 +145,19 @@ module Lookbook
         @_page_paths ||= PathUtils.normalize_paths(opts.page_paths)
       end
 
+      def page_watch_paths
+        page_paths
+      end
+
       def preview_paths
         @_preview_paths ||= PathUtils.normalize_paths(opts.preview_paths)
+      end
+
+      def preview_watch_paths
+        return @_preview_watch_paths if @_preview_watch_paths
+
+        paths = [*opts.preview_paths, opts.components_path, *opts.listen_paths].uniq
+        @_preview_watch_paths ||= PathUtils.normalize_paths(paths)
       end
 
       def pages
@@ -168,12 +168,16 @@ module Lookbook
         @_previews ||= PreviewCollection.new
       end
 
-      attr_reader :preview_controller
+      def files_changed(modified, added, removed)
+        reloaders.execute_all_watching(modified + added + removed) do
+          websocket.broadcast(:reload)
+          run_hooks(:after_change, {modified: modified, added: added, removed: removed})
+        end
+      end
     end
 
     at_exit do
-      file_watcher.stop
-      run_hooks(:before_exit)
+      Engine.run_hooks(:before_exit)
     end
   end
 end
