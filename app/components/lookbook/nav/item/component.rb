@@ -19,7 +19,7 @@ module Lookbook
     end
 
     def children
-      @children ||= node.map { |node| render_item(node) }
+      @children ||= node.sort.map { |node| render_item(node) }
     end
 
     def nav_icon

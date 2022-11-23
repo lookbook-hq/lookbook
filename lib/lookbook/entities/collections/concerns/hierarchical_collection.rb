@@ -18,10 +18,6 @@ module Lookbook
           entities.append(node.content? ? node.content : collect_ordered_entities(node))
         end.flatten
       end
-
-      def sort_entities
-        @entities.sort_by! { |entity| [entity.depth, entity.position, entity.label] }
-      end
     end
   end
 end

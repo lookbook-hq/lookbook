@@ -81,7 +81,7 @@ module Lookbook
     def example_entities
       public_methods = preview_class.public_instance_methods(false)
       method_objects = code_object.meths.select { |m| public_methods.include?(m.name) }
-      method_objects.map { |code_object| PreviewExample.new(code_object, self) }
+      method_objects.map.with_index { |code_object, i| PreviewExample.new(code_object, self, position: i) }
     end
   end
 end

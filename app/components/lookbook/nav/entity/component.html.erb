@@ -1,5 +1,6 @@
 <%= render_component_tag :li,
   id: id,
+  key: "#{id}-entity-#{type}",
   class: "list-none",
   "x-show": "!filteredOut",
   data: { "entity-type": type },

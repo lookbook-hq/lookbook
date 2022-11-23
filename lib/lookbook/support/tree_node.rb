@@ -1,6 +1,7 @@
 module Lookbook
   class TreeNode
     include Enumerable
+    include Comparable
 
     delegate_missing_to :content
 
@@ -40,7 +41,6 @@ module Lookbook
 
     def add_child(name, content = nil, position: 10000)
       children << TreeNode.new("#{path}/#{name}", content, position: position)
-      sort_children
     end
 
     def has_child?(name)
@@ -57,11 +57,19 @@ module Lookbook
 
     def each(&block)
       if block
-        children.each do |child|
+        children.sort.each do |child|
           yield child
         end
       else
         to_enum(:each)
+      end
+    end
+
+    def <=>(other)
+      if content?
+        content <=> (other.content? ? other.content : other)
+      else
+        [position, label] <=> [other.position, other.label]
       end
     end
 
@@ -70,10 +78,6 @@ module Lookbook
     def content_value(method_name, fallback = nil)
       value = content.send(method_name) if content
       value || fallback
-    end
-
-    def sort_children
-      @children.sort_by! { |child| [child.position, child.label] }
     end
 
     def segments

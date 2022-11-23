@@ -12,14 +12,13 @@ module Lookbook
       add(entities)
     end
 
-    def add(entities = nil)
-      Array(entities).each do |entity|
+    def add(to_add = nil)
+      Array(to_add).each do |entity|
         unless find_by_path(entity.path)
-          clear_cache
           @entities.push(entity)
         end
       end
-      sort_entities
+      clear_cache
     end
 
     def find_by_id(id)
@@ -43,7 +42,7 @@ module Lookbook
 
     def each(&block)
       if block
-        entities.each { |entity| yield entity }
+        entities.sort.each { |entity| yield entity }
       else
         to_enum(:each)
       end
@@ -54,10 +53,6 @@ module Lookbook
     end
 
     protected
-
-    def sort_entities
-      @entities.sort_by! { |entity| [entity.label] }
-    end
 
     def clear_cache
       @_cache = {}

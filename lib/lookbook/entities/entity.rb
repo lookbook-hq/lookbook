@@ -1,5 +1,6 @@
 module Lookbook
   class Entity
+    include Comparable
     include Lookbook::Engine.routes.url_helpers
 
     def initialize(lookup_path = nil)
@@ -34,6 +35,10 @@ module Lookbook
 
     def type
       @_type ||= self.class.name.demodulize.underscore.downcase.to_sym
+    end
+
+    def <=>(other)
+      label <=> other.label
     end
 
     alias_method :path, :lookup_path

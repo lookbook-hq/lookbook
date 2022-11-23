@@ -10,6 +10,8 @@ RSpec.describe "preview navigation", type: :system do
       let(:preview) { Lookbook.previews.find_by_id(:unannotated) }
       let(:examples) { preview.examples }
       let(:preview_item_selector) { "#previews-nav-unannotated" }
+      let(:ordered_preview) { Lookbook.previews.find_by_id(:ordered) }
+      let(:ordered_examples) { preview.examples }
 
       context "has preview link" do
         it "rendered as a group" do
@@ -56,6 +58,30 @@ RSpec.describe "preview navigation", type: :system do
           examples.each do |example|
             find("#previews-nav-#{example.id} a").click
             expect(page).to have_css("[data-preview-target=#{example.id}]")
+          end
+        end
+
+        context "when example sorting is disabled" do
+          before { Lookbook.config.sort_examples = true }
+          after { Lookbook.config.sort_examples = false }
+
+          it "that are displayed in the same order as the example methods in the preview class" do
+            within("#previews-nav") do
+              example_ids = ordered_examples.map { |e| "#previews-nav-#{e.id}" }
+              expect(page).to have_css(example_ids.join(" + ").to_s, visible: false)
+            end
+          end
+        end
+
+        context "when example sorting is enabled" do
+          before { Lookbook.config.sort_examples = true }
+          after { Lookbook.config.sort_examples = false }
+
+          it "that are displayed in alphabetical order" do
+            within("#previews-nav") do
+              example_ids = ordered_examples.sort_by(&:label).map { |e| "#previews-nav-#{e.id}" }
+              expect(page).to have_css(example_ids.join(" + ").to_s, visible: false)
+            end
           end
         end
       end

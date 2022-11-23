@@ -8,9 +8,10 @@ module Lookbook
 
     attr_reader :preview
 
-    def initialize(code_object, preview)
+    def initialize(code_object, preview, position: nil)
       @code_object = code_object
       @preview = preview
+      @default_position = position
       @lookup_path = "#{parent.lookup_path}/#{name}"
     end
 
@@ -64,6 +65,14 @@ module Lookbook
     alias_method :lang, :source_lang
 
     protected
+
+    def sort_handler(other_entity)
+      if Lookbook.config.sort_examples
+        label <=> other_entity.label
+      else
+        [position, label] <=> [other_entity.position, other_entity.label]
+      end
+    end
 
     def format_source(source)
       source.sub(/^def \w+\s?(\([^)]+\))?/m, "").split("\n")[0..-2].join("\n")
