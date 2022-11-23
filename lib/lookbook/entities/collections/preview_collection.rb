@@ -29,7 +29,7 @@ module Lookbook
       removed = Array(changes[:removed]) + modified
       added = Array(changes[:added]) + modified
 
-      removed.each { |path| remove_by_file_path(path) }
+      remove_by_file_path(removed)
 
       previews = added.map do |path|
         code_object = code_objects.find { |obj| obj if obj&.file.to_s == path.to_s }
@@ -39,8 +39,9 @@ module Lookbook
       add(previews)
     end
 
-    def remove_by_file_path(path)
-      @entities.reject! { |preview| preview.file_path.to_s == path.to_s }
+    def remove_by_file_path(paths)
+      paths = Array(paths).map(&:to_s)
+      @entities.reject! { |preview| preview.file_path.to_s.in?(paths) }
       clear_cache
     end
 

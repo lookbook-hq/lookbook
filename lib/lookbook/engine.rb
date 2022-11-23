@@ -166,7 +166,7 @@ module Lookbook
       end
 
       def load_pages(changes = nil)
-        pages.load(Engine.page_paths)
+        pages.load(Engine.page_paths, changes)
         notify_clients(changes)
       end
 
