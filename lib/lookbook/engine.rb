@@ -31,8 +31,8 @@ module Lookbook
 
     config.after_initialize do |app|
       if Engine.reloading?
-        reloaders.add(:previews, Engine.preview_watch_paths, opts.listen_extensions, &method(:load_previews))
-        reloaders.add(:pages, Engine.page_watch_paths, opts.page_extensions, &method(:load_pages))
+        reloaders.add(:previews, Engine.preview_watch_paths, opts.listen_extensions, &Engine.method(:load_previews))
+        reloaders.add(:pages, Engine.page_watch_paths, opts.page_extensions, &Engine.method(:load_pages))
       end
     end
 
@@ -63,16 +63,6 @@ module Lookbook
 
     def reloaders
       @_reloaders ||= Reloaders.new
-    end
-
-    def load_previews
-      Engine.parser.parse do |code_objects|
-        Engine.previews.load(code_objects.all(:class))
-      end
-    end
-
-    def load_pages
-      Engine.pages.load(Engine.page_paths)
     end
 
     class << self
@@ -168,11 +158,28 @@ module Lookbook
         @_previews ||= PreviewCollection.new
       end
 
-      def files_changed(modified, added, removed)
-        reloaders.execute_all_watching(modified + added + removed) do
-          websocket.broadcast(:reload)
-          run_hooks(:after_change, {modified: modified, added: added, removed: removed})
+      def load_previews(changes = nil)
+        parser.parse do |code_objects|
+          previews.load(code_objects.all(:class), changes)
+          notify_clients(changes)
         end
+      end
+
+      def load_pages(changes = nil)
+        pages.load(Engine.page_paths)
+        notify_clients(changes)
+      end
+
+      def notify_clients(changes = nil)
+        return unless changes.present?
+
+        websocket.broadcast(:reload)
+        run_hooks(:after_change, changes.to_h)
+      end
+
+      def files_changed(modified, added, removed)
+        changes = {modified: modified, added: added, removed: removed}
+        reloaders.execute_all_watching(changes)
       end
     end
 

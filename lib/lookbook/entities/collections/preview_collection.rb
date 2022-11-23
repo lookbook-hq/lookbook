@@ -10,12 +10,38 @@ module Lookbook
       find { |preview| preview.preview_class.name == klass.to_s }
     end
 
-    def load(code_objects)
-      @entities = []
-      clear_cache
+    def find_by_file_path(path)
+      find { |preview| preview.file_path.to_s == path.to_s }
+    end
 
-      previews = Array(code_objects).map { |obj| PreviewCollection.preview_from_code_object(obj) }.compact
+    def load(code_objects, changes = nil)
+      changes.present? ? reload_changed(code_objects, changes) : reload_all(code_objects)
+    end
+
+    def reload_all(code_objects)
+      @entities = []
+      previews = code_objects.map { |obj| PreviewCollection.preview_from_code_object(obj) }.compact
       add(previews)
+    end
+
+    def reload_changed(code_objects, changes)
+      modified = Array(changes[:modified])
+      removed = Array(changes[:removed]) + modified
+      added = Array(changes[:added]) + modified
+
+      removed.each { |path| remove_by_file_path(path) }
+
+      previews = added.map do |path|
+        code_object = code_objects.find { |obj| obj if obj&.file.to_s == path.to_s }
+        PreviewCollection.preview_from_code_object(code_object) if code_object
+      end.compact
+
+      add(previews)
+    end
+
+    def remove_by_file_path(path)
+      @entities.reject! { |preview| preview.file_path.to_s == path.to_s }
+      clear_cache
     end
 
     def self.preview_from_code_object(code_object)

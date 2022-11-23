@@ -13,18 +13,17 @@ module Lookbook
       reloaders.push(reloader)
 
       Rails.application.reloaders << reloader
-      Rails.application.reloader.to_run { reloader.execute_if_updated }
+      Rails.application.reloader.to_prepare { reloader.execute_if_updated }
     end
 
     def execute
       reloaders.each { |reloader| reloader.execute }
     end
 
-    def execute_all_watching(paths, &callback)
-      matched = reloaders.inject(false) do |result, reloader|
-        reloader.execute_if_watching(paths) ? true : result
+    def execute_all_watching(changes)
+      reloaders.inject(false) do |result, reloader|
+        reloader.execute_if_watching(changes) ? true : result
       end
-      callback.call if matched && callback.present?
     end
 
     def self.evented?
@@ -49,6 +48,7 @@ module Lookbook
         @directories = directories
         @extensions = extensions
         @callback = callback
+        @last_changes = []
       end
 
       def file_watcher
@@ -58,14 +58,22 @@ module Lookbook
           result[directory] = extensions
         end
 
-        @_file_watcher ||= Reloaders.file_watcher_class.new([], to_watch, &callback)
+        @_file_watcher ||= Reloaders.file_watcher_class.new([], to_watch) do
+          callback.call(@last_changes)
+        end
       end
 
-      def execute_if_watching(paths)
-        !!execute if watching?(paths)
+      def execute_if_watching(changes)
+        if watching?(changes)
+          @last_changes = changes
+          execute
+        else
+          @last_changes = []
+        end
       end
 
-      def watching?(file_paths)
+      def watching?(changes)
+        file_paths = changes.to_h.values.flatten
         !!file_paths.find do |file_path|
           file_path = Pathname(file_path).expand_path
           directories.find do |dir_path|
