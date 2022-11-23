@@ -7,6 +7,7 @@
   cloak: true do %>
   <%= lookbook_tag href.present? ? :a : :button,
     href: href,
+    key: "#{id}-action",
     class: "nav-action",
     style: "padding-left: #{left_pad}px",
     "x-bind": "bindings.#{href.present? ? "link" : "toggle"}" do %>

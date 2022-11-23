@@ -6,6 +6,7 @@
   data: { "entity-type": :directory },
   cloak: true do %>
   <%= lookbook_tag :button,
+    key: "#{id}-action",
     class: "nav-action",
     style: "padding-left: #{left_pad}px",
     "x-bind": "bindings.toggle" do %>
