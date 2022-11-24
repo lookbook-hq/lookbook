@@ -1794,6 +1794,10 @@ input[type="color"]::-webkit-color-swatch {
   left: -1px;
 }
 
+.top-\[-1px\] {
+  top: -1px;
+}
+
 .top-\[2px\] {
   top: 2px;
 }
@@ -1884,14 +1888,6 @@ input[type="color"]::-webkit-color-swatch {
   margin-right: 1.5rem;
 }
 
-.mb-\[-2px\] {
-  margin-bottom: -2px;
-}
-
-.mt-1 {
-  margin-top: .25rem;
-}
-
 .mb-6 {
   margin-bottom: 1.5rem;
 }
@@ -1902,6 +1898,14 @@ input[type="color"]::-webkit-color-swatch {
 
 .mr-auto {
   margin-right: auto;
+}
+
+.mb-\[-2px\] {
+  margin-bottom: -2px;
+}
+
+.mt-1 {
+  margin-top: .25rem;
 }
 
 .mr-1\.5 {
@@ -2321,12 +2325,17 @@ input[type="color"]::-webkit-color-swatch {
   border-radius: 9999px;
 }
 
-.rounded-sm {
-  border-radius: .125rem;
+.rounded {
+  border-radius: .25rem;
 }
 
 .rounded-md {
   border-radius: .375rem;
+}
+
+.rounded-t {
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
 }
 
 .rounded-bl-md {
@@ -2357,12 +2366,12 @@ input[type="color"]::-webkit-color-swatch {
   border-left-width: 1px;
 }
 
-.border-b-0 {
-  border-bottom-width: 0;
-}
-
 .border-r {
   border-right-width: 1px;
+}
+
+.border-b-0 {
+  border-bottom-width: 0;
 }
 
 .border-l-2 {
@@ -2399,13 +2408,13 @@ input[type="color"]::-webkit-color-swatch {
   border-color: #0000;
 }
 
+.\!border-lookbook-header-border {
+  border-color: var(--lookbook-header-border) !important;
+}
+
 .border-gray-200 {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
-}
-
-.\!border-lookbook-header-border {
-  border-color: var(--lookbook-header-border) !important;
 }
 
 .border-lookbook-tabs-border-active {
@@ -2489,24 +2498,24 @@ input[type="color"]::-webkit-color-swatch {
   background-color: var(--lookbook-params-editor-bg);
 }
 
-.p-4 {
-  padding: 1rem;
-}
-
 .p-1 {
   padding: .25rem;
+}
+
+.p-4 {
+  padding: 1rem;
 }
 
 .p-2 {
   padding: .5rem;
 }
 
-.p-6 {
-  padding: 1.5rem;
-}
-
 .p-3 {
   padding: .75rem;
+}
+
+.p-6 {
+  padding: 1.5rem;
 }
 
 .p-8 {
@@ -2615,6 +2624,14 @@ input[type="color"]::-webkit-color-swatch {
 
 .pt-1\.5 {
   padding-top: .375rem;
+}
+
+.pr-2 {
+  padding-right: .5rem;
+}
+
+.pr-4 {
+  padding-right: 1rem;
 }
 
 .pt-2\.5 {
@@ -2834,6 +2851,11 @@ input[type="color"]::-webkit-color-swatch {
 
 .blur {
   --tw-blur: blur(8px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.drop-shadow {
+  --tw-drop-shadow: drop-shadow(0 1px 2px #0000001a) drop-shadow(0 1px 1px #0000000f);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 

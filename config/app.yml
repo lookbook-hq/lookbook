@@ -26,6 +26,7 @@ shared:
   preview_disable_action_view_annotations: true
   preview_params_options_eval: false
   preview_type_default: view_component
+  embed_panels: [source, output, notes, params]
   listen: false
   listen_paths: []
   listen_extensions: [rb, html.*]

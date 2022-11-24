@@ -1,0 +1,12 @@
+<%= lookbook_render "embed/inspector",
+  example: @target,
+  panels: @embed_panels,
+  context: {
+    data: @inspector_data,
+    params: params.permit!,
+    dynamic_display_options: @dynamic_display_options,
+    static_display_options: @static_display_options
+  },
+  options: {
+    show_links: false,
+  } %>

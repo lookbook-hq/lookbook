@@ -5,11 +5,11 @@ function morph(from, to) {
     },
     lookahead: true,
     updating(el, toEl, childrenOnly, skip) {
-      if (
-        el.getAttribute &&
-        el.getAttribute("data-morph-strategy") === "replace"
-      ) {
+      if (!el.getAttribute) return;
+      if (el.getAttribute("data-morph-strategy") === "replace") {
         el.innerHTML = toEl.innerHTML;
+        return skip();
+      } else if (el.getAttribute("data-morph-strategy") === "skip") {
         return skip();
       }
     },

@@ -1,51 +1,10 @@
-<% if @target.present? %>
-<%= render_component_tag class: "not-prose border-b border-lookbook-divider rounded-sm overflow-hidden", "@navigation:start.window": "cleanup" do %>
-
-  <%= lookbook_render :toolbar, class: "border border-b-0 border-lookbook-divider" do |toolbar| %>
-    <% toolbar.section padded: true do %>
-      <h3>
-        <%= @target.preview.label %> (<%= @target.label %>)
-      </h3>
-    <% end %>
-    <% toolbar.section align: :right, divide: :left do %>
-      <%= lookbook_render :button_group do |group| %>
-        <% group.button icon: :eye,
-          href: lookbook_inspect_path(@target.path, @params),
-          tooltip: "View in Inspector" %>
-        <% group.button icon: :external_link,
-          href: lookbook_preview_path(@target.path, @params),
-          tooltip: "Open in new window",
-          target: "_blank" %>
-      <% end %>
-    <% end %>
-  <% end %>
-
-  <div
-    x-show="tab === 'preview'"
-    @viewport:loaded="loadResizer"
-    @dom:update-complete="loadResizer"
-    @viewport:resize-progress="resizeIframe"
-    @viewport:resize-complete="resizeIframe"
-    @tabs:change.window="resizeIframe"> 
-    <%= lookbook_render :viewport,
-      src: lookbook_preview_path(@target.path, @params.merge(lookbook_embed: true)),
-      alpine_data: "store",
-      resize_height: false,
-      max_height: @max_height,
-      class: "mb-[-2px]" %>
+<%= render_component_tag class: "w-full drop-shadow", "@navigation:start.window": "cleanup" do %>
+  <div @dom:update-complete.window="morphComplete">
+    <iframe
+      src="<%= embed_path %>"
+      frameborder="0"
+      style="width: 100%",
+      x-ref="iframe"
+      @load="loadResizer"></iframe> 
   </div>
-
-<% end %>
-<% else %>
-<%= render_component_tag class: "bg-white flex flex-col items-center justify-center border-2 border-dashed border-gray-200 p-6 rounded-md not-prose" do %>
-  <div class="px-4 text-center">
-    <%= icon  :alert_triangle, size: 6, class: "text-red-300 mx-auto" %>
-    <div class="mt-2 max-w-xs">
-      <h5 class="text-base">Preview not found</h5>
-      <p class="mt-1 opacity-50 text-sm">
-        The preview may have been renamed or deleted
-      </p>
-    </div>
-  </div>
-<% end %>
 <% end %>

@@ -12,7 +12,7 @@ module Lookbook
     }
 
     attr_reader :store
-    delegate :to_h, to: :store
+    delegate :to_h, :to_a, to: :store
 
     def initialize(config = nil)
       @store = {}
@@ -73,6 +73,8 @@ module Lookbook
         result.push(*group_panels) if group_name.nil? || name == group_name.to_sym
       end
     end
+
+    alias_method :all, :panels
 
     def self.resolve_config(opts, data)
       if opts[:name].present?

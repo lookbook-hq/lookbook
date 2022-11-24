@@ -10,6 +10,7 @@ Lookbook::Engine.routes.draw do
 
   get "/preview/*path", to: "previews#show", as: :lookbook_preview
   get "/inspect/*path", to: "inspector#show", as: :lookbook_inspect
+  get "/embed/*path", to: "embeds#show", as: :lookbook_embed
 
   get "/*path", to: "inspector#show_legacy", as: :lookbook_inspect_legacy
 end

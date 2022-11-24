@@ -1,20 +1,27 @@
-export default function embedComponent() {
+import "iframe-resizer/js/iframeResizer";
+
+export default function embedInspectorComponent(id, embedStore) {
+  if (!embedStore[id]) {
+    embedStore[id] = { width: "100%", height: "100%" };
+  }
+
   return {
     resizer: null,
 
-    get iframe() {
-      return this.$refs.iframe;
+    get store() {
+      return embedStore[id];
     },
 
-    init() {
-      this.loadResizer();
+    get iframe() {
+      return this.$el.querySelector("iframe");
     },
 
     async loadResizer() {
-      console.log("asdads");
       window.iFrameResize(
-        { heightCalculationMethod: "lowestElement" },
-        this.iframe
+        {
+          heightCalculationMethod: "lowestElement",
+        },
+        this.$el.querySelector("iframe")
       );
       this.resizer = this.iframe.iFrameResizer;
       this.resizer.resize();

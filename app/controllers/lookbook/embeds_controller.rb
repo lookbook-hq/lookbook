@@ -1,21 +1,19 @@
 module Lookbook
-  class InspectorController < ApplicationController
+  class EmbedsController < ApplicationController
     include TargetableConcern
-    include WithPanelsConcern
     include WithPreviewControllerConcern
 
-    layout "lookbook/inspector"
+    layout "lookbook/embed"
     helper Lookbook::PreviewHelper
 
     def self.controller_path
-      "lookbook/inspector"
+      "lookbook/embeds"
     end
 
     def show
       if @target
         begin
-          @main_panels = main_panels
-          @drawer_panels = drawer_panels
+          @embed_panels = embed_panels
         rescue => exception
           render_in_layout "lookbook/error", layout: "lookbook/inspector", error: prettify_error(exception)
         end
@@ -24,9 +22,13 @@ module Lookbook
       end
     end
 
-    def show_legacy
-      Lookbook.logger.warn("Legacy URL path detected. These paths are deprecated and will be removed in a future version")
-      redirect_to lookbook_inspect_path params[:path]
+    private
+
+    def embed_panels
+      Array(Lookbook.config.embed_panels).map do |panel_name|
+        config = Engine.panels.get_panel(panel_name)
+        PanelStore.resolve_config(config, inspector_data) if config
+      end.compact
     end
   end
 end
