@@ -3,31 +3,34 @@
     class: "not-prose border-b border-lookbook-divider rounded overflow-hidden",
     "@navigation:start.window": "cleanup" do %>
 
-    <%= lookbook_render :toolbar, class: "border border-b-0 border-lookbook-divider rounded-t" do |toolbar| %>
-      <% toolbar.section padded: true do %>
-        <h3>
-          <strong><%= target.preview.label %></strong>
-          (<%= target.label %>)
-          <span x-text="store.iframeHeight"></span>
-        </h3>
-      <% end %>
+  <%= lookbook_render :toolbar, class: "border border-b-0 border-lookbook-divider rounded-t" do |toolbar| %>
+    <% toolbar.section padded: true do %>
+      <h3>
+        <strong><%= target.preview.label %></strong>
+        (<%= target.label %>)
+        <span x-text="store.iframeHeight"></span>
+      </h3>
+    <% end %>
 
-      <% toolbar.section align: :right, class: "flex-none" do %>
-        <% if dynamic_display_options.any? %>
-          <%= lookbook_render "display_options/editor", class: show_links? ? "pr-2" : "pr-4" do |editor| %>
-            <% dynamic_display_options.each do |key, opts| %>
-              <% editor.field name: key, opts: opts, value: static_display_options[key] %>
-            <% end %>
+    <% toolbar.section align: :right, class: "flex-none" do %>
+      <% if display_option_controls? && dynamic_display_options.any? %>
+        <%= lookbook_render "display_options/editor", class: actions.any? ? "pr-2" : "pr-4" do |editor| %>
+          <% dynamic_display_options.each do |key, opts| %>
+            <% editor.field name: key, opts: opts, value: static_display_options[key] %>
           <% end %>
         <% end %>
       <% end %>
+    <% end %>
 
-      <% if show_links? %>
-        <% toolbar.section divide: :left do %>
-          <%= lookbook_render :button_group do |group| %>
+    <% if actions.any? %>
+      <% toolbar.section divide: :left do %>
+        <%= lookbook_render :button_group do |group| %>
+          <% if display_action?(:inspect) %>
             <% group.button icon: :eye,
               href: lookbook_inspect_path(target.path, params),
               tooltip: "View in Inspector" %>
+          <% end %>
+          <% if display_action?(:preview) %>
             <% group.button icon: :external_link,
               href: lookbook_preview_path(target.path, params),
               tooltip: "Open in new window",
@@ -36,24 +39,25 @@
         <% end %>
       <% end %>
     <% end %>
+  <% end %>
 
-    <section x-ref="viewport">
-      <div
-        @viewport:loaded="loadResizer"
-        @dom:update-complete.window="morphComplete"
-        @viewport:resize-progress="resizeIframe"
-        @viewport:resize-complete="resizeIframe"
-        x-ref="viewportWrapper"> 
-        <%= lookbook_render :viewport,
-          src: lookbook_preview_path(target.path, params.merge(lookbook_embed: true)),
-          alpine_data: "store",
-          resize_height: false,
-          max_height: max_height,
-          class: "mb-[-2px]" %>
-      </div>
-    </section>
+  <section x-ref="viewport">
+    <div
+      @viewport:loaded="loadResizer"
+      @dom:update-complete.window="morphComplete"
+      @viewport:resize-progress="resizeIframe"
+      @viewport:resize-complete="resizeIframe"
+      x-ref="viewportWrapper"> 
+      <%= lookbook_render :viewport,
+        src: lookbook_preview_path(target.path, params.merge(lookbook_embed: true)),
+        alpine_data: "store",
+        resize_height: false,
+        max_height: viewport_max_height,
+        class: "mb-[-2px]" %>
+    </div>
+  </section>
 
-    <% if panels.any? %>
+   <% if drawer? %>
       <section class="relative top-[-1px] border border-b-0 border-lookbook-divider">
         <%= lookbook_render :toolbar, id: "#{id}-drawer-toolbar" do |toolbar| %>
           <% toolbar.section do %>
@@ -95,25 +99,3 @@
     </div>
   <% end %>
 <% end %>
-
-
-
-      <% if false %>
-        
-      
-        <% toolbar.section align: :right, class: "flex-none relative z-10" do %>
-          <%= lookbook_render :button_group do |group| %>
-            <%= panels.select { |p| !p.disabled && p.copy }.each do |panel| %>
-              <% group.button icon: :copy,
-                tooltip: "Copy panel contents",
-                copy: !!panel.copy,
-                "x-show": "$store.inspector.drawer.activeTab === '#{panel.name}'",
-                cloak: true do %>
-                <%== panel.copy ? panel.copy : "" %>
-                <% end %>
-            <% end %>  
-          <% end %>
-        <% end %>
-
-      
-      <% end %> 

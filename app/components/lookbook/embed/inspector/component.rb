@@ -1,18 +1,21 @@
 module Lookbook
   class Embed::Inspector::Component < Lookbook::BaseComponent
-    attr_reader :id, :target, :panels, :context, :options
+    attr_reader :id, :target, :context
 
-    def initialize(example:, id: nil, panels: nil, context: nil, options: nil, **html_attrs)
+    def initialize(example:, id: nil, context: nil, options: nil, **html_attrs)
       @id = id || Utils.id("embed", example.id)
       @target = example
-      @panels = panels.to_a
       @context = context.to_h
-      @options = options.to_h
+      @options = options.to_h.compact_blank
       super(**html_attrs)
     end
 
+    def options
+      @_options ||= Lookbook.config.preview_embed_options.to_h.merge(@options)
+    end
+
     def data
-      context.fetch(:data, {}).to_h
+      context.fetch(:data, Store.new)
     end
 
     def params
@@ -27,15 +30,38 @@ module Lookbook
       context.fetch(:static_display_options, {}).to_h
     end
 
-    def show_links?
-      options.fetch(:show_links, true)
+    def display_action?(name)
+      actions.include?(name)
     end
 
-    def max_height
-      options.fetch(:max_height, nil)
+    def actions
+      options[:actions].map(&:to_sym)
+    end
+
+    def panels
+      @_panels ||= panels_config(options[:panels])
+    end
+
+    def display_option_controls?
+      options[:display_option_controls]
+    end
+
+    def drawer?
+      options[:drawer] && panels.any?
+    end
+
+    def viewport_max_height
+      options[:viewport_max_height]
     end
 
     protected
+
+    def panels_config(panel_names)
+      panel_names.to_a.map do |panel_name|
+        config = Engine.panels.get_panel(panel_name.to_sym)
+        PanelStore.resolve_config(config, data) if config
+      end.compact
+    end
 
     def lookbook_inspect_path(*args)
       Engine.routes.url_helpers.lookbook_inspect_path(*args)

@@ -11,7 +11,7 @@ module Lookbook
       end
     end
 
-    def embed(*args, params: {}, **options)
+    def embed(*args, **options)
       return unless args.any?
 
       preview = if args.first.is_a?(Symbol)
@@ -21,7 +21,11 @@ module Lookbook
       end
       example = args[1] ? preview&.example(args[1]) : preview&.default_example
 
-      render Lookbook::Embed::Component.new example: example, params: params, options: options
+      render Lookbook::Embed::Component.new(
+        example: example,
+        params: options.fetch(:params, {}),
+        options: options.except(:params)
+      )
     end
   end
 end

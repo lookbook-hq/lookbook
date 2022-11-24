@@ -2498,12 +2498,12 @@ input[type="color"]::-webkit-color-swatch {
   background-color: var(--lookbook-params-editor-bg);
 }
 
-.p-1 {
-  padding: .25rem;
-}
-
 .p-4 {
   padding: 1rem;
+}
+
+.p-1 {
+  padding: .25rem;
 }
 
 .p-2 {

@@ -4,13 +4,16 @@ module Lookbook
 
     def initialize(example:, params: {}, options: {}, **html_attrs)
       @example = example
-      @params = params
-      @options = options
+      @params = params.to_h
+      @options = options.to_h
       super(**html_attrs)
     end
 
     def embed_path
-      Engine.routes.url_helpers.lookbook_embed_path(example.path, params)
+      Engine.routes.url_helpers.lookbook_embed_path(example.path, {
+        _options: SearchParamEncoder.call(options),
+        **params
+      })
     end
 
     def alpine_component

@@ -55,10 +55,10 @@ module Lookbook
         end
 
         unless params[:_display]
-          display_params = @dynamic_display_options.map do |name, opts|
-            [name, @static_display_options[name]]
-          end.to_h
-          request.query_parameters[:_display] = SearchParamBuilder.call(display_params)
+          display_params = @dynamic_display_options.each_with_object({}) do |(name, opts), hash|
+            hash[name] = @static_display_options[name]
+          end
+          request.query_parameters[:_display] = SearchParamEncoder.call(display_params)
         end
       end
     end

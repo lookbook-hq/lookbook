@@ -1,12 +1,23 @@
-<%= lookbook_render "embed/inspector",
-  example: @target,
-  panels: @embed_panels,
-  context: {
-    data: @inspector_data,
-    params: params.permit!,
-    dynamic_display_options: @dynamic_display_options,
-    static_display_options: @static_display_options
-  },
-  options: {
-    show_links: false,
-  } %>
+<%= content_for :body do %>
+  <div
+    id="app"
+    x-data="app"
+    x-cloak
+    @popstate.window="handleNavigation"
+    @click.document="hijax">
+
+    <%= render "lookbook/partials/user_styles" %>
+
+    <%= lookbook_render "embed/inspector",
+      example: @target,
+      options: @options,
+      context: {
+        data: @inspector_data,
+        params: @passed_params,
+        dynamic_display_options: @dynamic_display_options,
+        static_display_options: @static_display_options
+      } %>
+  </div>
+
+  <%= render "lookbook/partials/iframe_content_scripts" %>
+<% end %>

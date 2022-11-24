@@ -3,32 +3,44 @@ module Lookbook
     include TargetableConcern
     include WithPreviewControllerConcern
 
-    layout "lookbook/embed"
-    helper Lookbook::PreviewHelper
+    layout "lookbook/skeleton"
+
+    def show
+      show_404 unless @target
+
+      @options = SearchParamParser.call(req_params[:_options])
+      inspector_data
+    end
 
     def self.controller_path
       "lookbook/embeds"
     end
 
-    def show
+    protected
+
+    def set_params
+      @params = []
+      @passed_params = req_params.select { |key, value| !key.to_s.start_with?("_") }
+
       if @target
-        begin
-          @embed_panels = embed_panels
-        rescue => exception
-          render_in_layout "lookbook/error", layout: "lookbook/inspector", error: prettify_error(exception)
+        @params = @target.tags("param").map do |param_tag|
+          Param.from_tag(
+            param_tag,
+            value: @passed_params[param_tag.name.to_sym]
+          )
         end
-      else
-        show_404
+
+        # cast known param values to correct type
+        @params.each do |param|
+          if @passed_params.key?(param.name.to_sym)
+            @passed_params[param.name.to_sym] = param.cast_value
+          end
+        end
       end
     end
 
-    private
-
-    def embed_panels
-      Array(Lookbook.config.embed_panels).map do |panel_name|
-        config = Engine.panels.get_panel(panel_name)
-        PanelStore.resolve_config(config, inspector_data) if config
-      end.compact
+    def req_params
+      request.query_parameters
     end
   end
 end
