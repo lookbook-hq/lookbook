@@ -8,10 +8,10 @@ module Lookbook
 
     attr_reader :preview
 
-    def initialize(code_object, preview, position: nil)
+    def initialize(code_object, preview, priority: nil)
       @code_object = code_object
       @preview = preview
-      @default_position = position
+      @default_priority = priority
       @lookup_path = "#{parent.lookup_path}/#{name}"
     end
 
@@ -70,7 +70,7 @@ module Lookbook
       if Lookbook.config.sort_examples
         label <=> other_entity.label
       else
-        [position, label] <=> [other_entity.position, other_entity.label]
+        [priority, label] <=> [other_entity.priority, other_entity.label]
       end
     end
 

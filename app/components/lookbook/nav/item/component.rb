@@ -1,6 +1,6 @@
 module Lookbook
   class Nav::Item::Component < Lookbook::BaseComponent
-    delegate :label, :depth, to: :node
+    delegate :label, :depth, :priority, to: :node
 
     attr_reader :node, :nav_id
 

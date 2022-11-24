@@ -1,13 +1,13 @@
 module Lookbook
-  class PositionTag < YardTag
-    DEFAULT_POSITION = 100000
+  class PriorityTag < YardTag
+    DEFAULT_PRIORITY = 100000
 
     def value
       if text.present?
         int = text.to_i
-        (int == 0) ? DEFAULT_POSITION : int
+        (int == 0) ? DEFAULT_PRIORITY : int
       else
-        DEFAULT_POSITION
+        DEFAULT_PRIORITY
       end
     end
 

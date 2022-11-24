@@ -13,10 +13,10 @@ module Lookbook
         current_node = root_node
         path_segments = parse_segments(entity.logical_path)
         path_segments.each.with_index(1) do |segment, i|
-          name, position_prefix = segment
+          name, priority_prefix = segment
           content = entity if entity.depth == i # entities are always on the leaf nodes
 
-          current_node.add_child(name, content, position: position_prefix) unless current_node.has_child?(name)
+          current_node.add_child(name, content, priority: priority_prefix) unless current_node.has_child?(name)
           current_node = current_node.get_child(name)
 
           if content && content.type == :preview
@@ -32,8 +32,8 @@ module Lookbook
     def parse_segments(path)
       path.split("/").map do |segment|
         unless segment.start_with?(".")
-          position, name = PositionPrefixParser.call(segment)
-          [name, position || 10000]
+          priority, name = PriorityPrefixParser.call(segment)
+          [name, priority || 10000]
         end
       end.compact
     end

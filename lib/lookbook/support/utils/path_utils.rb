@@ -15,7 +15,7 @@ module Lookbook
 
         segments = [*directory_path&.split("/"), file_name].compact
         stripped_segments = segments.map! do |segment|
-          PositionPrefixParser.call(segment).last.tr("-", "_")
+          PriorityPrefixParser.call(segment).last.tr("-", "_")
         end
 
         to_path(stripped_segments)

@@ -8,10 +8,10 @@ module Lookbook
     attr_accessor :path, :content
     attr_reader :children
 
-    def initialize(path = nil, content = nil, position: 10000)
+    def initialize(path = nil, content = nil, priority: 10000)
       @path = path.to_s
       @content = content
-      @position = position
+      @priority = priority
       @children = []
     end
 
@@ -27,8 +27,8 @@ module Lookbook
       content_value(:label, name.titleize)
     end
 
-    def position
-      content_value(:position, @position)
+    def priority
+      content_value(:priority, @priority)
     end
 
     def type
@@ -39,8 +39,8 @@ module Lookbook
       path.split("/").size
     end
 
-    def add_child(name, content = nil, position: 10000)
-      children << TreeNode.new("#{path}/#{name}", content, position: position)
+    def add_child(name, content = nil, priority: 10000)
+      children << TreeNode.new("#{path}/#{name}", content, priority: priority)
     end
 
     def has_child?(name)
@@ -69,7 +69,7 @@ module Lookbook
       if content?
         content <=> (other.content? ? other.content : other)
       else
-        [position, label] <=> [other.position, other.label]
+        [priority, label] <=> [other.priority, other.label]
       end
     end
 

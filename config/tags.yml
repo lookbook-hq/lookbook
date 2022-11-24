@@ -11,8 +11,8 @@ shared:
     label: Display
     opts: {}
 
-  position:
-    label: Position
+  priority:
+    label: Priority
     opts: {}
 
   id:

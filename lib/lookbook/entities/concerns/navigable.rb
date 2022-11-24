@@ -11,31 +11,31 @@ module Lookbook
         !hidden?
       end
 
-      def position
-        return @_position if @_position
+      def priority
+        return @_priority if @_priority
 
-        pos = if @position_prefixes && respond_to?(:file_name)
-          PositionPrefixParser.call(file_name).first || default_position
+        pos = if @priority_prefixes && respond_to?(:file_name)
+          PriorityPrefixParser.call(file_name).first || fetch_config(:priority, default_priority)
         else
-          fetch_config(:position, default_position)
+          fetch_config(:priority, default_priority)
         end
 
-        @_position ||= pos.to_i
+        @_priority ||= pos.to_i
       end
 
       def depth
         path.split("/").size
       end
 
-      def default_position
-        @default_position || 10000
+      def default_priority
+        @default_priority || 10000
       end
 
       def <=>(other)
         if respond_to?(:sort_handler, true)
           sort_handler(other)
         else
-          [position, label] <=> [other.position, other.label]
+          [priority, label] <=> [other.priority, other.label]
         end
       end
     end

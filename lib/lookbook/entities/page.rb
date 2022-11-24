@@ -10,7 +10,7 @@ module Lookbook
       @base_directories = Engine.page_paths
       @lookup_path = PathUtils.to_lookup_path(relative_file_path)
       @frontmatter, @content = FrontmatterExtractor.call(file_contents)
-      @position_prefixes = true
+      @priority_prefixes = true
       @sections = []
     end
 
@@ -51,7 +51,7 @@ module Lookbook
 
     def add_section(section)
       @sections << section
-      @sections.sort_by! { |section| [section.position, section.label] }
+      @sections.sort_by! { |section| [section.priority, section.label] }
     end
 
     def method_missing(method_name, *args, &block)

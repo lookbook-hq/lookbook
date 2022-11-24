@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Lookbook::PositionTag do
+RSpec.describe Lookbook::PriorityTag do
   it "extends Lookbook::YardTag" do
     expect(described_class).to be < Lookbook::YardTag
   end
@@ -16,7 +16,7 @@ RSpec.describe Lookbook::PositionTag do
 
     it "returns the default value if the string cannot be converted into an integer" do
       tag = described_class.new("foo")
-      expect(tag.value).to eq Lookbook::PositionTag::DEFAULT_POSITION
+      expect(tag.value).to eq Lookbook::PositionTag::DEFAULT_PRIORITY
     end
   end
 end
