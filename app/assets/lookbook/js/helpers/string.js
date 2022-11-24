@@ -9,20 +9,13 @@ function prefixString(string, prefix = null) {
 }
 
 function parseSearchParamValue(value) {
-  const params = {};
-  value.split("|").forEach((pair_str) => {
-    const [key, value] = pair_str.split(":").map((part) => part.trim());
-    params[key] = value;
-  });
-  return params;
+  const json = decodeURIComponent(value);
+  return JSON.parse(json);
 }
 
 function buildSearchParamValue(data) {
-  const pairs = [];
-  for (const [key, value] of Object.entries(data)) {
-    pairs.push(`${key}:${value}`);
-  }
-  return pairs.join("|");
+  const str = JSON.stringify(data);
+  return encodeURIComponent(str);
 }
 
 export {

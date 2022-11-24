@@ -1,15 +1,16 @@
+require "cgi"
+
 module Lookbook
   class SearchParamParser < Service
-    attr_reader :param_value
+    attr_reader :str
 
-    def initialize(param_value)
-      @param_value = param_value.strip
+    def initialize(str)
+      @str = str.to_s.strip
     end
 
     def call
-      pairs_str = param_value.split("|")
-      pairs = pairs_str.map { |pair| [*pair.split(":").map(&:strip)] }
-      pairs.to_h.symbolize_keys
+      json = CGI.unescape(str)
+      JsonParser.call(json)
     end
   end
 end
