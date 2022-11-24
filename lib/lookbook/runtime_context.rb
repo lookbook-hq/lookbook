@@ -6,6 +6,18 @@ module Lookbook
       @env = env
     end
 
+    def actioncable_installed?
+      gem_installed?("actioncable")
+    end
+
+    def listen_installed?
+      gem_installed?("listen")
+    end
+
+    def gem_installed?(name)
+      Gem.loaded_specs.has_key?(name)
+    end
+
     def web?
       !rake_task? && !Rails.const_defined?(:Console)
     end

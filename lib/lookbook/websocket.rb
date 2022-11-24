@@ -1,3 +1,5 @@
+require "action_cable/engine"
+
 module Lookbook
   class Websocket
     attr_reader :engine_mount_path, :server, :logger
@@ -35,10 +37,6 @@ module Lookbook
 
     alias_method :mounted?, :mountable?
 
-    def self.noop
-      NullWebsocket.new
-    end
-
     protected
 
     def cable_config
@@ -49,12 +47,5 @@ module Lookbook
       cable.logger = logger
       cable
     end
-  end
-
-  class NullWebsocket < NullObject
-    def mountable?
-      false
-    end
-    alias_method :mounted?, :mountable?
   end
 end

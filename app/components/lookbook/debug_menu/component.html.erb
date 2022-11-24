@@ -1,4 +1,15 @@
 <%= render_component_tag class: "divide-y divide-lookbook-divider min-w-[180px]" do %>
+  <div class="text-xs px-3 py-2 bg-zinc-50">
+    <ul>
+      <li class="flex items-center">
+        <label>Auto refresh</label>
+
+        <span class="ml-auto inline-block text-[10px] font-bold uppercase tracking-wide rounded-md <%= auto_refresh_enabled? ? "text-green-600" : "text-red-700" %>">
+          <%= auto_refresh_enabled? ? "enabled" : "disabled" %>
+        </span>
+      </li>
+    </ul>
+  </div>
   <div class="px-3 py-3">
     <ul class="space-y-2 opacity-80">
       <% if debug_data? %>
@@ -27,6 +38,7 @@
       </li>
     </ul>
   </div>
+
   <div class="flex items-center text-xs px-3 py-2 bg-zinc-50">
     <span class="opacity-70 mr-1">Lookbook</span>
     <span class="mr-6">v<%= @version %></span>

@@ -32,12 +32,10 @@ module Lookbook
       end
 
       def file_watcher
-        @_file_watcher_class ||= silence_warnings do
-          require "listen"
+        @_file_watcher_class ||= if Engine.runtime_context.listen_installed?
           Lookbook.logger.debug "Using `EventedFileUpdateChecker` for file watching"
-
           EventedFileUpdateChecker
-        rescue LoadError
+        else
           Lookbook.logger.warn "The 'listen' gem was not found. You will need to manually refresh the Lookbook UI after making changes."
           ActiveSupport::FileUpdateChecker
         end

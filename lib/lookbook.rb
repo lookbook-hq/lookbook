@@ -51,6 +51,12 @@ module Lookbook
         env: Rails.env.to_s,
         config: [
           config.to_h,
+          {
+            optional_dependencies: {
+              actioncable: Engine.runtime_context.actioncable_installed?,
+              listen: Engine.runtime_context.listen_installed?
+            }
+          },
           {panels: Engine.panels.to_h},
           {inputs: Engine.inputs.to_h},
           {tags: Engine.tags.to_h}

@@ -1,5 +1,4 @@
 require "view_component"
-require "action_cable/engine"
 require "yard"
 
 module Lookbook
@@ -69,12 +68,11 @@ module Lookbook
       attr_reader :preview_controller
 
       def app_name
-        name = if Rails.application.class.respond_to?(:module_parent_name)
-          Rails.application.class.module_parent_name
-        else
-          Rails.application.class.parent_name
-        end
-        name.underscore
+        return @_app_name if @_app_name
+
+        app_class = Rails.application.class
+        name = app_class.respond_to?(:module_parent_name) ? app_class.module_parent_name : app_class.parent_name
+        @_app_name ||= name.underscore
       end
 
       def mount_path
@@ -89,16 +87,15 @@ module Lookbook
         Rails.application.config.reload_classes_only_on_change
       end
 
-      def supports_websockets?
-        reloading? && runtime_context.web? && Reloaders.evented?
+      def auto_refresh?
+        runtime_context.actioncable_installed? &&
+          reloading? &&
+          runtime_context.web? &&
+          Reloaders.evented?
       end
 
       def websocket
-        if mounted?
-          @websocket ||= supports_websockets? ? Websocket.new(mount_path, logger: Lookbook.logger) : Websocket.noop
-        else
-          Websocket.noop
-        end
+        @_websocket ||= auto_refresh? ? Websocket.new(mount_path, logger: Lookbook.logger) : NullWebsocket.new
       end
 
       def runtime_context

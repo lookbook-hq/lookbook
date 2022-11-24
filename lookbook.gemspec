@@ -15,7 +15,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "css_parser"
-  spec.add_dependency "actioncable"
   spec.add_dependency "activemodel"
   spec.add_dependency "zeitwerk", "~> 2.5"
   spec.add_dependency "railties", ">= 5.0"
