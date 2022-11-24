@@ -29,7 +29,7 @@ module Lookbook
       )
     end
 
-    config.after_initialize do |app|
+    config.after_initialize do
       if Engine.reloading?
         reloaders.add(:previews, Engine.preview_watch_paths, opts.listen_extensions, &Engine.method(:load_previews))
         reloaders.add(:pages, Engine.page_watch_paths, opts.page_extensions, &Engine.method(:load_pages))

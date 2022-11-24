@@ -8,9 +8,8 @@ module Lookbook
     end
 
     def reload_all(file_paths)
-      @entities = []
+      clear_all
       add(pages_from_paths(file_paths))
-      clear_cache
     end
 
     def reload_changed(file_paths, changes)

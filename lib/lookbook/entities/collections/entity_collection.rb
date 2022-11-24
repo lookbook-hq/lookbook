@@ -23,11 +23,11 @@ module Lookbook
 
     def find_by_id(id)
       id = Utils.id(id)
-      entities.find { |entity| entity.id == id }
+      @entities.find { |entity| entity.id == id }
     end
 
     def find_by_path(path)
-      entities.find { |entity| entity.path.to_s == path.to_s }
+      @entities.find { |entity| entity.path.to_s == path.to_s }
     end
 
     def next(entity)
@@ -50,6 +50,11 @@ module Lookbook
 
     def flat_map(...)
       entities.map(...).map(&:to_a).flatten
+    end
+
+    def clear_all
+      @entities = []
+      clear_cache
     end
 
     protected

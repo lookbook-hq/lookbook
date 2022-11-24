@@ -26,15 +26,21 @@ module Lookbook
       end
     end
 
-    def self.evented?
-      file_watcher_class <= EventedFileUpdateChecker
-    end
+    class << self
+      def evented?
+        !(file_watcher <= ActiveSupport::FileUpdateChecker)
+      end
 
-    def self.file_watcher_class
-      @_file_watcher_clas ||= if Rails.application.config.file_watcher <= ActiveSupport::EventedFileUpdateChecker
-        EventedFileUpdateChecker
-      else
-        ActiveSupport::FileUpdateChecker
+      def file_watcher
+        @_file_watcher_class ||= silence_warnings do
+          require "listen"
+          Lookbook.logger.debug "Using `EventedFileUpdateChecker` for file watching"
+
+          EventedFileUpdateChecker
+        rescue LoadError
+          Lookbook.logger.warn "The 'listen' gem was not found. You will need to manually refresh the Lookbook UI after making changes."
+          ActiveSupport::FileUpdateChecker
+        end
       end
     end
 
@@ -58,7 +64,7 @@ module Lookbook
           result[directory] = extensions
         end
 
-        @_file_watcher ||= Reloaders.file_watcher_class.new([], to_watch) do
+        @_file_watcher ||= Reloaders.file_watcher.new([], to_watch) do
           callback.call(@last_changes)
         end
       end
