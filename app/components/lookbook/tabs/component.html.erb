@@ -13,7 +13,7 @@
     <%= lookbook_render :button, icon: :menu, class: "-ml-3", "x-show": "visibleTabsCount === 0" %>
   </div>
   <div class="hidden">
-    <div x-ref="tabsDropdown" data-cloak>
+    <div x-ref="tabsDropdown" x-cloak>
       <%= safe_join(dropdown_tabs) %>
     </div>
   </div>

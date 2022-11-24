@@ -33,6 +33,10 @@ export default function tabsComponent(store) {
 
     init() {
       this.$nextTick(() => {
+        if (this.$root.parentElement.offsetWidth === this.$root.offsetWidth) {
+          this.visibleTabsCount = this.tabs.length;
+        }
+
         dropdown = tippy(this.$refs.dropdownTrigger, {
           content: this.$refs.tabsDropdown,
           theme: "menu",
