@@ -7589,7 +7589,11 @@ function $e263283f97229955$export$bdf7e699b242f476(el, opts = {}) {
     };
 }
 function $e263283f97229955$export$b98882f166bb7ce2(link) {
-    if (link.getAttribute("target") === "_blank") return true;
+    if ([
+        "_blank",
+        "_top",
+        "_parent"
+    ].includes(link.getAttribute("target"))) return true;
     if (link.href) return link.host !== window.location.host;
     return false;
 }
@@ -7701,7 +7705,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $08e53c7addc98abe$exports = {};
+var $abfe6ef0614b4b5d$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11234,6 +11238,39 @@ function $99486586f6691564$export$2e2bcd8739ae039() {
 }
 
 
+var $e398acaded942bbe$exports = {};
+
+$parcel$defineInteropFlag($e398acaded942bbe$exports);
+
+$parcel$export($e398acaded942bbe$exports, "default", () => $e398acaded942bbe$export$2e2bcd8739ae039);
+
+function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
+    return {
+        width: 0,
+        height: 0,
+        resizing: false,
+        target: null,
+        init () {
+            this.target = document.querySelector(targetSelector);
+            if (this.target) {
+                this.width = Math.round(this.target.clientWidth);
+                this.height = Math.round(this.target.clientHeight);
+                this.createObserver();
+            }
+        },
+        createObserver () {
+            if (this.target) this.observer = (0, $9930d46698775b42$export$a2214cc2adb2dc44)(document.querySelector(targetSelector), ({ width: width , height: height  })=>{
+                this.width = width;
+                this.height = height;
+            });
+        },
+        tearDown () {
+            if (this.observer) this.observer.disconnect();
+        }
+    };
+}
+
+
 var $47a1c62621be0c54$exports = {};
 
 $parcel$defineInteropFlag($47a1c62621be0c54$exports);
@@ -11290,978 +11327,11 @@ function $47a1c62621be0c54$export$2e2bcd8739ae039() {
 }
 
 
-var $e398acaded942bbe$exports = {};
-
-$parcel$defineInteropFlag($e398acaded942bbe$exports);
-
-$parcel$export($e398acaded942bbe$exports, "default", () => $e398acaded942bbe$export$2e2bcd8739ae039);
-
-function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
-    return {
-        width: 0,
-        height: 0,
-        resizing: false,
-        target: null,
-        init () {
-            this.target = document.querySelector(targetSelector);
-            if (this.target) {
-                this.width = Math.round(this.target.clientWidth);
-                this.height = Math.round(this.target.clientHeight);
-                this.createObserver();
-            }
-        },
-        createObserver () {
-            if (this.target) this.observer = (0, $9930d46698775b42$export$a2214cc2adb2dc44)(document.querySelector(targetSelector), ({ width: width , height: height  })=>{
-                this.width = width;
-                this.height = height;
-            });
-        },
-        tearDown () {
-            if (this.observer) this.observer.disconnect();
-        }
-    };
-}
-
-
-var $e9904a14dabf652d$exports = {};
-
-$parcel$defineInteropFlag($e9904a14dabf652d$exports);
-
-$parcel$export($e9904a14dabf652d$exports, "default", () => $e9904a14dabf652d$export$2e2bcd8739ae039);
-function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
-    return {
-        focussed: false,
-        get active () {
-            return store.active;
-        },
-        get text () {
-            return store.text;
-        },
-        clear () {
-            if (store.raw === "") this.$refs.input.blur();
-            else store.raw = "";
-        },
-        focus () {
-            this.$refs.input.focus();
-        }
-    };
-}
-
-
 var $e1f51f020443edd4$exports = {};
 
 $parcel$defineInteropFlag($e1f51f020443edd4$exports);
 
 $parcel$export($e1f51f020443edd4$exports, "default", () => $e1f51f020443edd4$export$2e2bcd8739ae039);
-function $e1f51f020443edd4$export$2e2bcd8739ae039() {
-    return {
-        resizer: null,
-        get iframe () {
-            return this.$refs.iframe;
-        },
-        init () {
-            this.loadResizer();
-        },
-        async loadResizer () {
-            console.log("asdads");
-            window.iFrameResize({
-                heightCalculationMethod: "lowestElement"
-            }, this.iframe);
-            this.resizer = this.iframe.iFrameResizer;
-            this.resizer.resize();
-            this.$dispatch("embed:resizer-loaded", {
-                resizer: this.resizer
-            });
-        },
-        resizeIframe () {
-            this.iframe.iFrameResizer.resize();
-        },
-        morphComplete () {
-            this.loadResizer();
-            this.resizeIframe();
-        },
-        cleanup () {
-            if (this.resizer) this.resizer.removeListeners();
-        }
-    };
-}
-
-
-var $36506012e0c6e9e3$exports = {};
-
-$parcel$defineInteropFlag($36506012e0c6e9e3$exports);
-
-$parcel$export($36506012e0c6e9e3$exports, "default", () => $36506012e0c6e9e3$export$2e2bcd8739ae039);
-function $36506012e0c6e9e3$export$2e2bcd8739ae039(iconName) {
-    return {
-        iconName: iconName
-    };
-}
-
-
-var $d92d9d5253f84566$exports = {};
-
-$parcel$defineInteropFlag($d92d9d5253f84566$exports);
-
-$parcel$export($d92d9d5253f84566$exports, "default", () => $d92d9d5253f84566$export$2e2bcd8739ae039);
-function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
-    return {
-        empty: false,
-        children: [],
-        init () {
-            this.children = this.$refs.items ? Array.from(this.$refs.items.children) : [];
-        },
-        isOpen (id) {
-            return store.open.includes(id);
-        },
-        setOpen (id) {
-            store.open.push(id);
-        },
-        setClosed (id) {
-            const index = store.open.indexOf(id);
-            if (index > -1) store.open.splice(index, 1);
-        },
-        closeAll () {
-            store.open.length = 0;
-        },
-        toggleOpen (id) {
-            this.isOpen(id) ? this.setClosed(id) : this.setOpen(id);
-        },
-        async filter (text) {
-            this.debug(`Filter text: ${text}`);
-            await this.$nextTick();
-            const filteredStates = await Promise.all(this.children.map(async (child)=>{
-                const data = Alpine.$data(child);
-                await data.filter(text);
-                return data.filteredOut;
-            }));
-            const matchedChildCount = filteredStates.filter((s)=>!s).length;
-            this.empty = matchedChildCount === 0;
-            this.debug(`Children matching filter: ${matchedChildCount}/${this.children.length}`);
-        }
-    };
-}
-
-
-var $a87dacf5139b5e2f$exports = {};
-
-$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
-
-$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
-function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
-    return {
-        get store () {
-            return store || this;
-        },
-        get id () {
-            return this.$root.id;
-        },
-        get panels () {
-            return Array.from(this.$refs.panels.children);
-        },
-        isActive (el) {
-            return this.store.activeTab === this._getRef(el);
-        },
-        // protected
-        _getRef (el) {
-            return el.getAttribute("x-ref");
-        }
-    };
-}
-
-
-var $506dabb2bf255b38$exports = {};
-
-$parcel$defineInteropFlag($506dabb2bf255b38$exports);
-
-$parcel$export($506dabb2bf255b38$exports, "default", () => $506dabb2bf255b38$export$2e2bcd8739ae039);
-var $7cac9a0d4b75bf4e$var$numeric = function(value, unit) {
-    return Number(value.slice(0, -1 * unit.length));
-};
-var $7cac9a0d4b75bf4e$var$parseValue = function(value) {
-    if (value.endsWith("px")) return {
-        value: value,
-        type: "px",
-        numeric: $7cac9a0d4b75bf4e$var$numeric(value, "px")
-    };
-    if (value.endsWith("fr")) return {
-        value: value,
-        type: "fr",
-        numeric: $7cac9a0d4b75bf4e$var$numeric(value, "fr")
-    };
-    if (value.endsWith("%")) return {
-        value: value,
-        type: "%",
-        numeric: $7cac9a0d4b75bf4e$var$numeric(value, "%")
-    };
-    if (value === "auto") return {
-        value: value,
-        type: "auto"
-    };
-    return null;
-};
-var $7cac9a0d4b75bf4e$var$parse = function(rule) {
-    return rule.split(" ").map($7cac9a0d4b75bf4e$var$parseValue);
-};
-var $7cac9a0d4b75bf4e$var$getSizeAtTrack = function(index, tracks, gap, end) {
-    if (gap === void 0) gap = 0;
-    if (end === void 0) end = false;
-    var newIndex = end ? index + 1 : index;
-    var trackSum = tracks.slice(0, newIndex).reduce(function(accum, value) {
-        return accum + value.numeric;
-    }, 0);
-    var gapSum = gap ? index * gap : 0;
-    return trackSum + gapSum;
-};
-var $7cac9a0d4b75bf4e$var$getStyles = function(rule, ownRules, matchedRules) {
-    return ownRules.concat(matchedRules).map(function(r) {
-        return r.style[rule];
-    }).filter(function(style) {
-        return style !== undefined && style !== "";
-    });
-};
-var $7cac9a0d4b75bf4e$var$getGapValue = function(unit, size) {
-    if (size.endsWith(unit)) return Number(size.slice(0, -1 * unit.length));
-    return null;
-};
-var $7cac9a0d4b75bf4e$var$firstNonZero = function(tracks) {
-    // eslint-disable-next-line no-plusplus
-    for(var i = 0; i < tracks.length; i++){
-        if (tracks[i].numeric > 0) return i;
-    }
-    return null;
-};
-var $7cac9a0d4b75bf4e$var$NOOP = function() {
-    return false;
-};
-var $7cac9a0d4b75bf4e$var$defaultWriteStyle = function(element, gridTemplateProp, style) {
-    // eslint-disable-next-line no-param-reassign
-    element.style[gridTemplateProp] = style;
-};
-var $7cac9a0d4b75bf4e$var$getOption = function(options, propName, def) {
-    var value = options[propName];
-    if (value !== undefined) return value;
-    return def;
-};
-function $7cac9a0d4b75bf4e$var$getMatchedCSSRules(el) {
-    var ref;
-    return (ref = []).concat.apply(ref, Array.from(el.ownerDocument.styleSheets).map(function(s) {
-        var rules = [];
-        try {
-            rules = Array.from(s.cssRules || []);
-        } catch (e) {
-        // Ignore results on security error
-        }
-        return rules;
-    })).filter(function(r) {
-        var matches = false;
-        try {
-            matches = el.matches(r.selectorText);
-        } catch (e) {
-        // Ignore matching erros
-        }
-        return matches;
-    });
-}
-var $7cac9a0d4b75bf4e$var$gridTemplatePropColumns = "grid-template-columns";
-var $7cac9a0d4b75bf4e$var$gridTemplatePropRows = "grid-template-rows";
-var $7cac9a0d4b75bf4e$var$Gutter = function Gutter(direction, options, parentOptions) {
-    this.direction = direction;
-    this.element = options.element;
-    this.track = options.track;
-    if (direction === "column") {
-        this.gridTemplateProp = $7cac9a0d4b75bf4e$var$gridTemplatePropColumns;
-        this.gridGapProp = "grid-column-gap";
-        this.cursor = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "columnCursor", $7cac9a0d4b75bf4e$var$getOption(parentOptions, "cursor", "col-resize"));
-        this.snapOffset = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "columnSnapOffset", $7cac9a0d4b75bf4e$var$getOption(parentOptions, "snapOffset", 30));
-        this.dragInterval = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "columnDragInterval", $7cac9a0d4b75bf4e$var$getOption(parentOptions, "dragInterval", 1));
-        this.clientAxis = "clientX";
-        this.optionStyle = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "gridTemplateColumns");
-    } else if (direction === "row") {
-        this.gridTemplateProp = $7cac9a0d4b75bf4e$var$gridTemplatePropRows;
-        this.gridGapProp = "grid-row-gap";
-        this.cursor = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "rowCursor", $7cac9a0d4b75bf4e$var$getOption(parentOptions, "cursor", "row-resize"));
-        this.snapOffset = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "rowSnapOffset", $7cac9a0d4b75bf4e$var$getOption(parentOptions, "snapOffset", 30));
-        this.dragInterval = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "rowDragInterval", $7cac9a0d4b75bf4e$var$getOption(parentOptions, "dragInterval", 1));
-        this.clientAxis = "clientY";
-        this.optionStyle = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "gridTemplateRows");
-    }
-    this.onDragStart = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "onDragStart", $7cac9a0d4b75bf4e$var$NOOP);
-    this.onDragEnd = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "onDragEnd", $7cac9a0d4b75bf4e$var$NOOP);
-    this.onDrag = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "onDrag", $7cac9a0d4b75bf4e$var$NOOP);
-    this.writeStyle = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "writeStyle", $7cac9a0d4b75bf4e$var$defaultWriteStyle);
-    this.startDragging = this.startDragging.bind(this);
-    this.stopDragging = this.stopDragging.bind(this);
-    this.drag = this.drag.bind(this);
-    this.minSizeStart = options.minSizeStart;
-    this.minSizeEnd = options.minSizeEnd;
-    if (options.element) {
-        this.element.addEventListener("mousedown", this.startDragging);
-        this.element.addEventListener("touchstart", this.startDragging);
-    }
-};
-$7cac9a0d4b75bf4e$var$Gutter.prototype.getDimensions = function getDimensions() {
-    var ref = this.grid.getBoundingClientRect();
-    var width = ref.width;
-    var height = ref.height;
-    var top = ref.top;
-    var bottom = ref.bottom;
-    var left = ref.left;
-    var right = ref.right;
-    if (this.direction === "column") {
-        this.start = top;
-        this.end = bottom;
-        this.size = height;
-    } else if (this.direction === "row") {
-        this.start = left;
-        this.end = right;
-        this.size = width;
-    }
-};
-$7cac9a0d4b75bf4e$var$Gutter.prototype.getSizeAtTrack = function getSizeAtTrack$1(track, end) {
-    return $7cac9a0d4b75bf4e$var$getSizeAtTrack(track, this.computedPixels, this.computedGapPixels, end);
-};
-$7cac9a0d4b75bf4e$var$Gutter.prototype.getSizeOfTrack = function getSizeOfTrack(track) {
-    return this.computedPixels[track].numeric;
-};
-$7cac9a0d4b75bf4e$var$Gutter.prototype.getRawTracks = function getRawTracks() {
-    var tracks = $7cac9a0d4b75bf4e$var$getStyles(this.gridTemplateProp, [
-        this.grid
-    ], $7cac9a0d4b75bf4e$var$getMatchedCSSRules(this.grid));
-    if (!tracks.length) {
-        if (this.optionStyle) return this.optionStyle;
-        throw Error("Unable to determine grid template tracks from styles.");
-    }
-    return tracks[0];
-};
-$7cac9a0d4b75bf4e$var$Gutter.prototype.getGap = function getGap() {
-    var gap = $7cac9a0d4b75bf4e$var$getStyles(this.gridGapProp, [
-        this.grid
-    ], $7cac9a0d4b75bf4e$var$getMatchedCSSRules(this.grid));
-    if (!gap.length) return null;
-    return gap[0];
-};
-$7cac9a0d4b75bf4e$var$Gutter.prototype.getRawComputedTracks = function getRawComputedTracks() {
-    return window.getComputedStyle(this.grid)[this.gridTemplateProp];
-};
-$7cac9a0d4b75bf4e$var$Gutter.prototype.getRawComputedGap = function getRawComputedGap() {
-    return window.getComputedStyle(this.grid)[this.gridGapProp];
-};
-$7cac9a0d4b75bf4e$var$Gutter.prototype.setTracks = function setTracks(raw) {
-    this.tracks = raw.split(" ");
-    this.trackValues = $7cac9a0d4b75bf4e$var$parse(raw);
-};
-$7cac9a0d4b75bf4e$var$Gutter.prototype.setComputedTracks = function setComputedTracks(raw) {
-    this.computedTracks = raw.split(" ");
-    this.computedPixels = $7cac9a0d4b75bf4e$var$parse(raw);
-};
-$7cac9a0d4b75bf4e$var$Gutter.prototype.setGap = function setGap(raw) {
-    this.gap = raw;
-};
-$7cac9a0d4b75bf4e$var$Gutter.prototype.setComputedGap = function setComputedGap(raw) {
-    this.computedGap = raw;
-    this.computedGapPixels = $7cac9a0d4b75bf4e$var$getGapValue("px", this.computedGap) || 0;
-};
-$7cac9a0d4b75bf4e$var$Gutter.prototype.getMousePosition = function getMousePosition(e) {
-    if ("touches" in e) return e.touches[0][this.clientAxis];
-    return e[this.clientAxis];
-};
-$7cac9a0d4b75bf4e$var$Gutter.prototype.startDragging = function startDragging(e) {
-    if ("button" in e && e.button !== 0) return;
-    // Don't actually drag the element. We emulate that in the drag function.
-    e.preventDefault();
-    if (this.element) this.grid = this.element.parentNode;
-    else this.grid = e.target.parentNode;
-    this.getDimensions();
-    this.setTracks(this.getRawTracks());
-    this.setComputedTracks(this.getRawComputedTracks());
-    this.setGap(this.getGap());
-    this.setComputedGap(this.getRawComputedGap());
-    var trackPercentage = this.trackValues.filter(function(track) {
-        return track.type === "%";
-    });
-    var trackFr = this.trackValues.filter(function(track) {
-        return track.type === "fr";
-    });
-    this.totalFrs = trackFr.length;
-    if (this.totalFrs) {
-        var track = $7cac9a0d4b75bf4e$var$firstNonZero(trackFr);
-        if (track !== null) this.frToPixels = this.computedPixels[track].numeric / trackFr[track].numeric;
-    }
-    if (trackPercentage.length) {
-        var track$1 = $7cac9a0d4b75bf4e$var$firstNonZero(trackPercentage);
-        if (track$1 !== null) this.percentageToPixels = this.computedPixels[track$1].numeric / trackPercentage[track$1].numeric;
-    }
-    // get start of gutter track
-    var gutterStart = this.getSizeAtTrack(this.track, false) + this.start;
-    this.dragStartOffset = this.getMousePosition(e) - gutterStart;
-    this.aTrack = this.track - 1;
-    if (this.track < this.tracks.length - 1) this.bTrack = this.track + 1;
-    else throw Error("Invalid track index: " + this.track + ". Track must be between two other tracks and only " + this.tracks.length + " tracks were found.");
-    this.aTrackStart = this.getSizeAtTrack(this.aTrack, false) + this.start;
-    this.bTrackEnd = this.getSizeAtTrack(this.bTrack, true) + this.start;
-    // Set the dragging property of the pair object.
-    this.dragging = true;
-    // All the binding. `window` gets the stop events in case we drag out of the elements.
-    window.addEventListener("mouseup", this.stopDragging);
-    window.addEventListener("touchend", this.stopDragging);
-    window.addEventListener("touchcancel", this.stopDragging);
-    window.addEventListener("mousemove", this.drag);
-    window.addEventListener("touchmove", this.drag);
-    // Disable selection. Disable!
-    this.grid.addEventListener("selectstart", $7cac9a0d4b75bf4e$var$NOOP);
-    this.grid.addEventListener("dragstart", $7cac9a0d4b75bf4e$var$NOOP);
-    this.grid.style.userSelect = "none";
-    this.grid.style.webkitUserSelect = "none";
-    this.grid.style.MozUserSelect = "none";
-    this.grid.style.pointerEvents = "none";
-    // Set the cursor at multiple levels
-    this.grid.style.cursor = this.cursor;
-    window.document.body.style.cursor = this.cursor;
-    this.onDragStart(this.direction, this.track);
-};
-$7cac9a0d4b75bf4e$var$Gutter.prototype.stopDragging = function stopDragging() {
-    this.dragging = false;
-    // Remove the stored event listeners. This is why we store them.
-    this.cleanup();
-    this.onDragEnd(this.direction, this.track);
-    if (this.needsDestroy) {
-        if (this.element) {
-            this.element.removeEventListener("mousedown", this.startDragging);
-            this.element.removeEventListener("touchstart", this.startDragging);
-        }
-        this.destroyCb();
-        this.needsDestroy = false;
-        this.destroyCb = null;
-    }
-};
-$7cac9a0d4b75bf4e$var$Gutter.prototype.drag = function drag(e) {
-    var mousePosition = this.getMousePosition(e);
-    var gutterSize = this.getSizeOfTrack(this.track);
-    var minMousePosition = this.aTrackStart + this.minSizeStart + this.dragStartOffset + this.computedGapPixels;
-    var maxMousePosition = this.bTrackEnd - this.minSizeEnd - this.computedGapPixels - (gutterSize - this.dragStartOffset);
-    var minMousePositionOffset = minMousePosition + this.snapOffset;
-    var maxMousePositionOffset = maxMousePosition - this.snapOffset;
-    if (mousePosition < minMousePositionOffset) mousePosition = minMousePosition;
-    if (mousePosition > maxMousePositionOffset) mousePosition = maxMousePosition;
-    if (mousePosition < minMousePosition) mousePosition = minMousePosition;
-    else if (mousePosition > maxMousePosition) mousePosition = maxMousePosition;
-    var aTrackSize = mousePosition - this.aTrackStart - this.dragStartOffset - this.computedGapPixels;
-    var bTrackSize = this.bTrackEnd - mousePosition + this.dragStartOffset - gutterSize - this.computedGapPixels;
-    if (this.dragInterval > 1) {
-        var aTrackSizeIntervaled = Math.round(aTrackSize / this.dragInterval) * this.dragInterval;
-        bTrackSize -= aTrackSizeIntervaled - aTrackSize;
-        aTrackSize = aTrackSizeIntervaled;
-    }
-    if (aTrackSize < this.minSizeStart) aTrackSize = this.minSizeStart;
-    if (bTrackSize < this.minSizeEnd) bTrackSize = this.minSizeEnd;
-    if (this.trackValues[this.aTrack].type === "px") this.tracks[this.aTrack] = aTrackSize + "px";
-    else if (this.trackValues[this.aTrack].type === "fr") {
-        if (this.totalFrs === 1) this.tracks[this.aTrack] = "1fr";
-        else {
-            var targetFr = aTrackSize / this.frToPixels;
-            this.tracks[this.aTrack] = targetFr + "fr";
-        }
-    } else if (this.trackValues[this.aTrack].type === "%") {
-        var targetPercentage = aTrackSize / this.percentageToPixels;
-        this.tracks[this.aTrack] = targetPercentage + "%";
-    }
-    if (this.trackValues[this.bTrack].type === "px") this.tracks[this.bTrack] = bTrackSize + "px";
-    else if (this.trackValues[this.bTrack].type === "fr") {
-        if (this.totalFrs === 1) this.tracks[this.bTrack] = "1fr";
-        else {
-            var targetFr$1 = bTrackSize / this.frToPixels;
-            this.tracks[this.bTrack] = targetFr$1 + "fr";
-        }
-    } else if (this.trackValues[this.bTrack].type === "%") {
-        var targetPercentage$1 = bTrackSize / this.percentageToPixels;
-        this.tracks[this.bTrack] = targetPercentage$1 + "%";
-    }
-    var style = this.tracks.join(" ");
-    this.writeStyle(this.grid, this.gridTemplateProp, style);
-    this.onDrag(this.direction, this.track, style);
-};
-$7cac9a0d4b75bf4e$var$Gutter.prototype.cleanup = function cleanup() {
-    window.removeEventListener("mouseup", this.stopDragging);
-    window.removeEventListener("touchend", this.stopDragging);
-    window.removeEventListener("touchcancel", this.stopDragging);
-    window.removeEventListener("mousemove", this.drag);
-    window.removeEventListener("touchmove", this.drag);
-    if (this.grid) {
-        this.grid.removeEventListener("selectstart", $7cac9a0d4b75bf4e$var$NOOP);
-        this.grid.removeEventListener("dragstart", $7cac9a0d4b75bf4e$var$NOOP);
-        this.grid.style.userSelect = "";
-        this.grid.style.webkitUserSelect = "";
-        this.grid.style.MozUserSelect = "";
-        this.grid.style.pointerEvents = "";
-        this.grid.style.cursor = "";
-    }
-    window.document.body.style.cursor = "";
-};
-$7cac9a0d4b75bf4e$var$Gutter.prototype.destroy = function destroy(immediate, cb) {
-    if (immediate === void 0) immediate = true;
-    if (immediate || this.dragging === false) {
-        this.cleanup();
-        if (this.element) {
-            this.element.removeEventListener("mousedown", this.startDragging);
-            this.element.removeEventListener("touchstart", this.startDragging);
-        }
-        if (cb) cb();
-    } else {
-        this.needsDestroy = true;
-        if (cb) this.destroyCb = cb;
-    }
-};
-var $7cac9a0d4b75bf4e$var$getTrackOption = function(options, track, defaultValue) {
-    if (track in options) return options[track];
-    return defaultValue;
-};
-var $7cac9a0d4b75bf4e$var$createGutter = function(direction, options) {
-    return function(gutterOptions) {
-        if (gutterOptions.track < 1) throw Error("Invalid track index: " + gutterOptions.track + ". Track must be between two other tracks.");
-        var trackMinSizes = direction === "column" ? options.columnMinSizes || {} : options.rowMinSizes || {};
-        var trackMinSize = direction === "column" ? "columnMinSize" : "rowMinSize";
-        return new $7cac9a0d4b75bf4e$var$Gutter(direction, Object.assign({}, {
-            minSizeStart: $7cac9a0d4b75bf4e$var$getTrackOption(trackMinSizes, gutterOptions.track - 1, $7cac9a0d4b75bf4e$var$getOption(options, trackMinSize, $7cac9a0d4b75bf4e$var$getOption(options, "minSize", 0))),
-            minSizeEnd: $7cac9a0d4b75bf4e$var$getTrackOption(trackMinSizes, gutterOptions.track + 1, $7cac9a0d4b75bf4e$var$getOption(options, trackMinSize, $7cac9a0d4b75bf4e$var$getOption(options, "minSize", 0)))
-        }, gutterOptions), options);
-    };
-};
-var $7cac9a0d4b75bf4e$var$Grid = function Grid(options) {
-    var this$1 = this;
-    this.columnGutters = {};
-    this.rowGutters = {};
-    this.options = Object.assign({}, {
-        columnGutters: options.columnGutters || [],
-        rowGutters: options.rowGutters || [],
-        columnMinSizes: options.columnMinSizes || {},
-        rowMinSizes: options.rowMinSizes || {}
-    }, options);
-    this.options.columnGutters.forEach(function(gutterOptions) {
-        this$1.columnGutters[gutterOptions.track] = $7cac9a0d4b75bf4e$var$createGutter("column", this$1.options)(gutterOptions);
-    });
-    this.options.rowGutters.forEach(function(gutterOptions) {
-        this$1.rowGutters[gutterOptions.track] = $7cac9a0d4b75bf4e$var$createGutter("row", this$1.options)(gutterOptions);
-    });
-};
-$7cac9a0d4b75bf4e$var$Grid.prototype.addColumnGutter = function addColumnGutter(element, track) {
-    if (this.columnGutters[track]) this.columnGutters[track].destroy();
-    this.columnGutters[track] = $7cac9a0d4b75bf4e$var$createGutter("column", this.options)({
-        element: element,
-        track: track
-    });
-};
-$7cac9a0d4b75bf4e$var$Grid.prototype.addRowGutter = function addRowGutter(element, track) {
-    if (this.rowGutters[track]) this.rowGutters[track].destroy();
-    this.rowGutters[track] = $7cac9a0d4b75bf4e$var$createGutter("row", this.options)({
-        element: element,
-        track: track
-    });
-};
-$7cac9a0d4b75bf4e$var$Grid.prototype.removeColumnGutter = function removeColumnGutter(track, immediate) {
-    var this$1 = this;
-    if (immediate === void 0) immediate = true;
-    if (this.columnGutters[track]) this.columnGutters[track].destroy(immediate, function() {
-        delete this$1.columnGutters[track];
-    });
-};
-$7cac9a0d4b75bf4e$var$Grid.prototype.removeRowGutter = function removeRowGutter(track, immediate) {
-    var this$1 = this;
-    if (immediate === void 0) immediate = true;
-    if (this.rowGutters[track]) this.rowGutters[track].destroy(immediate, function() {
-        delete this$1.rowGutters[track];
-    });
-};
-$7cac9a0d4b75bf4e$var$Grid.prototype.handleDragStart = function handleDragStart(e, direction, track) {
-    if (direction === "column") {
-        if (this.columnGutters[track]) this.columnGutters[track].destroy();
-        this.columnGutters[track] = $7cac9a0d4b75bf4e$var$createGutter("column", this.options)({
-            track: track
-        });
-        this.columnGutters[track].startDragging(e);
-    } else if (direction === "row") {
-        if (this.rowGutters[track]) this.rowGutters[track].destroy();
-        this.rowGutters[track] = $7cac9a0d4b75bf4e$var$createGutter("row", this.options)({
-            track: track
-        });
-        this.rowGutters[track].startDragging(e);
-    }
-};
-$7cac9a0d4b75bf4e$var$Grid.prototype.destroy = function destroy(immediate) {
-    var this$1 = this;
-    if (immediate === void 0) immediate = true;
-    Object.keys(this.columnGutters).forEach(function(track) {
-        return this$1.columnGutters[track].destroy(immediate, function() {
-            delete this$1.columnGutters[track];
-        });
-    });
-    Object.keys(this.rowGutters).forEach(function(track) {
-        return this$1.rowGutters[track].destroy(immediate, function() {
-            delete this$1.rowGutters[track];
-        });
-    });
-};
-function $7cac9a0d4b75bf4e$var$index(options) {
-    return new $7cac9a0d4b75bf4e$var$Grid(options);
-}
-var $7cac9a0d4b75bf4e$export$2e2bcd8739ae039 = $7cac9a0d4b75bf4e$var$index;
-
-
-
-function $506dabb2bf255b38$export$2e2bcd8739ae039({ split: split , opts: opts = {}  }) {
-    let splitter = null;
-    const shouldSplit = split.sizes !== null;
-    return {
-        layoutResizing: false,
-        layoutWidth: null,
-        layoutHeight: null,
-        forceOrientation: null,
-        get vertical () {
-            if (this.forceOrientation) return this.forceOrientation === "vertical";
-            return split.direction === "vertical";
-        },
-        get horizontal () {
-            if (this.forceOrientation) return this.forceOrientation === "horizontal";
-            return split.direction === "horizontal";
-        },
-        get splits () {
-            if (this.horizontal && split.horizontalSizes) return split.horizontalSizes;
-            else if (this.vertical && split.verticalSizes) return split.verticalSizes;
-            else return split.sizes || [];
-        },
-        get minSizes () {
-            if (this.horizontal && opts.minHorizontalSizes) return opts.minHorizontalSizes;
-            else if (this.vertical && opts.minVerticalSizes) return opts.minVerticalSizes;
-            else return opts.minSizes || [];
-        },
-        init () {
-            (0, $9930d46698775b42$export$a2214cc2adb2dc44)(this.$el, ({ width: width , height: height  })=>{
-                this.layoutWidth = width;
-                this.layoutHeight = height;
-            });
-        },
-        switchOrientation () {
-            split.direction = this.vertical ? "horizontal" : "vertical";
-        },
-        registerGutter () {
-            this._gutters.push(this.$el);
-        },
-        initSplit () {
-            if (shouldSplit && this._gutters.length) {
-                this._destroySplit();
-                const dir = this.horizontal ? "row" : "column";
-                splitter = (0, $7cac9a0d4b75bf4e$export$2e2bcd8739ae039)({
-                    [`${dir}Gutters`]: $506dabb2bf255b38$var$gutterSplits(this._gutters),
-                    [`${dir}MinSizes`]: $506dabb2bf255b38$var$sizeSplits(this.minSizes),
-                    snapOffset: 0,
-                    dragInterval: 1,
-                    writeStyle () {},
-                    onDrag: (dir, gutterTrack, style)=>{
-                        const splits = style.split(" ").map((value, i)=>i % 2 == 0 ? value : null).filter((v)=>v);
-                        this._setSplits(splits);
-                    },
-                    onDragStart: ()=>{
-                        this.layoutResizing = true;
-                        this.$dispatch("layout:resize-start", {
-                            layout: this
-                        });
-                    },
-                    onDragEnd: ()=>{
-                        this.layoutResizing = false;
-                        this.$dispatch("layout:resize-end", {
-                            layout: this
-                        });
-                    }
-                });
-            }
-        },
-        bindings: {
-            root: {
-                [":style"] () {
-                    return {
-                        "grid-template-columns": shouldSplit && this.vertical && $506dabb2bf255b38$var$sizeStr(this.splits),
-                        "grid-template-rows": shouldSplit && this.horizontal && $506dabb2bf255b38$var$sizeStr(this.splits)
-                    };
-                }
-            }
-        },
-        // protected
-        _gutters: [],
-        _destroySplit () {
-            if (splitter) splitter.destroy();
-        },
-        _setSplits (splits) {
-            if (this.horizontal && split.horizontalSizes) split.horizontalSizes = splits;
-            else if (this.vertical && split.verticalSizes) split.verticalSizes = splits;
-            else split.sizes = splits;
-        }
-    };
-}
-// utils
-function $506dabb2bf255b38$var$sizeStr(sizes) {
-    const values = [];
-    sizes.forEach((size)=>values.push(size, "1px"));
-    return values.slice(0, -1).join(" ");
-}
-function $506dabb2bf255b38$var$gutterSplits(gutters) {
-    return gutters.map((element, i)=>{
-        return {
-            track: i * 2 + 1,
-            element: element
-        };
-    });
-}
-function $506dabb2bf255b38$var$sizeSplits(sizes) {
-    const splits = {};
-    sizes.forEach((value, i)=>{
-        if (value !== null) splits[i * 2] = value;
-    });
-    return splits;
-}
-
-
-var $0db07828cadc68e0$exports = {};
-
-$parcel$defineInteropFlag($0db07828cadc68e0$exports);
-
-$parcel$export($0db07828cadc68e0$exports, "default", () => $0db07828cadc68e0$export$2e2bcd8739ae039);
-
-
-
-
-function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
-    const initial = store ? store.activeTab : null;
-    let dropdown = null;
-    return {
-        visibleTabsCount: 0,
-        triggerLeft: 0,
-        get store () {
-            return store || this;
-        },
-        get tabs () {
-            return this.$refs.tabs ? Array.from(this.$refs.tabs.children) : [];
-        },
-        get dropdownTabs () {
-            return Array.from(this.$refs.tabsDropdown ? this.$refs.tabsDropdown.children : []);
-        },
-        get tabWidths () {
-            return this.tabs.map((tab)=>(0, $e263283f97229955$export$bdf7e699b242f476)(tab, {
-                    includeMargins: true
-                }).width);
-        },
-        init () {
-            this.$nextTick(()=>{
-                if (this.$root.parentElement.offsetWidth === this.$root.offsetWidth) this.visibleTabsCount = this.tabs.length;
-                dropdown = (0, $d6f449055c23f07a$export$2e2bcd8739ae039)(this.$refs.dropdownTrigger, {
-                    content: this.$refs.tabsDropdown,
-                    theme: "menu",
-                    interactive: true,
-                    trigger: "click",
-                    placement: "bottom",
-                    appendTo: this.$root
-                });
-                const initialTab = initial ? this.tabs.find((t)=>this._getRef(t) === initial) : this.tabs[0];
-                this.selectTab(initialTab, true);
-                this.parentObserver = (0, $9930d46698775b42$export$a2214cc2adb2dc44)(this.$root.parentElement, (0, $c5d017602d25d050$export$61fc7d43ac8f84b0)(10, this.handleResize.bind(this)));
-                this.$watch("visibleTabsCount", (value)=>{
-                    this.debug(`'#${this.$root.id}' visible tabs count:`, value);
-                });
-            });
-        },
-        handleResize ({ width: width  }) {
-            if (width === this._lastMeasuredWidth) return;
-            if (width === this.$root.offsetWidth) {
-                this.visibleTabsCount = this.tabs.length;
-                return;
-            }
-            let sumTabWidths = 60;
-            let triggerLeft = 20;
-            let visibleTabsCount = 0;
-            this.tabWidths.forEach((tabWidth)=>{
-                sumTabWidths += tabWidth;
-                if (sumTabWidths < width) {
-                    triggerLeft += tabWidth;
-                    visibleTabsCount++;
-                }
-            });
-            this.visibleTabsCount = visibleTabsCount;
-            this.triggerLeft = triggerLeft;
-            this._lastMeasuredWidth = width;
-        },
-        selectTab (el, initial = false) {
-            this.store.activeTab = this._getRef(el);
-            dropdown.hide();
-            if (!initial) this.$dispatch("tabs:change", {
-                tabs: this
-            });
-        },
-        isSelected (el) {
-            return this.store.activeTab === this._getRef(el);
-        },
-        isDisabled (el) {
-            return el.getAttribute("data-disabled") == "true";
-        },
-        hasHiddenTabs () {
-            return this.visibleTabsCount < this.tabs.length;
-        },
-        // protected
-        _lastMeasuredWidth: 0,
-        _getRef (el) {
-            return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
-        }
-    };
-}
-
-
-var $6d64716f0b34fdf4$exports = {};
-
-$parcel$defineInteropFlag($6d64716f0b34fdf4$exports);
-
-$parcel$export($6d64716f0b34fdf4$exports, "default", () => $6d64716f0b34fdf4$export$2e2bcd8739ae039);
-function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
-    store = store || {
-        width: "100%",
-        height: "100%"
-    };
-    store.resizing = false;
-    return {
-        store: store,
-        get maxWidth () {
-            return this.store.width === "100%" ? "100%" : `${store.width}px`;
-        },
-        get maxHeight () {
-            return this.store.height === "100%" ? "100%" : `${store.height}px`;
-        },
-        get parentWidth () {
-            return Math.round(this.$root.clientWidth);
-        },
-        get parentHeight () {
-            return Math.round(this.$root.clientHeight);
-        },
-        get reflowing () {
-            return this.$store.layout.reflowing;
-        },
-        reloadIframe () {
-            this.$refs.iframe.contentWindow.location.reload();
-        },
-        start () {
-            this.$dispatch("viewport:resize-start", this._resizeData);
-            this.$store.layout.reflowing = true;
-            this.store.resizing = true;
-        },
-        end () {
-            this.$store.layout.reflowing = false;
-            this.store.resizing = false;
-            this.$dispatch("viewport:resize-complete", this._resizeData);
-        },
-        onResizeStart (e) {
-            this.onResizeWidthStart(e);
-            this.onResizeHeightStart(e);
-        },
-        toggleFullSize () {
-            const { height: height , width: width  } = store;
-            if (height === "100%" && width === "100%") {
-                this.toggleFullHeight();
-                this.toggleFullWidth();
-            } else {
-                if (height !== "100%") this.toggleFullHeight();
-                if (width !== "100%") this.toggleFullWidth();
-            }
-        },
-        onResizeWidth (e) {
-            const width = this.resizeStartWidth - (this.resizeStartPositionX - e.pageX) * 2;
-            const boundedWidth = Math.min(Math.max(Math.round(width), 200), this.parentWidth);
-            this.store.width = boundedWidth === this.parentWidth ? "100%" : boundedWidth;
-            this.$dispatch("viewport:resize-progress", this._resizeData);
-        },
-        onResizeWidthStart (e) {
-            this.start();
-            this.onResizeWidth = this.onResizeWidth.bind(this);
-            this.onResizeWidthEnd = this.onResizeWidthEnd.bind(this);
-            this.resizeStartPositionX = e.pageX;
-            this.resizeStartWidth = this.$refs.wrapper.clientWidth;
-            window.addEventListener("pointermove", this.onResizeWidth);
-            window.addEventListener("pointerup", this.onResizeWidthEnd);
-        },
-        onResizeWidthEnd () {
-            window.removeEventListener("pointermove", this.onResizeWidth);
-            window.removeEventListener("pointerup", this.onResizeWidthEnd);
-            this.end();
-        },
-        toggleFullWidth () {
-            this.$dispatch("viewport:resize-start", this._resizeData);
-            const { width: width , lastWidth: lastWidth  } = store;
-            if (width === "100%" && lastWidth) this.store.width = lastWidth;
-            else {
-                this.store.lastWidth = width;
-                this.store.width = "100%";
-            }
-            this.$dispatch("viewport:resize-complete", this._resizeData);
-        },
-        onResizeHeight (e) {
-            const height = this.resizeStartHeight - (this.resizeStartPositionY - e.pageY);
-            const boundedHeight = Math.min(Math.max(Math.round(height), 200), this.parentHeight);
-            this.store.height = boundedHeight === this.parentHeight ? "100%" : boundedHeight;
-            this.$dispatch("viewport:resize-progress", this._resizeData);
-        },
-        onResizeHeightStart (e) {
-            this.start();
-            this.onResizeHeight = this.onResizeHeight.bind(this);
-            this.onResizeHeightEnd = this.onResizeHeightEnd.bind(this);
-            this.resizeStartPositionY = e.pageY;
-            this.resizeStartHeight = this.$refs.wrapper.clientHeight;
-            window.addEventListener("pointermove", this.onResizeHeight);
-            window.addEventListener("pointerup", this.onResizeHeightEnd);
-        },
-        onResizeHeightEnd () {
-            window.removeEventListener("pointermove", this.onResizeHeight);
-            window.removeEventListener("pointerup", this.onResizeHeightEnd);
-            this.end();
-        },
-        toggleFullHeight () {
-            this.$dispatch("viewport:resize-start", this._resizeData);
-            const { height: height , lastHeight: lastHeight  } = store;
-            if (height === "100%" && lastHeight) this.store.height = lastHeight;
-            else {
-                this.store.lastHeight = height;
-                this.store.height = "100%";
-            }
-            this.$dispatch("viewport:resize-complete", this._resizeData);
-        },
-        // protected
-        get _resizeData () {
-            return {
-                width: this.store.width,
-                height: this.store.height,
-                viewport: this
-            };
-        }
-    };
-}
-
-
-$08e53c7addc98abe$exports = {
-    "button": $cbd28b10fa9798c7$exports,
-    "code": $99486586f6691564$exports,
-    "copy_button": $47a1c62621be0c54$exports,
-    "dimensions_display": $e398acaded942bbe$exports,
-    "filter": $e9904a14dabf652d$exports,
-    "embed": $e1f51f020443edd4$exports,
-    "icon": $36506012e0c6e9e3$exports,
-    "nav": $d92d9d5253f84566$exports,
-    "tab_panels": $a87dacf5139b5e2f$exports,
-    "split_layout": $506dabb2bf255b38$exports,
-    "tabs": $0db07828cadc68e0$exports,
-    "viewport": $6d64716f0b34fdf4$exports
-};
-
-
-var $2af7656449ff0341$exports = {};
-var $c299e36fa9e271bc$exports = {};
-
-$parcel$defineInteropFlag($c299e36fa9e271bc$exports);
-
-$parcel$export($c299e36fa9e271bc$exports, "default", () => $c299e36fa9e271bc$export$2e2bcd8739ae039);
 var $ef5e88eaa61efd95$exports = {};
 /*
  * File: iframeResizer.js
@@ -13100,38 +12170,957 @@ var $ef5e88eaa61efd95$exports = {};
 })();
 
 
+function $e1f51f020443edd4$export$2e2bcd8739ae039() {
+    return {
+        height: 0,
+        get cssHeight () {
+            return this.height ? `${this.height}px` : "auto";
+        },
+        init () {
+            const onResized = this.onResized.bind(this);
+            const opts = {
+                autoResize: true,
+                onResized: onResized
+            };
+            window.iFrameResize(opts, this.$refs.iframe);
+        },
+        onResized ({ height: height  }) {
+            this.height = height;
+        }
+    };
+}
+
+
+var $e9904a14dabf652d$exports = {};
+
+$parcel$defineInteropFlag($e9904a14dabf652d$exports);
+
+$parcel$export($e9904a14dabf652d$exports, "default", () => $e9904a14dabf652d$export$2e2bcd8739ae039);
+function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
+    return {
+        focussed: false,
+        get active () {
+            return store.active;
+        },
+        get text () {
+            return store.text;
+        },
+        clear () {
+            if (store.raw === "") this.$refs.input.blur();
+            else store.raw = "";
+        },
+        focus () {
+            this.$refs.input.focus();
+        }
+    };
+}
+
+
+var $36506012e0c6e9e3$exports = {};
+
+$parcel$defineInteropFlag($36506012e0c6e9e3$exports);
+
+$parcel$export($36506012e0c6e9e3$exports, "default", () => $36506012e0c6e9e3$export$2e2bcd8739ae039);
+function $36506012e0c6e9e3$export$2e2bcd8739ae039(iconName) {
+    return {
+        iconName: iconName
+    };
+}
+
+
+var $d92d9d5253f84566$exports = {};
+
+$parcel$defineInteropFlag($d92d9d5253f84566$exports);
+
+$parcel$export($d92d9d5253f84566$exports, "default", () => $d92d9d5253f84566$export$2e2bcd8739ae039);
+function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
+    return {
+        empty: false,
+        children: [],
+        init () {
+            this.children = this.$refs.items ? Array.from(this.$refs.items.children) : [];
+        },
+        isOpen (id) {
+            return store.open.includes(id);
+        },
+        setOpen (id) {
+            store.open.push(id);
+        },
+        setClosed (id) {
+            const index = store.open.indexOf(id);
+            if (index > -1) store.open.splice(index, 1);
+        },
+        closeAll () {
+            store.open.length = 0;
+        },
+        toggleOpen (id) {
+            this.isOpen(id) ? this.setClosed(id) : this.setOpen(id);
+        },
+        async filter (text) {
+            this.debug(`Filter text: ${text}`);
+            await this.$nextTick();
+            const filteredStates = await Promise.all(this.children.map(async (child)=>{
+                const data = Alpine.$data(child);
+                await data.filter(text);
+                return data.filteredOut;
+            }));
+            const matchedChildCount = filteredStates.filter((s)=>!s).length;
+            this.empty = matchedChildCount === 0;
+            this.debug(`Children matching filter: ${matchedChildCount}/${this.children.length}`);
+        }
+    };
+}
+
+
+var $506dabb2bf255b38$exports = {};
+
+$parcel$defineInteropFlag($506dabb2bf255b38$exports);
+
+$parcel$export($506dabb2bf255b38$exports, "default", () => $506dabb2bf255b38$export$2e2bcd8739ae039);
+var $7cac9a0d4b75bf4e$var$numeric = function(value, unit) {
+    return Number(value.slice(0, -1 * unit.length));
+};
+var $7cac9a0d4b75bf4e$var$parseValue = function(value) {
+    if (value.endsWith("px")) return {
+        value: value,
+        type: "px",
+        numeric: $7cac9a0d4b75bf4e$var$numeric(value, "px")
+    };
+    if (value.endsWith("fr")) return {
+        value: value,
+        type: "fr",
+        numeric: $7cac9a0d4b75bf4e$var$numeric(value, "fr")
+    };
+    if (value.endsWith("%")) return {
+        value: value,
+        type: "%",
+        numeric: $7cac9a0d4b75bf4e$var$numeric(value, "%")
+    };
+    if (value === "auto") return {
+        value: value,
+        type: "auto"
+    };
+    return null;
+};
+var $7cac9a0d4b75bf4e$var$parse = function(rule) {
+    return rule.split(" ").map($7cac9a0d4b75bf4e$var$parseValue);
+};
+var $7cac9a0d4b75bf4e$var$getSizeAtTrack = function(index, tracks, gap, end) {
+    if (gap === void 0) gap = 0;
+    if (end === void 0) end = false;
+    var newIndex = end ? index + 1 : index;
+    var trackSum = tracks.slice(0, newIndex).reduce(function(accum, value) {
+        return accum + value.numeric;
+    }, 0);
+    var gapSum = gap ? index * gap : 0;
+    return trackSum + gapSum;
+};
+var $7cac9a0d4b75bf4e$var$getStyles = function(rule, ownRules, matchedRules) {
+    return ownRules.concat(matchedRules).map(function(r) {
+        return r.style[rule];
+    }).filter(function(style) {
+        return style !== undefined && style !== "";
+    });
+};
+var $7cac9a0d4b75bf4e$var$getGapValue = function(unit, size) {
+    if (size.endsWith(unit)) return Number(size.slice(0, -1 * unit.length));
+    return null;
+};
+var $7cac9a0d4b75bf4e$var$firstNonZero = function(tracks) {
+    // eslint-disable-next-line no-plusplus
+    for(var i = 0; i < tracks.length; i++){
+        if (tracks[i].numeric > 0) return i;
+    }
+    return null;
+};
+var $7cac9a0d4b75bf4e$var$NOOP = function() {
+    return false;
+};
+var $7cac9a0d4b75bf4e$var$defaultWriteStyle = function(element, gridTemplateProp, style) {
+    // eslint-disable-next-line no-param-reassign
+    element.style[gridTemplateProp] = style;
+};
+var $7cac9a0d4b75bf4e$var$getOption = function(options, propName, def) {
+    var value = options[propName];
+    if (value !== undefined) return value;
+    return def;
+};
+function $7cac9a0d4b75bf4e$var$getMatchedCSSRules(el) {
+    var ref;
+    return (ref = []).concat.apply(ref, Array.from(el.ownerDocument.styleSheets).map(function(s) {
+        var rules = [];
+        try {
+            rules = Array.from(s.cssRules || []);
+        } catch (e) {
+        // Ignore results on security error
+        }
+        return rules;
+    })).filter(function(r) {
+        var matches = false;
+        try {
+            matches = el.matches(r.selectorText);
+        } catch (e) {
+        // Ignore matching erros
+        }
+        return matches;
+    });
+}
+var $7cac9a0d4b75bf4e$var$gridTemplatePropColumns = "grid-template-columns";
+var $7cac9a0d4b75bf4e$var$gridTemplatePropRows = "grid-template-rows";
+var $7cac9a0d4b75bf4e$var$Gutter = function Gutter(direction, options, parentOptions) {
+    this.direction = direction;
+    this.element = options.element;
+    this.track = options.track;
+    if (direction === "column") {
+        this.gridTemplateProp = $7cac9a0d4b75bf4e$var$gridTemplatePropColumns;
+        this.gridGapProp = "grid-column-gap";
+        this.cursor = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "columnCursor", $7cac9a0d4b75bf4e$var$getOption(parentOptions, "cursor", "col-resize"));
+        this.snapOffset = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "columnSnapOffset", $7cac9a0d4b75bf4e$var$getOption(parentOptions, "snapOffset", 30));
+        this.dragInterval = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "columnDragInterval", $7cac9a0d4b75bf4e$var$getOption(parentOptions, "dragInterval", 1));
+        this.clientAxis = "clientX";
+        this.optionStyle = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "gridTemplateColumns");
+    } else if (direction === "row") {
+        this.gridTemplateProp = $7cac9a0d4b75bf4e$var$gridTemplatePropRows;
+        this.gridGapProp = "grid-row-gap";
+        this.cursor = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "rowCursor", $7cac9a0d4b75bf4e$var$getOption(parentOptions, "cursor", "row-resize"));
+        this.snapOffset = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "rowSnapOffset", $7cac9a0d4b75bf4e$var$getOption(parentOptions, "snapOffset", 30));
+        this.dragInterval = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "rowDragInterval", $7cac9a0d4b75bf4e$var$getOption(parentOptions, "dragInterval", 1));
+        this.clientAxis = "clientY";
+        this.optionStyle = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "gridTemplateRows");
+    }
+    this.onDragStart = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "onDragStart", $7cac9a0d4b75bf4e$var$NOOP);
+    this.onDragEnd = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "onDragEnd", $7cac9a0d4b75bf4e$var$NOOP);
+    this.onDrag = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "onDrag", $7cac9a0d4b75bf4e$var$NOOP);
+    this.writeStyle = $7cac9a0d4b75bf4e$var$getOption(parentOptions, "writeStyle", $7cac9a0d4b75bf4e$var$defaultWriteStyle);
+    this.startDragging = this.startDragging.bind(this);
+    this.stopDragging = this.stopDragging.bind(this);
+    this.drag = this.drag.bind(this);
+    this.minSizeStart = options.minSizeStart;
+    this.minSizeEnd = options.minSizeEnd;
+    if (options.element) {
+        this.element.addEventListener("mousedown", this.startDragging);
+        this.element.addEventListener("touchstart", this.startDragging);
+    }
+};
+$7cac9a0d4b75bf4e$var$Gutter.prototype.getDimensions = function getDimensions() {
+    var ref = this.grid.getBoundingClientRect();
+    var width = ref.width;
+    var height = ref.height;
+    var top = ref.top;
+    var bottom = ref.bottom;
+    var left = ref.left;
+    var right = ref.right;
+    if (this.direction === "column") {
+        this.start = top;
+        this.end = bottom;
+        this.size = height;
+    } else if (this.direction === "row") {
+        this.start = left;
+        this.end = right;
+        this.size = width;
+    }
+};
+$7cac9a0d4b75bf4e$var$Gutter.prototype.getSizeAtTrack = function getSizeAtTrack$1(track, end) {
+    return $7cac9a0d4b75bf4e$var$getSizeAtTrack(track, this.computedPixels, this.computedGapPixels, end);
+};
+$7cac9a0d4b75bf4e$var$Gutter.prototype.getSizeOfTrack = function getSizeOfTrack(track) {
+    return this.computedPixels[track].numeric;
+};
+$7cac9a0d4b75bf4e$var$Gutter.prototype.getRawTracks = function getRawTracks() {
+    var tracks = $7cac9a0d4b75bf4e$var$getStyles(this.gridTemplateProp, [
+        this.grid
+    ], $7cac9a0d4b75bf4e$var$getMatchedCSSRules(this.grid));
+    if (!tracks.length) {
+        if (this.optionStyle) return this.optionStyle;
+        throw Error("Unable to determine grid template tracks from styles.");
+    }
+    return tracks[0];
+};
+$7cac9a0d4b75bf4e$var$Gutter.prototype.getGap = function getGap() {
+    var gap = $7cac9a0d4b75bf4e$var$getStyles(this.gridGapProp, [
+        this.grid
+    ], $7cac9a0d4b75bf4e$var$getMatchedCSSRules(this.grid));
+    if (!gap.length) return null;
+    return gap[0];
+};
+$7cac9a0d4b75bf4e$var$Gutter.prototype.getRawComputedTracks = function getRawComputedTracks() {
+    return window.getComputedStyle(this.grid)[this.gridTemplateProp];
+};
+$7cac9a0d4b75bf4e$var$Gutter.prototype.getRawComputedGap = function getRawComputedGap() {
+    return window.getComputedStyle(this.grid)[this.gridGapProp];
+};
+$7cac9a0d4b75bf4e$var$Gutter.prototype.setTracks = function setTracks(raw) {
+    this.tracks = raw.split(" ");
+    this.trackValues = $7cac9a0d4b75bf4e$var$parse(raw);
+};
+$7cac9a0d4b75bf4e$var$Gutter.prototype.setComputedTracks = function setComputedTracks(raw) {
+    this.computedTracks = raw.split(" ");
+    this.computedPixels = $7cac9a0d4b75bf4e$var$parse(raw);
+};
+$7cac9a0d4b75bf4e$var$Gutter.prototype.setGap = function setGap(raw) {
+    this.gap = raw;
+};
+$7cac9a0d4b75bf4e$var$Gutter.prototype.setComputedGap = function setComputedGap(raw) {
+    this.computedGap = raw;
+    this.computedGapPixels = $7cac9a0d4b75bf4e$var$getGapValue("px", this.computedGap) || 0;
+};
+$7cac9a0d4b75bf4e$var$Gutter.prototype.getMousePosition = function getMousePosition(e) {
+    if ("touches" in e) return e.touches[0][this.clientAxis];
+    return e[this.clientAxis];
+};
+$7cac9a0d4b75bf4e$var$Gutter.prototype.startDragging = function startDragging(e) {
+    if ("button" in e && e.button !== 0) return;
+    // Don't actually drag the element. We emulate that in the drag function.
+    e.preventDefault();
+    if (this.element) this.grid = this.element.parentNode;
+    else this.grid = e.target.parentNode;
+    this.getDimensions();
+    this.setTracks(this.getRawTracks());
+    this.setComputedTracks(this.getRawComputedTracks());
+    this.setGap(this.getGap());
+    this.setComputedGap(this.getRawComputedGap());
+    var trackPercentage = this.trackValues.filter(function(track) {
+        return track.type === "%";
+    });
+    var trackFr = this.trackValues.filter(function(track) {
+        return track.type === "fr";
+    });
+    this.totalFrs = trackFr.length;
+    if (this.totalFrs) {
+        var track = $7cac9a0d4b75bf4e$var$firstNonZero(trackFr);
+        if (track !== null) this.frToPixels = this.computedPixels[track].numeric / trackFr[track].numeric;
+    }
+    if (trackPercentage.length) {
+        var track$1 = $7cac9a0d4b75bf4e$var$firstNonZero(trackPercentage);
+        if (track$1 !== null) this.percentageToPixels = this.computedPixels[track$1].numeric / trackPercentage[track$1].numeric;
+    }
+    // get start of gutter track
+    var gutterStart = this.getSizeAtTrack(this.track, false) + this.start;
+    this.dragStartOffset = this.getMousePosition(e) - gutterStart;
+    this.aTrack = this.track - 1;
+    if (this.track < this.tracks.length - 1) this.bTrack = this.track + 1;
+    else throw Error("Invalid track index: " + this.track + ". Track must be between two other tracks and only " + this.tracks.length + " tracks were found.");
+    this.aTrackStart = this.getSizeAtTrack(this.aTrack, false) + this.start;
+    this.bTrackEnd = this.getSizeAtTrack(this.bTrack, true) + this.start;
+    // Set the dragging property of the pair object.
+    this.dragging = true;
+    // All the binding. `window` gets the stop events in case we drag out of the elements.
+    window.addEventListener("mouseup", this.stopDragging);
+    window.addEventListener("touchend", this.stopDragging);
+    window.addEventListener("touchcancel", this.stopDragging);
+    window.addEventListener("mousemove", this.drag);
+    window.addEventListener("touchmove", this.drag);
+    // Disable selection. Disable!
+    this.grid.addEventListener("selectstart", $7cac9a0d4b75bf4e$var$NOOP);
+    this.grid.addEventListener("dragstart", $7cac9a0d4b75bf4e$var$NOOP);
+    this.grid.style.userSelect = "none";
+    this.grid.style.webkitUserSelect = "none";
+    this.grid.style.MozUserSelect = "none";
+    this.grid.style.pointerEvents = "none";
+    // Set the cursor at multiple levels
+    this.grid.style.cursor = this.cursor;
+    window.document.body.style.cursor = this.cursor;
+    this.onDragStart(this.direction, this.track);
+};
+$7cac9a0d4b75bf4e$var$Gutter.prototype.stopDragging = function stopDragging() {
+    this.dragging = false;
+    // Remove the stored event listeners. This is why we store them.
+    this.cleanup();
+    this.onDragEnd(this.direction, this.track);
+    if (this.needsDestroy) {
+        if (this.element) {
+            this.element.removeEventListener("mousedown", this.startDragging);
+            this.element.removeEventListener("touchstart", this.startDragging);
+        }
+        this.destroyCb();
+        this.needsDestroy = false;
+        this.destroyCb = null;
+    }
+};
+$7cac9a0d4b75bf4e$var$Gutter.prototype.drag = function drag(e) {
+    var mousePosition = this.getMousePosition(e);
+    var gutterSize = this.getSizeOfTrack(this.track);
+    var minMousePosition = this.aTrackStart + this.minSizeStart + this.dragStartOffset + this.computedGapPixels;
+    var maxMousePosition = this.bTrackEnd - this.minSizeEnd - this.computedGapPixels - (gutterSize - this.dragStartOffset);
+    var minMousePositionOffset = minMousePosition + this.snapOffset;
+    var maxMousePositionOffset = maxMousePosition - this.snapOffset;
+    if (mousePosition < minMousePositionOffset) mousePosition = minMousePosition;
+    if (mousePosition > maxMousePositionOffset) mousePosition = maxMousePosition;
+    if (mousePosition < minMousePosition) mousePosition = minMousePosition;
+    else if (mousePosition > maxMousePosition) mousePosition = maxMousePosition;
+    var aTrackSize = mousePosition - this.aTrackStart - this.dragStartOffset - this.computedGapPixels;
+    var bTrackSize = this.bTrackEnd - mousePosition + this.dragStartOffset - gutterSize - this.computedGapPixels;
+    if (this.dragInterval > 1) {
+        var aTrackSizeIntervaled = Math.round(aTrackSize / this.dragInterval) * this.dragInterval;
+        bTrackSize -= aTrackSizeIntervaled - aTrackSize;
+        aTrackSize = aTrackSizeIntervaled;
+    }
+    if (aTrackSize < this.minSizeStart) aTrackSize = this.minSizeStart;
+    if (bTrackSize < this.minSizeEnd) bTrackSize = this.minSizeEnd;
+    if (this.trackValues[this.aTrack].type === "px") this.tracks[this.aTrack] = aTrackSize + "px";
+    else if (this.trackValues[this.aTrack].type === "fr") {
+        if (this.totalFrs === 1) this.tracks[this.aTrack] = "1fr";
+        else {
+            var targetFr = aTrackSize / this.frToPixels;
+            this.tracks[this.aTrack] = targetFr + "fr";
+        }
+    } else if (this.trackValues[this.aTrack].type === "%") {
+        var targetPercentage = aTrackSize / this.percentageToPixels;
+        this.tracks[this.aTrack] = targetPercentage + "%";
+    }
+    if (this.trackValues[this.bTrack].type === "px") this.tracks[this.bTrack] = bTrackSize + "px";
+    else if (this.trackValues[this.bTrack].type === "fr") {
+        if (this.totalFrs === 1) this.tracks[this.bTrack] = "1fr";
+        else {
+            var targetFr$1 = bTrackSize / this.frToPixels;
+            this.tracks[this.bTrack] = targetFr$1 + "fr";
+        }
+    } else if (this.trackValues[this.bTrack].type === "%") {
+        var targetPercentage$1 = bTrackSize / this.percentageToPixels;
+        this.tracks[this.bTrack] = targetPercentage$1 + "%";
+    }
+    var style = this.tracks.join(" ");
+    this.writeStyle(this.grid, this.gridTemplateProp, style);
+    this.onDrag(this.direction, this.track, style);
+};
+$7cac9a0d4b75bf4e$var$Gutter.prototype.cleanup = function cleanup() {
+    window.removeEventListener("mouseup", this.stopDragging);
+    window.removeEventListener("touchend", this.stopDragging);
+    window.removeEventListener("touchcancel", this.stopDragging);
+    window.removeEventListener("mousemove", this.drag);
+    window.removeEventListener("touchmove", this.drag);
+    if (this.grid) {
+        this.grid.removeEventListener("selectstart", $7cac9a0d4b75bf4e$var$NOOP);
+        this.grid.removeEventListener("dragstart", $7cac9a0d4b75bf4e$var$NOOP);
+        this.grid.style.userSelect = "";
+        this.grid.style.webkitUserSelect = "";
+        this.grid.style.MozUserSelect = "";
+        this.grid.style.pointerEvents = "";
+        this.grid.style.cursor = "";
+    }
+    window.document.body.style.cursor = "";
+};
+$7cac9a0d4b75bf4e$var$Gutter.prototype.destroy = function destroy(immediate, cb) {
+    if (immediate === void 0) immediate = true;
+    if (immediate || this.dragging === false) {
+        this.cleanup();
+        if (this.element) {
+            this.element.removeEventListener("mousedown", this.startDragging);
+            this.element.removeEventListener("touchstart", this.startDragging);
+        }
+        if (cb) cb();
+    } else {
+        this.needsDestroy = true;
+        if (cb) this.destroyCb = cb;
+    }
+};
+var $7cac9a0d4b75bf4e$var$getTrackOption = function(options, track, defaultValue) {
+    if (track in options) return options[track];
+    return defaultValue;
+};
+var $7cac9a0d4b75bf4e$var$createGutter = function(direction, options) {
+    return function(gutterOptions) {
+        if (gutterOptions.track < 1) throw Error("Invalid track index: " + gutterOptions.track + ". Track must be between two other tracks.");
+        var trackMinSizes = direction === "column" ? options.columnMinSizes || {} : options.rowMinSizes || {};
+        var trackMinSize = direction === "column" ? "columnMinSize" : "rowMinSize";
+        return new $7cac9a0d4b75bf4e$var$Gutter(direction, Object.assign({}, {
+            minSizeStart: $7cac9a0d4b75bf4e$var$getTrackOption(trackMinSizes, gutterOptions.track - 1, $7cac9a0d4b75bf4e$var$getOption(options, trackMinSize, $7cac9a0d4b75bf4e$var$getOption(options, "minSize", 0))),
+            minSizeEnd: $7cac9a0d4b75bf4e$var$getTrackOption(trackMinSizes, gutterOptions.track + 1, $7cac9a0d4b75bf4e$var$getOption(options, trackMinSize, $7cac9a0d4b75bf4e$var$getOption(options, "minSize", 0)))
+        }, gutterOptions), options);
+    };
+};
+var $7cac9a0d4b75bf4e$var$Grid = function Grid(options) {
+    var this$1 = this;
+    this.columnGutters = {};
+    this.rowGutters = {};
+    this.options = Object.assign({}, {
+        columnGutters: options.columnGutters || [],
+        rowGutters: options.rowGutters || [],
+        columnMinSizes: options.columnMinSizes || {},
+        rowMinSizes: options.rowMinSizes || {}
+    }, options);
+    this.options.columnGutters.forEach(function(gutterOptions) {
+        this$1.columnGutters[gutterOptions.track] = $7cac9a0d4b75bf4e$var$createGutter("column", this$1.options)(gutterOptions);
+    });
+    this.options.rowGutters.forEach(function(gutterOptions) {
+        this$1.rowGutters[gutterOptions.track] = $7cac9a0d4b75bf4e$var$createGutter("row", this$1.options)(gutterOptions);
+    });
+};
+$7cac9a0d4b75bf4e$var$Grid.prototype.addColumnGutter = function addColumnGutter(element, track) {
+    if (this.columnGutters[track]) this.columnGutters[track].destroy();
+    this.columnGutters[track] = $7cac9a0d4b75bf4e$var$createGutter("column", this.options)({
+        element: element,
+        track: track
+    });
+};
+$7cac9a0d4b75bf4e$var$Grid.prototype.addRowGutter = function addRowGutter(element, track) {
+    if (this.rowGutters[track]) this.rowGutters[track].destroy();
+    this.rowGutters[track] = $7cac9a0d4b75bf4e$var$createGutter("row", this.options)({
+        element: element,
+        track: track
+    });
+};
+$7cac9a0d4b75bf4e$var$Grid.prototype.removeColumnGutter = function removeColumnGutter(track, immediate) {
+    var this$1 = this;
+    if (immediate === void 0) immediate = true;
+    if (this.columnGutters[track]) this.columnGutters[track].destroy(immediate, function() {
+        delete this$1.columnGutters[track];
+    });
+};
+$7cac9a0d4b75bf4e$var$Grid.prototype.removeRowGutter = function removeRowGutter(track, immediate) {
+    var this$1 = this;
+    if (immediate === void 0) immediate = true;
+    if (this.rowGutters[track]) this.rowGutters[track].destroy(immediate, function() {
+        delete this$1.rowGutters[track];
+    });
+};
+$7cac9a0d4b75bf4e$var$Grid.prototype.handleDragStart = function handleDragStart(e, direction, track) {
+    if (direction === "column") {
+        if (this.columnGutters[track]) this.columnGutters[track].destroy();
+        this.columnGutters[track] = $7cac9a0d4b75bf4e$var$createGutter("column", this.options)({
+            track: track
+        });
+        this.columnGutters[track].startDragging(e);
+    } else if (direction === "row") {
+        if (this.rowGutters[track]) this.rowGutters[track].destroy();
+        this.rowGutters[track] = $7cac9a0d4b75bf4e$var$createGutter("row", this.options)({
+            track: track
+        });
+        this.rowGutters[track].startDragging(e);
+    }
+};
+$7cac9a0d4b75bf4e$var$Grid.prototype.destroy = function destroy(immediate) {
+    var this$1 = this;
+    if (immediate === void 0) immediate = true;
+    Object.keys(this.columnGutters).forEach(function(track) {
+        return this$1.columnGutters[track].destroy(immediate, function() {
+            delete this$1.columnGutters[track];
+        });
+    });
+    Object.keys(this.rowGutters).forEach(function(track) {
+        return this$1.rowGutters[track].destroy(immediate, function() {
+            delete this$1.rowGutters[track];
+        });
+    });
+};
+function $7cac9a0d4b75bf4e$var$index(options) {
+    return new $7cac9a0d4b75bf4e$var$Grid(options);
+}
+var $7cac9a0d4b75bf4e$export$2e2bcd8739ae039 = $7cac9a0d4b75bf4e$var$index;
+
+
+
+function $506dabb2bf255b38$export$2e2bcd8739ae039({ split: split , opts: opts = {}  }) {
+    let splitter = null;
+    const shouldSplit = split.sizes !== null;
+    return {
+        layoutResizing: false,
+        layoutWidth: null,
+        layoutHeight: null,
+        forceOrientation: null,
+        get vertical () {
+            if (this.forceOrientation) return this.forceOrientation === "vertical";
+            return split.direction === "vertical";
+        },
+        get horizontal () {
+            if (this.forceOrientation) return this.forceOrientation === "horizontal";
+            return split.direction === "horizontal";
+        },
+        get splits () {
+            if (this.horizontal && split.horizontalSizes) return split.horizontalSizes;
+            else if (this.vertical && split.verticalSizes) return split.verticalSizes;
+            else return split.sizes || [];
+        },
+        get minSizes () {
+            if (this.horizontal && opts.minHorizontalSizes) return opts.minHorizontalSizes;
+            else if (this.vertical && opts.minVerticalSizes) return opts.minVerticalSizes;
+            else return opts.minSizes || [];
+        },
+        init () {
+            (0, $9930d46698775b42$export$a2214cc2adb2dc44)(this.$el, ({ width: width , height: height  })=>{
+                this.layoutWidth = width;
+                this.layoutHeight = height;
+            });
+        },
+        switchOrientation () {
+            split.direction = this.vertical ? "horizontal" : "vertical";
+        },
+        registerGutter () {
+            this._gutters.push(this.$el);
+        },
+        initSplit () {
+            if (shouldSplit && this._gutters.length) {
+                this._destroySplit();
+                const dir = this.horizontal ? "row" : "column";
+                splitter = (0, $7cac9a0d4b75bf4e$export$2e2bcd8739ae039)({
+                    [`${dir}Gutters`]: $506dabb2bf255b38$var$gutterSplits(this._gutters),
+                    [`${dir}MinSizes`]: $506dabb2bf255b38$var$sizeSplits(this.minSizes),
+                    snapOffset: 0,
+                    dragInterval: 1,
+                    writeStyle () {},
+                    onDrag: (dir, gutterTrack, style)=>{
+                        const splits = style.split(" ").map((value, i)=>i % 2 == 0 ? value : null).filter((v)=>v);
+                        this._setSplits(splits);
+                    },
+                    onDragStart: ()=>{
+                        this.layoutResizing = true;
+                        this.$dispatch("layout:resize-start", {
+                            layout: this
+                        });
+                    },
+                    onDragEnd: ()=>{
+                        this.layoutResizing = false;
+                        this.$dispatch("layout:resize-end", {
+                            layout: this
+                        });
+                    }
+                });
+            }
+        },
+        bindings: {
+            root: {
+                [":style"] () {
+                    return {
+                        "grid-template-columns": shouldSplit && this.vertical && $506dabb2bf255b38$var$sizeStr(this.splits),
+                        "grid-template-rows": shouldSplit && this.horizontal && $506dabb2bf255b38$var$sizeStr(this.splits)
+                    };
+                }
+            }
+        },
+        // protected
+        _gutters: [],
+        _destroySplit () {
+            if (splitter) splitter.destroy();
+        },
+        _setSplits (splits) {
+            if (this.horizontal && split.horizontalSizes) split.horizontalSizes = splits;
+            else if (this.vertical && split.verticalSizes) split.verticalSizes = splits;
+            else split.sizes = splits;
+        }
+    };
+}
+// utils
+function $506dabb2bf255b38$var$sizeStr(sizes) {
+    const values = [];
+    sizes.forEach((size)=>values.push(size, "1px"));
+    return values.slice(0, -1).join(" ");
+}
+function $506dabb2bf255b38$var$gutterSplits(gutters) {
+    return gutters.map((element, i)=>{
+        return {
+            track: i * 2 + 1,
+            element: element
+        };
+    });
+}
+function $506dabb2bf255b38$var$sizeSplits(sizes) {
+    const splits = {};
+    sizes.forEach((value, i)=>{
+        if (value !== null) splits[i * 2] = value;
+    });
+    return splits;
+}
+
+
+var $0db07828cadc68e0$exports = {};
+
+$parcel$defineInteropFlag($0db07828cadc68e0$exports);
+
+$parcel$export($0db07828cadc68e0$exports, "default", () => $0db07828cadc68e0$export$2e2bcd8739ae039);
+
+
+
+
+function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
+    const initial = store ? store.activeTab : null;
+    let dropdown = null;
+    return {
+        visibleTabsCount: 0,
+        triggerLeft: 0,
+        get store () {
+            return store || this;
+        },
+        get tabs () {
+            return this.$refs.tabs ? Array.from(this.$refs.tabs.children) : [];
+        },
+        get dropdownTabs () {
+            return Array.from(this.$refs.tabsDropdown ? this.$refs.tabsDropdown.children : []);
+        },
+        get tabWidths () {
+            return this.tabs.map((tab)=>(0, $e263283f97229955$export$bdf7e699b242f476)(tab, {
+                    includeMargins: true
+                }).width);
+        },
+        init () {
+            this.$nextTick(()=>{
+                if (this.$root.parentElement.offsetWidth === this.$root.offsetWidth) this.visibleTabsCount = this.tabs.length;
+                dropdown = (0, $d6f449055c23f07a$export$2e2bcd8739ae039)(this.$refs.dropdownTrigger, {
+                    content: this.$refs.tabsDropdown,
+                    theme: "menu",
+                    interactive: true,
+                    trigger: "click",
+                    placement: "bottom",
+                    appendTo: this.$root
+                });
+                const initialTab = initial ? this.tabs.find((t)=>this._getRef(t) === initial) : this.tabs[0];
+                this.selectTab(initialTab, true);
+                this.parentObserver = (0, $9930d46698775b42$export$a2214cc2adb2dc44)(this.$root.parentElement, (0, $c5d017602d25d050$export$61fc7d43ac8f84b0)(10, this.handleResize.bind(this)));
+                this.$watch("visibleTabsCount", (value)=>{
+                    this.debug(`'#${this.$root.id}' visible tabs count:`, value);
+                });
+            });
+        },
+        handleResize ({ width: width  }) {
+            if (width === this._lastMeasuredWidth) return;
+            if (width === this.$root.offsetWidth) {
+                this.visibleTabsCount = this.tabs.length;
+                return;
+            }
+            let sumTabWidths = 60;
+            let triggerLeft = 20;
+            let visibleTabsCount = 0;
+            this.tabWidths.forEach((tabWidth)=>{
+                sumTabWidths += tabWidth;
+                if (sumTabWidths < width) {
+                    triggerLeft += tabWidth;
+                    visibleTabsCount++;
+                }
+            });
+            this.visibleTabsCount = visibleTabsCount;
+            this.triggerLeft = triggerLeft;
+            this._lastMeasuredWidth = width;
+        },
+        selectTab (el, initial = false) {
+            this.store.activeTab = this._getRef(el);
+            dropdown.hide();
+            if (!initial) this.$dispatch("tabs:change", {
+                tabs: this
+            });
+        },
+        isSelected (el) {
+            return this.store.activeTab === this._getRef(el);
+        },
+        isDisabled (el) {
+            return el.getAttribute("data-disabled") == "true";
+        },
+        hasHiddenTabs () {
+            return this.visibleTabsCount < this.tabs.length;
+        },
+        // protected
+        _lastMeasuredWidth: 0,
+        _getRef (el) {
+            return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
+        }
+    };
+}
+
+
+var $a87dacf5139b5e2f$exports = {};
+
+$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
+
+$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
+function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
+    return {
+        get store () {
+            return store || this;
+        },
+        get id () {
+            return this.$root.id;
+        },
+        get panels () {
+            return Array.from(this.$refs.panels.children);
+        },
+        isActive (el) {
+            return this.store.activeTab === this._getRef(el);
+        },
+        // protected
+        _getRef (el) {
+            return el.getAttribute("x-ref");
+        }
+    };
+}
+
+
+var $6d64716f0b34fdf4$exports = {};
+
+$parcel$defineInteropFlag($6d64716f0b34fdf4$exports);
+
+$parcel$export($6d64716f0b34fdf4$exports, "default", () => $6d64716f0b34fdf4$export$2e2bcd8739ae039);
+function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
+    store = store || {
+        width: "100%",
+        height: "100%"
+    };
+    store.resizing = false;
+    return {
+        store: store,
+        get maxWidth () {
+            return this.store.width === "100%" ? "100%" : `${store.width}px`;
+        },
+        get maxHeight () {
+            return this.store.height === "100%" ? "100%" : `${store.height}px`;
+        },
+        get parentWidth () {
+            return Math.round(this.$root.clientWidth);
+        },
+        get parentHeight () {
+            return Math.round(this.$root.clientHeight);
+        },
+        get reflowing () {
+            return this.$store.layout.reflowing;
+        },
+        reloadIframe () {
+            this.$refs.iframe.contentWindow.location.reload();
+        },
+        start () {
+            this.$dispatch("viewport:resize-start", this._resizeData);
+            this.$store.layout.reflowing = true;
+            this.store.resizing = true;
+        },
+        end () {
+            this.$store.layout.reflowing = false;
+            this.store.resizing = false;
+            this.$dispatch("viewport:resize-complete", this._resizeData);
+        },
+        onResizeStart (e) {
+            this.onResizeWidthStart(e);
+            this.onResizeHeightStart(e);
+        },
+        toggleFullSize () {
+            const { height: height , width: width  } = store;
+            if (height === "100%" && width === "100%") {
+                this.toggleFullHeight();
+                this.toggleFullWidth();
+            } else {
+                if (height !== "100%") this.toggleFullHeight();
+                if (width !== "100%") this.toggleFullWidth();
+            }
+        },
+        onResizeWidth (e) {
+            const width = this.resizeStartWidth - (this.resizeStartPositionX - e.pageX) * 2;
+            const boundedWidth = Math.min(Math.max(Math.round(width), 200), this.parentWidth);
+            this.store.width = boundedWidth === this.parentWidth ? "100%" : boundedWidth;
+            this.$dispatch("viewport:resize-progress", this._resizeData);
+        },
+        onResizeWidthStart (e) {
+            this.start();
+            this.onResizeWidth = this.onResizeWidth.bind(this);
+            this.onResizeWidthEnd = this.onResizeWidthEnd.bind(this);
+            this.resizeStartPositionX = e.pageX;
+            this.resizeStartWidth = this.$refs.wrapper.clientWidth;
+            window.addEventListener("pointermove", this.onResizeWidth);
+            window.addEventListener("pointerup", this.onResizeWidthEnd);
+        },
+        onResizeWidthEnd () {
+            window.removeEventListener("pointermove", this.onResizeWidth);
+            window.removeEventListener("pointerup", this.onResizeWidthEnd);
+            this.end();
+        },
+        toggleFullWidth () {
+            this.$dispatch("viewport:resize-start", this._resizeData);
+            const { width: width , lastWidth: lastWidth  } = store;
+            if (width === "100%" && lastWidth) this.store.width = lastWidth;
+            else {
+                this.store.lastWidth = width;
+                this.store.width = "100%";
+            }
+            this.$dispatch("viewport:resize-complete", this._resizeData);
+        },
+        onResizeHeight (e) {
+            const height = this.resizeStartHeight - (this.resizeStartPositionY - e.pageY);
+            const boundedHeight = Math.min(Math.max(Math.round(height), 200), this.parentHeight);
+            this.store.height = boundedHeight === this.parentHeight ? "100%" : boundedHeight;
+            this.$dispatch("viewport:resize-progress", this._resizeData);
+        },
+        onResizeHeightStart (e) {
+            this.start();
+            this.onResizeHeight = this.onResizeHeight.bind(this);
+            this.onResizeHeightEnd = this.onResizeHeightEnd.bind(this);
+            this.resizeStartPositionY = e.pageY;
+            this.resizeStartHeight = this.$refs.wrapper.clientHeight;
+            window.addEventListener("pointermove", this.onResizeHeight);
+            window.addEventListener("pointerup", this.onResizeHeightEnd);
+        },
+        onResizeHeightEnd () {
+            window.removeEventListener("pointermove", this.onResizeHeight);
+            window.removeEventListener("pointerup", this.onResizeHeightEnd);
+            this.end();
+        },
+        toggleFullHeight () {
+            this.$dispatch("viewport:resize-start", this._resizeData);
+            const { height: height , lastHeight: lastHeight  } = store;
+            if (height === "100%" && lastHeight) this.store.height = lastHeight;
+            else {
+                this.store.lastHeight = height;
+                this.store.height = "100%";
+            }
+            this.$dispatch("viewport:resize-complete", this._resizeData);
+        },
+        // protected
+        get _resizeData () {
+            return {
+                width: this.store.width,
+                height: this.store.height,
+                viewport: this
+            };
+        }
+    };
+}
+
+
+$abfe6ef0614b4b5d$exports = {
+    "button": $cbd28b10fa9798c7$exports,
+    "code": $99486586f6691564$exports,
+    "dimensions_display": $e398acaded942bbe$exports,
+    "copy_button": $47a1c62621be0c54$exports,
+    "embed": $e1f51f020443edd4$exports,
+    "filter": $e9904a14dabf652d$exports,
+    "icon": $36506012e0c6e9e3$exports,
+    "nav": $d92d9d5253f84566$exports,
+    "split_layout": $506dabb2bf255b38$exports,
+    "tabs": $0db07828cadc68e0$exports,
+    "tab_panels": $a87dacf5139b5e2f$exports,
+    "viewport": $6d64716f0b34fdf4$exports
+};
+
+
+var $2af7656449ff0341$exports = {};
+var $c299e36fa9e271bc$exports = {};
+
+$parcel$defineInteropFlag($c299e36fa9e271bc$exports);
+
+$parcel$export($c299e36fa9e271bc$exports, "default", () => $c299e36fa9e271bc$export$2e2bcd8739ae039);
+
 function $c299e36fa9e271bc$export$2e2bcd8739ae039(id, embedStore) {
     if (!embedStore[id]) embedStore[id] = {
         width: "100%",
         height: "100%"
     };
     return {
-        resizer: null,
+        iframe: null,
+        viewportHeight: 0,
+        get viewportCssHeight () {
+            return this.viewportHeight ? `${this.viewportHeight}px` : "100%";
+        },
+        get resizer () {
+            return this.iframe ? this.iframe.iFrameResizer : null;
+        },
         get store () {
             return embedStore[id];
         },
-        get iframe () {
-            return this.$el.querySelector("iframe");
+        init () {
+            const iframeEl = this.$el.querySelector("iframe");
+            const onResized = this.onResized.bind(this);
+            this.iframe = window.iFrameResize({
+                onResized: onResized
+            }, iframeEl)[0];
         },
-        async loadResizer () {
-            window.iFrameResize({
-                heightCalculationMethod: "lowestElement"
-            }, this.$el.querySelector("iframe"));
-            this.resizer = this.iframe.iFrameResizer;
-            this.resizer.resize();
-            this.$dispatch("embed:resizer-loaded", {
-                resizer: this.resizer
-            });
+        onResized ({ height: height  }) {
+            if (height) this.viewportHeight = height;
         },
         resizeIframe () {
-            this.iframe.iFrameResizer.resize();
-        },
-        morphComplete () {
-            this.loadResizer();
-            this.resizeIframe();
-        },
-        cleanup () {
-            if (this.resizer) this.resizer.removeListeners();
+            if (this.resizer) this.resizer.resize();
         }
     };
 }
@@ -13424,7 +13413,7 @@ const $d73574cc5e9b9e72$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $d709d0f4027033b2$export$2e2bcd8739ae039));
 [
-    $08e53c7addc98abe$exports,
+    $abfe6ef0614b4b5d$exports,
     $2af7656449ff0341$exports,
     $6c10158820e535ef$exports
 ].forEach((scripts)=>{

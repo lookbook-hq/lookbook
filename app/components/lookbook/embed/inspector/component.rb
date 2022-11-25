@@ -1,13 +1,16 @@
 module Lookbook
   class Embed::Inspector::Component < Lookbook::BaseComponent
-    attr_reader :id, :target, :context
+    attr_reader :target, :context
 
-    def initialize(example:, id: nil, context: nil, options: nil, **html_attrs)
-      @id = id || Utils.id("embed", example.id)
+    def initialize(example:, context: nil, options: nil, **html_attrs)
       @target = example
       @context = context.to_h
       @options = options.to_h.compact_blank
       super(**html_attrs)
+    end
+
+    def id
+      Utils.id("embed", target.id, "inspector")
     end
 
     def options

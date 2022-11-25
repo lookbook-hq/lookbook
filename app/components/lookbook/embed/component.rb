@@ -9,6 +9,10 @@ module Lookbook
       super(**html_attrs)
     end
 
+    def id
+      Utils.id("embed", example.id)
+    end
+
     def embed_path
       Engine.routes.url_helpers.lookbook_embed_path(example.path, {
         _options: SearchParamEncoder.call(options),

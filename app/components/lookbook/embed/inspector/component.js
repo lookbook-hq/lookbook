@@ -6,40 +6,37 @@ export default function embedInspectorComponent(id, embedStore) {
   }
 
   return {
-    resizer: null,
+    iframe: null,
+
+    viewportHeight: 0,
+
+    get viewportCssHeight() {
+      return this.viewportHeight ? `${this.viewportHeight}px` : "100%";
+    },
+
+    get resizer() {
+      return this.iframe ? this.iframe.iFrameResizer : null;
+    },
 
     get store() {
       return embedStore[id];
     },
 
-    get iframe() {
-      return this.$el.querySelector("iframe");
+    init() {
+      const iframeEl = this.$el.querySelector("iframe");
+      const onResized = this.onResized.bind(this);
+      this.iframe = window.iFrameResize({ onResized }, iframeEl)[0];
     },
 
-    async loadResizer() {
-      window.iFrameResize(
-        {
-          heightCalculationMethod: "lowestElement",
-        },
-        this.$el.querySelector("iframe")
-      );
-      this.resizer = this.iframe.iFrameResizer;
-      this.resizer.resize();
-      this.$dispatch("embed:resizer-loaded", { resizer: this.resizer });
+    onResized({ height }) {
+      if (height) {
+        this.viewportHeight = height;
+      }
     },
 
     resizeIframe() {
-      this.iframe.iFrameResizer.resize();
-    },
-
-    morphComplete() {
-      this.loadResizer();
-      this.resizeIframe();
-    },
-
-    cleanup() {
       if (this.resizer) {
-        this.resizer.removeListeners();
+        this.resizer.resize();
       }
     },
   };

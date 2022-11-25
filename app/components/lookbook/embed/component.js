@@ -1,39 +1,24 @@
+import "iframe-resizer/js/iframeResizer";
+
 export default function embedComponent() {
   return {
-    resizer: null,
+    height: 0,
 
-    get iframe() {
-      return this.$refs.iframe;
+    get cssHeight() {
+      return this.height ? `${this.height}px` : "auto";
     },
 
     init() {
-      this.loadResizer();
+      const onResized = this.onResized.bind(this);
+      const opts = {
+        autoResize: true,
+        onResized,
+      };
+      window.iFrameResize(opts, this.$refs.iframe);
     },
 
-    async loadResizer() {
-      console.log("asdads");
-      window.iFrameResize(
-        { heightCalculationMethod: "lowestElement" },
-        this.iframe
-      );
-      this.resizer = this.iframe.iFrameResizer;
-      this.resizer.resize();
-      this.$dispatch("embed:resizer-loaded", { resizer: this.resizer });
-    },
-
-    resizeIframe() {
-      this.iframe.iFrameResizer.resize();
-    },
-
-    morphComplete() {
-      this.loadResizer();
-      this.resizeIframe();
-    },
-
-    cleanup() {
-      if (this.resizer) {
-        this.resizer.removeListeners();
-      }
+    onResized({ height }) {
+      this.height = height;
     },
   };
 }

@@ -5,7 +5,7 @@
   "targets": {
     "app": {
       "source": [
-        "./app/assets/lookbook/js/embed.js",
+        "./app/assets/lookbook/js/iframe.js",
         "./app/assets/lookbook/js/lookbook.js",
         "./app/assets/lookbook/css/lookbook.css",
         "./app/assets/lookbook/css/themes/indigo.css",
@@ -79,7 +79,8 @@
   },
   "lint-staged": {
     "**/*": [
-      "prettier --write --ignore-unknown"
+      "prettier --write --ignore-unknown",
+      "npm run build"
     ],
     "**/*.rb": [
       "bundle exec standardrb --fix"

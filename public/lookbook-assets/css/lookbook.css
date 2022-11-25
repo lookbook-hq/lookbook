@@ -2325,12 +2325,12 @@ input[type="color"]::-webkit-color-swatch {
   border-radius: 9999px;
 }
 
-.rounded {
-  border-radius: .25rem;
-}
-
 .rounded-md {
   border-radius: .375rem;
+}
+
+.rounded {
+  border-radius: .25rem;
 }
 
 .rounded-t {
@@ -2676,6 +2676,10 @@ input[type="color"]::-webkit-color-swatch {
 .text-xs {
   font-size: .75rem;
   line-height: 1rem;
+}
+
+.text-\[10px\] {
+  font-size: 10px;
 }
 
 .text-lg {

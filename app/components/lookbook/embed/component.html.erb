@@ -1,10 +1,12 @@
-<%= render_component_tag class: "w-full drop-shadow", "@navigation:start.window": "cleanup" do %>
-  <div @dom:update-complete.window="morphComplete">
+<%= render_component_tag id: id,
+  class: "w-full drop-shadow" do %>
+  <div>
     <iframe
+      id="<%= id %>-iframe"
       src="<%= embed_path %>"
       frameborder="0"
-      style="width: 100%",
-      x-ref="iframe"
-      @load="loadResizer"></iframe> 
+      class="w-full transition-all"
+      :style="`height: ${cssHeight}`"
+      data-lookbook-embed></iframe> 
   </div>
 <% end %>

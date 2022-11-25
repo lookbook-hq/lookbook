@@ -33,7 +33,7 @@ function getElementSize(el, opts = {}) {
 }
 
 function isExternalLink(link) {
-  if (link.getAttribute("target") === "_blank") {
+  if (["_blank", "_top", "_parent"].includes(link.getAttribute("target"))) {
     return true;
   }
   if (link.href) {

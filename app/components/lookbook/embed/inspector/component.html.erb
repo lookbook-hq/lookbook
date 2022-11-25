@@ -1,14 +1,13 @@
 <% if target.present? %>
   <%= render_component_tag id: id,
     class: "not-prose border-b border-lookbook-divider rounded overflow-hidden",
-    "@navigation:start.window": "cleanup" do %>
+    cloak: true do %>
 
   <%= lookbook_render :toolbar, class: "border border-b-0 border-lookbook-divider rounded-t" do |toolbar| %>
     <% toolbar.section padded: true do %>
       <h3>
         <strong><%= target.preview.label %></strong>
-        (<%= target.label %>)
-        <span x-text="store.iframeHeight"></span>
+        (<%= target.label %>) 
       </h3>
     <% end %>
 
@@ -28,7 +27,8 @@
           <% if display_action?(:inspect) %>
             <% group.button icon: :eye,
               href: lookbook_inspect_path(target.path, params),
-              tooltip: "View in Inspector" %>
+              tooltip: "View in Inspector",
+              target: "_top" %>
           <% end %>
           <% if display_action?(:preview) %>
             <% group.button icon: :external_link,
@@ -43,22 +43,23 @@
 
   <section x-ref="viewport">
     <div
-      @viewport:loaded="loadResizer"
-      @dom:update-complete.window="morphComplete"
       @viewport:resize-progress="resizeIframe"
       @viewport:resize-complete="resizeIframe"
       x-ref="viewportWrapper"> 
       <%= lookbook_render :viewport,
+        iframe_id: "#{id}-viewport",
         src: lookbook_preview_path(target.path, params.merge(lookbook_embed: true)),
         alpine_data: "store",
         resize_height: false,
         max_height: viewport_max_height,
-        class: "mb-[-2px]" %>
+        class: "mb-[-2px] transition-all",
+        ":style": "`height: ${viewportCssHeight}`"
+         %>
     </div>
   </section>
 
    <% if drawer? %>
-      <section class="relative top-[-1px] border border-b-0 border-lookbook-divider">
+      <section class="relative top-[-1px] border border-b-0 border-lookbook-divider" x-cloak>
         <%= lookbook_render :toolbar, id: "#{id}-drawer-toolbar" do |toolbar| %>
           <% toolbar.section do %>
             <%= lookbook_render :tabs, alpine_data: "store", id: "#{id}-drawer-tabs" do |tabs| %>
