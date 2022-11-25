@@ -15,7 +15,7 @@ module Lookbook
     end
 
     def left_pad
-      ((depth - 1) * 12) + 24
+      depth * 12
     end
 
     def children
