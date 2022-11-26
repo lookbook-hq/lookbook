@@ -1,7 +1,7 @@
 module Lookbook
   class ParamTag < YardTag
     VALUE_TYPE_MATCHER = /^(\[\s?([A-Z]{1}\w+)\s?\])/
-    DESCRIPTION_MATCHER = /(?:\s|^)"(.*[^\\])"(?:\s|$)/
+    DESCRIPTION_MATCHER = /(?<=\s|^)"(.*[^\\])"(?:\s|$)/
 
     supports_options
 
