@@ -29,10 +29,8 @@ module Lookbook
     end
 
     config.after_initialize do
-      if Engine.reloading?
-        reloaders.add(:previews, Engine.preview_watch_paths, opts.listen_extensions, &Engine.method(:load_previews))
-        reloaders.add(:pages, Engine.page_watch_paths, opts.page_extensions, &Engine.method(:load_pages))
-      end
+      reloaders.add(:previews, Engine.preview_watch_paths, opts.listen_extensions, &Engine.method(:load_previews))
+      reloaders.add(:pages, Engine.page_watch_paths, opts.page_extensions, &Engine.method(:load_pages))
     end
 
     # The preview controller handles the rendering of individual previews.
@@ -47,8 +45,7 @@ module Lookbook
     end
 
     config.after_initialize do
-      load_previews
-      load_pages
+      reloaders.execute
       Engine.run_hooks(:after_initialize)
     end
 
@@ -158,13 +155,11 @@ module Lookbook
       def load_previews(changes = nil)
         parser.parse do |code_objects|
           previews.load(code_objects.all(:class), changes)
-          notify_clients(changes)
         end
       end
 
       def load_pages(changes = nil)
         pages.load(Engine.page_paths, changes)
-        notify_clients(changes)
       end
 
       def notify_clients(changes = nil)
@@ -176,7 +171,8 @@ module Lookbook
 
       def files_changed(modified, added, removed)
         changes = {modified: modified, added: added, removed: removed}
-        reloaders.execute_all_watching(changes)
+        reloaders.register_changes(changes)
+        notify_clients(changes)
       end
     end
 

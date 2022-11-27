@@ -12,6 +12,25 @@ module Lookbook
         super
         Engine.files_changed(modified, added, removed) if @updated
       end
+
+      # Patched to handle regex-style
+      # extension matchers like `.html.*`
+      def watching?(file)
+        return true if super
+
+        file = Pathname(file)
+        name_parts = file.basename.to_s.split(".")
+        ext = name_parts.drop(1).join(".").to_s
+
+        file.dirname.ascend do |dir|
+          matching = @dirs.fetch(dir, []).map { |m| Regexp.new(m) }
+          if matching.empty? || matching.find { |m| m.match?(ext) }
+            break true
+          elsif dir == @common_path || dir.root?
+            break false
+          end
+        end
+      end
     end
   end
 end

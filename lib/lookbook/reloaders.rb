@@ -12,18 +12,19 @@ module Lookbook
       reloader = Reloader.new(name, directories, extensions, &callback)
       reloaders.push(reloader)
 
-      Rails.application.reloaders << reloader
-      Rails.application.reloader.to_prepare { reloader.execute_if_updated }
+      if Engine.reloading?
+        Rails.application.reloaders << reloader
+        Rails.application.reloader.to_run { reloader.execute_if_updated }
+      end
     end
 
     def execute
       reloaders.each { |reloader| reloader.execute }
     end
 
-    def execute_all_watching(changes)
-      reloaders.inject(false) do |result, reloader|
-        reloader.execute_if_watching(changes) ? true : result
-      end
+    def register_changes(changes)
+      reloader = reloaders.find { |reloader| reloader.watching?(changes) }
+      reloader.last_changes = changes if reloader
     end
 
     class << self
@@ -46,34 +47,14 @@ module Lookbook
       delegate :execute, :execute_if_updated, :updated?, to: :file_watcher
 
       attr_reader :name, :directories, :extensions, :callback
+      attr_accessor :last_changes
 
       def initialize(name, directories, extensions, &callback)
         @name = name.to_sym
         @directories = directories
         @extensions = extensions
         @callback = callback
-        @last_changes = []
-      end
-
-      def file_watcher
-        return @_file_watcher if @_file_watcher
-
-        to_watch = directories.each_with_object({}) do |directory, result|
-          result[directory] = extensions
-        end
-
-        @_file_watcher ||= Reloaders.file_watcher.new([], to_watch) do
-          callback.call(@last_changes)
-        end
-      end
-
-      def execute_if_watching(changes)
-        if watching?(changes)
-          @last_changes = changes
-          execute
-        else
-          @last_changes = []
-        end
+        @last_changes = nil
       end
 
       def watching?(changes)
@@ -84,6 +65,21 @@ module Lookbook
             matcher = File.expand_path(File.join(dir_path, "**"))
             file_path.fnmatch?(matcher)
           end
+        end
+      end
+
+      protected
+
+      def file_watcher
+        return @_file_watcher if @_file_watcher
+
+        to_watch = directories.each_with_object({}) do |directory, result|
+          result[directory] = extensions
+        end
+
+        @_file_watcher ||= Reloaders.file_watcher.new([], to_watch) do
+          callback.call(@last_changes)
+          @last_changes = nil
         end
       end
     end
