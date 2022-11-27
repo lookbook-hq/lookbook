@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Lookbook::Preview do
+RSpec.describe Lookbook::PreviewEntity do
   context "default" do
     let(:preview) { Lookbook.previews.find_by_id(:standard) }
 
@@ -61,7 +61,7 @@ RSpec.describe Lookbook::Preview do
         examples = preview.examples
         expect(examples).to be_a Lookbook::PreviewExampleCollection
         examples.each do |example|
-          expect(example).to be_a Lookbook::PreviewExample
+          expect(example).to be_a Lookbook::PreviewExampleEntity
         end
       end
 
@@ -142,7 +142,7 @@ RSpec.describe Lookbook::Preview do
 
           expect(components).to be_a Lookbook::ComponentCollection
           expect(components.size).to eq 1
-          expect(components.first).to be_a Lookbook::Component
+          expect(components.first).to be_a Lookbook::ComponentEntity
         end
       end
 
@@ -262,7 +262,7 @@ RSpec.describe Lookbook::Preview do
 
         expect(components).to be_a Lookbook::ComponentCollection
         components.each do |component|
-          expect(component).to be_a Lookbook::Component
+          expect(component).to be_a Lookbook::ComponentEntity
         end
       end
 

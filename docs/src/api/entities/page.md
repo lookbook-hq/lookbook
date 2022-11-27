@@ -1,6 +1,6 @@
 ---
 layout: entity
-title: Page
+title: PageEntity
 entity_data: page
 ---
 

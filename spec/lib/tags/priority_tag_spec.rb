@@ -16,7 +16,7 @@ RSpec.describe Lookbook::PriorityTag do
 
     it "returns the default value if the string cannot be converted into an integer" do
       tag = described_class.new("foo")
-      expect(tag.value).to eq Lookbook::PositionTag::DEFAULT_PRIORITY
+      expect(tag.value).to eq Lookbook::PriorityTag::DEFAULT_PRIORITY
     end
   end
 end

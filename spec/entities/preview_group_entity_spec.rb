@@ -1,8 +1,8 @@
 require "rails_helper"
 
-RSpec.describe Lookbook::PreviewGroup do
+RSpec.describe Lookbook::PreviewGroupEntity do
   let(:preview) { Lookbook.previews.find_by_id(:group) }
-  let(:groups) { preview.examples.select { |e| e.is_a?(Lookbook::PreviewGroup) } }
+  let(:groups) { preview.examples.select { |e| e.is_a?(described_class) } }
 
   context "default" do
     let(:group) { preview.example("named") }
@@ -18,7 +18,7 @@ RSpec.describe Lookbook::PreviewGroup do
         examples = group.examples
         expect(examples).to be_a Lookbook::PreviewExampleCollection
         examples.each do |example|
-          expect(example).to be_a Lookbook::PreviewExample
+          expect(example).to be_a Lookbook::PreviewExampleEntity
         end
       end
     end

@@ -1,6 +1,6 @@
 ---
 layout: entity
-title: PreviewExample
+title: PreviewExampleEntity
 entity_data: preview_example
 ---
 

@@ -119,3 +119,15 @@ tags:
     example: |
       # @source ./component.js
       def default_example
+
+  - name: "@type"
+    signature: "@type <preview_type>"
+    args:
+      - name: <preview_type>
+        type: String
+        description: |
+          Type descriptor - i.e `view_component`, `template`, or `phlex`
+    purpose: The type of thing being rendered in the preview. Defaults to `view_component`
+    example: |
+      # @type template
+      def default_example

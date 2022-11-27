@@ -1,5 +1,5 @@
 ---
 layout: entity
-title: Preview
+title: PreviewEntity
 entity_data: preview
 ---

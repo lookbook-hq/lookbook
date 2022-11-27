@@ -69,17 +69,19 @@ api:
         url: /api/tags/
   - label: Entities
     items:
-      - label: Page
+      - label: PageEntity
         url: /api/entities/page/
-      - label: Preview
+      - label: PreviewEntity
         url: /api/entities/preview/
-      - label: PreviewExample
+      - label: PreviewExampleEntity
         url: /api/entities/preview_example/
-      - label: PreviewGroup
+      - label: PreviewGroupEntity
         url: /api/entities/preview_group/
+      - label: ComponentEntity
+        url: /api/entities/component/
+  - label: Other
+    items:
       - label: RenderedExample
         url: /api/entities/rendered_example/
-      - label: Component
-        url: /api/entities/component/
       - label: Tag
         url: /api/entities/tag/

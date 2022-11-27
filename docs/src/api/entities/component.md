@@ -1,5 +1,5 @@
 ---
 layout: entity
-title: Component
+title: ComponentEntity
 entity_data: component
 ---

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Lookbook::Page do
+RSpec.describe Lookbook::PageEntity do
   context "default" do
     let(:page) { Lookbook.pages.find_by_id(:subpages_child) }
 

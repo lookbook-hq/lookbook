@@ -1,5 +1,5 @@
 ---
 layout: entity
-title: PreviewGroup
+title: PreviewGroupEntity
 entity_data: preview_group
 ---

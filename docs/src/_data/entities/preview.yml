@@ -1,4 +1,4 @@
-description: Represents an annotated ViewComponent preview class.
+description: Represents an annotated preview class.
 
 attrs:
   - name: .id

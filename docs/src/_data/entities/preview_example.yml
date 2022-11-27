@@ -1,4 +1,4 @@
-description: Represents a single, annotated example method within a ViewComponent preview class.
+description: Represents a single, annotated example method within a preview class.
 
 attrs:
   - name: .id
