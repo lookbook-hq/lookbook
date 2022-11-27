@@ -29,23 +29,25 @@ module Lookbook
     end
 
     config.after_initialize do
+      # The preview controller handles the rendering of individual previews.
+      #
+      # Lookbook injects some actions into whichever controller has been
+      # specified by the user in order to render previews within the context of
+      # the particular controller class instance so that any before_action/after_action
+      # callbacks will be correctly processed.
+      @preview_controller = opts.preview_controller.constantize
+      @preview_controller.include PreviewControllerExtension
+
+      # Lookbook also extends the ViewComponent Preview class to add
+      # support for a wider range of rendering options
+      ViewComponent::Preview.include PreviewExtension
+    end
+
+    config.after_initialize do
       reloaders.add(:previews, Engine.preview_watch_paths, opts.listen_extensions, &Engine.method(:load_previews))
       reloaders.add(:pages, Engine.page_watch_paths, opts.page_extensions, &Engine.method(:load_pages))
-    end
-
-    # The preview controller handles the rendering of individual previews.
-    #
-    # Lookbook injects some actions into whichever controller has been
-    # specified by the user in order to render previews within the context of
-    # the particular controller class instance so that any before_action/after_action
-    # callbacks will be correctly processed.
-    config.after_initialize do
-      @preview_controller = opts.preview_controller.constantize
-      @preview_controller.class_eval { include Lookbook::PreviewActions }
-    end
-
-    config.after_initialize do
       reloaders.execute
+
       Engine.run_hooks(:after_initialize)
     end
 
@@ -121,6 +123,12 @@ module Lookbook
         end
       end
 
+      def view_paths
+        ActionView::ViewPaths.all_view_paths.flat_map do |view_path|
+          view_path.paths.map { |path| Pathname(path.to_s) }
+        end
+      end
+
       def component_paths
         @_component_paths ||= Array(PathUtils.to_absolute(opts.components_path))
       end
@@ -140,7 +148,7 @@ module Lookbook
       def preview_watch_paths
         return @_preview_watch_paths if @_preview_watch_paths
 
-        paths = [*opts.preview_paths, opts.components_path, *opts.listen_paths].uniq
+        paths = [*opts.preview_paths, opts.components_path, *opts.listen_paths, *view_paths].uniq
         @_preview_watch_paths ||= PathUtils.normalize_paths(paths)
       end
 
