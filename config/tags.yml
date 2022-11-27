@@ -34,3 +34,7 @@ shared:
   source:
     label: Source file
     opts: {}
+
+  type:
+    label: Preview type
+    opts: {}

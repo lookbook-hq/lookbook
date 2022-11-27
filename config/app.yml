@@ -25,6 +25,7 @@ shared:
   preview_display_options: {}
   preview_disable_action_view_annotations: true
   preview_params_options_eval: false
+  preview_type_default: view_component
   listen: false
   listen_paths: []
   listen_extensions: [rb, html.*]

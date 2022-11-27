@@ -62,6 +62,10 @@ module Lookbook
       preview_class.name
     end
 
+    def render_type
+      fetch_config(:type) { Lookbook.config.preview_type_default.to_sym }
+    end
+
     def guess_components
       [preview_class.name.chomp("Preview").constantize]
     rescue

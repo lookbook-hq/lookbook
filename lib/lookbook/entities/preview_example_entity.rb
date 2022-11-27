@@ -57,6 +57,10 @@ module Lookbook
       lookbook_inspect_path(path)
     end
 
+    def render_type
+      fetch_config(:type) { preview.render_type }
+    end
+
     def type
       :example
     end

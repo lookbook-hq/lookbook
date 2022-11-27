@@ -39,6 +39,10 @@ module Lookbook
       lookbook_inspect_path(path)
     end
 
+    def render_type
+      examples.flat_map(&:render_type).uniq.first
+    end
+
     def type
       :group
     end

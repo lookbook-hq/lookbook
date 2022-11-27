@@ -49,7 +49,7 @@ module Lookbook
     end
 
     def flat_map(...)
-      entities.map(...).map(&:to_a).flatten
+      entities.map(...).map { |e| e.respond_to?(:to_a) ? e.to_a : e }.flatten
     end
 
     def clear_all
