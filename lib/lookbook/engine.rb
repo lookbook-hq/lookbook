@@ -36,11 +36,7 @@ module Lookbook
       # the particular controller class instance so that any before_action/after_action
       # callbacks will be correctly processed.
       @preview_controller = opts.preview_controller.constantize
-      @preview_controller.include PreviewControllerExtension
-
-      # Lookbook also extends the ViewComponent Preview class to add
-      # support for a wider range of rendering options
-      ViewComponent::Preview.include PreviewExtension
+      @preview_controller.include PreviewControllerActions
     end
 
     config.after_initialize do

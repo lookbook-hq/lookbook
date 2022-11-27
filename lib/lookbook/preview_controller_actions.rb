@@ -1,5 +1,5 @@
 module Lookbook
-  module PreviewControllerExtension
+  module PreviewControllerActions
     extend ActiveSupport::Concern
 
     included do
@@ -25,8 +25,6 @@ module Lookbook
       end
 
       def render_in_layout_to_string(template, locals, opts = {})
-        append_view_path Engine.root.join("app/views")
-
         with_optional_action_view_annotations do
           html = render_to_string(template, locals: locals, **determine_layout(opts[:layout]))
           if opts[:append_html].present?
