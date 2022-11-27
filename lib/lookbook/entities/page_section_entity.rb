@@ -1,5 +1,5 @@
 module Lookbook
-  class PageSection < Page
+  class PageSectionEntity < PageEntity
     attr_accessor :parent
 
     def initialize(file_path)

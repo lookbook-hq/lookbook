@@ -1,5 +1,5 @@
 module Lookbook
-  module Locatable
+  module LocatableEntity
     extend ActiveSupport::Concern
 
     included do

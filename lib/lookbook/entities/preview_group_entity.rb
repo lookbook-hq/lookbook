@@ -1,6 +1,6 @@
 module Lookbook
-  class PreviewGroup < Entity
-    include Navigable
+  class PreviewGroupEntity < Entity
+    include NavigableEntity
 
     attr_reader :examples, :preview
 

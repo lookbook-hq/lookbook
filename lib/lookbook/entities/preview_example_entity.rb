@@ -1,8 +1,8 @@
 module Lookbook
-  class PreviewExample < Entity
-    include Inspectable
-    include Annotatable
-    include Navigable
+  class PreviewExampleEntity < Entity
+    include InspectableEntity
+    include AnnotatableEntity
+    include NavigableEntity
 
     delegate :group, to: :code_object
 
@@ -81,8 +81,9 @@ module Lookbook
     def template_file_path(template_path)
       return full_template_path(template_path) if respond_to?(:full_template_path, true)
 
+      search_dirs = [*Engine.preview_paths, *Engine.view_paths]
       template_path = template_path.to_s.sub(/\..*$/, "")
-      base_path = Engine.preview_paths.detect do |p|
+      base_path = search_dirs.detect do |p|
         Dir["#{p}/#{template_path}.html.*"].first
       end
       path = Dir["#{base_path}/#{template_path}.html.*"].first
@@ -93,7 +94,7 @@ module Lookbook
       component_classes = [*fetch_config(:components, []), *preview.send(:fetch_config, :components, [])]
       component_classes = preview.guess_components if component_classes.empty?
 
-      components = component_classes.map { |klass| Component.new(klass) }
+      components = component_classes.map { |klass| ComponentEntity.new(klass) }
       components.uniq(&:path)
     end
   end

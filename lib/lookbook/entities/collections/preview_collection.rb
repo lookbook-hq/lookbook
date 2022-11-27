@@ -49,8 +49,8 @@ module Lookbook
       nil
     end
 
-    def self.preview_class?(klass)
-      if klass.ancestors.include?(ViewComponent::Preview)
+    def self.preview_class?(klass) 
+      if klass.ancestors.include?(ViewComponent::Preview) || klass.ancestors.include?(Lookbook::Preview)
         !klass.respond_to?(:abstract_class) || klass.abstract_class != true
       end
     end

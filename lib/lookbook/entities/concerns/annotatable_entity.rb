@@ -1,5 +1,5 @@
 module Lookbook
-  module Annotatable
+  module AnnotatableEntity
     extend ActiveSupport::Concern
 
     included do

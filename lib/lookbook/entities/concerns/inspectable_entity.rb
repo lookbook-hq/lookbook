@@ -1,5 +1,5 @@
 module Lookbook
-  module Inspectable
+  module InspectableEntity
     extend ActiveSupport::Concern
 
     included do

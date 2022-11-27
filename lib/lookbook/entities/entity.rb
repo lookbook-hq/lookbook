@@ -34,7 +34,7 @@ module Lookbook
     end
 
     def type
-      @_type ||= self.class.name.demodulize.underscore.downcase.to_sym
+      @_type ||= self.class.name.gsub("Entity", "").demodulize.underscore.downcase.to_sym
     end
 
     def <=>(other)

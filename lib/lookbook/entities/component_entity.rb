@@ -1,6 +1,6 @@
 module Lookbook
-  class Component < Entity
-    include Locatable
+  class ComponentEntity < Entity
+    include LocatableEntity
 
     attr_reader :component_class
 

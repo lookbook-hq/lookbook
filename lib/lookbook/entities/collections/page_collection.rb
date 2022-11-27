@@ -48,7 +48,7 @@ module Lookbook
     end
 
     def self.entity(file_path)
-      File.basename(file_path).match?(%r{\[(.*?\w+)\]}) ? PageSection.new(file_path) : Page.new(file_path)
+      File.basename(file_path).match?(%r{\[(.*?\w+)\]}) ? PageSectionEntity.new(file_path) : PageEntity.new(file_path)
     end
   end
 end

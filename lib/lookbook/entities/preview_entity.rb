@@ -1,8 +1,8 @@
 module Lookbook
-  class Preview < Entity
-    include Annotatable
-    include Locatable
-    include Navigable
+  class PreviewEntity < Entity
+    include AnnotatableEntity
+    include LocatableEntity
+    include NavigableEntity
 
     delegate :render_args, to: :preview_class
 
@@ -74,14 +74,14 @@ module Lookbook
       return example_entities unless code_object.groups.any?
 
       example_entities.group_by(&:group).flat_map do |group_name, grouped_examples|
-        group_name.nil? ? grouped_examples : PreviewGroup.new(group_name.presence || label.pluralize, grouped_examples, self)
+        group_name.nil? ? grouped_examples : PreviewGroupEntity.new(group_name.presence || label.pluralize, grouped_examples, self)
       end
     end
 
     def example_entities
       public_methods = preview_class.public_instance_methods(false)
       method_objects = code_object.meths.select { |m| public_methods.include?(m.name) }
-      method_objects.map.with_index { |code_object, i| PreviewExample.new(code_object, self, priority: i) }
+      method_objects.map.with_index { |code_object, i| PreviewExampleEntity.new(code_object, self, priority: i) }
     end
   end
 end

@@ -1,5 +1,5 @@
 module Lookbook
-  module Navigable
+  module NavigableEntity
     extend ActiveSupport::Concern
 
     included do

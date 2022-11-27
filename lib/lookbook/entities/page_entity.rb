@@ -1,7 +1,7 @@
 module Lookbook
-  class Page < Entity
-    include Locatable
-    include Navigable
+  class PageEntity < Entity
+    include LocatableEntity
+    include NavigableEntity
 
     attr_reader :content, :sections
 
