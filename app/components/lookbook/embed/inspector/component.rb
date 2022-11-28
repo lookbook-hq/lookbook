@@ -5,7 +5,7 @@ module Lookbook
     def initialize(example:, context: nil, options: nil, **html_attrs)
       @target = example
       @context = context.to_h
-      @options = options.to_h.compact_blank
+      @options = options.to_h
       super(**html_attrs)
     end
 
@@ -38,7 +38,7 @@ module Lookbook
     end
 
     def actions
-      options[:actions].map(&:to_sym)
+      options.fetch(:actions, []).map(&:to_sym)
     end
 
     def panels
@@ -46,15 +46,11 @@ module Lookbook
     end
 
     def display_option_controls?
-      options[:display_option_controls]
+      options.fetch(:display_option_controls, true)
     end
 
     def drawer?
-      options[:drawer] && panels.any?
-    end
-
-    def viewport_max_height
-      options[:viewport_max_height]
+      options.fetch(:drawer, false) && panels.any?
     end
 
     protected

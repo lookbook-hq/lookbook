@@ -5,15 +5,62 @@ module Lookbook
 
     layout "lookbook/skeleton"
 
+    def self.controller_path
+      "lookbook/embeds"
+    end
+
+    def lookup
+      props = Store.new(params[:props] ? JsonParser.call(params[:props]) : {})
+      if props.preview.present?
+        preview = Engine.previews.find_by_preview_class(props.preview)
+        if preview.present?
+          example = props.example ? preview.example(props.example) : preview.default_example
+          if example.present?
+            option_names = ["drawer", "actions", "panels", "display_option_controls"]
+            array_type_options = ["panels", "actions"]
+            param_prefix = "param_"
+
+            options = {}
+            embed_params = {}
+
+            p props
+
+            props.each do |key, value|
+              key = key.to_s.strip.tr("-", "_")
+              value.strip!
+
+              if option_names.include?(key)
+                value = if array_type_options.include?(key)
+                  value.split(",").map(&:strip)
+                elsif value == "false"
+                  false
+                elsif value == "true"
+                  true
+                else
+                  value
+                end
+                options[key] = value
+              elsif key.start_with?(param_prefix)
+                embed_params[key.gsub(param_prefix, "")] = value
+              end
+            end
+
+            embed_params[:_options] = SearchParamEncoder.call(options)
+            embed_params.symbolize_keys!
+
+            return redirect_to lookbook_embed_url(example.path, embed_params)
+          end
+        end
+      end
+
+      show_404 layout: "lookbook/skeleton"
+    end
+
     def show
       show_404 unless @target
 
       @options = SearchParamParser.call(req_params[:_options])
       inspector_data
-    end
-
-    def self.controller_path
-      "lookbook/embeds"
     end
 
     protected

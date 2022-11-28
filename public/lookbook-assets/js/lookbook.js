@@ -7705,7 +7705,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $abfe6ef0614b4b5d$exports = {};
+var $4f14c3a538544f37$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11238,39 +11238,6 @@ function $99486586f6691564$export$2e2bcd8739ae039() {
 }
 
 
-var $e398acaded942bbe$exports = {};
-
-$parcel$defineInteropFlag($e398acaded942bbe$exports);
-
-$parcel$export($e398acaded942bbe$exports, "default", () => $e398acaded942bbe$export$2e2bcd8739ae039);
-
-function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
-    return {
-        width: 0,
-        height: 0,
-        resizing: false,
-        target: null,
-        init () {
-            this.target = document.querySelector(targetSelector);
-            if (this.target) {
-                this.width = Math.round(this.target.clientWidth);
-                this.height = Math.round(this.target.clientHeight);
-                this.createObserver();
-            }
-        },
-        createObserver () {
-            if (this.target) this.observer = (0, $9930d46698775b42$export$a2214cc2adb2dc44)(document.querySelector(targetSelector), ({ width: width , height: height  })=>{
-                this.width = width;
-                this.height = height;
-            });
-        },
-        tearDown () {
-            if (this.observer) this.observer.disconnect();
-        }
-    };
-}
-
-
 var $47a1c62621be0c54$exports = {};
 
 $parcel$defineInteropFlag($47a1c62621be0c54$exports);
@@ -11322,6 +11289,39 @@ function $47a1c62621be0c54$export$2e2bcd8739ae039() {
         init () {
             button.init.bind(this)();
             (0, $122263eab94cad08$export$c6684e6159b21de3)(this);
+        }
+    };
+}
+
+
+var $e398acaded942bbe$exports = {};
+
+$parcel$defineInteropFlag($e398acaded942bbe$exports);
+
+$parcel$export($e398acaded942bbe$exports, "default", () => $e398acaded942bbe$export$2e2bcd8739ae039);
+
+function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
+    return {
+        width: 0,
+        height: 0,
+        resizing: false,
+        target: null,
+        init () {
+            this.target = document.querySelector(targetSelector);
+            if (this.target) {
+                this.width = Math.round(this.target.clientWidth);
+                this.height = Math.round(this.target.clientHeight);
+                this.createObserver();
+            }
+        },
+        createObserver () {
+            if (this.target) this.observer = (0, $9930d46698775b42$export$a2214cc2adb2dc44)(document.querySelector(targetSelector), ({ width: width , height: height  })=>{
+                this.width = width;
+                this.height = height;
+            });
+        },
+        tearDown () {
+            if (this.observer) this.observer.disconnect();
         }
     };
 }
@@ -12216,18 +12216,6 @@ function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
 }
 
 
-var $36506012e0c6e9e3$exports = {};
-
-$parcel$defineInteropFlag($36506012e0c6e9e3$exports);
-
-$parcel$export($36506012e0c6e9e3$exports, "default", () => $36506012e0c6e9e3$export$2e2bcd8739ae039);
-function $36506012e0c6e9e3$export$2e2bcd8739ae039(iconName) {
-    return {
-        iconName: iconName
-    };
-}
-
-
 var $d92d9d5253f84566$exports = {};
 
 $parcel$defineInteropFlag($d92d9d5253f84566$exports);
@@ -12822,6 +12810,45 @@ function $506dabb2bf255b38$var$sizeSplits(sizes) {
 }
 
 
+var $a87dacf5139b5e2f$exports = {};
+
+$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
+
+$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
+function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
+    return {
+        get store () {
+            return store || this;
+        },
+        get id () {
+            return this.$root.id;
+        },
+        get panels () {
+            return Array.from(this.$refs.panels.children);
+        },
+        isActive (el) {
+            return this.store.activeTab === this._getRef(el);
+        },
+        // protected
+        _getRef (el) {
+            return el.getAttribute("x-ref");
+        }
+    };
+}
+
+
+var $36506012e0c6e9e3$exports = {};
+
+$parcel$defineInteropFlag($36506012e0c6e9e3$exports);
+
+$parcel$export($36506012e0c6e9e3$exports, "default", () => $36506012e0c6e9e3$export$2e2bcd8739ae039);
+function $36506012e0c6e9e3$export$2e2bcd8739ae039(iconName) {
+    return {
+        iconName: iconName
+    };
+}
+
+
 var $0db07828cadc68e0$exports = {};
 
 $parcel$defineInteropFlag($0db07828cadc68e0$exports);
@@ -12910,33 +12937,6 @@ function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
         _lastMeasuredWidth: 0,
         _getRef (el) {
             return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
-        }
-    };
-}
-
-
-var $a87dacf5139b5e2f$exports = {};
-
-$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
-
-$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
-function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
-    return {
-        get store () {
-            return store || this;
-        },
-        get id () {
-            return this.$root.id;
-        },
-        get panels () {
-            return Array.from(this.$refs.panels.children);
-        },
-        isActive (el) {
-            return this.store.activeTab === this._getRef(el);
-        },
-        // protected
-        _getRef (el) {
-            return el.getAttribute("x-ref");
         }
     };
 }
@@ -13069,18 +13069,18 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$abfe6ef0614b4b5d$exports = {
+$4f14c3a538544f37$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
-    "dimensions_display": $e398acaded942bbe$exports,
     "copy_button": $47a1c62621be0c54$exports,
+    "dimensions_display": $e398acaded942bbe$exports,
     "embed": $e1f51f020443edd4$exports,
     "filter": $e9904a14dabf652d$exports,
-    "icon": $36506012e0c6e9e3$exports,
     "nav": $d92d9d5253f84566$exports,
     "split_layout": $506dabb2bf255b38$exports,
-    "tabs": $0db07828cadc68e0$exports,
     "tab_panels": $a87dacf5139b5e2f$exports,
+    "icon": $36506012e0c6e9e3$exports,
+    "tabs": $0db07828cadc68e0$exports,
     "viewport": $6d64716f0b34fdf4$exports
 };
 
@@ -13413,7 +13413,7 @@ const $d73574cc5e9b9e72$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $d709d0f4027033b2$export$2e2bcd8739ae039));
 [
-    $abfe6ef0614b4b5d$exports,
+    $4f14c3a538544f37$exports,
     $2af7656449ff0341$exports,
     $6c10158820e535ef$exports
 ].forEach((scripts)=>{

@@ -41,6 +41,8 @@
   <title><%= [@title, @config.project_name || "Lookbook"].compact.join(" :: ") %></title>
 </head>
 <body>
-  <%= yield :body %>
+  <%= content_for?(:body) ? yield(:body) : yield %>
+
+  <%= render "lookbook/partials/iframe_content_scripts" %>
 </body>
 </html>

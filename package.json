@@ -15,6 +15,13 @@
         "./app/assets/lookbook/css/themes/rose.css"
       ],
       "distDir": "./public/lookbook-assets"
+    },
+    "embed": {
+      "source": [
+        "./app/assets/lookbook/js/embed.js"
+      ],
+      "distDir": "./public/lookbook-assets",
+      "outputFormat": "global"
     }
   },
   "alias": {

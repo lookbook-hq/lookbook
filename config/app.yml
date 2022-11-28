@@ -31,7 +31,6 @@ shared:
     actions: [inspect, preview]
     display_option_controls: true
     drawer: false
-    viewport_max_height: ~
   listen: false
   listen_paths: []
   listen_extensions: [rb, html.*]
