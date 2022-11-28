@@ -57,7 +57,6 @@ RSpec.describe Lookbook::TagOptionsParser do
   context "evaluated options" do
     let(:opts) {
       {
-        permit_eval: true,
         eval_context: TagOptionsEvalContext.new
       }
     }

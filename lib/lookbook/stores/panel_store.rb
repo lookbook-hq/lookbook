@@ -98,7 +98,14 @@ module Lookbook
       config.each do |group, panels|
         panels.map! do |opts|
           opts.transform_values! do |value|
-            (value.is_a?(String) && value.start_with?("->")) ? eval(value) : value # standard:disable Security/Eval
+            if value.is_a?(String) && value.start_with?("->")
+              proc {
+                $SAFE = 2
+                eval(value) # standard:disable Security/Eval
+              }.call
+            else
+              value
+            end
           end
         end
       end

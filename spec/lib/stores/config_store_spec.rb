@@ -229,18 +229,6 @@ RSpec.describe Lookbook::ConfigStore do
         end
       end
 
-      context "preview_params_options_eval" do
-        it "is disabled by default" do
-          expect(config.preview_params_options_eval).to be false
-        end
-
-        it "can be enabled" do
-          config.preview_params_options_eval = true
-
-          expect(config.preview_params_options_eval).to be true
-        end
-      end
-
       context "listen" do
         case env
         when :development

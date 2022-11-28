@@ -5,10 +5,9 @@ module Lookbook
 
     attr_reader :eval_context, :base_dir, :file, :fallback
 
-    def initialize(input, eval_context: nil, permit_eval: false, fail_silently: false, base_dir: Rails.root, file: nil, fallback: nil)
+    def initialize(input, eval_context: nil, fail_silently: false, base_dir: Rails.root, file: nil, fallback: nil)
       @input = input.to_s
       @eval_context = eval_context
-      @permit_eval = permit_eval
       @fail_silently = fail_silently
       @fallback = fallback
       @base_dir = base_dir.to_s
@@ -44,7 +43,10 @@ module Lookbook
     def evaluate(input, fallback = @fallback)
       if evaluatable?
         begin
-          eval_context.instance_eval(input.to_s)
+          proc {
+            $SAFE = 2
+            eval_context.instance_eval(input.to_s)
+          }.call
         rescue => exception
           raise_error "Could not evaluate statetment (#{exception.message})", exception
         end
@@ -61,9 +63,6 @@ module Lookbook
     private
 
     def evaluatable?
-      if !@permit_eval
-        raise_error "Runtime evaluation is not permitted"
-      end
       eval_context.present?
     end
   end

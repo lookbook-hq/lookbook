@@ -24,7 +24,6 @@ shared:
   preview_paths: []
   preview_display_options: {}
   preview_disable_action_view_annotations: true
-  preview_params_options_eval: false
   preview_type_default: view_component
   preview_embed_options:
     panels: [source, output, notes, params]

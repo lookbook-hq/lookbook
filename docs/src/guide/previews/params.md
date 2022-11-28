@@ -182,16 +182,6 @@ This is straightforward and useful for simple cases, but if you have a long list
 
 For more flexibility it is possible to generate the options hash dynamically from Ruby code.
 
-{%= note :info do %}
-Dynamic options depend on **runtime code evaluation** and require enabling in your config before they can be used:
-
-```rb
-config.lookbook.preview_params_options_eval = true
-```
-
-Use of `eval` to evaluate arbitrary strings can be a security concern. However Lookbook never `eval`'s _any_ user-inputed content - only comments that have been added to the preview file source code itself.
-{% end %}
-
 #### Using a method
 
 You can use a private method (in your preview class) that returns a hash of param options, and reference it via it's symbolized name:

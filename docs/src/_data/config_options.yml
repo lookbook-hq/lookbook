@@ -53,13 +53,6 @@
   example: "config.lookbook.preview_disable_action_view_annotations = true"
   description: "Turns off action view filename annotations when generating rendered component source."
 
-- name: preview_params_options_eval
-  group: previews
-  type: Boolean
-  default: false
-  example: "config.lookbook.preview_params_options_eval = true"
-  description: "Enable or disable [dynamic generation of preview param options](/guide/previews/params/#dynamic-param-options)"
-
 - name: sort_examples
   group: previews
   type: Boolean

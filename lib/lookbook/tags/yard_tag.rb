@@ -44,8 +44,7 @@ module Lookbook
           TagOptionsParser.call(@text, {
             file: host_file,
             base_dir: host_file&.dirname,
-            eval_context: host_class_instance,
-            permit_eval: Lookbook.config.preview_params_options_eval
+            eval_context: host_class_instance
           })
         else
           [{}, @text]

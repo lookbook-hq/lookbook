@@ -3,27 +3,9 @@ RSpec.shared_examples "eval resolver" do
     expect(described_class).to be < Lookbook::DataResolver
   end
 
-  context "default (eval not permitted)" do
-    it "raises an exception" do
-      expect { described_class.call(valid_input) }.to raise_error Lookbook::ParserError
-    end
-
-    context "fail_silently = true" do
-      it "does not raise an exception" do
-        expect { described_class.call(invalid_input, fail_silently: true) }.not_to raise_error
-      end
-
-      it "returns the fallback after failure" do
-        result = described_class.call(valid_input, fail_silently: true, fallback: "fallback_value")
-        expect(result).to eq "fallback_value"
-      end
-    end
-  end
-
-  context "eval permitted" do
+  context "default" do
     let(:opts) {
       {
-        permit_eval: true,
         eval_context: EvalResolverContext.new
       }
     }
