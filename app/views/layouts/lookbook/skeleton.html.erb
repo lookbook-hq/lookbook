@@ -33,16 +33,12 @@
     <% end %>
   </script>
   
-  <script src="<%= asset_path("/js/lookbook.js") %>" defer></script>
-  <% if params[:lookbook_embed] %>
-    <script src="<%= asset_path("/js/embed.js") %>" defer></script>
-  <% end %>
+  <script src="<%= asset_path("/js/index.js") %>" defer></script>  
+  <%= render "lookbook/partials/iframe_content_scripts" if @embed %>
   
   <title><%= [@title, @config.project_name || "Lookbook"].compact.join(" :: ") %></title>
 </head>
 <body>
   <%= content_for?(:body) ? yield(:body) : yield %>
-
-  <%= render "lookbook/partials/iframe_content_scripts" %>
 </body>
 </html>

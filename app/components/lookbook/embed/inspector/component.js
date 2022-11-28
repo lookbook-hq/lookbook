@@ -10,6 +10,8 @@ export default function embedInspectorComponent(id, embedStore) {
 
     viewportHeight: 0,
 
+    targetPath: window.location.pathname,
+
     get viewportCssHeight() {
       return this.viewportHeight ? `${this.viewportHeight}px` : "100%";
     },
@@ -19,9 +21,16 @@ export default function embedInspectorComponent(id, embedStore) {
     },
 
     init() {
-      this.iframe = this.$el.querySelector("iframe");
       const onResized = this.onResized.bind(this);
+
+      this.iframe = this.$el.querySelector("iframe");
       window.iFrameResize({ onResized, checkOrigin: false }, this.iframe);
+
+      this.$watch("targetPath", (value) => this.switchTarget(value));
+    },
+
+    switchTarget(newTargetPath) {
+      this.navigateTo(`${newTargetPath}${window.location.search}`);
     },
 
     onResized({ height }) {

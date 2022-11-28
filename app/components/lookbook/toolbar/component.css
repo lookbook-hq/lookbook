@@ -12,5 +12,14 @@
     & [data-component="tabs"] {
       @apply relative -mb-px px-4;
     }
+
+    & select {
+      font-size: 0.8rem;
+      line-height: 1.1rem;
+      border-radius: 0.375rem;
+      padding: 0.26rem 1.5rem 0.26rem 0.6rem;
+      background-size: 1.2em 1.2em;
+      background-position: right 0.4rem center;
+    }
   }
 }

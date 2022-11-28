@@ -142,13 +142,13 @@
       this[globalName] = mainExports;
     }
   }
-})({"2Ac7p":[function(require,module,exports) {
+})({"4wjYy":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = 5111;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
-module.bundle.HMR_BUNDLE_ID = "9c5a05b5e79a47f2";
+module.bundle.HMR_BUNDLE_ID = "e45650cd7087753c";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, globalThis, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -531,7 +531,7 @@ function hmrAcceptRun(bundle, id) {
     acceptedAssets[id] = true;
 }
 
-},{}],"p4VhZ":[function(require,module,exports) {
+},{}],"7KyuE":[function(require,module,exports) {
 var _iframeResizer = require("iframe-resizer/js/iframeResizer");
 window.Lookbook = window.Lookbook || {};
 window.Lookbook.initEmbeds = function() {
@@ -1422,6 +1422,6 @@ function insertAfter(newNode, referenceNode) {
     window.iFrameResize = window.iFrameResize || factory();
 })();
 
-},{}]},["2Ac7p","p4VhZ"], "p4VhZ", "parcelRequirea49c")
+},{}]},["4wjYy","7KyuE"], "7KyuE", "parcelRequirea49c")
 
-//# sourceMappingURL=embed.js.map
+//# sourceMappingURL=lookbook.js.map

@@ -1,61 +1,77 @@
-<% content_for :shell do %>
-  <% if @previews.any? || @pages.any? %>
-    
-    <%= lookbook_render :split_layout,
-      alpine_data: "$store.layout.main",
-      ":class": "$store.layout.mobile && '!block'" do |layout| %>
+<% content_for :body do %>
+  <div
+    id="app"
+    x-data="app"
+    x-cloak
+    @popstate.window="handleNavigation"
+    @click.document="hijax"
+    @navigation:start="closeMobileSidebar"
+    class="w-screen h-screen grid grid-rows-[40px_1fr] relative">
 
-      <% layout.pane id: "app-sidebar", class: "flex flex-col bg-lookbook-sidebar-bg relative translate-x-0",
-        ":class": "{
-          'transition': $store.layout.mobile,
-          'translate-x-full': $store.layout.mobile && sidebarHidden,
-          '!absolute right-0 bottom-0 top-[40px] h-[calc(100%_-_40px)] w-full max-w-[420px] z-50 border-l border-lookbook-divider': $store.layout.mobile
-        }",
-        "@click.outside": "closeMobileSidebar",
-        cloak: true do %>
-        <% cache do %>
-          <%= lookbook_render :split_layout,
-            alpine_data: "$store.layout.#{@pages.any? && @previews.any? ? "sidebar" : "singleSectionSidebar"}",
-            style: "height: calc(100vh - 2.5rem);" do |layout| %>
+    <%= render "lookbook/partials/user_styles" %>
 
-            <% if @previews.any? %>
-              <% layout.pane class: "overflow-hidden" do %>
-                <%= lookbook_render :nav,
-                  id: "previews-nav",
-                  tree: @previews.to_tree,
-                  alpine_data: "$store.nav.previews" do |nav| %>
-                  <%= nav.toolbar do |toolbar| %>
-                    <% toolbar.section padded: true do %>
-                      <h4 class="pt-1">Previews</h4>
-                    <% end %>
-                    <% toolbar.section align: :right, padded: false do %>
-                      <%= lookbook_render :button_group, size: :xs do |group| %>
-                        <% group.button icon: :minus_square,
-                          tooltip: "Collapse all",
-                          "@click": "closeAll" %>
+    <%= lookbook_render :header, id: "app-header", debug_menu: @config.debug_menu do |header| %>
+      <% header.branding { @config.project_name } %>
+    <% end %>
+
+    <% if @previews.any? || @pages.any? %>
+      <% cache do %>
+        <%= lookbook_render :split_layout,
+          alpine_data: "$store.layout.main",
+          ":class": "$store.layout.mobile && '!block'" do |layout| %>
+
+          <% layout.pane id: "app-sidebar", class: "flex flex-col bg-lookbook-sidebar-bg relative translate-x-0",
+            ":class": "{
+              'transition': $store.layout.mobile,
+              'translate-x-full': $store.layout.mobile && sidebarHidden,
+              '!absolute right-0 bottom-0 top-[40px] h-[calc(100%_-_40px)] w-full max-w-[420px] z-50 border-l border-lookbook-divider': $store.layout.mobile
+            }",
+            "@click.outside": "closeMobileSidebar",
+            cloak: true do %>
+
+            <%= lookbook_render :split_layout,
+              alpine_data: "$store.layout.#{@pages.any? && @previews.any? ? "sidebar" : "singleSectionSidebar"}",
+              style: "height: calc(100vh - 2.5rem);" do |layout| %>
+
+              <% if @previews.any? %>
+                <% layout.pane class: "overflow-hidden" do %>
+                  <%= lookbook_render :nav,
+                    id: "previews-nav",
+                    tree: @previews.to_tree,
+                    alpine_data: "$store.nav.previews" do |nav| %>
+                    <%= nav.toolbar do |toolbar| %>
+                      <% toolbar.section padded: true do %>
+                        <h4 class="pt-1">Previews</h4>
+                      <% end %>
+                      <% toolbar.section align: :right, padded: false do %>
+                        <%= lookbook_render :button_group, size: :xs do |group| %>
+                          <% group.button icon: :minus_square,
+                            tooltip: "Collapse all",
+                            "@click": "closeAll" %>
+                        <% end %>
                       <% end %>
                     <% end %>
+                    <% nav.filter store: "$store.nav.previews.filter", placeholder: "Filter previews by name&hellip;" %>
                   <% end %>
-                  <% nav.filter store: "$store.nav.previews.filter", placeholder: "Filter previews by name&hellip;" %>
                 <% end %>
               <% end %>
-            <% end %>
 
-            <% if @pages.any? %>
-              <% layout.pane class: "overflow-hidden" do %>
-                <%= lookbook_render :nav,
-                  id: "pages-nav",
-                  tree: @pages.to_tree,
-                  alpine_data: "$store.nav.pages" do |nav| %>
-                  <%= nav.toolbar do |toolbar| %>
-                    <% toolbar.section padded: true do %>
-                      <h4 class="pt-1">Pages</h4>
-                    <% end %>
-                    <% toolbar.section align: :right, padded: false do %>
-                      <%= lookbook_render :button_group, size: :xs do |group| %>
-                        <% group.button icon: :minus_square,
-                          tooltip: "Collapse all",
-                          "@click": "closeAll" %>
+              <% if @pages.any? %>
+                <% layout.pane class: "overflow-hidden" do %>
+                  <%= lookbook_render :nav,
+                    id: "pages-nav",
+                    tree: @pages.to_tree,
+                    alpine_data: "$store.nav.pages" do |nav| %>
+                    <%= nav.toolbar do |toolbar| %>
+                      <% toolbar.section padded: true do %>
+                        <h4 class="pt-1">Pages</h4>
+                      <% end %>
+                      <% toolbar.section align: :right, padded: false do %>
+                        <%= lookbook_render :button_group, size: :xs do |group| %>
+                          <% group.button icon: :minus_square,
+                            tooltip: "Collapse all",
+                            "@click": "closeAll" %>
+                        <% end %>
                       <% end %>
                     <% end %>
                   <% end %>
@@ -63,20 +79,19 @@
               <% end %>
             <% end %>
           <% end %>
+
+          <% layout.pane id: "app-main", class: "overflow-hidden h-full", ":class": "$store.layout.mobile && 'w-screen'" do %>
+            <%= content_for?(:main) ? yield(:main) : yield %>
+          <% end %>
         <% end %>
       <% end %>
-
-      <% layout.pane id: "app-main", class: "overflow-hidden h-full", ":class": "$store.layout.mobile && 'w-screen'" do %>
+    <% else %>
+      <div id="app-main" class="w-screen h-full overflow-hidden">
         <%= content_for?(:main) ? yield(:main) : yield %>
-      <% end %>
+      </div>
     <% end %>
-    
-  <% else %>
-    <div id="app-main" class="w-screen h-full overflow-hidden">
-      <%= content_for?(:main) ? yield(:main) : yield %>
-    </div>
-  <% end %>
-  <div class="absolute opacity-0 bg-black inset-0 top-[39px] z-[-1] transition-opacity" :class="($store.layout.mobile && !sidebarHidden) && '!opacity-30 !z-40'" data-cloak></div>
+    <div class="absolute opacity-0 bg-black inset-0 top-[39px] z-[-1] transition-opacity" :class="($store.layout.mobile && !sidebarHidden) && '!opacity-30 !z-40'" data-cloak></div>
+  </div>
 <% end %>
 
-<%= render template: "layouts/lookbook/shell" %>
+<%= render template: "layouts/lookbook/skeleton" %>

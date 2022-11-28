@@ -1,0 +1,15 @@
+<% content_for :body do %>
+  <div
+    id="app"
+    x-data="app"
+    x-cloak
+    @popstate.window="handleNavigation"
+    @click.document="hijax">
+    
+    <%= render "lookbook/partials/user_styles" %>
+
+    <%= content_for?(:main) ? yield(:main) : yield %>
+  </div>
+<% end %>
+
+<%= render template: "layouts/lookbook/skeleton" %>

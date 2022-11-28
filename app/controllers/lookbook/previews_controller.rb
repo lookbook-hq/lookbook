@@ -3,7 +3,7 @@ module Lookbook
     include TargetableConcern
     include WithPreviewControllerConcern
 
-    layout "lookbook/skeleton"
+    layout false
     helper Lookbook::PreviewHelper
 
     def self.controller_path

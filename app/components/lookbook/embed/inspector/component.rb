@@ -1,20 +1,19 @@
 module Lookbook
   class Embed::Inspector::Component < Lookbook::BaseComponent
-    attr_reader :target, :context
+    attr_reader :target, :context, :examples, :panels, :options, :actions
 
-    def initialize(example:, context: nil, options: nil, **html_attrs)
-      @target = example
+    def initialize(target:, context: nil, options: nil, examples: nil, panels: nil, actions: nil, **html_attrs)
+      @target = target
       @context = context.to_h
       @options = options.to_h
+      @panels = Array(panels)
+      @actions = Array(actions).map(&:to_sym)
+      @examples = Array(examples)
       super(**html_attrs)
     end
 
     def id
-      Utils.id("embed", target.id, "inspector")
-    end
-
-    def options
-      @_options ||= Lookbook.config.preview_embed_options.to_h.merge(@options)
+      Utils.id("embed", *examples.map(&:name), "inspector")
     end
 
     def data
@@ -37,12 +36,8 @@ module Lookbook
       actions.include?(name)
     end
 
-    def actions
-      options.fetch(:actions, []).map(&:to_sym)
-    end
-
-    def panels
-      @_panels ||= panels_config(options[:panels])
+    def example_select_options
+      examples.map { |example| [example.label, helpers.lookbook_embed_path(example.path)] }
     end
 
     def display_option_controls?
@@ -54,21 +49,6 @@ module Lookbook
     end
 
     protected
-
-    def panels_config(panel_names)
-      panel_names.to_a.map do |panel_name|
-        config = Engine.panels.get_panel(panel_name.to_sym)
-        PanelStore.resolve_config(config, data) if config
-      end.compact
-    end
-
-    def lookbook_inspect_path(*args)
-      Engine.routes.url_helpers.lookbook_inspect_path(*args)
-    end
-
-    def lookbook_preview_path(*args)
-      Engine.routes.url_helpers.lookbook_preview_path(*args)
-    end
 
     def alpine_data
       [alpine_encode(id), "$store.pages.embeds"].join(",")

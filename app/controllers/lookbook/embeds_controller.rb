@@ -3,7 +3,12 @@ module Lookbook
     include TargetableConcern
     include WithPreviewControllerConcern
 
-    layout "lookbook/skeleton"
+    layout "lookbook/embed"
+
+    before_action :set_options, only: [:show]
+    before_action :set_example_choices, only: [:show]
+    before_action :set_panels, only: [:show]
+    before_action :set_actions, only: [:show]
 
     def self.controller_path
       "lookbook/embeds"
@@ -14,42 +19,32 @@ module Lookbook
       if props.preview.present?
         preview = Engine.previews.find_by_preview_class(props.preview)
         if preview.present?
-          example = props.example ? preview.example(props.example) : preview.default_example
-          if example.present?
-            option_names = ["drawer", "actions", "panels", "display_option_controls"]
-            array_type_options = ["panels", "actions"]
-            param_prefix = "param_"
+          example = preview.example(Array(props.examples).first)
 
-            options = {}
-            embed_params = {}
+          boolean_options = ["drawer", "display_option_controls"]
+          array_options = ["panels", "actions", "examples"]
+          param_prefix = "param_"
 
-            p props
+          options = {}
+          embed_params = {}
 
-            props.each do |key, value|
-              key = key.to_s.strip.tr("-", "_")
-              value.strip!
+          props.each do |key, value|
+            key = key.to_s.strip.tr("-", "_")
+            value.strip!
 
-              if option_names.include?(key)
-                value = if array_type_options.include?(key)
-                  value.split(",").map(&:strip)
-                elsif value == "false"
-                  false
-                elsif value == "true"
-                  true
-                else
-                  value
-                end
-                options[key] = value
-              elsif key.start_with?(param_prefix)
-                embed_params[key.gsub(param_prefix, "")] = value
-              end
+            if array_options.include?(key)
+              options[key] = value.split(",").map(&:strip)
+            elsif boolean_options.include?(key)
+              options[key] = (value == "false") ? false : !!value
+            elsif key.start_with?(param_prefix)
+              embed_params[key.gsub(param_prefix, "")] = value
             end
-
-            embed_params[:_options] = SearchParamEncoder.call(options)
-            embed_params.symbolize_keys!
-
-            return redirect_to lookbook_embed_url(example.path, embed_params)
           end
+
+          embed_params[:_options] = SearchParamEncoder.call(options)
+          embed_params.symbolize_keys!
+
+          return redirect_to lookbook_embed_url(example ? example.path : preview.path, embed_params)
         end
       end
 
@@ -57,13 +52,24 @@ module Lookbook
     end
 
     def show
-      show_404 unless @target
+      @embed = true
 
-      @options = SearchParamParser.call(req_params[:_options])
-      inspector_data
+      unless @target
+        @target = @example_choices.first || @preview.default_example
+        if @target
+          redirect_to lookbook_embed_path(@target.path, req_params)
+        else
+          show_404(layout: "lookbook/skeleton") unless @target
+        end
+      end
     end
 
     protected
+
+    def lookup_entities
+      @target = Lookbook.previews.find_example_by_path(params[:path])
+      @preview = @target.present? ? @target.preview : Lookbook.previews.find_by_path(params[:path])
+    end
 
     def set_params
       @params = []
@@ -83,6 +89,37 @@ module Lookbook
             @passed_params[param.name.to_sym] = param.cast_value
           end
         end
+      end
+    end
+
+    def set_options
+      return @options if @options
+      options = SearchParamParser.call(req_params[:_options])
+      default_options = Lookbook.config.preview_embed_options.to_h
+      @options ||= default_options.merge(options)
+    end
+
+    def set_example_choices
+      return @example_choices ||= [] unless @preview
+
+      named_choices = @options.fetch(:examples, [])
+      @example_choices = ListResolver.call(named_choices, @preview.examples.map(&:name)) do |name|
+        @preview.example(name)
+      end
+    end
+
+    def set_actions
+      @actions ||= ListResolver.call(@options.fetch(:actions, []), Embed::Component::ACTIONS)
+    end
+
+    def set_panels
+      return @panels if @panels
+
+      panels = @options.fetch(:panels, [])
+      all_panels = Engine.panels.names.map(&:to_s) - ["preview"]
+      @panels = ListResolver.call(panels, all_panels) do |name|
+        config = Engine.panels.get_panel(name.to_sym)
+        PanelStore.resolve_config(config, inspector_data) if config
       end
     end
 

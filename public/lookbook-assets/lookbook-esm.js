@@ -142,13 +142,13 @@
       this[globalName] = mainExports;
     }
   }
-})({"2Ac7p":[function(require,module,exports) {
+})({"3AgOT":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = 5111;
 var HMR_SECURE = false;
-var HMR_ENV_HASH = "d6ea1d42532a7575";
-module.bundle.HMR_BUNDLE_ID = "9c5a05b5e79a47f2";
+var HMR_ENV_HASH = "439701173a9199ea";
+module.bundle.HMR_BUNDLE_ID = "0e5aeac1cb50f978";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, globalThis, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -531,7 +531,7 @@ function hmrAcceptRun(bundle, id) {
     acceptedAssets[id] = true;
 }
 
-},{}],"p4VhZ":[function(require,module,exports) {
+},{}],"im2oa":[function(require,module,exports) {
 var _iframeResizer = require("iframe-resizer/js/iframeResizer");
 window.Lookbook = window.Lookbook || {};
 window.Lookbook.initEmbeds = function() {
@@ -585,7 +585,7 @@ function insertAfter(newNode, referenceNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
 
-},{"iframe-resizer/js/iframeResizer":"l3td4"}],"l3td4":[function(require,module,exports) {
+},{"iframe-resizer/js/iframeResizer":"2Is2j"}],"2Is2j":[function(require,module,exports) {
 /*
  * File: iframeResizer.js
  * Desc: Force iframes to size to content.
@@ -1422,6 +1422,6 @@ function insertAfter(newNode, referenceNode) {
     window.iFrameResize = window.iFrameResize || factory();
 })();
 
-},{}]},["2Ac7p","p4VhZ"], "p4VhZ", "parcelRequirea49c")
+},{}]},["3AgOT","im2oa"], "im2oa", "parcelRequirea49c")
 
-//# sourceMappingURL=embed.js.map
+//# sourceMappingURL=lookbook-esm.js.map

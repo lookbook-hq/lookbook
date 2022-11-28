@@ -35,6 +35,7 @@ module Lookbook
       @pages = Lookbook.pages
       @config = Lookbook.config
       @engine = Lookbook.engine
+      @embed = !!params[:lookbook_embed]
     end
 
     def feature_enabled?(feature)

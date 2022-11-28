@@ -25,8 +25,6 @@ module Lookbook
         if @preview.present?
           default_example = @preview.default_example
           redirect_to lookbook_inspect_path(default_example.path, params.permit!) if default_example
-        else
-          @preview = Lookbook.previews.find_by_path(path_segments.slice(0, path_segments.size - 1).join("/"))
         end
       end
     end
@@ -94,7 +92,8 @@ module Lookbook
     def inspector_data
       return @inspector_data if @inspector_data.present?
 
-      rendered_examples = @target.examples.map do |example|
+      examples = @target ? @target.examples : []
+      rendered_examples = examples.map do |example|
         output = preview_controller.process(:render_example_to_string, @preview, example.name)
         RenderedExample.new(example, output, preview_controller.params)
       end

@@ -4,7 +4,7 @@ module Lookbook
     include WithPanelsConcern
     include WithPreviewControllerConcern
 
-    layout "lookbook/inspector"
+    layout "lookbook/application"
     helper Lookbook::PreviewHelper
 
     def self.controller_path
@@ -17,7 +17,7 @@ module Lookbook
           @main_panels = main_panels
           @drawer_panels = drawer_panels
         rescue => exception
-          render_in_layout "lookbook/error", layout: "lookbook/inspector", error: prettify_error(exception)
+          render_in_layout "lookbook/error", layout: "lookbook/application", error: prettify_error(exception)
         end
       else
         show_404

@@ -7,7 +7,7 @@
       "source": [
         "./app/assets/lookbook/img/lucide-sprite.svg",
         "./app/assets/lookbook/js/iframe.js",
-        "./app/assets/lookbook/js/lookbook.js",
+        "./app/assets/lookbook/js/index.js",
         "./app/assets/lookbook/css/lookbook.css",
         "./app/assets/lookbook/css/themes/indigo.css",
         "./app/assets/lookbook/css/themes/blue.css",
@@ -18,11 +18,10 @@
       "distDir": "./public/lookbook-assets"
     },
     "embed": {
-      "source": [
-        "./app/assets/lookbook/js/embed.js"
-      ],
+      "source": "./app/assets/lookbook/js/lookbook.js",
       "distDir": "./public/lookbook-assets",
-      "outputFormat": "global"
+      "outputFormat": "global",
+      "context": "browser"
     }
   },
   "alias": {

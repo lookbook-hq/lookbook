@@ -1,19 +1,22 @@
-<% if target.present? %>
-  <%= render_component_tag id: id,
-    class: "not-prose border-b border-lookbook-divider rounded overflow-hidden",
-    cloak: true do %>
+<%= render_component_tag id: id,
+  class: "not-prose border-b border-lookbook-divider rounded overflow-hidden",
+  cloak: true do %>
 
   <%= lookbook_render :toolbar, class: "border border-b-0 border-lookbook-divider rounded-t" do |toolbar| %>
     <% toolbar.section padded: true do %>
-      <h3>
-        <strong><%= target.preview.label %></strong>
-        (<%= target.label %>) 
+      <h3 class="flex items-center space-x-1">
+        <strong class="text-lookbook-embed-title"><%= target.preview.label %></strong>
+        <% if examples.many? %>
+          <%= select_tag("target", options_for_select(example_select_options, helpers.lookbook_embed_path(target.path)), "x-model": "targetPath", class: "!ml-2") %>
+        <% else %>
+          <span>(<%= target.label %>) </span>
+        <% end %>
       </h3>
     <% end %>
 
     <% toolbar.section align: :right, class: "flex-none" do %>
       <% if display_option_controls? && dynamic_display_options.any? %>
-        <%= lookbook_render "display_options/editor", class: actions.any? ? "pr-2" : "pr-4" do |editor| %>
+        <%= lookbook_render "display_options/editor" do |editor| %>
           <% dynamic_display_options.each do |key, opts| %>
             <% editor.field name: key, opts: opts, value: static_display_options[key] %>
           <% end %>
@@ -26,13 +29,13 @@
         <%= lookbook_render :button_group do |group| %>
           <% if display_action?(:inspect) %>
             <% group.button icon: :eye,
-              href: lookbook_inspect_path(target.path, params),
+              href: helpers.lookbook_inspect_url(target.path, params),
               tooltip: "View in Inspector",
               target: "_top" %>
           <% end %>
-          <% if display_action?(:preview) %>
+          <% if display_action?(:open) %>
             <% group.button icon: :external_link,
-              href: lookbook_preview_path(target.path, params),
+              href: helpers.lookbook_preview_url(target.path, params),
               tooltip: "Open in new window",
               target: "_blank" %>
           <% end %>
@@ -48,54 +51,43 @@
       x-ref="viewportWrapper"> 
       <%= lookbook_render :viewport,
         iframe_id: "#{id}-viewport",
-        src: lookbook_preview_path(target.path, params.merge(lookbook_embed: true)),
+        src: helpers.lookbook_preview_path(target.path, params.merge(lookbook_embed: true)),
         alpine_data: "store",
         resize_height: false,
         class: "mb-[-2px] transition-[height] duration-150",
         ":style": "`height: ${viewportCssHeight}`"
-         %>
+          %>
     </div>
   </section>
 
-   <% if drawer? %>
-      <section class="relative top-[-1px] border border-b-0 border-lookbook-divider" x-cloak>
-        <%= lookbook_render :toolbar, id: "#{id}-drawer-toolbar" do |toolbar| %>
-          <% toolbar.section do %>
-            <%= lookbook_render :tabs, alpine_data: "store", id: "#{id}-drawer-tabs" do |tabs| %>
-              <%= panels.each do |panel| %>
-                <% tabs.tab name: panel.name,
-                  label: panel.label,
-                  hotkey: panel.hotkey,
-                  disabled: panel.disabled %>
+  <% if drawer? %>
+    <section class="relative top-[-1px] border border-b-0 border-lookbook-divider" x-cloak>
+      <%= lookbook_render :toolbar, id: "#{id}-drawer-toolbar" do |toolbar| %>
+        <% toolbar.section do %>
+          <%= lookbook_render :tabs, alpine_data: "store", id: "#{id}-drawer-tabs" do |tabs| %>
+            <%= panels.each do |panel| %>
+              <% tabs.tab name: panel.name,
+                label: panel.label,
+                hotkey: panel.hotkey,
+                disabled: panel.disabled %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <div class="bg-lookbook-drawer-bg">      
+        <%= lookbook_render :tab_panels, alpine_data: "store", id: "{id}-drawer-panels" do |tabs| %>
+          <% panels.each do |panel| %>
+            <% tabs.panel name: panel.name do %>
+              <%= lookbook_render :inspector_panel, name: panel.name do %>
+                <%= render panel.partial, **data, panel: panel, **panel.locals %>
               <% end %>
             <% end %>
           <% end %>
         <% end %>
-
-        <div class="bg-lookbook-drawer-bg">      
-          <%= lookbook_render :tab_panels, alpine_data: "store", id: "{id}-drawer-panels" do |tabs| %>
-            <% panels.each do |panel| %>
-              <% tabs.panel name: panel.name do %>
-                <%= lookbook_render :inspector_panel, name: panel.name do %>
-                  <%= render panel.partial, **data, panel: panel, **panel.locals %>
-                <% end %>
-              <% end %>
-            <% end %>
-          <% end %>
-        </div>
-      </section>
-    <% end %>
-  <% end %>
-<% else %>
-  <%= render_component_tag class: "bg-white flex flex-col items-center justify-center border-2 border-dashed border-gray-200 p-6 rounded-md not-prose" do %>
-    <div class="px-4 text-center">
-      <%= icon  :alert_triangle, size: 6, class: "text-red-300 mx-auto" %>
-      <div class="mt-2 max-w-xs">
-        <h5 class="text-base">Preview not found</h5>
-        <p class="mt-1 opacity-50 text-sm">
-          The preview may have been renamed or deleted
-        </p>
       </div>
-    </div>
+    </section>
   <% end %>
 <% end %>
+
+

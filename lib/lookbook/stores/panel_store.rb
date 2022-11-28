@@ -74,6 +74,10 @@ module Lookbook
       end
     end
 
+    def names(group_name = nil)
+      panels(group_name).map(&:name)
+    end
+
     alias_method :all, :panels
 
     def self.resolve_config(opts, data)

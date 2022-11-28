@@ -49,7 +49,7 @@ export default function tabsComponent(store) {
         const initialTab = initial
           ? this.tabs.find((t) => this._getRef(t) === initial)
           : this.tabs[0];
-        this.selectTab(initialTab, true);
+        this.selectTab(initialTab || this.tabs[0], true);
 
         this.parentObserver = observeSize(
           this.$root.parentElement,

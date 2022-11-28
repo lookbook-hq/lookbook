@@ -1,5 +1,7 @@
 module Lookbook
   class Embed::Component < Lookbook::BaseComponent
+    ACTIONS = [:inspect, :open]
+
     attr_reader :example, :params, :options
 
     def initialize(example:, params: {}, options: {}, **html_attrs)

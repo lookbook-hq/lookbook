@@ -1,8 +1,8 @@
 module Lookbook
   class PagesController < ApplicationController
-    layout "lookbook/page"
+    layout "lookbook/application"
     helper_method :page_controller
-    helper Lookbook::PageHelper
+    helper PageHelper
 
     def self.controller_path
       "lookbook/pages"
@@ -27,7 +27,7 @@ module Lookbook
           @title = @page.title
         rescue => exception
           render_in_layout "lookbook/error",
-            layout: "lookbook/page",
+            layout: "lookbook/application",
             error: Lookbook::Error.new(exception, file_path: @page.file_path, source_code: @page.content)
         end
       else

@@ -16,7 +16,7 @@ module Lookbook
 
       cleaned_path = relative_file_path.to_s
         .gsub(/\/(component_preview|preview)(\..*)$/, "")
-        .gsub(/_component_preview(\..*)$/, "")
+        .gsub(/(_component_preview|_preview)(\..*)$/, "")
 
       @lookup_path = PathUtils.to_lookup_path(cleaned_path)
     end

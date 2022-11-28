@@ -1,9 +1,7 @@
 module Lookbook
   module PageHelper
-    include Utils
-
     def page_path(id)
-      page = id.is_a?(Page) ? id : Lookbook.pages.find_by_id(id)
+      page = id.is_a?(PageEntity) ? id : Lookbook.pages.find_by_id(id)
       if page.present?
         lookbook_page_path page.lookup_path
       else
@@ -21,7 +19,7 @@ module Lookbook
       end
       example = args[1] ? preview&.example(args[1]) : preview&.default_example
 
-      render Lookbook::Embed::Component.new(
+      render Embed::Component.new(
         example: example,
         params: options.fetch(:params, {}),
         options: options.except(:params)
