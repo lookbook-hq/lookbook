@@ -2885,6 +2885,12 @@ input[type="color"]::-webkit-color-swatch {
   transition-timing-function: cubic-bezier(.4, 0, .2, 1);
 }
 
+.transition-\[height\] {
+  transition-property: height;
+  transition-duration: .15s;
+  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+
 .transition-all {
   transition-property: all;
   transition-duration: .15s;
@@ -2897,6 +2903,10 @@ input[type="color"]::-webkit-color-swatch {
 
 .duration-200 {
   transition-duration: .2s;
+}
+
+.duration-150 {
+  transition-duration: .15s;
 }
 
 .ease-in-out {

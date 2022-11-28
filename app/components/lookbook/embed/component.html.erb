@@ -5,8 +5,8 @@
       id="<%= id %>-iframe"
       src="<%= embed_path %>"
       frameborder="0"
-      class="w-full transition-all"
-      :style="`height: ${cssHeight}`"
-      data-lookbook-embed></iframe> 
+      x-ref="inspector"
+      class="w-full transition-[height] duration-150"
+      :style="`height: ${cssHeight}`"></iframe> 
   </div>
 <% end %>

@@ -10,15 +10,20 @@ export default function embedComponent() {
 
     init() {
       const onResized = this.onResized.bind(this);
-      const opts = {
-        autoResize: true,
-        onResized,
-      };
-      window.iFrameResize(opts, this.$refs.iframe);
+      window.iFrameResize(
+        {
+          autoResize: true,
+          checkOrigin: false,
+          onResized,
+        },
+        this.$refs.inspector
+      );
     },
 
     onResized({ height }) {
-      this.height = height;
+      if (height) {
+        this.height = height;
+      }
     },
   };
 }

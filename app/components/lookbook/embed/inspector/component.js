@@ -14,18 +14,14 @@ export default function embedInspectorComponent(id, embedStore) {
       return this.viewportHeight ? `${this.viewportHeight}px` : "100%";
     },
 
-    get resizer() {
-      return this.iframe ? this.iframe.iFrameResizer : null;
-    },
-
     get store() {
       return embedStore[id];
     },
 
     init() {
-      const iframeEl = this.$el.querySelector("iframe");
+      this.iframe = this.$el.querySelector("iframe");
       const onResized = this.onResized.bind(this);
-      this.iframe = window.iFrameResize({ onResized }, iframeEl)[0];
+      window.iFrameResize({ onResized, checkOrigin: false }, this.iframe);
     },
 
     onResized({ height }) {
@@ -35,9 +31,7 @@ export default function embedInspectorComponent(id, embedStore) {
     },
 
     resizeIframe() {
-      if (this.resizer) {
-        this.resizer.resize();
-      }
+      this.iframe.iFrameResizer.resize();
     },
   };
 }
