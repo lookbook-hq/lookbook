@@ -12,12 +12,12 @@ module Lookbook
       YARD::Parser::SourceParser.after_parse_list { run_callbacks }
     end
 
-    def parse(&block)
+    def parse(files = nil, &block)
       unless @parsing
         @parsing = true
         @after_parse_once_callbacks << block if block
         YARD::Registry.clear
-        YARD.parse(paths)
+        YARD.parse(files || paths)
       end
     end
 

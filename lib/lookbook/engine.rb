@@ -157,7 +157,8 @@ module Lookbook
       end
 
       def load_previews(changes = nil)
-        parser.parse do |code_objects|
+        changed_files = [*changes[:added], *changes[:modified]] if changes
+        parser.parse(changed_files) do |code_objects|
           previews.load(code_objects.all(:class), changes)
         end
       end
