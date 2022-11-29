@@ -19,9 +19,10 @@ module Lookbook
       if props.preview.present?
         preview = Engine.previews.find_by_preview_class(props.preview)
         if preview.present?
+          props.examples ||= (props.example || "")
           example = preview.example(Array(props.examples).first)
 
-          boolean_options = ["drawer", "display_option_controls"]
+          boolean_options = ["display_option_controls"]
           array_options = ["panels", "actions", "examples"]
           param_prefix = "param_"
 
@@ -33,7 +34,13 @@ module Lookbook
             value.strip!
 
             if array_options.include?(key)
-              options[key] = value.split(",").map(&:strip)
+              options[key] = if value == "false"
+                []
+              elsif value == "true"
+                ["*"]
+              else
+                value.split(",").map(&:strip)
+              end
             elsif boolean_options.include?(key)
               options[key] = (value == "false") ? false : !!value
             elsif key.start_with?(param_prefix)

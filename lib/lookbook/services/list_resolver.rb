@@ -1,10 +1,10 @@
 module Lookbook
   class ListResolver < Service
-    attr_reader :to_include, :item_set
+    attr_reader :item_set
 
     def initialize(to_include = nil, item_set = nil)
-      @to_include = Array(to_include).compact.uniq
-      @item_set = Array(item_set).compact.uniq
+      @to_include = to_include
+      @item_set = Array(item_set).compact.uniq.map(&:to_s)
     end
 
     def call(&resolver)
@@ -17,11 +17,19 @@ module Lookbook
         result
       end
 
-      resolved = resolver ? included.map { |item|
-                              p item
-                              resolver.call(item)
-                            } : included
+      resolved = resolver ? included.map { |item| resolver.call(item) } : included
       resolved.compact
+    end
+
+    def to_include
+      case @to_include
+      when true
+        ["*"]
+      when false
+        []
+      else
+        Array(@to_include).compact.uniq.map(&:to_s)
+      end
     end
   end
 end

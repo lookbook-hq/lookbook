@@ -847,7 +847,7 @@ window.Lookbook.initEmbeds = function() {
     });
     window.iFrameResize({}, "[data-lookbook-embed]");
 };
-const $d73574cc5e9b9e72$var$endpoint = "embed";
+const $d73574cc5e9b9e72$var$embedUrlPrefix = "embed";
 const $d73574cc5e9b9e72$var$defaultBasePath = `//${location.host}/lookbook`;
 function $d73574cc5e9b9e72$var$createIframe(attrs) {
     const src = $d73574cc5e9b9e72$var$buildSrc(attrs);
@@ -866,16 +866,16 @@ function $d73574cc5e9b9e72$var$createIframe(attrs) {
     return iframe;
 }
 function $d73574cc5e9b9e72$var$buildSrc(attrs) {
-    const basePath = $d73574cc5e9b9e72$var$attrValue(attrs, "base") || $d73574cc5e9b9e72$var$defaultBasePath;
+    const appPath = $d73574cc5e9b9e72$var$attrValue(attrs, "app") || $d73574cc5e9b9e72$var$defaultBasePath;
     const props = {};
-    $d73574cc5e9b9e72$var$attrsWithout(attrs, "base", "class").forEach(({ name: name , value: value  })=>{
+    $d73574cc5e9b9e72$var$attrsWithout(attrs, "app", "class").forEach(({ name: name , value: value  })=>{
         name = name.replace("-", "_").toLowerCase();
         value = encodeURIComponent(value);
         props[name] = value;
     });
     return [
-        basePath,
-        $d73574cc5e9b9e72$var$endpoint
+        appPath,
+        $d73574cc5e9b9e72$var$embedUrlPrefix
     ].join("/") + `?props=${JSON.stringify(props)}`;
 }
 function $d73574cc5e9b9e72$var$attrValue(attrs, name, fallback = null) {

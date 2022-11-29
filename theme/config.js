@@ -91,7 +91,7 @@ module.exports = function (opts = {}) {
 
       blankSlateTitle: "var(--lookbook-accent-600)",
 
-      embedTitle: "var(--lookbook-accent-700)",
+      embedTitle: "var(--lookbook-text)",
 
       brandingText: "var(--lookbook-header-text)",
     },

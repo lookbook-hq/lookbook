@@ -45,7 +45,7 @@ module Lookbook
     end
 
     def drawer?
-      options.fetch(:drawer, false) && panels.any?
+      panels.any?
     end
 
     protected

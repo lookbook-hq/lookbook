@@ -2313,12 +2313,12 @@ input[type="color"]::-webkit-color-swatch {
   white-space: pre-wrap;
 }
 
-.rounded-full {
-  border-radius: 9999px;
-}
-
 .rounded-md {
   border-radius: .375rem;
+}
+
+.rounded-full {
+  border-radius: 9999px;
 }
 
 .rounded {

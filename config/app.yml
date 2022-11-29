@@ -26,10 +26,9 @@ shared:
   preview_disable_action_view_annotations: true
   preview_type_default: view_component
   preview_embed_options:
-    panels: [source, output, notes, params, "*"]
-    actions: [inspect, preview]
+    panels: false
+    actions: [inspect, open]
     display_option_controls: true
-    drawer: false
     examples: []
   listen: false
   listen_paths: []

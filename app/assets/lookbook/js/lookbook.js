@@ -14,7 +14,7 @@ window.Lookbook.initEmbeds = function () {
   window.iFrameResize({}, "[data-lookbook-embed]");
 };
 
-const endpoint = "embed";
+const embedUrlPrefix = "embed";
 const defaultBasePath = `//${location.host}/lookbook`;
 
 function createIframe(attrs) {
@@ -42,16 +42,18 @@ function createIframe(attrs) {
 }
 
 function buildSrc(attrs) {
-  const basePath = attrValue(attrs, "base") || defaultBasePath;
+  const appPath = attrValue(attrs, "app") || defaultBasePath;
 
   const props = {};
-  attrsWithout(attrs, "base", "class").forEach(({ name, value }) => {
+  attrsWithout(attrs, "app", "class").forEach(({ name, value }) => {
     name = name.replace("-", "_").toLowerCase();
     value = encodeURIComponent(value);
     props[name] = value;
   });
 
-  return [basePath, endpoint].join("/") + `?props=${JSON.stringify(props)}`;
+  return (
+    [appPath, embedUrlPrefix].join("/") + `?props=${JSON.stringify(props)}`
+  );
 }
 
 function attrValue(attrs, name, fallback = null) {
