@@ -4,7 +4,8 @@ module Lookbook
 
     def load(page_paths, changes = nil)
       file_paths = PageCollection.file_paths(page_paths)
-      changes.present? ? reload_changed(file_paths, changes) : reload_all(file_paths)
+      reload_all(file_paths) # TODO: Fix incremental reloading
+      # changes.present? ? reload_changed(file_paths, changes) : reload_all(file_paths)
     end
 
     def reload_all(file_paths)

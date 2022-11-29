@@ -20,10 +20,13 @@ module Lookbook
 
         file = Pathname(file)
         name_parts = file.basename.to_s.split(".")
-        ext = name_parts.drop(1).join(".").to_s
+        ext = "." + name_parts.drop(1).join(".").to_s
 
         file.dirname.ascend do |dir|
-          matching = @dirs.fetch(dir, []).map { |m| Regexp.new(m) }
+          matching = @dirs.fetch(dir, []).map { |m|
+            p "))))))))))))) #{m}"
+            Regexp.new(m)
+          }
           if matching.empty? || matching.find { |m| m.match?(ext) }
             break true
           elsif dir == @common_path || dir.root?
