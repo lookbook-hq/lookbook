@@ -43,9 +43,18 @@ export default function app() {
 
     hijax(evt) {
       const link = evt.target.closest("a[href]");
-      if (link && !isExternalLink(link)) {
-        evt.preventDefault();
-        this.navigateTo(link.href);
+      const external = isExternalLink(link);
+      const embedded = this.isEmbedded();
+      if (link) {
+        if (embedded && (!link.hasAttribute("target") || external)) {
+          evt.preventDefault();
+          window.top.location = link.href;
+          return;
+        } else if (!embedded && !external && !link.hasAttribute("target")) {
+          evt.preventDefault();
+          this.navigateTo(link.href);
+          return;
+        }
       }
     },
 
@@ -86,6 +95,14 @@ export default function app() {
     requestEnd() {
       if (this._requestsInProgress > 0) {
         this._requestsInProgress -= 1;
+      }
+    },
+
+    isEmbedded() {
+      try {
+        return window.self !== window.top;
+      } catch (e) {
+        return true;
       }
     },
 

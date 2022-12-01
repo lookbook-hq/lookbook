@@ -7589,11 +7589,6 @@ function $e263283f97229955$export$bdf7e699b242f476(el, opts = {}) {
     };
 }
 function $e263283f97229955$export$b98882f166bb7ce2(link) {
-    if ([
-        "_blank",
-        "_top",
-        "_parent"
-    ].includes(link.getAttribute("target"))) return true;
     if (link.href) return link.host !== window.location.host;
     return false;
 }
@@ -7646,9 +7641,18 @@ function $d709d0f4027033b2$export$2e2bcd8739ae039() {
         },
         hijax (evt) {
             const link = evt.target.closest("a[href]");
-            if (link && !(0, $e263283f97229955$export$b98882f166bb7ce2)(link)) {
-                evt.preventDefault();
-                this.navigateTo(link.href);
+            const external = (0, $e263283f97229955$export$b98882f166bb7ce2)(link);
+            const embedded = this.isEmbedded();
+            if (link) {
+                if (embedded && (!link.hasAttribute("target") || external)) {
+                    evt.preventDefault();
+                    window.top.location = link.href;
+                    return;
+                } else if (!embedded && !external && !link.hasAttribute("target")) {
+                    evt.preventDefault();
+                    this.navigateTo(link.href);
+                    return;
+                }
             }
         },
         async updateDOM () {
@@ -7679,6 +7683,13 @@ function $d709d0f4027033b2$export$2e2bcd8739ae039() {
         requestEnd () {
             if (this._requestsInProgress > 0) this._requestsInProgress -= 1;
         },
+        isEmbedded () {
+            try {
+                return window.self !== window.top;
+            } catch (e) {
+                return true;
+            }
+        },
         ...Alpine.$log
     };
 }
@@ -7705,7 +7716,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $1f889267678ff167$exports = {};
+var $1dbfb04dbaa0c94e$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -12228,50 +12239,6 @@ function $36506012e0c6e9e3$export$2e2bcd8739ae039(iconName) {
 }
 
 
-var $d92d9d5253f84566$exports = {};
-
-$parcel$defineInteropFlag($d92d9d5253f84566$exports);
-
-$parcel$export($d92d9d5253f84566$exports, "default", () => $d92d9d5253f84566$export$2e2bcd8739ae039);
-function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
-    return {
-        empty: false,
-        children: [],
-        init () {
-            this.children = this.$refs.items ? Array.from(this.$refs.items.children) : [];
-        },
-        isOpen (id) {
-            return store.open.includes(id);
-        },
-        setOpen (id) {
-            store.open.push(id);
-        },
-        setClosed (id) {
-            const index = store.open.indexOf(id);
-            if (index > -1) store.open.splice(index, 1);
-        },
-        closeAll () {
-            store.open.length = 0;
-        },
-        toggleOpen (id) {
-            this.isOpen(id) ? this.setClosed(id) : this.setOpen(id);
-        },
-        async filter (text) {
-            this.debug(`Filter text: ${text}`);
-            await this.$nextTick();
-            const filteredStates = await Promise.all(this.children.map(async (child)=>{
-                const data = Alpine.$data(child);
-                await data.filter(text);
-                return data.filteredOut;
-            }));
-            const matchedChildCount = filteredStates.filter((s)=>!s).length;
-            this.empty = matchedChildCount === 0;
-            this.debug(`Children matching filter: ${matchedChildCount}/${this.children.length}`);
-        }
-    };
-}
-
-
 var $506dabb2bf255b38$exports = {};
 
 $parcel$defineInteropFlag($506dabb2bf255b38$exports);
@@ -12822,6 +12789,50 @@ function $506dabb2bf255b38$var$sizeSplits(sizes) {
 }
 
 
+var $d92d9d5253f84566$exports = {};
+
+$parcel$defineInteropFlag($d92d9d5253f84566$exports);
+
+$parcel$export($d92d9d5253f84566$exports, "default", () => $d92d9d5253f84566$export$2e2bcd8739ae039);
+function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
+    return {
+        empty: false,
+        children: [],
+        init () {
+            this.children = this.$refs.items ? Array.from(this.$refs.items.children) : [];
+        },
+        isOpen (id) {
+            return store.open.includes(id);
+        },
+        setOpen (id) {
+            store.open.push(id);
+        },
+        setClosed (id) {
+            const index = store.open.indexOf(id);
+            if (index > -1) store.open.splice(index, 1);
+        },
+        closeAll () {
+            store.open.length = 0;
+        },
+        toggleOpen (id) {
+            this.isOpen(id) ? this.setClosed(id) : this.setOpen(id);
+        },
+        async filter (text) {
+            this.debug(`Filter text: ${text}`);
+            await this.$nextTick();
+            const filteredStates = await Promise.all(this.children.map(async (child)=>{
+                const data = Alpine.$data(child);
+                await data.filter(text);
+                return data.filteredOut;
+            }));
+            const matchedChildCount = filteredStates.filter((s)=>!s).length;
+            this.empty = matchedChildCount === 0;
+            this.debug(`Children matching filter: ${matchedChildCount}/${this.children.length}`);
+        }
+    };
+}
+
+
 var $a87dacf5139b5e2f$exports = {};
 
 $parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
@@ -13069,7 +13080,7 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$1f889267678ff167$exports = {
+$1dbfb04dbaa0c94e$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
@@ -13077,15 +13088,15 @@ $1f889267678ff167$exports = {
     "embed": $e1f51f020443edd4$exports,
     "filter": $e9904a14dabf652d$exports,
     "icon": $36506012e0c6e9e3$exports,
-    "nav": $d92d9d5253f84566$exports,
     "split_layout": $506dabb2bf255b38$exports,
+    "nav": $d92d9d5253f84566$exports,
     "tab_panels": $a87dacf5139b5e2f$exports,
     "tabs": $0db07828cadc68e0$exports,
     "viewport": $6d64716f0b34fdf4$exports
 };
 
 
-var $f3e1e32f4a1bd6da$exports = {};
+var $234342a379d83f20$exports = {};
 var $6a9b69d9cc7f810f$exports = {};
 
 $parcel$defineInteropFlag($6a9b69d9cc7f810f$exports);
@@ -13247,6 +13258,38 @@ function $c299e36fa9e271bc$export$2e2bcd8739ae039(id, embedStore) {
 }
 
 
+var $1a7a7298eec5b755$exports = {};
+
+$parcel$defineInteropFlag($1a7a7298eec5b755$exports);
+
+$parcel$export($1a7a7298eec5b755$exports, "default", () => $1a7a7298eec5b755$export$2e2bcd8739ae039);
+
+function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
+    return {
+        narrow: false,
+        init () {
+            (0, $9930d46698775b42$export$a2214cc2adb2dc44)(this.$el, ({ width: width  })=>{
+                this.narrow = width < 500;
+            });
+        }
+    };
+}
+
+
+var $e773f8ef556b41ff$exports = {};
+
+$parcel$defineInteropFlag($e773f8ef556b41ff$exports);
+
+$parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
+function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
+    return {
+        get isNarrowLayout () {
+            return this.narrow || false;
+        }
+    };
+}
+
+
 var $9b24cbeb3a465447$exports = {};
 
 $parcel$defineInteropFlag($9b24cbeb3a465447$exports);
@@ -13304,51 +13347,19 @@ function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id , matchers: matchers 
 }
 
 
-var $1a7a7298eec5b755$exports = {};
-
-$parcel$defineInteropFlag($1a7a7298eec5b755$exports);
-
-$parcel$export($1a7a7298eec5b755$exports, "default", () => $1a7a7298eec5b755$export$2e2bcd8739ae039);
-
-function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
-    return {
-        narrow: false,
-        init () {
-            (0, $9930d46698775b42$export$a2214cc2adb2dc44)(this.$el, ({ width: width  })=>{
-                this.narrow = width < 500;
-            });
-        }
-    };
-}
-
-
-var $e773f8ef556b41ff$exports = {};
-
-$parcel$defineInteropFlag($e773f8ef556b41ff$exports);
-
-$parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
-function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
-    return {
-        get isNarrowLayout () {
-            return this.narrow || false;
-        }
-    };
-}
-
-
-$f3e1e32f4a1bd6da$exports = {
+$234342a379d83f20$exports = {
     "display_options": {
         "field": $6a9b69d9cc7f810f$exports
     },
     "embed": {
         "inspector": $c299e36fa9e271bc$exports
     },
-    "nav": {
-        "item": $9b24cbeb3a465447$exports
-    },
     "params": {
         "editor": $1a7a7298eec5b755$exports,
         "field": $e773f8ef556b41ff$exports
+    },
+    "nav": {
+        "item": $9b24cbeb3a465447$exports
     }
 };
 
@@ -13416,8 +13427,8 @@ const $939f2ad3cd685486$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $d709d0f4027033b2$export$2e2bcd8739ae039));
 [
-    $1f889267678ff167$exports,
-    $f3e1e32f4a1bd6da$exports,
+    $1dbfb04dbaa0c94e$exports,
+    $234342a379d83f20$exports,
     $6c10158820e535ef$exports
 ].forEach((scripts)=>{
     const components = (0, $5439cede634b2921$export$4e811121b221213b)(scripts);
