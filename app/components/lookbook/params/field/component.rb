@@ -34,7 +34,7 @@ module Lookbook
           value: param.value,
           value_type: param.value_type,
           value_default: param.value_default,
-          input_options: input_options.except(:choices),
+          input_options: input_options.except(:choices, :opts),
           choices: input_options[:choices])
       end
 
