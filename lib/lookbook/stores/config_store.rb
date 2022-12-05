@@ -25,16 +25,6 @@ module Lookbook
       store[:preview_paths].push(*paths.to_a)
     end
 
-    def preview_display_params
-      Lookbook.logger.warn "The `preview_display_params` config option has been renamed to `preview_display_options` and will be removed in v2.0"
-      store[:preview_display_options]
-    end
-
-    def preview_display_params=(options)
-      Lookbook.logger.warn "The `preview_display_params` config option has been renamed to `preview_display_options` and will be removed in v2.0"
-      store[:preview_display_options] = options.to_h
-    end
-
     def listen_extensions=(extensions = nil)
       store[:listen_extensions].push(*extensions.to_a).uniq!
     end
@@ -62,14 +52,6 @@ module Lookbook
       else
         store[:ui_theme_overrides]
       end
-    end
-
-    def runtime_parsing=(value)
-      Lookbook.logger.warn "The `runtime_parsing` config option has been deprecated and will be removed in v2.0"
-    end
-
-    def preview_srcdoc=(enable)
-      Lookbook.logger.warn "The `preview_srcdoc` config option is deprecated and will be removed in v2.0"
     end
 
     def self.init_from_config(env: Rails.env)

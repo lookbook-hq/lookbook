@@ -22,10 +22,5 @@ module Lookbook
     def inline?
       template_file_path.present?
     end
-
-    def template_path
-      Lookbook.logger.warn "The `template_path` method has been deprecated - use `template_file_path` instead. `template_file_path` will be removed in v2.0"
-      template_file_path
-    end
   end
 end

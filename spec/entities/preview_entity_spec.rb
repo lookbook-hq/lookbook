@@ -14,12 +14,6 @@ RSpec.describe Lookbook::PreviewEntity do
       end
     end
 
-    context ".full_path" do
-      it "is a (deprecated) alias for .file_path" do
-        expect(preview.full_path).to eql preview.file_path
-      end
-    end
-
     context ".relative_file_path" do
       it "returns the preview-directory relative path to the component preview file" do
         expect(preview.relative_file_path.to_s).to eq "standard_component_preview.rb"

@@ -25,12 +25,6 @@ RSpec.describe Lookbook::PageEntity do
         expect(page.file_path).to be_a Pathname
       end
     end
-
-    context ".full_path" do
-      it "is a (deprecated) alias for .file_path" do
-        expect(page.full_path).to eql page.file_path
-      end
-    end
   end
 
   context "without frontmatter" do

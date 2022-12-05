@@ -41,21 +41,6 @@ module Lookbook
         @_logical_path ||= PathUtils.to_path(directory, file_name_base)
       end
 
-      def full_path
-        Lookbook.logger.warn "The `full_path` method has been deprecated - use `file_path` instead. `full_path` will be removed in v2.0"
-        file_path
-      end
-
-      def rel_path
-        Lookbook.logger.warn "The `rel_path` method has been deprecated - use `relative_file_path` instead. `rel_path` will be removed in v2.0"
-        relative_file_path
-      end
-
-      def dir_path
-        Lookbook.logger.warn "The `dir_path` method has been deprecated - use `directory_path` instead. `dir_path` will be removed in v2.0"
-        directory_path
-      end
-
       protected
 
       def file_pathname

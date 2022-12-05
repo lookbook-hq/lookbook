@@ -23,10 +23,5 @@ module Lookbook
         show_404
       end
     end
-
-    def show_legacy
-      Lookbook.logger.warn("Legacy URL path detected. These paths are deprecated and will be removed in a future version")
-      redirect_to lookbook_inspect_path params[:path]
-    end
   end
 end
