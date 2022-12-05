@@ -65,8 +65,8 @@ module Lookbook
       def base_directory
         return @_base_directory if @_base_directory
 
-        directories = [Rails.root, *Array(base_directories)].map(&:to_s).sort_by(&:length).reverse
-        @_base_directory ||= directories.first { |dir| file_path.start_with?(dir) }
+        directories = Array(base_directories).map(&:to_s).sort_by { |path| path.split("/").size }.reverse
+        @_base_directory ||= directories.find { |dir| file_path.to_s.start_with?(dir) }
       end
     end
   end
