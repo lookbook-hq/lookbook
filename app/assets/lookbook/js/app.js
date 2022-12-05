@@ -21,7 +21,7 @@ export default function app() {
 
     init() {
       if (window.SOCKET_PATH) {
-        console.log("SOCKET CREATED");
+        this.debug(`Lookbook socket created`);
         const socket = createSocket(window.SOCKET_PATH);
         socket.addListener("Lookbook::ReloadChannel", () => this.updateDOM());
       }
@@ -43,9 +43,10 @@ export default function app() {
 
     hijax(evt) {
       const link = evt.target.closest("a[href]");
-      const external = isExternalLink(link);
-      const embedded = this.isEmbedded();
       if (link) {
+        const external = isExternalLink(link);
+        const embedded = this.isEmbedded();
+
         if (embedded && (!link.hasAttribute("target") || external)) {
           evt.preventDefault();
           window.top.location = link.href;
