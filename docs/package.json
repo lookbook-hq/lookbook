@@ -1,6 +1,6 @@
 {
   "name": "lookbook-docs",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "private": true,
   "scripts": {
     "esbuild": "node esbuild.config.js --minify",
