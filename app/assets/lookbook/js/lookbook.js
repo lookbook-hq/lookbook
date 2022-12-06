@@ -1,8 +1,13 @@
-import "iframe-resizer/js/iframeResizer";
-
 window.Lookbook = window.Lookbook || {};
 
 window.Lookbook.initEmbeds = function () {
+  if (typeof window.iFrameResize !== "function") {
+    console.error(
+      "Lookbook embeds require the 'iframe-resizer' library to be available. Skipping embed instantiation."
+    );
+    return;
+  }
+
   const embeds = Array.from(document.querySelectorAll("lookbook-embed"));
 
   embeds.forEach((embed) => {
