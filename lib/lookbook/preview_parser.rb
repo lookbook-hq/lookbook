@@ -16,8 +16,10 @@ module Lookbook
       unless @parsing
         @parsing = true
         @after_parse_once_callbacks << block if block
+        files_list = files ? files.select { |file| file.to_s.end_with?(".rb") } : paths
+
         YARD::Registry.clear
-        YARD.parse(files || paths)
+        YARD.parse(files_list)
       end
     end
 
