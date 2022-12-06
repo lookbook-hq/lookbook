@@ -30,8 +30,12 @@ module Lookbook
       render_args[:template]
     end
 
+    def view?
+      render_args[:type] == :view
+    end
+
     def has_custom_template?
-      template != "view_components/preview" && !custom_source?
+      template != "view_components/preview" && !custom_source? && !view?
     end
   end
 end
