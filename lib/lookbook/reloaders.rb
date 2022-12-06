@@ -27,22 +27,6 @@ module Lookbook
       reloader.last_changes = changes if reloader
     end
 
-    class << self
-      def evented?
-        !(file_watcher <= ActiveSupport::FileUpdateChecker)
-      end
-
-      def file_watcher
-        @_file_watcher_class ||= if Engine.runtime_context.listen_installed?
-          Lookbook.logger.debug "Using `EventedFileUpdateChecker` for file watching"
-          EventedFileUpdateChecker
-        else
-          Lookbook.logger.warn "The 'listen' gem was not found. You will need to manually refresh the Lookbook UI after making changes."
-          ActiveSupport::FileUpdateChecker
-        end
-      end
-    end
-
     class Reloader
       delegate :execute, :execute_if_updated, :updated?, to: :file_watcher
 
@@ -77,7 +61,7 @@ module Lookbook
           result[directory] = extensions
         end
 
-        @_file_watcher ||= Reloaders.file_watcher.new([], to_watch) do
+        @_file_watcher ||= FileWatcher.new([], to_watch) do
           callback.call(@last_changes)
           @last_changes = nil
         end

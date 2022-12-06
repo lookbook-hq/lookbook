@@ -83,10 +83,7 @@ module Lookbook
       end
 
       def auto_refresh?
-        runtime_context.actioncable_installed? &&
-          reloading? &&
-          runtime_context.web? &&
-          Reloaders.evented?
+        reloading? && runtime_context.web? && FileWatcher.evented?
       end
 
       def websocket

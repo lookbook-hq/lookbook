@@ -7,6 +7,8 @@ loader.push_dir("#{__dir__}/lookbook", namespace: Lookbook)
 loader.collapse("#{__dir__}/lookbook/*")
 loader.collapse("#{__dir__}/lookbook/*/*")
 loader.collapse("#{__dir__}/lookbook/*/*/*")
+loader.ignore("#{__dir__}/lookbook/support/evented_file_update_checker.rb")
+loader.ignore("#{__dir__}/lookbook/cable")
 loader.setup
 
 module Lookbook

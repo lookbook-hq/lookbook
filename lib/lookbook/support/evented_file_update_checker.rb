@@ -1,41 +1,36 @@
-module Lookbook
-  begin
-    require "active_support"
+require "active_support/evented_file_update_checker"
 
-    class EventedFileUpdateChecker < ActiveSupport::EventedFileUpdateChecker
-      def initialize(files, dirs = {}, &block)
+module Lookbook
+  class EventedFileUpdateChecker < ActiveSupport::EventedFileUpdateChecker
+    def initialize(files, dirs = {}, &block)
+      super
+      @core = Core.new(files, dirs)
+    end
+
+    class Core < ActiveSupport::EventedFileUpdateChecker::Core
+      def changed(modified, added, removed)
         super
-        @core = Core.new(files, dirs)
+        Engine.files_changed(modified, added, removed) if @updated
       end
 
-      class Core < ActiveSupport::EventedFileUpdateChecker::Core
-        def changed(modified, added, removed)
-          super
-          Engine.files_changed(modified, added, removed) if @updated
-        end
+      # Patched to handle regex-style
+      # extension matchers like `.html.*`
+      def watching?(file)
+        return true if super
 
-        # Patched to handle regex-style
-        # extension matchers like `.html.*`
-        def watching?(file)
-          return true if super
+        file = Pathname(file)
+        name_parts = file.basename.to_s.split(".")
+        ext = "." + name_parts.drop(1).join(".").to_s
 
-          file = Pathname(file)
-          name_parts = file.basename.to_s.split(".")
-          ext = "." + name_parts.drop(1).join(".").to_s
-
-          file.dirname.ascend do |dir|
-            matching = @dirs.fetch(dir, []).map { |m| Regexp.new(m) }
-            if matching.empty? || matching.find { |m| m.match?(ext) }
-              break true
-            elsif dir == @common_path || dir.root?
-              break false
-            end
+        file.dirname.ascend do |dir|
+          matching = @dirs.fetch(dir, []).map { |m| Regexp.new(m) }
+          if matching.empty? || matching.find { |m| m.match?(ext) }
+            break true
+          elsif dir == @common_path || dir.root?
+            break false
           end
         end
       end
-    end
-  rescue LoadError
-    class EventedFileUpdateChecker < ActiveSupport::FileUpdateChecker
     end
   end
 end
