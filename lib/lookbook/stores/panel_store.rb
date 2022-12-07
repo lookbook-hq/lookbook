@@ -12,70 +12,52 @@ module Lookbook
     }
 
     attr_reader :store
-    delegate :to_h, :to_a, to: :store
+    delegate :to_h, to: :store
 
     def initialize(config = nil)
       @store = {}
       load_config(config)
     end
 
-    def add_panel(name, group_name, *args)
+    def add_panel(name, *args)
       if get_panel(name)
         raise ConfigError.new("panel with name '#{name}' already exists", scope: "panels.config")
       else
-        panel = build_config(name, group_name, *args)
-        insert_at_position(group_name, panel.position, panel)
+        store[Utils.symbolize_name(name)] = build_config(name, *args)
       end
     end
 
     def update_panel(name, opts = {})
       panel = get_panel(name)
       if panel.present?
-        panel.merge!(opts.except(:name, :position))
-        if opts.key?(:position)
-          remove_panel(name)
-          insert_at_position(panel.group, opts[:position], panel)
-        end
+        panel.merge!(opts.except(:name))
       else
         not_found!(name)
       end
     end
 
     def remove_panel(name)
-      store.each do |group_name, panels|
-        return true unless panels.reject! { |p| p.name == name.to_sym }.nil?
-      end
-      not_found!(name)
+      store.delete(Utils.symbolize_name(name)) { |name| not_found!(name) }
     end
 
     def load_config(config)
-      config.to_h.each do |group_name, panels|
-        panels.each do |opts|
-          add_panel(opts[:name], group_name, opts.except(:name))
-        end
-      end
+      config.to_h.each { |name, opts| add_panel(name, opts) }
     end
 
-    def get_panel(name, group_name = nil)
-      panels(group_name).find { |p| p.name == name.to_sym }
+    def get_panel(name)
+      panels.find { |panel| panel.name == Utils.symbolize_name(name) }
     end
 
-    def count_panels(group_name = nil)
-      panels(group_name).count
+    def get_panels(*names)
+      ListResolver.call(names.flatten, panels.map(&:name)) { |name| get_panel(name) }
     end
 
-    def in_group(name)
-      store[name.to_sym] ||= []
+    def panels
+      store.map { |name, panel| panel }
     end
 
-    def panels(group_name = nil)
-      store.to_h.reduce([]) do |result, (name, group_panels)|
-        result.push(*group_panels) if group_name.nil? || name == group_name.to_sym
-      end
-    end
-
-    def names(group_name = nil)
-      panels(group_name).map(&:name)
+    def names
+      panels.map(&:name)
     end
 
     alias_method :all, :panels
@@ -83,7 +65,7 @@ module Lookbook
     def self.resolve_config(opts, data)
       if opts[:name].present?
         data = data.is_a?(Store) ? data : Store.new(data)
-        data.name = opts[:name].to_s
+        data.name = Utils.symbolize_name(opts[:name])
         resolved = opts.transform_values do |value|
           value.respond_to?(:call) ? value.call(data) : value
         end
@@ -99,17 +81,15 @@ module Lookbook
 
     def self.default_config
       config = ConfigLoader.call(CONFIG_FILE)
-      config.each do |group, panels|
-        panels.map! do |opts|
-          opts.transform_values! do |value|
-            if value.is_a?(String) && value.start_with?("->")
-              proc {
-                $SAFE = 2
-                eval(value) # standard:disable Security/Eval
-              }.call
-            else
-              value
-            end
+      config.to_h.transform_values! do |opts|
+        opts.transform_values! do |value|
+          if value.is_a?(String) && value.start_with?("->")
+            proc {
+              $SAFE = 2
+              eval(value) # standard:disable Security/Eval
+            }.call
+          else
+            value
           end
         end
       end
@@ -117,20 +97,7 @@ module Lookbook
 
     protected
 
-    def insert_at_position(group_name, position, opts)
-      group_panels = in_group(group_name)
-      index = insert_index(position, group_panels.count)
-      group_panels.insert(index, opts.except!(:position))
-    end
-
-    def insert_index(position, items_count)
-      index = (position == 0) ? 1 : (position || 0).to_int
-      last_position = items_count + 1
-      index = last_position if index > last_position
-      index - 1
-    end
-
-    def build_config(name, group_name, *args)
+    def build_config(name, *args)
       opts = if args.many? && args.last.is_a?(Hash)
         args.last.merge({partial: args.first})
       elsif args.any?
@@ -139,8 +106,7 @@ module Lookbook
         {}
       end
       if opts[:partial].present?
-        opts[:name] = name.to_sym
-        opts[:group] = group_name.to_sym
+        opts[:name] = Utils.symbolize_name(name)
         Store.new(DEFAULTS.merge(opts))
       else
         raise ConfigError.new("panels must define a partial path", scope: "panels.config")

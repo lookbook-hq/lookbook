@@ -11,6 +11,10 @@ module Lookbook
         str.to_s.parameterize.tr("-", "_")
       end
 
+      def symbolize_name(str)
+        name(str).to_sym
+      end
+
       def value_or_fallback(value, fallback = nil, &block)
         if value.nil?
           fallback_block = block || proc { fallback }

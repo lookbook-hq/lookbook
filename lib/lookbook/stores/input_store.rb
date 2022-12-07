@@ -2,9 +2,7 @@ module Lookbook
   class InputStore
     CONFIG_FILE = "config/inputs.yml"
 
-    DEFAULTS = {
-      # TODO
-    }
+    DEFAULTS = {}
 
     attr_reader :store
     delegate :to_h, to: :store

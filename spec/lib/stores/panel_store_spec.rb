@@ -13,36 +13,36 @@ RSpec.describe Lookbook::PanelStore do
     context ".add_panel" do
       context "with no partial path" do
         it "raises an exception" do
-          expect { config.add_panel(:panel_name, :panel_group) }.to raise_error Lookbook::ConfigError
-          expect { config.add_panel(:panel_name, :panel_group, {foo: "bar"}) }.to raise_error Lookbook::ConfigError
+          expect { config.add_panel(:panel_name) }.to raise_error Lookbook::ConfigError
+          expect { config.add_panel(:panel_name, {foo: "bar"}) }.to raise_error Lookbook::ConfigError
         end
       end
 
       context "with partial path as an option" do
-        it "adds a panel to a group" do
-          config.add_panel(:panel_name, :panel_group, opts)
+        it "adds a panel" do
+          config.add_panel(:panel_name, opts)
           example = config.get_panel(:panel_name)
 
           expect(example).to_not be nil
           expect(example.name).to eql :panel_name
-          expect(config.get_panel(:panel_name, :panel_group)).to_not be nil
+          expect(config.get_panel(:panel_name)).to_not be nil
         end
       end
 
       context "with partial path as arg" do
-        it "adds a panel to a group" do
-          config.add_panel(:panel_name, :panel_group, "path/to/partial")
+        it "adds a panel" do
+          config.add_panel(:panel_name, "path/to/partial")
           example = config.get_panel(:panel_name)
 
           expect(example).to_not be nil
           expect(example.name).to eql :panel_name
-          expect(config.get_panel(:panel_name, :panel_group)).to_not be nil
+          expect(config.get_panel(:panel_name)).to_not be nil
         end
       end
 
       context "with options" do
         it "merges in the default options" do
-          config.add_panel(:panel_name, :panel_group, opts)
+          config.add_panel(:panel_name, opts)
           example = config.get_panel(:panel_name)
 
           panel_defaults.keys.each do |key|
@@ -51,7 +51,7 @@ RSpec.describe Lookbook::PanelStore do
         end
 
         it "doesn't overwrite existing options" do
-          config.add_panel(:panel_name, :panel_group, {
+          config.add_panel(:panel_name, {
             partial: "path/to/partial",
             hotkey: "x"
           })
@@ -61,71 +61,12 @@ RSpec.describe Lookbook::PanelStore do
           expect(example.hotkey).to eq "x"
         end
       end
-
-      context "no position specified" do
-        it "adds each panel in order" do
-          (1..3).each do |i|
-            config.add_panel("panel_#{i}", :panel_group, opts)
-          end
-
-          example_panels = config.in_group(:panel_group)
-
-          (1..3).each do |i|
-            expect(example_panels[i - 1].name).to eql "panel_#{i}".to_sym
-          end
-          expect(config.count_panels).to eq 3
-        end
-      end
-
-      context "with position specified" do
-        it "inserts the panel in the correct position" do
-          (1..3).each do |i|
-            config.add_panel("panel_#{i}", :panel_group, opts)
-          end
-
-          config.add_panel(:panel_4, :panel_group, {
-            partial: "path/to/partial",
-            position: 2
-          })
-
-          expect(config.in_group(:panel_group)[1].name).to eql :panel_4
-          expect(config.count_panels).to eq 4
-        end
-
-        it "inserts the panel at the start if the position value is zero" do
-          (1..3).each do |i|
-            config.add_panel("panel_#{i}", :panel_group, opts)
-          end
-
-          config.add_panel(:panel_4, :panel_group, {
-            partial: "path/to/partial",
-            position: 0
-          })
-
-          expect(config.in_group(:panel_group).first.name).to eql :panel_4
-          expect(config.count_panels).to eq 4
-        end
-
-        it "inserts the panel at the end if the position value is greater than the number of Panel" do
-          (1..3).each do |i|
-            config.add_panel("panel_#{i}", :panel_group, opts)
-          end
-
-          config.add_panel(:panel_4, :panel_group, {
-            partial: "path/to/partial",
-            position: 100
-          })
-
-          expect(config.in_group(:panel_group).last.name).to eql :panel_4
-          expect(config.count_panels).to eq 4
-        end
-      end
     end
 
     context ".update_panel" do
       before do
         (1..3).each do |i|
-          config.add_panel("panel_#{i}", :panel_group, {
+          config.add_panel("panel_#{i}", {
             partial: "path/to/partial",
             id: "a-custom-id"
           })
@@ -156,23 +97,13 @@ RSpec.describe Lookbook::PanelStore do
 
           expect(config.get_panel(:panel_1).name).to eq :panel_1
         end
-
-        context "position specified" do
-          it "moves the panel to the correct position" do
-            config.update_panel(:panel_1, {
-              position: 2
-            })
-
-            expect(config.in_group(:panel_group)[1].name).to eq :panel_1
-          end
-        end
       end
     end
 
     context ".remove_panel" do
       before do
         (1..3).each do |i|
-          config.add_panel("panel_#{i}", :panel_group, opts)
+          config.add_panel("panel_#{i}", opts)
         end
       end
 
@@ -200,10 +131,8 @@ RSpec.describe Lookbook::PanelStore do
       it "loads the config" do
         config.load_config(config_data)
 
-        config_data.each do |group_name, group_panels|
-          group_panels.each do |panel|
-            expect(config.get_panel(panel[:name])).not_to be nil
-          end
+        config_data.each do |name, panel|
+          expect(config.get_panel(name)).not_to be nil
         end
       end
     end
@@ -231,10 +160,8 @@ RSpec.describe Lookbook::PanelStore do
     context ".init_from_config" do
       it "initializes a new instance from the default config options" do
         config = config_store.init_from_config
-        Lookbook::PanelStore.default_config.each do |group_name, panels|
-          panels.each do |opts|
-            expect(config.get_panel(opts[:name])).not_to be nil
-          end
+        Lookbook::PanelStore.default_config.each do |name, opts|
+          expect(config.get_panel(name)).not_to be nil
         end
       end
     end

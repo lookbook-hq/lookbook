@@ -87,7 +87,7 @@ module Lookbook
     end
 
     def define_panel(name, *args)
-      Engine.panels.add_panel(name, :drawer, *args)
+      Engine.panels.add_panel(name, *args)
     end
 
     def amend_panel(*args)
