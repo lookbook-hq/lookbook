@@ -101,8 +101,9 @@ module Lookbook
 
     def set_options
       return @options if @options
+
       options = SearchParamParser.call(req_params[:_options])
-      default_options = Lookbook.config.preview_embed_options.to_h
+      default_options = Lookbook.config.preview_embed.to_h
       @options ||= default_options.merge(options)
     end
 
