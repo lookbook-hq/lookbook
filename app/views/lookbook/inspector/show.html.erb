@@ -102,7 +102,7 @@
                 copy: !!panel.copy,
                 "x-show": "$store.inspector.drawer.activeTab === '#{panel.name}'",
                 cloak: true do %>
-                <%== panel.copy ? panel.copy : "" %>
+                <%= panel.copy ? panel.copy : "" %>
                 <% end %>
             <% end %>  
           <% end %>
