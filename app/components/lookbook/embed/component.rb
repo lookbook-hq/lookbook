@@ -12,7 +12,7 @@ module Lookbook
     end
 
     def id
-      Utils.id("embed", example.id)
+      Utils.id("embed", embed_path.hash)
     end
 
     def embed_path

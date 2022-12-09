@@ -13,7 +13,10 @@ module Lookbook
     end
 
     def id
-      Utils.id("embed", *examples.map(&:name), "inspector")
+      Utils.id(
+        "embed-inspector",
+        "#{examples.map(&:name).join}#{options.to_json}#{actions.to_json}#{panels.to_json}".hash
+      )
     end
 
     def data

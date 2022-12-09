@@ -2,11 +2,13 @@
   class: "w-full drop-shadow" do %>
   <div>
     <iframe
-      id="<%= id %>-iframe"
+      id="<%= id %>-frame"
       src="<%= embed_path %>"
       frameborder="0"
       x-ref="inspector"
       class="w-full transition-[height] duration-150"
-      :style="`height: ${cssHeight}`"></iframe> 
+      @dom:update-complete.window="resizeIframe"
+      :style="`height: ${cssHeight}`"
+      @load="loadResizer"></iframe> 
   </div>
 <% end %>

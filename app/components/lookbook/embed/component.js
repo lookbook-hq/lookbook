@@ -2,28 +2,33 @@ import "iframe-resizer/js/iframeResizer";
 
 export default function embedComponent() {
   return {
-    height: 0,
+    iframe: null,
 
-    get cssHeight() {
-      return this.height ? `${this.height}px` : "auto";
-    },
+    cssHeight: "auto",
 
-    init() {
-      const onResized = this.onResized.bind(this);
-      window.iFrameResize(
+    loadResizer() {
+      this.iframe = window.iFrameResize(
         {
           autoResize: true,
+
           checkOrigin: false,
-          onResized,
+
+          onInit: () => {
+            this.resizeIframe();
+          },
+
+          onResized: ({ height }) => {
+            if (height > 0) {
+              this.cssHeight = `${height}px`;
+            }
+          },
         },
         this.$refs.inspector
-      );
+      )[0];
     },
 
-    onResized({ height }) {
-      if (height) {
-        this.height = height;
-      }
+    resizeIframe() {
+      this.iframe.iFrameResizer.resize();
     },
   };
 }

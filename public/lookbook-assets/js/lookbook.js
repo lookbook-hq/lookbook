@@ -11,7 +11,9 @@ window.Lookbook.initEmbeds = function() {
         const iframe = $d73574cc5e9b9e72$var$createIframe(attrs);
         embed.replaceWith(iframe);
     });
-    window.iFrameResize({}, "[data-lookbook-embed]");
+    window.iFrameResize({
+        checkOrigin: false
+    }, "[data-lookbook-embed]");
 };
 const $d73574cc5e9b9e72$var$embedUrlPrefix = "embed";
 const $d73574cc5e9b9e72$var$defaultBasePath = `//${location.host}/lookbook`;
@@ -36,13 +38,12 @@ function $d73574cc5e9b9e72$var$buildSrc(attrs) {
     const props = {};
     $d73574cc5e9b9e72$var$attrsWithout(attrs, "app", "class").forEach(({ name: name , value: value  })=>{
         name = name.replace("-", "_").toLowerCase();
-        value = encodeURIComponent(value);
         props[name] = value;
     });
-    return [
+    return encodeURI([
         appPath,
         $d73574cc5e9b9e72$var$embedUrlPrefix
-    ].join("/") + `?props=${JSON.stringify(props)}`;
+    ].join("/") + `?props=${JSON.stringify(props)}`);
 }
 function $d73574cc5e9b9e72$var$attrValue(attrs, name, fallback = null) {
     const attr = attrs.find((attr)=>attr.name === name);
@@ -50,9 +51,6 @@ function $d73574cc5e9b9e72$var$attrValue(attrs, name, fallback = null) {
 }
 function $d73574cc5e9b9e72$var$attrsWithout(attrs, ...without) {
     return attrs.filter((attr)=>!without.includes(attr.name));
-}
-function $d73574cc5e9b9e72$var$insertAfter(newNode, referenceNode) {
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
 
 })();

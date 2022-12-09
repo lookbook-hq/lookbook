@@ -16,7 +16,7 @@ window.Lookbook.initEmbeds = function () {
     embed.replaceWith(iframe);
   });
 
-  window.iFrameResize({}, "[data-lookbook-embed]");
+  window.iFrameResize({ checkOrigin: false }, "[data-lookbook-embed]");
 };
 
 const embedUrlPrefix = "embed";
@@ -52,11 +52,10 @@ function buildSrc(attrs) {
   const props = {};
   attrsWithout(attrs, "app", "class").forEach(({ name, value }) => {
     name = name.replace("-", "_").toLowerCase();
-    value = encodeURIComponent(value);
     props[name] = value;
   });
 
-  return (
+  return encodeURI(
     [appPath, embedUrlPrefix].join("/") + `?props=${JSON.stringify(props)}`
   );
 }
@@ -68,8 +67,4 @@ function attrValue(attrs, name, fallback = null) {
 
 function attrsWithout(attrs, ...without) {
   return attrs.filter((attr) => !without.includes(attr.name));
-}
-
-function insertAfter(newNode, referenceNode) {
-  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
