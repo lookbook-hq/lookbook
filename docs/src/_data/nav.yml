@@ -3,14 +3,16 @@ guide:
     items:
       - label: Overview
         url: /guide/
-      - label: Quick Start
+      - label: Installation
+        url: /guide/installation/
+      - label: First Steps
         url: /guide/quick-start/
-      - label: Upgrade Guide
-        url: /guide/upgrading/
       - label: Configuration
         url: /guide/config/
       - label: Deployment
         url: /guide/deployment/
+      - label: Upgrade Guide
+        url: /guide/upgrading/
       - label: Troubleshooting
         url: /guide/troubleshooting/
   - label: Previews

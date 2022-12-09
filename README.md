@@ -7,6 +7,14 @@ A tool to help browse, develop, test & document [ViewComponents](https://viewcom
 [![CI status](https://github.com/ViewComponent/lookbook/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ViewComponent/lookbook/actions/workflows/ci.yml)
 <br>
 
+---
+
+**🚨 This is the v2.0 development branch! 🚨**
+
+For the current stable release see the [main branch](https://github.com/ViewComponent/lookbook/tree/main).
+
+---
+
 ## Documentation
 
 ✨ **Lookbook guide and API docs**: [lookbook.build](https://lookbook.build)

@@ -11,6 +11,7 @@ Lookbook is built on top of ViewComponent's native [preview classes](https://vie
 
 {%= note :info do %}
 **This documentation is for Lookbook v2.0+**.
+Docs for older versions can be found at the links below:
 
 * [v1.x docs](https://lookbook.build)
 * [v0.9.x docs](https://github.com/ViewComponent/lookbook/tree/0.9.x)

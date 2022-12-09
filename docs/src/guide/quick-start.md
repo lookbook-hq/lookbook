@@ -1,35 +1,9 @@
 ---
-title: Quick Start
+title: First steps
 layout: default
 ---
 
-It's quick and easy to get up and running with Lookbook.
-Follow this guide to get up and running quickly and then explore the rest of the docs to dive in deeper.
-
-{%= note :info do %}
-If you are **already using Lookbook in your project** then head over to the [upgrade guide](/guide/upgrading) instead for details on how to update to the latest version.
-{% end %}
-
-## Install Lookbook
-
-Add Lookbook to your `Gemfile` somewhere *after* the ViewComponent gem:
-
-```ruby
-gem "view_component"
-gem "lookbook"
-```
-
-and then `bundle install` to install Lookbook.
-
-Next mount the Lookbook engine (at a path of your choosing) in your routes file:
-
-```ruby
-Rails.application.routes.draw do
-  if Rails.env.development?
-    mount Lookbook::Engine, at: "/lookbook"
-  end
-end
-```
+If you are new to Lookbook or ViewComponent, the following guide will help you get up and running with a component that can be previewed in Lookbook.
 
 ## Add a component and preview
 

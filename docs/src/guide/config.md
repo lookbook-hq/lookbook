@@ -3,9 +3,7 @@ layout: default
 title: Configuration
 ---
 
-Lookbook uses your ViewComponent config so it normally doesn't need any additional configuration to know where to look for your components and preview classes etc. However there are a number of Lookbook-specific configuration options that you may want to use.
-
-{{ toc }}
+Lookbook uses your ViewComponent config so doesn't need any additional configuration to know where to look for your components and preview classes. However there are a number of Lookbook-specific configuration options that you may want to use.
 
 ## Configuring Lookbook
 
@@ -30,3 +28,5 @@ Below are a few of the most commonly used configuration options. For the complet
 {{ render "config_options_list", options: options }}
 
 [Full list of configuration options &rarr;](/api/config)
+
+{{ toc }}
