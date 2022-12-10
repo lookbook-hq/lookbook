@@ -3,7 +3,7 @@
 rake build
 
 printf "\n✅ Lookbook v${1/-/.} gem built."
-printf "\n\n💎 Pushing to RubyGems. Please provide MFA token:\n"
+printf "\n\n💎 Pushing to RubyGems. Please provide MFA token:"
 
 read token
 
