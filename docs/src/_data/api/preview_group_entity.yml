@@ -1,0 +1,41 @@
+---
+name: PreviewGroupEntity
+path: Lookbook::PreviewGroupEntity
+description: ''
+methods:
+- id: examples-instance-method
+  name: examples
+  path: Lookbook::PreviewGroupEntity#examples
+  signature: examples
+  description: Returns the value of attribute examples.
+  return_types:
+  scope: instance
+  tags: []
+- id: preview-instance-method
+  name: preview
+  path: Lookbook::PreviewGroupEntity#preview
+  signature: preview
+  description: Returns the value of attribute preview.
+  return_types:
+  scope: instance
+  tags: []
+- id: initialize-instance-method
+  name: initialize
+  path: Lookbook::PreviewGroupEntity#initialize
+  signature: initialize(name, examples, preview)
+  description: ''
+  return_types: PreviewGroupEntity
+  scope: instance
+  tags:
+  - name:
+    tag_name: return
+    text: a new instance of PreviewGroupEntity
+    types: PreviewGroupEntity
+- id: parent-instance-method
+  name: parent
+  path: Lookbook::PreviewGroupEntity#parent
+  signature: parent
+  description: Returns the value of attribute preview.
+  return_types:
+  scope: instance
+  tags: []

@@ -1,0 +1,17 @@
+---
+name: Entity
+path: Lookbook::Entity
+description: ''
+methods:
+- id: initialize-instance-method
+  name: initialize
+  path: Lookbook::Entity#initialize
+  signature: initialize(lookup_path = nil)
+  description: ''
+  return_types: Entity
+  scope: instance
+  tags:
+  - name:
+    tag_name: return
+    text: a new instance of Entity
+    types: Entity

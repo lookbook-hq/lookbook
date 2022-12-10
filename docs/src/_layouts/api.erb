@@ -1,0 +1,20 @@
+---
+layout: docs
+---
+
+<%
+klass = site.data.api[resource.data.subject.to_sym].symbolize_keys
+# klass[:methods].each do |method|
+#   resource.data.headings.push({label: method.name, id: method[:id]})
+# end
+resource.data.title = %Q(
+  <span class="text-gray-400 opacity-75">API /</span>
+  #{resource.data.label}
+)
+%>
+ 
+<% if klass %>
+  <%= render LookbookDocs::ApiClass::Component.new(**klass, toc: resource.data.toc) %>
+<% else %>
+  <p><em>API data not found</em></p>
+<% end %>

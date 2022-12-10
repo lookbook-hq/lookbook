@@ -1,0 +1,15 @@
+<%= tag.div **html_attrs,
+  data: {
+    component: "note",
+    "note-theme": theme
+  } do %>
+  <div class="note-tag">
+    <%= icon icon_name, size: 3.5 %>
+  </div>
+  <div class="note-content prose max-w-none">
+    <% if title.present? %>
+      <h4 class="mb-2"><%= title %></h4>
+    <% end %>
+    <%= markdownify content %>
+  </div>
+<% end %>

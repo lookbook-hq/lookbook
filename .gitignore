@@ -12,5 +12,6 @@ tmp/
 .bridgetown-cache
 docs/output
 *-refresh.css
+_docs
 
 .netlify

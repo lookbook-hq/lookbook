@@ -1,0 +1,34 @@
+groups:
+  - label: Developer Guide
+    items:
+      - overview
+
+  - label: Inspector Panels
+    items:
+      # - panels-overview
+      - panels-adding
+      - panels-templates
+      - panels-styles
+
+  - label: Preview Params
+    items:
+      # - params-overview
+      - params-adding
+      - params-templates
+      - params-styles
+
+  - label: Custom Tags
+    items:
+      - tags-adding
+      - tags-using
+
+  - label: Other
+    items:
+      - hooks
+      - data
+
+  - label: API Reference
+    items:
+      - api-lookbook
+      - api-preview-entity
+      - api-preview-example-entity

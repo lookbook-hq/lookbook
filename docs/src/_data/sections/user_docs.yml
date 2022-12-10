@@ -1,0 +1,42 @@
+groups:
+  - label: Get Started
+    items:
+      - overview
+      - installation
+      - configuration
+
+  - label: The Basics
+    items:
+      - components
+      - previews
+      - pages
+      - lookbook-ui
+      - troubleshooting
+
+  - label: Previews
+    items:
+      - previews-annotations
+      - previews-layouts
+      - previews-nav
+      - previews-groups
+      - previews-params
+      - previews-display
+      - previews-embeds
+
+  - label: Pages
+    items:
+      - pages-frontmatter
+      - pages-variables
+      - pages-embedding
+
+  - label: UI Customisation
+    items:
+      - ui-theming
+      - ui-inspector
+      - ui-config
+
+  - label: Other
+    items:
+      - deployment
+      - upgrading
+      - config-reference

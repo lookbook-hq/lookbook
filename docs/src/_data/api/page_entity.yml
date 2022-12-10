@@ -1,0 +1,93 @@
+---
+name: PageEntity
+path: Lookbook::PageEntity
+description: ''
+methods:
+- id: content-instance-method
+  name: content
+  path: Lookbook::PageEntity#content
+  signature: content
+  description: Returns the value of attribute content.
+  return_types:
+  scope: instance
+  tags: []
+- id: sections-instance-method
+  name: sections
+  path: Lookbook::PageEntity#sections
+  signature: sections
+  description: Returns the value of attribute sections.
+  return_types:
+  scope: instance
+  tags: []
+- id: initialize-instance-method
+  name: initialize
+  path: Lookbook::PageEntity#initialize
+  signature: initialize(file_path)
+  description: ''
+  return_types: PageEntity
+  scope: instance
+  tags:
+  - name:
+    tag_name: return
+    text: a new instance of PageEntity
+    types: PageEntity
+- id: landing?-instance-method
+  name: landing?
+  path: Lookbook::PageEntity#landing?
+  signature: landing?
+  description: ''
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: return
+    text: ''
+    types: Boolean
+- id: markdown?-instance-method
+  name: markdown?
+  path: Lookbook::PageEntity#markdown?
+  signature: markdown?
+  description: ''
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: return
+    text: ''
+    types: Boolean
+- id: header?-instance-method
+  name: header?
+  path: Lookbook::PageEntity#header?
+  signature: header?
+  description: ''
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: return
+    text: ''
+    types: Boolean
+- id: footer?-instance-method
+  name: footer?
+  path: Lookbook::PageEntity#footer?
+  signature: footer?
+  description: ''
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: return
+    text: ''
+    types: Boolean
+- id: respond-to-missing?-instance-method
+  name: respond_to_missing?
+  path: Lookbook::PageEntity#respond_to_missing?
+  signature: respond_to_missing?(method_name, include_private = false)
+  description: ''
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: return
+    text: ''
+    types: Boolean

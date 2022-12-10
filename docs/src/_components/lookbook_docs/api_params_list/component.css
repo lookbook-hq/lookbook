@@ -1,0 +1,11 @@
+[data-component="api-params-list"] {
+  @apply bg-white;
+
+  table {
+    @apply w-full border border-gray-200 text-sm;
+  }
+
+  td {
+    @apply py-2 px-4 align-top border-b border-gray-200;
+  }
+}

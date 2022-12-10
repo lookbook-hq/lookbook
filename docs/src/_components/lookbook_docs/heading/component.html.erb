@@ -1,0 +1,20 @@
+<%= tag.public_send tag_name,
+  **html_attrs,
+  id: id,
+  class: [
+    html_attrs[:class],
+    "relative group",
+    ("h-0 invisible pointer-events-none !m-0" if hidden?),
+    ("pt-10 mt-10 border-t border-gray-300" if level == 2 && !hidden? && splitter)
+  ] do %>
+  <span class="relative pl-6 -ml-6">
+    <a
+      href="#<%= id %>"
+      class="no-underline font-bold p-1 absolute left-0 top-[6px] lg:top-[4px] hidden group-hover:block">
+      <%= icon :link,
+        class: "w-[0.85rem] h-[0.85rem] lg:w-4 lg:h-4 rounded-md transition opacity-40 hover:opacity-100 transition relative left-px lg:-left-px",
+        html: {style: "none"} %>
+    </a>
+    <%= content %>
+  </span>
+<% end %>

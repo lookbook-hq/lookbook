@@ -1,0 +1,47 @@
+---
+layout: skeleton
+---
+<%
+collection = resource.collection
+nav_groups = site.data.sections[collection.label.downcase.to_sym]&.groups || []
+%>
+
+<div class="layout-container !block md:!grid">
+  <div class="layout-column bg-gray-50 !border-gray-300 !hidden md:!block overflow-y-scroll" data-turbo-maintain-scroll>
+    <div id="sidebar" class="layout-content py-8 space-y-8">
+      <% nav_groups.each do |group| %>
+        <%= render LookbookDocs::NavGroup::Component.new(label: group[:label]) do |nav| %>
+          <% group[:items].map do |item| %>
+            <%
+              item_id = item.is_a?(String) ? item : item.id
+              target = collection.resources.find { |i| i.data.id == item_id }
+            %>
+            <% nav.item(label: target.data.label || target.data.title, href: target.relative_url ) if target %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="layout-column overflow-y-scroll h-full md:h-auto relative scroll-smooth">
+    <main class="layout-content py-8">
+      <header class="mb-8 md:pb-8 md:border-b xl:border-gray-300">
+        <h1 class="text-4xl font-extralight text-indigo-600">
+          <%== resource.data.title %>
+        </h1>
+      </header>
+      <div class="lg:pr-[240px]">
+        <% if resource.data.toc.any? %>
+          <div class="md:float-right mt-6 mb-6 md:ml-6 md:mr-0 md:mt-0 md:w-[220px] lg:mr-[-240px] lg:sticky top-8">
+            <%= render LookbookDocs::Toc::Component.new do |menu| %>
+              <% resource.data.toc.each { menu.link(**_1) }%>
+            <% end %>
+          </div>
+        <% end %>
+        <div>
+          <%= yield %>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

@@ -26,8 +26,6 @@ const outputFolder = "output";
 // ```
 // const esbuildOptions = { publicPath: "/my_subfolder/_bridgetown/static" }
 // ```
-const esbuildOptions = {
-  target: "es2017",
-};
+const esbuildOptions = {};
 
 build(outputFolder, esbuildOptions);

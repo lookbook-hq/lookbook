@@ -1,0 +1,13 @@
+<%= tag.ul **html_attrs, class: "not-prose list-none m-0 py-2 px-4 bg-gray-100 border-l-4 border-indigo-500 space-y-2" do %>
+  <% links.each do |link| %>
+    <% text, href = link %>
+    <li>
+      <a href="<%= href %>" target="_blank" class="flex items-center space-x-2 w-full group">
+        <span class="group-hover:underline decoration-offset-2 text-indigo-700">
+          <%= text %>
+        </span>
+        <%= icon :arrow_right_circle, size: 4, class: "text-gray-400 group-hover:text-indigo-500" %>
+      </a>
+    </li>
+  <% end %>
+<% end %>

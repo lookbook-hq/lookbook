@@ -1,0 +1,24 @@
+<%= tag.div **html_attrs, class: "bg-gray-100" do %>
+  <h3>
+    <a href="#<%= id %>" class="no-underline block pl-4 pr-10 py-2 bg-gray-200 group relative">
+      <code class="inline-flex items-center text-indigo-700 font-semibold">
+        <span class="font-normal opacity-60">#</span>
+        <span><%= signature.strip %></span>
+      </code>
+      <% if return_types.present? %>
+        <code class="mx-2 inline-block text-gray-500 opacity-80">&rarr; <%== return_types %></code>
+      <% end %>
+      <span class="absolute right-3.5 top-[12px] hidden group-hover:block">
+        <%= icon :link, size: 4, class: "rounded-md transition opacity-40 hover:opacity-100 transition" %>
+      </span>
+    </a>
+  </h3>
+  <div class="space-y-4 p-4">
+      <div class="prose">
+        <%= markdown(description.presence || "_No description available._" ) %>
+      </div>
+    <% if params.any? %>
+      <%= render LookbookDocs::ApiParamsList::Component.new(params: params) %>
+    <% end %>
+  </div>
+<% end %>

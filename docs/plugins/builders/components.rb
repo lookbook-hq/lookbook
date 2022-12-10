@@ -1,48 +1,35 @@
 class Builders::Components < SiteBuilder
   def build
     helper :icon, helpers_scope: true do |name, attrs = {}|
-      view.render Shared::Icon.new name: name, **attrs
-    end
-
-    helper :note, helpers_scope: true do |theme = :info, attrs = {}, &block|
-      view.render Shared::Note.new(theme: theme, **attrs), &block
+      view.render LookbookDocs::Icon::Component.new name: name, **attrs
     end
 
     helper :image, helpers_scope: true do |path, attrs = {}|
-      view.render Shared::Image.new path: path, **attrs
+      view.render LookbookDocs::Image::Component.new path: path, **attrs
     end
 
-    helper :config_option_info, helpers_scope: true do |name, attrs = {}, &block|
-      view.render Shared::ConfigOptionInfo.new(name: name, **attrs), &block
+    helper :heading, helpers_scope: true do |text, id, label: nil, level: 2, **attrs|
+      add_toc_entry({
+        label: label || text,
+        id: id ? dom_id(id) : nil,
+        level: level
+      })
+
+      view.render(LookbookDocs::Heading::Component.new(id: id, level: level, **attrs)) do
+        text
+      end
     end
 
-    helper :method_info, helpers_scope: true do |name, attrs = {}, &block|
-      view.render Shared::MethodInfo.new(name: name, **attrs), &block
+    helper :link_list, helpers_scope: true do |*links, **attrs|
+      view.render LookbookDocs::LinkList::Component.new(links: links, **attrs)
     end
 
-    helper :config_option_list, helpers_scope: true do |attrs = {}, &block|
-      view.render Shared::ConfigOptionList.new(**attrs), &block
+    helper :note, helpers_scope: true do |theme = :info, attrs = {}, &block|
+      view.render LookbookDocs::Note::Component.new(theme: theme, **attrs), &block
     end
 
-    helper :method_list, helpers_scope: true do |attrs = {}, &block|
-      view.render Shared::MethodList.new(**attrs), &block
+    helper :lede, helpers_scope: true do |&block|
+      view.render LookbookDocs::Lede::Component.new, &block
     end
-
-    helper :options_list, helpers_scope: true do |attrs = {}, &block|
-      view.render Shared::OptionsList.new(**attrs), &block
-    end
-
-    helper :object_list, helpers_scope: true do |attrs = {}, &block|
-      view.render Shared::ObjectList.new(**attrs), &block
-    end
-
-    helper "toc", :toc_template
-  end
-
-  def toc_template(*)
-    <<~MD
-      * ...
-      {:toc}
-    MD
   end
 end

@@ -1,0 +1,12 @@
+<%= tag.nav **html_attrs do %>
+  <% if label.present? %>
+    <h4 class="text-lg font-bold mb-2"><%= label %></h4>
+  <% end %>
+  <ul class="space-y-2">
+    <% items.each do |item| %>
+      <li>
+        <%= item %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

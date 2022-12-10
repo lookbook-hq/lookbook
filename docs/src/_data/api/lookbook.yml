@@ -1,0 +1,154 @@
+---
+name: Lookbook
+path: Lookbook
+description: ''
+methods:
+- id: version-class-method
+  name: version
+  path: Lookbook.version
+  signature: version
+  description: Returns the installed Lookbook version
+  return_types: String
+  scope: class
+  tags:
+  - name:
+    tag_name: return
+    text: Version number string
+    types: String
+- id: config-class-method
+  name: config
+  path: Lookbook.config
+  signature: config
+  description: Provides access to the Lookbook config store
+  return_types:
+  scope: class
+  tags:
+  - name: ''
+    tag_name: example
+    text: Lookbook.config.project_title = "MyApp"
+    types:
+  - name:
+    tag_name: return
+    text: The config store object
+    types:
+- id: previews-class-method
+  name: previews
+  path: Lookbook.previews
+  signature: previews
+  description: Preview entities
+  return_types: Array&lt;PreviewEntity&gt;
+  scope: class
+  tags:
+  - name:
+    tag_name: return
+    text: Array of preview entities
+    types: Array&lt;PreviewEntity&gt;
+- id: pages-class-method
+  name: pages
+  path: Lookbook.pages
+  signature: pages
+  description: Documentation pages
+  return_types: Array&lt;PageEntity&gt;
+  scope: class
+  tags:
+  - name:
+    tag_name: return
+    text: Array of page entities
+    types: Array&lt;PageEntity&gt;
+- id: data-class-method
+  name: data
+  path: Lookbook.data
+  signature: data
+  description: Get the global data store instance
+  return_types: Store
+  scope: class
+  tags:
+  - name:
+    tag_name: return
+    text: The global data store instance
+    types: Store
+- id: data=-class-method
+  name: data=
+  path: Lookbook.data=
+  signature: data=(new_data)
+  description: Replace the global data store contents with a new hash
+  return_types: Store
+  scope: class
+  tags:
+  - name: new_data
+    tag_name: param
+    text: Hash of data to store
+    types: Hash
+  - name:
+    tag_name: return
+    text: The global data store instance
+    types: Store
+- id: add-param-input-class-method
+  name: add_param_input
+  path: Lookbook.add_param_input
+  signature: add_param_input(name, partial_path, **opts)
+  description: Add a custom `@param` tag input type
+  return_types:
+  scope: class
+  tags:
+  - name: name
+    tag_name: param
+    text: Unique input type name
+    types: Symbol
+  - name: partial_path
+    tag_name: param
+    text: Path to the partial template used to render the input
+    types: String
+  - name: opts
+    tag_name: param
+    text: Set of default options to be passed to the input. Any supplied param options
+      will override these values
+    types: Hash
+- id: define-param-input-class-method
+  name: define_param_input
+  path: Lookbook.define_param_input
+  signature: define_param_input(*args)
+  description: ''
+  return_types:
+  scope: class
+  tags:
+  - name:
+    tag_name: deprecated
+    text: ''
+    types:
+- id: define-panel-class-method
+  name: define_panel
+  path: Lookbook.define_panel
+  signature: define_panel(name, *args)
+  description: ''
+  return_types:
+  scope: class
+  tags:
+  - name:
+    tag_name: deprecated
+    text: ''
+    types:
+- id: amend-panel-class-method
+  name: amend_panel
+  path: Lookbook.amend_panel
+  signature: amend_panel(*args)
+  description: ''
+  return_types:
+  scope: class
+  tags:
+  - name:
+    tag_name: deprecated
+    text: ''
+    types:
+- id: define-tag-class-method
+  name: define_tag
+  path: Lookbook.define_tag
+  signature: define_tag
+  description: ''
+  return_types:
+  scope: class
+  tags:
+  - name:
+    tag_name: deprecated
+    text: ''
+    types:

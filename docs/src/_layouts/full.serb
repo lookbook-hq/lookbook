@@ -1,7 +1,0 @@
----
-layout: skeleton
----
-
-<div class="w-full max-w-[1290px] mx-auto px-6 lg:px-8 py-10">
-  {{ yield }}
-</div>

@@ -1,0 +1,6 @@
+<%= tag.i **html_attrs,
+  style: html_attrs[:style].present? ? html_attrs[:style] : "height: #{size_rems}; width: #{size_rems};" do %>
+  <svg>
+    <use href="/images/icons/lucide_sprite.svg#<%= name %>" />
+  </svg>
+<% end %>

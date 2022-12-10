@@ -1,1 +1,0 @@
-{{ render "options_list", options: options }}

@@ -19,6 +19,7 @@ vendor
 
 # Ignore Byebug command history file.
 .byebug_history
+!_docs
 
 # dotenv environment variables file
 .env
@@ -33,4 +34,5 @@ yarn-debug.log*
 .pnp.js
 # Yarn Integrity file
 .yarn-integrity
+
 frontend/styles/jit-refresh.css

@@ -1,0 +1,19 @@
+<%= tag.div **html_attrs do %>
+  <table>
+    <tbody>
+      <% params.each do |param| %>
+        <tr>
+          <td class="w-[20%]">
+            <code class="text-indigo-600"><%= param[:name] %></code>
+          </td>
+          <td class="w-[10%]">
+            <code class="text-gray-500"><%= param[:types] %></code>
+          </td>
+          <td>
+            <%= markdown param[:text] %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

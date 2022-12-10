@@ -1,0 +1,9 @@
+[data-component="icon"] {
+  @apply transition block flex-none leading-none;
+
+  & svg {
+    @apply w-full h-full stroke-current stroke-2 fill-transparent;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}

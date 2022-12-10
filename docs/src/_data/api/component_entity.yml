@@ -1,0 +1,37 @@
+---
+name: ComponentEntity
+path: Lookbook::ComponentEntity
+description: ''
+methods:
+- id: component-class-instance-method
+  name: component_class
+  path: Lookbook::ComponentEntity#component_class
+  signature: component_class
+  description: Returns the value of attribute component_class.
+  return_types:
+  scope: instance
+  tags: []
+- id: initialize-instance-method
+  name: initialize
+  path: Lookbook::ComponentEntity#initialize
+  signature: initialize(component_class)
+  description: ''
+  return_types: ComponentEntity
+  scope: instance
+  tags:
+  - name:
+    tag_name: return
+    text: a new instance of ComponentEntity
+    types: ComponentEntity
+- id: inline?-instance-method
+  name: inline?
+  path: Lookbook::ComponentEntity#inline?
+  signature: inline?
+  description: ''
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: return
+    text: ''
+    types: Boolean
