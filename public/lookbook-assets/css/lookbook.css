@@ -1916,12 +1916,12 @@ input[type="color"]::-webkit-color-swatch {
   margin-right: 0;
 }
 
-.block {
-  display: block;
-}
-
 .\!block {
   display: block !important;
+}
+
+.block {
+  display: block;
 }
 
 .inline-block {
