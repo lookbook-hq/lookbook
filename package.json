@@ -78,8 +78,9 @@
     "watch": "^1.0.2"
   },
   "lint-staged": {
-    "**/*": [
-      "prettier --write --ignore-unknown"
+    "!(docs/**/*)": [
+      "prettier --write --ignore-unknown",
+      "npm run build"
     ],
     "**/*.rb": [
       "bundle exec standardrb --fix"
