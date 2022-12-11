@@ -86,7 +86,7 @@
     "watch": "^1.0.2"
   },
   "lint-staged": {
-    "**/*": [
+    "!(docs/**/*)": [
       "prettier --write --ignore-unknown",
       "npm run build"
     ],
