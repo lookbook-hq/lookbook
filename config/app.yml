@@ -38,7 +38,6 @@ shared:
 
   listen_paths: []
   listen_extensions: [rb, html.*]
-  listen_use_polling: false
 
   ui_theme: indigo
   ui_theme_overrides: {}

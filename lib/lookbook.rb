@@ -54,9 +54,10 @@ module Lookbook
         config: [
           config.to_h,
           {
-            optional_dependencies: {
+            dependencies: {
               actioncable: Engine.runtime_context.actioncable_installed?,
-              listen: Engine.runtime_context.listen_installed?
+              listen: Engine.runtime_context.listen_installed?,
+              view_component: config.using_view_component
             }
           },
           {panels: Engine.panels.to_h},
