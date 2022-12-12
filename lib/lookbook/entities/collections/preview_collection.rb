@@ -41,17 +41,19 @@ module Lookbook
       clear_cache
     end
 
-    def self.preview_from_code_object(code_object)
-      klass = code_object.path.constantize
-      PreviewEntity.new(code_object) if preview_class?(klass)
-    rescue => exception
-      Lookbook.logger.error exception.to_s
-      nil
-    end
+    class << self
+      def preview_from_code_object(code_object)
+        klass = code_object.path.constantize
+        PreviewEntity.new(code_object) if preview_class?(klass)
+      rescue => exception
+        Lookbook.logger.error exception.to_s
+        nil
+      end
 
-    def self.preview_class?(klass)
-      if klass.ancestors.include?(ViewComponent::Preview) || klass.ancestors.include?(Lookbook::Preview)
-        !klass.respond_to?(:abstract_class) || klass.abstract_class != true
+      def preview_class?(klass)
+        if (defined?(ViewComponent) && klass.ancestors.include?(ViewComponent::Preview)) || klass.ancestors.include?(Lookbook::Preview)
+          !klass.respond_to?(:abstract_class) || klass.abstract_class != true
+        end
       end
     end
 

@@ -6,6 +6,14 @@ module Lookbook
       @env = env
     end
 
+    def app_name
+      return @_app_name if @_app_name
+
+      app_class = Rails.application.class
+      name = app_class.respond_to?(:module_parent_name) ? app_class.module_parent_name : app_class.parent_name
+      @_app_name ||= name.underscore
+    end
+
     def actioncable_installed?
       gem_installed?("actioncable")
     end

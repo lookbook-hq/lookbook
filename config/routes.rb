@@ -14,6 +14,4 @@ Lookbook::Engine.routes.draw do
 
   get "/embed", to: "embeds#lookup", as: :lookbook_embed_lookup
   get "/embed/*path", to: "embeds#show", as: :lookbook_embed
-
-  get "/*path", to: "inspector#show_legacy", as: :lookbook_inspect_legacy
 end

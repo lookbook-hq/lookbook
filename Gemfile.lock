@@ -9,7 +9,7 @@ PATH
       railties (>= 5.0)
       redcarpet (~> 3.5)
       rouge (>= 3.26, < 5.0)
-      view_component (~> 2.0)
+      view_component (>= 2.0)
       yard (~> 0.9.25)
       zeitwerk (~> 2.5)
 
@@ -183,6 +183,7 @@ DEPENDENCIES
   selenium-webdriver
   sqlite3 (~> 1.5)
   standard (~> 1.19)
+  view_component
 
 BUNDLED WITH
    2.2.22

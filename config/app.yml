@@ -1,10 +1,9 @@
 shared:
   project_name: Lookbook
-  log_level: 2
-  log_use_rails_logger: true
-  auto_refresh: false
+
   components_path: app/components
-  page_controller: Lookbook::PageController
+
+  page_controller: "Lookbook::PageController"
   page_route: pages
   page_paths: [test/components/docs]
   page_extensions: [html.*, md.*]
@@ -20,11 +19,15 @@ shared:
   highlighter_options:
     theme: github
     dark: false
+
   sort_examples: false
-  preview_paths: []
+  preview_paths: [test/components/previews]
   preview_display_options: {}
   preview_disable_action_view_annotations: true
   preview_type_default: view_component
+  preview_controller: "Lookbook::PreviewController"
+  preview_layout: ~
+  preview_template: lookbook/previews/preview
   preview_inspector:
     panels: [source, notes, params, "*"]
   preview_embed:
@@ -32,22 +35,23 @@ shared:
     actions: [inspect, open]
     display_option_controls: true
     examples: []
-  listen: false
+
   listen_paths: []
   listen_extensions: [rb, html.*]
   listen_use_polling: false
+
   ui_theme: indigo
   ui_theme_overrides: {}
   ui_favicon: true
+
+  log_level: 2
+  log_use_rails_logger: true
+
   debug_menu: false
   experimental_features: false
 
 development:
-  listen: true
-  auto_refresh: true
   debug_menu: true
 
 test:
-  listen: false
-  auto_refresh: false
   debug_menu: true

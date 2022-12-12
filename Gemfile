@@ -5,6 +5,7 @@ gemspec
 gem "standard", "~> 1.19"
 
 group :development, :test do
+  gem "view_component"
   gem "sqlite3", "~> 1.5"
   gem "combustion", "~> 1.3"
   gem "actionpack"

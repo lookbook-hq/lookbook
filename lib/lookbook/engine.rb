@@ -1,4 +1,3 @@
-require "view_component"
 require "yard"
 
 module Lookbook
@@ -6,19 +5,6 @@ module Lookbook
     isolate_namespace Lookbook
 
     config.autoload_paths << File.expand_path(root.join("app/components"))
-
-    config.before_configuration do
-      config.lookbook = Lookbook.config
-    end
-
-    initializer "lookbook.viewcomponent.config_sync" do
-      opts.preview_paths += config.view_component.preview_paths
-      opts.preview_controller ||= config.view_component.preview_controller
-
-      if config.view_component.view_component_path.present?
-        opts.components_path = config.view_component.view_component_path
-      end
-    end
 
     initializer "lookbook.assets.serve" do
       config.app_middleware.use(
@@ -28,15 +14,29 @@ module Lookbook
       )
     end
 
+    config.before_configuration do
+      config.lookbook = Lookbook.config
+
+      if defined?(ViewComponent)
+        config.lookbook.using_view_component = true
+      else
+        require "view_component"
+        config.lookbook.using_view_component = false
+      end
+    end
+
     config.after_initialize do
-      # The preview controller handles the rendering of individual previews.
-      #
-      # Lookbook injects some actions into whichever controller has been
-      # specified by the user in order to render previews within the context of
-      # the particular controller class instance so that any before_action/after_action
-      # callbacks will be correctly processed.
-      @preview_controller = opts.preview_controller.constantize
-      @preview_controller.include PreviewControllerActions
+      if opts.using_view_component || Rails.env.test?
+        vc_config = Rails.application.config.view_component
+
+        opts.preview_paths += vc_config.preview_paths
+        opts.preview_controller = vc_config.preview_controller
+        opts.preview_template = "view_components/preview"
+
+        if vc_config.view_component_path.present?
+          opts.components_path = vc_config.view_component_path
+        end
+      end
     end
 
     config.after_initialize do
@@ -60,15 +60,7 @@ module Lookbook
     end
 
     class << self
-      attr_reader :preview_controller
-
-      def app_name
-        return @_app_name if @_app_name
-
-        app_class = Rails.application.class
-        name = app_class.respond_to?(:module_parent_name) ? app_class.module_parent_name : app_class.parent_name
-        @_app_name ||= name.underscore
-      end
+      delegate :app_name, to: :runtime_context
 
       def mount_path
         routes.find_script_name({})
@@ -130,9 +122,7 @@ module Lookbook
         @_page_paths ||= PathUtils.normalize_paths(opts.page_paths)
       end
 
-      def page_watch_paths
-        page_paths
-      end
+      alias_method :page_watch_paths, :page_paths
 
       def preview_paths
         @_preview_paths ||= PathUtils.normalize_paths(opts.preview_paths)
@@ -151,6 +141,13 @@ module Lookbook
 
       def previews
         @_previews ||= PreviewCollection.new
+      end
+
+      def preview_controller
+        return @_preview_controller if @_preview_controller
+
+        @_preview_controller = opts.preview_controller.constantize
+        @_preview_controller.include PreviewControllerActions
       end
 
       def load_previews(changes = nil)
