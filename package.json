@@ -42,7 +42,7 @@
     "@alpinejs/collapse": "^3.10.5",
     "@alpinejs/morph": "^3.10.5",
     "@alpinejs/persist": "^3.10.5",
-    "@parcel/resolver-glob": "^2.8.0",
+    "@parcel/resolver-glob": "^2.8.1",
     "@rails/actioncable": "^6.1.4",
     "@ryangjchandler/alpine-tooltip": "^1.2.0",
     "@tailwindcss/forms": "^0.5.3",
