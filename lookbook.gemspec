@@ -14,6 +14,8 @@ Gem::Specification.new do |spec|
   spec.files = Dir["{app,config,lib,public}/**/*", "LICENSE.txt", "README.md"]
   spec.require_paths = ["lib"]
 
+  spec.required_ruby_version = ">= 2.7.0"
+
   spec.add_dependency "css_parser"
   spec.add_dependency "activemodel"
   spec.add_dependency "zeitwerk", "~> 2.5"
