@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Lookbook::PreviewGroupEntity do
-  let(:preview) { Lookbook.previews.find_by_id(:group) }
+  let(:preview) { Lookbook::Engine.previews.find_by_id(:group) }
   let(:groups) { preview.examples.select { |e| e.is_a?(described_class) } }
 
   context "default" do

@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Lookbook::PreviewEntity do
   context "default" do
-    let(:preview) { Lookbook.previews.find_by_id(:standard) }
+    let(:preview) { Lookbook::Engine.previews.find_by_id(:standard) }
 
     context ".file_path" do
       it "returns the absolute path to the component preview file" do
@@ -72,7 +72,7 @@ RSpec.describe Lookbook::PreviewEntity do
   end
 
   context "without annotations" do
-    let(:preview) { Lookbook.previews.find_by_id(:unannotated) }
+    let(:preview) { Lookbook::Engine.previews.find_by_id(:unannotated) }
 
     context ".id" do
       it "is generated from the class name" do
@@ -95,7 +95,7 @@ RSpec.describe Lookbook::PreviewEntity do
     end
 
     context ".path" do
-      let(:preview) { Lookbook.previews.find_by_id(:nested_standard) }
+      let(:preview) { Lookbook::Engine.previews.find_by_id(:nested_standard) }
 
       it "is generated from the preview class file path" do
         expect(preview.path).to eq "nested/standard"
@@ -107,7 +107,7 @@ RSpec.describe Lookbook::PreviewEntity do
     end
 
     context "with unguessable component" do
-      let(:preview) { Lookbook.previews.find_by_id(:unannotated) }
+      let(:preview) { Lookbook::Engine.previews.find_by_id(:unannotated) }
 
       context ".components" do
         it "returns an empty collection" do
@@ -128,7 +128,7 @@ RSpec.describe Lookbook::PreviewEntity do
     end
 
     context "with guessable components" do
-      let(:preview) { Lookbook.previews.find_by_id(:inline) }
+      let(:preview) { Lookbook::Engine.previews.find_by_id(:inline) }
 
       context ".components" do
         it "returns an collection containing the guessed component class" do
@@ -153,7 +153,7 @@ RSpec.describe Lookbook::PreviewEntity do
   end
 
   context "with annotations" do
-    let(:preview) { Lookbook.previews.find_by_id(:annotated_test) }
+    let(:preview) { Lookbook::Engine.previews.find_by_id(:annotated_test) }
 
     context ".id" do
       it "returns the normalised value from the @id tag" do
@@ -196,7 +196,7 @@ RSpec.describe Lookbook::PreviewEntity do
     end
 
     context "hidden" do
-      let(:preview) { Lookbook.previews.find_by_id(:hidden) }
+      let(:preview) { Lookbook::Engine.previews.find_by_id(:hidden) }
 
       context ".hidden?" do
         it "is set by the annotation" do
@@ -278,7 +278,7 @@ RSpec.describe Lookbook::PreviewEntity do
 
   context "with alternative preview naming conventions" do
     context "<directory>/<component_name>/preview.rb" do
-      let(:preview) { Lookbook.previews.find_by_id(:alt_name_preview) }
+      let(:preview) { Lookbook::Engine.previews.find_by_id(:alt_name_preview) }
 
       it "has the expected name" do
         expect(preview.name).to eq "my_component"
@@ -290,7 +290,7 @@ RSpec.describe Lookbook::PreviewEntity do
     end
 
     context "<directory>/<component_name>/component_preview.rb" do
-      let(:preview) { Lookbook.previews.find_by_id(:alt_name_component_preview) }
+      let(:preview) { Lookbook::Engine.previews.find_by_id(:alt_name_component_preview) }
 
       it "has the expected name" do
         expect(preview.name).to eq "my_other_component"

@@ -14,14 +14,14 @@ module Lookbook
     end
 
     def lookup_entities
-      @target = Lookbook.previews.find_example_by_path(params[:path])
+      @target = Engine.previews.find_example_by_path(params[:path])
       if @target.present?
         @preview = @target.preview
         if params[:path] == @preview&.path
           redirect_to lookbook_inspect_path("#{params[:path]}/#{@preview.default_example.name}", params.permit!)
         end
       else
-        @preview = Lookbook.previews.find_by_path(params[:path])
+        @preview = Engine.previews.find_by_path(params[:path])
         if @preview.present?
           default_example = @preview.default_example
           redirect_to lookbook_inspect_path(default_example.path, params.permit!) if default_example

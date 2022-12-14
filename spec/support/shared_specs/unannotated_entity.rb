@@ -1,6 +1,6 @@
 RSpec.shared_examples "unannotated entity" do |preview_id, example_name = nil|
   let(:target) do
-    preview = Lookbook.previews.find_by_id(preview_id)
+    preview = Lookbook::Engine.previews.find_by_id(preview_id)
     example_name.nil? ? preview : preview.example(example_name)
   end
 

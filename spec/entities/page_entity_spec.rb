@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Lookbook::PageEntity do
   context "default" do
-    let(:page) { Lookbook.pages.find_by_id(:subpages_child) }
+    let(:page) { Lookbook::Engine.pages.find_by_id(:subpages_child) }
 
     context ".path" do
       it "is generated from the page template path" do
@@ -28,7 +28,7 @@ RSpec.describe Lookbook::PageEntity do
   end
 
   context "without frontmatter" do
-    let(:page) { Lookbook.pages.find_by_id(:no_frontmatter_test) }
+    let(:page) { Lookbook::Engine.pages.find_by_id(:no_frontmatter_test) }
 
     context ".label" do
       it "is generated from the file name" do
@@ -57,7 +57,7 @@ RSpec.describe Lookbook::PageEntity do
   end
 
   context "with frontmatter" do
-    let(:page) { Lookbook.pages.find_by_id(:frontmatter_test) }
+    let(:page) { Lookbook::Engine.pages.find_by_id(:frontmatter_test) }
 
     context ".label" do
       it "returns the expected value" do

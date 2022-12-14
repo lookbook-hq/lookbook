@@ -10,7 +10,7 @@ module Lookbook
 
     def render_page(page, locals = {})
       @page = page
-      @pages = Lookbook.pages
+      @pages = Engine.pages
       @next_page = @pages.next(@page)
       @previous_page = @pages.previous(@page)
 

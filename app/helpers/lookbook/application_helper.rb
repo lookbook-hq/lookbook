@@ -5,7 +5,7 @@ module Lookbook
     end
 
     def theme
-      Lookbook.theme
+      Engine.theme
     end
 
     def asset_path(file, version: true)
@@ -18,7 +18,7 @@ module Lookbook
     end
 
     def landing_path
-      landing = Lookbook.pages.find(&:landing?) || Lookbook.pages.first
+      landing = Engine.pages.find(&:landing?) || Engine.pages.first
       if landing.present?
         lookbook_page_path landing.lookup_path
       else

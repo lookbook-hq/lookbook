@@ -7,10 +7,10 @@ RSpec.describe "preview navigation", type: :system do
 
   context "preview without annotations" do
     context "with multiple examples" do
-      let(:preview) { Lookbook.previews.find_by_id(:unannotated) }
+      let(:preview) { Lookbook::Engine.previews.find_by_id(:unannotated) }
       let(:examples) { preview.examples }
       let(:preview_item_selector) { "#previews-nav-unannotated" }
-      let(:ordered_preview) { Lookbook.previews.find_by_id(:ordered) }
+      let(:ordered_preview) { Lookbook::Engine.previews.find_by_id(:ordered) }
       let(:ordered_examples) { preview.examples }
 
       context "has preview link" do
@@ -88,7 +88,7 @@ RSpec.describe "preview navigation", type: :system do
     end
 
     context "with a single example" do
-      let(:preview) { Lookbook.previews.find_by_id(:single_unannotated_example) }
+      let(:preview) { Lookbook::Engine.previews.find_by_id(:single_unannotated_example) }
       let(:preview_item_selector) { "#previews-nav-single-unannotated-example" }
 
       context "has preview link" do
@@ -120,7 +120,7 @@ RSpec.describe "preview navigation", type: :system do
   end
 
   context "annotated preview" do
-    let(:preview) { Lookbook.previews.find_by_id(:annotated_test) }
+    let(:preview) { Lookbook::Engine.previews.find_by_id(:annotated_test) }
     let(:examples) { preview.examples }
     let(:preview_item_selector) { "#previews-nav-annotated-test" }
 

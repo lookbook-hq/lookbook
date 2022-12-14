@@ -16,7 +16,7 @@ module Lookbook
     end
 
     def index
-      landing = Lookbook.pages.find(&:landing?) || Lookbook.pages.first
+      landing = Engine.pages.find(&:landing?) || Engine.pages.first
       if landing.present?
         redirect_to lookbook_page_path(landing.path)
       else
@@ -27,12 +27,12 @@ module Lookbook
     protected
 
     def generate_theme_overrides
-      @theme_overrides ||= Lookbook.theme.to_css
+      @theme_overrides ||= Engine.theme.to_css
     end
 
     def assign_instance_vars
-      @previews = Lookbook.previews
-      @pages = Lookbook.pages
+      @previews = Engine.previews
+      @pages = Engine.pages
       @config = Lookbook.config
       @engine = Lookbook.engine
       @embed = !!params[:lookbook_embed]

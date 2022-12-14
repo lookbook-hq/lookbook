@@ -86,6 +86,10 @@ module Lookbook
         @_runtime_context ||= RuntimeContext.new(env: Rails.env)
       end
 
+      def theme
+        @_theme ||= Lookbook::Theme.new(opts.ui_theme, opts.ui_theme_overrides)
+      end
+
       def panels
         @_panels ||= PanelStore.init_from_config
       end

@@ -74,8 +74,8 @@ module Lookbook
     protected
 
     def lookup_entities
-      @target = Lookbook.previews.find_example_by_path(params[:path])
-      @preview = @target.present? ? @target.preview : Lookbook.previews.find_by_path(params[:path])
+      @target = Engine.previews.find_example_by_path(params[:path])
+      @preview = @target.present? ? @target.preview : Engine.previews.find_by_path(params[:path])
     end
 
     def set_params

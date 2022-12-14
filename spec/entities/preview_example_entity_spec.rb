@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Lookbook::PreviewExampleEntity do
   context "default" do
-    let(:preview) { Lookbook.previews.find_by_id(:standard) }
+    let(:preview) { Lookbook::Engine.previews.find_by_id(:standard) }
     let(:example) { preview.example("default") }
 
     context ".url_path" do
@@ -36,7 +36,7 @@ RSpec.describe Lookbook::PreviewExampleEntity do
   end
 
   context "without annotations" do
-    let(:preview) { Lookbook.previews.find_by_id(:unannotated) }
+    let(:preview) { Lookbook::Engine.previews.find_by_id(:unannotated) }
     let(:example) { preview.example("default") }
 
     context ".id" do
@@ -60,7 +60,7 @@ RSpec.describe Lookbook::PreviewExampleEntity do
     end
 
     context ".path" do
-      let(:preview) { Lookbook.previews.find_by_id(:nested_standard) }
+      let(:preview) { Lookbook::Engine.previews.find_by_id(:nested_standard) }
       let(:example) { preview.example("default") }
 
       it "is generated from the preview class file path and the example name" do
@@ -79,7 +79,7 @@ RSpec.describe Lookbook::PreviewExampleEntity do
     end
 
     context "with unguessable component" do
-      let(:preview) { Lookbook.previews.find_by_id(:unannotated) }
+      let(:preview) { Lookbook::Engine.previews.find_by_id(:unannotated) }
       let(:example) { preview.example("default") }
 
       context ".components" do
@@ -101,7 +101,7 @@ RSpec.describe Lookbook::PreviewExampleEntity do
     end
 
     context "with guessable components" do
-      let(:preview) { Lookbook.previews.find_by_id(:inline) }
+      let(:preview) { Lookbook::Engine.previews.find_by_id(:inline) }
       let(:example) { preview.example("default") }
 
       context ".components" do
@@ -127,7 +127,7 @@ RSpec.describe Lookbook::PreviewExampleEntity do
   end
 
   context "with annotations" do
-    let(:preview) { Lookbook.previews.find_by_id(:annotated_test) }
+    let(:preview) { Lookbook::Engine.previews.find_by_id(:annotated_test) }
     let(:example) { preview.example("default") }
 
     context ".id" do
