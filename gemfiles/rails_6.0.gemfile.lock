@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    lookbook (1.4.4)
+    lookbook (1.4.5)
       actioncable
       activemodel
       css_parser
@@ -172,7 +172,7 @@ GEM
     redcarpet (3.5.1)
     regexp_parser (2.5.0)
     rexml (3.2.5)
-    rouge (4.0.0)
+    rouge (4.0.1)
     rspec-core (3.11.0)
       rspec-support (~> 3.11.0)
     rspec-expectations (3.11.1)
@@ -229,7 +229,7 @@ GEM
     tzinfo (1.2.10)
       thread_safe (~> 0.1)
     unicode-display_width (2.3.0)
-    view_component (2.78.0)
+    view_component (2.79.0)
       activesupport (>= 5.0.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
@@ -259,7 +259,7 @@ DEPENDENCIES
   rspec-rails (>= 5.0.0)
   selenium-webdriver
   sqlite3 (~> 1.5)
-  standard (~> 1.19)
+  standard (= 1.19.1)
 
 BUNDLED WITH
    2.2.22

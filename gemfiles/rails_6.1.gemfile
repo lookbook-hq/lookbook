@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "standard", "~> 1.19"
+gem "standard", "1.19.1"
 gem "rails", "~> 6.1.0"
 gem "net-smtp", require: false
 gem "net-imap", require: false
