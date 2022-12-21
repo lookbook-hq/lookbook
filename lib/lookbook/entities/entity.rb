@@ -1,7 +1,7 @@
 module Lookbook
   class Entity
     include Comparable
-    include Lookbook::Engine.routes.url_helpers
+    send(:include, Lookbook::Engine.routes.url_helpers) # YARD parsing workaround: https://github.com/lsegal/yard/issues/546
 
     def initialize(lookup_path = nil)
       @lookup_path = lookup_path
