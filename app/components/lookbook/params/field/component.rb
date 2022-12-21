@@ -14,7 +14,8 @@ module Lookbook
         styles, html = StylesExtractor.call(render_input)
         Editor::Component.add_styles(param.input, styles)
 
-        escaped_value = json_escape(param.value.to_json)
+        value = param.value.nil? ? nil : param.cast_value
+        escaped_value = json_escape(value.to_json)
         wrapper_attrs = {
           data: {"param-input": param.input},
           "x-data": "paramsInputComponent({name: '#{param.name}', value: #{escaped_value}})"
@@ -31,7 +32,7 @@ module Lookbook
         render(param.input_partial,
           name: param.name,
           input: param.input,
-          value: param.value,
+          value: (param.cast_value unless param.value.nil?),
           value_type: param.value_type,
           value_default: param.value_default,
           input_options: input_options.except(:choices, :opts),
