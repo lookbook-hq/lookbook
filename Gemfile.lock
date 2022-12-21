@@ -126,7 +126,7 @@ GEM
       rspec-mocks (~> 3.11)
       rspec-support (~> 3.11)
     rspec-support (3.12.0)
-    rubocop (1.40.0)
+    rubocop (1.39.0)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.1.2.1)
@@ -148,9 +148,9 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     sqlite3 (1.5.4-arm64-darwin)
-    standard (1.20.0)
+    standard (1.19.1)
       language_server-protocol (~> 3.17.0.2)
-      rubocop (= 1.40.0)
+      rubocop (= 1.39.0)
       rubocop-performance (= 1.15.1)
     thor (1.2.1)
     tzinfo (2.0.5)
@@ -182,7 +182,7 @@ DEPENDENCIES
   rspec-rails (>= 5.0.0)
   selenium-webdriver
   sqlite3 (~> 1.5)
-  standard (~> 1.19)
+  standard (= 1.19.1)
   view_component
 
 BUNDLED WITH
