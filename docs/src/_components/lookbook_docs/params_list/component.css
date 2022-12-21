@@ -1,4 +1,4 @@
-[data-component="api-params-list"] {
+[data-component="params-list"] {
   table {
     @apply bg-white w-full border border-gray-300 text-sm;
   }

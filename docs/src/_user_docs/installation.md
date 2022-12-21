@@ -4,65 +4,67 @@ label: Installation
 title: Installing Lookbook
 ---
 
-These instructions cover installing Lookbook in your Rails project for the first time.
+<%= prose do %>
 
-If you are already using Lookbook then head over to the [upgrade guide](<%= guide_url :upgrading %>) instead
-for details on how to update your project to the latest version. 
+  These instructions cover installing Lookbook in your Rails project for the first time.
 
-<%= heading "1. Install the Lookbook gem", "install-gem", label: "1. Install gem", splitter: false %>
+  If you are already using Lookbook then head over to the [upgrade guide](<%= guide_url :upgrading %>) instead
+  for details on how to update your project to the latest version. 
 
-Add Lookbook to your `Gemfile`:
+  <%= heading "1. Install the Lookbook gem", "install-gem", label: "1. Install gem", splitter: false %>
 
-```ruby
-group :development do
-  gem "lookbook"
-end
-```
+  Add Lookbook to your `Gemfile`:
 
-And then `bundle install` to install Lookbook.
-
-<%= note :info do %>
-  Lookbook can also be run in production - see [the deployment docs](<%= guide_url :deployment %>) for details on how to set that up.
-<% end %>
-
-<%= heading "2. Mount Lookbook in your app", "mount-lookbook", label: "2. Mount Lookbook", splitter: false %>
-
-Next mount the Lookbook engine at a path of your choosing in your `config/routes.rb` file:
-
-```ruby
-Rails.application.routes.draw do
-  if Rails.env.development?
-    mount Lookbook::Engine, at: "/lookbook"
+  ```ruby
+  group :development do
+    gem "lookbook"
   end
-end
-```
+  ```
 
-The mount path (`/lookbook` in the example above) will be the URL that the Lookbook UI will be made accessible at within your app.
+  And then `bundle install` to install Lookbook.
 
-<%= heading "3. Install optional dependencies", "dependencies", label: "3. Optional dependencies", splitter: false %>
+  <%= note :info do %>
+    Lookbook can also be run in production - see [the deployment docs](<%= guide_url :deployment %>) for details on how to set that up.
+  <% end %>
 
-Lookbook requires the `listen` and `actioncable` gems to enable live-updating of the UI when changes are made to component or preview files.
+  <%= heading "2. Mount Lookbook in your app", "mount-lookbook", label: "2. Mount Lookbook", splitter: false %>
 
-These are optional dependencies - if they are not present the only difference is that you will need to manually refresh the Lookbook UI to see the changes.
+  Next mount the Lookbook engine at a path of your choosing in your `config/routes.rb` file:
 
-Many Rails apps already include these gems. If your project doesn't you can enable Lookbook live UI updates by including them in the `:development` group in your `Gemfile`:
+  ```ruby
+  Rails.application.routes.draw do
+    if Rails.env.development?
+      mount Lookbook::Engine, at: "/lookbook"
+    end
+  end
+  ```
 
-```ruby
-group :development do
-  gem "listen"
-  gem "actioncable"
-end
-```
+  The mount path (`/lookbook` in the example above) will be the URL that the Lookbook UI will be made accessible at within your app.
 
-No additional configuration is needed once they are installed - Lookbook will detect they are present and enable live updates automatically.
+  <%= heading "3. Install optional dependencies", "dependencies", label: "3. Optional dependencies", splitter: false %>
 
-<%= heading "4. Open the Lookbook UI", "ui", splitter: false %>
+  Lookbook requires the `listen` and `actioncable` gems to enable live-updating of the UI when changes are made to component or preview files.
 
-Once everything is installed, start your app as normal.
+  These are optional dependencies - if they are not present the only difference is that you will need to manually refresh the Lookbook UI to see the changes.
 
-Assuming your app is running on port `3000` and you [mounted Lookbook](#mount-lookbook) at the path `/lookbook` then browse to [http://localhost:3000/lookbook](http://localhost:3000/lookbook) to view the Lookbook UI.
+  Many Rails apps already include these gems. If your project doesn't you can enable Lookbook live UI updates by including them in the `:development` group in your `Gemfile`:
 
-If this is a new project it will be pretty empty in there until you start [creating some previews &rarr;](<%= guide_url :previews %>) 
+  ```ruby
+  group :development do
+    gem "listen"
+    gem "actioncable"
+  end
+  ```
 
+  No additional configuration is needed once they are installed - Lookbook will detect they are present and enable live updates automatically.
 
+  <%= heading "4. Open the Lookbook UI", "ui", splitter: false %>
+
+  Once everything is installed, start your app as normal.
+
+  Assuming your app is running on port `3000` and you [mounted Lookbook](#mount-lookbook) at the path `/lookbook` then browse to [http://localhost:3000/lookbook](http://localhost:3000/lookbook) to view the Lookbook UI.
+
+  If this is a new project it will be pretty empty in there until you start [creating some previews &rarr;](<%= guide_url :previews %>) 
+
+<% end %>
 

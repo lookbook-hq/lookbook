@@ -5,14 +5,14 @@ groups:
 
   - label: Inspector Panels
     items:
-      # - panels-overview
+      - panels-overview
       - panels-adding
       - panels-templates
       - panels-styles
 
   - label: Preview Params
     items:
-      # - params-overview
+      - params-overview
       - params-adding
       - params-templates
       - params-styles

@@ -7,6 +7,8 @@ methods:
   name: initialize
   path: Lookbook::Entity#initialize
   signature: initialize(lookup_path = nil)
+  signature_call: initialize
+  signature_args: lookup_path = nil
   description: ''
   return_types: Entity
   scope: instance
@@ -15,3 +17,4 @@ methods:
     tag_name: return
     text: a new instance of Entity
     types: Entity
+  klass: Entity

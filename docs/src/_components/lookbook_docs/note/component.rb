@@ -2,6 +2,7 @@ module LookbookDocs
   class Note::Component < Base
     ICONS = {
       info: :bell,
+      tip: :bell,
       warn: :alert_triangle
     }
 

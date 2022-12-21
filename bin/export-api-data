@@ -41,26 +41,40 @@ end
 
 def method_data(obj)
   obj = resolve(obj)
+  args = helpers.format_args(obj).tr("()","")
   {
     id: [obj.name, obj.scope, "method"].join("-").gsub("_","-"),
     name: obj.name.to_s,
     path: obj.path,
-    signature: "#{obj.name.to_s}#{helpers.format_args(obj)}",
+    signature: "#{obj.name.to_s}(#{args})",
+    signature_call: obj.name.to_s,
+    signature_args: args,
     description: obj.docstring.to_s.strip,
     return_types: strip_tags(helpers.format_return_types(obj)),
     scope: obj.scope.to_s,
-    tags: tags_for(obj)
+    tags: tags_for(obj),
+    klass: obj.parent.name.to_s
   }
 end
 
 def tag_data(obj)
   obj = resolve(obj)
-  {
-    name: obj.name,
-    tag_name: obj.tag_name,
-    text: obj.text,
-    types: strip_tags(helpers.format_types(obj.types, false))
-  }
+  if obj.respond_to?(:pair)
+    {
+      pair: obj.name,
+      name: obj.pair.name.delete_prefix(":"),
+      tag_name: obj.pair.tag_name,
+      text: obj.pair.text,
+      types: strip_tags(helpers.format_types(obj.pair.types, false)),
+    }
+  else
+    {
+      name: obj.name,
+      tag_name: obj.tag_name,
+      text: obj.text,
+      types: strip_tags(helpers.format_types(obj.types, false)),
+    }
+  end
 end
 
 def methods_for(target)
@@ -78,7 +92,8 @@ def annotated?(code_object)
 end
 
 def available?(code_object)
-  !code_object.has_tag?(:api) || code_object.tag(:api).text.strip != "private"
+  (!code_object.has_tag?(:api) || code_object.tag(:api).text.strip != "private") && 
+    !code_object.has_tag?(:deprecated)
 end
 
 def write_data(name, data)

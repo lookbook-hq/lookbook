@@ -7,6 +7,18 @@
     @apply px-1.5 pt-5 pb-2 absolute left-2.5 -top-px z-10 bg-white;
   }
 
+  &[data-note-theme="tip"] {
+    @apply bg-indigo-50/80 border-indigo-200;
+
+    & .note-tag {
+      @apply bg-indigo-500 text-white;
+    }
+
+    & .note-tag:after {
+      @apply border-t-indigo-200;
+    }
+  }
+
   &[data-note-theme="info"] {
     @apply bg-indigo-50/80 border-indigo-200;
 

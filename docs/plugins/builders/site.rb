@@ -45,7 +45,7 @@ class Builders::Site < SiteBuilder
     helper :header_nav_links, helpers_scope: true do
       nav_collections = site.collections.select { _2.metadata[:header_nav] }
       nav_collections.map do |label, col|
-        resource_ids = site.data.sections[label].groups.flat_map(&:items)
+        resource_ids = site.data[label].nav.groups.flat_map(&:items)
         index = col.resources.find { _1.data.id == resource_ids.first }
         {
           href: index.relative_url,
@@ -65,6 +65,12 @@ class Builders::Site < SiteBuilder
 
     helper :add_toc_entry, helpers_scope: true do |entry|
       view.resource.data.toc.push(entry)
+    end
+
+    helper :method_data, helpers_scope: true do |klass, method_name|
+      method_name = method_name.to_s
+      klass_data = site.data.api[klass.downcase.underscore]
+      klass_data[:methods].find { |m| m[:name]&.to_s == method_name }
     end
   end
 

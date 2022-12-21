@@ -1,0 +1,64 @@
+- name: panel
+  return_types: Store
+  example: |
+    <p>
+      This <%= panel.label %> panel can be switched
+      to using the keyboard shortcut <%= panel.hotkey %>
+    </p>
+  description: |
+    The **resolved** panel options object
+
+- name: preview
+  return_types: PreviewEntity
+  description: An object representing the current preview.
+  example: |
+    <h2>This is the <%= preview.label %> preview</h2>
+
+- name: target
+  return_types: PreviewExampleEntity|PreviewGroupEntity
+  description: |
+    An object representing the example or group of examples currently being rendered
+  example: |
+    <h2>Currently rendering '<%= target.label %>' which is <%= "not" unless target.type == :group %> a group.</h2>
+
+- name: examples
+  return_types: Array<RenderedExample>
+  example: |
+    <p>This preview is showing <%= examples.size %> examples rendered together.</p>
+    <p>Here is the source code for each example:</p>
+    <% examples.each do |example| %>
+      <div>
+        <%= example.source %>
+      <div>
+    <% end %>
+  description: |
+    An array of rendered example objects representing the individual
+    examples rendered in the current preview. For **non-grouped** (i.e. regular) **previews**,
+    this array will always **only have one item**.
+
+- name: context
+  return_types: Hash
+  props:
+    - name: params
+      description: Hash of supplied preview parameters, if any
+    - name: path
+      description: URL path of the current page
+  example: |
+    <p>Current URL path: <%= context.path %></p>
+  description: |
+    Request context data
+
+- name: data
+  return_types: Hash
+  example: |
+    <p>My custom data variable value: <%= data.my_variable %></p>
+  description: |
+    Shortcut for accessing the [`Lookbook.data` store](/guide/extend/data/).
+
+- name: app
+  return_types: Lookbook
+  example: |
+    <p>There are <%= app.previews.size %> previews available.</p>
+    <% app.logger.info("Successfully output the number of previews") %>
+  description: |
+    The main `Lookbook` app instance.

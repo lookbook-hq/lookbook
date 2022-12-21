@@ -10,12 +10,12 @@
 */
 
 pre.highlight {
-  padding: 16px;
+  @apply px-4 py-3;
   background-color: #f6f8fa;
 }
 
 pre.highlight {
-  @apply bg-white text-gray-800 border border-gray-200 rounded font-mono;
+  @apply bg-white text-gray-800 border border-gray-300 rounded font-mono;
 }
 pre.highlight .hll {
   background-color: #f8f8f8;

@@ -68,14 +68,28 @@ module Lookbook
       Engine.inputs.add_input(name, partial_path, **opts)
     end
 
-    def add_panel(name, *args)
-      Engine.panels.add_panel(name, *args)
+    # Add a custom inspector panel
+    #
+    # @param name [Symbol|String] Unique panel name
+    # @param partial_path [String] Path to the partial template used to render the panel
+    # @param [Hash] opts Set of panel options
+    # @option opts [String] :label Display label override
+    # @option opts [String] :hotkey Keyboard shortcut used to switch to the panel
+    def add_panel(name, partial_path, **opts)
+      Engine.panels.add_panel(name, partial_path, **opts)
     end
 
-    def edit_panel(*args)
-      Engine.panels.update_panel(*args)
+    # Edit the properties of an existing inspector panel
+    #
+    # @param name [Symbol|String] Name of target panel
+    # @param opts [Hash] Set of panel options to update
+    def edit_panel(name, **opts)
+      Engine.panels.update_panel(name, **opts)
     end
 
+    # Remove a panel from the inspector
+    #
+    # @param name [Symbol|String] Name of target panel
     def remove_panel(name)
       Engine.panels.remove_panel(name)
     end
