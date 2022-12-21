@@ -18,8 +18,8 @@ class Builders::Site < SiteBuilder
       page_url(:dev_docs, id)
     end
 
-    helper :tutorial_url, helpers_scope: true do |id|
-      page_url(:tutorials, id)
+    helper :api_url, helpers_scope: true do |id|
+      page_url(:api, id)
     end
 
     helper :page_url, helpers_scope: true do |collection_name, id|

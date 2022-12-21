@@ -22,8 +22,8 @@ collections:
     permalink: /extend/:path.*
     title: Developer Guide
 
-  tutorials:
+  api:
     output: true
     header_nav: true
-    permalink: /tutorials/:path.*
-    title: Tutorials
+    permalink: /api/:path.*
+    title: API

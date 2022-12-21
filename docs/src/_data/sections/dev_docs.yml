@@ -26,9 +26,3 @@ groups:
     items:
       - hooks
       - data
-
-  - label: API Reference
-    items:
-      - api-lookbook
-      - api-preview-entity
-      - api-preview-example-entity

@@ -1,8 +1,0 @@
-groups:
-  - label: Tutorials
-    items:
-      - overview
-
-  - label: The Basics
-    items:
-      - create-preview

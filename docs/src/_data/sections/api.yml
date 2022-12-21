@@ -1,0 +1,13 @@
+groups:
+  - label: Lookbook
+    items:
+      - lookbook
+
+  - label: Entities
+    items:
+      - entity
+      - preview-entity
+      - preview-example-entity
+      - preview-group-entity
+      - component-entity
+      - page-entity

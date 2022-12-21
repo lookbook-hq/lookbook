@@ -1,5 +1,5 @@
 ---
-id: api-overview
+id: overview
 label: Overview
 title: Lookbook API
 ---
