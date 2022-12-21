@@ -1,39 +1,73 @@
 module Lookbook
+  # Helpers for rendering components.
+  #
+  # These are available for use in documentation page templates
+  # and custom preview inspector panel templates.
+  #
+  # @api public
   module ComponentsHelper
-    def icon(name, **kwargs)
-      lookbook_render :icon, name: name, **kwargs
+    # Render an icon.
+    #
+    # Lookbook uses icons from the [Lucide Icons](https://lucide.dev/) set and
+    # a full list of available icon names can be found on that site.
+    #
+    # @example
+    #   <%= icon :trash %>
+    #   <%= icon :camera, size: 6, style: "color: red;" %>
+    #
+    # @param name [Symbol, String] Name of the icon
+    # @param opts [Hash] Options hash
+    def icon(name, **opts)
+      lookbook_render :icon, name: name, **opts
     end
 
-    def code(language = :html, **kwargs, &block)
-      kwargs[:language] ||= language
-      lookbook_render :code, **kwargs, &block
+    # Display a syntax-highlighted block of code.
+    #
+    # An alternative to using markdown code blocks for templates that have
+    # markdown parsing disabled, or for when more control is required.
+    #
+    # @param language [Symbol] Which language the code is written in
+    # @param opts [Hash] Options hash
+    # @param block [Proc] Code block
+    def code(language = :html, **opts, &block)
+      opts[:language] ||= language
+      lookbook_render :code, **opts, &block
     end
 
-    def prose(**kwargs, &block)
-      lookbook_render :prose, **kwargs, &block
-    end
-
-    def embed(*args, **options)
-      return unless args.any?
-
-      preview = if args.first.is_a?(Symbol)
-        Engine.previews.find_by_path(args.first)
+    # Render a 'live' embed of a component preview.
+    #
+    # If no example name is provided then the default (first) preview
+    # example will be rendered in the embed.
+    #
+    # @param preview [String] Name of the preview class to embed
+    # @param example [String] Example method name
+    # @param opts [Hash] Options hash
+    def embed(preview, example = nil, **opts)
+      preview_entity = if preview.is_a?(Symbol)
+        Engine.previews.find_by_path(preview)
       else
-        Engine.previews.find_by_preview_class(args.first)
+        Engine.previews.find_by_preview_class(preview)
       end
-      example = args[1] ? preview&.example(args[1]) : preview&.default_example
+      example_entity = example ? preview_entity&.example(example) : preview_entity&.default_example
 
-      render Embed::Component.new(
-        example: example,
-        params: options.fetch(:params, {}),
-        options: options.except(:params)
+      lookbook_render Embed::Component.new(
+        example: example_entity,
+        params: opts.fetch(:params, {}),
+        options: opts.except(:params)
       )
     end
 
+    # @api private
+    def prose(**opts, &block)
+      lookbook_render :prose, **opts, &block
+    end
+
+    # @api private
     def lookbook_tag(tag = :div, **attrs, &block)
       lookbook_render :tag, tag: tag, **attrs, &block
     end
 
+    # @api private
     def lookbook_render(ref, **attrs, &block)
       comp = if ref.is_a? ViewComponent::Base
         ref
@@ -52,6 +86,7 @@ module Lookbook
 
     COMPONENT_CLASSES = {} # cache for constantized references
 
+    # @api private
     def render_method_name
       if Rails.application.config.view_component.render_monkey_patch_enabled || Rails.version.to_f >= 6.1
         :render
@@ -60,6 +95,7 @@ module Lookbook
       end
     end
 
+    # @api private
     def component_class(ref)
       klass = COMPONENT_CLASSES[ref]
       if klass.nil?

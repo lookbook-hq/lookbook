@@ -4,6 +4,3 @@ label: The Lookbook UI
 title: The Lookbook UI
 ---
 
-<%= prose do %>
-
-<% end %>

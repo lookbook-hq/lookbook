@@ -56,4 +56,12 @@
   .layout-container .layout-column:last-child .layout-content {
     @apply max-w-[1100px] w-full;
   }
+
+  /* Content */
+
+  article {
+    & [data-component="section"] + [data-component="section"] {
+      @apply mt-8 pt-8 border-t border-gray-300;
+    }
+  }
 }

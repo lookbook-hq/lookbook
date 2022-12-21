@@ -11,9 +11,15 @@ loader.ignore("#{__dir__}/lookbook/support/evented_file_update_checker.rb")
 loader.ignore("#{__dir__}/lookbook/cable")
 loader.setup
 
+# The main Lookbook application object.
+#
+# @api public
 module Lookbook
   class << self
     # Returns the installed Lookbook version
+    #
+    # @example :erb
+    #   <p>Using Lookbook v<%= Lookbook.version %></p>
     #
     # @return [String] Version number string
     def version
@@ -22,22 +28,22 @@ module Lookbook
 
     # Provides access to the Lookbook config store
     #
-    # @example
+    # @example :ruby
     #   Lookbook.config.project_title = "MyApp"
     #
-    # @return The config store object
+    # @return [ConfigStore] The config store object
     def config
       @_config ||= ConfigStore.init_from_config
     end
 
-    # Preview entities
+    # Get an array of component preview objects
     #
     # @return [Array<PreviewEntity>] Array of preview entities
     def previews
       Engine.previews.to_a
     end
 
-    # Documentation pages
+    # Get an array of documentation page objects
     #
     # @return [Array<PageEntity>] Array of page entities
     def pages
@@ -51,7 +57,7 @@ module Lookbook
       @_data ||= Store.new
     end
 
-    # Replace the global data store contents with a new hash
+    # Replace the global data store contents
     #
     # @param new_data [Hash] Hash of data to store
     # @return [Store] The global data store instance
@@ -59,41 +65,78 @@ module Lookbook
       @_data = Store.new(new_data)
     end
 
+    # @!group Params
+
     # Add a custom `@param` tag input type
     #
     # @param name [Symbol] Unique input type name
     # @param partial_path [String] Path to the partial template used to render the input
     # @param opts [Hash] Set of default options to be passed to the input. Any supplied param options will override these values
-    def add_param_input(name, partial_path, **opts)
-      Engine.inputs.add_input(name, partial_path, **opts)
+    def add_param(name, partial_path, opts = {})
+      Engine.inputs.add_input(name, partial_path, opts)
     end
+
+    # @!endgroup
+
+    # @!group Inspector Panels
 
     # Add a custom inspector panel
     #
-    # @param name [Symbol|String] Unique panel name
+    # @example :ruby
+    #   Lookbook.add_panel(:info, "panels/info", {
+    #     label: "Extra Info"
+    #   })
+    #
+    # @param name [Symbol, String] Unique panel name
     # @param partial_path [String] Path to the partial template used to render the panel
-    # @param [Hash] opts Set of panel options
-    # @option opts [String] :label Display label override
-    # @option opts [String] :hotkey Keyboard shortcut used to switch to the panel
-    def add_panel(name, partial_path, **opts)
-      Engine.panels.add_panel(name, partial_path, **opts)
+    # @param opts [Hash] Set of panel options
+    # @option opts [String] :label The text to be displayed in the panel tab
+    # @option opts [String] :hotkey [Keyboard shortcut](https://alpinejs.dev/directives/on#keyboard-events) used to switch to the panel
+    # @option opts [Boolean] :disabled Disabled tabs are still accessible but are greyed out in the UI
+    # @option opts [String] :copy If present, the panel will display a copy button that copies the value of this property to the clipboard when clicked
+    # @option opts [Hash] :locals A hash of local variables that will be passed to the panel when it is rendered
+    def add_panel(name, partial_path, opts = {})
+      Engine.panels.add_panel(name, partial_path, opts)
     end
 
     # Edit the properties of an existing inspector panel
     #
-    # @param name [Symbol|String] Name of target panel
-    # @param opts [Hash] Set of panel options to update
-    def edit_panel(name, **opts)
-      Engine.panels.update_panel(name, **opts)
+    # @example :ruby
+    #   Lookbook.edit_panel(:notes, {
+    #     label: "Usage Info",
+    #     hotkey: "u",
+    #   })
+    #
+    # @param name [Symbol, String] Name of target panel
+    # @param opts [Hash] Set of panel options
+    # @option opts [String] :label The text to be displayed in the panel tab
+    # @option opts [String] :hotkey [Keyboard shortcut](https://alpinejs.dev/directives/on#keyboard-events) used to switch to the panel
+    # @option opts [Boolean] :disabled Disabled tabs are still accessible but are greyed out in the UI
+    # @option opts [String] :copy If present, the panel will display a copy button that copies the value of this property to the clipboard when clicked
+    # @option opts [Hash] :locals A hash of local variables that will be passed to the panel when it is rendered
+    def edit_panel(name, opts)
+      Engine.panels.update_panel(name, opts)
     end
 
     # Remove a panel from the inspector
     #
-    # @param name [Symbol|String] Name of target panel
+    # @example :ruby
+    #   Lookbook.remove_panel(:notes)
+    #
+    # @param name [Symbol, String] Name of target panel
     def remove_panel(name)
       Engine.panels.remove_panel(name)
     end
 
+    # @!endgroup
+
+    # @!group Custom Tags
+
+    # Add a custom tag
+    #
+    # @param name [Symbol, String] Tag name
+    # @param args [Array<Symbol>] Array of argument names
+    # @yield [tag] The custom tag instance
     def add_tag(name, args = nil, &block)
       Engine.tags.add_tag(name, {
         named_args: args.to_a,
@@ -101,40 +144,43 @@ module Lookbook
       })
     end
 
+    # @!endgroup
+
+    # @!group Lifecycle Callbacks
+
+    # Add a callback to run after app initialization.
+    #
+    # @example :ruby
+    #   Lookbook.after_initialize do |app|
+    #     puts "Lookbook has started!"
+    #   end
+    #
+    # @yield [app] Lookbook app
     def after_initialize(&block)
       Engine.hooks.add_hook(:after_initialize, block)
     end
 
+    # Add a callback to run before Lookbook shuts down
+    #
+    # @yield [app] Lookbook app
     def before_exit(&block)
       Engine.hooks.add_hook(:before_exit, block)
     end
 
+    # Add a callback to run when a change to a watched
+    # file occurs. Only called when an evented file watcher is being
+    # used to detect changes.
+    #
+    # @yield [app, changes] Lookbook app and hash of files changed, added & removed
     def after_change(&block)
       Engine.hooks.add_hook(:after_change, block)
     end
 
+    # @!endgroup
+
+    # @api private
     def broadcast(event_name, data = {})
       Engine.websocket&.broadcast(event_name.to_s, data)
-    end
-
-    # @deprecated
-    def define_param_input(*args)
-      add_param_input(*args)
-    end
-
-    # @deprecated
-    def define_panel(name, *args)
-      add_panel(name, *args)
-    end
-
-    # @deprecated
-    def amend_panel(*args)
-      edit_panel(*args)
-    end
-
-    # @deprecated
-    def define_tag(...)
-      add_tag(...)
     end
 
     # @api private
@@ -177,6 +223,26 @@ module Lookbook
           {tags: Engine.tags.to_h}
         ].inject(:merge)
       }
+    end
+
+    # @deprecated
+    def define_param_input(*args)
+      add_param(*args)
+    end
+
+    # @deprecated
+    def define_panel(*args)
+      add_panel(*args)
+    end
+
+    # @deprecated
+    def amend_panel(*args)
+      edit_panel(*args)
+    end
+
+    # @deprecated
+    def define_tag(...)
+      add_tag(...)
     end
   end
 end

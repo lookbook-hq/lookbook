@@ -1,4 +1,5 @@
 module Lookbook
+  # @api private
   module InspectableEntity
     extend ActiveSupport::Concern
 

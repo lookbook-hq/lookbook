@@ -1,0 +1,40 @@
+- name: name
+  id: param-input-variable-name
+  types: String
+  example: |
+    <input name="<% name %>" />
+  description: |
+    The name of the param this input should update.
+
+- name: value
+  id: param-input-variable-value
+  types: String
+  example: |
+    <input value="<% value %>" />
+  description: |
+    The current value of the param.
+
+- name: input
+  id: param-input-variable-input
+  types: String
+  example: |
+    <input type="<% input %>" />
+  description: |
+    The input type currently being rendered
+
+- name: input_options
+  id: param-input-variable-input-options
+  types: Hash
+  example: |
+    <%= text_field_tag(name, value, **input_options) %>
+  description: |
+    Hash of options specified by the `@param` tag. Generally expected to be passed to
+    a tag helper to be turned into a set of HTML attributes on the input, where appropriate.
+
+- name: choices
+  id: param-input-variable-input-choices
+  types: Array
+  example: |
+    <%= select_tag(name, options_for_select(choices, value)) %>
+  description: |
+    Array of selection options specified by the `@param` tag, if available.

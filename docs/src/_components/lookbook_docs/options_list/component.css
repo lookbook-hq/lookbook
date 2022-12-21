@@ -1,0 +1,13 @@
+[data-component="options-list"] {
+  table {
+    @apply bg-white w-full border border-gray-300 text-sm;
+  }
+
+  td {
+    @apply py-2 px-4 align-top border-b border-gray-300;
+
+    & a {
+      @apply underline;
+    }
+  }
+}

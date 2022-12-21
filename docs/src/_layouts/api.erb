@@ -3,11 +3,11 @@ layout: docs
 ---
 
 <%
-klass = site.data.api[resource.data.subject.to_sym]&.symbolize_keys
+klass = api_module_data(resource.data.subject)
 %>
  
 <% if klass %>
-  <%= render LookbookDocs::ApiClass::Component.new(**klass, toc: resource.data.toc) %>
+  <%= render LookbookDocs::ApiModule::Component.new(**klass, toc: resource.data.toc, site: site) %>
 <% else %>
   <p><em>API data not found</em></p>
 <% end %>

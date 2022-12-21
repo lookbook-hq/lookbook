@@ -1,0 +1,97 @@
+---
+name: RenderedPreviewExampleEntity
+path: Lookbook::RenderedPreviewExampleEntity
+description: ''
+methods:
+- id: example-instance-method
+  name: example
+  path: Lookbook::RenderedPreviewExampleEntity#example
+  signature: example
+  signature_call: example
+  signature_args: ''
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: RenderedPreviewExampleEntity
+  group:
+- id: initialize-instance-method
+  name: initialize
+  path: Lookbook::RenderedPreviewExampleEntity#initialize
+  signature: initialize(example, output, params)
+  signature_call: initialize
+  signature_args: example, output, params
+  description: ''
+  return_types: RenderedPreviewExampleEntity
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: a new instance of RenderedPreviewExampleEntity
+    types: RenderedPreviewExampleEntity
+  klass: RenderedPreviewExampleEntity
+  group:
+- id: source-instance-method
+  name: source
+  path: Lookbook::RenderedPreviewExampleEntity#source
+  signature: source
+  signature_call: source
+  signature_args: ''
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: RenderedPreviewExampleEntity
+  group:
+- id: source-lang-instance-method
+  name: source_lang
+  path: Lookbook::RenderedPreviewExampleEntity#source_lang
+  signature: source_lang
+  signature_call: source_lang
+  signature_args: ''
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: RenderedPreviewExampleEntity
+  group:
+- id: output-instance-method
+  name: output
+  path: Lookbook::RenderedPreviewExampleEntity#output
+  signature: output
+  signature_call: output
+  signature_args: ''
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: RenderedPreviewExampleEntity
+  group:
+groups: []
+type: class
+category: entity
+tags:
+- name:
+  tag_name: api
+  text: public
+  types:

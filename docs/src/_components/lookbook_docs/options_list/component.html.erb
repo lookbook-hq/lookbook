@@ -1,0 +1,27 @@
+<%= tag.div **html_attrs, class: [html_attrs[:class], "not-prose"] do %>
+  <table>
+    <tbody>
+      <% options.each do |option| %>
+        <tr>
+          <td class="w-[15%]">
+            <code class="flex">
+              <% if prefix %>
+                <span class="text-gray-500 opacity-60"><%= prefix %>[</span>
+                <span class="text-indigo-600">:<%= option[:name] %></span>
+                <span class="text-gray-500 opacity-60">]</span>
+              <% else %>
+                <span class="text-indigo-600"><%= option[:name] %></span>
+              <% end %>
+            </code>
+          </td>
+          <td class="w-[10%] whitespace-nowrap">
+            <code class="text-gray-500 italic text-xs"><%= option[:types]&.gsub("&lt;", "<")&.gsub("&gt;", ">").tr(" ", "") %></code>
+          </td>
+          <td>
+            <%= markdown option[:text] %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

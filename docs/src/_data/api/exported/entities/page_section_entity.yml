@@ -1,0 +1,341 @@
+---
+name: PageSectionEntity
+path: Lookbook::PageSectionEntity
+description: ''
+methods:
+- id: parent-instance-method
+  name: parent
+  path: Lookbook::PageSectionEntity#parent
+  signature: parent
+  signature_call: parent
+  signature_args: ''
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: PageSectionEntity
+  group:
+- id: parent=-instance-method
+  name: parent=
+  path: Lookbook::PageSectionEntity#parent=
+  signature: parent=(value)
+  signature_call: parent=
+  signature_args: value
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: PageSectionEntity
+  group:
+- id: initialize-instance-method
+  name: initialize
+  path: Lookbook::PageSectionEntity#initialize
+  signature: initialize(file_path)
+  signature_call: initialize
+  signature_args: file_path
+  description: ''
+  return_types: PageSectionEntity
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: a new instance of PageSectionEntity
+    types: PageSectionEntity
+  klass: PageSectionEntity
+  group:
+- id: name-instance-method
+  name: name
+  path: Lookbook::PageSectionEntity#name
+  signature: name
+  signature_call: name
+  signature_args: ''
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: PageSectionEntity
+  group:
+- id: lookup-path-instance-method
+  name: lookup_path
+  path: Lookbook::PageSectionEntity#lookup_path
+  signature: lookup_path
+  signature_call: lookup_path
+  signature_args: ''
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: PageSectionEntity
+  group:
+- id: landing?-instance-method
+  name: landing?
+  path: Lookbook::PageSectionEntity#landing?
+  signature: landing?
+  signature_call: landing?
+  signature_args: ''
+  description: ''
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: ''
+    types: Boolean
+  klass: PageSectionEntity
+  group:
+- id: url-path-instance-method
+  name: url_path
+  path: Lookbook::PageSectionEntity#url_path
+  signature: url_path
+  signature_call: url_path
+  signature_args: ''
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: PageSectionEntity
+  group:
+- id: page-instance-method
+  name: page
+  path: Lookbook::PageSectionEntity#page
+  signature: page
+  signature_call: page
+  signature_args: ''
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: PageSectionEntity
+  group:
+- id: content-instance-method
+  name: content
+  path: Lookbook::PageEntity#content
+  signature: content
+  signature_call: content
+  signature_args: ''
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: PageEntity
+  group:
+- id: sections-instance-method
+  name: sections
+  path: Lookbook::PageEntity#sections
+  signature: sections
+  signature_call: sections
+  signature_args: ''
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: PageEntity
+  group:
+- id: title-instance-method
+  name: title
+  path: Lookbook::PageEntity#title
+  signature: title
+  signature_call: title
+  signature_args: ''
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: PageEntity
+  group:
+- id: markdown?-instance-method
+  name: markdown?
+  path: Lookbook::PageEntity#markdown?
+  signature: markdown?
+  signature_call: markdown?
+  signature_args: ''
+  description: ''
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: ''
+    types: Boolean
+  klass: PageEntity
+  group:
+- id: header?-instance-method
+  name: header?
+  path: Lookbook::PageEntity#header?
+  signature: header?
+  signature_call: header?
+  signature_args: ''
+  description: ''
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: ''
+    types: Boolean
+  klass: PageEntity
+  group:
+- id: footer?-instance-method
+  name: footer?
+  path: Lookbook::PageEntity#footer?
+  signature: footer?
+  signature_call: footer?
+  signature_args: ''
+  description: ''
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: ''
+    types: Boolean
+  klass: PageEntity
+  group:
+- id: data-instance-method
+  name: data
+  path: Lookbook::PageEntity#data
+  signature: data
+  signature_call: data
+  signature_args: ''
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: PageEntity
+  group:
+- id: search-terms-instance-method
+  name: search_terms
+  path: Lookbook::PageEntity#search_terms
+  signature: search_terms
+  signature_call: search_terms
+  signature_args: ''
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: PageEntity
+  group:
+- id: add-section-instance-method
+  name: add_section
+  path: Lookbook::PageEntity#add_section
+  signature: add_section(section)
+  signature_call: add_section
+  signature_args: section
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: PageEntity
+  group:
+- id: method-missing-instance-method
+  name: method_missing
+  path: Lookbook::PageEntity#method_missing
+  signature: method_missing(method_name, *args, &amp;block)
+  signature_call: method_missing
+  signature_args: method_name, *args, &amp;block
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: PageEntity
+  group:
+- id: respond-to-missing?-instance-method
+  name: respond_to_missing?
+  path: Lookbook::PageEntity#respond_to_missing?
+  signature: respond_to_missing?(method_name, include_private = false)
+  signature_call: respond_to_missing?
+  signature_args: method_name, include_private = false
+  description: ''
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: ''
+    types: Boolean
+  klass: PageEntity
+  group:
+groups: []
+type: class
+category: entity
+tags:
+- name:
+  tag_name: api
+  text: public
+  types:

@@ -1,4 +1,8 @@
 module Lookbook
+  # Represents a component
+  #
+  # @ignore methods
+  # @api public
   class ComponentEntity < Entity
     include LocatableEntity
 

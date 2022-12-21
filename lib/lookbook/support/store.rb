@@ -1,4 +1,13 @@
 module Lookbook
+  # Generic hash-like key/value store.
+  #
+  # Properties can be get/set using hash access syntax (`data[:key]`)
+  # or dot-notation syntax (`data.key`).
+  #
+  # Based on [ActiveSupport::OrderedOptions](https://api.rubyonrails.org/classes/ActiveSupport/OrderedOptions.html)
+  #
+  # @ignore methods
+  # @api public
   class Store < ActiveSupport::OrderedOptions
     def initialize(initial_data = nil, opts = {})
       @recursive = opts[:recursive] || false

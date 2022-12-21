@@ -1,4 +1,8 @@
 module Lookbook
+  # Represents a documentation page
+  #
+  # @ignore methods
+  # @api public
   class PageEntity < Entity
     include LocatableEntity
     include NavigableEntity

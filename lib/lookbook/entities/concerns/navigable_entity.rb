@@ -1,4 +1,5 @@
 module Lookbook
+  # @api private
   module NavigableEntity
     extend ActiveSupport::Concern
 

@@ -1,0 +1,115 @@
+---
+name: ComponentsHelper
+path: Lookbook::ComponentsHelper
+description: |-
+  Helpers for rendering components.
+
+  These are available for use in documentation page templates
+  and custom preview inspector panel templates.
+methods:
+- id: icon-instance-method
+  name: icon
+  path: Lookbook::ComponentsHelper#icon
+  signature: icon(name, **opts)
+  signature_call: icon
+  signature_args: name, **opts
+  description: |-
+    Render an icon.
+
+    Lookbook uses icons from the [Lucide Icons](https://lucide.dev/) set and
+    a full list of available icon names can be found on that site.
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ''
+    tag_name: example
+    text: |-
+      <%= icon :trash %>
+      <%= icon :camera, size: 6, style: "color: red;" %>
+    types:
+  - name: name
+    tag_name: param
+    text: Name of the icon
+    types: Symbol, String
+  - name: opts
+    tag_name: param
+    text: Options hash
+    types: Hash
+  klass: ComponentsHelper
+  group:
+- id: code-instance-method
+  name: code
+  path: Lookbook::ComponentsHelper#code
+  signature: code(language = :html, **opts, &amp;block)
+  signature_call: code
+  signature_args: language = :html, **opts, &amp;block
+  description: |-
+    Display a syntax-highlighted block of code.
+
+    An alternative to using markdown code blocks for templates that have
+    markdown parsing disabled, or for when more control is required.
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: language
+    tag_name: param
+    text: Which language the code is written in
+    types: Symbol
+  - name: opts
+    tag_name: param
+    text: Options hash
+    types: Hash
+  - name: block
+    tag_name: param
+    text: Code block
+    types: Proc
+  klass: ComponentsHelper
+  group:
+- id: embed-instance-method
+  name: embed
+  path: Lookbook::ComponentsHelper#embed
+  signature: embed(preview, example = nil, **opts)
+  signature_call: embed
+  signature_args: preview, example = nil, **opts
+  description: |-
+    Render a 'live' embed of a component preview.
+
+    If no example name is provided then the default (first) preview
+    example will be rendered in the embed.
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: preview
+    tag_name: param
+    text: Name of the preview class to embed
+    types: String
+  - name: example
+    tag_name: param
+    text: Example method name
+    types: String
+  - name: opts
+    tag_name: param
+    text: Options hash
+    types: Hash
+  klass: ComponentsHelper
+  group:
+groups: []
+type: module
+category: helper
+tags:
+- name:
+  tag_name: api
+  text: public
+  types:

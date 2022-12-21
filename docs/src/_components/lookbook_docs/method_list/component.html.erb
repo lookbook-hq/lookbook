@@ -1,0 +1,10 @@
+<%= tag.section **html_attrs do %>
+  <% if title %>
+    <h2 class="text-xs uppercase tracking-wider mb-4 text-gray-500"><%= title %></h2>
+  <% end %>
+  <div class="space-y-6">
+    <% items.each do |item| %>
+      <%= item %>
+    <% end %>
+  </div>
+<% end %>

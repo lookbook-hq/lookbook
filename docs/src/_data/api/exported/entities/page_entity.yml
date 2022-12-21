@@ -1,0 +1,17 @@
+---
+name: PageEntity
+path: Lookbook::PageEntity
+description: Represents a documentation page
+methods: []
+groups: []
+type: class
+category: entity
+tags:
+- name:
+  tag_name: api
+  text: public
+  types:
+- name:
+  tag_name: ignore
+  text: methods
+  types:

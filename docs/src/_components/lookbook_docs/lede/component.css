@@ -9,8 +9,8 @@
     @apply !mb-0;
   }
 
-  &:after {
+  /* &:after {
     content: "";
     @apply block w-20 border-b my-6 border-gray-300;
-  }
+  } */
 }

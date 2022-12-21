@@ -1,4 +1,7 @@
 module Lookbook
+  # Base entity class
+  #
+  # @api private
   class Entity
     include Comparable
     send(:include, Lookbook::Engine.routes.url_helpers) # YARD parsing workaround: https://github.com/lsegal/yard/issues/546

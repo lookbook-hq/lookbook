@@ -1,0 +1,14 @@
+<%= tag.send(tag_type,
+  **html_attrs,
+  href: href,
+  class: [
+    html_attrs[:class],
+    "px-4 py-2 inline-block rounded-md shadow-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors cursor-pointer"
+  ]) do %>
+  <span class="flex items-center space-x-2">
+    <span><%= text || content %></span>
+    <% if icon %>
+      <%= render LookbookDocs::Icon::Component.new(name: icon, size: 4) %>
+    <% end %>
+  </span>
+<% end %>

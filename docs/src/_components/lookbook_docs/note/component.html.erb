@@ -3,9 +3,7 @@
     component: "note",
     "note-theme": theme
   } do %>
-  <div class="note-tag">
-    <%= icon icon_name, size: 3.5 %>
-  </div>
+  <%= render LookbookDocs::Ribbon::Component.new(icon: icon_name) %>
   <div class="note-content prose max-w-none">
     <% if title.present? %>
       <h4 class="mb-2"><%= title %></h4>

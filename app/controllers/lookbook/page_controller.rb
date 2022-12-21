@@ -1,3 +1,5 @@
+require "rails/application_controller"
+
 module Lookbook
   class PageController < Rails::ApplicationController
     helper ComponentsHelper

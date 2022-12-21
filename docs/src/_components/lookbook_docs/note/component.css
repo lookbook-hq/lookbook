@@ -3,43 +3,27 @@
 
   box-shadow: 1px 1px 1px rgb(0 0 0 / 10%);
 
-  & .note-tag {
-    @apply px-1.5 pt-5 pb-2 absolute left-2.5 -top-px z-10 bg-white;
-  }
-
   &[data-note-theme="tip"] {
     @apply bg-indigo-50/80 border-indigo-200;
 
-    & .note-tag {
-      @apply bg-indigo-500 text-white;
-    }
-
-    & .note-tag:after {
-      @apply border-t-indigo-200;
+    & [data-component="ribbon"] {
+      @apply bg-indigo-600 text-white;
     }
   }
 
   &[data-note-theme="info"] {
     @apply bg-indigo-50/80 border-indigo-200;
 
-    & .note-tag {
-      @apply bg-indigo-500 text-white;
-    }
-
-    & .note-tag:after {
-      @apply border-t-indigo-200;
+    & [data-component="ribbon"] {
+      @apply bg-indigo-600 text-white;
     }
   }
 
   &[data-note-theme="warn"] {
     @apply bg-amber-50/80 border-amber-300;
 
-    & .note-tag {
-      @apply bg-amber-300 text-white;
-    }
-
-    & .note-tag:after {
-      @apply border-t-amber-300;
+    & [data-component="ribbon"] {
+      @apply bg-amber-500 text-white;
     }
   }
 

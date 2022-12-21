@@ -24,10 +24,10 @@ nav_groups = site.data[collection.label.downcase.to_sym]&.nav&.groups || []
   </div>
 
   <div class="layout-column overflow-y-scroll h-full md:h-auto relative scroll-smooth">
-    <main class="layout-content py-8">
-      <div class="lg:pr-[240px]">
+    <main class="layout-content py-8 pb-32">
+      <div class="lg:pr-[252px]">
         <% if resource.data.toc.many? %>
-          <div class="md:w-[220px] lg:mr-[-240px] sticky top-8 float-right z-50">
+          <div class="hidden lg:block w-[220px] mr-[-252px] sticky top-8 float-right z-50">
             <%= render LookbookDocs::Toc::Component.new do |menu| %>
               <% resource.data.toc.each { menu.link(**_1) }%>
             <% end %>
@@ -35,6 +35,10 @@ nav_groups = site.data[collection.label.downcase.to_sym]&.nav&.groups || []
         <% end %>
         <div>
           <header class="mb-8 md:pb-8 md:border-b xl:border-gray-300">
+            <div class="text-gray-500 mb-2">
+              <%= resource.collection.metadata.title %> / 
+              <%= current_section %>
+            </div>
             <h1 class="text-4xl font-extralight text-indigo-600">
               <%== resource.data.title %>
             </h1>

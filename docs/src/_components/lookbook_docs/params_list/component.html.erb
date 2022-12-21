@@ -7,8 +7,8 @@
             <td class="w-[20%]">
               <code class="text-indigo-600"><%= param[:name] %></code>
             </td>
-            <td class="w-[10%]">
-              <code class="text-gray-500"><%= param[:types] %></code>
+            <td class="w-[10%] whitespace-nowrap">
+              <code class="text-gray-500 italic text-xs"><%= param[:types]&.gsub("&lt;", "<")&.gsub("&gt;", ">").tr(" ", "") %></code>
             </td>
             <td>
               <%= markdown param[:text] %>
@@ -20,13 +20,17 @@
             <tr>
               <td class="w-[20%]">
                 <code class="flex items-center">
-                  <span class="text-indigo-500 opacity-60"><%= param[:name] %>[</span>
-                  <span class="text-indigo-600">:<%= opt[:name] %></span>
-                  <span class="text-indigo-500 opacity-60">]</span>
+                  <% unless options_only %>
+                    <span class="text-gray-500 opacity-60"><%= param[:name] %>[</span>
+                    <span class="text-indigo-600">:<%= opt[:name] %></span>
+                    <span class="text-gray-500 opacity-60">]</span>
+                  <% else %>
+                    <span class="text-indigo-600"><%= opt[:name] %></span>
+                  <% end %>
                 </code>
               </td>
-              <td class="w-[10%]">
-                <code class="text-gray-500"><%= opt[:types] %></code>
+              <td class="w-[10%] whitespace-nowrap">
+                <code class="text-gray-500 italic text-xs"><%= opt[:types]&.gsub("&lt;", "<")&.gsub("&gt;", ">").tr(" ", "") %></code>
               </td>
               <td>
                 <%= markdown opt[:text] %>

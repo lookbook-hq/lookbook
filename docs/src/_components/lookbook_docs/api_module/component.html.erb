@@ -1,0 +1,36 @@
+<%= tag.div **html_attrs do %>
+  <% if description.present? %>
+    <div class="prose max-w-full mb-8">
+      <%= markdown description %>
+    </div>
+  <% end %>
+  <% if example %>
+    <div>
+      <%= rendered_example %>
+    </div>
+  <% end %>
+  <div class="space-y-8">
+    <% method_collections.each do |collection| %>
+      <div>
+        <% if collection[:label] %>
+          <% toc.push(collection) %>
+          <h3 class="font-bold text-xl mb-6 pb-2 border-b border-gray-300"><%= collection[:label] %></h3>
+        <% end %>
+        <div class="space-y-8">
+          <% collection[:groups].each do |group| %>
+            <%= render LookbookDocs::MethodList::Component.new(id: group[:id], title: group[:label]) do |list| %>
+              <% group[:methods].each do |method| %>
+                <% toc.push({
+                  label: method[:name],
+                  id: method[:id],
+                  level: collection[:label] ? 3 : 2
+                }) %>
+                <% list.with_item_api_method(**method, site: site) %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

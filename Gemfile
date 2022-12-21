@@ -10,6 +10,7 @@ group :development, :test do
   gem "combustion", "~> 1.3"
   gem "actionpack"
   gem "appraisal"
+  gem "yard-activesupport-concern"
 end
 
 group :test do

@@ -1,18 +1,18 @@
 groups:
-  - label: Developer Guide
+  - label: Get Started
     items:
-      - overview
+      - extending
+      - contributing
 
   - label: Inspector Panels
     items:
-      - panels-overview
       - panels-adding
       - panels-templates
       - panels-styles
+      - panels-editing
 
-  - label: Preview Params
+  - label: Param Inputs
     items:
-      - params-overview
       - params-adding
       - params-templates
       - params-styles

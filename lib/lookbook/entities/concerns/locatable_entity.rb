@@ -1,4 +1,5 @@
 module Lookbook
+  # @api private
   module LocatableEntity
     extend ActiveSupport::Concern
 

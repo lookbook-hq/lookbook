@@ -5,5 +5,9 @@
 
   td {
     @apply py-2 px-4 align-top border-b border-gray-300;
+
+    & a {
+      @apply underline;
+    }
   }
 }

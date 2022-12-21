@@ -1,0 +1,84 @@
+<%= tag.div **html_attrs,
+  class: "border border-gray-300 rounded shadow-sm group",
+  "x-data": "{showDescription: false}" do %>
+  <header class="bg-white border-b border-gray-300">
+    <a href="#<%= id %>" class="no-underline px-4 py-2 relative font-mono flex items-center">
+      <code class="inline-flex items-end text-indigo-700">
+        <span class="text-gray-500 opacity-70"><%= scope_identifier %></span>
+        <span class="font-semibold"><%= signature_call %></span>
+        <span class="opacity-80">
+          <% if signature_args.present? %>
+            <strong>(</strong><%= signature_args %><strong>)</strong>
+          <% end %>
+        </span>
+      </code>
+      <% if return_types %>
+        <code class="mx-2 inline-block text-gray-500 opacity-40 transition-opacity duration-300 group-hover:opacity-90 text-sm">
+          <% if returns? %>
+            &rarr; <%= return_types %>
+          <% else %>
+            [<%= return_types %>]
+          <% end %>
+        </code>
+      <% end %>
+      <span class="absolute right-3.5 top-[13px] opacity-0 transition-opacity duration-300 group-hover:opacity-80">
+        <%= icon :link, size: 3.5, class: "transition opacity-40 hover:opacity-100 transition" %>
+      </span>
+    </a>
+  </header>
+  <div class="space-y-5 p-4 bg-gray-50">
+    <% if show?(:description) %>
+      <div>
+        <% if summary.present? %>
+          <div
+            class="flex items-start space-x-2 w-full <%= "cursor-pointer" if description.present? %>"
+            x-on:click.stop.prevent="showDescription = !showDescription">
+            <% if description.present? %>
+              <button class="text-xs text-indigo-500 mt-1">
+                <%= icon :plus_square, size: 3.5, html: {"x-show": "!showDescription", "x-cloak": true} %>
+                <%= icon :minus_square, size: 3.5, html: {"x-show": "showDescription", "x-cloak": true} %>
+              </button>
+            <% end %>
+            <%= markdown summary %>
+          </div>
+        <% elsif summary.nil? %>
+          <%= markdown "_No description available._" %>
+        <% end %>
+        <% if description.present? %>
+          <div class="prose max-w-full mt-3 pl-6 -ml-px" x-show.transition="showDescription" x-cloak>
+            <%= markdown description %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    <% if show?(:params) && params.any? %>
+      <div>
+        <h4 class="text-xs uppercase tracking-wider mb-2 text-gray-400">Args:</h4>
+        <%= render LookbookDocs::OptionsList::Component.new(options: params) %>
+      </div>
+    <% end %>
+     <% if (show?(:options) || show?(:params)) && options.any? %>
+      <div>
+        <h4 class="text-xs uppercase tracking-wider mb-2 text-gray-400">Options:</h4>
+        <%= render LookbookDocs::OptionsList::Component.new(options: options) %>
+      </div>
+    <% end %>
+    <% if show?(:example) && rendered_example.present? %>
+      <div>
+        <h4 class="text-xs uppercase tracking-wider mb-2 text-gray-400">Example:</h4>
+        <%= rendered_example %>
+      </div>
+    <% end %>
+  </div>
+  <% if api_links.present? %>
+    <footer class="bg-white border-t border-gray-300 px-4 py-2">
+      <p class="text-xs text-gray-500 opacity-70">
+        See also:
+        <% api_links.each do |link| %>
+          <% klass, url = link %>
+          <a href="<%= url %>" class="underline hover:text-gray-800 transition-colors"><%= klass %></a><%= "," unless link == api_links.last %>
+        <% end %>
+       </p>
+    </footer>
+  <% end %>
+<% end %>

@@ -1,0 +1,12 @@
+<%= tag.section **html_attrs do %>
+  <% if title %>
+    <header>
+      <%= title %>
+    </header>
+  <% end %>
+  <div class="space-y-6">
+    <% blocks.each do |block| %>
+      <%= block %>
+    <% end %>
+  </div>
+<% end %>

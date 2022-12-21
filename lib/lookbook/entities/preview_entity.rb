@@ -1,4 +1,8 @@
 module Lookbook
+  # Represents a preview class
+  #
+  # @ignore methods
+  # @api public
   class PreviewEntity < Entity
     include AnnotatableEntity
     include LocatableEntity

@@ -1,0 +1,15 @@
+h2[data-component="heading"] {
+  @apply text-2xl font-bold mb-6 !mt-8;
+
+  &:first-child {
+    @apply !mt-0;
+  }
+}
+
+h3[data-component="heading"] {
+  @apply text-xl font-bold mb-6 !mt-8;
+
+  &:first-child {
+    @apply !mt-0;
+  }
+}

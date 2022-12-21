@@ -95,7 +95,7 @@ module Lookbook
       examples = @target ? @target.examples : []
       rendered_examples = examples.map do |example|
         output = preview_controller.process(:render_example_to_string, @preview, example.name)
-        RenderedExample.new(example, output, preview_controller.params)
+        RenderedPreviewExampleEntity.new(example, output, preview_controller.params)
       end
 
       @inspector_data ||= Lookbook::Store.new({

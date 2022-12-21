@@ -1,0 +1,45 @@
+---
+name: PreviewHelper
+path: Lookbook::PreviewHelper
+description: Set of helpers for preview layouts
+methods:
+- id: lookbook-display-instance-method
+  name: lookbook_display
+  path: Lookbook::PreviewHelper#lookbook_display
+  signature: lookbook_display(key, fallback = nil)
+  signature_call: lookbook_display
+  signature_args: key, fallback = nil
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: PreviewHelper
+  group:
+- id: lookbook-data-instance-method
+  name: lookbook_data
+  path: Lookbook::PreviewHelper#lookbook_data
+  signature: lookbook_data(key, fallback = nil)
+  signature_call: lookbook_data
+  signature_args: key, fallback = nil
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: PreviewHelper
+  group:
+groups: []
+type: module
+category: helper
+tags:
+- name:
+  tag_name: api
+  text: public
+  types:

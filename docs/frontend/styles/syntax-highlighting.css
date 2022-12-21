@@ -10,12 +10,15 @@
 */
 
 pre.highlight {
-  @apply px-4 py-3;
+  @apply px-4 py-3 text-sm overflow-auto;
   background-color: #f6f8fa;
 }
 
 pre.highlight {
   @apply bg-white text-gray-800 border border-gray-300 rounded font-mono;
+}
+pre.highlight code {
+  @apply leading-relaxed;
 }
 pre.highlight .hll {
   background-color: #f8f8f8;

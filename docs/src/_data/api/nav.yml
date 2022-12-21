@@ -1,13 +1,24 @@
 groups:
-  - label: Lookbook
+  - label: Application
     items:
       - lookbook
 
   - label: Entities
     items:
-      - entity
       - preview-entity
       - preview-example-entity
+      - rendered-preview-example-entity
       - preview-group-entity
       - component-entity
       - page-entity
+
+  - label: Helpers
+    items:
+      - components-helper
+      - page-helper
+      - preview-helper
+
+  - label: Other
+    items:
+      - store
+      - config-store

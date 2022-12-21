@@ -55,6 +55,17 @@ class Builders::Site < SiteBuilder
       end
     end
 
+    helper :current_section, helpers_scope: true do
+      collection = view.resource.collection
+      if collection
+        site.data[collection.label].nav.groups.each do |group|
+          if group[:items].include?(view.resource.data.id)
+            return group[:label]
+          end
+        end
+      end
+    end
+
     helper :markdown do |input = nil, &block|
       content = Bridgetown::Utils.reindent_for_markdown(
         block.nil? ? input.to_s : view.capture(&block)
@@ -67,10 +78,32 @@ class Builders::Site < SiteBuilder
       view.resource.data.toc.push(entry)
     end
 
-    helper :method_data, helpers_scope: true do |klass, method_name|
+    helper :api_module_url, helpers_scope: true do |klass|
+      site_context = site || view.site
+      collection = site_context&.collections&.api
+      if collection
+        subject = klass.underscore
+        resource = collection.resources.find { |r| r.data.subject == subject }
+        resource&.relative_url
+      end
+    end
+
+    helper :api_module_data, helpers_scope: true do |klass|
+      klass = klass.to_s.downcase.underscore.to_sym
+      set = nil
+      site.data.api.exported.each do |key, data|
+        if data[klass].present?
+          set = data[klass]
+          break
+        end
+      end
+      set&.symbolize_keys
+    end
+
+    helper :api_method_data, helpers_scope: true do |klass, method_name|
       method_name = method_name.to_s
-      klass_data = site.data.api[klass.downcase.underscore]
-      klass_data[:methods].find { |m| m[:name]&.to_s == method_name }
+      klass_data = api_module_data(klass)
+      klass_data[:methods]&.find { |m| m[:name]&.to_s == method_name }&.symbolize_keys
     end
   end
 

@@ -1,0 +1,14 @@
+[data-component="method"] {
+  & .prose :where(.prose > :first-child) {
+    margin-top: 0 !important;
+  }
+
+  & .prose :where(.prose > :last-child) {
+    margin-bottom: 0 !important;
+  }
+
+  & .prose :where(p):not(:where([class~="not-prose"] *)) {
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
+  }
+}

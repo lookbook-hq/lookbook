@@ -1,12 +1,12 @@
 module LookbookDocs
   class Heading::Component < Base
-    attr_reader :level, :splitter
+    attr_reader :level, :step
 
-    def initialize(id: nil, level: 2, hidden: false, splitter: true, **attrs)
+    def initialize(id: nil, level: 2, hidden: false, step: nil, **attrs)
       @id = id
       @level = level
       @hidden = hidden
-      @splitter = splitter
+      @step = step
       @attrs = attrs
     end
 

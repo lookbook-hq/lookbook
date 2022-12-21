@@ -11,6 +11,10 @@ module LookbookDocs
       @attrs ||= {}
     end
 
+    def site
+      @attrs[:site]
+    end
+
     def html_attrs
       html_attrs = attrs[:html] || {}
       html_attrs[:data] ||= {}

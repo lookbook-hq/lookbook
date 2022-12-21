@@ -1,4 +1,18 @@
 module Lookbook
+  # Configuration store for Lookbook.
+  #
+  # Config option values can be get/set using hash property access syntax
+  # or dot-notation syntax.
+  #
+  # @example :ruby
+  #   # Lookbook config access in Rails config files:
+  #   config.lookbook.ui_theme = :zinc
+  #
+  #   # Lookbook config access everywhere else:
+  #   Lookbook.config.ui_theme = :zinc
+  #
+  # @ignore methods
+  # @api public
   class ConfigStore
     CONFIG_FILE = "config/app.yml"
 

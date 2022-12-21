@@ -1,0 +1,23 @@
+---
+name: Store
+path: Lookbook::Store
+description: |-
+  Generic hash-like key/value store.
+
+  Properties can be get/set using hash access syntax (`data[:key]`)
+  or dot-notation syntax (`data.key`).
+
+  Based on [ActiveSupport::OrderedOptions](https://api.rubyonrails.org/classes/ActiveSupport/OrderedOptions.html)
+methods: []
+groups: []
+type: class
+category: support
+tags:
+- name:
+  tag_name: api
+  text: public
+  types:
+- name:
+  tag_name: ignore
+  text: methods
+  types:

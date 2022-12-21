@@ -1,0 +1,30 @@
+---
+name: ConfigStore
+path: Lookbook::ConfigStore
+description: |-
+  Configuration store for Lookbook.
+
+  Config option values can be get/set using hash property access syntax
+  or dot-notation syntax.
+methods: []
+groups: []
+type: class
+category: support
+tags:
+- name:
+  tag_name: api
+  text: public
+  types:
+- name: ruby
+  tag_name: example
+  text: |-
+    # Lookbook config access in Rails config files:
+    config.lookbook.ui_theme = :zinc
+
+    # Lookbook config access everywhere else:
+    Lookbook.config.ui_theme = :zinc
+  types:
+- name:
+  tag_name: ignore
+  text: methods
+  types:

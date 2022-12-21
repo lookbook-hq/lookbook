@@ -1,12 +1,13 @@
 #!/usr/bin/env ruby
 
-printf "\n🤖 Loading dependencies...\n"
+printf "\n🤖 Loading dependencies... "
 
 require "yard"
 require "yaml"
 require "lookbook"
+require 'fileutils'
 
-printf "✅ Done!\n\n"
+printf "✅ Done!\n"
 
 class Helpers
   include YARD::Templates::Helpers::HtmlHelper
@@ -29,13 +30,17 @@ def strip_tags(str)
   ActionView::Base.full_sanitizer.sanitize(str) if str
 end
 
-def class_data(obj)
+def module_data(obj, category: :general)
   obj = resolve(obj)
   {
     name: obj.name.to_s,
     path: obj.path,
     description: obj.docstring.to_s.strip,
-    methods: methods_for(obj)
+    methods: methods_for(obj),
+    groups: obj.groups,
+    type: obj.is_a?(YARD::CodeObjects::ClassObject) ? "class" : "module",
+    category: category.to_s,
+    tags: tags_for(obj),
   }
 end
 
@@ -46,14 +51,15 @@ def method_data(obj)
     id: [obj.name, obj.scope, "method"].join("-").gsub("_","-"),
     name: obj.name.to_s,
     path: obj.path,
-    signature: "#{obj.name.to_s}(#{args})",
+    signature: "#{obj.name.to_s}#{"(#{args})" if args.present?}",
     signature_call: obj.name.to_s,
     signature_args: args,
     description: obj.docstring.to_s.strip,
     return_types: strip_tags(helpers.format_return_types(obj)),
     scope: obj.scope.to_s,
     tags: tags_for(obj),
-    klass: obj.parent.name.to_s
+    klass: obj.parent.name.to_s,
+    group: obj.group&.to_s
   }
 end
 
@@ -69,7 +75,7 @@ def tag_data(obj)
     }
   else
     {
-      name: obj.name,
+      name: obj.name&.delete_prefix(":"),
       tag_name: obj.tag_name,
       text: obj.text,
       types: strip_tags(helpers.format_types(obj.types, false)),
@@ -78,6 +84,10 @@ def tag_data(obj)
 end
 
 def methods_for(target)
+  if target.has_tag?(:ignore)
+    ignore = target.tag(:ignore).text.split(",").map(&:strip)
+    return [] if ignore.include?("methods")
+  end
   meths = resolve(target).meths.filter { annotated? _1 }
   meths.filter! { available? _1 } 
   meths.map { method_data _1 }
@@ -87,53 +97,99 @@ def tags_for(target)
   resolve(target).tags.map { tag_data _1 }
 end
 
+def get_modules_of_type(type)
+  modules = YARD::Registry.all(:class, :module)
+  modules.filter { _1.name.to_s.end_with?(type) && _1.tag(:api)&.text != "private" }
+end
+
+def get_modules(*names)
+  modules = YARD::Registry.all(:class, :module)
+  names.map do |name|
+    modules.find { _1.name.to_s.end_with?(name) && _1.tag(:api)&.text != "private" }
+  end
+end
+
 def annotated?(code_object)
   !code_object.docstring.empty? || code_object.tags.size > 0
 end
 
 def available?(code_object)
   (!code_object.has_tag?(:api) || code_object.tag(:api).text.strip != "private") && 
-    !code_object.has_tag?(:deprecated)
+    !code_object.has_tag?(:deprecated) &&
+    code_object.visibility == :public
+end
+
+def data_dir
+  File.expand_path("../docs/src/_data/api/exported", __dir__)
 end
 
 def write_data(name, data)
-  data_dir = File.expand_path("../docs/src/_data/api", __dir__)
-  
-  File.write("#{data_dir}/#{name}.yml", YAML.dump(data.deep_stringify_keys))
+  path = "#{data_dir}/#{name}.yml"
+  dirname = File.dirname(path)
+
+  FileUtils.mkdir_p(dirname) unless File.directory?(dirname)
+  File.write(path, YAML.dump(data.deep_stringify_keys))
+end
+
+def clear_data
+  FileUtils.rm_rf(Dir["#{data_dir}/*"])
 end
 
 # -----------------------------------------------
 
-puts "🚨 Starting code parsing..."
+printf "🚨 Removing old data... "
+
+clear_data
+
+printf " ✅ Done!\n"
+
+# -----------------------------------------------
+
+printf "🚨 Starting code parsing... "
 
 src_path = File.expand_path("../lib", __dir__)
+
+YARD::Config.load_plugin("activesupport-concern")
+YARD::Tags::Library.define_tag("Ignore", :ignore)
 YARD.parse(src_path)
-classes = YARD::Registry.all(:class)
 
-printf "✅ Done!\n\n"
-
-# -----------------------------------------------
-
-puts "📝 Generating docs for main Lookbook module..."
-
-write_data("lookbook", class_data("Lookbook"))
-
-printf "✅ Done!\n\n"
+printf "✅ Done!\n"
 
 # -----------------------------------------------
 
-puts "📝 Generating entity docs..."
+printf "📝 Generating docs for main Lookbook module... "
 
-entities = classes.filter { _1.name.to_s.end_with?("Entity") }
+write_data("base/lookbook", module_data("Lookbook", category: :general))
 
-entities.each do |code_object|
-  write_data(code_object.name.to_s.underscore, class_data(code_object))
+printf "✅ Done!\n"
+
+# -----------------------------------------------
+
+printf "📝 Generating entity docs... "
+
+get_modules_of_type("Entity").each do |code_object|
+  write_data("entities/#{code_object.name.to_s.underscore}", module_data(code_object, category: :entity))
 end
 
-# write_data("entities", {
-#   label: "Entities",
-#   classes: entities.map { class_data _1 }
-# })
+printf "✅ Done!\n"
 
-printf "✅ Done!\n\n"
+# -----------------------------------------------
+
+printf "📝 Generating helper docs... "
+
+get_modules_of_type("Helper").each do |code_object|
+  write_data("helpers/#{code_object.name.to_s.underscore}", module_data(code_object, category: :helper))
+end
+
+printf "✅ Done!\n"
+
+# -----------------------------------------------
+
+printf "📝 Generating support docs... "
+
+get_modules("Store", "ConfigStore").each do |code_object|
+  write_data("support/#{code_object.name.to_s.underscore}", module_data(code_object, category: :support))
+end
+
+printf "✅ Done!\n"
 

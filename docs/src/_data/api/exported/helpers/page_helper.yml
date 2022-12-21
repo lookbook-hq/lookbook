@@ -1,0 +1,33 @@
+---
+name: PageHelper
+path: Lookbook::PageHelper
+description: Helpers for documentation page templates
+methods:
+- id: page-path-instance-method
+  name: page_path
+  path: Lookbook::PageHelper#page_path
+  signature: page_path(id)
+  signature_call: page_path
+  signature_args: id
+  description: Returns the URL path to a page.
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: id
+    tag_name: param
+    text: The id or PageEntity instance to generate a URL path for
+    types: String, PageEntity
+  klass: PageHelper
+  group:
+groups: []
+type: module
+category: helper
+tags:
+- name:
+  tag_name: api
+  text: public
+  types:

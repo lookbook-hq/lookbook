@@ -1,4 +1,8 @@
 module Lookbook
+  # Represents a group of preview examples within a preview class
+  #
+  # @ignore methods
+  # @api public
   class PreviewGroupEntity < Entity
     include NavigableEntity
 

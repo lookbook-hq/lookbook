@@ -1,0 +1,421 @@
+---
+name: Lookbook
+path: Lookbook
+description: The main Lookbook application object.
+methods:
+- id: version-class-method
+  name: version
+  path: Lookbook.version
+  signature: version
+  signature_call: version
+  signature_args: ''
+  description: Returns the installed Lookbook version
+  return_types: String
+  scope: class
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: erb
+    tag_name: example
+    text: "<p>Using Lookbook v<%= Lookbook.version %></p>"
+    types:
+  - name:
+    tag_name: return
+    text: Version number string
+    types: String
+  klass: Lookbook
+  group:
+- id: config-class-method
+  name: config
+  path: Lookbook.config
+  signature: config
+  signature_call: config
+  signature_args: ''
+  description: Provides access to the Lookbook config store
+  return_types: ConfigStore
+  scope: class
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: Lookbook.config.project_title = "MyApp"
+    types:
+  - name:
+    tag_name: return
+    text: The config store object
+    types: ConfigStore
+  klass: Lookbook
+  group:
+- id: previews-class-method
+  name: previews
+  path: Lookbook.previews
+  signature: previews
+  signature_call: previews
+  signature_args: ''
+  description: Get an array of component preview objects
+  return_types: Array&lt;PreviewEntity&gt;
+  scope: class
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: Array of preview entities
+    types: Array&lt;PreviewEntity&gt;
+  klass: Lookbook
+  group:
+- id: pages-class-method
+  name: pages
+  path: Lookbook.pages
+  signature: pages
+  signature_call: pages
+  signature_args: ''
+  description: Get an array of documentation page objects
+  return_types: Array&lt;PageEntity&gt;
+  scope: class
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: Array of page entities
+    types: Array&lt;PageEntity&gt;
+  klass: Lookbook
+  group:
+- id: data-class-method
+  name: data
+  path: Lookbook.data
+  signature: data
+  signature_call: data
+  signature_args: ''
+  description: Get the global data store instance
+  return_types: Store
+  scope: class
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The global data store instance
+    types: Store
+  klass: Lookbook
+  group:
+- id: data=-class-method
+  name: data=
+  path: Lookbook.data=
+  signature: data=(new_data)
+  signature_call: data=
+  signature_args: new_data
+  description: Replace the global data store contents
+  return_types: Store
+  scope: class
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: new_data
+    tag_name: param
+    text: Hash of data to store
+    types: Hash
+  - name:
+    tag_name: return
+    text: The global data store instance
+    types: Store
+  klass: Lookbook
+  group:
+- id: add-param-class-method
+  name: add_param
+  path: Lookbook.add_param
+  signature: add_param(name, partial_path, opts = {})
+  signature_call: add_param
+  signature_args: name, partial_path, opts = {}
+  description: Add a custom `@param` tag input type
+  return_types:
+  scope: class
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: name
+    tag_name: param
+    text: Unique input type name
+    types: Symbol
+  - name: partial_path
+    tag_name: param
+    text: Path to the partial template used to render the input
+    types: String
+  - name: opts
+    tag_name: param
+    text: Set of default options to be passed to the input. Any supplied param options
+      will override these values
+    types: Hash
+  klass: Lookbook
+  group: Params
+- id: add-panel-class-method
+  name: add_panel
+  path: Lookbook.add_panel
+  signature: add_panel(name, partial_path, opts = {})
+  signature_call: add_panel
+  signature_args: name, partial_path, opts = {}
+  description: Add a custom inspector panel
+  return_types:
+  scope: class
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: |-
+      Lookbook.add_panel(:info, "panels/info", {
+        label: "Extra Info"
+      })
+    types:
+  - pair: opts
+    name: label
+    tag_name: option
+    text: The text to be displayed in the panel tab
+    types: String
+  - pair: opts
+    name: hotkey
+    tag_name: option
+    text: "[Keyboard shortcut](https://alpinejs.dev/directives/on#keyboard-events)
+      used to switch to the panel"
+    types: String
+  - pair: opts
+    name: disabled
+    tag_name: option
+    text: Disabled tabs are still accessible but are greyed out in the UI
+    types: Boolean
+  - pair: opts
+    name: copy
+    tag_name: option
+    text: If present, the panel will display a copy button that copies the value of
+      this property to the clipboard when clicked
+    types: String
+  - pair: opts
+    name: locals
+    tag_name: option
+    text: A hash of local variables that will be passed to the panel when it is rendered
+    types: Hash
+  - name: name
+    tag_name: param
+    text: Unique panel name
+    types: Symbol, String
+  - name: partial_path
+    tag_name: param
+    text: Path to the partial template used to render the panel
+    types: String
+  - name: opts
+    tag_name: param
+    text: Set of panel options
+    types: Hash
+  klass: Lookbook
+  group: Inspector Panels
+- id: edit-panel-class-method
+  name: edit_panel
+  path: Lookbook.edit_panel
+  signature: edit_panel(name, opts)
+  signature_call: edit_panel
+  signature_args: name, opts
+  description: Edit the properties of an existing inspector panel
+  return_types:
+  scope: class
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: |-
+      Lookbook.edit_panel(:notes, {
+        label: "Usage Info",
+        hotkey: "u",
+      })
+    types:
+  - pair: opts
+    name: label
+    tag_name: option
+    text: The text to be displayed in the panel tab
+    types: String
+  - pair: opts
+    name: hotkey
+    tag_name: option
+    text: "[Keyboard shortcut](https://alpinejs.dev/directives/on#keyboard-events)
+      used to switch to the panel"
+    types: String
+  - pair: opts
+    name: disabled
+    tag_name: option
+    text: Disabled tabs are still accessible but are greyed out in the UI
+    types: Boolean
+  - pair: opts
+    name: copy
+    tag_name: option
+    text: If present, the panel will display a copy button that copies the value of
+      this property to the clipboard when clicked
+    types: String
+  - pair: opts
+    name: locals
+    tag_name: option
+    text: A hash of local variables that will be passed to the panel when it is rendered
+    types: Hash
+  - name: name
+    tag_name: param
+    text: Name of target panel
+    types: Symbol, String
+  - name: opts
+    tag_name: param
+    text: Set of panel options
+    types: Hash
+  klass: Lookbook
+  group: Inspector Panels
+- id: remove-panel-class-method
+  name: remove_panel
+  path: Lookbook.remove_panel
+  signature: remove_panel(name)
+  signature_call: remove_panel
+  signature_args: name
+  description: Remove a panel from the inspector
+  return_types:
+  scope: class
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: Lookbook.remove_panel(:notes)
+    types:
+  - name: name
+    tag_name: param
+    text: Name of target panel
+    types: Symbol, String
+  klass: Lookbook
+  group: Inspector Panels
+- id: add-tag-class-method
+  name: add_tag
+  path: Lookbook.add_tag
+  signature: add_tag(name, args = nil)
+  signature_call: add_tag
+  signature_args: name, args = nil
+  description: Add a custom tag
+  return_types:
+  scope: class
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: name
+    tag_name: param
+    text: Tag name
+    types: Symbol, String
+  - name: args
+    tag_name: param
+    text: Array of argument names
+    types: Array&lt;Symbol&gt;
+  - name:
+    tag_name: yield
+    text: The custom tag instance
+    types: tag
+  klass: Lookbook
+  group: Custom Tags
+- id: after-initialize-class-method
+  name: after_initialize
+  path: Lookbook.after_initialize
+  signature: after_initialize
+  signature_call: after_initialize
+  signature_args: ''
+  description: Add a callback to run after app initialization.
+  return_types:
+  scope: class
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: |-
+      Lookbook.after_initialize do |app|
+        puts "Lookbook has started!"
+      end
+    types:
+  - name:
+    tag_name: yield
+    text: Lookbook app
+    types: app
+  klass: Lookbook
+  group: Lifecycle Callbacks
+- id: before-exit-class-method
+  name: before_exit
+  path: Lookbook.before_exit
+  signature: before_exit
+  signature_call: before_exit
+  signature_args: ''
+  description: Add a callback to run before Lookbook shuts down
+  return_types:
+  scope: class
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: yield
+    text: Lookbook app
+    types: app
+  klass: Lookbook
+  group: Lifecycle Callbacks
+- id: after-change-class-method
+  name: after_change
+  path: Lookbook.after_change
+  signature: after_change
+  signature_call: after_change
+  signature_args: ''
+  description: |-
+    Add a callback to run when a change to a watched
+    file occurs. Only called when an evented file watcher is being
+    used to detect changes.
+  return_types:
+  scope: class
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: yield
+    text: Lookbook app and hash of files changed, added & removed
+    types: app, changes
+  klass: Lookbook
+  group: Lifecycle Callbacks
+groups:
+- Params
+- Inspector Panels
+- Custom Tags
+- Lifecycle Callbacks
+type: module
+category: general
+tags:
+- name:
+  tag_name: api
+  text: public
+  types:
