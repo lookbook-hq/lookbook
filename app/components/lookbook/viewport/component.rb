@@ -9,10 +9,6 @@ module Lookbook
       super(**html_attrs)
     end
 
-    def generate_id(*args)
-      args.map { |args| args.delete_prefix("/").tr("&?=/_-", "-") }.join("-")
-    end
-
     protected
 
     def alpine_component

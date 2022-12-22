@@ -5,8 +5,7 @@ module Lookbook
     protect_from_forgery with: :exception
 
     helper Lookbook::ApplicationHelper
-    helper Lookbook::OutputHelper
-    helper Lookbook::ComponentHelper
+    helper Lookbook::ComponentsHelper
 
     before_action :generate_theme_overrides
     before_action :assign_instance_vars
@@ -33,13 +32,10 @@ module Lookbook
     def assign_instance_vars
       @previews = Engine.previews
       @pages = Engine.pages
+      @theme = Engine.theme
       @config = Lookbook.config
       @engine = Lookbook.engine
       @embed = !!params[:lookbook_embed]
-    end
-
-    def feature_enabled?(feature)
-      Lookbook::Features.enabled?(feature)
     end
 
     def render_in_layout(path, layout: nil, **locals)

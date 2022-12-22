@@ -8,7 +8,11 @@ module Lookbook
     end
 
     def landing_path
-      helpers.landing_path if defined? helpers.landing_path
+      helpers.lookbook_landing_path if defined? helpers.lookbook_landing_path
+    end
+
+    def debug_data
+      JSON.pretty_generate(Lookbook.debug_data)
     end
   end
 end

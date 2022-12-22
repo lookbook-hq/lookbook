@@ -2,7 +2,6 @@ module Lookbook
   class PagesController < ApplicationController
     layout "lookbook/application"
     helper_method :page_controller
-    helper PageHelper
 
     def self.controller_path
       "lookbook/pages"

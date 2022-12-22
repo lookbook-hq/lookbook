@@ -2,7 +2,7 @@ module Lookbook
   class RenderedExample
     delegate_missing_to :example
 
-    attr_reader :output, :example
+    attr_reader :example
 
     def initialize(example, output, params)
       @example = example
@@ -16,6 +16,10 @@ module Lookbook
 
     def source_lang
       has_custom_template? ? template_lang(template) : example.source_lang
+    end
+
+    def output
+      @_output ||= CodeBeautifier.call(@output)
     end
 
     protected

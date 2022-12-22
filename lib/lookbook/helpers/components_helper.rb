@@ -1,14 +1,33 @@
 module Lookbook
-  module ComponentHelper
-    COMPONENT_CLASSES = {} # cache for constantized references
-
-    def icon(name, **attrs)
-      lookbook_render :icon, name: name, **attrs
+  module ComponentsHelper
+    def icon(name, **kwargs)
+      lookbook_render :icon, name: name, **kwargs
     end
 
-    def code(language = :html, **attrs, &block)
-      attrs[:language] ||= language
-      lookbook_render :code, **attrs, &block
+    def code(language = :html, **kwargs, &block)
+      kwargs[:language] ||= language
+      lookbook_render :code, **kwargs, &block
+    end
+
+    def prose(**kwargs, &block)
+      lookbook_render :prose, **kwargs, &block
+    end
+
+    def embed(*args, **options)
+      return unless args.any?
+
+      preview = if args.first.is_a?(Symbol)
+        Engine.previews.find_by_path(args.first)
+      else
+        Engine.previews.find_by_preview_class(args.first)
+      end
+      example = args[1] ? preview&.example(args[1]) : preview&.default_example
+
+      render Embed::Component.new(
+        example: example,
+        params: options.fetch(:params, {}),
+        options: options.except(:params)
+      )
     end
 
     def lookbook_tag(tag = :div, **attrs, &block)
@@ -29,34 +48,9 @@ module Lookbook
       end
     end
 
-    unless respond_to? :class_names
-      def class_names(*args)
-        tokens = build_tag_values(*args).flat_map { |value| value.to_s.split(/\s+/) }.uniq
-
-        safe_join(tokens, " ")
-      end
-
-      def build_tag_values(*args)
-        tag_values = []
-
-        args.each do |tag_value|
-          case tag_value
-          when Hash
-            tag_value.each do |key, val|
-              tag_values << key.to_s if val && key.present?
-            end
-          when Array
-            tag_values.concat build_tag_values(*tag_value)
-          else
-            tag_values << tag_value.to_s if tag_value.present?
-          end
-        end
-
-        tag_values
-      end
-    end
-
     private
+
+    COMPONENT_CLASSES = {} # cache for constantized references
 
     def render_method_name
       if Rails.application.config.view_component.render_monkey_patch_enabled || Rails.version.to_f >= 6.1

@@ -4,7 +4,6 @@ module Lookbook
     include WithPreviewControllerConcern
 
     layout false
-    helper Lookbook::PreviewHelper
 
     def self.controller_path
       "lookbook/previews"

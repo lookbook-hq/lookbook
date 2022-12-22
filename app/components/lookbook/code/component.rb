@@ -1,7 +1,5 @@
 module Lookbook
   class Code::Component < Lookbook::BaseComponent
-    include Lookbook::OutputHelper
-
     def initialize(
       source: nil,
       language: :html,

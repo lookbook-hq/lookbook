@@ -1,6 +1,6 @@
 module Lookbook
   class TagComponent < ViewComponent::Base
-    include Lookbook::ComponentHelper
+    include Lookbook::ComponentsHelper
 
     def initialize(tag: :div, name: nil, cloak: false, **html_attrs)
       @tag = tag

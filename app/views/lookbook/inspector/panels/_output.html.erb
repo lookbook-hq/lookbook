@@ -1,7 +1,7 @@
 <%= lookbook_render :code, line_numbers: true, full_height: true do -%>
   <% if examples.many? -%>
-    <% examples.each do |example| -%><%== "<!-- #{example.label} -->\n#{beautify(example.output)}\n\n" -%><% end %>
+    <% examples.each do |example| -%><%== "<!-- #{example.label} -->\n#{example.output}\n\n" -%><% end %>
   <%- else -%>
-    <%== beautify(examples.first.output) -%>
+    <%== examples.first.output -%>
   <%- end %>
 <% end %>

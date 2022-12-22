@@ -6,7 +6,7 @@ module Lookbook
 
     def initialize(text, opts = {})
       @text = text
-      @opts = opts.to_h
+      @opts = Lookbook.config.markdown_options.merge(opts.to_h)
     end
 
     def call

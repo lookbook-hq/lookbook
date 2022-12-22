@@ -1,8 +1,7 @@
 module Lookbook
-  class PageController < ActionController::Base
-    helper ComponentHelper
+  class PageController < Rails::ApplicationController
+    helper ComponentsHelper
     helper PageHelper
-    helper OutputHelper
 
     Lookbook.config.page_paths.each do |path|
       prepend_view_path Rails.root.join(path)
@@ -23,7 +22,7 @@ module Lookbook
         }
       end
 
-      @page.markdown? ? MarkdownRenderer.call(content, Lookbook.config.markdown_options) : content
+      @page.markdown? ? MarkdownRenderer.call(content) : content
     end
   end
 end
