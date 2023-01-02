@@ -27,14 +27,14 @@ module Lookbook
 
     config.after_initialize do
       if opts.using_view_component || Rails.env.test?
-        vc_config = Rails.application.config.view_component
+        vc_config = Engine.host_config.view_component
 
         opts.preview_paths += vc_config.preview_paths
         opts.preview_controller = vc_config.preview_controller
         opts.preview_template = "view_components/preview"
 
         if vc_config.view_component_path.present?
-          opts.components_path = vc_config.view_component_path
+          opts.component_paths << vc_config.view_component_path
         end
       end
     end
@@ -71,7 +71,7 @@ module Lookbook
       end
 
       def reloading?
-        Rails.application.config.reload_classes_only_on_change
+        host_config.reload_classes_only_on_change
       end
 
       def auto_refresh?
@@ -112,6 +112,14 @@ module Lookbook
         end
       end
 
+      def host_app_path
+        Rails.application.root.join("app")
+      end
+
+      def host_config
+        Rails.application.config
+      end
+
       def view_paths
         ActionView::ViewPaths.all_view_paths.flat_map do |view_path|
           view_path.paths.map { |path| Pathname(path.to_s) }
@@ -119,7 +127,10 @@ module Lookbook
       end
 
       def component_paths
-        @_component_paths ||= Array(PathUtils.to_absolute(opts.components_path))
+        @_component_paths ||= begin
+          paths = [*opts.component_paths, *Engine.view_paths, host_app_path]
+          PathUtils.normalize_paths(paths)
+        end
       end
 
       def page_paths

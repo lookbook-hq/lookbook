@@ -24,8 +24,8 @@ module Lookbook
 
       def fetch_config(key, fallback = nil, &block)
         value = case key.to_sym
-        when :components
-          components_config
+        when :targets
+          targets_config
         when :display_options
           display_options_config
         else
@@ -37,10 +37,10 @@ module Lookbook
 
       private
 
-      def components_config
-        return unless has_tag?(:component)
+      def targets_config
+        return unless has_tag?(:component) || has_tag?(:target)
 
-        Array(tags(:component)).map(&:value).compact
+        [*tags(:component), *tags(:target)].map(&:value).compact
       end
 
       def display_options_config

@@ -10,7 +10,7 @@ module Lookbook
 
     def initialize(name, scenarios, preview)
       @name = Utils.name(name)
-      @scenarios = PreviewExampleCollection.new(scenarios)
+      @scenarios = ScenarioCollection.new(scenarios)
       @preview = preview
       @lookup_path = "#{parent.lookup_path}/#{@name}"
     end
@@ -23,8 +23,8 @@ module Lookbook
       merged
     end
 
-    def components
-      @_components ||= ComponentCollection.new(scenarios.flat_map(&:components).uniq(&:path))
+    def targets
+      @_targets ||= RenderTargetCollection.new(scenarios.flat_map(&:targets).uniq(&:path))
     end
 
     def search_terms
@@ -43,14 +43,11 @@ module Lookbook
       lookbook_inspect_path(path)
     end
 
-    def render_type
-      scenarios.flat_map(&:render_type).uniq.first
-    end
-
     def type
       :group
     end
 
     alias_method :parent, :preview
+    alias_method :components, :targets
   end
 end

@@ -60,7 +60,7 @@ module Lookbook
     protected
 
     def scenarios
-      @_cache[:scenarios] ||= PreviewExampleCollection.new(flat_map(&:scenarios))
+      @_cache[:scenarios] ||= ScenarioCollection.new(flat_map(&:scenarios))
     end
   end
 end

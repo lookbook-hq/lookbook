@@ -86,7 +86,7 @@ RSpec.describe Lookbook::ScenarioEntity do
         it "returns an empty collection" do
           components = scenario.components
 
-          expect(components).to be_a Lookbook::ComponentCollection
+          expect(components).to be_a Lookbook::RenderTargetCollection
           expect(components).to be_empty
         end
       end
@@ -108,7 +108,7 @@ RSpec.describe Lookbook::ScenarioEntity do
         it "returns a collection containing the guessed component class" do
           components = scenario.components
 
-          expect(components).to be_a Lookbook::ComponentCollection
+          expect(components).to be_a Lookbook::RenderTargetCollection
           expect(components.size).to eq 1
           expect(components.first).to be_a Lookbook::ComponentEntity
         end
@@ -225,7 +225,7 @@ RSpec.describe Lookbook::ScenarioEntity do
       it "returns an collection of components" do
         components = scenario.components
 
-        expect(components).to be_a Lookbook::ComponentCollection
+        expect(components).to be_a Lookbook::RenderTargetCollection
         components.each do |component|
           expect(component).to be_a Lookbook::ComponentEntity
         end

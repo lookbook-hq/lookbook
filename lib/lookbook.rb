@@ -11,7 +11,7 @@ loader.ignore("#{__dir__}/lookbook/support/evented_file_update_checker.rb")
 loader.ignore("#{__dir__}/lookbook/cable")
 loader.setup
 
-# The main Lookbook application object.
+# The Lookbook application entry point.
 #
 # @api public
 module Lookbook

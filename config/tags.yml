@@ -23,6 +23,10 @@ shared:
     label: Component
     opts: {}
 
+  target:
+    label: Target
+    opts: {}
+
   param:
     label: Param
     opts: {}
@@ -33,8 +37,4 @@ shared:
 
   source:
     label: Source file
-    opts: {}
-
-  type:
-    label: Preview type
     opts: {}

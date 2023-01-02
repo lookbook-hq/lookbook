@@ -51,9 +51,9 @@ RSpec.describe Lookbook::PreviewEntity do
     end
 
     context ".scenarios" do
-      it "returns an collection of PreviewExamples" do
+      it "returns an collection of Scenarios" do
         scenarios = preview.scenarios
-        expect(scenarios).to be_a Lookbook::PreviewExampleCollection
+        expect(scenarios).to be_a Lookbook::ScenarioCollection
         scenarios.each do |scenario|
           expect(scenario).to be_a Lookbook::ScenarioEntity
         end
@@ -113,7 +113,7 @@ RSpec.describe Lookbook::PreviewEntity do
         it "returns an empty collection" do
           components = preview.components
 
-          expect(components).to be_a Lookbook::ComponentCollection
+          expect(components).to be_a Lookbook::RenderTargetCollection
           expect(components).to be_empty
         end
       end
@@ -134,7 +134,7 @@ RSpec.describe Lookbook::PreviewEntity do
         it "returns an collection containing the guessed component class" do
           components = preview.components
 
-          expect(components).to be_a Lookbook::ComponentCollection
+          expect(components).to be_a Lookbook::RenderTargetCollection
           expect(components.size).to eq 1
           expect(components.first).to be_a Lookbook::ComponentEntity
         end
@@ -254,7 +254,7 @@ RSpec.describe Lookbook::PreviewEntity do
       it "returns an collection of components" do
         components = preview.components
 
-        expect(components).to be_a Lookbook::ComponentCollection
+        expect(components).to be_a Lookbook::RenderTargetCollection
         components.each do |component|
           expect(component).to be_a Lookbook::ComponentEntity
         end

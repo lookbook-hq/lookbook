@@ -31,12 +31,12 @@ module Lookbook
       parent.display_options.merge(fetch_config(:display_options, {}))
     end
 
-    def components
-      @_components ||= ComponentCollection.new(load_components)
+    def targets
+      @_targets ||= RenderTargetCollection.new(load_targets)
     end
 
-    def component
-      components.first
+    def target
+      targets.first
     end
 
     def scenarios
@@ -61,16 +61,14 @@ module Lookbook
       lookbook_inspect_path(path)
     end
 
-    def render_type
-      fetch_config(:type) { preview.render_type }
-    end
-
     def type
       :scenario
     end
 
     alias_method :parent, :preview
     alias_method :lang, :source_lang
+    alias_method :components, :targets
+    alias_method :component, :target
 
     protected
 
@@ -90,20 +88,16 @@ module Lookbook
       return full_template_path(template_path) if respond_to?(:full_template_path, true)
 
       search_dirs = [*Engine.preview_paths, *Engine.view_paths]
-      template_path = template_path.to_s.sub(/\..*$/, "")
-      base_path = search_dirs.detect do |p|
-        Dir["#{p}/#{template_path}.html.*"].first
-      end
-      path = Dir["#{base_path}/#{template_path}.html.*"].first
-      Pathname(path) if path
+      template_path = "#{template_path.to_s.sub(/\..*$/, "")}.html.*"
+      PathUtils.determine_full_path(template_path, search_dirs)
     end
 
-    def load_components
-      component_classes = [*fetch_config(:components, []), *preview.send(:fetch_config, :components, [])]
-      component_classes = preview.guess_components if component_classes.empty?
+    def load_targets
+      target_identifiers = [*fetch_config(:targets, []), *preview.send(:fetch_config, :targets, [])]
+      target_identifiers = preview.guess_targets if target_identifiers.empty?
 
-      components = component_classes.map { |klass| ComponentEntity.new(klass) }
-      components.uniq(&:path)
+      targets = target_identifiers.map { |target| ComponentEntity.new(target) }
+      targets.uniq(&:path)
     end
   end
 end

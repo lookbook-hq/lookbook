@@ -14,9 +14,9 @@ RSpec.describe Lookbook::ScenarioGroupEntity do
     end
 
     context ".scenarios" do
-      it "returns a collection of PreviewExamples" do
+      it "returns a collection of Scenarios" do
         scenarios = group.scenarios
-        expect(scenarios).to be_a Lookbook::PreviewExampleCollection
+        expect(scenarios).to be_a Lookbook::ScenarioCollection
         scenarios.each do |scenario|
           expect(scenario).to be_a Lookbook::ScenarioEntity
         end

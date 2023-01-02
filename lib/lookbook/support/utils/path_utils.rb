@@ -41,6 +41,12 @@ module Lookbook
       def strip_slashes(path)
         path.to_s.gsub(/\A\/|\/\z/, "")
       end
+
+      def determine_full_path(rel_path, search_dirs = [])
+        base_path = search_dirs.detect { |p| Dir["#{p}/#{rel_path}"].first }
+        path = Dir["#{base_path}/#{rel_path}"].first
+        Pathname(path) if path
+      end
     end
   end
 end

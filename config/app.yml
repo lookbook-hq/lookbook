@@ -1,7 +1,7 @@
 shared:
   project_name: Lookbook
 
-  components_path: app/components
+  component_paths: [app/views]
 
   page_controller: "Lookbook::PageController"
   page_route: pages

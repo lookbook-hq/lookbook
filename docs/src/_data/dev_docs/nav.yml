@@ -1,7 +1,8 @@
 groups:
   - label: Get Started
     items:
-      - extending
+      - overview
+      - concepts
       - contributing
 
   - label: Inspector Panels

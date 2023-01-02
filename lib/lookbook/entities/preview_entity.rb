@@ -26,7 +26,7 @@ module Lookbook
     end
 
     def scenarios
-      @_scenarios ||= PreviewExampleCollection.new(load_scenarios)
+      @_scenarios ||= ScenarioCollection.new(load_scenarios)
     end
 
     def scenario(scenario_name)
@@ -34,19 +34,19 @@ module Lookbook
     end
 
     def visible_scenarios
-      @_visible_scenarios ||= PreviewExampleCollection.new(scenarios.select(&:visible?))
+      @_visible_scenarios ||= ScenarioCollection.new(scenarios.select(&:visible?))
     end
 
     def default_scenario
       visible_scenarios.first
     end
 
-    def components
-      @_components ||= ComponentCollection.new(scenarios.flat_map(&:components).uniq(&:path))
+    def targets
+      @_targets ||= RenderTargetCollection.new(scenarios.flat_map(&:targets).uniq(&:path))
     end
 
-    def component
-      components.first
+    def target
+      targets.first
     end
 
     def display_options
@@ -66,15 +66,14 @@ module Lookbook
       preview_class.name
     end
 
-    def render_type
-      fetch_config(:type) { Lookbook.config.preview_type_default.to_sym }
-    end
-
-    def guess_components
-      [preview_class.name.chomp("Preview").constantize]
+    def guess_targets
+      [preview_class.name.chomp("Preview").constantize&.name]
     rescue
       []
     end
+
+    alias_method :components, :targets
+    alias_method :component, :target
 
     protected
 

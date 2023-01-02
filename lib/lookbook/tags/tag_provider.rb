@@ -7,6 +7,9 @@ module Lookbook
         raise NameError.new "'custom' is a reserved tag name and cannot be used"
       end
 
+      # Handle aliasing of removed `@component` tags
+      tag_name = "target" if tag_name == "component"
+
       begin
         tag_class = "Lookbook::#{tag_name.camelize}Tag".constantize
         tag_class.new(text)

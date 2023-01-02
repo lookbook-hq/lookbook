@@ -9,7 +9,6 @@ groups:
       - scenario-entity
       - rendered-scenario-entity
       - scenario-group-entity
-      - render-target-entity
       - component-entity
       - page-entity
 

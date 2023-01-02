@@ -20,7 +20,7 @@
   id: panel-variable-target
   types: ScenarioEntity, ScenarioGroupEntity
   description: |
-    An object representing the example or group of scenarios currently being rendered
+    An object representing the scenario or group of scenarios currently being rendered
   example: |
     <h2>Currently rendering '<%= target.label %>' which is <%= "not" unless target.type == :group %> a group.</h2>
 

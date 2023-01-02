@@ -1,7 +1,7 @@
 ---
 name: Lookbook
 path: Lookbook
-description: The main Lookbook application object.
+description: The Lookbook application entry point.
 methods:
 - id: version-class-method
   name: version
