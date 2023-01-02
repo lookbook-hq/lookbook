@@ -23,6 +23,7 @@ module Lookbook
       end
 
       def self.add_styles(input, styles)
+        @@input_styles = {} unless defined?(@@input_styles)
         @@input_styles[input] ||= styles
       end
 
