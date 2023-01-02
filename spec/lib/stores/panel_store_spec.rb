@@ -21,10 +21,10 @@ RSpec.describe Lookbook::PanelStore do
       context "with partial path as an option" do
         it "adds a panel" do
           config.add_panel(:panel_name, opts)
-          example = config.get_panel(:panel_name)
+          scenario = config.get_panel(:panel_name)
 
-          expect(example).to_not be nil
-          expect(example.name).to eql :panel_name
+          expect(scenario).to_not be nil
+          expect(scenario.name).to eql :panel_name
           expect(config.get_panel(:panel_name)).to_not be nil
         end
       end
@@ -32,10 +32,10 @@ RSpec.describe Lookbook::PanelStore do
       context "with partial path as arg" do
         it "adds a panel" do
           config.add_panel(:panel_name, "path/to/partial")
-          example = config.get_panel(:panel_name)
+          scenario = config.get_panel(:panel_name)
 
-          expect(example).to_not be nil
-          expect(example.name).to eql :panel_name
+          expect(scenario).to_not be nil
+          expect(scenario.name).to eql :panel_name
           expect(config.get_panel(:panel_name)).to_not be nil
         end
       end
@@ -43,10 +43,10 @@ RSpec.describe Lookbook::PanelStore do
       context "with options" do
         it "merges in the default options" do
           config.add_panel(:panel_name, opts)
-          example = config.get_panel(:panel_name)
+          scenario = config.get_panel(:panel_name)
 
           panel_defaults.keys.each do |key|
-            expect(example).to have_key key
+            expect(scenario).to have_key key
           end
         end
 
@@ -55,10 +55,10 @@ RSpec.describe Lookbook::PanelStore do
             partial: "path/to/partial",
             hotkey: "x"
           })
-          example = config.get_panel(:panel_name)
+          scenario = config.get_panel(:panel_name)
 
-          expect(example.partial).to eq "path/to/partial"
-          expect(example.hotkey).to eq "x"
+          expect(scenario.partial).to eq "path/to/partial"
+          expect(scenario.hotkey).to eq "x"
         end
       end
     end
@@ -144,7 +144,7 @@ RSpec.describe Lookbook::PanelStore do
     context ".resolve_config" do
       let(:data) { {hotkey_letter: "x"} }
       let(:config) do
-        {name: "example", label: "a label", hotkey: lambda { |data| "ctrl.#{data.hotkey_letter}" }}
+        {name: "scenario", label: "a label", hotkey: lambda { |data| "ctrl.#{data.hotkey_letter}" }}
       end
 
       it "resolves any procs in the config with the provided data" do

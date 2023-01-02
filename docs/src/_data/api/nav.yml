@@ -6,9 +6,10 @@ groups:
   - label: Entities
     items:
       - preview-entity
-      - preview-example-entity
-      - rendered-preview-example-entity
-      - preview-group-entity
+      - scenario-entity
+      - rendered-scenario-entity
+      - scenario-group-entity
+      - render-target-entity
       - component-entity
       - page-entity
 

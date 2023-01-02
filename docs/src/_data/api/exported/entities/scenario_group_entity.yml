@@ -1,7 +1,7 @@
 ---
-name: PreviewGroupEntity
-path: Lookbook::PreviewGroupEntity
-description: Represents a group of preview examples within a preview class
+name: ScenarioGroupEntity
+path: Lookbook::ScenarioGroupEntity
+description: Represents a group of preview scenarios within a preview class
 methods: []
 groups: []
 type: class

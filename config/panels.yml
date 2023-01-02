@@ -13,13 +13,13 @@ shared:
     partial: lookbook/inspector/panels/source
     label: Source
     hotkey: s
-    copy: "->(data) { data.examples.map { |e| e.source }.join(\n) }"
+    copy: "->(data) { data.scenarios.map { |e| e.source }.join(\n) }"
 
   notes:
     partial: lookbook/inspector/panels/notes
     label: Notes
     hotkey: n
-    disabled: "->(data) { data.examples.select { |e| e.notes.present? }.none? }"
+    disabled: "->(data) { data.scenarios.select { |e| e.notes.present? }.none? }"
 
   params:
     partial: lookbook/inspector/panels/params

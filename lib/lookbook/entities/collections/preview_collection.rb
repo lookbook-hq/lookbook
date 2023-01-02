@@ -2,8 +2,8 @@ module Lookbook
   class PreviewCollection < EntityCollection
     include HierarchicalCollection
 
-    def find_example_by_path(lookup_path)
-      examples.find_by_path(lookup_path)
+    def find_scenario_by_path(lookup_path)
+      scenarios.find_by_path(lookup_path)
     end
 
     def find_by_preview_class(klass)
@@ -59,8 +59,8 @@ module Lookbook
 
     protected
 
-    def examples
-      @_cache[:examples] ||= PreviewExampleCollection.new(flat_map(&:examples))
+    def scenarios
+      @_cache[:scenarios] ||= PreviewExampleCollection.new(flat_map(&:scenarios))
     end
   end
 end

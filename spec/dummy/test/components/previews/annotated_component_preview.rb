@@ -20,16 +20,16 @@ class AnnotatedComponentPreview < ViewComponent::Preview
     end
   end
 
-  # @label Param example
+  # @label Param scenario
   # @param text
-  def another_example(text: "another component content")
+  def another_scenario(text: "another component content")
     render StandardComponent.new do
       text
     end
   end
 
-  # This is a note about the third example
-  def third_example
+  # This is a note about the third scenario
+  def third_scenario
     render StandardComponent.new do
       "third component content"
     end

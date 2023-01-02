@@ -19,22 +19,22 @@ RSpec.describe Lookbook::InputStore do
       context "with partial path" do
         it "adds the input" do
           config.add_input(:input_name, "path/to/partial")
-          example = config.get_input(:input_name)
+          scenario = config.get_input(:input_name)
 
-          expect(example).to_not be nil
-          expect(example.name).to eql :input_name
-          expect(example.options).to be_a Hash
-          expect(example.options.blank?).to be true
+          expect(scenario).to_not be nil
+          expect(scenario.name).to eql :input_name
+          expect(scenario.options).to be_a Hash
+          expect(scenario.options.blank?).to be true
         end
 
         it "adds the input with opts" do
           opts = {rows: 2}
           config.add_input(:input_name, "path/to/partial", opts)
-          example = config.get_input(:input_name)
+          scenario = config.get_input(:input_name)
 
-          expect(example).to_not be nil
-          expect(example.name).to eql :input_name
-          expect(example.options).to include(opts)
+          expect(scenario).to_not be nil
+          expect(scenario.name).to eql :input_name
+          expect(scenario.options).to include(opts)
         end
       end
     end

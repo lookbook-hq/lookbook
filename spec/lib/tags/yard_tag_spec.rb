@@ -6,7 +6,7 @@ RSpec.describe Lookbook::YardTag do
   end
 
   context "with no options" do
-    let(:tag) { described_class.new(:example, "tag body here") }
+    let(:tag) { described_class.new(:scenario, "tag body here") }
 
     context ".text" do
       it "returns the text" do
@@ -22,7 +22,7 @@ RSpec.describe Lookbook::YardTag do
   end
 
   context "with options" do
-    let(:tag) { described_class.new(:example, "tag body here { foo: 'bar' }") }
+    let(:tag) { described_class.new(:scenario, "tag body here { foo: 'bar' }") }
 
     context ".text" do
       it "returns the text" do
@@ -43,7 +43,7 @@ RSpec.describe Lookbook::YardTag do
   end
 
   context ".value" do
-    let(:tag) { described_class.new(:example, "tag body here") }
+    let(:tag) { described_class.new(:scenario, "tag body here") }
 
     it "is an alias for .text" do
       expect(tag.value).to eql tag.text

@@ -1,4 +1,4 @@
-<% items = examples.select { |example| example.notes.present? } %>
+<% items = scenarios.select { |scenario| scenario.notes.present? } %>
 <% if items.many? %>
   <div class="divide-y divide-dashed divide-lookbook-divider bg-lookbook-prose-bg h-full w-full">
     <% items.each do |item| %>

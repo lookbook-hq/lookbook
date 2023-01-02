@@ -76,14 +76,14 @@ methods:
 - id: embed-instance-method
   name: embed
   path: Lookbook::ComponentsHelper#embed
-  signature: embed(preview, example = nil, **opts)
+  signature: embed(preview, scenario = nil, **opts)
   signature_call: embed
-  signature_args: preview, example = nil, **opts
+  signature_args: preview, scenario = nil, **opts
   description: |-
     Render a 'live' embed of a component preview.
 
-    If no example name is provided then the default (first) preview
-    example will be rendered in the embed.
+    If no scenario name is provided then the default (first) preview
+    scenario will be rendered in the embed.
   return_types:
   scope: instance
   tags:
@@ -95,7 +95,7 @@ methods:
     tag_name: param
     text: Name of the preview class to embed
     types: String
-  - name: example
+  - name: scenario
     tag_name: param
     text: Example method name
     types: String

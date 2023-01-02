@@ -15,10 +15,6 @@ module LookbookDocs
 
     def params
       tags(:param)
-      # .map do |param|
-      #   param[:opts] = options_for_param(param[:name])
-      #   param
-      # end
     end
 
     def options(name = :opts)

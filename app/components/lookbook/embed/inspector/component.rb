@@ -1,21 +1,21 @@
 module Lookbook
   class Embed::Inspector::Component < Lookbook::BaseComponent
-    attr_reader :target, :context, :examples, :panels, :options, :actions
+    attr_reader :target, :context, :scenarios, :panels, :options, :actions
 
-    def initialize(target:, context: nil, options: nil, examples: nil, panels: nil, actions: nil, **html_attrs)
+    def initialize(target:, context: nil, options: nil, scenarios: nil, panels: nil, actions: nil, **html_attrs)
       @target = target
       @context = context.to_h
       @options = options.to_h
       @panels = Array(panels)
       @actions = Array(actions).map(&:to_sym)
-      @examples = Array(examples)
+      @scenarios = Array(scenarios)
       super(**html_attrs)
     end
 
     def id
       Utils.id(
         "embed-inspector",
-        "#{examples.map(&:name).join}#{options.to_json}#{actions.to_json}#{panels.to_json}".hash
+        "#{scenarios.map(&:name).join}#{options.to_json}#{actions.to_json}#{panels.to_json}".hash
       )
     end
 
@@ -39,8 +39,8 @@ module Lookbook
       actions.include?(name)
     end
 
-    def example_select_options
-      examples.map { |example| [example.label, helpers.lookbook_embed_path(example.path)] }
+    def scenario_select_options
+      scenarios.map { |scenario| [scenario.label, helpers.lookbook_embed_path(scenario.path)] }
     end
 
     def display_option_controls?

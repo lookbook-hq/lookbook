@@ -36,22 +36,22 @@ module Lookbook
 
     # Render a 'live' embed of a component preview.
     #
-    # If no example name is provided then the default (first) preview
-    # example will be rendered in the embed.
+    # If no scenario name is provided then the default (first) preview
+    # scenario will be rendered in the embed.
     #
     # @param preview [String] Name of the preview class to embed
-    # @param example [String] Example method name
+    # @param scenario [String] Example method name
     # @param opts [Hash] Options hash
-    def embed(preview, example = nil, **opts)
+    def embed(preview, scenario = nil, **opts)
       preview_entity = if preview.is_a?(Symbol)
         Engine.previews.find_by_path(preview)
       else
         Engine.previews.find_by_preview_class(preview)
       end
-      example_entity = example ? preview_entity&.example(example) : preview_entity&.default_example
+      scenario_entity = scenario ? preview_entity&.scenario(scenario) : preview_entity&.default_scenario
 
       lookbook_render Embed::Component.new(
-        example: example_entity,
+        scenario: scenario_entity,
         params: opts.fetch(:params, {}),
         options: opts.except(:params)
       )

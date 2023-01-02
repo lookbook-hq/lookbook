@@ -1,30 +1,30 @@
 module Lookbook
-  # Represents a group of preview examples within a preview class
+  # Represents a group of preview scenarios within a preview class
   #
   # @ignore methods
   # @api public
-  class PreviewGroupEntity < Entity
+  class ScenarioGroupEntity < Entity
     include NavigableEntity
 
-    attr_reader :examples, :preview
+    attr_reader :scenarios, :preview
 
-    def initialize(name, examples, preview)
+    def initialize(name, scenarios, preview)
       @name = Utils.name(name)
-      @examples = PreviewExampleCollection.new(examples)
+      @scenarios = PreviewExampleCollection.new(scenarios)
       @preview = preview
       @lookup_path = "#{parent.lookup_path}/#{@name}"
     end
 
     def display_options
       merged = {}
-      examples.to_a.reverse.map do |example|
-        merged.merge!(example.display_options)
+      scenarios.to_a.reverse.map do |scenario|
+        merged.merge!(scenario.display_options)
       end
       merged
     end
 
     def components
-      @_components ||= ComponentCollection.new(examples.flat_map(&:components).uniq(&:path))
+      @_components ||= ComponentCollection.new(scenarios.flat_map(&:components).uniq(&:path))
     end
 
     def search_terms
@@ -32,7 +32,7 @@ module Lookbook
     end
 
     def tags(tag_name = nil)
-      examples.flat_map { |example| example.tags(tag_name) }
+      scenarios.flat_map { |scenario| scenario.tags(tag_name) }
     end
 
     def tag(tag_name = nil)
@@ -44,7 +44,7 @@ module Lookbook
     end
 
     def render_type
-      examples.flat_map(&:render_type).uniq.first
+      scenarios.flat_map(&:render_type).uniq.first
     end
 
     def type

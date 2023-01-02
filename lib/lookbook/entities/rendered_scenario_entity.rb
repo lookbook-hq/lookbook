@@ -1,25 +1,25 @@
 module Lookbook
-  class RenderedPreviewExampleEntity
-    # Represents a **rendered** preview example
-    #
-    # @ignore methods
-    # @api public
-    delegate_missing_to :example
+  # Represents a **rendered** preview scenario
+  #
+  # @ignore methods
+  # @api public
+  class RenderedScenarioEntity
+    delegate_missing_to :scenario
 
-    attr_reader :example
+    attr_reader :scenario
 
-    def initialize(example, output, params)
-      @example = example
+    def initialize(scenario, output, params)
+      @scenario = scenario
       @params = params
       @output = output
     end
 
     def source
-      has_custom_template? ? template_source(template) : example.source
+      has_custom_template? ? template_source(template) : scenario.source
     end
 
     def source_lang
-      has_custom_template? ? template_lang(template) : example.source_lang
+      has_custom_template? ? template_lang(template) : scenario.source_lang
     end
 
     def output
@@ -31,7 +31,7 @@ module Lookbook
     attr_reader :params
 
     def render_args
-      @_render_args ||= preview.render_args(example.name, params: params)
+      @_render_args ||= preview.render_args(scenario.name, params: params)
     end
 
     def template

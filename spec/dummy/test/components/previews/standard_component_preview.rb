@@ -5,13 +5,13 @@ class StandardComponentPreview < ViewComponent::Preview
     end
   end
 
-  def second_example
+  def second_scenario
     render StandardComponent.new do
       "standard component content 2"
     end
   end
 
-  def mutli_line_def_example(foo: "bar",
+  def mutli_line_def_scenario(foo: "bar",
     this: "that")
     render StandardComponent.new title: "multi-line" do
       "standard component content 3"
@@ -19,14 +19,14 @@ class StandardComponentPreview < ViewComponent::Preview
   end
 
   # @param title [String]
-  def example_with_params(title: nil)
+  def scenario_with_params(title: nil)
     render StandardComponent.new(title: title) do
       "standard component with title param example"
     end
   end
 
   # @display theme dark
-  def theme_override_example
+  def theme_override_scenario
     render StandardComponent.new do
       "dark theme only"
     end
@@ -34,6 +34,6 @@ class StandardComponentPreview < ViewComponent::Preview
 
   protected
 
-  def not_an_example
+  def not_an_scenario
   end
 end

@@ -1,10 +1,9 @@
 ---
-name: ComponentEntity
-path: Lookbook::ComponentEntity
+name: RenderTargetEntity
+path: Lookbook::RenderTargetEntity
 description: |-
-  Represents the component being rendered in a preview.
-
-  A subclass of RenderTargetEntity
+  Represents the component or view template partial
+  that is being rendered by in a preview.
 methods: []
 groups: []
 type: class

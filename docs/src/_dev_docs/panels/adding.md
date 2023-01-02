@@ -30,7 +30,7 @@ title: Adding Custom Panels
       <ul>
         <li>You are looking at the '<%%= preview.label %>' preview</li>
         <li>The preview file path is: '<%%= preview.full_path %>'<li>
-        <li>There are <%%= examples.size %> examples in this preview<li>
+        <li>There are <%%= scenarios.size %> scenarios in this preview<li>
       </ul>
     </div>
     ```
@@ -65,7 +65,7 @@ title: Adding Custom Panels
     })
     ```
 
-    All panel option values can be provided either as a **simple static value** or as a **lambda function**. Lambdas receive a single object with data relating to the currently active preview/example. For example:
+    All panel option values can be provided either as a **simple static value** or as a **lambda function**. Lambdas receive a single object with data relating to the currently active preview/scenario. For example:
 
     ```ruby
     {

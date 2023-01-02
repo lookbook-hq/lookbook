@@ -3,7 +3,7 @@ module Lookbook
     ICONS = {
       page: :file,
       preview: :layers,
-      example: :eye,
+      scenario: :eye,
       group: :eye
     }.freeze
 
@@ -24,7 +24,7 @@ module Lookbook
     end
 
     def type
-      collapsed? ? :example : node.type
+      collapsed? ? :scenario : node.type
     end
 
     def collapsed?

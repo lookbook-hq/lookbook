@@ -3,7 +3,7 @@
 
   }
 
-  .lookbook-preview--list .lookbook-preview-example {
+  .lookbook-preview--list .lookbook-preview-scenario {
     margin-bottom: 30px;
   }
 
@@ -21,18 +21,18 @@
   }
 </style>
 
-<% if examples.many? %>
+<% if scenarios.many? %>
   <div class="lookbook-preview lookbook-preview--<%= params[:lookbook][:display][:layout] || "list" %>">
-  <% examples.each do |example| %>
-    <div class="lookbook-preview-example">
+  <% scenarios.each do |scenario| %>
+    <div class="lookbook-preview-scenario">
       <h6 class="lookbook-preview-label">
-        <%= example.label %>
+        <%= scenario.label %>
       </h6>
-      <%= example.output %>
+      <%= scenario.output %>
     </div>
   <% end %>
   </div>
 <% else %>
-  <%# Render a single example %>
-  <%= examples.first.output %>
+  <%# Render a single scenario %>
+  <%= scenarios.first.output %>
 <% end %>

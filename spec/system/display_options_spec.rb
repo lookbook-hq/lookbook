@@ -67,7 +67,7 @@ RSpec.describe "Display options", type: :system do
           theme: ["light", "dark"]
         }
 
-        visit lookbook_inspect_path("standard/theme_override_example")
+        visit lookbook_inspect_path("standard/theme_override_scenario")
       end
 
       it "does not show the display control in the toolbar" do

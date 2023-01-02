@@ -20,7 +20,7 @@ shared:
     theme: github
     dark: false
 
-  sort_examples: false
+  sort_scenarios: false
   preview_paths: [test/components/previews]
   preview_display_options: {}
   preview_disable_action_view_annotations: true
@@ -34,7 +34,7 @@ shared:
     panels: false
     actions: [inspect, open]
     display_option_controls: true
-    examples: []
+    scenarios: []
 
   listen_paths: []
   listen_extensions: [rb, html.*]

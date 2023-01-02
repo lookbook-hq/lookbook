@@ -25,24 +25,24 @@ module Lookbook
       @lookup_path = PathUtils.to_lookup_path(cleaned_path)
     end
 
-    def examples
-      @_examples ||= PreviewExampleCollection.new(load_examples)
+    def scenarios
+      @_scenarios ||= PreviewExampleCollection.new(load_scenarios)
     end
 
-    def example(example_name)
-      examples.find { |m| m.name == example_name.to_s }
+    def scenario(scenario_name)
+      scenarios.find { |m| m.name == scenario_name.to_s }
     end
 
-    def visible_examples
-      @_visible_examples ||= PreviewExampleCollection.new(examples.select(&:visible?))
+    def visible_scenarios
+      @_visible_scenarios ||= PreviewExampleCollection.new(scenarios.select(&:visible?))
     end
 
-    def default_example
-      visible_examples.first
+    def default_scenario
+      visible_scenarios.first
     end
 
     def components
-      @_components ||= ComponentCollection.new(examples.flat_map(&:components).uniq(&:path))
+      @_components ||= ComponentCollection.new(scenarios.flat_map(&:components).uniq(&:path))
     end
 
     def component
@@ -78,18 +78,18 @@ module Lookbook
 
     protected
 
-    def load_examples
-      return example_entities unless code_object.groups.any?
+    def load_scenarios
+      return scenario_entities unless code_object.groups.any?
 
-      example_entities.group_by(&:group).flat_map do |group_name, grouped_examples|
-        group_name.nil? ? grouped_examples : PreviewGroupEntity.new(group_name.presence || label.pluralize, grouped_examples, self)
+      scenario_entities.group_by(&:group).flat_map do |group_name, grouped_scenarios|
+        group_name.nil? ? grouped_scenarios : ScenarioGroupEntity.new(group_name.presence || label.pluralize, grouped_scenarios, self)
       end
     end
 
-    def example_entities
+    def scenario_entities
       public_methods = preview_class.public_instance_methods(false)
       method_objects = code_object.meths.select { |m| public_methods.include?(m.name) }
-      method_objects.map.with_index { |code_object, i| PreviewExampleEntity.new(code_object, self, priority: i) }
+      method_objects.map.with_index { |code_object, i| ScenarioEntity.new(code_object, self, priority: i) }
     end
   end
 end

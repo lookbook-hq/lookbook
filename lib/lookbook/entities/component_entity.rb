@@ -1,18 +1,16 @@
 module Lookbook
-  # Represents a component
+  # Represents the component being rendered in a preview.
+  #
+  # A subclass of RenderTargetEntity
   #
   # @ignore methods
   # @api public
-  class ComponentEntity < Entity
-    include LocatableEntity
-
+  class ComponentEntity < RenderTargetEntity
     attr_reader :component_class
 
     def initialize(component_class)
       @component_class = component_class
-      @file_path = "#{Engine.component_paths.first}/#{name.underscore}.rb"
-      @base_directories = Engine.component_paths
-      @lookup_path = PathUtils.to_lookup_path(relative_file_path)
+      super(name)
     end
 
     def name

@@ -1,11 +1,11 @@
 require "rails_helper"
 
-RSpec.describe Lookbook::PreviewGroupEntity do
+RSpec.describe Lookbook::ScenarioGroupEntity do
   let(:preview) { Lookbook::Engine.previews.find_by_id(:group) }
-  let(:groups) { preview.examples.select { |e| e.is_a?(described_class) } }
+  let(:groups) { preview.scenarios.select { |e| e.is_a?(described_class) } }
 
   context "default" do
-    let(:group) { preview.example("named") }
+    let(:group) { preview.scenario("named") }
 
     context ".type" do
       it "returns the entity type" do
@@ -13,12 +13,12 @@ RSpec.describe Lookbook::PreviewGroupEntity do
       end
     end
 
-    context ".examples" do
+    context ".scenarios" do
       it "returns a collection of PreviewExamples" do
-        examples = group.examples
-        expect(examples).to be_a Lookbook::PreviewExampleCollection
-        examples.each do |example|
-          expect(example).to be_a Lookbook::PreviewExampleEntity
+        scenarios = group.scenarios
+        expect(scenarios).to be_a Lookbook::PreviewExampleCollection
+        scenarios.each do |scenario|
+          expect(scenario).to be_a Lookbook::ScenarioEntity
         end
       end
     end
@@ -41,7 +41,7 @@ RSpec.describe Lookbook::PreviewGroupEntity do
   end
 
   context "named group" do
-    let(:group) { preview.example("named") }
+    let(:group) { preview.scenario("named") }
 
     context ".url_path" do
       it "returns the expected preview group URL" do

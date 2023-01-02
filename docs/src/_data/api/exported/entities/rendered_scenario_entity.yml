@@ -1,10 +1,7 @@
 ---
-name: ComponentEntity
-path: Lookbook::ComponentEntity
-description: |-
-  Represents the component being rendered in a preview.
-
-  A subclass of RenderTargetEntity
+name: RenderedScenarioEntity
+path: Lookbook::RenderedScenarioEntity
+description: Represents a **rendered** preview scenario
 methods: []
 groups: []
 type: class

@@ -14,17 +14,17 @@ module Lookbook
     end
 
     def lookup_entities
-      @target = Engine.previews.find_example_by_path(params[:path])
+      @target = Engine.previews.find_scenario_by_path(params[:path])
       if @target.present?
         @preview = @target.preview
         if params[:path] == @preview&.path
-          redirect_to lookbook_inspect_path("#{params[:path]}/#{@preview.default_example.name}", params.permit!)
+          redirect_to lookbook_inspect_path("#{params[:path]}/#{@preview.default_scenario.name}", params.permit!)
         end
       else
         @preview = Engine.previews.find_by_path(params[:path])
         if @preview.present?
-          default_example = @preview.default_example
-          redirect_to lookbook_inspect_path(default_example.path, params.permit!) if default_example
+          default_scenario = @preview.default_scenario
+          redirect_to lookbook_inspect_path(default_scenario.path, params.permit!) if default_scenario
         end
       end
     end
@@ -92,16 +92,20 @@ module Lookbook
     def inspector_data
       return @inspector_data if @inspector_data.present?
 
-      examples = @target ? @target.examples : []
-      rendered_examples = examples.map do |example|
-        output = preview_controller.process(:render_example_to_string, @preview, example.name)
-        RenderedPreviewExampleEntity.new(example, output, preview_controller.params)
+      scenarios = @target ? @target.scenarios : []
+      rendered_scenarios = scenarios.map do |scenario|
+        output = preview_controller.process(:render_scenario_to_string, @preview, scenario.name)
+        RenderedScenarioEntity.new(scenario, output, preview_controller.params)
       end
 
       @inspector_data ||= Lookbook::Store.new({
         context: Store.new({params: @params, path: params[:path]}),
         preview: @preview,
-        examples: rendered_examples,
+        scenarios: rendered_scenarios,
+        examples: -> do
+          Lookbook.logger.warn("The `examples` panel variable has been renamed to `scenarios`. The `examples` variable will be removed in the next major release.")
+          rendered_scenarios
+        end,
         target: @target,
         data: Lookbook.data,
         app: Lookbook
@@ -112,7 +116,7 @@ module Lookbook
       locals = if @preview
         {
           message: "Example not found",
-          description: "The '#{@preview.label}' preview does not have an example named '#{path_segments.last}'."
+          description: "The '#{@preview.label}' preview does not have an scenario named '#{path_segments.last}'."
         }
       else
         {

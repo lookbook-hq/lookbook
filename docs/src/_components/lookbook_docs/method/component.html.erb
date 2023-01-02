@@ -53,7 +53,7 @@
     <% end %>
     <% if show?(:params) && params.any? %>
       <div>
-        <h4 class="text-xs uppercase tracking-wider mb-2 text-gray-400">Args:</h4>
+        <h4 class="text-xs uppercase tracking-wider mb-2 text-gray-400">Arguments:</h4>
         <%= render LookbookDocs::OptionsList::Component.new(options: params) %>
       </div>
     <% end %>

@@ -6,13 +6,13 @@ module Lookbook
       include PreviewHelper
       prepend_view_path Engine.root.join("app/views")
 
-      def render_example_to_string(preview, example_name)
+      def render_scenario_to_string(preview, scenario_name)
         prepend_application_view_paths
         prepend_preview_examples_view_path
 
         @preview = preview
-        @example_name = example_name
-        @render_args = @preview.render_args(@example_name, params: params.permit!)
+        @scenario_name = scenario_name
+        @render_args = @preview.render_args(@scenario_name, params: params.permit!)
         template = @render_args[:template]
         locals = @render_args[:locals]
         opts = {}

@@ -6,7 +6,7 @@ module Lookbook
     layout "lookbook/embed"
 
     before_action :set_options, only: [:show]
-    before_action :set_example_choices, only: [:show]
+    before_action :set_scenario_choices, only: [:show]
     before_action :set_panels, only: [:show]
     before_action :set_actions, only: [:show]
 
@@ -19,11 +19,11 @@ module Lookbook
       if props.preview.present?
         preview = Engine.previews.find_by_preview_class(props.preview)
         if preview.present?
-          props.examples ||= (props.example || "")
-          example = preview.example(Array(props.examples).first)
+          props.scenarios ||= (props.scenario || "")
+          scenario = preview.scenario(Array(props.scenarios).first)
 
           boolean_options = ["display_option_controls"]
-          array_options = ["panels", "actions", "examples"]
+          array_options = ["panels", "actions", "scenarios"]
           param_prefix = "param_"
 
           options = {}
@@ -51,7 +51,7 @@ module Lookbook
           embed_params[:_options] = SearchParamEncoder.call(options)
           embed_params.symbolize_keys!
 
-          return redirect_to lookbook_embed_url(example ? example.path : preview.path, embed_params)
+          return redirect_to lookbook_embed_url(scenario ? scenario.path : preview.path, embed_params)
         end
       end
 
@@ -62,7 +62,7 @@ module Lookbook
       @embed = true
 
       unless @target
-        @target = @example_choices.first || @preview.default_example
+        @target = @scenario_choices.first || @preview.default_scenario
         if @target
           redirect_to lookbook_embed_path(@target.path, req_params)
         else
@@ -74,7 +74,7 @@ module Lookbook
     protected
 
     def lookup_entities
-      @target = Engine.previews.find_example_by_path(params[:path])
+      @target = Engine.previews.find_scenario_by_path(params[:path])
       @preview = @target.present? ? @target.preview : Engine.previews.find_by_path(params[:path])
     end
 
@@ -107,12 +107,12 @@ module Lookbook
       @options ||= default_options.merge(options)
     end
 
-    def set_example_choices
-      return @example_choices ||= [] unless @preview
+    def set_scenario_choices
+      return @scenario_choices ||= [] unless @preview
 
-      named_choices = @options.fetch(:examples, [])
-      @example_choices = ListResolver.call(named_choices, @preview.examples.map(&:name)) do |name|
-        @preview.example(name)
+      named_choices = @options.fetch(:scenarios, [])
+      @scenario_choices = ListResolver.call(named_choices, @preview.scenarios.map(&:name)) do |name|
+        @preview.scenario(name)
       end
     end
 

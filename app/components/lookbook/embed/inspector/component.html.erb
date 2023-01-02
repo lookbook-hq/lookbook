@@ -6,8 +6,8 @@
     <% toolbar.section padded: true do %>
       <h3 class="flex items-center space-x-1">
         <strong class="text-lookbook-embed-title"><%= target.preview.label %></strong>
-        <% if examples.many? %>
-          <%= select_tag("target", options_for_select(example_select_options, helpers.lookbook_embed_path(target.path)), "x-model": "targetPath", class: "!ml-2") %>
+        <% if scenarios.many? %>
+          <%= select_tag("target", options_for_select(scenario_select_options, helpers.lookbook_embed_path(target.path)), "x-model": "targetPath", class: "!ml-2") %>
         <% else %>
           <span>(<%= target.label %>) </span>
         <% end %>

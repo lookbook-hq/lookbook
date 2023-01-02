@@ -5,7 +5,7 @@ class InlineComponentPreview < ViewComponent::Preview
     end
   end
 
-  def another_example
+  def another_scenario
     render InlineComponent.new do
       "Another inline component"
     end

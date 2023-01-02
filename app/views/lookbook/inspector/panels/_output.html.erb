@@ -1,7 +1,7 @@
 <%= lookbook_render :code, line_numbers: true, full_height: true do -%>
-  <% if examples.many? -%>
-    <% examples.each do |example| -%><%== "<!-- #{example.label} -->\n#{example.output}\n\n" -%><% end %>
+  <% if scenarios.many? -%>
+    <% scenarios.each do |scenario| -%><%== "<!-- #{scenario.label} -->\n#{scenario.output}\n\n" -%><% end %>
   <%- else -%>
-    <%== examples.first.output -%>
+    <%== scenarios.first.output -%>
   <%- end %>
 <% end %>

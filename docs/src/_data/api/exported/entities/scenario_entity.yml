@@ -1,7 +1,7 @@
 ---
-name: PreviewExampleEntity
-path: Lookbook::PreviewExampleEntity
-description: Represents a preview example method within a preview class
+name: ScenarioEntity
+path: Lookbook::ScenarioEntity
+description: Represents a preview scenario method within a preview class
 methods: []
 groups: []
 type: class

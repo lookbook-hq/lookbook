@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :class_code_object, class: "YARD::CodeObjects::ClassObject" do
     transient do
-      file { Rails.root.join("example_class.rb") }
+      file { Rails.root.join("scenario_class.rb") }
     end
 
     namespace { :root }
@@ -17,7 +17,7 @@ FactoryBot.define do
 
     factory :preview_code_object do
       transient do
-        file { Rails.root.join("example_component_preview.rb") }
+        file { Rails.root.join("scenario_component_preview.rb") }
       end
       namespace { :root }
       name { :ExampleComponentPreview }
@@ -29,8 +29,8 @@ FactoryBot.define do
       file { nil }
     end
 
-    tag_name { :example }
-    name { "example" }
+    tag_name { :scenario }
+    name { "scenario" }
     types { [] }
     text { nil }
 

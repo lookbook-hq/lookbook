@@ -9,13 +9,13 @@ class GroupComponentPreview < ViewComponent::Preview
 
   def unnamed_group_first
     render StandardComponent.new do
-      "first example in group"
+      "first scenario in group"
     end
   end
 
   def unnamed_group_second
     render StandardComponent.new do
-      "second example in group"
+      "second scenario in group"
     end
   end
 
@@ -26,13 +26,13 @@ class GroupComponentPreview < ViewComponent::Preview
   # @label First in named
   def named_group_first
     render StandardComponent.new do
-      "first example in group"
+      "first scenario in group"
     end
   end
 
   def named_group_second
     render StandardComponent.new do
-      "second example in group"
+      "second scenario in group"
     end
   end
 

@@ -1,7 +1,7 @@
-RSpec.shared_examples "unannotated entity" do |preview_id, example_name = nil|
+RSpec.shared_scenarios "unannotated entity" do |preview_id, scenario_name = nil|
   let(:target) do
     preview = Lookbook::Engine.previews.find_by_id(preview_id)
-    example_name.nil? ? preview : preview.example(example_name)
+    scenario_name.nil? ? preview : preview.scenario(scenario_name)
   end
 
   context ".hidden?" do

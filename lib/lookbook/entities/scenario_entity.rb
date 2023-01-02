@@ -1,9 +1,9 @@
 module Lookbook
-  # Represents a preview example method within a preview class
+  # Represents a preview scenario method within a preview class
   #
   # @ignore methods
   # @api public
-  class PreviewExampleEntity < Entity
+  class ScenarioEntity < Entity
     include InspectableEntity
     include AnnotatableEntity
     include NavigableEntity
@@ -39,7 +39,7 @@ module Lookbook
       components.first
     end
 
-    def examples
+    def scenarios
       [self]
     end
 
@@ -66,7 +66,7 @@ module Lookbook
     end
 
     def type
-      :example
+      :scenario
     end
 
     alias_method :parent, :preview
@@ -75,7 +75,7 @@ module Lookbook
     protected
 
     def sort_handler(other_entity)
-      if Lookbook.config.sort_examples
+      if Lookbook.config.sort_scenarios
         label <=> other_entity.label
       else
         [priority, label] <=> [other_entity.priority, other_entity.label]

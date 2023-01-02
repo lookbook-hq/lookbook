@@ -50,17 +50,17 @@ RSpec.describe Lookbook::PreviewEntity do
       end
     end
 
-    context ".examples" do
+    context ".scenarios" do
       it "returns an collection of PreviewExamples" do
-        examples = preview.examples
-        expect(examples).to be_a Lookbook::PreviewExampleCollection
-        examples.each do |example|
-          expect(example).to be_a Lookbook::PreviewExampleEntity
+        scenarios = preview.scenarios
+        expect(scenarios).to be_a Lookbook::PreviewExampleCollection
+        scenarios.each do |scenario|
+          expect(scenario).to be_a Lookbook::ScenarioEntity
         end
       end
 
-      it "includes all the public example methods in the preview class" do
-        expect(preview.examples.size).to eq preview.preview_class.public_instance_methods(false).size
+      it "includes all the public scenario methods in the preview class" do
+        expect(preview.scenarios.size).to eq preview.preview_class.public_instance_methods(false).size
       end
     end
 

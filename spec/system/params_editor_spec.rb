@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Params editor", type: :system do
   context "text-field" do
     before do
-      visit lookbook_inspect_path("standard/example_with_params")
+      visit lookbook_inspect_path("standard/scenario_with_params")
     end
 
     it "updates rendered HTML when the field content changes" do

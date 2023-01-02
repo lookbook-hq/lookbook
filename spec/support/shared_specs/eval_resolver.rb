@@ -1,4 +1,4 @@
-RSpec.shared_examples "eval resolver" do
+RSpec.shared_scenarios "eval resolver" do
   it "is a DataResolver" do
     expect(described_class).to be < Lookbook::DataResolver
   end

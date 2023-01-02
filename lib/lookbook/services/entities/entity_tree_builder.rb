@@ -20,8 +20,8 @@ module Lookbook
           current_node = current_node.get_child(name)
 
           if content && content.type == :preview
-            content.visible_examples.each do |example|
-              current_node.add_child(example.name, example)
+            content.visible_scenarios.each do |scenario|
+              current_node.add_child(scenario.name, scenario)
             end
           end
         end
