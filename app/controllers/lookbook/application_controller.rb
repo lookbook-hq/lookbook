@@ -5,7 +5,7 @@ module Lookbook
     protect_from_forgery with: :exception
 
     helper Lookbook::ApplicationHelper
-    helper Lookbook::ComponentsHelper
+    helper Lookbook::UiElementsHelper
 
     before_action :generate_theme_overrides
     before_action :assign_instance_vars

@@ -2,7 +2,7 @@ require "rails/application_controller"
 
 module Lookbook
   class PageController < Rails::ApplicationController
-    helper ComponentsHelper
+    helper UiElementsHelper
     helper PageHelper
 
     Lookbook.config.page_paths.each do |path|

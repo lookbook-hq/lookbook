@@ -15,7 +15,7 @@ groups:
 
   - label: Helpers
     items:
-      - components-helper
+      - ui-elements-helper
       - page-helper
       - preview-helper
 

@@ -1,11 +1,11 @@
 module Lookbook
-  # Helpers for rendering components.
+  # Helpers for rendering UI elements.
   #
   # These are available for use in documentation page templates
   # and custom preview inspector panel templates.
   #
   # @api public
-  module ComponentsHelper
+  module UiElementsHelper
     # Render an icon.
     #
     # Lookbook uses icons from the [Lucide Icons](https://lucide.dev/) set and

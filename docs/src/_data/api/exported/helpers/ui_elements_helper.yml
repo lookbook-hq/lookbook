@@ -1,15 +1,15 @@
 ---
-name: ComponentsHelper
-path: Lookbook::ComponentsHelper
+name: UiElementsHelper
+path: Lookbook::UiElementsHelper
 description: |-
-  Helpers for rendering components.
+  Helpers for rendering UI elements.
 
   These are available for use in documentation page templates
   and custom preview inspector panel templates.
 methods:
 - id: icon-instance-method
   name: icon
-  path: Lookbook::ComponentsHelper#icon
+  path: Lookbook::UiElementsHelper#icon
   signature: icon(name, **opts)
   signature_call: icon
   signature_args: name, **opts
@@ -39,11 +39,11 @@ methods:
     tag_name: param
     text: Options hash
     types: Hash
-  klass: ComponentsHelper
+  klass: UiElementsHelper
   group:
 - id: code-instance-method
   name: code
-  path: Lookbook::ComponentsHelper#code
+  path: Lookbook::UiElementsHelper#code
   signature: code(language = :html, **opts, &amp;block)
   signature_call: code
   signature_args: language = :html, **opts, &amp;block
@@ -71,11 +71,11 @@ methods:
     tag_name: param
     text: Code block
     types: Proc
-  klass: ComponentsHelper
+  klass: UiElementsHelper
   group:
 - id: embed-instance-method
   name: embed
-  path: Lookbook::ComponentsHelper#embed
+  path: Lookbook::UiElementsHelper#embed
   signature: embed(preview, scenario = nil, **opts)
   signature_call: embed
   signature_args: preview, scenario = nil, **opts
@@ -103,7 +103,7 @@ methods:
     tag_name: param
     text: Options hash
     types: Hash
-  klass: ComponentsHelper
+  klass: UiElementsHelper
   group:
 groups: []
 type: module
