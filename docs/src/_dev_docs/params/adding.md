@@ -4,9 +4,7 @@ label: Adding Custom Inputs
 title: Adding Custom Inputs
 ---
 
-<%= render section(id: "overview") do |s| %>
-  <% s.with_title "Overview", hidden: true %>
-
+<%= render section(overview: true) do |s| %>
   Lookbook ships with a number of pre-defined param input types that are used when adding [dynamic preview parameters](<%= guide_url :previews_params %>) to your previews.
 
   However if you need a param type that isn't provided by Lookbook (or want to override one of the existing ones) you can easily add your own and then reference them in your `@param` tags.

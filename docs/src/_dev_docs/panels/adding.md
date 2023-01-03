@@ -4,9 +4,7 @@ label: Adding Custom Panels
 title: Adding Custom Panels
 ---
 
-<%= render section(id: "overview") do |s| %>
-  <% s.with_title "Adding a custom panel", hidden: true %>
-
+<%= render section("Adding a custom panel", overview: true) do |s| %>
   <% s.with_block_prose do %>
     You can add a custom inspector panel using the `Lookbook.add_panel` method
     when you [configure your Lookbook installation](<%= guide_url :configuration %>):

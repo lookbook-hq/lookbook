@@ -1,9 +1,10 @@
 module LookbookDocs
   class Note::Component < Base
     ICONS = {
-      info: :bell,
-      tip: :bell,
-      warn: :alert_triangle
+      info: :info,
+      tip: :rocket,
+      warn: :alert_triangle,
+      code: :code
     }
 
     attr_reader :title, :theme

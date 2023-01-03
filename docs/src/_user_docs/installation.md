@@ -4,7 +4,7 @@ label: Installation
 title: Installing Lookbook
 ---
 
-<%= render section(id: "overview") do |s| %>
+<%= render section(overview: true) do |s| %>
   These instructions cover installing Lookbook in your Rails project for the first time.
 
   If you are already using Lookbook then head over to the [upgrade guide](<%= guide_url :upgrading %>) instead
@@ -78,6 +78,7 @@ title: Installing Lookbook
 
   Assuming your app is running on port `3000` and you [mounted Lookbook](#mount-lookbook) at the path `/lookbook` then browse to [http://localhost:3000/lookbook](http://localhost:3000/lookbook) to view the Lookbook UI.
 
-  If this is a new project it will be pretty empty in there until you start [creating some previews &rarr;](<%= guide_url :previews %>)   
+  If this is a new project it will be pretty empty in there until you start [creating some components](<%= guide_url :components %>) and [adding some previews](<%= guide_url :previews %>).
+  However, if you are new to Lookbook then starting at the [How it Works](<%= guide_url :system_overview %>) page is strongly recommended.
 <% end %>
 

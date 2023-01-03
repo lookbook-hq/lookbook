@@ -1,9 +1,8 @@
 groups:
   - label: Get Started
     items:
-      - overview
+      - introduction
       - concepts
-      - contributing
 
   - label: Inspector Panels
     items:
@@ -27,3 +26,7 @@ groups:
     items:
       - hooks
       - data
+
+  - label: Lookbook Development
+    items:
+      - contributing

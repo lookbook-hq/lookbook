@@ -3,9 +3,7 @@ id: ui-inspector
 title: Preview Inspector
 ---
 
-<%= render section(id: "overview") do |s| %>
-  <% s.with_title "Overview", hidden: true %>
-
+<%= render section(overview: true) do |s| %>
   The Lookbook **preview inspector** is where each preview is rendered alongside its source code, notes and more.
 
   The inspector is made up of a number of tabbed panels, grouped into two areas - the preview area at the top (with **Preview** and **HTML** tabs)

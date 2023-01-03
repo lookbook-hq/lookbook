@@ -1,12 +1,13 @@
 groups:
   - label: Get Started
     items:
-      - overview
+      - introduction
       - installation
       - configuration
 
   - label: The Basics
     items:
+      - system-overview
       - components
       - previews
       - pages

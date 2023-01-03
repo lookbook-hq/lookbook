@@ -1,6 +1,6 @@
 ---
 id: pages
-label: Writing Docs
-title: Writing Docs
+label: Pages
+title: Documentation Pages
 ---
 

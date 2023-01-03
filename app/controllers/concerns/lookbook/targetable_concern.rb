@@ -98,6 +98,8 @@ module Lookbook
         RenderedScenarioEntity.new(scenario, output, preview_controller.params)
       end
 
+      target = rendered_scenarios.find { |scenario| scenario.id == @target.id } || @target
+
       @inspector_data ||= Lookbook::Store.new({
         context: Store.new({params: @params, path: params[:path]}),
         preview: @preview,
@@ -106,7 +108,7 @@ module Lookbook
           Lookbook.logger.warn("The `examples` panel variable has been renamed to `scenarios`. The `examples` variable will be removed in the next major release.")
           rendered_scenarios
         end,
-        target: @target,
+        target: target,
         data: Lookbook.data,
         app: Lookbook
       })

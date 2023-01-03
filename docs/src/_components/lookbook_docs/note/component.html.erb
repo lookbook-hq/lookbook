@@ -3,11 +3,13 @@
     component: "note",
     "note-theme": theme
   } do %>
-  <%= render LookbookDocs::Ribbon::Component.new(icon: icon_name) %>
-  <div class="note-content prose max-w-none">
-    <% if title.present? %>
-      <h4 class="mb-2"><%= title %></h4>
-    <% end %>
-    <%= markdownify content %>
+  <div class="flex items-start space-x-3">
+    <%= render LookbookDocs::Icon::Component.new(name: icon_name, size: 5) %>
+    <div class="note-content prose max-w-none flex-grow">
+      <% if title.present? %>
+        <h4 class="mb-1"><%= title %></h4>
+      <% end %>
+      <%= markdownify content %>
+    </div>
   </div>
 <% end %>

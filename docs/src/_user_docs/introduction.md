@@ -1,37 +1,25 @@
 ---
-id: overview
-label: Overview
-title: Lookbook Overview
+id: introduction
+label: Introduction
+title: Introduction
 ---
 
-<%= render section(id: "overview") do |s| %>
-  <% s.with_title  "About Lookbook", hidden: true %>
-
+<%= render section("About Lookbook", overview: true) do |s| %>
   <% s.with_block_lede do %>
     <p class="font-semibold">Lookbook is a UI tool to help build component-based frontends in Rails.</p>
+  <% end %>
 
-    It lets you browse your component library and develop, test, document & share components in isolation, right from within your project.
+  <% s.with_block_prose do %>
+    It provides an easy-to-use web interface for browsing and previewing UI components in your projects, and helps you develop, test & document those components in isolation from each other and from the rest of your application.
+
+    Lookbook was originally designed for [ViewComponent](https://github.com/ViewComponent/view_component)-based projects but now supports
+    a [number of other component types](<%= guide_url :components %>#types) too!
   <% end %>
 
   <% s.with_block_note :info, title: "This documentation is for Lookbook v2.0"  do %>
     See the [v1.x docs](https://lookbook.build) or the
     [v0.9.x docs](https://github.com/ViewComponent/lookbook/tree/0.9.x) if you are using an older version of Lookbook.
   <% end %>
-<% end %>
-
-<%= render section("Lookbook vs the alternatives", id: "alternatives") do |s| %>
-  Many other tools similar to Lookbook exist, of which the most notable is probably [Storybook](https://storybook.js.org/).
-
-  Storybook is fantastic, and is perfect for those building UIs with JavaScript frameworks such as Vue or React.
-  If that is what you are using, Storybook will likely be a better fit than Lookbook for your project.
-
-  But Storybook _doesn't_ play so nicely with Rails apps that are using non 'JavaScript-first' component frameworks
-  (like ViewComponent) for their frontend needs, requiring complex custom setups or continous exporting of JSON files
-  to get everything working together.
-
-  In contrast, Lookbook has been designed fit seamlessly into Rails projects and provides a live Storybook-like
-  experience when developing user interfaces in "The Rails Way&trade;".
-  If that sounds like your project, Lookbook will be a great fit for you.
 <% end %>
 
 <%= render section("Demo app", id: "demo") do |s| %>
@@ -46,6 +34,29 @@ title: Lookbook Overview
 
   <% s.with_block_prose do %>
     If you'd rather dig in a bit more and run the demo app locally, the [demo repo](<%= links.v2.demo_repo %>) contains instructions on how to get it up and running.
+  <% end %>
+<% end %>
+
+<%= render section("Lookbook vs the alternatives", id: "alternatives") do |s| %>
+  <% s.with_block_prose do %>
+    Many other tools similar to Lookbook exist, of which the most notable is probably [Storybook](https://storybook.js.org/).
+
+    Storybook is fantastic, and is perfect for those building UIs with JavaScript frameworks such as Vue or React.
+    If that is what you are using, Storybook will likely be a better fit than Lookbook for your project.
+  <% end %>
+
+  <% s.with_block_prose do %>
+    But Storybook _doesn't_ play so nicely with Rails apps that are using Ruby-based, server-side rendered component frameworks
+    (like ViewComponent) for their frontend needs, requiring complex custom setups to get everything working together.
+  
+    In contrast, **Lookbook has been designed fit seamlessly into Rails projects** and provides a live Storybook-esque
+    experience when developing user interfaces in "The Rails Way&trade;". If that sounds like your project, Lookbook should be a great fit for you.
+  <% end %>
+
+  <% s.with_block_note :tip do %>
+    If you are using ViewComponent and want to evaluate Storybook alongside (or instead of!) Lookbook, then check out
+    [ViewComponent Storybook](https://github.com/jonspalmer/view_component_storybook).
+    It's designed to help bridge the gap between Rails and Storybook and will make the process a lot easier.
   <% end %>
 <% end %>
 

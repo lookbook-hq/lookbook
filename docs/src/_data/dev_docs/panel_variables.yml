@@ -18,11 +18,11 @@
 
 - name: target
   id: panel-variable-target
-  types: ScenarioEntity, ScenarioGroupEntity
+  types: RenderedScenarioEntity, ScenarioGroupEntity
   description: |
     An object representing the scenario or group of scenarios currently being rendered
   example: |
-    <h2>Currently rendering '<%= target.label %>' which is <%= "not" unless target.type == :group %> a group.</h2>
+    <h2>Currently rendering '<%= target.label %>'.</h2>
 
 - name: scenarios
   id: panel-variable-scenarios

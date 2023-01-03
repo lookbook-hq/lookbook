@@ -4,9 +4,7 @@ label: Panel Templates
 title: Panel Templates
 ---
 
-<%= render section(id: "overview") do |s| %>
-  <% s.with_title "Overview", hidden: true %>
-
+<%= render section(overview: true) do |s| %>
   Panel template files are just regular ERB partials, and can can live anywhere in your app's `views` directory. Unlike [documentation page templates](/guide/pages/) they are **not** additionally run through the markdown parser.
 
   To match the padding and styles of the system panels you should ensure your panel's content is in an element with the `.lookbook-panel` class applied to it.
@@ -38,5 +36,5 @@ title: Panel Templates
 <%= render section(id: "helpers") do |s| %>
   <% s.with_title "Helpers" %>
 
-  All component helpers are available for use within panel templates. See the [component helper docs](<%= api_url :components_helper %>) for details.
+  All UI helpers are available for use within panel templates. See the [UI elements helper docs](<%= api_url :ui_elements_helper %>) for details.
 <% end %>

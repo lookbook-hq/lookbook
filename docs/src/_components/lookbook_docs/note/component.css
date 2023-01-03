@@ -1,33 +1,58 @@
 [data-component="note"] {
-  @apply py-4 pl-12 pr-4 rounded border relative my-8;
+  @apply py-3 pl-4 pr-4 rounded border relative my-8;
 
   box-shadow: 1px 1px 1px rgb(0 0 0 / 10%);
 
-  &[data-note-theme="tip"] {
-    @apply bg-indigo-50/80 border-indigo-200;
+  & [data-component="icon"] {
+    @apply mt-1 relative -top-px;
+  }
 
-    & [data-component="ribbon"] {
-      @apply bg-indigo-600 text-white;
+  &[data-note-theme="tip"] {
+    @apply bg-sky-50/80 border-sky-200;
+
+    & [data-component="icon"] {
+      @apply text-sky-700;
     }
   }
 
   &[data-note-theme="info"] {
     @apply bg-indigo-50/80 border-indigo-200;
 
-    & [data-component="ribbon"] {
-      @apply bg-indigo-600 text-white;
+    & [data-component="icon"] {
+      @apply text-indigo-700;
     }
   }
 
   &[data-note-theme="warn"] {
     @apply bg-amber-50/80 border-amber-300;
 
-    & [data-component="ribbon"] {
-      @apply bg-amber-500 text-white;
+    & [data-component="icon"] {
+      @apply text-amber-700;
+    }
+  }
+
+  &[data-note-theme="code"] {
+    @apply bg-slate-50 border-slate-300;
+
+    & [data-component="icon"] {
+      @apply text-slate-700;
     }
   }
 
   & .highlighter-rouge:last-child .highlight {
     margin-bottom: 0 !important;
+  }
+
+  & .prose :where(.prose > :first-child) {
+    margin-top: 0 !important;
+  }
+
+  & .prose :where(.prose > :last-child) {
+    margin-bottom: 0 !important;
+  }
+
+  & .prose :where(p):not(:where([class~="not-prose"] *)) {
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
   }
 }

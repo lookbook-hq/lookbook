@@ -4,9 +4,7 @@ label: Input Templates
 title: Input Templates
 ---
 
-<%= render section(id: "overview") do |s| %>
-  <% s.with_title "Overview", hidden: true %>
-
+<%= render section(overview: true) do |s| %>
   Param input template files are just regular ERB partials, and can can live anywhere in your app's `views` directory.
 
   The input template is responsible for rendering the HTML for the input. As an example, the template for the system-provided `select` param input looks like this:
@@ -17,7 +15,7 @@ title: Input Templates
     **input_options,
     "x-model": "value"
   ) %>
-  ````
+  ```
 
   As you can see the standard set of Rails form helpers are available for use if required.
   See below for details of the variables available to the param input templates.
