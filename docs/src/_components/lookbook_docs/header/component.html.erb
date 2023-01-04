@@ -17,13 +17,17 @@
           <span><%= link[:label] %></span>
         </a>
       <% end %>
-      <a href="/" target="_blank" class="flex items-center space-x-2">
-        <span>Demo</span>
-        <%= icon :external_link, size: 3, class: "text-gray-600" %>
-      </a>
-      <a href="/" target="_blank">
-        <%= image "icons/brands/github.svg", class: "w-5 h-5" %>
-      </a>
+      <% if demo %>
+        <a href="<%= demo %>" target="_blank" class="flex items-center space-x-2">
+          <span>Demo</span>
+          <%= icon :external_link, size: 3, class: "text-gray-600" %>
+        </a>
+      <% end %>
+      <% if github %>
+        <a href="<%= github %>" target="_blank">
+          <%= image "icons/brands/github.svg", class: "w-5 h-5" %>
+        </a>
+      <% end %>
     </nav>
   </div>
 <% end %>

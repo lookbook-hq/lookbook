@@ -32,13 +32,9 @@
 @layer components {
   /* Layout */
 
-  .layout-full {
-    @apply w-full max-w-[1280px];
-  }
-
   .layout-container {
     @apply grid grid-flow-row overflow-hidden;
-    @apply grid-cols-[220px_1fr] xl:grid-cols-[calc(((100vw_-_1280px)_/_2)_+_280px)_1fr];
+    @apply grid-cols-[220px_1fr] xl:grid-cols-[calc(((100vw_-_theme(screens.mx))_/_2)_+_280px)_1fr];
   }
 
   .layout-container .layout-content {
@@ -57,11 +53,46 @@
     @apply max-w-[1100px] w-full;
   }
 
-  /* Content */
+  .layout-slat {
+    @apply w-full;
+  }
+
+  .layout-slat > * {
+    @apply w-full max-w-[theme(screens.mx)] px-6 lg:px-8 mx-auto;
+  }
+
+  .layout-slat-grid {
+    @apply grid grid-cols-12 grid-rows-1 gap-4 md:gap-8 mx-auto;
+  }
+
+  /* Articles */
 
   article {
     & [data-component="section"] + [data-component="section"] {
       @apply mt-8 pt-8 border-t border-gray-300;
     }
+  }
+
+  /* Homepage */
+
+  .feature-slat {
+    @apply py-12 relative z-[100] bg-white;
+    @apply layout-slat;
+  }
+
+  .feature-slat-inner {
+    @apply layout-slat-grid;
+  }
+
+  .feature-slat-inner > div {
+    @apply col-span-6;
+  }
+
+  .feature-slat-title {
+    @apply text-2xl sm:text-3xl font-extralight !leading-tight relative mb-6;
+  }
+
+  .feature-slat-badge {
+    @apply inline-block px-1.5 py-1 rounded-lg bg-emerald-500 text-white text-[10px] tracking-wider font-semibold uppercase leading-none absolute top-0 ml-2 shadow;
   }
 }

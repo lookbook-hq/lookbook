@@ -11,7 +11,9 @@ module.exports = {
   safelist: ["pre.highlight"],
   theme: {
     extend: {
-      screens: {},
+      screens: {
+        mx: "1380px",
+      },
       fontFamily: {
         // https://fonts.google.com/share?selection.family=Nunito:ital,wght@0,200;0,400;0,700;0,900;1,400%7CSource%20Code%20Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700
         sans: ["Nunito", ...defaultTheme.fontFamily.sans],

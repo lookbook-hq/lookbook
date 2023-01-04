@@ -23,9 +23,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,700;0,900;1,400&family=Source+Code+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="<%= asset_path :css %>" />
+
+  <% if resource.data.lookbook_embeds == true %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.2/iframeResizer.min.js" defer></script>
+    <script src="http://localhost:3000/lookbook-assets/js/lookbook.js" defer></script>
+  <% end %>
+
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script src="<%= asset_path :js %>" defer></script>
-
+    
   <%= live_reload_dev_js %>
 </head>
 <body class="h-screen w-screen overflow-hidden <%= resource.data.page_class %>">
@@ -34,7 +40,6 @@
       <%= render LookbookDocs::Header::Component.new(links: header_nav_links) %>
       <%= yield %>
     </div>
-    
     <%#= render "mobile_nav", current: resource %>
   </div>
 </body>
