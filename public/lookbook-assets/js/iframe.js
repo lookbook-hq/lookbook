@@ -867,7 +867,7 @@ var $b2e1fd3e30ab1f5c$exports = {};
             return event.data.substr(event.data.indexOf(":") + 1);
         }
         function isMiddleTier() {
-            return !$b2e1fd3e30ab1f5c$exports && "iFrameResize" in window || "jQuery" in window && "iFrameResize" in window.jQuery.prototype;
+            return !(0, $b2e1fd3e30ab1f5c$exports) && "iFrameResize" in window || "jQuery" in window && "iFrameResize" in window.jQuery.prototype;
         }
         function isInitMsg() {
             // Test if this message is from a child below us. This is an ugly test, however, updating

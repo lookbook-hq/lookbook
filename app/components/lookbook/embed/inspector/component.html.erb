@@ -1,8 +1,10 @@
 <%= render_component_tag id: id,
-  class: "border-b border-lookbook-divider rounded overflow-hidden",
+  class: "border-b border-lookbook-divider rounded-md overflow-hidden",
   cloak: true do %>
 
-  <%= lookbook_render :toolbar, class: "border border-b-0 border-lookbook-divider rounded-t" do |toolbar| %>
+  <%= lookbook_render :toolbar,
+    class: "border border-b-0 border-lookbook-divider",
+    style: "border-top-left-radius: 6px; border-top-right-radius: 6px;" do |toolbar| %>
     <% toolbar.section padded: true do %>
       <h3 class="flex items-center space-x-1">
         <strong class="text-lookbook-embed-title"><%= target.preview.label %></strong>
@@ -44,7 +46,11 @@
     <% end %>
   <% end %>
 
-  <section x-ref="viewport">
+  <section
+    x-ref="viewport"
+    <% unless drawer? %>
+      style="border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; overflow: hidden;"
+    <% end %>>
     <div
       @viewport:resize-progress="resizeIframe"
       @viewport:resize-complete="resizeIframe"
@@ -61,7 +67,10 @@
   </section>
 
   <% if drawer? %>
-    <section class="relative top-[-1px] border border-b-0 border-lookbook-divider" x-cloak>
+    <section
+      class="relative top-[-1px] border border-b-0 border-lookbook-divider overflow-hidden"
+      style="border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;"
+      x-cloak>
       <%= lookbook_render :toolbar, id: "#{id}-drawer-toolbar" do |toolbar| %>
         <% toolbar.section do %>
           <%= lookbook_render :tabs, alpine_data: "store", id: "#{id}-drawer-tabs" do |tabs| %>

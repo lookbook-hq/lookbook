@@ -1,6 +1,16 @@
 window.Lookbook = window.Lookbook || {};
+window.Lookbook.initEmbeds = initEmbeds;
 
-window.Lookbook.initEmbeds = function () {
+const embedUrlPrefix = "embed";
+const whiteListedAttributes = [
+  "preview",
+  "scenario",
+  "panels",
+  "actions",
+  "param-*",
+];
+
+function initEmbeds() {
   if (typeof window.iFrameResize !== "function") {
     console.error(
       "Lookbook embeds require the 'iframe-resizer' library to be available. Skipping embed instantiation."
@@ -12,19 +22,29 @@ window.Lookbook.initEmbeds = function () {
 
   embeds.forEach((embed) => {
     const attrs = Array.from(embed.attributes);
+    const wrapper = createWrapper();
     const iframe = createIframe(attrs);
-    embed.replaceWith(iframe);
+
+    wrapper.appendChild(iframe);
+    embed.replaceWith(wrapper);
   });
 
-  window.iFrameResize({ checkOrigin: false }, "[data-lookbook-embed]");
-};
+  window.iFrameResize({ checkOrigin: false }, "[data-lookbook-embed-iframe]");
+}
 
-const embedUrlPrefix = "embed";
-const defaultBasePath = `//${location.host}/lookbook`;
+function createWrapper() {
+  const wrapper = document.createElement("div");
+
+  wrapper.setAttribute("data-lookbook-embed", true);
+  wrapper.classList.add("lookbook-embed");
+
+  return wrapper;
+}
 
 function createIframe(attrs) {
   const src = buildSrc(attrs);
   const id = attrValue(attrs, "id");
+  const styles = attrValue(attrs, "style");
   const classes = attrValue(attrs, "class", "")
     .split(" ")
     .map((c) => c.trim())
@@ -35,22 +55,23 @@ function createIframe(attrs) {
   if (id) iframe.id = id;
 
   iframe.setAttribute("frameborder", 0);
-  iframe.setAttribute("data-lookbook-embed", true);
+  iframe.setAttribute("data-lookbook-embed-iframe", true);
 
   if (classes.length) iframe.classList.add(...classes);
+  if (styles) iframe.style.cssText = styles;
+
   iframe.style.width = "100%";
   iframe.style.transition = "height 0.3s";
-  iframe.style.boxShadow = "0px 0px 4px rgba(0,0,0,0.15)";
-  iframe.style.borderRadius = "8px";
 
   return iframe;
 }
 
 function buildSrc(attrs) {
-  const appPath = attrValue(attrs, "app") || defaultBasePath;
-
+  const appPath = attrValue(attrs, "app") || guessBasePath();
   const props = {};
-  attrsWithout(attrs, "app", "class").forEach(({ name, value }) => {
+
+  permittedAttrs(attrs).forEach(({ name, value }) => {
+    console.log(name, value);
     name = name.replace("-", "_").toLowerCase();
     props[name] = value;
   });
@@ -65,6 +86,29 @@ function attrValue(attrs, name, fallback = null) {
   return attr ? attr.value : fallback;
 }
 
-function attrsWithout(attrs, ...without) {
-  return attrs.filter((attr) => !without.includes(attr.name));
+function permittedAttrs(attrs) {
+  return attrs.filter((attr) => {
+    return whiteListedAttributes.find((key) => {
+      const name = attr.name;
+      return (
+        key === name ||
+        (key.includes("*") && name.startsWith(key.replace("*", "")))
+      );
+    });
+  });
 }
+
+function guessBasePath() {
+  const script =
+    document.currentScript ||
+    document.querySelector('script[src*="lookbook.js"]');
+  const scriptSrc = script.src;
+
+  if (scriptSrc && scriptSrc.includes("lookbook-assets")) {
+    return scriptSrc.replace("lookbook-assets/js/lookbook.js", "lookbook");
+  }
+
+  return `//${location.host}/lookbook`;
+}
+
+document.addEventListener("DOMContentLoaded", () => initEmbeds());

@@ -1,5 +1,6 @@
 module Lookbook
   class EmbedsController < ApplicationController
+    include ActionView::Helpers::SanitizeHelper
     include TargetableConcern
     include WithPreviewControllerConcern
 
@@ -15,7 +16,7 @@ module Lookbook
     end
 
     def lookup
-      props = Store.new(params[:props] ? JsonParser.call(params[:props]) : {})
+      props = Store.new(params[:props] ? JsonParser.call(sanitize(params[:props])) : {})
       if props.preview.present?
         preview = Engine.previews.find_by_preview_class(props.preview)
         if preview.present?
@@ -104,7 +105,7 @@ module Lookbook
 
       options = SearchParamParser.call(req_params[:_options])
       default_options = Lookbook.config.preview_embed.to_h
-      @options ||= default_options.merge(options)
+      @options ||= default_options.merge(options || {})
     end
 
     def set_scenario_choices
