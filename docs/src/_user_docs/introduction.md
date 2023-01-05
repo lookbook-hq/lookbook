@@ -6,14 +6,14 @@ title: Introduction
 
 <%= render section("About Lookbook", overview: true) do |s| %>
   <% s.with_block_lede do %>
-    <p class="font-semibold">Lookbook is a UI tool to help build component-based frontends in Rails.</p>
+    Lookbook is an open source development tool to help build component-based front-end UIs in Ruby on Rails applications.
   <% end %>
 
   <% s.with_block_prose do %>
     It provides an easy-to-use web interface for browsing and previewing UI components in your projects, and helps you develop, test & document those components in isolation from each other and from the rest of your application.
 
     Lookbook was originally designed for [ViewComponent](https://github.com/ViewComponent/view_component)-based projects but now supports
-    a [number of other component types](<%= guide_url :components %>#types) too!
+    a [number of other component types](<%= guide_url :components %>) too!
   <% end %>
 
   <% s.with_block_note :info, title: "This documentation is for Lookbook v2.0"  do %>
@@ -37,20 +37,19 @@ title: Introduction
   <% end %>
 <% end %>
 
-<%= render section("Lookbook vs the alternatives", id: "alternatives") do |s| %>
+<%= render section("Why Lookbook?", id: "why") do |s| %>
   <% s.with_block_prose do %>
     Many other tools similar to Lookbook exist, of which the most notable is probably [Storybook](https://storybook.js.org/).
 
     Storybook is fantastic, and is perfect for those building UIs with JavaScript frameworks such as Vue or React.
-    If that is what you are using, Storybook will likely be a better fit than Lookbook for your project.
-  <% end %>
-
-  <% s.with_block_prose do %>
+    If that is what you are using, Storybook may well be a better fit than Lookbook for your project.
+ 
     But Storybook _doesn't_ play so nicely with Rails apps that are using Ruby-based, server-side rendered component frameworks
     (like ViewComponent) for their frontend needs, requiring complex custom setups to get everything working together.
   
-    In contrast, **Lookbook has been designed fit seamlessly into Rails projects** and provides a live Storybook-esque
-    experience when developing user interfaces in "The Rails Way&trade;". If that sounds like your project, Lookbook should be a great fit for you.
+    In contrast, Lookbook has been designed to **fit seamlessly into Rails projects** and provides a live, Storybook-esque
+    experience when developing user interfaces using ViewComponents, Phlex views or even regular Rails template partials.
+    If that sounds like your app, then Lookbook will hopefully be a great fit for you.
   <% end %>
 
   <% s.with_block_note :tip do %>

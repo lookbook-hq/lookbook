@@ -1,5 +1,5 @@
 ---
 id: previews-groups
-title: Grouping Examples
+title: Grouping Previews
 ---
 

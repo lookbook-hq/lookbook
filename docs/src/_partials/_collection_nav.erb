@@ -1,0 +1,18 @@
+<% nav_groups = site.data[collection.label.downcase.to_sym]&.nav&.groups || [] %>
+<div class="space-y-8">
+  <% nav_groups.each do |group| %>
+    <%= render LookbookDocs::NavGroup::Component.new(label: group[:label]) do |nav| %>
+      <% group[:items].map do |item| %>
+        <%
+          item_id = item.is_a?(String) ? item : item.id
+          target = collection.resources.find { |i| i.data.id == item_id }
+        %>
+        <% nav.item(
+          label: target.data.label || target.data.title,
+          href: target.relative_url,
+          active: resource.relative_url == target.relative_url
+        ) if target %> 
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

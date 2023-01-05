@@ -20,7 +20,7 @@ title: Concepts & Terminology
     [Read more about components &rarr;](<%= guide_url :components %>)
   <% end %>
 
-  <% s.with_block_note :code do %>
+  <% s.with_block_note :tip do %>
     Components are represented by [ComponentEntity](<%= api_module_url "ComponentEntity" %>) objects in the Lookbook API.
   <% end %>
 
@@ -37,7 +37,7 @@ title: Concepts & Terminology
     [Read more about previews &rarr;](<%= guide_url :previews %>)
   <% end %>
 
-  <% s.with_block_note :code do %>
+  <% s.with_block_note :tip do %>
     Preview classes are represented by [PreviewEntity](<%= api_module_url "PreviewEntity" %>) objects in the Lookbook API.
   <% end %>
 <% end %>
@@ -53,7 +53,7 @@ title: Concepts & Terminology
     [Read more about scenarios &rarr;](<%= guide_url :previews %>#scenarios)
   <% end %>
 
-  <% s.with_block_note :code do %>
+  <% s.with_block_note :tip do %>
     Scenarios are represented by [ScenarioEntity](<%= api_module_url "ScenarioEntity" %>) objects in the Lookbook API.
   <% end %>
 <% end %>
@@ -66,7 +66,7 @@ title: Concepts & Terminology
     [Read more about pages &rarr;](<%= guide_url :pages %>)
   <% end %>
 
-  <% s.with_block_note :code do %>
+  <% s.with_block_note :tip do %>
     Pages are represented by [PageEntity](<%= api_module_url "PageEntity" %>) objects in the Lookbook API.
   <% end %>
 <% end %>

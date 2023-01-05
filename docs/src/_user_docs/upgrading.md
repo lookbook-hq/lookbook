@@ -1,6 +1,6 @@
 ---
 id: upgrading
-label: Upgrade Guide
+label: Upgrading
 title: Upgrade Guide
 ---
 

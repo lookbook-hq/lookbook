@@ -36,10 +36,10 @@ title: Installing Lookbook
     Lookbook can also be run in production - see [the deployment docs](<%= guide_url :deployment %>) for details on how to set that up.
   <% end %>
 
-  <% s.with_block_subheading "Mount Lookbook in your app", id: "step-2", step: 2 %>
+  <% s.with_block_subheading "Mount the Lookbook engine", id: "step-2", step: 2 %>
 
   <% s.with_block_prose do %>  
-    Next mount the Lookbook engine at a path of your choosing in your `config/routes.rb` file:
+    Next mount Lookbook at a path of your choosing in your `config/routes.rb` file:
 
     ```ruby
     Rails.application.routes.draw do
@@ -76,9 +76,9 @@ title: Installing Lookbook
 <%= render section("Get Started", id: "get-started") do |s| %>
   Once everything is installed, start your app as normal.
 
-  Assuming your app is running on port `3000` and you [mounted Lookbook](#mount-lookbook) at the path `/lookbook` then browse to [http://localhost:3000/lookbook](http://localhost:3000/lookbook) to view the Lookbook UI.
+  Assuming your app is running on port `3000` and you mounted Lookbook at the path `/lookbook` then browse to [http://localhost:3000/lookbook](http://localhost:3000/lookbook) to view the Lookbook UI.
 
-  If this is a new project it will be pretty empty in there until you start [creating some components](<%= guide_url :components %>) and [adding some previews](<%= guide_url :previews %>).
-  However, if you are new to Lookbook then starting at the [How it Works](<%= guide_url :system_overview %>) page is strongly recommended.
+  If this is a new project it will be pretty empty in there until you start [creating some components](<%= guide_url :key_concepts %>#components)
+  and adding some [preview classes](<%= guide_url :key_concepts %>#previews).
 <% end %>
 

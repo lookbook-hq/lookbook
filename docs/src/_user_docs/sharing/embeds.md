@@ -1,5 +1,5 @@
 ---
-id: previews-embeds
+id: embeds
 title: Preview Embeds
 ---
 

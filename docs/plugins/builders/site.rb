@@ -42,28 +42,49 @@ class Builders::Site < SiteBuilder
       site.data.links
     end
 
-    helper :header_nav_links, helpers_scope: true do
-      nav_collections = site.collections.select { _2.metadata[:header_nav] }
-      nav_collections.map do |label, col|
+    helper :section_collections, helpers_scope: true do
+      site.collections.select { _2.metadata[:section] }
+    end
+
+    helper :sections, helpers_scope: true do
+      section_collections.map do |label, col|
         resource_ids = site.data[label].nav.groups.flat_map(&:items)
         index = col.resources.find { _1.data.id == resource_ids.first }
         {
-          href: index.relative_url,
+          url: index.relative_url,
           label: col.metadata.title,
           active: (view.resource.collection.label == label)
         }
       end
     end
 
-    helper :current_section, helpers_scope: true do
+    helper :current_group, helpers_scope: true do
       collection = view.resource.collection
       if collection
-        site.data[collection.label].nav.groups.each do |group|
-          if group[:items].include?(view.resource.data.id)
-            return group[:label]
-          end
+        site.data[collection.label].nav.groups.find do |group|
+          group[:items].include?(view.resource.data.id)
         end
       end
+    end
+
+    helper :collection_resources, helpers_scope: true do |label|
+      collection = site.collections[label]
+      resource_ids = site.data[label].nav.groups.flat_map(&:items)
+      resource_ids.map do |id|
+        collection.resources.find { _1.data.id == id }
+      end
+    end
+
+    helper :find_prev_page, helpers_scope: true do
+      resources = collection_resources(view.resource.collection.label) || []
+      index = resources.find_index { |res| res.data.id == view.resource.data.id }
+      resources[index - 1] if index.present? && index > 0
+    end
+
+    helper :find_next_page, helpers_scope: true do
+      resources = collection_resources(view.resource.collection.label) || []
+      index = resources.find_index { |res| res.data.id == view.resource.data.id }
+      resources[index + 1] if index.present? && index < resources.size - 1
     end
 
     helper :markdown do |input = nil, &block|
@@ -104,6 +125,11 @@ class Builders::Site < SiteBuilder
       method_name = method_name.to_s
       klass_data = api_module_data(klass)
       klass_data[:methods]&.find { |m| m[:name]&.to_s == method_name }&.symbolize_keys
+    end
+
+    helper :api_methods_data, helpers_scope: true do |klass|
+      klass_data = api_module_data(klass)
+      klass_data[:methods]&.map { |m| m.symbolize_keys }
     end
   end
 

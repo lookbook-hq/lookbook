@@ -27,6 +27,6 @@ groups:
       - hooks
       - data
 
-  - label: Lookbook Development
-    items:
-      - contributing
+  # - label: Lookbook Development
+  #   items:
+  #     - contributing

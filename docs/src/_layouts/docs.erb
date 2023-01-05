@@ -1,49 +1,58 @@
 ---
 layout: skeleton
 ---
-<%
-collection = resource.collection
-nav_groups = site.data[collection.label.downcase.to_sym]&.nav&.groups || []
+<% 
+prev_page = find_prev_page
+next_page = find_next_page
 %>
 
 <div class="layout-container !block md:!grid">
   <div class="layout-column bg-gray-50 !border-gray-300 !hidden md:!block overflow-y-scroll" data-turbo-maintain-scroll>
-    <div id="sidebar" class="layout-content py-8 space-y-8">
-      <% nav_groups.each do |group| %>
-        <%= render LookbookDocs::NavGroup::Component.new(label: group[:label]) do |nav| %>
-          <% group[:items].map do |item| %>
-            <%
-              item_id = item.is_a?(String) ? item : item.id
-              target = collection.resources.find { |i| i.data.id == item_id }
-            %>
-            <% nav.item(label: target.data.label || target.data.title, href: target.relative_url ) if target %>
-          <% end %>
-        <% end %>
-      <% end %>
+    <div id="sidebar" class="layout-content py-8" data-turbo-maintain-scroll>
+      <%= render "collection_nav", collection: resource.collection %>
     </div>
   </div>
 
   <div class="layout-column overflow-y-scroll h-full md:h-auto relative scroll-smooth">
-    <main class="layout-content py-8 pb-32">
+    <main class="layout-content py-8 pb-8">
       <div class="lg:pr-[252px]">
         <% if resource.data.toc.many? %>
-          <div class="hidden lg:block w-[220px] mr-[-252px] sticky top-8 float-right z-50">
+          <div class="hidden lg:block w-[220px] mr-[-252px] sticky top-8 float-right z-50" data-turbo="false">
             <%= render LookbookDocs::Toc::Component.new do |menu| %>
               <% resource.data.toc.each { menu.link(**_1) }%>
             <% end %>
           </div>
         <% end %>
         <div>
-          <header class="mb-8 md:pb-8 md:border-b xl:border-gray-300">
+          <header class="mb-8 pb-8 border-b border-gray-300">
             <div class="text-gray-500 mb-2">
-              <%= resource.collection.metadata.title %> / 
-              <%= current_section %>
+              <%= resource.collection.metadata.title %> 
+              <%= "/ #{current_group[:label]}" if current_group %>
             </div>
             <h1 class="text-4xl font-extralight text-indigo-600">
               <%== resource.data.title %>
             </h1>
           </header>
+          
           <%= yield %>
+
+          <% if prev_page.present? || next_page.present? %>
+            <footer class="mt-12 border-t border-gray-300 pt-8 flex items-center">
+              <% if prev_page.present? %>
+                <a href="<%= prev_page.relative_url %>" class="mr-auto flex items-center underline opacity-60 hover:opacity-100 ">
+                  <%= icon :arrow_left, size: 4 %>
+                  <span class="ml-2"><%= prev_page.data.label || prev_page.data.title %></span>
+                </a>
+              <% end %>
+              <% if next_page.present? %>
+                <a href="<%= next_page.relative_url %>" class="ml-auto flex items-center underline opacity-60 hover:opacity-100">
+                  <span class="mr-2"><%= next_page.data.label || next_page.data.title %></span>
+                  <%= icon :arrow_right, size: 4 %>
+                </a>
+              <% end %>
+            </footer>
+          <% end %>
+          
         </div>
       </div>
     </main>

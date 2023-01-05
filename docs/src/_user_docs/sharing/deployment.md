@@ -1,6 +1,6 @@
 ---
 id: deployment
-label: Using in Production
+label: Deploying to Production
 title: Deploying to Production
 ---
 

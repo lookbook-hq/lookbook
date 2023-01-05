@@ -29,18 +29,18 @@
     <script src="http://localhost:3000/lookbook-assets/js/lookbook.js" defer></script>
   <% end %>
 
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
   <script src="<%= asset_path :js %>" defer></script>
     
   <%= live_reload_dev_js %>
 </head>
 <body class="h-screen w-screen overflow-hidden <%= resource.data.page_class %>">
-  <div class="h-screen w-screen">
+  <div class="h-screen w-screen" x-data="{ mobileNavOpen: false }">
     <div class="grid grid-rows-[48px_1fr] grid-flow-col h-screen w-screen">
-      <%= render LookbookDocs::Header::Component.new(links: header_nav_links) %>
+      <%= render "header" %>
       <%= yield %>
     </div>
-    <%#= render "mobile_nav", current: resource %>
+    <%= render "mobile_nav", collections: site.collections %>
   </div>
 </body>
 </html>

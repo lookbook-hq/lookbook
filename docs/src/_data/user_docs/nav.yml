@@ -3,32 +3,39 @@ groups:
     items:
       - introduction
       - installation
-      - configuration
-
-  - label: The Basics
-    items:
-      - system-overview
-      - components
-      - previews
-      - pages
+      - key-concepts
       - lookbook-ui
-      - troubleshooting
+      - configuration
+      - upgrading
+
+  - label: Components
+    items:
+      - components
+      - components-view-component
+      - components-phlex
+      - components-partials
 
   - label: Previews
     items:
-      - previews-annotations
+      - previews
       - previews-layouts
+      - previews-annotations
       - previews-nav
       - previews-groups
       - previews-params
       - previews-display
-      - previews-embeds
 
   - label: Pages
     items:
+      - pages
       - pages-frontmatter
       - pages-variables
       - pages-embedding
+
+  - label: Sharing
+    items:
+      - deployment
+      - embeds
 
   - label: UI Customisation
     items:
@@ -38,6 +45,6 @@ groups:
 
   - label: Other
     items:
-      - deployment
-      - upgrading
+      - tags-reference
       - config-reference
+      - troubleshooting

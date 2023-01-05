@@ -1,0 +1,43 @@
+<div
+  class="absolute left-0 right-0 bottom-0 top-12 z-30 md:hidden transition"
+  :class="{
+    'bg-black/40 backdrop-blur-sm pointer-events-auto': mobileNavOpen,
+    'bg-black/0 pointer-events-none': !mobileNavOpen
+  }"
+  x-transition.opacity
+  x-cloak></div>
+<div
+  class="absolute bg-white px-6 py-6 top-12 right-0 h-[calc(100vh_-_48px)] w-full max-w-[340px] border-l border-gray-300 overflow-y-auto space-y-10 z-40 transition md:hidden"
+  :class="{
+    'translate-x-0': mobileNavOpen,
+    'translate-x-full': !mobileNavOpen
+  }"
+  x-cloak>
+  <div>
+    <h3 class="font-extralight text-2xl mb-4 text-indigo-600 pb-2 border-b border-gray-300">User Guide</h3>
+    <%= render "collection_nav", collection: collections.user_docs %>
+  </div>
+  <div>
+    <h3 class="font-extralight text-2xl mb-4 text-indigo-600 pb-2 border-b border-gray-300">Extending Lookbook</h3>
+    <%= render "collection_nav", collection: collections.dev_docs %>
+  </div>
+  <div>
+    <h3 class="font-extralight text-2xl mb-4 text-indigo-600 pb-2 border-b border-gray-300">API</h3>
+    <%= render "collection_nav", collection: collections.api %>
+  </div>
+  <div>
+    <h3 class="font-extralight text-2xl mb-4 text-indigo-600 pb-2 border-b border-gray-300">Elsewhere</h3>
+    <ul class="space-y-2">
+      <li>
+        <a href="<%= links.v2.demo %>" class="opacity-60 hover:opacity-100">
+          Lookbook Demo
+        </a>
+      </li>
+      <li>
+        <a href="<%= links.v2.repo %>" class="opacity-60 hover:opacity-100">
+          Github Repo
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

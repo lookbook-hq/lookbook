@@ -12,18 +12,18 @@ defaults:
 collections:
   user_docs:
     output: true
-    header_nav: true
+    section: true
     permalink: /guide/:path.*
     title: User Guide
 
   dev_docs:
     output: true
-    header_nav: true
+    section: true
     permalink: /extend/:path.*
-    title: Developer Guide
+    title: Extending Lookbook
 
   api:
     output: true
-    header_nav: true
+    section: true
     permalink: /api/:path.*
     title: API
