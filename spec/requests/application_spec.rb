@@ -47,7 +47,8 @@ RSpec.describe "application", type: :request do
         Lookbook.previews.select { |p| !p.hidden? }.each do |preview|
           visible_examples_count += preview.visible_examples.count
         end
-        expect(html).to have_css("#previews-nav [data-entity-type=example], #previews-nav [data-entity-type=group]", count: visible_examples_count)
+        expect(html).to have_selector("#previews-nav [data-entity-type=example], #previews-nav [data-entity-type=group]")
+        expect(html.all("#previews-nav [data-entity-type=example], #previews-nav [data-entity-type=group]").count).to eql(visible_examples_count)
       end
     end
   end
@@ -69,7 +70,8 @@ RSpec.describe "application", type: :request do
 
       it "includes the expected number of pages" do
         visible_pages_count = Lookbook.pages.count { |p| !p.hidden? }
-        expect(html).to have_css("#pages-nav [data-entity-type=page]", count: visible_pages_count)
+        expect(html).to have_css("#pages-nav [data-entity-type=page]")
+        expect(html.all("#pages-nav [data-entity-type=page]").count).to eql(visible_pages_count)
       end
     end
   end
