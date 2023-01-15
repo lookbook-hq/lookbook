@@ -4,7 +4,7 @@ title: Custom Inputs for @params
 beta: true
 ---
 
-Lookbook ships with a number of pre-defined [input types](http://localhost:4000/guide/previews/params/#input-types) that are used when adding [dynamic preview parameters](/guide/previews/params) to your previews.
+Lookbook ships with a number of pre-defined [input types](/guide/previews/params/#input-types) that are used when adding [dynamic preview parameters](/guide/previews/params) to your previews.
 
 However if you need an input type that isn't provided by Lookbook (or want to override one of the existing ones) you can easily add your own and then reference them in your `@param` tags.
 
