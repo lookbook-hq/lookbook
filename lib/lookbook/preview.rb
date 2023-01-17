@@ -3,21 +3,32 @@ module Lookbook
     include ActionView::Helpers::TagHelper
     include ActionView::Helpers::AssetTagHelper
 
-    def render(component, **args, &block)
-      {
-        type: component.is_a?(String) ? :view : :component,
-        args: args,
-        block: block,
-        component: component,
-        locals: {},
-        template: Lookbook.config.preview_template
-      }
+    def render(component = nil, **args, &block)
+      if component.nil?
+        {
+          type: :view,
+          template: args[:template] || Lookbook.config.preview_template,
+          args: args,
+          locals: args[:locals] || {},
+          block: block
+        }
+      else
+        {
+          type: component.is_a?(String) ? :view : :component,
+          args: args,
+          block: block,
+          component: component,
+          locals: {},
+          template: Lookbook.config.preview_template
+        }
+      end
     end
 
-    def render_with_template(template: nil, locals: {})
+    def render_with_template(template: nil, locals: nil)
       {
+        type: :template,
         template: template,
-        locals: locals
+        locals: locals.to_h
       }
     end
 
@@ -30,7 +41,7 @@ module Lookbook
         provided_params = params.slice(*scenario_params_names).to_h.symbolize_keys
         result = provided_params.empty? ? new.public_send(scenario) : new.public_send(scenario, **provided_params)
         result ||= {}
-        result[:template] = preview_scenario_template_path(scenario) if result[:template].nil?
+        result[:template] = scenario_template_path(scenario) if result[:template].nil?
         @layout = nil unless defined?(@layout)
         result.merge(layout: @layout)
       end
@@ -41,8 +52,8 @@ module Lookbook
       end
       # rubocop:enable Style/TrivialAccessors
 
-      # Returns the relative path (from preview_path) to the preview scenario template if the template exists
-      def preview_scenario_template_path(scenario)
+      # Returns the relative path (from preview_path) to the scenario template if the template exists
+      def scenario_template_path(scenario)
         preview_name = name.chomp("Preview").underscore
         preview_path =
           Engine.preview_paths.detect do |path|

@@ -31,7 +31,7 @@ module Lookbook
 
         opts.preview_paths += vc_config.preview_paths
         opts.preview_controller = vc_config.preview_controller
-        opts.preview_template = "view_components/preview"
+        opts.preview_layout = vc_config.default_preview_layout
 
         if vc_config.view_component_path.present?
           opts.component_paths << vc_config.view_component_path
