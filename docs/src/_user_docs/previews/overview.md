@@ -6,9 +6,9 @@ title: Overview
 
 <%= render section(overview: true) do |s| %>
   <% s.with_block_prose do %>
-    Preview classes are used to define which components to preview and to provide a set of illustrative examples of each component.
+    **Preview classes** are used to provide a set of illustrative examples ([_scenarios_](#scenarios)) for how each component should be used.
 
-    Classes typically have a 1-to-1 mapping with components, with each component usually having its own dedicated preview class.
+    Preview classes typically have a 1-to-1 mapping with components, with each component having its own dedicated preview class.
   <% end %>
 
   <% s.with_block_note :info do %>
@@ -18,6 +18,8 @@ title: Overview
 <% end %>
 
 <%= render section("Preview classes", id: "preview-classes") do |s| %>
+
+  <% s.with_block_subheading "Location and naming", id: "location" %>
 
   <% s.with_block_prose do %>
     Preview classes live in the `test/components/previews` directory by default.

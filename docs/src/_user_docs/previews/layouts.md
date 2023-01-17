@@ -16,10 +16,7 @@ title: Preview Layouts
 <%= render section("Setting the layout", id: "config") do |s| %>
 
   <% s.with_block_prose do %>
-
-    Previews render with the application layout by default, but it is **strongly recommended** to use a standalone preview layout for previews
-    so it can be customised without the chance of affecting the main application.
-
+  
     Use the `layout` option to set a specific layout for an individual preview class:
 
     ```rb
@@ -53,7 +50,7 @@ title: Preview Layouts
 <%= render section("Preview layout example", id: "example") do |s| %>
   <% s.with_block_prose do %>
 
-    A basic preview layout template is shown below. It uses [display variables](<%= guide_url :previews_display %>) to allow the
+    An example preview layout template is shown below. It uses [display variables](<%= guide_url :previews_display %>) to allow the
     background color and and the maximum width of the wrapper to be set on a per-preview basis.
 
     ```erb

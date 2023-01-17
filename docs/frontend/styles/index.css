@@ -102,6 +102,15 @@
     }
   }
 
+  .prose code:not(.highlight code) {
+    @apply bg-gray-100 inline-block px-1 font-normal !my-0;
+
+    &:before,
+    &:after {
+      display: none;
+    }
+  }
+
   /* Homepage */
 
   .feature-slat {

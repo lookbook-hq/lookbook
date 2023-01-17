@@ -10,7 +10,8 @@ title: Introduction
   <% end %>
 
   <% s.with_block_prose do %>
-    It provides an easy-to-use web interface for browsing and previewing UI components in your projects, and helps you develop, test & document those components in isolation from each other and from the rest of your application.
+    It provides an easy-to-use web interface for browsing and previewing UI components in your projects, and helps you develop,
+    test & document those components in isolation from each other and from the rest of your application.
 
     Lookbook was originally designed for [ViewComponent](https://github.com/ViewComponent/view_component)-based projects but now supports
     a [number of other component types](<%= guide_url :components %>) too!
@@ -48,7 +49,7 @@ title: Introduction
     (like ViewComponent) for their frontend needs, requiring complex custom setups to get everything working together.
   
     In contrast, Lookbook has been designed to **fit seamlessly into Rails projects** and provides a live, Storybook-esque
-    experience when developing user interfaces using ViewComponents, Phlex views or even regular Rails template partials.
+    experience when developing user interfaces using ViewComponents, Phlex views or even regular ActionView template partials.
     If that sounds like your app, then Lookbook will hopefully be a great fit for you.
   <% end %>
 

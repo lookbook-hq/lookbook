@@ -15,7 +15,9 @@
             </code>
           </td>
           <td class="w-[10%] whitespace-nowrap">
-            <code class="text-gray-500 italic text-xs"><%= option[:types]&.gsub("&lt;", "<")&.gsub("&gt;", ">").tr(" ", "") %></code>
+            <% if option[:types] %>
+              <code class="text-gray-500 italic text-xs"><%= option[:types]&.gsub("&lt;", "<")&.gsub("&gt;", ">").tr(" ", "") %></code>
+            <% end %>
           </td>
           <td>
             <%= markdown option[:text] %>

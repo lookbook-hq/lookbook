@@ -16,14 +16,14 @@ title: Overview
   <% end %>
 <% end %>
 
-<%= render section("Using in previews") do |s| %>
+<%= render section("Integrations") do |s| %>
   <% s.with_block_prose do %>
 
-    See the usage documentation below for details on previewing different component types:
+    See the documentation below for details on using specific component types with Lookbook:
 
     * [ViewComponents](<%= guide_url :components_view_component %>)
     * [Phlex views](<%= guide_url :components_phlex %>)
-    * [Template partials](<%= guide_url :components_partials %>)
+    * [ActionView template partials](<%= guide_url :components_partials %>)
 
   <% end %>
 <% end %>

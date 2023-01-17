@@ -10,7 +10,7 @@ title: Key Concepts
   
   Lookbook **doesn't provide it's own system for authoring components**, but rather provides support for previewing components created using
   frameworks such as [ViewComponent](https://viewcomponent.org/) or [Phlex](https://phlex.fun),
-  as well as for rendering previews of regular Rails [template partials](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials).
+  as well as for rendering previews of regular ActionView [template partials](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials).
 
   [Read more about components &rarr;](<%= guide_url :components %>)
 <% end %>

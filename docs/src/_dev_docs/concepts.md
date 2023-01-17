@@ -15,7 +15,7 @@ title: Concepts & Terminology
 <%= render section("Components", id: "components") do |s| %>
   <% s.with_block_prose do %>    
     Components are the UI building blocks within your project. Lookbook supports
-    previewing a number of different component types including [ViewComponents](https://viewcomponent.org), [Phlex](https://www.phlex.fun/) views and simple Rails template partials.
+    previewing a number of different component types including [ViewComponents](https://viewcomponent.org), [Phlex](https://www.phlex.fun/) views and ActionView partials.
 
     [Read more about components &rarr;](<%= guide_url :components %>)
   <% end %>

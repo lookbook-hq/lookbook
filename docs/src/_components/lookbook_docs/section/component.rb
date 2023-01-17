@@ -9,6 +9,7 @@ module LookbookDocs
       prose: Prose::Component,
       lede: Lede::Component,
       method_list: MethodList::Component,
+      options_list: OptionsList::Component,
       button: ButtonBlock::Component,
 
       subheading: ->(text, id: nil, level: 3, display_level: nil, **opts) do

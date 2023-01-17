@@ -2,7 +2,6 @@ groups:
   - label: Get Started
     items:
       - introduction
-      - concepts
 
   - label: Inspector Panels
     items:

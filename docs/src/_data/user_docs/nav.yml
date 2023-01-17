@@ -4,7 +4,7 @@ groups:
       - introduction
       - installation
       - key-concepts
-      - lookbook-ui
+      # - lookbook-ui
       - configuration
       - upgrading
 
