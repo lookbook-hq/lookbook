@@ -32,7 +32,8 @@
         style="<%= "max-height: #{@max_height}px;" if @max_height.present? %>"
         src="<%= @src %>"
         frameborder="0"
-        @load="$dispatch('viewport:loaded', {viewport: this})"></iframe>
+        @load="$dispatch('viewport:loaded', {viewport: this})"
+        title="viewport"></iframe>
         <% if @resize_width %>
           <div
             class="resize-handle border-r border-t border-lookbook-divider cursor-[col-resize] <%= "border-b" unless @resize_height %>"
