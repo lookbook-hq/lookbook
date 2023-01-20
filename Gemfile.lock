@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lookbook (1.4.5)
+    lookbook (1.5.0)
       actioncable
       activemodel
       css_parser

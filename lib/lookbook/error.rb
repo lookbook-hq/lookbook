@@ -80,7 +80,7 @@ module Lookbook
       else
         @file_path.presence || nil
       end
-      path.nil? ? nil : path.to_s.delete_prefix("#{Rails.root}/")
+      path&.to_s&.delete_prefix("#{Rails.root}/")
     end
 
     def line_number
