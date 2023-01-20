@@ -20,7 +20,7 @@
         alpine_data: "$store.layout.main",
         ":class": "$store.layout.mobile && '!block'" do |layout| %>
 
-        <% layout.pane id: "app-sidebar", class: "flex flex-col bg-lookbook-sidebar-bg relative translate-x-0",
+        <% layout.with_pane id: "app-sidebar", class: "flex flex-col bg-lookbook-sidebar-bg relative translate-x-0",
           ":class": "{
             'transition': $store.layout.mobile,
             'translate-x-full': $store.layout.mobile && sidebarHidden,
@@ -36,18 +36,18 @@
               style: "height: calc(100vh - 2.5rem);" do |layout| %>
 
               <% if @previews.any? %>
-                <% layout.pane class: "overflow-hidden" do %>
+                <% layout.with_pane class: "overflow-hidden" do %>
                   <%= lookbook_render :nav,
                     id: "previews-nav",
                     tree: @previews.to_tree,
                     alpine_data: "$store.nav.previews" do |nav| %>
-                    <%= nav.toolbar do |toolbar| %>
-                      <% toolbar.section padded: true do %>
+                    <%= nav.with_toolbar do |toolbar| %>
+                      <% toolbar.with_section padded: true do %>
                         <h4 class="pt-1">Previews</h4>
                       <% end %>
-                      <% toolbar.section align: :right, padded: false do %>
+                      <% toolbar.with_section align: :right, padded: false do %>
                         <%= lookbook_render :button_group, size: :xs do |group| %>
-                          <% group.button icon: :minus_square,
+                          <% group.with_button icon: :minus_square,
                             tooltip: "Collapse all",
                             "@click": "closeAll" %>
                         <% end %>
@@ -59,18 +59,18 @@
               <% end %>
 
               <% if @pages.any? %>
-                <% layout.pane class: "overflow-hidden" do %>
+                <% layout.with_pane class: "overflow-hidden" do %>
                   <%= lookbook_render :nav,
                     id: "pages-nav",
                     tree: @pages.to_tree,
                     alpine_data: "$store.nav.pages" do |nav| %>
-                    <%= nav.toolbar do |toolbar| %>
-                      <% toolbar.section padded: true do %>
+                    <%= nav.with_toolbar do |toolbar| %>
+                      <% toolbar.with_section padded: true do %>
                         <h4 class="pt-1">Pages</h4>
                       <% end %>
-                      <% toolbar.section align: :right, padded: false do %>
+                      <% toolbar.with_section align: :right, padded: false do %>
                         <%= lookbook_render :button_group, size: :xs do |group| %>
-                          <% group.button icon: :minus_square,
+                          <% group.with_button icon: :minus_square,
                             tooltip: "Collapse all",
                             "@click": "closeAll" %>
                         <% end %>
@@ -84,7 +84,7 @@
           <% end %>
         <% end %>
 
-        <% layout.pane id: "app-main", class: "overflow-hidden h-full", ":class": "$store.layout.mobile && 'w-screen'" do %>
+        <% layout.with_pane id: "app-main", class: "overflow-hidden h-full", ":class": "$store.layout.mobile && 'w-screen'" do %>
           <%= content_for?(:main) ? yield(:main) : yield %>
         <% end %>
       <% end %>

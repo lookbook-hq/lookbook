@@ -5,7 +5,7 @@
   <%= lookbook_render :toolbar,
     class: "border border-b-0 border-lookbook-divider",
     style: "border-top-left-radius: 6px; border-top-right-radius: 6px;" do |toolbar| %>
-    <% toolbar.section padded: true do %>
+    <% toolbar.with_section padded: true do %>
       <h3 class="flex items-center space-x-1">
         <strong class="text-lookbook-embed-title"><%= target.preview.label %></strong>
         <% if scenarios.many? %>
@@ -16,27 +16,27 @@
       </h3>
     <% end %>
 
-    <% toolbar.section align: :right, class: "flex-none" do %>
+    <% toolbar.with_section align: :right, class: "flex-none" do %>
       <% if display_option_controls? && dynamic_display_options.any? %>
         <%= lookbook_render "display_options/editor" do |editor| %>
           <% dynamic_display_options.each do |key, opts| %>
-            <% editor.field name: key, opts: opts, value: static_display_options[key] %>
+            <% editor.with_field name: key, opts: opts, value: static_display_options[key] %>
           <% end %>
         <% end %>
       <% end %>
     <% end %>
 
     <% if actions.any? %>
-      <% toolbar.section divide: :left do %>
+      <% toolbar.with_section divide: :left do %>
         <%= lookbook_render :button_group do |group| %>
           <% if display_action?(:inspect) %>
-            <% group.button icon: :eye,
+            <% group.with_button icon: :eye,
               href: helpers.lookbook_inspect_url(target.path, params),
               tooltip: "View in Inspector",
               target: "_top" %>
           <% end %>
           <% if display_action?(:open) %>
-            <% group.button icon: :external_link,
+            <% group.with_button icon: :external_link,
               href: helpers.lookbook_preview_url(target.path, params),
               tooltip: "Open in new window",
               target: "_blank" %>
@@ -72,10 +72,10 @@
       style="border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;"
       x-cloak>
       <%= lookbook_render :toolbar, id: "#{id}-drawer-toolbar" do |toolbar| %>
-        <% toolbar.section do %>
+        <% toolbar.with_section do %>
           <%= lookbook_render :tabs, alpine_data: "store", id: "#{id}-drawer-tabs" do |tabs| %>
             <%= panels.each do |panel| %>
-              <% tabs.tab name: panel.name,
+              <% tabs.with_tab name: panel.name,
                 label: panel.label,
                 hotkey: panel.hotkey,
                 disabled: panel.disabled %>
@@ -87,7 +87,7 @@
       <div class="bg-lookbook-drawer-bg">      
         <%= lookbook_render :tab_panels, alpine_data: "store", id: "{id}-drawer-panels" do |tabs| %>
           <% panels.each do |panel| %>
-            <% tabs.panel name: panel.name do %>
+            <% tabs.with_panel name: panel.name do %>
               <%= lookbook_render :inspector_panel, name: panel.name do %>
                 <%= render panel.partial, **data, panel: panel, **panel.locals %>
               <% end %>
