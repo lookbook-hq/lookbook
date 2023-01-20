@@ -1,7 +1,5 @@
 module Lookbook
   module PageHelper
-    include Utils
-
     def page_path(id)
       page = id.is_a?(Page) ? id : Lookbook.pages.find_by_id(id)
       if page.present?
