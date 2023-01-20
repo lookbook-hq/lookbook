@@ -126,7 +126,7 @@ module Lookbook
           description: "Looked for '#{params[:path]}'.<br>The preview may have been renamed or deleted."
         }
       end
-      render_in_layout "lookbook/404", layout: layout, **locals
+      render_in_layout "lookbook/404", layout: layout, **locals, status: 404
     end
 
     def path_segments

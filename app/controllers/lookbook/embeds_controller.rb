@@ -6,6 +6,7 @@ module Lookbook
 
     layout "lookbook/embed"
 
+    before_action :permit_embeds
     before_action :set_options, only: [:show]
     before_action :set_scenario_choices, only: [:show]
     before_action :set_panels, only: [:show]
@@ -74,6 +75,14 @@ module Lookbook
 
     protected
 
+    def embed_options
+      Lookbook.config.preview_embeds
+    end
+
+    def permit_embeds
+      headers["X-Frame-Options"] = embed_options.policy
+    end
+
     def lookup_entities
       @target = Engine.previews.find_scenario_by_path(params[:path])
       @preview = @target.present? ? @target.preview : Engine.previews.find_by_path(params[:path])
@@ -104,7 +113,7 @@ module Lookbook
       return @options if @options
 
       options = SearchParamParser.call(req_params[:_options])
-      default_options = Lookbook.config.preview_embed.to_h
+      default_options = embed_options.to_h.except(:policy)
       @options ||= default_options.merge(options || {})
     end
 
