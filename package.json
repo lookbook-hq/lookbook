@@ -21,7 +21,15 @@
       "source": "./app/assets/lookbook/js/lookbook.js",
       "distDir": "./public/lookbook-assets",
       "outputFormat": "global",
-      "context": "browser"
+      "context": "browser",
+      "sourceMap": false
+    },
+    "embed-core": {
+      "source": "./app/assets/lookbook/js/lookbook-core.js",
+      "distDir": "./public/lookbook-assets",
+      "outputFormat": "global",
+      "context": "browser",
+      "sourceMap": false
     }
   },
   "alias": {
