@@ -35,7 +35,7 @@ function initEmbeds() {
 function createWrapper() {
   const wrapper = document.createElement("div");
 
-  wrapper.setAttribute("data-lookbook-embed", true);
+  wrapper.setAttribute("data-lookbook-embed", "");
   wrapper.classList.add("lookbook-embed");
 
   return wrapper;
@@ -55,7 +55,7 @@ function createIframe(attrs) {
   if (id) iframe.id = id;
 
   iframe.setAttribute("frameborder", 0);
-  iframe.setAttribute("data-lookbook-embed-iframe", true);
+  iframe.setAttribute("data-lookbook-embed-iframe", "");
 
   if (classes.length) iframe.classList.add(...classes);
   if (styles) iframe.style.cssText = styles;

@@ -49,6 +49,7 @@ module Lookbook
         Engine.previews.find_by_preview_class(preview)
       end
       scenario_entity = scenario ? preview_entity&.scenario(scenario) : preview_entity&.default_scenario
+      opts[:actions] ||= ["inspect", "open"]
 
       lookbook_render Embed::Component.new(
         scenario: scenario_entity,

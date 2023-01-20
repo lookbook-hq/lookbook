@@ -28,7 +28,7 @@ function $8c6f87050723dba0$var$initEmbeds() {
 }
 function $8c6f87050723dba0$var$createWrapper() {
     const wrapper = document.createElement("div");
-    wrapper.setAttribute("data-lookbook-embed", true);
+    wrapper.setAttribute("data-lookbook-embed", "");
     wrapper.classList.add("lookbook-embed");
     return wrapper;
 }
@@ -41,7 +41,7 @@ function $8c6f87050723dba0$var$createIframe(attrs) {
     iframe.src = src;
     if (id) iframe.id = id;
     iframe.setAttribute("frameborder", 0);
-    iframe.setAttribute("data-lookbook-embed-iframe", true);
+    iframe.setAttribute("data-lookbook-embed-iframe", "");
     if (classes.length) iframe.classList.add(...classes);
     if (styles) iframe.style.cssText = styles;
     iframe.style.width = "100%";

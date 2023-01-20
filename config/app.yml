@@ -33,9 +33,9 @@ shared:
   preview_embeds:
     policy: "SAMEORIGIN"
     panels: false
-    actions: [inspect, open]
-    display_option_controls: true
+    actions: []
     scenarios: []
+    display_option_controls: true
 
   listen_paths: []
   listen_extensions: [rb, html.*]
