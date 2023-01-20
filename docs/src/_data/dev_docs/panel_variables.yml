@@ -13,16 +13,14 @@
   id: panel-variable-preview
   types: PreviewEntity
   description: An object representing the current preview.
-  example: |
-    <h2>This is the <%= preview.label %> preview</h2>
+  example: <h2>This is the <%= preview.label %> preview</h2>
 
 - name: target
   id: panel-variable-target
   types: RenderedScenarioEntity, ScenarioGroupEntity
   description: |
     An object representing the scenario or group of scenarios currently being rendered
-  example: |
-    <h2>Currently rendering '<%= target.label %>'.</h2>
+  example: <h2>Currently rendering '<%= target.label %>'.</h2>
 
 - name: scenarios
   id: panel-variable-scenarios

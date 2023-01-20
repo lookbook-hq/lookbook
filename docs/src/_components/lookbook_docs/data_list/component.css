@@ -1,0 +1,15 @@
+[data-component="data-list"] {
+  @apply border border-gray-300 py-2 rounded;
+
+  table {
+    @apply bg-white w-full text-sm;
+  }
+
+  td {
+    @apply py-1.5 px-4 align-top;
+
+    & a {
+      @apply underline;
+    }
+  }
+}

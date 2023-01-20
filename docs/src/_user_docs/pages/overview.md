@@ -55,6 +55,53 @@ title: Overview
   <% end %>
 <% end %>
 
+
+<%= render section("Tabbed pages", id: "tabs") do |s| %>
+  <% s.with_block_prose do %>
+    It's possible to break up your page's content into multiple files and have the content from each file rendered as a set of tabs on the main page.
+
+    Tab page files should have the same name as the parent page, but with a suffix of `[insert-tab-name-here]` before the file extension.
+
+    For instance, in the example below, the `avatar` page will have 3 tabs ('design', 'mobile' & 'web') rendered below any content in the main avatar page.
+
+    ```
+    test/components/docs/
+      ├── 01_avatar.md.erb
+      ├── 01_avatar[design].md.erb
+      ├── 01_avatar[mobile].md.erb
+      ├── 01_avatar[web].md.erb
+    ```
+  <% end %>
+
+  <% s.with_block_subheading "Tab frontmatter", id: "tab-frontmatter" %>
+  
+  <% s.with_block_prose do %>
+    
+    Tabs support [frontmatter](<%= guide_url :pages_frontmatter %>), just like in regular pages.
+
+    To change the text shown in the tab set the `label` value in the tab's frontmatter:
+
+    ```
+    ---
+    label: Website
+    ---
+
+    Tab page content here...
+    ```
+
+    If you want the tabs in a different order, set the `priority` value:
+
+    ```
+    ---
+    label: Website
+    priority: 1
+    ---
+
+    Tab page content here...
+    ```
+  <% end %>
+<% end %>
+
 <%= render section("Ordering pages and directories", id: "ordering") do |s| %>
   <% s.with_block_prose do %>
     If you want to enforce a specific order for pages and directories in the Lookbook navigation you can prefix the file/directory basename with an 'order number' integer value followed by an underscore or hyphen.

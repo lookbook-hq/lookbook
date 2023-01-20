@@ -53,6 +53,10 @@
     }
   }
 
+  #sidebar {
+    @apply pr-4;
+  }
+
   .layout-slat {
     @apply w-full;
 

@@ -84,9 +84,6 @@ title: Preview Layouts
     clean up [display param](<%= guide_url :previews_params %>) and [custom data](<%= extend_url :data %>) access, if desired:
   <% end %>
 
-  <% s.with_block_method_list do |list| %>
-    <% api_methods_data(:preview_helper).each do |method| %>
-      <% list.with_item_method(**method, scope: "global") %>
-    <% end %>
-  <% end %>
+  <% s.with_block_api_module_methods(:preview_helper) %>
+  
 <% end %>

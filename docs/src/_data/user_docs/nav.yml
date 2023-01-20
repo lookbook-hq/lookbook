@@ -34,8 +34,8 @@ groups:
 
   - label: Sharing
     items:
-      - deployment
       - embeds
+      - deployment
 
   - label: UI Customisation
     items:

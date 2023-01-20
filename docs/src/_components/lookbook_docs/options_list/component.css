@@ -1,6 +1,6 @@
 [data-component="options-list"] {
   table {
-    @apply bg-white w-full border border-gray-300 text-sm;
+    @apply bg-white w-full border border-gray-300 text-sm rounded;
   }
 
   td {

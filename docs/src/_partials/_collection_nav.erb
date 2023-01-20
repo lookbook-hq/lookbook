@@ -1,5 +1,5 @@
 <% nav_groups = site.data[collection.label.downcase.to_sym]&.nav&.groups || [] %>
-<div class="space-y-8">
+<div class="space-y-6">
   <% nav_groups.each do |group| %>
     <%= render LookbookDocs::NavGroup::Component.new(label: group[:label]) do |nav| %>
       <% group[:items].map do |item| %>

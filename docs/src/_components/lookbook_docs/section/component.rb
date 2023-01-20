@@ -10,6 +10,7 @@ module LookbookDocs
       lede: Lede::Component,
       method_list: MethodList::Component,
       options_list: OptionsList::Component,
+      data_list: DataList::Component,
       button: ButtonBlock::Component,
 
       subheading: ->(text, id: nil, level: 3, display_level: nil, **opts) do
@@ -19,6 +20,17 @@ module LookbookDocs
 
       note: ->(theme = :info, **opts) do
         Note::Component.new(theme: theme, **opts)
+      end,
+
+      api_module_methods: ->(module_name, **opts) do
+        data = api_methods_data(module_name)
+        if data
+          render MethodList::Component.new do |list|
+            data.each do |method|
+              list.with_item_api_method(**method, scope: "global")
+            end
+          end
+        end
       end,
 
       api_method: ->(module_name, method_name, **opts) do

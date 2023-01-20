@@ -2,10 +2,10 @@
   <% if label.present? %>
     <h4 class="text-lg font-bold mb-2"><%= label %></h4>
   <% end %>
-  <ul class="space-y-2">
+  <ul class="space-y-1">
     <% items.each do |item| %>
-      <li>
-        <%= item %>
+      <li class="flex items-start w-full space-x-1 relative left-[-4px]">
+        <%= icon :chevron_right, size: 3, class: "relative top-[5px] opacity-40" %> <%= item %>
       </li>
     <% end %>
   </ul>

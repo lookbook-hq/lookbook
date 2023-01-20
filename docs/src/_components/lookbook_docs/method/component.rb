@@ -16,7 +16,7 @@ module LookbookDocs
       @options = options
       @example = example
       @example_lang = example_lang
-      @show = show
+      @show = show.to_a
       @attrs = attrs
     end
 
@@ -49,7 +49,7 @@ module LookbookDocs
 
     def rendered_example
       if example
-        markdown("```#{example_lang}\n#{example.strip_heredoc.html_safe}\n```")
+        markdown("```#{example_lang}\n#{example.strip_heredoc.strip.html_safe}\n```")
       end
     end
 

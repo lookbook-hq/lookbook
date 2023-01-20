@@ -1,0 +1,53 @@
+- text: Base text color
+  divider: Base divider (line) color
+
+- header_bg: Header background color
+  header_text: Header text color
+  header_border: Header bottom border color
+  branding_text: Project name text color (defaults to value of `header_text`)
+
+- sidebar_bg: Sidebar background color
+  page_bg: Page background color
+  drawer_bg: Preview inspector drawer background color
+  params_editor_bg: Params editor table background color
+
+- icon_button_stroke: Icon button stroke color
+  icon_button_stroke_hover: Icon button stroke color on hover
+  tooltip_bg: Tooltip background color
+  tooltip_text: Tooltip text color
+  scrollbar: Scrollbar background color
+  scrollbar_hover: Scrollbar background color on hover
+
+- toolbar_bg: Toolbar background color
+  toolbar_divider: Toolbar divider color (defaults to value of `divider`)
+  tabs_text: Tabs text color
+  tabs_text_hover: Tabs text color on hover
+  tabs_text_disabled: Disabled tabs text color
+  tabs_border_active: Bottom border color for active tabs
+
+- nav_text: Navigation text color
+  nav_toggle: Navigation toggle (arrow) color
+  nav_icon_stroke: Navigation icon stroke color
+  nav_item_hover: Navigation item background color on hover
+  nav_item_active: Navigation item background color when active
+
+- input_bg: Form input background color
+  input_border: Form input border color
+  input_border_focus: Form input border color on focus
+  input_text: Form input text color
+  input_text_placeholder: Form input placeholder text color
+  input_toggle: \'Toggle\' input background color
+  input_toggle_active: \'Toggle\' input background color when active
+
+- prose_bg: Prose area background color
+  prose_text: Prose area text color
+  prose_link: Prose area link color
+
+- viewport_handle: Viewport resize handle background color
+  viewport_handle_hover: Viewport resize handle background color on hover
+  viewport_handle_icon_stroke: Viewport resize handle icon stroke color
+  viewport_handle_icon_stroke_hover: Viewport resize handle icon stroke color on hover
+
+- favicon: Favicon color
+  favicon_dark_mode: Favicon color for dark mode only
+  favicon_light_mode: Favicon color for light mode only
