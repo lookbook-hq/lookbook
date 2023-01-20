@@ -2,17 +2,17 @@
 <%= render_component_tag class: "not-prose border-b border-lookbook-divider rounded-sm overflow-hidden", "@navigation:start.window": "cleanup" do %>
 
   <%= lookbook_render :toolbar, class: "border border-b-0 border-lookbook-divider" do |toolbar| %>
-    <% toolbar.section padded: true do %>
+    <% toolbar.with_section padded: true do %>
       <h3>
         <%= @target.preview.label %> (<%= @target.label %>)
       </h3>
     <% end %>
-    <% toolbar.section align: :right, divide: :left do %>
+    <% toolbar.with_section align: :right, divide: :left do %>
       <%= lookbook_render :button_group do |group| %>
-        <% group.button icon: :eye,
+        <% group.with_button icon: :eye,
           href: lookbook_inspect_path(@target.path, @params),
           tooltip: "View in Inspector" %>
-        <% group.button icon: :external_link,
+        <% group.with_button icon: :external_link,
           href: lookbook_preview_path(@target.path, @params),
           tooltip: "Open in new window",
           target: "_blank" %>

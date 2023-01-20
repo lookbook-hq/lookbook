@@ -13,7 +13,7 @@
     <% if @page.sections.any? %>
       <%= lookbook_render :page_tabs, id: "page-tabbed-sections", markdown: false, class: "mt-6" do |page_tabs| %>
         <% @page.sections.each do |section| %>
-          <% page_tabs.tab name: "page-section-#{section.name}", label: section.label do %>
+          <% page_tabs.with_tab name: "page-section-#{section.name}", label: section.label do %>
             <%= page_controller.render_page(section) %>
           <% end %>
         <% end %>

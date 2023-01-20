@@ -5,14 +5,14 @@
     "preview-target": @target.id
   } do |layout| %>
 
-  <%= layout.pane class: "flex flex-col h-full overflow-hidden",
+  <%= layout.with_pane class: "flex flex-col h-full overflow-hidden",
     "x-effect": "forceOrientation = (layoutWidth < $store.inspector.minVerticalSplitWidth) ? 'horizontal' : null" do %>
   
     <%= lookbook_render :toolbar, id: "main-toolbar" do |toolbar| %>
-      <% toolbar.section ":class": "layoutResizing && 'overflow-hidden'" do %>
+      <% toolbar.with_section ":class": "layoutResizing && 'overflow-hidden'" do %>
         <%= lookbook_render :tabs, alpine_data: "$store.inspector.main", id: "inspector-tabs-main" do |tabs| %>
           <%= @main_panels.each do |panel| %>
-            <% tabs.tab name: panel.name,
+            <% tabs.with_tab name: panel.name,
               label: panel.label,
               hotkey: panel.hotkey,
               disabled: panel.disabled %>
@@ -20,42 +20,42 @@
         <% end %>
       <% end %>
 
-      <% toolbar.section align: :right, class: "flex-none" do %>
+      <% toolbar.with_section align: :right, class: "flex-none" do %>
         <% if @dynamic_display_options.any? %>
           <%= lookbook_render "display_options/editor" do |editor| %>
             <% @dynamic_display_options.each do |key, opts| %>
-              <% editor.field name: key, opts: opts, value: @static_display_options[key] %>
+              <% editor.with_field name: key, opts: opts, value: @static_display_options[key] %>
             <% end %>
           <% end %>
         <% end %>
       <% end %>
 
-      <% toolbar.section divide: :left, class: "flex-none relative z-10" do %>
+      <% toolbar.with_section divide: :left, class: "flex-none relative z-10" do %>
         <%= lookbook_render :button_group do |group| %>
-          <% group.button icon: :link,
+          <% group.with_button icon: :link,
             tooltip: "Copy preview URL",
             copy: true do %>
             <%= lookbook_inspect_url(@target.lookup_path, request.query_parameters) %>
           <% end %>
 
           <% if @pages.any? %>
-            <% group.button icon: :code,
+            <% group.with_button icon: :code,
               tooltip: "Copy page embed code",
               copy: true do %>
                 &lt;%= embed <%= @preview.preview_class_name %>, :<%= @target.name %>, params: <%= request.query_parameters.deep_symbolize_keys.to_s %> %&gt;
             <% end %>
           <% end %>
           
-          <% group.button icon: :refresh_cw,
+          <% group.with_button icon: :refresh_cw,
             tooltip: "Refresh preview",
             "@click.stop": "startSpin(); $dispatch('viewport:reload'); stopSpin(500);" %>
 
-          <% group.button icon: :external_link,
+          <% group.with_button icon: :external_link,
             href: lookbook_preview_path(@target.lookup_path, request.query_parameters),
             tooltip: "Open preview in new window",
             target: "_blank" %>
 
-          <% group.button icon: "vertical ? 'sidebar' : 'credit-card'",
+          <% group.with_button icon: "vertical ? 'sidebar' : 'credit-card'",
             tooltip: "Show drawer",
             "@click": "$store.inspector.drawer.hidden = false",
             class: "rotate-180",
@@ -68,7 +68,7 @@
     <div class="h-full relative overflow-auto">
       <%= lookbook_render :tab_panels, alpine_data: "$store.inspector.main", id: "inspector-panels-main" do |tabs| %>
         <% @main_panels.each do |panel| %>
-          <% tabs.panel name: panel.name do %>
+          <% tabs.with_panel name: panel.name do %>
             <%= lookbook_render :inspector_panel, name: panel.name do %>
               <%= render panel.partial, **@inspector_data, panel: panel, **panel.locals %>
             <% end %>
@@ -78,14 +78,14 @@
     </div>
   <% end %>
 
-  <%= layout.pane class: "flex flex-col h-full overflow-hidden bg-lookbook-drawer-bg",
+  <%= layout.with_pane class: "flex flex-col h-full overflow-hidden bg-lookbook-drawer-bg",
     "x-show": "!$store.inspector.drawer.hidden && #{@drawer_panels.any?}" do %>
 
     <%= lookbook_render :toolbar, id: "drawer-toolbar" do |toolbar| %>
-      <% toolbar.section ":class": "layoutResizing && 'overflow-hidden'" do %>
+      <% toolbar.with_section ":class": "layoutResizing && 'overflow-hidden'" do %>
         <%= lookbook_render :tabs, alpine_data: "$store.inspector.drawer", id: "inspector-tabs-drawer" do |tabs| %>
           <%= @drawer_panels.each do |panel| %>
-            <% tabs.tab name: panel.name,
+            <% tabs.with_tab name: panel.name,
               label: panel.label,
               hotkey: panel.hotkey,
               disabled: panel.disabled %>
@@ -93,10 +93,10 @@
         <% end %>
       <% end %>
 
-      <% toolbar.section align: :right,  class: "flex-none relative z-10" do %>
+      <% toolbar.with_section align: :right,  class: "flex-none relative z-10" do %>
         <%= lookbook_render :button_group do |group| %>
           <%= @drawer_panels.select { |p| !p.disabled && p.copy }.each do |panel| %>
-            <% group.button icon: :copy,
+            <% group.with_button icon: :copy,
               tooltip: "Copy panel contents",
               copy: !!panel.copy,
               "x-show": "$store.inspector.drawer.activeTab === '#{panel.name}'",
@@ -107,27 +107,27 @@
         <% end %>
       <% end %>
 
-      <% toolbar.section divide: :left, class: "flex-none relative z-10" do %>
+      <% toolbar.with_section divide: :left, class: "flex-none relative z-10" do %>
         <%= lookbook_render :button_group do |group| %>
 
-          <% group.button icon: :corner_up_right,
+          <% group.with_button icon: :corner_up_right,
             tooltip: "Move drawer to right",
             "@click": "switchOrientation",
             "x-show": "horizontal && layoutWidth > $store.inspector.minVerticalSplitWidth",
             cloak: true %>
 
-          <% group.button icon: :corner_up_right,
+          <% group.with_button icon: :corner_up_right,
             "x-show": "horizontal && layoutWidth <= $store.inspector.minVerticalSplitWidth",
             disabled: true,
             cloak: true %>
 
-          <% group.button icon: :corner_left_down,
+          <% group.with_button icon: :corner_left_down,
             tooltip: "Move drawer to bottom",
             "@click": "switchOrientation",
             "x-show": "vertical",
             cloak: true %>
 
-          <% group.button icon: :x_circle,
+          <% group.with_button icon: :x_circle,
             tooltip: "Hide drawer",
             "@click": "$store.inspector.drawer.hidden = true",
             cloak: true %>
@@ -138,7 +138,7 @@
     <div class="h-full overflow-auto">
       <%= lookbook_render :tab_panels, alpine_data: "$store.inspector.drawer", id: "inspector-panels-drawer" do |tabs| %>
         <% @drawer_panels.each do |panel| %>
-          <% tabs.panel name: panel.name do %>
+          <% tabs.with_panel name: panel.name do %>
             <%= lookbook_render :inspector_panel, name: panel.name do %>
               <%= render panel.partial, **@inspector_data, panel: panel, **panel.locals %>
             <% end %>

@@ -15,7 +15,7 @@
     <% end %>
 
     <%= lookbook_render :header, id: "app-header", debug_menu: @config.debug_menu do |header| %>
-      <% header.branding { @config.project_name } %>
+      <% header.with_branding { @config.project_name } %>
     <% end %>
 
     <%= content_for?(:shell) ? yield(:shell) : yield %>
