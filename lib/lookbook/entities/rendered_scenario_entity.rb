@@ -43,7 +43,11 @@ module Lookbook
     end
 
     def has_custom_template?
-      template != Lookbook.config.preview_template && !custom_source? && !view?
+      !template.in?(system_templates) && !custom_source? && !view?
+    end
+
+    def system_templates
+      ["view_components/preview", Lookbook.config.preview_template]
     end
   end
 end
