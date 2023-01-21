@@ -1,6 +1,9 @@
 module LookbookDocs
   class DataList::Component < Base
-    def initialize(data: {}, **attrs)
+    attr_reader :title
+
+    def initialize(title: nil, data: {}, **attrs)
+      @title = title
       @data = data
       @attrs = attrs
     end

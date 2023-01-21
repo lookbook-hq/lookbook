@@ -41,7 +41,7 @@ groups:
     items:
       - ui-theming
       - ui-inspector
-      - ui-config
+      # - ui-config
 
   - label: Other
     items:

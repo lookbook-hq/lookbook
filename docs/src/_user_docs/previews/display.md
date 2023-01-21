@@ -126,7 +126,7 @@ title: Display Options
     }
     ```
 
-    The array of option choices will be passed through Rails' [`options_for_select` helper](https://apidock.com/rails/v6.1.3.1/ActionView/Helpers/FormOptionsHelper/options_for_select) to generate the select dropdown options.
+    The array of option choices will be passed through Rails' [`options_for_select` helper](https://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-options_for_select) to generate the select dropdown options.
 
     The display option value can then be accessed in layout templates in exactly the same way as 'regular' display options:
 

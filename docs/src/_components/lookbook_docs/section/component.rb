@@ -7,6 +7,7 @@ module LookbookDocs
 
     renders_many :blocks, types: {
       prose: Prose::Component,
+      html: ->(&block) { capture(&block).html_safe },
       lede: Lede::Component,
       method_list: MethodList::Component,
       options_list: OptionsList::Component,

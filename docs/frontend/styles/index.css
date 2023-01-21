@@ -27,6 +27,18 @@
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-gray-300;
   }
+
+  [data-lookbook-embed] {
+    @apply rounded-md overflow-hidden shadow-md;
+  }
+
+  details {
+    @apply cursor-pointer;
+
+    &[open] summary {
+      @apply mb-2;
+    }
+  }
 }
 
 @layer components {
@@ -104,6 +116,14 @@
     & [data-component="section"] + [data-component="section"] {
       @apply mt-8 pt-8 border-t border-gray-300;
     }
+
+    & [data-lookbook-embed] + * {
+      @apply mt-7;
+    }
+
+    & .highlighter-rouge + details {
+      @apply -mt-2;
+    }
   }
 
   .prose code:not(.highlight code) {
@@ -113,6 +133,10 @@
     &:after {
       display: none;
     }
+  }
+
+  .prose :where(h4):not(:where([class~="not-prose"] *)) {
+    @apply mb-4;
   }
 
   /* Homepage */

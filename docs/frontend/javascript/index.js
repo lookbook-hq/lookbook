@@ -19,4 +19,6 @@ document.addEventListener("turbo:render", function () {
     .forEach(function (element) {
       element.scrollTop = scrollPositions[element.id];
     });
+
+  Lookbook.initEmbeds();
 });

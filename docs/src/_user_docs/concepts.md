@@ -1,7 +1,7 @@
 ---
 id: key-concepts
 label: Key Concepts
-title: Key Concepts
+title: Key Concepts & Terminology
 ---
 
 <%= render section("Components", id: "components") do |s| %>
@@ -50,5 +50,15 @@ title: Key Concepts
   Lookbook's [Markdown-powered pages system](<%= guide_url :pages %>) allows for creating **long-form documentation** that lives alongside (and is tightly integrated with) component previews.
 
   [Read more about pages &rarr;](<%= guide_url :pages %>)
+  
+<% end %>
+
+<%= render section("Preview inspector", id: "inspector") do |s| %>
+  
+  The **preview inspector** is Lookbook's UI for viewing and interacting with component previews and associated information.
+
+  The inspector is made up of a number of tabbed panels that can be customised to fit the needs of your project.
+
+  [Read more about customising the preview inspector &rarr;](<%= guide_url :ui_inspector %>)
   
 <% end %>

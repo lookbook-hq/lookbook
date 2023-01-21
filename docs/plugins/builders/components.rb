@@ -19,5 +19,9 @@ class Builders::Components < SiteBuilder
     helper :section, helpers_scope: true do |title = nil, **opts|
       LookbookDocs::Section::Component.new(toc: view.resource.data.toc, title: title, **opts)
     end
+
+    helper :code, helpers_scope: true do |lang = :html, **opts, &block|
+      view.render LookbookDocs::Code::Component.new(lang: lang, **opts), &block
+    end
   end
 end

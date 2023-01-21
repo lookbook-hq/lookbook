@@ -25,10 +25,8 @@
   <link rel="stylesheet" href="<%= asset_path :css %>" />
 
   <% if resource.data.lookbook_embeds == true %>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.2/iframeResizer.min.js" defer></script>
-    <script src="http://localhost:3000/lookbook-assets/js/lookbook.js" defer></script>
+    <script src="<%= links.v2.demo_home %>/lookbook-assets/js/lookbook.js" defer></script>
   <% end %>
-
   <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
   <script src="<%= asset_path :js %>" defer></script>
     

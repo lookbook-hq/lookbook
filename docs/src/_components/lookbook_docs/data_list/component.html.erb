@@ -1,25 +1,30 @@
 <%= tag.div **html_attrs, class: [html_attrs[:class], "not-prose"] do %>
-  <table>
-    <tbody>
-      <% data.each do |items| %>
-        <% items.each do |key, value| %>
-          <tr>
-            <td class="w-[5%] whitespace-nowrap">
-              <code class="text-indigo-600 font-semibold"><%= key %></code>
-            </td>
-            <td>
-              <%= markdown value %>
-            </td>
-          </tr>
+  <% if title %>
+    <h4 class="font-bold mb-3"><%= title %></h4>    
+  <% end %>
+  <div class="border border-gray-300 py-2 rounded">
+    <table>
+      <tbody>
+        <% data.each do |items| %>
+          <% items.each do |key, value| %>
+            <tr>
+              <td class="w-[5%] whitespace-nowrap">
+                <code class="text-indigo-600 font-semibold"><%= key %></code>
+              </td>
+              <td>
+                <%= markdown value %>
+              </td>
+            </tr>
+          <% end %>
+          <% unless items == data.last %>
+            <tr>
+              <td colspan="2">
+                <div class="border-t border-gray-200 mt-px"></div>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
-        <% unless items == data.last %>
-          <tr>
-            <td colspan="2">
-              <div class="border-t border-gray-200 mt-px"></div>
-            </td>
-          </tr>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 <% end %>

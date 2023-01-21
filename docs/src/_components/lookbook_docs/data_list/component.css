@@ -1,6 +1,4 @@
 [data-component="data-list"] {
-  @apply border border-gray-300 py-2 rounded;
-
   table {
     @apply bg-white w-full text-sm;
   }
