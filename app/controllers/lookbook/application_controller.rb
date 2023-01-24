@@ -17,6 +17,7 @@ module Lookbook
 
     def index
       landing = Lookbook.pages.find(&:landing?) || Lookbook.pages.first
+
       if landing.present?
         redirect_to lookbook_page_path(landing.path)
       else
