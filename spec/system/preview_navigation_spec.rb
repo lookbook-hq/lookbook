@@ -62,8 +62,8 @@ RSpec.describe "preview navigation", type: :system do
         end
 
         context "when scenario sorting is disabled" do
-          before { Lookbook.config.sort_scenarios = true }
-          after { Lookbook.config.sort_scenarios = false }
+          before { Lookbook.config.preview_sort_scenarios = true }
+          after { Lookbook.config.preview_sort_scenarios = false }
 
           it "that are displayed in the same order as the scenario methods in the preview class" do
             within("#previews-nav") do
@@ -74,8 +74,8 @@ RSpec.describe "preview navigation", type: :system do
         end
 
         context "when scenario sorting is enabled" do
-          before { Lookbook.config.sort_scenarios = true }
-          after { Lookbook.config.sort_scenarios = false }
+          before { Lookbook.config.preview_sort_scenarios = true }
+          after { Lookbook.config.preview_sort_scenarios = false }
 
           it "that are displayed in alphabetical order" do
             within("#previews-nav") do

@@ -22,7 +22,7 @@ collections:
     permalink: /extend/:path.*
     title: Extending Lookbook
 
-  api:
+  api_docs:
     output: true
     section: true
     permalink: /api/:path.*

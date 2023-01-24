@@ -35,7 +35,7 @@ groups:
   - label: Sharing
     items:
       - embeds
-      - deployment
+      - production
 
   - label: UI Customisation
     items:
@@ -47,4 +47,4 @@ groups:
     items:
       - tags-reference
       - config-reference
-      - troubleshooting
+      # - troubleshooting

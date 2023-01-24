@@ -50,7 +50,7 @@ title: UI Themes
   <% s.with_block_prose do %>
     The following variables can be overridden in your application config:
   <% end %>
-  <% s.with_block_data_list data: site.data.user_docs.theme_variables %>
+  <% s.with_block_data_list data: site.data.theme_variables %>
 
   <% s.with_block_subheading "Using color scales", id: "scales" %>
   <% s.with_block_prose do %>
@@ -99,7 +99,7 @@ title: UI Themes
 
   <% s.with_block_subheading "Color scale variables", level: 3 %>
 
-  <% s.with_block_data_list data: site.data.user_docs.color_scale_variables %>
+  <% s.with_block_data_list data: site.data.color_scale_variables %>
 
 <% end %>
 

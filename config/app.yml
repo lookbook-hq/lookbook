@@ -1,32 +1,9 @@
 shared:
   project_name: Lookbook
 
-  component_paths: [app/views]
-
-  page_controller: "Lookbook::PageController"
-  page_route: pages
-  page_paths: [test/components/docs]
-  page_extensions: [html.*, md.*]
-  page_options: {}
-  markdown_options:
-    tables: true
-    fenced_code_blocks: true
-    disable_indented_code_blocks: true
-    strikethrough: true
-    highlight: true
-    with_toc_data: true
-    lax_spacing: true
-  highlighter_options:
-    theme: github
-    dark: false
-
-  sort_scenarios: false
   preview_paths: [test/components/previews]
   preview_display_options: {}
-  preview_disable_action_view_annotations: true
-  preview_type_default: view_component
   preview_controller: "Lookbook::PreviewController"
-  preview_layout: ~
   preview_template: lookbook/previews/preview
   preview_inspector:
     panels: [source, notes, params, "*"]
@@ -36,6 +13,31 @@ shared:
     actions: []
     scenarios: []
     display_option_controls: true
+  preview_layout: ~
+  preview_disable_action_view_annotations: true
+  preview_type_default: view_component
+  preview_sort_scenarios: false
+
+  page_controller: "Lookbook::PageController"
+  page_route: pages
+  page_paths: [test/components/docs]
+  page_extensions: [html.*, md.*]
+  page_options: {}
+
+  markdown_options:
+    tables: true
+    fenced_code_blocks: true
+    disable_indented_code_blocks: true
+    strikethrough: true
+    highlight: true
+    with_toc_data: true
+    lax_spacing: true
+
+  highlighter_options:
+    theme: github
+    dark: false
+
+  component_paths: [app/views]
 
   listen_paths: []
   listen_extensions: [rb, html.*]

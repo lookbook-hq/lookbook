@@ -5,20 +5,20 @@ groups:
 
   - label: Inspector Panels
     items:
-      - panels-adding
+      - panels-overview
       - panels-templates
       - panels-styles
       - panels-editing
 
   - label: Param Inputs
     items:
-      - params-adding
+      - params-overview
       - params-templates
       - params-styles
 
   - label: Custom Tags
     items:
-      - tags-adding
+      - tags-overview
       - tags-using
 
   - label: Other

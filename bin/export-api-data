@@ -120,7 +120,7 @@ def available?(code_object)
 end
 
 def data_dir
-  File.expand_path("../docs/src/_data/api/exported", __dir__)
+  File.expand_path("../docs/src/_data/api", __dir__)
 end
 
 def write_data(name, data)

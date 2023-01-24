@@ -4,9 +4,7 @@ label: Introduction
 title: Introduction
 ---
 
-<%= render section(id: "overview") do |s| %>
-  <% s.with_title "Overview", hidden: true %>
-
+<%= render section(overview: true) do |s| %>
   <% s.with_block_prose do %>    
     This section provides instructions on how to extend Lookbook to better any specific requirements your project might have.
     

@@ -1,0 +1,122 @@
+- name: "@label"
+  signature_args: "<text>"
+  params:
+    - name: <text>
+      types: String
+      text: Text to use for the label
+  description: "Customises the label to displayed in the nav."
+  example: |
+    # @label Primary Button
+    def main_but
+    end
+
+- name: "@logical_path"
+  signature_args: "<directory_path>"
+  params:
+    - name: <directory_path>
+      types: String
+      text: Nav tree directory path
+  description: "Sets a custom nav directory location for the preview to be displayed at."
+  example: |
+    # @logical_path path/to/directory
+    class FooComponentPreview < ViewComponent::Preview
+      # ...
+    end
+
+- name: "@hidden"
+  description: "Prevents the target preview class or scenario from appearing in the nav."
+  example: |
+    # @hidden
+    def not_ready
+    end
+
+- name: "@!group"
+  signature_args: "<name?> ... @!endgroup"
+  params:
+    - name: <name?>
+      types: String
+      text: Optional group name. Will default to the name of the first example in the group if not provided.
+  description: Groups scenarios together for rendering in a single preview.
+  example: |
+    # @!group Colors
+    def red_button
+    end
+    def blue_button
+    end
+    # @!endgroup
+
+- name: "@param"
+  signature_args: "<name> [<type?>] <input_type?> <description?> <opts?>"
+  params:
+    - name: <name>
+      types: String
+      text: Name of the example method parameter that this should be used for.
+    - name: <type?>
+      types: String
+      text: Optional data type to cast the value to before passing to the example as a parameter. Must be wrapped in square brackets.
+    - name: <input_type?>
+      types: String
+      text: The type of form input to render. Will be guessed if not provided.
+    - name: <description?>
+      types: String
+      text: Optional short description of what the param is used for, supplied as a double-quoted string.
+    - name: <opts?>
+      types: Hash
+      text: Hash of param options
+  description: |
+    Specifies a dynamic preview parameter that will be editiable in the UI via a form input.
+    Cannot be applied at the class level. Used for scenario methods only.
+  example: |
+    # @param theme [Symbol] select { choices: [primary, secondary, danger] }
+    def themed_example(theme: :primary)
+    end
+
+- name: "@display"
+  signature_args: "<key> <value>"
+  description: Sets the value of a display variable for use in preview layouts.
+  example: |
+    # @display bg_color "#000" 
+    def light_on_dark
+    end
+
+- name: "@component"
+  signature_args: "<identifier>"
+  example: |
+    # @component Elements::ButtonComponent
+    # @component elements/button.html.erb
+    class InteractiveComponentsPreview < ViewComponent::Preview
+    end
+  description: |
+    Identifies the component being rendered in the preview.
+
+    Only necessary when it is not possible to guess it from the preview class name.
+    Can be applied multiple times if there is more than one component being rendered.
+
+- name: "@source"
+  signature_args: "<file_path>"
+  params:
+    - name: <file_path>
+      types: String
+      text: |
+        File path. Will be resolved relative to the current preview file if it begins with a "." (i.e. `./component.js`),
+        otherwise it will be resolved relative to the base preview directory
+  description: |
+    Replace the default content of the 'Source' panel with the contents of the specified file.
+    Cannot be applied at the class level. Used for scenario methods only.
+  example: |
+    # @source ./component.js
+    def default_example
+    end
+
+# - name: "@type"
+#   signature_args: "<preview_type>"
+#   params:
+#     - name: <preview_type>
+#       types: String
+#       text: |
+#         Type descriptor - i.e `view_component`, `template`, or `phlex`
+#   description: The type of thing being rendered in the preview. Defaults to `view_component`
+#   example: |
+#     # @type template
+#     def default_example
+#     end

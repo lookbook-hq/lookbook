@@ -11,9 +11,7 @@ title: Installing Lookbook
   for details on how to update your project to the latest version. 
 <% end %>
 
-<%= render section(id: "install") do |s| %>
-  <% s.with_title "Installation" %>
-
+<%= render section("Installation", id: "install") do |s| %>
   <% s.with_block_prose do %>
     Follow the steps below to add Lookbook to your project.
   <% end %>
@@ -33,7 +31,7 @@ title: Installing Lookbook
   <% end %>
 
   <% s.with_block_note :tip do %>
-    Lookbook can also be run in production - see [the deployment docs](<%= guide_url :deployment %>) for details on how to set that up.
+    Lookbook can also be run in production - see [the docs for details](<%= guide_url :production %>) on how to set that up.
   <% end %>
 
   <% s.with_block_subheading "Mount the Lookbook engine", id: "step-2", step: 2 %>
@@ -52,12 +50,12 @@ title: Installing Lookbook
     The mount path (`/lookbook` in the example above) will be the URL that the Lookbook UI will be made accessible at within your app.
   <% end %>
 
-  <% s.with_block_subheading "Install optional dependencies", id: "step-3", step: 3 %>
+  <% s.with_block_subheading "Enable live UI updates", id: "step-3", step: 3 %>
 
   <% s.with_block_prose do %>
     Lookbook requires the `listen` and `actioncable` gems to enable live-updating of the UI when changes are made to component or preview files.
 
-    These are optional dependencies - if they are not present the only difference is that you will need to manually refresh the Lookbook UI to see the changes.
+    These are **optional dependencies** - if they are not present the only difference is that you will need to manually refresh the Lookbook UI to see any changes that you have made.
 
     Many Rails apps already include these gems. If your project doesn't you can enable Lookbook live UI updates by including them in the `:development` group in your `Gemfile`:
 

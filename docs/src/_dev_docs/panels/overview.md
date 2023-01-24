@@ -1,17 +1,22 @@
 ---
-id: panels-adding
-label: Adding Custom Panels
-title: Adding Custom Panels
+id: panels-overview
+label: Overview
+title: Overview
 ---
 
-<%= render section("Adding a custom panel", overview: true) do |s| %>
+<%= render section(overview: true) do |s| %>
+  You can extend Lookbook's preview experience to better match your projects requirements by adding
+  **custom inspector panels** to display data about the current preview.
+<% end %>
+
+<%= render section("Adding panels", id: "options") do |s| %>
   <% s.with_block_prose do %>
-    You can add a custom inspector panel using the `Lookbook.add_panel` method
+    Custom inspector panels can be added using the `Lookbook.add_panel` method
     when you [configure your Lookbook installation](<%= guide_url :configuration %>):
   <% end %>
 
   <% s.with_block_api_method "Lookbook", :add_panel, show: [:params] %>
-
+  
   <% s.with_block_prose do %>
     For example, a very simple 'info' panel could be created as follows:
 
@@ -40,9 +45,7 @@ title: Adding Custom Panels
   
 <% end %>
 
-<%= render section(id: "options") do |s| %>
-  <% s.with_title "Panel options" %>
-
+<%= render section("Panel options", id: "options") do |s| %>
   <% s.with_block_prose do %>
     There are a number of available options when defining a panel:
   <% end %>

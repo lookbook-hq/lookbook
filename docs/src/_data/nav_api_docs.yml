@@ -1,4 +1,8 @@
 groups:
+  - label: Get Started
+    items:
+      - introduction
+      
   - label: Application
     items:
       - lookbook

@@ -26,7 +26,7 @@ title: Panel Templates
   <% end %>
 
   <% s.with_block_method_list do |list| %>
-    <% site.data.dev_docs.panel_variables.each do |var| %>
+    <% site.data.panel_variables.each do |var| %>
       <% add_toc_entry({label: var[:name], id: var[:id], level: 3 }) %>
       <% list.with_item_method(**(var.symbolize_keys)) %>
     <% end %>

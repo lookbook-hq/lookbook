@@ -19,7 +19,7 @@ class Builders::Site < SiteBuilder
     end
 
     helper :api_url, helpers_scope: true do |id|
-      page_url(:api, id)
+      page_url(:api_docs, id)
     end
 
     helper :page_url, helpers_scope: true do |collection_name, id|
@@ -48,7 +48,7 @@ class Builders::Site < SiteBuilder
 
     helper :sections, helpers_scope: true do
       section_collections.map do |label, col|
-        resource_ids = site.data[label].nav.groups.flat_map(&:items)
+        resource_ids = site.data["nav_#{label}"].groups.flat_map(&:items)
         index = col.resources.find { _1.data.id == resource_ids.first }
         {
           url: index.relative_url,
@@ -61,7 +61,7 @@ class Builders::Site < SiteBuilder
     helper :current_group, helpers_scope: true do
       collection = view.resource.collection
       if collection
-        site.data[collection.label].nav.groups.find do |group|
+        site.data["nav_#{collection.label}"].groups.find do |group|
           group[:items].include?(view.resource.data.id)
         end
       end
@@ -69,7 +69,7 @@ class Builders::Site < SiteBuilder
 
     helper :collection_resources, helpers_scope: true do |label|
       collection = site.collections[label]
-      resource_ids = site.data[label].nav.groups.flat_map(&:items)
+      resource_ids = site.data["nav_#{label}"].groups.flat_map(&:items)
       resource_ids.map do |id|
         collection.resources.find { _1.data.id == id }
       end
@@ -112,7 +112,7 @@ class Builders::Site < SiteBuilder
     helper :api_module_data, helpers_scope: true do |klass|
       klass = klass.to_s.downcase.underscore.to_sym
       set = nil
-      site.data.api.exported.each do |key, data|
+      site.data.api.each do |key, data|
         if data[klass].present?
           set = data[klass]
           break

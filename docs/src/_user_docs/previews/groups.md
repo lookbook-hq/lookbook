@@ -174,7 +174,7 @@ title: Grouping Previews
     If you wish to customise the way that the grouped scenarios are displayed in the preview,
     you can override Lookbook's default rendered output template.
 
-    To do so, create a new view template within your app at `./app/views/lookbook/preview.html.erb`.
+    To do so, create a new view template within your app at `./app/views/lookbook/previews/group.html.erb`.
     This is the template that will now be used to render all Lookbook previews (not just grouped ones!).
 
     The default template looks as follows, and is worth using as a starting point:

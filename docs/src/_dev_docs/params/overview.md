@@ -1,7 +1,7 @@
 ---
-id: params-adding
-label: Adding Custom Inputs
-title: Adding Custom Inputs
+id: params-overview
+label: Overview
+title: Overview
 ---
 
 <%= render section(overview: true) do |s| %>
@@ -12,7 +12,7 @@ title: Adding Custom Inputs
 
 <%= render section("Adding a custom input", id: "adding") do |s| %>
   <% s.with_block_prose do %>
-    To define a custom input you can do so using the `Lookbook.add_param` method when when you [configure your Lookbook installation](<%= guide_url :configuration %>):
+    To define a custom input use the `Lookbook.add_param` method when when you [configure your Lookbook installation](<%= guide_url :configuration %>):
   <% end %>
 
   <% s.with_block_api_method "Lookbook", :add_param, show: [:params] %>

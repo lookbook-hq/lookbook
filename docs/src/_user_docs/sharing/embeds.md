@@ -49,9 +49,9 @@ lookbook_embeds: true
 
   <% s.with_block_subheading "Enable Lookbook in production", id: "production", step: 1 %>
   <% s.with_block_prose do %>
-    Lookbook must be running in production and publically accessible if embeds are to work, as they must be configured to point to a running Lookbook instance.
+    Lookbook must be running in production (and publically accessible) if embeds are to work, as they must be configured to point to a running Lookbook instance.
 
-    See the docs on [deploying to production](<%= guide_url :deployment %>) for more details.
+    See the docs on [running to production](<%= guide_url :production %>) for more details.
   <% end %>
 
   <% s.with_block_subheading "Configure the access policy", id: "access", step: 2 %>
@@ -183,7 +183,7 @@ lookbook_embeds: true
     panels="notes,source,*" <!-- show notes, then source, then all other panels -->
     ```
   <% end %>
-  <% s.with_block_data_list title: "Available panels:", data: site.data.user_docs.inspector_panels %>
+  <% s.with_block_data_list title: "Available panels:", data: site.data.inspector_panels %>
 
   <% s.with_block_subheading "Actions", id: "actions" %>
   <% s.with_block_prose do %>
@@ -204,7 +204,7 @@ lookbook_embeds: true
     </details>
 
   <% end %>
-  <% s.with_block_data_list title: "Available actions:", data: site.data.user_docs.embed_actions %>
+  <% s.with_block_data_list title: "Available actions:", data: site.data.embed_actions %>
 
   <% s.with_block_subheading "Params", id: "params" %>
   <% s.with_block_prose do %>

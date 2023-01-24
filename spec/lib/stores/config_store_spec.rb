@@ -187,15 +187,15 @@ RSpec.describe Lookbook::ConfigStore do
         end
       end
 
-      context "sort_scenarios" do
+      context "preview_sort_scenarios" do
         it "is disabled by default" do
-          expect(config.sort_scenarios).to be false
+          expect(config.preview_sort_scenarios).to be false
         end
 
         it "can be enabled" do
-          config.sort_scenarios = true
+          config.preview_sort_scenarios = true
 
-          expect(config.sort_scenarios).to be true
+          expect(config.preview_sort_scenarios).to be true
         end
       end
 
@@ -225,7 +225,7 @@ RSpec.describe Lookbook::ConfigStore do
         it "can be changed" do
           config.preview_disable_action_view_annotations = false
 
-          expect(config.sort_scenarios).to be false
+          expect(config.preview_sort_scenarios).to be false
         end
       end
 

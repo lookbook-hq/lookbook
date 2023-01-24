@@ -73,7 +73,7 @@ module Lookbook
     protected
 
     def sort_handler(other_entity)
-      if Lookbook.config.sort_scenarios
+      if Lookbook.config.preview_sort_scenarios
         label <=> other_entity.label
       else
         [priority, label] <=> [other_entity.priority, other_entity.label]

@@ -6,9 +6,9 @@
       <code class="inline-flex items-end text-indigo-700">
         <span class="text-gray-500 opacity-70"><%= scope_identifier %></span>
         <span class="font-semibold"><%= signature_call %></span>
-        <span class="opacity-80">
+        <span class="opacity-80" style="font-size: 0.94em">
           <% if signature_args.present? %>
-            <strong>(</strong><%= signature_args %><strong>)</strong>
+            <% if wrap_args %><strong>(</strong><% else %>&nbsp;<% end %><%= signature_args %><% if wrap_args %><strong>)</strong><% end %>
           <% end %>
         </span>
       </code>

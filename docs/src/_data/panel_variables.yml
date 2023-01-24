@@ -27,10 +27,10 @@
   types: Array<RenderedScenarioEntity>
   example: |
     <p>This preview is showing <%= scenarios.size %> scenarios rendered together.</p>
-    <p>Here is the source code for each :</p>
-    <% scenarios.each do || %>
+    <p>Here is the source code for each scenario:</p>
+    <% scenarios.each do |scenario| %>
       <div>
-        <%= .source %>
+        <%= scenario.source %>
       <div>
     <% end %>
   description: |
