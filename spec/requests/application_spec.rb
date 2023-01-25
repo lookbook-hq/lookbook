@@ -74,7 +74,7 @@ RSpec.describe "application", type: :request do
     end
   end
 
-  context "JSON endpoint" do
+  describe "JSON endpoint" do
     it "returns a JSON list of previews with example inspect paths" do
       get lookbook_previews_path(format: :json)
 
