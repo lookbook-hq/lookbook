@@ -14,7 +14,7 @@ module Lookbook
 
     def add(to_add = nil)
       Array(to_add).each do |entity|
-        unless find_by_path(entity.path)
+        unless find_by_path(entity.lookup_path)
           @entities.push(entity)
         end
       end
@@ -27,16 +27,16 @@ module Lookbook
     end
 
     def find_by_path(path)
-      @entities.find { |entity| entity.path.to_s == path.to_s }
+      @entities.find { |entity| entity.lookup_path.to_s == path.to_s }
     end
 
     def next(entity)
-      index = entities.find_index { |i| i.path == entity.path }
+      index = entities.find_index { |i| i.lookup_path == entity.lookup_path }
       entities[index + 1] unless index.nil?
     end
 
     def previous(entity)
-      index = entities.find_index { |i| i.path == entity.path }
+      index = entities.find_index { |i| i.lookup_path == entity.lookup_path }
       entities[index - 1] if !index.nil? && index > 0
     end
 

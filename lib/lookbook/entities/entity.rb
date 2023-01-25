@@ -47,6 +47,8 @@ module Lookbook
     alias_method :path, :lookup_path
     alias_method :logical_path, :lookup_path
 
+    deprecate path: :lookup_path, deprecator: Deprecation
+
     protected
 
     def fetch_config(key, fallback = nil, &block)

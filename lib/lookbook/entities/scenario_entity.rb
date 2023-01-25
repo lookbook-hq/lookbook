@@ -66,9 +66,13 @@ module Lookbook
     end
 
     alias_method :parent, :preview
-    alias_method :lang, :source_lang
     alias_method :components, :targets
     alias_method :component, :target
+    alias_method :lang, :source_lang
+    alias_method :examples, :scenarios
+
+    deprecate lang: :source_lang, deprecator: Deprecation
+    deprecate examples: :scenarios, deprecator: Deprecation
 
     protected
 

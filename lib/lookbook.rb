@@ -225,25 +225,15 @@ module Lookbook
       }
     end
 
-    # @deprecated
-    def define_param_input(*args)
-      add_param(*args)
-    end
+    alias_method :define_param_input, :add_param
+    alias_method :define_panel, :add_panel
+    alias_method :amend_panel, :edit_panel
+    alias_method :define_tag, :add_tag
 
-    # @deprecated
-    def define_panel(*args)
-      add_panel(*args)
-    end
-
-    # @deprecated
-    def amend_panel(*args)
-      edit_panel(*args)
-    end
-
-    # @deprecated
-    def define_tag(...)
-      add_tag(...)
-    end
+    deprecate define_param_input: :add_param, deprecator: Deprecation
+    deprecate define_panel: :add_panel, deprecator: Deprecation
+    deprecate amend_panel: :edit_panel, deprecator: Deprecation
+    deprecate define_tag: :add_tag, deprecator: Deprecation
   end
 end
 

@@ -74,6 +74,11 @@ module Lookbook
 
     alias_method :components, :targets
     alias_method :component, :target
+    alias_method :examples, :scenarios
+    alias_method :example, :scenario
+
+    deprecate examples: :scenarios, deprecator: Deprecation
+    deprecate example: :scenario, deprecator: Deprecation
 
     protected
 
