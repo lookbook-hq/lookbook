@@ -3,7 +3,7 @@ module Lookbook
     CONFIG_FILE = "config/panels.yml"
 
     DEFAULTS = {
-      label: lambda { |data| data.name.titleize },
+      label: lambda { |data| data.name.to_s.titleize },
       hotkey: nil,
       disabled: false,
       show: true,
@@ -98,7 +98,7 @@ module Lookbook
     protected
 
     def build_config(name, *args)
-      opts = if args.many? && args.last.is_a?(Hash)
+      opts = if args.many? && args.first.is_a?(String) && args.last.is_a?(Hash)
         args.last.merge({partial: args.first})
       elsif args.any?
         args.first.is_a?(String) ? {partial: args.first} : args.first

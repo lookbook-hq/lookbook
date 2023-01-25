@@ -3,7 +3,7 @@ module Lookbook
     extend ActiveSupport::Concern
 
     included do
-      include PreviewHelper
+      helper PreviewHelper
       prepend_view_path Engine.root.join("app/views")
       before_action :permit_embeds
 
