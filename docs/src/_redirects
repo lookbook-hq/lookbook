@@ -1,0 +1,4 @@
+http://www.lookbook.build/_ https://lookbook.build/:splat 301!
+https://www.lookbook.build/_ https://lookbook.build/:splat 301!
+
+/ /guide 302
