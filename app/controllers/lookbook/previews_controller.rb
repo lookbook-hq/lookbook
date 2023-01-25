@@ -10,6 +10,26 @@ module Lookbook
       "lookbook/previews"
     end
 
+    def index
+      respond_to do |format|
+        format.json do
+          render(
+            json: Lookbook.previews.map do |preview|
+              {
+                name: preview.name,
+                examples: preview.examples.map { |example|
+                  {
+                    inspect_path: example.url_path,
+                    name: example.name
+                  }
+                }
+              }
+            end
+          )
+        end
+      end
+    end
+
     def show
       if @target
         begin
