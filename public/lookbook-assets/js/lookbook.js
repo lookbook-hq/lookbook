@@ -220,14 +220,14 @@ function $caa9439642c6336c$var$onMutate(mutations) {
         node._x_ignoreSelf = true;
         node._x_ignore = true;
     });
-    for (let node1 of addedNodes){
-        if (removedNodes.includes(node1)) continue;
-        if (!node1.isConnected) continue;
-        delete node1._x_ignoreSelf;
-        delete node1._x_ignore;
-        $caa9439642c6336c$var$onElAddeds.forEach((i)=>i(node1));
-        node1._x_ignore = true;
-        node1._x_ignoreSelf = true;
+    for (let node of addedNodes){
+        if (removedNodes.includes(node)) continue;
+        if (!node.isConnected) continue;
+        delete node._x_ignoreSelf;
+        delete node._x_ignore;
+        $caa9439642c6336c$var$onElAddeds.forEach((i)=>i(node));
+        node._x_ignore = true;
+        node._x_ignoreSelf = true;
     }
     addedNodes.forEach((node)=>{
         delete node._x_ignoreSelf;
@@ -439,7 +439,7 @@ var $caa9439642c6336c$var$evaluatorMemo = {};
 function $caa9439642c6336c$var$generateFunctionFromString(expression, el) {
     if ($caa9439642c6336c$var$evaluatorMemo[expression]) return $caa9439642c6336c$var$evaluatorMemo[expression];
     let AsyncFunction = Object.getPrototypeOf(async function() {}).constructor;
-    let rightSideSafeExpression = /^[\n\s]*if.*\(.*\)/.test(expression) || /^(let|const)\s/.test(expression) ? `(() => { ${expression} })()` : expression;
+    let rightSideSafeExpression = /^[\n\s]*if.*\(.*\)/.test(expression) || /^(let|const)\s/.test(expression) ? `(async()=>{ ${expression} })()` : expression;
     const safeAsyncFunction = ()=>{
         try {
             return new AsyncFunction([
@@ -480,7 +480,8 @@ function $caa9439642c6336c$var$runIfTypeOfFunction(receiver, value, scope2, para
         let result = value.apply(scope2, params);
         if (result instanceof Promise) result.then((i)=>$caa9439642c6336c$var$runIfTypeOfFunction(receiver, i, scope2, params)).catch((error2)=>$caa9439642c6336c$var$handleError(error2, el, value));
         else receiver(result);
-    } else receiver(value);
+    } else if (typeof value === "object" && value instanceof Promise) value.then((i)=>receiver(i));
+    else receiver(value);
 }
 // packages/alpinejs/src/directives.js
 var $caa9439642c6336c$var$prefixAsString = "x-";
@@ -493,6 +494,16 @@ function $caa9439642c6336c$var$setPrefix(newPrefix) {
 var $caa9439642c6336c$var$directiveHandlers = {};
 function $caa9439642c6336c$var$directive(name, callback) {
     $caa9439642c6336c$var$directiveHandlers[name] = callback;
+    return {
+        before (directive2) {
+            if (!$caa9439642c6336c$var$directiveHandlers[directive2]) {
+                console.warn("Cannot find directive `${directive}`. `${name}` will use the default order of execution");
+                return;
+            }
+            const pos = $caa9439642c6336c$var$directiveOrder.indexOf(directive2) ?? $caa9439642c6336c$var$directiveOrder.indexOf("DEFAULT");
+            if (pos >= 0) $caa9439642c6336c$var$directiveOrder.splice(pos, 0, name);
+        }
+    };
 }
 function $caa9439642c6336c$var$directives(el, attributes, originalAttributeOverride) {
     attributes = Array.from(attributes);
@@ -629,8 +640,6 @@ var $caa9439642c6336c$var$directiveOrder = [
     "disclosure",
     "menu",
     "listbox",
-    "list",
-    "item",
     "combobox",
     "bind",
     "init",
@@ -657,29 +666,6 @@ function $caa9439642c6336c$var$dispatch(el, name, detail = {}) {
         composed: true,
         cancelable: true
     }));
-}
-// packages/alpinejs/src/nextTick.js
-var $caa9439642c6336c$var$tickStack = [];
-var $caa9439642c6336c$var$isHolding = false;
-function $caa9439642c6336c$var$nextTick(callback = ()=>{}) {
-    queueMicrotask(()=>{
-        $caa9439642c6336c$var$isHolding || setTimeout(()=>{
-            $caa9439642c6336c$var$releaseNextTicks();
-        });
-    });
-    return new Promise((res)=>{
-        $caa9439642c6336c$var$tickStack.push(()=>{
-            callback();
-            res();
-        });
-    });
-}
-function $caa9439642c6336c$var$releaseNextTicks() {
-    $caa9439642c6336c$var$isHolding = false;
-    while($caa9439642c6336c$var$tickStack.length)$caa9439642c6336c$var$tickStack.shift()();
-}
-function $caa9439642c6336c$var$holdNextTicks() {
-    $caa9439642c6336c$var$isHolding = true;
 }
 // packages/alpinejs/src/utils/walk.js
 function $caa9439642c6336c$var$walk(el, callback) {
@@ -747,9 +733,15 @@ function $caa9439642c6336c$var$findClosest(el, callback) {
 function $caa9439642c6336c$var$isRoot(el) {
     return $caa9439642c6336c$var$rootSelectors().some((selector)=>el.matches(selector));
 }
-function $caa9439642c6336c$var$initTree(el, walker = $caa9439642c6336c$var$walk) {
+var $caa9439642c6336c$var$initInterceptors2 = [];
+function $caa9439642c6336c$var$interceptInit(callback) {
+    $caa9439642c6336c$var$initInterceptors2.push(callback);
+}
+function $caa9439642c6336c$var$initTree(el, walker = $caa9439642c6336c$var$walk, intercept = ()=>{}) {
     $caa9439642c6336c$var$deferHandlingDirectives(()=>{
         walker(el, (el2, skip)=>{
+            intercept(el2, skip);
+            $caa9439642c6336c$var$initInterceptors2.forEach((i)=>i(el2, skip));
             $caa9439642c6336c$var$directives(el2, el2.attributes).forEach((handle)=>handle());
             el2._x_ignore && skip();
         });
@@ -757,6 +749,29 @@ function $caa9439642c6336c$var$initTree(el, walker = $caa9439642c6336c$var$walk)
 }
 function $caa9439642c6336c$var$destroyTree(root) {
     $caa9439642c6336c$var$walk(root, (el)=>$caa9439642c6336c$var$cleanupAttributes(el));
+}
+// packages/alpinejs/src/nextTick.js
+var $caa9439642c6336c$var$tickStack = [];
+var $caa9439642c6336c$var$isHolding = false;
+function $caa9439642c6336c$var$nextTick(callback = ()=>{}) {
+    queueMicrotask(()=>{
+        $caa9439642c6336c$var$isHolding || setTimeout(()=>{
+            $caa9439642c6336c$var$releaseNextTicks();
+        });
+    });
+    return new Promise((res)=>{
+        $caa9439642c6336c$var$tickStack.push(()=>{
+            callback();
+            res();
+        });
+    });
+}
+function $caa9439642c6336c$var$releaseNextTicks() {
+    $caa9439642c6336c$var$isHolding = false;
+    while($caa9439642c6336c$var$tickStack.length)$caa9439642c6336c$var$tickStack.shift()();
+}
+function $caa9439642c6336c$var$holdNextTicks() {
+    $caa9439642c6336c$var$isHolding = true;
 }
 // packages/alpinejs/src/utils/classes.js
 function $caa9439642c6336c$var$setClasses(el, value) {
@@ -1102,6 +1117,9 @@ var $caa9439642c6336c$var$isCloning = false;
 function $caa9439642c6336c$var$skipDuringClone(callback, fallback = ()=>{}) {
     return (...args)=>$caa9439642c6336c$var$isCloning ? fallback(...args) : callback(...args);
 }
+function $caa9439642c6336c$var$onlyDuringClone(callback) {
+    return (...args)=>$caa9439642c6336c$var$isCloning && callback(...args);
+}
 function $caa9439642c6336c$var$clone(oldEl, newEl) {
     if (!newEl._x_dataStack) newEl._x_dataStack = oldEl._x_dataStack;
     $caa9439642c6336c$var$isCloning = true;
@@ -1370,23 +1388,28 @@ var $caa9439642c6336c$var$Alpine = {
     get raw () {
         return $caa9439642c6336c$var$raw;
     },
-    version: "3.10.5",
+    version: "3.11.1",
     flushAndStopDeferringMutations: $caa9439642c6336c$var$flushAndStopDeferringMutations,
     dontAutoEvaluateFunctions: $caa9439642c6336c$var$dontAutoEvaluateFunctions,
     disableEffectScheduling: $caa9439642c6336c$var$disableEffectScheduling,
+    startObservingMutations: $caa9439642c6336c$var$startObservingMutations,
+    stopObservingMutations: $caa9439642c6336c$var$stopObservingMutations,
     setReactivityEngine: $caa9439642c6336c$var$setReactivityEngine,
     closestDataStack: $caa9439642c6336c$var$closestDataStack,
     skipDuringClone: $caa9439642c6336c$var$skipDuringClone,
+    onlyDuringClone: $caa9439642c6336c$var$onlyDuringClone,
     addRootSelector: $caa9439642c6336c$var$addRootSelector,
     addInitSelector: $caa9439642c6336c$var$addInitSelector,
     addScopeToNode: $caa9439642c6336c$var$addScopeToNode,
     deferMutations: $caa9439642c6336c$var$deferMutations,
     mapAttributes: $caa9439642c6336c$var$mapAttributes,
     evaluateLater: $caa9439642c6336c$var$evaluateLater,
+    interceptInit: $caa9439642c6336c$var$interceptInit,
     setEvaluator: $caa9439642c6336c$var$setEvaluator,
     mergeProxies: $caa9439642c6336c$var$mergeProxies,
     findClosest: $caa9439642c6336c$var$findClosest,
     closestRoot: $caa9439642c6336c$var$closestRoot,
+    destroyTree: $caa9439642c6336c$var$destroyTree,
     interceptor: $caa9439642c6336c$var$interceptor,
     transition: $caa9439642c6336c$var$transition,
     setStyles: $caa9439642c6336c$var$setStyles,
@@ -1406,6 +1429,7 @@ var $caa9439642c6336c$var$Alpine = {
     clone: $caa9439642c6336c$var$clone,
     bound: $caa9439642c6336c$var$getBinding,
     $data: $caa9439642c6336c$var$scope,
+    walk: $caa9439642c6336c$var$walk,
     data: $caa9439642c6336c$var$data,
     bind: $caa9439642c6336c$var$bind2
 };
@@ -2070,8 +2094,40 @@ $caa9439642c6336c$var$warnMissingPluginMagic("Persist", "persist", "persist");
 function $caa9439642c6336c$var$warnMissingPluginMagic(name, magicName, slug) {
     $caa9439642c6336c$var$magic(magicName, (el)=>$caa9439642c6336c$var$warn(`You can't use [$${directiveName}] without first installing the "${name}" plugin here: https://alpinejs.dev/plugins/${slug}`, el));
 }
+// packages/alpinejs/src/entangle.js
+function $caa9439642c6336c$var$entangle({ get: outerGet , set: outerSet  }, { get: innerGet , set: innerSet  }) {
+    let firstRun = true;
+    let outerHash, innerHash, outerHashLatest, innerHashLatest;
+    let reference = $caa9439642c6336c$var$effect(()=>{
+        let outer, inner;
+        if (firstRun) {
+            outer = outerGet();
+            innerSet(outer);
+            inner = innerGet();
+            firstRun = false;
+        } else {
+            outer = outerGet();
+            inner = innerGet();
+            outerHashLatest = JSON.stringify(outer);
+            innerHashLatest = JSON.stringify(inner);
+            if (outerHashLatest !== outerHash) {
+                inner = innerGet();
+                innerSet(outer);
+                inner = outer;
+            } else {
+                outerSet(inner);
+                outer = inner;
+            }
+        }
+        outerHash = JSON.stringify(outer);
+        innerHash = JSON.stringify(inner);
+    });
+    return ()=>{
+        $caa9439642c6336c$var$release(reference);
+    };
+}
 // packages/alpinejs/src/directives/x-modelable.js
-$caa9439642c6336c$var$directive("modelable", (el, { expression: expression  }, { effect: effect3 , evaluateLater: evaluateLater2  })=>{
+$caa9439642c6336c$var$directive("modelable", (el, { expression: expression  }, { effect: effect3 , evaluateLater: evaluateLater2 , cleanup: cleanup2  })=>{
     let func = evaluateLater2(expression);
     let innerGet = ()=>{
         let result;
@@ -2091,14 +2147,33 @@ $caa9439642c6336c$var$directive("modelable", (el, { expression: expression  }, {
         el._x_removeModelListeners["default"]();
         let outerGet = el._x_model.get;
         let outerSet = el._x_model.set;
-        effect3(()=>innerSet(outerGet()));
-        effect3(()=>outerSet(innerGet()));
+        let releaseEntanglement = $caa9439642c6336c$var$entangle({
+            get () {
+                return outerGet();
+            },
+            set (value) {
+                outerSet(value);
+            }
+        }, {
+            get () {
+                return innerGet();
+            },
+            set (value) {
+                innerSet(value);
+            }
+        });
+        cleanup2(releaseEntanglement);
     });
 });
 // packages/alpinejs/src/directives/x-teleport.js
-$caa9439642c6336c$var$directive("teleport", (el, { expression: expression  }, { cleanup: cleanup2  })=>{
+var $caa9439642c6336c$var$teleportContainerDuringClone = document.createElement("div");
+$caa9439642c6336c$var$directive("teleport", (el, { modifiers: modifiers , expression: expression  }, { cleanup: cleanup2  })=>{
     if (el.tagName.toLowerCase() !== "template") $caa9439642c6336c$var$warn("x-teleport can only be used on a <template> tag", el);
-    let target = document.querySelector(expression);
+    let target = $caa9439642c6336c$var$skipDuringClone(()=>{
+        return document.querySelector(expression);
+    }, ()=>{
+        return $caa9439642c6336c$var$teleportContainerDuringClone;
+    })();
     if (!target) $caa9439642c6336c$var$warn(`Cannot find x-teleport element for selector: "${expression}"`);
     let clone2 = el.content.cloneNode(true).firstElementChild;
     el._x_teleport = clone2;
@@ -2111,7 +2186,9 @@ $caa9439642c6336c$var$directive("teleport", (el, { expression: expression  }, { 
     });
     $caa9439642c6336c$var$addScopeToNode(clone2, {}, el);
     $caa9439642c6336c$var$mutateDom(()=>{
-        target.appendChild(clone2);
+        if (modifiers.includes("prepend")) target.parentNode.insertBefore(clone2, target);
+        else if (modifiers.includes("append")) target.parentNode.insertBefore(clone2, target.nextSibling);
+        else target.appendChild(clone2);
         $caa9439642c6336c$var$initTree(clone2);
         clone2._x_ignore = true;
     });
@@ -2177,9 +2254,9 @@ function $caa9439642c6336c$var$on(el, event, modifiers, callback) {
         handler3 = $caa9439642c6336c$var$debounce(handler3, wait);
     }
     if (modifiers.includes("throttle")) {
-        let nextModifier1 = modifiers[modifiers.indexOf("throttle") + 1] || "invalid-wait";
-        let wait1 = $caa9439642c6336c$var$isNumeric(nextModifier1.split("ms")[0]) ? Number(nextModifier1.split("ms")[0]) : 250;
-        handler3 = $caa9439642c6336c$var$throttle(handler3, wait1);
+        let nextModifier = modifiers[modifiers.indexOf("throttle") + 1] || "invalid-wait";
+        let wait = $caa9439642c6336c$var$isNumeric(nextModifier.split("ms")[0]) ? Number(nextModifier.split("ms")[0]) : 250;
+        handler3 = $caa9439642c6336c$var$throttle(handler3, wait);
     }
     listenerTarget.addEventListener(event, handler3, options);
     return ()=>{
@@ -2196,6 +2273,10 @@ function $caa9439642c6336c$var$isNumeric(subject) {
     return !Array.isArray(subject) && !isNaN(subject);
 }
 function $caa9439642c6336c$var$kebabCase2(subject) {
+    if ([
+        " ",
+        "_"
+    ].includes(subject)) return subject;
     return subject.replace(/([a-z])([A-Z])/g, "$1-$2").replace(/[_\s]/, "-").toLowerCase();
 }
 function $caa9439642c6336c$var$isKeyEvent(event) {
@@ -2216,6 +2297,10 @@ function $caa9439642c6336c$var$isListeningForASpecificKeyThatHasntBeenPressed(e,
     });
     if (keyModifiers.includes("debounce")) {
         let debounceIndex = keyModifiers.indexOf("debounce");
+        keyModifiers.splice(debounceIndex, $caa9439642c6336c$var$isNumeric((keyModifiers[debounceIndex + 1] || "invalid-wait").split("ms")[0]) ? 2 : 1);
+    }
+    if (keyModifiers.includes("throttle")) {
+        let debounceIndex = keyModifiers.indexOf("throttle");
         keyModifiers.splice(debounceIndex, $caa9439642c6336c$var$isNumeric((keyModifiers[debounceIndex + 1] || "invalid-wait").split("ms")[0]) ? 2 : 1);
     }
     if (keyModifiers.length === 0) return false;
@@ -2247,8 +2332,8 @@ function $caa9439642c6336c$var$keyToModifiers(key) {
     let modifierToKeyMap = {
         ctrl: "control",
         slash: "/",
-        space: "-",
-        spacebar: "-",
+        space: " ",
+        spacebar: " ",
         cmd: "meta",
         esc: "escape",
         up: "arrow-up",
@@ -2256,7 +2341,9 @@ function $caa9439642c6336c$var$keyToModifiers(key) {
         left: "arrow-left",
         right: "arrow-right",
         period: ".",
-        equal: "="
+        equal: "=",
+        minus: "-",
+        underscore: "_"
     };
     modifierToKeyMap[key] = key;
     return Object.keys(modifierToKeyMap).map((modifier)=>{
@@ -2265,79 +2352,89 @@ function $caa9439642c6336c$var$keyToModifiers(key) {
 }
 // packages/alpinejs/src/directives/x-model.js
 $caa9439642c6336c$var$directive("model", (el, { modifiers: modifiers , expression: expression  }, { effect: effect3 , cleanup: cleanup2  })=>{
-    let evaluate2 = $caa9439642c6336c$var$evaluateLater(el, expression);
-    let assignmentExpression = `${expression} = rightSideOfExpression($event, ${expression})`;
-    let evaluateAssignment = $caa9439642c6336c$var$evaluateLater(el, assignmentExpression);
+    let scopeTarget = el;
+    if (modifiers.includes("parent")) scopeTarget = el.parentNode;
+    let evaluateGet = $caa9439642c6336c$var$evaluateLater(scopeTarget, expression);
+    let evaluateSet;
+    if (typeof expression === "string") evaluateSet = $caa9439642c6336c$var$evaluateLater(scopeTarget, `${expression} = __placeholder`);
+    else if (typeof expression === "function" && typeof expression() === "string") evaluateSet = $caa9439642c6336c$var$evaluateLater(scopeTarget, `${expression()} = __placeholder`);
+    else evaluateSet = ()=>{};
+    let getValue = ()=>{
+        let result;
+        evaluateGet((value)=>result = value);
+        return $caa9439642c6336c$var$isGetterSetter(result) ? result.get() : result;
+    };
+    let setValue = (value)=>{
+        let result;
+        evaluateGet((value2)=>result = value2);
+        if ($caa9439642c6336c$var$isGetterSetter(result)) result.set(value);
+        else evaluateSet(()=>{}, {
+            scope: {
+                __placeholder: value
+            }
+        });
+    };
+    if (typeof expression === "string" && el.type === "radio") $caa9439642c6336c$var$mutateDom(()=>{
+        if (!el.hasAttribute("name")) el.setAttribute("name", expression);
+    });
     var event = el.tagName.toLowerCase() === "select" || [
         "checkbox",
         "radio"
     ].includes(el.type) || modifiers.includes("lazy") ? "change" : "input";
-    let assigmentFunction = $caa9439642c6336c$var$generateAssignmentFunction(el, modifiers, expression);
     let removeListener = $caa9439642c6336c$var$on(el, event, modifiers, (e)=>{
-        evaluateAssignment(()=>{}, {
-            scope: {
-                $event: e,
-                rightSideOfExpression: assigmentFunction
-            }
-        });
+        setValue($caa9439642c6336c$var$getInputValue(el, modifiers, e, getValue()));
     });
     if (!el._x_removeModelListeners) el._x_removeModelListeners = {};
     el._x_removeModelListeners["default"] = removeListener;
     cleanup2(()=>el._x_removeModelListeners["default"]());
-    let evaluateSetModel = $caa9439642c6336c$var$evaluateLater(el, `${expression} = __placeholder`);
+    if (el.form) {
+        let removeResetListener = $caa9439642c6336c$var$on(el.form, "reset", [], (e)=>{
+            $caa9439642c6336c$var$nextTick(()=>el._x_model && el._x_model.set(el.value));
+        });
+        cleanup2(()=>removeResetListener());
+    }
     el._x_model = {
         get () {
-            let result;
-            evaluate2((value)=>result = value);
-            return result;
+            return getValue();
         },
         set (value) {
-            evaluateSetModel(()=>{}, {
-                scope: {
-                    __placeholder: value
-                }
-            });
+            setValue(value);
         }
     };
-    el._x_forceModelUpdate = ()=>{
-        evaluate2((value)=>{
-            if (value === void 0 && expression.match(/\./)) value = "";
-            window.fromModel = true;
-            $caa9439642c6336c$var$mutateDom(()=>$caa9439642c6336c$var$bind(el, "value", value));
-            delete window.fromModel;
-        });
+    el._x_forceModelUpdate = (value)=>{
+        value = value === void 0 ? getValue() : value;
+        if (value === void 0 && typeof expression === "string" && expression.match(/\./)) value = "";
+        window.fromModel = true;
+        $caa9439642c6336c$var$mutateDom(()=>$caa9439642c6336c$var$bind(el, "value", value));
+        delete window.fromModel;
     };
     effect3(()=>{
+        let value = getValue();
         if (modifiers.includes("unintrusive") && document.activeElement.isSameNode(el)) return;
-        el._x_forceModelUpdate();
+        el._x_forceModelUpdate(value);
     });
 });
-function $caa9439642c6336c$var$generateAssignmentFunction(el, modifiers, expression) {
-    if (el.type === "radio") $caa9439642c6336c$var$mutateDom(()=>{
-        if (!el.hasAttribute("name")) el.setAttribute("name", expression);
-    });
-    return (event, currentValue)=>{
-        return $caa9439642c6336c$var$mutateDom(()=>{
-            if (event instanceof CustomEvent && event.detail !== void 0) return event.detail || event.target.value;
-            else if (el.type === "checkbox") {
-                if (Array.isArray(currentValue)) {
-                    let newValue = modifiers.includes("number") ? $caa9439642c6336c$var$safeParseNumber(event.target.value) : event.target.value;
-                    return event.target.checked ? currentValue.concat([
-                        newValue
-                    ]) : currentValue.filter((el2)=>!$caa9439642c6336c$var$checkedAttrLooseCompare2(el2, newValue));
-                } else return event.target.checked;
-            } else if (el.tagName.toLowerCase() === "select" && el.multiple) return modifiers.includes("number") ? Array.from(event.target.selectedOptions).map((option)=>{
-                let rawValue = option.value || option.text;
-                return $caa9439642c6336c$var$safeParseNumber(rawValue);
-            }) : Array.from(event.target.selectedOptions).map((option)=>{
-                return option.value || option.text;
-            });
-            else {
-                let rawValue = event.target.value;
-                return modifiers.includes("number") ? $caa9439642c6336c$var$safeParseNumber(rawValue) : modifiers.includes("trim") ? rawValue.trim() : rawValue;
-            }
+function $caa9439642c6336c$var$getInputValue(el, modifiers, event, currentValue) {
+    return $caa9439642c6336c$var$mutateDom(()=>{
+        if (event instanceof CustomEvent && event.detail !== void 0) return typeof event.detail != "undefined" ? event.detail : event.target.value;
+        else if (el.type === "checkbox") {
+            if (Array.isArray(currentValue)) {
+                let newValue = modifiers.includes("number") ? $caa9439642c6336c$var$safeParseNumber(event.target.value) : event.target.value;
+                return event.target.checked ? currentValue.concat([
+                    newValue
+                ]) : currentValue.filter((el2)=>!$caa9439642c6336c$var$checkedAttrLooseCompare2(el2, newValue));
+            } else return event.target.checked;
+        } else if (el.tagName.toLowerCase() === "select" && el.multiple) return modifiers.includes("number") ? Array.from(event.target.selectedOptions).map((option)=>{
+            let rawValue = option.value || option.text;
+            return $caa9439642c6336c$var$safeParseNumber(rawValue);
+        }) : Array.from(event.target.selectedOptions).map((option)=>{
+            return option.value || option.text;
         });
-    };
+        else {
+            let rawValue = event.target.value;
+            return modifiers.includes("number") ? $caa9439642c6336c$var$safeParseNumber(rawValue) : modifiers.includes("trim") ? rawValue.trim() : rawValue;
+        }
+    });
 }
 function $caa9439642c6336c$var$safeParseNumber(rawValue) {
     let number = rawValue ? parseFloat(rawValue) : null;
@@ -2348,6 +2445,9 @@ function $caa9439642c6336c$var$checkedAttrLooseCompare2(valueA, valueB) {
 }
 function $caa9439642c6336c$var$isNumeric2(subject) {
     return !Array.isArray(subject) && !isNaN(subject);
+}
+function $caa9439642c6336c$var$isGetterSetter(value) {
+    return value !== null && typeof value === "object" && typeof value.get === "function" && typeof value.set === "function";
 }
 // packages/alpinejs/src/directives/x-cloak.js
 $caa9439642c6336c$var$directive("cloak", (el)=>queueMicrotask(()=>$caa9439642c6336c$var$mutateDom(()=>el.removeAttribute($caa9439642c6336c$var$prefix("cloak")))));
@@ -2513,44 +2613,44 @@ function $caa9439642c6336c$var$loop(el, iteratorNames, evaluateItems, evaluateKe
         let moves = [];
         let removes = [];
         let sames = [];
-        for(let i1 = 0; i1 < prevKeys.length; i1++){
-            let key = prevKeys[i1];
+        for(let i = 0; i < prevKeys.length; i++){
+            let key = prevKeys[i];
             if (keys.indexOf(key) === -1) removes.push(key);
         }
         prevKeys = prevKeys.filter((key)=>!removes.includes(key));
         let lastKey = "template";
-        for(let i2 = 0; i2 < keys.length; i2++){
-            let key1 = keys[i2];
-            let prevIndex = prevKeys.indexOf(key1);
+        for(let i = 0; i < keys.length; i++){
+            let key = keys[i];
+            let prevIndex = prevKeys.indexOf(key);
             if (prevIndex === -1) {
-                prevKeys.splice(i2, 0, key1);
+                prevKeys.splice(i, 0, key);
                 adds.push([
                     lastKey,
-                    i2
+                    i
                 ]);
-            } else if (prevIndex !== i2) {
-                let keyInSpot = prevKeys.splice(i2, 1)[0];
+            } else if (prevIndex !== i) {
+                let keyInSpot = prevKeys.splice(i, 1)[0];
                 let keyForSpot = prevKeys.splice(prevIndex - 1, 1)[0];
-                prevKeys.splice(i2, 0, keyForSpot);
+                prevKeys.splice(i, 0, keyForSpot);
                 prevKeys.splice(prevIndex, 0, keyInSpot);
                 moves.push([
                     keyInSpot,
                     keyForSpot
                 ]);
-            } else sames.push(key1);
-            lastKey = key1;
+            } else sames.push(key);
+            lastKey = key;
         }
-        for(let i3 = 0; i3 < removes.length; i3++){
-            let key2 = removes[i3];
-            if (!!lookup[key2]._x_effects) lookup[key2]._x_effects.forEach($caa9439642c6336c$var$dequeueJob);
-            lookup[key2].remove();
-            lookup[key2] = null;
-            delete lookup[key2];
+        for(let i = 0; i < removes.length; i++){
+            let key = removes[i];
+            if (!!lookup[key]._x_effects) lookup[key]._x_effects.forEach($caa9439642c6336c$var$dequeueJob);
+            lookup[key].remove();
+            lookup[key] = null;
+            delete lookup[key];
         }
-        for(let i4 = 0; i4 < moves.length; i4++){
-            let [keyInSpot1, keyForSpot1] = moves[i4];
-            let elInSpot = lookup[keyInSpot1];
-            let elForSpot = lookup[keyForSpot1];
+        for(let i = 0; i < moves.length; i++){
+            let [keyInSpot, keyForSpot] = moves[i];
+            let elInSpot = lookup[keyInSpot];
+            let elForSpot = lookup[keyForSpot];
             let marker = document.createElement("div");
             $caa9439642c6336c$var$mutateDom(()=>{
                 elForSpot.after(marker);
@@ -2560,24 +2660,24 @@ function $caa9439642c6336c$var$loop(el, iteratorNames, evaluateItems, evaluateKe
                 elInSpot._x_currentIfEl && elInSpot.after(elInSpot._x_currentIfEl);
                 marker.remove();
             });
-            $caa9439642c6336c$var$refreshScope(elForSpot, scopes[keys.indexOf(keyForSpot1)]);
+            $caa9439642c6336c$var$refreshScope(elForSpot, scopes[keys.indexOf(keyForSpot)]);
         }
-        for(let i5 = 0; i5 < adds.length; i5++){
-            let [lastKey2, index] = adds[i5];
+        for(let i = 0; i < adds.length; i++){
+            let [lastKey2, index] = adds[i];
             let lastEl = lastKey2 === "template" ? templateEl : lookup[lastKey2];
             if (lastEl._x_currentIfEl) lastEl = lastEl._x_currentIfEl;
-            let scope21 = scopes[index];
-            let key3 = keys[index];
+            let scope2 = scopes[index];
+            let key = keys[index];
             let clone2 = document.importNode(templateEl.content, true).firstElementChild;
-            $caa9439642c6336c$var$addScopeToNode(clone2, $caa9439642c6336c$var$reactive(scope21), templateEl);
+            $caa9439642c6336c$var$addScopeToNode(clone2, $caa9439642c6336c$var$reactive(scope2), templateEl);
             $caa9439642c6336c$var$mutateDom(()=>{
                 lastEl.after(clone2);
                 $caa9439642c6336c$var$initTree(clone2);
             });
-            if (typeof key3 === "object") $caa9439642c6336c$var$warn("x-for key cannot be an object, it must be a string or an integer", templateEl);
-            lookup[key3] = clone2;
+            if (typeof key === "object") $caa9439642c6336c$var$warn("x-for key cannot be an object, it must be a string or an integer", templateEl);
+            lookup[key] = clone2;
         }
-        for(let i6 = 0; i6 < sames.length; i6++)$caa9439642c6336c$var$refreshScope(lookup[sames[i6]], scopes[keys.indexOf(sames[i6])]);
+        for(let i = 0; i < sames.length; i++)$caa9439642c6336c$var$refreshScope(lookup[sames[i]], scopes[keys.indexOf(sames[i])]);
         templateEl._x_prevKeys = keys;
     });
 }
@@ -2606,8 +2706,8 @@ function $caa9439642c6336c$var$getIterationScopeVariables(iteratorNames, item, i
             scopeVariables[name] = item[i];
         });
     } else if (/^\{.*\}$/.test(iteratorNames.item) && !Array.isArray(item) && typeof item === "object") {
-        let names1 = iteratorNames.item.replace("{", "").replace("}", "").split(",").map((i)=>i.trim());
-        names1.forEach((name)=>{
+        let names = iteratorNames.item.replace("{", "").replace("}", "").split(",").map((i)=>i.trim());
+        names.forEach((name)=>{
             scopeVariables[name] = item[name];
         });
     } else scopeVariables[iteratorNames.item] = item;
@@ -2705,56 +2805,6 @@ var $caa9439642c6336c$export$2e2bcd8739ae039 = $caa9439642c6336c$var$src_default
 
 
 // packages/morph/src/dom.js
-var $512e3a9270ec7803$var$DomManager = class {
-    el = void 0;
-    constructor(el){
-        this.el = el;
-    }
-    traversals = {
-        first: "firstElementChild",
-        next: "nextElementSibling",
-        parent: "parentElement"
-    };
-    nodes() {
-        this.traversals = {
-            first: "firstChild",
-            next: "nextSibling",
-            parent: "parentNode"
-        };
-        return this;
-    }
-    first() {
-        return this.teleportTo(this.el[this.traversals["first"]]);
-    }
-    next() {
-        return this.teleportTo(this.teleportBack(this.el[this.traversals["next"]]));
-    }
-    before(insertee) {
-        this.el[this.traversals["parent"]].insertBefore(insertee, this.el);
-        return insertee;
-    }
-    replace(replacement) {
-        this.el[this.traversals["parent"]].replaceChild(replacement, this.el);
-        return replacement;
-    }
-    append(appendee) {
-        this.el.appendChild(appendee);
-        return appendee;
-    }
-    teleportTo(el) {
-        if (!el) return el;
-        if (el._x_teleport) return el._x_teleport;
-        return el;
-    }
-    teleportBack(el) {
-        if (!el) return el;
-        if (el._x_teleportBack) return el._x_teleportBack;
-        return el;
-    }
-};
-function $512e3a9270ec7803$var$dom(el) {
-    return new $512e3a9270ec7803$var$DomManager(el);
-}
 function $512e3a9270ec7803$var$createElement(html) {
     const template = document.createElement("template");
     template.innerHTML = html;
@@ -2763,18 +2813,59 @@ function $512e3a9270ec7803$var$createElement(html) {
 function $512e3a9270ec7803$var$textOrComment(el) {
     return el.nodeType === 3 || el.nodeType === 8;
 }
+var $512e3a9270ec7803$var$dom = {
+    replace (children, old, replacement) {
+        let index = children.indexOf(old);
+        if (index === -1) throw "Cant find element in children";
+        old.replaceWith(replacement);
+        children[index] = replacement;
+        return children;
+    },
+    before (children, reference, subject) {
+        let index = children.indexOf(reference);
+        if (index === -1) throw "Cant find element in children";
+        reference.before(subject);
+        children.splice(index, 0, subject);
+        return children;
+    },
+    append (children, subject, appendFn) {
+        let last = children[children.length - 1];
+        appendFn(subject);
+        children.push(subject);
+        return children;
+    },
+    remove (children, subject) {
+        let index = children.indexOf(subject);
+        if (index === -1) throw "Cant find element in children";
+        subject.remove();
+        return children.filter((i)=>i !== subject);
+    },
+    first (children) {
+        return this.teleportTo(children[0]);
+    },
+    next (children, reference) {
+        let index = children.indexOf(reference);
+        if (index === -1) return;
+        return this.teleportTo(this.teleportBack(children[index + 1]));
+    },
+    teleportTo (el) {
+        if (!el) return el;
+        if (el._x_teleport) return el._x_teleport;
+        return el;
+    },
+    teleportBack (el) {
+        if (!el) return el;
+        if (el._x_teleportBack) return el._x_teleportBack;
+        return el;
+    }
+};
 // packages/morph/src/morph.js
 var $512e3a9270ec7803$var$resolveStep = ()=>{};
 var $512e3a9270ec7803$var$logger = ()=>{};
-async function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) {
+function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) {
     let fromEl;
     let toEl;
-    let key, lookahead, updating, updated, removing, removed, adding, added, debug;
-    function breakpoint(message) {
-        if (!debug) return;
-        $512e3a9270ec7803$var$logger((message || "").replace("\n", "\\n"), fromEl, toEl);
-        return new Promise((resolve)=>$512e3a9270ec7803$var$resolveStep = ()=>resolve());
-    }
+    let key, lookahead, updating, updated, removing, removed, adding, added;
     function assignOptions(options2 = {}) {
         let defaultGetKey = (el)=>el.getAttribute("key");
         let noop = ()=>{};
@@ -2786,25 +2877,22 @@ async function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) 
         added = options2.added || noop;
         key = options2.key || defaultGetKey;
         lookahead = options2.lookahead || false;
-        debug = options2.debug || false;
     }
-    async function patch(from2, to) {
-        if (differentElementNamesTypesOrKeys(from2, to)) {
-            let result = patchElement(from2, to);
-            await breakpoint("Swap elements");
-            return result;
-        }
+    function patch(from2, to) {
+        if (differentElementNamesTypesOrKeys(from2, to)) return patchElement(from2, to);
         let updateChildrenOnly = false;
         if ($512e3a9270ec7803$var$shouldSkip(updating, from2, to, ()=>updateChildrenOnly = true)) return;
         window.Alpine && $512e3a9270ec7803$var$initializeAlpineOnTo(from2, to, ()=>updateChildrenOnly = true);
         if ($512e3a9270ec7803$var$textOrComment(to)) {
-            await patchNodeValue(from2, to);
+            patchNodeValue(from2, to);
             updated(from2, to);
             return;
         }
-        if (!updateChildrenOnly) await patchAttributes(from2, to);
+        if (!updateChildrenOnly) patchAttributes(from2, to);
         updated(from2, to);
-        await patchChildren(from2, to);
+        patchChildren(Array.from(from2.childNodes), Array.from(to.childNodes), (toAppend)=>{
+            from2.appendChild(toAppend);
+        });
     }
     function differentElementNamesTypesOrKeys(from2, to) {
         return from2.nodeType != to.nodeType || from2.nodeName != to.nodeName || getKey(from2) != getKey(to);
@@ -2813,122 +2901,144 @@ async function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) 
         if ($512e3a9270ec7803$var$shouldSkip(removing, from2)) return;
         let toCloned = to.cloneNode(true);
         if ($512e3a9270ec7803$var$shouldSkip(adding, toCloned)) return;
-        $512e3a9270ec7803$var$dom(from2).replace(toCloned);
+        $512e3a9270ec7803$var$dom.replace([
+            from2
+        ], from2, toCloned);
         removed(from2);
         added(toCloned);
     }
-    async function patchNodeValue(from2, to) {
+    function patchNodeValue(from2, to) {
         let value = to.nodeValue;
-        if (from2.nodeValue !== value) {
-            from2.nodeValue = value;
-            await breakpoint("Change text node to: " + value);
-        }
+        if (from2.nodeValue !== value) from2.nodeValue = value;
     }
-    async function patchAttributes(from2, to) {
+    function patchAttributes(from2, to) {
         if (from2._x_isShown && !to._x_isShown) return;
         if (!from2._x_isShown && to._x_isShown) return;
         let domAttributes = Array.from(from2.attributes);
         let toAttributes = Array.from(to.attributes);
         for(let i = domAttributes.length - 1; i >= 0; i--){
             let name = domAttributes[i].name;
-            if (!to.hasAttribute(name)) {
-                from2.removeAttribute(name);
-                await breakpoint("Remove attribute");
-            }
+            if (!to.hasAttribute(name)) from2.removeAttribute(name);
         }
-        for(let i1 = toAttributes.length - 1; i1 >= 0; i1--){
-            let name1 = toAttributes[i1].name;
-            let value = toAttributes[i1].value;
-            if (from2.getAttribute(name1) !== value) {
-                from2.setAttribute(name1, value);
-                await breakpoint(`Set [${name1}] attribute to: "${value}"`);
-            }
+        for(let i = toAttributes.length - 1; i >= 0; i--){
+            let name = toAttributes[i].name;
+            let value = toAttributes[i].value;
+            if (from2.getAttribute(name) !== value) from2.setAttribute(name, value);
         }
     }
-    async function patchChildren(from2, to) {
-        let domChildren = from2.childNodes;
-        let toChildren = to.childNodes;
-        let toKeyToNodeMap = keyToMap(toChildren);
-        let domKeyDomNodeMap = keyToMap(domChildren);
-        let currentTo = $512e3a9270ec7803$var$dom(to).nodes().first();
-        let currentFrom = $512e3a9270ec7803$var$dom(from2).nodes().first();
-        let domKeyHoldovers = {};
+    function patchChildren(fromChildren, toChildren, appendFn) {
+        let fromKeyDomNodeMap = {};
+        let fromKeyHoldovers = {};
+        let currentTo = $512e3a9270ec7803$var$dom.first(toChildren);
+        let currentFrom = $512e3a9270ec7803$var$dom.first(fromChildren);
         while(currentTo){
             let toKey = getKey(currentTo);
-            let domKey = getKey(currentFrom);
+            let fromKey = getKey(currentFrom);
             if (!currentFrom) {
-                if (toKey && domKeyHoldovers[toKey]) {
-                    let holdover = domKeyHoldovers[toKey];
-                    $512e3a9270ec7803$var$dom(from2).append(holdover);
+                if (toKey && fromKeyHoldovers[toKey]) {
+                    let holdover = fromKeyHoldovers[toKey];
+                    fromChildren = $512e3a9270ec7803$var$dom.append(fromChildren, holdover, appendFn);
                     currentFrom = holdover;
-                    await breakpoint("Add element (from key)");
                 } else {
-                    let added2 = addNodeTo(currentTo, from2) || {};
-                    await breakpoint("Add element: " + (added2.outerHTML || added2.nodeValue));
-                    currentTo = $512e3a9270ec7803$var$dom(currentTo).nodes().next();
+                    if (!$512e3a9270ec7803$var$shouldSkip(adding, currentTo)) {
+                        let clone = currentTo.cloneNode(true);
+                        fromChildren = $512e3a9270ec7803$var$dom.append(fromChildren, clone, appendFn);
+                        added(clone);
+                    }
+                    currentTo = $512e3a9270ec7803$var$dom.next(toChildren, currentTo);
                     continue;
                 }
             }
-            if (lookahead) {
-                let nextToElementSibling = $512e3a9270ec7803$var$dom(currentTo).next();
+            let isIf = (node)=>node.nodeType === 8 && node.textContent === " __BLOCK__ ";
+            let isEnd = (node)=>node.nodeType === 8 && node.textContent === " __ENDBLOCK__ ";
+            if (isIf(currentTo) && isIf(currentFrom)) {
+                let newFromChildren = [];
+                let appendPoint;
+                let nestedIfCount = 0;
+                while(currentFrom){
+                    let next = $512e3a9270ec7803$var$dom.next(fromChildren, currentFrom);
+                    if (isIf(next)) nestedIfCount++;
+                    else if (isEnd(next) && nestedIfCount > 0) nestedIfCount--;
+                    else if (isEnd(next) && nestedIfCount === 0) {
+                        currentFrom = $512e3a9270ec7803$var$dom.next(fromChildren, next);
+                        appendPoint = next;
+                        break;
+                    }
+                    newFromChildren.push(next);
+                    currentFrom = next;
+                }
+                let newToChildren = [];
+                nestedIfCount = 0;
+                while(currentTo){
+                    let next = $512e3a9270ec7803$var$dom.next(toChildren, currentTo);
+                    if (isIf(next)) nestedIfCount++;
+                    else if (isEnd(next) && nestedIfCount > 0) nestedIfCount--;
+                    else if (isEnd(next) && nestedIfCount === 0) {
+                        currentTo = $512e3a9270ec7803$var$dom.next(toChildren, next);
+                        break;
+                    }
+                    newToChildren.push(next);
+                    currentTo = next;
+                }
+                patchChildren(newFromChildren, newToChildren, (node)=>appendPoint.before(node));
+                continue;
+            }
+            if (currentFrom.nodeType === 1 && lookahead) {
+                let nextToElementSibling = $512e3a9270ec7803$var$dom.next(toChildren, currentTo);
                 let found = false;
                 while(!found && nextToElementSibling){
                     if (currentFrom.isEqualNode(nextToElementSibling)) {
                         found = true;
-                        currentFrom = addNodeBefore(currentTo, currentFrom);
-                        domKey = getKey(currentFrom);
-                        await breakpoint("Move element (lookahead)");
+                        [fromChildren, currentFrom] = addNodeBefore(fromChildren, currentTo, currentFrom);
+                        fromKey = getKey(currentFrom);
                     }
-                    nextToElementSibling = $512e3a9270ec7803$var$dom(nextToElementSibling).next();
+                    nextToElementSibling = $512e3a9270ec7803$var$dom.next(toChildren, nextToElementSibling);
                 }
             }
-            if (toKey !== domKey) {
-                if (!toKey && domKey) {
-                    domKeyHoldovers[domKey] = currentFrom;
-                    currentFrom = addNodeBefore(currentTo, currentFrom);
-                    domKeyHoldovers[domKey].remove();
-                    currentFrom = $512e3a9270ec7803$var$dom(currentFrom).nodes().next();
-                    currentTo = $512e3a9270ec7803$var$dom(currentTo).nodes().next();
-                    await breakpoint('No "to" key');
+            if (toKey !== fromKey) {
+                if (!toKey && fromKey) {
+                    fromKeyHoldovers[fromKey] = currentFrom;
+                    [fromChildren, currentFrom] = addNodeBefore(fromChildren, currentTo, currentFrom);
+                    fromChildren = $512e3a9270ec7803$var$dom.remove(fromChildren, fromKeyHoldovers[fromKey]);
+                    currentFrom = $512e3a9270ec7803$var$dom.next(fromChildren, currentFrom);
+                    currentTo = $512e3a9270ec7803$var$dom.next(toChildren, currentTo);
                     continue;
                 }
-                if (toKey && !domKey) {
-                    if (domKeyDomNodeMap[toKey]) {
-                        currentFrom = $512e3a9270ec7803$var$dom(currentFrom).replace(domKeyDomNodeMap[toKey]);
-                        await breakpoint('No "from" key');
+                if (toKey && !fromKey) {
+                    if (fromKeyDomNodeMap[toKey]) {
+                        fromChildren = $512e3a9270ec7803$var$dom.replace(fromChildren, currentFrom, fromKeyDomNodeMap[toKey]);
+                        currentFrom = fromKeyDomNodeMap[toKey];
                     }
                 }
-                if (toKey && domKey) {
-                    domKeyHoldovers[domKey] = currentFrom;
-                    let domKeyNode = domKeyDomNodeMap[toKey];
-                    if (domKeyNode) {
-                        currentFrom = $512e3a9270ec7803$var$dom(currentFrom).replace(domKeyNode);
-                        await breakpoint('Move "from" key');
+                if (toKey && fromKey) {
+                    let fromKeyNode = fromKeyDomNodeMap[toKey];
+                    if (fromKeyNode) {
+                        fromKeyHoldovers[fromKey] = currentFrom;
+                        fromChildren = $512e3a9270ec7803$var$dom.replace(fromChildren, currentFrom, fromKeyNode);
+                        currentFrom = fromKeyNode;
                     } else {
-                        domKeyHoldovers[domKey] = currentFrom;
-                        currentFrom = addNodeBefore(currentTo, currentFrom);
-                        domKeyHoldovers[domKey].remove();
-                        currentFrom = $512e3a9270ec7803$var$dom(currentFrom).next();
-                        currentTo = $512e3a9270ec7803$var$dom(currentTo).next();
-                        await breakpoint("Swap elements with keys");
+                        fromKeyHoldovers[fromKey] = currentFrom;
+                        [fromChildren, currentFrom] = addNodeBefore(fromChildren, currentTo, currentFrom);
+                        fromChildren = $512e3a9270ec7803$var$dom.remove(fromChildren, fromKeyHoldovers[fromKey]);
+                        currentFrom = $512e3a9270ec7803$var$dom.next(fromChildren, currentFrom);
+                        currentTo = $512e3a9270ec7803$var$dom.next(toChildren, currentTo);
                         continue;
                     }
                 }
             }
-            let currentFromNext = currentFrom && $512e3a9270ec7803$var$dom(currentFrom).nodes().next();
-            await patch(currentFrom, currentTo);
-            currentTo = currentTo && $512e3a9270ec7803$var$dom(currentTo).nodes().next();
+            let currentFromNext = currentFrom && $512e3a9270ec7803$var$dom.next(fromChildren, currentFrom);
+            patch(currentFrom, currentTo);
+            currentTo = currentTo && $512e3a9270ec7803$var$dom.next(toChildren, currentTo);
             currentFrom = currentFromNext;
         }
         let removals = [];
         while(currentFrom){
             if (!$512e3a9270ec7803$var$shouldSkip(removing, currentFrom)) removals.push(currentFrom);
-            currentFrom = $512e3a9270ec7803$var$dom(currentFrom).nodes().next();
+            currentFrom = $512e3a9270ec7803$var$dom.next(fromChildren, currentFrom);
         }
         while(removals.length){
             let domForRemoval = removals.shift();
             domForRemoval.remove();
-            await breakpoint("remove el");
             removed(domForRemoval);
         }
     }
@@ -2943,33 +3053,29 @@ async function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) 
         });
         return map;
     }
-    function addNodeTo(node, parent) {
+    function addNodeBefore(children, node, beforeMe) {
         if (!$512e3a9270ec7803$var$shouldSkip(adding, node)) {
             let clone = node.cloneNode(true);
-            $512e3a9270ec7803$var$dom(parent).append(clone);
+            children = $512e3a9270ec7803$var$dom.before(children, beforeMe, clone);
             added(clone);
-            return clone;
+            return [
+                children,
+                clone
+            ];
         }
-        return null;
-    }
-    function addNodeBefore(node, beforeMe) {
-        if (!$512e3a9270ec7803$var$shouldSkip(adding, node)) {
-            let clone = node.cloneNode(true);
-            $512e3a9270ec7803$var$dom(beforeMe).before(clone);
-            added(clone);
-            return clone;
-        }
-        return beforeMe;
+        return [
+            children,
+            node
+        ];
     }
     assignOptions(options);
     fromEl = from;
-    toEl = $512e3a9270ec7803$var$createElement(toHtml);
+    toEl = typeof toHtml === "string" ? $512e3a9270ec7803$var$createElement(toHtml) : toHtml;
     if (window.Alpine && window.Alpine.closestDataStack && !from._x_dataStack) {
         toEl._x_dataStack = window.Alpine.closestDataStack(from);
         toEl._x_dataStack && window.Alpine.clone(from, toEl);
     }
-    await breakpoint();
-    await patch(from, toEl);
+    patch(from, toEl);
     fromEl = void 0;
     toEl = void 0;
     return from;
@@ -3024,6 +3130,15 @@ function $a5acee56471cec18$var$src_default(Alpine) {
         get: ()=>persist()
     });
     Alpine.magic("persist", persist);
+    Alpine.persist = (key, { get: get , set: set  }, storage = localStorage)=>{
+        let initial = $a5acee56471cec18$var$storageHas(key, storage) ? $a5acee56471cec18$var$storageGet(key, storage) : get();
+        set(initial);
+        Alpine.effect(()=>{
+            let value = get();
+            $a5acee56471cec18$var$storageSet(key, value, storage);
+            set(value);
+        });
+    };
 }
 function $a5acee56471cec18$var$storageHas(key, storage) {
     return storage.getItem(key) !== null;
@@ -6422,7 +6537,7 @@ var $5267f0d63de538ba$exports = {};
             // Use session cookie as fallback
             try {
                 window.document.cookie = encodeURIComponent(storageKey) + "=" + levelName + ";";
-            } catch (ignore1) {}
+            } catch (ignore) {}
         }
         function getPersistedLevel() {
             var storedLevel;
@@ -6435,7 +6550,7 @@ var $5267f0d63de538ba$exports = {};
                 var cookie = window.document.cookie;
                 var location = cookie.indexOf(encodeURIComponent(storageKey) + "=");
                 if (location !== -1) storedLevel = /^([^;]+)/.exec(cookie.slice(location))[1];
-            } catch (ignore1) {}
+            } catch (ignore) {}
             // If the stored level is not valid, treat it as if nothing was stored.
             if (self.levels[storedLevel] === undefined) storedLevel = undefined;
             return storedLevel;
@@ -6450,7 +6565,7 @@ var $5267f0d63de538ba$exports = {};
             // Use session cookie as fallback
             try {
                 window.document.cookie = encodeURIComponent(storageKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-            } catch (ignore1) {}
+            } catch (ignore) {}
         }
         /*
        *
@@ -8256,7 +8371,7 @@ function $8e357be334f3fad9$export$ed5e13716264f202(generatorOptions) {
                 state.orderedModifiers = orderedModifiers.filter(function(m) {
                     return m.enabled;
                 }); // Validate the provided modifiers so that the consumer will get warned
-                var modifiers, _ref, name, flipModifier, _ref2, name1, _getComputedStyle, marginTop, marginRight, marginBottom, marginLeft, margin;
+                var modifiers, flipModifier, _getComputedStyle, marginTop, marginRight, marginBottom, marginLeft;
                 runModifierEffects();
                 return instance.update();
             },
@@ -8567,7 +8682,7 @@ function $03e421bdaa8eda14$export$378fa78a8fea596f(_ref2) {
 function $03e421bdaa8eda14$var$computeStyles(_ref5) {
     var state = _ref5.state, options = _ref5.options;
     var _options$gpuAccelerat = options.gpuAcceleration, gpuAcceleration = _options$gpuAccelerat === void 0 ? true : _options$gpuAccelerat, _options$adaptive = options.adaptive, adaptive = _options$adaptive === void 0 ? true : _options$adaptive, _options$roundOffsets = options.roundOffsets, roundOffsets = _options$roundOffsets === void 0 ? true : _options$roundOffsets;
-    var transitionProperty, property;
+    var transitionProperty;
     var commonStyles = {
         placement: (0, $923eec132c8d334b$export$2e2bcd8739ae039)(state.placement),
         variation: (0, $6572b8fb6297a772$export$2e2bcd8739ae039)(state.placement),
