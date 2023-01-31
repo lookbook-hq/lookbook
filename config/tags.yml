@@ -23,8 +23,8 @@ shared:
     label: Component
     opts: {}
 
-  target:
-    label: Target
+  renders:
+    label: Renders
     opts: {}
 
   param:

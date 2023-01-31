@@ -31,12 +31,12 @@ module Lookbook
       parent.display_options.merge(fetch_config(:display_options, {}))
     end
 
-    def targets
-      @_targets ||= RenderTargetCollection.new(load_targets)
+    def render_targets
+      @_render_targets ||= RenderTargetCollection.new(load_render_targets)
     end
 
-    def target
-      targets.first
+    def render_target
+      render_targets.first
     end
 
     def scenarios
@@ -58,7 +58,7 @@ module Lookbook
     end
 
     def url_path
-      lookbook_inspect_path(path)
+      lookbook_inspect_path(lookup_path)
     end
 
     def type
@@ -66,8 +66,8 @@ module Lookbook
     end
 
     alias_method :parent, :preview
-    alias_method :components, :targets
-    alias_method :component, :target
+    alias_method :components, :render_targets
+    alias_method :component, :render_target
     alias_method :lang, :source_lang
     alias_method :examples, :scenarios
 
@@ -96,12 +96,17 @@ module Lookbook
       PathUtils.determine_full_path(template_path, search_dirs)
     end
 
-    def load_targets
-      target_identifiers = [*fetch_config(:targets, []), *preview.send(:fetch_config, :targets, [])]
-      target_identifiers = preview.guess_targets if target_identifiers.empty?
+    def load_render_targets
+      render_target_identifiers = [*fetch_config(:renders, []), *preview.send(:fetch_config, :renders, [])]
+      render_target_identifiers = preview.guess_render_targets if render_target_identifiers.empty?
 
-      targets = target_identifiers.map { |target| ComponentEntity.new(target) }
-      targets.uniq(&:path)
+      render_targets = render_target_identifiers.map do |render_target|
+        RenderableEntity.new(render_target)
+      rescue NameError
+        Lookbook.logger.warn "#{render_target} was not found"
+        nil
+      end
+      render_targets.compact.uniq(&:lookup_path)
     end
   end
 end

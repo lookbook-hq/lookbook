@@ -32,7 +32,7 @@ title: Upgrade Guide
 
 <%= render section("Examples -> Scenarios", id: "examples-scenarios") do |s| %>
   <% s.with_block_prose do %>
-    To reduce confusion, methods within preview classes are now referred to as `scenarios` instead of `examples` - both [in code](<%= api_url :preview_entity %>) and [in documentation](<%= guide_url :concepts %>).
+    Methods within preview classes are now referred to as `scenarios` instead of `examples` - both [in code](<%= api_url :preview_entity %>) and [in documentation](<%= guide_url :concepts %>).
 
     Variables and method names have been renamed accordingly, and the use of `example`/`examples` has been deprecated and will be removed in Lookbook `3.0`.
     
@@ -52,7 +52,7 @@ title: Upgrade Guide
   <% s.with_block_prose do %>
     It is no longer possible to provide a `position` option when adding custom inspector panels.
 
-    Which inspector panels to show and what order they should be displayed in is now set using the `preview_inspector.panels` config option. [Read more &rarr;](<%= guide_url :config_reference %>#preview_inspector.panels)
+    Which inspector panels to show (and what order they should be displayed in) is now set using the `preview_inspector.drawer_panels` config option. [Read more &rarr;](<%= guide_url :config_reference %>#preview_inspector.drawer_panels)
   <% end %>
 <% end %>
 
@@ -65,7 +65,7 @@ title: Upgrade Guide
     * `PreviewGroup` -> `ScenarioGroupEntity`
     * `RenderedExample` -> `RenderedScenarioEntity`
     * `Page` -> `PageEntity`
-    * `Component` -> `ComponentEntity`
+    * `Component` -> `RenderableEntity`
 
     A number of method names have also been changed (e.g. see the note on examples/scenarios [above](#examples-scenarios)).
     Aliases have been put in place with deprecation warnings where this has been done.

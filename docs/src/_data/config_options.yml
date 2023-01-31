@@ -1,4 +1,4 @@
-project: 
+project:
   - name: project_name
     types: String
     default: "Lookbook"
@@ -21,17 +21,17 @@ previews:
         max_width: "100%"
       }
     description: Default (fallback) display params that will be merged with any preview-specific display params and made available in the preview layout template.
-  
+
   - name: preview_controller
     types: String
     default: "Lookbook::PreviewController"
     example: config.lookbook.preview_controller = "MyCustomController"
     description: The controller used when rendering previews.
 
-  - name: preview_inspector.panels
+  - name: preview_inspector.drawer_panels
     types: Array
-    default: '["*"]'
-    example: config.lookbook.preview_inspector.panels = [:notes, :params]
+    default: '[:source, :notes, :params, "*"]'
+    example: config.lookbook.preview_inspector.drawer_panels = [:notes, :params]
     description: List of panels to display in the preview inspector
 
   - name: preview_embeds.policy
@@ -133,7 +133,7 @@ markdown:
     default: "true"
     example: config.lookbook.markdown_options.tables = false
     description: Enable/disable support for tables
-  
+
   - name: markdown_options.fenced_code_blocks
     types: Boolean
     default: "true"
@@ -200,4 +200,3 @@ system:
     description: |
       Specify additional extensions for file types that should be watched for changes.
       Files with **.rb** and **.html.*** extensions are always watched.
-

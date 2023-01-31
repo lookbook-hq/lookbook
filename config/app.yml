@@ -6,7 +6,8 @@ shared:
   preview_controller: "Lookbook::PreviewController"
   preview_template: lookbook/previews/preview
   preview_inspector:
-    panels: [source, notes, params, "*"]
+    main_panels: [preview, output]
+    drawer_panels: [source, notes, params, "*"]
   preview_embeds:
     policy: "SAMEORIGIN"
     panels: false

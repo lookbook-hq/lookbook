@@ -135,11 +135,11 @@ methods:
     types: Store
   klass: Lookbook
   group:
-- id: add-param-class-method
-  name: add_param
-  path: Lookbook.add_param
-  signature: add_param(name, partial_path, opts = {})
-  signature_call: add_param
+- id: add-input-type-class-method
+  name: add_input_type
+  path: Lookbook.add_input_type
+  signature: add_input_type(name, partial_path, opts = {})
+  signature_call: add_input_type
   signature_args: name, partial_path, opts = {}
   description: Add a custom `@param` tag input type
   return_types:
@@ -226,11 +226,11 @@ methods:
     types: Hash
   klass: Lookbook
   group: Inspector Panels
-- id: edit-panel-class-method
-  name: edit_panel
-  path: Lookbook.edit_panel
-  signature: edit_panel(name, opts)
-  signature_call: edit_panel
+- id: update-panel-class-method
+  name: update_panel
+  path: Lookbook.update_panel
+  signature: update_panel(name, opts)
+  signature_call: update_panel
   signature_args: name, opts
   description: Edit the properties of an existing inspector panel
   return_types:
@@ -243,7 +243,7 @@ methods:
   - name: ruby
     tag_name: example
     text: |-
-      Lookbook.edit_panel(:notes, {
+      Lookbook.update_panel(:notes, {
         label: "Usage Info",
         hotkey: "u",
       })

@@ -23,8 +23,8 @@ module Lookbook
       merged
     end
 
-    def targets
-      @_targets ||= RenderTargetCollection.new(scenarios.flat_map(&:targets).uniq(&:path))
+    def render_targets
+      @_render_targets ||= RenderTargetCollection.new(scenarios.flat_map(&:render_targets).uniq(&:path))
     end
 
     def search_terms
@@ -40,7 +40,7 @@ module Lookbook
     end
 
     def url_path
-      lookbook_inspect_path(path)
+      lookbook_inspect_path(lookup_path)
     end
 
     def type
@@ -48,6 +48,6 @@ module Lookbook
     end
 
     alias_method :parent, :preview
-    alias_method :components, :targets
+    alias_method :components, :render_targets
   end
 end

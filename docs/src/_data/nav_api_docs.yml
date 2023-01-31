@@ -2,7 +2,7 @@ groups:
   - label: Get Started
     items:
       - introduction
-      
+
   - label: Application
     items:
       - lookbook
@@ -13,7 +13,7 @@ groups:
       - scenario-entity
       - rendered-scenario-entity
       - scenario-group-entity
-      - component-entity
+      - renderable-entity
       - page-entity
 
   - label: Helpers

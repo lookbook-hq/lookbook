@@ -15,19 +15,19 @@ title: Preview Inspector
 <% end %>
 
 <%= render section("Choosing panels to display", id: "choosing-panels") do |s| %>
-  You can customise which panels are displayed using the `preview_inspector.panels` [config option](<%= guide_url :configuration %>).
+  You can customise which panels are displayed using the `preview_inspector.drawer_panels` [config option](<%= guide_url :configuration %>).
 
   This expects an array of panel names in the order in which they should be displayed in the inspector. For example:
 
   ```ruby
-  config.preview_inspector.panels = [:source, :notes, :params]
+  config.preview_inspector.drawer_panels = [:source, :notes, :params]
   ```
 
   To include all panels (including custom panels) that are not yet included in the list you can add a `"*"` entry as the last list item:
 
   ```ruby
   # show the notes panel first, then all others.
-  config.preview_inspector.panels = [:notes, "*"]
+  config.preview_inspector.drawer_panels = [:notes, "*"]
   ```
 <% end %>
 

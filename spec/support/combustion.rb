@@ -8,5 +8,5 @@ Combustion.initialize! :action_controller, :action_view do
   config.lookbook.project_name = "Lookbook Test App"
   config.lookbook.listen = false
 
-  Lookbook.define_tag(:customtag)
+  Lookbook.add_tag(:customtag)
 end

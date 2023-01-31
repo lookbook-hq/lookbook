@@ -4,7 +4,7 @@ module Lookbook
   #
   # @ignore methods
   # @api public
-  class ComponentEntity < Entity
+  class RenderableEntity < Entity
     include LocatableEntity
 
     def initialize(identifier)

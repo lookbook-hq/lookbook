@@ -1,4 +1,4 @@
-RSpec.shared_scenarios "file resolver" do |exception_class: Lookbook::ParserError|
+RSpec.shared_examples "file resolver" do |exception_class: Lookbook::ParserError|
   context "unmatched input" do
     it "raises an exception" do
       expect { described_class.call(unmatched_input) }.to raise_error Lookbook::ParserError

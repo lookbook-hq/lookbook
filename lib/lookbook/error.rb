@@ -1,6 +1,6 @@
 module Lookbook
   class Error < StandardError
-    delegate :full_message, :backtrace, :to_s, to: :target
+    delegate :full_message, :backtrace, :to_s, to: :original
 
     LINES_AROUND = 3
 
@@ -59,11 +59,11 @@ module Lookbook
     end
 
     def title
-      @title || target.class.to_s
+      @title || original.class.to_s
     end
 
     def message
-      (@message || target.message).gsub("(<unknown>):", "").strip.upcase_first
+      (@message || original.message).gsub("(<unknown>):", "").strip.upcase_first
     end
 
     def file_name
@@ -101,7 +101,7 @@ module Lookbook
 
     protected
 
-    def target
+    def original
       @original.presence || self
     end
 

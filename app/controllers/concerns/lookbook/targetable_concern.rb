@@ -17,14 +17,14 @@ module Lookbook
       @target = Engine.previews.find_scenario_by_path(params[:path])
       if @target.present?
         @preview = @target.preview
-        if params[:path] == @preview&.path
+        if params[:path] == @preview&.lookup_path
           redirect_to lookbook_inspect_path("#{params[:path]}/#{@preview.default_scenario.name}", params.permit!)
         end
       else
         @preview = Engine.previews.find_by_path(params[:path])
         if @preview.present?
           default_scenario = @preview.default_scenario
-          redirect_to lookbook_inspect_path(default_scenario.path, params.permit!) if default_scenario
+          redirect_to lookbook_inspect_path(default_scenario.lookup_path, params.permit!) if default_scenario
         end
       end
     end

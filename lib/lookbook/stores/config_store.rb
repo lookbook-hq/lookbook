@@ -39,6 +39,10 @@ module Lookbook
       store[:preview_paths].push(*paths.to_a)
     end
 
+    def component_paths=(paths = nil)
+      store[:component_paths].push(*paths.to_a)
+    end
+
     def listen_extensions=(extensions = nil)
       store[:listen_extensions].push(*extensions.to_a).uniq!
     end

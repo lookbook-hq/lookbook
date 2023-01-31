@@ -12,17 +12,17 @@ title: Overview
 
 <%= render section("Adding a custom input", id: "adding") do |s| %>
   <% s.with_block_prose do %>
-    To define a custom input use the `Lookbook.add_param` method when when you [configure your Lookbook installation](<%= guide_url :configuration %>):
+    To define a custom input use the `Lookbook.add_input_type` method when when you [configure your Lookbook installation](<%= guide_url :configuration %>):
   <% end %>
 
-  <% s.with_block_api_method "Lookbook", :add_param, show: [:params] %>
+  <% s.with_block_api_method "Lookbook", :add_input_type, show: [:params] %>
 
   <% s.with_block_prose do %>
     For example, to create a customised url input with a `https://` prefix in front of it you could do the following:
 
     ```ruby
     # config/application.rb
-    Lookbook.add_param(:prefixed_url, "inputs/prefixed_url")
+    Lookbook.add_input_type(:prefixed_url, "inputs/prefixed_url")
     ```
 
     ```erb

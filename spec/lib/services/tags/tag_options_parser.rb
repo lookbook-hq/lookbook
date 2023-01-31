@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.shared_scenarios "tag option resolver" do |result_text: nil|
+RSpec.shared_examples "tag option resolver" do |result_text: nil|
   it "extracts and resolves the options" do
     options, text = described_class.call(tag_text, **opts)
 

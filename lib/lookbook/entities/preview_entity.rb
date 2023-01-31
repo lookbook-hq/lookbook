@@ -41,12 +41,12 @@ module Lookbook
       visible_scenarios.first
     end
 
-    def targets
-      @_targets ||= RenderTargetCollection.new(scenarios.flat_map(&:targets).uniq(&:path))
+    def render_targets
+      @_render_targets ||= RenderTargetCollection.new(scenarios.flat_map(&:render_targets).uniq(&:lookup_path))
     end
 
-    def target
-      targets.first
+    def render_target
+      render_targets.first
     end
 
     def display_options
@@ -59,21 +59,21 @@ module Lookbook
     end
 
     def url_path
-      lookbook_inspect_path(path)
+      lookbook_inspect_path(lookup_path)
     end
 
     def preview_class_name
       preview_class.name
     end
 
-    def guess_targets
+    def guess_render_targets
       [preview_class.name.chomp("Preview").constantize&.name]
     rescue
       []
     end
 
-    alias_method :components, :targets
-    alias_method :component, :target
+    alias_method :components, :render_targets
+    alias_method :component, :render_target
     alias_method :examples, :scenarios
     alias_method :example, :scenario
 

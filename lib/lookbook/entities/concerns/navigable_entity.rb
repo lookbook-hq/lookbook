@@ -25,7 +25,7 @@ module Lookbook
       end
 
       def depth
-        path.split("/").size
+        lookup_path.split("/").size
       end
 
       def default_priority

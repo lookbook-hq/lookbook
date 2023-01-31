@@ -123,22 +123,6 @@ methods:
     types:
   klass: PageSectionEntity
   group:
-- id: page-instance-method
-  name: page
-  path: Lookbook::PageSectionEntity#page
-  signature: page
-  signature_call: page
-  signature_args: ''
-  description: ''
-  return_types:
-  scope: instance
-  tags:
-  - name:
-    tag_name: api
-    text: public
-    types:
-  klass: PageSectionEntity
-  group:
 - id: content-instance-method
   name: content
   path: Lookbook::PageEntity#content

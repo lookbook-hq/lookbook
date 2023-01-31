@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "inspector", type: :request do
   context "main" do
-    let(:panels) { Lookbook::Engine.panels.in_group(:main) }
+    let(:panels) { Lookbook.config.preview_inspector.main_panels }
 
     context "panel tabs" do
       before do
@@ -10,21 +10,21 @@ RSpec.describe "inspector", type: :request do
       end
 
       it "displays the expected tabs" do
-        panels.each do |opts|
-          expect(html).to have_css("[data-tab=#{opts.name}]")
+        panels.each do |name|
+          expect(html).to have_css("[data-tab=#{name}]")
         end
       end
 
       it "displays the expected panels" do
-        panels.each do |opts|
-          expect(html).to have_css("[data-panel=#{opts.name}]")
+        panels.each do |name|
+          expect(html).to have_css("[data-panel=#{name}]")
         end
       end
     end
   end
 
   context "drawer" do
-    let(:panels) { Lookbook::Engine.panels.in_group(:drawer) }
+    let(:panels) { Lookbook.config.preview_inspector.drawer_panels.select { |name| name != "*" } }
 
     context "panel tabs" do
       before do
@@ -32,14 +32,14 @@ RSpec.describe "inspector", type: :request do
       end
 
       it "displays the expected tabs" do
-        panels.each do |opts|
-          expect(html).to have_css("[data-tab=#{opts.name}]")
+        panels.each do |name|
+          expect(html).to have_css("[data-tab=#{name}]")
         end
       end
 
       it "displays the expected panels" do
-        panels.each do |opts|
-          expect(html).to have_css("[data-panel=#{opts.name}]")
+        panels.each do |name|
+          expect(html).to have_css("[data-panel=#{name}]")
         end
       end
     end

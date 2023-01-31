@@ -53,38 +53,19 @@ RSpec.describe Lookbook::ConfigStore do
         end
       end
 
-      context "auto_refresh" do
-        case env
-        when :development
-          it "is enabled in development" do
-            expect(config.auto_refresh).to be true
-          end
-        when :test
-          it "is disabled in test" do
-            expect(config.auto_refresh).to be false
-          end
-        when :production
-          it "is disabled in production" do
-            expect(config.auto_refresh).to be false
-          end
+      context "component_paths" do
+        it "is an array" do
+          expect(config.component_paths).to be_a Array
+        end
+
+        it "has a default path" do
+          expect(config.component_paths).to include "app/views"
         end
 
         it "can be changed" do
-          config.auto_refresh = false
+          config.component_paths << "app/foo"
 
-          expect(config.auto_refresh).to be false
-        end
-      end
-
-      context "components_path" do
-        it "is set" do
-          expect(config.components_path).to eq "app/components"
-        end
-
-        it "can be changed" do
-          config.components_path = "app/foo"
-
-          expect(config.components_path).to eq "app/foo"
+          expect(config.component_paths).to include "app/foo"
         end
       end
 
@@ -211,12 +192,6 @@ RSpec.describe Lookbook::ConfigStore do
         end
       end
 
-      context "preview_display_params" do
-        it "is an alias for preview_display_options" do
-          expect(config.preview_display_params).to eql config.preview_display_options
-        end
-      end
-
       context "preview_disable_action_view_annotations" do
         it "is set" do
           expect(config.preview_disable_action_view_annotations).to be true
@@ -226,30 +201,6 @@ RSpec.describe Lookbook::ConfigStore do
           config.preview_disable_action_view_annotations = false
 
           expect(config.preview_sort_scenarios).to be false
-        end
-      end
-
-      context "listen" do
-        case env
-        when :development
-          it "is enabled in development" do
-            expect(config.listen).to be true
-          end
-        when :production
-          it "is disabled in production" do
-            expect(config.listen).to be false
-          end
-        when :test
-          it "is disabled in test" do
-            expect(config.listen).to be false
-          end
-        end
-
-        it "can be changed" do
-          current_value = config.listen
-          config.listen = !current_value
-
-          expect(config.listen).to eq !current_value
         end
       end
 
@@ -297,18 +248,6 @@ RSpec.describe Lookbook::ConfigStore do
 
           expect(config.listen_extensions).to include "rb"
           expect(config.listen_extensions).to include "html.*"
-        end
-      end
-
-      context "listen_use_polling" do
-        it "is disabled by default" do
-          expect(config.listen_use_polling).to be false
-        end
-
-        it "can be enabled" do
-          config.listen_use_polling = true
-
-          expect(config.listen_use_polling).to be true
         end
       end
 

@@ -59,16 +59,16 @@ RSpec.describe Lookbook::ScenarioEntity do
       end
     end
 
-    context ".path" do
+    context ".lookup_path" do
       let(:preview) { Lookbook::Engine.previews.find_by_id(:nested_standard) }
       let(:scenario) { preview.scenario("default") }
 
       it "is generated from the preview class file path and the scenario name" do
-        expect(scenario.path).to eq "nested/standard/default"
+        expect(scenario.lookup_path).to eq "nested/standard/default"
       end
 
       it "is a String" do
-        expect(scenario.path).to be_a String
+        expect(scenario.lookup_path).to be_a String
       end
     end
 
@@ -110,7 +110,7 @@ RSpec.describe Lookbook::ScenarioEntity do
 
           expect(components).to be_a Lookbook::RenderTargetCollection
           expect(components.size).to eq 1
-          expect(components.first).to be_a Lookbook::ComponentEntity
+          expect(components.first).to be_a Lookbook::RenderableEntity
         end
       end
 
@@ -150,13 +150,13 @@ RSpec.describe Lookbook::ScenarioEntity do
       end
     end
 
-    context ".path" do
+    context ".lookup_path" do
       it "uses the logical path" do
-        expect(scenario.path).to eq "foo/bar/annotated/default"
+        expect(scenario.lookup_path).to eq "foo/bar/annotated/default"
       end
 
       it "is a String" do
-        expect(scenario.path).to be_a String
+        expect(scenario.lookup_path).to be_a String
       end
     end
 
@@ -166,7 +166,7 @@ RSpec.describe Lookbook::ScenarioEntity do
       end
 
       it "is a String" do
-        expect(scenario.path).to be_a String
+        expect(scenario.lookup_path).to be_a String
       end
     end
 
@@ -227,7 +227,7 @@ RSpec.describe Lookbook::ScenarioEntity do
 
         expect(components).to be_a Lookbook::RenderTargetCollection
         components.each do |component|
-          expect(component).to be_a Lookbook::ComponentEntity
+          expect(component).to be_a Lookbook::RenderableEntity
         end
       end
 

@@ -1,6 +1,6 @@
 ---
-name: ComponentEntity
-path: Lookbook::ComponentEntity
+name: RenderableEntity
+path: Lookbook::RenderableEntity
 description: |-
   Represents the component or view template partial
   that is being rendered in a preview.

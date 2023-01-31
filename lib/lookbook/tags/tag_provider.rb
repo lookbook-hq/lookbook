@@ -8,7 +8,7 @@ module Lookbook
       end
 
       # Handle aliasing of removed `@component` tags
-      tag_name = "target" if tag_name == "component"
+      tag_name = "renders" if tag_name == "component"
 
       begin
         tag_class = "Lookbook::#{tag_name.camelize}Tag".constantize

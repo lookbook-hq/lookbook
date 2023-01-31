@@ -8,17 +8,17 @@ title: Editing Panels
   <% s.with_title "Editing panel properties" %>
 
   <% s.with_block_prose do %>
-    You can edit the properties of any existing panel using the `Lookbook.edit_panel`
+    You can edit the properties of any existing panel using the `Lookbook.update_panel`
     method when you [configure your Lookbook installation](<%= guide_url :configuration %>):
   <% end %>
 
-  <% s.with_block_api_method "Lookbook", :edit_panel, show: [:params] %>
+  <% s.with_block_api_method "Lookbook", :update_panel, show: [:params] %>
 
   <% s.with_block_prose do %>
     For example, the following would change the tab label text and hotkey for the notes panel:
 
     ```ruby
-    Lookbook.edit_panel(:notes, {
+    Lookbook.update_panel(:notes, {
       label: "Usage Info",
       hotkey: "u",
     })

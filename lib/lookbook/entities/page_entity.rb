@@ -50,7 +50,7 @@ module Lookbook
     end
 
     def url_path
-      lookbook_page_path(path)
+      lookbook_page_path(lookup_path)
     end
 
     def add_section(section)

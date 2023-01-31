@@ -4,15 +4,15 @@ RSpec.describe Lookbook::PageEntity do
   context "default" do
     let(:page) { Lookbook::Engine.pages.find_by_id(:subpages_child) }
 
-    context ".path" do
+    context ".lookup_path" do
       it "is generated from the page template path" do
-        expect(page.path).to eq "subpages/child"
+        expect(page.lookup_path).to eq "subpages/child"
       end
     end
 
     context ".url_path" do
       it "returns the correct URL to the page" do
-        expect(page.url_path).to eq lookbook_page_path(page.path)
+        expect(page.url_path).to eq lookbook_page_path(page.lookup_path)
       end
     end
 

@@ -16,7 +16,7 @@ module Lookbook
     end
 
     def embed_path
-      Engine.routes.url_helpers.lookbook_embed_path(scenario.path, {
+      Engine.routes.url_helpers.lookbook_embed_path(scenario.lookup_path, {
         _options: SearchParamEncoder.call(options),
         **params
       })

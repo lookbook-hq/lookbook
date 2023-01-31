@@ -25,30 +25,30 @@ RSpec.describe Lookbook do
     let(:panels_config) { Lookbook::Engine.panels }
     let(:default_group) { :drawer }
 
-    context ".define_panel" do
+    context ".add_panel" do
       it "adds a panel without opts" do
-        expect(panels_config).to receive(:add_panel).with("new-panel", default_group, "path/to/partial")
-        Lookbook.define_panel("new-panel", "path/to/partial")
+        expect(panels_config).to receive(:add_panel).with("new-panel", "path/to/partial", {})
+        Lookbook.add_panel("new-panel", "path/to/partial")
       end
 
       it "adds a panel with opts" do
         opts = {label: "A nice panel"}
-        expect(panels_config).to receive(:add_panel).with("new-panel-2", default_group, "path/to/partial", opts)
-        Lookbook.define_panel("new-panel-2", "path/to/partial", opts)
+        expect(panels_config).to receive(:add_panel).with("new-panel-2", "path/to/partial", opts)
+        Lookbook.add_panel("new-panel-2", "path/to/partial", opts)
       end
 
       it "adds a panel with partial path set in opts" do
         opts = {partial: "path/to/partial"}
-        expect(panels_config).to receive(:add_panel).with("new-panel-3", default_group, opts)
-        Lookbook.define_panel("new-panel-3", opts)
+        expect(panels_config).to receive(:add_panel).with("new-panel-3", opts, {})
+        Lookbook.add_panel("new-panel-3", opts)
       end
     end
 
-    context ".amend_panel" do
+    context ".update_panel" do
       it "updates the panel with new opts" do
         opts = {label: "A nice panel"}
         expect(panels_config).to receive(:update_panel).with("panel-2", opts)
-        Lookbook.amend_panel("panel-2", opts)
+        Lookbook.update_panel("panel-2", opts)
       end
     end
 
@@ -63,16 +63,16 @@ RSpec.describe Lookbook do
   context "Inputs" do
     let(:inputs_config) { Lookbook::Engine.inputs }
 
-    context ".add_param_input" do
+    context ".add_input_type" do
       it "adds an input" do
-        expect(inputs_config).to receive(:add_input).with("select", "path/to/partial")
-        Lookbook.define_param_input("select", "path/to/partial")
+        expect(inputs_config).to receive(:add_input).with("select", "path/to/partial", {})
+        Lookbook.add_input_type("select", "path/to/partial")
       end
 
       it "adds an input with opts" do
         opts = {rows: 2}
         expect(inputs_config).to receive(:add_input).with("select", "path/to/partial", opts)
-        Lookbook.define_param_input("select", "path/to/partial", opts)
+        Lookbook.add_input_type("select", "path/to/partial", opts)
       end
     end
   end
@@ -108,7 +108,7 @@ RSpec.describe Lookbook do
   context "Tags" do
     let(:tags_config) { Lookbook::Engine.tags }
 
-    context ".define_tag" do
+    context ".add_tag" do
       context "without block" do
         it "adds a tag" do
           args = [:one]
@@ -117,7 +117,7 @@ RSpec.describe Lookbook do
             after_parse: nil
           })
 
-          Lookbook.define_tag("foo", args)
+          Lookbook.add_tag("foo", args)
         end
       end
 
@@ -129,7 +129,7 @@ RSpec.describe Lookbook do
             named_args: args,
             after_parse: block
           })
-          Lookbook.define_tag("bar", args, &block)
+          Lookbook.add_tag("bar", args, &block)
         end
       end
     end

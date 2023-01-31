@@ -2,9 +2,11 @@
 
 printf "\n🤖 Loading dependencies... "
 
+require "active_support"
+require "action_view"
 require "yard"
 require "yaml"
-require "lookbook"
+# require "../."
 require 'fileutils'
 
 printf "✅ Done!\n"
@@ -27,7 +29,7 @@ def resolve(arg)
 end
 
 def strip_tags(str)
-  ActionView::Base.full_sanitizer.sanitize(str) if str
+  ::ActionView::Base.full_sanitizer.sanitize(str) if str
 end
 
 def module_data(obj, category: :general)
@@ -116,6 +118,7 @@ end
 def available?(code_object)
   (!code_object.has_tag?(:api) || code_object.tag(:api).text.strip != "private") && 
     !code_object.has_tag?(:deprecated) &&
+    !code_object.is_alias? &&
     code_object.visibility == :public
 end
 
@@ -149,6 +152,9 @@ printf "🚨 Starting code parsing... "
 
 src_path = File.expand_path("../lib", __dir__)
 
+puts "----------------------- #{src_path}"
+
+YARD::Registry.clear
 YARD::Config.load_plugin("activesupport-concern")
 YARD::Tags::Library.define_tag("Ignore", :ignore)
 YARD.parse(src_path)

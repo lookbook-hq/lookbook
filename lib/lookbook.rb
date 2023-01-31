@@ -72,7 +72,7 @@ module Lookbook
     # @param name [Symbol] Unique input type name
     # @param partial_path [String] Path to the partial template used to render the input
     # @param opts [Hash] Set of default options to be passed to the input. Any supplied param options will override these values
-    def add_param(name, partial_path, opts = {})
+    def add_input_type(name, partial_path, opts = {})
       Engine.inputs.add_input(name, partial_path, opts)
     end
 
@@ -102,7 +102,7 @@ module Lookbook
     # Edit the properties of an existing inspector panel
     #
     # @example :ruby
-    #   Lookbook.edit_panel(:notes, {
+    #   Lookbook.update_panel(:notes, {
     #     label: "Usage Info",
     #     hotkey: "u",
     #   })
@@ -114,7 +114,7 @@ module Lookbook
     # @option opts [Boolean] :disabled Disabled tabs are still accessible but are greyed out in the UI
     # @option opts [String] :copy If present, the panel will display a copy button that copies the value of this property to the clipboard when clicked
     # @option opts [Hash] :locals A hash of local variables that will be passed to the panel when it is rendered
-    def edit_panel(name, opts)
+    def update_panel(name, opts)
       Engine.panels.update_panel(name, opts)
     end
 
@@ -225,14 +225,14 @@ module Lookbook
       }
     end
 
-    alias_method :define_param_input, :add_param
+    alias_method :define_param_input, :add_input_type
     alias_method :define_panel, :add_panel
-    alias_method :amend_panel, :edit_panel
+    alias_method :amend_panel, :update_panel
     alias_method :define_tag, :add_tag
 
-    deprecate define_param_input: :add_param, deprecator: Deprecation
+    deprecate define_param_input: :add_input_type, deprecator: Deprecation
     deprecate define_panel: :add_panel, deprecator: Deprecation
-    deprecate amend_panel: :edit_panel, deprecator: Deprecation
+    deprecate amend_panel: :update_panel, deprecator: Deprecation
     deprecate define_tag: :add_tag, deprecator: Deprecation
   end
 end

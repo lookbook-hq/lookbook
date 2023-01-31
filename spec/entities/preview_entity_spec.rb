@@ -94,15 +94,15 @@ RSpec.describe Lookbook::PreviewEntity do
       end
     end
 
-    context ".path" do
+    context ".lookup_path" do
       let(:preview) { Lookbook::Engine.previews.find_by_id(:nested_standard) }
 
       it "is generated from the preview class file path" do
-        expect(preview.path).to eq "nested/standard"
+        expect(preview.lookup_path).to eq "nested/standard"
       end
 
       it "is a String" do
-        expect(preview.path).to be_a String
+        expect(preview.lookup_path).to be_a String
       end
     end
 
@@ -136,7 +136,7 @@ RSpec.describe Lookbook::PreviewEntity do
 
           expect(components).to be_a Lookbook::RenderTargetCollection
           expect(components.size).to eq 1
-          expect(components.first).to be_a Lookbook::ComponentEntity
+          expect(components.first).to be_a Lookbook::RenderableEntity
         end
       end
 
@@ -175,13 +175,13 @@ RSpec.describe Lookbook::PreviewEntity do
       end
     end
 
-    context ".path" do
+    context ".lookup_path" do
       it "uses the logical path" do
-        expect(preview.path).to eq "foo/bar/annotated"
+        expect(preview.lookup_path).to eq "foo/bar/annotated"
       end
 
       it "is a String" do
-        expect(preview.path).to be_a String
+        expect(preview.lookup_path).to be_a String
       end
     end
 
@@ -191,7 +191,7 @@ RSpec.describe Lookbook::PreviewEntity do
       end
 
       it "is a String" do
-        expect(preview.path).to be_a String
+        expect(preview.lookup_path).to be_a String
       end
     end
 
@@ -256,7 +256,7 @@ RSpec.describe Lookbook::PreviewEntity do
 
         expect(components).to be_a Lookbook::RenderTargetCollection
         components.each do |component|
-          expect(component).to be_a Lookbook::ComponentEntity
+          expect(component).to be_a Lookbook::RenderableEntity
         end
       end
 
@@ -285,7 +285,7 @@ RSpec.describe Lookbook::PreviewEntity do
       end
 
       it "has the expected path" do
-        expect(preview.path).to eq "nested/my_component"
+        expect(preview.lookup_path).to eq "nested/my_component"
       end
     end
 
@@ -297,7 +297,7 @@ RSpec.describe Lookbook::PreviewEntity do
       end
 
       it "has the expected path" do
-        expect(preview.path).to eq "nested/my_other_component"
+        expect(preview.lookup_path).to eq "nested/my_other_component"
       end
     end
   end

@@ -17,7 +17,7 @@ module Lookbook
     def index
       landing = Engine.pages.find(&:landing?) || Engine.pages.first
       if landing.present?
-        redirect_to lookbook_page_path(landing.path)
+        redirect_to lookbook_page_path(landing.lookup_path)
       else
         render "lookbook/index"
       end

@@ -21,7 +21,7 @@ title: Concepts & Terminology
   <% end %>
 
   <% s.with_block_note :tip do %>
-    Components are represented by [ComponentEntity](<%= api_module_url "ComponentEntity" %>) objects in the Lookbook API.
+    Components are represented by [RenderableEntity](<%= api_module_url "RenderableEntity" %>) objects in the Lookbook API.
   <% end %>
 
 <% end %>

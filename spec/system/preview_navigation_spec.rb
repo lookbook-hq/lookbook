@@ -88,8 +88,8 @@ RSpec.describe "preview navigation", type: :system do
     end
 
     context "with a single scenario" do
-      let(:preview) { Lookbook::Engine.previews.find_by_id(:single_unannotated_scenario) }
-      let(:preview_item_selector) { "#previews-nav-single-unannotated-scenario" }
+      let(:preview) { Lookbook::Engine.previews.find_by_id(:single_unannotated_example) }
+      let(:preview_item_selector) { "#previews-nav-single-unannotated-example" }
 
       context "has preview link" do
         it "rendered as a scenario" do

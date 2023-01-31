@@ -1,14 +1,14 @@
 require "rails_helper"
 
-RSpec.describe Lookbook::ComponentTag do
+RSpec.describe Lookbook::RendersTag do
   it "extends Lookbook::YardTag" do
     expect(described_class).to be < Lookbook::YardTag
   end
 
   context ".value" do
-    it "returns the constantized component class" do
+    it "returns the component class name" do
       tag = described_class.new("InlineComponent")
-      expect(tag.value).to eq ::InlineComponent
+      expect(tag.value).to eq "InlineComponent"
     end
 
     it "does not raise an exception if the component doesn't exist" do
