@@ -1,5 +1,5 @@
 <br>
-<img src=".github/assets/lookbook_logo.svg" width="180"> 
+<img alt="Lookbook Logo" src=".github/assets/lookbook_logo.svg" width="180"> 
 
 A tool to help browse, develop, test & document [ViewComponents](https://viewcomponent.org/) in Ruby on Rails apps.
 
@@ -78,7 +78,7 @@ Lookbook was created by [Mark Perkins](https://github.com/allmarkedup) and conti
 <br>
 <br>
 <a href="https://github.com/ViewComponent/lookbook/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=ViewComponent/lookbook&columns=14" width="800" />
+  <img alt="Lookbook contributors" src="https://contrib.rocks/image?repo=ViewComponent/lookbook&columns=14" width="800" />
 </a>
 
 ## License
