@@ -171,7 +171,7 @@ GEM
     zeitwerk (2.6.6)
 
 PLATFORMS
-  arm64-darwin-22
+  arm64-darwin-21
 
 DEPENDENCIES
   actionpack
@@ -189,4 +189,4 @@ DEPENDENCIES
   yard-activesupport-concern
 
 BUNDLED WITH
-   2.4.6
+   2.3.11

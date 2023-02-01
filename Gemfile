@@ -2,9 +2,8 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gemspec
 
-gem "standard", "1.19.1"
-
 group :development, :test do
+  gem "standard", "1.19.1"
   gem "view_component"
   gem "sqlite3", "~> 1.5"
   gem "combustion", "~> 1.3"
