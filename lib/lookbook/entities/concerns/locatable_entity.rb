@@ -42,6 +42,14 @@ module Lookbook
         @_logical_path ||= PathUtils.to_path(directory, file_name_base)
       end
 
+      alias_method :full_path, :file_path
+      alias_method :rel_path, :relative_file_path
+      alias_method :dir_path, :directory_path
+
+      deprecate full_path: :file_path, deprecator: Deprecation
+      deprecate rel_path: :relative_file_path, deprecator: Deprecation
+      deprecate dir_path: :directory_path, deprecator: Deprecation
+
       protected
 
       def file_pathname
