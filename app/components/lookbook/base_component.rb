@@ -1,6 +1,7 @@
 module Lookbook
   class BaseComponent < ViewComponent::Base
     include Lookbook::UiElementsHelper
+    include Lookbook::ClassNamesHelper if Engine.runtime_context.rails_older_than?("6.1.0")
 
     def initialize(alpine_data: [], **html_attrs)
       @alpine_data ||= alpine_data

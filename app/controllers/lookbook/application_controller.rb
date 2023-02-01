@@ -4,6 +4,7 @@ module Lookbook
 
     protect_from_forgery with: :exception
 
+    helper Lookbook::ClassNamesHelper if Engine.runtime_context.rails_older_than?("6.1.0")
     helper Lookbook::ApplicationHelper
     helper Lookbook::UiElementsHelper
 

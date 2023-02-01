@@ -1,6 +1,7 @@
 module Lookbook
   class TagComponent < ViewComponent::Base
     include Lookbook::UiElementsHelper
+    include Lookbook::ClassNamesHelper if Engine.runtime_context.rails_older_than?("6.1.0")
 
     def initialize(tag: :div, name: nil, cloak: false, **html_attrs)
       @tag = tag
