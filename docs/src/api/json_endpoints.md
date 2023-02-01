@@ -12,7 +12,8 @@ Lookbook currently implements a single JSON endpoint at `/previews.json`, return
     [
       {
         "name" => "default",
-        "inspect_path" => "/lookbook/inspect/foo/bar/annotated/default"
+        "inspect_path" => "/lookbook/inspect/foo/bar/annotated/default",
+        "preview_path" => "/lookbook/preview/foo/bar/annotated/default"
       }
     ]
 }]
