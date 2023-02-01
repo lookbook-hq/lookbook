@@ -44,7 +44,6 @@ module Lookbook
       if evaluatable?
         begin
           proc {
-            $SAFE = 2
             eval_context.instance_eval(input.to_s)
           }.call
         rescue => exception

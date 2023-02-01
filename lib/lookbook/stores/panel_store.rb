@@ -85,7 +85,6 @@ module Lookbook
         opts.transform_values! do |value|
           if value.is_a?(String) && value.start_with?("->")
             proc {
-              $SAFE = 2
               eval(value) # standard:disable Security/Eval
             }.call
           else
