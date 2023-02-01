@@ -43,6 +43,7 @@ module Lookbook
     initializer "lookbook.file_watcher.pages" do
       file_watcher.watch(opts.page_paths, opts.page_extensions) do |changes|
         Engine.pages.load(Engine.page_paths)
+        Engine.mark_changed
         Engine.websocket.broadcast(:reload)
         run_hooks(:after_change, changes)
       end
@@ -51,6 +52,7 @@ module Lookbook
     initializer "lookbook.parser.previews_load_callback" do
       parser.after_parse do |code_objects|
         Engine.previews.load(code_objects.all(:class))
+        Engine.mark_changed
         Engine.websocket.broadcast(:reload)
       end
     end
@@ -166,6 +168,14 @@ module Lookbook
 
       def previews
         @_previews ||= PreviewCollection.new
+      end
+
+      def mark_changed
+        @_last_changed = nil
+      end
+
+      def last_changed
+        @_last_changed ||= (Time.now.to_f * 1000).to_i
       end
 
       attr_reader :preview_controller

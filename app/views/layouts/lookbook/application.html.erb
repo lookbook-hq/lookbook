@@ -13,7 +13,7 @@
         }",
         "@click.outside": "closeMobileSidebar",
         cloak: true do %>
-        <% cache do %>
+        <% cache Lookbook::Engine.last_changed do %>
           <%= lookbook_render :split_layout,
             alpine_data: "$store.layout.#{@pages.any? && @previews.any? ? "sidebar" : "singleSectionSidebar"}",
             style: "height: calc(100vh - 2.5rem);" do |layout| %>
