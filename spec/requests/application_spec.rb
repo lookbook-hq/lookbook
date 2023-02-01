@@ -82,7 +82,7 @@ RSpec.describe "application", type: :request do
 
       expect(
         parsed_response
-          .find { |item| item["name"] == "annotated" }["examples"]
+          .find { |item| item["name"] == "annotated" }["scenarios"]
           .find { |item| item["name"] == "default" }["inspect_path"]
       ).to eq("/lookbook/inspect/foo/bar/annotated/default")
     end

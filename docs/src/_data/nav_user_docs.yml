@@ -47,4 +47,5 @@ groups:
     items:
       - tags-reference
       - config-reference
+      - json-endpoints
       # - troubleshooting

@@ -16,10 +16,10 @@ module Lookbook
             json: Lookbook.previews.map do |preview|
               {
                 name: preview.name,
-                examples: preview.examples.map { |example|
+                scenarios: preview.scenarios.map { |scenario|
                   {
-                    inspect_path: example.url_path,
-                    name: example.name
+                    inspect_path: scenario.url_path,
+                    name: scenario.name
                   }
                 }
               }
