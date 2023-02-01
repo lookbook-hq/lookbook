@@ -14,6 +14,14 @@ module Lookbook
       @_app_name ||= name.underscore
     end
 
+    def rails_older_than?(version)
+      Gem::Version.new(Rails.version) < Gem::Version.new(version)
+    end
+
+    def rails_newer_than?(version)
+      Gem::Version.new(Rails.version) >= Gem::Version.new(version)
+    end
+
     def actioncable_installed?
       gem_installed?("actioncable")
     end
