@@ -15,3 +15,5 @@ docs/output
 _docs
 
 .netlify
+
+gemfiles/*.lock
