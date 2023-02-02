@@ -38,20 +38,8 @@ Lookbook is implemented as an isolated [Rails Engine](https://guides.rubyonrails
 This repository contains:
 
 * The Lookbook source code ([`/app`](https://github.com/ViewComponent/lookbook/tree/main/app), [`/lib`](https://github.com/ViewComponent/lookbook/tree/main/lib), [`/config`](https://github.com/ViewComponent/lookbook/tree/main/config), etc)
-* A '[workbench](#workbench)' app used for Lookbook component development ([`/workbench`](https://github.com/ViewComponent/lookbook/tree/main/workbench)).
 * The Lookbook [documentation site](#docs-site) source code and content ([`/docs`](https://github.com/ViewComponent/lookbook/tree/main/docs)).
 * A [test suite](#testing) with a 'runable' dummy app ([`/spec`](https://github.com/ViewComponent/lookbook/tree/main/spec)).
-
-### Workbench
-
-To preview the Lookbook components within a Lookbook instance you can run the included `workbench` app:
-
-1. Clone this repo
-2. Install dependencies: `bundle install & npm install`
-3. Start the app: `bin/workbench`
-4. Visit http://localhost:4545/lookbook to view the Lookbook instance
-
-The `workbench` app will be started in development mode and any changes to Lookbook's views or assets will immediately be reflected in the UI.
 
 ### Documentation site
 
