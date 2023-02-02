@@ -124,6 +124,10 @@
     & .highlighter-rouge + details {
       @apply -mt-2;
     }
+
+    & [data-component="screenshot"] {
+      @apply !my-8;
+    }
   }
 
   .prose code:not(.highlight code) {
@@ -137,6 +141,10 @@
 
   .prose :where(h4):not(:where([class~="not-prose"] *)) {
     @apply mb-4;
+  }
+
+  .prose a {
+    @apply underline !underline-offset-2 !decoration-gray-300 hover:!decoration-indigo-400 transition-all;
   }
 
   /* Homepage */

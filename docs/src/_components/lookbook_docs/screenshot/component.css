@@ -1,10 +1,14 @@
 [data-component="screenshot"] {
-  @apply bg-white rounded-lg overflow-hidden;
+  &.shadow {
+    @apply shadow-lg;
+  }
 
-  box-shadow: 0px 1.2px 4px -7px rgba(0, 0, 0, 0.045),
-    0px 3px 10.2px -7px rgba(0, 0, 0, 0.066),
-    0px 6.1px 19.8px -7px rgba(0, 0, 0, 0.083),
-    0px 11.6px 35.4px -7px rgba(0, 0, 0, 0.099),
-    0px 23.4px 64.9px -7px rgba(0, 0, 0, 0.117),
-    0px 64px 140px -7px rgba(0, 0, 0, 0.15);
+  &.shadow-xl {
+    box-shadow: 0px 1.2px 4px -7px rgba(0, 0, 0, 0.045),
+      0px 3px 10.2px -7px rgba(0, 0, 0, 0.066),
+      0px 6.1px 19.8px -7px rgba(0, 0, 0, 0.083),
+      0px 11.6px 35.4px -7px rgba(0, 0, 0, 0.099),
+      0px 23.4px 64.9px -7px rgba(0, 0, 0, 0.117),
+      0px 64px 140px -7px rgba(0, 0, 0, 0.15);
+  }
 }

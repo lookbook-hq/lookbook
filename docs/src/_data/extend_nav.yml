@@ -1,0 +1,30 @@
+groups:
+  - label: Get Started
+    items:
+      - introduction
+
+  - label: Inspector Panels
+    items:
+      - panels-overview
+      - panels-templates
+      - panels-styles
+
+  - label: Param Inputs
+    items:
+      - params-overview
+      - params-templates
+      - params-styles
+
+  - label: Custom Tags
+    items:
+      - tags-overview
+      - tags-using
+
+  - label: Other
+    items:
+      - hooks
+      - data
+
+  # - label: Lookbook Development
+  #   items:
+  #     - contributing

@@ -3,17 +3,19 @@ layout: skeleton
 ---
 <% 
 prev_page = find_prev_page
+prev_page_group_label = find_page_group_label(prev_page)
 next_page = find_next_page
+next_page_group_label = find_page_group_label(next_page)
 %>
 
 <div class="layout-container !block md:!grid">
   <div class="layout-column bg-gray-50 !border-gray-300 !hidden md:!block overflow-y-scroll" data-turbo-maintain-scroll>
-    <div id="sidebar" class="layout-content py-8" data-turbo-maintain-scroll>
+    <div id="sidebar" class="layout-content py-8">
       <%= render "collection_nav", collection: resource.collection %>
     </div>
   </div>
 
-  <div class="layout-column overflow-y-scroll h-full md:h-auto relative scroll-smooth">
+  <div id="article" class="layout-column overflow-y-scroll h-full md:h-auto relative scroll-smooth">
     <main class="layout-content py-8 pb-8">
       <div class="lg:pr-[252px]">
         <% if resource.data.toc.many? %>
@@ -37,17 +39,23 @@ next_page = find_next_page
           <%= yield %>
 
           <% if prev_page.present? || next_page.present? %>
-            <footer class="mt-12 border-t border-gray-300 pt-8 flex items-center">
+            <footer class="mt-12 border-t border-gray-300 pt-8 flex items-center space-x-12">
               <% if prev_page.present? %>
-                <a href="<%= prev_page.relative_url %>" class="mr-auto flex items-center underline opacity-60 hover:opacity-100 ">
-                  <%= icon :arrow_left, size: 4 %>
-                  <span class="ml-2"><%= prev_page.data.label || prev_page.data.title %></span>
+                <a href="<%= prev_page.relative_url %>" class="mr-auto flex items-end opacity-60 hover:opacity-100 ">
+                  <%= icon :arrow_left, size: 4, class: "mb-1" %>
+                  <div class="ml-2">
+                    <div class="text-sm text-gray-600 mb-px"><%= prev_page_group_label %></div>
+                    <div class="text-lg underline decoration-gray-500 underline-offset-2 decoration-1 font-bold"><%= prev_page.data.label || prev_page.data.title %></div>
+                  </div>
                 </a>
               <% end %>
               <% if next_page.present? %>
-                <a href="<%= next_page.relative_url %>" class="ml-auto flex items-center underline opacity-60 hover:opacity-100">
-                  <span class="mr-2"><%= next_page.data.label || next_page.data.title %></span>
-                  <%= icon :arrow_right, size: 4 %>
+                <a href="<%= next_page.relative_url %>" class="ml-auto flex items-end opacity-60 hover:opacity-100">
+                  <div class="mr-2">
+                    <div class="text-sm text-gray-600 mb-px text-right"><%= next_page_group_label %></div>
+                    <div class="text-lg underline decoration-gray-500 underline-offset-2 decoration-1 font-bold  text-right"><%= next_page.data.label || next_page.data.title %></div>
+                  </div>
+                  <%= icon :arrow_right, size: 4, class: "mb-1" %>
                 </a>
               <% end %>
             </footer>

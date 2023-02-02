@@ -7,6 +7,10 @@
     @apply mt-1 relative -top-px;
   }
 
+  & .note-content div.highlighter-rouge {
+    max-width: 100%;
+  }
+
   &[data-note-theme="tip"] {
     @apply bg-sky-50/80 border-sky-200;
 

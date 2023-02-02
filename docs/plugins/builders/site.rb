@@ -11,15 +11,15 @@ class Builders::Site < SiteBuilder
     end
 
     helper :guide_url, helpers_scope: true do |id|
-      page_url(:user_docs, id)
+      page_url(:guide, id)
     end
 
     helper :extend_url, helpers_scope: true do |id|
-      page_url(:dev_docs, id)
+      page_url(:extend, id)
     end
 
     helper :api_url, helpers_scope: true do |id|
-      page_url(:api_docs, id)
+      page_url(:api, id)
     end
 
     helper :page_url, helpers_scope: true do |collection_name, id|
@@ -48,7 +48,7 @@ class Builders::Site < SiteBuilder
 
     helper :sections, helpers_scope: true do
       section_collections.map do |label, col|
-        resource_ids = site.data["nav_#{label}"].groups.flat_map(&:items)
+        resource_ids = site.data["#{label}_nav"].groups.flat_map(&:items)
         index = col.resources.find { _1.data.id == resource_ids.first }
         {
           url: index.relative_url,
@@ -61,18 +61,29 @@ class Builders::Site < SiteBuilder
     helper :current_group, helpers_scope: true do
       collection = view.resource.collection
       if collection
-        site.data["nav_#{collection.label}"].groups.find do |group|
+        site.data["#{collection.label}_nav"].groups.find do |group|
           group[:items].include?(view.resource.data.id)
         end
       end
     end
 
-    helper :collection_resources, helpers_scope: true do |label|
-      collection = site.collections[label]
-      resource_ids = site.data["nav_#{label}"].groups.flat_map(&:items)
+    helper :collection_resources, helpers_scope: true do |collection_name|
+      collection = site.collections[collection_name]
+      resource_ids = site.data["#{collection_name}_nav"].groups.flat_map(&:items)
       resource_ids.map do |id|
         collection.resources.find { _1.data.id == id }
       end
+    end
+
+    helper :find_group_for_page, helpers_scope: true do |collection_name, id|
+      groups = site.data["#{collection_name}_nav"].groups
+      groups.find { |g| g.items.find { _1 == id } }
+    end
+
+    helper :find_page_group_label, helpers_scope: true do |page|
+      return unless page
+      group = find_group_for_page(page.collection.label, page.data.id)
+      group["label"] if group
     end
 
     helper :find_prev_page, helpers_scope: true do

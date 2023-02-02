@@ -21,9 +21,7 @@ lookbook_embeds: true
           </p>
         </div>
         <div class="flex flex-col sm:flex-row items-center justify-center mt-6 sm:mt-10 space-x-4 text-gray-400">
-          <a href="<%= links.v2.demo %>" class="underline text-indigo-500 whitespace-nowrap hidden sm:block" target="_blank">View the demo</a>
-          <em class="hidden sm:block">or</em>
-          <%= button "Get Started", guide_url(:installation), icon: :chevrons_right %>
+          <%= button "Learn more and get started", guide_url(:introduction), icon: :arrow_right %>
         </div>
       </div>
     </div>
@@ -33,17 +31,17 @@ lookbook_embeds: true
     <div class="layout-slat relative h-[49vw] mx:h-[675px] -mb-24">
       <div class="layout-slat-grid absolute bottom-4 left-0 right-0 z-10">
         <div class="col-span-4">
-          <%= screenshot "preview_class.png" %>
+          <%= screenshot "homepage/preview_class.png", shadow: :xl %>
         </div>
       </div>
       <div class="layout-slat-grid absolute bottom-0 left-0 right-0 z-20">
         <div class="col-span-8 col-start-3">
-          <%= screenshot "params_editor.svg" %>
+          <%= screenshot "homepage/params_editor.svg", shadow: :xl %>
         </div>
       </div>
       <div class="layout-slat-grid absolute left-0 right-0 bottom-10 z-30">
         <div class="col-span-3 col-end-13">
-          <%= screenshot "inspector_mobile.png" %>
+          <%= screenshot "homepage/inspector_mobile.png", shadow: :xl %>
         </div>
       </div>
     </div>

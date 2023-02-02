@@ -12,8 +12,8 @@ class Builders::Components < SiteBuilder
       view.render LookbookDocs::Image::Component.new path: path, **attrs
     end
 
-    helper :screenshot, helpers_scope: true do |src, alt = nil, attrs = {}|
-      view.render LookbookDocs::Screenshot::Component.new src: src, alt: alt, **attrs
+    helper :screenshot, helpers_scope: true do |src, title = nil, attrs = {}|
+      view.render LookbookDocs::Screenshot::Component.new src: src, **attrs
     end
 
     helper :section, helpers_scope: true do |title = nil, **opts|

@@ -1,10 +1,13 @@
 module LookbookDocs
   class Screenshot::Component < Base
-    attr_reader :alt
+    attr_reader :alt, :browser, :caption, :href
 
-    def initialize(src:, alt: nil, **attrs)
+    def initialize(src:, caption: nil, alt: nil, browser: true, **attrs)
       @src = src
-      @alt = alt
+      @caption = caption
+      @alt = alt || caption
+      @browser = browser
+      @href = attrs.fetch(:href, nil)
       @attrs = attrs
     end
 

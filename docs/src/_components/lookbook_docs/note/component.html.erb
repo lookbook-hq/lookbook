@@ -5,9 +5,9 @@
   } do %>
   <div class="flex items-start space-x-3">
     <%= render LookbookDocs::Icon::Component.new(name: icon_name, size: 5) %>
-    <div class="note-content prose max-w-none flex-grow">
+    <div class="note-content prose max-w-none flex-grow overflow-hidden">
       <% if title.present? %>
-        <h4 class="mb-1"><%= title %></h4>
+        <h4 class="mb-1 text-lg"><%= title %></h4>
       <% end %>
       <%= markdownify content %>
     </div>

@@ -10,19 +10,19 @@ defaults:
 # collections_dir: collections
 
 collections:
-  user_docs:
+  guide:
     output: true
     section: true
     permalink: /guide/:path.*
     title: User Guide
 
-  dev_docs:
+  extend:
     output: true
     section: true
     permalink: /extend/:path.*
     title: Extending Lookbook
 
-  api_docs:
+  api:
     output: true
     section: true
     permalink: /api/:path.*

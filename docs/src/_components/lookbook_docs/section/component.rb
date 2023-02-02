@@ -13,6 +13,9 @@ module LookbookDocs
       options_list: OptionsList::Component,
       data_list: DataList::Component,
       button: ButtonBlock::Component,
+      screenshot: ->(src, caption = nil, **kwargs) do
+        Screenshot::Component.new(src: src, caption: caption, **kwargs)
+      end,
 
       subheading: ->(text, id: nil, level: 3, display_level: nil, **opts) do
         toc.push({id: id, label: text, level: level}) if id

@@ -71,7 +71,6 @@ function buildSrc(attrs) {
   const props = {};
 
   permittedAttrs(attrs).forEach(({ name, value }) => {
-    console.log(name, value);
     name = name.replace("-", "_").toLowerCase();
     props[name] = value;
   });
