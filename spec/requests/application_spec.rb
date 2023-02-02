@@ -77,22 +77,26 @@ RSpec.describe "application", type: :request do
   end
 
   describe "JSON endpoint" do
-    it "returns a JSON list of previews with example paths" do
+    it "returns a JSON list of previews" do
       get lookbook_previews_path(format: :json)
 
       parsed_response = JSON.parse(response.body)
 
+      default_preview = parsed_response
+        .find { |item| item["name"] == "annotated" }["examples"]
+        .find { |item| item["name"] == "default" }
+
       expect(
-        parsed_response
-          .find { |item| item["name"] == "annotated" }["examples"]
-          .find { |item| item["name"] == "default" }["inspect_path"]
+        default_preview["inspect_path"]
       ).to eq("/lookbook/inspect/foo/bar/annotated/default")
 
       expect(
-        parsed_response
-          .find { |item| item["name"] == "annotated" }["examples"]
-          .find { |item| item["name"] == "default" }["preview_path"]
+        default_preview["preview_path"]
       ).to eq("/lookbook/preview/foo/bar/annotated/default")
+
+      expect(
+        default_preview["lookup_path"]
+      ).to eq("foo/bar/annotated/default")
     end
   end
 end

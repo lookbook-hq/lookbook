@@ -62,7 +62,8 @@ module Lookbook
       {
         inspect_path: example.url_path,
         name: example.name,
-        preview_path: example.preview_path
+        preview_path: example.preview_path,
+        lookup_path: example.lookup_path
       }
     end
   end
