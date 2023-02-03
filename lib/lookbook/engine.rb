@@ -39,6 +39,8 @@ module Lookbook
           opts.component_paths << vc_config.view_component_path
         end
       end
+
+      opts.reload_on_change = host_config.reload_classes_only_on_change if opts.reload_on_change.nil?
     end
 
     config.after_initialize do
@@ -72,12 +74,8 @@ module Lookbook
         mount_path.present?
       end
 
-      def reloading?
-        host_config.reload_classes_only_on_change
-      end
-
       def auto_refresh?
-        reloading? && runtime_context.web? && FileWatcher.evented?
+        opts.reload_on_change && runtime_context.web? && FileWatcher.evented?
       end
 
       def websocket
