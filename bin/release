@@ -3,15 +3,6 @@
 rake build
 
 printf "\n✅ Lookbook v${1/-/.} gem built."
-printf "\n\n💎 Pushing to RubyGems. Please provide MFA token:"
+printf "\n\n💎 Now push to RubyGems:"
 
-read token
-
-gem push pkg/lookbook-${1/-/.}.gem --otp ${token}
-
-if [ $? -eq 0 ]; 
-then 
-  printf "\n✅ Successfully released Lookbook v${1/-/.}"
-else 
-  printf "\n❌ Error pushing gem to Rubygems"
-fi
+printf "\n\n👉 gem push pkg/lookbook-${1/-/.}.gem --otp "
