@@ -11,10 +11,16 @@
   drawer_bg: Preview inspector drawer background color
   params_editor_bg: Params editor table background color
 
-- icon_button_stroke: Icon button stroke color
+- button_bg: Text button background color
+  button_bg_hover: Text button background color on hover
+  button_text: Text button text color
+  icon_button_stroke: Icon button stroke color
   icon_button_stroke_hover: Icon button stroke color on hover
   tooltip_bg: Tooltip background color
   tooltip_text: Tooltip text color
+  dropdown_bg: Dropdown panel background color (defaults to value of `toolbar_bg`)
+  dropdown_text: Dropdown panel text color
+  dropdown_divider: Dropdown panel border and divider color (defaults to value of `divider`)
   scrollbar: Scrollbar background color
   scrollbar_hover: Scrollbar background color on hover
 

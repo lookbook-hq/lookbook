@@ -33,30 +33,34 @@
 
         <% toolbar.with_section divide: :left, class: "flex-none relative z-10" do %>
           <%= lookbook_render :button_group do |group| %>
-            <% group.with_button icon: :link,
+            <%= group.with_button id: "embed-generator-dropdown-button", icon: :code_2, tooltip: "Get embed code" do |button| %>
+              <% button.with_dropdown.with_content(lookbook_render :embed_code_display,
+                pages: @pages,
+                preview: @preview,
+                target: @target,
+                params: request.query_parameters
+              ) %>
+            <% end %>
+            <% group.with_button id: "copy-preview-url-button",
+              icon: :link,
               tooltip: "Copy preview URL",
               copy: true do %>
               <%= lookbook_inspect_url(@target.lookup_path, request.query_parameters) %>
             <% end %>
-
-            <% if @pages.any? %>
-              <% group.with_button icon: :code,
-                tooltip: "Copy page embed code",
-                copy: true do %>
-                  &lt;%= embed <%= @preview.preview_class_name %>, :<%= @target.name %>, params: <%= request.query_parameters.deep_symbolize_keys.to_s %> %&gt;
-              <% end %>
-            <% end %>
             
-            <% group.with_button icon: :refresh_cw,
+            <% group.with_button id: "refresh-preview-button",
+              icon: :refresh_cw,
               tooltip: "Refresh preview",
               "@click.stop": "startSpin(); $dispatch('viewport:reload'); stopSpin(500);" %>
 
-            <% group.with_button icon: :external_link,
+            <% group.with_button id: "open-preview-button",
+              icon: :external_link,
               href: lookbook_preview_path(@target.lookup_path, request.query_parameters),
               tooltip: "Open preview in new window",
               target: "_blank" %>
 
-            <% group.with_button icon: "vertical ? 'sidebar' : 'credit-card'",
+            <% group.with_button id: "show-drawer-button",
+              icon: "vertical ? 'sidebar' : 'credit-card'",
               tooltip: "Show drawer",
               "@click": "$store.inspector.drawer.hidden = false",
               class: "rotate-180",
@@ -97,7 +101,8 @@
         <% toolbar.with_section align: :right,  class: "flex-none relative z-10" do %>
           <%= lookbook_render :button_group do |group| %>
             <%= @drawer_panels.select { |p| !p.disabled && p.copy }.each do |panel| %>
-              <% group.with_button icon: :copy,
+              <% group.with_button id: "copy-panel-contents-button",
+                icon: :copy,
                 tooltip: "Copy panel contents",
                 copy: !!panel.copy,
                 "x-show": "$store.inspector.drawer.activeTab === '#{panel.name}'",
@@ -111,24 +116,23 @@
         <% toolbar.with_section divide: :left, class: "flex-none relative z-10" do %>
           <%= lookbook_render :button_group do |group| %>
 
-            <% group.with_button icon: :corner_up_right,
+            <% group.with_button id: "drawer-to-right-button",
+              icon: :corner_up_right,
               tooltip: "Move drawer to right",
               "@click": "switchOrientation",
-              "x-show": "horizontal && layoutWidth > $store.inspector.minVerticalSplitWidth",
+              "x-show": "horizontal",
+              ":class": "{'pointer-events-none opacity-50 !cursor-not-allowed': horizontal && layoutWidth <= $store.inspector.minVerticalSplitWidth}",
               cloak: true %>
 
-            <% group.with_button icon: :corner_up_right,
-              "x-show": "horizontal && layoutWidth <= $store.inspector.minVerticalSplitWidth",
-              disabled: true,
-              cloak: true %>
-
-            <% group.with_button icon: :corner_left_down,
+            <% group.with_button id: "drawer-to-bottom-button",
+              icon: :corner_left_down,
               tooltip: "Move drawer to bottom",
               "@click": "switchOrientation",
               "x-show": "vertical",
               cloak: true %>
 
-            <% group.with_button icon: :x_circle,
+            <% group.with_button id: "hide-drawer-button",
+              icon: :x_circle,
               tooltip: "Hide drawer",
               "@click": "$store.inspector.drawer.hidden = true",
               cloak: true %>

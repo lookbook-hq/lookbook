@@ -1,5 +1,8 @@
 <%= render_component_tag tag_name,
+  id: id,
   href: @href,
+  "@keydown.esc.stop": "hideDropdown",
+  "@navigation:complete.window": "updateDropdown",
   class: [
     "block text-lookbook-icon-button-stroke focus:outline-none focus-visible:outline-none #{padding}",
     {
@@ -8,21 +11,22 @@
     }
   ],
   disabled: @disabled,
-  "@keydown.esc.stop": "hideDropdown",
-  "@navigation:complete.window": "updateDropdown" do %>
-  <span x-ref="icon">
-    <%= icon || lookbook_render(:icon, name: @icon, size: icon_size, ":class": "{'animate-spin': _spinning}") %>
-  </span>
-  <% if @tooltip %>
-    <label class="hidden" x-ref="tooltip"><%= @tooltip %></label>
-  <% end %>
-  <% if content %>
-    <div x-ref="content"><%== content %></div>
-  <% end %>
-  <% if dropdown? %>
-    <div class="hidden" x-ref="dropdown">
-      <div class="bg-white divide-y divide-lookbook-divider text-left">
-        <%== dropdown %>
+  aria: { label: @tooltip } do %>
+    <span x-ref="icon">
+      <%= icon || lookbook_render(:icon, name: @icon, size: icon_size, ":class": "{'animate-spin': _spinning}") %>
+    </span>
+    <% if @tooltip %>
+      <label class="hidden" x-ref="tooltip"><%= @tooltip %></label>
+    <% end %>
+    <% if content %>
+      <div x-ref="content"><%= content %></div>
+    <% end %>
+<% end %>
+<% if dropdown? %>
+  <% content_for :dropdowns do %>
+    <div data-dropdown-id="<%= id %>">
+      <div class="divide-y divide-lookbook-divider text-left">
+        <%= dropdown %>
       </div>
     </div>
   <% end %>

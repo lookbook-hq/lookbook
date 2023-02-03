@@ -25,8 +25,14 @@
   --lookbook-draggable-hint: rgb(224 231 255 / 0.2);
   --lookbook-icon-button-stroke: var(--lookbook-base-400);
   --lookbook-icon-button-stroke-hover: var(--lookbook-accent-600);
+  --lookbook-button-bg: var(--lookbook-accent-500);
+  --lookbook-button-bg-hover: var(--lookbook-accent-600);
+  --lookbook-button-text: var(--lookbook-white);
   --lookbook-tooltip-bg: var(--lookbook-accent-500);
   --lookbook-tooltip-text: var(--lookbook-white);
+  --lookbook-dropdown-bg: var(--lookbook-toolbar-bg);
+  --lookbook-dropdown-text: var(--lookbook-text);
+  --lookbook-dropdown-divider: var(--lookbook-divider);
   --lookbook-scrollbar: var(--lookbook-base-200);
   --lookbook-scrollbar-hover: var(--lookbook-base-300);
   --lookbook-toolbar-bg: var(--lookbook-white);

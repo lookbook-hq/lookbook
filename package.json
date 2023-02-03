@@ -39,7 +39,7 @@
   },
   "scripts": {
     "dev": "npm run watch",
-    "watch": "npm run parcel:clean && concurrently npm:parcel:watch npm:themes:watch",
+    "watch": "npm run parcel:clean && concurrently npm:parcel:watch",
     "build": "npm run parcel:clean && npm run themes:generate && npm run parcel:build",
     "parcel:clean": "rm -rf .parcel-cache",
     "parcel:watch": "parcel watch -p 5111",

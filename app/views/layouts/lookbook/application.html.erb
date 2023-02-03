@@ -93,7 +93,14 @@
         <%= content_for?(:main) ? yield(:main) : yield %>
       </div>
     <% end %>
+    
     <div class="absolute opacity-0 bg-black inset-0 top-[39px] z-[-1] transition-opacity" :class="($store.layout.mobile && !sidebarHidden) && '!opacity-30 !z-40'" data-cloak></div>
+
+    <% if content_for? :dropdowns %>
+      <div class="hidden">
+        <%= content_for :dropdowns -%>
+      </div>
+    <% end %>
   </div>
 <% end %>
 

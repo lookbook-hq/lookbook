@@ -1,0 +1,33 @@
+<%= render_component_tag class:"p-3 pt-2.5 w-[220px]" do %>  
+  <div>
+    <label class="flex items-center space-x-2 mb-2 text-[11px] uppercase tracking-wider">
+      <span class="mr-auto">Generate embed code</span>
+      <%= icon :layout_dashboard, size: 3, class: "opacity-70 relative -top-px" %>
+    </label>
+    <%= select_tag("embed_type", embed_options, "x-model": "embedType", class: "compact") %>
+  </div>
+  <div class="mt-2" x-show="embedType" x-cloak>
+    <button
+      class="px-2 py-1.5 text-xs rounded-md flex items-center space-x-2 bg-lookbook-button-bg text-lookbook-button-text w-full hover:bg-lookbook-button-bg-hover transition"
+      @click.stop.prevent="copyEmbedCode"
+      x-bind:disabled="copied">
+      <span class="mx-auto flex items-center space-x-2">
+        <%= icon :copy, size: 3, "x-show": "!copied", "x-cloak": true %>
+        <%= icon :check, size: 3, "x-show": "copied", "x-cloak": true %>
+        <span x-text="copied ? 'Copied!' : 'Copy embed code'"></span>
+      </span>
+    <div class="hidden" data-embed-type="lookbook">
+      &lt;%= embed <%= preview_name %>, :<%= target.name %>, params: <%= params.to_s %> %&gt;
+    </div>
+    <div class="hidden" data-embed-type="external">
+      <% external_code = capture do %>
+        <%= content_tag "lookbook-embed",
+          app: app_path,
+          preview: preview_name,
+          scenario: target.name,
+          **external_embed_params do %><% end %>
+      <% end %>
+      <%= external_code %>
+    </div>
+  </div>
+<% end %>

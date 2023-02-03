@@ -3,6 +3,6 @@
     <label for="<%= name %>">
       <%= name.to_s.titleize %>:
     </label>
-    <%= select_tag(name, options_for_select(choices, value), "x-model": "value") %>
+    <%= select_tag(name, options_for_select(choices, value), "x-model": "value", class: "compact") %>
   </div>
 <% end %>

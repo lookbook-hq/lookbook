@@ -890,7 +890,6 @@ function $8c6f87050723dba0$var$buildSrc(attrs) {
     const appPath = $8c6f87050723dba0$var$attrValue(attrs, "app") || $8c6f87050723dba0$var$guessBasePath();
     const props = {};
     $8c6f87050723dba0$var$permittedAttrs(attrs).forEach(({ name: name , value: value  })=>{
-        console.log(name, value);
         name = name.replace("-", "_").toLowerCase();
         props[name] = value;
     });

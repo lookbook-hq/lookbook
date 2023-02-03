@@ -1,6 +1,6 @@
 <%= render_component_tag :header do %>
   <%= lookbook_render :toolbar, class: "!bg-lookbook-header-bg !text-lookbook-header-text !border-lookbook-header-border" do |toolbar| %>
-    <% toolbar.with_section padded: true do %>
+    <% toolbar.with_section class: "mt-[-2px]", padded: true do %>
       <% if branding.present? %>
         <a
           <% if landing_path %>href="<%= landing_path %>"<% end %>    
@@ -10,8 +10,7 @@
       <% end %>
     <% end %>
 
-    <% toolbar.with_section padded: false, align: :right, class: "flex items-center" do %>
-
+    <% toolbar.with_section padded: false, align: :right, class: "flex items-center -mt-px" do %>
       <div x-show="loading" x-cloak>
         <svg class="animate-spin h-3.5 w-3.5 text-lookbook-header-text opacity-60" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -21,14 +20,16 @@
 
       <%= lookbook_render :button_group do |group| %>
         <% if @debug_menu %>
-          <% group.with_button icon: :help_circle, class: "opacity-50 hover:opacity-100 transition !text-lookbook-header-text", "x-show": "!loading" do |button| %>
+          <% group.with_button id: "debug-menu-button",
+            icon: :help_circle,
+            class: "opacity-50 hover:opacity-100 transition !text-lookbook-header-text", "x-show": "!loading" do |button| %>
             <% menu = lookbook_render :debug_menu,
               version: Lookbook::VERSION,
               docs_url: "https://lookbook.build/guide",
               repo_url: "https://github.com/ViewComponent/lookbook" do %>
               <%= debug_data %>
             <% end %>
-            <% button.with_dropdown({}).with_content(menu) %>
+            <% button.with_dropdown.with_content(menu) %>
           <% end %>
         <% end %>
 

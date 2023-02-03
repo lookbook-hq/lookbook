@@ -43,8 +43,16 @@ module.exports = function (opts = {}) {
       iconButtonStroke: "var(--lookbook-base-400)",
       iconButtonStrokeHover: "var(--lookbook-accent-600)",
 
+      buttonBg: "var(--lookbook-accent-500)",
+      buttonBgHover: "var(--lookbook-accent-600)",
+      buttonText: "var(--lookbook-white)",
+
       tooltipBg: "var(--lookbook-accent-500)",
       tooltipText: "var(--lookbook-white)",
+
+      dropdownBg: "var(--lookbook-toolbar-bg)",
+      dropdownText: "var(--lookbook-text)",
+      dropdownDivider: "var(--lookbook-divider)",
 
       scrollbar: "var(--lookbook-base-200)",
       scrollbarHover: "var(--lookbook-base-300)",

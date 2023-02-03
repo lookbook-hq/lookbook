@@ -13,9 +13,9 @@ export default function buttonComponent() {
         });
       }
 
-      if (this.$refs.dropdown) {
+      if (this.dropdownContent) {
         dropdown = tippy(this.$el, {
-          content: this.$refs.dropdown.innerHTML,
+          content: this.dropdownContent,
           trigger: "click",
           theme: "menu",
           triggerTarget: this.$el,
@@ -32,6 +32,16 @@ export default function buttonComponent() {
       }
     },
 
+    get dropdownContent() {
+      if (this.$root && this.$root.id) {
+        const dropdown = document.querySelector(
+          `[data-dropdown-id="${this.$root.id}"]`
+        );
+        return dropdown ? dropdown.innerHTML : null;
+      }
+      return null;
+    },
+
     hideDropdown() {
       if (dropdown) {
         dropdown.hide();
@@ -42,7 +52,7 @@ export default function buttonComponent() {
       if (dropdown) {
         dropdown.hide();
         this.$nextTick(() => {
-          dropdown.setContent(this.$refs.dropdown.innerHTML);
+          dropdown.setContent(this.dropdownContent);
         });
       }
     },

@@ -10,13 +10,18 @@ module Lookbook
       lg: 6
     }
 
-    def initialize(icon: nil, tooltip: nil, disabled: false, size: :md, href: nil, **html_attrs)
+    def initialize(id: nil, icon: nil, tooltip: nil, disabled: false, size: :md, href: nil, **html_attrs)
+      @id = id
       @icon = icon
       @tooltip = tooltip
       @disabled = disabled
       @size = size
       @href = href
       super(**html_attrs)
+    end
+
+    def id
+      @id ||= "button-#{(Time.now.to_f * 1000).to_i + rand(0..100)}"
     end
 
     def icon_size
