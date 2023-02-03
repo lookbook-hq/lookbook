@@ -7831,7 +7831,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $bbec174ad41dc4c1$exports = {};
+var $77553f14666631eb$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11461,31 +11461,6 @@ function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
 }
 
 
-var $e9904a14dabf652d$exports = {};
-
-$parcel$defineInteropFlag($e9904a14dabf652d$exports);
-
-$parcel$export($e9904a14dabf652d$exports, "default", () => $e9904a14dabf652d$export$2e2bcd8739ae039);
-function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
-    return {
-        focussed: false,
-        get active () {
-            return store.active;
-        },
-        get text () {
-            return store.text;
-        },
-        clear () {
-            if (store.raw === "") this.$refs.input.blur();
-            else store.raw = "";
-        },
-        focus () {
-            this.$refs.input.focus();
-        }
-    };
-}
-
-
 var $216ef7001f59f21d$exports = {};
 
 $parcel$defineInteropFlag($216ef7001f59f21d$exports);
@@ -11506,6 +11481,31 @@ function $216ef7001f59f21d$export$2e2bcd8739ae039() {
                     this.copied = false;
                 }, 2000);
             });
+        }
+    };
+}
+
+
+var $e9904a14dabf652d$exports = {};
+
+$parcel$defineInteropFlag($e9904a14dabf652d$exports);
+
+$parcel$export($e9904a14dabf652d$exports, "default", () => $e9904a14dabf652d$export$2e2bcd8739ae039);
+function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
+    return {
+        focussed: false,
+        get active () {
+            return store.active;
+        },
+        get text () {
+            return store.text;
+        },
+        clear () {
+            if (store.raw === "") this.$refs.input.blur();
+            else store.raw = "";
+        },
+        focus () {
+            this.$refs.input.focus();
         }
     };
 }
@@ -12364,13 +12364,13 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$bbec174ad41dc4c1$exports = {
+$77553f14666631eb$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
     "dimensions_display": $e398acaded942bbe$exports,
-    "filter": $e9904a14dabf652d$exports,
     "embed_code_dropdown": $216ef7001f59f21d$exports,
+    "filter": $e9904a14dabf652d$exports,
     "icon": $36506012e0c6e9e3$exports,
     "nav": $d92d9d5253f84566$exports,
     "split_layout": $506dabb2bf255b38$exports,
@@ -12380,7 +12380,125 @@ $bbec174ad41dc4c1$exports = {
 };
 
 
-var $2af7656449ff0341$exports = {};
+var $f3e1e32f4a1bd6da$exports = {};
+var $6a9b69d9cc7f810f$exports = {};
+
+$parcel$defineInteropFlag($6a9b69d9cc7f810f$exports);
+
+$parcel$export($6a9b69d9cc7f810f$exports, "default", () => $6a9b69d9cc7f810f$export$2e2bcd8739ae039);
+var $cdfeaa1e0e8d642c$exports = {};
+(function(global, factory) {
+    $cdfeaa1e0e8d642c$exports = factory();
+})($cdfeaa1e0e8d642c$exports, function() {
+    "use strict";
+    /* eslint-disable no-var */ function assign(target) {
+        for(var i = 1; i < arguments.length; i++){
+            var source = arguments[i];
+            for(var key in source)target[key] = source[key];
+        }
+        return target;
+    }
+    /* eslint-enable no-var */ /* eslint-disable no-var */ var defaultConverter = {
+        read: function(value) {
+            if (value[0] === '"') value = value.slice(1, -1);
+            return value.replace(/(%[\dA-F]{2})+/gi, decodeURIComponent);
+        },
+        write: function(value) {
+            return encodeURIComponent(value).replace(/%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g, decodeURIComponent);
+        }
+    };
+    /* eslint-enable no-var */ /* eslint-disable no-var */ function init(converter, defaultAttributes) {
+        function set(key, value, attributes) {
+            if (typeof document === "undefined") return;
+            attributes = assign({}, defaultAttributes, attributes);
+            if (typeof attributes.expires === "number") attributes.expires = new Date(Date.now() + attributes.expires * 864e5);
+            if (attributes.expires) attributes.expires = attributes.expires.toUTCString();
+            key = encodeURIComponent(key).replace(/%(2[346B]|5E|60|7C)/g, decodeURIComponent).replace(/[()]/g, escape);
+            var stringifiedAttributes = "";
+            for(var attributeName in attributes){
+                if (!attributes[attributeName]) continue;
+                stringifiedAttributes += "; " + attributeName;
+                if (attributes[attributeName] === true) continue;
+                // Considers RFC 6265 section 5.2:
+                // ...
+                // 3.  If the remaining unparsed-attributes contains a %x3B (";")
+                //     character:
+                // Consume the characters of the unparsed-attributes up to,
+                // not including, the first %x3B (";") character.
+                // ...
+                stringifiedAttributes += "=" + attributes[attributeName].split(";")[0];
+            }
+            return document.cookie = key + "=" + converter.write(value, key) + stringifiedAttributes;
+        }
+        function get(key) {
+            if (typeof document === "undefined" || arguments.length && !key) return;
+            // To prevent the for loop in the first place assign an empty array
+            // in case there are no cookies at all.
+            var cookies = document.cookie ? document.cookie.split("; ") : [];
+            var jar = {};
+            for(var i = 0; i < cookies.length; i++){
+                var parts = cookies[i].split("=");
+                var value = parts.slice(1).join("=");
+                try {
+                    var foundKey = decodeURIComponent(parts[0]);
+                    jar[foundKey] = converter.read(value, foundKey);
+                    if (key === foundKey) break;
+                } catch (e) {}
+            }
+            return key ? jar[key] : jar;
+        }
+        return Object.create({
+            set: set,
+            get: get,
+            remove: function(key, attributes) {
+                set(key, "", assign({}, attributes, {
+                    expires: -1
+                }));
+            },
+            withAttributes: function(attributes) {
+                return init(this.converter, assign({}, this.attributes, attributes));
+            },
+            withConverter: function(converter) {
+                return init(assign({}, this.converter, converter), this.attributes);
+            }
+        }, {
+            attributes: {
+                value: Object.freeze(defaultAttributes)
+            },
+            converter: {
+                value: Object.freeze(converter)
+            }
+        });
+    }
+    var api = init(defaultConverter, {
+        path: "/"
+    });
+    /* eslint-enable no-var */ return api;
+});
+
+
+
+function $6a9b69d9cc7f810f$export$2e2bcd8739ae039({ name: name , value: value  }) {
+    return {
+        name: name,
+        value: value,
+        init () {
+            this.$watch("value", ()=>this.update());
+        },
+        update () {
+            (0, (/*@__PURE__*/$parcel$interopDefault($cdfeaa1e0e8d642c$exports))).set(`lookbook-display-${name}`, this.value);
+            const searchParams = new URLSearchParams(window.location.search);
+            const display = searchParams.get("_display");
+            const displayParams = display ? (0, $7ae6ae39c2ec9059$export$f720fd0ddbeb53d9)(display) : {};
+            displayParams[this.name] = this.value;
+            searchParams.set("_display", (0, $7ae6ae39c2ec9059$export$c788aab010beeaec)(displayParams));
+            const path = location.href.replace(location.search, "");
+            this.navigateTo(`${path}?${searchParams.toString()}`);
+        }
+    };
+}
+
+
 var $c299e36fa9e271bc$exports = {};
 
 $parcel$defineInteropFlag($c299e36fa9e271bc$exports);
@@ -12462,11 +12580,11 @@ var $ef5e88eaa61efd95$exports = {};
         var x;
         // Remove vendor prefixing if prefixed and break early if not
         for(x = 0; x < vendors.length && !requestAnimationFrame; x += 1)requestAnimationFrame = window[vendors[x] + "RequestAnimationFrame"];
-        if (!requestAnimationFrame) log("setup", "RequestAnimationFrame not supported");
-        else // Firefox extension content-scripts have a globalThis object that is not the same as window.
+        if (requestAnimationFrame) // Firefox extension content-scripts have a globalThis object that is not the same as window.
         // Binding `requestAnimationFrame` to window allows the function to work and prevents errors
         // being thrown when run in that context, and should be a no-op in every other context.
         requestAnimationFrame = requestAnimationFrame.bind(window);
+        else log("setup", "RequestAnimationFrame not supported");
     }
     function getMyID(iframeId) {
         var retStr = "Host page: " + iframeId;
@@ -12504,7 +12622,7 @@ var $ef5e88eaa61efd95$exports = {};
             syncResize(resize, messageData, "init");
         }
         function processMsg() {
-            var data = msg.substr(msgIdLen).split(":");
+            var data = msg.slice(msgIdLen).split(":");
             var height = data[1] ? parseInt(data[1], 10) : 0;
             var iframe = settings[data[0]] && settings[data[0]].iframe;
             var compStyle = getComputedStyle(iframe);
@@ -12564,12 +12682,12 @@ var $ef5e88eaa61efd95$exports = {};
             return true;
         }
         function isMessageForUs() {
-            return msgId === ("" + msg).substr(0, msgIdLen) && msg.substr(msgIdLen).split(":")[0] in settings // ''+Protects against non-string msg
+            return msgId === ("" + msg).slice(0, msgIdLen) && msg.slice(msgIdLen).split(":")[0] in settings // ''+Protects against non-string msg
             ;
         }
         function isMessageFromMetaParent() {
             // Test if this message is from a parent above us. This is an ugly test, however, updating
-            // the message format would break backwards compatibity.
+            // the message format would break backwards compatibility.
             var retCode = messageData.type in {
                 true: 1,
                 false: 1,
@@ -12579,7 +12697,7 @@ var $ef5e88eaa61efd95$exports = {};
             return retCode;
         }
         function getMsgBody(offset) {
-            return msg.substr(msg.indexOf(":") + msgHeaderLen + offset);
+            return msg.slice(msg.indexOf(":") + msgHeaderLen + offset);
         }
         function forwardMsgFromIFrame(msgBody) {
             log(iframeId, "onMessage passed: {iframe: " + messageData.iframe.id + ", message: " + msgBody + "}");
@@ -12681,12 +12799,12 @@ var $ef5e88eaa61efd95$exports = {};
                 y: 0
             }, newPosition = calcOffset();
             log(iframeId, "Reposition requested from iFrame (offset x:" + offset.x + " y:" + offset.y + ")");
-            if (window.top !== window.self) scrollParent();
-            else reposition();
+            if (window.top === window.self) reposition();
+            else scrollParent();
         }
         function scrollTo() {
-            if (false !== on("onScroll", pagePosition)) setPagePosition(iframeId);
-            else unsetPagePosition();
+            if (false === on("onScroll", pagePosition)) unsetPagePosition();
+            else setPagePosition(iframeId);
         }
         function findTarget(location) {
             function jumpToTarget() {
@@ -12705,8 +12823,8 @@ var $ef5e88eaa61efd95$exports = {};
             }
             var hash = location.split("#")[1] || "", hashData = decodeURIComponent(hash), target = document.getElementById(hashData) || document.getElementsByName(hashData)[0];
             if (target) jumpToTarget();
-            else if (window.top !== window.self) jumpToParent();
-            else log(iframeId, "In page link #" + hash + " not found");
+            else if (window.top === window.self) log(iframeId, "In page link #" + hash + " not found");
+            else jumpToParent();
         }
         function onMouse(event) {
             var mousePos = {};
@@ -12836,8 +12954,8 @@ var $ef5e88eaa61efd95$exports = {};
     function getPagePosition(iframeId) {
         if (null === pagePosition) {
             pagePosition = {
-                x: window.pageXOffset !== undefined ? window.pageXOffset : document.documentElement.scrollLeft,
-                y: window.pageYOffset !== undefined ? window.pageYOffset : document.documentElement.scrollTop
+                x: window.pageXOffset === undefined ? document.documentElement.scrollLeft : window.pageXOffset,
+                y: window.pageYOffset === undefined ? document.documentElement.scrollTop : window.pageYOffset
             };
             log(iframeId, "Get page position: " + pagePosition.x + "," + pagePosition.y);
         }
@@ -13082,14 +13200,15 @@ var $ef5e88eaa61efd95$exports = {};
             return iframeId in settings && "iFrameResizer" in iframe;
         }
         var iframeId = ensureHasId(iframe.id);
-        if (!beenHere()) {
+        if (beenHere()) warn(iframeId, "Ignored iFrame, already setup.");
+        else {
             processOptions(options);
             setScrolling();
             setLimits();
             setupBodyMarginValues();
             init(createOutgoingMsg(iframeId));
             setupIFrameObject();
-        } else warn(iframeId, "Ignored iFrame, already setup.");
+        }
     }
     function debouce(fn, time) {
         if (null === timer) timer = setTimeout(function() {
@@ -13148,10 +13267,10 @@ var $ef5e88eaa61efd95$exports = {};
     // Not testable in PhantomJS
     /* istanbul ignore next */ function tabVisible() {
         function resize() {
-            sendTriggerMsg("Tab Visable", "resize");
+            sendTriggerMsg("Tab Visible", "resize");
         }
         if ("hidden" !== document.visibilityState) {
-            log("document", "Trigger event: Visiblity change");
+            log("document", "Trigger event: Visibility change");
             debouce(resize, 16);
         }
     }
@@ -13216,7 +13335,7 @@ var $ef5e88eaa61efd95$exports = {};
             return this.filter("iframe").each(init).end();
         };
     }
-    if (window.jQuery) createJQueryPublicMethod(window.jQuery);
+    if (window.jQuery !== undefined) createJQueryPublicMethod(window.jQuery);
     if (typeof define === "function" && define.amd) define([], factory);
     else if (typeof $ef5e88eaa61efd95$exports === "object") // Node for browserfy
     $ef5e88eaa61efd95$exports = factory();
@@ -13256,124 +13375,6 @@ function $c299e36fa9e271bc$export$2e2bcd8739ae039(id, embedStore) {
         },
         resizeIframe () {
             this.iframe.iFrameResizer.resize();
-        }
-    };
-}
-
-
-var $6a9b69d9cc7f810f$exports = {};
-
-$parcel$defineInteropFlag($6a9b69d9cc7f810f$exports);
-
-$parcel$export($6a9b69d9cc7f810f$exports, "default", () => $6a9b69d9cc7f810f$export$2e2bcd8739ae039);
-var $cdfeaa1e0e8d642c$exports = {};
-(function(global, factory) {
-    $cdfeaa1e0e8d642c$exports = factory();
-})($cdfeaa1e0e8d642c$exports, function() {
-    "use strict";
-    /* eslint-disable no-var */ function assign(target) {
-        for(var i = 1; i < arguments.length; i++){
-            var source = arguments[i];
-            for(var key in source)target[key] = source[key];
-        }
-        return target;
-    }
-    /* eslint-enable no-var */ /* eslint-disable no-var */ var defaultConverter = {
-        read: function(value) {
-            if (value[0] === '"') value = value.slice(1, -1);
-            return value.replace(/(%[\dA-F]{2})+/gi, decodeURIComponent);
-        },
-        write: function(value) {
-            return encodeURIComponent(value).replace(/%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g, decodeURIComponent);
-        }
-    };
-    /* eslint-enable no-var */ /* eslint-disable no-var */ function init(converter, defaultAttributes) {
-        function set(key, value, attributes) {
-            if (typeof document === "undefined") return;
-            attributes = assign({}, defaultAttributes, attributes);
-            if (typeof attributes.expires === "number") attributes.expires = new Date(Date.now() + attributes.expires * 864e5);
-            if (attributes.expires) attributes.expires = attributes.expires.toUTCString();
-            key = encodeURIComponent(key).replace(/%(2[346B]|5E|60|7C)/g, decodeURIComponent).replace(/[()]/g, escape);
-            var stringifiedAttributes = "";
-            for(var attributeName in attributes){
-                if (!attributes[attributeName]) continue;
-                stringifiedAttributes += "; " + attributeName;
-                if (attributes[attributeName] === true) continue;
-                // Considers RFC 6265 section 5.2:
-                // ...
-                // 3.  If the remaining unparsed-attributes contains a %x3B (";")
-                //     character:
-                // Consume the characters of the unparsed-attributes up to,
-                // not including, the first %x3B (";") character.
-                // ...
-                stringifiedAttributes += "=" + attributes[attributeName].split(";")[0];
-            }
-            return document.cookie = key + "=" + converter.write(value, key) + stringifiedAttributes;
-        }
-        function get(key) {
-            if (typeof document === "undefined" || arguments.length && !key) return;
-            // To prevent the for loop in the first place assign an empty array
-            // in case there are no cookies at all.
-            var cookies = document.cookie ? document.cookie.split("; ") : [];
-            var jar = {};
-            for(var i = 0; i < cookies.length; i++){
-                var parts = cookies[i].split("=");
-                var value = parts.slice(1).join("=");
-                try {
-                    var foundKey = decodeURIComponent(parts[0]);
-                    jar[foundKey] = converter.read(value, foundKey);
-                    if (key === foundKey) break;
-                } catch (e) {}
-            }
-            return key ? jar[key] : jar;
-        }
-        return Object.create({
-            set: set,
-            get: get,
-            remove: function(key, attributes) {
-                set(key, "", assign({}, attributes, {
-                    expires: -1
-                }));
-            },
-            withAttributes: function(attributes) {
-                return init(this.converter, assign({}, this.attributes, attributes));
-            },
-            withConverter: function(converter) {
-                return init(assign({}, this.converter, converter), this.attributes);
-            }
-        }, {
-            attributes: {
-                value: Object.freeze(defaultAttributes)
-            },
-            converter: {
-                value: Object.freeze(converter)
-            }
-        });
-    }
-    var api = init(defaultConverter, {
-        path: "/"
-    });
-    /* eslint-enable no-var */ return api;
-});
-
-
-
-function $6a9b69d9cc7f810f$export$2e2bcd8739ae039({ name: name , value: value  }) {
-    return {
-        name: name,
-        value: value,
-        init () {
-            this.$watch("value", ()=>this.update());
-        },
-        update () {
-            (0, (/*@__PURE__*/$parcel$interopDefault($cdfeaa1e0e8d642c$exports))).set(`lookbook-display-${name}`, this.value);
-            const searchParams = new URLSearchParams(window.location.search);
-            const display = searchParams.get("_display");
-            const displayParams = display ? (0, $7ae6ae39c2ec9059$export$f720fd0ddbeb53d9)(display) : {};
-            displayParams[this.name] = this.value;
-            searchParams.set("_display", (0, $7ae6ae39c2ec9059$export$c788aab010beeaec)(displayParams));
-            const path = location.href.replace(location.search, "");
-            this.navigateTo(`${path}?${searchParams.toString()}`);
         }
     };
 }
@@ -13468,12 +13469,12 @@ function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
 }
 
 
-$2af7656449ff0341$exports = {
-    "embed": {
-        "inspector": $c299e36fa9e271bc$exports
-    },
+$f3e1e32f4a1bd6da$exports = {
     "display_options": {
         "field": $6a9b69d9cc7f810f$exports
+    },
+    "embed": {
+        "inspector": $c299e36fa9e271bc$exports
     },
     "nav": {
         "item": $9b24cbeb3a465447$exports
@@ -13548,8 +13549,8 @@ const $939f2ad3cd685486$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $d709d0f4027033b2$export$2e2bcd8739ae039));
 [
-    $bbec174ad41dc4c1$exports,
-    $2af7656449ff0341$exports,
+    $77553f14666631eb$exports,
+    $f3e1e32f4a1bd6da$exports,
     $6c10158820e535ef$exports
 ].forEach((scripts)=>{
     const components = (0, $5439cede634b2921$export$4e811121b221213b)(scripts);

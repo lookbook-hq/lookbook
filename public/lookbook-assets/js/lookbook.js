@@ -75,11 +75,11 @@ var $5180433265c858be$exports = {};
         var x;
         // Remove vendor prefixing if prefixed and break early if not
         for(x = 0; x < vendors.length && !requestAnimationFrame; x += 1)requestAnimationFrame = window[vendors[x] + "RequestAnimationFrame"];
-        if (!requestAnimationFrame) log("setup", "RequestAnimationFrame not supported");
-        else // Firefox extension content-scripts have a globalThis object that is not the same as window.
+        if (requestAnimationFrame) // Firefox extension content-scripts have a globalThis object that is not the same as window.
         // Binding `requestAnimationFrame` to window allows the function to work and prevents errors
         // being thrown when run in that context, and should be a no-op in every other context.
         requestAnimationFrame = requestAnimationFrame.bind(window);
+        else log("setup", "RequestAnimationFrame not supported");
     }
     function getMyID(iframeId) {
         var retStr = "Host page: " + iframeId;
@@ -117,7 +117,7 @@ var $5180433265c858be$exports = {};
             syncResize(resize, messageData, "init");
         }
         function processMsg() {
-            var data = msg.substr(msgIdLen).split(":");
+            var data = msg.slice(msgIdLen).split(":");
             var height = data[1] ? parseInt(data[1], 10) : 0;
             var iframe = settings[data[0]] && settings[data[0]].iframe;
             var compStyle = getComputedStyle(iframe);
@@ -177,12 +177,12 @@ var $5180433265c858be$exports = {};
             return true;
         }
         function isMessageForUs() {
-            return msgId === ("" + msg).substr(0, msgIdLen) && msg.substr(msgIdLen).split(":")[0] in settings // ''+Protects against non-string msg
+            return msgId === ("" + msg).slice(0, msgIdLen) && msg.slice(msgIdLen).split(":")[0] in settings // ''+Protects against non-string msg
             ;
         }
         function isMessageFromMetaParent() {
             // Test if this message is from a parent above us. This is an ugly test, however, updating
-            // the message format would break backwards compatibity.
+            // the message format would break backwards compatibility.
             var retCode = messageData.type in {
                 true: 1,
                 false: 1,
@@ -192,7 +192,7 @@ var $5180433265c858be$exports = {};
             return retCode;
         }
         function getMsgBody(offset) {
-            return msg.substr(msg.indexOf(":") + msgHeaderLen + offset);
+            return msg.slice(msg.indexOf(":") + msgHeaderLen + offset);
         }
         function forwardMsgFromIFrame(msgBody) {
             log(iframeId, "onMessage passed: {iframe: " + messageData.iframe.id + ", message: " + msgBody + "}");
@@ -294,12 +294,12 @@ var $5180433265c858be$exports = {};
                 y: 0
             }, newPosition = calcOffset();
             log(iframeId, "Reposition requested from iFrame (offset x:" + offset.x + " y:" + offset.y + ")");
-            if (window.top !== window.self) scrollParent();
-            else reposition();
+            if (window.top === window.self) reposition();
+            else scrollParent();
         }
         function scrollTo() {
-            if (false !== on("onScroll", pagePosition)) setPagePosition(iframeId);
-            else unsetPagePosition();
+            if (false === on("onScroll", pagePosition)) unsetPagePosition();
+            else setPagePosition(iframeId);
         }
         function findTarget(location) {
             function jumpToTarget() {
@@ -318,8 +318,8 @@ var $5180433265c858be$exports = {};
             }
             var hash = location.split("#")[1] || "", hashData = decodeURIComponent(hash), target = document.getElementById(hashData) || document.getElementsByName(hashData)[0];
             if (target) jumpToTarget();
-            else if (window.top !== window.self) jumpToParent();
-            else log(iframeId, "In page link #" + hash + " not found");
+            else if (window.top === window.self) log(iframeId, "In page link #" + hash + " not found");
+            else jumpToParent();
         }
         function onMouse(event) {
             var mousePos = {};
@@ -449,8 +449,8 @@ var $5180433265c858be$exports = {};
     function getPagePosition(iframeId) {
         if (null === pagePosition) {
             pagePosition = {
-                x: window.pageXOffset !== undefined ? window.pageXOffset : document.documentElement.scrollLeft,
-                y: window.pageYOffset !== undefined ? window.pageYOffset : document.documentElement.scrollTop
+                x: window.pageXOffset === undefined ? document.documentElement.scrollLeft : window.pageXOffset,
+                y: window.pageYOffset === undefined ? document.documentElement.scrollTop : window.pageYOffset
             };
             log(iframeId, "Get page position: " + pagePosition.x + "," + pagePosition.y);
         }
@@ -695,14 +695,15 @@ var $5180433265c858be$exports = {};
             return iframeId in settings && "iFrameResizer" in iframe;
         }
         var iframeId = ensureHasId(iframe.id);
-        if (!beenHere()) {
+        if (beenHere()) warn(iframeId, "Ignored iFrame, already setup.");
+        else {
             processOptions(options);
             setScrolling();
             setLimits();
             setupBodyMarginValues();
             init(createOutgoingMsg(iframeId));
             setupIFrameObject();
-        } else warn(iframeId, "Ignored iFrame, already setup.");
+        }
     }
     function debouce(fn, time) {
         if (null === timer) timer = setTimeout(function() {
@@ -761,10 +762,10 @@ var $5180433265c858be$exports = {};
     // Not testable in PhantomJS
     /* istanbul ignore next */ function tabVisible() {
         function resize() {
-            sendTriggerMsg("Tab Visable", "resize");
+            sendTriggerMsg("Tab Visible", "resize");
         }
         if ("hidden" !== document.visibilityState) {
-            log("document", "Trigger event: Visiblity change");
+            log("document", "Trigger event: Visibility change");
             debouce(resize, 16);
         }
     }
@@ -829,7 +830,7 @@ var $5180433265c858be$exports = {};
             return this.filter("iframe").each(init).end();
         };
     }
-    if (window.jQuery) createJQueryPublicMethod(window.jQuery);
+    if (window.jQuery !== undefined) createJQueryPublicMethod(window.jQuery);
     if (typeof define === "function" && define.amd) define([], factory);
     else if (typeof $5180433265c858be$exports === "object") // Node for browserfy
     $5180433265c858be$exports = factory();
