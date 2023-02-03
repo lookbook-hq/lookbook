@@ -22,7 +22,7 @@ title: Styles & JavaScript
     ```
   <% end %>
 
-  <% s.with_block_note :info do %>
+  <% s.with_block_note :tip do %>
     The `<style>` element will be removed when the panel is rendered and any styles will be automagically **scoped to the panel that they are defined in**, so they will not affect other panels or leak out to affect the styling of the UI in general.
   <% end %>
 

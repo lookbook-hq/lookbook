@@ -11,7 +11,7 @@ title: Using Annotations
     Annotations can be added at the class (preview) or method (scenario) level, and can contain a mix of [text content](#notes) and [tags](#tags).
   <% end %>
 
-  <% s.with_block_note :info do %>
+  <% s.with_block_note :link do %>
     The [tags reference page](<%= guide_url :tags_reference %>) has details on all of the tags that are available for use.
   <% end %>
 <% end %>

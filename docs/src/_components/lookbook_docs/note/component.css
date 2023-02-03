@@ -1,14 +1,18 @@
 [data-component="note"] {
-  @apply py-3 pl-4 pr-4 rounded border relative my-8;
+  @apply rounded border relative my-8;
 
   box-shadow: 1px 1px 1px rgb(0 0 0 / 10%);
 
-  & [data-component="icon"] {
+  & .kind-icon {
     @apply mt-1 relative -top-px;
   }
 
   & .note-content div.highlighter-rouge {
     max-width: 100%;
+  }
+
+  & .note-footer {
+    @apply text-sm text-right border-t;
   }
 
   &[data-note-theme="tip"] {
@@ -17,13 +21,9 @@
     & [data-component="icon"] {
       @apply text-sky-700;
     }
-  }
 
-  &[data-note-theme="info"] {
-    @apply bg-indigo-50/80 border-indigo-200;
-
-    & [data-component="icon"] {
-      @apply text-indigo-700;
+    & .note-footer {
+      @apply bg-sky-100/50 border-sky-200 text-sky-700;
     }
   }
 
@@ -33,13 +33,21 @@
     & [data-component="icon"] {
       @apply text-amber-700;
     }
+
+    & .note-footer {
+      @apply bg-amber-100/50 border-amber-300 text-amber-700;
+    }
   }
 
-  &[data-note-theme="code"] {
-    @apply bg-slate-50 border-slate-300;
+  &[data-note-theme="link"] {
+    @apply bg-fuchsia-50/60 border-fuchsia-200;
 
     & [data-component="icon"] {
-      @apply text-slate-700;
+      @apply text-fuchsia-600;
+    }
+
+    & .note-footer {
+      @apply bg-fuchsia-100/50 border-fuchsia-200 text-fuchsia-600;
     }
   }
 

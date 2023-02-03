@@ -11,7 +11,7 @@ title: Previews Overview
     Preview classes typically have a 1-to-1 mapping with components, with each component having its own dedicated preview class.
   <% end %>
 
-  <% s.with_block_note :info do %>
+  <% s.with_block_note :tip do %>
     Lookbook's preview system is based upon (and is fully compatible with) ViewComponent's [native preview system](https://viewcomponent.org/guide/previews.html),
     so any existing ViewComponent previews should automagically show up in the Lookbook UI. Read more about [using Lookbook with ViewComponent &rarr;](<%= guide_url :components_view_component %>)
   <% end %>

@@ -57,7 +57,7 @@ title: Input Templates
     This technique will work for most types of `<input>` elements, plus `<textarea>` `<select>` elements.
   <% end %>
 
-  <% s.with_block_note :info do %>
+  <% s.with_block_note :link do %>
     See the [Alpine documentation on the x-model directive](https://alpinejs.dev/directives/model) for full details of all available modifiers.
   <% end %>
 
@@ -73,7 +73,7 @@ title: Input Templates
     ```
   <% end %>
 
-  <% s.with_block_note :info do %>
+  <% s.with_block_note :link do %>
     See the [Alpine documentation on event handling](https://alpinejs.dev/directives/on) for details on listening and responding to events.
   <% end %>
 <% end %>

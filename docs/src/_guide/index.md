@@ -12,9 +12,7 @@ title: Introduction
     test & document** those components in isolation from each other.
   <% end %>
 
-  
-
-   <% s.with_block_prose do %>
+  <% s.with_block_prose do %>
     Lookbook was originally designed for [ViewComponent](https://github.com/ViewComponent/view_component)-based projects but now supports
     a [number of other component types](<%= guide_url :components %>) too!
   <% end %>
@@ -29,11 +27,11 @@ title: Introduction
 <%= render section("Demo app", id: "demo") do |s| %>
   <% s.with_block_prose do %>
     If you want to have a quick play with Lookbook, the easiest way is to [give the demo app](<%= links.v2.demo %>) a spin.
-    It's a basic Rails/ViewComponent app with a few test components included to tinker with:
+    It's a basic Rails/ViewComponent app with a few test components included to tinker with.
   <% end %>
 
   <% s.with_block_button center: false do |b| %>
-    <% b.with_button "View the Lookbook demo app", href: links.v2.demo, icon: :arrow_right %>
+    <% b.with_button "View the demo", href: links.v2.demo, icon: :arrow_right %>
   <% end %>
 
 

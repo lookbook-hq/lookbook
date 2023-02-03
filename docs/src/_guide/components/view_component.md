@@ -14,7 +14,7 @@ title: Using with ViewComponent
     Any [ViewComponent previews](https://viewcomponent.org/guide/previews.html) you create should **automatically be available in Lookbook with no additional steps required.**
   <% end %>
 
-  <% s.with_block_note :tip do %>
+  <% s.with_block_note :link do |note| %>
     See the ViewComponent docs for setup and usage instructions: [https://viewcomponent.org/](https://viewcomponent.org/)
   <% end %>
   

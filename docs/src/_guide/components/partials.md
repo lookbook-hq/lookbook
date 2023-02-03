@@ -15,8 +15,8 @@ title: Using with Template Partials
     Lookbook enables partials to be previewed in isolation, either instead of or alongside any other components in the app.
   <% end %>
 
-  <% s.with_block_note :tip do %>
-    See the Rails docs for more details on using partials: [https://guides.rubyonrails.org/layouts_and_rendering.html](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials)
+  <% s.with_block_note :link do %>
+    See the Rails docs for more details on using partials: [https://guides.rubyonrails.org/](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials)
   <% end %>
 <% end %>
 

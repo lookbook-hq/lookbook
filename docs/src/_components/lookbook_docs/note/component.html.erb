@@ -3,13 +3,24 @@
     component: "note",
     "note-theme": theme
   } do %>
-  <div class="flex items-start space-x-3">
-    <%= render LookbookDocs::Icon::Component.new(name: icon_name, size: 5) %>
-    <div class="note-content prose max-w-none flex-grow overflow-hidden">
+  <div class="flex items-start space-x-3 py-3 pl-4 pr-4">
+    <div>
+      <%= render LookbookDocs::Icon::Component.new(name: icon_name, size: 5, class: "kind-icon") %>
+    </div>
+    <div class="note-content flex-grow overflow-hidden">
       <% if title.present? %>
-        <h4 class="mb-1 text-lg"><%= title %></h4>
+        <h4 class="mb-1 text-base font-semibold"><%= title %></h4>
       <% end %>
-      <%= markdownify content %>
+      <div class="prose max-w-none">
+        <%= markdownify content %>
+      </div>
     </div>
   </div>
+  <% if action? %>
+    <footer class="note-footer px-4 py-2 flex items-center pl-[49px]">
+      <a href="#" class="flex items-center space-x-2 w-full h-full">
+        <%== action %>
+      </a>
+    </footer>
+  <% end %>
 <% end %>

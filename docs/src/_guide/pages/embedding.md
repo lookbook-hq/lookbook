@@ -5,8 +5,8 @@ title: Embedding Previews
 
 <%= render section(overview: true) do |s| %>
   <% s.with_block_prose do %>
-    You can embed previews from your project directly into the documentation pages using the `embed` helper,
-    which renders an iframe with the rendered preview in it at any point in your document.
+    You can embed previews from your project directly into documentation pages to help create **living documents**
+    that always feature the latest changes to your component previews.
 
     A basic preview embed within a documentation page looks like this:
   <% end %>
@@ -15,9 +15,36 @@ title: Embedding Previews
 
 <% end %>
 
-<%= render section("Usage", id: "usage") do |s| %>
+<%= render section("Embedding previews", id: "embedding") do |s| %>
+
   <% s.with_block_prose do %>
-    To specify which preview to render, the helper accepts a preview class and a method name (as a symbol), like this:
+
+    Preview embeds are added to pages using the `<lookbook-embed>` element.
+
+    ```html
+    <lookbook-embed
+      app="https://myapp.com/lookbook"
+      preview="Feedback::BlankSlateComponentPreview"
+      scenario="default"
+      panels="params,source,output">
+    </lookbook-embed>
+    ```
+
+    Configuration options are set using attribute key/value pairs on the element. See the 
+
+  <% end %>
+
+  <% s.with_block_note :tip do |note| %>
+    There are full details of how to use preview embeds on external sites in the [preview embeds documentation](<%= guide_url :embeds %>).
+    Using embeds in Lookbook pages is **no different**, except that you don't need to do any of the setup work. 
+  <% end %>
+<% end %>
+
+<%= render section("The `embed` helper", id: "embed-helper") do |s| %>
+  <% s.with_block_prose do %>
+    There is an `embed` helper method available to page templates that can be used to generate the embed element's HTML.
+  
+    The helper accepts a preview class and a method name (as a symbol) to determine what to render:
 
     ```erb
     <%%= embed Feedback::BlankSlateComponentPreview, :default %>
@@ -39,7 +66,7 @@ title: Embedding Previews
     ```    
   <% end %>
 
-  <% s.with_block_subheading "Inspector Panels", id: "panels" %>
+  <% s.with_block_subheading "Panels", id: "panels" %>
   <% s.with_block_prose do %>
     Preview embeds can be configured to display one or more [inspector panels](<%= guide_url :ui_inspector %>).
 

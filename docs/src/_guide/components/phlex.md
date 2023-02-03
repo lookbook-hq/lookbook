@@ -17,7 +17,7 @@ title: Using with Phlex
 
   <% end %>
 
-  <% s.with_block_note :tip do %>
+  <% s.with_block_note :link do %>
     See the Phlex docs for setup and usage instructions: [https://phlex.fun](https://www.phlex.fun)
   <% end %>
 <% end %>

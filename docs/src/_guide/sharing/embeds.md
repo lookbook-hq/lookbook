@@ -5,9 +5,10 @@ lookbook_embeds: true
 ---
 
 <%= render section(overview: true) do |s| %>
-  Lookbook's preview embeds allow **live component previews** to be embedded outside of Lookbook, within the parent app or on an external site.
+  Lookbook's preview embeds allow **live component previews** to be embedded on external sites or in the host app's templates.
 
-  Each embed is an `iframe` that points to a customised version of the preview inspector, running on your server. The embed can be customised to hide/show inspector panels, allow switching between scenarios, and more.
+  Each embed is an `iframe` that points to a customised version of the preview inspector, running on your server.
+  The embed can be customised to hide/show inspector panels, allow switching between scenarios, and more.
 <% end %>
 
 <%= render section("Example embed", id: "example") do |s| %>
