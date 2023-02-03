@@ -74,8 +74,12 @@ module Lookbook
         mount_path.present?
       end
 
+      def reloading?
+        opts.reload_on_change
+      end
+
       def auto_refresh?
-        opts.reload_on_change && runtime_context.web? && FileWatcher.evented?
+        reloading? && runtime_context.web? && FileWatcher.evented?
       end
 
       def websocket
