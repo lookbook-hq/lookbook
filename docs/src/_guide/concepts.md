@@ -8,7 +8,7 @@ title: Key Concepts & Terminology
 
   A component is a discrete, reusable 'chunk' of user interface such as a button or alert banner. 
   
-  Lookbook **doesn't provide it's own system for authoring components**, but rather provides support for previewing components created using
+  Lookbook **doesn't provide its own system for authoring components**, but rather provides support for previewing components created using
   frameworks such as [ViewComponent](https://viewcomponent.org/) or [Phlex](https://phlex.fun),
   as well as for rendering previews of regular ActionView [template partials](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials).
 

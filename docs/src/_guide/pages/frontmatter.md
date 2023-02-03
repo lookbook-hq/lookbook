@@ -41,7 +41,7 @@ title: Frontmatter
     {
       name: "hidden",
       types: "Boolean",
-      text: "If `false` the page will not appear in the navigation but will still be accessible at it's URL (useful for pages that are still in development)"
+      text: "If `false` the page will not appear in the navigation but will still be accessible at its URL (useful for pages that are still in development)"
     },
     {
       name: "landing",

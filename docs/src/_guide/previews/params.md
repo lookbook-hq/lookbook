@@ -223,7 +223,7 @@ title: Dynamic Params
 
     #### Using a method
 
-    You can use a private method (in your preview class) that returns a hash of param options, and reference it via it's symbolized name:
+    You can use a private method (in your preview class) that returns a hash of param options, and reference it via its symbolized name:
 
     ```ruby
     # @param theme select :method_that_returns_options

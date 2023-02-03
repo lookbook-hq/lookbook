@@ -136,7 +136,7 @@ title: Custom Tags
 
     You can do this by providing a block to the `Lookbook.add_tag` method when adding a new tag.
 
-    The block will receive a `tag` object as it's only argument - the parser can access tag information from this and set arbitrary properties on this object for later use in templates.
+    The block will receive a `tag` object as its only argument - the parser can access tag information from this and set arbitrary properties on this object for later use in templates.
 
     ```ruby
     Lookbook.add_tag(:new_tag) do |tag|

@@ -78,7 +78,7 @@ lookbook_embeds: true
   <% end %>
 
   <% s.with_block_note :warn do %>
-    The Lookbook JS file includes the popular [iFrame Resizer](https://github.com/davidjbradshaw/iframe-resizer) script. If your app already includes this in it's JS bundle 
+    The Lookbook JS file includes the popular [iFrame Resizer](https://github.com/davidjbradshaw/iframe-resizer) script. If your app already includes this in its JS bundle 
     then you should use a lighter-weight ['core' version](<%= links.v2.demo_home %>/lookbook-assets/js/lookbook.js) of the Lookbook JS that does not have the
     iframe resizer script bundled together with it.
 

@@ -38,7 +38,7 @@ title: Input Templates
   <% s.with_block_prose do %>    
     Lookbook uses [AlpineJS](https://alpinejs.dev) under the hood for all JavaScript interactions.
 
-    Custom input templates are automatically wrapped up as an Alpine component that takes care of handling updates to the preview when it's `value` property changes.
+    Custom input templates are automatically wrapped up as an Alpine component that takes care of handling updates to the preview when its `value` property changes.
 
     To bind the value of an input to the Alpine component's `value` property you can add an [`x-model` attribute](https://alpinejs.dev/directives/model) to the input, like so:
 
