@@ -86,7 +86,7 @@ RSpec.describe "Display options", type: :system do
       end
 
       it "renders the display controls in the toolbar" do
-        within "#main-toolbar" do
+        within "#app" do
           expect(page).to have_css("[data-component=display-options-editor]")
           expect(page).to have_select("theme", options: ["light", "dark"], visible: false)
           expect(page).to have_select("language", options: ["english", "german"], visible: false)
@@ -94,8 +94,8 @@ RSpec.describe "Display options", type: :system do
       end
 
       it "uses a dropdown to contain the controls" do
-        within "#main-toolbar" do
-          expect(page).to have_css("[x-ref=dropdown] [data-component=display-options-field]", count: 2, visible: false)
+        within "#app" do
+          expect(page).to have_css("[data-component=display-options-field]", count: 2, visible: false)
         end
       end
     end

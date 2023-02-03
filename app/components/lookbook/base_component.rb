@@ -1,5 +1,6 @@
 module Lookbook
   class BaseComponent < ViewComponent::Base
+    include Lookbook::Engine.routes.url_helpers
     include Lookbook::UiElementsHelper
     include Lookbook::ClassNamesHelper if Engine.runtime_context.rails_older_than?("6.1.0")
 

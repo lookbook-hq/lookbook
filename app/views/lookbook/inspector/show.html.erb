@@ -117,18 +117,19 @@
           <%= lookbook_render :button_group do |group| %>
 
             <% group.with_button id: "drawer-to-right-button",
-              icon: :corner_up_right,
-              tooltip: "Move drawer to right",
+              icon: :sidebar_open,
+              tooltip: "Pin drawer on right",
               "@click": "switchOrientation",
               "x-show": "horizontal",
               ":class": "{'pointer-events-none opacity-50 !cursor-not-allowed': horizontal && layoutWidth <= $store.inspector.minVerticalSplitWidth}",
               cloak: true %>
 
             <% group.with_button id: "drawer-to-bottom-button",
-              icon: :corner_left_down,
-              tooltip: "Move drawer to bottom",
+              icon: :sidebar_open,
+              tooltip: "Pin drawer on bottom",
               "@click": "switchOrientation",
               "x-show": "vertical",
+              class: "rotate-90",
               cloak: true %>
 
             <% group.with_button id: "hide-drawer-button",

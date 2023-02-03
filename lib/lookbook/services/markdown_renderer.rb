@@ -24,6 +24,12 @@ module Lookbook
           line_numbers: line_numbers
         }), layout: nil)
       end
+
+      def postprocess(full_document)
+        full_document&.gsub!("<p><lookbook", "<lookbook")
+        full_document&.gsub!("</lookbook-embed></p>", "</lookbook-embed>")
+        full_document
+      end
     end
   end
 end

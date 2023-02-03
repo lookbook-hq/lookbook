@@ -9,7 +9,7 @@
       <h3 class="flex items-center space-x-1">
         <strong class="text-lookbook-embed-title"><%= target.preview.label %></strong>
         <% if scenarios.many? %>
-          <%= select_tag("target", options_for_select(scenario_select_options, helpers.lookbook_embed_path(target.path)), "x-model": "targetPath", class: "!ml-2") %>
+          <%= select_tag("target", options_for_select(scenario_select_options, helpers.lookbook_embed_path(target.path)), "x-model": "targetPath", class: "!ml-2 compact") %>
         <% else %>
           <span>(<%= target.label %>) </span>
         <% end %>

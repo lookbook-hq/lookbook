@@ -1,10 +1,10 @@
 <br>
 <img src=".github/assets/lookbook_logo.svg" width="180"> 
 
-A tool to help browse, develop, test & document [ViewComponents](https://viewcomponent.org/) in Ruby on Rails apps.
+Lookbook is a **UI development environment** for Ruby on Rails applications.
 
 [![Gem version](https://img.shields.io/gem/v/lookbook)](https://rubygems.org/gems/lookbook)
-[![CI status](https://github.com/ViewComponent/lookbook/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ViewComponent/lookbook/actions/workflows/ci.yml)
+[![CI status](https://github.com/ViewComponent/lookbook/actions/workflows/ci.yml/badge.svg?branch=v2)](https://github.com/ViewComponent/lookbook/actions/workflows/ci.yml)
 <br>
 
 ---
@@ -15,20 +15,14 @@ For the current stable release see the [main branch](https://github.com/ViewComp
 
 ---
 
-## Documentation
+## Resources
 
-✨ **Lookbook guide and API docs**: [lookbook.build](https://lookbook.build)
+* 🚧 **Docs**: [v2.lookbook.build](https://v2.lookbook.build)
+* 🚧 **Demo**: [v2-demo.lookbook.build/](http://v2-demo.lookbook.build/) ([repo here](https://github.com/ViewComponent/lookbook-demo/tree/v2))
 
-> _Looking for pre-v1.0 documentation? [Head over here](https://github.com/ViewComponent/lookbook/tree/0.9.x)._
+<br>
 
-
-## Demo
-
-✨ **Online Demo**: [lookbook-demo-app.herokuapp.com/lookbook](https://lookbook-demo-app.herokuapp.com/lookbook)
-
-✨ **Demo repo**: [github.com/ViewComponent/lookbook-demo](https://github.com/ViewComponent/lookbook-demo)
-
-[![Lookbook UI](.github/assets/lookbook_screenshot_v1.0_beta.png)](https://lookbook-demo-app.herokuapp.com/lookbook/)
+[![Lookbook UI](.github/assets/lookbook_ui.png)](http://v2-demo.lookbook.build/)
 
 
 ## Development
