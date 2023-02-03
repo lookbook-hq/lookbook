@@ -2,4 +2,3 @@ source: The source code for the current preview
 notes: Notes on the current preview
 params: Displays the dynamic param editor fields
 output: The rendered HTML output from the component
-  
