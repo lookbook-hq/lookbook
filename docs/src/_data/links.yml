@@ -6,7 +6,7 @@ v1:
 
 v2:
   repo: https://github.com/ViewComponent/lookbook/tree/v2
-  docs: https://v2.lookbook.build/lookbook
-  demo: http://localhost:3000/lookbook
-  demo_home: "http://localhost:3000"
+  docs: https://v2.lookbook.build
+  demo: http://v2-demo.lookbook.build/lookbook
+  demo_home: http://v2-demo.lookbook.build/
   demo_repo: https://github.com/ViewComponent/lookbook-demo/tree/v2
