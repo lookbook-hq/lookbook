@@ -1,19 +1,22 @@
 module Lookbook
   class CopyButton::Component < Lookbook::BaseComponent
-    def initialize(target: nil, icon: :code, **attrs)
+    attr_reader :icon, :size, :target, :button_attrs
+
+    def initialize(target: nil, icon: :code, size: :md, **attrs)
       @icon = icon
+      @size = size
       @target = target
       @button_attrs = attrs
     end
 
     def icon_size
-      Lookbook::Button::Component::ICON_SIZES[@size]
+      IconButton::Component::ICON_SIZES[size]
     end
 
     protected
 
     def alpine_data
-      content ? nil : alpine_encode(@target)
+      content ? nil : alpine_encode(target)
     end
 
     def alpine_component

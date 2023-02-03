@@ -1,27 +1,12 @@
-<%= render_component_tag tag_name,
+<%= lookbook_render button_component.new(
   id: id,
-  href: @href,
+  icon: icon,
+  **button_attrs,
   "@keydown.esc.stop": "hideDropdown",
-  "@navigation:complete.window": "updateDropdown",
-  class: [
-    "block text-lookbook-icon-button-stroke focus:outline-none focus-visible:outline-none #{padding}",
-    {
-      "hover:text-lookbook-icon-button-stroke-hover": !@disabled,
-      "cursor-[not-allowed] opacity-50": @disabled
-    }
-  ],
-  disabled: @disabled,
-  aria: { label: @tooltip } do %>
-    <span x-ref="icon">
-      <%= icon || lookbook_render(:icon, name: @icon, size: icon_size, ":class": "{'animate-spin': _spinning}") %>
-    </span>
-    <% if @tooltip %>
-      <label class="hidden" x-ref="tooltip"><%= @tooltip %></label>
-    <% end %>
-    <% if content %>
-      <div x-ref="content"><%= content %></div>
-    <% end %>
+  "@navigation:complete.window": "updateDropdown") do %>
+  <%= content %>
 <% end %>
+
 <% if dropdown? %>
   <% content_for :dropdowns do %>
     <div data-dropdown-id="<%= id %>">

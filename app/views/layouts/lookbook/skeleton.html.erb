@@ -32,9 +32,16 @@
     window.SOCKET_PATH = "<%= @engine.websocket.full_mount_path %>";
     <% end %>
   </script>
-  
+
   <script src="<%= lookbook_asset_path("/js/index.js") %>" defer></script>  
-  <%= render "lookbook/partials/iframe_content_scripts" if @embed %>
+  
+  <% if @embed %>
+    <%= render "lookbook/partials/iframe_content_scripts" %>
+  <% else %>
+    <script src="<%= lookbook_asset_path("/js/lookbook.js") %>" defer></script>
+  <% end %>
+  
+  <%= content_for :scripts %>
   
   <title><%= [@title, @config.project_name || "Lookbook"].compact.join(" :: ") %></title>
 </head>

@@ -7,6 +7,10 @@ module Lookbook
         PathUtils.strip_slashes(id_str).tr("/", "-").gsub("--", "-")
       end
 
+      def temp_id(prefix: nil)
+        [prefix, (Time.now.to_f * 1000).to_i + rand(0..100)].compact.join("-")
+      end
+
       def name(str)
         str.to_s.parameterize.tr("-", "_")
       end

@@ -1,0 +1,12 @@
+@layer components {
+  [data-component="embed-code-dropdown"] {
+    & [data-component="code"] {
+      @apply p-0;
+    }
+
+    & pre.code.highlight {
+      @apply overflow-hidden whitespace-normal p-0;
+      font-size: 11px;
+    }
+  }
+}

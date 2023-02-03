@@ -1,5 +1,5 @@
 module Lookbook
-  class EmbedCodeDisplay::Component < Lookbook::BaseComponent
+  class EmbedCodeDropdown::Component < Lookbook::BaseComponent
     attr_reader :preview, :pages, :params, :target
 
     def initialize(preview:, target:, pages:, params:, **html_attrs)
@@ -11,7 +11,7 @@ module Lookbook
     end
 
     def app_path
-      Lookbook::Engine.mount_path.to_s
+      helpers.lookbook_home_url
     end
 
     def preview_name
@@ -23,22 +23,19 @@ module Lookbook
       permitted.transform_keys! { |key| "param-#{key}" }
     end
 
-    def embed_options
-      types = [
-        ["For embedding on...", ""],
-        ["Lookbook pages", "lookbook"],
-        ["External sites", "external"]
-      ]
-      options_for_select(types, {
-        disabled: types.first.first,
-        selected: types.first.first
-      })
+    def embed_code
+      embed_tag = content_tag("lookbook-embed",
+        app: app_path,
+        preview: preview_name,
+        scenario: target.name,
+        **external_embed_params) { "" }
+      escape_once embed_tag
     end
 
     private
 
     def alpine_component
-      "embedCodeDisplayComponent"
+      "embedCodeDropdownComponent"
     end
   end
 end

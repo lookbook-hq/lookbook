@@ -1,0 +1,19 @@
+<%= render_component_tag class:"p-3 w-[320px]" do %>  
+  <h4 class="text-[11px] uppercase tracking-wider mb-2 font-bold">Preview embed code</h4>
+
+  <p class="text-xs text-gray-600 mb-3">This code can be used to embed this preview in Lookbook pages or on external sites.</p>
+
+  <div class="border-t border-lookbook-dropdown-divider pt-3 pb-3">
+    <%= code :html do %><%= embed_code %><% end %>
+  </div>
+
+  <%= lookbook_render :text_button, "@click.stop.prevent": "copyEmbedCode", ":disabled": "copied" do |button| %>
+    <% button.with_icon name: :copy, size: 3, "x-show": "!copied", "x-cloak": true %>
+    <% button.with_icon name: :check, size: 3, "x-show": "copied", "x-cloak": true %>
+    <span x-text="copied ? 'Copied!' : 'Copy embed code'"></span>    
+  <% end %>
+
+  <div class="hidden" x-ref="copyTarget">
+    <%= escape_once embed_code %>
+  </div>
+<% end %>
