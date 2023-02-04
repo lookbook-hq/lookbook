@@ -10,4 +10,12 @@ RSpec.describe "Output panel", type: :system do
       expect(page).to have_css "#panel-output .code"
     end
   end
+
+  context "with nested components" do
+    it "renders the parent component" do
+      visit lookbook_inspect_path("nested")
+
+      expect(page).to have_text "I work!"
+    end
+  end
 end
