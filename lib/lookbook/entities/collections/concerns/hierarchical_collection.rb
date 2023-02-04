@@ -15,7 +15,8 @@ module Lookbook
 
       def collect_ordered_entities(start_node)
         start_node.inject([]) do |entities, node|
-          entities.append(node.content? ? node.content : collect_ordered_entities(node))
+          entities.append(node.content) if node.content?
+          entities.append(collect_ordered_entities(node)) if node.children
         end.flatten
       end
     end
