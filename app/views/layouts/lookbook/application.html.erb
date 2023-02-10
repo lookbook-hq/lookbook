@@ -11,7 +11,7 @@
     <%= render "lookbook/partials/user_styles" %>
 
     <%= lookbook_render :header, id: "app-header", debug_menu: @config.debug_menu do |header| %>
-      <% header.branding { @config.project_name } %>
+      <% header.with_branding { @config.project_name } %>
     <% end %>
 
     <% if @previews.any? || @pages.any? %>
@@ -53,7 +53,7 @@
                         <% end %>
                       <% end %>
                     <% end %>
-                    <% nav.filter store: "$store.nav.previews.filter", placeholder: "Filter previews by name&hellip;" %>
+                    <% nav.with_filter store: "$store.nav.previews.filter", placeholder: "Filter previews by name&hellip;" %>
                   <% end %>
                 <% end %>
               <% end %>
