@@ -34,8 +34,14 @@ RSpec.describe Lookbook::PreviewGroup do
     end
 
     context ".url_path" do
-      it "returns the expected preview group URL" do
+      it "returns the expected inspector URL" do
         expect(group.url_path).to eq lookbook_inspect_path("group/groups")
+      end
+    end
+
+    context ".preview_path" do
+      it "returns the expected preview URL" do
+        expect(group.preview_path).to eq lookbook_preview_path("group/groups")
       end
     end
   end
@@ -46,6 +52,12 @@ RSpec.describe Lookbook::PreviewGroup do
     context ".url_path" do
       it "returns the expected preview group URL" do
         expect(group.url_path).to eq lookbook_inspect_path("group/named")
+      end
+    end
+
+    context ".preview_path" do
+      it "returns the expected preview URL" do
+        expect(group.preview_path).to eq lookbook_preview_path("group/named")
       end
     end
   end
