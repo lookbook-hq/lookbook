@@ -114,23 +114,23 @@ var $b2e1fd3e30ab1f5c$exports = {};
         function strBool(str) {
             return "true" === str;
         }
-        var data = initMsg.substr(msgIdLen).split(":");
+        var data = initMsg.slice(msgIdLen).split(":");
         myID = data[0];
-        bodyMargin = undefined !== data[1] ? Number(data[1]) : bodyMargin // For V1 compatibility
+        bodyMargin = undefined === data[1] ? bodyMargin : Number(data[1]) // For V1 compatibility
         ;
-        calculateWidth = undefined !== data[2] ? strBool(data[2]) : calculateWidth;
-        logging = undefined !== data[3] ? strBool(data[3]) : logging;
-        interval = undefined !== data[4] ? Number(data[4]) : interval;
-        autoResize = undefined !== data[6] ? strBool(data[6]) : autoResize;
+        calculateWidth = undefined === data[2] ? calculateWidth : strBool(data[2]);
+        logging = undefined === data[3] ? logging : strBool(data[3]);
+        interval = undefined === data[4] ? interval : Number(data[4]);
+        autoResize = undefined === data[6] ? autoResize : strBool(data[6]);
         bodyMarginStr = data[7];
-        heightCalcMode = undefined !== data[8] ? data[8] : heightCalcMode;
+        heightCalcMode = undefined === data[8] ? heightCalcMode : data[8];
         bodyBackground = data[9];
         bodyPadding = data[10];
-        tolerance = undefined !== data[11] ? Number(data[11]) : tolerance;
-        inPageLinks.enable = undefined !== data[12] ? strBool(data[12]) : false;
-        resizeFrom = undefined !== data[13] ? data[13] : resizeFrom;
-        widthCalcMode = undefined !== data[14] ? data[14] : widthCalcMode;
-        mouseEvents = undefined !== data[15] ? Boolean(data[15]) : mouseEvents;
+        tolerance = undefined === data[11] ? tolerance : Number(data[11]);
+        inPageLinks.enable = undefined === data[12] ? false : strBool(data[12]);
+        resizeFrom = undefined === data[13] ? resizeFrom : data[13];
+        widthCalcMode = undefined === data[14] ? widthCalcMode : data[14];
+        mouseEvents = undefined === data[15] ? mouseEvents : Boolean(data[15]);
     }
     function depricate(key) {
         var splitName = key.split("Callback");
@@ -261,7 +261,7 @@ var $b2e1fd3e30ab1f5c$exports = {};
         manageTriggerEvent({
             method: method,
             eventType: "Print",
-            eventName: [
+            eventNames: [
                 "afterprint",
                 "beforeprint"
             ]
@@ -380,8 +380,8 @@ var $b2e1fd3e30ab1f5c$exports = {};
     function setupInPageLinks() {
         function getPagePosition() {
             return {
-                x: window.pageXOffset !== undefined ? window.pageXOffset : document.documentElement.scrollLeft,
-                y: window.pageYOffset !== undefined ? window.pageYOffset : document.documentElement.scrollTop
+                x: window.pageXOffset === undefined ? document.documentElement.scrollLeft : window.pageXOffset,
+                y: window.pageYOffset === undefined ? document.documentElement.scrollTop : window.pageYOffset
             };
         }
         function getElementPosition(el) {
@@ -399,11 +399,10 @@ var $b2e1fd3e30ab1f5c$exports = {};
                 ;
             }
             var hash = location.split("#")[1] || location, hashData = decodeURIComponent(hash), target = document.getElementById(hashData) || document.getElementsByName(hashData)[0];
-            if (undefined !== target) jumpToTarget(target);
-            else {
+            if (undefined === target) {
                 log("In page link (#" + hash + ") not found in iFrame, so sending to parent");
                 sendMsg(0, 0, "inPageLink", "#" + hash);
-            }
+            } else jumpToTarget(target);
         }
         function checkLocationHash() {
             var hash = window.location.hash;
@@ -608,7 +607,7 @@ var $b2e1fd3e30ab1f5c$exports = {};
         el = el || document.body // Not testable in phantonJS
         ;
         retVal = document.defaultView.getComputedStyle(el, null);
-        retVal = null !== retVal ? retVal[prop] : 0;
+        retVal = null === retVal ? 0 : retVal[prop];
         return parseInt(retVal, base);
     }
     function chkEventThottle(timer) {
@@ -655,7 +654,7 @@ var $b2e1fd3e30ab1f5c$exports = {};
             return document.body.offsetHeight + getComputedStyle("marginTop") + getComputedStyle("marginBottom");
         },
         offset: function() {
-            return getHeight.bodyOffset() // Backwards compatability
+            return getHeight.bodyOffset() // Backwards compatibility
             ;
         },
         bodyScroll: function getBodyScrollHeight() {
@@ -729,8 +728,8 @@ var $b2e1fd3e30ab1f5c$exports = {};
                 var retVal = Math.abs(a - b) <= tolerance;
                 return !retVal;
             }
-            currentHeight = undefined !== customHeight ? customHeight : getHeight[heightCalcMode]();
-            currentWidth = undefined !== customWidth ? customWidth : getWidth[widthCalcMode]();
+            currentHeight = undefined === customHeight ? getHeight[heightCalcMode]() : customHeight;
+            currentWidth = undefined === customWidth ? getWidth[widthCalcMode]() : customWidth;
             return checkTolarance(height, currentHeight) || calculateWidth && checkTolarance(width, currentWidth);
         }
         function isForceResizableEvent() {
@@ -770,11 +769,12 @@ var $b2e1fd3e30ab1f5c$exports = {};
         function isDoubleFiredEvent() {
             return triggerLocked && triggerEvent in doubleEventList;
         }
-        if (!isDoubleFiredEvent()) {
+        if (isDoubleFiredEvent()) log("Trigger event cancelled: " + triggerEvent);
+        else {
             recordTrigger();
             if (triggerEvent === "init") sizeIFrame(triggerEvent, triggerEventDesc, customHeight, customWidth);
             else sizeIFrameThrottled(triggerEvent, triggerEventDesc, customHeight, customWidth);
-        } else log("Trigger event cancelled: " + triggerEvent);
+        }
     }
     function lockTrigger() {
         if (!triggerLocked) {
@@ -807,7 +807,7 @@ var $b2e1fd3e30ab1f5c$exports = {};
             else log("Message targetOrigin: " + targetOrigin);
         }
         function sendToParent() {
-            var size = height + ":" + width, message = myID + ":" + size + ":" + triggerEvent + (undefined !== msg ? ":" + msg : "");
+            var size = height + ":" + width, message = myID + ":" + size + ":" + triggerEvent + (undefined === msg ? "" : ":" + msg);
             log("Sending message to host page (" + message + ")");
             target.postMessage(msgID + message, targetOrigin);
         }
@@ -828,10 +828,11 @@ var $b2e1fd3e30ab1f5c$exports = {};
                 }, eventCancelTimer);
             },
             reset: function resetFromParent() {
-                if (!initLock) {
+                if (initLock) log("Page reset ignored by init");
+                else {
                     log("Page size reset by host page");
                     triggerReset("resetPage");
-                } else log("Page reset ignored by init");
+                }
             },
             resize: function resizeFromParent() {
                 sendSize("resizeParent", "Parent window requested size check");
@@ -857,21 +858,21 @@ var $b2e1fd3e30ab1f5c$exports = {};
             }
         };
         function isMessageForUs() {
-            return msgID === ("" + event.data).substr(0, msgIdLen) // ''+ Protects against non-string messages
+            return msgID === ("" + event.data).slice(0, msgIdLen) // ''+ Protects against non-string messages
             ;
         }
         function getMessageType() {
             return event.data.split("]")[1].split(":")[0];
         }
         function getData() {
-            return event.data.substr(event.data.indexOf(":") + 1);
+            return event.data.slice(event.data.indexOf(":") + 1);
         }
         function isMiddleTier() {
-            return !(0, $b2e1fd3e30ab1f5c$exports) && "iFrameResize" in window || "jQuery" in window && "iFrameResize" in window.jQuery.prototype;
+            return !(0, $b2e1fd3e30ab1f5c$exports) && "iFrameResize" in window || window.jQuery !== undefined && "iFrameResize" in window.jQuery.prototype;
         }
         function isInitMsg() {
             // Test if this message is from a child below us. This is an ugly test, however, updating
-            // the message format would break backwards compatibity.
+            // the message format would break backwards compatibility.
             return event.data.split(":")[2] in {
                 true: 1,
                 false: 1

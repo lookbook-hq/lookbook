@@ -3,7 +3,7 @@ module Lookbook
     include TargetableConcern
     include WithPreviewControllerConcern
 
-    before_action { response.headers.delete('X-Frame-Options') }
+    before_action { response.headers.delete("X-Frame-Options") }
 
     layout "lookbook/inspector"
     helper Lookbook::PreviewHelper
