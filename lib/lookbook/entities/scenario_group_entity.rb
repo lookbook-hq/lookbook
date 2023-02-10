@@ -43,6 +43,10 @@ module Lookbook
       lookbook_inspect_path(lookup_path)
     end
 
+    def preview_path
+      lookbook_preview_path(lookup_path)
+    end
+
     def type
       :group
     end

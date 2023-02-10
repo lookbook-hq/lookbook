@@ -17,10 +17,15 @@ module Lookbook
               {
                 name: preview.name,
                 scenarios: preview.scenarios.map { |scenario|
-                  {
-                    inspect_path: scenario.url_path,
-                    name: scenario.name
-                  }
+                  case scenario
+                  when Lookbook::ScenarioEntity
+                    scenario_json(scenario)
+                  when Lookbook::ScenarioGroupEntity
+                    {
+                      name: scenario.name,
+                      examples: scenario.scenarios.map { |s| scenario_json(s) }
+                    }
+                  end
                 }
               }
             end
@@ -45,6 +50,16 @@ module Lookbook
       else
         show_404
       end
+    end
+
+    private
+
+    def scenario_json(scenario)
+      {
+        name: scenario.name,
+        inspect_path: scenario.url_path,
+        preview_path: scenario.preview_path
+      }
     end
   end
 end

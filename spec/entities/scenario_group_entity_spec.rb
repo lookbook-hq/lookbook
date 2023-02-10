@@ -34,8 +34,14 @@ RSpec.describe Lookbook::ScenarioGroupEntity do
     end
 
     context ".url_path" do
-      it "returns the expected preview group URL" do
+      it "returns the expected preview group inspector URL path" do
         expect(group.url_path).to eq lookbook_inspect_path("group/groups")
+      end
+    end
+
+    context ".preview_path" do
+      it "returns the expected preview group preview URL path" do
+        expect(group.preview_path).to eq lookbook_preview_path("group/groups")
       end
     end
   end
@@ -44,8 +50,14 @@ RSpec.describe Lookbook::ScenarioGroupEntity do
     let(:group) { preview.scenario("named") }
 
     context ".url_path" do
-      it "returns the expected preview group URL" do
+      it "returns the expected preview group inspector URL path" do
         expect(group.url_path).to eq lookbook_inspect_path("group/named")
+      end
+    end
+
+    context ".preview_path" do
+      it "returns the expected preview group preview URL path" do
+        expect(group.preview_path).to eq lookbook_preview_path("group/named")
       end
     end
   end

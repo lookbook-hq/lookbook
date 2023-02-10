@@ -6,12 +6,14 @@ RSpec.describe Lookbook::ScenarioEntity do
     let(:scenario) { preview.scenario("default") }
 
     context ".url_path" do
-      it "returns the URL to the preview scenario rendered in the inspector" do
+      it "returns the URL to the scenario rendered in the inspector" do
         expect(scenario.url_path).to eq lookbook_inspect_path("standard/default")
       end
+    end
 
-      it "is a String" do
-        expect(scenario.url_path).to be_a String
+    context ".preview_path" do
+      it "returns the URL to the scenario preview" do
+        expect(scenario.preview_path).to eq lookbook_preview_path("standard/default")
       end
     end
 
@@ -161,12 +163,14 @@ RSpec.describe Lookbook::ScenarioEntity do
     end
 
     context ".url_path" do
-      it "uses the logical path" do
+      it "uses the logical path to generate the expected inspector URL path" do
         expect(scenario.url_path).to eq lookbook_inspect_path("foo/bar/annotated/default")
       end
+    end
 
-      it "is a String" do
-        expect(scenario.lookup_path).to be_a String
+    context ".preview_path" do
+      it "uses the logical path to generate the expected preview URL path" do
+        expect(scenario.preview_path).to eq lookbook_preview_path("foo/bar/annotated/default")
       end
     end
 
