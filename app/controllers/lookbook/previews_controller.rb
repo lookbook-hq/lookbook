@@ -5,6 +5,8 @@ module Lookbook
 
     layout false
 
+    before_action :permit_framing, only: [:show]
+
     def self.controller_path
       "lookbook/previews"
     end
@@ -60,6 +62,10 @@ module Lookbook
         inspect_path: scenario.url_path,
         preview_path: scenario.preview_path
       }
+    end
+
+    def permit_framing
+      headers["X-Frame-Options"] = "SAMEORIGIN" if headers["X-Frame-Options"] == "DENY"
     end
   end
 end

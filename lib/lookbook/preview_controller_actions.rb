@@ -5,7 +5,6 @@ module Lookbook
     included do
       helper PreviewHelper
       prepend_view_path Engine.root.join("app/views")
-      before_action :permit_embeds
 
       def render_scenario_to_string(preview, scenario_name)
         prepend_application_view_paths
@@ -40,10 +39,6 @@ module Lookbook
       def with_optional_action_view_annotations(&block)
         disable = Lookbook.config.preview_disable_action_view_annotations
         ActionViewAnnotationsHandler.call(disable_annotations: disable, &block)
-      end
-
-      def permit_embeds
-        headers["X-Frame-Options"] = Lookbook.config.preview_embeds.policy
       end
     end
   end
