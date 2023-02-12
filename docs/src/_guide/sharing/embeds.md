@@ -242,3 +242,14 @@ lookbook_embeds: true
     Once set, only embeds that wish to override the defaults need specify these as attributes.
   <% end %>
 <% end %>
+
+<%= render section("Disable embeds", id: "disable-embeds") do |s| %>
+  <% s.with_block_prose do %>
+    If you do not want to support embeds at all, you can disable them completely.
+
+    ```rb
+    # config/application.rb
+    config.lookbook.preview_embeds.enabled = false
+    ```
+  <% end %>
+<% end %>
