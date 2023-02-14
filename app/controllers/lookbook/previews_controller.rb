@@ -40,7 +40,7 @@ module Lookbook
       if @target
         begin
           opts = {layout: @preview.layout}
-          if params[:lookbook_embed] == "true"
+          if embedded?
             opts[:append_html] = render_to_string("lookbook/partials/_iframe_content_scripts", layout: nil)
           end
           @preview_html = preview_controller.process(:render_in_layout_to_string, "lookbook/previews/group", inspector_data, **opts)
@@ -56,6 +56,10 @@ module Lookbook
 
     private
 
+    def embedded?
+      params[:lookbook_embed] == "true"
+    end
+
     def scenario_json(scenario)
       {
         name: scenario.name,
@@ -65,6 +69,7 @@ module Lookbook
     end
 
     def permit_framing
+      headers["X-Frame-Options"] = Lookbook.config.preview_embeds.policy if embedded?
       headers["X-Frame-Options"] = "SAMEORIGIN" if headers["X-Frame-Options"] == "DENY"
     end
   end
