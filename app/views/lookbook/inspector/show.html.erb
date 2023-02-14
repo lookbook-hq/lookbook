@@ -33,13 +33,15 @@
 
         <% toolbar.with_section divide: :left, class: "flex-none relative z-10" do %>
           <%= lookbook_render :button_group do |group| %>
-            <%= group.with_button id: "embed-generator-dropdown-button", icon: :code_2, tooltip: "Get embed code" do |button| %>
-              <% button.with_dropdown.with_content(lookbook_render :embed_code_dropdown,
-                pages: @pages,
-                preview: @preview,
-                target: @target,
-                params: request.query_parameters
-              ) %>
+            <% if Lookbook.config.preview_embeds.enabled %>
+              <%= group.with_button id: "embed-generator-dropdown-button", icon: :code_2, tooltip: "Get embed code" do |button| %>
+                <% button.with_dropdown.with_content(lookbook_render :embed_code_dropdown,
+                  pages: @pages,
+                  preview: @preview,
+                  target: @target,
+                  params: request.query_parameters
+                ) %>
+              <% end %>
             <% end %>
             <% group.with_button id: "copy-preview-url-button",
               icon: :link,
