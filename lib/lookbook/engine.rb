@@ -150,7 +150,7 @@ module Lookbook
       def preview_watch_paths
         return @_preview_watch_paths if @_preview_watch_paths
 
-        paths = [*opts.preview_paths, opts.components_path, *opts.listen_paths, *view_paths].uniq
+        paths = [*opts.preview_paths, *opts.component_paths, *opts.listen_paths, *view_paths].uniq
         @_preview_watch_paths ||= PathUtils.normalize_paths(paths)
       end
 
