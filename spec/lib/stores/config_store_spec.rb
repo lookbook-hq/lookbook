@@ -204,6 +204,18 @@ RSpec.describe Lookbook::ConfigStore do
         end
       end
 
+      context "preview_embeds.enabled" do
+        it "defaults to true" do
+          expect(config.preview_embeds.enabled).to be true
+        end
+      end
+
+      context "preview_embeds.policy" do
+        it "defaults to permit embeds only on the same origin" do
+          expect(config.preview_embeds.policy).to eq "SAMEORIGIN"
+        end
+      end
+
       context "listen_paths" do
         it "is an array" do
           expect(config.listen_paths).to be_a Array

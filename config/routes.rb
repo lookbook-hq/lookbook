@@ -13,7 +13,7 @@ Lookbook::Engine.routes.draw do
 
   get "/inspect/*path", to: "inspector#show", as: :lookbook_inspect
 
-  if Lookbook.config.preview_embeds.enabled
+  if Lookbook::Engine.preview_embeds_allowed?
     get "/embed", to: "embeds#lookup", as: :lookbook_embed_lookup
     get "/embed/*path", to: "embeds#show", as: :lookbook_embed
   end

@@ -1,11 +1,12 @@
 module Lookbook
   class EmbedCodeDropdown::Component < Lookbook::BaseComponent
-    attr_reader :preview, :pages, :params, :target
+    attr_reader :preview, :pages, :params, :target, :policy
 
-    def initialize(preview:, target:, pages:, params:, **html_attrs)
+    def initialize(preview:, target:, pages:, params:, policy:, **html_attrs)
       @preview = preview
       @target = target
       @pages = pages
+      @policy = policy
       @params = params.deep_symbolize_keys
       super(**html_attrs)
     end

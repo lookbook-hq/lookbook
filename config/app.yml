@@ -10,7 +10,7 @@ shared:
     drawer_panels: [source, notes, params, "*"]
   preview_embeds:
     enabled: true
-    policy: "SAMEORIGIN"
+    policy: SAMEORIGIN
     panels: false
     actions: []
     scenarios: []

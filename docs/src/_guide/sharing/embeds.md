@@ -243,9 +243,9 @@ lookbook_embeds: true
   <% end %>
 <% end %>
 
-<%= render section("Disable embeds", id: "disable-embeds") do |s| %>
+<%= render section("Disabling embeds", id: "disable-embeds") do |s| %>
   <% s.with_block_prose do %>
-    If you do not want to support embeds at all, you can disable them completely.
+    If you do not want to support embeds at all (including in Lookbook pages), you can disable them completely.
 
     ```rb
     # config/application.rb

@@ -82,6 +82,10 @@ module Lookbook
         reloading? && runtime_context.web? && FileWatcher.evented?
       end
 
+      def preview_embeds_allowed?
+        opts.preview_embeds.enabled == true && opts.preview_embeds.policy != "DENY"
+      end
+
       def websocket
         @_websocket ||= auto_refresh? ? Websocket.new(mount_path, logger: Lookbook.logger) : NullWebsocket.new
       end
