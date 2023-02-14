@@ -42,14 +42,15 @@ module Lookbook
           display_params = SearchParamParser.call(params[:_display])
           display_params.each do |name, value|
             if @dynamic_display_options.key?(name)
-              cookies["lookbook-display-#{name}"] = value
+              cookies["lookbook-display-#{name}"] = value.is_a?(Array) ? value[1] : value
             end
           end
         end
 
         @dynamic_display_options.each do |name, opts|
           choices = opts.is_a?(Hash) ? opts[:choices].to_a : opts
-          @static_display_options[name] ||= cookies.fetch("lookbook-display-#{name}", choices.first)
+          value = choices.first.is_a?(Array) ? choices.first[1] : choices.first
+          @static_display_options[name] ||= cookies.fetch("lookbook-display-#{name}", value)
         end
 
         unless params[:_display]
