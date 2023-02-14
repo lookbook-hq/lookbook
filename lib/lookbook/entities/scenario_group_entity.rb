@@ -24,7 +24,7 @@ module Lookbook
     end
 
     def render_targets
-      @_render_targets ||= RenderTargetCollection.new(scenarios.flat_map(&:render_targets).uniq(&:path))
+      @_render_targets ||= RenderTargetCollection.new(scenarios.flat_map(&:render_targets).uniq(&:lookup_path))
     end
 
     def search_terms

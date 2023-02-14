@@ -29,7 +29,7 @@
           "@click.outside": "closeMobileSidebar",
           cloak: true do %>
 
-          <% cache do %>
+          <% cache @engine.last_changed do %>
 
             <%= lookbook_render :split_layout,
               alpine_data: "$store.layout.#{@pages.any? && @previews.any? ? "sidebar" : "singleSectionSidebar"}",
