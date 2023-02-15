@@ -7831,7 +7831,7 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $69e9934f1d83bbc4$exports = {};
+var $77553f14666631eb$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11523,6 +11523,50 @@ function $36506012e0c6e9e3$export$2e2bcd8739ae039(iconName) {
 }
 
 
+var $d92d9d5253f84566$exports = {};
+
+$parcel$defineInteropFlag($d92d9d5253f84566$exports);
+
+$parcel$export($d92d9d5253f84566$exports, "default", () => $d92d9d5253f84566$export$2e2bcd8739ae039);
+function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
+    return {
+        empty: false,
+        children: [],
+        init () {
+            this.children = this.$refs.items ? Array.from(this.$refs.items.children) : [];
+        },
+        isOpen (id) {
+            return store.open.includes(id);
+        },
+        setOpen (id) {
+            store.open.push(id);
+        },
+        setClosed (id) {
+            const index = store.open.indexOf(id);
+            if (index > -1) store.open.splice(index, 1);
+        },
+        closeAll () {
+            store.open.length = 0;
+        },
+        toggleOpen (id) {
+            this.isOpen(id) ? this.setClosed(id) : this.setOpen(id);
+        },
+        async filter (text) {
+            this.debug(`Filter text: ${text}`);
+            await this.$nextTick();
+            const filteredStates = await Promise.all(this.children.map(async (child)=>{
+                const data = Alpine.$data(child);
+                await data.filter(text);
+                return data.filteredOut;
+            }));
+            const matchedChildCount = filteredStates.filter((s)=>!s).length;
+            this.empty = matchedChildCount === 0;
+            this.debug(`Children matching filter: ${matchedChildCount}/${this.children.length}`);
+        }
+    };
+}
+
+
 var $506dabb2bf255b38$exports = {};
 
 $parcel$defineInteropFlag($506dabb2bf255b38$exports);
@@ -12100,50 +12144,6 @@ function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
 }
 
 
-var $d92d9d5253f84566$exports = {};
-
-$parcel$defineInteropFlag($d92d9d5253f84566$exports);
-
-$parcel$export($d92d9d5253f84566$exports, "default", () => $d92d9d5253f84566$export$2e2bcd8739ae039);
-function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
-    return {
-        empty: false,
-        children: [],
-        init () {
-            this.children = this.$refs.items ? Array.from(this.$refs.items.children) : [];
-        },
-        isOpen (id) {
-            return store.open.includes(id);
-        },
-        setOpen (id) {
-            store.open.push(id);
-        },
-        setClosed (id) {
-            const index = store.open.indexOf(id);
-            if (index > -1) store.open.splice(index, 1);
-        },
-        closeAll () {
-            store.open.length = 0;
-        },
-        toggleOpen (id) {
-            this.isOpen(id) ? this.setClosed(id) : this.setOpen(id);
-        },
-        async filter (text) {
-            this.debug(`Filter text: ${text}`);
-            await this.$nextTick();
-            const filteredStates = await Promise.all(this.children.map(async (child)=>{
-                const data = Alpine.$data(child);
-                await data.filter(text);
-                return data.filteredOut;
-            }));
-            const matchedChildCount = filteredStates.filter((s)=>!s).length;
-            this.empty = matchedChildCount === 0;
-            this.debug(`Children matching filter: ${matchedChildCount}/${this.children.length}`);
-        }
-    };
-}
-
-
 var $0db07828cadc68e0$exports = {};
 
 $parcel$defineInteropFlag($0db07828cadc68e0$exports);
@@ -12364,7 +12364,7 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$69e9934f1d83bbc4$exports = {
+$77553f14666631eb$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
@@ -12372,9 +12372,9 @@ $69e9934f1d83bbc4$exports = {
     "embed_code_dropdown": $216ef7001f59f21d$exports,
     "filter": $e9904a14dabf652d$exports,
     "icon": $36506012e0c6e9e3$exports,
+    "nav": $d92d9d5253f84566$exports,
     "split_layout": $506dabb2bf255b38$exports,
     "tab_panels": $a87dacf5139b5e2f$exports,
-    "nav": $d92d9d5253f84566$exports,
     "tabs": $0db07828cadc68e0$exports,
     "viewport": $6d64716f0b34fdf4$exports
 };
@@ -13549,7 +13549,7 @@ const $939f2ad3cd685486$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $d709d0f4027033b2$export$2e2bcd8739ae039));
 [
-    $69e9934f1d83bbc4$exports,
+    $77553f14666631eb$exports,
     $f3e1e32f4a1bd6da$exports,
     $6c10158820e535ef$exports
 ].forEach((scripts)=>{

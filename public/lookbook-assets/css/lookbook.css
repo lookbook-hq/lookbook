@@ -1,3 +1,37 @@
+@font-face {
+  font-family: Inter var;
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+  font-named-instance: "Regular";
+  src: url("../Inter-roman.var.b695afbe.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: Inter var;
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: italic;
+  font-named-instance: "Italic";
+  src: url("../Inter-italic.var.69eb0fe1.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: Source Code Variable;
+  font-weight: 200 900;
+  font-style: normal;
+  font-stretch: normal;
+  src: url("../SourceCodeVariable-Roman.ttf.118e9f22.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: Source Code Variable;
+  font-weight: 200 900;
+  font-style: italic;
+  font-stretch: normal;
+  src: url("../SourceCodeVariable-Italic.ttf.09b4354a.woff2") format("woff2");
+}
+
 *, :before, :after {
   box-sizing: border-box;
   border: 0 solid #e5e7eb;
@@ -11,7 +45,7 @@ html {
   -webkit-text-size-adjust: 100%;
   tab-size: 4;
   font-feature-settings: normal;
-  font-family: -apple-system, \.SFNSText-Regular, San Francisco, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: Inter var, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
   line-height: 1.5;
 }
 
@@ -47,7 +81,7 @@ b, strong {
 }
 
 code, kbd, samp, pre {
-  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+  font-family: Source Code Variable, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
   font-size: 1em;
 }
 
@@ -345,7 +379,7 @@ body {
   color: var(--lookbook-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: -apple-system, \.SFNSText-Regular, San Francisco, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: Inter var, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
   font-size: .875rem;
   line-height: 1.25rem;
   overflow: hidden;
@@ -2660,11 +2694,11 @@ select.compact {
 }
 
 .font-mono {
-  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+  font-family: Source Code Variable, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
 }
 
 .font-sans {
-  font-family: -apple-system, \.SFNSText-Regular, San Francisco, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: Inter var, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
 }
 
 .text-\[11px\] {
@@ -2702,6 +2736,10 @@ select.compact {
 
 .font-bold {
   font-weight: 700;
+}
+
+.font-semibold {
+  font-weight: 600;
 }
 
 .uppercase {

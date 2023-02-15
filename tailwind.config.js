@@ -1,4 +1,5 @@
 const lookbookTheme = require("./theme/theme.json");
+const tailwindDefaults = require("tailwindcss/defaultTheme");
 
 module.exports = {
   theme: {
@@ -10,8 +11,8 @@ module.exports = {
         ...lookbookTheme,
       },
       fontFamily: {
-        mono: "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace",
-        sans: '-apple-system, ".SFNSText-Regular", "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif',
+        sans: ["Inter var", ...tailwindDefaults.fontFamily.sans],
+        mono: ["Source Code Variable", ...tailwindDefaults.fontFamily.mono],
       },
     },
   },
@@ -25,8 +26,6 @@ module.exports = {
     "./app/controllers/**/*.rb",
     "./spec/components/**/*.rb",
     "./spec/components/**/*.html.erb",
-    "./workbench/app/previews/**/*.html.erb",
-    "./workbench/app/views/**/*.html.erb",
   ],
   safelist: [
     ".theme-github-light",
