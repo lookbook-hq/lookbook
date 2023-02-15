@@ -1,36 +1,44 @@
-<header id="site-header" class="layout-container border-b border-gray-300 relative z-40">
-  <div class="layout-column">
-    <div class="layout-content flex items-center">
-      <a href="/" class="flex-none">
-        <%= image "lookbook_logo.svg", class: "w-[130px]" %>
-      </a>
-      <span class="text-xs ml-3 relative top-[3.5px] opacity-40 whitespace-nowrap">
-        v<%= lookbook_version %>
-      </span>
+<div>
+  <div class="flex items-center justify-center h-8 bg-indigo-100 text-sm text-indigo-900 border-b border-indigo-300">
+    <div class="flex items-center space-x-2">
+      <%= icon :alert_triangle, size: 3 %>
+      <span>This is the <strong class="font-semibold">v2.0 beta</strong> site. <a href="<%= links.v1.docs %>" class="underline">1.x docs are here</a>.</span>
     </div>
   </div>
-  <div class="layout-column flex items-center !overflow-hidden">
-    <div class="layout-content flex items-center">
-      <nav class="hidden md:flex ml-auto">
-        <% sections.each do |section| %>
-          <a href="<%= section[:url] %>" class="<%= "active" if section[:active] %>">
-            <span><%= section[:label] %></span>
+  <header id="site-header" class="layout-container border-b border-gray-300 relative z-40 h-12">
+    <div class="layout-column">
+      <div class="layout-content flex items-center">
+        <a href="/" class="flex-none">
+          <%= image "lookbook_logo.svg", class: "w-[130px]" %>
+        </a>
+        <span class="text-xs ml-3 relative top-[3.5px] opacity-40 whitespace-nowrap">
+          v<%= lookbook_version %>
+        </span>
+      </div>
+    </div>
+    <div class="layout-column flex items-center !overflow-hidden">
+      <div class="layout-content flex items-center">
+        <nav class="hidden md:flex ml-auto">
+          <% sections.each do |section| %>
+            <a href="<%= section[:url] %>" class="<%= "active" if section[:active] %>">
+              <span><%= section[:label] %></span>
+            </a>
+          <% end %>
+          <a href="<%= links.v2.demo %>" target="_blank" class="flex items-center space-x-2">
+            <span>Demo</span>
+            <%= icon :external_link, size: 3, class: "text-gray-600" %>
           </a>
-        <% end %>
-        <a href="<%= links.v2.demo %>" target="_blank" class="flex items-center space-x-2">
-          <span>Demo</span>
-          <%= icon :external_link, size: 3, class: "text-gray-600" %>
-        </a>
-        <a href="<%= links.v2.repo %>" target="_blank">
-          <%= image "icons/brands/github.svg", class: "w-5 h-5" %>
-        </a>
-      </nav>
-      <button class="md:hidden ml-auto p-2 -mr-2.5" @click="mobileNavOpen = true" x-show="!mobileNavOpen" x-cloak>
-        <%= icon :menu, size: 6 %>
-      </button>
-      <button class="md:hidden ml-auto p-2 -mr-2.5" @click="mobileNavOpen = false" x-show="mobileNavOpen" x-cloak>
-        <%= icon :x, size: 6 %>
-      </button>
+          <a href="<%= links.v2.repo %>" target="_blank">
+            <%= image "icons/brands/github.svg", class: "w-5 h-5" %>
+          </a>
+        </nav>
+        <button class="md:hidden ml-auto p-2 -mr-2.5" @click="mobileNavOpen = true" x-show="!mobileNavOpen" x-cloak>
+          <%= icon :menu, size: 6 %>
+        </button>
+        <button class="md:hidden ml-auto p-2 -mr-2.5" @click="mobileNavOpen = false" x-show="mobileNavOpen" x-cloak>
+          <%= icon :x, size: 6 %>
+        </button>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
+</div>
