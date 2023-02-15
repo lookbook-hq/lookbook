@@ -23,7 +23,7 @@ title: Installing Lookbook
 
     ```ruby
     group :development do
-      gem "lookbook"
+      gem "lookbook", "=> <%= lookbook_version %>"
     end
     ```
 
