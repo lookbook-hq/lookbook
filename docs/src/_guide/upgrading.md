@@ -72,6 +72,12 @@ title: Upgrade Guide
   <% end %>
 <% end %>
 
+<%= render section("Rake tasks", id: "rake") do |s| %>
+  <% s.with_block_prose do %>
+    The `lookbook:previews:preparse` rake task (previously deprecated as no longer required) has been removed.
+  <% end %>
+<% end %>
+
 <%= render section("Workbench", id: "workbench") do |s| %>
   <% s.with_block_prose do %>
     The 'workbench' app (previously run via the `bin/workbench` command) has been removed to reduce the maintence overhead of managing an additional separate app within the codebase.
