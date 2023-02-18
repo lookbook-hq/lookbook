@@ -26,7 +26,7 @@ module Lookbook
     end
 
     config.after_initialize do
-      if opts.using_view_component || Rails.env.test?
+      if opts.using_view_component
         vc_config = Engine.host_config.view_component
 
         opts.preview_paths += vc_config.preview_paths
