@@ -848,12 +848,14 @@ const $8c6f87050723dba0$var$whiteListedAttributes = [
     "actions",
     "param-*"
 ];
-function $8c6f87050723dba0$var$initEmbeds() {
+function $8c6f87050723dba0$var$initEmbeds(root = document) {
     if (typeof window.iFrameResize !== "function") {
         console.error("Lookbook embeds require the 'iframe-resizer' library to be available. Skipping embed instantiation.");
         return;
     }
-    const embeds = Array.from(document.querySelectorAll("lookbook-embed"));
+    if (typeof root === "string") root = document.querySelector(root);
+    if (!root) return console.error("Could not initialize Lookbook embeds. Root node not found.");
+    const embeds = Array.from(root.querySelectorAll("lookbook-embed"));
     embeds.forEach((embed)=>{
         const attrs = Array.from(embed.attributes);
         const wrapper = $8c6f87050723dba0$var$createWrapper();

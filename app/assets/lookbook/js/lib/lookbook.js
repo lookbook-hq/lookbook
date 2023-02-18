@@ -10,7 +10,7 @@ const whiteListedAttributes = [
   "param-*",
 ];
 
-function initEmbeds() {
+function initEmbeds(root = document) {
   if (typeof window.iFrameResize !== "function") {
     console.error(
       "Lookbook embeds require the 'iframe-resizer' library to be available. Skipping embed instantiation."
@@ -18,7 +18,17 @@ function initEmbeds() {
     return;
   }
 
-  const embeds = Array.from(document.querySelectorAll("lookbook-embed"));
+  if (typeof root === "string") {
+    root = document.querySelector(root);
+  }
+
+  if (!root) {
+    return console.error(
+      "Could not initialize Lookbook embeds. Root node not found."
+    );
+  }
+
+  const embeds = Array.from(root.querySelectorAll("lookbook-embed"));
 
   embeds.forEach((embed) => {
     const attrs = Array.from(embed.attributes);
