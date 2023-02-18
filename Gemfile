@@ -6,6 +6,7 @@ gem "rails", (rails_version == "main") ? {git: "https://github.com/rails/rails",
 
 group :development, :test do
   gem "appraisal", github: "thoughtbot/appraisal"
+  gem "phlex-rails"
   gem "standard", "1.19.1"
   gem "view_component"
   gem "combustion", "~> 1.3"
