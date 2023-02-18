@@ -129,7 +129,11 @@ module Lookbook
       end
 
       def view_paths
-        ActionView::ViewPaths.all_view_paths.flat_map do |view_path|
+        paths = defined?(ActionView::ViewPaths::Registry) ?
+          ActionView::ViewPaths::Registry.all_resolvers :
+          ActionView::ViewPaths.all_view_paths # handle view path registry changes in Rails 7.1
+
+        paths.flat_map do |view_path|
           view_path.paths.map { |path| Pathname(path.to_s) }
         end
       end
