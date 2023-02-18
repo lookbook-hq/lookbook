@@ -129,18 +129,18 @@ module Lookbook
       end
 
       def view_paths
-        paths = defined?(ActionView::ViewPaths::Registry) ?
-          ActionView::ViewPaths::Registry.all_resolvers :
-          ActionView::ViewPaths.all_view_paths # handle view path registry changes in Rails 7.1
-
-        paths.flat_map do |view_path|
-          view_path.paths.map { |path| Pathname(path.to_s) }
+        # handle view path registry changes in Rails 7.1
+        paths = if defined?(ActionView::ViewPaths::Registry)
+          ActionView::ViewPaths::Registry.all_file_system_resolvers.map(&:path)
+        else
+          ActionView::ViewPaths.all_view_paths.flat_map(&paths)
         end
+        paths.map { |path| Pathname(path.to_s) }
       end
 
       def component_paths
         @_component_paths ||= begin
-          paths = [*opts.component_paths, *Engine.view_paths, host_app_path]
+          paths = [*opts.component_paths, *view_paths, host_app_path]
           PathUtils.normalize_paths(paths)
         end
       end
