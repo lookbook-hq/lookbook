@@ -6,6 +6,7 @@
     @popstate.window="handleNavigation"
     @click.document="hijax"
     @navigation:start="closeMobileSidebar"
+    @dom:update-complete.window="Lookbook.initEmbeds()"
     class="w-screen h-screen grid grid-rows-[40px_1fr] relative">
 
     <%= render "lookbook/partials/user_styles" %>
