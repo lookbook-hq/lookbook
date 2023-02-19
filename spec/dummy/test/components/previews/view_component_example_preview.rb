@@ -1,5 +1,5 @@
 class ViewComponentExamplePreview < Lookbook::Preview
   def default
-    render StandardComponent.new title: "viewcomponent component"
+    render BasicComponent.new
   end
 end

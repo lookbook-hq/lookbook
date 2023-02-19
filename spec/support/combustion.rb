@@ -11,8 +11,6 @@ Combustion.initialize! :action_controller, :action_view do
   config.lookbook.project_name = "Lookbook Test App"
   config.lookbook.listen = false
 
-  # config.autoload_paths << "#{root}/app"
-
   config.action_controller.default_url_options = {host: "localhost"}
 
   Lookbook.add_tag(:customtag)

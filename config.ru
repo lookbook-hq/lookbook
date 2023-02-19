@@ -2,6 +2,7 @@
 
 require "rubygems"
 require "bundler"
+require "phlex-rails"
 
 Bundler.require :default, :development
 
