@@ -18,13 +18,10 @@ export default function dimensionsDisplayComponent(targetSelector) {
 
     createObserver() {
       if (this.target) {
-        this.observer = observeSize(
-          document.querySelector(targetSelector),
-          ({ width, height }) => {
-            this.width = width;
-            this.height = height;
-          }
-        );
+        this.observer = observeSize(this.target, ({ width, height }) => {
+          this.width = width;
+          this.height = height;
+        });
       }
     },
 
