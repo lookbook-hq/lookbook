@@ -13,6 +13,7 @@ module.exports = {
       fontFamily: {
         sans: ["Inter var", ...tailwindDefaults.fontFamily.sans],
         mono: ["Source Code Variable", ...tailwindDefaults.fontFamily.mono],
+        prose: ["Nunito Sans", ...tailwindDefaults.fontFamily.sans],
       },
     },
   },

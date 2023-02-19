@@ -7,7 +7,7 @@
         }
 
         th {
-          @apply font-bold py-4 px-4 align-middle text-left;
+          @apply font-semibold py-4 px-4 align-middle text-left;
         }
 
         th.param-label {
@@ -29,7 +29,7 @@
         }
 
         td.param-label {
-          @apply font-bold;
+          @apply font-semibold;
         }
 
         .param-input-wrapper {
@@ -65,7 +65,7 @@
       }
 
       td.param-label {
-        @apply font-bold;
+        @apply font-semibold;
       }
 
       td.param-description-empty {

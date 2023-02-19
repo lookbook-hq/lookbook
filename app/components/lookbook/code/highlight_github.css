@@ -162,14 +162,13 @@
     } /* Comment */
     .err {
       color: var(--hl-error-fg);
-      background-color: var(--hl-error-bg);
     } /* Error */
     .g {
       color: var(--hl-subtle-fg);
     } /* Generic */
     .k {
       color: var(--hl-keyword);
-      font-weight: bold;
+      font-weight: 600;
     } /* Keyword; catches prefixes and css3 */
     .l {
       color: var(--hl-subtle-fg);
@@ -180,7 +179,7 @@
     } /* Name */
     .o {
       color: var(--hl-operator);
-      font-weight: bold;
+      font-weight: 600;
     } /* Operator */
     .x {
       color: var(--hl-subtle-fg);
@@ -194,7 +193,7 @@
     } /* Comment.Multiline */
     .cp {
       color: var(--hl-comment-preproc);
-      font-weight: bold;
+      font-weight: 600;
     } /* Comment.Preproc */
     .c1 {
       color: var(--hl-comment);
@@ -203,7 +202,7 @@
     .cs {
       color: var(--hl-comment-special-fg);
       background-color: var(--hl-comment-special-bg);
-      font-weight: bold;
+      font-weight: 600;
       font-style: italic;
     } /* Comment.Special */
     .gd {
@@ -232,38 +231,38 @@
     } /* Generic.Prompt */
     .gs {
       color: var(--hl-subtle-fg);
-      font-weight: bold;
+      font-weight: 600;
     } /* Generic.Strong */
     .gu {
       color: var(--hl-subheading);
-      font-weight: bold;
+      font-weight: 600;
     } /* Generic.Subheading */
     .gt {
       color: var(--hl-danger);
     } /* Generic.Traceback */
     .kc {
       color: var(--hl-keyword-crude);
-      font-weight: bold;
+      font-weight: 600;
     } /* Keyword.Constant */
     .kd {
       color: var(--hl-keyword-crude);
-      font-weight: bold;
+      font-weight: 600;
     } /* Keyword.Declaration */
     .kn {
       color: var(--hl-keyword-crude);
-      font-weight: bold;
+      font-weight: 600;
     } /* Keyword.Namespace */
     .kp {
       color: var(--hl-keyword-crude);
-      font-weight: bold;
+      font-weight: 600;
     } /* Keyword.Pseudo */
     .kr {
       color: var(--hl-keyword-crude);
-      font-weight: bold;
+      font-weight: 600;
     } /* Keyword.Reserved */
     .kt {
       color: var(--hl-keyword-subtle);
-      font-weight: bold;
+      font-weight: 600;
     } /* Keyword.Type */
     .ld {
       color: var(--hl-subtle-fg);
@@ -282,7 +281,7 @@
     } /* Name.Builtin */
     .nc {
       color: var(--hl-class);
-      font-weight: bold;
+      font-weight: 600;
     } /* Name.Class */
     .no {
       color: var(--hl-variable);
@@ -295,11 +294,11 @@
     } /* Name.Entity */
     .ne {
       color: var(--hl-exception);
-      font-weight: bold;
+      font-weight: 600;
     } /* Name.Exception */
     .nf {
       color: var(--hl-function);
-      font-weight: bold;
+      font-weight: 600;
     } /* Name.Function */
     .nl {
       color: var(--hl-subtle-fg);
@@ -321,7 +320,7 @@
     } /* Name.Variable */
     .ow {
       color: var(--hl-word);
-      font-weight: bold;
+      font-weight: 600;
     } /* Operator.Word */
     .w {
       color: var(--hl-whitespace);

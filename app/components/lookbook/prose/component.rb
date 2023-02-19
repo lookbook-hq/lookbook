@@ -1,6 +1,6 @@
 module Lookbook
   class Prose::Component < Lookbook::BaseComponent
-    def initialize(size: :md, markdown: true, **html_attrs)
+    def initialize(size: :sm, markdown: true, **html_attrs)
       @size = size
       @markdown = markdown
       super(**html_attrs)
@@ -17,7 +17,7 @@ module Lookbook
       when :lg
         "prose-lg"
       else
-        ""
+        "prose-sm lg:prose-base"
       end
     end
   end

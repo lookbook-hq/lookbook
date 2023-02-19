@@ -45,12 +45,14 @@
     <div class="px-4 md:px-10 pt-8 md:pt-10 overflow-auto scroll-smooth w-full max-h-full pb-12" x-ref="scroller">
       <div class="w-full max-w-screen-lg mx-auto h-full flex flex-col">
         <% if @page.header? %>
-          <header id="page-header" class="mb-8 prose max-w-none flex-none">
-            <h1><%= @page.title %></h1>
+          <header id="page-header" class="mb-7 pb-6 lg:mb-9 lg:pb-8 border-b border-lookbook-divider">
+            <%= lookbook_render :prose, size: :md, markdown: false, class: "max-w-none flex-none" do %>
+              <h1><%= @page.title %></h1>
+            <% end %>
           </header>
         <% end %>
 
-        <%= lookbook_render :prose, id: "page-content", markdown: false, class: "max-w-none flex-none" do %>
+        <%= lookbook_render :prose, size: :md, id: "page-content", markdown: false, class: "max-w-none flex-none min-h-[50vh]" do %>
           <%= @page_content %>
         <% end %>
 
