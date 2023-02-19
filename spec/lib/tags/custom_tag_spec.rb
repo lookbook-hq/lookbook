@@ -65,7 +65,7 @@ RSpec.describe Lookbook::CustomTag do
 
   context "custom parse handler" do
     it "receives the tag object as an argument" do
-      handler = ->(tag) { tag.foo = "bar"; }
+      handler = ->(tag) { tag.foo = "bar" }
 
       expect(tag_store).to receive(:get_tag).with(:foo).and_return(Lookbook::Store.new({
         name: :foo,
