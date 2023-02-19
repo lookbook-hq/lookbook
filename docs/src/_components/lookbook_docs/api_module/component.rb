@@ -54,15 +54,15 @@ module LookbookDocs
 
     def group(meths)
       groups = meths.group_by { _1[:group] }
-      groups.map do |group_name, meths|
+      groups.sort_by { |group_name, meths| group_name.presence || "z" }.map do |group_name, meths|
         {
           label: if group_name.present?
                    group_name
                  else
-                   (groups.many? ? "General" : nil)
+                   (groups.many? ? "Other" : nil)
                  end,
           methods: meths,
-          id: "group-#{group_name.present? ? group_name.dasherize : "general"}"
+          id: "group-#{group_name.present? ? group_name.dasherize : "other"}"
         }
       end
     end

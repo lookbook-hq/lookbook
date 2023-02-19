@@ -1,29 +1,40 @@
 module Lookbook
-  # Represents a **rendered** preview scenario
+  # Represents a **rendered** preview scenario.
   #
-  # @ignore methods
+  # Extends ScenarioEntity with an `output`
+  # method that returns the rendered HTML output.
+  #
+  # See the [ScenarioEntity](./scenario_entity) docs for other available methods.
+  #
   # @api public
   class RenderedScenarioEntity
     delegate_missing_to :scenario
 
+    # @api private
     attr_reader :scenario
 
+    # @api private
     def initialize(scenario, output, params)
       @scenario = scenario
       @params = params
       @output = output
     end
 
+    # HTML output of the rendered scenario.
+    #
+    # @return [String] Rendered output
+    def output
+      @_output ||= CodeBeautifier.call(@output)
+    end
+
+    # @api private
     def source
       has_custom_template? ? template_source(template) : scenario.source
     end
 
+    # @api private
     def source_lang
       has_custom_template? ? template_lang(template) : scenario.source_lang
-    end
-
-    def output
-      @_output ||= CodeBeautifier.call(@output)
     end
 
     protected

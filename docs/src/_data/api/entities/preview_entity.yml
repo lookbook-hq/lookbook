@@ -2,16 +2,660 @@
 name: PreviewEntity
 path: Lookbook::PreviewEntity
 description: Represents a preview class
-methods: []
-groups: []
-type: class
-category: entity
-tags:
+methods:
+- id: scenarios-instance-method
+  name: scenarios
+  path: Lookbook::PreviewEntity#scenarios
+  signature: scenarios
+  signature_call: scenarios
+  signature_args: ''
+  description: Get all scenarios defined in the preview class.
+  return_types: Array&lt;ScenarioEntity&gt;
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: scenario_names = preview.scenarios.map(&:name)
+    types:
+  - name:
+    tag_name: return
+    text: All scenarios for the preview
+    types: Array&lt;ScenarioEntity&gt;
+  klass: PreviewEntity
+  group: Scenarios
+  aliases:
+  - examples
+- id: scenario-instance-method
+  name: scenario
+  path: Lookbook::PreviewEntity#scenario
+  signature: scenario(scenario_name)
+  signature_call: scenario
+  signature_args: scenario_name
+  description: Find a specific scenario by (i.e. method) name
+  return_types: ScenarioEntity
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: default_scenario_preview_path = preview.scenario(:default).preview_path
+    types:
+  - name: scenario_name
+    tag_name: param
+    text: Name of the scenario
+    types: Symbol, String
+  - name:
+    tag_name: return
+    text: The matching scenario, if found
+    types: ScenarioEntity
+  - name:
+    tag_name: return
+    text: if no matching scenario was found
+    types: nil
+  klass: PreviewEntity
+  group: Scenarios
+  aliases:
+  - example
+- id: visible-scenarios-instance-method
+  name: visible_scenarios
+  path: Lookbook::PreviewEntity#visible_scenarios
+  signature: visible_scenarios
+  signature_call: visible_scenarios
+  signature_args: ''
+  description: |-
+    Get all scenarios defined in the preview class that
+    have not been hidden (by using the `@hidden` tag).
+  return_types: Array&lt;ScenarioEntity&gt;
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: visible_scenario_names = preview.visible_scenarios.map(&:name)
+    types:
+  - name:
+    tag_name: return
+    text: All visible scenarios for the preview
+    types: Array&lt;ScenarioEntity&gt;
+  klass: PreviewEntity
+  group: Scenarios
+  aliases: []
+- id: hidden-scenarios-instance-method
+  name: hidden_scenarios
+  path: Lookbook::PreviewEntity#hidden_scenarios
+  signature: hidden_scenarios
+  signature_call: hidden_scenarios
+  signature_args: ''
+  description: |-
+    Get all scenarios defined in the preview class
+    that are hidden (using the `@hidden` tag) and so
+    will not show up in the navigation.
+  return_types: Array&lt;ScenarioEntity&gt;
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: hidden_scenario_names = preview.hidden_scenarios.map(&:name)
+    types:
+  - name:
+    tag_name: return
+    text: All hidden scenarios for the preview
+    types: Array&lt;ScenarioEntity&gt;
+  klass: PreviewEntity
+  group: Scenarios
+  aliases: []
+- id: default-scenario-instance-method
+  name: default_scenario
+  path: Lookbook::PreviewEntity#default_scenario
+  signature: default_scenario
+  signature_call: default_scenario
+  signature_args: ''
+  description: |-
+    The scenario used when a preview is rendered
+    without explicity specifying a scenario.
+  return_types: ScenarioEntity
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: default_scenario_name = preview.default_scenario.name
+    types:
+  - name:
+    tag_name: return
+    text: The default scenario for this preview
+    types: ScenarioEntity
+  klass: PreviewEntity
+  group: Scenarios
+  aliases: []
+- id: render-targets-instance-method
+  name: render_targets
+  path: Lookbook::PreviewEntity#render_targets
+  signature: render_targets
+  signature_call: render_targets
+  signature_args: ''
+  description: |-
+    All 'render targets' (i.e. components or partials) that are known
+    to be rendered within the scenarios defined within this preview.
+
+    Render targets are guessed where possible (based on the preview class name)
+    but can also be manually specified using the `@renders` tag.
+  return_types: Array&lt;RenderableEntity&gt;
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: '"This preview renders: #{preview.render_targets.map(&:label).join(", ")}"'
+    types:
+  - name:
+    tag_name: return
+    text: All known render targets used in the preview
+    types: Array&lt;RenderableEntity&gt;
+  klass: PreviewEntity
+  group: Render Targets
+  aliases:
+  - components
+- id: inspect-path-instance-method
+  name: inspect_path
+  path: Lookbook::PreviewEntity#inspect_path
+  signature: inspect_path
+  signature_call: inspect_path
+  signature_args: ''
+  description: The inspector URL path for this preview
+  return_types: String
+  scope: instance
+  tags:
   - name:
     tag_name: api
     text: public
     types:
   - name:
-    tag_name: ignore
-    text: methods
+    tag_name: return
+    text: URL path
+    types: String
+  klass: PreviewEntity
+  group: URLs
+  aliases:
+  - url_path
+- id: preview-path-instance-method
+  name: preview_path
+  path: Lookbook::PreviewEntity#preview_path
+  signature: preview_path
+  signature_call: preview_path
+  signature_args: ''
+  description: The standalone preview URL path for this preview
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
     types:
+  - name:
+    tag_name: return
+    text: URL path
+    types: String
+  klass: PreviewEntity
+  group: URLs
+  aliases: []
+- id: preview-class-name-instance-method
+  name: preview_class_name
+  path: Lookbook::PreviewEntity#preview_class_name
+  signature: preview_class_name
+  signature_call: preview_class_name
+  signature_args: ''
+  description: The name of the associated preview class
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: Class name
+    types: String
+  klass: PreviewEntity
+  group:
+  aliases: []
+- id: hidden?-instance-method
+  name: hidden?
+  path: Lookbook::NavigableEntity#hidden?
+  signature: hidden?
+  signature_call: hidden?
+  signature_args: ''
+  description: Whether or not the entity is hidden (i.e. hidden from navigation)
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: true if hidden
+    types: Boolean
+  klass: NavigableEntity
+  group: Visibility
+  aliases: []
+- id: visible?-instance-method
+  name: visible?
+  path: Lookbook::NavigableEntity#visible?
+  signature: visible?
+  signature_call: visible?
+  signature_args: ''
+  description: Whether or not the entity is visible (i.e. present in navigation)
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: true if visible
+    types: Boolean
+  klass: NavigableEntity
+  group: Visibility
+  aliases: []
+- id: file-path-instance-method
+  name: file_path
+  path: Lookbook::LocatableEntity#file_path
+  signature: file_path
+  signature_call: file_path
+  signature_args: ''
+  description: Full path to the entity file
+  return_types: Pathname
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: File patj
+    types: Pathname
+  klass: LocatableEntity
+  group: Paths
+  aliases:
+  - full_path
+- id: file-name-instance-method
+  name: file_name
+  path: Lookbook::LocatableEntity#file_name
+  signature: file_name(strip_ext = false)
+  signature_call: file_name
+  signature_args: strip_ext = false
+  description: |-
+    Name of the entity file.
+
+    Includes file extension unless the `strip_ext` argument is `true`.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: strip_ext
+    tag_name: param
+    text: Whether or not to remove the file extension
+    types: Boolean
+  - name:
+    tag_name: return
+    text: File name
+    types: String
+  klass: LocatableEntity
+  group: Paths
+  aliases: []
+- id: file-extension-instance-method
+  name: file_extension
+  path: Lookbook::LocatableEntity#file_extension
+  signature: file_extension
+  signature_call: file_extension
+  signature_args: ''
+  description: Extension of the entity file.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: File extension
+    types: String
+  klass: LocatableEntity
+  group: Paths
+  aliases: []
+- id: directory-path-instance-method
+  name: directory_path
+  path: Lookbook::LocatableEntity#directory_path
+  signature: directory_path
+  signature_call: directory_path
+  signature_args: ''
+  description: Full directory path for the entity file.
+  return_types: Pathname
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: Directory path
+    types: Pathname
+  klass: LocatableEntity
+  group: Paths
+  aliases:
+  - dir_path
+- id: relative-file-path-instance-method
+  name: relative_file_path
+  path: Lookbook::LocatableEntity#relative_file_path
+  signature: relative_file_path
+  signature_call: relative_file_path
+  signature_args: ''
+  description: |-
+    Relative path to the entity file.
+
+    Returned path is relative to the appropriate base directory
+    (i.e. the preview directory for previews).
+  return_types: Pathname
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: Relative file path
+    types: Pathname
+  klass: LocatableEntity
+  group: Paths
+  aliases:
+  - rel_path
+- id: relative-directory-path-instance-method
+  name: relative_directory_path
+  path: Lookbook::LocatableEntity#relative_directory_path
+  signature: relative_directory_path
+  signature_call: relative_directory_path
+  signature_args: ''
+  description: |-
+    Relative directory path for the entity file.
+
+    Returned path is relative to the appropriate base directory
+    (i.e. the preview directory for previews).
+  return_types: Pathname
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: Relative directory path
+    types: Pathname
+  klass: LocatableEntity
+  group: Paths
+  aliases: []
+- id: last-modified-instance-method
+  name: last_modified
+  path: Lookbook::LocatableEntity#last_modified
+  signature: last_modified
+  signature_call: last_modified
+  signature_args: ''
+  description: Time that the entity file was last modified
+  return_types: Time
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: Time last modified
+    types: Time
+  klass: LocatableEntity
+  group: Paths
+  aliases: []
+- id: notes-instance-method
+  name: notes
+  path: Lookbook::AnnotatableEntity#notes
+  signature: notes
+  signature_call: notes
+  signature_args: ''
+  description: |-
+    Any notes added to the entity.
+    Returns the raw (unrendered) string which may contain markdown formatting.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The notes, or an empty string if none have been added
+    types: String
+  klass: AnnotatableEntity
+  group: Annotations
+  aliases: []
+- id: tags-instance-method
+  name: tags
+  path: Lookbook::AnnotatableEntity#tags
+  signature: tags(name = nil)
+  signature_call: tags
+  signature_args: name = nil
+  description: |-
+    All tags that have been added to the entity.
+    Can be filtered by tag name by providing the name as an argument.
+  return_types: Array&lt;YardTag&gt;
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: |-
+      all_tags = entity.tags
+      display_tags = entity.tags(:display)
+    types:
+  - name: name
+    tag_name: param
+    text: Optional tag type to filter by
+    types: Symbol
+  - name:
+    tag_name: return
+    text: Array of tags
+    types: Array&lt;YardTag&gt;
+  klass: AnnotatableEntity
+  group: Annotations
+  aliases: []
+- id: tag-instance-method
+  name: tag
+  path: Lookbook::AnnotatableEntity#tag
+  signature: tag(name = nil)
+  signature_call: tag
+  signature_args: name = nil
+  description: |-
+    The first tag (optionally of a particular type)
+    added to the entity.
+  return_types: Array&lt;YardTag&gt;
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: |-
+      first_tag = entity.tag
+      first_display_tag = entity.tag(:display)
+    types:
+  - name: name
+    tag_name: param
+    text: Optional tag type to filter by
+    types: Symbol
+  - name:
+    tag_name: return
+    text: Array of tags
+    types: Array&lt;YardTag&gt;
+  klass: AnnotatableEntity
+  group: Annotations
+  aliases: []
+- id: id-instance-method
+  name: id
+  path: Lookbook::Entity#id
+  signature: id
+  signature_call: id
+  signature_args: ''
+  description: Human-readable unique ID for the entity
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The ID
+    types: String
+  klass: Entity
+  group: Identity
+  aliases: []
+- id: name-instance-method
+  name: name
+  path: Lookbook::Entity#name
+  signature: name
+  signature_call: name
+  signature_args: ''
+  description: Parameter-safe entity name.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The name
+    types: String
+  klass: Entity
+  group: Identity
+  aliases: []
+- id: label-instance-method
+  name: label
+  path: Lookbook::Entity#label
+  signature: label
+  signature_call: label
+  signature_args: ''
+  description: |-
+    Titlized name for use in navigation etc.
+
+    Can be customized using the `@label` tag where supported.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The label
+    types: String
+  klass: Entity
+  group: Identity
+  aliases: []
+- id: type-instance-method
+  name: type
+  path: Lookbook::Entity#type
+  signature: type
+  signature_call: type
+  signature_args: ''
+  description: Entity type identifier
+  return_types: Symbol
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The entity type
+    types: Symbol
+  klass: Entity
+  group: Identity
+  aliases: []
+- id: lookup-path-instance-method
+  name: lookup_path
+  path: Lookbook::Entity#lookup_path
+  signature: lookup_path
+  signature_call: lookup_path
+  signature_args: ''
+  description: |-
+    Canonical reference path.
+
+    Used for generating URL paths and looking up entities.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The lookup path
+    types: String
+  klass: Entity
+  group: Paths
+  aliases:
+  - path
+groups:
+- Scenarios
+- Render Targets
+- URLs
+type: class
+category: entity
+tags:
+- name:
+  tag_name: api
+  text: public
+  types:

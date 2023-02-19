@@ -1,17 +1,27 @@
 module Lookbook
-  # @api private
   module NavigableEntity
     extend ActiveSupport::Concern
 
     included do
+      # @!group Visibility
+
+      # Whether or not the entity is hidden (i.e. hidden from navigation)
+      #
+      # @return [Boolean] true if hidden
       def hidden?
         fetch_config(:hidden, false)
       end
 
+      # Whether or not the entity is visible (i.e. present in navigation)
+      #
+      # @return [Boolean] true if visible
       def visible?
         !hidden?
       end
 
+      # @!endgroup
+
+      # @api private
       def priority
         return @_priority if @_priority
 
@@ -24,14 +34,17 @@ module Lookbook
         @_priority ||= pos.to_i
       end
 
+      # @api private
       def depth
         lookup_path.split("/").size
       end
 
+      # @api private
       def default_priority
         @default_priority || 10000
       end
 
+      # @api private
       def <=>(other)
         if respond_to?(:sort_handler, true)
           sort_handler(other)

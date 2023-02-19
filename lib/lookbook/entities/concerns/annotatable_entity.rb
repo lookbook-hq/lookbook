@@ -1,22 +1,47 @@
 module Lookbook
-  # @api private
   module AnnotatableEntity
     extend ActiveSupport::Concern
 
     included do
       delegate :has_tag?, to: :code_object
 
+      # @!group Annotations
+
+      # Any notes added to the entity.
+      # Returns the raw (unrendered) string which may contain markdown formatting.
+      #
+      # @return [String] The notes, or an empty string if none have been added
       def notes
         code_object.docstring.to_s.strip
       end
 
+      # All tags that have been added to the entity.
+      # Can be filtered by tag name by providing the name as an argument.
+      #
+      # @example :ruby
+      #   all_tags = entity.tags
+      #   display_tags = entity.tags(:display)
+      #
+      # @param name [Symbol] Optional tag type to filter by
+      # @return [Array<YardTag>] Array of tags
       def tags(name = nil)
         code_object.tags(name)
       end
 
+      # The first tag (optionally of a particular type)
+      # added to the entity.
+      #
+      # @example :ruby
+      #   first_tag = entity.tag
+      #   first_display_tag = entity.tag(:display)
+      #
+      # @param name [Symbol] Optional tag type to filter by
+      # @return [Array<YardTag>] Array of tags
       def tag(name = nil)
         tags(name).first
       end
+
+      # @!endgroup
 
       protected
 

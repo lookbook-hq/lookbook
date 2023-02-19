@@ -11,4 +11,8 @@
     margin-top: 0.75em;
     margin-bottom: 0.75em;
   }
+
+  p code.highlighter-rouge {
+    @apply bg-gray-100;
+  }
 }

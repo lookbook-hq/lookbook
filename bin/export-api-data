@@ -6,7 +6,6 @@ require "active_support"
 require "action_view"
 require "yard"
 require "yaml"
-# require "../."
 require 'fileutils'
 
 printf "✅ Done!\n"
@@ -61,7 +60,8 @@ def method_data(obj)
     scope: obj.scope.to_s,
     tags: tags_for(obj),
     klass: obj.parent.name.to_s,
-    group: obj.group&.to_s
+    group: obj.group&.to_s,
+    aliases: aliases_for(obj).map { _1.name.to_s }
   }
 end
 
@@ -97,6 +97,10 @@ end
 
 def tags_for(target)
   resolve(target).tags.map { tag_data _1 }
+end
+
+def aliases_for(target)
+  target.aliases.select { _1.tag(:api)&.text&.strip != "private" }
 end
 
 def get_modules_of_type(type)
@@ -151,8 +155,6 @@ printf " ✅ Done!\n"
 printf "🚨 Starting code parsing... "
 
 src_path = File.expand_path("../lib", __dir__)
-
-puts "----------------------- #{src_path}"
 
 YARD::Registry.clear
 YARD::Config.load_plugin("activesupport-concern")

@@ -33,19 +33,26 @@
           <div
             class="flex items-start space-x-2 w-full <%= "cursor-pointer" if description.present? %>"
             x-on:click.stop.prevent="showDescription = !showDescription">
-            <% if description.present? %>
-              <button class="text-xs text-indigo-500 mt-1">
-                <%= icon :plus_square, size: 3.5, html: {"x-show": "!showDescription", "x-cloak": true} %>
-                <%= icon :minus_square, size: 3.5, html: {"x-show": "showDescription", "x-cloak": true} %>
-              </button>
-            <% end %>
-            <%= markdown summary %>
+            <div class="prose max-w-full">
+              <% summary_content = capture do %>
+                <%= summary %>
+                <% if description.present? %>
+                  <button
+                    x-on:click.stop.prevent="showDescription = !showDescription"
+                    x-show="!showDescription"
+                    class="text-sm underline">
+                    [more]
+                  </button>
+                <% end %>
+              <% end %>
+              <%= markdown summary_content %> 
+            </div>
           </div>
         <% elsif summary.nil? %>
           <%= markdown "_No description available._" %>
         <% end %>
         <% if description.present? %>
-          <div class="prose max-w-full mt-3 pl-6 -ml-px" x-show.transition="showDescription" x-cloak>
+          <div class="prose max-w-full mt-3" x-show.transition="showDescription" x-cloak>
             <%= markdown description %>
           </div>
         <% end %>
@@ -67,6 +74,18 @@
       <div>
         <h4 class="text-xs uppercase tracking-wider mb-2 text-gray-400">Example:</h4>
         <%= rendered_example %>
+      </div>
+    <% end %>
+    <% if show?(:aliases) && aliases.any? %>
+      <div class="">
+        <h4 class="text-xs uppercase tracking-wider mb-2 text-gray-400">Aliases:</h4>
+        <div>
+          <% aliases.each do |alias_name| %>
+            <span>
+              <span class="opacity-50">#</span><span class="text-grey-500"><%= alias_name %></span>
+            </span><%= ", " unless alias_name == aliases.last %>
+          <% end %>
+        </div>
       </div>
     <% end %>
   </div>

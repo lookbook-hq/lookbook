@@ -1,0 +1,56 @@
+---
+name: NavigableEntity
+path: Lookbook::NavigableEntity
+description: ''
+methods:
+- id: hidden?-instance-method
+  name: hidden?
+  path: Lookbook::NavigableEntity#hidden?
+  signature: hidden?
+  signature_call: hidden?
+  signature_args: ''
+  description: Whether or not the entity is hidden (i.e. hidden from navigation)
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: true if hidden
+    types: Boolean
+  klass: NavigableEntity
+  group: Visibility
+  aliases: []
+- id: visible?-instance-method
+  name: visible?
+  path: Lookbook::NavigableEntity#visible?
+  signature: visible?
+  signature_call: visible?
+  signature_args: ''
+  description: Whether or not the entity is visible (i.e. present in navigation)
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: true if visible
+    types: Boolean
+  klass: NavigableEntity
+  group: Visibility
+  aliases: []
+groups:
+- Visibility
+type: module
+category: entity
+tags:
+- name:
+  tag_name: api
+  text: public
+  types:

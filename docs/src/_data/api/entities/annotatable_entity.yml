@@ -1,0 +1,103 @@
+---
+name: AnnotatableEntity
+path: Lookbook::AnnotatableEntity
+description: ''
+methods:
+- id: notes-instance-method
+  name: notes
+  path: Lookbook::AnnotatableEntity#notes
+  signature: notes
+  signature_call: notes
+  signature_args: ''
+  description: |-
+    Any notes added to the entity.
+    Returns the raw (unrendered) string which may contain markdown formatting.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The notes, or an empty string if none have been added
+    types: String
+  klass: AnnotatableEntity
+  group: Annotations
+  aliases: []
+- id: tags-instance-method
+  name: tags
+  path: Lookbook::AnnotatableEntity#tags
+  signature: tags(name = nil)
+  signature_call: tags
+  signature_args: name = nil
+  description: |-
+    All tags that have been added to the entity.
+    Can be filtered by tag name by providing the name as an argument.
+  return_types: Array&lt;YardTag&gt;
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: |-
+      all_tags = entity.tags
+      display_tags = entity.tags(:display)
+    types:
+  - name: name
+    tag_name: param
+    text: Optional tag type to filter by
+    types: Symbol
+  - name:
+    tag_name: return
+    text: Array of tags
+    types: Array&lt;YardTag&gt;
+  klass: AnnotatableEntity
+  group: Annotations
+  aliases: []
+- id: tag-instance-method
+  name: tag
+  path: Lookbook::AnnotatableEntity#tag
+  signature: tag(name = nil)
+  signature_call: tag
+  signature_args: name = nil
+  description: |-
+    The first tag (optionally of a particular type)
+    added to the entity.
+  return_types: Array&lt;YardTag&gt;
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: |-
+      first_tag = entity.tag
+      first_display_tag = entity.tag(:display)
+    types:
+  - name: name
+    tag_name: param
+    text: Optional tag type to filter by
+    types: Symbol
+  - name:
+    tag_name: return
+    text: Array of tags
+    types: Array&lt;YardTag&gt;
+  klass: AnnotatableEntity
+  group: Annotations
+  aliases: []
+groups:
+- Annotations
+type: module
+category: entity
+tags:
+- name:
+  tag_name: api
+  text: public
+  types:

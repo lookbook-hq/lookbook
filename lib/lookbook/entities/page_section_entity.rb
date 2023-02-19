@@ -1,4 +1,8 @@
 module Lookbook
+  # Represents a documentation page section.
+  #
+  # @ignore methods
+  # @api private
   class PageSectionEntity < PageEntity
     attr_accessor :parent
 

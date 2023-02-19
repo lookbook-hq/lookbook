@@ -19,7 +19,7 @@
         <div class="space-y-8">
           <% collection[:groups].each do |group| %>
             <%= render LookbookDocs::MethodList::Component.new(id: group[:id], title: group[:label]) do |list| %>
-              <% group[:methods].each do |method| %>
+              <% group[:methods].sort_by { |m| m[:name] }.each do |method| %>
                 <% toc.push({
                   label: method[:name],
                   id: method[:id],

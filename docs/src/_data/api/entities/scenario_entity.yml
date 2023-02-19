@@ -2,16 +2,430 @@
 name: ScenarioEntity
 path: Lookbook::ScenarioEntity
 description: Represents a preview scenario method within a preview class
-methods: []
-groups: []
-type: class
-category: entity
-tags:
+methods:
+- id: preview-instance-method
+  name: preview
+  path: Lookbook::ScenarioEntity#preview
+  signature: preview
+  signature_call: preview
+  signature_args: ''
+  description: The preview that this scenario belongs to.
+  return_types: PreviewEntity
+  scope: instance
+  tags:
   - name:
     tag_name: api
     text: public
     types:
   - name:
-    tag_name: ignore
-    text: methods
+    tag_name: return
+    text: The parent preview entity
+    types: PreviewEntity
+  klass: ScenarioEntity
+  group:
+  aliases:
+  - parent
+- id: id-instance-method
+  name: id
+  path: Lookbook::ScenarioEntity#id
+  signature: id
+  signature_call: id
+  signature_args: ''
+  description: Human-readable unique scenario ID
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
     types:
+  - name:
+    tag_name: return
+    text: The ID
+    types: String
+  klass: ScenarioEntity
+  group: Identity
+  aliases: []
+- id: name-instance-method
+  name: name
+  path: Lookbook::ScenarioEntity#name
+  signature: name
+  signature_call: name
+  signature_args: ''
+  description: Parameter-safe scenario name.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The name
+    types: String
+  klass: ScenarioEntity
+  group: Identity
+  aliases: []
+- id: type-instance-method
+  name: type
+  path: Lookbook::ScenarioEntity#type
+  signature: type
+  signature_call: type
+  signature_args: ''
+  description: |-
+    Entity type identifier.
+    Returns `:scenario` for scenarios.
+  return_types: Symbol
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The entity type
+    types: Symbol
+  klass: ScenarioEntity
+  group: Identity
+  aliases: []
+- id: display-options-instance-method
+  name: display_options
+  path: Lookbook::ScenarioEntity#display_options
+  signature: display_options
+  signature_call: display_options
+  signature_args: ''
+  description: |-
+    Display options hash.
+
+    Contains all display options defined via the `@display` tag
+    merged with any globally-defined options.
+  return_types: Hash
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The resolved display options
+    types: Hash
+  klass: ScenarioEntity
+  group: Display options
+  aliases: []
+- id: render-target-instance-method
+  name: render_target
+  path: Lookbook::ScenarioEntity#render_target
+  signature: render_target
+  signature_call: render_target
+  signature_args: ''
+  description: |-
+    The item (component or partial) that the scenario renders.
+
+    The render target is guessed where possible (based on the preview class name)
+    but can also be manually specified using the `@renders` tag.
+  return_types: RenderableEntity
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: '"This scenario renders: #{scenario.render_target.label}"'
+    types:
+  - name:
+    tag_name: return
+    text: The render target
+    types: RenderableEntity
+  klass: ScenarioEntity
+  group: Render Targets
+  aliases:
+  - component
+- id: inspect-path-instance-method
+  name: inspect_path
+  path: Lookbook::ScenarioEntity#inspect_path
+  signature: inspect_path
+  signature_call: inspect_path
+  signature_args: ''
+  description: The inspector URL path for this preview
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: URL path
+    types: String
+  klass: ScenarioEntity
+  group: URLs
+  aliases:
+  - url_path
+- id: preview-path-instance-method
+  name: preview_path
+  path: Lookbook::ScenarioEntity#preview_path
+  signature: preview_path
+  signature_call: preview_path
+  signature_args: ''
+  description: The standalone preview URL path for this preview
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: URL path
+    types: String
+  klass: ScenarioEntity
+  group: URLs
+  aliases: []
+- id: hidden?-instance-method
+  name: hidden?
+  path: Lookbook::NavigableEntity#hidden?
+  signature: hidden?
+  signature_call: hidden?
+  signature_args: ''
+  description: Whether or not the entity is hidden (i.e. hidden from navigation)
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: true if hidden
+    types: Boolean
+  klass: NavigableEntity
+  group: Visibility
+  aliases: []
+- id: visible?-instance-method
+  name: visible?
+  path: Lookbook::NavigableEntity#visible?
+  signature: visible?
+  signature_call: visible?
+  signature_args: ''
+  description: Whether or not the entity is visible (i.e. present in navigation)
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: true if visible
+    types: Boolean
+  klass: NavigableEntity
+  group: Visibility
+  aliases: []
+- id: notes-instance-method
+  name: notes
+  path: Lookbook::AnnotatableEntity#notes
+  signature: notes
+  signature_call: notes
+  signature_args: ''
+  description: |-
+    Any notes added to the entity.
+    Returns the raw (unrendered) string which may contain markdown formatting.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The notes, or an empty string if none have been added
+    types: String
+  klass: AnnotatableEntity
+  group: Annotations
+  aliases: []
+- id: tags-instance-method
+  name: tags
+  path: Lookbook::AnnotatableEntity#tags
+  signature: tags(name = nil)
+  signature_call: tags
+  signature_args: name = nil
+  description: |-
+    All tags that have been added to the entity.
+    Can be filtered by tag name by providing the name as an argument.
+  return_types: Array&lt;YardTag&gt;
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: |-
+      all_tags = entity.tags
+      display_tags = entity.tags(:display)
+    types:
+  - name: name
+    tag_name: param
+    text: Optional tag type to filter by
+    types: Symbol
+  - name:
+    tag_name: return
+    text: Array of tags
+    types: Array&lt;YardTag&gt;
+  klass: AnnotatableEntity
+  group: Annotations
+  aliases: []
+- id: tag-instance-method
+  name: tag
+  path: Lookbook::AnnotatableEntity#tag
+  signature: tag(name = nil)
+  signature_call: tag
+  signature_args: name = nil
+  description: |-
+    The first tag (optionally of a particular type)
+    added to the entity.
+  return_types: Array&lt;YardTag&gt;
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: |-
+      first_tag = entity.tag
+      first_display_tag = entity.tag(:display)
+    types:
+  - name: name
+    tag_name: param
+    text: Optional tag type to filter by
+    types: Symbol
+  - name:
+    tag_name: return
+    text: Array of tags
+    types: Array&lt;YardTag&gt;
+  klass: AnnotatableEntity
+  group: Annotations
+  aliases: []
+- id: source-instance-method
+  name: source
+  path: Lookbook::InspectableEntity#source
+  signature: source
+  signature_call: source
+  signature_args: ''
+  description: Scenario method source code
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The source code0
+    types: String
+  klass: InspectableEntity
+  group: Source
+  aliases: []
+- id: source-lang-instance-method
+  name: source_lang
+  path: Lookbook::InspectableEntity#source_lang
+  signature: source_lang
+  signature_call: source_lang
+  signature_args: ''
+  description: |-
+    Source code language info.
+
+    Returns a Hash with `name`, `ext` & `label` entries.
+  return_types: Hash
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: source_lang_name = entity.lang[:name]
+    types:
+  - name:
+    tag_name: return
+    text: Language info hash
+    types: Hash
+  klass: InspectableEntity
+  group: Source
+  aliases: []
+- id: label-instance-method
+  name: label
+  path: Lookbook::Entity#label
+  signature: label
+  signature_call: label
+  signature_args: ''
+  description: |-
+    Titlized name for use in navigation etc.
+
+    Can be customized using the `@label` tag where supported.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The label
+    types: String
+  klass: Entity
+  group: Identity
+  aliases: []
+- id: lookup-path-instance-method
+  name: lookup_path
+  path: Lookbook::Entity#lookup_path
+  signature: lookup_path
+  signature_call: lookup_path
+  signature_args: ''
+  description: |-
+    Canonical reference path.
+
+    Used for generating URL paths and looking up entities.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The lookup path
+    types: String
+  klass: Entity
+  group: Paths
+  aliases:
+  - path
+groups:
+- Identity
+- Display options
+- Render Targets
+- URLs
+type: class
+category: entity
+tags:
+- name:
+  tag_name: api
+  text: public
+  types:

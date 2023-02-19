@@ -1,0 +1,63 @@
+---
+name: InspectableEntity
+path: Lookbook::InspectableEntity
+description: ''
+methods:
+- id: source-instance-method
+  name: source
+  path: Lookbook::InspectableEntity#source
+  signature: source
+  signature_call: source
+  signature_args: ''
+  description: Scenario method source code
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The source code0
+    types: String
+  klass: InspectableEntity
+  group: Source
+  aliases: []
+- id: source-lang-instance-method
+  name: source_lang
+  path: Lookbook::InspectableEntity#source_lang
+  signature: source_lang
+  signature_call: source_lang
+  signature_args: ''
+  description: |-
+    Source code language info.
+
+    Returns a Hash with `name`, `ext` & `label` entries.
+  return_types: Hash
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: ruby
+    tag_name: example
+    text: source_lang_name = entity.lang[:name]
+    types:
+  - name:
+    tag_name: return
+    text: Language info hash
+    types: Hash
+  klass: InspectableEntity
+  group: Source
+  aliases: []
+groups:
+- Source
+type: module
+category: entity
+tags:
+- name:
+  tag_name: api
+  text: public
+  types:

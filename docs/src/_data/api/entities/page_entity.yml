@@ -2,16 +2,500 @@
 name: PageEntity
 path: Lookbook::PageEntity
 description: Represents a documentation page
-methods: []
-groups: []
-type: class
-category: entity
-tags:
+methods:
+- id: title-instance-method
+  name: title
+  path: Lookbook::PageEntity#title
+  signature: title
+  signature_call: title
+  signature_args: ''
+  description: |-
+    Page title, as defined in frontmatter.
+    Defaults to the page `label` if not provided.
+  return_types: String
+  scope: instance
+  tags:
   - name:
     tag_name: api
     text: public
     types:
   - name:
-    tag_name: ignore
-    text: methods
+    tag_name: return
+    text: The title
+    types: String
+  klass: PageEntity
+  group: Identity
+  aliases: []
+- id: data-instance-method
+  name: data
+  path: Lookbook::PageEntity#data
+  signature: data
+  signature_call: data
+  signature_args: ''
+  description: |-
+    Merged data hash. Combines `data` set in frontmatter
+    with any global default values.
+  return_types: Hash
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
     types:
+  - name:
+    tag_name: return
+    text: The resolved data hash
+    types: Hash
+  klass: PageEntity
+  group: Frontmatter
+  aliases: []
+- id: landing?-instance-method
+  name: landing?
+  path: Lookbook::PageEntity#landing?
+  signature: landing?
+  signature_call: landing?
+  signature_args: ''
+  description: |-
+    Whether the page is the default landing page.
+
+    Set via the `landing` frontmatter property.
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: ''
+    types: Boolean
+  klass: PageEntity
+  group: Predicates
+  aliases: []
+- id: markdown?-instance-method
+  name: markdown?
+  path: Lookbook::PageEntity#markdown?
+  signature: markdown?
+  signature_call: markdown?
+  signature_args: ''
+  description: |-
+    Whether the page content should be rendered
+    with the Markdown renderer.
+
+    Set via the `markdown` frontmatter property.
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: ''
+    types: Boolean
+  klass: PageEntity
+  group: Predicates
+  aliases: []
+- id: header?-instance-method
+  name: header?
+  path: Lookbook::PageEntity#header?
+  signature: header?
+  signature_call: header?
+  signature_args: ''
+  description: |-
+    Whether the page header will be shown.
+
+    Set via the `header` frontmatter property.
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: ''
+    types: Boolean
+  klass: PageEntity
+  group: Predicates
+  aliases: []
+- id: footer?-instance-method
+  name: footer?
+  path: Lookbook::PageEntity#footer?
+  signature: footer?
+  signature_call: footer?
+  signature_args: ''
+  description: |-
+    Whether the page footer will be shown.
+
+    Set via the `footer` frontmatter property.
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: ''
+    types: Boolean
+  klass: PageEntity
+  group: Predicates
+  aliases: []
+- id: docs-path-instance-method
+  name: docs_path
+  path: Lookbook::PageEntity#docs_path
+  signature: docs_path
+  signature_call: docs_path
+  signature_args: ''
+  description: The docs URL path for this page.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: URL path
+    types: String
+  klass: PageEntity
+  group: URLs
+  aliases:
+  - url_path
+- id: hidden?-instance-method
+  name: hidden?
+  path: Lookbook::NavigableEntity#hidden?
+  signature: hidden?
+  signature_call: hidden?
+  signature_args: ''
+  description: Whether or not the entity is hidden (i.e. hidden from navigation)
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: true if hidden
+    types: Boolean
+  klass: NavigableEntity
+  group: Visibility
+  aliases: []
+- id: visible?-instance-method
+  name: visible?
+  path: Lookbook::NavigableEntity#visible?
+  signature: visible?
+  signature_call: visible?
+  signature_args: ''
+  description: Whether or not the entity is visible (i.e. present in navigation)
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: true if visible
+    types: Boolean
+  klass: NavigableEntity
+  group: Visibility
+  aliases: []
+- id: file-path-instance-method
+  name: file_path
+  path: Lookbook::LocatableEntity#file_path
+  signature: file_path
+  signature_call: file_path
+  signature_args: ''
+  description: Full path to the entity file
+  return_types: Pathname
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: File patj
+    types: Pathname
+  klass: LocatableEntity
+  group: Paths
+  aliases:
+  - full_path
+- id: file-name-instance-method
+  name: file_name
+  path: Lookbook::LocatableEntity#file_name
+  signature: file_name(strip_ext = false)
+  signature_call: file_name
+  signature_args: strip_ext = false
+  description: |-
+    Name of the entity file.
+
+    Includes file extension unless the `strip_ext` argument is `true`.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: strip_ext
+    tag_name: param
+    text: Whether or not to remove the file extension
+    types: Boolean
+  - name:
+    tag_name: return
+    text: File name
+    types: String
+  klass: LocatableEntity
+  group: Paths
+  aliases: []
+- id: file-extension-instance-method
+  name: file_extension
+  path: Lookbook::LocatableEntity#file_extension
+  signature: file_extension
+  signature_call: file_extension
+  signature_args: ''
+  description: Extension of the entity file.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: File extension
+    types: String
+  klass: LocatableEntity
+  group: Paths
+  aliases: []
+- id: directory-path-instance-method
+  name: directory_path
+  path: Lookbook::LocatableEntity#directory_path
+  signature: directory_path
+  signature_call: directory_path
+  signature_args: ''
+  description: Full directory path for the entity file.
+  return_types: Pathname
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: Directory path
+    types: Pathname
+  klass: LocatableEntity
+  group: Paths
+  aliases:
+  - dir_path
+- id: relative-file-path-instance-method
+  name: relative_file_path
+  path: Lookbook::LocatableEntity#relative_file_path
+  signature: relative_file_path
+  signature_call: relative_file_path
+  signature_args: ''
+  description: |-
+    Relative path to the entity file.
+
+    Returned path is relative to the appropriate base directory
+    (i.e. the preview directory for previews).
+  return_types: Pathname
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: Relative file path
+    types: Pathname
+  klass: LocatableEntity
+  group: Paths
+  aliases:
+  - rel_path
+- id: relative-directory-path-instance-method
+  name: relative_directory_path
+  path: Lookbook::LocatableEntity#relative_directory_path
+  signature: relative_directory_path
+  signature_call: relative_directory_path
+  signature_args: ''
+  description: |-
+    Relative directory path for the entity file.
+
+    Returned path is relative to the appropriate base directory
+    (i.e. the preview directory for previews).
+  return_types: Pathname
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: Relative directory path
+    types: Pathname
+  klass: LocatableEntity
+  group: Paths
+  aliases: []
+- id: last-modified-instance-method
+  name: last_modified
+  path: Lookbook::LocatableEntity#last_modified
+  signature: last_modified
+  signature_call: last_modified
+  signature_args: ''
+  description: Time that the entity file was last modified
+  return_types: Time
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: Time last modified
+    types: Time
+  klass: LocatableEntity
+  group: Paths
+  aliases: []
+- id: id-instance-method
+  name: id
+  path: Lookbook::Entity#id
+  signature: id
+  signature_call: id
+  signature_args: ''
+  description: Human-readable unique ID for the entity
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The ID
+    types: String
+  klass: Entity
+  group: Identity
+  aliases: []
+- id: name-instance-method
+  name: name
+  path: Lookbook::Entity#name
+  signature: name
+  signature_call: name
+  signature_args: ''
+  description: Parameter-safe entity name.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The name
+    types: String
+  klass: Entity
+  group: Identity
+  aliases: []
+- id: label-instance-method
+  name: label
+  path: Lookbook::Entity#label
+  signature: label
+  signature_call: label
+  signature_args: ''
+  description: |-
+    Titlized name for use in navigation etc.
+
+    Can be customized using the `@label` tag where supported.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The label
+    types: String
+  klass: Entity
+  group: Identity
+  aliases: []
+- id: type-instance-method
+  name: type
+  path: Lookbook::Entity#type
+  signature: type
+  signature_call: type
+  signature_args: ''
+  description: Entity type identifier
+  return_types: Symbol
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The entity type
+    types: Symbol
+  klass: Entity
+  group: Identity
+  aliases: []
+- id: lookup-path-instance-method
+  name: lookup_path
+  path: Lookbook::Entity#lookup_path
+  signature: lookup_path
+  signature_call: lookup_path
+  signature_args: ''
+  description: |-
+    Canonical reference path.
+
+    Used for generating URL paths and looking up entities.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The lookup path
+    types: String
+  klass: Entity
+  group: Paths
+  aliases:
+  - path
+groups:
+- Identity
+- Frontmatter
+- Predicates
+- URLs
+type: class
+category: entity
+tags:
+- name:
+  tag_name: api
+  text: public
+  types:

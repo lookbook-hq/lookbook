@@ -1,9 +1,13 @@
 module Lookbook
-  # @api private
   module InspectableEntity
     extend ActiveSupport::Concern
 
     included do
+      # @!group Source
+
+      # Scenario method source code
+      #
+      # @return [String] The source code0
       def source
         source_code = if custom_source?
           File.read(source_file_path)
@@ -19,10 +23,21 @@ module Lookbook
         source_code.strip_heredoc.strip
       end
 
+      # Source code language info.
+      #
+      # Returns a Hash with `name`, `ext` & `label` entries.
+      #
+      # @example :ruby
+      #   source_lang_name = entity.lang[:name]
+      #
+      # @return [Hash] Language info hash
       def source_lang
         custom_source? ? Lang.guess(source_file_path, :ruby) : Lang.find(:ruby)
       end
 
+      # @!endgroup
+
+      # @api private
       def custom_source?
         source_file_path.present?
       end

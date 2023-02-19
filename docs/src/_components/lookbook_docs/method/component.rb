@@ -1,10 +1,11 @@
 module LookbookDocs
   class Method::Component < Base
     attr_reader :name, :signature_call, :signature_args, :wrap_args,
-      :id, :scope, :klass, :params, :options, :example, :example_lang
+      :id, :scope, :klass, :params, :options, :example, :example_lang, :aliases
 
     def initialize(name:, signature_call: nil, signature_args: nil, wrap_args: true, description: nil,
-      scope: "global", klass: nil, params: [], options: [], example: nil, example_lang: :erb, show: [], **attrs)
+      scope: "global", klass: nil, params: [], options: [], example: nil, example_lang: :erb, aliases: [],
+      show: [], **attrs)
       @name = name
       @signature_call = signature_call ? signature_call.strip : name
       @signature_args = signature_args.strip if signature_args
@@ -16,6 +17,7 @@ module LookbookDocs
       @options = options
       @example = example
       @example_lang = example_lang
+      @aliases = aliases
       @show = show.to_a
       @wrap_args = wrap_args
       @attrs = attrs
