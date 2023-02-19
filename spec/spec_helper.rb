@@ -4,8 +4,8 @@ Bundler.require :default, :development
 
 require_relative "support/combustion"
 
-require "factory_bot"
 require "view_component/test_helpers"
+require "factory_bot"
 require "rspec/rails"
 require "capybara/rspec"
 
@@ -18,10 +18,17 @@ RSpec.configure do |config|
 
   config.include ComponentSpecHelper, type: :component
   config.include RequestSpecHelper, type: :request
-  config.include PathsHelper
+  config.include AppHelper
 
   config.include Rails.application.routes.url_helpers
   config.include Lookbook::Engine.routes.url_helpers
 
   config.filter_rails_from_backtrace!
+end
+
+begin
+  require "phlex-rails"
+  require "phlex/testing/view_helper"
+  RSpec.configure { |config| config.include Phlex::Testing::ViewHelper }
+rescue LoadError
 end
