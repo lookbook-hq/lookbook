@@ -14,7 +14,7 @@ RSpec.describe "previews", type: :request do
       it "renders Phlex component previews" do
         get lookbook_preview_path("phlex_example/default")
 
-        expect(html).to have_css "p", text: "phlex component"
+        expect(html.has_css?("p", text: "phlex component")).to be true
       end
 
       it "supports helpers" do
@@ -29,7 +29,7 @@ RSpec.describe "previews", type: :request do
     it "renders view partial previews" do
       get lookbook_preview_path("partial_example/default")
 
-      expect(html).to have_css "p", text: "view partial"
+      expect(html.has_css?("p", text: "view partial")).to be true
     end
 
     it "supports helpers" do
