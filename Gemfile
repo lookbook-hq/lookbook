@@ -13,7 +13,6 @@ group :test do
   gem "appraisal", github: "thoughtbot/appraisal"
   gem "phlex-rails", require: false
   gem "factory_bot", require: false
-  gem "rspec-rails", "~> 5"
   gem "capybara", "~> 3.8"
   gem "selenium-webdriver", "~> 4"
   gem "puma", "~> 5"
