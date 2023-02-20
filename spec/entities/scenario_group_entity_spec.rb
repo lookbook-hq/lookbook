@@ -9,7 +9,7 @@ RSpec.describe Lookbook::ScenarioGroupEntity do
 
     context ".type" do
       it "returns the entity type" do
-        expect(group.type).to eq :group
+        expect(group.type).to eq :scenario_group
       end
     end
 

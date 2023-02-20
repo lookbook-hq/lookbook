@@ -3,7 +3,7 @@
   key: "#{id}-entity-#{type}",
   class: "list-none",
   "x-show": "!filteredOut",
-  data: { "entity-type": type },
+  data: { "entity-type": type.to_s.tr("_","-") },
   cloak: true do %>
   <%= lookbook_tag href.present? ? :a : :button,
     href: href,

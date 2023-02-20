@@ -47,7 +47,7 @@ RSpec.describe "application", type: :request do
         Lookbook::Engine.previews.select { |p| !p.hidden? }.each do |preview|
           visible_scenarios_count += preview.visible_scenarios.count
         end
-        selector = "#previews-nav [data-entity-type=scenario], #previews-nav [data-entity-type=group]"
+        selector = "#previews-nav [data-entity-type=scenario], #previews-nav [data-entity-type=scenario-group]"
         expect(html).to have_selector(selector)
         expect(html.all(selector).count).to eql(visible_scenarios_count)
       end

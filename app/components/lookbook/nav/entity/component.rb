@@ -4,7 +4,7 @@ module Lookbook
       page: :file,
       preview: :layers,
       scenario: :eye,
-      group: :eye
+      scenario_group: :eye
     }.freeze
 
     def nav_icon
