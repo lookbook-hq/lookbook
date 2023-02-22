@@ -79,7 +79,10 @@ module Lookbook
       end
 
       def auto_refresh?
-        reloading? && runtime_context.web? && FileWatcher.evented?
+        opts.live_updates == true &&
+          reloading? &&
+          runtime_context.web? &&
+          FileWatcher.evented?
       end
 
       def preview_embeds_allowed?
