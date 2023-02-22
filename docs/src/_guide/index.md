@@ -81,7 +81,9 @@ title: Introduction
   Using Lookbook? [Send a pull request](https://github.com/ViewComponent/lookbook/edit/main/docs/src/_guide/overview.md) to update this list!
 <% end %>
 
-<%= render section("Related content", id: "related") do |s| %>
+<%= render section("Articles and videos", id: "related") do |s| %>
+  * [Build a View Component library in Rails with Lookbook (video)](https://m.youtube.com/watch?v=Bw3wJfmg6fs) 
   * [ViewComponent in the Wild II: supercharging your components](https://evilmartians.com/chronicles/viewcomponent-in-the-wild-supercharging-your-components)
   * [From partials to ViewComponents: writing reusable front-end code in Rails](https://dev.to/nejremeslnici/from-partials-to-viewcomponents-writing-reusable-front-end-code-in-rails-1c9o)
+  * [Using view_component for Design System Implementation in Rails Projects](https://showmax.engineering/articles/using-view_component-for-design-system-implementation)
 <% end %>
