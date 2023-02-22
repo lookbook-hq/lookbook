@@ -67,7 +67,10 @@
   --lookbook-header-bg: var(--lookbook-accent-600);
   --lookbook-header-text: var(--lookbook-white);
   --lookbook-header-border: var(--lookbook-accent-700);
-  --lookbook-blank-slate-title: var(--lookbook-accent-600);
+  --lookbook-message-bg: var(--lookbook-white);
+  --lookbook-message-border: var(--lookbook-divider);
+  --lookbook-message-title: var(--lookbook-base-600);
+  --lookbook-message-text: var(--lookbook-text);
   --lookbook-embed-title: var(--lookbook-text);
   --lookbook-branding-text: var(--lookbook-header-text);
 }

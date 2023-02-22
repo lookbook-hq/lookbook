@@ -97,7 +97,10 @@ module.exports = function (opts = {}) {
       headerText: "var(--lookbook-white)",
       headerBorder: "var(--lookbook-accent-700)",
 
-      blankSlateTitle: "var(--lookbook-accent-600)",
+      messageBg: "var(--lookbook-white)",
+      messageBorder: "var(--lookbook-divider)",
+      messageTitle: "var(--lookbook-base-600)",
+      messageText: "var(--lookbook-text)",
 
       embedTitle: "var(--lookbook-text)",
 

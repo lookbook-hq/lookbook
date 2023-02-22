@@ -48,6 +48,7 @@ module Lookbook
       @config = Lookbook.config
       @engine = Lookbook.engine
       @embed = !!params[:lookbook_embed]
+      @blank_slate = Engine.pages.none? && Engine.previews.none?
     end
 
     def raise_not_found(message = "Page not found")

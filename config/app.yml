@@ -55,6 +55,11 @@ shared:
   debug_menu: false
   experimental_features: false
 
+  links:
+    docs: https://v2.lookbook.build
+    demo: https://v2-demo.lookbook.build
+    repo: https://github.com/ViewComponent/lookbook/tree/v2
+
 development:
   debug_menu: true
 

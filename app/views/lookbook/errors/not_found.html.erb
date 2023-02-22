@@ -1,6 +1,10 @@
-<div class="flex flex-col items-center justify-center w-full h-full bg-checked">
-  <div class="text-center bg-white px-8 py-6 border border-gray-200 rounded min-w-[400px text-lookbook-prose-text">
-    <h4 class="text-base tracking-tight mb-2"><%= @error.message %></h4>
-    <p class="opacity-70">It may have been moved or deleted.</p>
-  </div>
-</div>
+<%= render "lookbook/partials/blank_slate" do %>
+  <%= lookbook_render :message,
+      id: "not-found-message",
+      title: @error.message,
+      icon: :file_x,
+      icon_position: :right,
+      theme: :error do %>
+      <%= @error.detail || "It may have been moved or deleted." %>
+    <% end %>
+<% end %>

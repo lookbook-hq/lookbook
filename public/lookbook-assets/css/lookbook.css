@@ -1468,7 +1468,6 @@ pre[class*="language-"] {
   width: 100%;
   fill: #0000;
   stroke: currentColor;
-  stroke-width: 2px;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -1476,6 +1475,76 @@ pre[class*="language-"] {
 .lookbook-panel {
   min-height: 100%;
   padding: 1rem;
+}
+
+[data-component="message"] {
+  width: 100%;
+  border-width: 1px;
+  border-color: var(--lookbook-divider);
+  background-color: var(--lookbook-message-bg);
+  --tw-shadow: 0 1px 3px 0 #0000001a, 0 1px 2px -1px #0000001a;
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  border-radius: .25rem;
+  gap: 1.5rem;
+  padding: 1rem;
+  display: flex;
+}
+
+@media (min-width: 480px) {
+  [data-component="message"] {
+    padding: 1.5rem;
+  }
+}
+
+[data-component="message"].icon-right {
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+[data-component="message"].icon-left {
+  align-items: flex-start;
+}
+
+[data-component="message"] .message-title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: .025em;
+  color: var(--lookbook-message-title);
+  margin-bottom: .5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  overflow: hidden;
+}
+
+[data-component="message"] .message-icon {
+  opacity: .3;
+  flex: none;
+  display: none;
+}
+
+@media (min-width: 480px) {
+  [data-component="message"] .message-icon {
+    display: block;
+  }
+}
+
+[data-component="message"].theme-error {
+  --tw-border-opacity: 1;
+  border-color: rgb(254 202 202 / var(--tw-border-opacity));
+}
+
+[data-component="message"].theme-error .message-title {
+  --tw-text-opacity: 1;
+  color: rgb(185 28 28 / var(--tw-text-opacity));
+}
+
+[data-component="message"].theme-error .message-icon {
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity));
+  opacity: .5;
 }
 
 [data-component="nav"] .nav-action {
@@ -2091,10 +2160,6 @@ select.compact {
   width: 1.25rem;
 }
 
-.w-\[140px\] {
-  width: 140px;
-}
-
 .w-\[320px\] {
   width: 320px;
 }
@@ -2137,6 +2202,10 @@ select.compact {
 
 .flex-shrink-0 {
   flex-shrink: 0;
+}
+
+.flex-grow {
+  flex-grow: 1;
 }
 
 .border-collapse {
@@ -2372,10 +2441,6 @@ select.compact {
   white-space: pre-wrap;
 }
 
-.rounded {
-  border-radius: .25rem;
-}
-
 .rounded-full {
   border-radius: 9999px;
 }
@@ -2430,11 +2495,6 @@ select.compact {
 
 .\!border-lookbook-header-border {
   border-color: var(--lookbook-header-border) !important;
-}
-
-.border-gray-200 {
-  --tw-border-opacity: 1;
-  border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
 
 .border-gray-300 {
@@ -2638,10 +2698,6 @@ select.compact {
   padding-bottom: .75rem;
 }
 
-.pb-4 {
-  padding-bottom: 1rem;
-}
-
 .pb-6 {
   padding-bottom: 1.5rem;
 }
@@ -2771,14 +2827,6 @@ select.compact {
   line-height: 1.25;
 }
 
-.tracking-tight {
-  letter-spacing: -.025em;
-}
-
-.tracking-wide {
-  letter-spacing: .025em;
-}
-
 .tracking-wider {
   letter-spacing: .05em;
 }
@@ -2809,10 +2857,6 @@ select.compact {
 .text-green-600 {
   --tw-text-opacity: 1;
   color: rgb(22 163 74 / var(--tw-text-opacity));
-}
-
-.text-lookbook-blank-slate-title {
-  color: var(--lookbook-blank-slate-title);
 }
 
 .text-lookbook-branding-text {
@@ -3865,7 +3909,41 @@ select.compact {
   color: var(--lookbook-prose-link);
 }
 
+@media (min-width: 480px) {
+  .xs\:mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .xs\:w-auto {
+    width: auto;
+  }
+
+  .xs\:min-w-\[440px\] {
+    min-width: 440px;
+  }
+
+  .xs\:max-w-\[680px\] {
+    max-width: 680px;
+  }
+
+  .xs\:py-8 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .sm\:p-8 {
+    padding: 2rem;
+  }
+}
+
 @media (min-width: 768px) {
+  .md\:p-12 {
+    padding: 3rem;
+  }
+
   .md\:px-10 {
     padding-left: 2.5rem;
     padding-right: 2.5rem;
