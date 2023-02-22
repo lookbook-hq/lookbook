@@ -62,7 +62,7 @@ module LookbookDocs
                    (groups.many? ? "Other" : nil)
                  end,
           methods: meths,
-          id: "group-#{group_name.present? ? group_name.dasherize : "other"}"
+          id: "group-#{group_name.present? ? group_name.dasherize : "other"}".parameterize
         }
       end
     end

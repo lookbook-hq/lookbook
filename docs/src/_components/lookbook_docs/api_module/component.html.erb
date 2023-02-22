@@ -13,17 +13,23 @@
     <% method_collections.each do |collection| %>
       <div>
         <% if collection[:label] %>
-          <% toc.push(collection) %>
+          <%# toc.push(collection) %>
           <h3 class="font-bold text-xl mb-6 pb-2 border-b border-gray-300"><%= collection[:label] %></h3>
         <% end %>
         <div class="space-y-8">
           <% collection[:groups].each do |group| %>
             <%= render LookbookDocs::MethodList::Component.new(id: group[:id], title: group[:label]) do |list| %>
+              <% toc.push({
+                label: group[:label],
+                id: group[:id],
+                level: 2,
+                divider: true
+              }) if group[:label].present? %>
               <% group[:methods].sort_by { |m| m[:name] }.each do |method| %>
                 <% toc.push({
                   label: method[:name],
                   id: method[:id],
-                  level: collection[:label] ? 3 : 2
+                  level: 2
                 }) %>
                 <% list.with_item_api_method(**method, site: site) %>
               <% end %>

@@ -1,20 +1,18 @@
 <%= tag.aside **html_attrs,
-  class: "text-sm border border-gray-300 rounded bg-white",
+  class: "text-sm border border-gray-300 rounded bg-white flex flex-col",
   style: "box-shadow: 1px 1px 1px rgb(0 0 0 / 10%);" do %>
   <h4
-    class="pt-3 pb-1 px-3 text-xs uppercase tracking-wide flex items-center cursor-pointer group">
+    class="pt-3 pb-3 px-3 text-xs uppercase tracking-wide cursor-pointer border-b border-gray-300 bg-white flex-none">
     <span class="font-semibold"><%== title %></span>
-    <div class="ml-auto text-gray-600 opacity-50 group-hover:opacity-100 transition hidden">
-      <%= icon :plus_square, size: 3 %>
-      <%= icon :minus_square, size: 3 %>
-    </div>
   </h4>
 
-  <ul class="space-y-1 px-[7px] pt-3 pb-3.5">
-    <% links.each do |link| %>
-      <li class="truncate">
-        <%= link %>
-      </li>
-    <% end %>
-  </ul>     
+  <div class="h-full overflow-auto">
+    <ul class="space-y-1 px-[7px] pt-3 pb-3.5">
+      <% links.each do |link| %>
+        <li class="">
+          <%= link %>
+        </li>
+      <% end %>
+    </ul>     
+  </div>
 <% end %>

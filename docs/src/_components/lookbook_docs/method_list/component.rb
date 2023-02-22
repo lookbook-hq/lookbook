@@ -7,9 +7,14 @@ module LookbookDocs
 
     attr_reader :title
 
-    def initialize(title: nil, **attrs)
+    def initialize(id: nil, title: nil, **attrs)
+      @id = id
       @title = title
       @attrs = attrs
+    end
+
+    def id
+      (@id || title)&.force_encoding("utf-8")&.parameterize
     end
   end
 end

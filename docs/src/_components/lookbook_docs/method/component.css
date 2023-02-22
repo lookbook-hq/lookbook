@@ -15,4 +15,8 @@
   p code.highlighter-rouge {
     @apply bg-gray-100;
   }
+
+  & h4 {
+    @apply text-xs uppercase tracking-wider mb-2 text-gray-400;
+  }
 }

@@ -1,0 +1,16 @@
+[data-component="toc"] {
+  max-height: calc(100vh - 150px);
+  @apply overflow-auto;
+
+  & .toc-divider {
+    @apply text-xs uppercase tracking-wider text-gray-500 block mb-2 mt-1 ml-0.5;
+  }
+
+  & li:not(:first-child) .toc-divider {
+    @apply mt-5;
+  }
+
+  & .toc-link {
+    @apply flex items-start space-x-1 w-full hover:underline min-w-[1%];
+  }
+}

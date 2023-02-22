@@ -58,30 +58,36 @@
         <% end %>
       </div>
     <% end %>
+    <% if show?(:default) && !default.nil? %>
+      <div>
+        <h4>Default:</h4>
+        <%= code :ruby do %><%== default %><% end %>
+      </div>
+    <% end %>
     <% if show?(:params) && params.any? %>
       <div>
-        <h4 class="text-xs uppercase tracking-wider mb-2 text-gray-400">Arguments:</h4>
+        <h4>Arguments:</h4>
         <%= render LookbookDocs::OptionsList::Component.new(options: params) %>
       </div>
     <% end %>
      <% if (show?(:options) || show?(:params)) && options.any? %>
       <div>
-        <h4 class="text-xs uppercase tracking-wider mb-2 text-gray-400">Options:</h4>
+        <h4>Options:</h4>
         <%= render LookbookDocs::OptionsList::Component.new(options: options) %>
       </div>
     <% end %>
     <% if show?(:example) && rendered_example.present? %>
       <div>
-        <h4 class="text-xs uppercase tracking-wider mb-2 text-gray-400">Example:</h4>
+        <h4>Example:</h4>
         <%= rendered_example %>
       </div>
     <% end %>
     <% if show?(:aliases) && aliases.any? %>
       <div class="">
-        <h4 class="text-xs uppercase tracking-wider mb-2 text-gray-400">Aliases:</h4>
+        <h4>Aliases:</h4>
         <div>
           <% aliases.each do |alias_name| %>
-            <span>
+            <span class="text-sm">
               <span class="opacity-50">#</span><span class="text-grey-500"><%= alias_name %></span>
             </span><%= ", " unless alias_name == aliases.last %>
           <% end %>

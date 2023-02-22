@@ -1,7 +1,7 @@
 project:
   - name: project_name
     types: String
-    default: "Lookbook"
+    default: '"Lookbook"'
     example: config.lookbook.project_name = "Lookbook Demo"
     description: The name of your project. Displayed in the Lookbook header.
 
@@ -24,7 +24,7 @@ previews:
 
   - name: preview_controller
     types: String
-    default: "Lookbook::PreviewController"
+    default: '"Lookbook::PreviewController"'
     example: config.lookbook.preview_controller = "MyCustomController"
     description: The controller used when rendering previews.
 
@@ -42,7 +42,7 @@ previews:
 
   - name: preview_embeds.policy
     types: String
-    default: SAMEORIGIN
+    default: '"SAMEORIGIN"'
     example: config.lookbook.preview_embeds.policy = "ALLOWALL"
     description: |
       Preview embeds security policy.
@@ -85,7 +85,7 @@ pages:
 
   - name: page_route
     types: String
-    default: "pages"
+    default: '"pages"'
     example: config.lookbook.page_route = "docs"
     description: The URL segment used to prefix page routes.
 
@@ -119,7 +119,7 @@ components:
 theming:
   - name: ui_theme
     types: String
-    default: "indigo"
+    default: '"indigo"'
     example: config.lookbook.ui_theme = "zinc"
     description: |
       The UI theme to use. Available options are: `indigo`, `blue`, `zinc`, `green`, `rose`.
@@ -178,7 +178,7 @@ debugging:
   - name: log_use_rails_logger
     group: debugging
     types: Boolean
-    default: true
+    default: "true"
     example: config.lookbook.log_use_rails_logger = true
     description: Whether or not Lookbook should use the Rails logger when it is present.
 

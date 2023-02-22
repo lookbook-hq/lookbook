@@ -3,7 +3,7 @@ id: tags-reference
 title: Tags Reference
 ---
 
-<%= render section(overview: true) do |s| %>
+<%= render section do |s| %>
   <% s.with_block_prose do %>
     The following tags are available for [annotating preview classes](<%= guide_url :previews_annotations %>):
   <% end %>
@@ -11,7 +11,7 @@ title: Tags Reference
   <% s.with_block_method_list do |list| %>
     <% site.data.tags.each do |tag| %>
       <% id = tag[:name].tr("@","") %>
-      <% add_toc_entry({label: tag[:name], id: id, level: 3 }) %>
+      <% add_toc_entry({label: tag[:name], id: id, level: 2 }) %>
       <% list.with_item_method(
         **(tag.symbolize_keys),
         wrap_args: false,
@@ -22,5 +22,3 @@ title: Tags Reference
     <% end %>
   <% end %>
 <% end %>
-
- 
