@@ -30,8 +30,8 @@ groups:
     items:
       - pages
       - pages-frontmatter
-      - pages-variables
       - pages-embedding
+      - pages-variables
 
   - label: Sharing
     items:

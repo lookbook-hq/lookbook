@@ -3,13 +3,17 @@ name: PageHelper
 path: Lookbook::PageHelper
 description: Helpers for documentation page templates
 methods:
-- id: page-path-instance-method
-  name: page_path
-  path: Lookbook::PageHelper#page_path
-  signature: page_path(id)
-  signature_call: page_path
-  signature_args: id
-  description: Returns the URL path to a page.
+- id: embed-instance-method
+  name: embed
+  path: Lookbook::PageHelper#embed
+  signature: embed(preview, scenario = nil, **opts)
+  signature_call: embed
+  signature_args: preview, scenario = nil, **opts
+  description: |-
+    Render a 'live' embed of a component preview.
+
+    If no scenario name is provided then the default (first) preview
+    scenario will be rendered in the embed.
   return_types:
   scope: instance
   tags:
@@ -17,10 +21,18 @@ methods:
     tag_name: api
     text: public
     types:
-  - name: id
+  - name: preview
     tag_name: param
-    text: The id or PageEntity instance to generate a URL path for
-    types: String, PageEntity
+    text: Name of the preview class to embed
+    types: String
+  - name: scenario
+    tag_name: param
+    text: Example method name
+    types: String
+  - name: opts
+    tag_name: param
+    text: Options hash
+    types: Hash
   klass: PageHelper
   group:
   aliases: []

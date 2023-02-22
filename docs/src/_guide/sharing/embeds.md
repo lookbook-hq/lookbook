@@ -84,6 +84,11 @@ lookbook_embeds: true
 
     This script is served by apps running Lookbook at `/lookbook-assets/js/lookbook-core.js`.
   <% end %>
+
+  <% s.with_block_note :tip do %>
+    The `lookbook.js` script will initialize all embeds on page load, but any embeds
+    added to the page after this will need to be manually initialized. [Read more &rarr;](#init-embeds)
+  <% end %>
 <% end %>
 
 <%= render section("Adding embeds", id: "adding-embeds") do |s| %>
@@ -240,6 +245,21 @@ lookbook_embeds: true
     ```
     
     Once set, only embeds that wish to override the defaults need specify these as attributes.
+  <% end %>
+<% end %>
+
+<%= render section("Manually initializing embeds", id: "init-embeds") do |s| %>
+  <% s.with_block_prose do %>
+    The `lookbook.js` script will automatically initialize all embeds on page load.
+
+    However, if embeds are dynamically added to the page _after_ the initial page load then they will need to be
+    manually initialized using the `Lookbook.initEmbeds` function:
+
+    ```js
+    document.addEventListener("some-load-event", () => {
+      window.Lookbook.initEmbeds();
+    });
+    ```
   <% end %>
 <% end %>
 

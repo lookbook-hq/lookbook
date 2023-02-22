@@ -34,30 +34,6 @@ module Lookbook
       lookbook_render :code, **opts, &block
     end
 
-    # Render a 'live' embed of a component preview.
-    #
-    # If no scenario name is provided then the default (first) preview
-    # scenario will be rendered in the embed.
-    #
-    # @param preview [String] Name of the preview class to embed
-    # @param scenario [String] Example method name
-    # @param opts [Hash] Options hash
-    def embed(preview, scenario = nil, **opts)
-      preview_entity = if preview.is_a?(Symbol)
-        Engine.previews.find_by_path(preview)
-      else
-        Engine.previews.find_by_preview_class(preview)
-      end
-      scenario_entity = scenario ? preview_entity&.scenario(scenario) : preview_entity&.default_scenario
-      opts[:actions] ||= ["inspect", "open"]
-
-      lookbook_render Embed::Component.new(
-        scenario: scenario_entity,
-        params: opts.fetch(:params, {}),
-        options: opts.except(:params)
-      )
-    end
-
     # @api private
     def prose(**opts, &block)
       lookbook_render :prose, **opts, &block
