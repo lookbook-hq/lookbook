@@ -25,7 +25,7 @@
         <% if @debug_menu %>
           <% group.with_button id: "debug-menu-button",
             icon: :help_circle,
-            class: "opacity-50 hover:opacity-100 transition !text-lookbook-header-text", "x-show": "!loading" do |button| %>
+            class: "!text-lookbook-header-text", "x-show": "!loading" do |button| %>
             <% menu = lookbook_render :debug_menu,
               version: Lookbook::VERSION,
               docs_url: "https://lookbook.build/guide",
