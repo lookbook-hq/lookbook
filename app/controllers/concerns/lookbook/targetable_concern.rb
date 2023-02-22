@@ -66,7 +66,8 @@ module Lookbook
       @params = []
 
       if @target
-        @params = @target.tags("param").map do |param_tag|
+        param_tags = @target.tags("param").uniq(&:name)
+        @params = param_tags.map do |param_tag|
           Param.from_tag(
             param_tag,
             value: preview_controller.params[param_tag.name]
