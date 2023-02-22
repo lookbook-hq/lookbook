@@ -65,7 +65,7 @@ module Lookbook
 
     def input_config
       config = Lookbook::Engine.inputs.get_input(input)
-      config || raise(LookbookError.new("Unknown input type '#{input}'"))
+      config || raise(Lookbook::Error.new("Unknown input type '#{input}'"))
     end
 
     def guess_input

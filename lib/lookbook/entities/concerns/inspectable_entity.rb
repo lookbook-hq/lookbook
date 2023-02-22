@@ -50,7 +50,7 @@ module Lookbook
         @_source_path ||= if code_object.has_tag?(:source)
           source_path = code_object.tag(:source).value
           unless source_path.present? && File.exist?(source_path)
-            raise LookbookError, "Could not find source file '#{source_path}'"
+            raise Lookbook::Error, "Could not find source file '#{source_path}'"
           end
           source_path
         end

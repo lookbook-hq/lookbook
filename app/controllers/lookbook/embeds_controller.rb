@@ -57,18 +57,17 @@ module Lookbook
         end
       end
 
-      show_404 layout: "lookbook/skeleton"
+      raise_not_found("Preview not found")
     end
 
     def show
       @embed = true
-
       unless @target
-        @target = @scenario_choices.first || @preview.default_scenario
+        @target = @scenario_choices.first || @preview&.default_scenario
         if @target
           redirect_to lookbook_embed_path(@target.path, req_params)
         else
-          show_404(layout: "lookbook/skeleton") unless @target
+          raise_not_found("Preview not found")
         end
       end
     end

@@ -116,21 +116,6 @@ module Lookbook
       })
     end
 
-    def show_404(layout: nil)
-      locals = if @preview
-        {
-          message: "Example not found",
-          description: "The '#{@preview.label}' preview does not have an scenario named '#{path_segments.last}'."
-        }
-      else
-        {
-          message: "Not found",
-          description: "Looked for '#{params[:path]}'.<br>The preview may have been renamed or deleted."
-        }
-      end
-      render_in_layout "lookbook/404", layout: layout, **locals, status: 404
-    end
-
     def path_segments
       params[:path].split("/")
     end

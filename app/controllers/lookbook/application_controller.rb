@@ -4,12 +4,19 @@ module Lookbook
 
     protect_from_forgery with: :exception
 
+    layout "lookbook/application"
+
     helper Lookbook::ClassNamesHelper if Engine.runtime_context.rails_older_than?("6.1.0")
     helper Lookbook::ApplicationHelper
     helper Lookbook::UiElementsHelper
 
-    before_action :generate_theme_overrides
+    before_action :assign_theme_overrides
     before_action :assign_instance_vars
+
+    rescue_from ActionController::RoutingError do |err|
+      raise Lookbook::RoutingError, err.message, original: err
+    end
+    rescue_from StandardError, with: :handle_error
 
     def self.controller_path
       "lookbook"
@@ -24,9 +31,13 @@ module Lookbook
       end
     end
 
+    def not_found
+      raise_not_found
+    end
+
     protected
 
-    def generate_theme_overrides
+    def assign_theme_overrides
       @theme_overrides ||= Engine.theme.to_css
     end
 
@@ -39,21 +50,33 @@ module Lookbook
       @embed = !!params[:lookbook_embed]
     end
 
-    def render_in_layout(path, layout: nil, **locals)
-      @error = locals[:error]
-      render path, layout: layout.presence || (params[:lookbook_embed] ? "lookbook/basic" : "lookbook/application"), locals: locals
+    def raise_not_found(message = "Page not found")
+      raise Lookbook::RoutingError, message
     end
 
-    def prettify_error(exception)
-      error_params = {}
-      if exception.is_a?(ViewComponent::PreviewTemplateError)
-        error_params = {
-          file_path: @preview&.file_path,
-          line_number: 0,
-          source_code: @target&.source
-        }
+    def handle_error(err)
+      @error = err.is_a?(Lookbook::Error) ? err : Lookbook::Error.new(original: err)
+      @status_code = get_status_code(err)
+
+      view = (@status_code == :not_found) ? "not_found" : "default"
+      layout = current_layout || "lookbook/skeleton"
+
+      render "lookbook/errors/#{view}", layout: layout, status: @status_code
+    end
+
+    def current_layout
+      self.class.send(:_layout)
+    end
+
+    private
+
+    def get_status_code(err)
+      if err.respond_to?(:status)
+        err.status
+      else
+        status_map = ActionDispatch::ExceptionWrapper.rescue_responses
+        status_map.fetch(err.class.name, :internal_server_error)
       end
-      Lookbook::Error.new(exception, **error_params)
     end
   end
 end

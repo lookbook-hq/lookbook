@@ -17,4 +17,6 @@ Lookbook::Engine.routes.draw do
     get "/embed", to: "embeds#lookup", as: :lookbook_embed_lookup
     get "/embed/*path", to: "embeds#show", as: :lookbook_embed
   end
+
+  get "/*path", to: "application#not_found", via: :all
 end

@@ -37,27 +37,25 @@ module Lookbook
     end
 
     def show
-      if @target
-        begin
-          opts = {layout: @preview.layout}
-          if embedded?
-            opts[:append_html] = render_to_string("lookbook/partials/_iframe_content_scripts", layout: nil)
-          end
-          @preview_html = preview_controller.process(:render_in_layout_to_string, "lookbook/previews/group", inspector_data, **opts)
-        rescue => exception
-          render_in_layout "lookbook/error",
-            layout: "lookbook/skeleton",
-            error: prettify_error(exception)
-        end
-      else
-        show_404
-      end
+      raise_not_found("Preview not found") unless @target
+
+      @preview_html = preview_controller.process(
+        :render_in_layout_to_string,
+        "lookbook/previews/group",
+        inspector_data,
+        layout: @preview.layout,
+        append_html: (iframe_content_scripts if embedded?)
+      )
     end
 
     private
 
     def embedded?
       params[:lookbook_embed] == "true"
+    end
+
+    def iframe_content_scripts
+      render_to_string("lookbook/partials/_iframe_content_scripts", layout: nil)
     end
 
     def scenario_json(scenario)

@@ -12,7 +12,7 @@ module Lookbook
       @base_directories = Engine.component_paths
       @file_path = PathUtils.determine_full_path(component? ? "#{name}.rb" : identifier, @base_directories)
       unless @file_path && File.exist?(@file_path)
-        raise LookbookError, "The render target #{@identifier} was not found."
+        raise Lookbook::Error, "The render target #{@identifier} was not found."
       end
       @lookup_path = PathUtils.to_lookup_path(relative_file_path)
     end
