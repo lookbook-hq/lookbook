@@ -133,8 +133,8 @@ module Lookbook
 
       def view_paths
         # handle view path registry changes in Rails 7.1
-        paths = if defined?(ActionView::ViewPaths::Registry)
-          ActionView::ViewPaths::Registry.all_file_system_resolvers.map(&:path)
+        paths = if defined?(ActionView::PathRegistry)
+          ActionView::PathRegistry.all_file_system_resolvers.map(&:path)
         else
           ActionView::ViewPaths.all_view_paths.flat_map(&paths)
         end
