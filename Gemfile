@@ -5,7 +5,7 @@ gemspec
 gem "standard", "1.22.0"
 
 group :development, :test do
-  gem "sqlite3", "~> 1.5"
+  gem "sqlite3", "~> 1.6"
   gem "combustion", "~> 1.3"
   gem "actionpack"
   gem "appraisal"
