@@ -110,10 +110,10 @@ RSpec.describe Lookbook::ConfigStore do
           expect(config.page_paths).to include "baz/boop"
         end
 
-        it "doesn't have the default value overridden when setting to a new array" do
+        it "can be overridden" do
           config.page_paths = ["foo/bar"]
 
-          expect(config.page_paths).to include "test/components/docs"
+          expect(config.page_paths).not_to include "test/components/docs"
         end
       end
 

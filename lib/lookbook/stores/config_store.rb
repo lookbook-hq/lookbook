@@ -27,20 +27,8 @@ module Lookbook
       store[:project_name] = (name == false) ? nil : name
     end
 
-    def page_paths=(paths = nil)
-      store[:page_paths].push(*paths.to_a)
-    end
-
     def page_extensions=(extensions = nil)
       store[:page_extensions].push(*extensions.to_a).uniq!
-    end
-
-    def preview_paths=(paths = nil)
-      store[:preview_paths].push(*paths.to_a)
-    end
-
-    def component_paths=(paths = nil)
-      store[:component_paths].push(*paths.to_a)
     end
 
     def listen_extensions=(extensions = nil)
