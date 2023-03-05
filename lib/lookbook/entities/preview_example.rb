@@ -57,6 +57,10 @@ module Lookbook
       lookbook_inspect_path(path)
     end
 
+    def preview_path
+      lookbook_preview_path(path)
+    end
+
     def type
       :example
     end

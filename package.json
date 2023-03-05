@@ -1,6 +1,6 @@
 {
   "name": "lookbook",
-  "version": "1.5.1",
+  "version": "1.5.3",
   "description": "A native development UI for ViewComponent",
   "targets": {
     "app": {
@@ -50,7 +50,7 @@
     "alpinejs": "^3.10.5",
     "autoprefixer": "^10.4.13",
     "command-line-args": "^5.2.1",
-    "iframe-resizer": "^4.3.2",
+    "iframe-resizer": "^4.3.4",
     "js-cookie": "^3.0.1",
     "loglevel": "^1.8.1",
     "loglevel-plugin-prefix": "^0.8.4",
@@ -59,7 +59,7 @@
     "postcss-import": "^15.0.0",
     "postcss-import-ext-glob": "^2.0.1",
     "split-grid": "^1.0.11",
-    "tailwindcss": "^3.2.2",
+    "tailwindcss": "^3.2.7",
     "throttle-debounce": "^5.0.0",
     "tippy.js": "^6.3.2"
   },

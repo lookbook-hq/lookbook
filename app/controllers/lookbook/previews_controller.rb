@@ -3,7 +3,7 @@ module Lookbook
     include TargetableConcern
     include WithPreviewControllerConcern
 
-    before_action { response.headers.delete('X-Frame-Options') }
+    before_action { response.headers.delete("X-Frame-Options") }
 
     layout "lookbook/inspector"
     helper Lookbook::PreviewHelper
@@ -20,10 +20,15 @@ module Lookbook
               {
                 name: preview.name,
                 examples: preview.examples.map { |example|
-                  {
-                    inspect_path: example.url_path,
-                    name: example.name
-                  }
+                  case example
+                  when Lookbook::PreviewExample
+                    example_json(example)
+                  when Lookbook::PreviewGroup
+                    {
+                      name: example.name,
+                      examples: example.examples.map { |ex| example_json(ex) }
+                    }
+                  end
                 }
               }
             end
@@ -49,6 +54,17 @@ module Lookbook
       else
         show_404 layout: "lookbook/standalone"
       end
+    end
+
+    private
+
+    def example_json(example)
+      {
+        inspect_path: example.url_path,
+        name: example.name,
+        preview_path: example.preview_path,
+        lookup_path: example.lookup_path
+      }
     end
   end
 end

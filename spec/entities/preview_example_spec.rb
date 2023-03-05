@@ -15,6 +15,16 @@ RSpec.describe Lookbook::PreviewExample do
       end
     end
 
+    context ".preview_path" do
+      it "returns the URL to the isolated preview" do
+        expect(example.preview_path).to eq lookbook_preview_path("standard/default")
+      end
+
+      it "is a String" do
+        expect(example.preview_path).to be_a String
+      end
+    end
+
     context ".source" do
       it "returns the example method source code" do
         source_lines = example.source.split("\n")

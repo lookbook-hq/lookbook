@@ -7,6 +7,14 @@ A tool to help browse, develop, test & document [ViewComponents](https://viewcom
 [![CI status](https://github.com/ViewComponent/lookbook/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ViewComponent/lookbook/actions/workflows/ci.yml)
 <br>
 
+---
+
+### 🚀 v2.0 beta now available!
+
+Find out what's new and how to test it out on the [v2 beta docs site &rarr;](https://v2.lookbook.build/)
+
+---
+
 ## Documentation
 
 ✨ **Lookbook guide and API docs**: [lookbook.build](https://lookbook.build)
@@ -25,7 +33,7 @@ A tool to help browse, develop, test & document [ViewComponents](https://viewcom
 
 ## Development
 
-Lookbook is implemented as an isolated [Rails Engine](https://guides.rubyonrails.org/engines.html) and uses [ViewComponent](https://viewcomponent.org), [Tailwind](https://tailwindcss.com/) and [Alpine](https://alpinejs.dev/) for it's UI.
+Lookbook is implemented as an isolated [Rails Engine](https://guides.rubyonrails.org/engines.html) and uses [ViewComponent](https://viewcomponent.org), [Tailwind](https://tailwindcss.com/) and [Alpine](https://alpinejs.dev/) for its UI.
 
 This repository contains:
 
