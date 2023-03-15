@@ -186,11 +186,17 @@ module Lookbook
           previews.load(code_objects.all(:class), changes)
           mark_changed
         end
+      rescue => e
+        Lookbook.logger.error(e)
+        raise e
       end
 
       def load_pages(changes = nil)
         pages.load(Engine.page_paths, changes)
         mark_changed
+      rescue => e
+        Lookbook.logger.error(e)
+        raise e
       end
 
       def notify_clients(changes = nil)
