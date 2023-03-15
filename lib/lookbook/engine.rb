@@ -184,7 +184,6 @@ module Lookbook
         changed_files = [*changes[:added], *changes[:modified]] if changes
         parser.parse(changed_files) do |code_objects|
           previews.load(code_objects.all(:class), changes)
-          mark_changed
         end
       rescue => e
         Lookbook.logger.error(e)
@@ -193,7 +192,6 @@ module Lookbook
 
       def load_pages(changes = nil)
         pages.load(Engine.page_paths, changes)
-        mark_changed
       rescue => e
         Lookbook.logger.error(e)
         raise e
@@ -210,15 +208,6 @@ module Lookbook
         changes = {modified: modified, added: added, removed: removed}
         reloaders.register_changes(changes)
         notify_clients(changes)
-      end
-
-      def mark_changed
-        @_last_changed = (Time.now.to_f * 1000).to_i
-      end
-
-      def last_changed
-        mark_changed unless @_last_changed
-        @_last_changed
       end
     end
 
