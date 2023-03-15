@@ -1,9 +1,19 @@
 project:
   - name: project_name
-    types: String
-    default: '"Lookbook"'
-    example: config.lookbook.project_name = "Lookbook Demo"
-    description: The name of your project. Displayed in the Lookbook header.
+    types: String,Boolean
+    example: |
+      config.lookbook.project_name = "Lookbook Demo" # custom project name
+      config.lookbook.project_name = false # hide the project name
+    description: |
+      Customise or disable the project name displayed in the Lookbook header. Defaults to the parent application's name.
+
+  - name: project_logo
+    types: String,Boolean
+    example: |
+      config.lookbook.project_logo = "<svg>...</svg>" # custom SVG logo
+      config.lookbook.project_logo = false # hide the logo
+    description: |
+      Customise or disable the logo displayed in the Lookbook header.
 
 previews:
   - name: preview_paths
@@ -137,8 +147,8 @@ theming:
     types: Boolean,String
     default: "true"
     example: |
-      config.lookbook.ui_favicon = false
-      config.lookbook.ui_favicon = "<svg>...</svg>"
+      config.lookbook.ui_favicon = false # no favicon
+      config.lookbook.ui_favicon = "<svg>...</svg>" # custom SVG favicon
     description: |
       Customise or disable the favicon served by Lookbook.
 

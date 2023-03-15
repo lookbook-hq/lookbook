@@ -11,9 +11,11 @@
 
     <%= render "lookbook/partials/user_styles" %>
 
-    <%= lookbook_render :header, id: "app-header", debug_menu: @config.debug_menu do |header| %>
-      <% header.with_branding { @config.project_name } %>
-    <% end %>
+    <%= lookbook_render :header,
+      id: "app-header",
+      debug_menu: @config.debug_menu,
+      project_name: @config.project_name,
+      project_logo: @config.project_logo %>
 
     <% if @previews.any? || @pages.any? %>
       

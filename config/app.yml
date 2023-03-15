@@ -1,5 +1,6 @@
 shared:
-  project_name: Lookbook
+  project_name: ~
+  project_logo: ~
 
   preview_paths: [test/components/previews]
   preview_display_options: {}

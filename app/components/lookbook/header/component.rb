@@ -1,9 +1,11 @@
 module Lookbook
   class Header::Component < Lookbook::BaseComponent
-    renders_one :branding
+    attr_reader :project_logo, :project_name
 
-    def initialize(debug_menu: false, **html_attrs)
+    def initialize(debug_menu: false, project_name: nil, project_logo: nil, **html_attrs)
       @debug_menu = debug_menu
+      @project_logo = project_logo
+      @project_name = project_name
       super(**html_attrs)
     end
 

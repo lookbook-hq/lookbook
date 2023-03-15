@@ -27,8 +27,20 @@ module Lookbook
       @store = Store.new(config, recursive: true)
     end
 
+    def project_name
+      if store[:project_name].nil?
+        if store[:project_logo].nil?
+          Rails.application.class.module_parent.name.titleize
+        else
+          false
+        end
+      else
+        store[:project_name]
+      end
+    end
+
     def project_name=(name)
-      store[:project_name] = (name == false) ? nil : name
+      store[:project_name] = name
     end
 
     def page_extensions=(extensions = nil)

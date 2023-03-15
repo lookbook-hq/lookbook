@@ -1454,6 +1454,18 @@ pre[class*="language-"] {
   overflow: hidden;
 }
 
+[data-component="header"] .header-project-icon {
+  height: 1.25rem;
+  width: min-content;
+  flex: none;
+  display: inline-block;
+}
+
+[data-component="header"] .header-project-icon svg {
+  height: 100%;
+  width: auto;
+}
+
 [data-component="icon"] {
   flex: none;
   line-height: 1;

@@ -1,16 +1,20 @@
 <%= render_component_tag :header do %>
   <%= lookbook_render :toolbar, class: "!bg-lookbook-header-bg !text-lookbook-header-text !border-lookbook-header-border" do |toolbar| %>
     <% toolbar.with_section padded: true do %>
-      <div class="flex items-center space-x-3">
-        <%= lookbook_render :logo, size: 4 %>
-        <% if branding.present? %>
-          <a
-            <% if landing_path %>href="<%= landing_path %>"<% end %>    
-            class="text-sm truncate uppercase font-black tracking-wider text-lookbook-branding-text">
-            <%= branding %>
-          </a>
+      <a <% if landing_path %>href="<%= landing_path %>"<% end %> class="flex items-center space-x-3">
+        <% if project_logo.present? %>
+          <i class="header-project-icon">
+            <%== project_logo %>
+          </i>
+        <% elsif project_logo != false %>
+          <%= lookbook_render :logo, size: 3.7 %>
         <% end %>
-      </div>
+        <% if project_name.present? %>
+          <span class="text-sm truncate uppercase font-black tracking-wider text-lookbook-branding-text">
+            <%= project_name %>
+          </span>
+        <% end %>
+      </a>
     <% end %>
 
     <% toolbar.with_section padded: false, align: :right, class: "flex items-center -mt-px" do %>

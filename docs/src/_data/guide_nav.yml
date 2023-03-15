@@ -40,9 +40,9 @@ groups:
 
   - label: UI Customisation
     items:
+      - ui-branding
       - ui-theming
       - ui-inspector
-      - ui-favicon
 
   - label: Other
     items:
