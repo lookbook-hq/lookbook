@@ -11,6 +11,7 @@ module Lookbook
       @store = {}
 
       config.to_h.each do |name, opts|
+        opts[:system] = true
         add_input(name, opts[:partial], opts.except(:partial))
       end
     end
@@ -47,11 +48,16 @@ module Lookbook
         partial = args.first
       end
       if partial.present?
-        Store.new({
+        input = Store.new({
           name: name.to_sym,
           partial: partial,
           options: DEFAULTS.merge(opts.to_h)
         })
+        if input.options.key?(:system)
+          input.system = input.options[:system]
+          input.options.delete(:system)
+        end
+        input
       else
         raise ConfigError.new("inputs must define a partial path", scope: "inputs.config")
       end

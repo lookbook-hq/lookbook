@@ -41,7 +41,10 @@ module Lookbook
     end
 
     def load_config(config)
-      config.to_h.each { |name, opts| add_panel(name, opts) }
+      config.to_h.each do |name, opts|
+        opts[:system] = true
+        add_panel(name, opts)
+      end
     end
 
     def get_panel(name)

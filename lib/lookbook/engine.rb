@@ -121,7 +121,7 @@ module Lookbook
       end
 
       def hooks
-        @_hooks ||= HookStore.init_from_config
+        @_hooks ||= HookStore.new
       end
 
       def run_hooks(event_name, *args)

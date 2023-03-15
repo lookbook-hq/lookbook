@@ -218,9 +218,9 @@ module Lookbook
               view_component: config.using_view_component
             }
           },
-          {panels: Engine.panels.to_h},
-          {inputs: Engine.inputs.to_h},
-          {tags: Engine.tags.to_h}
+          {panels: Engine.panels.to_h.reject { |k, v| v[:system] }},
+          {inputs: Engine.inputs.to_h.reject { |k, v| v[:system] }},
+          {tags: Engine.tags.to_h.reject { |k, v| v[:system] }}
         ].inject(:merge)
       }
     end
