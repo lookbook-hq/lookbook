@@ -75,7 +75,6 @@ export default function app() {
         this.debug("DOM update complete");
       } catch (err) {
         this.error(err);
-        window.location.reload();
       }
     },
 
