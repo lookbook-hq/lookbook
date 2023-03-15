@@ -12,6 +12,7 @@ function $parcel$export(e, n, v, s) {
 var $caa9439642c6336c$var$flushPending = false;
 var $caa9439642c6336c$var$flushing = false;
 var $caa9439642c6336c$var$queue = [];
+var $caa9439642c6336c$var$lastFlushedIndex = -1;
 function $caa9439642c6336c$var$scheduler(callback) {
     $caa9439642c6336c$var$queueJob(callback);
 }
@@ -21,7 +22,7 @@ function $caa9439642c6336c$var$queueJob(job) {
 }
 function $caa9439642c6336c$var$dequeueJob(job) {
     let index = $caa9439642c6336c$var$queue.indexOf(job);
-    if (index !== -1) $caa9439642c6336c$var$queue.splice(index, 1);
+    if (index !== -1 && index > $caa9439642c6336c$var$lastFlushedIndex) $caa9439642c6336c$var$queue.splice(index, 1);
 }
 function $caa9439642c6336c$var$queueFlush() {
     if (!$caa9439642c6336c$var$flushing && !$caa9439642c6336c$var$flushPending) {
@@ -32,8 +33,12 @@ function $caa9439642c6336c$var$queueFlush() {
 function $caa9439642c6336c$var$flushJobs() {
     $caa9439642c6336c$var$flushPending = false;
     $caa9439642c6336c$var$flushing = true;
-    for(let i = 0; i < $caa9439642c6336c$var$queue.length; i++)$caa9439642c6336c$var$queue[i]();
+    for(let i = 0; i < $caa9439642c6336c$var$queue.length; i++){
+        $caa9439642c6336c$var$queue[i]();
+        $caa9439642c6336c$var$lastFlushedIndex = i;
+    }
     $caa9439642c6336c$var$queue.length = 0;
+    $caa9439642c6336c$var$lastFlushedIndex = -1;
     $caa9439642c6336c$var$flushing = false;
 }
 // packages/alpinejs/src/reactivity.js
@@ -66,7 +71,7 @@ function $caa9439642c6336c$var$elementBoundEffect(el) {
     let wrappedEffect = (callback)=>{
         let effectReference = $caa9439642c6336c$var$effect(callback);
         if (!el._x_effects) {
-            el._x_effects = new Set();
+            el._x_effects = /* @__PURE__ */ new Set();
             el._x_runEffects = ()=>{
                 el._x_effects.forEach((i)=>i());
             };
@@ -175,8 +180,8 @@ function $caa9439642c6336c$var$onMutate(mutations) {
     }
     let addedNodes = [];
     let removedNodes = [];
-    let addedAttributes = new Map();
-    let removedAttributes = new Map();
+    let addedAttributes = /* @__PURE__ */ new Map();
+    let removedAttributes = /* @__PURE__ */ new Map();
     for(let i = 0; i < mutations.length; i++){
         if (mutations[i].target._x_ignoreMutationObserver) continue;
         if (mutations[i].type === "childList") {
@@ -422,8 +427,7 @@ function $caa9439642c6336c$var$normalEvaluator(el, expression) {
         overriddenMagics,
         ...$caa9439642c6336c$var$closestDataStack(el)
     ];
-    if (typeof expression === "function") return $caa9439642c6336c$var$generateEvaluatorFromFunction(dataStack, expression);
-    let evaluator = $caa9439642c6336c$var$generateEvaluatorFromString(dataStack, expression, el);
+    let evaluator = typeof expression === "function" ? $caa9439642c6336c$var$generateEvaluatorFromFunction(dataStack, expression) : $caa9439642c6336c$var$generateEvaluatorFromString(dataStack, expression, el);
     return $caa9439642c6336c$var$tryCatch.bind(null, el, expression, evaluator);
 }
 function $caa9439642c6336c$var$generateEvaluatorFromFunction(dataStack, func) {
@@ -500,8 +504,8 @@ function $caa9439642c6336c$var$directive(name, callback) {
                 console.warn("Cannot find directive `${directive}`. `${name}` will use the default order of execution");
                 return;
             }
-            const pos = $caa9439642c6336c$var$directiveOrder.indexOf(directive2) ?? $caa9439642c6336c$var$directiveOrder.indexOf("DEFAULT");
-            if (pos >= 0) $caa9439642c6336c$var$directiveOrder.splice(pos, 0, name);
+            const pos = $caa9439642c6336c$var$directiveOrder.indexOf(directive2);
+            $caa9439642c6336c$var$directiveOrder.splice(pos >= 0 ? pos : $caa9439642c6336c$var$directiveOrder.indexOf("DEFAULT"), 0, name);
         }
     };
 }
@@ -532,7 +536,7 @@ function $caa9439642c6336c$var$attributesOnly(attributes) {
     return Array.from(attributes).map($caa9439642c6336c$var$toTransformedAttributes()).filter((attr)=>!$caa9439642c6336c$var$outNonAlpineAttributes(attr));
 }
 var $caa9439642c6336c$var$isDeferringHandlers = false;
-var $caa9439642c6336c$var$directiveHandlerStacks = new Map();
+var $caa9439642c6336c$var$directiveHandlerStacks = /* @__PURE__ */ new Map();
 var $caa9439642c6336c$var$currentHandlerStackKey = Symbol();
 function $caa9439642c6336c$var$deferHandlingDirectives(callback) {
     $caa9439642c6336c$var$isDeferringHandlers = true;
@@ -634,17 +638,9 @@ var $caa9439642c6336c$var$directiveOrder = [
     "ref",
     "data",
     "id",
-    "radio",
-    "tabs",
-    "switch",
-    "disclosure",
-    "menu",
-    "listbox",
-    "combobox",
     "bind",
     "init",
     "for",
-    "mask",
     "model",
     "modelable",
     "transition",
@@ -663,6 +659,7 @@ function $caa9439642c6336c$var$dispatch(el, name, detail = {}) {
     el.dispatchEvent(new CustomEvent(name, {
         detail: detail,
         bubbles: true,
+        // Allows events to pass the shadow DOM barrier.
         composed: true,
         cancelable: true
     }));
@@ -863,7 +860,7 @@ $caa9439642c6336c$var$directive("transition", (el, { value: value , modifiers: m
 function $caa9439642c6336c$var$registerTransitionsFromClassString(el, classString, stage) {
     $caa9439642c6336c$var$registerTransitionObject(el, $caa9439642c6336c$var$setClasses, "");
     let directiveStorageMap = {
-        enter: (classes)=>{
+        "enter": (classes)=>{
             el._x_transition.enter.during = classes;
         },
         "enter-start": (classes)=>{
@@ -872,7 +869,7 @@ function $caa9439642c6336c$var$registerTransitionsFromClassString(el, classStrin
         "enter-end": (classes)=>{
             el._x_transition.enter.end = classes;
         },
-        leave: (classes)=>{
+        "leave": (classes)=>{
             el._x_transition.leave.during = classes;
         },
         "leave-start": (classes)=>{
@@ -1388,7 +1385,7 @@ var $caa9439642c6336c$var$Alpine = {
     get raw () {
         return $caa9439642c6336c$var$raw;
     },
-    version: "3.11.1",
+    version: "3.12.0",
     flushAndStopDeferringMutations: $caa9439642c6336c$var$flushAndStopDeferringMutations,
     dontAutoEvaluateFunctions: $caa9439642c6336c$var$dontAutoEvaluateFunctions,
     disableEffectScheduling: $caa9439642c6336c$var$disableEffectScheduling,
@@ -1411,9 +1408,12 @@ var $caa9439642c6336c$var$Alpine = {
     closestRoot: $caa9439642c6336c$var$closestRoot,
     destroyTree: $caa9439642c6336c$var$destroyTree,
     interceptor: $caa9439642c6336c$var$interceptor,
-    transition: $caa9439642c6336c$var$transition,
-    setStyles: $caa9439642c6336c$var$setStyles,
-    mutateDom: $caa9439642c6336c$var$mutateDom,
+    transition: // INTERNAL: not public API and is subject to change without major release.
+    $caa9439642c6336c$var$transition,
+    setStyles: // INTERNAL
+    $caa9439642c6336c$var$setStyles,
+    mutateDom: // INTERNAL
+    $caa9439642c6336c$var$mutateDom,
     directive: $caa9439642c6336c$var$directive,
     throttle: $caa9439642c6336c$var$throttle,
     debounce: $caa9439642c6336c$var$debounce,
@@ -1436,32 +1436,11 @@ var $caa9439642c6336c$var$Alpine = {
 var $caa9439642c6336c$var$alpine_default = $caa9439642c6336c$var$Alpine;
 // node_modules/@vue/shared/dist/shared.esm-bundler.js
 function $caa9439642c6336c$var$makeMap(str, expectsLowerCase) {
-    const map = Object.create(null);
+    const map = /* @__PURE__ */ Object.create(null);
     const list = str.split(",");
     for(let i = 0; i < list.length; i++)map[list[i]] = true;
     return expectsLowerCase ? (val)=>!!map[val.toLowerCase()] : (val)=>!!map[val];
 }
-var $caa9439642c6336c$var$PatchFlagNames = {
-    [1]: `TEXT`,
-    [2]: `CLASS`,
-    [4]: `STYLE`,
-    [8]: `PROPS`,
-    [16]: `FULL_PROPS`,
-    [32]: `HYDRATE_EVENTS`,
-    [64]: `STABLE_FRAGMENT`,
-    [128]: `KEYED_FRAGMENT`,
-    [256]: `UNKEYED_FRAGMENT`,
-    [512]: `NEED_PATCH`,
-    [1024]: `DYNAMIC_SLOTS`,
-    [2048]: `DEV_ROOT_FRAGMENT`,
-    [-1]: `HOISTED`,
-    [-2]: `BAIL`
-};
-var $caa9439642c6336c$var$slotFlagsText = {
-    [1]: "STABLE",
-    [2]: "DYNAMIC",
-    [3]: "FORWARDED"
-};
 var $caa9439642c6336c$var$specialBooleanAttrs = `itemscope,allowfullscreen,formnovalidate,ismap,nomodule,novalidate,readonly`;
 var $caa9439642c6336c$var$isBooleanAttr2 = /* @__PURE__ */ $caa9439642c6336c$var$makeMap($caa9439642c6336c$var$specialBooleanAttrs + `,async,autofocus,autoplay,controls,default,defer,disabled,hidden,loop,open,required,reversed,scoped,seamless,checked,muted,multiple,selected`);
 var $caa9439642c6336c$var$EMPTY_OBJ = Object.freeze({});
@@ -1481,7 +1460,7 @@ var $caa9439642c6336c$var$toRawType = (value)=>{
 };
 var $caa9439642c6336c$var$isIntegerKey = (key)=>$caa9439642c6336c$var$isString(key) && key !== "NaN" && key[0] !== "-" && "" + parseInt(key, 10) === key;
 var $caa9439642c6336c$var$cacheStringFunction = (fn)=>{
-    const cache = Object.create(null);
+    const cache = /* @__PURE__ */ Object.create(null);
     return (str)=>{
         const hit = cache[str];
         return hit || (cache[str] = fn(str));
@@ -1497,7 +1476,7 @@ var $caa9439642c6336c$var$capitalize = $caa9439642c6336c$var$cacheStringFunction
 var $caa9439642c6336c$var$toHandlerKey = $caa9439642c6336c$var$cacheStringFunction((str)=>str ? `on${$caa9439642c6336c$var$capitalize(str)}` : ``);
 var $caa9439642c6336c$var$hasChanged = (value, oldValue)=>value !== oldValue && (value === value || oldValue === oldValue);
 // node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js
-var $caa9439642c6336c$var$targetMap = new WeakMap();
+var $caa9439642c6336c$var$targetMap = /* @__PURE__ */ new WeakMap();
 var $caa9439642c6336c$var$effectStack = [];
 var $caa9439642c6336c$var$activeEffect;
 var $caa9439642c6336c$var$ITERATE_KEY = Symbol("iterate");
@@ -1569,9 +1548,9 @@ function $caa9439642c6336c$var$resetTracking() {
 function $caa9439642c6336c$var$track(target, type, key) {
     if (!$caa9439642c6336c$var$shouldTrack || $caa9439642c6336c$var$activeEffect === void 0) return;
     let depsMap = $caa9439642c6336c$var$targetMap.get(target);
-    if (!depsMap) $caa9439642c6336c$var$targetMap.set(target, depsMap = new Map());
+    if (!depsMap) $caa9439642c6336c$var$targetMap.set(target, depsMap = /* @__PURE__ */ new Map());
     let dep = depsMap.get(key);
-    if (!dep) depsMap.set(key, dep = new Set());
+    if (!dep) depsMap.set(key, dep = /* @__PURE__ */ new Set());
     if (!dep.has($caa9439642c6336c$var$activeEffect)) {
         dep.add($caa9439642c6336c$var$activeEffect);
         $caa9439642c6336c$var$activeEffect.deps.push(dep);
@@ -1586,7 +1565,7 @@ function $caa9439642c6336c$var$track(target, type, key) {
 function $caa9439642c6336c$var$trigger(target, type, key, newValue, oldValue, oldTarget) {
     const depsMap = $caa9439642c6336c$var$targetMap.get(target);
     if (!depsMap) return;
-    const effects = new Set();
+    const effects = /* @__PURE__ */ new Set();
     const add2 = (effectsToAdd)=>{
         if (effectsToAdd) effectsToAdd.forEach((effect3)=>{
             if (effect3 !== $caa9439642c6336c$var$activeEffect || effect3.allowRecurse) effects.add(effect3);
@@ -1848,6 +1827,7 @@ function $caa9439642c6336c$var$createIterableMethod(method, isReadonly, isShallo
         const wrap = isShallow ? $caa9439642c6336c$var$toShallow : isReadonly ? $caa9439642c6336c$var$toReadonly : $caa9439642c6336c$var$toReactive;
         !isReadonly && $caa9439642c6336c$var$track(rawTarget, "iterate", isKeyOnly ? $caa9439642c6336c$var$MAP_KEY_ITERATE_KEY : $caa9439642c6336c$var$ITERATE_KEY);
         return {
+            // iterator protocol
             next () {
                 const { value: value , done: done  } = innerIterator.next();
                 return done ? {
@@ -1861,6 +1841,7 @@ function $caa9439642c6336c$var$createIterableMethod(method, isReadonly, isShallo
                     done: done
                 };
             },
+            // iterable protocol
             [Symbol.iterator] () {
                 return this;
             }
@@ -1976,10 +1957,10 @@ function $caa9439642c6336c$var$checkIdentityKeys(target, has2, key) {
         console.warn(`Reactive ${type} contains both the raw and reactive versions of the same object${type === `Map` ? ` as keys` : ``}, which can lead to inconsistencies. Avoid differentiating between the raw and reactive versions of an object and only use the reactive version if possible.`);
     }
 }
-var $caa9439642c6336c$var$reactiveMap = new WeakMap();
-var $caa9439642c6336c$var$shallowReactiveMap = new WeakMap();
-var $caa9439642c6336c$var$readonlyMap = new WeakMap();
-var $caa9439642c6336c$var$shallowReadonlyMap = new WeakMap();
+var $caa9439642c6336c$var$reactiveMap = /* @__PURE__ */ new WeakMap();
+var $caa9439642c6336c$var$shallowReactiveMap = /* @__PURE__ */ new WeakMap();
+var $caa9439642c6336c$var$readonlyMap = /* @__PURE__ */ new WeakMap();
+var $caa9439642c6336c$var$shallowReadonlyMap = /* @__PURE__ */ new WeakMap();
 function $caa9439642c6336c$var$targetTypeMap(rawType) {
     switch(rawType){
         case "Object":
@@ -2137,7 +2118,7 @@ $caa9439642c6336c$var$directive("modelable", (el, { expression: expression  }, {
     let evaluateInnerSet = evaluateLater2(`${expression} = __placeholder`);
     let innerSet = (val)=>evaluateInnerSet(()=>{}, {
             scope: {
-                __placeholder: val
+                "__placeholder": val
             }
         });
     let initialValue = innerGet();
@@ -2292,7 +2273,8 @@ function $caa9439642c6336c$var$isListeningForASpecificKeyThatHasntBeenPressed(e,
             "document",
             "prevent",
             "stop",
-            "once"
+            "once",
+            "capture"
         ].includes(i);
     });
     if (keyModifiers.includes("debounce")) {
@@ -2330,20 +2312,20 @@ function $caa9439642c6336c$var$keyToModifiers(key) {
     if (!key) return [];
     key = $caa9439642c6336c$var$kebabCase2(key);
     let modifierToKeyMap = {
-        ctrl: "control",
-        slash: "/",
-        space: " ",
-        spacebar: " ",
-        cmd: "meta",
-        esc: "escape",
-        up: "arrow-up",
-        down: "arrow-down",
-        left: "arrow-left",
-        right: "arrow-right",
-        period: ".",
-        equal: "=",
-        minus: "-",
-        underscore: "_"
+        "ctrl": "control",
+        "slash": "/",
+        "space": " ",
+        "spacebar": " ",
+        "cmd": "meta",
+        "esc": "escape",
+        "up": "arrow-up",
+        "down": "arrow-down",
+        "left": "arrow-left",
+        "right": "arrow-right",
+        "period": ".",
+        "equal": "=",
+        "minus": "-",
+        "underscore": "_"
     };
     modifierToKeyMap[key] = key;
     return Object.keys(modifierToKeyMap).map((modifier)=>{
@@ -2370,10 +2352,11 @@ $caa9439642c6336c$var$directive("model", (el, { modifiers: modifiers , expressio
         if ($caa9439642c6336c$var$isGetterSetter(result)) result.set(value);
         else evaluateSet(()=>{}, {
             scope: {
-                __placeholder: value
+                "__placeholder": value
             }
         });
     };
+    if (modifiers.includes("fill") && el.hasAttribute("value") && (getValue() === null || getValue() === "")) setValue(el.value);
     if (typeof expression === "string" && el.type === "radio") $caa9439642c6336c$var$mutateDom(()=>{
         if (!el.hasAttribute("name")) el.setAttribute("name", expression);
     });
@@ -2381,7 +2364,7 @@ $caa9439642c6336c$var$directive("model", (el, { modifiers: modifiers , expressio
         "checkbox",
         "radio"
     ].includes(el.type) || modifiers.includes("lazy") ? "change" : "input";
-    let removeListener = $caa9439642c6336c$var$on(el, event, modifiers, (e)=>{
+    let removeListener = $caa9439642c6336c$var$isCloning ? ()=>{} : $caa9439642c6336c$var$on(el, event, modifiers, (e)=>{
         setValue($caa9439642c6336c$var$getInputValue(el, modifiers, e, getValue()));
     });
     if (!el._x_removeModelListeners) el._x_removeModelListeners = {};
@@ -2517,7 +2500,7 @@ $caa9439642c6336c$var$directive("data", $caa9439642c6336c$var$skipDuringClone((e
     let data2 = $caa9439642c6336c$var$evaluate(el, expression, {
         scope: dataProviderContext
     });
-    if (data2 === void 0) data2 = {};
+    if (data2 === void 0 || data2 === true) data2 = {};
     $caa9439642c6336c$var$injectMagics(data2, el);
     let reactiveData = $caa9439642c6336c$var$reactive(data2);
     $caa9439642c6336c$var$initInterceptors(reactiveData);
@@ -2569,7 +2552,8 @@ $caa9439642c6336c$var$directive("show", (el, { modifiers: modifiers , expression
 $caa9439642c6336c$var$directive("for", (el, { expression: expression  }, { effect: effect3 , cleanup: cleanup2  })=>{
     let iteratorNames = $caa9439642c6336c$var$parseForExpression(expression);
     let evaluateItems = $caa9439642c6336c$var$evaluateLater(el, iteratorNames.items);
-    let evaluateKey = $caa9439642c6336c$var$evaluateLater(el, el._x_keyExpression || "index");
+    let evaluateKey = $caa9439642c6336c$var$evaluateLater(el, // the x-bind:key expression is stored for our use instead of evaluated.
+    el._x_keyExpression || "index");
     el._x_prevKeys = [];
     el._x_lookup = {};
     effect3(()=>$caa9439642c6336c$var$loop(el, iteratorNames, evaluateItems, evaluateKey));
@@ -2774,7 +2758,7 @@ $caa9439642c6336c$var$directive("on", $caa9439642c6336c$var$skipDuringClone((el,
     let removeListener = $caa9439642c6336c$var$on(el, value, modifiers, (e)=>{
         evaluate2(()=>{}, {
             scope: {
-                $event: e
+                "$event": e
             },
             params: [
                 e
@@ -7713,9 +7697,10 @@ async function $e8e1f68a69f95ce8$export$51c59e2af49c1a92(url, selector) {
     const response = await fetch(url || window.document.location);
     const html = await response.text();
     const doc = new DOMParser().parseFromString(html, "text/html");
+    const fragment = selector ? doc.querySelector(selector).outerHTML : null;
     return {
         ok: response.ok,
-        fragment: selector ? doc.querySelector(selector).outerHTML : null,
+        fragment: fragment,
         title: doc.title,
         response: response,
         doc: doc
@@ -7783,6 +7768,7 @@ function $d709d0f4027033b2$export$2e2bcd8739ae039() {
                 this.debug("DOM update complete");
             } catch (err) {
                 this.error(err);
+                window.location.reload();
             }
         },
         toggleSidebar () {
@@ -7830,7 +7816,59 @@ function $5439cede634b2921$var$toCamel(s) {
 }
 
 
-var $52abf2efa3492135$exports = {};
+var $60c76758d100402a$exports = {};
+var $99486586f6691564$exports = {};
+
+$parcel$defineInteropFlag($99486586f6691564$exports);
+
+$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
+function $99486586f6691564$export$2e2bcd8739ae039() {
+    return {};
+}
+
+
+var $47a1c62621be0c54$exports = {};
+
+$parcel$defineInteropFlag($47a1c62621be0c54$exports);
+
+$parcel$export($47a1c62621be0c54$exports, "default", () => $47a1c62621be0c54$export$2e2bcd8739ae039);
+var $122263eab94cad08$exports = {};
+
+$parcel$defineInteropFlag($122263eab94cad08$exports);
+
+$parcel$export($122263eab94cad08$exports, "initClipboard", () => $122263eab94cad08$export$c6684e6159b21de3);
+$parcel$export($122263eab94cad08$exports, "default", () => $122263eab94cad08$export$2e2bcd8739ae039);
+
+function $122263eab94cad08$export$c6684e6159b21de3(context = {}) {
+    let copyTimeout = null;
+    return Object.assign(context, {
+        copied: false,
+        async copyToClipboard (target = null) {
+            let targetEl;
+            if (this.$refs.copyTarget) targetEl = this.$refs.copyTarget;
+            else if (typeof target === "string") targetEl = document.querySelector(target);
+            if (!targetEl) {
+                this.warn("Could not find copy target");
+                return false;
+            }
+            const content = (0, $7ae6ae39c2ec9059$export$6cb344a21ca18aec)(targetEl.innerHTML.trim());
+            await window.navigator.clipboard.writeText(content);
+            this.copied = true;
+            if (copyTimeout) clearTimeout(copyTimeout);
+            copyTimeout = setTimeout(()=>{
+                this.copied = false;
+                this.onCopyComplete();
+            }, 1000);
+            return content;
+        },
+        onCopyComplete () {}
+    });
+}
+function $122263eab94cad08$export$2e2bcd8739ae039() {
+    return $122263eab94cad08$export$c6684e6159b21de3({});
+}
+
+
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11361,59 +11399,6 @@ function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
 }
 
 
-var $99486586f6691564$exports = {};
-
-$parcel$defineInteropFlag($99486586f6691564$exports);
-
-$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
-function $99486586f6691564$export$2e2bcd8739ae039() {
-    return {};
-}
-
-
-var $47a1c62621be0c54$exports = {};
-
-$parcel$defineInteropFlag($47a1c62621be0c54$exports);
-
-$parcel$export($47a1c62621be0c54$exports, "default", () => $47a1c62621be0c54$export$2e2bcd8739ae039);
-var $122263eab94cad08$exports = {};
-
-$parcel$defineInteropFlag($122263eab94cad08$exports);
-
-$parcel$export($122263eab94cad08$exports, "initClipboard", () => $122263eab94cad08$export$c6684e6159b21de3);
-$parcel$export($122263eab94cad08$exports, "default", () => $122263eab94cad08$export$2e2bcd8739ae039);
-
-function $122263eab94cad08$export$c6684e6159b21de3(context = {}) {
-    let copyTimeout = null;
-    return Object.assign(context, {
-        copied: false,
-        async copyToClipboard (target = null) {
-            let targetEl;
-            if (this.$refs.copyTarget) targetEl = this.$refs.copyTarget;
-            else if (typeof target === "string") targetEl = document.querySelector(target);
-            if (!targetEl) {
-                this.warn("Could not find copy target");
-                return false;
-            }
-            const content = (0, $7ae6ae39c2ec9059$export$6cb344a21ca18aec)(targetEl.innerHTML.trim());
-            await window.navigator.clipboard.writeText(content);
-            this.copied = true;
-            if (copyTimeout) clearTimeout(copyTimeout);
-            copyTimeout = setTimeout(()=>{
-                this.copied = false;
-                this.onCopyComplete();
-            }, 1000);
-            return content;
-        },
-        onCopyComplete () {}
-    });
-}
-function $122263eab94cad08$export$2e2bcd8739ae039() {
-    return $122263eab94cad08$export$c6684e6159b21de3({});
-}
-
-
-
 function $47a1c62621be0c54$export$2e2bcd8739ae039() {
     const button = (0, $cbd28b10fa9798c7$export$2e2bcd8739ae039)();
     return {
@@ -11483,6 +11468,7 @@ function $216ef7001f59f21d$export$2e2bcd8739ae039() {
         }
     };
 }
+
 
 
 var $e9904a14dabf652d$exports = {};
@@ -12351,12 +12337,12 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$52abf2efa3492135$exports = {
-    "button": $cbd28b10fa9798c7$exports,
+$60c76758d100402a$exports = {
     "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
     "dimensions_display": $e398acaded942bbe$exports,
     "embed_code_dropdown": $216ef7001f59f21d$exports,
+    "button": $cbd28b10fa9798c7$exports,
     "filter": $e9904a14dabf652d$exports,
     "nav": $d92d9d5253f84566$exports,
     "split_layout": $506dabb2bf255b38$exports,
@@ -12502,12 +12488,12 @@ var $ef5e88eaa61efd95$exports = {};
  */ // eslint-disable-next-line sonarjs/cognitive-complexity, no-shadow-restricted-names
 (function(undefined) {
     if (typeof window === "undefined") return; // don't run for server side render
-    var count = 0, logEnabled = false, hiddenCheckEnabled = false, msgHeader = "message", msgHeaderLen = msgHeader.length, msgId = "[iFrameSizer]", msgIdLen = msgId.length, pagePosition = null, requestAnimationFrame = window.requestAnimationFrame, resetRequiredMethods = {
+    var count = 0, logEnabled = false, hiddenCheckEnabled = false, msgHeader = "message", msgHeaderLen = msgHeader.length, msgId = "[iFrameSizer]", msgIdLen = msgId.length, pagePosition = null, requestAnimationFrame = window.requestAnimationFrame, resetRequiredMethods = Object.freeze({
         max: 1,
         scroll: 1,
         bodyScroll: 1,
         documentElementScroll: 1
-    }, settings = {}, timer = null, defaults = {
+    }), settings = {}, timer = null, defaults = Object.freeze({
         autoResize: true,
         bodyBackground: null,
         bodyMargin: null,
@@ -12546,7 +12532,7 @@ var $ef5e88eaa61efd95$exports = {};
         onScroll: function() {
             return true;
         }
-    };
+    });
     function getMutationObserver() {
         return window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
     }
@@ -13064,6 +13050,7 @@ var $ef5e88eaa61efd95$exports = {};
             return id;
         }
         function ensureHasId(iframeId) {
+            if (typeof iframeId !== "string") throw new TypeError("Invaild id for iFrame. Expected String");
             if ("" === iframeId) {
                 // eslint-disable-next-line no-multi-assign
                 iframe.id = iframeId = newId();
@@ -13172,11 +13159,11 @@ var $ef5e88eaa61efd95$exports = {};
         }
         function processOptions(options) {
             options = options || {};
-            settings[iframeId] = {
-                firstRun: true,
-                iframe: iframe,
-                remoteHost: iframe.src && iframe.src.split("/").slice(0, 3).join("/")
-            };
+            settings[iframeId] = Object.create(null) // Protect against prototype attacks
+            ;
+            settings[iframeId].iframe = iframe;
+            settings[iframeId].firstRun = true;
+            settings[iframeId].remoteHost = iframe.src && iframe.src.split("/").slice(0, 3).join("/");
             checkOptions(options);
             Object.keys(options).forEach(depricate, options);
             copyOptions(options);
@@ -13535,7 +13522,7 @@ const $939f2ad3cd685486$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $d709d0f4027033b2$export$2e2bcd8739ae039));
 [
-    $52abf2efa3492135$exports,
+    $60c76758d100402a$exports,
     $f3e1e32f4a1bd6da$exports,
     $6c10158820e535ef$exports
 ].forEach((scripts)=>{

@@ -11,12 +11,12 @@ var $5180433265c858be$exports = {};
  */ // eslint-disable-next-line sonarjs/cognitive-complexity, no-shadow-restricted-names
 (function(undefined) {
     if (typeof window === "undefined") return; // don't run for server side render
-    var count = 0, logEnabled = false, hiddenCheckEnabled = false, msgHeader = "message", msgHeaderLen = msgHeader.length, msgId = "[iFrameSizer]", msgIdLen = msgId.length, pagePosition = null, requestAnimationFrame = window.requestAnimationFrame, resetRequiredMethods = {
+    var count = 0, logEnabled = false, hiddenCheckEnabled = false, msgHeader = "message", msgHeaderLen = msgHeader.length, msgId = "[iFrameSizer]", msgIdLen = msgId.length, pagePosition = null, requestAnimationFrame = window.requestAnimationFrame, resetRequiredMethods = Object.freeze({
         max: 1,
         scroll: 1,
         bodyScroll: 1,
         documentElementScroll: 1
-    }, settings = {}, timer = null, defaults = {
+    }), settings = {}, timer = null, defaults = Object.freeze({
         autoResize: true,
         bodyBackground: null,
         bodyMargin: null,
@@ -55,7 +55,7 @@ var $5180433265c858be$exports = {};
         onScroll: function() {
             return true;
         }
-    };
+    });
     function getMutationObserver() {
         return window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
     }
@@ -573,6 +573,7 @@ var $5180433265c858be$exports = {};
             return id;
         }
         function ensureHasId(iframeId) {
+            if (typeof iframeId !== "string") throw new TypeError("Invaild id for iFrame. Expected String");
             if ("" === iframeId) {
                 // eslint-disable-next-line no-multi-assign
                 iframe.id = iframeId = newId();
@@ -681,11 +682,11 @@ var $5180433265c858be$exports = {};
         }
         function processOptions(options) {
             options = options || {};
-            settings[iframeId] = {
-                firstRun: true,
-                iframe: iframe,
-                remoteHost: iframe.src && iframe.src.split("/").slice(0, 3).join("/")
-            };
+            settings[iframeId] = Object.create(null) // Protect against prototype attacks
+            ;
+            settings[iframeId].iframe = iframe;
+            settings[iframeId].firstRun = true;
+            settings[iframeId].remoteHost = iframe.src && iframe.src.split("/").slice(0, 3).join("/");
             checkOptions(options);
             Object.keys(options).forEach(depricate, options);
             copyOptions(options);
