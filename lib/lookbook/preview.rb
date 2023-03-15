@@ -35,6 +35,10 @@ module Lookbook
     alias_method :render_component, :render
 
     class << self
+      def preview_name
+        name.chomp("Preview").underscore
+      end
+
       # Returns the arguments for rendering of the component in its layout
       def render_args(scenario, params: {})
         scenario_params_names = instance_method(scenario).parameters.map(&:last)
