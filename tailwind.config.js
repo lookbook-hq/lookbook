@@ -28,5 +28,5 @@ module.exports = {
     "./spec/components/**/*.rb",
     "./spec/components/**/*.html.erb",
   ],
-  safelist: [".lookbook-panel"],
+  safelist: [".lookbook-panel", { pattern: /icon-stroke-.+/ }],
 };

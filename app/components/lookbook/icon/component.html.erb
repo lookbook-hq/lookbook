@@ -1,5 +1,3 @@
-<%= render_component_tag :i, style: "height: #{size_rems}; width: #{size_rems}; #{@html_attrs[:style]}" do %>
-  <svg stroke-width="<%= stroke %>">
-    <use :href="`/lookbook-assets/img/lucide-sprite.svg#${iconName}`" x-cloak />
-  </svg>
+<%= render_component_tag :i, style: "height: #{size_rems}; width: #{size_rems}; #{@html_attrs[:style]}", class: "icon-stroke-#{stroke}" do %>
+  <%= svg %>
 <% end %>

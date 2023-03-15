@@ -63,11 +63,19 @@
               target: "_blank" %>
 
             <% group.with_button id: "show-drawer-button",
-              icon: "vertical ? 'sidebar' : 'credit-card'",
+              icon: "sidebar",
               tooltip: "Show drawer",
               "@click": "$store.inspector.drawer.hidden = false",
               class: "rotate-180",
-              "x-show": "$store.inspector.drawer.hidden",
+              "x-show": "$store.inspector.drawer.hidden && vertical",
+              cloak: true %>
+
+            <% group.with_button id: "show-drawer-button",
+              icon: "credit-card",
+              tooltip: "Show drawer",
+              "@click": "$store.inspector.drawer.hidden = false",
+              class: "rotate-180",
+              "x-show": "$store.inspector.drawer.hidden && !vertical",
               cloak: true %>
           <% end %>
         <% end %>

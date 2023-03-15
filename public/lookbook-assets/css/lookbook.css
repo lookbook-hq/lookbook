@@ -1472,6 +1472,14 @@ pre[class*="language-"] {
   stroke-linejoin: round;
 }
 
+[data-component="icon"].icon-stroke-2 svg {
+  stroke-width: 2px;
+}
+
+[data-component="icon"].icon-stroke-1 svg {
+  stroke-width: 1px;
+}
+
 .lookbook-panel {
   min-height: 100%;
   padding: 1rem;
@@ -2403,6 +2411,10 @@ select.compact {
   border-color: var(--lookbook-divider);
 }
 
+.divide-lookbook-viewport-handle-icon-stroke-hover > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
 .overflow-auto {
   overflow: auto;
 }
@@ -2514,6 +2526,10 @@ select.compact {
   border-color: var(--lookbook-tabs-border-active);
 }
 
+.border-lookbook-viewport-handle-icon-stroke-hover {
+  border-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
 .border-red-200 {
   --tw-border-opacity: 1;
   border-color: rgb(254 202 202 / var(--tw-border-opacity));
@@ -2521,6 +2537,32 @@ select.compact {
 
 .border-transparent {
   border-color: #0000;
+}
+
+.border-x-lookbook-viewport-handle-icon-stroke-hover {
+  border-left-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+  border-right-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
+.border-y-lookbook-viewport-handle-icon-stroke-hover {
+  border-top-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+  border-bottom-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
+.border-b-lookbook-viewport-handle-icon-stroke-hover {
+  border-bottom-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
+.border-l-lookbook-viewport-handle-icon-stroke-hover {
+  border-left-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
+.border-r-lookbook-viewport-handle-icon-stroke-hover {
+  border-right-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
+.border-t-lookbook-viewport-handle-icon-stroke-hover {
+  border-top-color: var(--lookbook-viewport-handle-icon-stroke-hover);
 }
 
 .\!bg-lookbook-header-bg {
@@ -2584,6 +2626,10 @@ select.compact {
   background-color: var(--lookbook-toolbar-bg);
 }
 
+.bg-lookbook-viewport-handle-icon-stroke-hover {
+  background-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
 .bg-red-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 226 226 / var(--tw-bg-opacity));
@@ -2606,6 +2652,29 @@ select.compact {
 .bg-zinc-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(250 250 250 / var(--tw-bg-opacity));
+}
+
+.from-lookbook-viewport-handle-icon-stroke-hover {
+  --tw-gradient-from: var(--lookbook-viewport-handle-icon-stroke-hover);
+  --tw-gradient-to: #fff0;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.via-lookbook-viewport-handle-icon-stroke-hover {
+  --tw-gradient-to: #fff0;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--lookbook-viewport-handle-icon-stroke-hover), var(--tw-gradient-to);
+}
+
+.to-lookbook-viewport-handle-icon-stroke-hover {
+  --tw-gradient-to: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
+.fill-lookbook-viewport-handle-icon-stroke-hover {
+  fill: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
+.stroke-lookbook-viewport-handle-icon-stroke-hover {
+  stroke: var(--lookbook-viewport-handle-icon-stroke-hover);
 }
 
 .p-1 {
@@ -2899,6 +2968,10 @@ select.compact {
   color: var(--lookbook-tabs-text-hover);
 }
 
+.text-lookbook-viewport-handle-icon-stroke-hover {
+  color: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
 .text-red-700 {
   --tw-text-opacity: 1;
   color: rgb(185 28 28 / var(--tw-text-opacity));
@@ -2911,6 +2984,23 @@ select.compact {
 
 .underline {
   text-decoration-line: underline;
+}
+
+.decoration-lookbook-viewport-handle-icon-stroke-hover {
+  -webkit-text-decoration-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+  text-decoration-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
+.placeholder-lookbook-viewport-handle-icon-stroke-hover::placeholder {
+  color: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
+.caret-lookbook-viewport-handle-icon-stroke-hover {
+  caret-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
+.accent-lookbook-viewport-handle-icon-stroke-hover {
+  accent-color: var(--lookbook-viewport-handle-icon-stroke-hover);
 }
 
 .\!opacity-100 {
@@ -2963,10 +3053,27 @@ select.compact {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.shadow-lookbook-viewport-handle-icon-stroke-hover {
+  --tw-shadow-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+  --tw-shadow: var(--tw-shadow-colored);
+}
+
+.outline-lookbook-viewport-handle-icon-stroke-hover {
+  outline-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
 .ring-0 {
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
   --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.ring-lookbook-viewport-handle-icon-stroke-hover {
+  --tw-ring-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
+.ring-offset-lookbook-viewport-handle-icon-stroke-hover {
+  --tw-ring-offset-color: var(--lookbook-viewport-handle-icon-stroke-hover);
 }
 
 .blur {
