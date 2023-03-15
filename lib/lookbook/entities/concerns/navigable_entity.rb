@@ -31,7 +31,12 @@ module Lookbook
           fetch_config(:priority, default_priority)
         end
 
-        @_priority ||= pos.to_i
+        @_priority ||= @_fallback_priority || pos.to_i
+      end
+
+      # @api private
+      def default_priority=(i)
+        @default_priority = i.to_i
       end
 
       # @api private

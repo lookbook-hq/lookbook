@@ -173,11 +173,30 @@ module Lookbook
     protected
 
     def load_scenarios
-      return scenario_entities unless code_object.groups.any?
+      code_object.groups.any? ? grouped_scenario_entities : scenario_entities
+    end
 
-      scenario_entities.group_by(&:group).flat_map do |group_name, grouped_scenarios|
-        group_name.nil? ? grouped_scenarios : ScenarioGroupEntity.new(group_name.presence || label.pluralize, grouped_scenarios, self)
+    def grouped_scenario_entities
+      scenarios = []
+      scenario_entities.each.with_index(1) do |entity, i|
+        if entity.group.nil?
+          entity.default_priority = i
+          scenarios << entity
+        else
+          group = scenarios.find do |s|
+            s.is_a?(ScenarioGroupEntity) && s.name == Utils.name(entity.group)
+          end
+
+          if group
+            group.add_scenario(entity)
+          else
+            group = ScenarioGroupEntity.new(entity.group, [entity], self)
+            group.default_priority = i
+            scenarios << group
+          end
+        end
       end
+      scenarios
     end
 
     def scenario_entities

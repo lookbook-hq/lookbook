@@ -126,5 +126,10 @@ module Lookbook
     def search_terms
       [parent.label, label]
     end
+
+    # @api private
+    def add_scenario(scenario)
+      @scenarios.add(scenario)
+    end
   end
 end
