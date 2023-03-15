@@ -14,6 +14,13 @@ module Lookbook
       )
     end
 
+    initializer "lookbook.set_autoload_paths" do
+      unless opts.preview_paths.empty?
+        paths_to_add = opts.preview_paths - ActiveSupport::Dependencies.autoload_paths
+        ActiveSupport::Dependencies.autoload_paths.concat(paths_to_add) if paths_to_add.any?
+      end
+    end
+
     config.before_configuration do
       config.lookbook = Lookbook.config
 
@@ -159,10 +166,10 @@ module Lookbook
       end
 
       def preview_watch_paths
-        return @_preview_watch_paths if @_preview_watch_paths
-
-        paths = [*opts.preview_paths, *opts.component_paths, *opts.listen_paths, *view_paths].uniq
-        @_preview_watch_paths ||= PathUtils.normalize_paths(paths)
+        @_preview_watch_paths ||= begin
+          paths = [*opts.preview_paths, *opts.component_paths, *opts.listen_paths, *view_paths].uniq
+          PathUtils.normalize_paths(paths)
+        end
       end
 
       def pages
