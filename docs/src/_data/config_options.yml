@@ -133,6 +133,15 @@ theming:
       }
     description: For overriding theme CSS variables with custom values.
 
+  - name: ui_favicon
+    types: Boolean,String
+    default: "true"
+    example: |
+      config.lookbook.ui_favicon = false
+      config.lookbook.ui_favicon = "<svg>...</svg>"
+    description: |
+      Customise or disable the favicon served by Lookbook.
+
 markdown:
   - name: markdown_options.tables
     types: Boolean

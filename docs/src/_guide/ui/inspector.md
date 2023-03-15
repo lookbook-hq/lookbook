@@ -19,14 +19,14 @@ title: Preview Inspector Panels
   This expects an array of panel names in the order in which they should be displayed in the inspector. For example:
 
   ```ruby
-  config.preview_inspector.drawer_panels = [:source, :notes, :params]
+  config.lookbook.preview_inspector.drawer_panels = [:source, :notes, :params]
   ```
 
   To include all panels (including custom panels) that are not yet included in the list you can add a `"*"` entry as the last list item:
 
   ```ruby
   # show the notes panel first, then all others.
-  config.preview_inspector.drawer_panels = [:notes, "*"]
+  config.lookbook.preview_inspector.drawer_panels = [:notes, "*"]
   ```
 <% end %>
 

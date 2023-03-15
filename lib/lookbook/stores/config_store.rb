@@ -15,6 +15,10 @@ module Lookbook
   # @api public
   class ConfigStore
     CONFIG_FILE = "config/app.yml"
+    DEFAULT_FAVICONS = {
+      light: "app/assets/lookbook/img/favicon_light.svg",
+      dark: "app/assets/lookbook/img/favicon_dark.svg"
+    }
 
     delegate_missing_to :store
     attr_reader :store
@@ -52,6 +56,14 @@ module Lookbook
       end
     end
 
+    def ui_favicon_light
+      @_ui_favicon_light ||= get_favicon(:light)
+    end
+
+    def ui_favicon_dark
+      @_ui_favicon_dark ||= get_favicon(:dark)
+    end
+
     def ui_theme_overrides(&block)
       if block
         yield store[:ui_theme_overrides]
@@ -66,6 +78,27 @@ module Lookbook
 
     def self.default_config(env: Rails.env)
       ConfigLoader.call(CONFIG_FILE, env: env)
+    end
+
+    private
+
+    def get_favicon(theme)
+      default_favicon_path = Engine.root.join(DEFAULT_FAVICONS[theme])
+      default_favicon = FileDataUriEncoder.call(default_favicon_path)
+
+      if ui_favicon.present?
+        if ui_favicon.is_a?(Hash)
+          if ui_favicon[theme].is_a?(String)
+            DataUriEncoder.call(ui_favicon[theme], "image/svg+xml")
+          else
+            default_favicon
+          end
+        elsif ui_favicon.is_a?(String)
+          DataUriEncoder.call(ui_favicon, "image/svg+xml")
+        else
+          default_favicon
+        end
+      end
     end
   end
 end
