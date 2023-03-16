@@ -9,7 +9,7 @@ gem "view_component"
 gem "yard-activesupport-concern"
 
 group :test do
-  gem "appraisal", github: "thoughtbot/appraisal"
+  gem "appraisal", github: "thoughtbot/appraisal", branch: "main"
   gem "phlex-rails", require: false
   gem "factory_bot", require: false
   gem "rspec-rails", "~> 5"

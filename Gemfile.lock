@@ -1,6 +1,7 @@
 GIT
   remote: https://github.com/thoughtbot/appraisal.git
   revision: b200e636903700098bef25f4f51dbc4c46e4c04c
+  branch: main
   specs:
     appraisal (2.4.1)
       bundler
@@ -267,7 +268,6 @@ GEM
     zeitwerk (2.6.7)
 
 PLATFORMS
-  arm64-darwin-21
   arm64-darwin-22
 
 DEPENDENCIES
