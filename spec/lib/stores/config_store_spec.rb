@@ -12,8 +12,8 @@ RSpec.describe Lookbook::ConfigStore do
       end
 
       context "project_name" do
-        it "is set" do
-          expect(config.project_name).to be_a String
+        it "defaults to the parent app name" do
+          expect(config.project_name).to eq Rails.application.class.module_parent.name.titleize
         end
 
         it "can be changed" do
@@ -25,7 +25,25 @@ RSpec.describe Lookbook::ConfigStore do
         it "can be disabled" do
           config.project_name = false
 
-          expect(config.project_name).to be nil
+          expect(config.project_name).to be false
+        end
+      end
+
+      context "project_logo" do
+        it "defaults to nil" do
+          expect(config.project_logo).to be nil
+        end
+
+        it "can be changed" do
+          config.project_logo = "<svg></svg>"
+
+          expect(config.project_logo).to eq "<svg></svg>"
+        end
+
+        it "can be disabled" do
+          config.project_logo = false
+
+          expect(config.project_logo).to be false
         end
       end
 
@@ -312,6 +330,30 @@ RSpec.describe Lookbook::ConfigStore do
           config.ui_favicon = false
 
           expect(config.ui_favicon).to be false
+        end
+      end
+
+      context "ui_favicon_light" do
+        it "returns an SVG data URI" do
+          expect(config.ui_favicon_light.start_with?("data:image/svg+xml")).to be true
+        end
+
+        it "cannot be set directly" do
+          config.ui_favicon_light = "bar"
+
+          expect(config.ui_favicon_light).not_to eq "bar"
+        end
+      end
+
+      context "ui_favicon_dark" do
+        it "returns an SVG data URI" do
+          expect(config.ui_favicon_dark.start_with?("data:image/svg+xml")).to be true
+        end
+
+        it "cannot be set directly" do
+          config.ui_favicon_dark = "bar"
+
+          expect(config.ui_favicon_dark).not_to eq "bar"
         end
       end
 

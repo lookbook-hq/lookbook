@@ -183,14 +183,15 @@ module Lookbook
           entity.default_priority = i
           scenarios << entity
         else
+          group_name = entity.group.presence || entity.parent.name.pluralize
           group = scenarios.find do |s|
-            s.is_a?(ScenarioGroupEntity) && s.name == Utils.name(entity.group)
+            s.is_a?(ScenarioGroupEntity) && s.name == Utils.name(group_name)
           end
 
           if group
             group.add_scenario(entity)
           else
-            group = ScenarioGroupEntity.new(entity.group, [entity], self)
+            group = ScenarioGroupEntity.new(group_name, [entity], self)
             group.default_priority = i
             scenarios << group
           end

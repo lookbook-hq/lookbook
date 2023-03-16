@@ -25,10 +25,10 @@ module Lookbook
       config.lookbook = Lookbook.config
 
       if defined?(ViewComponent)
-        config.lookbook.using_view_component = true
+        config.lookbook.using_view_component ||= true
       else
         require "view_component"
-        config.lookbook.using_view_component = false
+        config.lookbook.using_view_component ||= false
       end
     end
 

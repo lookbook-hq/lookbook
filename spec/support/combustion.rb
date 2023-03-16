@@ -10,6 +10,7 @@ Combustion.initialize! :action_controller, :action_view do
 
   config.lookbook.project_name = "Lookbook Test App"
   config.lookbook.listen = false
+  config.lookbook.using_view_component = true
 
   config.action_controller.default_url_options = {host: "localhost"}
 

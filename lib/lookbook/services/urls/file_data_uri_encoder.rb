@@ -1,3 +1,5 @@
+require "marcel"
+
 module Lookbook
   class FileDataUriEncoder < Service
     attr_reader :path
