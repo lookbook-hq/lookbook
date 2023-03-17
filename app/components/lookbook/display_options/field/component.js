@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import {
   parseSearchParamValue,
   buildSearchParamValue,
-} from "~/app/assets/lookbook/js/helpers/string";
+} from "~/assets/js/helpers/string";
 
 export default function displayOptionsFieldComponent({ name, value }) {
   return {

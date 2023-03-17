@@ -1,5 +1,5 @@
-import tippy from "~/app/assets/lookbook/js/lib/tippy";
-import { initTooltip } from "~/app/assets/lookbook/js/components/tooltip";
+import tippy from "~/assets/js/lib/tippy";
+import { initTooltip } from "~/assets/js/components/tooltip";
 
 export default function buttonComponent() {
   let tooltip = null;

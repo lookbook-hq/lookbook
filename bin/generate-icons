@@ -41,7 +41,4 @@ async function generateIcons(sourcePath, destPath) {
   );
 }
 
-generateIcons(
-  "./node_modules/lucide-static/icons",
-  "./app/assets/lookbook/icons"
-);
+generateIcons("./node_modules/lucide-static/icons", "./assets/icons");

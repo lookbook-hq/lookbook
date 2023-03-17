@@ -16,8 +16,8 @@ module Lookbook
   class ConfigStore
     CONFIG_FILE = "config/app.yml"
     DEFAULT_FAVICONS = {
-      light: "app/assets/lookbook/img/favicon_light.svg",
-      dark: "app/assets/lookbook/img/favicon_dark.svg"
+      light: "assets/img/favicon_light.svg",
+      dark: "assets/img/favicon_dark.svg"
     }
 
     delegate_missing_to :store

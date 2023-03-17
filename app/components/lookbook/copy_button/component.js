@@ -1,4 +1,4 @@
-import { initClipboard } from "~/app/assets/lookbook/js/components/clipboard";
+import { initClipboard } from "~/assets/js/components/clipboard";
 import buttonComponent from "@components/button/component";
 
 export default function copyButtonComponent() {

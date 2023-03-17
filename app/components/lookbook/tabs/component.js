@@ -1,5 +1,5 @@
 import { debounce } from "throttle-debounce";
-import tippy from "~/app/assets/lookbook/js/lib/tippy";
+import tippy from "~/assets/js/lib/tippy";
 import { observeSize } from "@helpers/layout";
 import { getElementSize } from "@helpers/dom";
 

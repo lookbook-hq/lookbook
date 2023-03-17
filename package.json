@@ -5,26 +5,26 @@
   "targets": {
     "app": {
       "source": [
-        "./app/assets/lookbook/js/iframe.js",
-        "./app/assets/lookbook/js/index.js",
-        "./app/assets/lookbook/css/lookbook.css",
-        "./app/assets/lookbook/css/themes/indigo.css",
-        "./app/assets/lookbook/css/themes/blue.css",
-        "./app/assets/lookbook/css/themes/zinc.css",
-        "./app/assets/lookbook/css/themes/green.css",
-        "./app/assets/lookbook/css/themes/rose.css"
+        "./assets/js/iframe.js",
+        "./assets/js/index.js",
+        "./assets/css/lookbook.css",
+        "./assets/css/themes/indigo.css",
+        "./assets/css/themes/blue.css",
+        "./assets/css/themes/zinc.css",
+        "./assets/css/themes/green.css",
+        "./assets/css/themes/rose.css"
       ],
       "distDir": "./public/lookbook-assets"
     },
     "embed": {
-      "source": "./app/assets/lookbook/js/lookbook.js",
+      "source": "./assets/js/lookbook.js",
       "distDir": "./public/lookbook-assets",
       "outputFormat": "global",
       "context": "browser",
       "sourceMap": false
     },
     "embed-core": {
-      "source": "./app/assets/lookbook/js/lookbook-core.js",
+      "source": "./assets/js/lookbook-core.js",
       "distDir": "./public/lookbook-assets",
       "outputFormat": "global",
       "context": "browser",
@@ -32,8 +32,8 @@
     }
   },
   "alias": {
-    "@helpers/*": "./app/assets/lookbook/js/helpers/$1",
-    "@lib/*": "./app/assets/lookbook/js/lib/$1",
+    "@helpers/*": "./assets/js/helpers/$1",
+    "@lib/*": "./assets/js/lib/$1",
     "@components/*": "./app/components/lookbook/$1"
   },
   "scripts": {

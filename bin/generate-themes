@@ -12,7 +12,7 @@ config.themes.forEach((options) => {
   const themeConfig = require("../theme/config")(options);
   const themeCSS = generateThemeCSS(themeConfig.variables);
 
-  write(`./app/assets/lookbook/css/themes/${options.name}.css`, themeCSS);
+  write(`./assets/css/themes/${options.name}.css`, themeCSS);
 });
 
 // Utils

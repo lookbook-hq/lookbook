@@ -28,7 +28,7 @@ module Lookbook
     end
 
     def svg_path
-      Lookbook::Engine.root.join("app/assets/lookbook/icons/#{@icon_name}.svg")
+      Lookbook::Engine.root.join("assets/icons/#{@icon_name}.svg")
     end
   end
 end

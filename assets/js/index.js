@@ -19,8 +19,8 @@ import app from "./app";
 // Note: A ParcelJS issue prevents loading all depths of component JS files in one glob,
 // so need to split it up. Path aliases also do not work with the glob imports.
 import { getComponents } from "./helpers/build";
-import * as components from "../../../components/lookbook/*/*component.js";
-import * as subComponents from "../../../components/lookbook/*/*/component.js";
+import * as components from "../../app/components/lookbook/*/*component.js";
+import * as subComponents from "../../app/components/lookbook/*/*/component.js";
 import * as jsComponents from "./components/*.js";
 
 // Plugins

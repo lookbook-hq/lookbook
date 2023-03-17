@@ -1,15 +1,15 @@
 (() => {
 window.Lookbook = window.Lookbook || {};
-window.Lookbook.initEmbeds = $8c6f87050723dba0$var$initEmbeds;
-const $8c6f87050723dba0$var$embedUrlPrefix = "embed";
-const $8c6f87050723dba0$var$whiteListedAttributes = [
+window.Lookbook.initEmbeds = $5000cc5d1e9e824a$var$initEmbeds;
+const $5000cc5d1e9e824a$var$embedUrlPrefix = "embed";
+const $5000cc5d1e9e824a$var$whiteListedAttributes = [
     "preview",
     "scenario",
     "panels",
     "actions",
     "param-*"
 ];
-function $8c6f87050723dba0$var$initEmbeds(root = document) {
+function $5000cc5d1e9e824a$var$initEmbeds(root = document) {
     if (typeof window.iFrameResize !== "function") {
         console.error("Lookbook embeds require the 'iframe-resizer' library to be available. Skipping embed instantiation.");
         return;
@@ -19,8 +19,8 @@ function $8c6f87050723dba0$var$initEmbeds(root = document) {
     const embeds = Array.from(root.querySelectorAll("lookbook-embed"));
     embeds.forEach((embed)=>{
         const attrs = Array.from(embed.attributes);
-        const wrapper = $8c6f87050723dba0$var$createWrapper();
-        const iframe = $8c6f87050723dba0$var$createIframe(attrs);
+        const wrapper = $5000cc5d1e9e824a$var$createWrapper();
+        const iframe = $5000cc5d1e9e824a$var$createIframe(attrs);
         wrapper.appendChild(iframe);
         embed.replaceWith(wrapper);
     });
@@ -28,17 +28,17 @@ function $8c6f87050723dba0$var$initEmbeds(root = document) {
         checkOrigin: false
     }, "[data-lookbook-embed-iframe]");
 }
-function $8c6f87050723dba0$var$createWrapper() {
+function $5000cc5d1e9e824a$var$createWrapper() {
     const wrapper = document.createElement("div");
     wrapper.setAttribute("data-lookbook-embed", "");
     wrapper.classList.add("lookbook-embed");
     return wrapper;
 }
-function $8c6f87050723dba0$var$createIframe(attrs) {
-    const src = $8c6f87050723dba0$var$buildSrc(attrs);
-    const id = $8c6f87050723dba0$var$attrValue(attrs, "id");
-    const styles = $8c6f87050723dba0$var$attrValue(attrs, "style");
-    const classes = $8c6f87050723dba0$var$attrValue(attrs, "class", "").split(" ").map((c)=>c.trim()).filter((c)=>c.length);
+function $5000cc5d1e9e824a$var$createIframe(attrs) {
+    const src = $5000cc5d1e9e824a$var$buildSrc(attrs);
+    const id = $5000cc5d1e9e824a$var$attrValue(attrs, "id");
+    const styles = $5000cc5d1e9e824a$var$attrValue(attrs, "style");
+    const classes = $5000cc5d1e9e824a$var$attrValue(attrs, "class", "").split(" ").map((c)=>c.trim()).filter((c)=>c.length);
     const iframe = document.createElement("iframe");
     iframe.src = src;
     if (id) iframe.id = id;
@@ -50,37 +50,37 @@ function $8c6f87050723dba0$var$createIframe(attrs) {
     iframe.style.transition = "height 0.3s";
     return iframe;
 }
-function $8c6f87050723dba0$var$buildSrc(attrs) {
-    const appPath = $8c6f87050723dba0$var$attrValue(attrs, "app") || $8c6f87050723dba0$var$guessBasePath();
+function $5000cc5d1e9e824a$var$buildSrc(attrs) {
+    const appPath = $5000cc5d1e9e824a$var$attrValue(attrs, "app") || $5000cc5d1e9e824a$var$guessBasePath();
     const props = {};
-    $8c6f87050723dba0$var$permittedAttrs(attrs).forEach(({ name: name , value: value  })=>{
+    $5000cc5d1e9e824a$var$permittedAttrs(attrs).forEach(({ name: name , value: value  })=>{
         name = name.replace("-", "_").toLowerCase();
         props[name] = value;
     });
     return encodeURI([
         appPath,
-        $8c6f87050723dba0$var$embedUrlPrefix
+        $5000cc5d1e9e824a$var$embedUrlPrefix
     ].join("/") + `?props=${JSON.stringify(props)}`);
 }
-function $8c6f87050723dba0$var$attrValue(attrs, name, fallback = null) {
+function $5000cc5d1e9e824a$var$attrValue(attrs, name, fallback = null) {
     const attr = attrs.find((attr)=>attr.name === name);
     return attr ? attr.value : fallback;
 }
-function $8c6f87050723dba0$var$permittedAttrs(attrs) {
+function $5000cc5d1e9e824a$var$permittedAttrs(attrs) {
     return attrs.filter((attr)=>{
-        return $8c6f87050723dba0$var$whiteListedAttributes.find((key)=>{
+        return $5000cc5d1e9e824a$var$whiteListedAttributes.find((key)=>{
             const name = attr.name;
             return key === name || key.includes("*") && name.startsWith(key.replace("*", ""));
         });
     });
 }
-function $8c6f87050723dba0$var$guessBasePath() {
+function $5000cc5d1e9e824a$var$guessBasePath() {
     const script = document.currentScript || document.querySelector('script[src*="lookbook.js"]');
     const scriptSrc = script.src;
     if (scriptSrc && scriptSrc.includes("lookbook-assets")) return scriptSrc.replace("lookbook-assets/js/lookbook.js", "lookbook");
     return `//${location.host}/lookbook`;
 }
-document.addEventListener("DOMContentLoaded", ()=>$8c6f87050723dba0$var$initEmbeds());
+document.addEventListener("DOMContentLoaded", ()=>$5000cc5d1e9e824a$var$initEmbeds());
 
 
 
