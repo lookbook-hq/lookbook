@@ -1,5 +1,6 @@
 <main class="h-[calc(100vh_-_2.5rem)]">
   <%= lookbook_render :split_layout,
+    id: "inspector",
     alpine_data: "$store.layout.inspector",
     ":class": "($store.inspector.drawer.hidden || #{@drawer_panels.none?}) && '!grid-rows-[1fr] !grid-cols-[1fr]'",
     data: {

@@ -142,4 +142,8 @@
     background-size: 1.2em 1.2em;
     background-position: right 0.4rem center;
   }
+
+  #inspector .split-layout-gutter-horizontal {
+    top: 4px;
+  }
 }

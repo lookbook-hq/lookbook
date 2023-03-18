@@ -1858,6 +1858,10 @@ select.compact {
   line-height: 1.1rem;
 }
 
+#inspector .split-layout-gutter-horizontal {
+  top: 4px;
+}
+
 .pointer-events-none {
   pointer-events: none;
 }
