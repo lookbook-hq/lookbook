@@ -7,6 +7,12 @@ RSpec.describe "previews", type: :request do
 
       expect(html).to have_content "viewcomponent component"
     end
+
+    it "supports output transformation" do
+      get lookbook_preview_path("view_component_example/transform")
+
+      expect(html.has_css?("span", text: "transformed")).to be true
+    end
   end
 
   if AppHelper.phlexible?
@@ -22,6 +28,12 @@ RSpec.describe "previews", type: :request do
 
         expect(html).to have_content "http://localhost/"
       end
+
+      it "supports output transformation" do
+        get lookbook_preview_path("phlex_example/transform")
+
+        expect(html.has_css?("span", text: "transformed")).to be true
+      end
     end
   end
 
@@ -36,6 +48,12 @@ RSpec.describe "previews", type: :request do
       get lookbook_preview_path("partial_example/helpers")
 
       expect(html).to have_content "http://localhost/"
+    end
+
+    it "supports output transformation" do
+      get lookbook_preview_path("phlex_example/transform")
+
+      expect(html.has_css?("span", text: "transformed")).to be true
     end
   end
 end
