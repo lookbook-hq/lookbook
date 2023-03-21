@@ -17,7 +17,7 @@ module Lookbook
         escaped_value = json_escape(param.value.to_s)
         wrapper_attrs = {
           data: {"param-input": param.input},
-          "x-data": "paramsInputComponent({name: '#{param.name}', value: '#{escaped_value}'})"
+          "x-data": "paramsInputComponent({name: \"#{param.name}\", value: \"#{escaped_value}\"})"
         }
         @rendered_input = tag.div(**wrapper_attrs) { html.html_safe }
       end
