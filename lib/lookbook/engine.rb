@@ -37,8 +37,20 @@ module Lookbook
         vc_config = Engine.host_config.view_component
 
         opts.preview_paths += vc_config.preview_paths
-        opts.preview_controller = vc_config.preview_controller
-        opts.preview_layout = vc_config.default_preview_layout
+
+        # sync preview controller and layout setting between Lookbook and ViewComponent
+        if opts.preview_controller == "Lookbook::PreviewController" ||
+            vc_config.preview_controller != ViewComponent::Config.defaults.preview_controller
+          opts.preview_controller = vc_config.preview_controller
+        else
+          vc_config.preview_controller = opts.preview_controller
+        end
+
+        if opts.preview_layout.nil? || vc_config.default_preview_layout.present?
+          opts.preview_layout = vc_config.default_preview_layout
+        else
+          vc_config.default_preview_layout = opts.preview_layout
+        end
 
         vc_config.show_previews = true
 
