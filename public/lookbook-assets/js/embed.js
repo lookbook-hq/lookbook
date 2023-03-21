@@ -35,6 +35,7 @@ var $b2e1fd3e30ab1f5c$exports = {};
     try {
         var options = Object.create({}, {
             passive: {
+                // eslint-disable-next-line getter-return
                 get: function() {
                     passiveSupported = true;
                 }
@@ -130,7 +131,7 @@ var $b2e1fd3e30ab1f5c$exports = {};
         inPageLinks.enable = undefined === data[12] ? false : strBool(data[12]);
         resizeFrom = undefined === data[13] ? resizeFrom : data[13];
         widthCalcMode = undefined === data[14] ? widthCalcMode : data[14];
-        mouseEvents = undefined === data[15] ? mouseEvents : Boolean(data[15]);
+        mouseEvents = undefined === data[15] ? mouseEvents : strBool(data[15]);
     }
     function depricate(key) {
         var splitName = key.split("Callback");
