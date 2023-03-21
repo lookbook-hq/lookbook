@@ -52,19 +52,21 @@
           </header>
         <% end %>
 
-        <%= lookbook_render :prose, size: :md, id: "page-content", markdown: false, class: "max-w-none flex-none min-h-[50vh]" do %>
-          <%= @page_content %>
-        <% end %>
+        <div class="min-h-[50vh]">
+          <%= lookbook_render :prose, size: :md, id: "page-content", markdown: false, class: "max-w-none flex-none" do %>
+            <%= @page_content %>
+          <% end %>
 
-        <% if @page.sections.any? %>
-          <%= lookbook_render :page_tabs, id: "page-tabbed-sections", markdown: false, class: "mt-6" do |page_tabs| %>
-            <% @page.sections.each do |section| %>
-              <% page_tabs.with_tab name: "page-section-#{section.name}", label: section.label do %>
-                <%= page_controller.render_page(section) %>
+          <% if @page.sections.any? %>
+            <%= lookbook_render :page_tabs, id: "page-tabbed-sections", markdown: false, class: "mt-6" do |page_tabs| %>
+              <% @page.sections.each do |section| %>
+                <% page_tabs.with_tab name: "page-section-#{section.name}", label: section.label do %>
+                  <%= page_controller.render_page(section) %>
+                <% end %>
               <% end %>
             <% end %>
           <% end %>
-        <% end %>
+        </div>
 
         <% if @page.footer? && @pages.many? %>
           <footer id="page-footer" class="flex items-center justify-between border-t border-gray-300 mt-12 pt-8 pb-10 ">
