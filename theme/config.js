@@ -102,6 +102,10 @@ module.exports = function (opts = {}) {
       messageTitle: "var(--lookbook-base-600)",
       messageText: "var(--lookbook-text)",
 
+      pageHeaderBg: "var(--lookbook-base-50)",
+      pageHeaderText: "var(--lookbook-text)",
+      pageHeaderBorder: "var(--lookbook-divider)",
+
       embedTitle: "var(--lookbook-text)",
 
       brandingText: "var(--lookbook-header-text)",

@@ -1,6 +1,8 @@
 @layer components {
   [data-component="prose"] {
-    letter-spacing: -0.015em !important;
+    @apply font-prose;
+
+    /* letter-spacing: -0.015em !important; */
 
     [data-component="code"] {
       @apply border border-lookbook-divider rounded-md;

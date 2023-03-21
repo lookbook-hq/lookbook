@@ -11,9 +11,9 @@ module.exports = {
         ...lookbookTheme,
       },
       fontFamily: {
-        sans: ["Inter var", ...tailwindDefaults.fontFamily.sans],
+        ui: ["Inter var", ...tailwindDefaults.fontFamily.sans],
         mono: ["Source Code Variable", ...tailwindDefaults.fontFamily.mono],
-        prose: ["Nunito Sans", ...tailwindDefaults.fontFamily.sans],
+        prose: ["system-ui", "sans-serif"],
       },
     },
   },

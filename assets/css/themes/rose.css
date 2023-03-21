@@ -71,6 +71,9 @@
   --lookbook-message-border: var(--lookbook-divider);
   --lookbook-message-title: var(--lookbook-base-600);
   --lookbook-message-text: var(--lookbook-text);
+  --lookbook-page-header-bg: var(--lookbook-base-50);
+  --lookbook-page-header-text: var(--lookbook-text);
+  --lookbook-page-header-border: var(--lookbook-divider);
   --lookbook-embed-title: var(--lookbook-text);
   --lookbook-branding-text: var(--lookbook-header-text);
 }

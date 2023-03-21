@@ -45,7 +45,7 @@ html {
   -webkit-text-size-adjust: 100%;
   tab-size: 4;
   font-feature-settings: normal;
-  font-family: Inter var, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
   line-height: 1.5;
 }
 
@@ -377,8 +377,6 @@ html {
 
 body {
   color: var(--lookbook-text);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   font-family: Inter var, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
   font-size: .875rem;
   line-height: 1.25rem;
@@ -1677,7 +1675,7 @@ pre[class*="language-"] {
 }
 
 [data-component="prose"] {
-  letter-spacing: -.015em !important;
+  font-family: system-ui, sans-serif;
 }
 
 [data-component="prose"] [data-component="code"] {
@@ -1984,6 +1982,18 @@ select.compact {
   margin-left: -.75rem;
 }
 
+.-mr-1 {
+  margin-right: -.25rem;
+}
+
+.-mr-1\.5 {
+  margin-right: -.375rem;
+}
+
+.-mt-1 {
+  margin-top: -.25rem;
+}
+
 .-mt-px {
   margin-top: -1px;
 }
@@ -2002,10 +2012,6 @@ select.compact {
 
 .mb-6 {
   margin-bottom: 1.5rem;
-}
-
-.mb-7 {
-  margin-bottom: 1.75rem;
 }
 
 .mb-8 {
@@ -2160,8 +2166,8 @@ select.compact {
   min-height: 0;
 }
 
-.min-h-\[50vh\] {
-  min-height: 50vh;
+.min-h-\[calc\(100vh_-_400px\)\] {
+  min-height: calc(100vh - 400px);
 }
 
 .w-11 {
@@ -2206,6 +2212,10 @@ select.compact {
 
 .min-w-\[180px\] {
   min-width: 180px;
+}
+
+.max-w-\[40\%\] {
+  max-width: 40%;
 }
 
 .max-w-\[420px\] {
@@ -2273,6 +2283,12 @@ select.compact {
 
 .rotate-90 {
   --tw-rotate: 90deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.scale-75 {
+  --tw-scale-x: .75;
+  --tw-scale-y: .75;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -2538,6 +2554,10 @@ select.compact {
   border-color: var(--lookbook-dropdown-divider);
 }
 
+.border-lookbook-page-header-border {
+  border-color: var(--lookbook-page-header-border);
+}
+
 .border-lookbook-tabs-border-active {
   border-color: var(--lookbook-tabs-border-active);
 }
@@ -2624,6 +2644,10 @@ select.compact {
 
 .bg-lookbook-page-bg {
   background-color: var(--lookbook-page-bg);
+}
+
+.bg-lookbook-page-header-bg {
+  background-color: var(--lookbook-page-header-bg);
 }
 
 .bg-lookbook-params-editor-bg {
@@ -2851,7 +2875,7 @@ select.compact {
   font-family: Source Code Variable, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
 }
 
-.font-sans {
+.font-ui {
   font-family: Inter var, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
 }
 
@@ -2970,6 +2994,10 @@ select.compact {
 
 .text-lookbook-nav-icon-stroke {
   color: var(--lookbook-nav-icon-stroke);
+}
+
+.text-lookbook-page-header-text {
+  color: var(--lookbook-page-header-text);
 }
 
 .text-lookbook-prose-text {
@@ -4028,6 +4056,18 @@ select.compact {
   font-weight: 700;
 }
 
+.prose-h2\:border-b :where(h2):not(:where([class~="not-prose"] *)) {
+  border-bottom-width: 1px;
+}
+
+.prose-h2\:border-lookbook-divider :where(h2):not(:where([class~="not-prose"] *)) {
+  border-color: var(--lookbook-divider);
+}
+
+.prose-h2\:pb-3 :where(h2):not(:where([class~="not-prose"] *)) {
+  padding-bottom: .75rem;
+}
+
 .prose-a\:text-lookbook-prose-link :where(a):not(:where([class~="not-prose"] *)) {
   color: var(--lookbook-prose-link);
 }
@@ -4063,6 +4103,20 @@ select.compact {
 }
 
 @media (min-width: 768px) {
+  .md\:-mr-\[2px\] {
+    margin-right: -2px;
+  }
+
+  .md\:mt-0 {
+    margin-top: 0;
+  }
+
+  .md\:scale-100 {
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
   .md\:p-12 {
     padding: 3rem;
   }
@@ -4078,12 +4132,28 @@ select.compact {
 }
 
 @media (min-width: 1024px) {
+  .lg\:mb-8 {
+    margin-bottom: 2rem;
+  }
+
   .lg\:mb-9 {
     margin-bottom: 2.25rem;
   }
 
+  .lg\:mt-16 {
+    margin-top: 4rem;
+  }
+
+  .lg\:mt-8 {
+    margin-top: 2rem;
+  }
+
   .lg\:pb-8 {
     padding-bottom: 2rem;
+  }
+
+  .lg\:pt-12 {
+    padding-top: 3rem;
   }
 }
 

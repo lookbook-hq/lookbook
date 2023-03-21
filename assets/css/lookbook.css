@@ -19,7 +19,7 @@
   }
 
   body {
-    @apply text-lookbook-text font-sans text-sm antialiased overflow-hidden;
+    @apply text-lookbook-text font-ui text-sm overflow-hidden;
   }
 
   [x-cloak] {
