@@ -54,6 +54,13 @@ Tests can be run using the `rake spec` or `bundle exec rspec` commands.
 
 The dummy app that the tests are being run against can be viewed by running the `bin/dummy` command and then browsing to http://localhost:9292/lookbook
 
+### Releases
+
+Lookbook uses [Release It!](https://github.com/release-it/release-it) to automate the release process.
+
+Running `npm run release` will start the process of publishing a new release and walks though all the steps from picking a version number to publishing the updated gem.
+
+Publishing a release requires write permissions for this repository (ViewComponent/lookbook) and 2FA publish permissions for Lookbook on RubyGems.
 
 ## Contributing
 
