@@ -7,7 +7,7 @@ module Lookbook
     include LocatableEntity
     include NavigableEntity
 
-    delegate :render_args, to: :preview_class
+    delegate :after_render, :render_args, to: :preview_class
 
     # @api private
     attr_reader :preview_class
@@ -156,6 +156,11 @@ module Lookbook
     def display_options
       global_options = Lookbook.config.preview_display_options
       global_options.deep_merge(fetch_config(:display_options, {}))
+    end
+
+    # @api private
+    def after_render_method
+      fetch_config(:after_render)
     end
 
     # @api private

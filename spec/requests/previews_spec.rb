@@ -38,4 +38,36 @@ RSpec.describe "previews", type: :request do
       expect(html).to have_content "http://localhost/"
     end
   end
+
+  context "after_render" do
+    it "supports preview class after_render" do
+      get lookbook_preview_path("after_render/default")
+
+      expect(html.has_css?("em", text: "preview")).to be true
+      expect(html).to have_content "default after render content"
+    end
+
+    it "supports scenario after_render" do
+      get lookbook_preview_path("after_render/custom")
+
+      expect(html.has_css?("strong", text: "scenario")).to be true
+      expect(html).to have_content "custom after render content"
+    end
+
+    context "in ViewComponent::Preview" do
+      it "supports preview class after_render" do
+        get lookbook_preview_path("after_render_view_component_example/default")
+
+        expect(html.has_css?("em", text: "preview")).to be true
+        expect(html).to have_content "default after render content"
+      end
+
+      it "supports scenario after_render" do
+        get lookbook_preview_path("after_render_view_component_example/custom")
+
+        expect(html.has_css?("strong", text: "scenario")).to be true
+        expect(html).to have_content "custom after render content"
+      end
+    end
+  end
 end

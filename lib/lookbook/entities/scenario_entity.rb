@@ -111,6 +111,11 @@ module Lookbook
     # @!endgroup
 
     # @api private
+    def after_render_method
+      fetch_config(:after_render) || parent.after_render_method
+    end
+
+    # @api private
     def scenarios
       [self]
     end
