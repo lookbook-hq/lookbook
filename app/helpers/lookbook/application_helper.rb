@@ -1,7 +1,7 @@
 module Lookbook
   module ApplicationHelper
     def lookbook_asset_path(file, version: true)
-      path = "/lookbook-assets/#{file}".gsub("//", "/")
+      path = "#{Engine.host_config.relative_url_root}/lookbook-assets/#{file}".gsub("//", "/")
       version ? "#{path}?v=#{Lookbook::VERSION}" : path
     end
 
