@@ -7815,7 +7815,7 @@ function $12b7aa006b8a97e1$var$toCamel(s) {
 }
 
 
-var $52abf2efa3492135$exports = {};
+var $2aa6ad00793e8ec9$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -12116,99 +12116,6 @@ function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
 }
 
 
-var $0db07828cadc68e0$exports = {};
-
-$parcel$defineInteropFlag($0db07828cadc68e0$exports);
-
-$parcel$export($0db07828cadc68e0$exports, "default", () => $0db07828cadc68e0$export$2e2bcd8739ae039);
-
-
-
-
-function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
-    const initial = store ? store.activeTab : null;
-    let dropdown = null;
-    return {
-        visibleTabsCount: 0,
-        triggerLeft: 0,
-        get store () {
-            return store || this;
-        },
-        get tabs () {
-            return this.$refs.tabs ? Array.from(this.$refs.tabs.children) : [];
-        },
-        get dropdownTabs () {
-            return Array.from(this.$refs.tabsDropdown ? this.$refs.tabsDropdown.children : []);
-        },
-        get tabWidths () {
-            return this.tabs.map((tab)=>(0, $490552754c23ef6f$export$bdf7e699b242f476)(tab, {
-                    includeMargins: true
-                }).width);
-        },
-        init () {
-            this.$nextTick(()=>{
-                if (this.$root.parentElement.offsetWidth === this.$root.offsetWidth) this.visibleTabsCount = this.tabs.length;
-                dropdown = (0, $789b7d27a7c715a6$export$2e2bcd8739ae039)(this.$refs.dropdownTrigger, {
-                    content: this.$refs.tabsDropdown,
-                    theme: "menu",
-                    interactive: true,
-                    trigger: "click",
-                    placement: "bottom",
-                    appendTo: this.$root
-                });
-                const initialTab = initial ? this.tabs.find((t)=>this._getRef(t) === initial) : this.tabs[0];
-                this.selectTab(initialTab || this.tabs[0], true);
-                this.parentObserver = (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$root.parentElement, (0, $c5d017602d25d050$export$61fc7d43ac8f84b0)(10, this.handleResize.bind(this)));
-                this.$watch("visibleTabsCount", (value)=>{
-                    this.debug(`'#${this.$root.id}' visible tabs count:`, value);
-                });
-            });
-        },
-        handleResize ({ width: width  }) {
-            if (width === this._lastMeasuredWidth) return;
-            if (width === this.$root.offsetWidth) {
-                this.visibleTabsCount = this.tabs.length;
-                return;
-            }
-            let sumTabWidths = 60;
-            let triggerLeft = 20;
-            let visibleTabsCount = 0;
-            this.tabWidths.forEach((tabWidth)=>{
-                sumTabWidths += tabWidth;
-                if (sumTabWidths < width) {
-                    triggerLeft += tabWidth;
-                    visibleTabsCount++;
-                }
-            });
-            this.visibleTabsCount = visibleTabsCount;
-            this.triggerLeft = triggerLeft;
-            this._lastMeasuredWidth = width;
-        },
-        selectTab (el, initial = false) {
-            this.store.activeTab = this._getRef(el);
-            dropdown.hide();
-            if (!initial) this.$dispatch("tabs:change", {
-                tabs: this
-            });
-        },
-        isSelected (el) {
-            return this.store.activeTab === this._getRef(el);
-        },
-        isDisabled (el) {
-            return el.getAttribute("data-disabled") == "true";
-        },
-        hasHiddenTabs () {
-            return this.visibleTabsCount < this.tabs.length;
-        },
-        // protected
-        _lastMeasuredWidth: 0,
-        _getRef (el) {
-            return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
-        }
-    };
-}
-
-
 var $6d64716f0b34fdf4$exports = {};
 
 $parcel$defineInteropFlag($6d64716f0b34fdf4$exports);
@@ -12336,7 +12243,100 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$52abf2efa3492135$exports = {
+var $0db07828cadc68e0$exports = {};
+
+$parcel$defineInteropFlag($0db07828cadc68e0$exports);
+
+$parcel$export($0db07828cadc68e0$exports, "default", () => $0db07828cadc68e0$export$2e2bcd8739ae039);
+
+
+
+
+function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
+    const initial = store ? store.activeTab : null;
+    let dropdown = null;
+    return {
+        visibleTabsCount: 0,
+        triggerLeft: 0,
+        get store () {
+            return store || this;
+        },
+        get tabs () {
+            return this.$refs.tabs ? Array.from(this.$refs.tabs.children) : [];
+        },
+        get dropdownTabs () {
+            return Array.from(this.$refs.tabsDropdown ? this.$refs.tabsDropdown.children : []);
+        },
+        get tabWidths () {
+            return this.tabs.map((tab)=>(0, $490552754c23ef6f$export$bdf7e699b242f476)(tab, {
+                    includeMargins: true
+                }).width);
+        },
+        init () {
+            this.$nextTick(()=>{
+                if (this.$root.parentElement.offsetWidth === this.$root.offsetWidth) this.visibleTabsCount = this.tabs.length;
+                dropdown = (0, $789b7d27a7c715a6$export$2e2bcd8739ae039)(this.$refs.dropdownTrigger, {
+                    content: this.$refs.tabsDropdown,
+                    theme: "menu",
+                    interactive: true,
+                    trigger: "click",
+                    placement: "bottom",
+                    appendTo: this.$root
+                });
+                const initialTab = initial ? this.tabs.find((t)=>this._getRef(t) === initial) : this.tabs[0];
+                this.selectTab(initialTab || this.tabs[0], true);
+                this.parentObserver = (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$root.parentElement, (0, $c5d017602d25d050$export$61fc7d43ac8f84b0)(10, this.handleResize.bind(this)));
+                this.$watch("visibleTabsCount", (value)=>{
+                    this.debug(`'#${this.$root.id}' visible tabs count:`, value);
+                });
+            });
+        },
+        handleResize ({ width: width  }) {
+            if (width === this._lastMeasuredWidth) return;
+            if (width === this.$root.offsetWidth) {
+                this.visibleTabsCount = this.tabs.length;
+                return;
+            }
+            let sumTabWidths = 60;
+            let triggerLeft = 20;
+            let visibleTabsCount = 0;
+            this.tabWidths.forEach((tabWidth)=>{
+                sumTabWidths += tabWidth;
+                if (sumTabWidths < width) {
+                    triggerLeft += tabWidth;
+                    visibleTabsCount++;
+                }
+            });
+            this.visibleTabsCount = visibleTabsCount;
+            this.triggerLeft = triggerLeft;
+            this._lastMeasuredWidth = width;
+        },
+        selectTab (el, initial = false) {
+            this.store.activeTab = this._getRef(el);
+            dropdown.hide();
+            if (!initial) this.$dispatch("tabs:change", {
+                tabs: this
+            });
+        },
+        isSelected (el) {
+            return this.store.activeTab === this._getRef(el);
+        },
+        isDisabled (el) {
+            return el.getAttribute("data-disabled") == "true";
+        },
+        hasHiddenTabs () {
+            return this.visibleTabsCount < this.tabs.length;
+        },
+        // protected
+        _lastMeasuredWidth: 0,
+        _getRef (el) {
+            return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
+        }
+    };
+}
+
+
+$2aa6ad00793e8ec9$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
@@ -12346,8 +12346,8 @@ $52abf2efa3492135$exports = {
     "nav": $d92d9d5253f84566$exports,
     "split_layout": $506dabb2bf255b38$exports,
     "tab_panels": $a87dacf5139b5e2f$exports,
-    "tabs": $0db07828cadc68e0$exports,
-    "viewport": $6d64716f0b34fdf4$exports
+    "viewport": $6d64716f0b34fdf4$exports,
+    "tabs": $0db07828cadc68e0$exports
 };
 
 
@@ -13521,7 +13521,7 @@ const $22969b543678f572$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $5792afa4170ed552$export$2e2bcd8739ae039));
 [
-    $52abf2efa3492135$exports,
+    $2aa6ad00793e8ec9$exports,
     $f3e1e32f4a1bd6da$exports,
     $338da9a25bc5c332$exports
 ].forEach((scripts)=>{
