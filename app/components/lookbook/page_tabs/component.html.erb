@@ -9,7 +9,7 @@
   <%= lookbook_render :tab_panels do |t| %>
     <% @tabs.each do |props| %>
       <% t.with_panel name: props[:name] do %>
-        <%= lookbook_render :prose, markdown: props[:markdown], class: "max-w-none flex-none" do %>
+        <%= lookbook_render :prose, size: :md, markdown: props[:markdown], class: "max-w-none flex-none" do %>
           <%== props[:tab_content] %>
         <% end %>
       <% end %>
