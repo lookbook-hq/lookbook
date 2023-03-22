@@ -2,6 +2,7 @@ module Lookbook
   class Preview
     include ActionView::Helpers::TagHelper
     include ActionView::Helpers::AssetTagHelper
+    extend PreviewAfterRender
 
     def render(component = nil, **args, &block)
       if component.nil?

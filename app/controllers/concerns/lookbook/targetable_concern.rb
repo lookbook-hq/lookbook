@@ -96,7 +96,7 @@ module Lookbook
 
       scenarios = @target ? @target.scenarios : []
       rendered_scenarios = scenarios.map do |scenario|
-        output = preview_controller.process(:render_scenario_to_string, @preview, scenario.name)
+        output = preview_controller.process(:render_scenario_to_string, @preview, scenario)
         RenderedScenarioEntity.new(scenario, output, preview_controller.params)
       end
 

@@ -57,6 +57,8 @@ module Lookbook
         if vc_config.view_component_path.present?
           opts.component_paths << vc_config.view_component_path
         end
+
+        ViewComponent::Preview.extend(Lookbook::PreviewAfterRender)
       end
 
       opts.reload_on_change = host_config.reload_classes_only_on_change if opts.reload_on_change.nil?

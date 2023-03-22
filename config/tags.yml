@@ -38,3 +38,7 @@ shared:
   source:
     label: Source file
     opts: {}
+
+  after_render:
+    label: After render
+    opts: {}
