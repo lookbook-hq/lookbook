@@ -28,7 +28,7 @@ module Lookbook
     def value_default
       default_value_parts = object.parameters.find { |parts| parts[0].chomp(":") == name }
       if default_value_parts
-        object.instance_eval(default_value_parts[1])
+        host_class_instance.instance_eval(default_value_parts[1])
       else
         raise ParserError.new "Unknown method parameter '#{name}'"
       end
