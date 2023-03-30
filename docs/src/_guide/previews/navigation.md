@@ -1,7 +1,7 @@
 ---
 id: previews-nav
-label: Customising the Nav
-title: Customising the Nav
+label: Nav Customisation
+title: Customising the Navigation
 ---
 
 <%= render section(overview: true) do |s| %>

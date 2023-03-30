@@ -1,6 +1,6 @@
 ---
 id: previews-groups
-title: Grouping Previews
+title: Grouped Previews
 ---
 
 <%= render section(overview: true) do |s| %>
