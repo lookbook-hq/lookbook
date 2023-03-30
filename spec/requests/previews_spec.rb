@@ -62,6 +62,13 @@ RSpec.describe "previews", type: :request do
       expect(html).to have_content "custom after render content"
     end
 
+    it "provides context information" do
+      get lookbook_preview_path("after_render/with_context")
+
+      expect(html.has_css?("strong", text: "with_context")).to be true
+      expect(html).to have_content "after render using context info"
+    end
+
     context "in ViewComponent::Preview" do
       it "supports preview class after_render" do
         get lookbook_preview_path("after_render_view_component_example/default")

@@ -13,6 +13,13 @@ class AfterRenderComponentPreview < Lookbook::Preview
     end
   end
 
+  # @after_render :uses_context_after_render
+  def with_context(foo: "bar")
+    render StandardComponent.new do
+      "after render using context info"
+    end
+  end
+
   private
 
   def preview_after_render(html)
@@ -21,5 +28,9 @@ class AfterRenderComponentPreview < Lookbook::Preview
 
   def scenario_after_render(html)
     "<strong>scenario</strong>#{html}"
+  end
+
+  def uses_context_after_render(html, context)
+    "<strong>#{context.scenario.name}</strong>#{html}"
   end
 end

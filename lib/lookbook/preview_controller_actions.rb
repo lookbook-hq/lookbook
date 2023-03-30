@@ -21,7 +21,14 @@ module Lookbook
 
         rendered = render_to_string(template, **opts)
 
-        rendered = @preview.after_render(method: scenario.after_render_method, html: rendered) if scenario.after_render_method.present?
+        if scenario.after_render_method.present?
+          render_context = Store.new({
+            preview: preview,
+            scenario: scenario,
+            params: user_request_parameters
+          })
+          rendered = @preview.after_render(method: scenario.after_render_method, html: rendered, context: render_context)
+        end
 
         with_optional_action_view_annotations do
           render html: rendered
@@ -43,6 +50,10 @@ module Lookbook
       def with_optional_action_view_annotations(&block)
         disable = Lookbook.config.preview_disable_action_view_annotations
         ActionViewAnnotationsHandler.call(disable_annotations: disable, &block)
+      end
+
+      def user_request_parameters
+        request.query_parameters.to_h.filter { |k, v| !k.start_with?("_") }
       end
     end
   end
