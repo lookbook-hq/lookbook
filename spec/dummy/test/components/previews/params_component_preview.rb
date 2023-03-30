@@ -1,4 +1,6 @@
 class ParamsComponentPreview < ViewComponent::Preview
+  TEXT = "the default value"
+
   # @param select select
   # @param textarea textarea
   # @param toggle toggle
@@ -25,6 +27,13 @@ class ParamsComponentPreview < ViewComponent::Preview
     datetime_local: "datetime_local")
     render StandardComponent.new do
       "test for param field rendering"
+    end
+  end
+
+  # @param body_text
+  def dynamic_args(body_text: TEXT)
+    render StandardComponent.new do
+      body_text
     end
   end
 end

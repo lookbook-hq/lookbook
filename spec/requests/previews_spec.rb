@@ -1,6 +1,14 @@
 require "rails_helper"
 
 RSpec.describe "previews", type: :request do
+  context "param default values" do
+    it "renders previews with non-static default param values" do
+      get lookbook_preview_path("params/dynamic_args")
+
+      expect(html).to have_content "the default value"
+    end
+  end
+
   context "ViewComponents" do
     it "renders view component previews" do
       get lookbook_preview_path("view_component_example/default")
