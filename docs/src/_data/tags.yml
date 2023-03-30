@@ -108,15 +108,22 @@
     def default_example
     end
 
-# - name: "@type"
-#   signature_args: "<preview_type>"
-#   params:
-#     - name: <preview_type>
-#       types: String
-#       text: |
-#         Type descriptor - i.e `view_component`, `template`, or `phlex`
-#   description: The type of thing being rendered in the preview. Defaults to `view_component`
-#   example: |
-#     # @type template
-#     def default_example
-#     end
+- name: "@after_render"
+  signature_args: "<transformer_method_name>"
+  params:
+    - name: <transformer_method_name>
+      types: String
+      text: |
+        The (symbolized) name of the method to use
+  description: Specify a method to transform the preview HTML prior to display.
+  example: |
+    # @after_render :do_transform
+    def example
+      # ...
+    end
+
+    private
+
+    def do_transform(html)
+      html + "this has been transformed"
+    end

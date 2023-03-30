@@ -25,6 +25,7 @@ groups:
       - previews-groups
       - previews-params
       - previews-display
+      - previews-output
 
   - label: Pages
     items:
