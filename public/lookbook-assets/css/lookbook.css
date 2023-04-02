@@ -1950,8 +1950,8 @@ select.compact {
   top: 40px;
 }
 
-.\!z-40 {
-  z-index: 40 !important;
+.\!z-\[1000\] {
+  z-index: 1000 !important;
 }
 
 .z-0 {
@@ -1968,6 +1968,10 @@ select.compact {
 
 .z-\[-1\] {
   z-index: -1;
+}
+
+.z-\[1001\] {
+  z-index: 1001;
 }
 
 .mx-8 {
