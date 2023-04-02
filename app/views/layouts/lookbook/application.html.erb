@@ -44,7 +44,7 @@
                   alpine_data: "$store.nav.previews" do |nav| %>
                   <%= nav.with_toolbar do |toolbar| %>
                     <% toolbar.with_section padded: true do %>
-                      <h4 class="pt-1">Previews</h4>
+                      <h4 class="pt-1"><%= @config.preview_collection_label %></h4>
                     <% end %>
                     <% toolbar.with_section align: :right, padded: false do %>
                       <%= lookbook_render :button_group, size: :xs do |group| %>
@@ -67,7 +67,7 @@
                   alpine_data: "$store.nav.pages" do |nav| %>
                   <%= nav.with_toolbar do |toolbar| %>
                     <% toolbar.with_section padded: true do %>
-                      <h4 class="pt-1">Pages</h4>
+                      <h4 class="pt-1"><%= @config.page_collection_label %></h4>
                     <% end %>
                     <% toolbar.with_section align: :right, padded: false do %>
                       <%= lookbook_render :button_group, size: :xs do |group| %>

@@ -87,6 +87,18 @@ RSpec.describe Lookbook::ConfigStore do
         end
       end
 
+      context "page_collection_label" do
+        it "is set" do
+          expect(config.page_collection_label).to eq "Pages"
+        end
+
+        it "can be changed" do
+          config.page_collection_label = "Docs"
+
+          expect(config.page_collection_label).to eq "Docs"
+        end
+      end
+
       context "page_controller" do
         it "is set" do
           expect(config.page_controller).to eq "Lookbook::PageController"
@@ -195,6 +207,18 @@ RSpec.describe Lookbook::ConfigStore do
           config.preview_sort_scenarios = true
 
           expect(config.preview_sort_scenarios).to be true
+        end
+      end
+
+      context "preview_collection_label" do
+        it "is set" do
+          expect(config.preview_collection_label).to eq "Previews"
+        end
+
+        it "can be changed" do
+          config.preview_collection_label = "Components"
+
+          expect(config.preview_collection_label).to eq "Components"
         end
       end
 

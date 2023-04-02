@@ -16,6 +16,12 @@ project:
       Customise or disable the logo displayed in the Lookbook header.
 
 previews:
+  - name: preview_collection_label
+    types: String
+    default: "Previews"
+    example: config.lookbook.preview_collection_label = "Component Previews"
+    description: The label used to denote the previews section of the sidebar nav.
+
   - name: preview_paths
     types: Array
     default: "[]"
@@ -87,6 +93,12 @@ previews:
       (as opposed to displaying them in the order they are defined in the preview class).
 
 pages:
+  - name: page_collection_label
+    types: String
+    default: "Pages"
+    example: config.lookbook.page_collection_label = "Docs"
+    description: The label used to denote the pages section of the sidebar nav.
+
   - name: page_paths
     default: "[]"
     types: Array

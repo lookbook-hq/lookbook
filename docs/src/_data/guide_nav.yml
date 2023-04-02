@@ -44,6 +44,7 @@ groups:
       - ui-branding
       - ui-theming
       - ui-inspector
+      - ui-nav
 
   - label: Other
     items:

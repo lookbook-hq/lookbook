@@ -51,6 +51,17 @@ RSpec.describe "application", type: :request do
         expect(html).to have_selector(selector)
         expect(html.all(selector).count).to eql(visible_scenarios_count)
       end
+
+      it "uses the collection label set in config" do
+        expect(html).to have_css("#previews-nav h4", text: "Previews")
+
+        Lookbook.config.preview_collection_label = "Foobar"
+
+        get lookbook_home_path
+        follow_redirect!
+
+        expect(html).to have_css("#previews-nav h4", text: "Foobar")
+      end
     end
   end
 
@@ -74,6 +85,17 @@ RSpec.describe "application", type: :request do
         selector = "#pages-nav [data-entity-type=page]"
         expect(html).to have_selector(selector)
         expect(html.all(selector).count).to eql(visible_pages_count)
+      end
+
+      it "uses the collection label set in config" do
+        expect(html).to have_css("#pages-nav h4", text: "Pages")
+
+        Lookbook.config.page_collection_label = "Foobar"
+
+        get lookbook_home_path
+        follow_redirect!
+
+        expect(html).to have_css("#pages-nav h4", text: "Foobar")
       end
     end
   end
