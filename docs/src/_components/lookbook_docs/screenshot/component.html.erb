@@ -1,20 +1,22 @@
-<%= tag.send(href ? :a : :figure, **html_attrs, href: href, class: "block") do %>
-  <%= tag.div class: "bg-white rounded-lg overflow-hidden border border-gray-300 shadow-lg" do %>
+<%= tag.send(href ? :a : :figure, **html_attrs, href: href) do %>
+  <%= tag.div class: "bg-white rounded-lg overflow-hidden shadow-lg #{"border border-gray-300" unless mobile} #{"border-t-0" if browser}" do %>
     <% if browser %>
-      <div class="bg-gray-800 px-2.5 py-2 flex items-center border-b border-black">
+      <div class="bg-gray-800 px-2.5 py-2 flex items-center rounded-t-lg">
         <div class="flex items-center space-x-1 relative top-px">
           <span class="rounded-full h-2 w-2 bg-rose-400"></span>
           <span class="rounded-full h-2 w-2 bg-orange-400"></span>
           <span class="rounded-full h-2 w-2 bg-emerald-400"></span>
         </div>
-        <div class="text-white flex items-center space-x-0.5 ml-auto opacity-40 relative top-px">
+        <div class="text-white flex items-center space-x-0.5 ml-auto opacity-40 relative top-px -mr-0.5">
           <%= icon :arrow_left, size: 3 %>
           <%= icon :arrow_right, size: 3 %>
         </div>
       </div>
     <% end %>
-    <div class="rounded-b-lg overflow-hidden relative">
-      <img src="<%= src %>" alt="<%= alt %>" class="w-full">
+    <div class="<%= "bg-gray-900 border-x-8 border-y-[16px] border-gray-800 rounded-lg" if mobile %>">
+      <div class="rounded-b-lg overflow-hidden relative <%= "!rounded-sm" if mobile %>">
+        <img src="<%= src %>" alt="<%= alt %>" class="w-full">
+      </div>
     </div>
   <% end %>
     <% if caption %>

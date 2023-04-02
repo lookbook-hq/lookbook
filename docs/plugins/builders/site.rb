@@ -52,7 +52,7 @@ class Builders::Site < SiteBuilder
         index = col.resources.find { _1.data.id == resource_ids.first }
         {
           url: index.relative_url,
-          label: col.metadata.title,
+          label: col.metadata.label || col.metadata.title,
           active: (view.resource.collection.label == label)
         }
       end

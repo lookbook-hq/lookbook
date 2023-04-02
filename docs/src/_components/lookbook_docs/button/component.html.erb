@@ -3,11 +3,20 @@
   href: href,
   class: [
     html_attrs[:class],
-    "px-4 py-2 inline-block rounded-md shadow-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors cursor-pointer"
+    "inline-block rounded-md shadow-md transition-colors cursor-pointer whitespace-nowrap",
+    {
+      "bg-indigo-600 hover:bg-indigo-700 text-white ": (theme == :primary),
+      "bg-gray-200 hover:bg-gray-300 text-gray-900": (theme == :secondary),
+      "px-5 py-2.5 text-base": (size == :md),
+      "px-3 py-1.5 text-sm": (size == :sm)
+    }
   ]) do %>
   <span class="flex items-center space-x-2">
+    <% if icon && icon_position == :before %>
+      <%= render LookbookDocs::Icon::Component.new(name: icon, size: 4, class: "relative -left-0.5") %>
+    <% end %>
     <span><%= text || content %></span>
-    <% if icon %>
+    <% if icon && icon_position == :after %>
       <%= render LookbookDocs::Icon::Component.new(name: icon, size: 4, class: "relative -right-0.5") %>
     <% end %>
   </span>

@@ -31,7 +31,7 @@ title: Introduction
   <% end %>
 
   <% s.with_block_button center: false do |b| %>
-    <% b.with_button "View the demo", href: links.v2.demo, icon: :arrow_right %>
+    <% b.with_button "View the demo", href: links.v2.demo, icon: :arrow_right, icon_position: :after %>
   <% end %>
 
 

@@ -1,4 +1,6 @@
 [data-component="screenshot"] {
+  @apply block;
+
   &.shadow {
     @apply shadow-lg;
   }
@@ -10,5 +12,9 @@
       0px 11.6px 35.4px -7px rgba(0, 0, 0, 0.099),
       0px 23.4px 64.9px -7px rgba(0, 0, 0, 0.117),
       0px 64px 140px -7px rgba(0, 0, 0, 0.15);
+
+    .shadow-lg {
+      @apply shadow-none;
+    }
   }
 }

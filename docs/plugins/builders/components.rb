@@ -8,11 +8,11 @@ class Builders::Components < SiteBuilder
       view.render LookbookDocs::Button::Component.new text: text, href: href, **attrs
     end
 
-    helper :image, helpers_scope: true do |path, attrs = {}|
+    helper :image, helpers_scope: true do |path, **attrs|
       view.render LookbookDocs::Image::Component.new path: path, **attrs
     end
 
-    helper :screenshot, helpers_scope: true do |src, title = nil, attrs = {}|
+    helper :screenshot, helpers_scope: true do |src, title = nil, **attrs|
       view.render LookbookDocs::Screenshot::Component.new src: src, **attrs
     end
 

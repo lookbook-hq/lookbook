@@ -21,6 +21,7 @@ collections:
     section: true
     permalink: /extend/:path.*
     title: Extending Lookbook
+    label: Extending
 
   api:
     output: true
