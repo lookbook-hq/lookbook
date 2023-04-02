@@ -11,8 +11,6 @@ class ParamsComponentPreview < ViewComponent::Preview
   # @param number number
   # @param tel tel
   # @param url url
-  # @param date date
-  # @param datetime_local datetime_local
   def all_params(select: "select",
     textarea: "textarea",
     toggle: "toggle",
@@ -22,9 +20,15 @@ class ParamsComponentPreview < ViewComponent::Preview
     email: "email",
     number: "number",
     tel: "tel",
-    url: "url",
-    date: "date",
-    datetime_local: "datetime_local")
+    url: "url")
+    render StandardComponent.new do
+      "test for param field rendering"
+    end
+  end
+
+  # @param date date
+  # @param datetime datetime-local
+  def date_params(date: Date.new(1981, 4, 15), datetime: DateTime.new(1981, 4, 15, 4, 5, 6))
     render StandardComponent.new do
       "test for param field rendering"
     end

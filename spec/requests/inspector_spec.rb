@@ -45,12 +45,10 @@ RSpec.describe "inspector", type: :request do
     end
 
     context "params panel" do
-      before do
-        get lookbook_inspect_path("params/all_params")
-      end
-
       it "renders all expected param inputs" do
-        ["text", "email", "number", "tel", "url", "date", "datetime-local"].each do |type|
+        get lookbook_inspect_path("params/all_params")
+
+        ["text", "email", "number", "tel", "url"].each do |type|
           expect(html).to have_css("[data-panel=params] input[type=#{type}][name=#{type.tr("-", "_")}]")
         end
 
@@ -58,6 +56,18 @@ RSpec.describe "inspector", type: :request do
         expect(html).to have_css("[data-panel=params] input[type=color][name=color]")
         expect(html).to have_css("[data-panel=params] input[type=range][name=range]")
         expect(html).to have_css("[data-panel=params] textarea[name=textarea]")
+      end
+
+      it "correctly renders date inputs" do
+        get lookbook_inspect_path("params/date_params")
+
+        expect(html).to have_css("[data-panel=params] input[type=date][name=date][value='1981-04-15']")
+      end
+
+      it "correctly renders datetime-local inputs" do
+        get lookbook_inspect_path("params/date_params")
+
+        expect(html).to have_css("[data-panel=params] input[type=datetime-local][name=datetime][value='1981-04-15T04:05:06']")
       end
     end
 

@@ -25,7 +25,13 @@ module Lookbook
     end
 
     def value
-      @value || value_default
+      val = @value || value_default
+      if value_type == "datetime"
+        formatter = (input == "datetime-local") ? "%Y-%m-%dT%T" : "%Y-%m-%d"
+        StringValueCaster.call(val, "datetime").strftime(formatter)
+      else
+        val
+      end
     end
 
     def value_type
