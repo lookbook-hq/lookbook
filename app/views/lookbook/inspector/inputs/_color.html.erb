@@ -1,5 +1,6 @@
 <%= text_field_tag(name, value,
   **input_options,
   type: "color",
-  "x-model.throttle.300ms": "value"
+  "@change.stop": "",
+  "@blur": "value = $el.value",
 ) %>
