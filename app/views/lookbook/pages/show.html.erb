@@ -2,7 +2,7 @@
   class="h-[calc(100vh_-_40px)]"
   x-data="{}"
   @navigation:complete.window="$refs.scroller.scrollTop = 0">
-  <div class="h-full bg-lookbook-page-bg relative">
+  <div id="page" class="h-full bg-lookbook-page-bg relative">
     <div class="overflow-auto scroll-smooth w-full max-h-full pb-12" x-ref="scroller">
       <div class="h-full flex flex-col">
         <% if @page.header? %>

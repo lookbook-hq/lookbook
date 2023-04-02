@@ -18,4 +18,8 @@
       @apply rounded-md;
     }
   }
+
+  #page [data-component="prose"] h2 {
+    @apply border-b border-lookbook-divider pb-3;
+  }
 }
