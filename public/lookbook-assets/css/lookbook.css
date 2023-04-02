@@ -2397,6 +2397,10 @@ select.compact {
   justify-content: space-between;
 }
 
+.gap-2 {
+  gap: .5rem;
+}
+
 .space-x-1 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(.25rem * var(--tw-space-x-reverse));
@@ -2609,6 +2613,10 @@ select.compact {
 
 .border-t-lookbook-viewport-handle-icon-stroke-hover {
   border-top-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
+.\!bg-lookbook-button-bg {
+  background-color: var(--lookbook-button-bg) !important;
 }
 
 .\!bg-lookbook-header-bg {
@@ -2948,6 +2956,10 @@ select.compact {
 
 .tracking-wider {
   letter-spacing: .05em;
+}
+
+.\!text-lookbook-button-text {
+  color: var(--lookbook-button-text) !important;
 }
 
 .\!text-lookbook-header-text {
@@ -3996,6 +4008,10 @@ select.compact {
   .lg\:prose-base :where(.lg\:prose-base > :last-child):not(:where([class~="not-prose"] *)) {
     margin-bottom: 0;
   }
+}
+
+.hover\:\!bg-lookbook-button-bg-hover:hover {
+  background-color: var(--lookbook-button-bg-hover) !important;
 }
 
 .hover\:bg-lookbook-button-bg-hover:hover {

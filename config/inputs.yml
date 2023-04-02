@@ -40,9 +40,9 @@ shared:
     opts: {}
 
   date:
-    partial: lookbook/inspector/inputs/text
+    partial: lookbook/inspector/inputs/text_two_step
     opts: {}
 
   datetime_local:
-    partial: lookbook/inspector/inputs/text
+    partial: lookbook/inspector/inputs/text_two_step
     opts: {}
