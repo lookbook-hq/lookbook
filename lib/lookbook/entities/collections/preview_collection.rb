@@ -44,7 +44,10 @@ module Lookbook
     class << self
       def preview_from_code_object(code_object)
         klass = code_object.path.constantize
-        PreviewEntity.new(code_object) if preview_class?(klass)
+        if preview_class?(klass)
+          preview = PreviewEntity.new(code_object)
+          preview if preview.scenarios.any?
+        end
       rescue => exception
         Lookbook.logger.error exception.to_s
         nil
