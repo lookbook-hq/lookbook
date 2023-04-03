@@ -58,7 +58,6 @@ shared:
   log_use_rails_logger: true
 
   debug_menu: false
-  experimental_features: false
 
   links:
     docs: https://v2.lookbook.build
