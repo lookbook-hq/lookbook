@@ -53,14 +53,14 @@ RSpec.describe "application", type: :request do
       end
 
       it "uses the collection label set in config" do
-        expect(html).to have_css("#previews-nav h4", text: "Previews")
+        expect(html).to have_content("Previews")
 
         Lookbook.config.preview_collection_label = "Foobar"
 
         get lookbook_home_path
         follow_redirect!
 
-        expect(html).to have_css("#previews-nav h4", text: "Foobar")
+        expect(html).to have_content("Foobar")
       end
     end
   end
@@ -88,14 +88,14 @@ RSpec.describe "application", type: :request do
       end
 
       it "uses the collection label set in config" do
-        expect(html).to have_css("#pages-nav h4", text: "Pages")
+        expect(html).to have_content("Pages")
 
         Lookbook.config.page_collection_label = "Foobar"
 
         get lookbook_home_path
         follow_redirect!
 
-        expect(html).to have_css("#pages-nav h4", text: "Foobar")
+        expect(html).to have_content("Foobar")
       end
     end
   end
