@@ -172,7 +172,7 @@ module Lookbook
 
       render_targets = render_target_identifiers.map do |render_target|
         RenderableEntity.new(render_target)
-      rescue NameError
+      rescue Lookbook::Error, NameError
         Lookbook.logger.warn "#{render_target} was not found"
         nil
       end

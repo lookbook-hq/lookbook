@@ -19,9 +19,9 @@ module Lookbook
       @file_path = Pathname(code_object.file)
       @base_directories = Engine.preview_paths
 
-      cleaned_path = relative_file_path.to_s
-        .gsub(/\/(component_preview|preview)(\..*)$/, "")
-        .gsub(/(_component_preview|_preview)(\..*)$/, "")
+      cleaned_path = preview_class.name.underscore.strip
+        .gsub(/(_component_preview|_preview)(\..+)?$/, "")
+        .gsub(/\/(component_preview|preview|component)(\..+)?$/, "")
 
       @lookup_path = PathUtils.to_lookup_path(cleaned_path)
     end
@@ -149,7 +149,7 @@ module Lookbook
 
     # @api private
     def file_name_base
-      @_file_name_slug ||= file_name(true).gsub(/(_component_preview|component_preview|preview)$/, "")
+      @_file_name_slug ||= file_name(true).gsub(/(_component_preview|component_preview|_preview|preview|component)$/, "")
     end
 
     # @api private

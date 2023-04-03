@@ -75,7 +75,10 @@ module Lookbook
       def logical_path
         return @_logical_path if @_logical_path
 
-        directory = fetch_config(:logical_path) { relative_directory_path.to_s }
+        directory = fetch_config(:logical_path) do
+          parts = lookup_path.split("/")
+          parts.many? ? parts[..-2].join("/") : nil
+        end
         @_logical_path ||= PathUtils.to_path(directory, file_name_base)
       end
 
