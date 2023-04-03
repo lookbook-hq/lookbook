@@ -1,6 +1,6 @@
 {
   "name": "lookbook",
-  "version": "2.0.0-beta.9",
+  "version": "2.0.0-rc.1",
   "description": "A native development UI for ViewComponent",
   "targets": {
     "app": {
