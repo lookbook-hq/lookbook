@@ -66,9 +66,14 @@ module Lookbook
     end
 
     config.after_initialize do
-      reloaders.add(:previews, Engine.preview_watch_paths, opts.listen_extensions, &Engine.method(:load_previews))
-      reloaders.add(:pages, Engine.page_watch_paths, opts.page_extensions, &Engine.method(:load_pages))
-      reloaders.execute
+      if Engine.reloading?
+        reloaders.add(:previews, Engine.preview_watch_paths, opts.listen_extensions, &Engine.method(:load_previews))
+        reloaders.add(:pages, Engine.page_watch_paths, opts.page_extensions, &Engine.method(:load_pages))
+        reloaders.execute
+      else
+        Engine.load_previews
+        Engine.load_pages
+      end
 
       Engine.run_hooks(:after_initialize)
     end
