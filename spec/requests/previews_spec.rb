@@ -28,7 +28,7 @@ RSpec.describe "previews", type: :request do
       it "supports helpers" do
         get lookbook_preview_path("phlex_example/helpers")
 
-        expect(html).to have_content "http://localhost/"
+        expect(html).to have_selector "a[href='/']"
       end
     end
   end
@@ -43,7 +43,7 @@ RSpec.describe "previews", type: :request do
     it "supports helpers" do
       get lookbook_preview_path("partial_example/helpers")
 
-      expect(html).to have_content "http://localhost/"
+      expect(html).to have_selector "a[href='/']"
     end
   end
 
