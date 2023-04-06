@@ -41,7 +41,7 @@ title: Key Concepts & Terminology
   
   Annotations are comments added to preview classes that can be used to customise the preview experience and to provide extra information to end-users.
 
-  [Read more about annotations &rarr;](<%= guide_url :annotations %>)
+  [Read more about annotations &rarr;](<%= guide_url :previews_annotations %>)
 
 <% end %>
 
