@@ -4,7 +4,7 @@
     - name: <text>
       types: String
       text: Text to use for the label
-  description: "Customises the label to displayed in the nav."
+  description: "Customises the label to display in the nav."
   example: |
     # @label Primary Button
     def main_but
