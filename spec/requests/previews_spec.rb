@@ -30,6 +30,13 @@ RSpec.describe "previews", type: :request do
 
         expect(html).to have_content "http://localhost/"
       end
+
+      it "renders builder-style components" do
+        get lookbook_preview_path("phlex_example/builder")
+
+        expect(html.has_css?("li", text: "Hello")).to be true
+        expect(html.has_css?("li", text: "World")).to be true
+      end
     end
   end
 
