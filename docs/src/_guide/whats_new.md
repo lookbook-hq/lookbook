@@ -1,7 +1,7 @@
 ---
 id: whats-new
-label: Whats New
-title: Whats New in v2.0
+label: What's New
+title: What's New in v2.0
 goals: 
   - icon: layers
     text: "Support for previewing a **range of component types**"
@@ -87,7 +87,7 @@ goals:
 <%= render section("Better file watching", id: "live-reload") do |s| %>
   <% s.with_block_prose do %>
     Lookbook's file watching system has been completely overhauled and is now much more closely integrated
-    with Rail's own change detection/code reloading system.
+    with Rails' own change detection/code reloading system.
 
     This means that some long-standing issues (such as detecting changes on forked servers with multiple processes running) have been resolved
     and the `listen` and `actioncable` gems are now only optional dependencies that can be omitted from production (or entirely!).
