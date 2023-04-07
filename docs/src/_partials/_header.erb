@@ -1,10 +1,12 @@
 <div>
-  <div class="flex items-center justify-center h-8 bg-indigo-100 text-sm text-indigo-900 border-b border-indigo-300">
-    <div class="flex items-center space-x-2">
-      <%= icon :alert_triangle, size: 3 %>
-      <span>This is the <strong class="font-semibold">v2.0 beta</strong> site. <a href="<%= links.v1.docs %>" class="underline">1.x docs are here</a>.</span>
+  <% if false %>
+    <div class="flex items-center justify-center h-8 bg-indigo-100 text-sm text-indigo-900 border-b border-indigo-300">
+      <div class="flex items-center space-x-2">
+        <%= icon :alert_triangle, size: 3 %>
+        <span>This is the <strong class="font-semibold">v2.0 beta</strong> site. <a href="<%= links.v1.docs %>" class="underline">1.x docs are here</a>.</span>
+      </div>
     </div>
-  </div>
+  <% end %>
   <header id="site-header" class="layout-container border-b border-gray-300 relative z-40 h-12">
     <div class="layout-column">
       <div class="layout-content flex items-center">

@@ -1,47 +1,47 @@
 ---
 name: ClassNamesHelper
 path: Lookbook::ClassNamesHelper
-description: ""
+description: ''
 methods:
-  - id: build-tag-values-instance-method
-    name: build_tag_values
-    path: Lookbook::ClassNamesHelper#build_tag_values
-    signature: build_tag_values(*args)
-    signature_call: build_tag_values
-    signature_args: "*args"
-    description: ""
-    return_types:
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-    klass: ClassNamesHelper
-    group:
-    aliases: []
-  - id: class-names-instance-method
-    name: class_names
-    path: Lookbook::ClassNamesHelper#class_names
-    signature: class_names(*args)
-    signature_call: class_names
-    signature_args: "*args"
-    description: ""
-    return_types:
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-    klass: ClassNamesHelper
-    group:
-    aliases: []
-groups: []
-type: module
-category: helper
-tags:
+- id: build-tag-values-instance-method
+  name: build_tag_values
+  path: Lookbook::ClassNamesHelper#build_tag_values
+  signature: build_tag_values(*args)
+  signature_call: build_tag_values
+  signature_args: "*args"
+  description: ''
+  return_types:
+  scope: instance
+  tags:
   - name:
     tag_name: api
     text: public
     types:
+  klass: ClassNamesHelper
+  group:
+  aliases: []
+- id: class-names-instance-method
+  name: class_names
+  path: Lookbook::ClassNamesHelper#class_names
+  signature: class_names(*args)
+  signature_call: class_names
+  signature_args: "*args"
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: ClassNamesHelper
+  group:
+  aliases: []
+groups: []
+type: module
+category: helper
+tags:
+- name:
+  tag_name: api
+  text: public
+  types:

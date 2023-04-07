@@ -41,7 +41,7 @@
   }
 
   .link-underline {
-    @apply underline !underline-offset-4 !decoration-current decoration-dashed hover:decoration-solid transition-all;
+    @apply underline !underline-offset-4 decoration-dotted !decoration-gray-400 hover:decoration-solid transition-all;
   }
 }
 

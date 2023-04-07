@@ -18,7 +18,7 @@ title: Introduction
   <% end %>
 
   <% s.with_block_note :warn, title: "This documentation is for Lookbook v2.0"  do %>
-    See the [v1.x](https://lookbook.build) or 
+    See the [v1.x](https://v1.lookbook.build) or 
     [v0.9.x](https://github.com/ViewComponent/lookbook/tree/0.9.x) docs if you are using an older version of Lookbook.
   <% end %>
   

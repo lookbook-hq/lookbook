@@ -5,422 +5,422 @@ description: |-
   Represents the component or view template partial
   that is being rendered in a preview.
 methods:
-  - id: name-instance-method
-    name: name
-    path: Lookbook::RenderableEntity#name
-    signature: name
-    signature_call: name
-    signature_args: ""
-    description: Parameter-safe entity name.
-    return_types: String
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: ""
-        types: String
-    klass: RenderableEntity
-    group: Identity
-    aliases: []
-  - id: type-instance-method
-    name: type
-    path: Lookbook::RenderableEntity#type
-    signature: type
-    signature_call: type
-    signature_args: ""
-    description: |-
-      Entity type identifier.
-      Returns `:component` for components and
-      `:template` for view templates/partials.
-    return_types: Symbol
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: The entity type
-        types: Symbol
-    klass: RenderableEntity
-    group: Identity
-    aliases: []
-  - id: component-class-instance-method
-    name: component_class
-    path: Lookbook::RenderableEntity#component_class
-    signature: component_class
-    signature_call: component_class
-    signature_args: ""
-    description: The associated component class (if the renderable is a component).
-    return_types: Class
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: The component class
-        types: Class
-    klass: RenderableEntity
-    group: Components
-    aliases: []
-  - id: inline?-instance-method
-    name: inline?
-    path: Lookbook::RenderableEntity#inline?
-    signature: inline?
-    signature_call: inline?
-    signature_args: ""
-    description: Whether or not the renderable is a component without a template.
-    return_types: Boolean
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: True if no template is present
-        types: Boolean
-    klass: RenderableEntity
-    group: Components
-    aliases: []
-  - id: component?-instance-method
-    name: component?
-    path: Lookbook::RenderableEntity#component?
-    signature: component?
-    signature_call: component?
-    signature_args: ""
-    description: |-
-      Whether or not the renderable is a component
-      (as opposed to a view template/partial).
-    return_types: Boolean
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: True if component
-        types: Boolean
-    klass: RenderableEntity
-    group: Components
-    aliases: []
-  - id: template?-instance-method
-    name: template?
-    path: Lookbook::RenderableEntity#template?
-    signature: template?
-    signature_call: template?
-    signature_args: ""
-    description: |-
-      Whether or not the renderable is a view template/partial
-      (as opposed to a component).
-    return_types: Boolean
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: True if component
-        types: Boolean
-    klass: RenderableEntity
-    group: Components
-    aliases: []
-  - id: template-file-path-instance-method
-    name: template_file_path
-    path: Lookbook::RenderableEntity#template_file_path
-    signature: template_file_path
-    signature_call: template_file_path
-    signature_args: ""
-    description: |-
-      Full path to the component template (if present)
-      or view template/partial.
-    return_types: Class
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: The component class
-        types: Class
-    klass: RenderableEntity
-    group: Paths
-    aliases: []
-  - id: file-path-instance-method
-    name: file_path
-    path: Lookbook::LocatableEntity#file_path
-    signature: file_path
-    signature_call: file_path
-    signature_args: ""
-    description: Full path to the entity file
-    return_types: Pathname
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: File patj
-        types: Pathname
-    klass: LocatableEntity
-    group: Paths
-    aliases:
-      - full_path
-  - id: file-name-instance-method
-    name: file_name
-    path: Lookbook::LocatableEntity#file_name
-    signature: file_name(strip_ext = false)
-    signature_call: file_name
-    signature_args: strip_ext = false
-    description: |-
-      Name of the entity file.
-
-      Includes file extension unless the `strip_ext` argument is `true`.
-    return_types: String
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name: strip_ext
-        tag_name: param
-        text: Whether or not to remove the file extension
-        types: Boolean
-      - name:
-        tag_name: return
-        text: File name
-        types: String
-    klass: LocatableEntity
-    group: Paths
-    aliases: []
-  - id: file-extension-instance-method
-    name: file_extension
-    path: Lookbook::LocatableEntity#file_extension
-    signature: file_extension
-    signature_call: file_extension
-    signature_args: ""
-    description: Extension of the entity file.
-    return_types: String
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: File extension
-        types: String
-    klass: LocatableEntity
-    group: Paths
-    aliases: []
-  - id: directory-path-instance-method
-    name: directory_path
-    path: Lookbook::LocatableEntity#directory_path
-    signature: directory_path
-    signature_call: directory_path
-    signature_args: ""
-    description: Full directory path for the entity file.
-    return_types: Pathname
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: Directory path
-        types: Pathname
-    klass: LocatableEntity
-    group: Paths
-    aliases:
-      - dir_path
-  - id: relative-file-path-instance-method
-    name: relative_file_path
-    path: Lookbook::LocatableEntity#relative_file_path
-    signature: relative_file_path
-    signature_call: relative_file_path
-    signature_args: ""
-    description: |-
-      Relative path to the entity file.
-
-      Returned path is relative to the appropriate base directory
-      (i.e. the preview directory for previews).
-    return_types: Pathname
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: Relative file path
-        types: Pathname
-    klass: LocatableEntity
-    group: Paths
-    aliases:
-      - rel_path
-  - id: relative-directory-path-instance-method
-    name: relative_directory_path
-    path: Lookbook::LocatableEntity#relative_directory_path
-    signature: relative_directory_path
-    signature_call: relative_directory_path
-    signature_args: ""
-    description: |-
-      Relative directory path for the entity file.
-
-      Returned path is relative to the appropriate base directory
-      (i.e. the preview directory for previews).
-    return_types: Pathname
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: Relative directory path
-        types: Pathname
-    klass: LocatableEntity
-    group: Paths
-    aliases: []
-  - id: last-modified-instance-method
-    name: last_modified
-    path: Lookbook::LocatableEntity#last_modified
-    signature: last_modified
-    signature_call: last_modified
-    signature_args: ""
-    description: Time that the entity file was last modified
-    return_types: Time
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: Time last modified
-        types: Time
-    klass: LocatableEntity
-    group: Paths
-    aliases: []
-  - id: id-instance-method
-    name: id
-    path: Lookbook::Entity#id
-    signature: id
-    signature_call: id
-    signature_args: ""
-    description: Human-readable unique ID for the entity
-    return_types: String
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: The ID
-        types: String
-    klass: Entity
-    group: Identity
-    aliases: []
-  - id: label-instance-method
-    name: label
-    path: Lookbook::Entity#label
-    signature: label
-    signature_call: label
-    signature_args: ""
-    description: |-
-      Titlized name for use in navigation etc.
-
-      Can be customized using the `@label` tag where supported.
-    return_types: String
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: The label
-        types: String
-    klass: Entity
-    group: Identity
-    aliases: []
-  - id: lookup-path-instance-method
-    name: lookup_path
-    path: Lookbook::Entity#lookup_path
-    signature: lookup_path
-    signature_call: lookup_path
-    signature_args: ""
-    description: |-
-      Canonical reference path.
-
-      Used for generating URL paths and looking up entities.
-    return_types: String
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: The lookup path
-        types: String
-    klass: Entity
-    group: Paths
-    aliases:
-      - path
-  - id: "<=>-instance-method"
-    name: "<=>"
-    path: Lookbook::Entity#<=>
-    signature: "<=>(other)"
-    signature_call: "<=>"
-    signature_args: other
-    description: ""
-    return_types:
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-    klass: Entity
-    group:
-    aliases: []
-groups:
-  - Identity
-  - Components
-  - Paths
-type: class
-category: entity
-tags:
+- id: name-instance-method
+  name: name
+  path: Lookbook::RenderableEntity#name
+  signature: name
+  signature_call: name
+  signature_args: ''
+  description: Parameter-safe entity name.
+  return_types: String
+  scope: instance
+  tags:
   - name:
     tag_name: api
     text: public
     types:
+  - name:
+    tag_name: return
+    text: ''
+    types: String
+  klass: RenderableEntity
+  group: Identity
+  aliases: []
+- id: type-instance-method
+  name: type
+  path: Lookbook::RenderableEntity#type
+  signature: type
+  signature_call: type
+  signature_args: ''
+  description: |-
+    Entity type identifier.
+    Returns `:component` for components and
+    `:template` for view templates/partials.
+  return_types: Symbol
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The entity type
+    types: Symbol
+  klass: RenderableEntity
+  group: Identity
+  aliases: []
+- id: component-class-instance-method
+  name: component_class
+  path: Lookbook::RenderableEntity#component_class
+  signature: component_class
+  signature_call: component_class
+  signature_args: ''
+  description: The associated component class (if the renderable is a component).
+  return_types: Class
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The component class
+    types: Class
+  klass: RenderableEntity
+  group: Components
+  aliases: []
+- id: inline?-instance-method
+  name: inline?
+  path: Lookbook::RenderableEntity#inline?
+  signature: inline?
+  signature_call: inline?
+  signature_args: ''
+  description: Whether or not the renderable is a component without a template.
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: True if no template is present
+    types: Boolean
+  klass: RenderableEntity
+  group: Components
+  aliases: []
+- id: component?-instance-method
+  name: component?
+  path: Lookbook::RenderableEntity#component?
+  signature: component?
+  signature_call: component?
+  signature_args: ''
+  description: |-
+    Whether or not the renderable is a component
+    (as opposed to a view template/partial).
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: True if component
+    types: Boolean
+  klass: RenderableEntity
+  group: Components
+  aliases: []
+- id: template?-instance-method
+  name: template?
+  path: Lookbook::RenderableEntity#template?
+  signature: template?
+  signature_call: template?
+  signature_args: ''
+  description: |-
+    Whether or not the renderable is a view template/partial
+    (as opposed to a component).
+  return_types: Boolean
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: True if component
+    types: Boolean
+  klass: RenderableEntity
+  group: Components
+  aliases: []
+- id: template-file-path-instance-method
+  name: template_file_path
+  path: Lookbook::RenderableEntity#template_file_path
+  signature: template_file_path
+  signature_call: template_file_path
+  signature_args: ''
+  description: |-
+    Full path to the component template (if present)
+    or view template/partial.
+  return_types: Class
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The component class
+    types: Class
+  klass: RenderableEntity
+  group: Paths
+  aliases: []
+- id: file-path-instance-method
+  name: file_path
+  path: Lookbook::LocatableEntity#file_path
+  signature: file_path
+  signature_call: file_path
+  signature_args: ''
+  description: Full path to the entity file
+  return_types: Pathname
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: File patj
+    types: Pathname
+  klass: LocatableEntity
+  group: Paths
+  aliases:
+  - full_path
+- id: file-name-instance-method
+  name: file_name
+  path: Lookbook::LocatableEntity#file_name
+  signature: file_name(strip_ext = false)
+  signature_call: file_name
+  signature_args: strip_ext = false
+  description: |-
+    Name of the entity file.
+
+    Includes file extension unless the `strip_ext` argument is `true`.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name: strip_ext
+    tag_name: param
+    text: Whether or not to remove the file extension
+    types: Boolean
+  - name:
+    tag_name: return
+    text: File name
+    types: String
+  klass: LocatableEntity
+  group: Paths
+  aliases: []
+- id: file-extension-instance-method
+  name: file_extension
+  path: Lookbook::LocatableEntity#file_extension
+  signature: file_extension
+  signature_call: file_extension
+  signature_args: ''
+  description: Extension of the entity file.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: File extension
+    types: String
+  klass: LocatableEntity
+  group: Paths
+  aliases: []
+- id: directory-path-instance-method
+  name: directory_path
+  path: Lookbook::LocatableEntity#directory_path
+  signature: directory_path
+  signature_call: directory_path
+  signature_args: ''
+  description: Full directory path for the entity file.
+  return_types: Pathname
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: Directory path
+    types: Pathname
+  klass: LocatableEntity
+  group: Paths
+  aliases:
+  - dir_path
+- id: relative-file-path-instance-method
+  name: relative_file_path
+  path: Lookbook::LocatableEntity#relative_file_path
+  signature: relative_file_path
+  signature_call: relative_file_path
+  signature_args: ''
+  description: |-
+    Relative path to the entity file.
+
+    Returned path is relative to the appropriate base directory
+    (i.e. the preview directory for previews).
+  return_types: Pathname
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: Relative file path
+    types: Pathname
+  klass: LocatableEntity
+  group: Paths
+  aliases:
+  - rel_path
+- id: relative-directory-path-instance-method
+  name: relative_directory_path
+  path: Lookbook::LocatableEntity#relative_directory_path
+  signature: relative_directory_path
+  signature_call: relative_directory_path
+  signature_args: ''
+  description: |-
+    Relative directory path for the entity file.
+
+    Returned path is relative to the appropriate base directory
+    (i.e. the preview directory for previews).
+  return_types: Pathname
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: Relative directory path
+    types: Pathname
+  klass: LocatableEntity
+  group: Paths
+  aliases: []
+- id: last-modified-instance-method
+  name: last_modified
+  path: Lookbook::LocatableEntity#last_modified
+  signature: last_modified
+  signature_call: last_modified
+  signature_args: ''
+  description: Time that the entity file was last modified
+  return_types: Time
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: Time last modified
+    types: Time
+  klass: LocatableEntity
+  group: Paths
+  aliases: []
+- id: id-instance-method
+  name: id
+  path: Lookbook::Entity#id
+  signature: id
+  signature_call: id
+  signature_args: ''
+  description: Human-readable unique ID for the entity
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The ID
+    types: String
+  klass: Entity
+  group: Identity
+  aliases: []
+- id: label-instance-method
+  name: label
+  path: Lookbook::Entity#label
+  signature: label
+  signature_call: label
+  signature_args: ''
+  description: |-
+    Titlized name for use in navigation etc.
+
+    Can be customized using the `@label` tag where supported.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The label
+    types: String
+  klass: Entity
+  group: Identity
+  aliases: []
+- id: lookup-path-instance-method
+  name: lookup_path
+  path: Lookbook::Entity#lookup_path
+  signature: lookup_path
+  signature_call: lookup_path
+  signature_args: ''
+  description: |-
+    Canonical reference path.
+
+    Used for generating URL paths and looking up entities.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The lookup path
+    types: String
+  klass: Entity
+  group: Paths
+  aliases:
+  - path
+- id: "<=>-instance-method"
+  name: "<=>"
+  path: Lookbook::Entity#<=>
+  signature: "<=>(other)"
+  signature_call: "<=>"
+  signature_args: other
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: Entity
+  group:
+  aliases: []
+groups:
+- Identity
+- Components
+- Paths
+type: class
+category: entity
+tags:
+- name:
+  tag_name: api
+  text: public
+  types:

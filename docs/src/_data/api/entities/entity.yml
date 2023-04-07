@@ -3,142 +3,142 @@ name: Entity
 path: Lookbook::Entity
 description: Base entity class
 methods:
-  - id: id-instance-method
-    name: id
-    path: Lookbook::Entity#id
-    signature: id
-    signature_call: id
-    signature_args: ""
-    description: Human-readable unique ID for the entity
-    return_types: String
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: The ID
-        types: String
-    klass: Entity
-    group: Identity
-    aliases: []
-  - id: name-instance-method
-    name: name
-    path: Lookbook::Entity#name
-    signature: name
-    signature_call: name
-    signature_args: ""
-    description: Parameter-safe entity name.
-    return_types: String
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: The name
-        types: String
-    klass: Entity
-    group: Identity
-    aliases: []
-  - id: label-instance-method
-    name: label
-    path: Lookbook::Entity#label
-    signature: label
-    signature_call: label
-    signature_args: ""
-    description: |-
-      Titlized name for use in navigation etc.
-
-      Can be customized using the `@label` tag where supported.
-    return_types: String
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: The label
-        types: String
-    klass: Entity
-    group: Identity
-    aliases: []
-  - id: type-instance-method
-    name: type
-    path: Lookbook::Entity#type
-    signature: type
-    signature_call: type
-    signature_args: ""
-    description: Entity type identifier
-    return_types: Symbol
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: The entity type
-        types: Symbol
-    klass: Entity
-    group: Identity
-    aliases: []
-  - id: lookup-path-instance-method
-    name: lookup_path
-    path: Lookbook::Entity#lookup_path
-    signature: lookup_path
-    signature_call: lookup_path
-    signature_args: ""
-    description: |-
-      Canonical reference path.
-
-      Used for generating URL paths and looking up entities.
-    return_types: String
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-      - name:
-        tag_name: return
-        text: The lookup path
-        types: String
-    klass: Entity
-    group: Paths
-    aliases:
-      - path
-  - id: "<=>-instance-method"
-    name: "<=>"
-    path: Lookbook::Entity#<=>
-    signature: "<=>(other)"
-    signature_call: "<=>"
-    signature_args: other
-    description: ""
-    return_types:
-    scope: instance
-    tags:
-      - name:
-        tag_name: api
-        text: public
-        types:
-    klass: Entity
-    group:
-    aliases: []
-groups:
-  - Identity
-  - Paths
-type: class
-category: entity
-tags:
+- id: id-instance-method
+  name: id
+  path: Lookbook::Entity#id
+  signature: id
+  signature_call: id
+  signature_args: ''
+  description: Human-readable unique ID for the entity
+  return_types: String
+  scope: instance
+  tags:
   - name:
     tag_name: api
     text: public
     types:
+  - name:
+    tag_name: return
+    text: The ID
+    types: String
+  klass: Entity
+  group: Identity
+  aliases: []
+- id: name-instance-method
+  name: name
+  path: Lookbook::Entity#name
+  signature: name
+  signature_call: name
+  signature_args: ''
+  description: Parameter-safe entity name.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The name
+    types: String
+  klass: Entity
+  group: Identity
+  aliases: []
+- id: label-instance-method
+  name: label
+  path: Lookbook::Entity#label
+  signature: label
+  signature_call: label
+  signature_args: ''
+  description: |-
+    Titlized name for use in navigation etc.
+
+    Can be customized using the `@label` tag where supported.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The label
+    types: String
+  klass: Entity
+  group: Identity
+  aliases: []
+- id: type-instance-method
+  name: type
+  path: Lookbook::Entity#type
+  signature: type
+  signature_call: type
+  signature_args: ''
+  description: Entity type identifier
+  return_types: Symbol
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The entity type
+    types: Symbol
+  klass: Entity
+  group: Identity
+  aliases: []
+- id: lookup-path-instance-method
+  name: lookup_path
+  path: Lookbook::Entity#lookup_path
+  signature: lookup_path
+  signature_call: lookup_path
+  signature_args: ''
+  description: |-
+    Canonical reference path.
+
+    Used for generating URL paths and looking up entities.
+  return_types: String
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  - name:
+    tag_name: return
+    text: The lookup path
+    types: String
+  klass: Entity
+  group: Paths
+  aliases:
+  - path
+- id: "<=>-instance-method"
+  name: "<=>"
+  path: Lookbook::Entity#<=>
+  signature: "<=>(other)"
+  signature_call: "<=>"
+  signature_args: other
+  description: ''
+  return_types:
+  scope: instance
+  tags:
+  - name:
+    tag_name: api
+    text: public
+    types:
+  klass: Entity
+  group:
+  aliases: []
+groups:
+- Identity
+- Paths
+type: class
+category: entity
+tags:
+- name:
+  tag_name: api
+  text: public
+  types:
