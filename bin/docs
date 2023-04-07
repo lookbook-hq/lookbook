@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 
-cd docs && bundle && bin/bridgetown start
+cd docs
+bundle
+npm install
+bin/bridgetown start
