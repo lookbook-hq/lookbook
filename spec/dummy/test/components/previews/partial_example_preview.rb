@@ -6,4 +6,8 @@ class PartialExamplePreview < Lookbook::Preview
   def helpers
     render "partials/helpers_example"
   end
+
+  def url_helpers
+    render "partials/url_helpers_example"
+  end
 end

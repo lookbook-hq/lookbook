@@ -1,7 +1,7 @@
 module Views::Phlex
   class HelpersExample < Phlex::HTML
     def template
-      p { helpers.url_for(:root) }
+      a(href: helpers.url_for(:root)) { "click here" }
     end
   end
 end

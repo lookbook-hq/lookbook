@@ -28,7 +28,7 @@ RSpec.describe "previews", type: :request do
       it "supports helpers" do
         get lookbook_preview_path("phlex_example/helpers")
 
-        expect(html).to have_content "http://localhost/"
+        expect(html).to have_selector "a[href='/']"
       end
 
       it "renders builder-style components" do
@@ -50,7 +50,13 @@ RSpec.describe "previews", type: :request do
     it "supports helpers" do
       get lookbook_preview_path("partial_example/helpers")
 
-      expect(html).to have_content "http://localhost/"
+      expect(html).to have_selector "a[href='/']"
+    end
+
+    it "has access to host app url helpers" do
+      get lookbook_preview_path("partial_example/url_helpers")
+      puts html.native.inner_html
+      expect(html).to have_selector "a[href='/blog']"
     end
   end
 
