@@ -42,7 +42,7 @@ shared:
     theme: github
     dark: false
 
-  component_paths: [app/views]
+  component_paths: [app/views, app/components]
 
   reload_on_change: ~
   live_updates: false
