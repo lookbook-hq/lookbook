@@ -4,6 +4,7 @@ module Lookbook
 
     included do
       helper PreviewHelper
+      helper Rails.application.routes.url_helpers
       prepend_view_path Engine.root.join("app/views")
     end
 
