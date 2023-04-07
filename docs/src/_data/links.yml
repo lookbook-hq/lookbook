@@ -1,12 +1,8 @@
-v1:
-  repo: https://github.com/ViewComponent/lookbook
-  docs: https://lookbook.build/lookbook
-  demo: https://demo.lookbook.build/lookbook
-  demo_repo: https://github.com/ViewComponent/lookbook-demo
+repo: https://github.com/ViewComponent/lookbook
+docs: https://lookbook.build/guide
+demo: https://demo.lookbook.build/lookbook
+demo_home: https://demo.lookbook.build
+demo_repo: https://github.com/ViewComponent/lookbook-demo
 
-v2:
-  repo: https://github.com/ViewComponent/lookbook/tree/v2
-  docs: https://v2.lookbook.build
-  demo: https://v2-demo.lookbook.build/lookbook
-  demo_home: https://v2-demo.lookbook.build
-  demo_repo: https://github.com/ViewComponent/lookbook-demo/tree/v2
+v1:
+  docs: https://v1.lookbook.build

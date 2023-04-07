@@ -63,12 +63,12 @@ goals:
   <% s.with_block_prose do %>
       Preview embeds allow **live component previews** to be embedded outside of Lookbook, within the parent app or on an external site.
 
-      The following is an example of a full-featured embed of a preview from the [Lookbook demo site](<%= links.v2.demo %>):      
+      The following is an example of a full-featured embed of a preview from the [Lookbook demo site](<%= links.demo %>):      
   <% end %>
 
     <% s.with_block_html do %>
     <lookbook-embed
-      app="<%= links.v2.demo %>"
+      app="<%= links.demo %>"
       preview="Feedback::BlankSlateComponentPreview"
       scenario="default"
       panels="params,source,output"

@@ -13,12 +13,12 @@ lookbook_embeds: true
 
 <%= render section("Example embed", id: "example") do |s| %>
   <% s.with_block_prose do %>
-    The following is an example of a full-featured embed of a preview from the [Lookbook demo site](<%= links.v2.demo %>):
+    The following is an example of a full-featured embed of a preview from the [Lookbook demo site](<%= links.demo %>):
   <% end %>
 
   <% s.with_block_html do %>
     <lookbook-embed
-      app="<%= links.v2.demo %>"
+      app="<%= links.demo %>"
       preview="Feedback::BlankSlateComponentPreview"
       scenario="default"
       panels="params,source,output"
@@ -32,7 +32,7 @@ lookbook_embeds: true
       <summary>Embed code</summary>
       <%= code :html do %>
         <lookbook-embed
-          app="<%= links.v2.demo %>"
+          app="<%= links.demo %>"
           preview="Feedback::BlankSlateComponentPreview"
           scenario="default"
           panels="params,source,output"
@@ -71,7 +71,7 @@ lookbook_embeds: true
 
   <% s.with_block_subheading "Include the Lookbook JS", id: "javascript", step: 3 %>
   <% s.with_block_prose do %>
-    Every page that has an embed on it will need to include the [Lookbook JS file](<%= links.v2.demo_home %>/lookbook-assets/js/lookbook.js).
+    Every page that has an embed on it will need to include the [Lookbook JS file](<%= links.demo_home %>/lookbook-assets/js/lookbook.js).
 
     This is served by every app running Lookbook at `/lookbook-assets/js/lookbook.js` and can either be referenced from there directly
     or pulled down and included separately.  
@@ -79,7 +79,7 @@ lookbook_embeds: true
 
   <% s.with_block_note :warn do %>
     The Lookbook JS file includes the popular [iFrame Resizer](https://github.com/davidjbradshaw/iframe-resizer) script. If your app already includes this in its JS bundle 
-    then you should use a lighter-weight ['core' version](<%= links.v2.demo_home %>/lookbook-assets/js/lookbook.js) of the Lookbook JS that does not have the
+    then you should use a lighter-weight ['core' version](<%= links.demo_home %>/lookbook-assets/js/lookbook.js) of the Lookbook JS that does not have the
     iframe resizer script bundled together with it.
 
     This script is served by apps running Lookbook at `/lookbook-assets/js/lookbook-core.js`.
@@ -103,7 +103,7 @@ lookbook_embeds: true
 
     ```html
     <lookbook-embed
-      app="<%= links.v2.demo %>"
+      app="<%= links.demo %>"
       preview="Feedback::AlertComponentPreview">
     </lookbook-embed>
     ```
@@ -111,7 +111,7 @@ lookbook_embeds: true
     <details>
       <summary>Generated embed</summary>
       <lookbook-embed
-        app="<%= links.v2.demo %>"
+        app="<%= links.demo %>"
         preview="Feedback::AlertComponentPreview">
       </lookbook-embed>
     </details>
@@ -136,7 +136,7 @@ lookbook_embeds: true
     <details>
       <summary>Generated embed</summary>
       <lookbook-embed
-        app="<%= links.v2.demo %>"
+        app="<%= links.demo %>"
         preview="Feedback::AlertComponentPreview"
         scenario="danger">
       </lookbook-embed>
@@ -152,7 +152,7 @@ lookbook_embeds: true
     <details>
       <summary>Generated embed</summary>
       <lookbook-embed
-        app="<%= links.v2.demo %>"
+        app="<%= links.demo %>"
         preview="Feedback::AlertComponentPreview"
         scenario="success,danger">
       </lookbook-embed>
@@ -174,7 +174,7 @@ lookbook_embeds: true
     <details>
       <summary>Generated embed</summary>
       <lookbook-embed
-        app="<%= links.v2.demo %>"
+        app="<%= links.demo %>"
         preview="Feedback::BlankSlateComponentPreview"
         panels="source,params">
       </lookbook-embed>
@@ -203,7 +203,7 @@ lookbook_embeds: true
     <details>
       <summary>Generated embed</summary>
       <lookbook-embed
-        app="<%= links.v2.demo %>"
+        app="<%= links.demo %>"
         preview="Feedback::AlertComponentPreview"
         actions="open">
       </lookbook-embed>
@@ -226,7 +226,7 @@ lookbook_embeds: true
     <details>
       <summary>Generated embed</summary>
       <lookbook-embed
-        app="<%= links.v2.demo %>"
+        app="<%= links.demo %>"
         preview="Elements::ButtonComponentPreview"
         param-text="Some custom button text">
       </lookbook-embed>

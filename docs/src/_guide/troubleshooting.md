@@ -8,7 +8,7 @@ title: Troubleshooting
   Below is a collection of solutions for (or workarounds to) some some common issues that people run into when using Lookbook.
 
   If you are having problems and nothing here helps then head over to the
-  [Lookbook repo](<%= links.v2.repo %>) and open an issue or discussion to get help from the community.
+  [Lookbook repo](<%= links.repo %>) and open an issue or discussion to get help from the community.
 <% end %>
 
 <%= render section("Template error in preview window", id: "link-to-template-error") do |s| %>

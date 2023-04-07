@@ -82,7 +82,7 @@ title: Upgrade Guide
   <% s.with_block_prose do %>
     The 'workbench' app (previously run via the `bin/workbench` command) has been removed to reduce the maintence overhead of managing an additional separate app within the codebase.
 
-    It's recommended to use the [Lookbook demo app](<%= links.v2.demo_repo %>) set up to reference a local copy of the Lookbook gem for testing the development of new features.
+    It's recommended to use the [Lookbook demo app](<%= links.demo_repo %>) set up to reference a local copy of the Lookbook gem for testing the development of new features.
   <% end %>
 <% end %>
 

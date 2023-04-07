@@ -26,20 +26,20 @@ title: Introduction
 
 <%= render section("Demo app", id: "demo") do |s| %>
   <% s.with_block_prose do %>
-    If you want to have a quick play with Lookbook, the easiest way is to [give the demo app](<%= links.v2.demo %>) a spin.
+    If you want to have a quick play with Lookbook, the easiest way is to [give the demo app](<%= links.demo %>) a spin.
     It's a basic Rails/ViewComponent app with a few test components included to tinker with.
   <% end %>
 
   <% s.with_block_button center: false do |b| %>
-    <% b.with_button "View the demo", href: links.v2.demo, icon: :arrow_right, icon_position: :after %>
+    <% b.with_button "View the demo", href: links.demo, icon: :arrow_right, icon_position: :after %>
   <% end %>
 
 
   <% s.with_block_note :tip do %>
-    If you'd rather dig in a bit more and run the demo app locally, the [demo repo](<%= links.v2.demo_repo %>) contains instructions on how to get it up and running yourself.
+    If you'd rather dig in a bit more and run the demo app locally, the [demo repo](<%= links.demo_repo %>) contains instructions on how to get it up and running yourself.
   <% end %>
   
-  <% s.with_block_screenshot "guide/lookbook_ui.png", "Lookbook demo app", href: links.v2.demo %>
+  <% s.with_block_screenshot "guide/lookbook_ui.png", "Lookbook demo app", href: links.demo %>
 
 <% end %>
 

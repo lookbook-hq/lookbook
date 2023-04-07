@@ -10,7 +10,7 @@ title: Pages Overview
   <% end %>
 
   <% s.with_block_note :tip do %>
-    For an example of some pages in Lookbook, check out the [example pages](<%= links.v2.demo %>) in the Lookbook demo app and the associated [page files](<%= links.v2.demo_repo %>/tree/main/test/components/docs) in the demo repo.
+    For an example of some pages in Lookbook, check out the [example pages](<%= links.demo %>) in the Lookbook demo app and the associated [page files](<%= links.demo_repo %>/tree/main/test/components/docs) in the demo repo.
   <% end %>
 <% end %>
 
