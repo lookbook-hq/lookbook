@@ -1,6 +1,6 @@
 <div class="border-b border-gray-300 ">
   <div class="h-8 flex items-center text-sm bg-yellow-100 text-yellow-800 px-6 border-b border-yellow-400">
-    <div class="mx-auto">🚀 The <strong class="font-semibold">Lookbook v2.0 beta</strong> is now available! <a href="https://v2.lookbook.build" class="underline">Check out the docs &rarr;</a></div>
+    <div class="mx-auto">🚨 You are viewing the <strong class="font-semibold">legacy v1.x</strong> docs. <a href="https://lookbook.build" class="underline">See the new v2 documentation &rarr;</a></div>
   </div>
   <header class="layout-container h-12 relative z-50">
     <div class="layout-column">
