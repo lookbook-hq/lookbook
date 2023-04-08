@@ -10,7 +10,18 @@ module Lookbook
     def initialize(identifier)
       @identifier = identifier
       @base_directories = Engine.component_paths
-      @file_path = PathUtils.determine_full_path(component? ? "#{name}.rb" : identifier, @base_directories)
+
+      @file_path = if component?
+        locations = Where.is_class(identifier.constantize)
+        dirs = @base_directories.sort_by { |d| d.size * -1 }
+        lookup = locations.find do |loc|
+          dirs.find { |d| loc[0].start_with?(d) }
+        end
+        lookup[0] if lookup
+      else
+        PathUtils.determine_full_path(identifier, @base_directories)
+      end
+
       unless @file_path && File.exist?(@file_path)
         raise Lookbook::Error, "The render target #{@identifier} was not found."
       end
