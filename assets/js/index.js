@@ -1,4 +1,4 @@
-import Alpine from "alpinejs";
+import Alpine from "@alpinejs/csp";
 
 import Morph from "@alpinejs/morph";
 import Persist from "@alpinejs/persist";
