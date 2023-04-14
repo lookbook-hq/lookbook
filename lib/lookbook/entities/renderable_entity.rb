@@ -12,12 +12,14 @@ module Lookbook
       @base_directories = Engine.component_paths
 
       @file_path = if component?
-        locations = Where.is_class(identifier.constantize)
-        dirs = @base_directories.sort_by { |d| d.size * -1 }
-        lookup = locations.find do |loc|
-          dirs.find { |d| loc[0].start_with?(d) }
+        PathUtils.determine_full_path("#{name}.rb", @base_directories).presence || begin
+          locations = Where.is_class(identifier.constantize)
+          dirs = @base_directories.sort_by { |d| d.size * -1 }
+          lookup = locations.find do |loc|
+            dirs.find { |d| loc[0].start_with?(d) }
+          end
+          lookup[0] if lookup
         end
-        lookup[0] if lookup
       else
         PathUtils.determine_full_path(identifier, @base_directories)
       end

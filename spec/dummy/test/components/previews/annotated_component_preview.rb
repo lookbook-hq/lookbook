@@ -4,9 +4,9 @@
 # @customtag a custom tag
 # @customtag another instance of it
 # @logical_path foo/bar
-# @component StandardComponent
-# @component InlineComponent
-# @component MadeUpComponent
+# @renders StandardComponent
+# @renders InlineComponent
+# @renders MadeUpComponent
 class AnnotatedComponentPreview < ViewComponent::Preview
   # @id annotated-default
   # @label Annotated Example

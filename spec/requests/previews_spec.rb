@@ -55,7 +55,7 @@ RSpec.describe "previews", type: :request do
 
     it "has access to host app url helpers" do
       get lookbook_preview_path("partial_example/url_helpers")
-      puts html.native.inner_html
+
       expect(html).to have_selector "a[href='/blog']"
     end
   end
