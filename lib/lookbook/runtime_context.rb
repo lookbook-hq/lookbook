@@ -35,7 +35,7 @@ module Lookbook
     end
 
     def web?
-      !rake_task? && !Rails.const_defined?(:Console)
+      !rake_task? && !Rails.const_defined?(:Console, false)
     end
 
     def rake_task?
