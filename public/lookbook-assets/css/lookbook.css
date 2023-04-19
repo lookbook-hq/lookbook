@@ -1526,7 +1526,6 @@ pre[class*="language-"] {
 
 [data-component="message"] .message-title {
   text-overflow: ellipsis;
-  white-space: nowrap;
   text-transform: uppercase;
   letter-spacing: .025em;
   color: var(--lookbook-message-title);
