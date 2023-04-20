@@ -1525,15 +1525,14 @@ pre[class*="language-"] {
 }
 
 [data-component="message"] .message-title {
-  text-overflow: ellipsis;
   text-transform: uppercase;
   letter-spacing: .025em;
   color: var(--lookbook-message-title);
+  overflow-wrap: anywhere;
   margin-bottom: .5rem;
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.5rem;
-  overflow: hidden;
 }
 
 [data-component="message"] .message-icon {
