@@ -1,5 +1,9 @@
 class ParamsComponentPreview < ViewComponent::Preview
-  TEXT = "the default value"
+  TEXT = <<~TEXT
+    the multiline
+
+    default value
+  TEXT
 
   # @param select select
   # @param textarea textarea
@@ -34,7 +38,7 @@ class ParamsComponentPreview < ViewComponent::Preview
     end
   end
 
-  # @param body_text
+  # @param body_text textarea
   def dynamic_args(body_text: TEXT)
     render StandardComponent.new do
       body_text
