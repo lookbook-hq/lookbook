@@ -88,7 +88,7 @@
     "postcss": "^8.4.19",
     "postcss-import": "^15.0.0",
     "postcss-import-ext-glob": "^2.0.1",
-    "prettier": "2.8.0",
+    "prettier": "2.8.8",
     "release-it": "^15.5.0",
     "watch": "^0.13.0"
   },
