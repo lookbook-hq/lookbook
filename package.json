@@ -85,7 +85,7 @@
     "husky": "^8.0.2",
     "lint-staged": "^13.1.0",
     "parcel": "^2.8.0",
-    "postcss": "^8.4.19",
+    "postcss": "^8.4.23",
     "postcss-import": "^15.0.0",
     "postcss-import-ext-glob": "^2.0.1",
     "prettier": "2.8.0",
