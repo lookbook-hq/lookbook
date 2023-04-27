@@ -5,7 +5,8 @@ RSpec.describe "previews", type: :request do
     it "renders previews with non-static default param values" do
       get lookbook_preview_path("params/dynamic_args")
 
-      expect(html).to have_content "the default value"
+      expect(html).to have_content "the multiline"
+      expect(html).to have_content "default value"
     end
   end
 

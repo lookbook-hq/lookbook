@@ -50,13 +50,14 @@ title: Contributing to Lookbook
   * **Include a concise description** of what the PR contains.
   * **Follow Lookbook's coding conventions** &mdash; we use [Standard](https://github.com/testdouble/standard) for Ruby linting/formatting and [Prettier](https://prettier.io/) for almost everything else.
   * **Follow Lookbook's commit message conventions** &mdash; we use [Angular-style](https://www.conventionalcommits.org/en/v1.0.0-beta.4/) commit messages.
-  * **Ensure that the existing tests pass**, and preferrably add more tests around the bug or feature addressed in  the PR.
+  * **Ensure that the existing tests pass**, and preferably add more tests around the bug or feature addressed in  the PR.
 
   Steps:
 
   * Fork and clone the repository.
   * Configure and install the dependencies: `bundle install`.
-  * Make sure the tests pass: `rake test`.
+  * Set up appraisal: `bundle exec appraisal install`.
+  * Make sure the tests pass: `rake spec`.
   * Create a new branch: `git checkout -b my-branch-name`.
   * Add tests, make the change, and make sure the tests still pass.
   * Push to the fork and submit a pull request.

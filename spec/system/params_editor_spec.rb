@@ -34,4 +34,18 @@ RSpec.describe "Params editor", type: :system do
       end
     end
   end
+
+  context "textarea" do
+    before do
+      visit lookbook_inspect_path("params/dynamic_args")
+    end
+
+    it "properly interprets values with newlines" do
+      within("#app-main") do
+        click_on "Params"
+      end
+
+      expect(page.find("textarea").value).to eql ParamsComponentPreview::TEXT
+    end
+  end
 end
