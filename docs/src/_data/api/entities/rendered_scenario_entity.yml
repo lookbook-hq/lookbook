@@ -9,32 +9,32 @@ description: |-
 
   See the [ScenarioEntity](./scenario_entity) docs for other available methods.
 methods:
-- id: output-instance-method
-  name: output
-  path: Lookbook::RenderedScenarioEntity#output
-  signature: output
-  signature_call: output
-  signature_args: ''
-  description: HTML output of the rendered scenario.
-  return_types: String
-  scope: instance
-  tags:
-  - name:
-    tag_name: api
-    text: public
-    types:
-  - name:
-    tag_name: return
-    text: Rendered output
-    types: String
-  klass: RenderedScenarioEntity
-  group:
-  aliases: []
+  - id: output-instance-method
+    name: output
+    path: Lookbook::RenderedScenarioEntity#output
+    signature: output
+    signature_call: output
+    signature_args: ""
+    description: HTML output of the rendered scenario.
+    return_types: String
+    scope: instance
+    tags:
+      - name:
+        tag_name: api
+        text: public
+        types:
+      - name:
+        tag_name: return
+        text: Rendered output
+        types: String
+    klass: RenderedScenarioEntity
+    group:
+    aliases: []
 groups: []
 type: class
 category: entity
 tags:
-- name:
-  tag_name: api
-  text: public
-  types:
+  - name:
+    tag_name: api
+    text: public
+    types:

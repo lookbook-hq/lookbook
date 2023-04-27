@@ -3,44 +3,44 @@ name: PageHelper
 path: Lookbook::PageHelper
 description: Helpers for documentation page templates
 methods:
-- id: embed-instance-method
-  name: embed
-  path: Lookbook::PageHelper#embed
-  signature: embed(preview, scenario = nil, **opts)
-  signature_call: embed
-  signature_args: preview, scenario = nil, **opts
-  description: |-
-    Render a 'live' embed of a component preview.
+  - id: embed-instance-method
+    name: embed
+    path: Lookbook::PageHelper#embed
+    signature: embed(preview, scenario = nil, **opts)
+    signature_call: embed
+    signature_args: preview, scenario = nil, **opts
+    description: |-
+      Render a 'live' embed of a component preview.
 
-    If no scenario name is provided then the default (first) preview
-    scenario will be rendered in the embed.
-  return_types:
-  scope: instance
-  tags:
-  - name:
-    tag_name: api
-    text: public
-    types:
-  - name: preview
-    tag_name: param
-    text: Name of the preview class to embed
-    types: String
-  - name: scenario
-    tag_name: param
-    text: Example method name
-    types: String
-  - name: opts
-    tag_name: param
-    text: Options hash
-    types: Hash
-  klass: PageHelper
-  group:
-  aliases: []
+      If no scenario name is provided then the default (first) preview
+      scenario will be rendered in the embed.
+    return_types:
+    scope: instance
+    tags:
+      - name:
+        tag_name: api
+        text: public
+        types:
+      - name: preview
+        tag_name: param
+        text: Name of the preview class to embed
+        types: String
+      - name: scenario
+        tag_name: param
+        text: Example method name
+        types: String
+      - name: opts
+        tag_name: param
+        text: Options hash
+        types: Hash
+    klass: PageHelper
+    group:
+    aliases: []
 groups: []
 type: module
 category: helper
 tags:
-- name:
-  tag_name: api
-  text: public
-  types:
+  - name:
+    tag_name: api
+    text: public
+    types:
