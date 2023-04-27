@@ -1,29 +1,19 @@
+<div align="center">
 <br>
-<img src=".github/assets/lookbook_logo.svg" width="180"> 
+<p><a href="https://lookbook.build"><img src=".github/assets/lookbook_logo.svg" width="240"></a></p>
 
-Lookbook is a **UI development environment** for Ruby on Rails applications.
+<p>A UI development environment for Ruby on Rails applications.</p>
 
-[![Gem version](https://img.shields.io/gem/v/lookbook)](https://rubygems.org/gems/lookbook)
-[![CI status](https://github.com/ViewComponent/lookbook/actions/workflows/ci.yml/badge.svg?branch=v2)](https://github.com/ViewComponent/lookbook/actions/workflows/ci.yml)
-<br>
+<p><strong><a href="https://lookbook.build">Documentation</a> &nbsp;|&nbsp; <a href="http://demo.lookbook.build/">Demo site</a></strong></p>
+
+<p><a href="https://rubygems.org/gems/lookbook"><img src="https://img.shields.io/gem/v/lookbook" alt="Gem version"></a>
+<a href="https://github.com/ViewComponent/lookbook/actions/workflows/ci.yml"><img src="https://github.com/ViewComponent/lookbook/actions/workflows/ci.yml/badge.svg" alt="CI status"></a></p>
+
+</div>
 
 ---
 
-**🚨 This is the v2.0 development branch! 🚨**
-
-For the current stable release see the [main branch](https://github.com/ViewComponent/lookbook/tree/main).
-
----
-
-## Resources
-
-* 🚧 **Docs**: [v2.lookbook.build](https://v2.lookbook.build)
-* 🚧 **Demo**: [v2-demo.lookbook.build/](http://v2-demo.lookbook.build/) ([repo here](https://github.com/ViewComponent/lookbook-demo/tree/v2))
-
-<br>
-
-[![Lookbook UI](.github/assets/lookbook_ui.png)](http://v2-demo.lookbook.build/)
-
+[![Lookbook UI](.github/assets/lookbook_ui.png)](http://lookbook.build/)
 
 ## Development
 
