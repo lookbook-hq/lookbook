@@ -1,2 +1,8 @@
 http://www.lookbook.build/_ https://lookbook.build/:splat 301!
 https://www.lookbook.build/_ https://lookbook.build/:splat 301!
+
+http://v2.lookbook.build/_ https://lookbook.build/:splat 301!
+https://v2.lookbook.build/_ https://lookbook.build/:splat 301!
+
+http://v2-demo.lookbook.build/_ https://demo.lookbook.build/:splat 301!
+https://v2-demo.lookbook.build/_ https://demo.lookbook.build/:splat 301!
