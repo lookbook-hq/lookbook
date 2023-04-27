@@ -4,10 +4,17 @@
 
 <p>A UI development environment for Ruby on Rails applications.</p>
 
-<p><strong><a href="https://lookbook.build">Documentation</a> &nbsp;|&nbsp; <a href="http://demo.lookbook.build/">Demo site</a></strong></p>
+<p><strong><a href="https://lookbook.build">Documentation</a> &nbsp;|&nbsp; <a href="http://demo.lookbook.build/lookbook">Demo site</a></strong></p>
 
 <p><a href="https://rubygems.org/gems/lookbook"><img src="https://img.shields.io/gem/v/lookbook" alt="Gem version"></a>
 <a href="https://github.com/ViewComponent/lookbook/actions/workflows/ci.yml"><img src="https://github.com/ViewComponent/lookbook/actions/workflows/ci.yml/badge.svg" alt="CI status"></a></p>
+
+</div>
+
+---
+
+<div align="center">
+Lookbook combines a powerful <strong>component browser</strong> and <strong>preview system</strong> with an <strong>integrated documentation engine</strong> to help teams build robust, modular, maintainable user interfaces. <a href="https://lookbook.build"><strong>Learn more &rarr;</strong></a>
 
 </div>
 
