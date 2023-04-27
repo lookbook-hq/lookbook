@@ -201,8 +201,6 @@ module Lookbook
       end
 
       def preview_controller
-        return @_preview_controller if @_preview_controller
-
         @_preview_controller = opts.preview_controller.constantize
         @_preview_controller.include PreviewControllerActions
       end
