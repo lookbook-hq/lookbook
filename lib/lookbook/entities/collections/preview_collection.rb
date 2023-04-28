@@ -2,6 +2,8 @@ module Lookbook
   class PreviewCollection < EntityCollection
     include HierarchicalCollection
 
+    TREE_BUILDER = PreviewTreeBuilder
+
     def find_scenario_by_path(lookup_path)
       scenarios.find_by_path(lookup_path)
     end

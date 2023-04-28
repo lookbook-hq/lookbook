@@ -2,13 +2,16 @@ module Lookbook
   module HierarchicalCollection
     extend ActiveSupport::Concern
 
+    TREE_BUILDER = nil
+
     included do
       def entities
         @_cache[:entities] ||= collect_ordered_entities(to_tree(include_hidden: true))
       end
 
       def to_tree(include_hidden: false)
-        @_cache[include_hidden ? :tree_with_hidden : :tree] ||= EntityTreeBuilder.call(@entities, include_hidden: include_hidden)
+        cache_key = include_hidden ? :tree_with_hidden : :tree
+        @_cache[cache_key] ||= self.class::TREE_BUILDER.call(@entities, include_hidden: include_hidden)
       end
 
       protected

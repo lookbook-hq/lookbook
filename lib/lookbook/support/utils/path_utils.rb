@@ -14,11 +14,11 @@ module Lookbook
         file_name = File.basename(path).split(".").first
 
         segments = [*directory_path&.split("/"), file_name].compact
-        stripped_segments = segments.map! do |segment|
+        segments.map! do |segment|
           PriorityPrefixParser.call(segment).last.tr("-", "_")
         end
 
-        to_path(stripped_segments)
+        to_path(segments)
       end
 
       def to_path(*args)
