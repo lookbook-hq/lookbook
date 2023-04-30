@@ -63,5 +63,18 @@ RSpec.describe Lookbook::ParamTag do
         expect(tag.description).to eq "a description"
       end
     end
+
+    context "with options" do
+      let(:tag) { described_class.new('foo select "a description" { choices: [primary, secondary, danger], value_type: "Symbol" }') }
+
+      it "parses the description" do
+        expect(tag.description).to eq "a description"
+      end
+
+      it "parses the options" do
+        expect(tag.options[:value_type]).to eql "Symbol"
+        expect(tag.options[:choices]).to eql ["primary", "secondary", "danger"]
+      end
+    end
   end
 end
