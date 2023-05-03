@@ -33,6 +33,15 @@ module Lookbook
       escape_once embed_tag
     end
 
+    def embed_url
+      props = {
+        preview: preview_name,
+        scenario: target.name,
+        **external_embed_params.transform_keys { |k| k.tr("-", "_") }
+      }.to_json
+      "#{app_path}embed?props=#{CGI.escape(props)}"
+    end
+
     private
 
     def alpine_component

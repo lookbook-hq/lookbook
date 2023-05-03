@@ -7815,7 +7815,7 @@ function $12b7aa006b8a97e1$var$toCamel(s) {
 }
 
 
-var $55bd93c2be5b85c3$exports = {};
+var $52abf2efa3492135$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11346,6 +11346,16 @@ function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
 }
 
 
+var $99486586f6691564$exports = {};
+
+$parcel$defineInteropFlag($99486586f6691564$exports);
+
+$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
+function $99486586f6691564$export$2e2bcd8739ae039() {
+    return {};
+}
+
+
 var $47a1c62621be0c54$exports = {};
 
 $parcel$defineInteropFlag($47a1c62621be0c54$exports);
@@ -11402,16 +11412,6 @@ function $47a1c62621be0c54$export$2e2bcd8739ae039() {
 }
 
 
-var $99486586f6691564$exports = {};
-
-$parcel$defineInteropFlag($99486586f6691564$exports);
-
-$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
-function $99486586f6691564$export$2e2bcd8739ae039() {
-    return {};
-}
-
-
 var $e398acaded942bbe$exports = {};
 
 $parcel$defineInteropFlag($e398acaded942bbe$exports);
@@ -11450,23 +11450,8 @@ var $216ef7001f59f21d$exports = {};
 $parcel$defineInteropFlag($216ef7001f59f21d$exports);
 
 $parcel$export($216ef7001f59f21d$exports, "default", () => $216ef7001f59f21d$export$2e2bcd8739ae039);
-
 function $216ef7001f59f21d$export$2e2bcd8739ae039() {
-    let copyTimeout = null;
-    return {
-        copied: false,
-        copyEmbedCode () {
-            this.$nextTick(async ()=>{
-                const content = (0, $fb8f79f7dd40b68f$export$6cb344a21ca18aec)(this.$refs.copyTarget.innerHTML.trim());
-                await window.navigator.clipboard.writeText(content);
-                this.copied = true;
-                if (copyTimeout) clearTimeout(copyTimeout);
-                copyTimeout = setTimeout(()=>{
-                    this.copied = false;
-                }, 2000);
-            });
-        }
-    };
+    return {};
 }
 
 
@@ -12336,10 +12321,10 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$55bd93c2be5b85c3$exports = {
+$52abf2efa3492135$exports = {
     "button": $cbd28b10fa9798c7$exports,
-    "copy_button": $47a1c62621be0c54$exports,
     "code": $99486586f6691564$exports,
+    "copy_button": $47a1c62621be0c54$exports,
     "dimensions_display": $e398acaded942bbe$exports,
     "embed_code_dropdown": $216ef7001f59f21d$exports,
     "filter": $e9904a14dabf652d$exports,
@@ -13531,7 +13516,7 @@ const $22969b543678f572$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $5792afa4170ed552$export$2e2bcd8739ae039));
 [
-    $55bd93c2be5b85c3$exports,
+    $52abf2efa3492135$exports,
     $f3e1e32f4a1bd6da$exports,
     $338da9a25bc5c332$exports
 ].forEach((scripts)=>{
