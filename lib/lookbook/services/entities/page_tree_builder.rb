@@ -1,36 +1,31 @@
 module Lookbook
-  class EntityTreeBuilder < Service
+  class PageTreeBuilder < Service
     attr_reader :include_hidden
 
-    def initialize(entities, include_hidden: false)
-      @entities = entities.to_a
+    def initialize(pages, include_hidden: false)
+      @pages = pages.to_a
       @include_hidden = include_hidden
     end
 
     def call
       root_node = TreeNode.new
-      entities.each do |entity|
+      pages.each do |page|
         current_node = root_node
-        path_segments = parse_segments(entity.logical_path)
+
+        path_segments = parse_segments(page.relative_file_path)
         path_segments.each.with_index(1) do |segment, i|
           name, priority_prefix = segment
-          content = entity if entity.depth == i # entities are always on the leaf nodes
+          content = page if page.depth == i # pages are always on the leaf nodes
 
           current_node.add_child(name, content, priority: priority_prefix) unless current_node.has_child?(name)
           current_node = current_node.get_child(name)
-
-          if content && content.type == :preview
-            content.visible_scenarios.each do |scenario|
-              current_node.add_child(scenario.name, scenario)
-            end
-          end
         end
       end
       root_node
     end
 
     def parse_segments(path)
-      path.split("/").map do |segment|
+      path.to_s.split("/").map do |segment|
         unless segment.start_with?(".")
           priority, name = PriorityPrefixParser.call(segment)
           [name, priority || 10000]
@@ -38,8 +33,8 @@ module Lookbook
       end.compact
     end
 
-    def entities
-      include_hidden ? @entities : @entities.select(&:visible?)
+    def pages
+      include_hidden ? @pages : @pages.select(&:visible?)
     end
   end
 end

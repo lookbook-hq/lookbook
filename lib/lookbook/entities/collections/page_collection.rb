@@ -2,6 +2,8 @@ module Lookbook
   class PageCollection < EntityCollection
     include HierarchicalCollection
 
+    TREE_BUILDER = PageTreeBuilder
+
     def load(page_paths, changes = nil)
       file_paths = PageCollection.file_paths(page_paths)
       reload_all(file_paths) # TODO: Fix incremental reloading
@@ -44,7 +46,7 @@ module Lookbook
 
     def self.file_paths(directories)
       directories.flat_map do |dir|
-        PathUtils.normalize_paths(Dir["#{dir}/**/*.html.*", "#{dir}/**/*.md.*"].sort)
+        PathUtils.normalize_paths(Dir["#{dir}/**/*.html.*", "#{dir}/**/*.md.*", "#{dir}/**/*.md"].sort)
       end
     end
 
