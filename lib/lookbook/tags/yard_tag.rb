@@ -40,15 +40,7 @@ module Lookbook
 
     def tag_parts
       if @tag_parts.nil?
-        options, text = if self.class.supports_options?
-          TagOptionsParser.call(@text, {
-            file: host_file,
-            base_dir: host_file&.dirname,
-            eval_context: host_class_instance
-          })
-        else
-          [{}, @text]
-        end
+        options, text = parse_options(@text)
       end
       @tag_parts ||= {options: options, text: text}
     end
@@ -84,6 +76,18 @@ module Lookbook
         object
       end
       host_code_object&.path&.constantize
+    end
+
+    def parse_options(input)
+      if self.class.supports_options?
+        TagOptionsParser.call(input, {
+          file: host_file,
+          base_dir: host_file&.dirname,
+          eval_context: host_class_instance
+        })
+      else
+        [{}, @text]
+      end
     end
   end
 end

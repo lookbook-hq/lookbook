@@ -45,11 +45,18 @@ module Lookbook
       value_type = nil
       description = nil
 
+      # Parse out YARD-style value type definition - i.e. [Boolean]
       text.match(VALUE_TYPE_MATCHER) do |match_data|
         value_type = match_data[2]
         text.gsub!(VALUE_TYPE_MATCHER, "").strip!
       end
 
+      # Parse and remove any options from string
+      text_with_options = text
+      _, text = parse_options(text)
+      options_str = text_with_options.sub(text, "")
+
+      # Parse description, if provided
       text.match(DESCRIPTION_MATCHER) do |match_data|
         description = match_data[1]
         text.sub!(DESCRIPTION_MATCHER, "").strip!
@@ -57,7 +64,7 @@ module Lookbook
 
       input, rest = text.split(" ", 2)
 
-      {input: input, value_type: value_type, description: description, rest: rest}
+      {input: input, value_type: value_type, description: description, rest: [rest, options_str].compact.join(" ")}
     end
   end
 end
