@@ -1,7 +1,7 @@
 module Lookbook
   class ParamTag < YardTag
     VALUE_TYPE_MATCHER = /^(\[\s?([A-Z]{1}\w+)\s?\])/
-    DESCRIPTION_MATCHER = /(?<=\s|^)"(.*[^\\])"(?:\s|$)/
+    DESCRIPTION_MATCHER = /(?<=\s|^)"(.*?[^\\])"(?:\s|$)/
 
     supports_options
 
@@ -52,7 +52,7 @@ module Lookbook
 
       text.match(DESCRIPTION_MATCHER) do |match_data|
         description = match_data[1]
-        text.gsub!(DESCRIPTION_MATCHER, "").strip!
+        text.sub!(DESCRIPTION_MATCHER, "").strip!
       end
 
       input, rest = text.split(" ", 2)
