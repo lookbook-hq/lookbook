@@ -111,16 +111,16 @@ RSpec.describe Lookbook::TagOptionsParser do
     let(:tag_text) { "#{tag_body} {{ foo }}" }
 
     it "raises an exception" do
-      expect { described_class.call(tag_text) }.to raise_error Lookbook::ParserError
+      expect { described_class.call(tag_text, {eval_context: TagOptionsEvalContext.new}) }.to raise_error Lookbook::ParserError
     end
 
     context "fail_silently = true" do
       it "does not raise an exception" do
-        expect { described_class.call(tag_text, fail_silently: true) }.not_to raise_error
+        expect { described_class.call(tag_text, fail_silently: true, eval_context: TagOptionsEvalContext.new) }.not_to raise_error
       end
 
       it "returns the fallback after failure" do
-        result = described_class.call(tag_text, fail_silently: true, fallback: "fallback_value")
+        result = described_class.call(tag_text, fail_silently: true, fallback: "fallback_value", eval_context: TagOptionsEvalContext.new)
 
         expect(result.first).to eq "fallback_value"
         expect(result.second).to eq tag_body
