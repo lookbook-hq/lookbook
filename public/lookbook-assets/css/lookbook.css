@@ -45,6 +45,7 @@ html {
   -webkit-text-size-adjust: 100%;
   tab-size: 4;
   font-feature-settings: normal;
+  font-variation-settings: normal;
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
   line-height: 1.5;
 }
@@ -428,6 +429,9 @@ pre[class*="language-"] {
   --tw-pan-y: ;
   --tw-pinch-zoom: ;
   --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position: ;
+  --tw-gradient-via-position: ;
+  --tw-gradient-to-position: ;
   --tw-ordinal: ;
   --tw-slashed-zero: ;
   --tw-numeric-figure: ;
@@ -2601,12 +2605,20 @@ select.compact {
   border-bottom-color: var(--lookbook-viewport-handle-icon-stroke-hover);
 }
 
+.border-e-lookbook-viewport-handle-icon-stroke-hover {
+  border-inline-end-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
 .border-l-lookbook-viewport-handle-icon-stroke-hover {
   border-left-color: var(--lookbook-viewport-handle-icon-stroke-hover);
 }
 
 .border-r-lookbook-viewport-handle-icon-stroke-hover {
   border-right-color: var(--lookbook-viewport-handle-icon-stroke-hover);
+}
+
+.border-s-lookbook-viewport-handle-icon-stroke-hover {
+  border-inline-start-color: var(--lookbook-viewport-handle-icon-stroke-hover);
 }
 
 .border-t-lookbook-viewport-handle-icon-stroke-hover {
@@ -2711,18 +2723,18 @@ select.compact {
 }
 
 .from-lookbook-viewport-handle-icon-stroke-hover {
-  --tw-gradient-from: var(--lookbook-viewport-handle-icon-stroke-hover);
-  --tw-gradient-to: #fff0;
+  --tw-gradient-from: var(--lookbook-viewport-handle-icon-stroke-hover) var(--tw-gradient-from-position);
+  --tw-gradient-to: #fff0 var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
 .via-lookbook-viewport-handle-icon-stroke-hover {
-  --tw-gradient-to: #fff0;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--lookbook-viewport-handle-icon-stroke-hover), var(--tw-gradient-to);
+  --tw-gradient-to: #fff0 var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--lookbook-viewport-handle-icon-stroke-hover) var(--tw-gradient-via-position), var(--tw-gradient-to);
 }
 
 .to-lookbook-viewport-handle-icon-stroke-hover {
-  --tw-gradient-to: var(--lookbook-viewport-handle-icon-stroke-hover);
+  --tw-gradient-to: var(--lookbook-viewport-handle-icon-stroke-hover) var(--tw-gradient-to-position);
 }
 
 .fill-lookbook-viewport-handle-icon-stroke-hover {
