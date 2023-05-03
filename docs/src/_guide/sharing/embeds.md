@@ -5,10 +5,12 @@ lookbook_embeds: true
 ---
 
 <%= render section(overview: true) do |s| %>
-  Lookbook's preview embeds allow **live component previews** to be embedded on external sites or in the host app's templates.
+  <% s.with_block_prose do %>
+    Lookbook's preview embeds allow **live component previews** to be embedded in Lookbook pages, on external sites or in the parent app's templates.
 
-  Each embed is an `iframe` that points to a customised version of the preview inspector, running on your server.
-  The embed can be customised to hide/show inspector panels, allow switching between scenarios, and more.
+    Each embed is an `iframe` that points to a customised version of the preview inspector, running on your server.
+    The embed can be customised to hide/show inspector panels, allow switching between scenarios, and more.
+  <% end %>
 <% end %>
 
 <%= render section("Example embed", id: "example") do |s| %>
@@ -46,6 +48,12 @@ lookbook_embeds: true
 <%= render section("Initial setup", id: "setup") do |s| %>
   <% s.with_block_prose do %>
     There are a few steps that will need to be undertaken before preview embeds can be used.
+  <% end %>
+
+  <% s.with_block_note :tip do |note| %>
+    This section outlines the setup process for embedding previews in **pages outside of Lookbook**.
+    For using _within_ Lookbook, see the docs on [rendering previews in pages](<%= guide_url(:previews_embedding) %>)
+    or skip straight to the [configuring embeds section](#configuration). 
   <% end %>
 
   <% s.with_block_subheading "Enable Lookbook in production", id: "production", step: 1 %>
@@ -89,12 +97,32 @@ lookbook_embeds: true
     The `lookbook.js` script will initialize all embeds on page load, but any embeds
     added to the page after this will need to be manually initialized. [Read more &rarr;](#init-embeds)
   <% end %>
-<% end %>
 
-<%= render section("Adding embeds", id: "adding-embeds") do |s| %>
   <% s.with_block_prose do %>
     Once everything is setup, embeds can be added via the `<lookbook-embed>` element, with config options
     for each instance are set via attributes on the tag.
+  <% end %>
+<% end %>
+
+<%= render section("Getting an embed code", id: "embed-codes") do |s| %>
+  <% s.with_block_prose do %>
+    The quickest way to get an embed code is to open the relevant preview in Lookbook and click on the
+    'embed' icon in the top right toolbar.
+    
+    This will open a panel where you can see the embed code for the current preview.
+    Just copy and paste the code from here into the desired page and the preview embed will be displayed.
+  <% end %>
+
+  <% s.with_block_screenshot "guide/embed_code_dropdown.png", "Embed code dropdown" %>
+
+  <% s.with_block_note :tip do |note| %>
+    The embed code will automatically reflect any `@param` values that have been set - so the resulting embed will default to these values.
+  <% end %>
+<% end %>
+
+<%= render section("Configuring embeds", id: "configuration") do |s| %>
+  <% s.with_block_prose do %>
+    Embeds created with the `<lookbook-embed>` tag can be configured using HTML attributes set on the element itself.
   <% end %>
 
   <% s.with_block_subheading "Basic embed", id: "basic" %>
@@ -260,6 +288,28 @@ lookbook_embeds: true
       window.Lookbook.initEmbeds();
     });
     ```
+  <% end %>
+<% end %>
+
+<%= render section("Using in third party services", id: "other-services") do |s| %>
+  <% s.with_block_prose do %>
+    Third-party services such as [Notion](https://www.notion.so/) will not let you include your own JavaScript,
+    so it's not possible to use `<lookbook-embed>` elements to embed previews in these apps.
+
+    However, if the service supports embedding external content via an `iframe` then you can add one using the
+    the **preview embed URL** which is available in the embed dropdown for each preview in Lookbook:
+  <% end %>
+
+  <% s.with_block_screenshot "guide/embed_url_dropdown.png", "Embed URL in dropdown" %>
+
+  <% s.with_block_screenshot "guide/embed_in_notion.png", "Embedding a preview in Notion" %>
+
+  <% s.with_block_note :warn do %>
+    Unfortunately, without the corresponding JavaScript in the host page, the **iframe will not automatically
+    adjust its height** as content in the iframe changes.
+
+    In apps such as Notion it is possible to manually resize the iframe so this is not such a problem,
+    but each service will handle this differently.
   <% end %>
 <% end %>
 
