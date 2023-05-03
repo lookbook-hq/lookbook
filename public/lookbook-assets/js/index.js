@@ -7815,7 +7815,7 @@ function $12b7aa006b8a97e1$var$toCamel(s) {
 }
 
 
-var $27875b8c7b5f0522$exports = {};
+var $52abf2efa3492135$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11346,6 +11346,16 @@ function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
 }
 
 
+var $99486586f6691564$exports = {};
+
+$parcel$defineInteropFlag($99486586f6691564$exports);
+
+$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
+function $99486586f6691564$export$2e2bcd8739ae039() {
+    return {};
+}
+
+
 var $47a1c62621be0c54$exports = {};
 
 $parcel$defineInteropFlag($47a1c62621be0c54$exports);
@@ -11457,16 +11467,6 @@ function $216ef7001f59f21d$export$2e2bcd8739ae039() {
             });
         }
     };
-}
-
-
-var $99486586f6691564$exports = {};
-
-$parcel$defineInteropFlag($99486586f6691564$exports);
-
-$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
-function $99486586f6691564$export$2e2bcd8739ae039() {
-    return {};
 }
 
 
@@ -12336,12 +12336,12 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$27875b8c7b5f0522$exports = {
+$52abf2efa3492135$exports = {
     "button": $cbd28b10fa9798c7$exports,
+    "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
     "dimensions_display": $e398acaded942bbe$exports,
     "embed_code_dropdown": $216ef7001f59f21d$exports,
-    "code": $99486586f6691564$exports,
     "filter": $e9904a14dabf652d$exports,
     "nav": $d92d9d5253f84566$exports,
     "split_layout": $506dabb2bf255b38$exports,
@@ -13343,7 +13343,17 @@ function $c299e36fa9e271bc$export$2e2bcd8739ae039(id, embedStore) {
             this.navigateTo(`${newTargetPath}${window.location.search}`);
         },
         onResized ({ height: height  }) {
-            if (height) this.viewportHeight = height;
+            if (height) {
+                this.viewportHeight = height;
+                // Notify parent window of height resize so the parent window can implement
+                // its own iframe resize strategy if not using the Lookbook JS script.
+                // Uses Embedly-compatible postMessage format: https://docs.embed.ly/reference/provider-height-resizing
+                window.parent.postMessage(JSON.stringify({
+                    src: window.location.toString(),
+                    context: "iframe.resize",
+                    height: height
+                }), "*");
+            }
         },
         resizeIframe () {
             this.iframe.iFrameResizer.resize();
@@ -13521,7 +13531,7 @@ const $22969b543678f572$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $5792afa4170ed552$export$2e2bcd8739ae039));
 [
-    $27875b8c7b5f0522$exports,
+    $52abf2efa3492135$exports,
     $f3e1e32f4a1bd6da$exports,
     $338da9a25bc5c332$exports
 ].forEach((scripts)=>{
