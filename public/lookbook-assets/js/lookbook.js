@@ -917,7 +917,7 @@ function $5000cc5d1e9e824a$var$permittedAttrs(attrs) {
 function $5000cc5d1e9e824a$var$guessBasePath() {
     const script = document.currentScript || document.querySelector('script[src*="lookbook.js"]');
     const scriptSrc = script.src;
-    if (scriptSrc && scriptSrc.includes("lookbook-assets")) return scriptSrc.replace("lookbook-assets/js/lookbook.js", "lookbook");
+    if (scriptSrc && scriptSrc.includes("lookbook-assets")) return scriptSrc.split("?")[0].replace("lookbook-assets/js/lookbook.js", "lookbook");
     return `//${location.host}/lookbook`;
 }
 document.addEventListener("DOMContentLoaded", ()=>$5000cc5d1e9e824a$var$initEmbeds());

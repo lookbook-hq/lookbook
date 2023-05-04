@@ -114,7 +114,9 @@ function guessBasePath() {
   const scriptSrc = script.src;
 
   if (scriptSrc && scriptSrc.includes("lookbook-assets")) {
-    return scriptSrc.replace("lookbook-assets/js/lookbook.js", "lookbook");
+    return scriptSrc
+      .split("?")[0]
+      .replace("lookbook-assets/js/lookbook.js", "lookbook");
   }
 
   return `//${location.host}/lookbook`;
