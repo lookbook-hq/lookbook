@@ -78,7 +78,7 @@ title: Introduction
   * [Wrapbook](https://wrapbook.com/)
   * And [many more...](https://github.com/ViewComponent/lookbook/network/dependents?package_id=UGFja2FnZS0xMDM0MzQ1)
 
-  Using Lookbook? [Send a pull request](https://github.com/ViewComponent/lookbook/edit/main/docs/src/_guide/overview.md) to update this list!
+  Using Lookbook? [Send a pull request](https://github.com/ViewComponent/lookbook/edit/main/docs/src/_guide/index.md) to update this list!
 <% end %>
 
 <%= render section("Articles and videos", id: "related") do |s| %>
