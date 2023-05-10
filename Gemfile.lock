@@ -292,7 +292,7 @@ DEPENDENCIES
   puma (~> 6)
   rails (~> 7.0.0)
   rspec-rails (~> 5)
-  selenium-webdriver (~> 4)
+  selenium-webdriver (= 4.9.0)
   standard
   view_component
   yard-activesupport-concern
