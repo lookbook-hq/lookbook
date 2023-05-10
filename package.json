@@ -89,7 +89,7 @@
     "postcss-import": "^15.0.0",
     "postcss-import-ext-glob": "^2.0.1",
     "prettier": "2.8.8",
-    "release-it": "^15.10.2",
+    "release-it": "^15.10.3",
     "watch": "^0.13.0"
   },
   "lint-staged": {
