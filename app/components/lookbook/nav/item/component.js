@@ -58,7 +58,7 @@ export default function navItemComponent({ id, matchers }) {
 
     bindings: {
       toggle: {
-        ["@click.stop"]: "toggle",
+        ["x-on:click.stop"]: "toggle",
         ["x-ref"]: "toggle",
       },
       link: {

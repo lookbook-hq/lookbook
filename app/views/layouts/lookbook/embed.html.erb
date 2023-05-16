@@ -3,8 +3,8 @@
     id="app"
     x-data="app"
     x-cloak
-    @popstate.window="handleNavigation"
-    @click.document="hijax"
+    x-on:popstate.window="handleNavigation"
+    x-on:click.document="hijax"
     class="overflow-hidden">
     
     <%= render "lookbook/partials/user_styles" %>

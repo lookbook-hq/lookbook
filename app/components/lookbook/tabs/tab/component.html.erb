@@ -15,8 +15,8 @@
     '!text-lookbook-tabs-text-disabled': isDisabled($el),
     'invisible pointer-events-none relative z-[-1]': visibleTabsCount < #{@position}
   }",
-  "@click.prevent": "selectTab($el)",
-  "@keydown.window.prevent.#{@hotkey}": @hotkey.present? ? "$el.click()" : nil,
+  "x-on:click.prevent": "selectTab($el)",
+  "x-on:keydown.window.prevent.#{@hotkey}": @hotkey.present? ? "$el.click()" : nil,
   data: {
     disabled: @disabled
   },

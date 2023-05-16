@@ -13,7 +13,7 @@
     'border-transparent text-lookbook-tabs-text hover:text-lookbook-tabs-text-hover': !isSelected($el),
     'hidden': visibleTabsCount >= #{@position}
   }",
-  "@click.prevent": "selectTab($el)",
+  "x-on:click.prevent": "selectTab($el)",
   data: {
     disabled: @disabled
   } do %>

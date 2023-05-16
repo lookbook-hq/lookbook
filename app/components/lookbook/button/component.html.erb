@@ -2,8 +2,8 @@
   id: id,
   icon: icon,
   **button_attrs,
-  "@keydown.esc.stop": "hideDropdown",
-  "@navigation:complete.window": "updateDropdown") do %>
+  "x-on:keydown.esc.stop": "hideDropdown",
+  "x-on:navigation:complete.window": "updateDropdown") do %>
   <%= content %>
 <% end %>
 

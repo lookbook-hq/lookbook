@@ -1,6 +1,6 @@
 <%= text_field_tag(name, value,
   **input_options,
   type: "color",
-  "@change.stop": "",
-  "@blur": "value = $el.value",
+  "x-on:change.stop": "",
+  "x-on:blur": "value = $el.value",
 ) %>

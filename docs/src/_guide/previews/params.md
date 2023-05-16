@@ -106,7 +106,7 @@ title: Dynamic Params
 
   <% s.with_block_note :tip do %>
     If you require a type of input that is _not_ provided by Lookbook (or wish to override an existing one) then you
-    can also [add your own custom inputs](<%= extend_url :inputs_overview %>) quickly and easily. 
+    can also [add your own custom inputs](<%= extend_url :params_overview %>) quickly and easily. 
   <% end %>
 
   <% s.with_block_subheading "Text-style inputs", id: "text" %>
