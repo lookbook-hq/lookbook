@@ -78,12 +78,13 @@ module Lookbook
       host_code_object&.path&.constantize
     end
 
-    def parse_options(input)
+    def parse_options(input, resolve: true)
       if self.class.supports_options?
         TagOptionsParser.call(input, {
           file: host_file,
           base_dir: host_file&.dirname,
-          eval_context: host_class_instance
+          eval_context: host_class_instance,
+          resolve: resolve
         })
       else
         [{}, @text]
