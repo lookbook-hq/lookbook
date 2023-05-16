@@ -53,7 +53,7 @@
   "author": "Mark Perkins",
   "license": "MIT",
   "dependencies": {
-    "@alpinejs/collapse": "^3.10.5",
+    "@alpinejs/collapse": "^3.12.1",
     "@alpinejs/morph": "^3.10.5",
     "@alpinejs/persist": "^3.10.5",
     "@rails/actioncable": "^6.1.4",
