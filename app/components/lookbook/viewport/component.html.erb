@@ -28,7 +28,7 @@
       <iframe seamless<%= " id=#{@iframe_id}" if @iframe_id.present? %>
         x-ref="iframe"
         class="bg-lookbook-page-bg h-full w-full border border-lookbook-divider"
-        :class="{ 'pointer-events-none': reflowing }"
+        x-bind:class="{ 'pointer-events-none': reflowing }"
         style="<%= "max-height: #{@max_height}px;" if @max_height.present? %>"
         src="<%= @src %>"
         frameborder="0"

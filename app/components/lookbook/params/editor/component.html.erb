@@ -1,6 +1,6 @@
 <%= render_component_tag class: "overflow-hidden" do %>
   <div class="bg-lookbook-params-editor-bg border border-lookbook-divider rounded-md overflow-x-auto">
-    <table class="border-collapse w-full" :class="narrow && 'linear'">
+    <table class="border-collapse w-full" x-bind:class="narrow && 'linear'">
       <thead>
         <tr>
           <th class="param-label">Param</th>

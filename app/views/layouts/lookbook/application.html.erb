@@ -93,7 +93,7 @@
       </div>
     <% end %>
     
-    <div class="absolute opacity-0 bg-black inset-0 top-[39px] z-[-1] transition-opacity" :class="($store.layout.mobile && !sidebarHidden) && '!opacity-30 !z-[1000]'" data-cloak></div>
+    <div class="absolute opacity-0 bg-black inset-0 top-[39px] z-[-1] transition-opacity" x-bind:class="($store.layout.mobile && !sidebarHidden) && '!opacity-30 !z-[1000]'" data-cloak></div>
 
     <% if content_for? :dropdowns %>
       <div class="hidden">
