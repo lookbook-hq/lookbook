@@ -52,8 +52,8 @@
       style="border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; overflow: hidden;"
     <% end %>>
     <div
-      @viewport:resize-progress="resizeIframe"
-      @viewport:resize-complete="resizeIframe"
+      x-on:viewport:resize-progress="resizeIframe"
+      x-on:viewport:resize-complete="resizeIframe"
       x-ref="viewportWrapper"> 
       <%= lookbook_render :viewport,
         iframe_id: "#{id}-viewport",

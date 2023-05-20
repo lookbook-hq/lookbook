@@ -55,7 +55,7 @@
             <% group.with_button id: "refresh-preview-button",
               icon: :refresh_cw,
               tooltip: "Refresh preview",
-              "@click.stop": "startSpin(); $dispatch('viewport:reload'); stopSpin(500);" %>
+              "x-on:click.stop": "startSpin(); $dispatch('viewport:reload'); stopSpin(500);" %>
 
             <% group.with_button id: "open-preview-button",
               icon: :external_link,
@@ -66,7 +66,7 @@
             <% group.with_button id: "show-drawer-button",
               icon: "sidebar",
               tooltip: "Show drawer",
-              "@click": "$store.inspector.drawer.hidden = false",
+              "x-on:click": "$store.inspector.drawer.hidden = false",
               class: "rotate-180",
               "x-show": "$store.inspector.drawer.hidden && vertical",
               cloak: true %>
@@ -74,7 +74,7 @@
             <% group.with_button id: "show-drawer-button",
               icon: "credit-card",
               tooltip: "Show drawer",
-              "@click": "$store.inspector.drawer.hidden = false",
+              "x-on:click": "$store.inspector.drawer.hidden = false",
               class: "rotate-180",
               "x-show": "$store.inspector.drawer.hidden && !vertical",
               cloak: true %>
@@ -131,7 +131,7 @@
             <% group.with_button id: "drawer-to-right-button",
               icon: :sidebar_open,
               tooltip: "Pin drawer on right",
-              "@click": "switchOrientation",
+              "x-on:click": "switchOrientation",
               "x-show": "horizontal",
               ":class": "{'pointer-events-none opacity-50 !cursor-not-allowed': horizontal && layoutWidth <= $store.inspector.minVerticalSplitWidth}",
               cloak: true %>
@@ -139,7 +139,7 @@
             <% group.with_button id: "drawer-to-bottom-button",
               icon: :sidebar_open,
               tooltip: "Pin drawer on bottom",
-              "@click": "switchOrientation",
+              "x-on:click": "switchOrientation",
               "x-show": "vertical",
               class: "rotate-90",
               cloak: true %>
@@ -147,7 +147,7 @@
             <% group.with_button id: "hide-drawer-button",
               icon: :x_circle,
               tooltip: "Hide drawer",
-              "@click": "$store.inspector.drawer.hidden = true",
+              "x-on:click": "$store.inspector.drawer.hidden = true",
               cloak: true %>
           <% end %>
         <% end %>

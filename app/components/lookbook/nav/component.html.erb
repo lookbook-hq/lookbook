@@ -1,5 +1,5 @@
 <%= render_component_tag class: "flex flex-col overflow-hidden h-full",
-  "@filter:change.stop": "filter($event.detail.text)" do %>
+  "x-on:filter:change.stop": "filter($event.detail.text)" do %>
   
   <% if toolbar %>
     <%= toolbar %>

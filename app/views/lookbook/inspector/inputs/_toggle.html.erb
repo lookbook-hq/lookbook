@@ -15,6 +15,6 @@ span_classes = [
   class: class_names(button_classes),
   role: "switch",
   type: "button",
-  "@click.stop": "value = value == 'true' ? 'false' : 'true'", escape: false do %>
+  "x-on:click.stop": "value = value == 'true' ? 'false' : 'true'", escape: false do %>
   <%= tag.span "aria-hidden": true, class: class_names(span_classes) %>
 <% end %>

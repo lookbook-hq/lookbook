@@ -41,14 +41,14 @@
         <% end %>
 
         <% group.with_button icon: :menu,
-          "@click.stop": "toggleSidebar",
+          "x-on:click.stop": "toggleSidebar",
           "x-show": "$store.layout.mobile && sidebarHidden",
           class: "!text-lookbook-header-text" %>
 
         <% group.with_button icon: :x,
-          "@click.stop": "toggleSidebar",
+          "x-on:click.stop": "toggleSidebar",
           "x-show": "$store.layout.mobile && !sidebarHidden",
-          "@keydown.esc.window": "closeMobileSidebar",
+          "x-on:keydown.esc.window": "closeMobileSidebar",
           class: "!text-lookbook-header-text" %>
       <% end %>    
     <% end %>
