@@ -4,11 +4,9 @@ title: Lookbook
 lookbook_embeds: true
 ---
 
-
-  <div>
-  <div class="homepage-intro">
-    <div class="homepage-intro-inner pt-10 sm:pt-[6vw] mx:pt-[95px]">
-    <header class="layout-slat text-center mb-14 sm:mb-[8vw] mx:mb-[112px]">
+<div class="homepage-intro">
+  <div class="homepage-intro-inner pt-10 sm:pt-[6vw] mx:pt-[95px]">
+    <header class="layout-slat text-center mb-12 sm:mb-[8vw] mx:mb-[112px]">
       <div class="layout-slat-grid">
         <div class="col-span-12 xl:col-span-12 xl:col-start-1">
           <h1 class="text-3xl md:text-4xl xl:text-[2.7rem] font-extralight !leading-[1.4] max-w-[600px] md:max-w-[700px] xl:max-w-[860px] mx-auto"> 
@@ -20,8 +18,25 @@ lookbook_embeds: true
               <strong class="font-semibold">documentation engine</strong> to help teams build robust, modular, maintainable user interfaces.
             </p>
           </div>
-          <div class="flex flex-col sm:flex-row items-center justify-center mt-6 sm:mt-10 xl:mt-12 space-x-4 text-gray-400">
+          <div class="flex flex-col sm:flex-row items-center justify-center mt-6 sm:mt-8 xl:mt-10 space-x-4 text-gray-400">
             <%= button "Learn more & get started", guide_url(:introduction), icon: :arrow_right, icon_position: :after %>
+          </div>
+          <div class="max-w-[800px] mx-auto mt-10 xl:mt-14 sm:mb-[-3vw] mx:mb-[-42px]">
+            <p class="text-sm sm:text-base xl:text-lg text-gray-500">
+              <span>Compatible with</span>
+              <span class="inline-block mx-0.5 whitespace-nowrap text-gray-900">
+                <svg class="h-[1em] inline-block relative top-[-2px]" viewBox="0 0 97 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M49.4814 0C48.7181 0 48.2362 0.820805 48.6082 1.48737L70.8119 41.269C71.0655 41.7233 71.0655 42.2767 70.8119 42.731L48.6082 82.5126C48.2362 83.1792 48.7181 84 49.4814 84H71.8975C72.4412 84 72.9423 83.7058 73.2073 83.231L95.8119 42.731C96.0655 42.2767 96.0655 41.7233 95.8119 41.2689L73.2073 0.76895C72.9423 0.2942 72.4412 0 71.8975 0H49.4814ZM47.3741 41.269C47.6278 41.7233 47.6278 42.2767 47.3741 42.731L24.6554 83.4355C24.2739 84.119 23.2905 84.119 22.909 83.4355L0.190204 42.731C-0.063401 42.2767 -0.0634013 41.7233 0.190203 41.269L22.909 0.564484C23.2905 -0.119028 24.2739 -0.119029 24.6554 0.564482L47.3741 41.269Z" fill="#DF3730"/>
+                </svg>
+                <span>ViewComponent</span>
+              </span>
+              <span>and</span>
+              <span class="inline-block mx-0.5 whitespace-nowrap text-gray-900">
+                <%= image "logos/phlex.png", class: "h-[1em] inline-block relative top-[-2px]" %>
+                <span>Phlex</span>
+              </span>
+              <span>as well as <span class="text-gray-900">ActionView partials</span> and more!</span>
+            </p>
           </div>
         </div>
       </div>
@@ -47,174 +62,170 @@ lookbook_embeds: true
       </div>
       <div class="h-[40px] bg-white z-50 absolute bottom-0 left-0 right-0 w-full" style="box-shadow: -5px 0 20px rgba(0,0,0,0.2)"></div>
     </section>
+  </div>
+</div>
+
+<section class="layout-slat relative z-[100] bg-white py-10 md:pt-12 md:pb-8 -mt-[40px] text-center font-light border-b border-gray-300">
+  <h2 class="text-xl mb-8 md:mb-12 ">
+    Lookbook is <strong>free</strong>, <strong>open-source</strong> and used by teams of all sizes, including:
+  </h2>
+  <div class="layout-slat-grid items-center justify-center"> 
+    <% ["coveragebook.svg", "gitlab.png",  "podia.svg", "github.svg", "clio.svg", "freeagent.svg"].each do |file_name| %>
+      <div class="col-span-4 md:col-span-2">
+        <%= image "logos/#{file_name}", class: "w-full max-h-[42px] max-w-[110px] mx-auto" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="mt-8 md:mt-10">
+    <p>...and <a href="https://github.com/ViewComponent/lookbook/network/dependents" class="underline  underline-offset-2">many more</a></p>
+  </div>
+</section>
+  
+<section id="feature-previews" class="feature-slat feature-slat-gradient">
+  <div class="feature-slat-inner">
+    <%#= icon :eye, size: 10, class: "feature-slat-icon" %>
+    <div class="feature-slat-text">
+      <div>
+        <h2 class="feature-slat-title">
+          <span>Powerful Previews</span>
+        </h2>
+        <div class="prose">
+          <p>Lookbook's <strong>preview inspector</strong> allows you to develop your UI components in isolation from each other, outside of your main application's views.</p>
+
+          <p>
+            Previews can be quickly customised to add <a href="<%= guide_url :previews_params %>">live, editable preview parameters</a>,
+            <a href="<%= guide_url :previews_display %>">per-preview display options</a>,
+            <a href="<%= guide_url :previews_annotations %>#notes">usage notes</a>
+            and <a href="<%= guide_url :previews_display %>">much more</a>.</p>
+
+          <p>And all previews are rendered in a resizable window to make testing responsive behaviours a breeze.</p>
+        </div>
+      </div>
+    </div>
+    <div class="feature-slat-figure">
+      <%= screenshot "homepage/feature_previews.png" %>
     </div>
   </div>
+</section>
 
-    <section class="layout-slat relative z-[100] bg-white py-10 md:pt-12 md:pb-8 -mt-[40px] text-center font-light border-b border-gray-300">
-      <h2 class="text-xl mb-8 md:mb-12 ">
-        Lookbook is <strong>free</strong>, <strong>open-source</strong> and used by teams of all sizes, including:
-      </h2>
-      <div class="layout-slat-grid items-center justify-center"> 
-        <% ["coveragebook.svg", "gitlab.png",  "podia.svg", "github.svg", "clio.svg", "freeagent.svg"].each do |file_name| %>
-          <div class="col-span-4 md:col-span-2">
-            <%= image "logos/#{file_name}", class: "w-full max-h-[42px] max-w-[110px] mx-auto" %>
-          </div>
-        <% end %>
+<section id="feature-docs" class="feature-slat feature-slat-gradient">
+  <div class="feature-slat-inner">
+    <%#= icon :file_box, size: 10, class: "feature-slat-icon"  %>
+    <div class="feature-slat-figure">
+      <div class="h-0 pb-[80%] w-full relative">
+        <%= screenshot "homepage/docs_page.png", browser: false, class: "absolute top-0 left-0 w-[90%]" %>
+        <div class="absolute bottom-0 right-0 w-[50%] rounded-md">
+          <%= screenshot "homepage/feature_docs.png" %>
+        </div>
       </div>
-      <div class="mt-8 md:mt-10">
-        <p>...and <a href="https://github.com/ViewComponent/lookbook/network/dependents" class="underline  underline-offset-2">many more</a></p>
-      </div>
-    </section>
-
-    <div class="">
-    
-      <section id="feature-previews" class="feature-slat feature-slat-gradient">
-        <div class="feature-slat-inner">
-          <%#= icon :eye, size: 10, class: "feature-slat-icon" %>
-          <div class="feature-slat-text">
-            <div>
-              <h2 class="feature-slat-title">
-                <span>Powerful Previews</span>
-              </h2>
-              <div class="prose">
-                <p>Lookbook's <strong>preview inspector</strong> allows you to develop your UI components in isolation from each other, outside of your main application's views.</p>
-
-                <p>
-                  Previews can be quickly customised to add <a href="<%= guide_url :previews_params %>">live, editable preview parameters</a>,
-                  <a href="<%= guide_url :previews_display %>">per-preview display options</a>,
-                  <a href="<%= guide_url :previews_annotations %>#notes">usage notes</a>
-                  and <a href="<%= guide_url :previews_display %>">much more</a>.</p>
-
-                <p>And all previews are rendered in a resizable window to make testing responsive behaviours a breeze.</p>
-              </div>
-            </div>
-          </div>
-          <div class="feature-slat-figure">
-            <%= screenshot "homepage/feature_previews.png" %>
-          </div>
-        </div>
-      </section>
-    
-      <section id="feature-docs" class="feature-slat feature-slat-gradient">
-        <div class="feature-slat-inner">
-          <%#= icon :file_box, size: 10, class: "feature-slat-icon"  %>
-          <div class="feature-slat-figure">
-            <div class="h-0 pb-[80%] w-full relative">
-              <%= screenshot "homepage/docs_page.png", browser: false, class: "absolute top-0 left-0 w-[90%]" %>
-              <div class="absolute bottom-0 right-0 w-[50%] rounded-md">
-                <%= screenshot "homepage/feature_docs.png" %>
-              </div>
-            </div>
-          </div>
-          <div class="feature-slat-text">
-            <div>
-              <h2 class="feature-slat-title">
-                <span>Dynamic Docs</span>
-              </h2>
-              <div class="prose">
-                <p>Lookbook's integrated documentation engine makes it easy to add longer-form documentation alongside your component previews.</p>
-                <p>
-                  Documentation pages are written in Markdown and configured via front matter.</p>
-                  <p>
-                  You can use ERB within them and even render live <a href="#feature-embeds">component preview embeds</a> to help make sure that your
-                  docs stay up-to-date even when the components are updated.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <section id="feature-embeds" class="feature-slat feature-slat-gradient">
-        <div class="feature-slat-inner">
-          <%#= icon :code_2, size: 10, class: "feature-slat-icon" %>
-          <div class="feature-slat-text">
-            <div>
-              <h2 class="feature-slat-title">
-                <span>Embeds Everywhere</span>
-                <span class="feature-slat-badge">new</span>
-              </h2>
-              <div class="prose">
-                <p>The new <strong>preview embeds</strong> feature lets you embed interactive component previews outside of Lookbook with just a few lines of code.</p>
-                <p>Embedded previews have plenty of <a href="<%= guide_url :embeds %>#config">configuration options</a>
-                and are fully responsive. Have a play with the example <span class="hidden md:inline">on the right</span> <span class="md:hidden">below</span> and see what you think!</p>
-              </div>
-            </div>
-          </div>
-          <div class="feature-slat-figure">
-            <lookbook-embed
-              preview="Elements::ButtonComponentPreview" scenario="playground" 
-              panels="params,source,output"
-              class="shadow-xl rounded-md"
-              actions="false"
-              display=""
-              param-title="hello"
-              param-icon="true">
-            </lookbook-embed>
-          </div>
-        </div>
-      </section>
-
-      <section class="feature-slat bg-gray-100">
-        <div class="feature-slat-inner">
-          <div class="col-span-12 sm:col-span-10 sm:col-start-2 md:col-span-6 md:col-start-0">
-            <div class="lg:px-6 mx:px-0">
-              <h2 class="feature-slat-title">
-                Plug & Play
-              </h2>
-              <div class="prose">
-                <p>
-                  Lookbook is 100% compatible with <a href="<%= guide_url :components_view_component %>" target="_blank">ViewComponent preview classes</a>
-                  so can be dropped in to established ViewComponent-based projects with no changes needed to existing preview files.
-                </p>
-              
-                <p>It also works great for previewing <a href="<%= guide_url :components_phlex %>">Phlex components</a>,
-                <a href="<%= guide_url :components_view_component %>">ActionView template partials</a> or virtually anything else that can be rendered in Rails apps.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-span-12 sm:col-span-10 sm:col-start-2 md:col-span-6 md:col-start-0 mt-6 md:mt-0">
-            <div class="lg:px-6 mx:px-0">
-              <h2 class="feature-slat-title">
-                Customise & Extend
-              </h2>
-              <div class="prose">
-                <p>Lookbook's UI can be customised to provide a more bespoke look and feel using the <a href="<%= guide_url :ui_branding %>">branding</a>
-                  and <a href="<%= guide_url :ui_theming %>">theming</a> configuration options.
-                </p>
-                
-                <p>
-                  And if you want to take things further you can <a href="<%= extend_url :overview %>">extend Lookbook</a> by adding your own <a href="<%= extend_url :panels_overview %>">inspector panels</a>,
-                  custom <a href="<%= extend_url :params_overview %>">param input types</a> and more.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
-
-    <section class="layout-slat border-t border-gray-300 homepage-cta">
-      <div class="flex flex-col text-center homepage-cta-inner py-10 lg:py-14 ">
-        <div class="flex-none mx-auto max-w-[600px]">
-          <h3 class="text-2xl mb-6">Get started with Lookbook</h3>
-          <p>Check out the user guide for installation instructions and details on how to create your first preview.
-          <strong>Got questions?</strong> Head over to the Github repo and browse the discussions or open an issue.</p>
-          <div class="sm:flex items-center gap-6 justify-center mt-8 md:mt-10">
-            <%= button "User guide", guide_url(:introduction), icon: :book_open, class: "order-1 sm:order-2" %>
-            <div class="order-2 sm:contents mt-4 flex items-center justify-center gap-6">
-              <%= button "Demo site", links.demo, icon: :monitor, theme: :secondary, size: :sm, class: "order-2 sm:order-1" %>
-              <%= button "Github Repo", links.repo, icon: :github, theme: :secondary, size: :sm, class: "order-3" %>
-            </div>
-          </div>
+    <div class="feature-slat-text">
+      <div>
+        <h2 class="feature-slat-title">
+          <span>Dynamic Docs</span>
+        </h2>
+        <div class="prose">
+          <p>Lookbook's integrated documentation engine makes it easy to add longer-form documentation alongside your component previews.</p>
+          <p>
+            Documentation pages are written in Markdown and configured via front matter.</p>
+            <p>
+            You can use ERB within them and even render live <a href="#feature-embeds">component preview embeds</a> to help make sure that your
+            docs stay up-to-date even when the components are updated.
+          </p>
         </div>
       </div>
-    </section>
-
-    <footer class="layout-slat border-t border-gray-300 py-8 bg-gray-50">  
-      <div class="prose prose-sm mx-auto w-full max-w-[600px] opacity-60 text-center">
-        Lookbook was created by <a href="https://allmarkedup.com">Mark Perkins</a> and continues to grow &amp; improve thanks to the ideas,
-        suggestions and hard work of <a href="https://github.com/ViewComponent/lookbook/graphs/contributors">all its contributors</a>. Thank you ❤️
-      </div>
-    </footer>
+    </div>
   </div>
+</section>
+
+<section id="feature-embeds" class="feature-slat feature-slat-gradient">
+  <div class="feature-slat-inner">
+    <%#= icon :code_2, size: 10, class: "feature-slat-icon" %>
+    <div class="feature-slat-text">
+      <div>
+        <h2 class="feature-slat-title">
+          <span>Embeds Everywhere</span>
+          <span class="feature-slat-badge">new</span>
+        </h2>
+        <div class="prose">
+          <p>The new <strong>preview embeds</strong> feature lets you embed interactive component previews outside of Lookbook with just a few lines of code.</p>
+          <p>Embedded previews have plenty of <a href="<%= guide_url :embeds %>#config">configuration options</a>
+          and are fully responsive. Have a play with the example <span class="hidden md:inline">on the right</span> <span class="md:hidden">below</span> and see what you think!</p>
+        </div>
+      </div>
+    </div>
+    <div class="feature-slat-figure">
+      <lookbook-embed
+        preview="Elements::ButtonComponentPreview" scenario="playground" 
+        panels="params,source,output"
+        class="shadow-xl rounded-md"
+        actions="false"
+        display=""
+        param-title="hello"
+        param-icon="true">
+      </lookbook-embed>
+    </div>
+  </div>
+</section>
+
+<section class="feature-slat bg-gray-100">
+  <div class="feature-slat-inner">
+    <div class="col-span-12 sm:col-span-10 sm:col-start-2 md:col-span-6 md:col-start-0">
+      <div class="lg:px-6 mx:px-0">
+        <h2 class="feature-slat-title">
+          Plug & Play
+        </h2>
+        <div class="prose">
+          <p>
+            Lookbook is 100% compatible with <a href="<%= guide_url :components_view_component %>" target="_blank">ViewComponent preview classes</a>
+            so can be dropped in to established ViewComponent-based projects with no changes needed to existing preview files.
+          </p>
+        
+          <p>It also works great for previewing <a href="<%= guide_url :components_phlex %>">Phlex components</a>,
+          <a href="<%= guide_url :components_view_component %>">ActionView template partials</a> or virtually anything else that can be rendered in Rails apps.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-span-12 sm:col-span-10 sm:col-start-2 md:col-span-6 md:col-start-0 mt-6 md:mt-0">
+      <div class="lg:px-6 mx:px-0">
+        <h2 class="feature-slat-title">
+          Customise & Extend
+        </h2>
+        <div class="prose">
+          <p>Lookbook's UI can be customised to provide a more bespoke look and feel using the <a href="<%= guide_url :ui_branding %>">branding</a>
+            and <a href="<%= guide_url :ui_theming %>">theming</a> configuration options.
+          </p>
+          
+          <p>
+            And if you want to take things further you can <a href="<%= extend_url :overview %>">extend Lookbook</a> by adding your own <a href="<%= extend_url :panels_overview %>">inspector panels</a>,
+            custom <a href="<%= extend_url :params_overview %>">param input types</a> and more.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="layout-slat border-t border-gray-300 homepage-cta">
+  <div class="flex flex-col text-center homepage-cta-inner py-10 lg:py-14 ">
+    <div class="flex-none mx-auto max-w-[600px]">
+      <h3 class="text-2xl mb-6">Get started with Lookbook</h3>
+      <p>Check out the user guide for installation instructions and details on how to create your first preview.
+      <strong>Got questions?</strong> Head over to the Github repo and browse the discussions or open an issue.</p>
+      <div class="sm:flex items-center gap-6 justify-center mt-8 md:mt-10">
+        <%= button "User guide", guide_url(:introduction), icon: :book_open, class: "order-1 sm:order-2" %>
+        <div class="order-2 sm:contents mt-4 flex items-center justify-center gap-6">
+          <%= button "Demo site", links.demo, icon: :monitor, theme: :secondary, size: :sm, class: "order-2 sm:order-1" %>
+          <%= button "Github Repo", links.repo, icon: :github, theme: :secondary, size: :sm, class: "order-3" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="layout-slat border-t border-gray-300 py-8 bg-gray-50">  
+  <div class="prose prose-sm mx-auto w-full max-w-[600px] opacity-60 text-center">
+    Lookbook was created by <a href="https://allmarkedup.com">Mark Perkins</a> and continues to grow &amp; improve thanks to the ideas,
+    suggestions and hard work of <a href="https://github.com/ViewComponent/lookbook/graphs/contributors">all its contributors</a>. Thank you ❤️
+  </div>
+</footer>
