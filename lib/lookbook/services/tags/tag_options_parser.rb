@@ -9,18 +9,27 @@ module Lookbook
 
     def initialize(input, resolver_opts = {})
       @input = input.to_s.strip
-      @resolver_opts = resolver_opts
+      @resolve = resolver_opts.fetch(:resolve, true)
+      @resolver_opts = resolver_opts.except(:resolve)
       @fallback = resolver_opts.fetch(:fallback, {})
     end
 
     def call
       options_string, remaining_text = parse_input(@input)
-      resolved_options = resolver(options_string).call(options_string, **@resolver_opts)
-      options = prepare_options(resolved_options)
-      [options, remaining_text]
+      if resolve?
+        resolved_options = resolver(options_string).call(options_string, **@resolver_opts)
+        options = prepare_options(resolved_options)
+        [options, remaining_text]
+      else
+        [options_string, remaining_text]
+      end
     end
 
     protected
+
+    def resolve?
+      !!@resolve
+    end
 
     def resolver(options_string)
       if options_string.present?

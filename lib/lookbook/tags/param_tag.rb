@@ -52,9 +52,7 @@ module Lookbook
       end
 
       # Parse and remove any options from string
-      text_with_options = text
-      _, text = parse_options(text)
-      options_str = text_with_options.sub(text, "")
+      options_str, text = parse_options(text, resolve: false)
 
       # Parse description, if provided
       text.match(DESCRIPTION_MATCHER) do |match_data|
@@ -64,7 +62,12 @@ module Lookbook
 
       input, rest = text.split(" ", 2)
 
-      {input: input, value_type: value_type, description: description, rest: [rest, options_str].compact.join(" ")}
+      {
+        input: input,
+        value_type: value_type,
+        description: description,
+        rest: [rest, options_str].compact.join(" ")
+      }
     end
   end
 end
