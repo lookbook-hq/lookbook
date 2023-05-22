@@ -23,8 +23,13 @@ module Lookbook
     # HTML output of the rendered scenario.
     #
     # @return [String] Rendered output
-    def output
-      @_output ||= CodeBeautifier.call(@output)
+    attr_reader :output
+
+    # 'Beautified' HTML output of the rendered scenario.
+    #
+    # @return [String] Rendered output
+    def beautified_output
+      @_beautified_output ||= CodeBeautifier.call(output)
     end
 
     # @api private
