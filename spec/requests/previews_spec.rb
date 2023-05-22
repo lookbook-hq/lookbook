@@ -10,6 +10,12 @@ RSpec.describe "previews", type: :request do
     end
   end
 
+  it "doesn't beautify HTML in the preview" do
+    get lookbook_preview_path("whitespace_significant/default")
+
+    expect(response.parsed_body.include?("<div>one</div><div>two</div><div>three</div>")).to be true
+  end
+
   context "ViewComponents" do
     it "renders view component previews" do
       get lookbook_preview_path("view_component_example/default")
