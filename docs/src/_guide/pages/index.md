@@ -16,7 +16,7 @@ title: Pages Overview
 
 <%= render section("Adding pages", id: "adding") do |s| %>
   <% s.with_block_prose do %>
-    Pages should be placed in the `test/components/docs` directory (although this [can be customised](/api/config#pages)) and can be nested in directories as deeply as required.
+    Pages should be placed in the `test/components/docs` directory (although this [can be customised](/guide/config#page_paths)) and can be nested in directories as deeply as required.
 
     ```
     test/components/docs/
