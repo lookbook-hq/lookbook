@@ -1,6 +1,6 @@
 module Lookbook
   class IconButton::Component < Lookbook::BaseComponent
-    renders_many :icons, Icon::Component
+    renders_many :icons, Lookbook::Icon::Component
 
     ICON_SIZES = {
       xs: 3,
