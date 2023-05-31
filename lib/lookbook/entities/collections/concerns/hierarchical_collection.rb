@@ -17,9 +17,11 @@ module Lookbook
       protected
 
       def collect_ordered_entities(start_node)
-        start_node.inject([]) do |entities, node|
-          entities.append(node.content? ? node.content : collect_ordered_entities(node))
-        end.flatten
+        start_node.flat_map do |node|
+          node_entity = node.content? ? [node.content] : []
+          child_entities = collect_ordered_entities(node)
+          [*node_entity, *child_entities]
+        end
       end
     end
   end

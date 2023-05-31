@@ -43,6 +43,13 @@ module Lookbook
       clear_cache
     end
 
+    def entities
+      @_cache[:entities] ||= begin
+        all = collect_ordered_entities(to_tree(include_hidden: true))
+        all.filter { _1.is_a?(Lookbook::PreviewEntity) }
+      end
+    end
+
     class << self
       def preview_from_code_object(code_object)
         klass = code_object.path.constantize
