@@ -84,7 +84,7 @@
     "eslint-plugin-import": "^2.25.2",
     "husky": "^8.0.2",
     "lint-staged": "^13.2.2",
-    "parcel": "^2.8.0",
+    "parcel": "^2.9.1",
     "postcss": "^8.4.23",
     "postcss-import": "^15.0.0",
     "postcss-import-ext-glob": "^2.0.1",
