@@ -74,7 +74,7 @@
     "tippy.js": "^6.3.2"
   },
   "devDependencies": {
-    "@parcel/resolver-glob": "^2.8.0",
+    "@parcel/resolver-glob": "^2.9.1",
     "commitizen": "^4.2.5",
     "concurrently": "^7.6.0",
     "cz-conventional-changelog": "^3.3.0",
