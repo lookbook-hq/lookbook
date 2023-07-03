@@ -24,7 +24,17 @@ module Lookbook
         }
       end
 
-      @page.markdown? ? MarkdownRenderer.call(content) : content
+      @page.markdown? ? markdown_render(content) : content
+    end
+
+    private
+
+    def markdown_render(content)
+      if @page.respond_to?(:toc) && @page.toc
+        MarkdownWithTocRenderer.call(content)
+      else
+        MarkdownRenderer.call(content)
+      end
     end
   end
 end

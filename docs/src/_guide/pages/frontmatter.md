@@ -63,6 +63,11 @@ title: Frontmatter
       types: "Hash",
       text: "Optional hash of custom data to make available for use in the page - see info on <a href=\"#{guide_url :pages_variables}\">page variables & data</a>."
     },
+    {
+      name: "toc",
+      types: "Boolean",
+      text: "Set to `true` to render a Table of Contents at the top of a Markdown page, just above the content."
+    },
   ] %>
 
 <% end %>
