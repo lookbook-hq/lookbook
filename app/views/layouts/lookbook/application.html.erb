@@ -3,6 +3,8 @@
     id="app"
     x-data="app"
     x-cloak
+    x-on:alpine:initialized.window="loaded"
+    x-on:navigation:complete.debounce.100ms="navigationCompleted"
     x-on:popstate.window="handleNavigation"
     x-on:click.document="hijax"
     x-on:navigation:start="closeMobileSidebar"
@@ -18,7 +20,7 @@
       project_logo: @config.project_logo %>
 
     <% if @previews.any? || @pages.any? %>
-      
+
       <%= lookbook_render :split_layout,
         alpine_data: "$store.layout.main",
         ":class": "$store.layout.mobile && '!block'" do |layout| %>
@@ -92,7 +94,7 @@
         <%= content_for?(:main) ? yield(:main) : yield %>
       </div>
     <% end %>
-    
+
     <div class="absolute opacity-0 bg-black inset-0 top-[39px] z-[-1] transition-opacity" x-bind:class="($store.layout.mobile && !sidebarHidden) && '!opacity-30 !z-[1000]'" data-cloak></div>
 
     <% if content_for? :dropdowns %>

@@ -37,6 +37,7 @@ RSpec.describe "pages", type: :request do
     it "should render the table of contents if `toc: true` in frontmatter" do
       get Lookbook::Engine.pages.find_by_path("with_toc").url_path
       expect(html).to have_css("ul li a[href='#introduction']")
+      expect(html).to have_css("#introduction")
       expect(html).to have_css("ul li ul li ul li a[href='#subsection-2']")
     end
 

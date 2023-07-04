@@ -10,6 +10,7 @@ export default function app() {
     version: Alpine.$persist("").as("lookbook-version"),
 
     location: window.location,
+    previousPathname: null,
 
     get sidebarHidden() {
       return this.$store.layout.sidebar.hidden;
@@ -27,18 +28,67 @@ export default function app() {
       }
     },
 
-    navigateTo(path) {
+    navigateTo(path, isFragment = false) {
       this.debug(`Navigating to ${path}`);
       history.pushState({}, null, path);
-      this.$dispatch("popstate");
+      this.$dispatch("popstate", { isFragment });
     },
 
-    async handleNavigation() {
-      this.debug("Navigating to ", window.location.pathname);
-      this.$dispatch("navigation:start");
+    async handleNavigation(evt) {
+      // On a navigation event (popstate), see if the path has changed
+      const pathSameOnEvent =
+        this.previousPathname &&
+        evt.target.location &&
+        this.previousPathname === evt.target.location.pathname;
+      // On a click event that was hijacked, see if the path changed
+      const pathSameOnHijackedNavigate =
+        this.previousPathname &&
+        this.previousPathname === window.location.pathname;
+      // On a click event that was hijacked, see if it was a 'fragment only' anchor that was clicked
+      const eventIsFragmentClick = evt.detail && evt.detail.isFragment;
+      const targetFragment = pathSameOnEvent
+        ? evt.target.location.hash
+        : window.location.hash;
+
+      this.previousPathname = window.location.pathname;
       this.location = window.location;
-      await this.updateDOM();
-      this.$dispatch("navigation:complete");
+      if (
+        targetFragment &&
+        (pathSameOnEvent || pathSameOnHijackedNavigate || eventIsFragmentClick)
+      ) {
+        this.scrollToFragment(targetFragment);
+      } else {
+        this.$dispatch("navigation:start");
+        await this.updateDOM();
+        // TODO: going back to the path without a fragment, from a url on same page but with a fragment, we need to seemingly wait before dispatching the event to allow the scroll to happen
+        setTimeout(() => {
+          this.$dispatch("navigation:complete");
+        }, 10);
+      }
+    },
+
+    scrollToFragment(fragment) {
+      if (!fragment) {
+        window.scrollTo(0, 0);
+        return;
+      }
+      this.debug(`Scroll to ${fragment}`);
+      const el = document.querySelector(fragment);
+      if (el) {
+        el.scrollIntoView({ block: "center", behavior: "smooth" });
+      }
+    },
+
+    // TODO: When page loads check if there is a fragment in the URL and scroll to it
+    loaded() {
+      // TODO: alpine:initialized happens before content is necessarily loaded...
+      setTimeout(() => {
+        this.scrollToFragment(window.location.hash);
+      }, 100);
+    },
+
+    navigationCompleted() {
+      this.scrollToFragment(window.location.hash);
     },
 
     hijax(evt) {
@@ -46,6 +96,7 @@ export default function app() {
       if (link) {
         const external = isExternalLink(link);
         const embedded = this.isEmbedded();
+        const isFragment = link.getAttribute("href").startsWith("#");
 
         if (embedded && (!link.hasAttribute("target") || external)) {
           evt.preventDefault();
@@ -53,7 +104,7 @@ export default function app() {
           return;
         } else if (!embedded && !external && !link.hasAttribute("target")) {
           evt.preventDefault();
-          this.navigateTo(link.href);
+          this.navigateTo(link.href, isFragment);
           return;
         }
       }
