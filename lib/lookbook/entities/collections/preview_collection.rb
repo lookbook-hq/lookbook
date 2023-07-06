@@ -44,10 +44,7 @@ module Lookbook
     end
 
     def entities
-      @_cache[:entities] ||= begin
-        all = collect_ordered_entities(to_tree(include_hidden: true))
-        all.filter { _1.is_a?(Lookbook::PreviewEntity) }
-      end
+      @_cache[:entities] ||= collect_ordered_entities(to_tree(include_hidden: true)).grep(Lookbook::PreviewEntity)
     end
 
     class << self
