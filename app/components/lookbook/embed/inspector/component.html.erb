@@ -82,6 +82,21 @@
             <% end %>
           <% end %>
         <% end %>
+
+         <% toolbar.with_section align: :right,  class: "flex-none relative z-10" do %>
+          <%= lookbook_render :button_group do |group| %>
+            <%= panels.select { |p| !p.disabled && p.copy }.each do |panel| %>
+              <% group.with_button id: "copy-panel-contents-button-#{panel.name}",
+                icon: :copy,
+                tooltip: "Copy panel contents",
+                copy: !!panel.copy,
+                "x-show": "store.activeTab === '#{panel.name}'",
+                cloak: true do %>
+                <%= panel.copy ? panel.copy : "" %>
+                <% end %>
+            <% end %>  
+          <% end %>
+        <% end %>
       <% end %>
 
       <div class="bg-lookbook-drawer-bg">      
