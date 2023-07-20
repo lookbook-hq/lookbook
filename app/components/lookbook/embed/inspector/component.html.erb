@@ -9,7 +9,7 @@
       <h3 class="flex items-center space-x-1">
         <strong class="text-lookbook-embed-title"><%= target.preview.label %></strong>
         <% if scenarios.many? %>
-          <%= select_tag("target", options_for_select(scenario_select_options, helpers.lookbook_embed_path(target.path)), "x-model": "targetPath", class: "!ml-2 compact") %>
+          <%= select_tag("target", options_for_select(scenario_select_options, helpers.lookbook_embed_path(target.lookup_path)), "x-model": "targetPath", class: "!ml-2 compact") %>
         <% else %>
           <span>(<%= target.label %>) </span>
         <% end %>
@@ -31,13 +31,13 @@
         <%= lookbook_render :button_group do |group| %>
           <% if display_action?(:inspect) %>
             <% group.with_button icon: :eye,
-              href: helpers.lookbook_inspect_url(target.path, params),
+              href: helpers.lookbook_inspect_url(target.lookup_path, params),
               tooltip: "View in Inspector",
               target: "_top" %>
           <% end %>
           <% if display_action?(:open) %>
             <% group.with_button icon: :external_link,
-              href: helpers.lookbook_preview_url(target.path, params),
+              href: helpers.lookbook_preview_url(target.lookup_path, params),
               tooltip: "Open in new window",
               target: "_blank" %>
           <% end %>
@@ -57,7 +57,7 @@
       x-ref="viewportWrapper"> 
       <%= lookbook_render :viewport,
         iframe_id: "#{id}-viewport",
-        src: helpers.lookbook_preview_path(target.path, request.query_parameters.merge(lookbook_timestamp: Time.now, lookbook_embed: true)),
+        src: helpers.lookbook_preview_path(target.lookup_path, request.query_parameters.merge(lookbook_timestamp: Time.now, lookbook_embed: true)),
         alpine_data: "store",
         resize_height: false,
         class: "mb-[-2px] transition-[height] duration-150",

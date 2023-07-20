@@ -53,7 +53,7 @@ module Lookbook
           embed_params[:_options] = SearchParamEncoder.call(options)
           embed_params.symbolize_keys!
 
-          return redirect_to lookbook_embed_url(scenario ? scenario.path : preview.path, embed_params)
+          return redirect_to lookbook_embed_url(scenario ? scenario.lookup_path : preview.lookup_path, embed_params)
         end
       end
 
@@ -65,7 +65,7 @@ module Lookbook
       unless @target
         @target = @scenario_choices.first || @preview&.default_scenario
         if @target
-          redirect_to lookbook_embed_path(@target.path, req_params)
+          redirect_to lookbook_embed_path(@target.lookup_path, req_params)
         else
           raise_not_found("Preview not found")
         end

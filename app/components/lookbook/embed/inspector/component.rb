@@ -40,7 +40,7 @@ module Lookbook
     end
 
     def scenario_select_options
-      scenarios.map { |scenario| [scenario.label, helpers.lookbook_embed_path(scenario.path)] }
+      scenarios.map { |scenario| [scenario.label, helpers.lookbook_embed_path(scenario.lookup_path)] }
     end
 
     def display_option_controls?
