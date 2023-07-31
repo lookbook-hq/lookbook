@@ -223,10 +223,10 @@ debugging:
 system:
   - name: reload_on_change
     types: Boolean
-    default: "config.reload_classes_only_on_change"
+    default: "!config.cache_classes && config.reload_classes_only_on_change"
     example: config.lookbook.reload_on_change = true
     description: |
-      By default Lookbook uses the value of the `reload_classes_only_on_change` Rails config option to decide if
+      By default Lookbook uses the value of the `cache_classes` and `reload_classes_only_on_change` Rails config options to decide if
       it should attempt to update the preview data after changes. If set the value of this config option will take precedence and be used instead.
 
   - name: live_updates
