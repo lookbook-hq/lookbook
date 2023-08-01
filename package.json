@@ -55,7 +55,7 @@
   "dependencies": {
     "@alpinejs/collapse": "^3.12.1",
     "@alpinejs/morph": "^3.12.1",
-    "@alpinejs/persist": "^3.12.1",
+    "@alpinejs/persist": "^3.12.3",
     "@rails/actioncable": "^6.1.4",
     "@ryangjchandler/alpine-tooltip": "^1.2.0",
     "@tailwindcss/forms": "^0.5.3",
