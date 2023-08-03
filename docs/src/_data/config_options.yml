@@ -223,7 +223,7 @@ debugging:
 system:
   - name: reload_on_change
     types: Boolean
-    default: "config.reload_classes_only_on_change"
+    default: "!config.cache_classes && config.reload_classes_only_on_change"
     example: config.lookbook.reload_on_change = true
     description: |
       By default Lookbook uses the value of the `reload_classes_only_on_change` Rails config option to decide if
