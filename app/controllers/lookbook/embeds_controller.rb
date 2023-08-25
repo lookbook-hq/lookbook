@@ -1,5 +1,5 @@
 module Lookbook
-  class EmbedsController < ApplicationController
+  class EmbedsController < Lookbook::ApplicationController
     include ActionView::Helpers::SanitizeHelper
     include TargetableConcern
     include WithPreviewControllerConcern

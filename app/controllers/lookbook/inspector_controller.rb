@@ -1,5 +1,5 @@
 module Lookbook
-  class InspectorController < ApplicationController
+  class InspectorController < Lookbook::ApplicationController
     include TargetableConcern
     include WithPanelsConcern
     include WithPreviewControllerConcern

@@ -1,5 +1,5 @@
 module Lookbook
-  class PagesController < ApplicationController
+  class PagesController < Lookbook::ApplicationController
     helper_method :page_controller
 
     def self.controller_path
