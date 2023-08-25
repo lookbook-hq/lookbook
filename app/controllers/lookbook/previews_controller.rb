@@ -1,5 +1,5 @@
 module Lookbook
-  class PreviewsController < ApplicationController
+  class PreviewsController < Lookbook::ApplicationController
     include TargetableConcern
     include WithPreviewControllerConcern
 
