@@ -63,7 +63,7 @@
               tooltip: "Open preview in new window",
               target: "_blank" %>
 
-            <% group.with_button id: "show-drawer-button",
+            <% group.with_button id: "show-vertical-drawer-button",
               icon: "sidebar",
               tooltip: "Show drawer",
               "x-on:click": "$store.inspector.drawer.hidden = false",
@@ -71,7 +71,7 @@
               "x-show": "$store.inspector.drawer.hidden && vertical",
               cloak: true %>
 
-            <% group.with_button id: "show-drawer-button",
+            <% group.with_button id: "show-bottom-drawer-button",
               icon: "credit-card",
               tooltip: "Show drawer",
               "x-on:click": "$store.inspector.drawer.hidden = false",
