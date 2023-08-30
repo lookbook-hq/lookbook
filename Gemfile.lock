@@ -230,6 +230,11 @@ GEM
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
     ruby-progressbar (1.13.0)
+    rubyzip (2.3.2)
+    selenium-webdriver (4.9.0)
+      rexml (~> 3.2, >= 3.2.5)
+      rubyzip (>= 1.2.2, < 3.0)
+      websocket (~> 1.0)
     standard (1.31.0)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.0)
@@ -251,6 +256,7 @@ GEM
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
+    websocket (1.2.9)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -274,6 +280,7 @@ DEPENDENCIES
   phlex-rails
   puma (~> 6)
   rails (~> 7.0.0)
+  selenium-webdriver (= 4.9.0)
   standard
   view_component
   yard-activesupport-concern

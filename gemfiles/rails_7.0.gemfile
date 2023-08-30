@@ -8,13 +8,13 @@ gem "standard"
 gem "view_component"
 gem "yard-activesupport-concern"
 gem "rspec-rails", "~> 6"
-gem "selenium-webdriver", "4.9.0"
 
 group :test do
   gem "appraisal", github: "thoughtbot/appraisal", branch: "main"
   gem "phlex-rails", require: false
   gem "factory_bot", require: false
   gem "capybara", "~> 3.39"
+  gem "selenium-webdriver", "4.9.0"
   gem "puma", "~> 6"
 end
 
