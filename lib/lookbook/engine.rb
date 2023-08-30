@@ -62,7 +62,9 @@ module Lookbook
         ViewComponent::Preview.extend(Lookbook::PreviewAfterRender)
       end
 
-      opts.reload_on_change = host_config.reload_classes_only_on_change if opts.reload_on_change.nil?
+      if opts.reload_on_change.nil?
+        opts.reload_on_change = !host_config.cache_classes && host_config.reload_classes_only_on_change
+      end
     end
 
     config.after_initialize do
