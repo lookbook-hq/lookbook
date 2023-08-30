@@ -20,7 +20,14 @@ module Lookbook
     end
 
     def self.escape_attribute_key
-      @escape_attribute_key ||= (Gem::Version.new(Rails.version) < Gem::Version.new("6.1.5.1")) ? :escape_attributes : :escape
+      @escape_attribute_key ||= (
+        (
+          Gem::Version.new(Rails.version) < Gem::Version.new("5.2.7.1")
+        ) || (
+          Gem::Version.new(Rails.version) >= Gem::Version.new("6") &&
+          Gem::Version.new(Rails.version) < Gem::Version.new("6.1.5.1")
+        )
+      ) ? :escape_attributes : :escape
     end
   end
 end
