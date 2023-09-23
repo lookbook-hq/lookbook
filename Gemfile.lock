@@ -113,7 +113,7 @@ GEM
       thor (>= 0.14.6)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
-    css_parser (1.15.0)
+    css_parser (1.16.0)
       addressable
     date (3.3.3)
     erb (4.0.3)
