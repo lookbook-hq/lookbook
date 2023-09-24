@@ -25,6 +25,12 @@ export default function app() {
         const socket = createSocket(window.SOCKET_PATH);
         socket.addListener("Lookbook::ReloadChannel", () => this.updateDOM());
       }
+
+      this.$watch("$store.layout.mobile", (mobile) => {
+        if (!mobile) {
+          this.$store.layout.sidebar.hidden = true;
+        }
+      });
     },
 
     navigateTo(path) {
