@@ -4,7 +4,7 @@ module Lookbook
 
     included do
       helper PreviewHelper
-      send(:helper, Lookbook::Engine.routes.url_helpers) # YARD parsing workaround: https://github.com/lsegal/yard/issues/546
+      send(:helper, Rails.application.routes.url_helpers) # YARD parsing workaround: https://github.com/lsegal/yard/issues/546
       prepend_view_path Engine.root.join("app/views")
 
       def render_scenario_to_string(preview, scenario)
