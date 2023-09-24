@@ -9,7 +9,7 @@
 
 @layer base {
   html {
-    @apply scroll-smooth h-screen;
+    @apply scroll-smooth h-screen w-screen;
   }
 
   @media screen and (prefers-reduced-motion: reduce) {
@@ -19,7 +19,7 @@
   }
 
   body {
-    @apply text-lookbook-text font-ui text-sm overflow-hidden;
+    @apply text-lookbook-text font-ui text-sm overflow-hidden w-screen;
   }
 
   [x-cloak] {
