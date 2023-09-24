@@ -1,7 +1,7 @@
 module Lookbook
   class Service
-    def self.call(*, **, &block)
-      new(*, **).call(&block)
+    def self.call(*args, **kwargs, &block)
+      new(*args, **kwargs).call(&block)
     end
   end
 end

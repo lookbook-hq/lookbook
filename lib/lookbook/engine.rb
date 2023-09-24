@@ -146,9 +146,9 @@ module Lookbook
         @_hooks ||= HookStore.new
       end
 
-      def run_hooks(event_name, *)
+      def run_hooks(event_name, *args)
         hooks.for_event(event_name).each do |hook|
-          hook.call(Lookbook, *)
+          hook.call(Lookbook, *args)
         end
       end
 

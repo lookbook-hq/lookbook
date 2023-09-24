@@ -19,11 +19,11 @@ module Lookbook
       load_config(config)
     end
 
-    def add_panel(name, *)
+    def add_panel(name, *args)
       if get_panel(name)
         raise ConfigError.new("panel with name '#{name}' already exists", scope: "panels.config")
       else
-        store[Utils.symbolize_name(name)] = build_config(name, *)
+        store[Utils.symbolize_name(name)] = build_config(name, *args)
       end
     end
 
