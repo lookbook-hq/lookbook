@@ -134,7 +134,7 @@ module Lookbook
 
     # @api private
     def search_terms
-      [parent.label, label]
+      [parent.search_terms, parent.label, label]
     end
 
     alias_method :lang, :source_lang

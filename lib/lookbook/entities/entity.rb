@@ -65,6 +65,10 @@ module Lookbook
     alias_method :path, :lookup_path
     deprecate path: :lookup_path, deprecator: Deprecation
 
+    def search_terms
+      @_search_terms ||= lookup_path.split("/").map(&:titleize)
+    end
+
     # @!endgroup
 
     def <=>(other)
