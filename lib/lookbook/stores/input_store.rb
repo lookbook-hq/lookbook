@@ -16,8 +16,8 @@ module Lookbook
       end
     end
 
-    def add_input(input, *args)
-      store[normalize_name(input)] = build_config(input, *args)
+    def add_input(input, *)
+      store[normalize_name(input)] = build_config(input, *)
     end
 
     def get_input(input)

@@ -17,8 +17,8 @@ module Lookbook
     #
     # @param name [Symbol, String] Name of the icon
     # @param opts [Hash] Options hash
-    def icon(name, **opts)
-      lookbook_render :icon, name: name, **opts
+    def icon(name, **)
+      lookbook_render(:icon, name: name, **)
     end
 
     # Display a syntax-highlighted block of code.
@@ -35,13 +35,13 @@ module Lookbook
     end
 
     # @api private
-    def prose(**opts, &block)
-      lookbook_render :prose, **opts, &block
+    def prose(**, &block)
+      lookbook_render(:prose, **, &block)
     end
 
     # @api private
-    def lookbook_tag(tag = :div, **attrs, &block)
-      lookbook_render :tag, tag: tag, **attrs, &block
+    def lookbook_tag(tag = :div, **, &block)
+      lookbook_render(:tag, tag: tag, **, &block)
     end
 
     # @api private

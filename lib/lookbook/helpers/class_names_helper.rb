@@ -19,8 +19,8 @@ module Lookbook
       tag_values
     end
 
-    def class_names(*args)
-      tokens = build_tag_values(*args).flat_map { |value| value.to_s.split(/\s+/) }.uniq
+    def class_names(*)
+      tokens = build_tag_values(*).flat_map { |value| value.to_s.split(/\s+/) }.uniq
 
       safe_join(tokens, " ")
     end

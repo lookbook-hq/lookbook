@@ -13,7 +13,7 @@ module Lookbook
 
       def file_watcher
         @_file_watcher ||= begin
-          require_relative "./support/evented_file_update_checker"
+          require_relative "support/evented_file_update_checker"
 
           EventedFileUpdateChecker
         rescue LoadError

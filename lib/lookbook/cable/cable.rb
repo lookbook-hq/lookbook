@@ -1,6 +1,6 @@
 require "action_cable/engine"
-require_relative "./connection"
-require_relative "./reload_channel"
+require_relative "connection"
+require_relative "reload_channel"
 
 module Lookbook
   class Cable
