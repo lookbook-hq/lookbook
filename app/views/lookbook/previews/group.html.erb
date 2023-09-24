@@ -1,4 +1,5 @@
 <% if scenarios.many? %>
+  <% scenarios = scenarios.filter(&:visible?) %>
   <%# Render a group of scenarios %>
   <% scenarios.each do |scenario| %>
     <div style="margin-bottom: 30px !important; display: block !important;">
