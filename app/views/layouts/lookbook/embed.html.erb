@@ -11,6 +11,12 @@
 
     <%= content_for?(:main) ? yield(:main) : yield %>
   </div>
+
+  <% if content_for? :dropdowns %>
+    <div class="hidden">
+      <%= content_for :dropdowns -%>
+    </div>
+  <% end %>
 <% end %>
 
 <%= render template: "layouts/lookbook/skeleton" %>
