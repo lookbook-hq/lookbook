@@ -29,7 +29,7 @@ title: Key Concepts & Terminology
 <%= render section("Scenarios", id: "scenarios") do |s| %>
   
   Each **public method** defined in the preview class represents a unique **scenario** in which the target component is rendered using a particular set of arguments.
-  This is roughly analagous to the concept of a 'story' in Storybook.
+  This is roughly analogous to the concept of a 'story' in Storybook.
   
   Lookbook will generate an isolated component preview for each scenario.
 
