@@ -47,7 +47,7 @@ module Lookbook
             eval_context.instance_eval(input.to_s)
           }.call
         rescue => exception
-          raise_error "Could not evaluate statetment (#{exception.message})", exception
+          raise_error "Could not evaluate statement (#{exception.message})", exception
         end
       else
         Lookbook.logger.debug "Data cannot be evaluated (Input: '#{input}')"
