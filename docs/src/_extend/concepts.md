@@ -48,7 +48,7 @@ title: Concepts & Terminology
     Each method in a [Preview](#preview) class defines a new preview _scenario_.
     
     A scenario provides an example of the target component being rendered with a specific set of parameters.
-    Scenarios are roughly analagous to the concept of ['storys'](https://storybook.js.org/docs/react/get-started/whats-a-story) in Storybook.
+    Scenarios are roughly analogous to the concept of ['storys'](https://storybook.js.org/docs/react/get-started/whats-a-story) in Storybook.
 
     [Read more about scenarios &rarr;](<%= guide_url :previews %>#scenarios)
   <% end %>
