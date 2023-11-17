@@ -74,6 +74,7 @@ title: Introduction
   * [GitHub](https://www.github.com/)
   * [Podia](https://www.podia.com/)
   * [Polaris ViewComponents](https://github.com/baoagency/polaris_view_components)
+  * [SearchApi](https://www.searchapi.io/)
   * [Within3](https://within3.com/)
   * [Wrapbook](https://wrapbook.com/)
   * And [many more...](https://github.com/ViewComponent/lookbook/network/dependents?package_id=UGFja2FnZS0xMDM0MzQ1)
