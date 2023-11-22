@@ -22,6 +22,12 @@ previews:
     example: config.lookbook.preview_collection_label = "Component Previews"
     description: The label used to denote the previews section of the sidebar nav.
 
+  - name: preview_search
+    types: Boolean
+    default: true
+    example: config.lookbook.preview_search = false
+    description: Whether or not to show a search/filter box for previews
+
   - name: preview_paths
     types: Array
     default: "[]"
@@ -52,7 +58,7 @@ previews:
 
   - name: preview_inspector.sidebar_panels
     types: Array
-    default: '[:previews, :pages]'
+    default: "[:previews, :pages]"
     example: config.lookbook.preview_inspector.sidebar_panels = [:pages, :previews]
     description: Controls the order and availability of the sidebar navigation panels.
 
@@ -104,6 +110,12 @@ pages:
     default: "Pages"
     example: config.lookbook.page_collection_label = "Docs"
     description: The label used to denote the pages section of the sidebar nav.
+
+  - name: page_search
+    types: Boolean
+    default: false
+    example: config.lookbook.page_search = false
+    description: Whether or not to show a search/filter box for pages
 
   - name: page_paths
     default: "[]"

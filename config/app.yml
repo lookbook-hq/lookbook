@@ -3,6 +3,7 @@ shared:
   project_logo: ~
 
   preview_collection_label: "Previews"
+  preview_search: true
   preview_paths: [test/components/previews]
   preview_display_options: {}
   preview_controller: "Lookbook::PreviewController"
@@ -24,6 +25,7 @@ shared:
   preview_sort_scenarios: false
 
   page_collection_label: "Pages"
+  page_search: false
   page_controller: "Lookbook::PageController"
   page_route: pages
   page_paths: [test/components/docs]
