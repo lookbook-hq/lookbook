@@ -68,7 +68,7 @@ module Lookbook
 
     def permit_framing
       headers["X-Frame-Options"] = Lookbook.config.preview_embeds.policy if embedded?
-      headers["X-Frame-Options"] = "SAMEORIGIN" if headers["X-Frame-Options"] == "DENY"
+      headers["X-Frame-Options"] = "SAMEORIGIN" if headers["X-Frame-Options"].upcase == "DENY"
     end
   end
 end
