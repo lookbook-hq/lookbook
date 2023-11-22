@@ -29,6 +29,16 @@ title: Navigation
   ```
 <% end %>
 
+<%= render section("Sections order", id: "sections-order") do |s| %>
+  
+  To change the order of the navigation sections in the sidebar, use the `preview_inspector.sidebar_panels` config option: 
+
+  ```ruby
+  # Display pages before previews in the sidebar
+  config.lookbook.preview_inspector.sidebar_panels = [:pages, :previews]
+  ```
+<% end %>
+
 <%= render section("Scenario order", id: "scenario-order") do |s| %>
   By default scenarios are listed in the navigation in the order in which they are defined in the preview class.
 
