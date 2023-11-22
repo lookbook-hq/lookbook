@@ -11,6 +11,7 @@ module Lookbook
           template: args[:template] || Lookbook.config.preview_template,
           args: args,
           locals: args[:locals] || {},
+          assigns: args[:assigns] || {},
           block: block
         }
       else
