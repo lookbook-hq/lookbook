@@ -17,7 +17,7 @@
       project_name: @config.project_name,
       project_logo: @config.project_logo %>
 
-    <% if @previews.any? || @pages.any? %>
+    <% unless @blank_slate %>
       
       <%= lookbook_render :split_layout,
         alpine_data: "$store.layout.main",
