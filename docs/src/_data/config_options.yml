@@ -50,6 +50,12 @@ previews:
     example: config.lookbook.preview_inspector.drawer_panels = [:notes, :params]
     description: List of panels to display in the preview inspector
 
+  - name: preview_inspector.sidebar_panels
+    types: Array
+    default: '[:previews, :pages]'
+    example: config.lookbook.preview_inspector.sidebar_panels = [:pages, :previews]
+    description: Controls the order and availability of the sidebar navigation panels.
+
   - name: preview_embeds.enabled
     types: Boolean
     default: "true"
