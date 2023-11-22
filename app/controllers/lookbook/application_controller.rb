@@ -48,7 +48,11 @@ module Lookbook
       @config = Lookbook.config
       @engine = Lookbook.engine
       @embed = !!params[:lookbook_embed]
-      @blank_slate = Engine.pages.none? && Engine.previews.none?
+      @blank_slate = @pages.none? && @previews.none?
+
+      @sidebar_panels = @config.preview_inspector.sidebar_panels.map(&:to_sym).select do |panel|
+        (panel == :pages && @pages.any?) || (panel == :previews && @previews.any?)
+      end
     end
 
     def raise_not_found(message = "Page not found")

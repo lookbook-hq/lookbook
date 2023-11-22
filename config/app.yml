@@ -10,6 +10,7 @@ shared:
   preview_inspector:
     main_panels: [preview, output]
     drawer_panels: [source, notes, params, "*"]
+    sidebar_panels: [previews, pages]
   preview_embeds:
     enabled: true
     policy: SAMEORIGIN
