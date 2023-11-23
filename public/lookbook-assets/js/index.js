@@ -1,10 +1,13 @@
 (() => {
+
 function $parcel$interopDefault(a) {
   return a && a.__esModule ? a.default : a;
 }
+
 function $parcel$defineInteropFlag(a) {
   Object.defineProperty(a, '__esModule', {value: true, configurable: true});
 }
+
 function $parcel$export(e, n, v, s) {
   Object.defineProperty(e, n, {get: v, set: s, enumerable: true, configurable: true});
 }
@@ -71,7 +74,7 @@ function $caa9439642c6336c$var$elementBoundEffect(el) {
     let wrappedEffect = (callback)=>{
         let effectReference = $caa9439642c6336c$var$effect(callback);
         if (!el._x_effects) {
-            el._x_effects = new Set();
+            el._x_effects = /* @__PURE__ */ new Set();
             el._x_runEffects = ()=>{
                 el._x_effects.forEach((i)=>i());
             };
@@ -90,6 +93,105 @@ function $caa9439642c6336c$var$elementBoundEffect(el) {
             cleanup2();
         }
     ];
+}
+// packages/alpinejs/src/utils/dispatch.js
+function $caa9439642c6336c$var$dispatch(el, name, detail = {}) {
+    el.dispatchEvent(new CustomEvent(name, {
+        detail: detail,
+        bubbles: true,
+        // Allows events to pass the shadow DOM barrier.
+        composed: true,
+        cancelable: true
+    }));
+}
+// packages/alpinejs/src/utils/walk.js
+function $caa9439642c6336c$var$walk(el, callback) {
+    if (typeof ShadowRoot === "function" && el instanceof ShadowRoot) {
+        Array.from(el.children).forEach((el2)=>$caa9439642c6336c$var$walk(el2, callback));
+        return;
+    }
+    let skip = false;
+    callback(el, ()=>skip = true);
+    if (skip) return;
+    let node = el.firstElementChild;
+    while(node){
+        $caa9439642c6336c$var$walk(node, callback, false);
+        node = node.nextElementSibling;
+    }
+}
+// packages/alpinejs/src/utils/warn.js
+function $caa9439642c6336c$var$warn(message, ...args) {
+    console.warn(`Alpine Warning: ${message}`, ...args);
+}
+// packages/alpinejs/src/lifecycle.js
+var $caa9439642c6336c$var$started = false;
+function $caa9439642c6336c$var$start() {
+    if ($caa9439642c6336c$var$started) $caa9439642c6336c$var$warn("Alpine has already been initialized on this page. Calling Alpine.start() more than once can cause problems.");
+    $caa9439642c6336c$var$started = true;
+    if (!document.body) $caa9439642c6336c$var$warn("Unable to initialize. Trying to load Alpine before `<body>` is available. Did you forget to add `defer` in Alpine's `<script>` tag?");
+    $caa9439642c6336c$var$dispatch(document, "alpine:init");
+    $caa9439642c6336c$var$dispatch(document, "alpine:initializing");
+    $caa9439642c6336c$var$startObservingMutations();
+    $caa9439642c6336c$var$onElAdded((el)=>$caa9439642c6336c$var$initTree(el, $caa9439642c6336c$var$walk));
+    $caa9439642c6336c$var$onElRemoved((el)=>$caa9439642c6336c$var$destroyTree(el));
+    $caa9439642c6336c$var$onAttributesAdded((el, attrs)=>{
+        $caa9439642c6336c$var$directives(el, attrs).forEach((handle)=>handle());
+    });
+    let outNestedComponents = (el)=>!$caa9439642c6336c$var$closestRoot(el.parentElement, true);
+    Array.from(document.querySelectorAll($caa9439642c6336c$var$allSelectors().join(","))).filter(outNestedComponents).forEach((el)=>{
+        $caa9439642c6336c$var$initTree(el);
+    });
+    $caa9439642c6336c$var$dispatch(document, "alpine:initialized");
+}
+var $caa9439642c6336c$var$rootSelectorCallbacks = [];
+var $caa9439642c6336c$var$initSelectorCallbacks = [];
+function $caa9439642c6336c$var$rootSelectors() {
+    return $caa9439642c6336c$var$rootSelectorCallbacks.map((fn)=>fn());
+}
+function $caa9439642c6336c$var$allSelectors() {
+    return $caa9439642c6336c$var$rootSelectorCallbacks.concat($caa9439642c6336c$var$initSelectorCallbacks).map((fn)=>fn());
+}
+function $caa9439642c6336c$var$addRootSelector(selectorCallback) {
+    $caa9439642c6336c$var$rootSelectorCallbacks.push(selectorCallback);
+}
+function $caa9439642c6336c$var$addInitSelector(selectorCallback) {
+    $caa9439642c6336c$var$initSelectorCallbacks.push(selectorCallback);
+}
+function $caa9439642c6336c$var$closestRoot(el, includeInitSelectors = false) {
+    return $caa9439642c6336c$var$findClosest(el, (element)=>{
+        const selectors = includeInitSelectors ? $caa9439642c6336c$var$allSelectors() : $caa9439642c6336c$var$rootSelectors();
+        if (selectors.some((selector)=>element.matches(selector))) return true;
+    });
+}
+function $caa9439642c6336c$var$findClosest(el, callback) {
+    if (!el) return;
+    if (callback(el)) return el;
+    if (el._x_teleportBack) el = el._x_teleportBack;
+    if (!el.parentElement) return;
+    return $caa9439642c6336c$var$findClosest(el.parentElement, callback);
+}
+function $caa9439642c6336c$var$isRoot(el) {
+    return $caa9439642c6336c$var$rootSelectors().some((selector)=>el.matches(selector));
+}
+var $caa9439642c6336c$var$initInterceptors = [];
+function $caa9439642c6336c$var$interceptInit(callback) {
+    $caa9439642c6336c$var$initInterceptors.push(callback);
+}
+function $caa9439642c6336c$var$initTree(el, walker = $caa9439642c6336c$var$walk, intercept = ()=>{}) {
+    $caa9439642c6336c$var$deferHandlingDirectives(()=>{
+        walker(el, (el2, skip)=>{
+            intercept(el2, skip);
+            $caa9439642c6336c$var$initInterceptors.forEach((i)=>i(el2, skip));
+            $caa9439642c6336c$var$directives(el2, el2.attributes).forEach((handle)=>handle());
+            el2._x_ignore && skip();
+        });
+    });
+}
+function $caa9439642c6336c$var$destroyTree(root) {
+    $caa9439642c6336c$var$walk(root, (el)=>{
+        $caa9439642c6336c$var$cleanupAttributes(el);
+        $caa9439642c6336c$var$cleanupElement(el);
+    });
 }
 // packages/alpinejs/src/mutation.js
 var $caa9439642c6336c$var$onAttributeAddeds = [];
@@ -123,6 +225,9 @@ function $caa9439642c6336c$var$cleanupAttributes(el, names) {
             delete el._x_attributeCleanups[name];
         }
     });
+}
+function $caa9439642c6336c$var$cleanupElement(el) {
+    if (el._x_cleanups) while(el._x_cleanups.length)el._x_cleanups.pop()();
 }
 var $caa9439642c6336c$var$observer = new MutationObserver($caa9439642c6336c$var$onMutate);
 var $caa9439642c6336c$var$currentlyObserving = false;
@@ -180,8 +285,8 @@ function $caa9439642c6336c$var$onMutate(mutations) {
     }
     let addedNodes = [];
     let removedNodes = [];
-    let addedAttributes = new Map();
-    let removedAttributes = new Map();
+    let addedAttributes = /* @__PURE__ */ new Map();
+    let removedAttributes = /* @__PURE__ */ new Map();
     for(let i = 0; i < mutations.length; i++){
         if (mutations[i].target._x_ignoreMutationObserver) continue;
         if (mutations[i].type === "childList") {
@@ -219,7 +324,7 @@ function $caa9439642c6336c$var$onMutate(mutations) {
     for (let node of removedNodes){
         if (addedNodes.includes(node)) continue;
         $caa9439642c6336c$var$onElRemoveds.forEach((i)=>i(node));
-        if (node._x_cleanups) while(node._x_cleanups.length)node._x_cleanups.pop()();
+        $caa9439642c6336c$var$destroyTree(node);
     }
     addedNodes.forEach((node)=>{
         node._x_ignoreSelf = true;
@@ -263,51 +368,41 @@ function $caa9439642c6336c$var$closestDataStack(node) {
     return $caa9439642c6336c$var$closestDataStack(node.parentNode);
 }
 function $caa9439642c6336c$var$mergeProxies(objects) {
-    let thisProxy = new Proxy({}, {
-        ownKeys: ()=>{
-            return Array.from(new Set(objects.flatMap((i)=>Object.keys(i))));
-        },
-        has: (target, name)=>{
-            return objects.some((obj)=>obj.hasOwnProperty(name));
-        },
-        get: (target, name)=>{
-            return (objects.find((obj)=>{
-                if (obj.hasOwnProperty(name)) {
-                    let descriptor = Object.getOwnPropertyDescriptor(obj, name);
-                    if (descriptor.get && descriptor.get._x_alreadyBound || descriptor.set && descriptor.set._x_alreadyBound) return true;
-                    if ((descriptor.get || descriptor.set) && descriptor.enumerable) {
-                        let getter = descriptor.get;
-                        let setter = descriptor.set;
-                        let property = descriptor;
-                        getter = getter && getter.bind(thisProxy);
-                        setter = setter && setter.bind(thisProxy);
-                        if (getter) getter._x_alreadyBound = true;
-                        if (setter) setter._x_alreadyBound = true;
-                        Object.defineProperty(obj, name, {
-                            ...property,
-                            get: getter,
-                            set: setter
-                        });
-                    }
-                    return true;
-                }
-                return false;
-            }) || {})[name];
-        },
-        set: (target, name, value)=>{
-            let closestObjectWithKey = objects.find((obj)=>obj.hasOwnProperty(name));
-            if (closestObjectWithKey) closestObjectWithKey[name] = value;
-            else objects[objects.length - 1][name] = value;
-            return true;
-        }
-    });
-    return thisProxy;
+    return new Proxy({
+        objects: objects
+    }, $caa9439642c6336c$var$mergeProxyTrap);
+}
+var $caa9439642c6336c$var$mergeProxyTrap = {
+    ownKeys ({ objects: objects }) {
+        return Array.from(new Set(objects.flatMap((i)=>Object.keys(i))));
+    },
+    has ({ objects: objects }, name) {
+        if (name == Symbol.unscopables) return false;
+        return objects.some((obj)=>Object.prototype.hasOwnProperty.call(obj, name));
+    },
+    get ({ objects: objects }, name, thisProxy) {
+        if (name == "toJSON") return $caa9439642c6336c$var$collapseProxies;
+        return Reflect.get(objects.find((obj)=>Object.prototype.hasOwnProperty.call(obj, name)) || {}, name, thisProxy);
+    },
+    set ({ objects: objects }, name, value, thisProxy) {
+        const target = objects.find((obj)=>Object.prototype.hasOwnProperty.call(obj, name)) || objects[objects.length - 1];
+        const descriptor = Object.getOwnPropertyDescriptor(target, name);
+        if (descriptor?.set && descriptor?.get) return Reflect.set(target, name, value, thisProxy);
+        return Reflect.set(target, name, value);
+    }
+};
+function $caa9439642c6336c$var$collapseProxies() {
+    let keys = Reflect.ownKeys(this);
+    return keys.reduce((acc, key)=>{
+        acc[key] = Reflect.get(this, key);
+        return acc;
+    }, {});
 }
 // packages/alpinejs/src/interceptor.js
-function $caa9439642c6336c$var$initInterceptors(data2) {
+function $caa9439642c6336c$var$initInterceptors2(data2) {
     let isObject2 = (val)=>typeof val === "object" && !Array.isArray(val) && val !== null;
     let recurse = (obj, basePath = "")=>{
-        Object.entries(Object.getOwnPropertyDescriptors(obj)).forEach(([key, { value: value , enumerable: enumerable  }])=>{
+        Object.entries(Object.getOwnPropertyDescriptors(obj)).forEach(([key, { value: value, enumerable: enumerable }])=>{
             if (enumerable === false || value === void 0) return;
             let path = basePath === "" ? key : `${basePath}.${key}`;
             if (typeof value === "object" && value !== null && value._x_interceptor) obj[key] = value.initialize(data2, path, key);
@@ -406,8 +501,9 @@ var $caa9439642c6336c$var$shouldAutoEvaluateFunctions = true;
 function $caa9439642c6336c$var$dontAutoEvaluateFunctions(callback) {
     let cache = $caa9439642c6336c$var$shouldAutoEvaluateFunctions;
     $caa9439642c6336c$var$shouldAutoEvaluateFunctions = false;
-    callback();
+    let result = callback();
     $caa9439642c6336c$var$shouldAutoEvaluateFunctions = cache;
+    return result;
 }
 function $caa9439642c6336c$var$evaluate(el, expression, extras = {}) {
     let result;
@@ -432,7 +528,7 @@ function $caa9439642c6336c$var$normalEvaluator(el, expression) {
     return $caa9439642c6336c$var$tryCatch.bind(null, el, expression, evaluator);
 }
 function $caa9439642c6336c$var$generateEvaluatorFromFunction(dataStack, func) {
-    return (receiver = ()=>{}, { scope: scope2 = {} , params: params = []  } = {})=>{
+    return (receiver = ()=>{}, { scope: scope2 = {}, params: params = [] } = {})=>{
         let result = func.apply($caa9439642c6336c$var$mergeProxies([
             scope2,
             ...dataStack
@@ -444,13 +540,17 @@ var $caa9439642c6336c$var$evaluatorMemo = {};
 function $caa9439642c6336c$var$generateFunctionFromString(expression, el) {
     if ($caa9439642c6336c$var$evaluatorMemo[expression]) return $caa9439642c6336c$var$evaluatorMemo[expression];
     let AsyncFunction = Object.getPrototypeOf(async function() {}).constructor;
-    let rightSideSafeExpression = /^[\n\s]*if.*\(.*\)/.test(expression) || /^(let|const)\s/.test(expression) ? `(async()=>{ ${expression} })()` : expression;
+    let rightSideSafeExpression = /^[\n\s]*if.*\(.*\)/.test(expression.trim()) || /^(let|const)\s/.test(expression.trim()) ? `(async()=>{ ${expression} })()` : expression;
     const safeAsyncFunction = ()=>{
         try {
-            return new AsyncFunction([
+            let func2 = new AsyncFunction([
                 "__self",
                 "scope"
             ], `with (scope) { __self.result = ${rightSideSafeExpression} }; __self.finished = true; return __self.result;`);
+            Object.defineProperty(func2, "name", {
+                value: `[Alpine] ${expression}`
+            });
+            return func2;
         } catch (error2) {
             $caa9439642c6336c$var$handleError(error2, el, expression);
             return Promise.resolve();
@@ -462,7 +562,7 @@ function $caa9439642c6336c$var$generateFunctionFromString(expression, el) {
 }
 function $caa9439642c6336c$var$generateEvaluatorFromString(dataStack, expression, el) {
     let func = $caa9439642c6336c$var$generateFunctionFromString(expression, el);
-    return (receiver = ()=>{}, { scope: scope2 = {} , params: params = []  } = {})=>{
+    return (receiver = ()=>{}, { scope: scope2 = {}, params: params = [] } = {})=>{
         func.result = void 0;
         func.finished = false;
         let completeScope = $caa9439642c6336c$var$mergeProxies([
@@ -537,7 +637,7 @@ function $caa9439642c6336c$var$attributesOnly(attributes) {
     return Array.from(attributes).map($caa9439642c6336c$var$toTransformedAttributes()).filter((attr)=>!$caa9439642c6336c$var$outNonAlpineAttributes(attr));
 }
 var $caa9439642c6336c$var$isDeferringHandlers = false;
-var $caa9439642c6336c$var$directiveHandlerStacks = new Map();
+var $caa9439642c6336c$var$directiveHandlerStacks = /* @__PURE__ */ new Map();
 var $caa9439642c6336c$var$currentHandlerStackKey = Symbol();
 function $caa9439642c6336c$var$deferHandlingDirectives(callback) {
     $caa9439642c6336c$var$isDeferringHandlers = true;
@@ -575,19 +675,19 @@ function $caa9439642c6336c$var$getElementBoundUtilities(el) {
 }
 function $caa9439642c6336c$var$getDirectiveHandler(el, directive2) {
     let noop = ()=>{};
-    let handler3 = $caa9439642c6336c$var$directiveHandlers[directive2.type] || noop;
+    let handler4 = $caa9439642c6336c$var$directiveHandlers[directive2.type] || noop;
     let [utilities, cleanup2] = $caa9439642c6336c$var$getElementBoundUtilities(el);
     $caa9439642c6336c$var$onAttributeRemoved(el, directive2.original, cleanup2);
     let fullHandler = ()=>{
         if (el._x_ignore || el._x_ignoreSelf) return;
-        handler3.inline && handler3.inline(el, directive2, utilities);
-        handler3 = handler3.bind(handler3, el, directive2, utilities);
-        $caa9439642c6336c$var$isDeferringHandlers ? $caa9439642c6336c$var$directiveHandlerStacks.get($caa9439642c6336c$var$currentHandlerStackKey).push(handler3) : handler3();
+        handler4.inline && handler4.inline(el, directive2, utilities);
+        handler4 = handler4.bind(handler4, el, directive2, utilities);
+        $caa9439642c6336c$var$isDeferringHandlers ? $caa9439642c6336c$var$directiveHandlerStacks.get($caa9439642c6336c$var$currentHandlerStackKey).push(handler4) : handler4();
     };
     fullHandler.runCleanups = cleanup2;
     return fullHandler;
 }
-var $caa9439642c6336c$var$startingWith = (subject, replacement)=>({ name: name , value: value  })=>{
+var $caa9439642c6336c$var$startingWith = (subject, replacement)=>({ name: name, value: value })=>{
         if (name.startsWith(subject)) name = name.replace(subject, replacement);
         return {
             name: name,
@@ -596,8 +696,8 @@ var $caa9439642c6336c$var$startingWith = (subject, replacement)=>({ name: name ,
     };
 var $caa9439642c6336c$var$into = (i)=>i;
 function $caa9439642c6336c$var$toTransformedAttributes(callback = ()=>{}) {
-    return ({ name: name , value: value  })=>{
-        let { name: newName , value: newValue  } = $caa9439642c6336c$var$attributeTransformers.reduce((carry, transform)=>{
+    return ({ name: name, value: value })=>{
+        let { name: newName, value: newValue } = $caa9439642c6336c$var$attributeTransformers.reduce((carry, transform)=>{
             return transform(carry);
         }, {
             name: name,
@@ -614,14 +714,14 @@ var $caa9439642c6336c$var$attributeTransformers = [];
 function $caa9439642c6336c$var$mapAttributes(callback) {
     $caa9439642c6336c$var$attributeTransformers.push(callback);
 }
-function $caa9439642c6336c$var$outNonAlpineAttributes({ name: name  }) {
+function $caa9439642c6336c$var$outNonAlpineAttributes({ name: name }) {
     return $caa9439642c6336c$var$alpineAttributeRegex().test(name);
 }
 var $caa9439642c6336c$var$alpineAttributeRegex = ()=>new RegExp(`^${$caa9439642c6336c$var$prefixAsString}([^:^.]+)\\b`);
 function $caa9439642c6336c$var$toParsedDirectives(transformedAttributeMap, originalAttributeOverride) {
-    return ({ name: name , value: value  })=>{
+    return ({ name: name, value: value })=>{
         let typeMatch = name.match($caa9439642c6336c$var$alpineAttributeRegex());
-        let valueMatch = name.match(/:([a-zA-Z0-9\-:]+)/);
+        let valueMatch = name.match(/:([a-zA-Z0-9\-_:]+)/);
         let modifiers = name.match(/\.[^.\]]+(?=[^\]]*$)/g) || [];
         let original = originalAttributeOverride || transformedAttributeMap[name] || name;
         return {
@@ -639,6 +739,7 @@ var $caa9439642c6336c$var$directiveOrder = [
     "ref",
     "data",
     "id",
+    "anchor",
     "bind",
     "init",
     "for",
@@ -654,101 +755,6 @@ function $caa9439642c6336c$var$byPriority(a, b) {
     let typeA = $caa9439642c6336c$var$directiveOrder.indexOf(a.type) === -1 ? $caa9439642c6336c$var$DEFAULT : a.type;
     let typeB = $caa9439642c6336c$var$directiveOrder.indexOf(b.type) === -1 ? $caa9439642c6336c$var$DEFAULT : b.type;
     return $caa9439642c6336c$var$directiveOrder.indexOf(typeA) - $caa9439642c6336c$var$directiveOrder.indexOf(typeB);
-}
-// packages/alpinejs/src/utils/dispatch.js
-function $caa9439642c6336c$var$dispatch(el, name, detail = {}) {
-    el.dispatchEvent(new CustomEvent(name, {
-        detail: detail,
-        bubbles: true,
-        composed: true,
-        cancelable: true
-    }));
-}
-// packages/alpinejs/src/utils/walk.js
-function $caa9439642c6336c$var$walk(el, callback) {
-    if (typeof ShadowRoot === "function" && el instanceof ShadowRoot) {
-        Array.from(el.children).forEach((el2)=>$caa9439642c6336c$var$walk(el2, callback));
-        return;
-    }
-    let skip = false;
-    callback(el, ()=>skip = true);
-    if (skip) return;
-    let node = el.firstElementChild;
-    while(node){
-        $caa9439642c6336c$var$walk(node, callback, false);
-        node = node.nextElementSibling;
-    }
-}
-// packages/alpinejs/src/utils/warn.js
-function $caa9439642c6336c$var$warn(message, ...args) {
-    console.warn(`Alpine Warning: ${message}`, ...args);
-}
-// packages/alpinejs/src/lifecycle.js
-var $caa9439642c6336c$var$started = false;
-function $caa9439642c6336c$var$start() {
-    if ($caa9439642c6336c$var$started) $caa9439642c6336c$var$warn("Alpine has already been initialized on this page. Calling Alpine.start() more than once can cause problems.");
-    $caa9439642c6336c$var$started = true;
-    if (!document.body) $caa9439642c6336c$var$warn("Unable to initialize. Trying to load Alpine before `<body>` is available. Did you forget to add `defer` in Alpine's `<script>` tag?");
-    $caa9439642c6336c$var$dispatch(document, "alpine:init");
-    $caa9439642c6336c$var$dispatch(document, "alpine:initializing");
-    $caa9439642c6336c$var$startObservingMutations();
-    $caa9439642c6336c$var$onElAdded((el)=>$caa9439642c6336c$var$initTree(el, $caa9439642c6336c$var$walk));
-    $caa9439642c6336c$var$onElRemoved((el)=>$caa9439642c6336c$var$destroyTree(el));
-    $caa9439642c6336c$var$onAttributesAdded((el, attrs)=>{
-        $caa9439642c6336c$var$directives(el, attrs).forEach((handle)=>handle());
-    });
-    let outNestedComponents = (el)=>!$caa9439642c6336c$var$closestRoot(el.parentElement, true);
-    Array.from(document.querySelectorAll($caa9439642c6336c$var$allSelectors())).filter(outNestedComponents).forEach((el)=>{
-        $caa9439642c6336c$var$initTree(el);
-    });
-    $caa9439642c6336c$var$dispatch(document, "alpine:initialized");
-}
-var $caa9439642c6336c$var$rootSelectorCallbacks = [];
-var $caa9439642c6336c$var$initSelectorCallbacks = [];
-function $caa9439642c6336c$var$rootSelectors() {
-    return $caa9439642c6336c$var$rootSelectorCallbacks.map((fn)=>fn());
-}
-function $caa9439642c6336c$var$allSelectors() {
-    return $caa9439642c6336c$var$rootSelectorCallbacks.concat($caa9439642c6336c$var$initSelectorCallbacks).map((fn)=>fn());
-}
-function $caa9439642c6336c$var$addRootSelector(selectorCallback) {
-    $caa9439642c6336c$var$rootSelectorCallbacks.push(selectorCallback);
-}
-function $caa9439642c6336c$var$addInitSelector(selectorCallback) {
-    $caa9439642c6336c$var$initSelectorCallbacks.push(selectorCallback);
-}
-function $caa9439642c6336c$var$closestRoot(el, includeInitSelectors = false) {
-    return $caa9439642c6336c$var$findClosest(el, (element)=>{
-        const selectors = includeInitSelectors ? $caa9439642c6336c$var$allSelectors() : $caa9439642c6336c$var$rootSelectors();
-        if (selectors.some((selector)=>element.matches(selector))) return true;
-    });
-}
-function $caa9439642c6336c$var$findClosest(el, callback) {
-    if (!el) return;
-    if (callback(el)) return el;
-    if (el._x_teleportBack) el = el._x_teleportBack;
-    if (!el.parentElement) return;
-    return $caa9439642c6336c$var$findClosest(el.parentElement, callback);
-}
-function $caa9439642c6336c$var$isRoot(el) {
-    return $caa9439642c6336c$var$rootSelectors().some((selector)=>el.matches(selector));
-}
-var $caa9439642c6336c$var$initInterceptors2 = [];
-function $caa9439642c6336c$var$interceptInit(callback) {
-    $caa9439642c6336c$var$initInterceptors2.push(callback);
-}
-function $caa9439642c6336c$var$initTree(el, walker = $caa9439642c6336c$var$walk, intercept = ()=>{}) {
-    $caa9439642c6336c$var$deferHandlingDirectives(()=>{
-        walker(el, (el2, skip)=>{
-            intercept(el2, skip);
-            $caa9439642c6336c$var$initInterceptors2.forEach((i)=>i(el2, skip));
-            $caa9439642c6336c$var$directives(el2, el2.attributes).forEach((handle)=>handle());
-            el2._x_ignore && skip();
-        });
-    });
-}
-function $caa9439642c6336c$var$destroyTree(root) {
-    $caa9439642c6336c$var$walk(root, (el)=>$caa9439642c6336c$var$cleanupAttributes(el));
 }
 // packages/alpinejs/src/nextTick.js
 var $caa9439642c6336c$var$tickStack = [];
@@ -855,7 +861,7 @@ function $caa9439642c6336c$var$once(callback, fallback = ()=>{}) {
     };
 }
 // packages/alpinejs/src/directives/x-transition.js
-$caa9439642c6336c$var$directive("transition", (el, { value: value , modifiers: modifiers , expression: expression  }, { evaluate: evaluate2  })=>{
+$caa9439642c6336c$var$directive("transition", (el, { value: value, modifiers: modifiers, expression: expression }, { evaluate: evaluate2 })=>{
     if (typeof expression === "function") expression = evaluate2(expression);
     if (expression === false) return;
     if (!expression || typeof expression === "boolean") $caa9439642c6336c$var$registerTransitionsFromHelper(el, modifiers, value);
@@ -864,7 +870,7 @@ $caa9439642c6336c$var$directive("transition", (el, { value: value , modifiers: m
 function $caa9439642c6336c$var$registerTransitionsFromClassString(el, classString, stage) {
     $caa9439642c6336c$var$registerTransitionObject(el, $caa9439642c6336c$var$setClasses, "");
     let directiveStorageMap = {
-        enter: (classes)=>{
+        "enter": (classes)=>{
             el._x_transition.enter.during = classes;
         },
         "enter-start": (classes)=>{
@@ -873,7 +879,7 @@ function $caa9439642c6336c$var$registerTransitionsFromClassString(el, classStrin
         "enter-end": (classes)=>{
             el._x_transition.enter.end = classes;
         },
-        leave: (classes)=>{
+        "leave": (classes)=>{
             el._x_transition.leave.during = classes;
         },
         "leave-start": (classes)=>{
@@ -980,7 +986,7 @@ window.Element.prototype._x_toggleAndCascadeWithTransitions = function(el, value
     }
     el._x_hidePromise = el._x_transition ? new Promise((resolve, reject)=>{
         el._x_transition.out(()=>{}, ()=>resolve(hide));
-        el._x_transitioning.beforeCancel(()=>reject({
+        el._x_transitioning && el._x_transitioning.beforeCancel(()=>reject({
                 isFromCancelledTransition: true
             }));
     }) : Promise.resolve(hide);
@@ -1010,7 +1016,7 @@ function $caa9439642c6336c$var$closestHide(el) {
     if (!parent) return;
     return parent._x_hidePromise ? parent : $caa9439642c6336c$var$closestHide(parent);
 }
-function $caa9439642c6336c$var$transition(el, setFunction, { during: during , start: start2 , end: end  } = {}, before = ()=>{}, after = ()=>{}) {
+function $caa9439642c6336c$var$transition(el, setFunction, { during: during, start: start2, end: end } = {}, before = ()=>{}, after = ()=>{}) {
     if (el._x_transitioning) el._x_transitioning.cancel();
     if (Object.keys(during).length === 0 && Object.keys(start2).length === 0 && Object.keys(end).length === 0) {
         before();
@@ -1121,13 +1127,30 @@ function $caa9439642c6336c$var$skipDuringClone(callback, fallback = ()=>{}) {
 function $caa9439642c6336c$var$onlyDuringClone(callback) {
     return (...args)=>$caa9439642c6336c$var$isCloning && callback(...args);
 }
+var $caa9439642c6336c$var$interceptors = [];
+function $caa9439642c6336c$var$interceptClone(callback) {
+    $caa9439642c6336c$var$interceptors.push(callback);
+}
+function $caa9439642c6336c$var$cloneNode(from, to) {
+    $caa9439642c6336c$var$interceptors.forEach((i)=>i(from, to));
+    $caa9439642c6336c$var$isCloning = true;
+    $caa9439642c6336c$var$dontRegisterReactiveSideEffects(()=>{
+        $caa9439642c6336c$var$initTree(to, (el, callback)=>{
+            callback(el, ()=>{});
+        });
+    });
+    $caa9439642c6336c$var$isCloning = false;
+}
+var $caa9439642c6336c$var$isCloningLegacy = false;
 function $caa9439642c6336c$var$clone(oldEl, newEl) {
     if (!newEl._x_dataStack) newEl._x_dataStack = oldEl._x_dataStack;
     $caa9439642c6336c$var$isCloning = true;
+    $caa9439642c6336c$var$isCloningLegacy = true;
     $caa9439642c6336c$var$dontRegisterReactiveSideEffects(()=>{
         $caa9439642c6336c$var$cloneTree(newEl);
     });
     $caa9439642c6336c$var$isCloning = false;
+    $caa9439642c6336c$var$isCloningLegacy = false;
 }
 function $caa9439642c6336c$var$cloneTree(el) {
     let hasRunThroughFirstEl = false;
@@ -1177,10 +1200,13 @@ function $caa9439642c6336c$var$bind(el, name, value, modifiers = []) {
 function $caa9439642c6336c$var$bindInputValue(el, value) {
     if (el.type === "radio") {
         if (el.attributes.value === void 0) el.value = value;
-        if (window.fromModel) el.checked = $caa9439642c6336c$var$checkedAttrLooseCompare(el.value, value);
+        if (window.fromModel) {
+            if (typeof value === "boolean") el.checked = $caa9439642c6336c$var$safeParseBoolean(el.value) === value;
+            else el.checked = $caa9439642c6336c$var$checkedAttrLooseCompare(el.value, value);
+        }
     } else if (el.type === "checkbox") {
         if (Number.isInteger(value)) el.value = value;
-        else if (!Number.isInteger(value) && !Array.isArray(value) && typeof value !== "boolean" && ![
+        else if (!Array.isArray(value) && typeof value !== "boolean" && ![
             null,
             void 0
         ].includes(value)) el.value = String(value);
@@ -1189,7 +1215,7 @@ function $caa9439642c6336c$var$bindInputValue(el, value) {
     } else if (el.tagName === "SELECT") $caa9439642c6336c$var$updateSelect(el, value);
     else {
         if (el.value === value) return;
-        el.value = value;
+        el.value = value === void 0 ? "" : value;
     }
 }
 function $caa9439642c6336c$var$bindClasses(el, value) {
@@ -1235,6 +1261,25 @@ function $caa9439642c6336c$var$camelCase(subject) {
 function $caa9439642c6336c$var$checkedAttrLooseCompare(valueA, valueB) {
     return valueA == valueB;
 }
+function $caa9439642c6336c$var$safeParseBoolean(rawValue) {
+    if ([
+        1,
+        "1",
+        "true",
+        "on",
+        "yes",
+        true
+    ].includes(rawValue)) return true;
+    if ([
+        0,
+        "0",
+        "false",
+        "off",
+        "no",
+        false
+    ].includes(rawValue)) return false;
+    return rawValue ? Boolean(rawValue) : null;
+}
 function $caa9439642c6336c$var$isBooleanAttr(attrName) {
     const booleanAttributes = [
         "disabled",
@@ -1275,6 +1320,20 @@ function $caa9439642c6336c$var$attributeShouldntBePreservedIfFalsy(name) {
 }
 function $caa9439642c6336c$var$getBinding(el, name, fallback) {
     if (el._x_bindings && el._x_bindings[name] !== void 0) return el._x_bindings[name];
+    return $caa9439642c6336c$var$getAttributeBinding(el, name, fallback);
+}
+function $caa9439642c6336c$var$extractProp(el, name, fallback, extract = true) {
+    if (el._x_bindings && el._x_bindings[name] !== void 0) return el._x_bindings[name];
+    if (el._x_inlineBindings && el._x_inlineBindings[name] !== void 0) {
+        let binding = el._x_inlineBindings[name];
+        binding.extract = extract;
+        return $caa9439642c6336c$var$dontAutoEvaluateFunctions(()=>{
+            return $caa9439642c6336c$var$evaluate(el, binding.expression);
+        });
+    }
+    return $caa9439642c6336c$var$getAttributeBinding(el, name, fallback);
+}
+function $caa9439642c6336c$var$getAttributeBinding(el, name, fallback) {
     let attr = el.getAttribute(name);
     if (attr === null) return typeof fallback === "function" ? fallback() : fallback;
     if (attr === "") return true;
@@ -1309,6 +1368,37 @@ function $caa9439642c6336c$var$throttle(func, limit) {
         }
     };
 }
+// packages/alpinejs/src/entangle.js
+function $caa9439642c6336c$var$entangle({ get: outerGet, set: outerSet }, { get: innerGet, set: innerSet }) {
+    let firstRun = true;
+    let outerHash;
+    let reference = $caa9439642c6336c$var$effect(()=>{
+        const outer = outerGet();
+        const inner = innerGet();
+        if (firstRun) {
+            innerSet($caa9439642c6336c$var$cloneIfObject(outer));
+            firstRun = false;
+            outerHash = JSON.stringify(outer);
+        } else {
+            const outerHashLatest = JSON.stringify(outer);
+            if (outerHashLatest !== outerHash) {
+                innerSet($caa9439642c6336c$var$cloneIfObject(outer));
+                outerHash = outerHashLatest;
+            } else {
+                outerSet($caa9439642c6336c$var$cloneIfObject(inner));
+                outerHash = JSON.stringify(inner);
+            }
+        }
+        JSON.stringify(innerGet());
+        JSON.stringify(outerGet());
+    });
+    return ()=>{
+        $caa9439642c6336c$var$release(reference);
+    };
+}
+function $caa9439642c6336c$var$cloneIfObject(value) {
+    return typeof value === "object" ? JSON.parse(JSON.stringify(value)) : value;
+}
 // packages/alpinejs/src/plugin.js
 function $caa9439642c6336c$var$plugin(callback) {
     let callbacks = Array.isArray(callback) ? callback : [
@@ -1327,7 +1417,7 @@ function $caa9439642c6336c$var$store(name, value) {
     if (value === void 0) return $caa9439642c6336c$var$stores[name];
     $caa9439642c6336c$var$stores[name] = value;
     if (typeof value === "object" && value !== null && value.hasOwnProperty("init") && typeof value.init === "function") $caa9439642c6336c$var$stores[name].init();
-    $caa9439642c6336c$var$initInterceptors($caa9439642c6336c$var$stores[name]);
+    $caa9439642c6336c$var$initInterceptors2($caa9439642c6336c$var$stores[name]);
 }
 function $caa9439642c6336c$var$getStores() {
     return $caa9439642c6336c$var$stores;
@@ -1336,8 +1426,9 @@ function $caa9439642c6336c$var$getStores() {
 var $caa9439642c6336c$var$binds = {};
 function $caa9439642c6336c$var$bind2(name, bindings) {
     let getBindings = typeof bindings !== "function" ? ()=>bindings : bindings;
-    if (name instanceof Element) $caa9439642c6336c$var$applyBindingsObject(name, getBindings());
+    if (name instanceof Element) return $caa9439642c6336c$var$applyBindingsObject(name, getBindings());
     else $caa9439642c6336c$var$binds[name] = getBindings;
+    return ()=>{};
 }
 function $caa9439642c6336c$var$injectBindingProviders(obj) {
     Object.entries($caa9439642c6336c$var$binds).forEach(([name, callback])=>{
@@ -1370,6 +1461,9 @@ function $caa9439642c6336c$var$applyBindingsObject(el, obj, original) {
         cleanupRunners.push(handle.runCleanups);
         handle();
     });
+    return ()=>{
+        while(cleanupRunners.length)cleanupRunners.pop()();
+    };
 }
 // packages/alpinejs/src/datas.js
 var $caa9439642c6336c$var$datas = {};
@@ -1403,18 +1497,21 @@ var $caa9439642c6336c$var$Alpine = {
     get raw () {
         return $caa9439642c6336c$var$raw;
     },
-    version: "3.12.2",
+    version: "3.13.3",
     flushAndStopDeferringMutations: $caa9439642c6336c$var$flushAndStopDeferringMutations,
     dontAutoEvaluateFunctions: $caa9439642c6336c$var$dontAutoEvaluateFunctions,
     disableEffectScheduling: $caa9439642c6336c$var$disableEffectScheduling,
     startObservingMutations: $caa9439642c6336c$var$startObservingMutations,
     stopObservingMutations: $caa9439642c6336c$var$stopObservingMutations,
     setReactivityEngine: $caa9439642c6336c$var$setReactivityEngine,
+    onAttributeRemoved: $caa9439642c6336c$var$onAttributeRemoved,
+    onAttributesAdded: $caa9439642c6336c$var$onAttributesAdded,
     closestDataStack: $caa9439642c6336c$var$closestDataStack,
     skipDuringClone: $caa9439642c6336c$var$skipDuringClone,
     onlyDuringClone: $caa9439642c6336c$var$onlyDuringClone,
     addRootSelector: $caa9439642c6336c$var$addRootSelector,
     addInitSelector: $caa9439642c6336c$var$addInitSelector,
+    interceptClone: $caa9439642c6336c$var$interceptClone,
     addScopeToNode: $caa9439642c6336c$var$addScopeToNode,
     deferMutations: $caa9439642c6336c$var$deferMutations,
     mapAttributes: $caa9439642c6336c$var$mapAttributes,
@@ -1422,14 +1519,20 @@ var $caa9439642c6336c$var$Alpine = {
     interceptInit: $caa9439642c6336c$var$interceptInit,
     setEvaluator: $caa9439642c6336c$var$setEvaluator,
     mergeProxies: $caa9439642c6336c$var$mergeProxies,
+    extractProp: $caa9439642c6336c$var$extractProp,
     findClosest: $caa9439642c6336c$var$findClosest,
+    onElRemoved: $caa9439642c6336c$var$onElRemoved,
     closestRoot: $caa9439642c6336c$var$closestRoot,
     destroyTree: $caa9439642c6336c$var$destroyTree,
     interceptor: $caa9439642c6336c$var$interceptor,
-    transition: $caa9439642c6336c$var$transition,
-    setStyles: $caa9439642c6336c$var$setStyles,
-    mutateDom: $caa9439642c6336c$var$mutateDom,
+    transition: // INTERNAL: not public API and is subject to change without major release.
+    $caa9439642c6336c$var$transition,
+    setStyles: // INTERNAL
+    $caa9439642c6336c$var$setStyles,
+    mutateDom: // INTERNAL
+    $caa9439642c6336c$var$mutateDom,
     directive: $caa9439642c6336c$var$directive,
+    entangle: $caa9439642c6336c$var$entangle,
     throttle: $caa9439642c6336c$var$throttle,
     debounce: $caa9439642c6336c$var$debounce,
     evaluate: $caa9439642c6336c$var$evaluate,
@@ -1442,6 +1545,9 @@ var $caa9439642c6336c$var$Alpine = {
     store: $caa9439642c6336c$var$store,
     start: $caa9439642c6336c$var$start,
     clone: $caa9439642c6336c$var$clone,
+    cloneNode: // INTERNAL
+    $caa9439642c6336c$var$cloneNode,
+    // INTERNAL
     bound: $caa9439642c6336c$var$getBinding,
     $data: $caa9439642c6336c$var$scope,
     walk: $caa9439642c6336c$var$walk,
@@ -1451,37 +1557,15 @@ var $caa9439642c6336c$var$Alpine = {
 var $caa9439642c6336c$var$alpine_default = $caa9439642c6336c$var$Alpine;
 // node_modules/@vue/shared/dist/shared.esm-bundler.js
 function $caa9439642c6336c$var$makeMap(str, expectsLowerCase) {
-    const map = Object.create(null);
+    const map = /* @__PURE__ */ Object.create(null);
     const list = str.split(",");
     for(let i = 0; i < list.length; i++)map[list[i]] = true;
     return expectsLowerCase ? (val)=>!!map[val.toLowerCase()] : (val)=>!!map[val];
 }
-var $caa9439642c6336c$var$PatchFlagNames = {
-    [1]: `TEXT`,
-    [2]: `CLASS`,
-    [4]: `STYLE`,
-    [8]: `PROPS`,
-    [16]: `FULL_PROPS`,
-    [32]: `HYDRATE_EVENTS`,
-    [64]: `STABLE_FRAGMENT`,
-    [128]: `KEYED_FRAGMENT`,
-    [256]: `UNKEYED_FRAGMENT`,
-    [512]: `NEED_PATCH`,
-    [1024]: `DYNAMIC_SLOTS`,
-    [2048]: `DEV_ROOT_FRAGMENT`,
-    [-1]: `HOISTED`,
-    [-2]: `BAIL`
-};
-var $caa9439642c6336c$var$slotFlagsText = {
-    [1]: "STABLE",
-    [2]: "DYNAMIC",
-    [3]: "FORWARDED"
-};
 var $caa9439642c6336c$var$specialBooleanAttrs = `itemscope,allowfullscreen,formnovalidate,ismap,nomodule,novalidate,readonly`;
 var $caa9439642c6336c$var$isBooleanAttr2 = /* @__PURE__ */ $caa9439642c6336c$var$makeMap($caa9439642c6336c$var$specialBooleanAttrs + `,async,autofocus,autoplay,controls,default,defer,disabled,hidden,loop,open,required,reversed,scoped,seamless,checked,muted,multiple,selected`);
 var $caa9439642c6336c$var$EMPTY_OBJ = Object.freeze({});
 var $caa9439642c6336c$var$EMPTY_ARR = Object.freeze([]);
-var $caa9439642c6336c$var$extend = Object.assign;
 var $caa9439642c6336c$var$hasOwnProperty = Object.prototype.hasOwnProperty;
 var $caa9439642c6336c$var$hasOwn = (val, key)=>$caa9439642c6336c$var$hasOwnProperty.call(val, key);
 var $caa9439642c6336c$var$isArray = Array.isArray;
@@ -1496,7 +1580,7 @@ var $caa9439642c6336c$var$toRawType = (value)=>{
 };
 var $caa9439642c6336c$var$isIntegerKey = (key)=>$caa9439642c6336c$var$isString(key) && key !== "NaN" && key[0] !== "-" && "" + parseInt(key, 10) === key;
 var $caa9439642c6336c$var$cacheStringFunction = (fn)=>{
-    const cache = Object.create(null);
+    const cache = /* @__PURE__ */ Object.create(null);
     return (str)=>{
         const hit = cache[str];
         return hit || (cache[str] = fn(str));
@@ -1512,7 +1596,7 @@ var $caa9439642c6336c$var$capitalize = $caa9439642c6336c$var$cacheStringFunction
 var $caa9439642c6336c$var$toHandlerKey = $caa9439642c6336c$var$cacheStringFunction((str)=>str ? `on${$caa9439642c6336c$var$capitalize(str)}` : ``);
 var $caa9439642c6336c$var$hasChanged = (value, oldValue)=>value !== oldValue && (value === value || oldValue === oldValue);
 // node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js
-var $caa9439642c6336c$var$targetMap = new WeakMap();
+var $caa9439642c6336c$var$targetMap = /* @__PURE__ */ new WeakMap();
 var $caa9439642c6336c$var$effectStack = [];
 var $caa9439642c6336c$var$activeEffect;
 var $caa9439642c6336c$var$ITERATE_KEY = Symbol("iterate");
@@ -1561,7 +1645,7 @@ function $caa9439642c6336c$var$createReactiveEffect(fn, options) {
     return effect3;
 }
 function $caa9439642c6336c$var$cleanup(effect3) {
-    const { deps: deps  } = effect3;
+    const { deps: deps } = effect3;
     if (deps.length) {
         for(let i = 0; i < deps.length; i++)deps[i].delete(effect3);
         deps.length = 0;
@@ -1584,9 +1668,9 @@ function $caa9439642c6336c$var$resetTracking() {
 function $caa9439642c6336c$var$track(target, type, key) {
     if (!$caa9439642c6336c$var$shouldTrack || $caa9439642c6336c$var$activeEffect === void 0) return;
     let depsMap = $caa9439642c6336c$var$targetMap.get(target);
-    if (!depsMap) $caa9439642c6336c$var$targetMap.set(target, depsMap = new Map());
+    if (!depsMap) $caa9439642c6336c$var$targetMap.set(target, depsMap = /* @__PURE__ */ new Map());
     let dep = depsMap.get(key);
-    if (!dep) depsMap.set(key, dep = new Set());
+    if (!dep) depsMap.set(key, dep = /* @__PURE__ */ new Set());
     if (!dep.has($caa9439642c6336c$var$activeEffect)) {
         dep.add($caa9439642c6336c$var$activeEffect);
         $caa9439642c6336c$var$activeEffect.deps.push(dep);
@@ -1601,7 +1685,7 @@ function $caa9439642c6336c$var$track(target, type, key) {
 function $caa9439642c6336c$var$trigger(target, type, key, newValue, oldValue, oldTarget) {
     const depsMap = $caa9439642c6336c$var$targetMap.get(target);
     if (!depsMap) return;
-    const effects = new Set();
+    const effects = /* @__PURE__ */ new Set();
     const add2 = (effectsToAdd)=>{
         if (effectsToAdd) effectsToAdd.forEach((effect3)=>{
             if (effect3 !== $caa9439642c6336c$var$activeEffect || effect3.allowRecurse) effects.add(effect3);
@@ -1649,39 +1733,39 @@ function $caa9439642c6336c$var$trigger(target, type, key, newValue, oldValue, ol
 var $caa9439642c6336c$var$isNonTrackableKeys = /* @__PURE__ */ $caa9439642c6336c$var$makeMap(`__proto__,__v_isRef,__isVue`);
 var $caa9439642c6336c$var$builtInSymbols = new Set(Object.getOwnPropertyNames(Symbol).map((key)=>Symbol[key]).filter($caa9439642c6336c$var$isSymbol));
 var $caa9439642c6336c$var$get2 = /* @__PURE__ */ $caa9439642c6336c$var$createGetter();
-var $caa9439642c6336c$var$shallowGet = /* @__PURE__ */ $caa9439642c6336c$var$createGetter(false, true);
 var $caa9439642c6336c$var$readonlyGet = /* @__PURE__ */ $caa9439642c6336c$var$createGetter(true);
-var $caa9439642c6336c$var$shallowReadonlyGet = /* @__PURE__ */ $caa9439642c6336c$var$createGetter(true, true);
-var $caa9439642c6336c$var$arrayInstrumentations = {};
-[
-    "includes",
-    "indexOf",
-    "lastIndexOf"
-].forEach((key)=>{
-    const method = Array.prototype[key];
-    $caa9439642c6336c$var$arrayInstrumentations[key] = function(...args) {
-        const arr = $caa9439642c6336c$var$toRaw(this);
-        for(let i = 0, l = this.length; i < l; i++)$caa9439642c6336c$var$track(arr, "get", i + "");
-        const res = method.apply(arr, args);
-        if (res === -1 || res === false) return method.apply(arr, args.map($caa9439642c6336c$var$toRaw));
-        else return res;
-    };
-});
-[
-    "push",
-    "pop",
-    "shift",
-    "unshift",
-    "splice"
-].forEach((key)=>{
-    const method = Array.prototype[key];
-    $caa9439642c6336c$var$arrayInstrumentations[key] = function(...args) {
-        $caa9439642c6336c$var$pauseTracking();
-        const res = method.apply(this, args);
-        $caa9439642c6336c$var$resetTracking();
-        return res;
-    };
-});
+var $caa9439642c6336c$var$arrayInstrumentations = /* @__PURE__ */ $caa9439642c6336c$var$createArrayInstrumentations();
+function $caa9439642c6336c$var$createArrayInstrumentations() {
+    const instrumentations = {};
+    [
+        "includes",
+        "indexOf",
+        "lastIndexOf"
+    ].forEach((key)=>{
+        instrumentations[key] = function(...args) {
+            const arr = $caa9439642c6336c$var$toRaw(this);
+            for(let i = 0, l = this.length; i < l; i++)$caa9439642c6336c$var$track(arr, "get", i + "");
+            const res = arr[key](...args);
+            if (res === -1 || res === false) return arr[key](...args.map($caa9439642c6336c$var$toRaw));
+            else return res;
+        };
+    });
+    [
+        "push",
+        "pop",
+        "shift",
+        "unshift",
+        "splice"
+    ].forEach((key)=>{
+        instrumentations[key] = function(...args) {
+            $caa9439642c6336c$var$pauseTracking();
+            const res = $caa9439642c6336c$var$toRaw(this)[key].apply(this, args);
+            $caa9439642c6336c$var$resetTracking();
+            return res;
+        };
+    });
+    return instrumentations;
+}
 function $caa9439642c6336c$var$createGetter(isReadonly = false, shallow = false) {
     return function get3(target, key, receiver) {
         if (key === "__v_isReactive") return !isReadonly;
@@ -1702,7 +1786,6 @@ function $caa9439642c6336c$var$createGetter(isReadonly = false, shallow = false)
     };
 }
 var $caa9439642c6336c$var$set2 = /* @__PURE__ */ $caa9439642c6336c$var$createSetter();
-var $caa9439642c6336c$var$shallowSet = /* @__PURE__ */ $caa9439642c6336c$var$createSetter(true);
 function $caa9439642c6336c$var$createSetter(shallow = false) {
     return function set3(target, key, value, receiver) {
         let oldValue = target[key];
@@ -1757,13 +1840,6 @@ var $caa9439642c6336c$var$readonlyHandlers = {
         return true;
     }
 };
-var $caa9439642c6336c$var$shallowReactiveHandlers = $caa9439642c6336c$var$extend({}, $caa9439642c6336c$var$mutableHandlers, {
-    get: $caa9439642c6336c$var$shallowGet,
-    set: $caa9439642c6336c$var$shallowSet
-});
-var $caa9439642c6336c$var$shallowReadonlyHandlers = $caa9439642c6336c$var$extend({}, $caa9439642c6336c$var$readonlyHandlers, {
-    get: $caa9439642c6336c$var$shallowReadonlyGet
-});
 var $caa9439642c6336c$var$toReactive = (value)=>$caa9439642c6336c$var$isObject(value) ? $caa9439642c6336c$var$reactive2(value) : value;
 var $caa9439642c6336c$var$toReadonly = (value)=>$caa9439642c6336c$var$isObject(value) ? $caa9439642c6336c$var$readonly(value) : value;
 var $caa9439642c6336c$var$toShallow = (value)=>value;
@@ -1774,7 +1850,7 @@ function $caa9439642c6336c$var$get$1(target, key, isReadonly = false, isShallow 
     const rawKey = $caa9439642c6336c$var$toRaw(key);
     if (key !== rawKey) !isReadonly && $caa9439642c6336c$var$track(rawTarget, "get", key);
     !isReadonly && $caa9439642c6336c$var$track(rawTarget, "get", rawKey);
-    const { has: has2  } = $caa9439642c6336c$var$getProto(rawTarget);
+    const { has: has2 } = $caa9439642c6336c$var$getProto(rawTarget);
     const wrap = isShallow ? $caa9439642c6336c$var$toShallow : isReadonly ? $caa9439642c6336c$var$toReadonly : $caa9439642c6336c$var$toReactive;
     if (has2.call(rawTarget, key)) return wrap(target.get(key));
     else if (has2.call(rawTarget, rawKey)) return wrap(target.get(rawKey));
@@ -1807,7 +1883,7 @@ function $caa9439642c6336c$var$add(value) {
 function $caa9439642c6336c$var$set$1(key, value) {
     value = $caa9439642c6336c$var$toRaw(value);
     const target = $caa9439642c6336c$var$toRaw(this);
-    const { has: has2 , get: get3  } = $caa9439642c6336c$var$getProto(target);
+    const { has: has2, get: get3 } = $caa9439642c6336c$var$getProto(target);
     let hadKey = has2.call(target, key);
     if (!hadKey) {
         key = $caa9439642c6336c$var$toRaw(key);
@@ -1821,7 +1897,7 @@ function $caa9439642c6336c$var$set$1(key, value) {
 }
 function $caa9439642c6336c$var$deleteEntry(key) {
     const target = $caa9439642c6336c$var$toRaw(this);
-    const { has: has2 , get: get3  } = $caa9439642c6336c$var$getProto(target);
+    const { has: has2, get: get3 } = $caa9439642c6336c$var$getProto(target);
     let hadKey = has2.call(target, key);
     if (!hadKey) {
         key = $caa9439642c6336c$var$toRaw(key);
@@ -1863,8 +1939,9 @@ function $caa9439642c6336c$var$createIterableMethod(method, isReadonly, isShallo
         const wrap = isShallow ? $caa9439642c6336c$var$toShallow : isReadonly ? $caa9439642c6336c$var$toReadonly : $caa9439642c6336c$var$toReactive;
         !isReadonly && $caa9439642c6336c$var$track(rawTarget, "iterate", isKeyOnly ? $caa9439642c6336c$var$MAP_KEY_ITERATE_KEY : $caa9439642c6336c$var$ITERATE_KEY);
         return {
+            // iterator protocol
             next () {
-                const { value: value , done: done  } = innerIterator.next();
+                const { value: value, done: done } = innerIterator.next();
                 return done ? {
                     value: value,
                     done: done
@@ -1876,6 +1953,7 @@ function $caa9439642c6336c$var$createIterableMethod(method, isReadonly, isShallo
                     done: done
                 };
             },
+            // iterable protocol
             [Symbol.iterator] () {
                 return this;
             }
@@ -1891,78 +1969,87 @@ function $caa9439642c6336c$var$createReadonlyMethod(type) {
         return type === "delete" ? false : this;
     };
 }
-var $caa9439642c6336c$var$mutableInstrumentations = {
-    get (key) {
-        return $caa9439642c6336c$var$get$1(this, key);
-    },
-    get size () {
-        return $caa9439642c6336c$var$size(this);
-    },
-    has: $caa9439642c6336c$var$has$1,
-    add: $caa9439642c6336c$var$add,
-    set: $caa9439642c6336c$var$set$1,
-    delete: $caa9439642c6336c$var$deleteEntry,
-    clear: $caa9439642c6336c$var$clear,
-    forEach: $caa9439642c6336c$var$createForEach(false, false)
-};
-var $caa9439642c6336c$var$shallowInstrumentations = {
-    get (key) {
-        return $caa9439642c6336c$var$get$1(this, key, false, true);
-    },
-    get size () {
-        return $caa9439642c6336c$var$size(this);
-    },
-    has: $caa9439642c6336c$var$has$1,
-    add: $caa9439642c6336c$var$add,
-    set: $caa9439642c6336c$var$set$1,
-    delete: $caa9439642c6336c$var$deleteEntry,
-    clear: $caa9439642c6336c$var$clear,
-    forEach: $caa9439642c6336c$var$createForEach(false, true)
-};
-var $caa9439642c6336c$var$readonlyInstrumentations = {
-    get (key) {
-        return $caa9439642c6336c$var$get$1(this, key, true);
-    },
-    get size () {
-        return $caa9439642c6336c$var$size(this, true);
-    },
-    has (key) {
-        return $caa9439642c6336c$var$has$1.call(this, key, true);
-    },
-    add: $caa9439642c6336c$var$createReadonlyMethod("add"),
-    set: $caa9439642c6336c$var$createReadonlyMethod("set"),
-    delete: $caa9439642c6336c$var$createReadonlyMethod("delete"),
-    clear: $caa9439642c6336c$var$createReadonlyMethod("clear"),
-    forEach: $caa9439642c6336c$var$createForEach(true, false)
-};
-var $caa9439642c6336c$var$shallowReadonlyInstrumentations = {
-    get (key) {
-        return $caa9439642c6336c$var$get$1(this, key, true, true);
-    },
-    get size () {
-        return $caa9439642c6336c$var$size(this, true);
-    },
-    has (key) {
-        return $caa9439642c6336c$var$has$1.call(this, key, true);
-    },
-    add: $caa9439642c6336c$var$createReadonlyMethod("add"),
-    set: $caa9439642c6336c$var$createReadonlyMethod("set"),
-    delete: $caa9439642c6336c$var$createReadonlyMethod("delete"),
-    clear: $caa9439642c6336c$var$createReadonlyMethod("clear"),
-    forEach: $caa9439642c6336c$var$createForEach(true, true)
-};
-var $caa9439642c6336c$var$iteratorMethods = [
-    "keys",
-    "values",
-    "entries",
-    Symbol.iterator
-];
-$caa9439642c6336c$var$iteratorMethods.forEach((method)=>{
-    $caa9439642c6336c$var$mutableInstrumentations[method] = $caa9439642c6336c$var$createIterableMethod(method, false, false);
-    $caa9439642c6336c$var$readonlyInstrumentations[method] = $caa9439642c6336c$var$createIterableMethod(method, true, false);
-    $caa9439642c6336c$var$shallowInstrumentations[method] = $caa9439642c6336c$var$createIterableMethod(method, false, true);
-    $caa9439642c6336c$var$shallowReadonlyInstrumentations[method] = $caa9439642c6336c$var$createIterableMethod(method, true, true);
-});
+function $caa9439642c6336c$var$createInstrumentations() {
+    const mutableInstrumentations2 = {
+        get (key) {
+            return $caa9439642c6336c$var$get$1(this, key);
+        },
+        get size () {
+            return $caa9439642c6336c$var$size(this);
+        },
+        has: $caa9439642c6336c$var$has$1,
+        add: $caa9439642c6336c$var$add,
+        set: $caa9439642c6336c$var$set$1,
+        delete: $caa9439642c6336c$var$deleteEntry,
+        clear: $caa9439642c6336c$var$clear,
+        forEach: $caa9439642c6336c$var$createForEach(false, false)
+    };
+    const shallowInstrumentations2 = {
+        get (key) {
+            return $caa9439642c6336c$var$get$1(this, key, false, true);
+        },
+        get size () {
+            return $caa9439642c6336c$var$size(this);
+        },
+        has: $caa9439642c6336c$var$has$1,
+        add: $caa9439642c6336c$var$add,
+        set: $caa9439642c6336c$var$set$1,
+        delete: $caa9439642c6336c$var$deleteEntry,
+        clear: $caa9439642c6336c$var$clear,
+        forEach: $caa9439642c6336c$var$createForEach(false, true)
+    };
+    const readonlyInstrumentations2 = {
+        get (key) {
+            return $caa9439642c6336c$var$get$1(this, key, true);
+        },
+        get size () {
+            return $caa9439642c6336c$var$size(this, true);
+        },
+        has (key) {
+            return $caa9439642c6336c$var$has$1.call(this, key, true);
+        },
+        add: $caa9439642c6336c$var$createReadonlyMethod("add"),
+        set: $caa9439642c6336c$var$createReadonlyMethod("set"),
+        delete: $caa9439642c6336c$var$createReadonlyMethod("delete"),
+        clear: $caa9439642c6336c$var$createReadonlyMethod("clear"),
+        forEach: $caa9439642c6336c$var$createForEach(true, false)
+    };
+    const shallowReadonlyInstrumentations2 = {
+        get (key) {
+            return $caa9439642c6336c$var$get$1(this, key, true, true);
+        },
+        get size () {
+            return $caa9439642c6336c$var$size(this, true);
+        },
+        has (key) {
+            return $caa9439642c6336c$var$has$1.call(this, key, true);
+        },
+        add: $caa9439642c6336c$var$createReadonlyMethod("add"),
+        set: $caa9439642c6336c$var$createReadonlyMethod("set"),
+        delete: $caa9439642c6336c$var$createReadonlyMethod("delete"),
+        clear: $caa9439642c6336c$var$createReadonlyMethod("clear"),
+        forEach: $caa9439642c6336c$var$createForEach(true, true)
+    };
+    const iteratorMethods = [
+        "keys",
+        "values",
+        "entries",
+        Symbol.iterator
+    ];
+    iteratorMethods.forEach((method)=>{
+        mutableInstrumentations2[method] = $caa9439642c6336c$var$createIterableMethod(method, false, false);
+        readonlyInstrumentations2[method] = $caa9439642c6336c$var$createIterableMethod(method, true, false);
+        shallowInstrumentations2[method] = $caa9439642c6336c$var$createIterableMethod(method, false, true);
+        shallowReadonlyInstrumentations2[method] = $caa9439642c6336c$var$createIterableMethod(method, true, true);
+    });
+    return [
+        mutableInstrumentations2,
+        readonlyInstrumentations2,
+        shallowInstrumentations2,
+        shallowReadonlyInstrumentations2
+    ];
+}
+var [$caa9439642c6336c$var$mutableInstrumentations, $caa9439642c6336c$var$readonlyInstrumentations, $caa9439642c6336c$var$shallowInstrumentations, $caa9439642c6336c$var$shallowReadonlyInstrumentations] = /* @__PURE__ */ $caa9439642c6336c$var$createInstrumentations();
 function $caa9439642c6336c$var$createInstrumentationGetter(isReadonly, shallow) {
     const instrumentations = shallow ? isReadonly ? $caa9439642c6336c$var$shallowReadonlyInstrumentations : $caa9439642c6336c$var$shallowInstrumentations : isReadonly ? $caa9439642c6336c$var$readonlyInstrumentations : $caa9439642c6336c$var$mutableInstrumentations;
     return (target, key, receiver)=>{
@@ -1973,16 +2060,10 @@ function $caa9439642c6336c$var$createInstrumentationGetter(isReadonly, shallow) 
     };
 }
 var $caa9439642c6336c$var$mutableCollectionHandlers = {
-    get: $caa9439642c6336c$var$createInstrumentationGetter(false, false)
-};
-var $caa9439642c6336c$var$shallowCollectionHandlers = {
-    get: $caa9439642c6336c$var$createInstrumentationGetter(false, true)
+    get: /* @__PURE__ */ $caa9439642c6336c$var$createInstrumentationGetter(false, false)
 };
 var $caa9439642c6336c$var$readonlyCollectionHandlers = {
-    get: $caa9439642c6336c$var$createInstrumentationGetter(true, false)
-};
-var $caa9439642c6336c$var$shallowReadonlyCollectionHandlers = {
-    get: $caa9439642c6336c$var$createInstrumentationGetter(true, true)
+    get: /* @__PURE__ */ $caa9439642c6336c$var$createInstrumentationGetter(true, false)
 };
 function $caa9439642c6336c$var$checkIdentityKeys(target, has2, key) {
     const rawKey = $caa9439642c6336c$var$toRaw(key);
@@ -1991,10 +2072,10 @@ function $caa9439642c6336c$var$checkIdentityKeys(target, has2, key) {
         console.warn(`Reactive ${type} contains both the raw and reactive versions of the same object${type === `Map` ? ` as keys` : ``}, which can lead to inconsistencies. Avoid differentiating between the raw and reactive versions of an object and only use the reactive version if possible.`);
     }
 }
-var $caa9439642c6336c$var$reactiveMap = new WeakMap();
-var $caa9439642c6336c$var$shallowReactiveMap = new WeakMap();
-var $caa9439642c6336c$var$readonlyMap = new WeakMap();
-var $caa9439642c6336c$var$shallowReadonlyMap = new WeakMap();
+var $caa9439642c6336c$var$reactiveMap = /* @__PURE__ */ new WeakMap();
+var $caa9439642c6336c$var$shallowReactiveMap = /* @__PURE__ */ new WeakMap();
+var $caa9439642c6336c$var$readonlyMap = /* @__PURE__ */ new WeakMap();
+var $caa9439642c6336c$var$shallowReadonlyMap = /* @__PURE__ */ new WeakMap();
 function $caa9439642c6336c$var$targetTypeMap(rawType) {
     switch(rawType){
         case "Object":
@@ -2044,7 +2125,7 @@ $caa9439642c6336c$var$magic("nextTick", ()=>$caa9439642c6336c$var$nextTick);
 // packages/alpinejs/src/magics/$dispatch.js
 $caa9439642c6336c$var$magic("dispatch", (el)=>$caa9439642c6336c$var$dispatch.bind($caa9439642c6336c$var$dispatch, el));
 // packages/alpinejs/src/magics/$watch.js
-$caa9439642c6336c$var$magic("watch", (el, { evaluateLater: evaluateLater2 , effect: effect3  })=>(key, callback)=>{
+$caa9439642c6336c$var$magic("watch", (el, { evaluateLater: evaluateLater2, effect: effect3 })=>(key, callback)=>{
         let evaluate2 = evaluateLater2(key);
         let firstTime = true;
         let oldValue;
@@ -2107,42 +2188,10 @@ $caa9439642c6336c$var$magic("el", (el)=>el);
 $caa9439642c6336c$var$warnMissingPluginMagic("Focus", "focus", "focus");
 $caa9439642c6336c$var$warnMissingPluginMagic("Persist", "persist", "persist");
 function $caa9439642c6336c$var$warnMissingPluginMagic(name, magicName, slug) {
-    $caa9439642c6336c$var$magic(magicName, (el)=>$caa9439642c6336c$var$warn(`You can't use [$${directiveName}] without first installing the "${name}" plugin here: https://alpinejs.dev/plugins/${slug}`, el));
-}
-// packages/alpinejs/src/entangle.js
-function $caa9439642c6336c$var$entangle({ get: outerGet , set: outerSet  }, { get: innerGet , set: innerSet  }) {
-    let firstRun = true;
-    let outerHash, innerHash, outerHashLatest, innerHashLatest;
-    let reference = $caa9439642c6336c$var$effect(()=>{
-        let outer, inner;
-        if (firstRun) {
-            outer = outerGet();
-            innerSet(outer);
-            inner = innerGet();
-            firstRun = false;
-        } else {
-            outer = outerGet();
-            inner = innerGet();
-            outerHashLatest = JSON.stringify(outer);
-            innerHashLatest = JSON.stringify(inner);
-            if (outerHashLatest !== outerHash) {
-                inner = innerGet();
-                innerSet(outer);
-                inner = outer;
-            } else {
-                outerSet(inner);
-                outer = inner;
-            }
-        }
-        outerHash = JSON.stringify(outer);
-        innerHash = JSON.stringify(inner);
-    });
-    return ()=>{
-        $caa9439642c6336c$var$release(reference);
-    };
+    $caa9439642c6336c$var$magic(magicName, (el)=>$caa9439642c6336c$var$warn(`You can't use [$${magicName}] without first installing the "${name}" plugin here: https://alpinejs.dev/plugins/${slug}`, el));
 }
 // packages/alpinejs/src/directives/x-modelable.js
-$caa9439642c6336c$var$directive("modelable", (el, { expression: expression  }, { effect: effect3 , evaluateLater: evaluateLater2 , cleanup: cleanup2  })=>{
+$caa9439642c6336c$var$directive("modelable", (el, { expression: expression }, { effect: effect3, evaluateLater: evaluateLater2, cleanup: cleanup2 })=>{
     let func = evaluateLater2(expression);
     let innerGet = ()=>{
         let result;
@@ -2152,7 +2201,7 @@ $caa9439642c6336c$var$directive("modelable", (el, { expression: expression  }, {
     let evaluateInnerSet = evaluateLater2(`${expression} = __placeholder`);
     let innerSet = (val)=>evaluateInnerSet(()=>{}, {
             scope: {
-                __placeholder: val
+                "__placeholder": val
             }
         });
     let initialValue = innerGet();
@@ -2181,18 +2230,14 @@ $caa9439642c6336c$var$directive("modelable", (el, { expression: expression  }, {
     });
 });
 // packages/alpinejs/src/directives/x-teleport.js
-var $caa9439642c6336c$var$teleportContainerDuringClone = document.createElement("div");
-$caa9439642c6336c$var$directive("teleport", (el, { modifiers: modifiers , expression: expression  }, { cleanup: cleanup2  })=>{
+$caa9439642c6336c$var$directive("teleport", (el, { modifiers: modifiers, expression: expression }, { cleanup: cleanup2 })=>{
     if (el.tagName.toLowerCase() !== "template") $caa9439642c6336c$var$warn("x-teleport can only be used on a <template> tag", el);
-    let target = $caa9439642c6336c$var$skipDuringClone(()=>{
-        return document.querySelector(expression);
-    }, ()=>{
-        return $caa9439642c6336c$var$teleportContainerDuringClone;
-    })();
-    if (!target) $caa9439642c6336c$var$warn(`Cannot find x-teleport element for selector: "${expression}"`);
+    let target = $caa9439642c6336c$var$getTarget(expression);
     let clone2 = el.content.cloneNode(true).firstElementChild;
     el._x_teleport = clone2;
     clone2._x_teleportBack = el;
+    el.setAttribute("data-teleport-template", true);
+    clone2.setAttribute("data-teleport-target", true);
     if (el._x_forwardEvents) el._x_forwardEvents.forEach((eventName)=>{
         clone2.addEventListener(eventName, (e)=>{
             e.stopPropagation();
@@ -2200,18 +2245,37 @@ $caa9439642c6336c$var$directive("teleport", (el, { modifiers: modifiers , expres
         });
     });
     $caa9439642c6336c$var$addScopeToNode(clone2, {}, el);
+    let placeInDom = (clone3, target2, modifiers2)=>{
+        if (modifiers2.includes("prepend")) target2.parentNode.insertBefore(clone3, target2);
+        else if (modifiers2.includes("append")) target2.parentNode.insertBefore(clone3, target2.nextSibling);
+        else target2.appendChild(clone3);
+    };
     $caa9439642c6336c$var$mutateDom(()=>{
-        if (modifiers.includes("prepend")) target.parentNode.insertBefore(clone2, target);
-        else if (modifiers.includes("append")) target.parentNode.insertBefore(clone2, target.nextSibling);
-        else target.appendChild(clone2);
+        placeInDom(clone2, target, modifiers);
         $caa9439642c6336c$var$initTree(clone2);
         clone2._x_ignore = true;
     });
+    el._x_teleportPutBack = ()=>{
+        let target2 = $caa9439642c6336c$var$getTarget(expression);
+        $caa9439642c6336c$var$mutateDom(()=>{
+            placeInDom(el._x_teleport, target2, modifiers);
+        });
+    };
     cleanup2(()=>clone2.remove());
 });
+var $caa9439642c6336c$var$teleportContainerDuringClone = document.createElement("div");
+function $caa9439642c6336c$var$getTarget(expression) {
+    let target = $caa9439642c6336c$var$skipDuringClone(()=>{
+        return document.querySelector(expression);
+    }, ()=>{
+        return $caa9439642c6336c$var$teleportContainerDuringClone;
+    })();
+    if (!target) $caa9439642c6336c$var$warn(`Cannot find x-teleport element for selector: "${expression}"`);
+    return target;
+}
 // packages/alpinejs/src/directives/x-ignore.js
 var $caa9439642c6336c$var$handler = ()=>{};
-$caa9439642c6336c$var$handler.inline = (el, { modifiers: modifiers  }, { cleanup: cleanup2  })=>{
+$caa9439642c6336c$var$handler.inline = (el, { modifiers: modifiers }, { cleanup: cleanup2 })=>{
     modifiers.includes("self") ? el._x_ignoreSelf = true : el._x_ignore = true;
     cleanup2(()=>{
         modifiers.includes("self") ? delete el._x_ignoreSelf : delete el._x_ignore;
@@ -2219,11 +2283,13 @@ $caa9439642c6336c$var$handler.inline = (el, { modifiers: modifiers  }, { cleanup
 };
 $caa9439642c6336c$var$directive("ignore", $caa9439642c6336c$var$handler);
 // packages/alpinejs/src/directives/x-effect.js
-$caa9439642c6336c$var$directive("effect", (el, { expression: expression  }, { effect: effect3  })=>effect3($caa9439642c6336c$var$evaluateLater(el, expression)));
+$caa9439642c6336c$var$directive("effect", $caa9439642c6336c$var$skipDuringClone((el, { expression: expression }, { effect: effect3 })=>{
+    effect3($caa9439642c6336c$var$evaluateLater(el, expression));
+}));
 // packages/alpinejs/src/utils/on.js
 function $caa9439642c6336c$var$on(el, event, modifiers, callback) {
     let listenerTarget = el;
-    let handler3 = (e)=>callback(e);
+    let handler4 = (e)=>callback(e);
     let options = {};
     let wrapHandler = (callback2, wrapper)=>(e)=>wrapper(callback2, e);
     if (modifiers.includes("dot")) event = $caa9439642c6336c$var$dotSyntax(event);
@@ -2235,27 +2301,27 @@ function $caa9439642c6336c$var$on(el, event, modifiers, callback) {
     if (modifiers.includes("debounce")) {
         let nextModifier = modifiers[modifiers.indexOf("debounce") + 1] || "invalid-wait";
         let wait = $caa9439642c6336c$var$isNumeric(nextModifier.split("ms")[0]) ? Number(nextModifier.split("ms")[0]) : 250;
-        handler3 = $caa9439642c6336c$var$debounce(handler3, wait);
+        handler4 = $caa9439642c6336c$var$debounce(handler4, wait);
     }
     if (modifiers.includes("throttle")) {
         let nextModifier = modifiers[modifiers.indexOf("throttle") + 1] || "invalid-wait";
         let wait = $caa9439642c6336c$var$isNumeric(nextModifier.split("ms")[0]) ? Number(nextModifier.split("ms")[0]) : 250;
-        handler3 = $caa9439642c6336c$var$throttle(handler3, wait);
+        handler4 = $caa9439642c6336c$var$throttle(handler4, wait);
     }
-    if (modifiers.includes("prevent")) handler3 = wrapHandler(handler3, (next, e)=>{
+    if (modifiers.includes("prevent")) handler4 = wrapHandler(handler4, (next, e)=>{
         e.preventDefault();
         next(e);
     });
-    if (modifiers.includes("stop")) handler3 = wrapHandler(handler3, (next, e)=>{
+    if (modifiers.includes("stop")) handler4 = wrapHandler(handler4, (next, e)=>{
         e.stopPropagation();
         next(e);
     });
-    if (modifiers.includes("self")) handler3 = wrapHandler(handler3, (next, e)=>{
+    if (modifiers.includes("self")) handler4 = wrapHandler(handler4, (next, e)=>{
         e.target === el && next(e);
     });
     if (modifiers.includes("away") || modifiers.includes("outside")) {
         listenerTarget = document;
-        handler3 = wrapHandler(handler3, (next, e)=>{
+        handler4 = wrapHandler(handler4, (next, e)=>{
             if (el.contains(e.target)) return;
             if (e.target.isConnected === false) return;
             if (el.offsetWidth < 1 && el.offsetHeight < 1) return;
@@ -2263,19 +2329,19 @@ function $caa9439642c6336c$var$on(el, event, modifiers, callback) {
             next(e);
         });
     }
-    if (modifiers.includes("once")) handler3 = wrapHandler(handler3, (next, e)=>{
+    if (modifiers.includes("once")) handler4 = wrapHandler(handler4, (next, e)=>{
         next(e);
-        listenerTarget.removeEventListener(event, handler3, options);
+        listenerTarget.removeEventListener(event, handler4, options);
     });
-    handler3 = wrapHandler(handler3, (next, e)=>{
+    handler4 = wrapHandler(handler4, (next, e)=>{
         if ($caa9439642c6336c$var$isKeyEvent(event)) {
             if ($caa9439642c6336c$var$isListeningForASpecificKeyThatHasntBeenPressed(e, modifiers)) return;
         }
         next(e);
     });
-    listenerTarget.addEventListener(event, handler3, options);
+    listenerTarget.addEventListener(event, handler4, options);
     return ()=>{
-        listenerTarget.removeEventListener(event, handler3, options);
+        listenerTarget.removeEventListener(event, handler4, options);
     };
 }
 function $caa9439642c6336c$var$dotSyntax(subject) {
@@ -2346,20 +2412,20 @@ function $caa9439642c6336c$var$keyToModifiers(key) {
     if (!key) return [];
     key = $caa9439642c6336c$var$kebabCase2(key);
     let modifierToKeyMap = {
-        ctrl: "control",
-        slash: "/",
-        space: " ",
-        spacebar: " ",
-        cmd: "meta",
-        esc: "escape",
-        up: "arrow-up",
-        down: "arrow-down",
-        left: "arrow-left",
-        right: "arrow-right",
-        period: ".",
-        equal: "=",
-        minus: "-",
-        underscore: "_"
+        "ctrl": "control",
+        "slash": "/",
+        "space": " ",
+        "spacebar": " ",
+        "cmd": "meta",
+        "esc": "escape",
+        "up": "arrow-up",
+        "down": "arrow-down",
+        "left": "arrow-left",
+        "right": "arrow-right",
+        "period": ".",
+        "equal": "=",
+        "minus": "-",
+        "underscore": "_"
     };
     modifierToKeyMap[key] = key;
     return Object.keys(modifierToKeyMap).map((modifier)=>{
@@ -2367,7 +2433,7 @@ function $caa9439642c6336c$var$keyToModifiers(key) {
     }).filter((modifier)=>modifier);
 }
 // packages/alpinejs/src/directives/x-model.js
-$caa9439642c6336c$var$directive("model", (el, { modifiers: modifiers , expression: expression  }, { effect: effect3 , cleanup: cleanup2  })=>{
+$caa9439642c6336c$var$directive("model", (el, { modifiers: modifiers, expression: expression }, { effect: effect3, cleanup: cleanup2 })=>{
     let scopeTarget = el;
     if (modifiers.includes("parent")) scopeTarget = el.parentNode;
     let evaluateGet = $caa9439642c6336c$var$evaluateLater(scopeTarget, expression);
@@ -2386,7 +2452,7 @@ $caa9439642c6336c$var$directive("model", (el, { modifiers: modifiers , expressio
         if ($caa9439642c6336c$var$isGetterSetter(result)) result.set(value);
         else evaluateSet(()=>{}, {
             scope: {
-                __placeholder: value
+                "__placeholder": value
             }
         });
     };
@@ -2400,10 +2466,12 @@ $caa9439642c6336c$var$directive("model", (el, { modifiers: modifiers , expressio
     let removeListener = $caa9439642c6336c$var$isCloning ? ()=>{} : $caa9439642c6336c$var$on(el, event, modifiers, (e)=>{
         setValue($caa9439642c6336c$var$getInputValue(el, modifiers, e, getValue()));
     });
-    if (modifiers.includes("fill") && [
-        null,
-        ""
-    ].includes(getValue())) el.dispatchEvent(new Event(event, {}));
+    if (modifiers.includes("fill")) {
+        if ([
+            null,
+            ""
+        ].includes(getValue()) || el.type === "checkbox" && Array.isArray(getValue())) el.dispatchEvent(new Event(event, {}));
+    }
     if (!el._x_removeModelListeners) el._x_removeModelListeners = {};
     el._x_removeModelListeners["default"] = removeListener;
     cleanup2(()=>el._x_removeModelListeners["default"]());
@@ -2422,7 +2490,6 @@ $caa9439642c6336c$var$directive("model", (el, { modifiers: modifiers , expressio
         }
     };
     el._x_forceModelUpdate = (value)=>{
-        value = value === void 0 ? getValue() : value;
         if (value === void 0 && typeof expression === "string" && expression.match(/\./)) value = "";
         window.fromModel = true;
         $caa9439642c6336c$var$mutateDom(()=>$caa9439642c6336c$var$bind(el, "value", value));
@@ -2436,23 +2503,33 @@ $caa9439642c6336c$var$directive("model", (el, { modifiers: modifiers , expressio
 });
 function $caa9439642c6336c$var$getInputValue(el, modifiers, event, currentValue) {
     return $caa9439642c6336c$var$mutateDom(()=>{
-        if (event instanceof CustomEvent && event.detail !== void 0) return event.detail ?? event.target.value;
+        if (event instanceof CustomEvent && event.detail !== void 0) return event.detail !== null && event.detail !== void 0 ? event.detail : event.target.value;
         else if (el.type === "checkbox") {
             if (Array.isArray(currentValue)) {
-                let newValue = modifiers.includes("number") ? $caa9439642c6336c$var$safeParseNumber(event.target.value) : event.target.value;
+                let newValue = null;
+                if (modifiers.includes("number")) newValue = $caa9439642c6336c$var$safeParseNumber(event.target.value);
+                else if (modifiers.includes("boolean")) newValue = $caa9439642c6336c$var$safeParseBoolean(event.target.value);
+                else newValue = event.target.value;
                 return event.target.checked ? currentValue.concat([
                     newValue
                 ]) : currentValue.filter((el2)=>!$caa9439642c6336c$var$checkedAttrLooseCompare2(el2, newValue));
             } else return event.target.checked;
-        } else if (el.tagName.toLowerCase() === "select" && el.multiple) return modifiers.includes("number") ? Array.from(event.target.selectedOptions).map((option)=>{
-            let rawValue = option.value || option.text;
-            return $caa9439642c6336c$var$safeParseNumber(rawValue);
-        }) : Array.from(event.target.selectedOptions).map((option)=>{
-            return option.value || option.text;
-        });
-        else {
-            let rawValue = event.target.value;
-            return modifiers.includes("number") ? $caa9439642c6336c$var$safeParseNumber(rawValue) : modifiers.includes("trim") ? rawValue.trim() : rawValue;
+        } else if (el.tagName.toLowerCase() === "select" && el.multiple) {
+            if (modifiers.includes("number")) return Array.from(event.target.selectedOptions).map((option)=>{
+                let rawValue = option.value || option.text;
+                return $caa9439642c6336c$var$safeParseNumber(rawValue);
+            });
+            else if (modifiers.includes("boolean")) return Array.from(event.target.selectedOptions).map((option)=>{
+                let rawValue = option.value || option.text;
+                return $caa9439642c6336c$var$safeParseBoolean(rawValue);
+            });
+            return Array.from(event.target.selectedOptions).map((option)=>{
+                return option.value || option.text;
+            });
+        } else {
+            if (modifiers.includes("number")) return $caa9439642c6336c$var$safeParseNumber(event.target.value);
+            else if (modifiers.includes("boolean")) return $caa9439642c6336c$var$safeParseBoolean(event.target.value);
+            return modifiers.includes("trim") ? event.target.value.trim() : event.target.value;
         }
     });
 }
@@ -2473,12 +2550,12 @@ function $caa9439642c6336c$var$isGetterSetter(value) {
 $caa9439642c6336c$var$directive("cloak", (el)=>queueMicrotask(()=>$caa9439642c6336c$var$mutateDom(()=>el.removeAttribute($caa9439642c6336c$var$prefix("cloak")))));
 // packages/alpinejs/src/directives/x-init.js
 $caa9439642c6336c$var$addInitSelector(()=>`[${$caa9439642c6336c$var$prefix("init")}]`);
-$caa9439642c6336c$var$directive("init", $caa9439642c6336c$var$skipDuringClone((el, { expression: expression  }, { evaluate: evaluate2  })=>{
+$caa9439642c6336c$var$directive("init", $caa9439642c6336c$var$skipDuringClone((el, { expression: expression }, { evaluate: evaluate2 })=>{
     if (typeof expression === "string") return !!expression.trim() && evaluate2(expression, {}, false);
     return evaluate2(expression, {}, false);
 }));
 // packages/alpinejs/src/directives/x-text.js
-$caa9439642c6336c$var$directive("text", (el, { expression: expression  }, { effect: effect3 , evaluateLater: evaluateLater2  })=>{
+$caa9439642c6336c$var$directive("text", (el, { expression: expression }, { effect: effect3, evaluateLater: evaluateLater2 })=>{
     let evaluate2 = evaluateLater2(expression);
     effect3(()=>{
         evaluate2((value)=>{
@@ -2489,7 +2566,7 @@ $caa9439642c6336c$var$directive("text", (el, { expression: expression  }, { effe
     });
 });
 // packages/alpinejs/src/directives/x-html.js
-$caa9439642c6336c$var$directive("html", (el, { expression: expression  }, { effect: effect3 , evaluateLater: evaluateLater2  })=>{
+$caa9439642c6336c$var$directive("html", (el, { expression: expression }, { effect: effect3, evaluateLater: evaluateLater2 })=>{
     let evaluate2 = evaluateLater2(expression);
     effect3(()=>{
         evaluate2((value)=>{
@@ -2504,7 +2581,7 @@ $caa9439642c6336c$var$directive("html", (el, { expression: expression  }, { effe
 });
 // packages/alpinejs/src/directives/x-bind.js
 $caa9439642c6336c$var$mapAttributes($caa9439642c6336c$var$startingWith(":", $caa9439642c6336c$var$into($caa9439642c6336c$var$prefix("bind:"))));
-$caa9439642c6336c$var$directive("bind", (el, { value: value , modifiers: modifiers , expression: expression , original: original  }, { effect: effect3  })=>{
+var $caa9439642c6336c$var$handler2 = (el, { value: value, modifiers: modifiers, expression: expression, original: original }, { effect: effect3 })=>{
     if (!value) {
         let bindingProviders = {};
         $caa9439642c6336c$var$injectBindingProviders(bindingProviders);
@@ -2517,18 +2594,29 @@ $caa9439642c6336c$var$directive("bind", (el, { value: value , modifiers: modifie
         return;
     }
     if (value === "key") return $caa9439642c6336c$var$storeKeyForXFor(el, expression);
+    if (el._x_inlineBindings && el._x_inlineBindings[value] && el._x_inlineBindings[value].extract) return;
     let evaluate2 = $caa9439642c6336c$var$evaluateLater(el, expression);
     effect3(()=>evaluate2((result)=>{
             if (result === void 0 && typeof expression === "string" && expression.match(/\./)) result = "";
             $caa9439642c6336c$var$mutateDom(()=>$caa9439642c6336c$var$bind(el, value, result, modifiers));
         }));
-});
+};
+$caa9439642c6336c$var$handler2.inline = (el, { value: value, modifiers: modifiers, expression: expression })=>{
+    if (!value) return;
+    if (!el._x_inlineBindings) el._x_inlineBindings = {};
+    el._x_inlineBindings[value] = {
+        expression: expression,
+        extract: false
+    };
+};
+$caa9439642c6336c$var$directive("bind", $caa9439642c6336c$var$handler2);
 function $caa9439642c6336c$var$storeKeyForXFor(el, expression) {
     el._x_keyExpression = expression;
 }
 // packages/alpinejs/src/directives/x-data.js
 $caa9439642c6336c$var$addRootSelector(()=>`[${$caa9439642c6336c$var$prefix("data")}]`);
-$caa9439642c6336c$var$directive("data", $caa9439642c6336c$var$skipDuringClone((el, { expression: expression  }, { cleanup: cleanup2  })=>{
+$caa9439642c6336c$var$directive("data", (el, { expression: expression }, { cleanup: cleanup2 })=>{
+    if ($caa9439642c6336c$var$shouldSkipRegisteringDataDuringClone(el)) return;
     expression = expression === "" ? "{}" : expression;
     let magicContext = {};
     $caa9439642c6336c$var$injectMagics(magicContext, el);
@@ -2540,16 +2628,27 @@ $caa9439642c6336c$var$directive("data", $caa9439642c6336c$var$skipDuringClone((e
     if (data2 === void 0 || data2 === true) data2 = {};
     $caa9439642c6336c$var$injectMagics(data2, el);
     let reactiveData = $caa9439642c6336c$var$reactive(data2);
-    $caa9439642c6336c$var$initInterceptors(reactiveData);
+    $caa9439642c6336c$var$initInterceptors2(reactiveData);
     let undo = $caa9439642c6336c$var$addScopeToNode(el, reactiveData);
     reactiveData["init"] && $caa9439642c6336c$var$evaluate(el, reactiveData["init"]);
     cleanup2(()=>{
         reactiveData["destroy"] && $caa9439642c6336c$var$evaluate(el, reactiveData["destroy"]);
         undo();
     });
-}));
+});
+$caa9439642c6336c$var$interceptClone((from, to)=>{
+    if (from._x_dataStack) {
+        to._x_dataStack = from._x_dataStack;
+        to.setAttribute("data-has-alpine-state", true);
+    }
+});
+function $caa9439642c6336c$var$shouldSkipRegisteringDataDuringClone(el) {
+    if (!$caa9439642c6336c$var$isCloning) return false;
+    if ($caa9439642c6336c$var$isCloningLegacy) return true;
+    return el.hasAttribute("data-has-alpine-state");
+}
 // packages/alpinejs/src/directives/x-show.js
-$caa9439642c6336c$var$directive("show", (el, { modifiers: modifiers , expression: expression  }, { effect: effect3  })=>{
+$caa9439642c6336c$var$directive("show", (el, { modifiers: modifiers, expression: expression }, { effect: effect3 })=>{
     let evaluate2 = $caa9439642c6336c$var$evaluateLater(el, expression);
     if (!el._x_doHide) el._x_doHide = ()=>{
         $caa9439642c6336c$var$mutateDom(()=>{
@@ -2586,10 +2685,11 @@ $caa9439642c6336c$var$directive("show", (el, { modifiers: modifiers , expression
         }));
 });
 // packages/alpinejs/src/directives/x-for.js
-$caa9439642c6336c$var$directive("for", (el, { expression: expression  }, { effect: effect3 , cleanup: cleanup2  })=>{
+$caa9439642c6336c$var$directive("for", (el, { expression: expression }, { effect: effect3, cleanup: cleanup2 })=>{
     let iteratorNames = $caa9439642c6336c$var$parseForExpression(expression);
     let evaluateItems = $caa9439642c6336c$var$evaluateLater(el, iteratorNames.items);
-    let evaluateKey = $caa9439642c6336c$var$evaluateLater(el, el._x_keyExpression || "index");
+    let evaluateKey = $caa9439642c6336c$var$evaluateLater(el, // the x-bind:key expression is stored for our use instead of evaluated.
+    el._x_keyExpression || "index");
     el._x_prevKeys = [];
     el._x_lookup = {};
     effect3(()=>$caa9439642c6336c$var$loop(el, iteratorNames, evaluateItems, evaluateKey));
@@ -2746,16 +2846,17 @@ function $caa9439642c6336c$var$isNumeric3(subject) {
     return !Array.isArray(subject) && !isNaN(subject);
 }
 // packages/alpinejs/src/directives/x-ref.js
-function $caa9439642c6336c$var$handler2() {}
-$caa9439642c6336c$var$handler2.inline = (el, { expression: expression  }, { cleanup: cleanup2  })=>{
+function $caa9439642c6336c$var$handler3() {}
+$caa9439642c6336c$var$handler3.inline = (el, { expression: expression }, { cleanup: cleanup2 })=>{
     let root = $caa9439642c6336c$var$closestRoot(el);
     if (!root._x_refs) root._x_refs = {};
     root._x_refs[expression] = el;
     cleanup2(()=>delete root._x_refs[expression]);
 };
-$caa9439642c6336c$var$directive("ref", $caa9439642c6336c$var$handler2);
+$caa9439642c6336c$var$directive("ref", $caa9439642c6336c$var$handler3);
 // packages/alpinejs/src/directives/x-if.js
-$caa9439642c6336c$var$directive("if", (el, { expression: expression  }, { effect: effect3 , cleanup: cleanup2  })=>{
+$caa9439642c6336c$var$directive("if", (el, { expression: expression }, { effect: effect3, cleanup: cleanup2 })=>{
+    if (el.tagName.toLowerCase() !== "template") $caa9439642c6336c$var$warn("x-if can only be used on a <template> tag", el);
     let evaluate2 = $caa9439642c6336c$var$evaluateLater(el, expression);
     let show = ()=>{
         if (el._x_currentIfEl) return el._x_currentIfEl;
@@ -2786,13 +2887,13 @@ $caa9439642c6336c$var$directive("if", (el, { expression: expression  }, { effect
     cleanup2(()=>el._x_undoIf && el._x_undoIf());
 });
 // packages/alpinejs/src/directives/x-id.js
-$caa9439642c6336c$var$directive("id", (el, { expression: expression  }, { evaluate: evaluate2  })=>{
+$caa9439642c6336c$var$directive("id", (el, { expression: expression }, { evaluate: evaluate2 })=>{
     let names = evaluate2(expression);
     names.forEach((name)=>$caa9439642c6336c$var$setIdRoot(el, name));
 });
 // packages/alpinejs/src/directives/x-on.js
 $caa9439642c6336c$var$mapAttributes($caa9439642c6336c$var$startingWith("@", $caa9439642c6336c$var$into($caa9439642c6336c$var$prefix("on:"))));
-$caa9439642c6336c$var$directive("on", $caa9439642c6336c$var$skipDuringClone((el, { value: value , modifiers: modifiers , expression: expression  }, { cleanup: cleanup2  })=>{
+$caa9439642c6336c$var$directive("on", $caa9439642c6336c$var$skipDuringClone((el, { value: value, modifiers: modifiers, expression: expression }, { cleanup: cleanup2 })=>{
     let evaluate2 = expression ? $caa9439642c6336c$var$evaluateLater(el, expression) : ()=>{};
     if (el.tagName.toLowerCase() === "template") {
         if (!el._x_forwardEvents) el._x_forwardEvents = [];
@@ -2801,7 +2902,7 @@ $caa9439642c6336c$var$directive("on", $caa9439642c6336c$var$skipDuringClone((el,
     let removeListener = $caa9439642c6336c$var$on(el, value, modifiers, (e)=>{
         evaluate2(()=>{}, {
             scope: {
-                $event: e
+                "$event": e
             },
             params: [
                 e
@@ -2815,8 +2916,8 @@ $caa9439642c6336c$var$warnMissingPluginDirective("Collapse", "collapse", "collap
 $caa9439642c6336c$var$warnMissingPluginDirective("Intersect", "intersect", "intersect");
 $caa9439642c6336c$var$warnMissingPluginDirective("Focus", "trap", "focus");
 $caa9439642c6336c$var$warnMissingPluginDirective("Mask", "mask", "mask");
-function $caa9439642c6336c$var$warnMissingPluginDirective(name, directiveName2, slug) {
-    $caa9439642c6336c$var$directive(directiveName2, (el)=>$caa9439642c6336c$var$warn(`You can't use [x-${directiveName2}] without first installing the "${name}" plugin here: https://alpinejs.dev/plugins/${slug}`, el));
+function $caa9439642c6336c$var$warnMissingPluginDirective(name, directiveName, slug) {
+    $caa9439642c6336c$var$directive(directiveName, (el)=>$caa9439642c6336c$var$warn(`You can't use [x-${directiveName}] without first installing the "${name}" plugin here: https://alpinejs.dev/plugins/${slug}`, el));
 }
 // packages/alpinejs/src/index.js
 $caa9439642c6336c$var$alpine_default.setEvaluator($caa9439642c6336c$var$normalEvaluator);
@@ -2831,64 +2932,7 @@ var $caa9439642c6336c$var$src_default = $caa9439642c6336c$var$alpine_default;
 var $caa9439642c6336c$export$2e2bcd8739ae039 = $caa9439642c6336c$var$src_default;
 
 
-// packages/morph/src/dom.js
-function $512e3a9270ec7803$var$createElement(html) {
-    const template = document.createElement("template");
-    template.innerHTML = html;
-    return template.content.firstElementChild;
-}
-function $512e3a9270ec7803$var$textOrComment(el) {
-    return el.nodeType === 3 || el.nodeType === 8;
-}
-var $512e3a9270ec7803$var$dom = {
-    replace (children, old, replacement) {
-        let index = children.indexOf(old);
-        if (index === -1) throw "Cant find element in children";
-        old.replaceWith(replacement);
-        children[index] = replacement;
-        return children;
-    },
-    before (children, reference, subject) {
-        let index = children.indexOf(reference);
-        if (index === -1) throw "Cant find element in children";
-        reference.before(subject);
-        children.splice(index, 0, subject);
-        return children;
-    },
-    append (children, subject, appendFn) {
-        let last = children[children.length - 1];
-        appendFn(subject);
-        children.push(subject);
-        return children;
-    },
-    remove (children, subject) {
-        let index = children.indexOf(subject);
-        if (index === -1) throw "Cant find element in children";
-        subject.remove();
-        return children.filter((i)=>i !== subject);
-    },
-    first (children) {
-        return this.teleportTo(children[0]);
-    },
-    next (children, reference) {
-        let index = children.indexOf(reference);
-        if (index === -1) return;
-        return this.teleportTo(this.teleportBack(children[index + 1]));
-    },
-    teleportTo (el) {
-        if (!el) return el;
-        if (el._x_teleport) return el._x_teleport;
-        return el;
-    },
-    teleportBack (el) {
-        if (!el) return el;
-        if (el._x_teleportBack) return el._x_teleportBack;
-        return el;
-    }
-};
 // packages/morph/src/morph.js
-var $512e3a9270ec7803$var$resolveStep = ()=>{};
-var $512e3a9270ec7803$var$logger = ()=>{};
 function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) {
     $512e3a9270ec7803$var$monkeyPatchDomSetAttributeToAllowAtSymbols();
     let fromEl;
@@ -2907,10 +2951,10 @@ function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) {
         lookahead = options2.lookahead || false;
     }
     function patch(from2, to) {
-        if (differentElementNamesTypesOrKeys(from2, to)) return patchElement(from2, to);
+        if (differentElementNamesTypesOrKeys(from2, to)) return swapElements(from2, to);
         let updateChildrenOnly = false;
         if ($512e3a9270ec7803$var$shouldSkip(updating, from2, to, ()=>updateChildrenOnly = true)) return;
-        window.Alpine && $512e3a9270ec7803$var$initializeAlpineOnTo(from2, to, ()=>updateChildrenOnly = true);
+        if (from2.nodeType === 1 && window.Alpine) window.Alpine.cloneNode(from2, to);
         if ($512e3a9270ec7803$var$textOrComment(to)) {
             patchNodeValue(from2, to);
             updated(from2, to);
@@ -2918,20 +2962,16 @@ function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) {
         }
         if (!updateChildrenOnly) patchAttributes(from2, to);
         updated(from2, to);
-        patchChildren(Array.from(from2.childNodes), Array.from(to.childNodes), (toAppend)=>{
-            from2.appendChild(toAppend);
-        });
+        patchChildren(from2, to);
     }
     function differentElementNamesTypesOrKeys(from2, to) {
         return from2.nodeType != to.nodeType || from2.nodeName != to.nodeName || getKey(from2) != getKey(to);
     }
-    function patchElement(from2, to) {
+    function swapElements(from2, to) {
         if ($512e3a9270ec7803$var$shouldSkip(removing, from2)) return;
         let toCloned = to.cloneNode(true);
         if ($512e3a9270ec7803$var$shouldSkip(adding, toCloned)) return;
-        $512e3a9270ec7803$var$dom.replace([
-            from2
-        ], from2, toCloned);
+        from2.replaceWith(toCloned);
         removed(from2);
         added(toCloned);
     }
@@ -2940,6 +2980,7 @@ function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) {
         if (from2.nodeValue !== value) from2.nodeValue = value;
     }
     function patchAttributes(from2, to) {
+        if (from2._x_transitioning) return;
         if (from2._x_isShown && !to._x_isShown) return;
         if (!from2._x_isShown && to._x_isShown) return;
         let domAttributes = Array.from(from2.attributes);
@@ -2954,115 +2995,118 @@ function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) {
             if (from2.getAttribute(name) !== value) from2.setAttribute(name, value);
         }
     }
-    function patchChildren(fromChildren, toChildren, appendFn) {
-        let fromKeyDomNodeMap = {};
+    function patchChildren(from2, to) {
+        if (from2._x_teleport) from2 = from2._x_teleport;
+        if (to._x_teleport) to = to._x_teleport;
+        let fromKeys = keyToMap(from2.children);
         let fromKeyHoldovers = {};
-        let currentTo = $512e3a9270ec7803$var$dom.first(toChildren);
-        let currentFrom = $512e3a9270ec7803$var$dom.first(fromChildren);
+        let currentTo = $512e3a9270ec7803$var$getFirstNode(to);
+        let currentFrom = $512e3a9270ec7803$var$getFirstNode(from2);
         while(currentTo){
+            $512e3a9270ec7803$var$seedingMatchingId(currentTo, currentFrom);
             let toKey = getKey(currentTo);
             let fromKey = getKey(currentFrom);
             if (!currentFrom) {
                 if (toKey && fromKeyHoldovers[toKey]) {
                     let holdover = fromKeyHoldovers[toKey];
-                    fromChildren = $512e3a9270ec7803$var$dom.append(fromChildren, holdover, appendFn);
+                    from2.appendChild(holdover);
                     currentFrom = holdover;
                 } else {
                     if (!$512e3a9270ec7803$var$shouldSkip(adding, currentTo)) {
                         let clone = currentTo.cloneNode(true);
-                        fromChildren = $512e3a9270ec7803$var$dom.append(fromChildren, clone, appendFn);
+                        from2.appendChild(clone);
                         added(clone);
                     }
-                    currentTo = $512e3a9270ec7803$var$dom.next(toChildren, currentTo);
+                    currentTo = $512e3a9270ec7803$var$getNextSibling(to, currentTo);
                     continue;
                 }
             }
-            let isIf = (node)=>node.nodeType === 8 && node.textContent === " __BLOCK__ ";
-            let isEnd = (node)=>node.nodeType === 8 && node.textContent === " __ENDBLOCK__ ";
+            let isIf = (node)=>node && node.nodeType === 8 && node.textContent === "[if BLOCK]><![endif]";
+            let isEnd = (node)=>node && node.nodeType === 8 && node.textContent === "[if ENDBLOCK]><![endif]";
             if (isIf(currentTo) && isIf(currentFrom)) {
-                let newFromChildren = [];
-                let appendPoint;
                 let nestedIfCount = 0;
+                let fromBlockStart = currentFrom;
                 while(currentFrom){
-                    let next = $512e3a9270ec7803$var$dom.next(fromChildren, currentFrom);
+                    let next = $512e3a9270ec7803$var$getNextSibling(from2, currentFrom);
                     if (isIf(next)) nestedIfCount++;
                     else if (isEnd(next) && nestedIfCount > 0) nestedIfCount--;
                     else if (isEnd(next) && nestedIfCount === 0) {
-                        currentFrom = $512e3a9270ec7803$var$dom.next(fromChildren, next);
-                        appendPoint = next;
+                        currentFrom = next;
                         break;
                     }
-                    newFromChildren.push(next);
                     currentFrom = next;
                 }
-                let newToChildren = [];
+                let fromBlockEnd = currentFrom;
                 nestedIfCount = 0;
+                let toBlockStart = currentTo;
                 while(currentTo){
-                    let next = $512e3a9270ec7803$var$dom.next(toChildren, currentTo);
+                    let next = $512e3a9270ec7803$var$getNextSibling(to, currentTo);
                     if (isIf(next)) nestedIfCount++;
                     else if (isEnd(next) && nestedIfCount > 0) nestedIfCount--;
                     else if (isEnd(next) && nestedIfCount === 0) {
-                        currentTo = $512e3a9270ec7803$var$dom.next(toChildren, next);
+                        currentTo = next;
                         break;
                     }
-                    newToChildren.push(next);
                     currentTo = next;
                 }
-                patchChildren(newFromChildren, newToChildren, (node)=>appendPoint.before(node));
+                let toBlockEnd = currentTo;
+                let fromBlock = new $512e3a9270ec7803$var$Block(fromBlockStart, fromBlockEnd);
+                let toBlock = new $512e3a9270ec7803$var$Block(toBlockStart, toBlockEnd);
+                patchChildren(fromBlock, toBlock);
                 continue;
             }
-            if (currentFrom.nodeType === 1 && lookahead) {
-                let nextToElementSibling = $512e3a9270ec7803$var$dom.next(toChildren, currentTo);
+            if (currentFrom.nodeType === 1 && lookahead && !currentFrom.isEqualNode(currentTo)) {
+                let nextToElementSibling = $512e3a9270ec7803$var$getNextSibling(to, currentTo);
                 let found = false;
                 while(!found && nextToElementSibling){
-                    if (currentFrom.isEqualNode(nextToElementSibling)) {
+                    if (nextToElementSibling.nodeType === 1 && currentFrom.isEqualNode(nextToElementSibling)) {
                         found = true;
-                        [fromChildren, currentFrom] = addNodeBefore(fromChildren, currentTo, currentFrom);
+                        currentFrom = addNodeBefore(from2, currentTo, currentFrom);
                         fromKey = getKey(currentFrom);
                     }
-                    nextToElementSibling = $512e3a9270ec7803$var$dom.next(toChildren, nextToElementSibling);
+                    nextToElementSibling = $512e3a9270ec7803$var$getNextSibling(to, nextToElementSibling);
                 }
             }
             if (toKey !== fromKey) {
                 if (!toKey && fromKey) {
                     fromKeyHoldovers[fromKey] = currentFrom;
-                    [fromChildren, currentFrom] = addNodeBefore(fromChildren, currentTo, currentFrom);
-                    fromChildren = $512e3a9270ec7803$var$dom.remove(fromChildren, fromKeyHoldovers[fromKey]);
-                    currentFrom = $512e3a9270ec7803$var$dom.next(fromChildren, currentFrom);
-                    currentTo = $512e3a9270ec7803$var$dom.next(toChildren, currentTo);
+                    currentFrom = addNodeBefore(from2, currentTo, currentFrom);
+                    fromKeyHoldovers[fromKey].remove();
+                    currentFrom = $512e3a9270ec7803$var$getNextSibling(from2, currentFrom);
+                    currentTo = $512e3a9270ec7803$var$getNextSibling(to, currentTo);
                     continue;
                 }
                 if (toKey && !fromKey) {
-                    if (fromKeyDomNodeMap[toKey]) {
-                        fromChildren = $512e3a9270ec7803$var$dom.replace(fromChildren, currentFrom, fromKeyDomNodeMap[toKey]);
-                        currentFrom = fromKeyDomNodeMap[toKey];
+                    if (fromKeys[toKey]) {
+                        currentFrom.replaceWith(fromKeys[toKey]);
+                        currentFrom = fromKeys[toKey];
                     }
                 }
                 if (toKey && fromKey) {
-                    let fromKeyNode = fromKeyDomNodeMap[toKey];
+                    let fromKeyNode = fromKeys[toKey];
                     if (fromKeyNode) {
                         fromKeyHoldovers[fromKey] = currentFrom;
-                        fromChildren = $512e3a9270ec7803$var$dom.replace(fromChildren, currentFrom, fromKeyNode);
+                        currentFrom.replaceWith(fromKeyNode);
                         currentFrom = fromKeyNode;
                     } else {
                         fromKeyHoldovers[fromKey] = currentFrom;
-                        [fromChildren, currentFrom] = addNodeBefore(fromChildren, currentTo, currentFrom);
-                        fromChildren = $512e3a9270ec7803$var$dom.remove(fromChildren, fromKeyHoldovers[fromKey]);
-                        currentFrom = $512e3a9270ec7803$var$dom.next(fromChildren, currentFrom);
-                        currentTo = $512e3a9270ec7803$var$dom.next(toChildren, currentTo);
+                        currentFrom = addNodeBefore(from2, currentTo, currentFrom);
+                        fromKeyHoldovers[fromKey].remove();
+                        currentFrom = $512e3a9270ec7803$var$getNextSibling(from2, currentFrom);
+                        currentTo = $512e3a9270ec7803$var$getNextSibling(to, currentTo);
                         continue;
                     }
                 }
             }
-            let currentFromNext = currentFrom && $512e3a9270ec7803$var$dom.next(fromChildren, currentFrom);
+            let currentFromNext = currentFrom && $512e3a9270ec7803$var$getNextSibling(from2, currentFrom);
             patch(currentFrom, currentTo);
-            currentTo = currentTo && $512e3a9270ec7803$var$dom.next(toChildren, currentTo);
+            currentTo = currentTo && $512e3a9270ec7803$var$getNextSibling(to, currentTo);
             currentFrom = currentFromNext;
         }
         let removals = [];
         while(currentFrom){
             if (!$512e3a9270ec7803$var$shouldSkip(removing, currentFrom)) removals.push(currentFrom);
-            currentFrom = $512e3a9270ec7803$var$dom.next(fromChildren, currentFrom);
+            currentFrom = $512e3a9270ec7803$var$getNextSibling(from2, currentFrom);
         }
         while(removals.length){
             let domForRemoval = removals.shift();
@@ -3075,53 +3119,90 @@ function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) {
     }
     function keyToMap(els) {
         let map = {};
-        els.forEach((el)=>{
+        for (let el of els){
             let theKey = getKey(el);
             if (theKey) map[theKey] = el;
-        });
+        }
         return map;
     }
-    function addNodeBefore(children, node, beforeMe) {
+    function addNodeBefore(parent, node, beforeMe) {
         if (!$512e3a9270ec7803$var$shouldSkip(adding, node)) {
             let clone = node.cloneNode(true);
-            children = $512e3a9270ec7803$var$dom.before(children, beforeMe, clone);
+            parent.insertBefore(clone, beforeMe);
             added(clone);
-            return [
-                children,
-                clone
-            ];
+            return clone;
         }
-        return [
-            children,
-            node
-        ];
+        return node;
     }
     assignOptions(options);
     fromEl = from;
     toEl = typeof toHtml === "string" ? $512e3a9270ec7803$var$createElement(toHtml) : toHtml;
     if (window.Alpine && window.Alpine.closestDataStack && !from._x_dataStack) {
         toEl._x_dataStack = window.Alpine.closestDataStack(from);
-        toEl._x_dataStack && window.Alpine.clone(from, toEl);
+        toEl._x_dataStack && window.Alpine.cloneNode(from, toEl);
     }
     patch(from, toEl);
     fromEl = void 0;
     toEl = void 0;
     return from;
 }
-$512e3a9270ec7803$export$2e5e8c41f5d4e7c7.step = ()=>$512e3a9270ec7803$var$resolveStep();
-$512e3a9270ec7803$export$2e5e8c41f5d4e7c7.log = (theLogger)=>{
-    $512e3a9270ec7803$var$logger = theLogger;
-};
+$512e3a9270ec7803$export$2e5e8c41f5d4e7c7.step = ()=>{};
+$512e3a9270ec7803$export$2e5e8c41f5d4e7c7.log = ()=>{};
 function $512e3a9270ec7803$var$shouldSkip(hook, ...args) {
     let skip = false;
     hook(...args, ()=>skip = true);
     return skip;
 }
-function $512e3a9270ec7803$var$initializeAlpineOnTo(from, to, childrenOnly) {
-    if (from.nodeType !== 1) return;
-    if (from._x_dataStack) window.Alpine.clone(from, to);
-}
 var $512e3a9270ec7803$var$patched = false;
+function $512e3a9270ec7803$var$createElement(html) {
+    const template = document.createElement("template");
+    template.innerHTML = html;
+    return template.content.firstElementChild;
+}
+function $512e3a9270ec7803$var$textOrComment(el) {
+    return el.nodeType === 3 || el.nodeType === 8;
+}
+var $512e3a9270ec7803$var$Block = class {
+    constructor(start, end){
+        this.startComment = start;
+        this.endComment = end;
+    }
+    get children() {
+        let children = [];
+        let currentNode = this.startComment.nextSibling;
+        while(currentNode && currentNode !== this.endComment){
+            children.push(currentNode);
+            currentNode = currentNode.nextSibling;
+        }
+        return children;
+    }
+    appendChild(child) {
+        this.endComment.before(child);
+    }
+    get firstChild() {
+        let first = this.startComment.nextSibling;
+        if (first === this.endComment) return;
+        return first;
+    }
+    nextNode(reference) {
+        let next = reference.nextSibling;
+        if (next === this.endComment) return;
+        return next;
+    }
+    insertBefore(newNode, reference) {
+        reference.before(newNode);
+        return newNode;
+    }
+};
+function $512e3a9270ec7803$var$getFirstNode(parent) {
+    return parent.firstChild;
+}
+function $512e3a9270ec7803$var$getNextSibling(parent, reference) {
+    let next;
+    if (parent instanceof $512e3a9270ec7803$var$Block) next = parent.nextNode(reference);
+    else next = reference.nextSibling;
+    return next;
+}
 function $512e3a9270ec7803$var$monkeyPatchDomSetAttributeToAllowAtSymbols() {
     if ($512e3a9270ec7803$var$patched) return;
     $512e3a9270ec7803$var$patched = true;
@@ -3135,6 +3216,12 @@ function $512e3a9270ec7803$var$monkeyPatchDomSetAttributeToAllowAtSymbols() {
         this.setAttributeNode(attr);
     };
 }
+function $512e3a9270ec7803$var$seedingMatchingId(to, from) {
+    let fromId = from && from._x_bindings && from._x_bindings.id;
+    if (!fromId) return;
+    to.setAttribute("id", fromId);
+    to.id = fromId;
+}
 // packages/morph/src/index.js
 function $512e3a9270ec7803$var$src_default(Alpine) {
     Alpine.morph = $512e3a9270ec7803$export$2e5e8c41f5d4e7c7;
@@ -3147,7 +3234,18 @@ var $512e3a9270ec7803$export$2e2bcd8739ae039 = $512e3a9270ec7803$var$src_default
 function $a5acee56471cec18$var$src_default(Alpine) {
     let persist = ()=>{
         let alias;
-        let storage = localStorage;
+        let storage;
+        try {
+            storage = localStorage;
+        } catch (e) {
+            console.error(e);
+            console.warn("Alpine: $persist is using temporary storage since localStorage is unavailable.");
+            let dummy = /* @__PURE__ */ new Map();
+            storage = {
+                getItem: dummy.get.bind(dummy),
+                setItem: dummy.set.bind(dummy)
+            };
+        }
         return Alpine.interceptor((initialValue, getter, setter, path, key)=>{
             let lookup = alias || `_x_${path}`;
             let initial = $a5acee56471cec18$var$storageHas(lookup, storage) ? $a5acee56471cec18$var$storageGet(lookup, storage) : initialValue;
@@ -3172,7 +3270,7 @@ function $a5acee56471cec18$var$src_default(Alpine) {
         get: ()=>persist()
     });
     Alpine.magic("persist", persist);
-    Alpine.persist = (key, { get: get , set: set  }, storage = localStorage)=>{
+    Alpine.persist = (key, { get: get, set: set }, storage = localStorage)=>{
         let initial = $a5acee56471cec18$var$storageHas(key, storage) ? $a5acee56471cec18$var$storageGet(key, storage) : get();
         set(initial);
         Alpine.effect(()=>{
@@ -4832,7 +4930,7 @@ var $69a8ec8dbeef3157$var$require_tippy_cjs = $69a8ec8dbeef3157$var$__commonJS((
         return value.replace(spacesAndTabs, " ").replace(lineStartWithSpaces, "").trim();
     }
     function getDevMessage(message) {
-        return clean("\n  %ctippy.js\n\n  %c" + clean(message) + "\n\n  %c\uD83D\uDC77‍ This is a development-only message. It will be removed in production.\n  ");
+        return clean("\n  %ctippy.js\n\n  %c" + clean(message) + "\n\n  %c\uD83D\uDC77\u200D This is a development-only message. It will be removed in production.\n  ");
     }
     function getFormattedMessage(message) {
         return [
@@ -6444,7 +6542,7 @@ function $69a8ec8dbeef3157$var$src_default(Alpine) {
             }, config.timeout || 2e3);
         };
     });
-    Alpine.directive("tooltip", (el, { modifiers: modifiers , expression: expression  }, { evaluateLater: evaluateLater , effect: effect  })=>{
+    Alpine.directive("tooltip", (el, { modifiers: modifiers, expression: expression }, { evaluateLater: evaluateLater, effect: effect })=>{
         const config = modifiers.length > 0 ? $69a8ec8dbeef3157$var$buildConfigFromModifiers(modifiers) : {};
         if (!el.__x_tippy) el.__x_tippy = (0, $69a8ec8dbeef3157$var$import_tippy2.default)(el, config);
         const enableTooltip = ()=>el.__x_tippy.enable();
@@ -6784,7 +6882,7 @@ let $227a3c1b2ea887ad$var$logLevel = 3;
 if (window.LOG_LEVEL !== undefined) $227a3c1b2ea887ad$var$logLevel = window.LOG_LEVEL;
 (0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports))).setLevel($227a3c1b2ea887ad$var$logLevel);
 function $227a3c1b2ea887ad$export$2e2bcd8739ae039(Alpine) {
-    Alpine.directive("log", (el, { modifiers: modifiers , expression: expression  }, { evaluateLater: evaluateLater , effect: effect  })=>{
+    Alpine.directive("log", (el, { modifiers: modifiers, expression: expression }, { evaluateLater: evaluateLater, effect: effect })=>{
         let logFn = typeof expression === "string" ? (callback)=>callback(expression) : evaluateLater(expression);
         effect(()=>logFn((message)=>{
                 const level = modifiers[0] || "debug";
@@ -6863,13 +6961,13 @@ function $fb8f79f7dd40b68f$export$c788aab010beeaec(data) {
 }
 
 
-const { sidebar: $b8cbee737d5fb22b$var$sidebar , main: $b8cbee737d5fb22b$var$main , inspector: $b8cbee737d5fb22b$var$inspector  } = (0, $f4afa2ce11c8f99d$export$2e2bcd8739ae039);
-function $b8cbee737d5fb22b$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
+const { sidebar: $b8cbee737d5fb22b$var$sidebar, main: $b8cbee737d5fb22b$var$main, inspector: $b8cbee737d5fb22b$var$inspector } = (0, $f4afa2ce11c8f99d$export$2e2bcd8739ae039);
+function $b8cbee737d5fb22b$export$2e2bcd8739ae039(Alpine, { prefix: prefix }) {
     return {
         init () {
             (0, $7ecd1fc3a6b35e5c$export$33d4bfa367d0ee08)(`(min-width: ${(0, $f4afa2ce11c8f99d$export$2e2bcd8739ae039).desktopWidth}px)`, (matches)=>{
                 this._isDesktop = matches;
-                (0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports))).debug(`Media query 'desktop': ${matches ? "✅ match" : "❌ no match"}`);
+                (0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports))).debug(`Media query 'desktop': ${matches ? "\u2705 match" : "\u274C no match"}`);
             });
         },
         get desktop () {
@@ -6971,7 +7069,7 @@ function $c87b0f0bca2ce26b$export$2e2bcd8739ae039(Alpine, name) {
 
 
 
-function $44e1c947423754b0$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
+function $44e1c947423754b0$export$2e2bcd8739ae039(Alpine, { prefix: prefix }) {
     return {
         previews: {
             filter: (0, $c87b0f0bca2ce26b$export$2e2bcd8739ae039)(Alpine, (0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("previews-filter-text", prefix)),
@@ -6986,7 +7084,7 @@ function $44e1c947423754b0$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
 
 
 
-function $9c7d83377882e3b9$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
+function $9c7d83377882e3b9$export$2e2bcd8739ae039(Alpine, { prefix: prefix }) {
     return {
         minVerticalSplitWidth: 800,
         main: {
@@ -7006,7 +7104,7 @@ function $9c7d83377882e3b9$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
 
 
 
-function $1fa236e81ee747be$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
+function $1fa236e81ee747be$export$2e2bcd8739ae039(Alpine, { prefix: prefix }) {
     return {
         embeds: Alpine.$persist({}).as((0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("pages-embeds", prefix))
     };
@@ -7014,7 +7112,7 @@ function $1fa236e81ee747be$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
 
 
 
-function $d56ec5b1270324e7$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
+function $d56ec5b1270324e7$export$2e2bcd8739ae039(Alpine, { prefix: prefix }) {
     return {
         showTooltips: true
     };
@@ -7023,7 +7121,7 @@ function $d56ec5b1270324e7$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
 
 
 
-function $728fb5b231175bdb$export$2e2bcd8739ae039(Alpine, { prefix: prefix  }) {
+function $728fb5b231175bdb$export$2e2bcd8739ae039(Alpine, { prefix: prefix }) {
     return {
         filter: (0, $c87b0f0bca2ce26b$export$2e2bcd8739ae039)(Alpine, (0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("workbench-filter", prefix)),
         nav: {
@@ -7818,7 +7916,7 @@ function $5792afa4170ed552$export$2e2bcd8739ae039() {
             this.$dispatch("dom:update-start");
             this.requestStart();
             try {
-                const { fragment: fragment , title: title  } = await (0, $41e83ac737081df5$export$51c59e2af49c1a92)(window.location, `#${this.$root.id}`);
+                const { fragment: fragment, title: title } = await (0, $41e83ac737081df5$export$51c59e2af49c1a92)(window.location, `#${this.$root.id}`);
                 (0, $490552754c23ef6f$export$2e5e8c41f5d4e7c7)(this.$root, fragment);
                 document.title = title;
                 this.requestEnd();
@@ -7874,7 +7972,7 @@ function $12b7aa006b8a97e1$var$toCamel(s) {
 }
 
 
-var $c2b461c6a9d68b2c$exports = {};
+var $9defc7a1a17ecfb0$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -9682,7 +9780,7 @@ function $b013befce1f6217f$var$clean(value) {
     return value.replace(spacesAndTabs, " ").replace(lineStartWithSpaces, "").trim();
 }
 function $b013befce1f6217f$var$getDevMessage(message) {
-    return $b013befce1f6217f$var$clean("\n  %ctippy.js\n\n  %c" + $b013befce1f6217f$var$clean(message) + "\n\n  %c\uD83D\uDC77‍ This is a development-only message. It will be removed in production.\n  ");
+    return $b013befce1f6217f$var$clean("\n  %ctippy.js\n\n  %c" + $b013befce1f6217f$var$clean(message) + "\n\n  %c\uD83D\uDC77\u200D This is a development-only message. It will be removed in production.\n  ");
 }
 function $b013befce1f6217f$var$getFormattedMessage(message) {
     return [
@@ -11310,7 +11408,7 @@ $parcel$defineInteropFlag($7a759511c361f2bd$exports);
 $parcel$export($7a759511c361f2bd$exports, "initTooltip", () => $7a759511c361f2bd$export$353372104066311a);
 $parcel$export($7a759511c361f2bd$exports, "default", () => $7a759511c361f2bd$export$2e2bcd8739ae039);
 
-function $7a759511c361f2bd$var$tooltipCreator({ target: target  }) {
+function $7a759511c361f2bd$var$tooltipCreator({ target: target }) {
     const content = this.$el.dataset.tooltipText || (this.$refs.tooltip ? this.$refs.tooltip.innerHTML : null);
     if (content) return (0, $789b7d27a7c715a6$export$2e2bcd8739ae039)(target || this.$refs.tooltipTarget || this.$el, {
         delay: [
@@ -11480,7 +11578,7 @@ function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
             }
         },
         createObserver () {
-            if (this.target) this.observer = (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.target, ({ width: width , height: height  })=>{
+            if (this.target) this.observer = (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.target, ({ width: width, height: height })=>{
                 this.width = width;
                 this.height = height;
             });
@@ -11566,126 +11664,6 @@ function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
             const matchedChildCount = filteredStates.filter((s)=>!s).length;
             this.empty = matchedChildCount === 0;
             this.debug(`Children matching filter: ${matchedChildCount}/${this.children.length}`);
-        }
-    };
-}
-
-
-var $a87dacf5139b5e2f$exports = {};
-
-$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
-
-$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
-function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
-    return {
-        get store () {
-            return store || this;
-        },
-        get id () {
-            return this.$root.id;
-        },
-        get panels () {
-            return Array.from(this.$refs.panels.children);
-        },
-        isActive (el) {
-            return this.store.activeTab === this._getRef(el);
-        },
-        // protected
-        _getRef (el) {
-            return el.getAttribute("x-ref");
-        }
-    };
-}
-
-
-var $0db07828cadc68e0$exports = {};
-
-$parcel$defineInteropFlag($0db07828cadc68e0$exports);
-
-$parcel$export($0db07828cadc68e0$exports, "default", () => $0db07828cadc68e0$export$2e2bcd8739ae039);
-
-
-
-
-function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
-    const initial = store ? store.activeTab : null;
-    let dropdown = null;
-    return {
-        visibleTabsCount: 0,
-        triggerLeft: 0,
-        get store () {
-            return store || this;
-        },
-        get tabs () {
-            return this.$refs.tabs ? Array.from(this.$refs.tabs.children) : [];
-        },
-        get dropdownTabs () {
-            return Array.from(this.$refs.tabsDropdown ? this.$refs.tabsDropdown.children : []);
-        },
-        get tabWidths () {
-            return this.tabs.map((tab)=>(0, $490552754c23ef6f$export$bdf7e699b242f476)(tab, {
-                    includeMargins: true
-                }).width);
-        },
-        init () {
-            this.$nextTick(()=>{
-                if (this.$root.parentElement.offsetWidth === this.$root.offsetWidth) this.visibleTabsCount = this.tabs.length;
-                dropdown = (0, $789b7d27a7c715a6$export$2e2bcd8739ae039)(this.$refs.dropdownTrigger, {
-                    content: this.$refs.tabsDropdown,
-                    theme: "menu",
-                    interactive: true,
-                    trigger: "click",
-                    placement: "bottom",
-                    appendTo: this.$root
-                });
-                const initialTab = initial ? this.tabs.find((t)=>this._getRef(t) === initial) : this.tabs[0];
-                this.selectTab(initialTab || this.tabs[0], true);
-                this.parentObserver = (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$root.parentElement, (0, $c5d017602d25d050$export$61fc7d43ac8f84b0)(10, this.handleResize.bind(this)));
-                this.$watch("visibleTabsCount", (value)=>{
-                    this.debug(`'#${this.$root.id}' visible tabs count:`, value);
-                });
-            });
-        },
-        handleResize ({ width: width  }) {
-            if (width === this._lastMeasuredWidth) return;
-            if (width === this.$root.offsetWidth) {
-                this.visibleTabsCount = this.tabs.length;
-                return;
-            }
-            let sumTabWidths = 60;
-            let triggerLeft = 20;
-            let visibleTabsCount = 0;
-            this.tabWidths.forEach((tabWidth)=>{
-                sumTabWidths += tabWidth;
-                if (sumTabWidths < width) {
-                    triggerLeft += tabWidth;
-                    visibleTabsCount++;
-                }
-            });
-            this.visibleTabsCount = visibleTabsCount;
-            this.triggerLeft = triggerLeft;
-            this._lastMeasuredWidth = width;
-        },
-        selectTab (el, initial = false) {
-            this.store.activeTab = this._getRef(el);
-            dropdown.hide();
-            if (!initial) this.$dispatch("tabs:change", {
-                tabs: this
-            });
-        },
-        isSelected (el) {
-            return this.store.activeTab === this._getRef(el);
-        },
-        isDisabled (el) {
-            return el.getAttribute("data-disabled") == "true";
-        },
-        hasHiddenTabs () {
-            return this.visibleTabsCount < this.tabs.length;
-        },
-        // protected
-        _lastMeasuredWidth: 0,
-        _getRef (el) {
-            return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
         }
     };
 }
@@ -12129,7 +12107,7 @@ var $7cac9a0d4b75bf4e$export$2e2bcd8739ae039 = $7cac9a0d4b75bf4e$var$index;
 
 
 
-function $506dabb2bf255b38$export$2e2bcd8739ae039({ split: split , opts: opts = {}  }) {
+function $506dabb2bf255b38$export$2e2bcd8739ae039({ split: split, opts: opts = {} }) {
     let splitter = null;
     const shouldSplit = split.sizes !== null;
     return {
@@ -12156,7 +12134,7 @@ function $506dabb2bf255b38$export$2e2bcd8739ae039({ split: split , opts: opts = 
             else return opts.minSizes || [];
         },
         init () {
-            (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$el, ({ width: width , height: height  })=>{
+            (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$el, ({ width: width, height: height })=>{
                 this.layoutWidth = width;
                 this.layoutHeight = height;
             });
@@ -12241,6 +12219,126 @@ function $506dabb2bf255b38$var$sizeSplits(sizes) {
 }
 
 
+var $0db07828cadc68e0$exports = {};
+
+$parcel$defineInteropFlag($0db07828cadc68e0$exports);
+
+$parcel$export($0db07828cadc68e0$exports, "default", () => $0db07828cadc68e0$export$2e2bcd8739ae039);
+
+
+
+
+function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
+    const initial = store ? store.activeTab : null;
+    let dropdown = null;
+    return {
+        visibleTabsCount: 0,
+        triggerLeft: 0,
+        get store () {
+            return store || this;
+        },
+        get tabs () {
+            return this.$refs.tabs ? Array.from(this.$refs.tabs.children) : [];
+        },
+        get dropdownTabs () {
+            return Array.from(this.$refs.tabsDropdown ? this.$refs.tabsDropdown.children : []);
+        },
+        get tabWidths () {
+            return this.tabs.map((tab)=>(0, $490552754c23ef6f$export$bdf7e699b242f476)(tab, {
+                    includeMargins: true
+                }).width);
+        },
+        init () {
+            this.$nextTick(()=>{
+                if (this.$root.parentElement.offsetWidth === this.$root.offsetWidth) this.visibleTabsCount = this.tabs.length;
+                dropdown = (0, $789b7d27a7c715a6$export$2e2bcd8739ae039)(this.$refs.dropdownTrigger, {
+                    content: this.$refs.tabsDropdown,
+                    theme: "menu",
+                    interactive: true,
+                    trigger: "click",
+                    placement: "bottom",
+                    appendTo: this.$root
+                });
+                const initialTab = initial ? this.tabs.find((t)=>this._getRef(t) === initial) : this.tabs[0];
+                this.selectTab(initialTab || this.tabs[0], true);
+                this.parentObserver = (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$root.parentElement, (0, $c5d017602d25d050$export$61fc7d43ac8f84b0)(10, this.handleResize.bind(this)));
+                this.$watch("visibleTabsCount", (value)=>{
+                    this.debug(`'#${this.$root.id}' visible tabs count:`, value);
+                });
+            });
+        },
+        handleResize ({ width: width }) {
+            if (width === this._lastMeasuredWidth) return;
+            if (width === this.$root.offsetWidth) {
+                this.visibleTabsCount = this.tabs.length;
+                return;
+            }
+            let sumTabWidths = 60;
+            let triggerLeft = 20;
+            let visibleTabsCount = 0;
+            this.tabWidths.forEach((tabWidth)=>{
+                sumTabWidths += tabWidth;
+                if (sumTabWidths < width) {
+                    triggerLeft += tabWidth;
+                    visibleTabsCount++;
+                }
+            });
+            this.visibleTabsCount = visibleTabsCount;
+            this.triggerLeft = triggerLeft;
+            this._lastMeasuredWidth = width;
+        },
+        selectTab (el, initial = false) {
+            this.store.activeTab = this._getRef(el);
+            dropdown.hide();
+            if (!initial) this.$dispatch("tabs:change", {
+                tabs: this
+            });
+        },
+        isSelected (el) {
+            return this.store.activeTab === this._getRef(el);
+        },
+        isDisabled (el) {
+            return el.getAttribute("data-disabled") == "true";
+        },
+        hasHiddenTabs () {
+            return this.visibleTabsCount < this.tabs.length;
+        },
+        // protected
+        _lastMeasuredWidth: 0,
+        _getRef (el) {
+            return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
+        }
+    };
+}
+
+
+var $a87dacf5139b5e2f$exports = {};
+
+$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
+
+$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
+function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
+    return {
+        get store () {
+            return store || this;
+        },
+        get id () {
+            return this.$root.id;
+        },
+        get panels () {
+            return Array.from(this.$refs.panels.children);
+        },
+        isActive (el) {
+            return this.store.activeTab === this._getRef(el);
+        },
+        // protected
+        _getRef (el) {
+            return el.getAttribute("x-ref");
+        }
+    };
+}
+
+
 var $6d64716f0b34fdf4$exports = {};
 
 $parcel$defineInteropFlag($6d64716f0b34fdf4$exports);
@@ -12287,7 +12385,7 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
             this.onResizeHeightStart(e);
         },
         toggleFullSize () {
-            const { height: height , width: width  } = store;
+            const { height: height, width: width } = store;
             if (height === "100%" && width === "100%") {
                 this.toggleFullHeight();
                 this.toggleFullWidth();
@@ -12318,7 +12416,7 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
         },
         toggleFullWidth () {
             this.$dispatch("viewport:resize-start", this._resizeData);
-            const { width: width , lastWidth: lastWidth  } = store;
+            const { width: width, lastWidth: lastWidth } = store;
             if (width === "100%" && lastWidth) this.store.width = lastWidth;
             else {
                 this.store.lastWidth = width;
@@ -12348,7 +12446,7 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
         },
         toggleFullHeight () {
             this.$dispatch("viewport:resize-start", this._resizeData);
-            const { height: height , lastHeight: lastHeight  } = store;
+            const { height: height, lastHeight: lastHeight } = store;
             if (height === "100%" && lastHeight) this.store.height = lastHeight;
             else {
                 this.store.lastHeight = height;
@@ -12368,7 +12466,7 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$c2b461c6a9d68b2c$exports = {
+$9defc7a1a17ecfb0$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
@@ -12376,14 +12474,14 @@ $c2b461c6a9d68b2c$exports = {
     "embed_code_dropdown": $216ef7001f59f21d$exports,
     "filter": $e9904a14dabf652d$exports,
     "nav": $d92d9d5253f84566$exports,
-    "tab_panels": $a87dacf5139b5e2f$exports,
-    "tabs": $0db07828cadc68e0$exports,
     "split_layout": $506dabb2bf255b38$exports,
+    "tabs": $0db07828cadc68e0$exports,
+    "tab_panels": $a87dacf5139b5e2f$exports,
     "viewport": $6d64716f0b34fdf4$exports
 };
 
 
-var $5d1c9207cb730903$exports = {};
+var $6178ee12f80cbf68$exports = {};
 var $6a9b69d9cc7f810f$exports = {};
 
 $parcel$defineInteropFlag($6a9b69d9cc7f810f$exports);
@@ -12481,7 +12579,7 @@ var $cdfeaa1e0e8d642c$exports = {};
 
 
 
-function $6a9b69d9cc7f810f$export$2e2bcd8739ae039({ name: name , value: value  }) {
+function $6a9b69d9cc7f810f$export$2e2bcd8739ae039({ name: name, value: value }) {
     return {
         name: name,
         value: value,
@@ -13374,7 +13472,7 @@ function $c299e36fa9e271bc$export$2e2bcd8739ae039(id, embedStore) {
         switchTarget (newTargetPath) {
             this.navigateTo(`${newTargetPath}${window.location.search}`);
         },
-        onResized ({ height: height  }) {
+        onResized ({ height: height }) {
             if (height) {
                 this.viewportHeight = height;
                 // Notify parent window of height resize so the parent window can implement
@@ -13394,44 +13492,12 @@ function $c299e36fa9e271bc$export$2e2bcd8739ae039(id, embedStore) {
 }
 
 
-var $1a7a7298eec5b755$exports = {};
-
-$parcel$defineInteropFlag($1a7a7298eec5b755$exports);
-
-$parcel$export($1a7a7298eec5b755$exports, "default", () => $1a7a7298eec5b755$export$2e2bcd8739ae039);
-
-function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
-    return {
-        narrow: false,
-        init () {
-            (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$el, ({ width: width  })=>{
-                this.narrow = width < 500;
-            });
-        }
-    };
-}
-
-
-var $e773f8ef556b41ff$exports = {};
-
-$parcel$defineInteropFlag($e773f8ef556b41ff$exports);
-
-$parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
-function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
-    return {
-        get isNarrowLayout () {
-            return this.narrow || false;
-        }
-    };
-}
-
-
 var $9b24cbeb3a465447$exports = {};
 
 $parcel$defineInteropFlag($9b24cbeb3a465447$exports);
 
 $parcel$export($9b24cbeb3a465447$exports, "default", () => $9b24cbeb3a465447$export$2e2bcd8739ae039);
-function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id , matchers: matchers  }) {
+function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id, matchers: matchers }) {
     matchers = matchers.map((matcher)=>matcher.replace(/\s/g, "").toLowerCase());
     return {
         filteredOut: false,
@@ -13483,19 +13549,51 @@ function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id , matchers: matchers 
 }
 
 
-$5d1c9207cb730903$exports = {
+var $1a7a7298eec5b755$exports = {};
+
+$parcel$defineInteropFlag($1a7a7298eec5b755$exports);
+
+$parcel$export($1a7a7298eec5b755$exports, "default", () => $1a7a7298eec5b755$export$2e2bcd8739ae039);
+
+function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
+    return {
+        narrow: false,
+        init () {
+            (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$el, ({ width: width })=>{
+                this.narrow = width < 500;
+            });
+        }
+    };
+}
+
+
+var $e773f8ef556b41ff$exports = {};
+
+$parcel$defineInteropFlag($e773f8ef556b41ff$exports);
+
+$parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
+function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
+    return {
+        get isNarrowLayout () {
+            return this.narrow || false;
+        }
+    };
+}
+
+
+$6178ee12f80cbf68$exports = {
     "display_options": {
         "field": $6a9b69d9cc7f810f$exports
     },
     "embed": {
         "inspector": $c299e36fa9e271bc$exports
     },
+    "nav": {
+        "item": $9b24cbeb3a465447$exports
+    },
     "params": {
         "editor": $1a7a7298eec5b755$exports,
         "field": $e773f8ef556b41ff$exports
-    },
-    "nav": {
-        "item": $9b24cbeb3a465447$exports
     }
 };
 
@@ -13507,7 +13605,7 @@ var $f13f118be065081c$exports = {};
 $parcel$defineInteropFlag($f13f118be065081c$exports);
 
 $parcel$export($f13f118be065081c$exports, "default", () => $f13f118be065081c$export$2e2bcd8739ae039);
-function $f13f118be065081c$export$2e2bcd8739ae039({ name: name , value: value  }) {
+function $f13f118be065081c$export$2e2bcd8739ae039({ name: name, value: value }) {
     return {
         name: name,
         value: value,
@@ -13563,8 +13661,8 @@ const $22969b543678f572$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $5792afa4170ed552$export$2e2bcd8739ae039));
 [
-    $c2b461c6a9d68b2c$exports,
-    $5d1c9207cb730903$exports,
+    $9defc7a1a17ecfb0$exports,
+    $6178ee12f80cbf68$exports,
     $d56e5cced44001d2$exports
 ].forEach((scripts)=>{
     const components = (0, $12b7aa006b8a97e1$export$4e811121b221213b)(scripts);

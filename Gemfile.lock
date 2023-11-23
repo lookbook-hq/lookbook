@@ -11,7 +11,7 @@ GIT
 PATH
   remote: .
   specs:
-    lookbook (2.1.1)
+    lookbook (2.2.0)
       activemodel
       css_parser
       htmlbeautifier (~> 1.3)
