@@ -18,6 +18,7 @@ module Lookbook
         locals = @render_args[:locals]
         opts = {}
         opts[:layout] = nil
+        opts[:assigns] = @render_args[:assigns] || {}
         opts[:locals] = locals if locals.present?
 
         rendered = render_to_string(template, **opts)
