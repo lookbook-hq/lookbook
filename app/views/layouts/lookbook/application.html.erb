@@ -56,7 +56,7 @@
                           <% end %>
                         <% end %>
                       <% end %>
-                      <% if @config.preview_search %>
+                      <% if @config.preview_nav_filter %>
                         <% nav.with_filter store: "$store.nav.previews.filter", placeholder: "Filter previews by name&hellip;" %>
                       <% end %>
                     <% end %>
@@ -81,7 +81,7 @@
                           <% end %>
                         <% end %>
                       <% end %>
-                      <% if @config.page_search %>
+                      <% if @config.page_nav_filter %>
                         <% nav.with_filter store: "$store.nav.pages.filter", placeholder: "Filter pages by name&hellip;" %>  
                       <% end %>
                     <% end %>
