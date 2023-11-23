@@ -122,7 +122,7 @@
       "before:init": [
         "npm install",
         "bundle install",
-        "rake spec"
+        "bundle exec appraisal rspec"
       ],
       "after:bump": [
         "bundle exec appraisal install",
