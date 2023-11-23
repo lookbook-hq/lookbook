@@ -105,7 +105,7 @@ module Lookbook
 
     # @api private
     def search_terms
-      label
+      lookup_path.split("/") << label
     end
 
     # @api private

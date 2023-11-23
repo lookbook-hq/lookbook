@@ -17,7 +17,7 @@
       project_name: @config.project_name,
       project_logo: @config.project_logo %>
 
-    <% if @previews.any? || @pages.any? %>
+    <% unless @blank_slate %>
       
       <%= lookbook_render :split_layout,
         alpine_data: "$store.layout.main",
@@ -32,48 +32,57 @@
           "x-on:click.outside": "closeMobileSidebar",
           cloak: true do %>
 
-          <%= lookbook_render :split_layout,
-            alpine_data: "$store.layout.#{@pages.any? && @previews.any? ? "sidebar" : "singleSectionSidebar"}",
-            style: "height: calc(100vh - 2.5rem);" do |layout| %>
+          <% if @sidebar_panels.any? %>  
+            <%= lookbook_render :split_layout,
+              alpine_data: "$store.layout.#{@sidebar_panels.many? ? "sidebar" : "singleSectionSidebar"}",
+              style: "height: calc(100vh - 2.5rem);" do |layout| %>
 
-            <% if @previews.any? %>
-              <% layout.with_pane class: "overflow-hidden" do %>
-                <%= lookbook_render :nav,
-                  id: "previews-nav",
-                  tree: @previews.to_tree,
-                  alpine_data: "$store.nav.previews" do |nav| %>
-                  <%= nav.with_toolbar do |toolbar| %>
-                    <% toolbar.with_section padded: true do %>
-                      <h4 class="pt-1"><%= @config.preview_collection_label %></h4>
-                    <% end %>
-                    <% toolbar.with_section align: :right, padded: false do %>
-                      <%= lookbook_render :button_group, size: :xs do |group| %>
-                        <% group.with_button icon: :minus_square,
-                          tooltip: "Collapse all",
-                          "x-on:click": "closeAll" %>
+              <% @sidebar_panels.each do |panel| %>
+                <% if panel == :previews && @previews.any? %>
+                  <% layout.with_pane class: "overflow-hidden" do %>
+                    <%= lookbook_render :nav,
+                      id: "previews-nav",
+                      tree: @previews.to_tree,
+                      alpine_data: "$store.nav.previews" do |nav| %>
+                      <%= nav.with_toolbar do |toolbar| %>
+                        <% toolbar.with_section padded: true do %>
+                          <h4 class="pt-1"><%= @config.preview_collection_label %></h4>
+                        <% end %>
+                        <% toolbar.with_section align: :right, padded: false do %>
+                          <%= lookbook_render :button_group, size: :xs do |group| %>
+                            <% group.with_button icon: :minus_square,
+                              tooltip: "Collapse all",
+                              "x-on:click": "closeAll" %>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                      <% if @config.preview_search %>
+                        <% nav.with_filter store: "$store.nav.previews.filter", placeholder: "Filter previews by name&hellip;" %>
                       <% end %>
                     <% end %>
                   <% end %>
-                  <% nav.with_filter store: "$store.nav.previews.filter", placeholder: "Filter previews by name&hellip;" %>
                 <% end %>
-              <% end %>
-            <% end %>
 
-            <% if @pages.any? %>
-              <% layout.with_pane class: "overflow-hidden" do %>
-                <%= lookbook_render :nav,
-                  id: "pages-nav",
-                  tree: @pages.to_tree,
-                  alpine_data: "$store.nav.pages" do |nav| %>
-                  <%= nav.with_toolbar do |toolbar| %>
-                    <% toolbar.with_section padded: true do %>
-                      <h4 class="pt-1"><%= @config.page_collection_label %></h4>
-                    <% end %>
-                    <% toolbar.with_section align: :right, padded: false do %>
-                      <%= lookbook_render :button_group, size: :xs do |group| %>
-                        <% group.with_button icon: :minus_square,
-                          tooltip: "Collapse all",
-                          "x-on:click": "closeAll" %>
+                <% if panel == :pages && @pages.any? %>
+                  <% layout.with_pane class: "overflow-hidden" do %>
+                    <%= lookbook_render :nav,
+                      id: "pages-nav",
+                      tree: @pages.to_tree,
+                      alpine_data: "$store.nav.pages" do |nav| %>
+                      <%= nav.with_toolbar do |toolbar| %>
+                        <% toolbar.with_section padded: true do %>
+                          <h4 class="pt-1"><%= @config.page_collection_label %></h4>
+                        <% end %>
+                        <% toolbar.with_section align: :right, padded: false do %>
+                          <%= lookbook_render :button_group, size: :xs do |group| %>
+                            <% group.with_button icon: :minus_square,
+                              tooltip: "Collapse all",
+                              "x-on:click": "closeAll" %>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                      <% if @config.page_search %>
+                        <% nav.with_filter store: "$store.nav.pages.filter", placeholder: "Filter pages by name&hellip;" %>  
                       <% end %>
                     <% end %>
                   <% end %>
