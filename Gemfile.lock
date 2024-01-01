@@ -118,7 +118,7 @@ GEM
     erb (4.0.3)
       cgi (>= 0.3.3)
     erubi (1.12.0)
-    factory_bot (6.4.2)
+    factory_bot (6.4.5)
       activesupport (>= 5.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -153,6 +153,8 @@ GEM
       net-protocol
     nio4r (2.6.1)
     nokogiri (1.15.5-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.15.5-x86_64-linux)
       racc (~> 1.4)
     parallel (1.23.0)
     parser (3.2.2.4)
@@ -263,6 +265,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-22
+  x86_64-linux
 
 DEPENDENCIES
   appraisal!
