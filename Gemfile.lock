@@ -142,7 +142,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.5)
     minitest (5.20.0)
-    net-imap (0.4.6)
+    net-imap (0.4.7)
       date
       net-protocol
     net-pop (0.1.2)
@@ -151,7 +151,7 @@ GEM
       timeout
     net-smtp (0.4.0)
       net-protocol
-    nio4r (2.6.1)
+    nio4r (2.7.0)
     nokogiri (1.15.5-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.15.5-x86_64-linux)
@@ -160,13 +160,13 @@ GEM
     parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
-    phlex (1.8.1)
+    phlex (1.9.0)
       concurrent-ruby (~> 1.2)
       erb (>= 4)
       zeitwerk (~> 2.6)
-    phlex-rails (1.0.0)
-      phlex (~> 1.7)
-      rails (>= 6.1, < 8)
+    phlex-rails (1.1.1)
+      phlex (~> 1.9)
+      railties (>= 6.1, < 8)
       zeitwerk (~> 2.6)
     public_suffix (5.0.4)
     puma (6.4.0)
