@@ -57,6 +57,8 @@ module Lookbook
     end
 
     def handle_error(err)
+      raise err if Lookbook.config.preview_disable_error_handling
+
       @error = err.is_a?(Lookbook::Error) ? err : Lookbook::Error.new(original: err)
       @status_code = get_status_code(err)
 
