@@ -44,6 +44,15 @@ RSpec.describe "previews", type: :request do
         expect(html.has_css?("li", text: "Hello")).to be true
         expect(html.has_css?("li", text: "World")).to be true
       end
+
+      it "allows phlex DSL" do
+        get lookbook_preview_path("phlex_example/phlex_dsl")
+
+        expect(html.has_css?(".card > h1", text: "My card")).to be true
+        expect(html.has_css?(".card > .card-body > ul > li", text: "Hello")).to be true
+        expect(html.has_css?(".card > .card-body > ul > li", text: "World")).to be true
+        expect(html.has_css?(".card > .card-footer > span", text: "Hey ya!")).to be true
+      end
     end
   end
 
