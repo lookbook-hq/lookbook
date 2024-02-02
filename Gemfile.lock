@@ -95,6 +95,7 @@ GEM
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
+    base64 (0.2.0)
     builder (3.2.4)
     capybara (3.39.2)
       addressable
@@ -227,7 +228,8 @@ GEM
       rubocop-ast (>= 0.4.0)
     ruby-progressbar (1.13.0)
     rubyzip (2.3.2)
-    selenium-webdriver (4.9.0)
+    selenium-webdriver (4.17.0)
+      base64 (~> 0.2)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -276,7 +278,7 @@ DEPENDENCIES
   phlex-rails
   puma (~> 6)
   rails (~> 7.0.0)
-  selenium-webdriver (= 4.9.0)
+  selenium-webdriver (= 4.17.0)
   standard
   view_component
   yard-activesupport-concern
