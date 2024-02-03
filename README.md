@@ -14,9 +14,13 @@
 ---
 
 <div align="center">
-Lookbook combines a powerful <strong>component browser</strong> and <strong>preview system</strong> with an <strong>integrated documentation engine</strong> to help teams build robust, modular, maintainable user interfaces. <a href="https://lookbook.build"><strong>Learn more &rarr;</strong></a>
+Lookbook combines a powerful <strong>component browser</strong> and <strong>preview system</strong> with an <strong>integrated documentation engine</strong> to help teams build robust, modular, maintainable user interfaces.<br><br>
+It's compatible with <a href="https://viewcomponent.org/">ViewComponent</a>, <a href="https://www.phlex.fun/">Phlex</a>, ActionView partials and more.
+<br><br>
+<a href="https://lookbook.build"><strong>Read the docs &rarr;</strong></a>
 
 </div>
+
 
 ---
 

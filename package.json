@@ -1,6 +1,6 @@
 {
   "name": "lookbook",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "A native development UI for ViewComponent",
   "targets": {
     "app": {
@@ -57,7 +57,7 @@
     "@alpinejs/morph": "^3.13.2",
     "@alpinejs/persist": "^3.13.2",
     "@rails/actioncable": "^6.1.4",
-    "@ryangjchandler/alpine-tooltip": "^1.2.0",
+    "@ryangjchandler/alpine-tooltip": "^2.0.0",
     "@tailwindcss/forms": "^0.5.6",
     "@tailwindcss/typography": "^0.5.8",
     "alpinejs": "^3.13.2",
@@ -74,13 +74,13 @@
     "tippy.js": "^6.3.2"
   },
   "devDependencies": {
-    "@parcel/resolver-glob": "^2.10.1",
+    "@parcel/resolver-glob": "^2.10.3",
     "commitizen": "^4.2.5",
     "concurrently": "^8.2.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.40.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.25.2",
     "husky": "^8.0.2",
     "lint-staged": "^15.0.2",

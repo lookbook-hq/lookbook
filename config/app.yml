@@ -23,6 +23,7 @@ shared:
   preview_disable_action_view_annotations: true
   preview_type_default: view_component
   preview_sort_scenarios: false
+  preview_disable_error_handling: false
 
   page_collection_label: "Pages"
   page_nav_filter: false
