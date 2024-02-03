@@ -119,7 +119,7 @@ GEM
     erb (4.0.3)
       cgi (>= 0.3.3)
     erubi (1.12.0)
-    factory_bot (6.4.2)
+    factory_bot (6.4.5)
       activesupport (>= 5.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
