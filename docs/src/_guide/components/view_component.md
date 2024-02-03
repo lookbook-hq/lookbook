@@ -20,18 +20,25 @@ title: Using with ViewComponent
   
 <% end %>
 
-<%= render section("Configuration", id: "config") do %>
+<%= render section("Configuration", id: "config") do |s| %>
 
-  Lookbook will reference ViewComponent's configuration options where needed so you don't need to duplicate settings.
-  Only Lookbook-specific [configuration options](<%= guide_url :config_reference %>) will be need to set directly.
-  
-  The following ViewComponent settings will be respected by Lookbook:
+  <% s.with_block_prose do %>
+    Lookbook will reference ViewComponent's configuration options where needed so you don't need to duplicate settings.
+    Only Lookbook-specific [configuration options](<%= guide_url :config_reference %>) will be need to set directly.
+    
+    The following ViewComponent settings will be respected by Lookbook:
 
-  * [`default_preview_layout`](https://viewcomponent.org/api.html#default_preview_layout--string)
-  * [`preview_controller`](https://viewcomponent.org/api.html#preview_controller--string)
-  * [`preview_paths`](https://viewcomponent.org/api.html#preview_paths--array)
-  * [`view_component_path`](https://viewcomponent.org/api.html#default_preview_layout--string)
+    * [`default_preview_layout`](https://viewcomponent.org/api.html#default_preview_layout--string)
+    * [`preview_controller`](https://viewcomponent.org/api.html#preview_controller--string)
+    * [`preview_paths`](https://viewcomponent.org/api.html#preview_paths--array)
+    * [`view_component_path`](https://viewcomponent.org/api.html#default_preview_layout--string)
+  <% end %>
 
+  <% s.with_block_note :warn do |note| %>
+    Note that Lookbook changes the default value for the `view_component.show_previews` [config option](https://viewcomponent.org/api.html#show_previews) to `true`.
+
+    If you are not using Lookbook in production then ensure that the Lookbook gem is only included in the `development` group in the Gemfile to prevent accidentally publicly exposing ViewComponent preview URLs.
+  <% end %>
 <% end %>
 
 <%= render section("Preview classes", id: "previews") do %>
