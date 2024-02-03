@@ -23,9 +23,6 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: false
 
-      - name: Set system gem command
-        run: gem update --system
-
       - name: Install bundler
         run: gem install bundler
 
