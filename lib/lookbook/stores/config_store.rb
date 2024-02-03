@@ -59,6 +59,10 @@ module Lookbook
       store[:highlighter_options].merge!(options.to_h)
     end
 
+    def preview_disable_error_handling=(value)
+      store[:preview_disable_error_handling] = value
+    end
+
     def ui_theme=(name)
       name = name.to_s
       if Theme.valid_theme?(name)
