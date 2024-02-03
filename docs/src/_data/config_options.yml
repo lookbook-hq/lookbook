@@ -104,6 +104,14 @@ previews:
       Whether or not to sort preview examples in the navigation alphabetically
       (as opposed to displaying them in the order they are defined in the preview class).
 
+  - name: preview_disable_error_handling
+    types: Boolean
+    default: "false"
+    example: "config.lookbook.preview_disable_error_handling = true"
+    description: |
+      Disables Lookbook's custom error handling so that third-party error handling
+      gems like better_errors and web_console can be used instead.
+
 pages:
   - name: page_collection_label
     types: String
