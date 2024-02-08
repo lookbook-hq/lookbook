@@ -6,13 +6,12 @@ require "lookbook/logger"
 loader = Zeitwerk::Loader.for_gem
 loader.push_dir("#{__dir__}/lookbook", namespace: Lookbook)
 loader.ignore("#{__dir__}/lookbook.rb")
+loader.ignore("#{__dir__}/lookbook/filesystem/evented_file_update_checker.rb")
 loader.collapse("#{__dir__}/lookbook/*")
 loader.setup
 
-# Won't print anything by default because of level - unless you've set
-# LOOKBOOK_LOG_LEVEL or provided your own logger with a high enough level
-Lookbook.logger.info "Lookbook log level set to: #{Lookbook.logger.level}"
-Lookbook.logger.info "Lookbook version: #{Lookbook::VERSION}"
+Lookbook.logger.info("Lookbook log level: #{Lookbook.logger.level}")
+Lookbook.logger.info("Lookbook version: #{Lookbook::VERSION}")
 
 # The Lookbook application entry point.
 #
@@ -41,5 +40,4 @@ module Lookbook
   end
 end
 
-require "rails"
 require "lookbook/engine"

@@ -28,7 +28,11 @@ module Lookbook
           ::Logger::ERROR
         end
 
-      ::Logger.new($stderr, level: level)
+      logger = ::Logger.new($stderr, level: level)
+      logger.formatter = proc do |severity, datetime, progname, msg|
+        "[LOOKBOOK] #{severity.to_s.ljust(5)} | #{msg.upcase_first}\n"
+      end
+      logger
     end
   end
 end
