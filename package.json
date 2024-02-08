@@ -1,0 +1,18 @@
+{
+  "name": "lookbook",
+  "version": "3.0.0.alpha.0",
+  "description": "A native development UI for ViewComponent",
+  "scripts": {},
+  "author": "Mark Perkins",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "prettier": "^3.2.5"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": false,
+    "trailingComma": "es5"
+  }
+}
