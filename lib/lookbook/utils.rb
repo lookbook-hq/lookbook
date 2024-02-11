@@ -24,8 +24,8 @@ module Lookbook
         Digest::SHA1.hexdigest(str.to_s)
       end
 
-      def main_process?
-        Process.pid == Lookbook::MAIN_PID
+      def current_timestamp_milliseconds
+        DateTime.now.strftime("%Q").to_i
       end
     end
   end

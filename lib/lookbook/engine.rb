@@ -1,7 +1,7 @@
 require "rails"
 
 module Lookbook
-  MAIN_PID = Process.pid
+
   class Engine < Rails::Engine
     include Loggable
 
@@ -39,6 +39,10 @@ module Lookbook
 
       def watch_files?
         config.lookbook.reload_on_change
+      end
+
+      def updated_at
+        Previews.updated_at
       end
     end
   end

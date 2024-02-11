@@ -4,7 +4,7 @@ module Lookbook
 
     [:debug, :info, :warn, :error, :fatal].each do |level|
       define_method(level) do |*args|
-        Lookbook.logger.send(level, *args) if Utils.main_process?
+        Lookbook.logger.send(level, *args)
       end
     end
   end

@@ -31,6 +31,7 @@ module Lookbook
       def reloader
         Reloader.new(:previews, watch_paths, watch_extensions) do |changes|
           changes.nil? ? load_all : update(changes)
+          Previews.mark_updated
         end
       end
 
@@ -53,6 +54,14 @@ module Lookbook
 
       def watch_extensions
         Lookbook.config.listen_extensions
+      end
+
+      def updated_at
+        @updated_at ||= mark_updated
+      end
+
+      def mark_updated
+        @updated_at = Utils.current_timestamp_milliseconds
       end
 
       private
