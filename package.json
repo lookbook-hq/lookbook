@@ -2,12 +2,44 @@
   "name": "lookbook",
   "version": "3.0.0.alpha.0",
   "description": "A native development UI for ViewComponent",
-  "scripts": {},
+  "scripts": {
+    "watch": "npm run parcel:clean && npm run parcel:watch",
+    "build": "npm run parcel:clean && npm run parcel:build",
+    "parcel:clean": "rm -rf .parcel-cache",
+    "parcel:watch": "parcel watch -p 5111 --target app-development",
+    "parcel:build": "parcel build --no-cache --target app-production"
+  },
   "author": "Mark Perkins",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "parcel": "^2.11.0"
+  },
   "devDependencies": {
     "prettier": "^3.2.5"
+  },
+  "targets": {
+    "app-development": {
+      "source": [
+        "./assets/entrypoints/app.js",
+        "./assets/entrypoints/app.css"
+      ],
+      "distDir": "./public/lookbook-dev",
+      "publicUrl": "/lookbook-dev",
+      "outputFormat": "global",
+      "context": "browser",
+      "sourceMap": false
+    },
+    "app-production": {
+      "source": [
+        "./assets/entrypoints/app.js",
+        "./assets/entrypoints/app.css"
+      ],
+      "distDir": "./public/lookbook-assets",
+      "publicUrl": "/lookbook-assets",
+      "outputFormat": "global",
+      "context": "browser",
+      "sourceMap": true
+    }
   },
   "prettier": {
     "tabWidth": 2,

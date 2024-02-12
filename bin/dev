@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+LOOKBOOK_ENV=development npm run watch

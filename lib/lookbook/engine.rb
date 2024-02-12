@@ -1,7 +1,6 @@
 require "rails"
 
 module Lookbook
-
   class Engine < Rails::Engine
     include Loggable
 
@@ -18,23 +17,25 @@ module Lookbook
         options.reload_on_change = !app.config.cache_classes && app.config.reload_classes_only_on_change
       end
 
-      boot
+      boot!
     end
 
     class << self
-      def boot
-        @booted ||= begin
-          info("Initializing Lookbook...")
+      def boot!
+        raise "Lookbook is already booted!" if @booted
 
-          if watch_files?
-            Reloaders.register(Previews.reloader)
-            Reloaders.execute
-          else
-            Previews.load_all
-          end
+        info("Initializing Lookbook in #{Lookbook.env} mode...")
 
-          info("Lookbook initialized#{" - watching filesystem for changes" if watch_files?}")
+        if watch_files?
+          Reloaders.register(Previews.reloader)
+          Reloaders.execute
+        else
+          Previews.load_all
         end
+
+        @booted = true
+
+        info("Lookbook initialized#{" - watching filesystem for changes" if watch_files?}")
       end
 
       def watch_files?

@@ -37,6 +37,10 @@ module Lookbook
     def config
       Lookbook::Config.current
     end
+
+    def env
+      Lookbook::Env
+    end
   end
 end
 
