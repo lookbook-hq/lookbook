@@ -8,7 +8,8 @@ module Lookbook
           preview_paths: ["#{Rails.root}/test/components/previews"],
           preview_watch_extensions: ["rb", "html.*"],
 
-          reload_on_change: nil
+          reload_on_change: nil,
+          mount_path: "/lookbook"
         })
       end
     end
