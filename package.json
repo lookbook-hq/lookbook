@@ -3,18 +3,23 @@
   "version": "3.0.0.alpha.0",
   "description": "A native development UI for ViewComponent",
   "scripts": {
-    "watch": "npm run parcel:clean && npm run parcel:watch",
-    "build": "npm run parcel:clean && npm run parcel:build",
+    "dev": "npm run parcel:clean && npm run shoelace:prepare:dev && npm run parcel:dev",
+    "build": "npm run parcel:clean && npm run shoelace:prepare:build && npm run parcel:build",
+    "shoelace:prepare:dev": "copyfiles -u 5 ./node_modules/@shoelace-style/shoelace/dist/assets/**/* ./public/lookbook-dev/shoelace/assets",
+    "shoelace:prepare:build": "copyfiles -u 5 ./node_modules/@shoelace-style/shoelace/dist/assets/**/* ./public/lookbook-assets/shoelace/assets",
     "parcel:clean": "rm -rf .parcel-cache",
-    "parcel:watch": "parcel watch -p 5111 --target app-development",
+    "parcel:dev": "parcel watch -p 5111 --target app-development",
     "parcel:build": "parcel build --no-cache --target app-production"
   },
   "author": "Mark Perkins",
   "license": "MIT",
   "dependencies": {
-    "parcel": "^2.11.0"
+    "@shoelace-style/shoelace": "^2.13.1",
+    "alpinejs": "^3.13.5"
   },
   "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "parcel": "^2.11.0",
     "prettier": "^3.2.5"
   },
   "targets": {

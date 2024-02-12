@@ -11,9 +11,16 @@
   
   <title>Lookbook</title>
 </head>
-<body>  
-  <%= yield %>
-  
+<body>
+  <div class="app">
+    <header class="app-header">
+      <%= @config.project_name %>
+    </header>
+    <main class="app-main">
+      <%= yield %>
+    </main>
+  </div>
+
   <script>
     const source = new EventSource("<%= updates_path %>");
     source.addEventListener("update", (event) => {
