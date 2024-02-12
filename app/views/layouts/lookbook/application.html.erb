@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="sl-theme-light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,15 +12,28 @@
   <title>Lookbook</title>
 </head>
 <body>
-  <div class="app">
-    <header class="app-header">
+  <div id="app">
+    <header id="app-header">
       <%= @config.project_name %>
     </header>
-    <main class="app-main">
-      <%= yield %>
+
+    <main id="app-main">
+      <sl-split-panel
+        id="app-sidebar-layout"
+        primary="start"
+        :position="sidebarPosition"
+        x-data="{sidebarPosition: $persist(20)}"
+        @sl-reposition="sidebarPosition = $el.position">
+        <div slot="start" id="app-sidebar">
+          <%= render "sidebar", previews: @previews %>
+        </div>
+        <div slot="end" id="app-content">
+          <%= yield %>
+        </div>
+      </sl-split-panel>
     </main>
   </div>
-
+  
   <script>
     const source = new EventSource("<%= updates_path %>");
     source.addEventListener("update", (event) => {

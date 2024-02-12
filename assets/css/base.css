@@ -2,3 +2,39 @@ html,
 body {
   font-family: var(--sl-font-sans);
 }
+
+/* App layout */
+
+#app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+}
+
+#app-header {
+  padding: var(--sl-spacing-medium);
+  border-bottom: 1px solid var(--lookbook-color-divider);
+}
+
+#app-main > * {
+  height: 100%;
+}
+
+#app-sidebar-layout {
+  --divider-width: 1px;
+  --min: 200px;
+  --max: 400px;
+
+  &::part(divider) {
+    background-color: var(--lookbook-color-divider);
+  }
+}
+
+#app-sidebar {
+  height: 100%;
+  overflow: hidden;
+}
+
+#app-content {
+  height: 100%;
+}
