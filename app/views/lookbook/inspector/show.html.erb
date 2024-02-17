@@ -14,7 +14,10 @@
   <% inspector.with_drawer do %>
     <%= lb_tab_group(id: "inspector-drawer-tabs") do |group| %>
       <% group.with_tab("source", label: "Source") do %>
-        <%= @preview.lookup_path %> source 
+        <div id="<%= dom_id(@preview, :source) %>">
+          <%= @preview.lookup_path %> source 
+        </div>
+        <sl-copy-button from="<%= dom_id(@preview, :source) %>"></sl-copy-button>
       <% end %>
       
       <% group.with_tab("notes", label: "Notes") do %>

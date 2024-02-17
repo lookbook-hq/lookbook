@@ -1,4 +1,23 @@
 [data-component="tab-group"] {
+  height: 100%;
+
+  sl-tab-group {
+    height: 100%;
+
+    &::part(body),
+    &::part(base) {
+      height: 100%;
+    }
+  }
+
+  sl-tab-panel {
+    height: 100%;
+
+    &::part(base) {
+      height: 100%;
+    }
+  }
+
   ::part(active-tab-indicator) {
     transition: none !important;
   }
