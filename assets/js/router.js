@@ -1,8 +1,10 @@
+import Logger from "./logger";
 export default class Router {
   constructor(rootElement) {
     this.rootElement = rootElement;
     this.updateEventSources = [];
     this.onPopState = this.onPopState.bind(this);
+    this.logger = new Logger();
 
     addEventListener("popstate", this.onPopState);
   }
@@ -12,7 +14,8 @@ export default class Router {
   }
 
   visit(url) {
-    console.info(`Navigating to ${url}`);
+    this.logger.info(`Navigating to ${url}`);
+
     history.pushState({}, "", url);
     dispatchEvent(new PopStateEvent("popstate", {}));
   }
@@ -20,7 +23,7 @@ export default class Router {
   listenForUpdates(endpoint) {
     if (endpoint) {
       this.addUpdateEventSource(endpoint);
-      console.info(`Listening for updates from ${endpoint}`);
+      this.logger.info(`Listening for updates from ${endpoint}`);
     }
   }
 

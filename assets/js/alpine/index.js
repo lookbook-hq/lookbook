@@ -1,6 +1,7 @@
 import Alpine from "alpinejs";
 import morph from "@alpinejs/morph";
 import persist from "@alpinejs/persist";
+import logger from "./logger.js";
 import * as components from "../../../app/components/lookbook/ui/**/*.js";
 
 function registerComponents(entries) {
@@ -18,6 +19,8 @@ window.Alpine = Alpine;
 
 Alpine.plugin(morph);
 Alpine.plugin(persist);
+
+Alpine.magic("logger", logger);
 
 registerComponents(components);
 
