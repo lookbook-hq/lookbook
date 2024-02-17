@@ -3,16 +3,12 @@ import Router from "@js/router";
 export default function app() {
   return {
     router: null,
-    sidebarPosition: Alpine.$persist(20).as("appSidebarPosition"),
+    sidebarPosition: Alpine.$persist(20).as("app:sidebar-position"),
 
     init() {
       this.router = new Router(this.$el, this.$log);
       this.router.listenForUpdates(window.UPDATE_EVENTS_ENDPOINT);
       this.$logger.debug("App component initialized");
-    },
-
-    destroy() {
-      this.router.destroy();
     },
 
     hijackNavigation(event) {
@@ -21,6 +17,10 @@ export default function app() {
         event.preventDefault();
         this.router.visit(link.href);
       }
+    },
+
+    destroy() {
+      this.router.cleanup();
     },
   };
 }

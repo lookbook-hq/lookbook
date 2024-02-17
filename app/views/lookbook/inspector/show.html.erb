@@ -1,9 +1,26 @@
 <%= lb_inspector do |inspector| %>
   <% inspector.with_main do %>
-    <%= @preview.lookup_path %>
+    <%= lb_tab_group(id: "inspector-main-tabs") do |group| %>
+      <% group.with_tab("preview", label: "Preview") do %>
+        <%= @preview.lookup_path %> preview
+      <% end %>
+      
+      <% group.with_tab("output", label: "Output") do %>
+        <%= @preview.lookup_path %> output
+      <% end %>
+    <% end %>
   <% end %>
 
   <% inspector.with_drawer do %>
-    drawer
+    <%= lb_tab_group(id: "inspector-drawer-tabs") do |group| %>
+      <% group.with_tab("source", label: "Source") do %>
+        <%= @preview.lookup_path %> source 
+      <% end %>
+      
+      <% group.with_tab("notes", label: "Notes") do %>
+        <%= @preview.lookup_path %> notes
+      <% end %>
+    <% end %>
+    
   <% end %>
 <% end %>

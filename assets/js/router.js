@@ -1,10 +1,11 @@
 import Logger from "./logger";
+
 export default class Router {
   constructor(rootElement) {
     this.rootElement = rootElement;
     this.updateEventSources = [];
     this.onPopState = this.onPopState.bind(this);
-    this.logger = new Logger();
+    this.$logger = new Logger();
 
     addEventListener("popstate", this.onPopState);
   }
@@ -14,8 +15,7 @@ export default class Router {
   }
 
   visit(url) {
-    this.logger.info(`Navigating to ${url}`);
-
+    this.$logger.debug(`Navigating to ${url}`);
     history.pushState({}, "", url);
     dispatchEvent(new PopStateEvent("popstate", {}));
   }
@@ -23,7 +23,9 @@ export default class Router {
   listenForUpdates(endpoint) {
     if (endpoint) {
       this.addUpdateEventSource(endpoint);
-      this.logger.info(`Listening for updates from ${endpoint}`);
+      this.$logger.debug(`Listening for updates from ${endpoint}`);
+    } else {
+      this.$logger.debug(`No update events endpoint provided`);
     }
   }
 
@@ -33,10 +35,11 @@ export default class Router {
       `#${this.rootElement.id}`
     );
     morph(this.rootElement, fragment);
+    this.$dispatch("lookbook:morph");
   }
 
   onPopState(event) {
-    this.updatePage();
+    return this.updatePage();
   }
 
   addUpdateEventSource(endpoint) {
@@ -45,9 +48,15 @@ export default class Router {
     this.updateEventSources.push(source);
   }
 
-  destroy() {
+  cleanup() {
     this.updateEventSources.forEach((source) => source.close());
     removeEventListener("popstate", this.onPopState);
+  }
+
+  $dispatch(eventName, detail = {}) {
+    document.dispatchEvent(
+      new CustomEvent(eventName, { detail, bubbles: true })
+    );
   }
 }
 

@@ -28,7 +28,5 @@ module Lookbook
     def class_file_path
       Pathname(code_object.file)
     end
-
-    def to_param = id
   end
 end

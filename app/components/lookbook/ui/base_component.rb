@@ -3,7 +3,7 @@ module Lookbook
     class BaseComponent < Lookbook::Component::Base
       include ActionView::Helpers::TagHelper
 
-      TAG_ATTRIBUTE_NAMES = %i[id class data aria style x].freeze
+      TAG_ATTRIBUTE_NAMES = %i[id class data aria style key x].freeze
 
       def component_name
         @_component_name ||= self.class.send(:component_name)

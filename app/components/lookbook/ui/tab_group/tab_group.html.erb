@@ -1,0 +1,11 @@
+<%= render component_tag(
+  id: id,
+  x: {
+    "data": "tabGroup('#{id}')",
+    "on:sl-tab-show": "activeTab = $event.detail.name",
+    "on:lookbook:morph.document": "selectTab"
+  }) do %> 
+  <sl-tab-group>
+    <%= safe_join(tabs) %>
+  </sl-tab-group>
+<% end %>

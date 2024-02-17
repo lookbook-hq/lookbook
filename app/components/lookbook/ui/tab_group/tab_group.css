@@ -1,0 +1,5 @@
+[data-component="tab-group"] {
+  ::part(active-tab-indicator) {
+    transition: none !important;
+  }
+}
