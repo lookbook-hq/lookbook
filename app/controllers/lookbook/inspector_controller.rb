@@ -12,7 +12,7 @@ module Lookbook
 
     def assign_preview
       @preview = Previews.find_by_id(params[:id])
-      raise PreviewNotFoundError, "Count not find preview with lookup path '#{params[:path]}'" unless @preview
+      raise PreviewNotFoundError, "Count not find preview with lookup path '#{params[:id]}'" unless @preview
     end
   end
 end

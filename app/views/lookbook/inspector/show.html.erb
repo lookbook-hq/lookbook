@@ -1,1 +1,9 @@
-<%= @preview.lookup_path %>
+<%= lb_inspector do |inspector| %>
+  <% inspector.with_main do %>
+    <%= @preview.lookup_path %>
+  <% end %>
+
+  <% inspector.with_drawer do %>
+    drawer
+  <% end %>
+<% end %>

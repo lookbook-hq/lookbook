@@ -10,7 +10,7 @@ module Lookbook
     end
 
     def id
-      @id ||= lookup_path.tr("_", "-")
+      @id ||= lookup_path.tr("_", "-").parameterize
     end
 
     def class_name

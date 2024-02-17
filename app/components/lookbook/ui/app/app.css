@@ -17,6 +17,8 @@
     --min: 200px;
     --max: 400px;
 
+    height: 100%;
+
     &::part(divider) {
       background-color: var(--lookbook-color-divider);
     }

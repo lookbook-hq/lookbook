@@ -1,0 +1,26 @@
+[data-component="inspector"] {
+  height: 100%;
+  width: 100%;
+
+  .inspector-layout {
+    --divider-width: 1px;
+    --min: 200px;
+    --max: 800px;
+
+    height: 100%;
+    width: 100%;
+
+    &::part(divider) {
+      background-color: var(--lookbook-color-divider);
+    }
+  }
+
+  .inspector-drawer {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .inspector-main {
+    width: 100%;
+  }
+}

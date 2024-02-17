@@ -18,7 +18,7 @@
 <body>  
   <%= lb_app do |layout| %>
     <% layout.with_header do %>
-      <%= @config.project_name %>
+      <%= link_to @config.project_name, inspector_path %>
     <% end %>
 
     <% layout.with_sidebar do %>

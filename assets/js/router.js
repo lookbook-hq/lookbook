@@ -2,11 +2,19 @@ export default class Router {
   constructor(rootElement) {
     this.rootElement = rootElement;
     this.updateEventSources = [];
+    this.onPopState = this.onPopState.bind(this);
+
+    addEventListener("popstate", this.onPopState);
   }
 
-  visit(path) {
-    console.log(`Navigating to #{path}`);
-    window.location = path;
+  get location() {
+    return document.location;
+  }
+
+  visit(url) {
+    console.info(`Navigating to ${url}`);
+    history.pushState({}, "", url);
+    dispatchEvent(new PopStateEvent("popstate", {}));
   }
 
   listenForUpdates(endpoint) {
@@ -16,22 +24,27 @@ export default class Router {
     }
   }
 
-  async reload() {
+  async updatePage() {
     const { fragment } = await fetchHTML(
-      window.location,
+      this.location,
       `#${this.rootElement.id}`
     );
     morph(this.rootElement, fragment);
   }
 
+  onPopState(event) {
+    this.updatePage();
+  }
+
   addUpdateEventSource(endpoint) {
     const source = new EventSource(endpoint);
-    source.addEventListener("update", () => this.reload());
+    source.addEventListener("update", () => this.updatePage());
     this.updateEventSources.push(source);
   }
 
   destroy() {
     this.updateEventSources.forEach((source) => source.close());
+    removeEventListener("popstate", this.onPopState);
   }
 }
 
@@ -55,8 +68,8 @@ function morph(from, to) {
     },
     lookahead: true,
     updating(el, toEl, childrenOnly, skip) {
-      // custom element style attribute handling
       if (el.tagName && el.tagName.includes("-")) {
+        // preserve style attribute changes for custom elements
         if (el.hasAttribute("style")) {
           toEl.setAttribute("style", el.getAttribute("style"));
         }

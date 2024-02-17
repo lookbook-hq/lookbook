@@ -1,0 +1,15 @@
+<%= render component_tag(id: "inspector", x: {data: "inspector"}) do %> 
+  <sl-split-panel
+    class="inspector-layout"
+    primary="end"
+    :position="drawerPosition"
+    @sl-reposition="drawerPosition = $el.position"
+    vertical>
+    <div slot="start" class="inspector-main">
+      <%= main %>
+    </div>
+    <div slot="end" class="inspector-drawer">
+      <%= drawer %>
+    </div>
+  </sl-split-panel>
+<% end %>

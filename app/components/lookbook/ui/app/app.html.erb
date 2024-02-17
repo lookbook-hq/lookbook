@@ -1,4 +1,9 @@
-<%= render component_tag(id: "app", x: {data: "app"}) do %>
+<%= render component_tag(
+  id: "app",
+  x: {
+    "data": "app",
+    "on:click.document": "hijackNavigation"
+  }) do %>
   <header class="app-header">
     <%= header %>
   </header>

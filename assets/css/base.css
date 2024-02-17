@@ -2,7 +2,3 @@ html,
 body {
   font-family: var(--sl-font-sans);
 }
-
-#app {
-  display: contents;
-}

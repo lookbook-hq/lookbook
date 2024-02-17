@@ -13,5 +13,13 @@ export default function app() {
     destroy() {
       this.router.destroy();
     },
+
+    hijackNavigation(event) {
+      const link = event.target.closest("a[href]");
+      if (link) {
+        event.preventDefault();
+        this.router.visit(link.href);
+      }
+    },
   };
 }
