@@ -10,7 +10,7 @@ module Lookbook
     end
 
     def id
-      @id ||= Utils.hash(class_name)
+      @id ||= lookup_path.tr("_", "-")
     end
 
     def class_name
@@ -28,5 +28,7 @@ module Lookbook
     def class_file_path
       Pathname(code_object.file)
     end
+
+    def to_param = id
   end
 end

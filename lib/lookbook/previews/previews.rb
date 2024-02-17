@@ -3,6 +3,8 @@ module Lookbook
     class << self
       include Loggable
 
+      delegate_missing_to :all
+
       def all
         store.to_collection
       end
