@@ -30,12 +30,17 @@ export default class Router {
   }
 
   async updatePage() {
-    const { fragment } = await fetchHTML(
+    const { ok, fragment, status } = await fetchHTML(
       this.location,
       `#${this.rootElement.id}`
     );
-    morph(this.rootElement, fragment);
-    this.$dispatch("lookbook:morph");
+    if (ok) {
+      morph(this.rootElement, fragment);
+      this.$dispatch("lookbook:morph");
+    } else {
+      // TODO: redirect?
+      this.$logger.error(`${status} error`);
+    }
   }
 
   onPopState(event) {
@@ -62,15 +67,16 @@ export default class Router {
 
 async function fetchHTML(url, selector) {
   const response = await fetch(url || window.document.location);
-  const html = await response.text();
-  const doc = new DOMParser().parseFromString(html, "text/html");
-  return {
-    ok: response.ok,
-    fragment: selector ? doc.querySelector(selector).outerHTML : null,
-    title: doc.title,
-    response,
-    doc,
-  };
+  const { status, ok } = response;
+  let fragment,
+    title = null;
+  const result = { ok, status, response, fragment, title };
+  if (response.ok) {
+    const html = await response.text();
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    result.fragment = selector ? doc.querySelector(selector).outerHTML : null;
+  }
+  return result;
 }
 
 function morph(from, to) {
