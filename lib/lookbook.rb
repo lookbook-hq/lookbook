@@ -1,13 +1,15 @@
 require "zeitwerk"
 require "logger"
-require "lookbook/version"
-require "lookbook/logger"
+require_relative "lookbook/version"
+require_relative "lookbook/logger"
 
 loader = Zeitwerk::Loader.for_gem
 loader.push_dir("#{__dir__}/lookbook", namespace: Lookbook)
 loader.ignore("#{__dir__}/lookbook.rb")
 loader.ignore("#{__dir__}/lookbook/filesystem/evented_file_update_checker.rb")
-loader.collapse("#{__dir__}/lookbook/*")
+loader.collapse("#{__dir__}/lookbook/previews")
+loader.collapse("#{__dir__}/lookbook/filesystem")
+loader.collapse("#{__dir__}/lookbook/concerns")
 loader.setup
 
 Lookbook.logger.info("Lookbook log level: #{Lookbook.logger.level}")

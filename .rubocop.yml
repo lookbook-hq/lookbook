@@ -1,4 +1,6 @@
-require: standard
+require:
+  - standard
+  - rubocop-rails
 
 AllCops:
   TargetRubyVersion: 3.0

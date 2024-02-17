@@ -17,12 +17,15 @@
     "@alpinejs/morph": "^3.13.5",
     "@alpinejs/persist": "^3.13.5",
     "@shoelace-style/shoelace": "^2.13.1",
-    "alpinejs": "^3.13.5"
+    "alpinejs": "^3.13.5",
+    "container-query-polyfill": "^1.0.2"
   },
   "devDependencies": {
     "@parcel/resolver-glob": "^2.11.0",
     "copyfiles": "^2.4.1",
     "parcel": "^2.11.0",
+    "postcss-import": "^16.0.1",
+    "postcss-import-ext-glob": "^2.1.1",
     "postcss-nesting": "^12.0.2",
     "prettier": "^3.2.5"
   },
@@ -49,6 +52,9 @@
       "context": "browser",
       "sourceMap": true
     }
+  },
+  "alias": {
+    "@js/*": "./assets/js/$1"
   },
   "prettier": {
     "tabWidth": 2,

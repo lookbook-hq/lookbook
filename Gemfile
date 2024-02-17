@@ -1,8 +1,9 @@
 source "https://rubygems.org"
 gemspec
 
-group :development do
-  gem "standard"
+group :development, :test do
+  gem "standard", require: false
+  gem "rubocop-rails", require: false
 end
 
 group :test do

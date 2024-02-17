@@ -1,0 +1,26 @@
+<%= render component_tag(id: "app", x: {data: "app"}) do %>
+  <header class="app-header">
+    <%= header %>
+  </header>
+
+  <main class="app-body">
+    <% if sidebar? %>
+      <sl-split-panel
+        class="app-sidebar-layout"
+        primary="start"
+        :position="sidebarPosition"
+        @sl-reposition="sidebarPosition = $el.position">
+        <div slot="start" class="app-sidebar">
+          <%= sidebar %>
+        </div>
+        <div slot="end" class="app-main">
+          <%= main %>
+        </div>
+      </sl-split-panel>  
+    <% else %>
+      <div class="app-main">
+        <%= main %>
+      </div>
+    <% end %>
+  </main>
+<% end %>

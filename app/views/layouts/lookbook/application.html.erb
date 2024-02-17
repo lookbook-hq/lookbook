@@ -6,39 +6,28 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
+  <script>
+    window.UPDATE_EVENTS_ENDPOINT = "<%= updates_path %>"
+  </script>
+
   <link href="<%= lookbook_asset_path("/app.css") %>" rel="stylesheet">
   <script src="<%= lookbook_asset_path("/app.js") %>" defer></script> 
   
   <title>Lookbook</title>
 </head>
-<body>
-  <div id="app">
-    <header id="app-header">
+<body>  
+  <%= lb_app do |layout| %>
+    <% layout.with_header do %>
       <%= @config.project_name %>
-    </header>
+    <% end %>
 
-    <main id="app-main">
-      <sl-split-panel
-        id="app-sidebar-layout"
-        primary="start"
-        :position="sidebarPosition"
-        x-data="{sidebarPosition: $persist(20)}"
-        @sl-reposition="sidebarPosition = $el.position">
-        <div slot="start" id="app-sidebar">
-          <%= render "sidebar", previews: @previews %>
-        </div>
-        <div slot="end" id="app-content">
-          <%= yield %>
-        </div>
-      </sl-split-panel>
-    </main>
-  </div>
-  
-  <script>
-    const source = new EventSource("<%= updates_path %>");
-    source.addEventListener("update", (event) => {
-      location.reload()
-    });
-  </script>
+    <% layout.with_sidebar do %>
+      <%= render "sidebar", previews: @previews %>
+    <% end %>
+
+    <% layout.with_main do %>
+      <%= yield %>
+    <% end %>    
+  <% end %>
 </body>
 </html>

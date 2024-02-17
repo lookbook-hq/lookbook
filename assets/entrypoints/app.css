@@ -3,4 +3,4 @@
 @import "../css/tokens.css";
 @import "../css/base.css";
 
-/* @import "../css/components/app.css"; */
+@import "../../app/components/lookbook/ui/**/*.css";
