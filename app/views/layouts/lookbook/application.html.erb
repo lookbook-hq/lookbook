@@ -26,7 +26,7 @@
     <% end %>
 
     <% layout.with_main do %>
-      <%= yield %>
+      <%= content_for?(:main) ? yield(:main) : yield %>
     <% end %>    
   <% end %>
 </body>

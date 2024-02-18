@@ -2,11 +2,11 @@
   <% inspector.with_main do %>
     <%= lb_tab_group(id: "inspector-main-tabs") do |group| %>
       <% group.with_tab("preview", label: "Preview") do %>
-        <%= @preview.lookup_path %> preview
+        <%= @preview.label %> / <%= @scenario.label %> preview
       <% end %>
       
       <% group.with_tab("output", label: "Output") do %>
-        <%= @preview.lookup_path %> output
+        <%= @preview.label %> / <%= @scenario.label %>  output
       <% end %>
     <% end %>
   <% end %>
@@ -15,13 +15,13 @@
     <%= lb_tab_group(id: "inspector-drawer-tabs") do |group| %>
       <% group.with_tab("source", label: "Source") do %>
         <div id="<%= dom_id(@preview, :source) %>">
-          <%= @preview.lookup_path %> source 
+          <%= @preview.label %> / <%= @scenario.label %>  source 
         </div>
         <sl-copy-button from="<%= dom_id(@preview, :source) %>"></sl-copy-button>
       <% end %>
       
       <% group.with_tab("notes", label: "Notes") do %>
-        <%= @preview.lookup_path %> notes
+        <%= @preview.label %> / <%= @scenario.label %>  notes
       <% end %>
     <% end %>
     

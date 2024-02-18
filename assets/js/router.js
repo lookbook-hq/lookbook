@@ -4,10 +4,11 @@ export default class Router {
   constructor(rootElement) {
     this.rootElement = rootElement;
     this.updateEventSources = [];
-    this.onPopState = this.onPopState.bind(this);
+    this.loadPage = this.loadPage.bind(this);
+    this.updatePage = this.updatePage.bind(this);
     this.$logger = new Logger();
 
-    addEventListener("popstate", this.onPopState);
+    addEventListener("popstate", this.loadPage);
   }
 
   get location() {
@@ -15,47 +16,64 @@ export default class Router {
   }
 
   visit(url) {
-    this.$logger.debug(`Navigating to ${url}`);
+    this.$logger.info(`Navigating to ${url}`);
+    this.$dispatch("lookbook:visit", { url });
+
     history.pushState({}, "", url);
-    dispatchEvent(new PopStateEvent("popstate", {}));
+    this.loadPage();
   }
 
   listenForUpdates(endpoint) {
     if (endpoint) {
       this.addUpdateEventSource(endpoint);
-      this.$logger.debug(`Listening for updates from ${endpoint}`);
+      this.$logger.info(`Listening for updates from ${endpoint}`);
     } else {
       this.$logger.debug(`No update events endpoint provided`);
     }
   }
 
+  updateDOM(html) {
+    morph(this.rootElement, html);
+    this.$dispatch("lookbook:page-morph");
+  }
+
   async updatePage() {
+    const html = await this.fetchPageDOM(this.location);
+    this.updateDOM(html);
+    this.$dispatch("lookbook:page-update");
+  }
+
+  async loadPage() {
+    const html = await this.fetchPageDOM(this.location);
+    this.updateDOM(html);
+    this.$dispatch("lookbook:page-load");
+  }
+
+  async fetchPageDOM(url) {
     const { ok, fragment, status } = await fetchHTML(
-      this.location,
+      url,
       `#${this.rootElement.id}`
     );
     if (ok) {
-      morph(this.rootElement, fragment);
-      this.$dispatch("lookbook:morph");
+      return fragment;
     } else {
-      // TODO: redirect?
-      this.$logger.error(`${status} error`);
+      throw new Error(`Failed to fetch from '${url}' - error ${status}`);
     }
-  }
-
-  onPopState(event) {
-    return this.updatePage();
   }
 
   addUpdateEventSource(endpoint) {
     const source = new EventSource(endpoint);
-    source.addEventListener("update", () => this.updatePage());
+    source.addEventListener("update", this.updatePage);
     this.updateEventSources.push(source);
   }
 
   cleanup() {
-    this.updateEventSources.forEach((source) => source.close());
-    removeEventListener("popstate", this.onPopState);
+    this.updateEventSources.forEach((source) => {
+      source.removeEventListener("update", this.updatePage);
+      source.close();
+    });
+    this.updateEventSources = [];
+    removeEventListener("popstate", this.loadPage);
   }
 
   $dispatch(eventName, detail = {}) {
@@ -84,13 +102,25 @@ function morph(from, to) {
     key(el) {
       return el.getAttribute("key") ? el.getAttribute("key") : el.id;
     },
+
     lookahead: true,
+
     updating(el, toEl, childrenOnly, skip) {
       if (el.tagName && el.tagName.includes("-")) {
-        // preserve style attribute changes for custom elements
-        if (el.hasAttribute("style")) {
-          toEl.setAttribute("style", el.getAttribute("style"));
-        }
+        // Fix custom element attribute removal when morphing
+
+        const oldAttrs = Array.from(el.attributes).reduce((attrs, attr) => {
+          attrs[attr.name] = attr.value;
+          return attrs;
+        }, {});
+
+        const newAttrs = Array.from(toEl.attributes).map((attr) => attr.name);
+
+        Object.entries(oldAttrs).forEach(([name, value]) => {
+          if (!newAttrs.includes(name)) {
+            toEl.setAttribute(name, value);
+          }
+        });
       }
     },
   });

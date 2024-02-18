@@ -1,0 +1,9 @@
+<h1><%= @preview.label %></h1>
+
+<ul>
+<% @preview.scenarios.each do |scenario| %>
+  <li>
+    <%= link_to scenario.label, scenario_inspector_path(@preview, scenario) %>
+  </li>
+<% end %>
+</ul>

@@ -3,6 +3,16 @@ require "digest/sha1"
 module Lookbook
   module Utils
     class << self
+      def id(*args)
+        parts = args.map { _1.to_s }
+        id_str = parts.join("-").force_encoding("UTF-8").parameterize.dasherize
+        strip_slashes(id_str).tr("/", "-").gsub("--", "-")
+      end
+
+      def name(str)
+        str.to_s.parameterize.tr("-", "_")
+      end
+
       def normalize_paths(paths, allow_root: false)
         Array(paths).map do |path|
           full_path = absolute_path(path)
@@ -20,8 +30,13 @@ module Lookbook
         Rails.application.root.to_s == path.to_s
       end
 
-      def hash(str)
-        Digest::SHA1.hexdigest(str.to_s)
+      def strip_slashes(path)
+        path.to_s.gsub(/\A\/|\/\z/, "")
+      end
+
+      def hash(*args)
+        content = args.map(&:to_s).join
+        Digest::SHA1.hexdigest(content)
       end
 
       def current_timestamp_milliseconds

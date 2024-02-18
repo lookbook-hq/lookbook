@@ -6,7 +6,7 @@ export default function app() {
     sidebarPosition: Alpine.$persist(20).as("app:sidebar-position"),
 
     init() {
-      this.router = new Router(this.$el, this.$log);
+      this.router = new Router(this.$el);
       this.router.listenForUpdates(window.UPDATE_EVENTS_ENDPOINT);
       this.$logger.debug("App component initialized");
     },

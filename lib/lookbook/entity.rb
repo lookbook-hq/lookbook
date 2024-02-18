@@ -5,10 +5,18 @@ module Lookbook
     end
 
     def uuid
-      @uuid || Utils.hash(id)
+      @uuid ||= Utils.hash(id)
     end
 
-    def to_param = id
+    def name
+      nil
+    end
+
+    def label
+      name&.titleize
+    end
+
+    def to_param = url_param
 
     def to_key = [uuid]
 

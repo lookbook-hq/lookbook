@@ -1,5 +1,4 @@
 require "zeitwerk"
-require "logger"
 require_relative "lookbook/version"
 require_relative "lookbook/logger"
 

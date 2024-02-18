@@ -1,7 +1,13 @@
 <sl-tree>
   <% previews.each do |preview| %>
-    <sl-tree-item x-data <%= "selected" if url_for == inspector_path(preview) %>>
-      <a href="<%= inspector_path(preview) %>"><%= preview.class_name %></a>
+    <sl-tree-item>
+      <%= link_to preview.label, preview_inspector_path(preview) %>
+
+      <% preview.scenarios.each do |scenario| %>
+        <sl-tree-item x-data <%= "selected" if url_for == scenario_inspector_path(preview, scenario) %>>
+          <%= link_to scenario.label, scenario_inspector_path(preview, scenario) %>
+        </sl-tree-item>
+      <% end %>
     </sl-tree-item>
   <% end %>
 </sl-tree>
