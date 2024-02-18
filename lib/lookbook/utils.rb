@@ -35,7 +35,7 @@ module Lookbook
       end
 
       def hash(*args)
-        content = args.map(&:to_s).join
+        content = args.map(&:to_s).join("")
         Digest::SHA1.hexdigest(content)
       end
 

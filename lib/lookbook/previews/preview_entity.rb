@@ -28,12 +28,10 @@ module Lookbook
     protected
 
     def scenario_entities
-      @scenario_entities ||= begin
-        public_methods = preview_class.public_instance_methods(false)
-        method_objects = code_object.meths.select { |m| public_methods.include?(m.name) }
-        method_objects.map.with_index do |code_object, i|
-          ScenarioEntity.new(code_object, self, default_position: i)
-        end
+      public_methods = preview_class.public_instance_methods(false)
+      method_objects = code_object.meths.select { |m| public_methods.include?(m.name) }
+      method_objects.map.with_index do |code_object, i|
+        ScenarioEntity.new(code_object, self, default_position: i)
       end
     end
 

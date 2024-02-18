@@ -22,7 +22,7 @@ module Lookbook
 
     def url_param = name
 
-    def parent = preview_entity
+    def preview = preview_entity
 
     protected
 

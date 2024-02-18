@@ -1,12 +1,10 @@
 Lookbook::Engine.routes.draw do
   root "inspector#index"
 
-  # resources :inspector, path: "inspect", param: "preview", only: %i[index show] do
-  #   get ":scenario", to: "inspector#scenario", on: :member, as: "scenario"
-  # end
-
   get "/inspect/:preview", to: "inspector#preview", as: :preview_inspector
   get "/inspect/:preview/:scenario", to: "inspector#scenario", as: :scenario_inspector
+
+  get "/scenarios/:preview/:scenario/render", to: "entities/scenarios#show", as: :rendered_scenario
 
   resources :updates, only: [:index]
 end

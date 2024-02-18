@@ -2,7 +2,7 @@
   <% inspector.with_main do %>
     <%= lb_tab_group(id: "inspector-main-tabs") do |group| %>
       <% group.with_tab("preview", label: "Preview") do %>
-        <%= @preview.label %> / <%= @scenario.label %> preview
+        <iframe src="<%= rendered_scenario_path(@preview, @scenario) %>" frameborder="0"></iframe>
       <% end %>
       
       <% group.with_tab("output", label: "Output") do %>
