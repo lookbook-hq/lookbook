@@ -13,7 +13,7 @@ module Lookbook
     end
 
     def label
-      name&.titleize
+      Utils.label(name) if name
     end
 
     def to_param = url_param

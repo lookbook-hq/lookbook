@@ -1,0 +1,37 @@
+[data-component="pane"] {
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  .pane-toolbar {
+    height: var(--lookbook-toolbar-height);
+    display: flex;
+    align-items: center;
+    padding-right: var(--sl-spacing-2x-small);
+
+    sl-button-group {
+      font-size: var(--lookbook-toolbar-icon-button-size);
+      position: relative;
+      margin-left: auto;
+      z-index: 1;
+    }
+
+    sl-icon-button {
+      color: var(--lookbook-toolbar-icon-button-color);
+    }
+  }
+
+  .pane-tabs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    sl-tab-group {
+      &::part(tabs) {
+        padding-right: 0;
+      }
+    }
+  }
+}

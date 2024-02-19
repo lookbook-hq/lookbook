@@ -5,5 +5,9 @@ export default function inspector() {
     init() {
       this.$logger.debug("Inspector component initialized");
     },
+
+    hideDrawer() {
+      console.log("drawer hidden!");
+    },
   };
 }

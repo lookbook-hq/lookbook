@@ -8,6 +8,17 @@
     &::part(base) {
       height: 100%;
     }
+
+    &::part(active-tab-indicator) {
+      transition: none;
+    }
+  }
+
+  sl-tab {
+    &::part(base) {
+      height: var(--lookbook-toolbar-height);
+      padding-block: 0;
+    }
   }
 
   sl-tab-panel {
@@ -16,9 +27,5 @@
     &::part(base) {
       height: 100%;
     }
-  }
-
-  ::part(active-tab-indicator) {
-    transition: none !important;
   }
 }

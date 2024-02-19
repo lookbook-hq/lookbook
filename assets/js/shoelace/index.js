@@ -1,4 +1,5 @@
 import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path.js";
+import { registerIconLibrary } from "@shoelace-style/shoelace/dist/utilities/icon-library.js";
 
 import "@shoelace-style/shoelace/dist/components/icon/icon.js";
 
@@ -20,3 +21,8 @@ import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
 import "@shoelace-style/shoelace/dist/components/resize-observer/resize-observer.js";
 
 setBasePath("/lookbook-dev/shoelace");
+
+registerIconLibrary("default", {
+  resolver: (name) =>
+    `https://cdn.jsdelivr.net/npm/lucide-static@0.16.29/icons/${name}.svg`,
+});

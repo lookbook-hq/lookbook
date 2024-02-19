@@ -4,8 +4,15 @@
   grid-template-rows: min-content 1fr;
 
   .app-header {
-    padding: var(--sl-spacing-medium);
-    border-bottom: 1px solid var(--lookbook-color-divider);
+    height: var(--lookbook-toolbar-height);
+    border-bottom: 1px solid var(--lookbook-divider-color);
+    display: flex;
+    align-items: center;
+    padding-inline: var(--sl-spacing-large);
+
+    a {
+      text-decoration: none;
+    }
   }
 
   .app-body > * {
@@ -20,7 +27,7 @@
     height: 100%;
 
     &::part(divider) {
-      background-color: var(--lookbook-color-divider);
+      background-color: var(--lookbook-divider-color);
     }
 
     .app-sidebar {

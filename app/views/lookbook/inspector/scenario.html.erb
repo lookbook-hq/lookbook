@@ -1,30 +1,26 @@
-<%= lb_inspector do |inspector| %>
-  <% inspector.with_main do %>
-    <%= lb_tab_group(id: "inspector-main-tabs") do |group| %>
-      <% group.with_tab("preview", label: "Preview") do %>
-        <iframe src="<%= rendered_scenario_path(@preview, @scenario) %>" frameborder="0"></iframe>
-      <% end %>
-      
-      <% group.with_tab("output", label: "Output") do %>
-        <%= @preview.label %> / <%= @scenario.label %>  output
-        <%= Time.now %>
-      <% end %>
-    <% end %>
-  <% end %>
-
-  <% inspector.with_drawer do %>
-    <%= lb_tab_group(id: "inspector-drawer-tabs") do |group| %>
-      <% group.with_tab("source", label: "Source") do %>
-        <div id="<%= dom_id(@preview, :source) %>">
-          <%= @preview.label %> / <%= @scenario.label %>  source 
-        </div>
-        <sl-copy-button from="<%= dom_id(@preview, :source) %>"></sl-copy-button>
-      <% end %>
-      
-      <% group.with_tab("notes", label: "Notes") do %>
-        <%= @preview.label %> / <%= @scenario.label %>  notes
-      <% end %>
+<%= lb_inspector(id: "inspector") do |inspector| %>
+  <% inspector.with_viewer do |viewer| %>
+    <% viewer.with_tab("preview", label: "Preview") do %>
+      <iframe src="<%= rendered_scenario_path(@preview, @scenario) %>" frameborder="0"></iframe>
     <% end %>
     
-  <% end %>
+    <% viewer.with_tab("output", label: "Output") do %>
+      <%= @preview.label %> / <%= @scenario.label %>  output
+      <%= Time.now %>
+    <% end %>
+  <% end %>  
+
+  <% inspector.with_drawer do |drawer| %>
+    <% drawer.with_tab("source", label: "Source") do %>
+      <div id="<%= dom_id(@preview, :source) %>">
+        <%= @preview.label %> / <%= @scenario.label %>  source 
+      </div>
+      <sl-copy-button from="<%= dom_id(@preview, :source) %>"></sl-copy-button>
+    <% end %>
+    
+    <% drawer.with_tab("notes", label: "Notes") do %>
+      <%= @preview.label %> / <%= @scenario.label %>  notes
+    <% end %>
+  <% end %>  
 <% end %>
+  

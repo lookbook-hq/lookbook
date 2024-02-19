@@ -11,16 +11,7 @@
     width: 100%;
 
     &::part(divider) {
-      background-color: var(--lookbook-color-divider);
+      background-color: var(--lookbook-divider-color);
     }
-  }
-
-  .inspector-drawer {
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .inspector-main {
-    width: 100%;
   }
 }

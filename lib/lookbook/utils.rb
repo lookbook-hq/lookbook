@@ -13,6 +13,10 @@ module Lookbook
         str.to_s.parameterize.tr("-", "_")
       end
 
+      def label(str)
+        str.to_s.titleize
+      end
+
       def normalize_paths(paths, allow_root: false)
         Array(paths).map do |path|
           full_path = absolute_path(path)
