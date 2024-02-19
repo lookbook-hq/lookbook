@@ -7,6 +7,7 @@ module Lookbook
     def assign_template_vars
       @config = Lookbook.config
       @previews = Previews.all
+      @events_endpoint = events_path if Engine.watch_files?
     end
 
     def assign_preview_and_scenario

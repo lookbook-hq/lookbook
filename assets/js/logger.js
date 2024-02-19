@@ -1,4 +1,8 @@
 export default class Logger {
+  constructor(scope = null) {
+    this.scope = scope;
+  }
+
   log(...args) {
     return console.log(...this._buildArgs("log", args));
   }
@@ -20,6 +24,10 @@ export default class Logger {
   }
 
   _buildArgs(level, args) {
-    return [`[LOOKBOOK:${level.toUpperCase()}]`, ...args];
+    let prefix = "[LOOKBOOK]";
+    if (this.scope) {
+      prefix += ` ${this.scope}:`;
+    }
+    return [prefix, ...args];
   }
 }

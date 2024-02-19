@@ -1,13 +1,26 @@
 import Router from "@js/router";
+import ServerEventsListener from "@js/server_events_listener";
 
-export default function app() {
+export default function app({ eventsEndpoint }) {
   return {
     router: null,
+    serverEventsListener: null,
     sidebarPosition: Alpine.$persist(20).as("app:sidebar-position"),
 
     init() {
       this.router = new Router(this.$el);
-      this.router.listenForUpdates(window.UPDATE_EVENTS_ENDPOINT);
+
+      // Listen out for update events from the server
+      if (eventsEndpoint) {
+        this.serverEventsListener = new ServerEventsListener(eventsEndpoint);
+        this.serverEventsListener.on("update", () => this.router.updatePage());
+        this.serverEventsListener.start();
+
+        addEventListener("visibilitychange", () => {
+          if (!document.hidden) this.router.updatePage();
+        });
+      }
+
       this.$logger.debug("App component initialized");
     },
 
@@ -20,6 +33,7 @@ export default function app() {
     },
 
     destroy() {
+      if (this.serverEventsListener) this.serverEventsListener.stop();
       this.router.cleanup();
     },
   };

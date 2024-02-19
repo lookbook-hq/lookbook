@@ -6,17 +6,13 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <script>
-    window.UPDATE_EVENTS_ENDPOINT = "<%= updates_path %>"
-  </script>
-
   <link href="<%= lookbook_asset_path("/app.css") %>" rel="stylesheet">
   <script src="<%= lookbook_asset_path("/app.js") %>" defer></script> 
   
   <title>Lookbook</title>
 </head>
 <body>  
-  <%= lb_app do |layout| %>
+  <%= lb_app(events_endpoint: @events_endpoint) do |layout| %>
     <% layout.with_header do %>
       <%= link_to @config.project_name, root_path %>
     <% end %>

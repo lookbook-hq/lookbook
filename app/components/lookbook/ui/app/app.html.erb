@@ -1,7 +1,7 @@
 <%= render component_tag(
   id: "app",
   x: {
-    "data": "app",
+    "data": "app({eventsEndpoint: #{events_endpoint.to_json}})",
     "on:click.document": "hijackNavigation"
   }) do %>
   <header class="app-header">

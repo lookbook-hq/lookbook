@@ -3,10 +3,9 @@ import Logger from "./logger";
 export default class Router {
   constructor(rootElement) {
     this.rootElement = rootElement;
-    this.updateEventSources = [];
     this.loadPage = this.loadPage.bind(this);
     this.updatePage = this.updatePage.bind(this);
-    this.$logger = new Logger();
+    this.$logger = new Logger("Router");
 
     addEventListener("popstate", this.loadPage);
   }
@@ -20,32 +19,20 @@ export default class Router {
     this.$dispatch("lookbook:visit", { url });
 
     history.pushState({}, "", url);
-    this.loadPage();
-  }
-
-  listenForUpdates(endpoint) {
-    if (endpoint) {
-      this.addUpdateEventSource(endpoint);
-      this.$logger.info(`Listening for updates from ${endpoint}`);
-    } else {
-      this.$logger.debug(`No update events endpoint provided`);
-    }
-  }
-
-  updateDOM(html) {
-    morph(this.rootElement, html);
-    this.$dispatch("lookbook:page-morph");
+    this.loadPage(url);
   }
 
   async updatePage() {
     const html = await this.fetchPageDOM(this.location);
     this.updateDOM(html);
+    this.$logger.info(`Page updated`);
     this.$dispatch("lookbook:page-update");
   }
 
-  async loadPage() {
-    const html = await this.fetchPageDOM(this.location);
+  async loadPage(url = null) {
+    const html = await this.fetchPageDOM(url || this.location);
     this.updateDOM(html);
+    this.$logger.info(`Page loaded`);
     this.$dispatch("lookbook:page-load");
   }
 
@@ -61,18 +48,12 @@ export default class Router {
     }
   }
 
-  addUpdateEventSource(endpoint) {
-    const source = new EventSource(endpoint);
-    source.addEventListener("update", this.updatePage);
-    this.updateEventSources.push(source);
+  updateDOM(html) {
+    morph(this.rootElement, html);
+    this.$dispatch("lookbook:page-morph");
   }
 
   cleanup() {
-    this.updateEventSources.forEach((source) => {
-      source.removeEventListener("update", this.updatePage);
-      source.close();
-    });
-    this.updateEventSources = [];
     removeEventListener("popstate", this.loadPage);
   }
 

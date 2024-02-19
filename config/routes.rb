@@ -6,5 +6,5 @@ Lookbook::Engine.routes.draw do
 
   get "/scenarios/:preview/:scenario/render", to: "entities/scenarios#show", as: :rendered_scenario
 
-  resources :updates, only: [:index]
+  resources :events, only: [:index]
 end
