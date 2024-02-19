@@ -15,7 +15,7 @@ export default function tabGroup(id) {
     },
 
     async selectTab() {
-      if (this.activeTab) {
+      if (this.activeTab !== "") {
         await this.tabGroup.updateComplete;
         this.tabGroup.show(this.activeTab);
       } else {
@@ -28,7 +28,7 @@ export default function tabGroup(id) {
       setTimeout(() => {
         const activeTab = this.tabs.find((tab) => tab.active);
         if (activeTab) this.activeTab = activeTab.panel;
-      }, 1);
+      }, 100);
     },
 
     get tabGroup() {
