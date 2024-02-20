@@ -2,6 +2,7 @@ module Lookbook
   module UI
     class BaseComponent < Lookbook::Component::Base
       include ActionView::Helpers::TagHelper
+      include ComponentsHelper
 
       TAG_ATTRIBUTE_NAMES = %i[id class data aria style key x].freeze
 
@@ -77,7 +78,8 @@ module Lookbook
         merged_attrs = attrs.deep_merge(tag_attrs)
         classes = class_names(attrs[:class], tag_attrs[:class])
         merged_attrs[:class] = classes if classes.present?
-        Lookbook::UI::Tag.new(tag_override || tag_name || :div, **merged_attrs, root: true)
+        tag = (tag_override || tag_name || :div).to_s.tr("_","-")
+        Lookbook::UI::Tag.new(tag, **merged_attrs, root: true)
       end
 
       private

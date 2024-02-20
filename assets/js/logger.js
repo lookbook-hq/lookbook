@@ -24,9 +24,9 @@ export default class Logger {
   }
 
   _buildArgs(level, args) {
-    let prefix = "[LOOKBOOK]";
+    let prefix = "Lookbook";
     if (this.scope) {
-      prefix += ` ${this.scope}:`;
+      prefix += ` [${this.scope}]`;
     }
     return [prefix, ...args];
   }

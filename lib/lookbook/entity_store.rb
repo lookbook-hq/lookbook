@@ -1,9 +1,12 @@
 module Lookbook
   class EntityStore
+    attr_reader :updated_at
+
     def initialize(klass = Entity, collection = EntityCollection)
       @entities = []
       @entity_class = klass
       @collection_class = collection
+      @updated_at = Utils.current_timestamp_milliseconds
     end
 
     def add(*entities)
@@ -11,6 +14,7 @@ module Lookbook
         validate!(entity)
         @entities.push(entity)
       end
+      updated!
     end
 
     def replace(*entities)
@@ -19,6 +23,7 @@ module Lookbook
         i = index(entity)
         @entities[i] = entity unless i.nil?
       end
+      updated!
     end
 
     def remove(*entities)
@@ -26,15 +31,17 @@ module Lookbook
         i = index(entity)
         @entities.delete_at(i) unless i.nil?
       end
+      updated!
     end
 
     def replace_all(entities)
-      clear
+      @entities.clear
       add(*entities)
     end
 
     def clear
       @entities.clear
+      updated!
     end
 
     def include?(entity)
@@ -53,7 +60,16 @@ module Lookbook
       @collection_class ? @collection_class.new(@entities) : to_a
     end
 
+    def to_tree
+      @tree ||= EntityTree.new(@entities)
+    end
+
     protected
+
+    def updated!
+      @updated_at = Utils.current_timestamp_milliseconds
+      @tree = nil
+    end
 
     def validate!(entity)
       if @entity_class && !entity.is_a?(@entity_class)

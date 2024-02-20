@@ -11,7 +11,7 @@ export default function tabGroup(id) {
         this.$logger.debug(`${id}: '${this.activeTab}' tab selected`);
       });
       await this.selectTab();
-      this.$logger.debug("Tab group component initialized");
+      this.$logger.debug("Tab group initialized", this.$el);
     },
 
     async selectTab() {

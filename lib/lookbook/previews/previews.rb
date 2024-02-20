@@ -9,6 +9,10 @@ module Lookbook
         store.to_collection
       end
 
+      def to_tree
+        store.to_tree
+      end
+
       def load_all
         debug("previews: loading previews...")
 
@@ -33,7 +37,6 @@ module Lookbook
       def reloader
         Reloader.new(:previews, watch_paths, watch_extensions) do |changes|
           changes.nil? ? load_all : update(changes)
-          Previews.mark_updated
         end
       end
 
@@ -59,11 +62,7 @@ module Lookbook
       end
 
       def updated_at
-        @updated_at ||= mark_updated
-      end
-
-      def mark_updated
-        @updated_at = Utils.current_timestamp_milliseconds
+        store.updated_at
       end
 
       private

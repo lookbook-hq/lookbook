@@ -41,7 +41,7 @@ module Lookbook
     end
 
     def env
-      Lookbook::Env
+      @env ||= ActiveSupport::StringInquirer.new(ENV["LOOKBOOK_ENV"] || "production")
     end
   end
 end

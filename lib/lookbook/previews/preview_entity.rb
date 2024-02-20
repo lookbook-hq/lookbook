@@ -21,9 +21,17 @@ module Lookbook
       ScenarioCollection.new(scenario_entities)
     end
 
+    alias_method :children, :scenarios
+
     def lookup_path
       preview_class_name.underscore.downcase.gsub("_component", "").gsub("_preview", "")
     end
+
+    def inspect_path
+      preview_inspector_path(self)
+    end
+
+    def self.icon = :layers
 
     protected
 

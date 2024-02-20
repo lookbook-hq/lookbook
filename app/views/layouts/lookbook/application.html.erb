@@ -11,7 +11,7 @@
   
   <title>Lookbook</title>
 </head>
-<body>  
+<body>
   <%= lb_app(events_endpoint: @events_endpoint) do |layout| %>
     <% layout.with_header do %>
       <%= link_to @config.project_name, root_path %>

@@ -1,8 +1,8 @@
 import Logger from "./logger";
 
 export default class Router {
-  constructor(rootElement) {
-    this.rootElement = rootElement;
+  constructor(rootElementId) {
+    this.rootElement = document.getElementById(rootElementId);
     this.loadPage = this.loadPage.bind(this);
     this.updatePage = this.updatePage.bind(this);
     this.$logger = new Logger("Router");
@@ -12,6 +12,10 @@ export default class Router {
 
   get location() {
     return document.location;
+  }
+
+  get pathname() {
+    return document.location.pathname;
   }
 
   visit(url) {
@@ -25,14 +29,14 @@ export default class Router {
   async updatePage() {
     const html = await this.fetchPageDOM(this.location);
     this.updateDOM(html);
-    this.$logger.info(`Page updated`);
+    this.$logger.debug(`Page updated`);
     this.$dispatch("lookbook:page-update");
   }
 
   async loadPage(url = null) {
     const html = await this.fetchPageDOM(url || this.location);
     this.updateDOM(html);
-    this.$logger.info(`Page loaded`);
+    this.$logger.debug(`Page loaded`);
     this.$dispatch("lookbook:page-load");
   }
 
@@ -51,10 +55,6 @@ export default class Router {
   updateDOM(html) {
     morph(this.rootElement, html);
     this.$dispatch("lookbook:page-morph");
-  }
-
-  cleanup() {
-    removeEventListener("popstate", this.loadPage);
   }
 
   $dispatch(eventName, detail = {}) {

@@ -20,9 +20,19 @@ module Lookbook
       @name ||= Utils.name(code_object.name)
     end
 
-    def url_param = name
+    alias_method :url_param, :name
+
+    def lookup_path
+      "#{preview_entity.lookup_path}/#{name}"
+    end
+
+    def inspect_path
+      scenario_inspector_path(preview_entity, self)
+    end
 
     def preview = preview_entity
+
+    def self.icon = :eye
 
     protected
 
