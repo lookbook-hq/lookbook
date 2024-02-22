@@ -26,10 +26,6 @@ module Lookbook
       "#{preview_entity.lookup_path}/#{name}"
     end
 
-    def inspect_path
-      scenario_inspector_path(preview_entity, self)
-    end
-
     def preview = preview_entity
 
     def self.icon = :eye

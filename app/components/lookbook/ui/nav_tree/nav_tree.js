@@ -11,11 +11,11 @@ export default function navTree(id) {
       });
     },
 
-    get selected() {
-      return this.$el.querySelector("sl-tree-item[selected]");
-    },
-
     selectCurrentPageItem(expandParents = false) {
+      if (this.selected) {
+        this.selected.selected = false;
+      }
+
       let currentItem = this.$el.querySelector(
         `sl-tree-item[href='${this.$router.pathname}']`
       );
@@ -52,6 +52,10 @@ export default function navTree(id) {
       const item = event.detail.selection[0];
       const href = item.getAttribute("href");
       if (href) this.$router.visit(href);
+    },
+
+    get selected() {
+      return this.$el.querySelector("sl-tree-item[selected]");
     },
   };
 }

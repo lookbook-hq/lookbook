@@ -27,10 +27,6 @@ module Lookbook
       preview_class_name.underscore.downcase.gsub("_component", "").gsub("_preview", "")
     end
 
-    def inspect_path
-      preview_inspector_path(self)
-    end
-
     def self.icon = :layers
 
     protected

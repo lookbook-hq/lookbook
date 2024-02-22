@@ -4,34 +4,43 @@ module Lookbook
 
     delegate_missing_to :entity
 
-    def initialize(entity, tree)
+    def initialize(entity, tree, index: false)
       @entity = entity
       @tree = tree
+      @index = index
+    end
+
+    def label
+      @index ? "Overview" : entity.label
     end
 
     def depth
-      entity.lookup_path.split("/").size - 1
-    end
-
-    def leaf?
-      children.nil?
+      lookup_path.split("/").size - 1
     end
 
     def children
+      return [] if index?
+
       @children ||= if entity.respond_to?(:children)
-        entity.children&.map { EntityTreeNode.new(_1, tree) }
+        children = entity.children&.map { EntityTreeNode.new(_1, tree) }
+        children.unshift(EntityTreeNode.new(entity, tree, index: true))
+        children
       elsif entity.is_a?(DirectoryEntity)
         tree.children_of(self)
       end
     end
 
     def icon
-      entity.class.icon
+      index? ? :info : entity.class.icon
     end
+
+    def leaf? = children.nil?
+
+    def index? = @index
 
     def to_hash
       {
-        path: entity.lookup_path,
+        path: lookup_path,
         root: false,
         leaf: leaf?,
         children: children&.map(&:to_hash)
