@@ -76,7 +76,7 @@ module Lookbook
       end
 
       def source_parser
-        @source_parser ||= SourceParser.new
+        @source_parser ||= SourceParser.new(log_level: Lookbook.logger.level)
       end
     end
   end

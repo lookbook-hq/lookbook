@@ -42,8 +42,12 @@ module Lookbook
         config.lookbook.reload_on_change
       end
 
+      def files_updated!
+        @updated_at = Utils.current_timestamp_milliseconds
+      end
+
       def updated_at
-        Previews.updated_at
+        @updated_at ||= files_updated!
       end
     end
   end

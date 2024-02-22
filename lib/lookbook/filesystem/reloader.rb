@@ -44,6 +44,7 @@ module Lookbook
             if watching?(changeset.all)
               debug("#{name}: file changes detected")
               @last_changeset = changeset
+              Engine.files_updated!
             end
           end
         end
