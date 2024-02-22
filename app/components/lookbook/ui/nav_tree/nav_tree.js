@@ -5,18 +5,7 @@ export default function navTree(id) {
     async init() {
       this.$nextTick(async () => {
         await this.$el.updateComplete;
-        let currentItem = this.$el.querySelector(
-          `sl-tree-item[href='${this.$router.pathname}']`
-        );
-        currentItem.selected = true;
-
-        while (currentItem) {
-          const parent = currentItem.parentElement;
-          if (!currentItem.selected) {
-            currentItem.expanded = true;
-          }
-          currentItem = parent.tagName === "SL-TREE-ITEM" ? parent : null;
-        }
+        this.selectCurrentPageItem(true);
 
         this.$logger.debug("Nav tree initialized", this.$el);
       });
@@ -24,6 +13,26 @@ export default function navTree(id) {
 
     get selected() {
       return this.$el.querySelector("sl-tree-item[selected]");
+    },
+
+    selectCurrentPageItem(expandParents = false) {
+      let currentItem = this.$el.querySelector(
+        `sl-tree-item[href='${this.$router.pathname}']`
+      );
+
+      if (currentItem) {
+        currentItem.selected = true;
+
+        if (expandParents) {
+          while (currentItem) {
+            const parent = currentItem.parentElement;
+            if (!currentItem.selected) {
+              currentItem.expanded = true;
+            }
+            currentItem = parent.tagName === "SL-TREE-ITEM" ? parent : null;
+          }
+        }
+      }
     },
 
     itemExpanded(event) {

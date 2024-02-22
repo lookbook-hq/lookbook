@@ -2,6 +2,8 @@ module Lookbook
   class ApplicationController < ActionController::Base
     before_action :assign_template_vars
 
+    rescue_from ActionController::RoutingError, with: :not_found
+
     protected
 
     def assign_template_vars
@@ -24,6 +26,11 @@ module Lookbook
     def assign_preview
       @preview = Previews.find { _1.url_param == params[:preview] }
       raise ActionController::RoutingError, "Could not find preview '#{params[:preview]}'" unless @preview
+    end
+
+    def not_found(error)
+      @error = error
+      render :not_found
     end
   end
 end
