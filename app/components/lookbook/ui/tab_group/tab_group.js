@@ -1,6 +1,6 @@
 export default function tabGroup(id) {
   return {
-    activeTab: Alpine.$persist("").as(`${id}:active-tab`),
+    activeTab: Alpine.$persist("").as(`tab-group#${id}:active-tab`),
 
     async init() {
       this.$watch("activeTab", (tabName) => {

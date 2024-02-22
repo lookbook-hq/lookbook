@@ -1,7 +1,7 @@
 export default function navTreeItem() {
   return {
     async init() {
-      // this.$logger.debug("Nav tree item component initialized");
+      this.$el.expanded = this.expanded.includes(this.$el.getAttribute("key"));
     },
   };
 }
