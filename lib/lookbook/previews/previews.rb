@@ -46,19 +46,23 @@ module Lookbook
         end
       end
 
-      def source_paths
-        @source_paths ||= Lookbook.config.preview_paths.select { |p| Dir.exist?(p) }.map(&:to_s)
+      def preview_paths
+        @preview_paths ||= Lookbook.config.preview_paths.select { |p| Dir.exist?(p) }.map(&:to_s)
       end
 
       def watch_paths
         @watch_paths ||= begin
-          paths = [*source_paths].uniq
+          paths = [*preview_paths, *Engine.view_paths].uniq
           Utils.normalize_paths(paths)
         end
       end
 
       def watch_extensions
-        Lookbook.config.listen_extensions
+        ["rb", "html.*", *Lookbook.config.preview_watch_extensions].uniq
+      end
+
+      def preview_controller
+        Lookbook.config.preview_controller.constantize
       end
 
       def updated_at
@@ -72,7 +76,7 @@ module Lookbook
       end
 
       def parser
-        @parser ||= PreviewsParser.new(source_paths, source_parser)
+        @parser ||= PreviewsParser.new(preview_paths, source_parser)
       end
 
       def source_parser

@@ -1,5 +1,5 @@
 module Lookbook
-  module AssignsPreviewsConcern
+  module PreviewActions
     extend ActiveSupport::Concern
 
     private
@@ -17,6 +17,15 @@ module Lookbook
     def assign_preview
       @preview = Previews.find { _1.url_param == params[:preview] }
       raise ActionController::RoutingError, "Could not find preview '#{params[:preview]}'" unless @preview
+    end
+
+    def preview_controller
+      @preview_controller ||= begin
+        controller = Previews.preview_controller.new
+        controller.request = request
+        controller.response = response
+        controller
+      end
     end
   end
 end

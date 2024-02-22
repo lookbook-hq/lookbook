@@ -1,0 +1,9 @@
+<% if @render_args[:component] %>
+  <% if defined?(Phlex::SGML) && @render_args[:component].is_a?(Phlex::SGML) %>
+    <%= raw(@render_args[:component].call(view_context: self, &@render_args[:block])) %>
+  <% else %>
+    <%= render(@render_args[:component], @render_args[:args], &@render_args[:block]) %>
+  <% end %>
+<% else %>
+  <%= render(@render_args[:template], **@render_args[:locals], &@render_args[:block]) %>
+<% end %>

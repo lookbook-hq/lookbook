@@ -33,6 +33,8 @@
     .app-sidebar {
       height: 100%;
       overflow: hidden;
+      padding-top: var(--sl-spacing-medium);
+      padding-bottom: var(--sl-spacing-medium);
     }
 
     .app-main {

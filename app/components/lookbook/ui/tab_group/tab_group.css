@@ -26,6 +26,7 @@
 
     &::part(base) {
       height: 100%;
+      padding: 0;
     }
   }
 }

@@ -1,5 +1,7 @@
 module Lookbook
   class PreviewEntity < Entity
+    attr_reader :preview_class
+
     def initialize(code_object, preview_class)
       @code_object = code_object
       @preview_class = preview_class
@@ -27,6 +29,10 @@ module Lookbook
       preview_class_name.underscore.downcase.gsub("_component", "").gsub("_preview", "")
     end
 
+    def layout
+      preview_class.instance_variable_get(:@layout)
+    end
+
     def self.icon = :layers
 
     protected
@@ -43,6 +49,6 @@ module Lookbook
 
     def preview_class_name = code_object.path
 
-    attr_reader :code_object, :preview_class
+    attr_reader :code_object
   end
 end

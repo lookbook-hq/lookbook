@@ -5,6 +5,10 @@ module Lookbook
 
       def defaults
         ActiveSupport::OrderedOptions.new.merge!({
+          preview_collection_label: "Previews",
+          preview_controller: "LookbookPreviewController",
+          preview_template: "lookbook/preview",
+          preview_layout: nil,
           preview_paths: ["#{Rails.root}/test/components/previews"],
           preview_watch_extensions: ["rb", "html.*"],
 

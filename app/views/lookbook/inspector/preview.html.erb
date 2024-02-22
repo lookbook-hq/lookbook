@@ -3,7 +3,7 @@
 <ul>
 <% @preview.scenarios.each do |scenario| %>
   <li>
-    <%= link_to scenario.label, scenario_inspector_path(@preview, scenario) %>
+    <%= link_to scenario.label, inspect_scenario_path(@preview, scenario) %>
   </li>
 <% end %>
 </ul>

@@ -26,6 +26,37 @@ module Lookbook
       "#{preview_entity.lookup_path}/#{name}"
     end
 
+    def method_parameter_names
+      code_object.parameters.map(&:first)
+    end
+
+    def render_args(params: {})
+      provided_params = params.slice(*method_parameter_names).to_h.symbolize_keys
+      result = call_method(**provided_params)
+      result[:template] = template_path if result[:template].nil?
+      result.merge(layout: preview_entity.layout)
+    end
+
+    # Returns the relative path (from preview_path) to the scenario template if the template exists
+    def template_path
+      scenario_name = code_object.name
+      preview_name = preview_class.name.chomp("Preview").underscore
+      preview_path =
+        Previews.preview_paths.detect do |path|
+          Dir["#{path}/#{preview_name}_preview/#{scenario_name}.html.*"].first
+        end
+
+      if preview_path.nil?
+        raise "A preview template for scenario #{scenario_name} doesn't exist.\n\n To fix this issue, create a template for the scenario."
+      end
+
+      path = Dir["#{preview_path}/#{preview_name}_preview/#{scenario_name}.html.*"].first
+      Pathname.new(path)
+        .relative_path_from(Pathname.new(preview_path))
+        .to_s
+        .sub(/\..*$/, "")
+    end
+
     def preview = preview_entity
 
     def self.icon = :eye
@@ -33,5 +64,13 @@ module Lookbook
     protected
 
     attr_reader :code_object, :preview_entity
+
+    def preview_class
+      preview_entity.preview_class
+    end
+
+    def call_method(**)
+      preview_class.new.public_send(code_object.name, **) || {}
+    end
   end
 end

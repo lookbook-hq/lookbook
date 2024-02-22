@@ -1,12 +1,11 @@
 <%= lb_inspector(id: "inspector") do |inspector| %>
   <% inspector.with_viewer do |viewer| %>
     <% viewer.with_tab("preview", label: "Preview") do %>
-      <iframe src="<%= rendered_scenario_path(@preview, @scenario) %>" frameborder="0"></iframe>
+      <iframe src="<%= render_scenario_path(@preview, @scenario) %>" frameborder="0" width="100%" height="100%"></iframe>
     <% end %>
     
     <% viewer.with_tab("output", label: "Output") do %>
-      <%= @preview.label %> / <%= @scenario.label %>  output
-      <%= Time.now %>
+      <%= raw @scenario_html %>
     <% end %>
   <% end %>  
 
