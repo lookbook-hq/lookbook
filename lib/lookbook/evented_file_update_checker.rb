@@ -28,7 +28,7 @@ module Lookbook
       def changed(modified, added, removed)
         super
         if @updated&.true?
-          changeset = PathsChangeset.new(modified:, added:, removed:)
+          changeset = FilesChangeset.new(modified:, added:, removed:)
           @checker.change_callbacks.each { _1.call(changeset) }
         end
       end

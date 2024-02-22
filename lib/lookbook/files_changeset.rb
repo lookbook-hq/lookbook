@@ -1,5 +1,5 @@
 module Lookbook
-  class PathsChangeset
+  class FilesChangeset
     attr_reader :added, :modified, :removed
 
     def initialize(added: nil, modified: nil, removed: nil)
