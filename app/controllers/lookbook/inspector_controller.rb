@@ -12,7 +12,7 @@ module Lookbook
     end
 
     def scenario
-      @scenario_html = render_scenario_to_string(layout: false)
+      @rendered_html = render_scenario_to_string(layout: false)
     end
   end
 end

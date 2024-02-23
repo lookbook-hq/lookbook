@@ -1,9 +1,23 @@
 [data-component="code-panel"] {
   height: 100%;
   width: 100%;
-  overflow: auto;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: min-content 1fr;
 
-  [data-component="code"] {
+  .code-panel-toolbar {
+    height: var(--lookbook-toolbar-height);
+  }
+
+  .code-panel-code {
     height: 100%;
+    overflow: auto;
+    [data-component="code"] {
+      height: 100%;
+    }
+  }
+
+  .code-panel-raw {
+    display: none;
   }
 }

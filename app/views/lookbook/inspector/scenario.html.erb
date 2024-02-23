@@ -5,16 +5,13 @@
     <% end %>
     
     <% viewer.with_tab("output", label: "Output") do %>
-      <%= lb_code_panel { @scenario_html } %>
+      <%= lb_code_panel(id: dom_id(@scenario, :output)) { @rendered_html } %>
     <% end %>
   <% end %>  
 
   <% inspector.with_drawer do |drawer| %>
     <% drawer.with_tab("source", label: "Source") do %>
-      <div id="<%= dom_id(@preview, :source) %>">
-        <%= @preview.label %> / <%= @scenario.label %>  source 
-      </div>
-      <sl-copy-button from="<%= dom_id(@preview, :source) %>"></sl-copy-button>
+      <%= lb_code_panel(id: dom_id(@scenario, :source)) { @scenario.source } %>
     <% end %>
     
     <% drawer.with_tab("notes", label: "Notes") do %>

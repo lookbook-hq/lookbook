@@ -8,8 +8,8 @@ loader.ignore("#{__dir__}/lookbook.rb")
 loader.ignore("#{__dir__}/lookbook/filesystem/evented_file_update_checker.rb")
 loader.collapse("#{__dir__}/lookbook/concerns")
 loader.collapse("#{__dir__}/lookbook/errors")
-loader.collapse("#{__dir__}/lookbook/filesystem")
 loader.collapse("#{__dir__}/lookbook/previews")
+loader.collapse("#{__dir__}/lookbook/services")
 loader.setup
 
 Lookbook.logger.info("Lookbook log level: #{Lookbook.logger.level}")

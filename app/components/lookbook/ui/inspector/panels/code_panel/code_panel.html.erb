@@ -1,3 +1,9 @@
-<%= render component_tag(x: {data: "codePanel"}) do %>
-  <%= lb_code { content } %>
+<%= render component_tag(id: id, x: {data: "codePanel"}) do %>
+  <div class="code-panel-toolbar">
+    <sl-copy-button from="<%= copy_target_id %>"></sl-copy-button>
+  </div>
+  <div class="code-panel-code">
+    <%= lb_code { content } %>
+  </div>
+  <div id="<%= copy_target_id %>" class="code-panel-raw"><%= raw copy_source %></div>
 <% end %>

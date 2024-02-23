@@ -26,12 +26,15 @@ module Lookbook
       "#{preview_entity.lookup_path}/#{name}"
     end
 
-    def method_parameter_names
-      code_object.parameters.map(&:first)
+    def source
+      src = CodeIndenter.call(code_object.source)
+      lines = src.sub(/^def \w+\s?(\([^)]+\))?/m, "").split("\n")[0..-2]
+      (lines.many? ? lines.join("\n") : "").html_safe
     end
 
     def render_args(params: {})
-      provided_params = params.slice(*method_parameter_names).to_h.symbolize_keys
+      method_params = code_object.parameters.map(&:first)
+      provided_params = params.slice(*method_params).to_h.symbolize_keys
       result = call_method(**provided_params)
       result[:template] = template_path if result[:template].nil?
       result.merge(layout: preview_entity.layout)
@@ -47,7 +50,8 @@ module Lookbook
         end
 
       if preview_path.nil?
-        raise "A preview template for scenario #{scenario_name} doesn't exist.\n\n To fix this issue, create a template for the scenario."
+        raise Lookbook::Error,
+          "A preview template for scenario #{scenario_name} doesn't exist.\n\n To fix this issue, create a template for the scenario."
       end
 
       path = Dir["#{preview_path}/#{preview_name}_preview/#{scenario_name}.html.*"].first
