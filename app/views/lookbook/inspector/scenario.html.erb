@@ -1,11 +1,11 @@
 <%= lb_inspector(id: "inspector") do |inspector| %>
   <% inspector.with_viewer do |viewer| %>
     <% viewer.with_tab("preview", label: "Preview") do %>
-      <iframe src="<%= render_scenario_path(@preview, @scenario) %>" frameborder="0" width="100%" height="100%"></iframe>
+      <%= lb_preview_panel(render_scenario_path(@preview, @scenario)) %>
     <% end %>
     
     <% viewer.with_tab("output", label: "Output") do %>
-      <%= lb_code { @scenario_html } %>
+      <%= lb_code_panel { @scenario_html } %>
     <% end %>
   <% end %>  
 

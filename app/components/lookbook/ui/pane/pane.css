@@ -29,8 +29,31 @@
     bottom: 0;
 
     sl-tab-group {
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+
       &::part(tabs) {
         padding-right: 0;
+      }
+
+      sl-tab-panel {
+        position: absolute;
+        inset: 0;
+        top: calc(var(--lookbook-toolbar-height) + var(--track-width));
+        width: 100%;
+        height: calc(
+          100% - var(--lookbook-toolbar-height) - var(--track-width)
+        );
+        overflow: hidden;
+
+        &::part(base) {
+          height: 100%;
+          width: 100%;
+          padding: 0;
+          overflow: hidden;
+          position: relative;
+        }
       }
     }
   }

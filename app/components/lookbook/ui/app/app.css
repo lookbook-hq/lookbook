@@ -1,5 +1,5 @@
 [data-component="app"] {
-  min-height: 100vh;
+  height: 100vh;
   display: grid;
   grid-template-rows: min-content 1fr;
 
@@ -15,8 +15,12 @@
     }
   }
 
-  .app-body > * {
-    height: 100%;
+  .app-body {
+    height: calc(100vh - var(--lookbook-toolbar-height));
+
+    > * {
+      height: 100%;
+    }
   }
 
   .app-sidebar-layout {
@@ -32,7 +36,7 @@
 
     .app-sidebar {
       height: 100%;
-      overflow: hidden;
+      overflow: auto;
       padding-top: var(--sl-spacing-medium);
       padding-bottom: var(--sl-spacing-medium);
     }

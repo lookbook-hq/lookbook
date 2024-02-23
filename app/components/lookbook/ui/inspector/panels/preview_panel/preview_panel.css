@@ -1,0 +1,7 @@
+[data-component="preview-panel"] {
+  height: 100%;
+
+  [data-component="viewport"] {
+    height: 100%;
+  }
+}

@@ -1,13 +1,7 @@
 [data-component="tab-group"] {
-  height: 100%;
-
   sl-tab-group {
-    height: 100%;
-
-    &::part(body),
-    &::part(base) {
-      height: 100%;
-    }
+    --track-width: 1px;
+    --track-color: var(--lookbook-divider-color);
 
     &::part(active-tab-indicator) {
       transition: none;
@@ -22,10 +16,7 @@
   }
 
   sl-tab-panel {
-    height: 100%;
-
     &::part(base) {
-      height: 100%;
       padding: 0;
     }
   }

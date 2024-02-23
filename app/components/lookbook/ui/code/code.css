@@ -1,0 +1,10 @@
+[data-component="code"] {
+  display: block;
+
+  pre {
+    display: block;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+}
