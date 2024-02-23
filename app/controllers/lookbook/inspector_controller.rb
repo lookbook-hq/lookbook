@@ -12,7 +12,7 @@ module Lookbook
     end
 
     def scenario
-      @scenario_html = CGI::escapeHTML(preview_controller.process(:lookbook_render_scenario, {layout: false}))
+      @scenario_html = render_scenario_to_string(layout: false)
     end
   end
 end

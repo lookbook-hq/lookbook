@@ -19,6 +19,10 @@ module Lookbook
       raise ActionController::RoutingError, "Could not find preview '#{params[:preview]}'" unless @preview
     end
 
+    def render_scenario_to_string(layout: true)
+      preview_controller.process(:lookbook_render_scenario, {layout: layout})
+    end
+
     def preview_controller
       @preview_controller ||= begin
         controller = Previews.preview_controller.new

@@ -5,9 +5,7 @@ module Lookbook
     before_action :assign_preview_and_scenario, only: :scenario
 
     def scenario
-      render html: preview_controller.process(:lookbook_render_scenario)
-      # render html: @preview_controller.process(:lookbook_render_scenario, {layout: true})
+      render html: render_scenario_to_string(layout: true)
     end
-
   end
 end

@@ -5,7 +5,7 @@
     <% end %>
     
     <% viewer.with_tab("output", label: "Output") do %>
-      <%= raw @scenario_html %>
+      <%= lb_code { @scenario_html } %>
     <% end %>
   <% end %>  
 

@@ -23,5 +23,9 @@ module Lookbook
     def lb_nav_tree_item(node = nil, **kwargs, &block)
       render Lookbook::UI::NavTreeItem.new(node: node, **kwargs), &block
     end
+
+    def lb_code(**kwargs, &block)
+      render Lookbook::UI::Code.new(**kwargs), &block
+    end
   end
 end
