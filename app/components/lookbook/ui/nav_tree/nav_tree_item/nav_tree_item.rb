@@ -1,7 +1,7 @@
 module Lookbook
   module UI
     class NavTreeItem < BaseComponent
-      delegate :label, :children, :icon, :lookup_path, :entity, :index?, to: :node
+      delegate :label, :icon, :lookup_path, :children, :entity, :index?, to: :node
 
       tag_attr :href, :key, :leaf
 
@@ -17,9 +17,9 @@ module Lookbook
 
       def nav_path
         if entity.is_a?(PreviewEntity) && index?
-          inspect_preview_path(entity)
-        elsif entity.is_a?(ScenarioEntity)
-          inspect_scenario_path(entity.preview, entity)
+          preview_overview_path(entity)
+        elsif entity.is_a?(InspectableEntity)
+          inspector_path(entity.preview, entity)
         end
       end
     end

@@ -4,6 +4,9 @@ module Lookbook
 
     rescue_from ActionController::RoutingError, with: :not_found
 
+    def index
+    end
+
     protected
 
     def assign_template_vars

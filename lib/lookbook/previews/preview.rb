@@ -9,7 +9,7 @@ module Lookbook
       if component.nil?
         {
           type: :view,
-          template: args[:template] || Lookbook.config.preview_template,
+          template: args[:template] || Lookbook.config.preview_scenario_template,
           args: args,
           locals: args[:locals] || {},
           assigns: args[:assigns] || {},
@@ -22,7 +22,7 @@ module Lookbook
           block: block,
           component: component,
           locals: {},
-          template: Lookbook.config.preview_template
+          template: Lookbook.config.preview_scenario_template
         }
       end
     end

@@ -1,10 +1,13 @@
-<h1><%= @preview.label %></h1>
 
-<ul>
-<% @preview.scenarios.each do |scenario| %>
-  <li>
-    <%= link_to scenario.label, inspect_scenario_path(@preview, scenario) %>
-  </li>
+<% @target.scenarios_with_output do |scenario, output_html| %>
+  <% if @target.scenarios.many? %>
+  <div>
+    <h1><%= scenario.label %></h1>
+    <div>
+      <%= output_html %>
+    </div>
+  </div>
+  <% else %>
+    <%= output_html %>
+  <% end %>
 <% end %>
-</ul>
-

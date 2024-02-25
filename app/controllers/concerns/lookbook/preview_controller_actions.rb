@@ -6,7 +6,8 @@ module Lookbook
     included do
       prepend_view_path File.expand_path("../../../views", __dir__)
 
-      before_action :assign_preview_and_scenario, only: :lookbook_render_scenario
+      before_action :assign_preview, only: :lookbook_render_scenario
+      before_action :assign_scenario, only: :lookbook_render_scenario
       around_action :set_locale, only: :lookbook_render_scenario
 
       content_security_policy(false) if respond_to?(:content_security_policy)
@@ -14,24 +15,27 @@ module Lookbook
       helper :all if include_all_helpers
     end
 
-    def lookbook_render_scenario(overrides = {})
+    def lookbook_render_scenario(scenario)
       prepend_application_view_paths
       prepend_preview_scenarios_view_path
 
-      @render_args = @scenario.render_args(params: params.permit!)
+      @render_args = scenario.render_args(params: params.permit!)
 
       template = @render_args[:template]
       locals = @render_args[:locals]
-      layout = (overrides[:layout] == false) ? false : determine_layout(@render_args[:layout], prepend_views: false)[:layout]
 
       opts = {}
       opts[:assigns] = @render_args[:assigns] || {}
       opts[:locals] = locals if locals.present?
-      opts[:layout] = layout if layout.present? || layout == false
+      opts[:layout] = nil
 
-      rendered = render_to_string(template, **opts)
+      html = render_to_string(template, **opts)
 
-      render html: rendered
+      render html: html
+    end
+
+    def lookbook_render_template(template, assigns, opts = {})
+      render template, assigns: assigns, **determine_layout(opts[:layout])
     end
 
     private
@@ -40,7 +44,7 @@ module Lookbook
       I18n.with_locale(params[:locale] || I18n.default_locale, &block)
     end
 
-    def determine_layout(layout_override = nil, prepend_views: true)
+    def determine_layout(layout_override = nil)
       return {} unless defined?(Rails.root)
 
       layout_declaration = {}
@@ -51,7 +55,7 @@ module Lookbook
         layout_declaration[:layout] = default_preview_layout
       end
 
-      prepend_application_view_paths if layout_declaration[:layout].present? && prepend_views
+      prepend_application_view_paths if layout_declaration[:layout].present?
 
       layout_declaration
     end

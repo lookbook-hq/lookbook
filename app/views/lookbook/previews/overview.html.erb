@@ -1,0 +1,10 @@
+<h1><%= @preview.label %></h1>
+
+<ul>
+<% @preview.inspectables.each do |target| %>
+  <li>
+    <%= link_to target.label, inspector_path(@preview, target) %>
+  </li>
+<% end %>
+</ul>
+

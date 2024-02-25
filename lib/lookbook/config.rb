@@ -7,9 +7,10 @@ module Lookbook
         ActiveSupport::OrderedOptions.new.merge!({
           preview_collection_label: "Previews",
           preview_controller: "LookbookPreviewController",
-          preview_template: "lookbook/preview",
+          preview_target_template: "lookbook/inspector/preview",
+          preview_template: "lookbook/previews/preview",
           preview_layout: nil,
-          preview_paths: ["#{Rails.root}/test/components/previews"],
+          preview_paths: [Rails.root.join("test/components/previews").to_s],
           preview_watch_extensions: ["rb", "html.*"],
 
           reload_on_change: nil,

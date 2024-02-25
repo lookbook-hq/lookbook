@@ -20,10 +20,16 @@ module Lookbook
     end
 
     def scenarios
-      ScenarioCollection.new(scenario_entities)
+      @scenarios ||= ScenarioCollection.new(scenario_entities)
     end
 
-    alias_method :children, :scenarios
+    def inspectables
+      InspectableCollection.from_scenarios(scenario_entities)
+    end
+
+    def children
+      inspectables.visible
+    end
 
     def lookup_path
       preview_class_name.underscore.downcase.gsub("_component", "").gsub("_preview", "")
@@ -31,6 +37,10 @@ module Lookbook
 
     def layout
       preview_class.instance_variable_get(:@layout)
+    end
+
+    def scenario_group_names
+      @scenario_group_names ||= scenarios.map(&:group).uniq.compact.map(&:to_sym)
     end
 
     def self.icon = :layers
@@ -41,7 +51,7 @@ module Lookbook
       public_methods = preview_class.public_instance_methods(false)
       method_objects = code_object.meths.select { |m| public_methods.include?(m.name) }
       method_objects.map.with_index do |code_object, i|
-        ScenarioEntity.new(code_object, self, default_position: i)
+        ScenarioEntity.new(code_object, self, default_priority: i)
       end
     end
 

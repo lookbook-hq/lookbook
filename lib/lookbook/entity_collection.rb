@@ -12,6 +12,10 @@ module Lookbook
       @entities.find { _1.id == id }
     end
 
+    def find_by_url_param(url_param)
+      @entities.find { _1.url_param == url_param }
+    end
+
     def find_by_lookup_path(lookup_path)
       @entities.find { _1.lookup_path == lookup_path }
     end

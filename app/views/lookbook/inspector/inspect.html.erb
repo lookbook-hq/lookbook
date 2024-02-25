@@ -1,21 +1,21 @@
 <%= lb_inspector(id: "inspector") do |inspector| %>
   <% inspector.with_viewer do |viewer| %>
     <% viewer.with_tab("preview", label: "Preview") do %>
-      <%= lb_preview_panel(id: dom_id(@scenario, :preview), src: render_scenario_path(@preview, @scenario)) %>
+      <%= lb_preview_panel(id: dom_id(@target, :preview), src: inspector_preview_path(@preview, @target)) %>
     <% end %>
     
     <% viewer.with_tab("output", label: "Output") do %>
-      <%= lb_code_panel(id: dom_id(@scenario, :output)) { @rendered_html } %>
+      <%= lb_code_panel(id: dom_id(@target, :output)) { @output_html } %>
     <% end %>
   <% end %>  
 
   <% inspector.with_drawer do |drawer| %>
     <% drawer.with_tab("source", label: "Source") do |tab| %>
-      <%= lb_code_panel(id: dom_id(@scenario, :source)) { @scenario.source } %>
+      <%= lb_code_panel(id: dom_id(@target, :source)) { @target.source } %>
     <% end %>
     
     <% drawer.with_tab("notes", label: "Notes") do %>
-      <%= @preview.label %> / <%= @scenario.label %>  notes
+      <%= @preview.label %> / <%= @target.label %>  notes
     <% end %>
   <% end %>  
 <% end %>

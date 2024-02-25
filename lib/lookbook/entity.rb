@@ -16,6 +16,22 @@ module Lookbook
       Utils.label(name) if name
     end
 
+    def visible?
+      !hidden?
+    end
+
+    def hidden?
+      @hidden == true
+    end
+
+    def default_priority=(i)
+      @default_priority = i.to_i
+    end
+
+    def default_priority
+      @default_priority || 10000
+    end
+
     def inspect_path = nil
 
     def to_param = url_param

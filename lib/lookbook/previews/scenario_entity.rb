@@ -2,10 +2,10 @@ module Lookbook
   class ScenarioEntity < Entity
     delegate_missing_to :code_object
 
-    def initialize(code_object, preview_entity, default_position: nil)
+    def initialize(code_object, preview_entity, default_priority: nil)
       @code_object = code_object
       @preview_entity = preview_entity
-      @position = default_position
+      @default_priority = default_priority
     end
 
     def id

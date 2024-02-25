@@ -1,5 +1,7 @@
 module Lookbook
   class EntityTree
+    delegate :to_json, to: :to_hash
+
     def initialize(entities)
       @entities = entities.to_a
     end
@@ -19,10 +21,6 @@ module Lookbook
         leaf: false,
         children: children.map(&:to_hash)
       }
-    end
-
-    def to_json
-      to_hash.to_json
     end
 
     protected

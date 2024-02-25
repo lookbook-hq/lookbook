@@ -1,5 +1,5 @@
 require "rails/application_controller"
 
-class LookbookPreviewController < Rails::ApplicationController
+class LookbookPreviewController < ApplicationController
   include Lookbook::PreviewControllerActions
 end
