@@ -1,13 +1,5 @@
-[data-component="code-panel"] {
+[data-panel="code"] {
   height: 100%;
-  width: 100%;
-  overflow: hidden;
-  display: grid;
-  grid-template-rows: min-content 1fr;
-
-  .code-panel-toolbar {
-    height: var(--lookbook-toolbar-height);
-  }
 
   .code-panel-code {
     height: 100%;

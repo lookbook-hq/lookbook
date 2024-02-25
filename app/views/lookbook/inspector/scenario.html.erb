@@ -1,7 +1,7 @@
 <%= lb_inspector(id: "inspector") do |inspector| %>
   <% inspector.with_viewer do |viewer| %>
     <% viewer.with_tab("preview", label: "Preview") do %>
-      <%= lb_preview_panel(render_scenario_path(@preview, @scenario)) %>
+      <%= lb_preview_panel(id: dom_id(@scenario, :preview), src: render_scenario_path(@preview, @scenario)) %>
     <% end %>
     
     <% viewer.with_tab("output", label: "Output") do %>
@@ -10,7 +10,7 @@
   <% end %>  
 
   <% inspector.with_drawer do |drawer| %>
-    <% drawer.with_tab("source", label: "Source") do %>
+    <% drawer.with_tab("source", label: "Source") do |tab| %>
       <%= lb_code_panel(id: dom_id(@scenario, :source)) { @scenario.source } %>
     <% end %>
     

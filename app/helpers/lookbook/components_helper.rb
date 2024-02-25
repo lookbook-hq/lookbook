@@ -24,12 +24,16 @@ module Lookbook
       render Lookbook::UI::NavTreeItem.new(node: node, **kwargs), &block
     end
 
+    def lb_inspector_panel(**kwargs, &block)
+      render Lookbook::UI::Panel.new(**kwargs), &block
+    end
+
     def lb_code_panel(**kwargs, &block)
       render Lookbook::UI::CodePanel.new(**kwargs), &block
     end
 
-    def lb_preview_panel(src, **kwargs, &block)
-      render Lookbook::UI::PreviewPanel.new(src: src, **kwargs)
+    def lb_preview_panel(**kwargs, &block)
+      render Lookbook::UI::PreviewPanel.new(**kwargs)
     end
 
     def lb_viewport(src, **kwargs)

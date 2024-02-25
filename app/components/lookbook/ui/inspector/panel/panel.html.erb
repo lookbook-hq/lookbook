@@ -1,0 +1,11 @@
+<%= render component_tag(id: id) do %>  
+  <div class="panel-toolbar">
+    <sl-button-group label="<%= label %> actions">
+      <%= safe_join(actions.reverse) %>
+    </sl-button-group>
+  </div>
+
+  <div class="panel-content">
+    <%= content %>
+  </div>
+<% end %>

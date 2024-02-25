@@ -5,7 +5,7 @@
   .inspector-layout {
     --divider-width: 1px;
     --min: 200px;
-    --max: 800px;
+    --max: 600px;
 
     height: 100%;
     width: 100%;

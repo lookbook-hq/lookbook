@@ -1,4 +1,4 @@
-[data-component="preview-panel"] {
+[data-panel="preview"] {
   height: 100%;
 
   [data-component="viewport"] {

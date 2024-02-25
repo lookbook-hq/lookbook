@@ -1,3 +1,7 @@
 export default function codePanel() {
-  return {};
+  return {
+    init() {
+      console.log("code panel init");
+    },
+  };
 }

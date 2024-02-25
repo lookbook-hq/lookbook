@@ -1,7 +1,8 @@
-<%= render component_tag(id: id, x: {data: "codePanel"}) do %>
-  <div class="code-panel-toolbar">
+<%= lb_inspector_panel(**tag_attrs,  x: {data: "codePanel"}, data: {panel: "code"}) do |panel| %>
+  <% panel.with_action do %>
     <sl-copy-button from="<%= copy_target_id %>"></sl-copy-button>
-  </div>
+  <% end %>
+  
   <div class="code-panel-code">
     <%= lb_code { content } %>
   </div>
