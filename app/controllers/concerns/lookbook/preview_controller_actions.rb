@@ -67,7 +67,5 @@ module Lookbook
     def prepend_preview_scenarios_view_path
       prepend_view_path(Previews.preview_paths)
     end
-
-    alias_method :prepend_preview_examples_view_path, :prepend_preview_scenarios_view_path
   end
 end

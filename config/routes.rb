@@ -10,8 +10,8 @@ Lookbook::Engine.routes.draw do
 end
 
 Rails.application.routes.draw do
-  get "#{Lookbook.config.mount_path}/render/:preview/:scenario",
-    to: "#{Lookbook.config.preview_controller.sub(/Controller$/, "").underscore}#lookbook_render_scenario",
-    as: :lookbook_render_scenario,
+  get "#{Lookbook.config.mount_path}/previews/:preview/:scenario/render",
+    to: "#{Lookbook.config.preview_controller.sub(/Controller$/, "").underscore}#lookbook_render_preview",
+    as: :lookbook_render_preview,
     internal: true
 end

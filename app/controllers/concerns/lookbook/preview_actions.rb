@@ -24,12 +24,16 @@ module Lookbook
     end
 
     def preview_controller
-      @preview_controller ||= begin
-        controller = Previews.preview_controller.new
-        controller.request = request
-        controller.response = response
-        controller
-      end
+      controller = Previews.preview_controller.new
+      controller.request = preview_render_request
+      controller.response = response
+      controller
+    end
+
+    def preview_render_request
+      preview_request = request.clone
+      preview_request.path_parameters = Rails.application.routes.recognize_path(main_app.lookbook_render_preview_path)
+      preview_request
     end
   end
 end
