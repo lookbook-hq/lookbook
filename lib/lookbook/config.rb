@@ -5,17 +5,22 @@ module Lookbook
 
       def defaults
         options({
+          project_name: "Lookbook",
+
           preview_collection_label: "Previews",
           preview_controller: "LookbookPreviewController",
           preview_template: "lookbook/previews/preview",
           preview_layout: nil,
           preview_paths: [Rails.root.join("test/components/previews")],
+          preview_watch_paths: [],
           preview_watch_extensions: ["rb", "html.*"],
 
           inspector_preview_template: "lookbook/inspector/preview",
           inspector_panels: default_inspector_panels,
           inspector_preview_panels: [:preview, :output],
           inspector_drawer_panels: [:source, :notes],
+
+          component_paths: ["app/views", "app/components"],
 
           reload_on_change: nil,
           mount_path: "/lookbook"

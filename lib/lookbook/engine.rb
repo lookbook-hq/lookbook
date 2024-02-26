@@ -52,6 +52,10 @@ module Lookbook
         paths.map { |path| Pathname(path.to_s) }
       end
 
+      def host_app_path
+        Rails.application.root.join("app")
+      end
+
       def watch_files?
         config.lookbook.reload_on_change
       end

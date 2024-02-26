@@ -45,18 +45,28 @@ module Lookbook
       end
 
       def preview_paths
-        @preview_paths ||= Utils.normalize_paths(Lookbook.config.preview_paths)
+        @preview_paths ||= Utils.normalize_paths(Lookbook.config.preview_paths.uniq)
+      end
+
+      def component_paths
+        @component_paths ||= [
+          Utils.normalize_paths(Lookbook.config.component_paths),
+          Engine.view_paths,
+          Engine.host_app_path
+        ].flatten.uniq
       end
 
       def watch_paths
-        @watch_paths ||= begin
-          paths = [*preview_paths, *Engine.view_paths].uniq
-          Utils.normalize_paths(paths)
-        end
+        @watch_paths ||= [
+          preview_paths,
+          component_paths,
+          Engine.view_paths,
+          Utils.normalize_paths(Lookbook.config.preview_watch_paths)
+        ].flatten.uniq
       end
 
       def watch_extensions
-        ["rb", "html.*", *Lookbook.config.preview_watch_extensions].uniq
+        ["rb", "html.*", Lookbook.config.preview_watch_extensions].flatten.uniq
       end
 
       def preview_controller
