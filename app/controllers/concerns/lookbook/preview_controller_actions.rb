@@ -34,8 +34,8 @@ module Lookbook
       render html: html
     end
 
-    def lookbook_render_template(template, assigns, opts = {})
-      render template, assigns: assigns, **determine_layout(opts[:layout])
+    def lookbook_render_template(template, locals, opts = {})
+      render template, locals: locals, **determine_layout(opts[:layout])
     end
 
     private

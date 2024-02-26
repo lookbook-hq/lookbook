@@ -5,16 +5,12 @@ module Lookbook
 
       delegate :all, to: :store
 
-      def nav_tree
-        @nav_tree ||= PreviewsNavTree.new(store.all)
-      end
-
       def load_all
         debug("previews: loading previews...")
 
         parser.parse do |preview_entities|
           store.replace_all(preview_entities)
-          clear_cache
+          run_update_callbacks
 
           debug("previews: #{preview_entities.size} previews loaded")
         end
@@ -26,10 +22,14 @@ module Lookbook
         # TODO: smart update - only reparse changed files
         parser.parse do |preview_entities|
           store.replace_all(preview_entities)
-          clear_cache
+          run_update_callbacks
 
           debug("previews: #{preview_entities.size} previews updated")
         end
+      end
+
+      def on_update(&block)
+        update_callbacks << block if block
       end
 
       def reloader
@@ -45,7 +45,7 @@ module Lookbook
       end
 
       def preview_paths
-        @preview_paths ||= Lookbook.config.preview_paths.select { |p| Dir.exist?(p) }.map(&:to_s)
+        @preview_paths ||= Utils.normalize_paths(Lookbook.config.preview_paths)
       end
 
       def watch_paths
@@ -67,8 +67,12 @@ module Lookbook
 
       private
 
-      def clear_cache
-        @nav_tree = nil
+      def run_update_callbacks
+        update_callbacks.each { _1.call }
+      end
+
+      def update_callbacks
+        @update_callbacks ||= []
       end
 
       def store

@@ -5,17 +5,21 @@
     <% end %>
     
     <% viewer.with_tab("output", label: "Output") do %>
-      <%= lb_code_panel(id: dom_id(@target, :output)) { @output_html } %>
+      <%= lb_code_panel(id: dom_id(@target, :output)) do %>
+        <%= render template: @inspector.output_template, locals: {preview: @preview, target: @target} %>
+      <% end %>
     <% end %>
   <% end %>  
 
   <% inspector.with_drawer do |drawer| %>
     <% drawer.with_tab("source", label: "Source") do |tab| %>
-      <%= lb_code_panel(id: dom_id(@target, :source)) { @target.source } %>
+      <%= lb_code_panel(id: dom_id(@target, :source)) do %>
+        <%= render template: @inspector.source_template, locals: {preview: @preview, target: @target} %>
+      <% end %>
     <% end %>
     
     <% drawer.with_tab("notes", label: "Notes") do %>
-      <%= @preview.label %> / <%= @target.label %>  notes
+      <%= render template: @inspector.notes_template, locals: {preview: @preview, target: @target} %>
     <% end %>
   <% end %>  
 <% end %>

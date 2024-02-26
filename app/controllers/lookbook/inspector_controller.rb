@@ -6,8 +6,7 @@ module Lookbook
     before_action :assign_target
     before_action :prerender_target
 
-    def inspect
-      @output_html = "foo"
+    def show
     end
 
     def preview
@@ -21,7 +20,8 @@ module Lookbook
       @target.render_scenarios do |scenario|
         controller.request = scenario_render_request(scenario)
         controller.response = ActionDispatch::Response.new
-        controller.process(:lookbook_render_scenario, scenario)
+        html = controller.process(:lookbook_render_scenario, scenario)
+        CodeIndenter.call(html)
       end
     end
 
@@ -31,7 +31,7 @@ module Lookbook
       controller.response = ActionDispatch::Response.new
 
       controller.process(:lookbook_render_template,
-        Lookbook.config.preview_target_template,
+        Inspector.preview_template,
         {target: target},
         layout: target.preview.layout)
     end

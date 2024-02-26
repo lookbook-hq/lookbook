@@ -18,7 +18,7 @@ module Lookbook
     end
 
     def label
-      entity&.label
+      index? ? "Overview" : entity&.label
     end
 
     def index? = @index

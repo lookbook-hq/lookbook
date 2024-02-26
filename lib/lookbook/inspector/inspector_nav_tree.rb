@@ -1,8 +1,7 @@
 module Lookbook
-  class PreviewsNavTree < EntityTree
-    def initialize(previews)
-      inspectables = previews.map { _1.inspector_targets.filter(&:visible?) }.flatten
-      super([previews, inspectables].flatten)
+  class InspectorNavTree < EntityTree
+    def initialize(previews, inspector_targets)
+      super([previews, inspector_targets].flatten)
     end
 
     protected

@@ -48,7 +48,8 @@ export default class Router {
     if (ok) {
       return fragment;
     } else {
-      throw new Error(`Failed to fetch from '${url}' - error ${status}`);
+      location.href = url;
+      // throw new Error(`Failed to fetch from '${url}' - error ${status}`);
     }
   }
 

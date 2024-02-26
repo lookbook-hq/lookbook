@@ -12,7 +12,7 @@ module Lookbook
     def assign_template_vars
       @config = Lookbook.config
       @previews = Previews.all
-      @previews_nav = Previews.nav_tree
+      @inspector = Inspector
       @events_endpoint = events_path if Engine.watch_files?
     end
 

@@ -1,9 +1,9 @@
 <h1><%= @preview.label %></h1>
 
 <ul>
-<% @preview.inspector_targets.each do |target| %>
+<% @inspector.preview_targets(@preview).each do |target| %>
   <li>
-    <%= link_to target.label, inspector_path(@preview, target) %>
+    <%= link_to target.label, target.inspect_path %>
   </li>
 <% end %>
 </ul>

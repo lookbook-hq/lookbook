@@ -14,7 +14,7 @@ module Lookbook
       def nav_path
         if entity.is_a?(PreviewEntity) && index?
           preview_overview_path(entity)
-        elsif entity.is_a?(InspectableEntity)
+        elsif entity.is_a?(InspectorTargetEntity)
           inspector_path(entity.preview, entity)
         end
       end
@@ -22,7 +22,7 @@ module Lookbook
       def icon
         if entity.is_a?(PreviewEntity)
           index? ? :info : :layers
-        elsif entity.is_a?(InspectableEntity)
+        elsif entity.is_a?(InspectorTargetEntity)
           :eye
         else
           :folder

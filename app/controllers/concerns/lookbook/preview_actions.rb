@@ -10,7 +10,7 @@ module Lookbook
     end
 
     def assign_target
-      @target = @preview.inspector_targets.find { _1.url_param == params[:target] }
+      @target = Inspector.preview_targets(@preview, include_hidden: true).find { _1.url_param == params[:target] }
       raise ActionController::RoutingError, "Could not find target '#{params[:target]}' for preview '#{params[:preview]}'" unless @target
     end
 

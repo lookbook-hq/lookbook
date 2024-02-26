@@ -1,5 +1,5 @@
 module Lookbook
-  class InspectableEntity < Entity
+  class InspectorTargetEntity < Entity
     include ActionView::Helpers::OutputSafetyHelper
 
     attr_reader :name, :scenarios
@@ -22,18 +22,18 @@ module Lookbook
       @uuid ||= Utils.hash(preview_entity.id, id)
     end
 
+    def inspect_path
+      inspector_path(preview_entity, self)
+    end
+
+    def preview_path
+      inspector_preview_path(preview_entity, self)
+    end
+
     alias_method :url_param, :name
 
     def lookup_path
       "#{preview_entity.lookup_path}/#{name}"
-    end
-
-    def lookup_directory_path
-      nil
-    end
-
-    def source
-      @source ||= scenarios.map(&:source).join("\n\n")
     end
 
     def render_scenarios
@@ -42,10 +42,14 @@ module Lookbook
       end
     end
 
-    def scenarios_with_output
+    def each_scenario_with_output
       scenarios.each do |scenario|
         yield(scenario, @rendered_scenarios[scenario.name.to_sym])
       end
+    end
+
+    def lookup_directory_path
+      nil
     end
 
     def preview = preview_entity
