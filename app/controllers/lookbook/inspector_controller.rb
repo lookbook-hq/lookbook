@@ -20,7 +20,7 @@ module Lookbook
       @target.render_scenarios do |scenario|
         controller.request = scenario_render_request(scenario)
         controller.response = ActionDispatch::Response.new
-        html = controller.process(:lookbook_render_scenario)
+        html = controller.process(:lookbook_render_scenario, scenario)
         CodeIndenter.call(html)
       end
     end

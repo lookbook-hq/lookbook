@@ -15,11 +15,11 @@ module Lookbook
       helper :all if include_all_helpers
     end
 
-    def lookbook_render_scenario
+    def lookbook_render_scenario(scenario = @scenario)
       prepend_application_view_paths
       prepend_preview_scenarios_view_path
 
-      @render_args = @scenario.render_args(params: params.permit!)
+      @render_args = scenario.render_args(params: params.permit!)
 
       template = @render_args[:template]
       locals = @render_args[:locals]
