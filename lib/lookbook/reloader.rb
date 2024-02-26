@@ -28,7 +28,7 @@ module Lookbook
 
     def watch_dirs
       @directories.each_with_object({}) do |directory, result|
-        result[directory] = @extensions
+        result[directory.to_s] = @extensions
       end
     end
 
