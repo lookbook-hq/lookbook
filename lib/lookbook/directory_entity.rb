@@ -11,17 +11,7 @@ module Lookbook
     end
 
     def name
-      @name ||= Utils.name(File.basename(lookup_path))
+      @name ||= lookup_path.split("/").pop
     end
-
-    def self.icon = :folder
-
-    # def virtual?
-    #   File.exist?(full_path)
-    # end
-
-    # def full_path
-    #   File.join(base_path, lookup_path)
-    # end
   end
 end

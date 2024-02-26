@@ -11,15 +11,21 @@ module Lookbook
         @node = node
       end
 
-      def key
-        index? ? "#{lookup_path}/index" : lookup_path
-      end
-
       def nav_path
         if entity.is_a?(PreviewEntity) && index?
           preview_overview_path(entity)
         elsif entity.is_a?(InspectableEntity)
           inspector_path(entity.preview, entity)
+        end
+      end
+
+      def icon
+        if entity.is_a?(PreviewEntity)
+          index? ? :info : :layers
+        elsif entity.is_a?(InspectableEntity)
+          :eye
+        else
+          :folder
         end
       end
     end

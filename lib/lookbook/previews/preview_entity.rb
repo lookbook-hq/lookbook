@@ -20,15 +20,11 @@ module Lookbook
     end
 
     def scenarios
-      @scenarios ||= ScenarioCollection.new(scenario_entities)
+      @scenarios ||= scenario_entities
     end
 
-    def inspectables
-      InspectableCollection.from_scenarios(scenario_entities)
-    end
-
-    def children
-      inspectables.visible
+    def inspector_targets
+      inspectable_entities
     end
 
     def lookup_path
@@ -43,9 +39,37 @@ module Lookbook
       @scenario_group_names ||= scenarios.map(&:group).uniq.compact.map(&:to_sym)
     end
 
+    def lookup_directory_path
+      @lookup_directory_path ||= File.dirname(lookup_path).delete_prefix(".")
+    end
+
     def self.icon = :layers
 
     protected
+
+    def inspectable_entities
+      entities = []
+      scenarios.each.with_index(1) do |scenario, i|
+        preview = scenario.preview
+
+        if scenario.group.nil?
+          entities << InspectableEntity.new(scenario.name, preview, [scenario], default_priority: i)
+        else
+          target_name = scenario.group.presence || scenario.preview.name.pluralize
+          target = entities.find { _1.name == Utils.name(target_name) }
+
+          if target
+            target.scenarios << scenario
+          else
+            entities << InspectableEntity.new(target_name, preview, [scenario], default_priority: i)
+          end
+
+          entities << InspectableEntity.new(scenario.name, preview, [scenario], hidden: true)
+        end
+      end
+
+      entities
+    end
 
     def scenario_entities
       public_methods = preview_class.public_instance_methods(false)

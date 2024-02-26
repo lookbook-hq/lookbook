@@ -7,7 +7,7 @@ module Lookbook
     def initialize(name, preview_entity, scenarios, default_priority: nil, hidden: false)
       @name = Utils.name(name)
       @preview_entity = preview_entity
-      @scenarios = ScenarioCollection.new(scenarios)
+      @scenarios = scenarios
       @default_priority = default_priority
       @hidden = hidden
       @source = nil
@@ -28,6 +28,10 @@ module Lookbook
       "#{preview_entity.lookup_path}/#{name}"
     end
 
+    def lookup_directory_path
+      nil
+    end
+
     def source
       @source ||= scenarios.map(&:source).join("\n\n")
     end
@@ -45,8 +49,6 @@ module Lookbook
     end
 
     def preview = preview_entity
-
-    def self.icon = :eye
 
     protected
 

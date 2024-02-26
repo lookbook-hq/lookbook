@@ -32,7 +32,9 @@ module Lookbook
       @default_priority || 10000
     end
 
-    def inspect_path = nil
+    def lookup_directory_path
+      nil
+    end
 
     def to_param = url_param
 

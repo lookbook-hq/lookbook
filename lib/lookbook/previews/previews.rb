@@ -3,14 +3,10 @@ module Lookbook
     class << self
       include Loggable
 
-      delegate_missing_to :all
+      delegate :all, to: :store
 
-      def all
-        store.to_collection
-      end
-
-      def to_tree
-        store.to_tree
+      def nav_tree
+        @nav_tree ||= PreviewsNavTree.new(store.all)
       end
 
       def load_all
@@ -18,6 +14,7 @@ module Lookbook
 
         parser.parse do |preview_entities|
           store.replace_all(preview_entities)
+          clear_cache
 
           debug("previews: #{preview_entities.size} previews loaded")
         end
@@ -29,6 +26,7 @@ module Lookbook
         # TODO: smart update - only reparse changed files
         parser.parse do |preview_entities|
           store.replace_all(preview_entities)
+          clear_cache
 
           debug("previews: #{preview_entities.size} previews updated")
         end
@@ -65,14 +63,16 @@ module Lookbook
         Lookbook.config.preview_controller.constantize
       end
 
-      def updated_at
-        store.updated_at
-      end
+      delegate :updated_at, to: :store
 
       private
 
+      def clear_cache
+        @nav_tree = nil
+      end
+
       def store
-        @store ||= EntityStore.new(PreviewEntity, PreviewCollection)
+        @store ||= EntityStore.new(PreviewEntity)
       end
 
       def parser

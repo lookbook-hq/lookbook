@@ -63,8 +63,6 @@ module Lookbook
 
     def preview = preview_entity
 
-    def self.icon = :eye
-
     protected
 
     attr_reader :code_object, :preview_entity

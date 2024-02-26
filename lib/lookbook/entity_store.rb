@@ -2,10 +2,9 @@ module Lookbook
   class EntityStore
     attr_reader :updated_at
 
-    def initialize(klass = Entity, collection = EntityCollection)
+    def initialize(klass = Entity)
       @entities = []
       @entity_class = klass
-      @collection_class = collection
       @updated_at = Utils.current_timestamp_milliseconds
     end
 
@@ -52,17 +51,11 @@ module Lookbook
       @entities.index { _1 == entity }
     end
 
-    def to_a
+    def all
       @entities
     end
 
-    def to_collection
-      @collection_class ? @collection_class.new(@entities) : to_a
-    end
-
-    def to_tree
-      @tree ||= EntityTree.new(@entities)
-    end
+    alias_method :to_a, :all
 
     protected
 
