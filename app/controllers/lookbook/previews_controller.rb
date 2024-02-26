@@ -5,6 +5,7 @@ module Lookbook
     before_action :assign_preview
 
     def overview
+      @targets = Inspector.preview_targets(@preview)
     end
   end
 end

@@ -20,7 +20,7 @@ module Lookbook
       @target.render_scenarios do |scenario|
         controller.request = scenario_render_request(scenario)
         controller.response = ActionDispatch::Response.new
-        html = controller.process(:lookbook_render_scenario, scenario)
+        html = controller.process(:lookbook_render_scenario)
         CodeIndenter.call(html)
       end
     end
@@ -38,17 +38,16 @@ module Lookbook
 
     def scenario_render_request(scenario)
       render_request = ActionDispatch::Request.new(request.env)
-      render_request.path_parameters = {
-        controller: Lookbook.config.preview_controller,
-        action: :lookbook_render_scenario,
-        preview: scenario.preview.to_param,
-        scenario: scenario.to_param
-      }
+      render_request.path_parameters = scenario_path_params(scenario)
       render_request
     end
 
     def preview_controller
       Previews.preview_controller.new
+    end
+
+    def scenario_path_params(scenario)
+      Rails.application.routes.recognize_path(main_app.lookbook_render_scenario_path(scenario.preview, scenario))
     end
   end
 end
