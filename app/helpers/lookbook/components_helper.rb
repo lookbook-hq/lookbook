@@ -24,24 +24,19 @@ module Lookbook
       render Lookbook::UI::NavTreeItem.new(node: node, **kwargs), &block
     end
 
-    def lb_inspector_panel(**kwargs, &block)
-      render Lookbook::UI::Panel.new(**kwargs), &block
-    end
-
-    def lb_code_panel(**kwargs, &block)
-      render Lookbook::UI::CodePanel.new(**kwargs), &block
-    end
-
-    def lb_preview_panel(**kwargs, &block)
-      render Lookbook::UI::PreviewPanel.new(**kwargs)
-    end
-
     def lb_viewport(src, **kwargs)
       render Lookbook::UI::Viewport.new(src: src, **kwargs)
     end
 
     def lb_code(**kwargs, &block)
       render Lookbook::UI::Code.new(**kwargs), &block
+    end
+
+    def lb_inspector_panel(type = :default, **kwargs, &block)
+      component_types = Lookbook::UI::Inspector::PANEL_COMPONENTS
+      component = component_types[type.to_sym] || component_types[:default]
+
+      render component.constantize.new(**kwargs), &block
     end
   end
 end

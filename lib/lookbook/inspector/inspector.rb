@@ -17,16 +17,14 @@ module Lookbook
         end
       end
 
-      def source_template
-        Lookbook.config.inspector_source_template
+      def preview_panels
+        panel_names = Lookbook.config.inspector_preview_panels.map(&:to_sym)
+        panels.select { panel_names.include?(_1.name) }
       end
 
-      def output_template
-        Lookbook.config.inspector_output_template
-      end
-
-      def notes_template
-        Lookbook.config.inspector_notes_template
+      def drawer_panels
+        panel_names = Lookbook.config.inspector_drawer_panels.map(&:to_sym)
+        panels.select { panel_names.include?(_1.name) }
       end
 
       def preview_template
@@ -41,6 +39,12 @@ module Lookbook
       end
 
       protected
+
+      def panels
+        @panels ||= Lookbook.config.inspector_panels.map do |name, opts|
+          InspectorPanel.new(name, opts.partial, **opts.except(:partial))
+        end
+      end
 
       def all_preview_targets(include_hidden: false)
         Previews.all.map { preview_targets(_1, include_hidden: include_hidden) }.flatten

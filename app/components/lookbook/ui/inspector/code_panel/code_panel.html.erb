@@ -1,4 +1,4 @@
-<%= lb_inspector_panel(**tag_attrs,  x: {data: "codePanel"}, data: {panel: "code"}) do |panel| %>
+<%= render Lookbook::UI::Panel.new(**tag_attrs, x: {data: "codePanel"}, data: {panel: "code"}) do |panel| %>
   <% panel.with_action do %>
     <sl-copy-button from="<%= copy_target_id %>"></sl-copy-button>
   <% end %>

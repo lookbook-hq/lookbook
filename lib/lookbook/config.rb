@@ -4,7 +4,7 @@ module Lookbook
       alias_method :default, :new
 
       def defaults
-        ActiveSupport::OrderedOptions.new.merge!({
+        options({
           preview_collection_label: "Previews",
           preview_controller: "LookbookPreviewController",
           preview_template: "lookbook/previews/preview",
@@ -13,13 +13,45 @@ module Lookbook
           preview_watch_extensions: ["rb", "html.*"],
 
           inspector_preview_template: "lookbook/inspector/preview",
-          inspector_output_template: "lookbook/inspector/output",
-          inspector_source_template: "lookbook/inspector/source",
-          inspector_notes_template: "lookbook/inspector/notes",
+          inspector_panels: default_inspector_panels,
+          inspector_preview_panels: [:preview, :output],
+          inspector_drawer_panels: [:source, :notes],
 
           reload_on_change: nil,
           mount_path: "/lookbook"
         })
+      end
+
+      def default_inspector_panels
+        {
+          preview: {
+            label: "Preview",
+            partial: "lookbook/inspector/panels/preview",
+            type: nil
+          },
+          output: {
+            label: "Output",
+            partial: "lookbook/inspector/panels/output",
+            type: :code
+          },
+          source: {
+            label: "Source",
+            partial: "lookbook/inspector/panels/source",
+            type: :code
+          },
+          notes: {
+            label: "Notes",
+            partial: "lookbook/inspector/panels/notes",
+            type: :markdown
+          }
+        }
+      end
+
+      private
+
+      def options(opts = {})
+        opts.transform_values! { _1.is_a?(Hash) ? options(_1) : _1 }
+        ActiveSupport::OrderedOptions.new.merge!(opts)
       end
     end
 
