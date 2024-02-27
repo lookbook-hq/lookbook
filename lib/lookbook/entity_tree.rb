@@ -22,7 +22,19 @@ module Lookbook
     end
 
     def directories
-      @directories ||= entities.map(&:lookup_directory_path).compact.uniq.map { DirectoryEntity.new(_1) }
+      @directories ||= begin
+        all_paths = []
+        paths = entities.map(&:lookup_directory_path).compact.uniq
+        paths.each do |path|
+          segments = path.split("/")
+          current_path = ""
+          segments.each do |segment|
+            current_path = "#{current_path}/#{segment}".delete_prefix("/")
+            all_paths << current_path
+          end
+        end
+        all_paths.uniq.map { DirectoryEntity.new(_1) }
+      end
     end
 
     def tree
