@@ -8,13 +8,15 @@ module Lookbook
       }
 
       with_slot :preview_pane do |**kwargs|
-        Pane.new(id: "#{@id}-viewer", **kwargs)
+        pane = Pane.new(id: "#{@id}-preview-pane", **kwargs)
+        # pane.with_action(icon: :x, label: "Close drawer", tooltip: "Close", "@click": "hideDrawer")
+        pane
       end
 
       with_slot :drawer_pane do |**kwargs|
-        drawer = Pane.new(id: "#{@id}-drawer", **kwargs)
-        drawer.with_action(icon: :x, label: "Close drawer", tooltip: "Close", "@click": "hideDrawer")
-        drawer
+        pane = Pane.new(id: "#{@id}-drawer-pane", **kwargs)
+        pane.with_action(icon: :x, label: "Close drawer", tooltip: "Close", "@click": "hideDrawer")
+        pane
       end
 
       attr_reader :id

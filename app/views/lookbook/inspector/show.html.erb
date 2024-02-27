@@ -1,7 +1,13 @@
 <%=
   lb_inspector(id: "inspector") do |layout|
-
     layout.with_preview_pane do |pane|
+      pane.with_action(
+        icon: :external_link,
+        label: "Open preview in new window",
+        tooltip: "Open preview in new window",
+        href: @target.preview_path,
+        target: "_blank"
+      )
       @inspector.preview_panels.each do |panel|
         pane.with_tab(panel.name, label: panel.label) do
           lb_inspector_panel(panel.type, id: dom_id(@target, "panel-#{panel.name}")) do
