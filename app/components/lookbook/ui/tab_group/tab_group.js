@@ -1,4 +1,6 @@
-export default function tabGroup(id) {
+import AlpineComponent from "@js/alpine/component";
+
+export default AlpineComponent("tabGroup", (id) => {
   return {
     activeTab: Alpine.$persist("").as(`tab-group#${id}:active-tab`),
 
@@ -43,4 +45,4 @@ export default function tabGroup(id) {
       return Promise.all(this.tabs.map((tab) => tab.updateComplete));
     },
   };
-}
+});

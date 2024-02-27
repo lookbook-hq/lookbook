@@ -1,4 +1,6 @@
-export default function inspector() {
+import AlpineComponent from "@js/alpine/component";
+
+export default AlpineComponent("inspector", () => {
   return {
     drawerPosition: Alpine.$persist(20).as("inspector:drawer-position"),
 
@@ -10,4 +12,4 @@ export default function inspector() {
       console.log("drawer hidden!");
     },
   };
-}
+});

@@ -1,4 +1,6 @@
-export default function navTree(id) {
+import AlpineComponent from "@js/alpine/component";
+
+export default AlpineComponent("navTree", (id) => {
   return {
     expanded: Alpine.$persist([]).as(`nav-tree#${id}:expanded-items`),
 
@@ -58,4 +60,4 @@ export default function navTree(id) {
       return this.$el.querySelector("sl-tree-item[selected]");
     },
   };
-}
+});

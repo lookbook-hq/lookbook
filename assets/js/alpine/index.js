@@ -9,7 +9,10 @@ function registerComponents(entries) {
   for (const key in entries) {
     const entry = entries[key];
     if (entry.__esModule === true && "default" in entry) {
-      Alpine.data(entry.default.name, entry.default);
+      Alpine.data(
+        entry.default.componentName || entry.default.name,
+        entry.default
+      );
     } else {
       registerComponents(entry);
     }

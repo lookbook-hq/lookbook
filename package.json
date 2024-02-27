@@ -50,7 +50,7 @@
       "publicUrl": "/lookbook-assets",
       "outputFormat": "global",
       "context": "browser",
-      "sourceMap": true
+      "sourceMap": false
     }
   },
   "alias": {

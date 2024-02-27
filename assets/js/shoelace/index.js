@@ -20,7 +20,11 @@ import "@shoelace-style/shoelace/dist/components/tab-panel/tab-panel.js";
 import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
 import "@shoelace-style/shoelace/dist/components/resize-observer/resize-observer.js";
 
-setBasePath("/lookbook-dev/shoelace");
+if (process.env.NODE_ENV !== "production") {
+  setBasePath("/lookbook-dev/shoelace");
+} else {
+  setBasePath("/lookbook-assets/shoelace");
+}
 
 registerIconLibrary("default", {
   resolver: (name) =>

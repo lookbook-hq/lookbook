@@ -1,6 +1,7 @@
 import ServerEventsListener from "@js/server_events_listener";
+import AlpineComponent from "@js/alpine/component";
 
-export default function app({ eventsEndpoint }) {
+export default AlpineComponent("app", ({ eventsEndpoint }) => {
   return {
     serverEventsListener: null,
     sidebarPosition: Alpine.$persist(20).as("app:sidebar-position"),
@@ -32,4 +33,4 @@ export default function app({ eventsEndpoint }) {
       if (this.serverEventsListener) this.serverEventsListener.stop();
     },
   };
-}
+});

@@ -1,3 +1,5 @@
-export default function markdownPanel() {
+import AlpineComponent from "@js/alpine/component";
+
+export default AlpineComponent("markdownPanel", () => {
   return {};
-}
+});
