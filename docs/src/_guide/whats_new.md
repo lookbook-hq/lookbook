@@ -51,7 +51,7 @@ goals:
     any ViewComponent previews.
 
     In fact, Lookbook can create previews of **anything that can be rendered using Rails' `render` helper**. All previews will have the same functionality available to them
-    (preview params, display opions etc) no matter what the component type.
+    (preview params, display options etc) no matter what the component type.
 
     [See the component docs for more details &rarr;](<%= guide_url :components %>)
 
