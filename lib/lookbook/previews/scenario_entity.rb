@@ -26,13 +26,22 @@ module Lookbook
       "#{preview_entity.lookup_path}/#{name}"
     end
 
+    def url_path
+      inspect_target_path(preview, self)
+    end
+
+    def preview_path
+      preview_target_path(preview, self)
+    end
+
     def source
-      if custom_render_template?
-        template_source(render_template_name)&.html_safe
+      src = if custom_render_template?
+        template_source(render_template_name)
       else
         src = CodeIndenter.call(code_object.source)
         ScenarioEntity.format_source(src)
       end
+      src&.strip_heredoc&.strip&.html_safe
     end
 
     def render_args(params: {})
@@ -106,7 +115,7 @@ module Lookbook
     class << self
       def format_source(source)
         lines = source.sub(/^def \w+\s?(\([^)]+\))?/m, "").split("\n")[0..-2]
-        (lines.many? ? lines.join("\n") : lines.first)&.html_safe
+        (lines.many? ? lines.join("\n") : lines.first)
       end
     end
   end

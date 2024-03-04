@@ -23,10 +23,10 @@ export default AlpineComponent("navTree", (id) => {
       let currentItem = this.$el.querySelector(
         `sl-tree-item[href='${this.$router.pathname}']`
       );
-      const hasChildren =
-        currentItem.getChildrenItems && currentItem.getChildrenItems().length;
 
       if (currentItem) {
+        const hasChildren =
+          currentItem.getChildrenItems && currentItem.getChildrenItems().length;
         currentItem.selected = true;
 
         if (expandParents) {
