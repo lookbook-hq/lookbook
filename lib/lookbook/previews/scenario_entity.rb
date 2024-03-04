@@ -27,9 +27,12 @@ module Lookbook
     end
 
     def source
-      src = CodeIndenter.call(code_object.source)
-      lines = src.sub(/^def \w+\s?(\([^)]+\))?/m, "").split("\n")[0..-2]
-      (lines.many? ? lines.join("\n") : "").html_safe
+      if custom_render_template?
+        template_source(render_template_name)&.html_safe
+      else
+        src = CodeIndenter.call(code_object.source)
+        ScenarioEntity.format_source(src)
+      end
     end
 
     def render_args(params: {})
@@ -61,6 +64,19 @@ module Lookbook
         .sub(/\..*$/, "")
     end
 
+    def template_source(template_path)
+      source_path = template_file_path(template_path)
+      source_path ? File.read(source_path) : nil
+    end
+
+    def template_file_path(template_path)
+      return full_template_path(template_path) if respond_to?(:full_template_path, true)
+
+      search_dirs = [*Previews.preview_paths, *Engine.view_paths]
+      template_path = "#{template_path.to_s.sub(/\..*$/, "")}.html.*"
+      Utils.determine_full_path(template_path, search_dirs)
+    end
+
     def preview = preview_entity
 
     protected
@@ -73,6 +89,25 @@ module Lookbook
 
     def call_method(**)
       preview_class.new.public_send(code_object.name, **) || {}
+    end
+
+    def render_template_name
+      rargs[:template]
+    end
+
+    def custom_render_template?
+      !render_template_name.in?(Previews.system_templates) && rargs[:type] != :view
+    end
+
+    def rargs
+      @rargs ||= render_args
+    end
+
+    class << self
+      def format_source(source)
+        lines = source.sub(/^def \w+\s?(\([^)]+\))?/m, "").split("\n")[0..-2]
+        (lines.many? ? lines.join("\n") : lines.first)&.html_safe
+      end
     end
   end
 end

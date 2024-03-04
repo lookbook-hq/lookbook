@@ -73,6 +73,10 @@ module Lookbook
         Lookbook.config.preview_controller.constantize
       end
 
+      def system_templates
+        ["view_components/preview", Lookbook.config.preview_template]
+      end
+
       delegate :updated_at, to: :store
 
       private

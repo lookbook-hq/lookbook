@@ -1,5 +1,5 @@
 
-<% target.each_scenario_with_output do |scenario, output_html| %>
+<% target.scenarios_with_output do |scenario, output_html| %>
   <% if target.scenarios.many? %>
   <div>
     <h1><%= scenario.label %></h1>

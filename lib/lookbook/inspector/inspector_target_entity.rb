@@ -42,14 +42,10 @@ module Lookbook
       end
     end
 
-    def each_scenario_with_output
+    def scenarios_with_output
       scenarios.each do |scenario|
         yield(scenario, @rendered_scenarios[scenario.name.to_sym])
       end
-    end
-
-    def lookup_directory_path
-      nil
     end
 
     def preview = preview_entity
