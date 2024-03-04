@@ -1,6 +1,8 @@
 export default class Logger {
   constructor(scope = null) {
-    this.scope = scope;
+    this.scope = scope
+      ? `${scope.charAt(0).toUpperCase()}${scope.slice(1)}`
+      : null;
   }
 
   log(...args) {

@@ -6,7 +6,6 @@ export default AlpineComponent("navTree", (id) => {
     updating: false,
 
     async init() {
-      console.log("init");
       this.$nextTick(async () => {
         await this.$el.updateComplete;
         this.selectCurrentPageItem(true);

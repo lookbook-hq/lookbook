@@ -1,9 +1,38 @@
+import ServerEventsListener from "./server_events_listener";
 import Logger from "./logger";
 
 export default class Router {
-  constructor(rootElementId) {
+  constructor(rootElementId, sseEndpoint = null) {
     this.rootElement = document.getElementById(rootElementId);
     this.$logger = new Logger("Router");
+    this.serverEventListener = null;
+
+    // Hijack navigation clicks
+    addEventListener("click", (event) => {
+      const link = event.target.closest("[href]");
+      if (link) {
+        const isExternalLink = link.host && link.host !== window.location.host;
+
+        if (!isExternalLink && !link.hasAttribute("target")) {
+          event.preventDefault();
+          this.visit(link.href);
+        }
+      }
+    });
+
+    // Handle history navigation
+    addEventListener("popstate", () => this.visit(window.location, false));
+
+    // Listen out for update events from the server
+    if (sseEndpoint) {
+      this.serverEventListener = new ServerEventsListener(sseEndpoint);
+      this.serverEventListener.on("update", () => this.updatePage());
+      this.serverEventListener.start();
+
+      addEventListener("visibilitychange", () => {
+        if (!document.hidden) this.updatePage();
+      });
+    }
   }
 
   get location() {
