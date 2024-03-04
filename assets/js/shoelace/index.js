@@ -20,13 +20,15 @@ import "@shoelace-style/shoelace/dist/components/tab-panel/tab-panel.js";
 import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
 import "@shoelace-style/shoelace/dist/components/resize-observer/resize-observer.js";
 
-if (process.env.NODE_ENV !== "production") {
-  setBasePath("/lookbook-dev/shoelace");
-} else {
-  setBasePath("/lookbook-assets/shoelace");
-}
+export default function initShoelace({ router, logger }) {
+  if (process.env.NODE_ENV !== "production") {
+    setBasePath("/lookbook-dev/shoelace");
+  } else {
+    setBasePath("/lookbook-assets/shoelace");
+  }
 
-registerIconLibrary("default", {
-  resolver: (name) =>
-    `https://cdn.jsdelivr.net/npm/lucide-static@0.16.29/icons/${name}.svg`,
-});
+  registerIconLibrary("default", {
+    resolver: (name) =>
+      `https://cdn.jsdelivr.net/npm/lucide-static@0.16.29/icons/${name}.svg`,
+  });
+}

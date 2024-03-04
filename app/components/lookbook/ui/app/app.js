@@ -1,23 +1,10 @@
-import ServerEventsListener from "@js/server_events_listener";
 import AlpineComponent from "@js/alpine/component";
 
-export default AlpineComponent("app", ({ eventsEndpoint }) => {
+export default AlpineComponent("app", () => {
   return {
-    serverEventsListener: null,
     sidebarPosition: Alpine.$persist(20).as("app:sidebar-position"),
 
     init() {
-      // Listen out for update events from the server
-      if (eventsEndpoint) {
-        this.serverEventsListener = new ServerEventsListener(eventsEndpoint);
-        this.serverEventsListener.on("update", () => this.$router.updatePage());
-        this.serverEventsListener.start();
-
-        addEventListener("visibilitychange", () => {
-          if (!document.hidden) this.$router.updatePage();
-        });
-      }
-
       this.$logger.debug("App initialized", this.$el);
     },
 
@@ -27,10 +14,6 @@ export default AlpineComponent("app", ({ eventsEndpoint }) => {
         event.preventDefault();
         this.$router.visit(link.href);
       }
-    },
-
-    destroy() {
-      if (this.serverEventsListener) this.serverEventsListener.stop();
     },
   };
 });

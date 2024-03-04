@@ -3,6 +3,7 @@ import AlpineComponent from "@js/alpine/component";
 export default AlpineComponent("navTree", (id) => {
   return {
     expanded: Alpine.$persist([]).as(`nav-tree#${id}:expanded-items`),
+    updating: false,
 
     async init() {
       this.$nextTick(async () => {
@@ -14,6 +15,10 @@ export default AlpineComponent("navTree", (id) => {
     },
 
     selectCurrentPageItem(expandParents = false) {
+      if (this.updating) {
+        return;
+      }
+
       if (this.selected) {
         this.selected.selected = false;
       }
@@ -48,12 +53,6 @@ export default AlpineComponent("navTree", (id) => {
       const key = event.target.getAttribute("key");
       const index = this.expanded.indexOf(key);
       if (index >= 0) this.expanded.splice(index, 1);
-    },
-
-    itemSelected(event) {
-      const item = event.detail.selection[0];
-      const href = item.getAttribute("href");
-      if (href) this.$router.visit(href);
     },
 
     get selected() {

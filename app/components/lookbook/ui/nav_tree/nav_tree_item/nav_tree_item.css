@@ -1,2 +1,5 @@
 [data-component="nav-tree-item"] {
+  [nav-tree-index] {
+    display: none;
+  }
 }

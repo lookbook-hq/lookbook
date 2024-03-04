@@ -40,7 +40,6 @@ export default class ServerEventsListener {
 
     source.addEventListener("event", (event) => {
       const data = JSON.parse(event.data);
-      console.log(data);
       this.handlers.forEach((handler) => {
         if (data.type === handler.type) {
           handler.callback.call(null, data);

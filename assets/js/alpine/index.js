@@ -1,8 +1,6 @@
 import Alpine from "alpinejs";
 import morph from "@alpinejs/morph";
 import persist from "@alpinejs/persist";
-import Logger from "../logger";
-import Router from "../router";
 import * as components from "../../../app/components/lookbook/ui/**/*.js";
 
 function registerComponents(entries) {
@@ -21,12 +19,14 @@ function registerComponents(entries) {
 
 window.Alpine = Alpine;
 
-Alpine.plugin(morph);
-Alpine.plugin(persist);
+export default function initAlpine({ router, logger }) {
+  Alpine.plugin(morph);
+  Alpine.plugin(persist);
 
-Alpine.magic("logger", () => new Logger("View"));
-Alpine.magic("router", () => new Router("app"));
+  Alpine.magic("logger", () => logger);
+  Alpine.magic("router", () => router);
 
-registerComponents(components);
+  registerComponents(components);
 
-Alpine.start();
+  Alpine.start();
+}

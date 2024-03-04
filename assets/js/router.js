@@ -3,11 +3,7 @@ import Logger from "./logger";
 export default class Router {
   constructor(rootElementId) {
     this.rootElement = document.getElementById(rootElementId);
-    this.loadPage = this.loadPage.bind(this);
-    this.updatePage = this.updatePage.bind(this);
     this.$logger = new Logger("Router");
-
-    addEventListener("popstate", this.loadPage);
   }
 
   get location() {
@@ -18,11 +14,11 @@ export default class Router {
     return document.location.pathname;
   }
 
-  visit(url) {
+  visit(url, updateHistory = true) {
     this.$logger.info(`Navigating to ${url}`);
     this.$dispatch("lookbook:visit", { url });
 
-    history.pushState({}, "", url);
+    if (updateHistory) history.pushState({}, "", url);
     this.loadPage(url);
   }
 
@@ -33,8 +29,8 @@ export default class Router {
     this.$dispatch("lookbook:page-update");
   }
 
-  async loadPage(url = null) {
-    const html = await this.fetchPageDOM(url || this.location);
+  async loadPage(url = this.location) {
+    const html = await this.fetchPageDOM(url);
     this.updateDOM(html);
     this.$logger.debug(`Page loaded`);
     this.$dispatch("lookbook:page-load");
@@ -48,8 +44,8 @@ export default class Router {
     if (ok) {
       return fragment;
     } else {
+      // just redirect to the error page for now
       location.href = url;
-      // throw new Error(`Failed to fetch from '${url}' - error ${status}`);
     }
   }
 

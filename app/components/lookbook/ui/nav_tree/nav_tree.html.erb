@@ -1,11 +1,10 @@
 <%= render component_tag(:sl_tree,
   id: id,
-  selection: "leaf",
+  selection: "single",
   x: {
     "data": "navTree('#{id}')",
-    "@sl-selection-change": "itemSelected($event)",
-    "@sl-expand": "itemExpanded($event)",
-    "@sl-collapse": "itemCollapsed($event)",
+    "@sl-expand": "itemExpanded",
+    "@sl-collapse": "itemCollapsed",
     "@lookbook:page-update.document": "selectCurrentPageItem(false)",
     "@lookbook:page-load.document": "selectCurrentPageItem(true)"
   }) do %>
