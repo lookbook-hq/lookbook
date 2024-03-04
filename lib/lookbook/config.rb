@@ -15,7 +15,7 @@ module Lookbook
           preview_watch_paths: [],
           preview_watch_extensions: ["rb", "html.*"],
 
-          inspector_preview_template: "lookbook/inspector/preview",
+          inspector_target_preview_template: "lookbook/inspector/preview",
           inspector_panels: default_inspector_panels,
           inspector_preview_panels: [:preview, :output],
           inspector_drawer_panels: [:source, :notes],

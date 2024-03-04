@@ -13,9 +13,9 @@ module Lookbook
 
       def nav_path
         if entity.is_a?(PreviewEntity)
-          preview_overview_path(entity)
+          show_preview_path(entity)
         elsif entity.is_a?(InspectorTargetEntity)
-          inspector_path(entity.preview, entity)
+          inspect_target_path(entity.preview, entity)
         end
       end
 

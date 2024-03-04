@@ -1,9 +1,9 @@
 Lookbook::Engine.routes.draw do
   root "application#index"
 
-  get "/previews/:preview", to: "previews#overview", as: :preview_overview
-  get "/previews/:preview/:target", to: "inspector#show", as: :inspector
-  get "/previews/:preview/:target/render", to: "inspector#preview", as: :inspector_preview
+  get "/previews/:preview", to: "previews#show", as: :show_preview
+  get "/previews/:preview/:target", to: "previews#inspect", as: :inspect_target
+  get "/previews/:preview/:target/preview", to: "previews#preview", as: :preview_target
 
   resources :events, only: [:index]
 end

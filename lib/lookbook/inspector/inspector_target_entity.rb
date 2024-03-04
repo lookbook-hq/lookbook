@@ -23,11 +23,11 @@ module Lookbook
     end
 
     def inspect_path
-      inspector_path(preview_entity, self)
+      inspect_target_path(preview_entity, self)
     end
 
     def preview_path
-      inspector_preview_path(preview_entity, self)
+      preview_target_path(preview_entity, self)
     end
 
     alias_method :url_param, :name

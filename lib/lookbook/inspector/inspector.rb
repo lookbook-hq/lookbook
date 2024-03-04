@@ -18,17 +18,17 @@ module Lookbook
       end
 
       def preview_panels
-        panel_names = Lookbook.config.inspector_preview_panels.map(&:to_sym)
-        panels.select { panel_names.include?(_1.name) }
+        names = Lookbook.config.inspector_preview_panels.map(&:to_sym)
+        panels.select { names.include?(_1.name) }
       end
 
       def drawer_panels
-        panel_names = Lookbook.config.inspector_drawer_panels.map(&:to_sym)
-        panels.select { panel_names.include?(_1.name) }
+        names = Lookbook.config.inspector_drawer_panels.map(&:to_sym)
+        panels.select { names.include?(_1.name) }
       end
 
-      def preview_template
-        Lookbook.config.inspector_preview_template
+      def target_preview_template
+        Lookbook.config.inspector_target_preview_template
       end
 
       def clear_cache
