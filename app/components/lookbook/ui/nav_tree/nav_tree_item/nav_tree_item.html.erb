@@ -1,11 +1,10 @@
 <%= render component_tag(:sl_tree_item,
-  href: nav_path,
+  href: url_path,
   key: lookup_path,
   x: {
     "data": "navTreeItem",
     "@click": "itemClicked",
-  },
-  "nav-tree-index": (index? ? true : nil)
+  }
 ) do %>
   <sl-icon name="<%= icon %>"></sl-icon>
   <%= label %>

@@ -6,6 +6,7 @@ export default AlpineComponent("navTree", (id) => {
     updating: false,
 
     async init() {
+      console.log("init");
       this.$nextTick(async () => {
         await this.$el.updateComplete;
         this.selectCurrentPageItem(true);
@@ -15,10 +16,6 @@ export default AlpineComponent("navTree", (id) => {
     },
 
     selectCurrentPageItem(expandParents = false) {
-      if (this.updating) {
-        return;
-      }
-
       if (this.selected) {
         this.selected.selected = false;
       }
@@ -26,11 +23,15 @@ export default AlpineComponent("navTree", (id) => {
       let currentItem = this.$el.querySelector(
         `sl-tree-item[href='${this.$router.pathname}']`
       );
+      const hasChildren =
+        currentItem.getChildrenItems && currentItem.getChildrenItems().length;
 
       if (currentItem) {
         currentItem.selected = true;
 
         if (expandParents) {
+          if (hasChildren) currentItem.expanded = true;
+
           while (currentItem) {
             const parent = currentItem.parentElement;
             if (!currentItem.selected) {

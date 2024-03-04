@@ -22,7 +22,7 @@ module Lookbook
       @uuid ||= Utils.hash(preview_entity.id, id)
     end
 
-    def inspect_path
+    def url_path
       inspect_target_path(preview_entity, self)
     end
 

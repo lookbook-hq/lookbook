@@ -27,6 +27,10 @@ module Lookbook
       @lookup_directory_path ||= File.dirname(lookup_path).delete_prefix(".")
     end
 
+    def url_path
+      show_preview_path(self)
+    end
+
     def layout
       preview_class.instance_variable_get(:@layout)
     end

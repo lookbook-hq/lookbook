@@ -1,26 +1,22 @@
 module Lookbook
   class EntityTreeNode
+    delegate :url_path, :label, :type, to: :entity
+
     attr_reader :entity, :children, :lookup_path
 
-    def initialize(lookup_path, entity = nil, index: false)
+    def initialize(lookup_path, entity = nil)
       @lookup_path = lookup_path
       @entity = entity
-      @index = index
       @children = []
     end
 
     def to_hash
       {
         path: lookup_path,
-        entity_class: entity&.class&.name,
+        label: label,
+        entity_type: entity_type,
         children: children&.map(&:to_hash)
       }
     end
-
-    def label
-      index? ? "Overview" : entity&.label
-    end
-
-    def index? = @index
   end
 end

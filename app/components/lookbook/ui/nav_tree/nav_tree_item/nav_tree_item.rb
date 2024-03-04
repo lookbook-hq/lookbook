@@ -1,7 +1,19 @@
 module Lookbook
   module UI
     class NavTreeItem < BaseComponent
-      delegate :label, :icon, :lookup_path, :children, :entity, :index?, to: :node
+      ENTITY_DISPLAY_ATTRIBUTES = {
+        preview: {
+          icon: :layers
+        },
+        inspector_target: {
+          icon: :eye
+        },
+        directory: {
+          icon: :folder
+        }
+      }
+
+      delegate :label, :lookup_path, :children, :url_path, :type, to: :node
 
       tag_attr :href, :key
 
@@ -11,22 +23,8 @@ module Lookbook
         @node = node
       end
 
-      def nav_path
-        if entity.is_a?(PreviewEntity)
-          show_preview_path(entity)
-        elsif entity.is_a?(InspectorTargetEntity)
-          inspect_target_path(entity.preview, entity)
-        end
-      end
-
       def icon
-        if entity.is_a?(PreviewEntity)
-          index? ? :info : :layers
-        elsif entity.is_a?(InspectorTargetEntity)
-          :eye
-        else
-          :folder
-        end
+        ENTITY_DISPLAY_ATTRIBUTES.dig(type, :icon) || :folder
       end
     end
   end

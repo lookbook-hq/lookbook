@@ -32,9 +32,13 @@ module Lookbook
       @default_priority || 10000
     end
 
-    def lookup_directory_path
-      nil
+    def type
+      @type ||= self.class.name.demodulize.underscore.delete_suffix("_entity").to_sym
     end
+
+    def lookup_directory_path = nil
+
+    def url_path = nil
 
     def to_param = url_param
 

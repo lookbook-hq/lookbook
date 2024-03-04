@@ -30,8 +30,7 @@ export default AlpineComponent("navTreeItem", () => {
         if (hasChildren) {
           item.expanded = !item.selected ? true : !item.expanded;
         }
-        await item.updateComplete;
-        this.$router.visit(href);
+        if (!item.selected) this.$router.visit(href);
       } else {
         if (hasChildren) item.expanded = !item.expanded;
       }

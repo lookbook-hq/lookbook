@@ -3,7 +3,7 @@
 <ul>
 <% @targets.each do |target| %>
   <li>
-    <%= link_to target.label, target.inspect_path %>
+    <%= link_to target.label, target.url_path %>
   </li>
 <% end %>
 </ul>

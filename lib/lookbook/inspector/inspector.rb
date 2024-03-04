@@ -13,7 +13,7 @@ module Lookbook
       def nav_tree
         @nav_tree ||= begin
           debug("inspector: building nav tree")
-          InspectorNavTree.new(Previews.all, all_preview_targets)
+          EntityTree.new([Previews.all, all_preview_targets].flatten)
         end
       end
 
