@@ -15,8 +15,12 @@ initAlpine({ router, logger });
 addEventListener("click", (event) => {
   const link = event.target.closest("[href]");
   if (link) {
-    event.preventDefault();
-    router.visit(link.href);
+    const isExternalLink = link.host && link.host !== window.location.host;
+
+    if (!isExternalLink && !link.hasAttribute("target")) {
+      event.preventDefault();
+      router.visit(link.href);
+    }
   }
 });
 
