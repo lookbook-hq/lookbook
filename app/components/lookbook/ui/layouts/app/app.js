@@ -7,13 +7,5 @@ export default AlpineComponent("app", () => {
     init() {
       this.$logger.debug("App initialized", this.$el);
     },
-
-    hijackNavigation(event) {
-      const link = event.target.closest("a[href]");
-      if (link) {
-        event.preventDefault();
-        this.$router.visit(link.href);
-      }
-    },
   };
 });

@@ -1,0 +1,12 @@
+<%= render component_tag(id: id, x: {data: "tabbedPane"}) do %>
+  <div class="pane-toolbar">
+    <sl-button-group label="<%= label %> actions">
+      <%= safe_join(actions.reverse) %>
+    </sl-button-group>
+  </div>
+  <%= lb_tab_group(id: tab_group_id, class: "pane-tabs") do |group| %>
+    <% tabs_data.each do |tab| %>
+      <% group.with_tab(tab[:name], **tab[:kwargs], &tab[:block]) %>
+    <% end %>
+  <% end %>
+<% end %>

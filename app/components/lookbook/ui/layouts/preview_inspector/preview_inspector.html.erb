@@ -1,0 +1,19 @@
+<%= render component_tag(id: id, x: {data: "previewInspector"}) do %> 
+  <% if drawer? %> 
+    <sl-split-panel
+      class="inspector-layout"
+      primary="end"
+      :position="drawerPosition"
+      @sl-reposition="drawerPosition = $el.position"
+      vertical>
+      <div slot="start">
+        <%= render preview_pane %>
+      </div>
+      <div slot="end">
+        <%= render drawer_pane %>
+      </div>
+    </sl-split-panel>
+  <% else %>
+    <%= render preview_pane %>
+  <% end %>
+<% end %>

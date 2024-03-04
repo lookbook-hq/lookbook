@@ -3,6 +3,8 @@
 
   pre,
   code {
+    font-family: var(--sl-font-mono);
+    font-size: var(--sl-font-size-small);
     display: block;
     height: 100%;
     margin: 0;

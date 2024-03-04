@@ -11,6 +11,15 @@ const logger = new Logger("View");
 initShoelace({ router, logger });
 initAlpine({ router, logger });
 
+// Hijack navigation clicks
+addEventListener("click", (event) => {
+  const link = event.target.closest("[href]");
+  if (link) {
+    event.preventDefault();
+    router.visit(link.href);
+  }
+});
+
 // Handle history navigation
 window.addEventListener("popstate", () => router.visit(window.location, false));
 

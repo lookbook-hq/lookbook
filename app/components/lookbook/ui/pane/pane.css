@@ -8,6 +8,8 @@
     display: flex;
     align-items: center;
     padding-right: var(--sl-spacing-2x-small);
+    padding-left: var(--sl-spacing-medium);
+    border-bottom: 1px solid var(--lookbook-divider-color);
 
     sl-button-group {
       font-size: var(--lookbook-toolbar-icon-button-size);
@@ -21,40 +23,17 @@
     }
   }
 
-  .pane-tabs {
+  .pane-title {
+    display: flex;
+    align-items: center;
+  }
+
+  .pane-content {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    sl-tab-group {
-      height: 100%;
-      overflow: hidden;
-      position: relative;
-
-      &::part(tabs) {
-        padding-right: 0;
-      }
-
-      sl-tab-panel {
-        position: absolute;
-        inset: 0;
-        top: calc(var(--lookbook-toolbar-height) + var(--track-width));
-        width: 100%;
-        height: calc(
-          100% - var(--lookbook-toolbar-height) - var(--track-width)
-        );
-        overflow: hidden;
-
-        &::part(base) {
-          height: 100%;
-          width: 100%;
-          padding: 0;
-          overflow: hidden;
-          position: relative;
-        }
-      }
-    }
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
   }
 }

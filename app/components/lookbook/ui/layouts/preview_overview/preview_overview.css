@@ -1,0 +1,30 @@
+[data-component="preview-overview"] {
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  .po-icon {
+    margin-right: var(--sl-spacing-x-small);
+  }
+
+  .po-title {
+    font-weight: 600;
+    letter-spacing: 0.4;
+  }
+
+  section {
+    padding-block: var(--sl-spacing-large);
+    padding-inline: var(--sl-spacing-medium);
+  }
+
+  .po-section-title {
+    font-weight: 400;
+    margin-bottom: var(--sl-spacing-medium);
+  }
+
+  .po-targets {
+    li:not(:last-child) {
+      margin-bottom: var(--sl-spacing-x-small);
+    }
+  }
+}

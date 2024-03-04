@@ -12,6 +12,7 @@
     &::part(base) {
       height: var(--lookbook-toolbar-height);
       padding-block: 0;
+      padding-inline: var(--sl-spacing-medium);
     }
   }
 

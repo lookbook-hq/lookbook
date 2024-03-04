@@ -1,29 +1,14 @@
 <%=
-  lb_inspector(id: "inspector") do |layout|
-    layout.with_preview_pane do |pane|
-      pane.with_action(
-        icon: :external_link,
-        label: "Open preview in new window",
-        tooltip: "Open preview in new window",
-        href: @target.preview_path,
-        target: "_blank"
-      )
-      @inspector.preview_panels.each do |panel|
-        pane.with_tab(panel.name, label: panel.label) do
-          lb_inspector_panel(panel.type, id: dom_id(@target, "panel-#{panel.name}")) do
-            render panel.partial, preview: @preview, target: @target
-          end
-        end
+  lb_preview_inspector(@preview, @target) do |layout|
+    @inspector.preview_panels.each do |panel|
+      layout.with_preview_panel(panel) do
+        render panel.partial, preview: @preview, target: @target
       end
     end
 
-    layout.with_drawer_pane do |pane|
-      @inspector.drawer_panels.each do |panel|
-        pane.with_tab(panel.name, label: panel.label) do
-          lb_inspector_panel(panel.type, id: dom_id(@target, "panel-#{panel.name}")) do
-            render panel.partial, preview: @preview, target: @target
-          end
-        end
+    @inspector.drawer_panels.each do |panel|
+      layout.with_drawer_panel(panel) do
+        render panel.partial, preview: @preview, target: @target
       end
     end
   end

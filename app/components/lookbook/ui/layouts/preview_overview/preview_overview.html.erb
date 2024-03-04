@@ -1,0 +1,30 @@
+<%= render component_tag(
+  id: id,
+  x: {
+    data: "previewOverview"
+  }) do %>
+  <%= lb_pane(id: "#{id}-#{preview.id}-pane") do |pane| %>
+    
+    <% pane.with_title do %>
+      <sl-icon name="layers" class="po-icon"></sl-icon>
+      <span class="po-title">
+        <%= preview.label %>
+      </span>
+    <% end %>
+    
+    <section class="po-targets">
+      <h4 class="po-section-title">Previews:</h4>
+
+      <ol>
+        <% targets.each do |target| %>
+          <li class="po-target">
+            <sl-button href="<%= target.url_path %>" variant="default" size="small">
+              <sl-icon slot="prefix" name="eye"></sl-icon>
+              <%= target.label %>
+            </sl-button>
+          </li>
+        <% end %>
+      </ol>
+    <section>
+  <% end %>
+<% end %>
