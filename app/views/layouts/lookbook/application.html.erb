@@ -18,7 +18,7 @@
   <title>Lookbook</title>
 </head>
 <body>
-  <%= lb_app do |layout| %>
+  <%= lookbook_app_layout do |layout| %>
     <% layout.with_header do %>
       <%= link_to @config.project_name, root_path %>
     <% end %>

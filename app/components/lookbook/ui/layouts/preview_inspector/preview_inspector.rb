@@ -42,7 +42,7 @@ module Lookbook
 
       def add_panel(pane_name, panel, &block)
         public_send(pane_name).with_tab(panel.name, label: panel.label) do
-          lb_preview_inspector_panel(panel.type, id: dom_id(target, "panel-#{panel.name}"), &block)
+          lookbook_preview_inspector_panel(panel.type, id: dom_id(target, "panel-#{panel.name}"), &block)
         end
       end
 
