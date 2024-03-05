@@ -14,10 +14,6 @@ module Lookbook
         @_tag_attrs ||= {}
       end
 
-      def accepts_options?
-        self.class.respond_to?(:accepts_option)
-      end
-
       protected
 
       def args
@@ -66,11 +62,6 @@ module Lookbook
 
         self.class.send(:run_callbacks, :before_render, nil, context: self)
 
-        if accepts_options?
-          accepted_options.validate_required!
-          accepted_options.flattened_attribute_values.each { tag_attrs[:data][_1] = _2 }
-        end
-
         tag_attrs.compact!
       end
 
@@ -78,7 +69,7 @@ module Lookbook
         merged_attrs = attrs.deep_merge(tag_attrs)
         classes = class_names(attrs[:class], tag_attrs[:class])
         merged_attrs[:class] = classes if classes.present?
-        tag = (tag_override || tag_name || :div).to_s.tr("_","-")
+        tag = (tag_override || tag_name || :div).to_s.tr("_", "-")
         Lookbook::UI::Tag.new(tag, **merged_attrs, root: true)
       end
 
@@ -103,7 +94,6 @@ module Lookbook
 
           obj.instance_variable_set(:@_args, kwargs)
           obj.send(:process_tag_attrs, kwargs)
-          obj.send(:merge_option_values, kwargs) if obj.accepts_options?
           obj.class.send(:run_callbacks, :after_initialize, {}, context: obj) && obj
         end
 
