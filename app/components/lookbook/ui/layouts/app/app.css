@@ -23,7 +23,7 @@
     }
   }
 
-  .app-sidebar-layout {
+  .app-layout {
     --divider-width: 1px;
     --min: 200px;
     --max: 400px;

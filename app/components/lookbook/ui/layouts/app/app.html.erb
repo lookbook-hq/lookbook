@@ -6,7 +6,8 @@
   <main class="app-body">
     <% if sidebar? %>
       <sl-split-panel
-        class="app-sidebar-layout"
+        key="app-layout"
+        class="app-layout"
         primary="start"
         :position="sidebarPosition"
         @sl-reposition="sidebarPosition = $el.position">

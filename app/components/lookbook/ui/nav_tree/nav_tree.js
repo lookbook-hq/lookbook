@@ -55,8 +55,16 @@ export default AlpineComponent("navTree", (id) => {
       if (index >= 0) this.expanded.splice(index, 1);
     },
 
+    collapseAll() {
+      Array.from(this.items).forEach((item) => (item.expanded = false));
+    },
+
+    get items() {
+      return this.$root.querySelectorAll("sl-tree-item");
+    },
+
     get selected() {
-      return this.$el.querySelector("sl-tree-item[selected]");
+      return this.$root.querySelector("sl-tree-item[selected]");
     },
   };
 });

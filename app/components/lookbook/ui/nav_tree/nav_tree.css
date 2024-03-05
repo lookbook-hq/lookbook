@@ -1,2 +1,3 @@
 [data-component="nav-tree"] {
+  --indent-size: var(--sl-spacing-small);
 }

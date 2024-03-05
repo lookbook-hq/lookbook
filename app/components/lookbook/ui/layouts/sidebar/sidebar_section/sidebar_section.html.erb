@@ -1,0 +1,17 @@
+<%= render component_tag(x: {data: "sidebarSection"}) do %>
+  <%= lookbook_pane(id: "#{id}-pane") do |pane| %>
+    <% pane.with_action(icon: :copy_minus, tooltip: "Collapse all", "@click": "collapseAll") %>
+    <% pane.with_title { title } %>
+    
+    <nav class="sidebar-section-content<%= " with-filter" if filter? %>">
+      <% if filter? %>
+        <div class="sidebar-section-filter">
+          filter
+        </div>  
+      <% end %>
+      <nav class="sidebar-section-nav">
+        <%= nav %>
+      </nav>
+    </nav>
+  <% end %>
+<% end %>

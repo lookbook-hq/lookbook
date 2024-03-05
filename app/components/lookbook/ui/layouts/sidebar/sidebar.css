@@ -1,6 +1,7 @@
 [data-component="sidebar"] {
   height: 100%;
   width: 100%;
+  background-color: var(--sl-color-neutral-50);
 
   .sidebar-layout {
     --divider-width: 1px;

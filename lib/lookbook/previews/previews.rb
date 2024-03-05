@@ -2,8 +2,9 @@ module Lookbook
   module Previews
     class << self
       include Loggable
+      include Updatable
 
-      delegate :all, to: :store
+      delegate :all, :updated_at, to: :store
 
       def load_all
         debug("previews: loading previews...")
@@ -28,10 +29,6 @@ module Lookbook
         end
       end
 
-      def on_update(&block)
-        update_callbacks << block if block
-      end
-
       def reloader
         Reloader.new(:previews, watch_paths, watch_extensions) do |changes|
           changes.nil? ? load_all : update(changes)
@@ -45,7 +42,7 @@ module Lookbook
       end
 
       def preview_paths
-        @preview_paths ||= Utils.normalize_paths(Lookbook.config.preview_paths.uniq)
+        @preview_paths ||= Utils.normalize_paths(Lookbook.config.preview_paths)
       end
 
       def component_paths
@@ -66,7 +63,7 @@ module Lookbook
       end
 
       def watch_extensions
-        ["rb", "html.*", Lookbook.config.preview_watch_extensions].flatten.uniq
+        ["rb", "html.*", Lookbook.config.preview_watch_extensions].flatten.compact.uniq
       end
 
       def preview_controller
@@ -77,17 +74,7 @@ module Lookbook
         ["view_components/preview", Lookbook.config.preview_template]
       end
 
-      delegate :updated_at, to: :store
-
       private
-
-      def run_update_callbacks
-        update_callbacks.each { _1.call }
-      end
-
-      def update_callbacks
-        @update_callbacks ||= []
-      end
 
       def store
         @store ||= EntityStore.new(PreviewEntity)

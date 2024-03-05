@@ -28,9 +28,11 @@ module Lookbook
 
         if watch_files?
           Reloaders.register(Previews.reloader)
+          Reloaders.register(Pages.reloader)
           Reloaders.execute
         else
           Previews.load_all
+          Pages.load_all
         end
 
         @booted = true
@@ -43,13 +45,15 @@ module Lookbook
       end
 
       def view_paths
-        # handle view path registry changes in Rails 7.1
-        paths = if defined?(ActionView::PathRegistry)
-          ActionView::PathRegistry.all_file_system_resolvers.map(&:path)
-        else
-          ActionView::ViewPaths.all_view_paths.flat_map(&paths)
+        @view_paths ||= begin
+          # handle view path registry changes in Rails 7.1
+          paths = if defined?(ActionView::PathRegistry)
+            ActionView::PathRegistry.all_file_system_resolvers.map(&:path)
+          else
+            ActionView::ViewPaths.all_view_paths.flat_map(&paths)
+          end
+          Utils.normalize_paths(paths.map(&:to_s))
         end
-        paths.map { |path| Pathname(path.to_s) }
       end
 
       def host_app_path

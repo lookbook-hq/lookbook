@@ -7,7 +7,7 @@
 
   code,
   pre {
-    background-color: var(--sl-color-neutral-50);
+    background-color: white;
     color: var(--sl-color-neutral-800);
     font-family: var(--sl-font-mono);
     direction: ltr;
@@ -56,7 +56,7 @@
     padding-inline: var(--sl-spacing-x-small);
     margin: 0;
     overflow: auto;
-    background-color: var(--sl-color-neutral-50);
+    background-color: white;
   }
 
   .token.comment,

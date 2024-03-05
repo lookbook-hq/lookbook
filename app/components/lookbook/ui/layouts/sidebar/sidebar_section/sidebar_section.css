@@ -1,0 +1,36 @@
+[data-component="sidebar-section"] {
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  .sidebar-section-content {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr;
+
+    &.with-filter {
+      grid-template-rows: min-content 1fr;
+    }
+  }
+
+  .sidebar-section-filter {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: #fff;
+    /* z-index: 1; */
+    padding-block: var(--sl-spacing-x-small);
+    padding-inline: var(--sl-spacing-small);
+  }
+
+  .sidebar-section-nav {
+    height: 100%;
+    overflow: auto;
+    padding-bottom: var(--sl-spacing-medium);
+  }
+}

@@ -7,10 +7,12 @@ module Lookbook
         options({
           project_name: "Lookbook",
 
+          component_paths: ["app/views", "app/components"],
+
           preview_controller: "LookbookPreviewController",
           preview_template: "lookbook/previews/preview",
           preview_layout: nil,
-          preview_paths: [Rails.root.join("test/components/previews")],
+          preview_paths: ["test/components/previews"],
           preview_watch_paths: [],
           preview_watch_extensions: ["rb", "html.*"],
 
@@ -22,10 +24,12 @@ module Lookbook
           inspector_preview_panels: [:preview, :output],
           inspector_drawer_panels: [:source, :notes],
 
+          page_paths: ["test/components/docs"],
+          page_watch_paths: [],
+          page_watch_extensions: ["rb", "html.*"],
+
           pages_nav_label: "Pages",
           pages_nav_filter: true,
-
-          component_paths: ["app/views", "app/components"],
 
           markdown_options: default_markdown_options,
 

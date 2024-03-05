@@ -17,6 +17,11 @@ function registerComponents(entries) {
   }
 }
 
+function getData(el) {
+  const root = Alpine.closestRoot(el);
+  return root ? Alpine.$data(root) : null;
+}
+
 window.Alpine = Alpine;
 
 export default function initAlpine({ router, logger }) {
@@ -30,3 +35,5 @@ export default function initAlpine({ router, logger }) {
 
   Alpine.start();
 }
+
+export { getData };

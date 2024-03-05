@@ -73,6 +73,8 @@ module Lookbook
         Lookbook::UI::Tag.new(tag, **merged_attrs, root: true)
       end
 
+      def config = Lookbook.config
+
       private
 
       def process_tag_attrs(args)

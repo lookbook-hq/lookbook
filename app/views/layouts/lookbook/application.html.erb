@@ -24,7 +24,8 @@
     <% end %>
 
     <% layout.with_sidebar do |sidebar| %>
-      <%= sidebar.with_previews_nav(@inspector.nav_tree) %>
+      <% sidebar.with_previews_nav(@inspector.nav_tree) %>
+      <% sidebar.with_pages_nav(@docs.nav_tree) %>
     <% end %>
 
     <% layout.with_main do %>

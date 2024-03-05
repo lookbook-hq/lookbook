@@ -1,56 +1,20 @@
-
-
-<% previews = !previews_nav? ? nil : capture do %>
-  <%= lookbook_pane(id: "sidebar-previews-pane") do |pane| %>
-    <%= pane.with_title { previews_nav_label } %>
-    
-    <nav class="sidebar-nav<%= " with-filter" if filter_previews? %>">
-      <% if filter_previews? %>
-        <div class="sidebar-nav-filter">
-          filter
-        </div>  
-      <% end %>
-      <div class="sidebar-nav-tree">
-        <%= previews_nav %>  
-      </div>
-    </nav>
-  <% end %>
-<% end %>  
-
-<% pages = !pages_nav? ? nil : capture do %>
-  <%= lookbook_pane(id: "sidebar-pages-pane") do |pane| %>
-    <%= pane.with_title { pages_nav_label } %>
-    
-    <nav class="sidebar-nav<%= " with-filter" if filter_previews? %>">
-      <% if filter_previews? %>
-        <div class="sidebar-nav-filter">
-          filter
-        </div>  
-      <% end %>
-      <div class="sidebar-nav-tree">
-        <%= pages_nav %>  
-      </div>
-    </nav>
-  <% end %>
-<% end %>  
-
-
 <%= render component_tag(id: "sidebar", x: {data: "sidebar"}) do %>
   <% if previews_nav? && pages_nav? %>
     <sl-split-panel
+      key="sidebar-layout"
       class="sidebar-layout"
       primary="end"
       :position="splitPosition"
       @sl-reposition="splitPosition = $el.position"
       vertical>
       <div slot="start">
-        <%= previews %>
+        <%= previews_nav %>
       </div>
       <div slot="end">
-        <%= pages %>
+        <%= pages_nav %>
       </div>
     </sl-split-panel>
   <% else %>
-    <%= previews || pages %>
+    <%= previews_nav || pages_nav %>
   <% end %>
 <% end %>

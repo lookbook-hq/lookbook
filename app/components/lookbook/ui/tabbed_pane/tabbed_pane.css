@@ -4,6 +4,7 @@
   position: relative;
 
   .pane-toolbar {
+    background-color: white;
     height: calc(var(--lookbook-toolbar-height));
     display: flex;
     align-items: center;
@@ -17,6 +18,7 @@
     }
 
     sl-icon-button {
+      font-size: var(--sl-font-size-medium);
       color: var(--lookbook-toolbar-icon-button-color);
     }
   }

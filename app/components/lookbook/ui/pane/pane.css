@@ -6,6 +6,7 @@
   grid-template-rows: min-content 1fr;
 
   .pane-toolbar {
+    background-color: white;
     height: var(--lookbook-toolbar-height);
     display: flex;
     align-items: center;
@@ -21,6 +22,7 @@
     }
 
     sl-icon-button {
+      font-size: var(--sl-font-size-medium);
       color: var(--lookbook-toolbar-icon-button-color);
     }
   }
@@ -28,12 +30,12 @@
   .pane-title {
     display: flex;
     align-items: center;
+    font-size: var(--sl-font-size-small);
   }
 
   .pane-content {
     height: 100%;
     width: 100%;
-    overflow: hidden;
     position: relative;
   }
 }

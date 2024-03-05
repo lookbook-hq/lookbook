@@ -18,7 +18,7 @@ module Lookbook
       end
 
       def normalize_paths(paths, allow_root: false)
-        Array(paths).map do |path|
+        Array(paths).compact.map do |path|
           full_path = absolute_path(path)
           if File.exist?(full_path)
             full_path if allow_root || !root_path?(full_path)
