@@ -42,8 +42,7 @@ module Lookbook
       src = if custom_render_template?
         template_source(render_template_path)
       else
-        src = CodeIndenter.call(code_object.source)
-        ScenarioEntity.format_source(src)
+        ScenarioEntity.format_source(code_object.source)
       end
       src&.strip_heredoc&.strip&.html_safe
     end
@@ -129,7 +128,9 @@ module Lookbook
     end
 
     class << self
+      # Remove the method definition and `end` keyword to leave just the method body
       def format_source(source)
+        source = WhitespaceStripper.call(source)
         lines = source.sub(/^def \w+\s?(\([^)]+\))?/m, "").split("\n")[0..-2]
         (lines.many? ? lines.join("\n") : lines.first)
       end

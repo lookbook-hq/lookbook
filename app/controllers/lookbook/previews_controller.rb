@@ -25,7 +25,7 @@ module Lookbook
         controller.request = scenario_render_request(scenario)
         controller.response = ActionDispatch::Response.new
         html = controller.process(:lookbook_render_scenario, scenario)
-        CodeIndenter.call(html)
+        WhitespaceStripper.call(html)
       end
     end
 

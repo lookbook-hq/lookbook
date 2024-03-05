@@ -1,5 +1,5 @@
 module Lookbook
-  class CodeIndenter < Service
+  class WhitespaceStripper < Service
     def initialize(source)
       @source = source.to_s
     end
