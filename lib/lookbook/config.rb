@@ -24,6 +24,8 @@ module Lookbook
 
           markdown_options: default_markdown_options,
 
+          languages: default_languages,
+
           reload_on_change: nil,
           mount_path: "/lookbook"
         })
@@ -33,29 +35,45 @@ module Lookbook
         {
           preview: {
             label: "Preview",
-            partial: "lookbook/inspector/panels/preview",
-            type: nil
+            partial: "lookbook/inspector/panels/preview"
           },
           output: {
             label: "Output",
-            partial: "lookbook/inspector/panels/output",
-            type: :code
+            partial: "lookbook/inspector/panels/output"
           },
           source: {
             label: "Source",
-            partial: "lookbook/inspector/panels/source",
-            type: :code
+            partial: "lookbook/inspector/panels/source"
           },
           notes: {
             label: "Notes",
-            partial: "lookbook/inspector/panels/notes",
-            type: :markdown
+            partial: "lookbook/inspector/panels/notes"
           }
         }
       end
 
       def default_markdown_options
         {}
+      end
+
+      def default_languages
+        {
+          html: {
+            label: "HTML",
+            ext: ".html",
+            comment: "<!-- %s -->"
+          },
+          ruby: {
+            label: "Ruby",
+            ext: ".rb",
+            comment: "# %s"
+          },
+          erb: {
+            label: "ERB",
+            ext: ".erb",
+            comment: "<%%# %s %%>"
+          }
+        }
       end
 
       private

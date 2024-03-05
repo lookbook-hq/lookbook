@@ -43,8 +43,8 @@ module Lookbook
       render Lookbook::UI::Viewport.new(src: src, **kwargs)
     end
 
-    def lookbook_code(**kwargs, &block)
-      render Lookbook::UI::Code.new(**kwargs), &block
+    def lookbook_code(language = nil, **kwargs, &block)
+      render Lookbook::UI::Code.new(language: language, **kwargs), &block
     end
 
     def lookbook_prose(**kwargs, &block)

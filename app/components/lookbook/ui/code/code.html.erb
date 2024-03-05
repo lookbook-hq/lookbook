@@ -1,3 +1,4 @@
 <%= render component_tag(x: {data: "code"}) do %>
-  <pre><code><%= raw source %></code></pre>
+  <pre><code x-ref="editor" class="code-editor language-<%= language %>"></code></pre>
+  <code x-ref="source" class="code-source"><%= raw source %></code>
 <% end %>

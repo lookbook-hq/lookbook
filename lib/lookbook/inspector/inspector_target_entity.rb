@@ -10,7 +10,6 @@ module Lookbook
       @scenarios = scenarios
       @default_priority = default_priority
       @hidden = hidden
-      @source = nil
       @rendered_scenarios = {}
     end
 
@@ -60,6 +59,10 @@ module Lookbook
       else
         scenarios.select { _1.notes.present? }
       end
+    end
+
+    def source_language
+      scenarios.first&.source_language
     end
 
     def notes?

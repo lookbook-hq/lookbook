@@ -1,10 +1,10 @@
-<%= render Lookbook::UI::Panel.new(**tag_attrs, x: {data: "codePanel"}, data: {panel: "code"}) do |panel| %>
+<%= lookbook_panel(**tag_attrs, x: {data: "codePanel"}, data: {panel: "code"}) do |panel| %>
   <% panel.with_action do %>
     <sl-copy-button from="<%= copy_target_id %>"></sl-copy-button>
   <% end %>
   
   <div class="code-panel-code">
-    <%= lookbook_code { content } %>
+    <%= lookbook_code(language) { content } %>
   </div>
   <div id="<%= copy_target_id %>" class="code-panel-raw"><%= raw copy_source %></div>
 <% end %>

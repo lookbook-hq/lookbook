@@ -40,12 +40,20 @@ module Lookbook
 
     def source
       src = if custom_render_template?
-        template_source(render_template_name)
+        template_source(render_template_path)
       else
         src = CodeIndenter.call(code_object.source)
         ScenarioEntity.format_source(src)
       end
       src&.strip_heredoc&.strip&.html_safe
+    end
+
+    def source_language
+      if custom_render_template?
+        template_language(render_template_path)
+      else
+        Languages.ruby
+      end
     end
 
     def render_args(params: {})
@@ -90,6 +98,10 @@ module Lookbook
       Utils.determine_full_path(template_path, search_dirs)
     end
 
+    def template_language(template_path)
+      Languages.guess(template_file_path(template_path), :erb)
+    end
+
     def preview = preview_entity
 
     protected
@@ -104,12 +116,12 @@ module Lookbook
       preview_class.new.public_send(code_object.name, **) || {}
     end
 
-    def render_template_name
+    def render_template_path
       rargs[:template]
     end
 
     def custom_render_template?
-      !render_template_name.in?(Previews.system_templates) && rargs[:type] != :view
+      !render_template_path.in?(Previews.system_templates) && rargs[:type] != :view
     end
 
     def rargs
