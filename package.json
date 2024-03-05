@@ -18,8 +18,6 @@
     "@alpinejs/persist": "^3.13.5",
     "@shoelace-style/shoelace": "^2.13.1",
     "alpinejs": "^3.13.5",
-    "codejar": "^4.2.0",
-    "codejar-linenumbers": "^1.0.1",
     "container-query-polyfill": "^1.0.2",
     "prismjs": "^1.29.0"
   },

@@ -7,24 +7,14 @@
     border: 0;
   }
 
-  .code-source {
-    display: none;
-  }
-
-  .code-editor {
-    width: 100%;
-    height: 100%;
-  }
-
   code,
   pre {
-    height: 100%;
     background-color: var(--sl-color-neutral-50);
     color: var(--sl-color-neutral-800);
     font-family: var(--sl-font-mono);
     direction: ltr;
     text-align: left;
-    /* white-space: pre; */
+    white-space: pre;
     word-spacing: normal;
     word-break: normal;
     font-size: var(--sl-font-size-small);
@@ -70,15 +60,6 @@
     overflow: auto;
     background-color: var(--sl-color-neutral-50);
   }
-
-  /* Inline code */
-  /* :not(pre) > code {
-    padding: 0.2em;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    background: #f8f8f8;
-    border: 1px solid #dddddd;
-  } */
 
   .token.comment,
   .token.prolog,
