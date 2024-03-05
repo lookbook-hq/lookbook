@@ -6,11 +6,11 @@ export default AlpineComponent("navTreeItem", () => {
       this.toggleChildren = this.toggleChildren.bind(this);
       this.$el.expanded = this.expanded.includes(this.$el.getAttribute("key"));
 
-      this.$nextTick(() =>
+      this.$nextTick(() => {
         this.$el.shadowRoot
           .querySelector("[part='expand-button']")
-          .addEventListener("click", this.toggleChildren)
-      );
+          .addEventListener("click", this.toggleChildren);
+      });
     },
 
     toggleChildren(event) {
@@ -21,7 +21,7 @@ export default AlpineComponent("navTreeItem", () => {
     async itemClicked(event) {
       event.stopPropagation();
 
-      const item = event.target;
+      const item = event.target.closest("sl-tree-item");
       const href = item.getAttribute("href");
       const hasChildren =
         item.getChildrenItems && item.getChildrenItems().length;
