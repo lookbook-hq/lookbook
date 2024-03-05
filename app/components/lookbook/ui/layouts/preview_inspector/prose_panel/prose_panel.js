@@ -1,5 +1,5 @@
 import AlpineComponent from "@js/alpine/component";
 
-export default AlpineComponent("markdownPanel", () => {
+export default AlpineComponent("prosePanel", () => {
   return {};
 });

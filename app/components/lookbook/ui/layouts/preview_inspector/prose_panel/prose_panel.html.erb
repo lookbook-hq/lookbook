@@ -1,0 +1,3 @@
+<%= render Lookbook::UI::Panel.new(**tag_attrs, x: {data: "prosePanel"}, data: {panel: "prose"}) do |panel| %>  
+  <%= lookbook_prose(markdown: markdown?) { content } %>
+<% end %>

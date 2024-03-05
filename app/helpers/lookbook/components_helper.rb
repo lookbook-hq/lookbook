@@ -8,7 +8,7 @@ module Lookbook
       render Lookbook::UI::PreviewInspector.new(preview: preview, target: target, **kwargs), &block
     end
 
-    def lookbook_preview_inspector_panel(type = :default, **kwargs, &block)
+    def lookbook_inspector_panel(type = :default, **kwargs, &block)
       component_types = Lookbook::UI::PreviewInspector::PANEL_COMPONENTS
       component = component_types[type.to_sym] || component_types[:default]
 
@@ -29,6 +29,10 @@ module Lookbook
 
     def lookbook_pane(id = nil, **kwargs, &block)
       render Lookbook::UI::Pane.new(id: id, **kwargs), &block
+    end
+
+    def lookbook_panel(id = nil, **kwargs, &block)
+      render Lookbook::UI::Panel.new(id: id, **kwargs), &block
     end
 
     def lookbook_nav_tree(id = nil, tree = nil, **kwargs, &block)

@@ -1,0 +1,9 @@
+[data-component="panel"][data-panel="prose"] {
+  height: 100%;
+
+  [data-component="prose"] {
+    padding-inline: var(--sl-spacing-medium);
+    height: 100%;
+    overflow: auto;
+  }
+}

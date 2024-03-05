@@ -4,7 +4,7 @@ module Lookbook
       PANEL_COMPONENTS = {
         default: "Lookbook::UI::DefaultPanel",
         code: "Lookbook::UI::CodePanel",
-        markdown: "Lookbook::UI::MarkdownPanel"
+        prose: "Lookbook::UI::ProsePanel"
       }
 
       with_slot :preview_panel do |panel, &block|
@@ -41,9 +41,7 @@ module Lookbook
       end
 
       def add_panel(pane_name, panel, &block)
-        public_send(pane_name).with_tab(panel.name, label: panel.label) do
-          lookbook_preview_inspector_panel(panel.type, id: dom_id(target, "panel-#{panel.name}"), &block)
-        end
+        public_send(pane_name).with_tab(panel.name, label: panel.label, &block)
       end
 
       def drawer? = drawer_pane.tabs?

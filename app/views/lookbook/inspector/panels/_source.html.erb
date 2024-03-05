@@ -1,9 +1,11 @@
+<%= lookbook_inspector_panel(:code, id: dom_id(target, :source_panel), language: target.source_language) do %>
 <% target.scenarios.each do |scenario| %>
 <% if target.scenarios.many? %>
-# <%= scenario.label %>
+<%= code_comment(scenario.source_language, scenario.label) %>
 <%= scenario.source %>
 
 <% else %>
 <%= scenario.source %>
+<% end %>
 <% end %>
 <% end %>

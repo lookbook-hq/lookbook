@@ -5,7 +5,7 @@ module Lookbook
     def initialize(name, partial, label: nil, type: nil, **kwargs)
       @name = Utils.name(name).to_sym
       @partial = partial
-      @label = label || name.titleize
+      @label = label || name.to_s.titleize
       @type = type || :default
     end
   end
