@@ -21,7 +21,7 @@ PATH
       redcarpet (~> 3.5)
       rouge (>= 3.26, < 5.0)
       view_component (>= 2.0)
-      yard (~> 0.9.25)
+      yard (~> 0.9)
       zeitwerk (~> 2.5)
 
 GEM
@@ -260,12 +260,13 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    yard (0.9.34)
+    yard (0.9.36)
     yard-activesupport-concern (0.0.1)
       yard (>= 0.8)
     zeitwerk (2.6.12)
 
 PLATFORMS
+  arm64-darwin-21
   arm64-darwin-22
   x86_64-linux
 
