@@ -1,10 +1,7 @@
 module Lookbook
   module UI
     class ProsePanel < BaseComponent
-      attr_reader :id
-
-      def initialize(id:, markdown: false, **kwargs)
-        @id = id
+      def initialize(markdown: true, **kwargs)
         @markdown = markdown
       end
 

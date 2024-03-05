@@ -1,8 +1,4 @@
-<%= render component_tag(
-  id: id,
-  x: {
-    data: "previewOverview"
-  }) do %>
+<%= render component_tag(id: id, x: { data: "previewOverview" }) do %>
   <%= lookbook_pane(id: "#{id}-#{preview.id}-pane") do |pane| %>
     <% pane.with_title do %>
       <sl-icon name="layers" class="po-title-icon"></sl-icon>

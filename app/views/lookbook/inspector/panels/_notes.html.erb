@@ -1,12 +1,12 @@
 
-<%= lookbook_inspector_panel(:prose, id: dom_id(target, :notes_panel)) do %>
+<%= lookbook_inspector_panel(id: dom_id(target, :notes_panel), padded: true) do %>
   <% if target.scenarios_with_notes.any? %>
   <% target.scenarios_with_notes do |scenario, notes| %>
   <section style="padding-block: var(--sl-spacing-medium); <%= 'border-bottom: 1px solid var(--lookbook-divider-color);' unless scenario == target.scenarios_with_notes.last %>">
     <% if target.scenarios.many? %>
       <h3 style="color: var(--sl-color-neutral-400); margin-bottom: var(--sl-spacing-small);"><%= scenario.label %></h3>
     <% end %>
-    <%= markdown(notes) %>
+    <%= lookbook_prose { notes } %>
   </section>
   <% end %>
   <% else %>

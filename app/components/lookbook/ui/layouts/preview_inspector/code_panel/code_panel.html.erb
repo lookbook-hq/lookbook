@@ -1,4 +1,4 @@
-<%= lookbook_panel(**tag_attrs, x: {data: "codePanel"}, data: {panel: "code"}) do |panel| %>
+<%= lookbook_panel(**args, x: {data: "codePanel"}, data: {panel: "code"}) do |panel| %>
   <% panel.with_action do %>
     <sl-copy-button from="<%= copy_target_id %>"></sl-copy-button>
   <% end %>

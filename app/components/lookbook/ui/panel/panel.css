@@ -28,4 +28,16 @@
     height: 100%;
     overflow: hidden;
   }
+
+  &[data-padded="true"] {
+    .panel-content {
+      padding-inline: var(--sl-spacing-medium);
+    }
+  }
+
+  &[data-scrollable="true"] {
+    .panel-content {
+      overflow: auto;
+    }
+  }
 }
