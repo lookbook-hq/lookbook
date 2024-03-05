@@ -2,6 +2,8 @@
   height: 100%;
   width: 100%;
   position: relative;
+  display: grid;
+  grid-template-rows: min-content 1fr;
 
   .pane-toolbar {
     height: var(--lookbook-toolbar-height);

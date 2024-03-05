@@ -1,7 +1,6 @@
 module Lookbook
   class EntityTree
     delegate :to_json, to: :to_hash
-    delegate :to_hash, to: :tree
 
     delegate_missing_to :tree
 
@@ -39,7 +38,7 @@ module Lookbook
 
     def tree
       @tree ||= begin
-        root_node = EntityTreeNode.new("", nil)
+        root_node = EntityTreeNode.new("", root: true)
 
         node_entities.map(&:lookup_path).each do |lookup_path|
           current_path = ""
@@ -54,6 +53,7 @@ module Lookbook
               entity = node_entities.find { _1.lookup_path == current_path }
               next_node = tree_node(current_path, entity)
               current_node.children << next_node
+              next_node.parent = current_node
             end
 
             current_node = next_node

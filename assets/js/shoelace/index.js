@@ -17,6 +17,9 @@ import "@shoelace-style/shoelace/dist/components/tab-group/tab-group.js";
 import "@shoelace-style/shoelace/dist/components/tab/tab.js";
 import "@shoelace-style/shoelace/dist/components/tab-panel/tab-panel.js";
 
+import "@shoelace-style/shoelace/dist/components/breadcrumb/breadcrumb.js";
+import "@shoelace-style/shoelace/dist/components/breadcrumb-item/breadcrumb-item.js";
+
 import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
 import "@shoelace-style/shoelace/dist/components/resize-observer/resize-observer.js";
 

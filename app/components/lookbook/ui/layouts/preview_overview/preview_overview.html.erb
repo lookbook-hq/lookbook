@@ -4,27 +4,43 @@
     data: "previewOverview"
   }) do %>
   <%= lookbook_pane(id: "#{id}-#{preview.id}-pane") do |pane| %>
-    
     <% pane.with_title do %>
-      <sl-icon name="layers" class="po-icon"></sl-icon>
+      <sl-icon name="layers" class="po-title-icon"></sl-icon>
       <span class="po-title">
         <%= preview.label %>
       </span>
     <% end %>
-    
-    <section class="po-targets">
-      <h4 class="po-section-title">Previews:</h4>
 
-      <ol>
-        <% targets.each do |target| %>
-          <li class="po-target">
-            <sl-button href="<%= target.url_path %>" variant="default" size="small">
-              <sl-icon slot="prefix" name="eye"></sl-icon>
-              <%= target.label %>
-            </sl-button>
-          </li>
+    <div class="po-breadcrumbs">
+      <span class="po-breadcrumb"><%= preview_collection_label %></span>
+      <sl-icon name="chevron-right" class="po-breadcrumb-divider"></sl-icon>
+      <% breadcrumbs.each do |node| %>
+        <span class="po-breadcrumb"><%= node.label %></span>
+        <% unless node == breadcrumbs.last %>
+          <sl-icon name="chevron-right" class="po-breadcrumb-divider"></sl-icon>
         <% end %>
-      </ol>
-    <section>
+      <% end %>
+    </div>    
+
+    <div class="po-content">
+      <section class="po-targets">
+        <% if false %>
+          <h4 class="po-section-title">
+            <%= pluralize(targets.size, "preview") %>
+          </h4>  
+        <% end %>
+        
+        <ol>
+          <% targets.each do |target| %>
+            <li class="po-target">
+              <sl-button href="<%= target.url_path %>" variant="default" size="small">
+                <sl-icon slot="prefix" name="eye"></sl-icon>
+                <%= target.label %>
+              </sl-button>
+            </li>
+          <% end %>
+        </ol>
+      </section>
+    </div>
   <% end %>
 <% end %>
