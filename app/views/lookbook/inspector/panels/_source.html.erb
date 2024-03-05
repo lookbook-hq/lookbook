@@ -1,5 +1,9 @@
 <% target.scenarios.each do |scenario| %>
+<% if target.scenarios.many? %>
 # <%= scenario.label %>
 <%= scenario.source %>
 
+<% else %>
+<%= scenario.source %>
+<% end %>
 <% end %>

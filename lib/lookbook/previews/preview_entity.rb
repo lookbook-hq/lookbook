@@ -35,6 +35,14 @@ module Lookbook
       preview_class.instance_variable_get(:@layout)
     end
 
+    def notes
+      code_object.docstring.to_s.strip
+    end
+
+    def notes?
+      notes.present?
+    end
+
     def scenarios
       @scenarios ||= begin
         public_methods = preview_class.public_instance_methods(false)

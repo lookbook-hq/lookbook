@@ -1,0 +1,7 @@
+<%= render component_tag(x: {data: "prose"}) do %>
+  <% if markdown? %>
+    <%= markdown(content) %>
+  <% else %>
+    <%= content %>  
+  <% end %>
+<% end %>

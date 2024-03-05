@@ -4,7 +4,8 @@ module Lookbook
   module Markdown
     class << self
       def render(text = nil, **kwargs, &block)
-        renderer(kwargs).render(text || block.call)
+        content = text || block.call
+        renderer(kwargs).render(content.to_s.strip_heredoc.strip)
       end
 
       private

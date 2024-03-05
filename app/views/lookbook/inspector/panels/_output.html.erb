@@ -1,6 +1,6 @@
 
 <% target.scenarios_with_output do |scenario, output_html| %>
-<% if target.scenarios.many? %>
+<% if target.scenarios_with_output.many? %>
 <!-- <%= scenario.label %> -->
 <%= output_html %>
 

@@ -43,9 +43,27 @@ module Lookbook
     end
 
     def scenarios_with_output
-      scenarios.each do |scenario|
-        yield(scenario, @rendered_scenarios[scenario.name.to_sym])
+      if block_given?
+        scenarios.each do |scenario|
+          yield(scenario, @rendered_scenarios[scenario.name.to_sym])
+        end
+      else
+        scenarios
       end
+    end
+
+    def scenarios_with_notes
+      if block_given?
+        scenarios.each do |scenario|
+          yield(scenario, scenario.notes) if scenario.notes.present?
+        end
+      else
+        scenarios.select { _1.notes.present? }
+      end
+    end
+
+    def notes?
+      scenarios.find { _1.notes.present? }
     end
 
     def preview = preview_entity

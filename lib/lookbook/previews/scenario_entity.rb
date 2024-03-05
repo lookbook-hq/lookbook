@@ -34,6 +34,10 @@ module Lookbook
       preview_target_path(preview, self)
     end
 
+    def notes
+      code_object.docstring.to_s.strip
+    end
+
     def source
       src = if custom_render_template?
         template_source(render_template_name)

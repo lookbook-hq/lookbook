@@ -23,6 +23,12 @@
     </div>
 
     <div class="po-content">
+      <% if preview.notes? %>
+        <section class="po-notes">
+          <%= lookbook_prose { preview.notes } %>
+        </section>
+      <% end %>
+
       <section class="po-targets">
         <% if false %>
           <h4 class="po-section-title">

@@ -22,11 +22,15 @@
   .po-content {
     height: 100%;
     overflow: auto;
-  }
 
-  section {
-    padding-block: var(--sl-spacing-large);
-    padding-inline: var(--sl-spacing-medium);
+    section {
+      padding-block: var(--sl-spacing-large);
+      padding-inline: var(--sl-spacing-medium);
+    }
+
+    section + section {
+      border-top: 1px solid var(--lookbook-divider-color);
+    }
   }
 
   .po-section-title {
