@@ -51,6 +51,22 @@ module Lookbook
         ["rb", "html.*", Lookbook.config.page_watch_extensions].flatten.compact.uniq
       end
 
+      def to_lookup_path(page_path)
+        path = page_path.to_s.downcase
+
+        directory_path = File.dirname(path)
+        directory_path = nil if directory_path.start_with?(".")
+
+        file_name = File.basename(path).split(".").first
+
+        segments = [*directory_path&.split("/"), file_name].compact
+        segments.map! do |segment|
+          PriorityPrefixParser.call(segment).last.tr("-", "_")
+        end
+
+        Utils.to_path(segments)
+      end
+
       private
 
       def store

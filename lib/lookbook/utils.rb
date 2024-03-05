@@ -40,6 +40,10 @@ module Lookbook
         Pathname(path) if path
       end
 
+      def to_path(*args)
+        args.flatten.compact.map(&:to_s).join("/")
+      end
+
       def strip_slashes(path)
         path.to_s.gsub(/\A\/|\/\z/, "")
       end

@@ -7,13 +7,19 @@ module Lookbook
     def parse(paths = @page_paths, &callback)
       glob_paths = paths.to_a.map do |path|
         if File.directory?(path)
-          "#{path}/**/*{html,md}.erb"
+          ["#{path}/**/*.html.*", "#{path}/**/*.md.*", "#{path}/**/*.md"]
         elsif path.to_s.end_with?(".erb")
           path.to_s
         end
-      end.compact
+      end.flatten.compact
 
-      callback.call([]) # TODO
+      file_paths = Dir.glob(glob_paths)
+      page_entities = file_paths.map { PageEntity.new(_1) }
+
+      puts "-----------------------------------------"
+      p page_entities.map(&:lookup_path)
+
+      callback.call(page_entities)
     end
   end
 end

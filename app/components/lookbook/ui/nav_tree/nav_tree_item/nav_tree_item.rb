@@ -10,6 +10,9 @@ module Lookbook
         },
         directory: {
           icon: :folder
+        },
+        page: {
+          icon: :file
         }
       }
 
