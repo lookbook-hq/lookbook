@@ -1,5 +1,3 @@
-@import "npm:codejar-linenumbers/es/codejar-linenumbers.css";
-
 [data-component="code"] {
   display: block;
   &:focus-visible {

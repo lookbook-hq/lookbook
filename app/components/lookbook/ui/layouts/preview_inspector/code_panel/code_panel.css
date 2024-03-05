@@ -2,8 +2,14 @@
   .code-panel-code {
     height: 100%;
     overflow: auto;
+
     [data-component="code"] {
       height: 100%;
+
+      pre,
+      code {
+        height: 100%;
+      }
     }
   }
 
