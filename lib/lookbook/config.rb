@@ -7,7 +7,6 @@ module Lookbook
         options({
           project_name: "Lookbook",
 
-          preview_collection_label: "Previews",
           preview_controller: "LookbookPreviewController",
           preview_template: "lookbook/previews/preview",
           preview_layout: nil,
@@ -15,10 +14,16 @@ module Lookbook
           preview_watch_paths: [],
           preview_watch_extensions: ["rb", "html.*"],
 
+          previews_nav_label: "Previews",
+          previews_nav_filter: true,
+
           inspector_target_preview_template: "lookbook/inspector/preview",
           inspector_panels: default_inspector_panels,
           inspector_preview_panels: [:preview, :output],
           inspector_drawer_panels: [:source, :notes],
+
+          pages_nav_label: "Pages",
+          pages_nav_filter: true,
 
           component_paths: ["app/views", "app/components"],
 

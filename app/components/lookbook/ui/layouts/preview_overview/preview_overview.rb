@@ -9,8 +9,8 @@ module Lookbook
         @targets = targets
       end
 
-      def preview_collection_label
-        Lookbook.config.preview_collection_label
+      def previews_nav_label
+        Lookbook.config.previews_nav_label
       end
 
       def nav_node

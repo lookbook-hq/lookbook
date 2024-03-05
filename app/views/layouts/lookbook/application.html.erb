@@ -23,8 +23,8 @@
       <%= link_to @config.project_name, root_path %>
     <% end %>
 
-    <% layout.with_sidebar do %>
-      <%= render "sidebar", previews: @previews %>
+    <% layout.with_sidebar do |sidebar| %>
+      <%= sidebar.with_previews_nav(@inspector.nav_tree) %>
     <% end %>
 
     <% layout.with_main do %>
