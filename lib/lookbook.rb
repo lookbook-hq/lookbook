@@ -9,6 +9,7 @@ loader.ignore("#{__dir__}/lookbook/filesystem/evented_file_update_checker.rb")
 loader.collapse("#{__dir__}/lookbook/concerns")
 loader.collapse("#{__dir__}/lookbook/errors")
 loader.collapse("#{__dir__}/lookbook/inspector")
+loader.collapse("#{__dir__}/lookbook/markdown")
 loader.collapse("#{__dir__}/lookbook/previews")
 loader.collapse("#{__dir__}/lookbook/services")
 loader.setup

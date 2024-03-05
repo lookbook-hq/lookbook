@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     lookbook (3.0.0.pre.alpha.0)
+      redcarpet
       yard
       zeitwerk
 
@@ -194,6 +195,7 @@ GEM
     rake (13.1.0)
     rdoc (6.6.2)
       psych (>= 4.0.0)
+    redcarpet (3.6.0)
     regexp_parser (2.9.0)
     reline (0.4.2)
       io-console (~> 0.5)

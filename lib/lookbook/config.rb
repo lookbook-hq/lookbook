@@ -22,6 +22,8 @@ module Lookbook
 
           component_paths: ["app/views", "app/components"],
 
+          markdown_options: default_markdown_options,
+
           reload_on_change: nil,
           mount_path: "/lookbook"
         })
@@ -50,6 +52,10 @@ module Lookbook
             type: :markdown
           }
         }
+      end
+
+      def default_markdown_options
+        {}
       end
 
       private
