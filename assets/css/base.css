@@ -74,6 +74,7 @@ button,
 textarea,
 select {
   font: inherit;
+  font-size: var(--sl-font-size-small);
 }
 
 router {

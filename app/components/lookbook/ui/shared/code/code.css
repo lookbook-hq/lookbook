@@ -1,9 +1,5 @@
 [data-component="code"] {
   display: block;
-  &:focus-visible {
-    outline: 0;
-    border: 0;
-  }
 
   code,
   pre {

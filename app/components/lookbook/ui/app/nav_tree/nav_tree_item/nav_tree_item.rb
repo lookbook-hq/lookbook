@@ -16,9 +16,7 @@ module Lookbook
         }
       }
 
-      delegate :label, :lookup_path, :children, :url_path, :type, to: :node
-
-      tag_attr :href, :key
+      delegate :label, :lookup_path, :children, :url_path, :type, :search_terms, to: :node
 
       attr_reader :node
 
@@ -28,6 +26,10 @@ module Lookbook
 
       def icon
         ENTITY_DISPLAY_ATTRIBUTES.dig(type, :icon) || :folder
+      end
+
+      def collection?
+        type == :directory || type == :preview
       end
     end
   end

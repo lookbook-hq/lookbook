@@ -5,10 +5,13 @@ module Lookbook
 
       attr_reader :id, :tree
 
-      def initialize(id:, tree:, **kwargs)
+      def initialize(id:, tree:, filter: true, **kwargs)
         @id = id
         @tree = tree
+        @filter = filter
       end
+
+      def filter? = @filter
     end
   end
 end

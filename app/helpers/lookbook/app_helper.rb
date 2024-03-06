@@ -49,6 +49,10 @@ module Lookbook
       render Lookbook::UI::NavTreeItem.new(node: node, **kwargs), &block
     end
 
+    def lookbook_nav_tree_filter(**kwargs, &block)
+      render Lookbook::UI::NavTreeFilter.new(**kwargs), &block
+    end
+
     def lookbook_viewport(src, **kwargs)
       render Lookbook::UI::Viewport.new(src: src, **kwargs)
     end

@@ -2,7 +2,7 @@ module Lookbook
   module UI
     class SidebarSection < BaseComponent
       with_slot :nav do |id, nav_tree|
-        lookbook_nav_tree(id, nav_tree)
+        lookbook_nav_tree(id, nav_tree, filter: @filter)
       end
 
       attr_reader :id, :title
@@ -12,8 +12,6 @@ module Lookbook
         @title = title
         @filter = filter
       end
-
-      def filter? = @filter
     end
   end
 end

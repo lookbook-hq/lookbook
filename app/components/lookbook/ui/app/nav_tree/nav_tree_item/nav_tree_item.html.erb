@@ -2,8 +2,10 @@
   href: url_path,
   key: lookup_path,
   x: {
-    "data": "navTreeItem",
-    "@click": "itemClicked",
+    data: "navTreeItem({keywords: #{search_terms.to_json}, collection: #{collection?.to_json}})",
+    show: "!filteredOut",
+    cloak: true,
+    "@click": "itemClicked"
   }
 ) do %>
   <sl-icon name="<%= icon %>"></sl-icon>

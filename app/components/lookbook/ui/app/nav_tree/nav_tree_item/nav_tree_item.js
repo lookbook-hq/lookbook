@@ -1,8 +1,15 @@
 import AlpineComponent from "@js/alpine/component";
 
-export default AlpineComponent("navTreeItem", () => {
+export default AlpineComponent("navTreeItem", ({ keywords, collection }) => {
   return {
+    keywords: [],
+    isCollection: false,
+    filteredOut: false,
+
     init() {
+      this.keywords = keywords || [];
+      this.isCollection = collection || false;
+
       this.toggleChildren = this.toggleChildren.bind(this);
       this.$el.expanded = this.expanded.includes(this.$el.getAttribute("key"));
 
@@ -34,6 +41,30 @@ export default AlpineComponent("navTreeItem", () => {
       } else {
         if (hasChildren) item.expanded = !item.expanded;
       }
+    },
+
+    async filter(text) {
+      if (this.isCollection) {
+        this.filteredOut = true;
+        this.$root.getChildrenItems().forEach(async (child) => {
+          const data = Alpine.$data(child);
+          await data.filter(text);
+          if (!data.filteredOut) {
+            this.filteredOut = false;
+          }
+        });
+      } else {
+        this.filteredOut = !this.match(text);
+      }
+      return this;
+    },
+
+    match(text) {
+      if (text.length) {
+        const matched = this.keywords.map((k) => k.includes(text));
+        return matched.filter((m) => m).length;
+      }
+      return true;
     },
 
     destroy() {

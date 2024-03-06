@@ -26,6 +26,10 @@ module Lookbook
       @parent = node
     end
 
+    def search_terms
+      parents.map { _1.label.downcase }
+    end
+
     def parents
       @parents ||= begin
         nodes = []

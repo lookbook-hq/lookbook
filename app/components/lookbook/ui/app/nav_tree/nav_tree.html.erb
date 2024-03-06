@@ -1,14 +1,34 @@
-<%= render component_tag(:sl_tree,
+<%= render component_tag(:nav,
   id: id,
-  selection: "single",
+  class: {"with-filter": filter?},
   x: {
     "data": "navTree('#{id}')",
-    "@sl-expand": "itemExpanded",
-    "@sl-collapse": "itemCollapsed",
     "@lookbook:page-update.document": "selectCurrentPageItem(false)",
-    "@lookbook:page-load.document": "selectCurrentPageItem(true)"
+    "@lookbook:page-load.document": "selectCurrentPageItem(true)",
+    "effect": "filter()"
   }) do %>
-  <% children.each do |node| %>
-    <%= lookbook_nav_tree_item(node) %>
+  
+  <% if filter? %>
+    <div class="nav-filter">
+      <sl-input
+        size="small"
+        placeholder="Filter by name..."
+        x-ref="filter"
+        x-model="filterText"
+        @sl-clear="clearFilter"
+        @keydown.esc.stop="clearFilter"
+        @keydown.stop
+        clearable>
+        <sl-icon slot="clear-icon" name="x"></sl-icon>
+      </sl-input>
+    </div>
   <% end %>
+  
+  <div class="nav-tree">
+    <sl-tree x-ref="nav" selection="single" @sl-expand="itemExpanded" @sl-collapse="itemCollapsed">
+      <% children.each do |node| %>
+        <%= lookbook_nav_tree_item(node) %>
+      <% end %>
+    </sl-tree>
+  </div>
 <% end %>

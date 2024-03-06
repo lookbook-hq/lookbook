@@ -3,7 +3,8 @@ import AlpineComponent from "@js/alpine/component";
 export default AlpineComponent("navTree", (id) => {
   return {
     expanded: Alpine.$persist([]).as(`nav-tree#${id}:expanded-items`),
-    updating: false,
+    filterText: Alpine.$persist("").as(`nav-tree#${id}:filter-text`),
+    empty: false,
 
     async init() {
       this.$nextTick(async () => {
@@ -54,15 +55,39 @@ export default AlpineComponent("navTree", (id) => {
     },
 
     collapseAll() {
-      Array.from(this.items).forEach((item) => (item.expanded = false));
+      this.items.forEach((item) => (item.expanded = false));
+    },
+
+    async filter() {
+      const text = this.filterText;
+
+      await this.$nextTick();
+      const filteredStates = await Promise.all(
+        this.children.map(async (child) => {
+          const data = Alpine.$data(child);
+          await data.filter(text);
+          return data.filteredOut;
+        })
+      );
+
+      const matchedChildCount = filteredStates.filter((s) => !s).length;
+      this.empty = matchedChildCount === 0;
+    },
+
+    clearFilter() {
+      this.filterText = "";
+    },
+
+    get children() {
+      return Array.from(this.$refs.nav.children);
     },
 
     get items() {
-      return this.$root.querySelectorAll("sl-tree-item");
+      return Array.from(this.$refs.nav.querySelectorAll("sl-tree-item"));
     },
 
     get selected() {
-      return this.$root.querySelector("sl-tree-item[selected]");
+      return this.$refs.nav.querySelector("sl-tree-item[selected]");
     },
   };
 });

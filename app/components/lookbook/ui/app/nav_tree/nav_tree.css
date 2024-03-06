@@ -1,3 +1,42 @@
 [data-component="nav-tree"] {
-  --indent-size: var(--sl-spacing-small);
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 1fr;
+
+  &.with-filter {
+    grid-template-rows: min-content 1fr;
+  }
+
+  .nav-filter {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding-block: var(--sl-spacing-x-small);
+    padding-inline: var(--sl-spacing-small);
+
+    sl-input {
+      &::part(input) {
+        padding-inline: var(--sl-spacing-x-small);
+      }
+
+      &::part(clear-button) {
+        transform: translateX(0.3rem);
+      }
+    }
+  }
+
+  .nav-tree {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    padding-bottom: var(--sl-spacing-medium);
+  }
+
+  sl-tree {
+    --indent-size: var(--sl-spacing-small);
+  }
 }
