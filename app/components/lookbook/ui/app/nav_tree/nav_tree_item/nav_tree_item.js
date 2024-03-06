@@ -30,7 +30,7 @@ export default AlpineComponent("navTreeItem", () => {
         if (hasChildren) {
           item.expanded = !item.selected ? true : !item.expanded;
         }
-        if (!item.selected) this.$dispatch("visit", { url: href });
+        if (!item.selected) this.$dispatch("lookbook:visit", { url: href });
       } else {
         if (hasChildren) item.expanded = !item.expanded;
       }

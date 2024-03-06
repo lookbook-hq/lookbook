@@ -10,9 +10,13 @@ export default AlpineComponent("pageViewport", () => {
       try {
         const data = JSON.parse(event.data);
         if (data.action === "visit") {
-          this.$dispatch("visit", { url: data.url });
+          this.$dispatch("lookbook:visit", { url: data.url });
         }
       } catch {}
+    },
+
+    reload() {
+      this.$refs.iframe.contentWindow.location.reload(true);
     },
   };
 });

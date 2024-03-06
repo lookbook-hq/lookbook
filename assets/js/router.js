@@ -21,7 +21,7 @@ export default class Router {
     });
 
     // Handle `visit` events
-    addEventListener("visit", (event) => this.visit(event.detail.url));
+    addEventListener("lookbook:visit", (event) => this.visit(event.detail.url));
 
     // Handle history navigation
     addEventListener("popstate", () => this.visit(window.location, false));
@@ -48,7 +48,6 @@ export default class Router {
 
   visit(url, updateHistory = true) {
     this.$logger.info(`Navigating to ${url}`);
-    this.$dispatch("lookbook:visit", { url });
 
     if (updateHistory) history.pushState({}, "", url);
     this.loadPage(url);
