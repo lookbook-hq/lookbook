@@ -4,7 +4,7 @@ module Lookbook
     include Lookbook::PreviewActions
 
     included do
-      prepend_view_path File.expand_path("../../../views", __dir__)
+      prepend_view_path Engine.root.join("app/views")
 
       before_action :assign_preview, only: :lookbook_render_scenario
       before_action :assign_scenario, only: :lookbook_render_scenario

@@ -2,11 +2,15 @@ module Lookbook
   module AppHelper
     # Components
 
-    def lookbook_app_layout(**kwargs, &block)
+    def lookbook_router(events_endpoint = nil, **kwargs, &block)
+      render Lookbook::UI::Router.new(events_endpoint: events_endpoint, **kwargs), &block
+    end
+
+    def lookbook_app(**kwargs, &block)
       render Lookbook::UI::App.new(**kwargs), &block
     end
 
-    def lookbook_preview_inspector_layout(preview, target, **kwargs, &block)
+    def lookbook_preview_inspector(preview, target, **kwargs, &block)
       render Lookbook::UI::PreviewInspector.new(preview: preview, target: target, **kwargs), &block
     end
 
@@ -17,7 +21,7 @@ module Lookbook
       render component.constantize.new(**kwargs), &block
     end
 
-    def lookbook_preview_overview_layout(preview, targets = [], **kwargs, &block)
+    def lookbook_preview_overview(preview, targets = [], **kwargs, &block)
       render Lookbook::UI::PreviewOverview.new(preview: preview, targets: targets, **kwargs), &block
     end
 
@@ -49,8 +53,8 @@ module Lookbook
       render Lookbook::UI::Viewport.new(src: src, **kwargs)
     end
 
-    def lookbook_page_viewport(src = nil, **kwargs, &block)
-      render Lookbook::UI::PageViewport.new(src: src, **kwargs), &block
+    def lookbook_page_reader(src = nil, **kwargs, &block)
+      render Lookbook::UI::Reader.new(src: src, **kwargs), &block
     end
 
     # Other

@@ -1,3 +1,3 @@
-<%= render component_tag(x: {data: "pageViewport", "@lookbook:page-update.window": "reload"}) do %>
+<%= render component_tag(x: {data: "reader", "@lookbook:page-update.window": "reload"}) do %>
   <iframe x-ref="iframe" src="<%= src %>" frameborder="0" @message.window="handleMessage" seamless></iframe>
 <% end %>

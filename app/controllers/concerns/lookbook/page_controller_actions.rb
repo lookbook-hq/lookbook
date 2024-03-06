@@ -5,10 +5,9 @@ module Lookbook
 
     included do
       layout Lookbook.config.page_layout
-      helper Lookbook::AssetHelper
       helper Lookbook::PageHelper
 
-      prepend_view_path File.expand_path("../../../views", __dir__)
+      prepend_view_path Engine.root.join("app/views")
 
       before_action :assign_page, only: :lookbook_render_page
       around_action :set_locale, only: :lookbook_render_page

@@ -1,0 +1,11 @@
+<%= render component_tag(
+  :router,
+  x: {
+    data: "router(#{events_endpoint})",
+    "@click": "handleClick",
+    "@lookbook:visit": "visit($event.detail.url)",
+    "@popstate.window": "visit(location, false)",
+    "@visibilitychange.document": "handleVisibilityChange"
+  }) do %>
+  <%= content %>
+<% end %>

@@ -25,6 +25,8 @@ module Lookbook
           inspector_preview_panels: [:preview, :output],
           inspector_drawer_panels: [:source, :notes],
 
+          sidebar_nav_panels: [:previews, :pages],
+
           page_paths: ["test/components/docs"],
           page_watch_paths: [],
           page_watch_extensions: ["rb", "html.*"],
@@ -32,6 +34,7 @@ module Lookbook
           page_controller: "LookbookPageController",
           page_template: "lookbook/pages/page",
           page_layout: "lookbook/page",
+
           pages_nav_label: "Pages",
           pages_nav_filter: true,
 

@@ -1,6 +1,6 @@
 module Lookbook
   module UI
-    class PageViewport < BaseComponent
+    class Reader < BaseComponent
       attr_reader :src
 
       def initialize(src:, **kwargs)

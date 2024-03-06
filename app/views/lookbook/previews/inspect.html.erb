@@ -1,5 +1,5 @@
 <%=
-  lookbook_preview_inspector_layout(@preview, @target) do |layout|
+  lookbook_preview_inspector(@preview, @target) do |layout|
     @inspector.preview_panels.each do |panel|
       layout.with_preview_panel(panel) do
         render panel.partial

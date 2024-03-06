@@ -7,7 +7,7 @@
     "build": "npm run parcel:clean && npm run shoelace:prepare:build && npm run parcel:build",
     "shoelace:prepare:dev": "copyfiles -u 5 ./node_modules/@shoelace-style/shoelace/dist/assets/**/* ./public/lookbook-dev/shoelace/assets",
     "shoelace:prepare:build": "copyfiles -u 5 ./node_modules/@shoelace-style/shoelace/dist/assets/**/* ./public/lookbook-assets/shoelace/assets",
-    "parcel:clean": "rm -rf .parcel-cache",
+    "parcel:clean": "rm -rf .parcel-cache && rm -rf ./public/lookbook-dev",
     "parcel:dev": "parcel watch -p 5111 --target app-development",
     "parcel:build": "parcel build --no-cache --target app-production"
   },

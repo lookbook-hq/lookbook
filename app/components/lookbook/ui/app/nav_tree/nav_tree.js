@@ -9,8 +9,6 @@ export default AlpineComponent("navTree", (id) => {
       this.$nextTick(async () => {
         await this.$el.updateComplete;
         this.selectCurrentPageItem(true);
-
-        this.$logger.debug("Nav tree initialized", this.$el);
       });
     },
 

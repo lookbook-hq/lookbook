@@ -6,19 +6,13 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <% if @events_endpoint %>
-    <script>
-      LOOKBOOK_SSE_ENDPOINT = "<%= @events_endpoint %>";
-    </script>
-  <% end %> 
-
   <%= lookbook_asset_tags("app") %>
   
   <title>Lookbook</title>
 </head>
 <body>
-<router>
-  <%= lookbook_app_layout do |layout| %>
+<%= lookbook_router(@events_endpoint.to_json) do %>
+  <%= lookbook_app do |layout| %>
     <% layout.with_header do %>
       <%= link_to @config.project_name, root_path %>
     <% end %>
@@ -32,6 +26,6 @@
       <%= content_for?(:main) ? yield(:main) : yield %>
     <% end %>    
   <% end %>
-</router>
+<% end %>
 </body>
 </html>
