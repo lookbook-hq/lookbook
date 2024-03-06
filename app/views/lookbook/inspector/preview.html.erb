@@ -1,16 +1,16 @@
 
-<% target.scenarios_with_output do |scenario, output_html| %>
-  <% if target.scenarios.many? %>
-  <section style="margin-bottom: 2rem;">
-    <header style="margin-bottom: 0.5rem;">
-      <span style="display: inline-block; margin-right: 0.3rem;"><%= scenario.label %></span>
-      <a style="font-size: 0.8rem;" href="<%= scenario.preview_path %>" target="_blank">[open in new window]</a>
-    </header>
-    <div>
-      <%= output_html %>
-    </div>
-  </section>
+<% @target.scenarios_with_output do |scenario, html| %>
+  <% if @target.scenarios.many? %>
+    <section style="margin-bottom: 2rem;">
+      <header style="margin-bottom: 0.5rem;">
+        <span style="display: inline-block; margin-right: 0.3rem;"><%= scenario.label %></span>
+        <a style="font-size: 0.8rem;" href="<%= scenario.preview_path %>" target="_blank">[open in new window]</a>
+      </header>
+      <div>
+        <%= html %>
+      </div>
+    </section>
   <% else %>
-    <%= output_html %>
+    <%= html %>
   <% end %>
 <% end %>

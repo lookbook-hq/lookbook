@@ -1,8 +1,17 @@
-<%= render component_tag(
-  :article,
-  x: {
-    data: "page"
-    # "@click": "handlePageClick"
-  }) do %>
-  <%= lookbook_prose { content } %>
+<%= render component_tag(:article, x: {data: "page"}) do %>
+  <div class="page-header-wrapper page-slat">
+    <header class="page-header page-container">
+      <h1 class="page-title"><%= page.title %></h1>
+    </header>
+  </div>
+
+  <div class="page-body-wrapper page-slat">
+    <section class="page-body page-container">
+      <%= lookbook_prose { page.content } %>
+    </section>
+  </div>
+
+  <div class="page-footer-wrapper page-slat">
+    <!-- footer class="page-footer page-container"></-->
+  </div>
 <% end %>

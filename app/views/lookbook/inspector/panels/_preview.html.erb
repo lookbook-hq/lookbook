@@ -1,1 +1,3 @@
-<%= lookbook_viewport(target.preview_path) %>
+<%= lookbook_inspector_panel(id: dom_id(@target, :preview_panel)) do %>
+  <%= lookbook_viewport(@target.preview_path) %>
+<% end %>

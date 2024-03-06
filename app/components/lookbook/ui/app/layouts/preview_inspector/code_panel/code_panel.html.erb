@@ -4,7 +4,7 @@
   <% end %>
   
   <div class="code-panel-code">
-    <%= lookbook_code(language) { content } %>
+    <%= lookbook_code(content, language: language) %>
   </div>
-  <div id="<%= copy_target_id %>" class="code-panel-raw"><%= raw copy_source %></div>
+  <div id="<%= copy_target_id %>" class="code-panel-raw"><%= copy_source %></div>
 <% end %>

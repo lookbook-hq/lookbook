@@ -20,6 +20,8 @@ module Lookbook
       prepend_application_view_paths
 
       @config = Lookbook.config
+      @pages = Pages.all
+      @content = render_to_string(inline: @page.content, layout: false)
 
       render Lookbook.config.page_template
     end

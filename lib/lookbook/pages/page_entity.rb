@@ -1,10 +1,15 @@
 module Lookbook
   class PageEntity < Entity
-    attr_reader :file_path
+    attr_reader :file_path, :frontmatter
 
     def initialize(file_path)
       @file_path = file_path
       @base_directories = Pages.page_paths
+      @frontmatter, @content = FrontmatterExtractor.call(file_contents)
+    end
+
+    def id
+      @id ||= Utils.id(lookup_path)
     end
 
     def name
@@ -13,6 +18,10 @@ module Lookbook
 
     def title
       label
+    end
+
+    def content
+      @content.strip_heredoc.strip.html_safe
     end
 
     def url_param
@@ -61,6 +70,12 @@ module Lookbook
         directories = Array(@base_directories).map(&:to_s).sort_by { |path| path.split("/").size }.reverse
         directories.find { |dir| file_path.to_s.start_with?(dir) }
       end
+    end
+
+    private
+
+    def file_contents
+      @file_contents ||= File.read(file_path)
     end
   end
 end

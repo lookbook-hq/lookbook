@@ -13,7 +13,7 @@ module Lookbook
       end
 
       def copy_source
-        WhitespaceStripper.call(CGI.escapeHTML(content.to_s))
+        WhitespaceStripper.call(content).html_safe
       end
     end
   end

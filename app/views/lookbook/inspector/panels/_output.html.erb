@@ -1,6 +1,6 @@
-<%= lookbook_inspector_panel(:code, id: dom_id(target, :output_panel), language: :html) do %>
-<% target.scenarios_with_output do |scenario, html| %>
-<% if target.scenarios_with_output.many? -%>
+<%= lookbook_inspector_panel(:code, id: dom_id(@target, :output_panel), language: :html) do %>
+<% @target.scenarios_with_output do |scenario, html| %>
+<% if @target.scenarios_with_output.many? %>
 <%= code_comment(:html, scenario.label) %>
 <%= html %>
 

@@ -2,13 +2,13 @@
   lookbook_preview_inspector_layout(@preview, @target) do |layout|
     @inspector.preview_panels.each do |panel|
       layout.with_preview_panel(panel) do
-        render panel.partial, preview: @preview, target: @target
+        render panel.partial
       end
     end
 
     @inspector.drawer_panels.each do |panel|
       layout.with_drawer_panel(panel) do
-        render panel.partial, preview: @preview, target: @target
+        render panel.partial
       end
     end
   end

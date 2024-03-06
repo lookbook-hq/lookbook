@@ -65,7 +65,16 @@ module Lookbook
       end
 
       def default_markdown_options
-        {}
+        {
+          tables: true,
+          fenced_code_blocks: true,
+          disable_indented_code_blocks: true,
+          strikethrough: true,
+          highlight: true,
+          with_toc_data: true,
+          lax_spacing: true,
+          escape_html: false
+        }
       end
 
       def default_languages

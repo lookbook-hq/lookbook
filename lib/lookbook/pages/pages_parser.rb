@@ -16,9 +16,6 @@ module Lookbook
       file_paths = Dir.glob(glob_paths)
       page_entities = file_paths.map { PageEntity.new(_1) }
 
-      puts "-----------------------------------------"
-      p page_entities.map(&:lookup_path)
-
       callback.call(page_entities)
     end
   end
