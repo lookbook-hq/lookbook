@@ -16,7 +16,16 @@ module Lookbook
     end
 
     def url_param
-      @url_param ||= lookup_path.tr("/", ":")
+      case Lookbook.config.preview_url_param.to_sym
+      when :name
+        name
+      when :uuid
+        uuid
+      when :named_uuid
+        "#{name}_#{uuid}"
+      else
+        name
+      end
     end
 
     def lookup_path

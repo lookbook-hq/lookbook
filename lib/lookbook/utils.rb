@@ -50,7 +50,7 @@ module Lookbook
 
       def hash(*args)
         content = args.map(&:to_s).join("")
-        Digest::SHA1.hexdigest(content)
+        Digest::SHA1.hexdigest(content)[0, 6]
       end
 
       def current_timestamp_milliseconds
