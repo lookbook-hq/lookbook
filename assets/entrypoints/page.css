@@ -2,4 +2,4 @@
 @import "../css/tokens.css";
 @import "../css/base.css";
 
-@import "../../app/components/lookbook/ui/public/**/*.css";
+@import "../../app/components/lookbook/ui/shared/**/*.css";

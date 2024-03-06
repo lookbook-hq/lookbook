@@ -1,6 +1,6 @@
 import Alpine from "alpinejs";
 import { registerComponents } from "./utils";
-import * as components from "../../../app/components/lookbook/ui/public/**/*.js";
+import * as components from "../../../app/components/lookbook/ui/shared/**/*.js";
 
 window.Alpine = Alpine;
 
