@@ -6524,12 +6524,23 @@ var $69a8ec8dbeef3157$var$buildConfigFromModifiers = (modifiers)=>{
     if (modifiers.includes("max-width")) config.maxWidth = parseInt(getModifierArgument("max-width"));
     if (modifiers.includes("theme")) config.theme = getModifierArgument("theme");
     if (modifiers.includes("placement")) config.placement = getModifierArgument("placement");
+    const popperOptions = {};
+    if (modifiers.includes("no-flip")) {
+        popperOptions.modifiers ||= [];
+        popperOptions.modifiers.push({
+            name: "flip",
+            enabled: false
+        });
+    }
+    config.popperOptions = popperOptions;
     return config;
 };
 // src/index.js
-function $69a8ec8dbeef3157$var$src_default(Alpine) {
+function $69a8ec8dbeef3157$var$Tooltip(Alpine) {
     Alpine.magic("tooltip", (el)=>{
         return (content, config = {})=>{
+            const timeout = config.timeout;
+            delete config.timeout;
             const instance = (0, $69a8ec8dbeef3157$var$import_tippy2.default)(el, {
                 content: content,
                 trigger: "manual",
@@ -6539,7 +6550,7 @@ function $69a8ec8dbeef3157$var$src_default(Alpine) {
             setTimeout(()=>{
                 instance.hide();
                 setTimeout(()=>instance.destroy(), config.duration || 300);
-            }, config.timeout || 2e3);
+            }, timeout || 2e3);
         };
     });
     Alpine.directive("tooltip", (el, { modifiers: modifiers, expression: expression }, { evaluateLater: evaluateLater, effect: effect })=>{
@@ -6568,6 +6579,11 @@ function $69a8ec8dbeef3157$var$src_default(Alpine) {
         }
     });
 }
+$69a8ec8dbeef3157$var$Tooltip.defaultProps = (props)=>{
+    $69a8ec8dbeef3157$var$import_tippy2.default.setDefaultProps(props);
+    return $69a8ec8dbeef3157$var$Tooltip;
+};
+var $69a8ec8dbeef3157$var$src_default = $69a8ec8dbeef3157$var$Tooltip;
 // builds/module.js
 var $69a8ec8dbeef3157$export$2e2bcd8739ae039 = $69a8ec8dbeef3157$var$src_default;
 
@@ -7972,7 +7988,7 @@ function $12b7aa006b8a97e1$var$toCamel(s) {
 }
 
 
-var $c9dfaeb25bf110ce$exports = {};
+var $e29b71de1c821c6e$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11491,16 +11507,6 @@ function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
 }
 
 
-var $99486586f6691564$exports = {};
-
-$parcel$defineInteropFlag($99486586f6691564$exports);
-
-$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
-function $99486586f6691564$export$2e2bcd8739ae039() {
-    return {};
-}
-
-
 var $47a1c62621be0c54$exports = {};
 
 $parcel$defineInteropFlag($47a1c62621be0c54$exports);
@@ -11554,6 +11560,16 @@ function $47a1c62621be0c54$export$2e2bcd8739ae039() {
             (0, $4e31c85e11272811$export$c6684e6159b21de3)(this);
         }
     };
+}
+
+
+var $99486586f6691564$exports = {};
+
+$parcel$defineInteropFlag($99486586f6691564$exports);
+
+$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
+function $99486586f6691564$export$2e2bcd8739ae039() {
+    return {};
 }
 
 
@@ -12466,10 +12482,10 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$c9dfaeb25bf110ce$exports = {
+$e29b71de1c821c6e$exports = {
     "button": $cbd28b10fa9798c7$exports,
-    "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
+    "code": $99486586f6691564$exports,
     "dimensions_display": $e398acaded942bbe$exports,
     "embed_code_dropdown": $216ef7001f59f21d$exports,
     "filter": $e9904a14dabf652d$exports,
@@ -13661,7 +13677,7 @@ const $22969b543678f572$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $5792afa4170ed552$export$2e2bcd8739ae039));
 [
-    $c9dfaeb25bf110ce$exports,
+    $e29b71de1c821c6e$exports,
     $6178ee12f80cbf68$exports,
     $d56e5cced44001d2$exports
 ].forEach((scripts)=>{

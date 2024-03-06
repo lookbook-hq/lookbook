@@ -30,19 +30,15 @@ module Lookbook
     end
 
     def favicon_light_mode
-      (
-        @overrides[:favicon_light_mode].presence ||
+      @overrides[:favicon_light_mode].presence ||
         @overrides[:favicon].presence ||
         BASE_THEMES[@base_theme.to_sym][:favicon_light_mode]
-      )
     end
 
     def favicon_dark_mode
-      (
-        @overrides[:favicon_dark_mode].presence ||
+      @overrides[:favicon_dark_mode].presence ||
         @overrides[:favicon].presence ||
         BASE_THEMES[@base_theme.to_sym][:favicon_dark_mode]
-      )
     end
 
     def to_css

@@ -21,7 +21,7 @@ module Lookbook
       if props.preview.present?
         preview = Engine.previews.find_by_preview_class(props.preview)
         if preview.present?
-          props.scenarios ||= (props.scenario || "")
+          props.scenarios ||= props.scenario || ""
           scenario = preview.scenario(Array(props.scenarios).first)
 
           boolean_options = ["display_option_controls"]
