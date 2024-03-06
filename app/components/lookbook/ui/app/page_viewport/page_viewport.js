@@ -5,5 +5,14 @@ export default AlpineComponent("pageViewport", () => {
     init() {
       this.$logger.debug("Page viewport initialized", this.$el);
     },
+
+    handleMessage(event) {
+      try {
+        const data = JSON.parse(event.data);
+        if (data.action === "visit") {
+          this.$dispatch("visit", { url: data.url });
+        }
+      } catch {}
+    },
   };
 });

@@ -1,5 +1,5 @@
 module Lookbook
   module PageHelper
-    include PublicHelper
+    include SharedHelper
   end
 end
