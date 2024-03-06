@@ -2,8 +2,8 @@ import ServerEventsListener from "./server_events_listener";
 import Logger from "./logger";
 
 export default class Router {
-  constructor(rootElementId, sseEndpoint = null) {
-    this.rootElement = document.getElementById(rootElementId);
+  constructor(sseEndpoint = null) {
+    this.rootElement = document.querySelector("router");
     this.$logger = new Logger("Router");
     this.serverEventListener = null;
 
@@ -19,6 +19,9 @@ export default class Router {
         }
       }
     });
+
+    // Handle `visit` events
+    addEventListener("visit", (event) => this.visit(event.detail.url));
 
     // Handle history navigation
     addEventListener("popstate", () => this.visit(window.location, false));
@@ -66,10 +69,7 @@ export default class Router {
   }
 
   async fetchPageDOM(url) {
-    const { ok, fragment, status } = await fetchHTML(
-      url,
-      `#${this.rootElement.id}`
-    );
+    const { ok, fragment, status } = await fetchHTML(url, "router");
     if (ok) {
       return fragment;
     } else {

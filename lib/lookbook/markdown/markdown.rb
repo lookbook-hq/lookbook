@@ -5,7 +5,7 @@ module Lookbook
     class << self
       def render(text = nil, **kwargs, &block)
         content = text || block.call
-        renderer(kwargs).render(WhitespaceStripper.call(content.to_s))
+        renderer(kwargs).render(WhitespaceStripper.call(content.to_s)).html_safe
       end
 
       private

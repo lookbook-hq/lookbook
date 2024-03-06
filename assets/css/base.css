@@ -75,3 +75,7 @@ textarea,
 select {
   font: inherit;
 }
+
+router {
+  display: contents;
+}

@@ -34,7 +34,9 @@
     "app-development": {
       "source": [
         "./assets/entrypoints/app.js",
-        "./assets/entrypoints/app.css"
+        "./assets/entrypoints/app.css",
+        "./assets/entrypoints/page.js",
+        "./assets/entrypoints/page.css"
       ],
       "distDir": "./public/lookbook-dev",
       "publicUrl": "/lookbook-dev",
@@ -45,7 +47,9 @@
     "app-production": {
       "source": [
         "./assets/entrypoints/app.js",
-        "./assets/entrypoints/app.css"
+        "./assets/entrypoints/app.css",
+        "./assets/entrypoints/page.js",
+        "./assets/entrypoints/page.css"
       ],
       "distDir": "./public/lookbook-assets",
       "publicUrl": "/lookbook-assets",

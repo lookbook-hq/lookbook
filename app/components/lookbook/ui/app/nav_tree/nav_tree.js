@@ -20,7 +20,7 @@ export default AlpineComponent("navTree", (id) => {
       }
 
       let currentItem = this.$el.querySelector(
-        `sl-tree-item[href='${this.$router.pathname}']`
+        `sl-tree-item[href='${document.location.pathname}']`
       );
 
       if (currentItem) {

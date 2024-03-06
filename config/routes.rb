@@ -5,7 +5,7 @@ Lookbook::Engine.routes.draw do
   get "/previews/:preview/:target", to: "previews#inspect", as: :inspect_target
   get "/previews/:preview/:target/preview", to: "previews#preview", as: :preview_target
 
-  get "/pages/*path", to: "pages#show", as: :page
+  get "/pages/*path", to: "pages#show", as: :show_page
 
   get "/debug", to: "debug#show", as: :debug
 
@@ -16,5 +16,10 @@ Rails.application.routes.draw do
   get "#{Lookbook.config.mount_path}/render_scenario/:preview/:scenario",
     to: "#{Lookbook.config.preview_controller.sub(/Controller$/, "").underscore}#lookbook_render_scenario",
     as: :lookbook_render_scenario,
+    internal: true
+
+  get "#{Lookbook.config.mount_path}/render_page/:path",
+    to: "#{Lookbook.config.page_controller.sub(/Controller$/, "").underscore}#lookbook_render_page",
+    as: :lookbook_render_page,
     internal: true
 end

@@ -28,7 +28,7 @@ module Lookbook
     end
 
     def comment(text)
-      sprintf(@comment, text)
+      sprintf(@comment, text).html_safe
     end
 
     def to_sym = name

@@ -1,0 +1,8 @@
+<%= render component_tag(
+  :article,
+  x: {
+    data: "page"
+    # "@click": "handlePageClick"
+  }) do %>
+  <%= lookbook_prose { content } %>
+<% end %>

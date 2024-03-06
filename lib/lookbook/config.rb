@@ -28,6 +28,9 @@ module Lookbook
           page_watch_paths: [],
           page_watch_extensions: ["rb", "html.*"],
 
+          page_controller: "LookbookPageController",
+          page_template: "lookbook/pages/page",
+          page_layout: "lookbook/page",
           pages_nav_label: "Pages",
           pages_nav_filter: true,
 

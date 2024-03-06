@@ -2,7 +2,7 @@ module Lookbook
   module UI
     class BaseComponent < Lookbook::Component::Base
       include ActionView::Helpers::TagHelper
-      include ComponentsHelper
+      include AppHelper
 
       TAG_ATTRIBUTE_NAMES = %i[id class data aria style key x].freeze
 

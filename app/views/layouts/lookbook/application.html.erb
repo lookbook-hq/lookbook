@@ -12,12 +12,12 @@
     </script>
   <% end %> 
 
-  <link href="<%= lookbook_asset_path("/app.css") %>" rel="stylesheet">
-  <script src="<%= lookbook_asset_path("/app.js") %>" defer></script> 
+  <%= lookbook_asset_tags("app") %>
   
   <title>Lookbook</title>
 </head>
 <body>
+<router>
   <%= lookbook_app_layout do |layout| %>
     <% layout.with_header do %>
       <%= link_to @config.project_name, root_path %>
@@ -32,5 +32,6 @@
       <%= content_for?(:main) ? yield(:main) : yield %>
     <% end %>    
   <% end %>
+</router>
 </body>
 </html>

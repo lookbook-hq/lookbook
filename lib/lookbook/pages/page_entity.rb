@@ -11,12 +11,16 @@ module Lookbook
       @name ||= Utils.name(File.basename(lookup_path))
     end
 
+    def title
+      label
+    end
+
     def url_param
       lookup_path
     end
 
     def url_path
-      page_path(self)
+      show_page_path(self)
     end
 
     def lookup_path

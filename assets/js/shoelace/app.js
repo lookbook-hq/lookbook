@@ -1,5 +1,4 @@
-import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path.js";
-import { registerIconLibrary } from "@shoelace-style/shoelace/dist/utilities/icon-library.js";
+import initShoelace from "./setup";
 
 import "@shoelace-style/shoelace/dist/components/icon/icon.js";
 
@@ -21,15 +20,4 @@ import "@shoelace-style/shoelace/dist/components/popup/popup.js";
 import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
 import "@shoelace-style/shoelace/dist/components/resize-observer/resize-observer.js";
 
-export default function initShoelace({ router, logger }) {
-  if (process.env.NODE_ENV !== "production") {
-    setBasePath("/lookbook-dev/shoelace");
-  } else {
-    setBasePath("/lookbook-assets/shoelace");
-  }
-
-  registerIconLibrary("default", {
-    resolver: (name) =>
-      `https://cdn.jsdelivr.net/npm/lucide-static@0.344.0/icons/${name}.svg`,
-  });
-}
+export default initShoelace;

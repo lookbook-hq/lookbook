@@ -5,6 +5,10 @@ module Lookbook
         @markdown = markdown
       end
 
+      def prose
+        markdown? ? Markdown.render(content) : content
+      end
+
       def markdown? = @markdown
     end
   end

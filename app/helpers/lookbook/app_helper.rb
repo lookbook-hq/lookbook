@@ -1,5 +1,7 @@
 module Lookbook
-  module ComponentsHelper
+  module AppHelper
+    # Components
+
     def lookbook_app_layout(**kwargs, &block)
       render Lookbook::UI::App.new(**kwargs), &block
     end
@@ -47,12 +49,18 @@ module Lookbook
       render Lookbook::UI::Viewport.new(src: src, **kwargs)
     end
 
-    def lookbook_code(language = nil, **kwargs, &block)
-      render Lookbook::UI::Code.new(language: language, **kwargs), &block
+    def lookbook_page_viewport(src = nil, **kwargs, &block)
+      render Lookbook::UI::PageViewport.new(src: src, **kwargs), &block
     end
 
-    def lookbook_prose(**kwargs, &block)
-      render Lookbook::UI::Prose.new(**kwargs), &block
+    # Other
+
+    def markdown(...)
+      Markdown.render(...)
+    end
+
+    def code_comment(...)
+      Languages.comment(...)
     end
   end
 end
