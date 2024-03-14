@@ -14,10 +14,10 @@ module Lookbook
         styles, html = StylesExtractor.call(render_input)
         Editor::Component.add_styles(param.input, styles)
 
-        escaped_value = json_escape(param.value.to_s).gsub("\n", '\n')
+        data = { name: param.name, value: param.value }.to_json
         wrapper_attrs = {
           data: {"param-input": param.input},
-          "x-data": "paramsInputComponent({name: \"#{param.name}\", value: \"#{escaped_value}\"})"
+          "x-data": "paramsInputComponent(#{data})"
         }
         @rendered_input = tag.div(**wrapper_attrs) { html.html_safe }
       end

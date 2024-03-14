@@ -33,11 +33,7 @@ module Lookbook
     end
 
     def alpine_encode(data)
-      if data.is_a? String
-        "'#{json_escape data}'"
-      else
-        json_escape data.to_json.tr("\"", "'")
-      end
+      data.to_json
     end
 
     def prepare_alpine_data(x_data = nil)
