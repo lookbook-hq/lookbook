@@ -5,6 +5,7 @@ export default AlpineComponent("navTree", (id) => {
     expanded: Alpine.$persist([]).as(`nav-tree#${id}:expanded-items`),
     filterText: Alpine.$persist("").as(`nav-tree#${id}:filter-text`),
     empty: false,
+    filteredOut: false,
 
     async init() {
       this.$nextTick(async () => {
