@@ -2,7 +2,7 @@ import Alpine from "alpinejs";
 import morph from "@alpinejs/morph";
 import persist from "@alpinejs/persist";
 import { registerComponents } from "./utils";
-import * as components from "../../../app/components/lookbook/ui/**/*.js";
+import components from "../../../app/components/lookbook/ui/**/*.js";
 
 window.Alpine = Alpine;
 

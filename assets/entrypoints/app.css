@@ -1,5 +1,5 @@
-@import "npm:@shoelace-style/shoelace/dist/themes/light.css";
+@import "@shoelace-style/shoelace/dist/themes/light.css";
 @import "../css/tokens.css";
 @import "../css/base.css";
 
-@import "../../app/components/lookbook/ui/**/*.css";
+@import-glob "../../app/components/lookbook/ui/**/*.css";

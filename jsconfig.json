@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./assets",
+    "paths": {
+      "@js/*": ["js/*"],
+      "@css/*": ["css/*"]
+    }
+  },
+  "include": ["./assets"]
+}

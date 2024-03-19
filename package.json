@@ -2,14 +2,17 @@
   "name": "lookbook",
   "version": "3.0.0.alpha.0",
   "description": "A native development UI for ViewComponent",
+  "type": "module",
   "scripts": {
-    "dev": "npm run parcel:clean && npm run shoelace:prepare:dev && npm run parcel:dev",
-    "build": "npm run parcel:clean && npm run shoelace:prepare:build && npm run parcel:build",
-    "shoelace:prepare:dev": "copyfiles -u 5 ./node_modules/@shoelace-style/shoelace/dist/assets/**/* ./public/lookbook-dev/shoelace/assets",
-    "shoelace:prepare:build": "copyfiles -u 5 ./node_modules/@shoelace-style/shoelace/dist/assets/**/* ./public/lookbook-assets/shoelace/assets",
-    "parcel:clean": "rm -rf .parcel-cache && rm -rf ./public/lookbook-dev",
-    "parcel:dev": "parcel watch -p 5111 --target app-development",
-    "parcel:build": "parcel build --no-cache --target app-production"
+    "clean": "rm -rf ./public/lookbook-dev",
+    "dev": "npm run clean && npm run dev:shoelace && concurrently \"npm:dev:css\" \"npm:dev:js\"",
+    "build": "npm run clean && npm run build:shoelace && npm run build:css && npm run build:js",
+    "dev:shoelace": "copyfiles -u 5 ./node_modules/@shoelace-style/shoelace/dist/assets/**/* ./public/lookbook-dev/shoelace/assets",
+    "build:shoelace": "copyfiles -u 5 ./node_modules/@shoelace-style/shoelace/dist/assets/**/* ./public/lookbook-assets/shoelace/assets",
+    "dev:css": "postcss ./assets/entrypoints/*.css -d ./public/lookbook-dev --watch",
+    "build:css": "postcss ./assets/entrypoints/*.css -d ./public/lookbook-assets",
+    "dev:js": "node esbuild.config.js --watch",
+    "build:js": "node esbuild.config.js"
   },
   "author": "Mark Perkins",
   "license": "MIT",
@@ -22,12 +25,18 @@
     "prismjs": "^1.29.0"
   },
   "devDependencies": {
-    "@parcel/resolver-glob": "^2.11.0",
+    "alias-hq": "^6.2.3",
+    "concurrently": "^8.2.2",
     "copyfiles": "^2.4.1",
-    "parcel": "^2.11.0",
+    "esbuild": "^0.20.2",
+    "esbuild-plugin-copy": "^2.1.1",
+    "fast-glob": "^3.3.2",
+    "postcss": "^8.4.36",
+    "postcss-cli": "^11.0.0",
     "postcss-import": "^16.0.1",
     "postcss-import-ext-glob": "^2.1.1",
     "postcss-nesting": "^12.0.2",
+    "postcss-preset-env": "^9.5.2",
     "prettier": "^3.2.5"
   },
   "targets": {
