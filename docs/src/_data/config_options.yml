@@ -96,6 +96,14 @@ previews:
     example: config.lookbook.preview_disable_action_view_annotations = false
     description: Turns off action view filename annotations when generating rendered component source.
 
+  - name: preview_disable_action_view_partial_prefixes
+    types: Boolean
+    default: "false"
+    example: config.lookbook.preview_disable_action_view_partial_prefixes = true
+    description: |
+      Turns off action view automatic partial namespace prefixing when generating rendered component source.
+      Enable this option to allow short syntax like `render @model` in your partials.
+
   - name: preview_sort_scenarios
     types: Boolean
     default: "false"

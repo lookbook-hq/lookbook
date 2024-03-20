@@ -246,6 +246,18 @@ RSpec.describe Lookbook::ConfigStore do
         end
       end
 
+      context "preview_disable_action_view_partial_prefixes" do
+        it "is set" do
+          expect(config.preview_disable_action_view_partial_prefixes).to be false
+        end
+
+        it "can be changed" do
+          config.preview_disable_action_view_partial_prefixes = true
+
+          expect(config.preview_disable_action_view_partial_prefixes).to be true
+        end
+      end
+
       context "preview_embeds.enabled" do
         it "defaults to true" do
           expect(config.preview_embeds.enabled).to be true

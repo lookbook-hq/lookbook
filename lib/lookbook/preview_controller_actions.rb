@@ -21,24 +21,23 @@ module Lookbook
         opts[:assigns] = @render_args[:assigns] || {}
         opts[:locals] = locals if locals.present?
 
-        rendered = render_to_string(template, **opts)
+        with_action_view_settings do
+          rendered = render_to_string(template, **opts)
 
-        if scenario.after_render_method.present?
-          render_context = Store.new({
-            preview: preview,
-            scenario: scenario,
-            params: user_request_parameters
-          })
-          rendered = @preview.after_render(method: scenario.after_render_method, html: rendered, context: render_context)
-        end
-
-        with_optional_action_view_annotations do
+          if scenario.after_render_method.present?
+            render_context = Store.new({
+              preview: preview,
+              scenario: scenario,
+              params: user_request_parameters
+            })
+            rendered = @preview.after_render(method: scenario.after_render_method, html: rendered, context: render_context)
+          end
           render html: rendered
         end
       end
 
       def render_in_layout_to_string(template, locals, opts = {})
-        with_optional_action_view_annotations do
+        with_action_view_settings do
           html = render_to_string(template, locals: locals, **determine_layout(opts[:layout]))
           if opts[:append_html].present?
             html += opts[:append_html]
@@ -49,9 +48,14 @@ module Lookbook
 
       protected
 
-      def with_optional_action_view_annotations(&block)
-        disable = Lookbook.config.preview_disable_action_view_annotations
-        ActionViewAnnotationsHandler.call(disable_annotations: disable, &block)
+      def with_action_view_settings(&block)
+        disable_annotations = Lookbook.config.preview_disable_action_view_annotations
+        disable_partial_prefixes = Lookbook.config.preview_disable_action_view_partial_prefixes
+        ActionViewConfigHandler.call(
+          disable_annotations: disable_annotations,
+          disable_partial_prefixes: disable_partial_prefixes,
+          &block
+        )
       end
 
       def user_request_parameters
