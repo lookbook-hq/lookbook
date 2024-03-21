@@ -39,11 +39,9 @@
       sl-tab-panel {
         position: absolute;
         inset: 0;
-        top: calc(var(--lookbook-toolbar-height) + var(--track-width));
+        top: calc(var(--lookbook-toolbar-height));
         width: 100%;
-        height: calc(
-          100% - var(--lookbook-toolbar-height) - var(--track-width)
-        );
+        height: calc(100% - var(--lookbook-toolbar-height));
         overflow: hidden;
 
         &::part(base) {

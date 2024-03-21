@@ -22,7 +22,7 @@
     "@shoelace-style/shoelace": "^2.13.1",
     "alpinejs": "^3.13.5",
     "container-query-polyfill": "^1.0.2",
-    "prismjs": "^1.29.0"
+    "shiki": "^1.2.0"
   },
   "devDependencies": {
     "alias-hq": "^6.2.3",
@@ -38,37 +38,6 @@
     "postcss-nesting": "^12.0.2",
     "postcss-preset-env": "^9.5.2",
     "prettier": "^3.2.5"
-  },
-  "targets": {
-    "app-development": {
-      "source": [
-        "./assets/entrypoints/app.js",
-        "./assets/entrypoints/app.css",
-        "./assets/entrypoints/page.js",
-        "./assets/entrypoints/page.css"
-      ],
-      "distDir": "./public/lookbook-dev",
-      "publicUrl": "/lookbook-dev",
-      "outputFormat": "global",
-      "context": "browser",
-      "sourceMap": false
-    },
-    "app-production": {
-      "source": [
-        "./assets/entrypoints/app.js",
-        "./assets/entrypoints/app.css",
-        "./assets/entrypoints/page.js",
-        "./assets/entrypoints/page.css"
-      ],
-      "distDir": "./public/lookbook-assets",
-      "publicUrl": "/lookbook-assets",
-      "outputFormat": "global",
-      "context": "browser",
-      "sourceMap": false
-    }
-  },
-  "alias": {
-    "@js/*": "./assets/js/$1"
   },
   "prettier": {
     "tabWidth": 2,

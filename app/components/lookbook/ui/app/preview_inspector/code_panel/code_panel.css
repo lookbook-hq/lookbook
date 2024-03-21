@@ -1,7 +1,7 @@
 [data-component="panel"][data-panel="code"] {
   .code-panel-code {
     height: 100%;
-    overflow: auto;
+    position: relative;
 
     [data-component="code"] {
       height: 100%;
@@ -9,6 +9,10 @@
       pre,
       code {
         height: 100%;
+      }
+
+      code {
+        overflow: auto;
       }
     }
   }

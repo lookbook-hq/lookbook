@@ -1,10 +1,13 @@
 import AlpineComponent from "@js/alpine/component";
-import Prism from "@js/prism";
+import { highlight } from "@js/highlighter";
 
-export default AlpineComponent("code", () => {
+export default AlpineComponent("code", ({ lang }) => {
   return {
-    init() {
-      Prism.highlightElement(this.$refs.code);
+    async init() {
+      this.$refs.output.innerHTML = await highlight(
+        this.$refs.source.innerText,
+        lang
+      );
     },
   };
 });

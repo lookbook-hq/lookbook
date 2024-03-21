@@ -5,6 +5,7 @@
 
   .panel-toolbar {
     position: absolute;
+    z-index: 2;
     background: #fff;
     border-radius: 8px;
     right: var(--sl-spacing-2x-small);
@@ -25,6 +26,7 @@
   }
 
   .panel-content {
+    z-index: 1;
     height: 100%;
     overflow: hidden;
   }

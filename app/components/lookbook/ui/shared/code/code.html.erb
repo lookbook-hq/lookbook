@@ -1,3 +1,4 @@
-<%= render component_tag(x: {data: "code"}) do %>
-  <pre><code x-ref="code" class="language-<%= language %>"><%= source %></code></pre>
+<%= render component_tag(x: {data: "code({lang: #{language.to_json}})"}) do %>
+  <div class="code-highlighted" x-ref="output"></div>
+  <code class="code-raw" x-ref="source"><%= source %></code>
 <% end %>

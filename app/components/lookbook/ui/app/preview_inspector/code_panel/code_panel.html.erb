@@ -6,5 +6,5 @@
   <div class="code-panel-code">
     <%= lookbook_code(content, language: language) %>
   </div>
-  <div id="<%= copy_target_id %>" class="code-panel-raw"><%= copy_source %></div>
+  <pre class="code-panel-raw"><code id="<%= copy_target_id %>"><%= copy_source.to_s %></code></pre>
 <% end %>
