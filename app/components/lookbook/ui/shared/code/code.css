@@ -6,8 +6,11 @@
   }
 
   .code-highlighted {
+    height: 100%;
+
     code,
     pre {
+      display: block;
       color: var(--sl-color-neutral-800);
       font-family: var(--sl-font-mono);
       direction: ltr;
@@ -41,5 +44,9 @@
       font-size: var(--sl-font-size-small);
       line-height: 1.5;
     }
+  }
+
+  &.wrap-lines .code-highlighted code {
+    white-space: pre-wrap;
   }
 }

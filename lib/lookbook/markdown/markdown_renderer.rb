@@ -4,14 +4,14 @@ module Lookbook
   class MarkdownRenderer < Redcarpet::Render::HTML
     HTML_ELEMENT_MATCHER = /^<.*>.*<\/.*>/m
 
-    def block_code(source, language = "ruby")
-      line_numbers = language.to_s.end_with? "-numbered"
-      template = "<%= lookbook_code(source, language: language, line_numbers: line_numbers) %>"
+    def block_code(source, lang = "ruby")
+      line_numbers = lang.to_s.end_with? "-numbered"
+      template = "<%= lookbook_code(source, lang: lang, line_numbers: line_numbers) %>"
       ApplicationController.render(
         inline: template,
         locals: {
           source: source,
-          language: language.to_s.chomp("-numbered"),
+          lang: lang.to_s.chomp("-numbered"),
           line_numbers: line_numbers
         },
         layout: nil

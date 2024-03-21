@@ -19,9 +19,11 @@
   "dependencies": {
     "@alpinejs/morph": "^3.13.5",
     "@alpinejs/persist": "^3.13.5",
+    "@prettier/plugin-ruby": "^4.0.4",
     "@shoelace-style/shoelace": "^2.13.1",
     "alpinejs": "^3.13.5",
     "container-query-polyfill": "^1.0.2",
+    "prettier": "^3.2.5",
     "shiki": "^1.2.0"
   },
   "devDependencies": {
@@ -36,8 +38,7 @@
     "postcss-import": "^16.0.1",
     "postcss-import-ext-glob": "^2.1.1",
     "postcss-nesting": "^12.0.2",
-    "postcss-preset-env": "^9.5.2",
-    "prettier": "^3.2.5"
+    "postcss-preset-env": "^9.5.2"
   },
   "prettier": {
     "tabWidth": 2,

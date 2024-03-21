@@ -1,11 +1,11 @@
 module Lookbook
   module UI
     class CodePanel < BaseComponent
-      attr_reader :id, :language
+      attr_reader :id, :lang
 
-      def initialize(id:, language:, **kwargs)
+      def initialize(id:, lang:, **kwargs)
         @id = id
-        @language = language
+        @lang = lang
       end
 
       def copy_target_id

@@ -1,4 +1,9 @@
-<%= render component_tag(x: {data: "code({lang: #{language.to_json}})"}) do %>
-  <div class="code-highlighted" x-ref="output"></div>
+<%= render component_tag(x:
+  {
+    data: "code({lang: #{lang.to_json}, prettify: #{prettify?.to_json}})",
+    ":class": "{'wrap-lines': wrap}"
+  }
+) do %>
+  <div class="code-highlighted" x-html="output"></div>
   <code class="code-raw" x-ref="source"><%= source %></code>
 <% end %>

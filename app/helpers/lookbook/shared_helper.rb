@@ -4,8 +4,8 @@ module Lookbook
       render Lookbook::UI::Page.new(page: page, **kwargs), &block
     end
 
-    def lookbook_code(source = nil, language: nil, **kwargs, &block)
-      render Lookbook::UI::Code.new(source: source, language: language, **kwargs), &block
+    def lookbook_code(source = nil, lang: nil, **kwargs, &block)
+      render Lookbook::UI::Code.new(source: source, lang: lang, **kwargs), &block
     end
 
     def lookbook_prose(**kwargs, &block)
