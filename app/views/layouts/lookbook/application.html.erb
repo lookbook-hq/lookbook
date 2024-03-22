@@ -24,7 +24,14 @@
 
     <% layout.with_main do %>
       <%= content_for?(:main) ? yield(:main) : yield %>
-    <% end %>    
+    <% end %>
+
+    <% layout.with_status_bar do |status_bar| %>
+      <% @parser_errors.each do |error| %>
+        <% status_bar.with_error(error) %>
+      <% end %>
+    <% end %>
+    
   <% end %>
 <% end %>
 </body>

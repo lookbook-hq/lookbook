@@ -1,0 +1,7 @@
+<%= render component_tag(x: {data: "statusBarItem"}, data: {status: status}) do %>
+  <sl-icon name="<%= icon %>"></sl-icon>
+  
+  <% if label.present? %>
+    <span><%= label %></span>
+  <% end %>
+<% end %>

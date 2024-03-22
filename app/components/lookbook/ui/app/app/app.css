@@ -3,6 +3,10 @@
   display: grid;
   grid-template-rows: min-content 1fr;
 
+  &.with-status-bar {
+    grid-template-rows: min-content 1fr min-content;
+  }
+
   .app-header {
     height: var(--lookbook-toolbar-height);
     border-bottom: 1px solid var(--lookbook-divider-color);
@@ -16,7 +20,7 @@
   }
 
   .app-body {
-    height: calc(100vh - var(--lookbook-toolbar-height));
+    height: 100%;
 
     > * {
       height: 100%;
@@ -43,5 +47,9 @@
       height: 100%;
       overflow: hidden;
     }
+  }
+
+  .app-status-bar {
+    border-top: 1px solid var(--lookbook-divider-color);
   }
 }

@@ -1,0 +1,30 @@
+<%= render component_tag(x: {data: "statusBar"}) do %>
+  <div class="status-bar-section">
+    <span>Lookbook v<%= Lookbook.version %></span>
+  </div>
+  <div class="status-bar-section">
+    <% if error_count.zero? %>
+      <%= lookbook_status_bar_item(icon: "circle-check", label: "No errors", status: :ok) %>
+    <% else %>
+      <sl-dropdown distance="12" skidding="0">
+        <div slot="trigger">
+          <%= lookbook_status_bar_item(icon: "triangle-alert", label: pluralize(error_count, "error"), status: :error) %>
+        </div>
+        <div class="status-bar-panel">
+          <ul class="status-bar-errors">
+            <% error_objects.each do |error| %>
+              <li class="status-bar-error">
+                <div class="status-bar-error-icon">
+                  <sl-icon name="circle-alert"></sl-icon>
+                </div>
+                <div class="status-bar-error-message">
+                  <%= error.message %>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </sl-dropdown>
+    <% end %>
+  </div>
+<% end %>

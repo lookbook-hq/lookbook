@@ -61,6 +61,10 @@ module Lookbook
       render Lookbook::UI::Reader.new(src: src, **kwargs), &block
     end
 
+    def lookbook_status_bar_item(**kwargs, &block)
+      render Lookbook::UI::StatusBarItem.new(**kwargs), &block
+    end
+
     # Other
 
     def markdown(...)

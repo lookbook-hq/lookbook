@@ -13,6 +13,7 @@ module Lookbook
       @config = Lookbook.config
       @inspector = Inspector
       @docs = Docs
+      @parser_errors = Engine.parser_errors
       @events_endpoint = events_path if Engine.watch_files?
     end
 

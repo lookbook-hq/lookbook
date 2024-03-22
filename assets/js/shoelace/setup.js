@@ -10,6 +10,6 @@ export default function initShoelace() {
 
   registerIconLibrary("default", {
     resolver: (name) =>
-      `https://cdn.jsdelivr.net/npm/lucide-static@0.344.0/icons/${name}.svg`,
+      `https://cdn.jsdelivr.net/npm/lucide-static@0.360.0/icons/${name}.svg`,
   });
 }

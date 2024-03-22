@@ -1,4 +1,10 @@
-<%= render component_tag(id: "app", x: {data: "app"}) do %>
+<%= render component_tag(
+  id: "app",
+  x: {
+    data: "app",
+    ":class": "{'with-status-bar': #{status_bar?.to_json}}"
+  }
+) do %>
   <header class="app-header">
     <%= header %>
   </header>
@@ -24,4 +30,10 @@
       </div>
     <% end %>
   </main>
+
+  <% if status_bar? %>
+    <footer class="app-status-bar">
+      <%= status_bar %>
+    </footer>  
+  <% end %>
 <% end %>

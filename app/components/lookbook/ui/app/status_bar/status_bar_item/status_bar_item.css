@@ -1,0 +1,23 @@
+[data-component="status-bar-item"] {
+  height: var(--lookbook-status-bar-height);
+  display: flex;
+  align-items: center;
+  gap: var(--sl-spacing-2x-small);
+
+  sl-icon {
+    flex: none;
+    font-size: var(--sl-font-size-medium);
+  }
+
+  &[data-status="ok"] sl-icon {
+    color: var(--sl-color-success-700);
+  }
+
+  &[data-status="error"] {
+    color: var(--sl-color-danger-600);
+
+    sl-icon {
+      color: var(--sl-color-danger-600);
+    }
+  }
+}
