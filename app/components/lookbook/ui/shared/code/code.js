@@ -7,6 +7,7 @@ export default AlpineComponent("code", ({ lang, prettify = true }) => {
     lang: null,
     output: "",
     wrap: false,
+    theme: "github-light",
 
     init() {
       this.lang = lang;
@@ -17,7 +18,9 @@ export default AlpineComponent("code", ({ lang, prettify = true }) => {
     },
 
     async highlightCode() {
-      this.output = await this.highlighter.highlight(this.source);
+      this.output = await this.highlighter.highlight(this.source, {
+        theme: this.theme,
+      });
     },
 
     get highlighter() {

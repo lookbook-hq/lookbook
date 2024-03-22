@@ -2,22 +2,6 @@
   .code-panel-code {
     height: 100%;
     width: 100%;
-
-    [data-component="code"] {
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-
-      pre,
-      code {
-        height: 100%;
-        width: 100%;
-      }
-
-      pre {
-        overflow: auto;
-      }
-    }
   }
 
   .code-panel-raw {

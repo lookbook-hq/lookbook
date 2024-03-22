@@ -81,7 +81,10 @@
     content: close-quote;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     line-height: var(--sl-line-height-dense);
     margin-top: 1.5em;
     margin-bottom: 0.8em;
@@ -90,7 +93,6 @@
   h1 {
     font-weight: var(--sl-font-weight-bold);
     font-size: var(--sl-font-size-2x-large);
-    
   }
 
   h2 {
@@ -116,7 +118,7 @@
   }
 
   code:not(pre code) {
-    font-size: 0.8em;    
+    font-size: 0.8em;
     display: inline-block;
     font-family: var(--sl-font-mono);
     background-color: var(--sl-color-neutral-100);
@@ -329,8 +331,7 @@
 
   [data-component="code"] {
     background-color: var(--sl-color-neutral-50);
-    border: 1px solid var(--sl-color-neutral-200);
-    padding: var(--sl-spacing-2x-small);
+    border: 1px solid var(--sl-color-neutral-300);
     border-radius: var(--sl-border-radius-small);
   }
 }

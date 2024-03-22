@@ -1,6 +1,10 @@
 [data-component="code"] {
   display: block;
 
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
   .code-raw {
     display: none;
   }
@@ -11,38 +15,20 @@
     code,
     pre {
       display: block;
-      color: var(--sl-color-neutral-800);
-      font-family: var(--sl-font-mono);
-      direction: ltr;
-      text-align: left;
-      white-space: pre;
-      word-spacing: normal;
-      word-break: normal;
-      font-size: var(--sl-font-size-small);
-      line-height: 1.5;
-
-      -moz-tab-size: 4;
-      -o-tab-size: 4;
-      tab-size: 4;
-
-      -webkit-hyphens: none;
-      -moz-hyphens: none;
-      -ms-hyphens: none;
-      hyphens: none;
+      height: 100%;
+      width: 100%;
 
       &:focus-visible {
         outline: 0;
       }
     }
 
-    pre {
-      padding-inline: var(--sl-spacing-small) !important;
-      padding-block: var(--sl-spacing-small) !important;
-    }
-
     pre > code {
       font-size: var(--sl-font-size-small);
       line-height: 1.5;
+      padding-inline: var(--sl-spacing-small) !important;
+      padding-block: var(--sl-spacing-small) !important;
+      overflow: auto;
     }
   }
 
