@@ -16,6 +16,7 @@ module Lookbook
           preview_paths: ["test/components/previews"],
           preview_watch_paths: [],
           preview_watch_extensions: ["rb", "html.*"],
+          preview_tags: default_preview_tags,
 
           previews_nav_label: "Previews",
           previews_nav_filter: true,
@@ -66,6 +67,12 @@ module Lookbook
             partial: "lookbook/inspector/panels/notes"
           }
         }
+      end
+
+      def default_preview_tags
+        [
+          Lookbook::LabelTag
+        ]
       end
 
       def default_markdown_options

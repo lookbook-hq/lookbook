@@ -1,15 +1,20 @@
 module Lookbook
   class ScenarioEntity < Entity
-    delegate_missing_to :code_object
+    attr_reader :metadata
+
+    delegate :notes, :notes?, :group, to: :metadata
 
     def initialize(code_object, preview_entity, default_priority: nil)
-      @code_object = code_object
       @preview_entity = preview_entity
       @default_priority = default_priority
+      @method_name = code_object.name
+      @method_source = code_object.source
+      @method_parameters = code_object.parameters
+      @metadata = PreviewMetadata.new(code_object)
     end
 
     def id
-      @id ||= Utils.id(code_object.name)
+      @id ||= Utils.id(@method_name)
     end
 
     def uuid
@@ -17,7 +22,11 @@ module Lookbook
     end
 
     def name
-      @name ||= Utils.name(code_object.name)
+      @name ||= Utils.name(@method_name)
+    end
+
+    def label
+      metadata.label || super
     end
 
     alias_method :url_param, :name
@@ -34,15 +43,11 @@ module Lookbook
       preview_target_path(preview, self)
     end
 
-    def notes
-      code_object.docstring.to_s.strip
-    end
-
     def source
       src = if custom_render_template?
         template_source(render_template_path)
       else
-        ScenarioEntity.format_source(code_object.source)
+        ScenarioEntity.format_source(@method_source)
       end
       src&.strip_heredoc&.strip&.html_safe
     end
@@ -56,7 +61,7 @@ module Lookbook
     end
 
     def render_args(params: {})
-      method_params = code_object.parameters.map(&:first)
+      method_params = @method_parameters.map(&:first)
       provided_params = params.slice(*method_params).to_h.symbolize_keys
       result = call_method(**provided_params)
       result[:template] = template_path if result[:template].nil?
@@ -65,19 +70,18 @@ module Lookbook
 
     # Returns the relative path (from preview_path) to the scenario template if the template exists
     def template_path
-      scenario_name = code_object.name
       preview_name = preview_class.name.chomp("Preview").underscore
       preview_path =
         Previews.preview_paths.detect do |path|
-          Dir["#{path}/#{preview_name}_preview/#{scenario_name}.html.*"].first
+          Dir["#{path}/#{preview_name}_preview/#{@method_name}.html.*"].first
         end
 
       if preview_path.nil?
         raise Lookbook::Error,
-          "A preview template for scenario #{scenario_name} doesn't exist.\n\n To fix this issue, create a template for the scenario."
+          "A preview template for scenario #{@method_name} doesn't exist.\n\n To fix this issue, create a template for the scenario."
       end
 
-      path = Dir["#{preview_path}/#{preview_name}_preview/#{scenario_name}.html.*"].first
+      path = Dir["#{preview_path}/#{preview_name}_preview/#{@method_name}.html.*"].first
       Pathname.new(path)
         .relative_path_from(Pathname.new(preview_path))
         .to_s
@@ -105,14 +109,14 @@ module Lookbook
 
     protected
 
-    attr_reader :code_object, :preview_entity
+    attr_reader :preview_entity
 
     def preview_class
       preview_entity.preview_class
     end
 
     def call_method(**)
-      preview_class.new.public_send(code_object.name, **) || {}
+      preview_class.new.public_send(@method_name, **) || {}
     end
 
     def render_template_path

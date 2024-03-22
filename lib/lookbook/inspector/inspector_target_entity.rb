@@ -25,6 +25,10 @@ module Lookbook
       inspect_target_path(preview_entity, self)
     end
 
+    def label
+      (scenarios.size == 1) ? scenarios.first.label : super
+    end
+
     def preview_path
       preview_target_path(preview_entity, self)
     end
@@ -54,10 +58,10 @@ module Lookbook
     def scenarios_with_notes
       if block_given?
         scenarios.each do |scenario|
-          yield(scenario, scenario.notes) if scenario.notes.present?
+          yield(scenario, scenario.notes) if scenario.notes?
         end
       else
-        scenarios.select { _1.notes.present? }
+        scenarios.select { _1.notes? }
       end
     end
 
@@ -66,7 +70,7 @@ module Lookbook
     end
 
     def notes?
-      scenarios.find { _1.notes.present? }
+      scenarios.find { _1.notes? }
     end
 
     def preview = preview_entity

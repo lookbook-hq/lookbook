@@ -13,6 +13,7 @@ loader.collapse("#{__dir__}/lookbook/inspector")
 loader.collapse("#{__dir__}/lookbook/markdown")
 loader.collapse("#{__dir__}/lookbook/pages")
 loader.collapse("#{__dir__}/lookbook/previews")
+loader.collapse("#{__dir__}/lookbook/previews/*")
 loader.collapse("#{__dir__}/lookbook/services")
 loader.setup
 
