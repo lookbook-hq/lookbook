@@ -16,7 +16,7 @@ module Lookbook
         }
       }
 
-      delegate :label, :lookup_path, :children, :url_path, :type, :search_terms, to: :node
+      delegate :label, :priority, :lookup_path, :children, :url_path, :type, :search_terms, to: :node
 
       attr_reader :node
 

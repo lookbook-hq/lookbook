@@ -12,12 +12,14 @@ module Lookbook
 
     protected
 
-    def tree_node(path, entity)
-      EntityTreeNode.new(path, entity)
+    def tree_node(path, entity, **kwargs)
+      EntityTreeNode.new(path, entity, **kwargs)
     end
 
     def node_entities
-      [entities, directories].flatten
+      [entities, directories].flatten.sort do |a, b|
+        [a.lookup_path.split("/").size, a.label] <=> [b.lookup_path.split("/").size, b.label]
+      end
     end
 
     def directories
@@ -51,7 +53,7 @@ module Lookbook
 
             unless next_node
               entity = node_entities.find { _1.lookup_path == current_path }
-              next_node = tree_node(current_path, entity)
+              next_node = tree_node(current_path, entity, default_priority: current_node.child_count + 1)
               current_node.children << next_node
               next_node.parent = current_node
             end

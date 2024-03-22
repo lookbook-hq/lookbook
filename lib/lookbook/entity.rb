@@ -24,16 +24,18 @@ module Lookbook
       false
     end
 
-    def default_priority=(i)
-      @default_priority = i.to_i
+    def priority
+      default_priority
     end
 
-    def default_priority
-      @default_priority || 10000
-    end
+    attr_reader :default_priority
 
     def type
       @type ||= self.class.name.demodulize.underscore.delete_suffix("_entity").to_sym
+    end
+
+    def <=>(other)
+      [priority || Float::INFINITY, label] <=> [other.priority || Float::INFINITY, other.label]
     end
 
     def lookup_directory_path = nil

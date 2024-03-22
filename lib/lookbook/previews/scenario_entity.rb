@@ -33,6 +33,10 @@ module Lookbook
       metadata.hidden || super
     end
 
+    def priority
+      metadata.priority || super
+    end
+
     alias_method :url_param, :name
 
     def lookup_path

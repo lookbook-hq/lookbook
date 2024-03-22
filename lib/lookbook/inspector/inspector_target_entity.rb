@@ -26,13 +26,17 @@ module Lookbook
     end
 
     def label
-      (scenarios.size == 1) ? scenarios.first.label : super
+      scenarios.one? ? scenarios.first.label : super
     end
 
     def hidden?
       return true if @hidden
+      scenarios.one? ? scenarios.first.hidden? : super
+    end
 
-      (scenarios.size == 1) ? scenarios.first.hidden? : super
+    def priority
+      return @default_priority unless @default_priority.nil?
+      scenarios.one? ? scenarios.first.priority : super
     end
 
     def preview_path

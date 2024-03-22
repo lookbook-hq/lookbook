@@ -2,11 +2,12 @@ module Lookbook
   class EntityTreeNode
     delegate :url_path, :label, :type, to: :entity
 
-    attr_reader :entity, :children, :lookup_path, :parent
+    attr_reader :entity, :lookup_path, :parent
 
-    def initialize(lookup_path, entity = nil, root: false)
+    def initialize(lookup_path, entity = nil, root: false, default_priority: nil)
       @lookup_path = lookup_path
       @entity = entity
+      @default_priority = default_priority
       @children = []
       @root = root
       @parent = nil
@@ -30,6 +31,14 @@ module Lookbook
       parents.map { _1.label.downcase }
     end
 
+    def children
+      @children.sort!
+    end
+
+    def child_count
+      @children.size
+    end
+
     def parents
       @parents ||= begin
         nodes = []
@@ -40,6 +49,14 @@ module Lookbook
         end
         nodes.reverse!
       end
+    end
+
+    def priority
+      entity.priority || @default_priority
+    end
+
+    def <=>(other)
+      [priority, label] <=> [other.priority, other.label]
     end
 
     def root? = @root

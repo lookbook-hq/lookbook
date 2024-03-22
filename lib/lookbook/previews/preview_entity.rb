@@ -28,6 +28,10 @@ module Lookbook
       metadata.hidden || super
     end
 
+    def priority
+      metadata.priority || super
+    end
+
     def url_param
       case Lookbook.config.preview_url_param.to_sym
       when :name
@@ -61,9 +65,11 @@ module Lookbook
       @scenarios ||= begin
         public_methods = preview_class.public_instance_methods(false)
         method_objects = preview_methods.select { |m| public_methods.include?(m.name) }
-        method_objects.map.with_index do |code_object, i|
+        scenarios = method_objects.map.with_index(1) do |code_object, i|
           ScenarioEntity.new(code_object, self, default_priority: i)
         end
+
+        scenarios.sort!
       end
     end
   end

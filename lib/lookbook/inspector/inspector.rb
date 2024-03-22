@@ -58,7 +58,7 @@ module Lookbook
         targets = []
         preview.scenarios.each.with_index(1) do |scenario, i|
           if scenario.group.nil?
-            targets << InspectorTargetEntity.new(scenario.name, preview, [scenario], default_priority: i)
+            targets << InspectorTargetEntity.new(scenario.name, preview, [scenario], default_priority: scenario.priority)
           else
             target_name = scenario.group.presence || preview.name.pluralize
             target = targets.find { _1.name == Utils.name(target_name) }
