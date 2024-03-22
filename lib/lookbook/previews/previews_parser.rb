@@ -30,7 +30,7 @@ module Lookbook
           klass = code_object.path.constantize
           PreviewEntity.new(code_object, klass) if Previews.preview_class?(klass)
         rescue => error
-          record_error(error)
+          record_error(ParserError.new(error))
           warn(error.message)
           nil
         end
