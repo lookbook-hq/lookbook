@@ -1,4 +1,5 @@
 require "rails"
+require "yard"
 
 module Lookbook
   class Engine < Rails::Engine
@@ -8,6 +9,10 @@ module Lookbook
 
     config.before_configuration do |app|
       app.config.lookbook = Lookbook::Config.current
+    end
+
+    config.before_initialize do |app|
+      YARD::Parser::Ruby::RipperParser.prepend YardParserPatch
     end
 
     config.after_initialize do |app|
@@ -58,6 +63,10 @@ module Lookbook
 
       def host_app_path
         Rails.application.root.join("app")
+      end
+
+      def parser_errors
+        [Previews.parser.errors, Pages.parser.errors].flatten
       end
 
       def watch_files?

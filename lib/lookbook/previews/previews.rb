@@ -74,14 +74,14 @@ module Lookbook
         ["view_components/preview", Lookbook.config.preview_template]
       end
 
+      def parser
+        @parser ||= PreviewsParser.new(preview_paths, source_parser)
+      end
+
       private
 
       def store
         @store ||= EntityStore.new(PreviewEntity)
-      end
-
-      def parser
-        @parser ||= PreviewsParser.new(preview_paths, source_parser)
       end
 
       def source_parser

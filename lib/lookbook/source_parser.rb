@@ -1,5 +1,3 @@
-require "yard"
-
 module Lookbook
   class SourceParser
     def initialize(log_level: YARD::Logger::ERROR)

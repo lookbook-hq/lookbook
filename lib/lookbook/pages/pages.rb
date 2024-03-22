@@ -71,14 +71,14 @@ module Lookbook
         Utils.to_path(segments)
       end
 
+      def parser
+        @parser ||= PagesParser.new(page_paths)
+      end
+
       private
 
       def store
         @store ||= EntityStore.new(PageEntity)
-      end
-
-      def parser
-        @parser ||= PagesParser.new(page_paths)
       end
     end
   end
