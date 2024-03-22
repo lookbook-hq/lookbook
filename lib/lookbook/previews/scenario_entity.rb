@@ -115,8 +115,8 @@ module Lookbook
       preview_entity.preview_class
     end
 
-    def call_method(**)
-      preview_class.new.public_send(@method_name, **) || {}
+    def call_method(**kwargs)
+      preview_class.new.public_send(@method_name, **kwargs) || {}
     end
 
     def render_template_path
