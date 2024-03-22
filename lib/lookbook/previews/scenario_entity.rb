@@ -29,6 +29,10 @@ module Lookbook
       metadata.label || super
     end
 
+    def hidden?
+      metadata.hidden || super
+    end
+
     alias_method :url_param, :name
 
     def lookup_path

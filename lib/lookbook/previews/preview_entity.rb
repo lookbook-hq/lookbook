@@ -24,6 +24,10 @@ module Lookbook
       metadata.label || super
     end
 
+    def hidden?
+      metadata.hidden || super
+    end
+
     def url_param
       case Lookbook.config.preview_url_param.to_sym
       when :name

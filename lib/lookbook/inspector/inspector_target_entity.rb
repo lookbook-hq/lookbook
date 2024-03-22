@@ -4,7 +4,7 @@ module Lookbook
 
     attr_reader :name, :scenarios
 
-    def initialize(name, preview_entity, scenarios, default_priority: nil, hidden: false)
+    def initialize(name, preview_entity, scenarios, default_priority: nil, hidden: nil)
       @name = Utils.name(name)
       @preview_entity = preview_entity
       @scenarios = scenarios
@@ -27,6 +27,12 @@ module Lookbook
 
     def label
       (scenarios.size == 1) ? scenarios.first.label : super
+    end
+
+    def hidden?
+      return true if @hidden
+
+      (scenarios.size == 1) ? scenarios.first.hidden? : super
     end
 
     def preview_path

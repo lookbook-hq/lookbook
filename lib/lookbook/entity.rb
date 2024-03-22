@@ -21,7 +21,7 @@ module Lookbook
     end
 
     def hidden?
-      @hidden == true
+      false
     end
 
     def default_priority=(i)

@@ -71,7 +71,8 @@ module Lookbook
 
       def default_preview_tags
         [
-          Lookbook::LabelTag
+          Lookbook::LabelTag,
+          Lookbook::HiddenTag
         ]
       end
 

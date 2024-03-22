@@ -69,6 +69,7 @@ module Lookbook
               targets << InspectorTargetEntity.new(target_name, preview, [scenario], default_priority: i)
             end
 
+            # Hidden so won't show in navigation but can still be accessed via it's URL
             targets << InspectorTargetEntity.new(scenario.name, preview, [scenario], hidden: true)
           end
         end
