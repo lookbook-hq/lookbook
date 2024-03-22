@@ -8,31 +8,32 @@
 
   <%= lookbook_asset_tags("app") %>
   
-  <title>Lookbook</title>
+  <title><%= @config.project_name %></title>
 </head>
 <body>
-<%= lookbook_router(@events_endpoint.to_json) do %>
-  <%= lookbook_app do |layout| %>
-    <% layout.with_header do %>
-      <%= link_to @config.project_name, root_path %>
-    <% end %>
+<%=
+  lookbook_router(@events_endpoint.to_json) do
+    lookbook_app do |app|
+      app.with_header do
+        link_to @config.project_name, root_path
+      end
 
-    <% layout.with_sidebar do |sidebar| %>
-      <% sidebar.with_previews_nav(@inspector.nav_tree) %>
-      <% sidebar.with_pages_nav(@docs.nav_tree) %>
-    <% end %>
+      app.with_sidebar do |sidebar|
+        sidebar.with_previews_nav(@inspector.nav_tree)
+        sidebar.with_pages_nav(@docs.nav_tree)
+      end
 
-    <% layout.with_main do %>
-      <%= content_for?(:main) ? yield(:main) : yield %>
-    <% end %>
+      app.with_main do
+        content_for?(:main) ? yield(:main) : yield
+      end
 
-    <% layout.with_status_bar do |status_bar| %>
-      <% @parser_errors.each do |error| %>
-        <% status_bar.with_error(error) %>
-      <% end %>
-    <% end %>
-    
-  <% end %>
-<% end %>
+      if @config.status_bar
+        app.with_status_bar do |status_bar|
+          @parser_errors.each { status_bar.with_error(_1) }
+        end
+      end
+    end
+  end
+%>
 </body>
 </html>

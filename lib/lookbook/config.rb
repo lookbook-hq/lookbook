@@ -27,6 +27,7 @@ module Lookbook
           inspector_drawer_panels: [:source, :notes],
 
           sidebar_nav_panels: [:previews, :pages],
+          status_bar: Rails.env.development?,
 
           page_paths: ["test/components/docs"],
           page_watch_paths: [],
