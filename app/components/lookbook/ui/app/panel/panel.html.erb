@@ -1,4 +1,4 @@
-<%= render component_tag(id: id, data: {padded: padded?, scrollable: scrollable?}) do %>
+<%= render component_tag(key: id, data: {padded: padded?, scrollable: scrollable?}) do %>
   <% if actions.any? %>
     <div class="panel-toolbar">
       <sl-button-group label="<%= label %> actions">

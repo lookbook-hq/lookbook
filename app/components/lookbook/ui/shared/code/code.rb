@@ -3,7 +3,7 @@ module Lookbook
     class Code < BaseComponent
       attr_reader :lang
 
-      def initialize(source: nil, lang: :html, line_numbers: false, prettify: true)
+      def initialize(source: nil, lang: :html, line_numbers: false, prettify: true, **kwargs)
         @source = source.to_s
         @lang = lang.to_s
         @line_numbers = line_numbers

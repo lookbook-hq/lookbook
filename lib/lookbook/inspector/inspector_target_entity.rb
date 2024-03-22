@@ -50,6 +50,7 @@ module Lookbook
     end
 
     def render_scenarios
+      @source_checksum = nil
       scenarios.each do |scenario|
         @rendered_scenarios[scenario.name.to_sym] = yield(scenario)
       end
@@ -81,6 +82,10 @@ module Lookbook
 
     def notes?
       scenarios.find { _1.notes? }
+    end
+
+    def source_checksum
+      @source_checksum ||= Utils.hash(@rendered_scenarios.values.join)
     end
 
     def preview = preview_entity
