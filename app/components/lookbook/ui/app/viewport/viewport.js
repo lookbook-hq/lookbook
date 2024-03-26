@@ -113,7 +113,10 @@ export default AlpineComponent(
 
       onIframeResize(event) {
         const { width, height } = event.detail.entries[0].contentRect;
-        this.iframeDimensions = { width, height };
+        this.iframeDimensions = {
+          width: Math.round(width),
+          height: Math.round(height),
+        };
       },
 
       reload() {
