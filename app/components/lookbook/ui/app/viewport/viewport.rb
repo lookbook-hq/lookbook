@@ -1,11 +1,18 @@
 module Lookbook
   module UI
     class Viewport < BaseComponent
-      attr_reader :src
+      attr_reader :id, :src
 
-      def initialize(src:, **kwargs)
+      def initialize(id:, src:, resize_x: true, resize_y: true, **kwargs)
+        @id = id
         @src = src
+        @resize_x = resize_x
+        @resize_y = resize_y
       end
+
+      def resize_x? = @resize_x
+
+      def resize_y? = @resize_y
     end
   end
 end

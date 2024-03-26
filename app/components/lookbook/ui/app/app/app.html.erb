@@ -9,7 +9,10 @@
     <%= header %>
   </header>
 
-  <main class="app-body">
+  <main
+    class="app-body"
+    @pointerdown="interactionStart"
+    @pointerup="interactionEnd">
     <% if sidebar? %>
       <sl-split-panel
         key="app-layout"

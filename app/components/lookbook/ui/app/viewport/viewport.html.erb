@@ -1,3 +1,64 @@
-<%= render component_tag(x: {data: "viewport"}) do %>
-  <iframe src="<%= src %>" frameborder="0" class="viewport-iframe" seamless></iframe>
+<%= render component_tag(
+  id: id,
+  x: {
+    data: "viewport({id: #{id.to_json}})",
+    "@lookbook:interaction-start.window": "inert = true",
+    "@lookbook:interaction-end.window": "inert = false",
+    "@sl-resize": "onIframeResize"
+  },
+  class: {"resize-x": resize_x?, "resize-y": resize_y?}
+) do %>
+  <div
+    x-ref="wrapper"
+    class="viewport-wrapper"
+    :style="`max-width: ${maxWidth}; max-height: ${maxHeight};`">
+
+    <div
+      class="viewport-dimensions"
+      x-ref="dimensions"
+      x-show="resizing"
+      x-cloak
+      x-transition:enter.opacity.duration.300ms
+      x-transition:leave.opacity.duration.500ms.delay.600ms>
+      <span x-text="displayWidth"></span>
+      <span>x</span>
+      <span x-text="displayHeight"></span>
+    </div>
+
+    <div class="viewport-resizer" x-ref="resizer" :style="`max-height: ${maxHeight};`">
+      <sl-resize-observer>
+        <iframe seamless
+          x-ref="iframe"
+          class="viewport-window"
+          :class="{inert}"
+          src="<%= src %>"
+          frameborder="0"
+          title="viewport window"></iframe>
+        </sl-resize-observer>
+      <% if resize_x? %>
+        <div
+          class="viewport-handle viewport-handle-x"
+          @pointerdown="onResizeWidthStart"
+          @dblclick="toggleFullWidth">
+          <sl-icon class="viewport-handle-icon" name="grip-vertical"></sl-icon>
+        </div>
+      <% end %>
+      <% if resize_y? %>
+        <div
+          class="viewport-handle viewport-handle-y"
+          @pointerdown="onResizeHeightStart"
+          @dblclick="toggleFullHeight">
+          <sl-icon class="viewport-handle-icon" name="grip-horizontal"></sl-icon>
+        </div>
+      <% end %>
+      <% if resize_y? && resize_x? %>
+        <div
+          class="viewport-handle viewport-handle-xy"
+          x-on:pointerdown="onResizeStart"
+          x-on:dblclick="toggleFullSize">
+          <sl-icon class="viewport-handle-icon" name="grip-vertical"></sl-icon>
+        </div>
+      <% end %>
+    </div>
+  </div>
 <% end %>

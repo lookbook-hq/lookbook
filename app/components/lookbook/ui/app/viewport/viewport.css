@@ -1,11 +1,116 @@
 [data-component="viewport"] {
   width: 100%;
   height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%23f3f3f3' fill-opacity='1'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
+  user-select: none;
+  touch-action: none;
 
-  .viewport-iframe {
-    border: 0;
-    margin: 0;
-    height: 100%;
+  .viewport-wrapper {
+    position: relative;
+    margin-inline: auto;
     width: 100%;
+    height: 100%;
+  }
+
+  .viewport-dimensions {
+    font-size: var(--sl-font-size-x-small);
+    font-family: var(--sl-font-mono);
+    padding-inline: var(--sl-spacing-x-small);
+    padding-block: var(--sl-spacing-x-small);
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    display: inline-flex;
+    gap: var(--sl-spacing-2x-small);
+    overflow: hidden;
+    border-bottom-left-radius: var(--sl-border-radius-medium);
+    pointer-events: none;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--sl-color-neutral-200);
+      opacity: 0.5;
+    }
+
+    span {
+      position: relative;
+      z-index: 11;
+    }
+  }
+
+  .viewport-resizer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    outline: 1px solid var(--lookbook-divider-color);
+  }
+
+  &.resize-x {
+    .viewport-dimensions {
+      right: var(--sl-spacing-medium);
+    }
+
+    .viewport-resizer {
+      grid-template-columns: 1fr min-content;
+    }
+  }
+
+  &.resize-y .viewport-resizer {
+    grid-template-rows: 1fr min-content;
+  }
+
+  .viewport-window {
+    width: 100%;
+    height: 100%;
+  }
+
+  .viewport-window.inert {
+    pointer-events: none;
+  }
+
+  .viewport-handle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    color: var(--sl-color-neutral-500);
+  }
+
+  .viewport-handle-x {
+    flex-direction: row;
+    border-left: 1px solid var(--lookbook-divider-color);
+    width: var(--sl-spacing-medium);
+    cursor: ew-resize;
+  }
+
+  .viewport-handle-y {
+    border-top: 1px solid var(--lookbook-divider-color);
+    height: var(--sl-spacing-medium);
+    cursor: ns-resize;
+  }
+
+  .viewport-handle-xy {
+    width: var(--sl-spacing-medium);
+    height: var(--sl-spacing-medium);
+    cursor: nwse-resize;
+
+    sl-icon {
+      transform: rotate(45deg) scale(-80%);
+    }
+  }
+
+  .viewport-handle-icon {
+    width: var(--sl-spacing-medium);
+    height: var(--sl-spacing-medium);
   }
 }
