@@ -3,13 +3,8 @@ module Lookbook
     class Pane < BaseComponent
       with_slot :title
 
-      with_slot :action do |icon: nil, tooltip: nil, label: nil, **kwargs, &block|
-        if block
-          block.call
-        else
-          action = tag.send(:sl_icon_button, name: icon.to_s.tr("_", "-"), label: label || tooltip, **kwargs)
-          tooltip.present? ? tag.send(:sl_tooltip, content: tooltip, hoist: true) { action } : action
-        end
+      with_slot :action do |*args, **kwargs, &block|
+        block ? block.call : lookbook_icon_button(*args, **kwargs)
       end
 
       attr_reader :id

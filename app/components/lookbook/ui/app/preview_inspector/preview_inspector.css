@@ -4,14 +4,23 @@
 
   .inspector-layout {
     --divider-width: 1px;
-    --min: 200px;
-    --max: calc(100% - var(--min));
+    --max: calc(100% - 200px);
 
     height: 100%;
     width: 100%;
 
     &::part(divider) {
       background-color: var(--lookbook-divider-color);
+    }
+  }
+
+  &.drawer-closed .inspector-layout {
+    &::part(end) {
+      pointer-events: none;
+    }
+
+    &::part(divider) {
+      display: none;
     }
   }
 }

@@ -23,4 +23,13 @@ import "@shoelace-style/shoelace/dist/components/dropdown/dropdown.js";
 import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
 import "@shoelace-style/shoelace/dist/components/resize-observer/resize-observer.js";
 
+import { setDefaultAnimation } from "@shoelace-style/shoelace/dist/utilities/animation-registry.js";
+
+setDefaultAnimation("tooltip.hide", {
+  keyframes: [{ opacity: "1" }, { opacity: "0" }],
+  options: {
+    duration: 0,
+  },
+});
+
 export default initShoelace;

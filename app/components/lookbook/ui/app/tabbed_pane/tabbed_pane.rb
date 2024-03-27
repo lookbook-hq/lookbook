@@ -5,9 +5,8 @@ module Lookbook
         @tabs_data << {name: name, kwargs: kwargs, block: block}
       end
 
-      with_slot :action do |icon:, tooltip:, label: nil, **kwargs|
-        action = tag.send(:sl_icon_button, name: icon.to_s.tr("_", "-"), label: label || tooltip, **kwargs)
-        tooltip.present? ? tag.send(:sl_tooltip, content: tooltip, hoist: true) { action } : action
+      with_slot :action do |*args, **kwargs, &block|
+        block ? block.call : lookbook_icon_button(*args, **kwargs)
       end
 
       attr_reader :id, :tabs_data
