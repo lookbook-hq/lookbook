@@ -80,3 +80,9 @@ select {
 router {
   display: contents;
 }
+
+sl-tooltip {
+  &::part(body) {
+    font-size: var(--sl-font-size-x-small);
+  }
+}
