@@ -69,6 +69,10 @@ module Lookbook
       render Lookbook::UI::IconButton.new(icon: icon, **kwargs), &block
     end
 
+    def lookbook_param_editor(param = nil, **kwargs, &block)
+      render Lookbook::UI::ParamEditor.new(param: param, **kwargs), &block
+    end
+
     # Other
 
     def markdown(...)

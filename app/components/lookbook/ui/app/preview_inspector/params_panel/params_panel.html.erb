@@ -1,0 +1,30 @@
+<%= lookbook_panel(**args, x: {data: "paramsPanel"}, data: {panel: "params"}) do %>
+  <% if editables.any? %>
+    <table>
+      <thead>
+        <th>Name</th>
+        <th>Param</th>
+        <th>Info</th>
+        <th>Edit</th>
+      </thead>
+      <tbody>
+        <% editables.each do |editable| %>
+        <tr @keydown.stop>
+          <td>
+            <%= editable[:param].label %>  
+          </td>
+          <td>
+            <%= editable[:param].name %>  
+          </td>
+          <td>
+            <%= editable[:param].description %>  
+          </td>
+          <td>
+            <%= lookbook_param_editor(editable[:param], value: editable[:value]) %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>  
+<% end %>

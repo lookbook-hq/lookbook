@@ -19,7 +19,7 @@ module Lookbook
       prepend_application_view_paths
       prepend_preview_scenarios_view_path
 
-      @render_args = scenario.render_args(params: params.permit!)
+      @render_args = scenario.render_args(request_params: request.query_parameters)
 
       template = @render_args[:template]
       locals = @render_args[:locals]

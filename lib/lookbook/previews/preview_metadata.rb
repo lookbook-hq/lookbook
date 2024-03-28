@@ -13,7 +13,7 @@ module Lookbook
     def notes? = notes.present?
 
     def tags(name = nil)
-      code_object.tags(name)
+      code_object.tags(name.to_s)
     end
 
     def tag(name = nil)

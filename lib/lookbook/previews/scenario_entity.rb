@@ -37,6 +37,14 @@ module Lookbook
       metadata.priority || super
     end
 
+    def params
+      @params ||= metadata.tags(:param).map { ScenarioParam.new(_1, self) }
+    end
+
+    def param(name)
+      params.find { _1.name == name.to_sym }
+    end
+
     alias_method :url_param, :name
 
     def lookup_path
@@ -57,7 +65,7 @@ module Lookbook
       else
         ScenarioEntity.format_source(@method_source)
       end
-      src&.strip_heredoc&.strip&.html_safe
+      src.strip_heredoc.strip.html_safe if src.present?
     end
 
     def source_language
@@ -68,10 +76,9 @@ module Lookbook
       end
     end
 
-    def render_args(params: {})
-      method_params = @method_parameters.map(&:first)
-      provided_params = params.slice(*method_params).to_h.symbolize_keys
-      result = call_method(**provided_params)
+    def render_args(request_params: {})
+      resolved_params = resolve_request_params(request_params)
+      result = call_method(**resolved_params)
       result[:template] = template_path if result[:template].nil?
       result.merge(layout: preview_entity.layout)
     end
@@ -113,6 +120,11 @@ module Lookbook
       Languages.guess(template_file_path(template_path), :erb)
     end
 
+    def method_parameters
+      pairs = @method_parameters.map { [_1.first.delete_suffix(":").to_sym, _1.last] }
+      pairs.to_h.with_indifferent_access
+    end
+
     def preview = preview_entity
 
     protected
@@ -137,6 +149,15 @@ module Lookbook
 
     def rargs
       @rargs ||= render_args
+    end
+
+    def resolve_request_params(request_params = {})
+      method_param_names = method_parameters.keys
+      raw_params = request_params.slice(*method_param_names).to_h.symbolize_keys
+      raw_params.map do |key, raw_value|
+        param_data = param(key)
+        [key, param_data ? param_data.cast_value(raw_value) : raw_value]
+      end.to_h
     end
 
     class << self

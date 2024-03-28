@@ -29,6 +29,10 @@ module Lookbook
       scenarios.one? ? scenarios.first.label : super
     end
 
+    def params
+      scenarios.flat_map(&:params)
+    end
+
     def hidden?
       return true if @hidden
       scenarios.one? ? scenarios.first.hidden? : super
@@ -39,8 +43,8 @@ module Lookbook
       scenarios.one? ? scenarios.first.priority : super
     end
 
-    def preview_path
-      preview_target_path(preview_entity, self)
+    def preview_path(params = {})
+      preview_target_path(preview_entity, self, params)
     end
 
     alias_method :url_param, :name

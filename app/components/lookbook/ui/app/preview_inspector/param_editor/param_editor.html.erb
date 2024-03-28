@@ -1,0 +1,11 @@
+<%= render component_tag(x: {
+  data: "paramEditor({name: #{param.name.to_json}, value: #{value.to_json}})"
+}) do %>
+  <%= render input.partial,
+    name: param.name,
+    value: value,
+    choices: param.input_choices,
+    cast_value: cast_value,
+    input_type: param.input_type,
+    input_options: input_options %>
+<% end %>

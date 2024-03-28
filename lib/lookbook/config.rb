@@ -24,7 +24,8 @@ module Lookbook
           inspector_target_preview_template: "lookbook/inspector/preview",
           inspector_panels: default_inspector_panels,
           inspector_preview_panels: [:preview, :output],
-          inspector_drawer_panels: [:source, :notes],
+          inspector_drawer_panels: [:source, :notes, :params],
+          inspector_param_inputs: default_inspector_param_inputs,
 
           sidebar_nav_panels: [:previews, :pages],
           status_bar: Rails.env.development?,
@@ -66,6 +67,39 @@ module Lookbook
           notes: {
             label: "Notes",
             partial: "lookbook/inspector/panels/notes"
+          },
+          params: {
+            label: "Params",
+            partial: "lookbook/inspector/panels/params"
+          }
+        }
+      end
+
+      def default_inspector_param_inputs
+        {
+          text: {
+            partial: "lookbook/inspector/inputs/text"
+          },
+          email: {
+            partial: "lookbook/inspector/inputs/text"
+          },
+          number: {
+            partial: "lookbook/inspector/inputs/text"
+          },
+          tel: {
+            partial: "lookbook/inspector/inputs/text"
+          },
+          url: {
+            partial: "lookbook/inspector/inputs/text"
+          },
+          select: {
+            partial: "lookbook/inspector/inputs/select"
+          },
+          checkbox: {
+            partial: "lookbook/inspector/inputs/checkbox"
+          },
+          toggle: {
+            partial: "lookbook/inspector/inputs/checkbox"
           }
         }
       end
@@ -74,7 +108,8 @@ module Lookbook
         [
           Lookbook::LabelTag,
           Lookbook::HiddenTag,
-          Lookbook::PriorityTag
+          Lookbook::PriorityTag,
+          Lookbook::ParamTag
         ]
       end
 

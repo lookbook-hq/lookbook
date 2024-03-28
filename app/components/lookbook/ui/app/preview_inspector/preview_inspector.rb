@@ -4,7 +4,8 @@ module Lookbook
       PANEL_COMPONENTS = {
         default: "Lookbook::UI::DefaultPanel",
         code: "Lookbook::UI::CodePanel",
-        prose: "Lookbook::UI::ProsePanel"
+        prose: "Lookbook::UI::ProsePanel",
+        params: "Lookbook::UI::ParamsPanel"
       }
 
       with_slot :preview_panel do |panel, &block|

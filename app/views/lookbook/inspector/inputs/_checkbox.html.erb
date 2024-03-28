@@ -1,0 +1,4 @@
+<%= check_box_tag(name, "true", cast_value,
+  **input_options.except(:checked_value, :unchecked_value),
+  "@change": "value = $el.checked ? #{input_options.fetch(:checked_value, true).to_json} : #{input_options.fetch(:unchecked_value, false).to_json}"
+) %>

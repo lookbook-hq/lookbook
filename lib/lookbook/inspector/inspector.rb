@@ -31,6 +31,20 @@ module Lookbook
         Lookbook.config.inspector_target_preview_template
       end
 
+      def param_input(input_type)
+        param_inputs.find { _1.name == input_type.to_sym } || param_input(:text)
+      end
+
+      def param_inputs
+        @param_inputs ||= Lookbook.config.inspector_param_inputs.map do |name, opts|
+          DataObject.new(
+            name: Utils.name(name, true),
+            partial: opts.partial,
+            options: opts.except(:partial)
+          )
+        end
+      end
+
       def clear_cache
         debug("inspector: clearing cache")
 
@@ -42,7 +56,12 @@ module Lookbook
 
       def panels
         @panels ||= Lookbook.config.inspector_panels.map do |name, opts|
-          InspectorPanel.new(name, opts.partial, **opts.except(:partial))
+          DataObject.new(
+            name: Utils.name(name, true),
+            label: Utils.label(opts.label || name),
+            partial: opts.partial,
+            options: opts.except(:label, :partial)
+          )
         end
       end
 

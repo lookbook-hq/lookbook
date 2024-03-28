@@ -9,8 +9,9 @@ module Lookbook
         strip_slashes(id_str).tr("/", "-").gsub("--", "-")
       end
 
-      def name(str)
-        str.to_s.parameterize.tr("-", "_")
+      def name(str, symbolize = false)
+        str_name = str.to_s.parameterize.tr("-", "_")
+        symbolize ? str_name.to_sym : str_name
       end
 
       def label(str)
@@ -55,6 +56,10 @@ module Lookbook
 
       def current_timestamp_milliseconds
         DateTime.now.strftime("%Q").to_i
+      end
+
+      def boolean?(value)
+        value.in?([true, false])
       end
     end
   end
