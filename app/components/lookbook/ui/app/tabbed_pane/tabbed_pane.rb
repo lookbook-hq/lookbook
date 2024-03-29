@@ -23,6 +23,8 @@ module Lookbook
       def label
         Utils.label(id)
       end
+
+      def tabs? = @tabs_data.any?
     end
   end
 end

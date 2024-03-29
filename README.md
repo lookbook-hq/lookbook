@@ -27,6 +27,12 @@ Run the tests:
 bin/test
 ```
 
+Run the dummy app:
+
+```
+bin/dummy
+```
+
 ## Logging and Debugging
 
 `Lookbook` logs its activity to `Lookbook.logger`.

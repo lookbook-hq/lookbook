@@ -27,8 +27,8 @@ module Lookbook
       def preview_pane
         @preview_pane ||= begin
           pane = TabbedPane.new(id: "#{id}-preview-pane")
-          pane.with_action(icon: :panel_bottom_open, tooltip: "Open drawer", click: "openDrawer", show: "drawerClosed")
-          pane.with_action(icon: :panel_bottom_close, tooltip: "Close drawer", click: "closeDrawer", show: "!drawerClosed")
+          pane.with_action(icon: :panel_bottom_open, tooltip: "Open drawer", click: "openDrawer", show: "hasDrawer && drawerClosed")
+          pane.with_action(icon: :panel_bottom_close, tooltip: "Close drawer", click: "closeDrawer", show: "hasDrawer && !drawerClosed")
           pane.with_action(icon: :external_link, tooltip: "Open preview in new window", href: target.preview_path, target: "_blank")
           pane.with_action(icon: :layers, tooltip: "Preview overview", href: preview.url_path)
           pane

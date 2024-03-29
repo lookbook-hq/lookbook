@@ -27,5 +27,9 @@ export default AlpineComponent("previewInspector", () => {
     get drawerClosed() {
       return this.drawerPosition === 0;
     },
+
+    get hasDrawer() {
+      return !!this.$refs.splitter;
+    },
   };
 });
