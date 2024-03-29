@@ -13512,6 +13512,20 @@ ${t16.join("\n")}`);
   // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.2XDCNWNM.js
   SlResizeObserver.define("sl-resize-observer");
 
+  // assets/js/shoelace/animations.js
+  setDefaultAnimation("tooltip.show", {
+    keyframes: [{ opacity: "0" }, { opacity: "1" }],
+    options: {
+      duration: 200
+    }
+  });
+  setDefaultAnimation("tooltip.hide", {
+    keyframes: [{ opacity: "1" }, { opacity: "0" }],
+    options: {
+      duration: 200
+    }
+  });
+
   // assets/js/shoelace/app.js
   var app_default = initShoelace;
 
@@ -17140,7 +17154,13 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   // app/components/lookbook/ui/app/app/app.js
   var app_default2 = AlpineComponent("app", () => {
     return {
-      sidebarPosition: Alpine.$persist(20).as("app:sidebar-position")
+      sidebarPosition: Alpine.$persist(20).as("app:sidebar-position"),
+      interactionStart() {
+        this.$dispatch("lookbook:interaction-start");
+      },
+      interactionEnd() {
+        this.$dispatch("lookbook:interaction-end");
+      }
     };
   });
 
@@ -17326,6 +17346,38 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     return {};
   });
 
+  // app/components/lookbook/ui/app/preview_inspector/param_editor/param_editor.js
+  var param_editor_exports = {};
+  __export(param_editor_exports, {
+    default: () => param_editor_default
+  });
+  var param_editor_default = AlpineComponent("paramEditor", ({ name, value }) => {
+    return {
+      name,
+      value,
+      init() {
+        this.$watch("value", () => this.update());
+      },
+      update() {
+        const searchParams = new URLSearchParams(window.location.search);
+        searchParams.set(this.name, this.value);
+        const path = location.href.replace(location.search, "");
+        this.$dispatch("lookbook:visit", {
+          url: `${path}?${searchParams.toString()}`
+        });
+      }
+    };
+  });
+
+  // app/components/lookbook/ui/app/preview_inspector/params_panel/params_panel.js
+  var params_panel_exports = {};
+  __export(params_panel_exports, {
+    default: () => params_panel_default
+  });
+  var params_panel_default = AlpineComponent("paramsPanel", () => {
+    return {};
+  });
+
   // app/components/lookbook/ui/app/preview_inspector/preview_inspector.js
   var preview_inspector_exports = {};
   __export(preview_inspector_exports, {
@@ -17334,8 +17386,25 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   var preview_inspector_default = AlpineComponent("previewInspector", () => {
     return {
       drawerPosition: Alpine.$persist(20).as("preview-inspector:drawer-position"),
-      hideDrawer() {
-        console.log("drawer hidden!");
+      drawerLastPosition: Alpine.$persist(20).as(
+        "preview-inspector:drawer-last-position"
+      ),
+      init() {
+        this.$watch("drawerPosition", (value) => {
+          if (value !== 0) {
+            this.drawerLastPosition = value;
+          }
+        });
+      },
+      openDrawer() {
+        this.$refs.splitter.position = this.drawerLastPosition;
+      },
+      closeDrawer() {
+        this.drawerLastPosition = this.drawerPosition;
+        this.$refs.splitter.position = 0;
+      },
+      get drawerClosed() {
+        return this.drawerPosition === 0;
       }
     };
   });
@@ -17635,9 +17704,133 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   __export(viewport_exports, {
     default: () => viewport_default
   });
-  var viewport_default = AlpineComponent("viewport", () => {
-    return {};
-  });
+  var viewport_default = AlpineComponent(
+    "viewport",
+    ({ id: id3, minWidth = 200, minHeight = 200 }) => {
+      return {
+        minWidth,
+        minHeight,
+        width: Alpine.$persist("100%").as(`viewport#${id3}:width`),
+        height: Alpine.$persist("100%").as(`viewport#${id3}:height`),
+        lastWidth: Alpine.$persist("100%").as(`viewport#${id3}:last-width`),
+        lastHeight: Alpine.$persist("100%").as(`viewport#${id3}:last-height`),
+        iframeDimensions: {},
+        resizing: false,
+        inert: false,
+        init() {
+          this.onResizeWidth = this.onResizeWidth.bind(this);
+          this.onResizeWidthEnd = this.onResizeWidthEnd.bind(this);
+          this.onResizeHeight = this.onResizeHeight.bind(this);
+          this.onResizeHeightEnd = this.onResizeHeightEnd.bind(this);
+        },
+        start() {
+          this.resizing = true;
+        },
+        end() {
+          this.resizing = false;
+        },
+        onResizeStart(e11) {
+          this.onResizeWidthStart(e11);
+          this.onResizeHeightStart(e11);
+        },
+        toggleFullSize() {
+          if (this.height === "100%" && this.width === "100%") {
+            this.toggleFullHeight();
+            this.toggleFullWidth();
+          } else {
+            if (this.height !== "100%")
+              this.toggleFullHeight();
+            if (this.width !== "100%")
+              this.toggleFullWidth();
+          }
+        },
+        onResizeWidth(e11) {
+          const width = this.resizeStartWidth - (this.resizeStartPositionX - e11.pageX) * 2;
+          const boundedWidth = Math.min(
+            Math.max(Math.round(width), this.minWidth),
+            this.parentWidth
+          );
+          this.width = boundedWidth === this.parentWidth ? "100%" : boundedWidth;
+        },
+        onResizeWidthStart(e11) {
+          this.start();
+          this.resizeStartPositionX = e11.pageX;
+          this.resizeStartWidth = this.$refs.wrapper.clientWidth;
+          addEventListener("pointermove", this.onResizeWidth);
+          addEventListener("pointerup", this.onResizeWidthEnd);
+        },
+        onResizeWidthEnd() {
+          removeEventListener("pointermove", this.onResizeWidth);
+          removeEventListener("pointerup", this.onResizeWidthEnd);
+          this.end();
+        },
+        toggleFullWidth() {
+          if (this.width === "100%") {
+            this.width = this.lastWidth;
+          } else {
+            this.lastWidth = this.width;
+            this.width = "100%";
+          }
+        },
+        onResizeHeight(e11) {
+          const height = this.resizeStartHeight - (this.resizeStartPositionY - e11.pageY);
+          const boundedHeight = Math.min(
+            Math.max(Math.round(height), this.minHeight),
+            this.parentHeight
+          );
+          this.height = boundedHeight === this.parentHeight ? "100%" : boundedHeight;
+        },
+        onResizeHeightStart(e11) {
+          this.start();
+          this.resizeStartPositionY = e11.pageY;
+          this.resizeStartHeight = this.$refs.wrapper.clientHeight;
+          addEventListener("pointermove", this.onResizeHeight);
+          addEventListener("pointerup", this.onResizeHeightEnd);
+        },
+        onResizeHeightEnd() {
+          removeEventListener("pointermove", this.onResizeHeight);
+          removeEventListener("pointerup", this.onResizeHeightEnd);
+          this.end();
+        },
+        toggleFullHeight() {
+          if (this.height === "100%") {
+            this.height = this.lastHeight;
+          } else {
+            this.lastHeight = this.height;
+            this.height = "100%";
+          }
+        },
+        onIframeResize(event) {
+          const { width, height } = event.detail.entries[0].contentRect;
+          this.iframeDimensions = {
+            width: Math.round(width),
+            height: Math.round(height)
+          };
+        },
+        reload() {
+          this.$refs.iframe.contentlocation.reload();
+        },
+        get displayWidth() {
+          return `${this.iframeDimensions.width}px`;
+        },
+        get displayHeight() {
+          return `${this.iframeDimensions.height}px`;
+        },
+        get maxWidth() {
+          return this.width === "100%" ? "100%" : `${this.width}px`;
+        },
+        get maxHeight() {
+          return this.height === "100%" ? "100%" : `${this.height}px`;
+        },
+        get parentWidth() {
+          return Math.round(this.$root.clientWidth);
+        },
+        get parentHeight() {
+          return Math.round(this.$root.clientHeight);
+        }
+      };
+    }
+  );
 
   // app/components/lookbook/ui/shared/code/code.js
   var code_exports = {};
@@ -47484,7 +47677,7 @@ Expected it to be ${r9}.`;
   });
 
   // import-glob:/Users/mark/Code/lookbook/lookbook-v3/assets/js/alpine|../../../app/components/lookbook/ui/**/*.js
-  var modules = [app_exports, nav_tree_exports, nav_tree_item_exports, pane_exports, code_panel_exports, default_panel_exports, preview_inspector_exports, prose_panel_exports, preview_overview_exports, reader_exports, router_exports, sidebar_exports, sidebar_section_exports, status_bar_exports, status_bar_item_exports, tab_group_exports, tabbed_pane_exports, viewport_exports, code_exports, page_exports, prose_exports];
+  var modules = [app_exports, nav_tree_exports, nav_tree_item_exports, pane_exports, code_panel_exports, default_panel_exports, param_editor_exports, params_panel_exports, preview_inspector_exports, prose_panel_exports, preview_overview_exports, reader_exports, router_exports, sidebar_exports, sidebar_section_exports, status_bar_exports, status_bar_item_exports, tab_group_exports, tabbed_pane_exports, viewport_exports, code_exports, page_exports, prose_exports];
   var __default = modules;
 
   // assets/js/alpine/app.js

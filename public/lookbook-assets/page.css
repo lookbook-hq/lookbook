@@ -599,6 +599,11 @@ router {
   display: contents;
 }
 
+sl-tooltip::part(body) {
+    font-size: 0.75rem;
+    font-size: var(--sl-font-size-x-small);
+  }
+
 [data-component="code"] {
   display: block;
 

@@ -41,7 +41,7 @@ module Lookbook
       scanner = StringScanner.new(@text.strip)
 
       # Name
-      scanner.scan(/^([\d\w]+)\s?$?/)
+      scanner.scan(/^([\d\w]+)\s?|$?/)
       if scanner.matched?
         parts[:param_name] = scanner.captures.first.strip
         last_pos = scanner.pos

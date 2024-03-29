@@ -24,7 +24,7 @@
 Run the tests:
 
 ```
-bin/rails test
+bin/test
 ```
 
 ## Logging and Debugging

@@ -8,8 +8,11 @@ end
 
 group :test do
   gem "rails", ">= 7.1.3"
-  gem "sqlite3"
-  gem "sprockets-rails"
   gem "minitest-hooks"
   gem "minitest-reporters"
+  gem "cuprite"
+  gem "puma"
+  gem "combustion"
+  gem "rackup"
+  gem "view_component"
 end

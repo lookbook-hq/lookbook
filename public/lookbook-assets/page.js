@@ -9710,6 +9710,20 @@ ${t16.join("\n")}`);
   // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.2XDCNWNM.js
   SlResizeObserver.define("sl-resize-observer");
 
+  // assets/js/shoelace/animations.js
+  setDefaultAnimation("tooltip.show", {
+    keyframes: [{ opacity: "0" }, { opacity: "1" }],
+    options: {
+      duration: 200
+    }
+  });
+  setDefaultAnimation("tooltip.hide", {
+    keyframes: [{ opacity: "1" }, { opacity: "0" }],
+    options: {
+      duration: 200
+    }
+  });
+
   // assets/js/shoelace/page.js
   var page_default = initShoelace;
 
