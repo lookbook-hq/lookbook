@@ -6,31 +6,35 @@
 
 </div>
 
----
+<hr>
 
-<div align="center">
-🚨 This is the work-in-progress <strong>v3 development</strong> branch 🚨 
-</div>
-
----
+> This is the work-in-progress Lookbook v3 development branch.
 
 ## Requirements
 
 * Ruby >= 3.0.0
 * Rails >= 6.1.0
 
-## Testing
+## Development
+
+### Demo app
+
+Start the demo app in development mode:
+
+```
+bin/dev
+```
+
+Visit http://localhost:4444/lookbook
+
+### Testing
+
+Integration tests run against the same demo app.
 
 Run the tests:
 
 ```
 bin/test
-```
-
-Run the dummy app:
-
-```
-bin/dummy
 ```
 
 ## Logging and Debugging

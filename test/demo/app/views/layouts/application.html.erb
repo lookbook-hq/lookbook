@@ -3,10 +3,15 @@
 <head>
   <title>Lookbook Dummy App</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "pico.css" %>
+  <%= stylesheet_link_tag "demo.css" %>
 </head>
 <body>
-  <%= yield %>
+  <main class="container">
+    <%= yield %>
+  </main>
 </body>
 </html>

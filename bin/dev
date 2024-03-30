@@ -1,3 +1,12 @@
 #!/usr/bin/env bash
 
-LOOKBOOK_ENV=development npm run dev
+# LOOKBOOK_ENV=development npm run dev
+
+if ! foreman version &> /dev/null
+then
+  echo "Installing foreman..."
+  gem install foreman
+fi
+
+foreman start -f Procfile.dev "$@"
+

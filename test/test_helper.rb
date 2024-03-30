@@ -4,12 +4,14 @@ require "bundler"
 
 Bundler.require :default, :development
 
-require_relative "support/combustion"
 require "minitest/hooks"
 require "minitest/reporters"
 require "minitest/autorun"
 require "rails/test_help"
 require "capybara/cuprite"
+
+Combustion.path = "test/demo"
+Combustion.initialize! :action_controller, :action_view, :sprockets
 
 Minitest::Reporters.use!
 

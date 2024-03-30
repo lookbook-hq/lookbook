@@ -1,0 +1,17 @@
+html,
+body {
+  min-height: 100vh;
+}
+
+main {
+  height: 100%;
+  min-height: 100vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-title {
+  margin-bottom: 2rem;
+}
