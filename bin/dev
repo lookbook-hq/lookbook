@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# LOOKBOOK_ENV=development npm run dev
-
 if ! foreman version &> /dev/null
 then
   echo "Installing foreman..."

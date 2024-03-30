@@ -5,19 +5,8 @@ pkg/
 node_modules/
 .DS_Store
 tmp/
-.parcel-cache
 .yardoc
-
-.parcel-cache
-.bridgetown-cache
-docs/output
-*-refresh.css
-_docs
-
-.netlify
-
 gemfiles/*.lock
 
-public/lookbook-dev
 
 

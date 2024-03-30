@@ -4763,11 +4763,7 @@ ${t16.join("\n")}`);
 
   // assets/js/shoelace/setup.js
   function initShoelace() {
-    if (true) {
-      setBasePath("/lookbook-dev/shoelace");
-    } else {
-      setBasePath("/lookbook-assets/shoelace");
-    }
+    setBasePath("/lookbook-assets/shoelace");
     registerIconLibrary("default", {
       resolver: (name) => `https://cdn.jsdelivr.net/npm/lucide-static@0.360.0/icons/${name}.svg`
     });

@@ -4,14 +4,13 @@
   "description": "A native development UI for ViewComponent",
   "type": "module",
   "scripts": {
-    "clean": "rm -rf ./public/lookbook-dev",
-    "dev": "npm run clean && npm run dev:shoelace && concurrently \"npm:dev:css\" \"npm:dev:js\"",
+    "clean": "rm -rf ./public/lookbook-assets && rm -rf ./public/lookbook-assets",
+    "watch": "npm run clean && npm run dev:shoelace && concurrently \"npm:watch:css\" \"npm:watch:js\"",
     "build": "npm run clean && npm run build:shoelace && npm run build:css && npm run build:js",
-    "dev:shoelace": "copyfiles -u 5 ./node_modules/@shoelace-style/shoelace/dist/assets/**/* ./public/lookbook-dev/shoelace/assets",
     "build:shoelace": "copyfiles -u 5 ./node_modules/@shoelace-style/shoelace/dist/assets/**/* ./public/lookbook-assets/shoelace/assets",
-    "dev:css": "postcss ./assets/entrypoints/*.css -d ./public/lookbook-dev --watch",
+    "watch:css": "postcss ./assets/entrypoints/*.css -d ./public/lookbook-assets --watch",
     "build:css": "postcss ./assets/entrypoints/*.css -d ./public/lookbook-assets",
-    "dev:js": "node esbuild.config.js --watch",
+    "watch:js": "node esbuild.config.js --watch",
     "build:js": "node esbuild.config.js"
   },
   "author": "Mark Perkins",
