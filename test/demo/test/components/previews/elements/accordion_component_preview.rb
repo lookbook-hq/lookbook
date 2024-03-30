@@ -1,0 +1,17 @@
+module Elements
+  class AccordionComponentPreview < Lookbook::Preview
+    def basic
+      render "components/accordion", items: [
+        {
+          title: "Item 1",
+          content: tag.p { "Item 1 content" },
+          open: true
+        },
+        {
+          title: "Item 2",
+          content: tag.p { "Item 2 content" }
+        }
+      ]
+    end
+  end
+end

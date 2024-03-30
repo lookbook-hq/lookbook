@@ -1,0 +1,9 @@
+<% items.each do |item| %>
+  <details <%= "open" if item[:open] %>>
+    <summary role="button"><%= item[:title] %></summary>
+    <%= item[:content] %>
+  </details>
+  <%= tag.hr unless item == items.last %>
+<% end %>
+
+
