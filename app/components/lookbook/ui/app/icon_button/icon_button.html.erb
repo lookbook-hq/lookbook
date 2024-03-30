@@ -4,6 +4,6 @@
     "show": (show if show.present?),
   }) do %>
   <% if tooltip.present? %><sl-tooltip content="<%= tooltip %>" hoist><% end %>
-    <%= tag.send(:sl_icon_button, name: icon_name, label: label, href: href) %>
+    <%= tag.send(:sl_icon_button, name: icon_name, label: label, href: href, target: target) %>
   <% if tooltip.present? %></sl-tooltip><% end %>
 <% end %>
