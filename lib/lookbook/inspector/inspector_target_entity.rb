@@ -88,8 +88,12 @@ module Lookbook
       scenarios.find { _1.notes? }
     end
 
+    def output_checksum
+      @output_checksum ||= Utils.hash(@rendered_scenarios.values.join)
+    end
+
     def source_checksum
-      @source_checksum ||= Utils.hash(@rendered_scenarios.values.join)
+      @source_checksum ||= Utils.hash(scenarios.map(&:source).join)
     end
 
     def preview = preview_entity

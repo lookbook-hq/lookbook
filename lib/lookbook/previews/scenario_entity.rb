@@ -60,12 +60,14 @@ module Lookbook
     end
 
     def source
-      src = if custom_render_template?
-        template_source(render_template_path)
-      else
-        ScenarioEntity.format_source(@method_source)
+      @source ||= begin
+        src = if custom_render_template?
+          template_source(render_template_path)
+        else
+          ScenarioEntity.format_source(@method_source)
+        end
+        src.strip_heredoc.strip.html_safe if src.present?
       end
-      src.strip_heredoc.strip.html_safe if src.present?
     end
 
     def source_language
