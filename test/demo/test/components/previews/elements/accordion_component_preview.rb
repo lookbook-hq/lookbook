@@ -1,6 +1,6 @@
 module Elements
   class AccordionComponentPreview < Lookbook::Preview
-    def basic
+    def default
       render "components/accordion", items: [
         {
           title: "Item 1",

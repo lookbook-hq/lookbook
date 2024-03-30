@@ -4,17 +4,19 @@ module Lookbook
 
     delegate :notes, :notes?, :group, to: :metadata
 
+    attr_reader :method_name
+
     def initialize(code_object, preview_entity, default_priority: nil)
       @preview_entity = preview_entity
       @default_priority = default_priority
-      @method_name = code_object.name
+      @method_name = code_object.name.to_sym
       @method_source = code_object.source
       @method_parameters = code_object.parameters
       @metadata = PreviewMetadata.new(code_object)
     end
 
     def id
-      @id ||= Utils.id(@method_name)
+      @id ||= Utils.id(method_name)
     end
 
     def uuid
@@ -22,7 +24,7 @@ module Lookbook
     end
 
     def name
-      @name ||= Utils.name(@method_name)
+      @name ||= Utils.name(method_name)
     end
 
     def label
@@ -90,15 +92,15 @@ module Lookbook
       preview_name = preview_class.name.chomp("Preview").underscore
       preview_path =
         Previews.preview_paths.detect do |path|
-          Dir["#{path}/#{preview_name}_preview/#{@method_name}.html.*"].first
+          Dir["#{path}/#{preview_name}_preview/#{method_name}.html.*"].first
         end
 
       if preview_path.nil?
         raise Lookbook::Error,
-          "A preview template for scenario #{@method_name} doesn't exist.\n\n To fix this issue, create a template for the scenario."
+          "A preview template for scenario #{method_name} doesn't exist.\n\n To fix this issue, create a template for the scenario."
       end
 
-      path = Dir["#{preview_path}/#{preview_name}_preview/#{@method_name}.html.*"].first
+      path = Dir["#{preview_path}/#{preview_name}_preview/#{method_name}.html.*"].first
       Pathname.new(path)
         .relative_path_from(Pathname.new(preview_path))
         .to_s
@@ -138,7 +140,7 @@ module Lookbook
     end
 
     def call_method(**kwargs)
-      preview_class.new.public_send(@method_name, **kwargs) || {}
+      preview_class.new.public_send(method_name, **kwargs) || {}
     end
 
     def render_template_path

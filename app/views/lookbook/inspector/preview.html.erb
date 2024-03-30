@@ -1,5 +1,6 @@
 
 <% @target.scenarios_with_output do |scenario, html| %>
+  <!-- lookbook:scenario:<%= scenario.uuid %> -->
   <% if @target.scenarios.many? %>
     <section style="margin-bottom: 2rem;">
       <header style="margin-bottom: 0.5rem;">
