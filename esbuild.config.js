@@ -34,7 +34,7 @@ esbuild
     entryPoints: ["assets/entrypoints/app.js", "assets/entrypoints/page.js"],
     bundle: true,
     metafile: true,
-    outdir: `public/lookbook-${dev ? "dev" : "assets"}`,
+    outdir: "public/lookbook-assets",
     logLevel: dev ? "warning" : "error",
     plugins: [importGlob({ importMapper })],
   })

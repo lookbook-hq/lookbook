@@ -51,19 +51,4 @@ Rails.application.configure do
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
-
-  config.middleware.use Rack::Auth::Basic do |username, password|
-    username == ENV["HTTP_BASIC_USER"] && password == ENV["HTTP_BASIC_PASSWORD"]
-  end
-
-  # ------------------------
-
-  Lookbook.add_panel(:figma, "panels/design", {
-    label: "Design",
-    locals: lambda do |data|
-      {
-        figma_urls: data.preview.tags(:figma).map(&:url)
-      }
-    end
-  })
 end

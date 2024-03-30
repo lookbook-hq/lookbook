@@ -1,17 +1,23 @@
+
 html,
 body {
   min-height: 100vh;
 }
 
-main {
+body {
+  padding-inline: 1rem;
+  padding-block: 1rem;
+}
+
+#landing-content {
   height: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 2rem);
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.landing-title {
+#landing-content h1 {
   margin-bottom: 2rem;
 }
