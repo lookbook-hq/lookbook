@@ -5,5 +5,4 @@ node_modules/
 *.md
 *.html
 *.html.erb
-docs/output/
 pkg/

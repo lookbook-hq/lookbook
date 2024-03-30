@@ -256,11 +256,11 @@ module Lookbook
           end
           ruby2_keywords(slot_name.to_s.pluralize.to_sym) if respond_to?(:ruby2_keywords, true)
 
-          define_method "#{slot_name}?" do
+          define_method :"#{slot_name}?" do
             get_slot(slot_name).present?
           end
 
-          define_method "#{slot_name.to_s.pluralize}?" do
+          define_method :"#{slot_name.to_s.pluralize}?" do
             get_slots(slot_name).any?
           end
         end

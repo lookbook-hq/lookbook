@@ -1,9 +1,0 @@
-require:
-  - standard
-  - rubocop-rails
-
-AllCops:
-  TargetRubyVersion: 3.0
-
-inherit_gem:
-  standard: config/base.yml

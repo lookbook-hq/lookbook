@@ -1,0 +1,4 @@
+ruby_version: 3.0
+
+ignore:
+  - test/demo/test/components/previews/errors/**/*

@@ -1,5 +1,4 @@
 [data-component="page"] {
-
   .page-slat {
     padding-inline: var(--sl-spacing-x-large);
   }
@@ -22,5 +21,5 @@
   .page-footer {
     border-top: 1px solid var(--sl-color-neutral-300);
     padding-block: var(--sl-spacing-x-large);
-  }  
+  }
 }

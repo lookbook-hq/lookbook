@@ -11,7 +11,8 @@
     "watch:css": "postcss ./assets/entrypoints/*.css -d ./public/lookbook-assets --watch",
     "build:css": "postcss ./assets/entrypoints/*.css -d ./public/lookbook-assets",
     "watch:js": "node esbuild.config.js --watch",
-    "build:js": "node esbuild.config.js"
+    "build:js": "node esbuild.config.js",
+    "prepare": "husky"
   },
   "author": "Mark Perkins",
   "license": "MIT",
@@ -32,6 +33,8 @@
     "esbuild": "^0.20.2",
     "esbuild-plugin-copy": "^2.1.1",
     "fast-glob": "^3.3.2",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
     "postcss": "^8.4.36",
     "postcss-cli": "^11.0.0",
     "postcss-import": "^16.0.1",
@@ -44,5 +47,13 @@
     "semi": true,
     "singleQuote": false,
     "trailingComma": "es5"
+  },
+  "lint-staged": {
+    "**/*": [
+      "prettier --write --ignore-unknown"
+    ],
+    "(**/*.(rb|rake))|Gemfile|Rakefile": [
+      "bundle exec standardrb --fix"
+    ]
   }
 }
