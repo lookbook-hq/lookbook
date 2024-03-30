@@ -599,6 +599,10 @@ router {
   display: contents;
 }
 
+[x-cloak] {
+  display: none !important;
+}
+
 sl-tooltip::part(body) {
     font-size: 0.75rem;
     font-size: var(--sl-font-size-x-small);

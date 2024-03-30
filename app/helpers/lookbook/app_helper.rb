@@ -65,6 +65,10 @@ module Lookbook
       render Lookbook::UI::StatusBarItem.new(**kwargs), &block
     end
 
+    def lookbook_notifications_popup(notifications, **kwargs, &block)
+      render Lookbook::UI::NotificationsPopup.new(notifications: notifications, **kwargs), &block
+    end
+
     def lookbook_icon_button(icon = nil, **kwargs, &block)
       render Lookbook::UI::IconButton.new(icon: icon, **kwargs), &block
     end

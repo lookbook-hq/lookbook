@@ -1,0 +1,14 @@
+<%= render component_tag(x: {data: "notificationsPopup"}) do %>
+  <ul class="notifications-items">
+    <% notifications.each do |notification| %>
+      <li class="notification notification-<%= notification.type %>">
+        <div class="notification-icon">
+          <sl-icon name="<%= icon_name(notification) %>"></sl-icon>
+        </div>
+        <div class="notification-message">
+          <%= notification.detail %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

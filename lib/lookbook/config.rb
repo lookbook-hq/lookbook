@@ -45,7 +45,7 @@ module Lookbook
 
           languages: default_languages,
 
-          reload_on_change: nil,
+          reload_on_change: Rails.env.development?,
           mount_path: "/lookbook"
         })
       end

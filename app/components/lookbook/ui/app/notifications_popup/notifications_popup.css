@@ -1,0 +1,53 @@
+[data-component="notifications-popup"] {
+  width: 28rem;
+  padding-inline: var(--sl-spacing-medium);
+  background: var(--sl-color-neutral-0);
+  border: 1px solid var(--lookbook-divider-color);
+
+  .notification {
+    display: flex;
+    gap: var(--sl-spacing-small);
+    padding-block: var(--sl-spacing-medium);
+
+    & + .notification {
+      border-top: 1px solid var(--lookbook-divider-color);
+      padding-top: var(--sl-spacing-small);
+      margin-top: var(--sl-spacing-small);
+    }
+
+    .notification-icon {
+      flex: none;
+      font-size: var(--sl-font-size-large);
+    }
+
+    .notification-message {
+      padding-top: 2px;
+      min-width: 1%;
+      width: 100%;
+      overflow: hidden;
+      font-family: var(--sl-font-mono);
+      font-size: var(--sl-font-size-x-small);
+      line-height: var(--sl-line-height-dense);
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+      hyphens: auto;
+    }
+
+    &.notification-error .notification-icon {
+      color: var(--sl-color-danger-600);
+    }
+
+    &.notification-warning .notification-icon {
+      color: var(--sl-color-warning-600);
+    }
+
+    &.notification-notice .notification-icon {
+      color: var(--sl-color-sky-600);
+    }
+
+    &.notification-success .notification-icon {
+      color: var(--sl-color-success-600);
+    }
+  }
+}

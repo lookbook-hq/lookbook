@@ -1,23 +1,49 @@
 [data-component="status-bar-item"] {
-  height: var(--lookbook-status-bar-height);
-  display: flex;
-  align-items: center;
-  gap: var(--sl-spacing-2x-small);
-
-  sl-icon {
-    flex: none;
-    font-size: var(--sl-font-size-medium);
-  }
-
-  &[data-status="ok"] sl-icon {
-    color: var(--sl-color-success-700);
-  }
-
-  &[data-status="error"] {
-    color: var(--sl-color-danger-600);
+  .status-bar-item-summary {
+    height: var(--lookbook-status-bar-height);
+    display: flex;
+    align-items: center;
+    gap: var(--sl-spacing-2x-small);
 
     sl-icon {
+      flex: none;
+      font-size: var(--sl-font-size-medium);
+    }
+  }
+
+  &.with-panel .status-bar-item-summary {
+    cursor: pointer;
+  }
+
+  sl-dropdown {
+    &::part(panel) {
+      border-radius: 0;
+    }
+  }
+
+  &[data-theme="success"] {
+    .status-bar-item-summary sl-icon {
+      color: var(--sl-color-success-700);
+    }
+  }
+
+  &[data-theme="error"] {
+    .status-bar-item-summary {
       color: var(--sl-color-danger-600);
+
+      sl-icon {
+        color: var(--sl-color-danger-600);
+      }
+    }
+  }
+
+  &[data-theme="warning"] {
+    .status-bar-item-summary {
+      color: var(--sl-color-warning-600);
+
+      sl-icon {
+        color: var(--sl-color-warning-600);
+      }
     }
   }
 }

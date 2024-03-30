@@ -1,17 +1,11 @@
 module Lookbook
   module UI
     class StatusBar < BaseComponent
-      with_slot :error do |error|
-        @errors << error
+      delegate_missing_to :@notifications, allow_nil: true
+
+      def initialize(notifications: nil)
+        @notifications = notifications
       end
-
-      def initialize
-        @errors = []
-      end
-
-      def error_count = @errors.size
-
-      def error_objects = @errors
     end
   end
 end

@@ -1,12 +1,18 @@
 module Lookbook
   module UI
     class StatusBarItem < BaseComponent
-      attr_reader :icon, :label, :status
+      with_slot :panel
 
-      def initialize(icon:, label: nil, status: :ok, **kwargs)
+      attr_reader :label, :theme
+
+      def initialize(icon: nil, label: nil, theme: :notice, **kwargs)
         @icon = icon
         @label = label
-        @status = status
+        @theme = theme
+      end
+
+      def icon
+        @icon || NotificationsPopup.icon_name(theme)
       end
     end
   end

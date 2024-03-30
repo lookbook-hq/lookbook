@@ -599,6 +599,10 @@ router {
   display: contents;
 }
 
+[x-cloak] {
+  display: none !important;
+}
+
 sl-tooltip::part(body) {
     font-size: 0.75rem;
     font-size: var(--sl-font-size-x-small);
@@ -724,6 +728,81 @@ sl-tooltip::part(body) {
 
 [data-component="nav-tree-item"] {
 }
+
+[data-component="notifications-popup"] {
+  width: 28rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-left: var(--sl-spacing-medium);
+  padding-right: var(--sl-spacing-medium);
+  background: hsl(0, 0%, 100%);
+  background: var(--sl-color-neutral-0);
+  border: 1px solid hsl(240, 5%, 84%);
+  border: 1px solid var(--lookbook-divider-color);
+}
+
+[data-component="notifications-popup"] .notification {
+    display: flex;
+    gap: 0.75rem;
+    gap: var(--sl-spacing-small);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-top: var(--sl-spacing-medium);
+    padding-bottom: var(--sl-spacing-medium);
+  }
+
+[data-component="notifications-popup"] .notification + .notification {
+      border-top: 1px solid hsl(240, 5%, 84%);
+      border-top: 1px solid var(--lookbook-divider-color);
+      padding-top: 0.75rem;
+      padding-top: var(--sl-spacing-small);
+      margin-top: 0.75rem;
+      margin-top: var(--sl-spacing-small);
+    }
+
+[data-component="notifications-popup"] .notification .notification-icon {
+      flex: none;
+      font-size: 1.25rem;
+      font-size: var(--sl-font-size-large);
+    }
+
+[data-component="notifications-popup"] .notification .notification-message {
+      padding-top: 2px;
+      min-width: 1%;
+      width: 100%;
+      overflow: hidden;
+      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+      font-family: var(--sl-font-mono);
+      font-size: 0.75rem;
+      font-size: var(--sl-font-size-x-small);
+      line-height: 1.4;
+      line-height: var(--sl-line-height-dense);
+      word-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+      -webkit-hyphens: auto;
+              hyphens: auto;
+    }
+
+[data-component="notifications-popup"] .notification.notification-error .notification-icon {
+      color: hsl(0, 72%, 51%);
+      color: var(--sl-color-danger-600);
+    }
+
+[data-component="notifications-popup"] .notification.notification-warning .notification-icon {
+      color: hsl(32, 95%, 44%);
+      color: var(--sl-color-warning-600);
+    }
+
+[data-component="notifications-popup"] .notification.notification-notice .notification-icon {
+      color: hsl(200, 98%, 39%);
+      color: var(--sl-color-sky-600);
+    }
+
+[data-component="notifications-popup"] .notification.notification-success .notification-icon {
+      color: hsl(142, 76%, 36%);
+      color: var(--sl-color-success-600);
+    }
 
 [data-component="pane"] {
   height: 100%;
@@ -1088,93 +1167,53 @@ sl-tooltip::part(body) {
     gap: var(--sl-spacing-medium);
   }
 
-[data-component="status-bar"] sl-dropdown::part(panel) {
+[data-component="status-bar-item"] .status-bar-item-summary {
+    height: 24px;
+    height: var(--lookbook-status-bar-height);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    gap: var(--sl-spacing-2x-small);
+  }
+
+[data-component="status-bar-item"] .status-bar-item-summary sl-icon {
+      flex: none;
+      font-size: 1rem;
+      font-size: var(--sl-font-size-medium);
+    }
+
+.with-panel[data-component="status-bar-item"] .status-bar-item-summary {
+    cursor: pointer;
+  }
+
+[data-component="status-bar-item"] sl-dropdown::part(panel) {
       border-radius: 0;
     }
 
-[data-component="status-bar"] sl-dropdown [data-component="status-bar-item"] {
-      cursor: pointer;
+[data-component="status-bar-item"][data-theme="success"] .status-bar-item-summary sl-icon {
+      color: hsl(142, 72%, 29%);
+      color: var(--sl-color-success-700);
     }
 
-[data-component="status-bar"] .status-bar-panel {
-    width: 28rem;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-    font-family: var(--sl-font-mono);
-    padding: 1rem;
-    padding: var(--sl-spacing-medium);
-    background: hsl(0, 0%, 100%);
-    background: var(--sl-color-neutral-0);
-    border: 1px solid hsl(240, 5%, 84%);
-    border: 1px solid var(--lookbook-divider-color);
-  }
-
-[data-component="status-bar"] .status-bar-error {
-    display: flex;
-    gap: 0.75rem;
-    gap: var(--sl-spacing-small);
-  }
-
-[data-component="status-bar"] .status-bar-error + .status-bar-error {
-      border-top: 1px solid hsl(240, 5%, 84%);
-      border-top: 1px solid var(--lookbook-divider-color);
-      padding-top: 0.75rem;
-      padding-top: var(--sl-spacing-small);
-      margin-top: 0.75rem;
-      margin-top: var(--sl-spacing-small);
-    }
-
-[data-component="status-bar"] .status-bar-error-icon {
-    flex: none;
-    font-size: 1.25rem;
-    font-size: var(--sl-font-size-large);
-    color: hsl(0, 84%, 60%);
-    color: var(--sl-color-danger-500);
-  }
-
-[data-component="status-bar"] .status-bar-error-message {
-    min-width: 1%;
-    width: 100%;
-    overflow: hidden;
-    font-size: 0.75rem;
-    font-size: var(--sl-font-size-x-small);
-    line-height: 1.4;
-    line-height: var(--sl-line-height-dense);
-    word-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
-    -webkit-hyphens: auto;
-            hyphens: auto;
-  }
-
-[data-component="status-bar-item"] {
-  height: 24px;
-  height: var(--lookbook-status-bar-height);
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  gap: var(--sl-spacing-2x-small);
-}
-
-[data-component="status-bar-item"] sl-icon {
-    flex: none;
-    font-size: 1rem;
-    font-size: var(--sl-font-size-medium);
-  }
-
-[data-component="status-bar-item"][data-status="ok"] sl-icon {
-    color: hsl(142, 72%, 29%);
-    color: var(--sl-color-success-700);
-  }
-
-[data-component="status-bar-item"][data-status="error"] {
-    color: hsl(0, 72%, 51%);
-    color: var(--sl-color-danger-600);
-  }
-
-[data-component="status-bar-item"][data-status="error"] sl-icon {
+[data-component="status-bar-item"][data-theme="error"] .status-bar-item-summary {
       color: hsl(0, 72%, 51%);
       color: var(--sl-color-danger-600);
     }
+
+[data-component="status-bar-item"][data-theme="error"] .status-bar-item-summary sl-icon {
+        color: hsl(0, 72%, 51%);
+        color: var(--sl-color-danger-600);
+      }
+
+[data-component="status-bar-item"][data-theme="warning"] .status-bar-item-summary {
+      color: hsl(32, 95%, 44%);
+      color: var(--sl-color-warning-600);
+    }
+
+[data-component="status-bar-item"][data-theme="warning"] .status-bar-item-summary sl-icon {
+        color: hsl(32, 95%, 44%);
+        color: var(--sl-color-warning-600);
+      }
 
 [data-component="tab-group"] sl-tab-group {
     --track-width: 1px;

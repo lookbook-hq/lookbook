@@ -3,28 +3,22 @@
     <span>Lookbook v<%= Lookbook.version %></span>
   </div>
   <div class="status-bar-section">
-    <% if error_count.zero? %>
-      <%= lookbook_status_bar_item(icon: "circle-check", label: "No errors", status: :ok) %>
-    <% else %>
-      <sl-dropdown distance="12" skidding="0">
-        <div slot="trigger">
-          <%= lookbook_status_bar_item(icon: "triangle-alert", label: pluralize(error_count, "error"), status: :error) %>
-        </div>
-        <div class="status-bar-panel">
-          <ul class="status-bar-errors">
-            <% error_objects.each do |error| %>
-              <li class="status-bar-error">
-                <div class="status-bar-error-icon">
-                  <sl-icon name="circle-alert"></sl-icon>
-                </div>
-                <div class="status-bar-error-message">
-                  <%= error.message %>
-                </div>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </sl-dropdown>
+    <% if warnings.any? %>
+      <%= lookbook_status_bar_item(label: pluralize(warnings.size, "warning"), theme: :warning) do |item| %>
+        <% item.with_panel do %>
+          <%= lookbook_notifications_popup(warnings) %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% if errors.any? %>
+      <%= lookbook_status_bar_item(label: pluralize(errors.size, "error"), theme: :error) do |item| %>
+        <% item.with_panel do %>
+          <%= lookbook_notifications_popup(errors) %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% if warnings.none? && errors.none? %>
+      <%= lookbook_status_bar_item(label: "No issues", theme: :success) %>  
     <% end %>
   </div>
 <% end %>

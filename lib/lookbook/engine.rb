@@ -15,13 +15,7 @@ module Lookbook
       YARD::Parser::Ruby::RipperParser.prepend YardParserPatch
     end
 
-    config.after_initialize do |app|
-      options = app.config.lookbook
-
-      if options.reload_on_change.nil?
-        options.reload_on_change = !app.config.cache_classes && app.config.reload_classes_only_on_change
-      end
-
+    config.after_initialize do
       boot!
     end
 
@@ -65,8 +59,8 @@ module Lookbook
         Rails.application.root.join("app")
       end
 
-      def parser_errors
-        [Previews.parser.errors, Pages.parser.errors].flatten
+      def notifications
+        @notifications ||= Notifications.new
       end
 
       def watch_files?
@@ -74,11 +68,12 @@ module Lookbook
       end
 
       def files_updated!
+        notifications.clear
         @updated_at = Utils.current_timestamp_milliseconds
       end
 
       def updated_at
-        @updated_at ||= files_updated!
+        @updated_at ||= Utils.current_timestamp_milliseconds
       end
     end
   end

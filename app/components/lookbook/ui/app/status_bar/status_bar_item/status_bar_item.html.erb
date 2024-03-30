@@ -1,7 +1,15 @@
-<%= render component_tag(x: {data: "statusBarItem"}, data: {status: status}) do %>
-  <sl-icon name="<%= icon %>"></sl-icon>
-  
-  <% if label.present? %>
-    <span><%= label %></span>
-  <% end %>
+<%= render component_tag(x: {data: "statusBarItem"}, data: {theme: theme}, class: {"with-panel": panel?}) do %>
+  <sl-dropdown distance="12" skidding="0">
+    <div class="status-bar-item-summary" slot="trigger">
+      <sl-icon name="<%= icon %>"></sl-icon>
+      <% if label.present? %>
+        <span><%= label %></span>
+      <% end %>
+    </div>
+    <% if panel? %>
+      <div class="status-bar-item-panel" x-cloak>
+        <%= panel %>
+      </div>
+    <% end %>
+  </sl-dropdown>
 <% end %>

@@ -17310,6 +17310,15 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     };
   });
 
+  // app/components/lookbook/ui/app/notifications_popup/notifications_popup.js
+  var notifications_popup_exports = {};
+  __export(notifications_popup_exports, {
+    default: () => notifications_popup_default
+  });
+  var notifications_popup_default = AlpineComponent("notifications-popup", () => {
+    return {};
+  });
+
   // app/components/lookbook/ui/app/pane/pane.js
   var pane_exports = {};
   __export(pane_exports, {
@@ -47676,7 +47685,7 @@ Expected it to be ${r9}.`;
   });
 
   // import-glob:/Users/mark/Code/lookbook/lookbook-v3/assets/js/alpine|../../../app/components/lookbook/ui/**/*.js
-  var modules = [app_exports, nav_tree_exports, nav_tree_item_exports, pane_exports, code_panel_exports, default_panel_exports, param_editor_exports, params_panel_exports, preview_inspector_exports, prose_panel_exports, preview_overview_exports, reader_exports, router_exports, sidebar_exports, sidebar_section_exports, status_bar_exports, status_bar_item_exports, tab_group_exports, tabbed_pane_exports, viewport_exports, code_exports, page_exports, prose_exports];
+  var modules = [app_exports, nav_tree_exports, nav_tree_item_exports, notifications_popup_exports, pane_exports, code_panel_exports, default_panel_exports, param_editor_exports, params_panel_exports, preview_inspector_exports, prose_panel_exports, preview_overview_exports, reader_exports, router_exports, sidebar_exports, sidebar_section_exports, status_bar_exports, status_bar_item_exports, tab_group_exports, tabbed_pane_exports, viewport_exports, code_exports, page_exports, prose_exports];
   var __default = modules;
 
   // assets/js/alpine/app.js

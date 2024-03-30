@@ -28,9 +28,7 @@
       end
 
       if @config.status_bar
-        app.with_status_bar do |status_bar|
-          @parser_errors.each { status_bar.with_error(_1) }
-        end
+        app.with_status_bar(notifications: @notifications)
       end
     end
   end
