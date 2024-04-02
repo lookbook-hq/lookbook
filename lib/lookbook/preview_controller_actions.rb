@@ -49,11 +49,9 @@ module Lookbook
       protected
 
       def with_action_view_settings(&block)
-        disable_annotations = Lookbook.config.preview_disable_action_view_annotations
-        disable_partial_prefixes = Lookbook.config.preview_disable_action_view_partial_prefixes
         ActionViewConfigHandler.call(
-          disable_annotations: disable_annotations,
-          disable_partial_prefixes: disable_partial_prefixes,
+          disable_annotations: Lookbook.config.preview_disable_action_view_annotations,
+          disable_partial_prefixes: Lookbook.config.preview_disable_action_view_partial_prefixes,
           &block
         )
       end
