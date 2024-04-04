@@ -190,7 +190,7 @@ module Lookbook
             child.include Rails.application.routes.url_helpers
           end
 
-          child.source_location = caller_locations(1, 10).reject { |l| l.label == "inherited" }[0].path
+          child.source_location = caller_locations(1, 10).reject { |l| l.base_label == "inherited" }[0].path
           child.virtual_path = child.source_location.gsub(/(\.rb)/, "")
 
           super
