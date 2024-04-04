@@ -27,10 +27,6 @@ module Lookbook
         panels.select { names.include?(_1.name) }
       end
 
-      def target_preview_template
-        Lookbook.config.inspector_target_preview_template
-      end
-
       def param_input(input_type)
         param_inputs.find { _1.name == input_type.to_sym } || param_input(:text)
       end
@@ -74,25 +70,31 @@ module Lookbook
       end
 
       def targets_for(preview)
-        targets = []
-        preview.scenarios.each.with_index(1) do |scenario, i|
-          if scenario.group.nil?
-            targets << InspectorTargetEntity.new(scenario.name, preview, [scenario], default_priority: scenario.priority)
-          else
-            target_name = scenario.group.presence || preview.name.pluralize
-            target = targets.find { _1.name == Utils.name(target_name) }
-
-            if target
-              target.scenarios << scenario
-            else
-              targets << InspectorTargetEntity.new(target_name, preview, [scenario], default_priority: i)
-            end
-
-            # Hidden so won't show in navigation but can still be accessed via it's URL
-            targets << InspectorTargetEntity.new(scenario.name, preview, [scenario], hidden: true)
+        if preview.mailer_preview?
+          preview.scenarios.map do |scenario|
+            InspectorTargetEntity.new(scenario.name, preview, [scenario], default_priority: scenario.priority)
           end
+        else
+          targets = []
+          preview.scenarios.each.with_index(1) do |scenario, i|
+            if scenario.group.nil?
+              targets << InspectorTargetEntity.new(scenario.name, preview, [scenario], default_priority: scenario.priority)
+            else
+              target_name = scenario.group.presence || preview.name.pluralize
+              target = targets.find { _1.name == Utils.name(target_name) }
+
+              if target
+                target.scenarios << scenario
+              else
+                targets << InspectorTargetEntity.new(target_name, preview, [scenario], default_priority: i)
+              end
+
+              # Hidden so won't show in navigation but can still be accessed via it's URL
+              targets << InspectorTargetEntity.new(scenario.name, preview, [scenario], hidden: true)
+            end
+          end
+          targets
         end
-        targets
       end
     end
   end

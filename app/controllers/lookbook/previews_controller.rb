@@ -35,7 +35,7 @@ module Lookbook
       controller.response = ActionDispatch::Response.new
 
       controller.process(:lookbook_render_template,
-        Inspector.target_preview_template,
+        target.preview_template,
         {target: target},
         layout: target.preview.layout)
     end

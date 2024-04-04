@@ -3,6 +3,7 @@ module Lookbook
     attr_reader :metadata
 
     delegate :notes, :notes?, :group, to: :metadata
+    delegate :mailer_preview?, to: :@preview_entity
 
     attr_reader :method_name
 
@@ -85,8 +86,7 @@ module Lookbook
       result = call_method(**resolved_params)
       if result.is_a?(ActionMailer::Parameterized::MessageDelivery)
         {
-          type: :email,
-          component: result,
+          email: result,
           template: Lookbook.config.preview_template
         }
       else
@@ -135,6 +135,10 @@ module Lookbook
     def method_parameters
       pairs = @method_parameters.map { [_1.first.delete_suffix(":").to_sym, _1.last] }
       pairs.to_h.with_indifferent_access
+    end
+
+    def mailer_instance(params = {})
+      call_method(**resolve_request_params(params)) if mailer_preview?
     end
 
     def preview = preview_entity

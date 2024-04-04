@@ -17,5 +17,12 @@ class PreviewsControllerTest < ActionDispatch::IntegrationTest
         assert_response :success
       end
     end
+
+    describe "Mailer preview" do
+      it "renders" do
+        get scenario_preview_path(UserMailerPreview, :welcome)
+        assert_response :success
+      end
+    end
   end
 end

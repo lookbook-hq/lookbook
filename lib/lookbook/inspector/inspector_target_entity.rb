@@ -96,6 +96,12 @@ module Lookbook
       @source_checksum ||= Utils.hash(scenarios.map(&:source).join)
     end
 
+    def preview_template
+      scenarios.first&.mailer_preview? ?
+        Lookbook.config.inspector_target_mailer_template :
+        Lookbook.config.inspector_target_preview_template
+    end
+
     def preview = preview_entity
 
     protected

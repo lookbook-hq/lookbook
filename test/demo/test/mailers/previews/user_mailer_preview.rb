@@ -4,7 +4,7 @@ class UserMailerPreview < ActionMailer::Preview
   end
 
   # @param user_name
-  def playground(user_name: "Dave")
+  def playground(user_name: "Alice")
     UserMailer.with(user_name: user_name).welcome
   end
 end

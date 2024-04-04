@@ -15,7 +15,8 @@ Combustion.initialize! :action_controller, :action_view, :action_mailer, :sprock
 
 module LookbookPathHelpers
   def scenario_preview_path(preview_class, scenario_name)
-    preview = Lookbook::Previews.find { _1.preview_class_name == preview_class.name }
+    preview_class_name = preview_class.is_a?(String) ? preview_class : preview_class.name
+    preview = Lookbook::Previews.find { _1.preview_class_name == preview_class_name }
     lookbook.preview_target_path(preview, scenario_name)
   end
 end

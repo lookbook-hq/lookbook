@@ -22,6 +22,7 @@ module Lookbook
           previews_nav_filter: true,
 
           inspector_target_preview_template: "lookbook/inspector/preview",
+          inspector_target_mailer_template: "lookbook/inspector/mailer_preview",
           inspector_panels: default_inspector_panels,
           inspector_preview_panels: [:preview, :output],
           inspector_drawer_panels: [:source, :notes, :params],

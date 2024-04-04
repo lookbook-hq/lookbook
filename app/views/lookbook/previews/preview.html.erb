@@ -1,11 +1,11 @@
 <% if @render_args[:component] %>
   <% if defined?(Phlex::SGML) && @render_args[:component].is_a?(Phlex::SGML) %>
     <%= raw(@render_args[:component].call(view_context: self, &@render_args[:block])) %>
-  <% elsif @render_args[:type] == :email %>
-    <%= render "lookbook/application/mailer", email: @render_args[:component] %>
   <% else %>
     <%= render(@render_args[:component], @render_args[:args], &@render_args[:block]) %>
-  <% end %> 
+  <% end %>
+<% elsif @render_args[:email] %>
+  <%= raw(@render_args[:email].decoded) %>
 <% else %>
   <%= render(@render_args[:template], **@render_args[:locals], &@render_args[:block]) %>
 <% end %>
