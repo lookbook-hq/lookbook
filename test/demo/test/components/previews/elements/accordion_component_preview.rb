@@ -1,4 +1,5 @@
 module Elements
+  # Examples of rendering a template partial preview.
   class AccordionComponentPreview < Lookbook::Preview
     def default
       render "components/accordion", items: [
