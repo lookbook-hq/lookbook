@@ -13,7 +13,7 @@ module Lookbook
           preview_template: "lookbook/previews/preview",
           preview_url_param: :name,
           preview_layout: nil,
-          preview_paths: ["test/components/previews"],
+          preview_paths: ["test/components/previews", "test/mailers/previews"],
           preview_watch_paths: [],
           preview_watch_extensions: ["rb", "html.*"],
           preview_tags: default_preview_tags,

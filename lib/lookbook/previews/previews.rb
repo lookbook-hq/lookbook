@@ -37,7 +37,9 @@ module Lookbook
       end
 
       def preview_class?(klass)
-        if (defined?(ViewComponent) && klass.ancestors.include?(ViewComponent::Preview)) || klass.ancestors.include?(Lookbook::Preview)
+        if (defined?(ViewComponent) && klass.ancestors.include?(ViewComponent::Preview)) ||
+            klass.ancestors.include?(Lookbook::Preview) ||
+            klass.ancestors.include?(ActionMailer::Preview)
           !klass.respond_to?(:abstract_class) || klass.abstract_class != true
         end
       end

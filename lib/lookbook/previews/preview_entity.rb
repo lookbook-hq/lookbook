@@ -58,7 +58,11 @@ module Lookbook
     end
 
     def layout
-      preview_class.instance_variable_get(:@layout)
+      if preview_class.ancestors.include?(ActionMailer::Preview)
+        "layouts/lookbook/mailer_preview"
+      else
+        preview_class.instance_variable_get(:@layout)
+      end
     end
 
     def scenarios

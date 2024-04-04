@@ -1,0 +1,64 @@
+@import "@shoelace-style/shoelace/dist/themes/light.css";
+@import "../css/tokens.css";
+@import "../css/base.css";
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+}
+
+header {
+  width: 100%;
+  padding: 10px 0 0 0;
+  margin: 0;
+  background: white;
+  font-size: var(--sl-font-size-small);
+  font-family: var(--sl-font-sans);
+  border-bottom: 1px solid var(--lookbook-divider-color);
+  overflow: hidden;
+}
+
+dl {
+  margin: 0 0 10px 0;
+  padding: 0;
+  font-size: var(--sl-font-size-small);
+}
+
+dt {
+  width: 80px;
+  padding: 1px;
+  float: left;
+  clear: left;
+  text-align: right;
+  color: #7f7f7f;
+  font-size: var(--sl-font-size-small);
+}
+
+dd {
+  margin-left: 90px;
+  padding: 1px;
+  font-size: var(--sl-font-size-small);
+}
+
+dd:empty:before {
+  content: "\00a0";
+}
+
+main {
+  height: 100%;
+  position: relative;
+}
+
+iframe {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  width: 100%;
+  height: 100%;
+}

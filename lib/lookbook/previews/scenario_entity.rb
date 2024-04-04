@@ -83,8 +83,16 @@ module Lookbook
     def render_args(request_params: {})
       resolved_params = resolve_request_params(request_params)
       result = call_method(**resolved_params)
-      result[:template] = template_path if result[:template].nil?
-      result.merge(layout: preview_entity.layout)
+      if result.is_a?(ActionMailer::Parameterized::MessageDelivery)
+        {
+          type: :email,
+          component: result,
+          template: Lookbook.config.preview_template
+        }
+      else
+        result[:template] = template_path if result[:template].nil?
+        result.merge(layout: preview_entity.layout)
+      end
     end
 
     # Returns the relative path (from preview_path) to the scenario template if the template exists
