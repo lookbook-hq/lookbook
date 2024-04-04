@@ -21,15 +21,15 @@ module Lookbook
     end
 
     def label
-      metadata.label || super
+      metadata.fetch(:label, super)
     end
 
     def hidden?
-      metadata.hidden || super
+      metadata.fetch(:hidden, super)
     end
 
     def priority
-      metadata.priority || super
+      metadata.fetch(:priority, super)
     end
 
     def url_param

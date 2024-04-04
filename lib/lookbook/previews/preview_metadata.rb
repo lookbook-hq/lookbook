@@ -20,6 +20,14 @@ module Lookbook
       tags(name).first
     end
 
+    def fetch(name, fallback)
+      if has_tag?(name.to_s)
+        tag_value(name)
+      else
+        fallback
+      end
+    end
+
     def method_missing(name, *args, &block)
       tag_value(name) if has_tag?(name.to_s)
     end

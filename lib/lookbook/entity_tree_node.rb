@@ -1,6 +1,6 @@
 module Lookbook
   class EntityTreeNode
-    delegate :url_path, :label, :type, to: :entity
+    delegate :url_path, :label, :type, :visible?, :hidden?, to: :entity
 
     attr_reader :entity, :lookup_path, :parent
 

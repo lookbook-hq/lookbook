@@ -62,7 +62,11 @@ module Lookbook
       end
 
       def all_preview_targets(include_hidden: false)
-        Previews.all.map { preview_targets(_1, include_hidden: include_hidden) }.flatten
+        Previews.all.map do |preview|
+          if preview.visible? || include_hidden
+            preview_targets(preview, include_hidden: include_hidden)
+          end
+        end.compact.flatten
       end
 
       def targets_cache

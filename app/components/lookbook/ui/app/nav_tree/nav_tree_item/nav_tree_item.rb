@@ -16,12 +16,16 @@ module Lookbook
         }
       }
 
-      delegate :label, :priority, :lookup_path, :children, :url_path, :type, :search_terms, to: :node
+      delegate :label, :priority, :lookup_path, :url_path, :type, :search_terms, to: :node
 
       attr_reader :node
 
       def initialize(node:, **kwargs)
         @node = node
+      end
+
+      def children
+        node.children.select(&:visible?)
       end
 
       def icon
