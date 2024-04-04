@@ -16,13 +16,13 @@ module Elements
     end
 
     def secondary
-      render ButtonComponent.new(variant: :secondary) do
+      render Elements::ButtonComponent.new(variant: :secondary) do
         "Secondary button"
       end
     end
 
     def contrast
-      render ButtonComponent.new(variant: :contrast) do
+      render Elements::ButtonComponent.new(variant: :contrast) do
         "Contrast button"
       end
     end
@@ -32,7 +32,7 @@ module Elements
     # @param label
     # @param variant [Symbol] select :button_variant_choices
     def playground(label: "Click me", variant: :primary)
-      render ButtonComponent.new(variant: variant) do
+      render Elements::ButtonComponent.new(variant: variant) do
         label
       end
     end
@@ -41,7 +41,7 @@ module Elements
 
     def button_variant_choices
       {
-        choices: ButtonComponent::VARIANTS
+        choices: Elements::ButtonComponent::VARIANTS
       }
     end
   end
