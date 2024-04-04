@@ -18,7 +18,8 @@ module Lookbook
 
     def extract_frontmatter(text)
       matches = text.match(FRONTMATTER_REGEX)
-      matches ? YAML.safe_load(matches[0]).deep_symbolize_keys : {}
+      data = matches ? YAML.safe_load(matches[0]).deep_symbolize_keys : {}
+      DataObject.new(data)
     end
 
     def strip_frontmatter(text)

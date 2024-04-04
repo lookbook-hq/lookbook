@@ -5,7 +5,7 @@ module Lookbook
       include Updatable
 
       delegate :all, :updated_at, to: :store
-      delegate :find, to: :all
+      delegate_missing_to :all
 
       def load_all
         debug("previews: loading previews...")

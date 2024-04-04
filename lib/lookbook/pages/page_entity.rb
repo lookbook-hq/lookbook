@@ -16,8 +16,16 @@ module Lookbook
       @name ||= Utils.name(File.basename(lookup_path))
     end
 
+    def label
+      frontmatter.fetch(:label, super)
+    end
+
     def title
-      label
+      frontmatter.fetch(:title, label)
+    end
+
+    def hidden?
+      frontmatter.fetch(:hidden, super)
     end
 
     def content

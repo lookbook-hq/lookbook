@@ -8,7 +8,7 @@ module Lookbook
       def nav_tree
         @nav_tree ||= begin
           debug("docs: building nav tree")
-          EntityTree.new(Pages.all)
+          EntityTree.new(Pages.select(&:visible?))
         end
       end
 
