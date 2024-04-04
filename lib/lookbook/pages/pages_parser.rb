@@ -14,9 +14,15 @@ module Lookbook
       end.flatten.compact
 
       file_paths = Dir.glob(glob_paths)
-      page_entities = file_paths.map { PageEntity.new(_1) }
+      page_entities = file_paths.map do |path|
+        PageEntity.new(path)
+      rescue => error
+        Engine.notifications.add(ParserError.new(error))
+        warn(error.message)
+        nil
+      end
 
-      callback.call(page_entities)
+      callback.call(page_entities.compact)
     end
   end
 end
