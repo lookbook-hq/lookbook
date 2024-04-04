@@ -13,6 +13,6 @@ if ENV["RACK_ENV"] == "development"
 end
 
 Combustion.path = "test/demo"
-Combustion.initialize! :action_controller, :action_view, :sprockets
+Combustion.initialize! :action_controller, :action_view, :action_mailer, :sprockets
 
 run Combustion::Application

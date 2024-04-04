@@ -11,7 +11,7 @@ require "rails/test_help"
 require "capybara/cuprite"
 
 Combustion.path = "test/demo"
-Combustion.initialize! :action_controller, :action_view, :sprockets
+Combustion.initialize! :action_controller, :action_view, :action_mailer, :sprockets
 
 module LookbookPathHelpers
   def scenario_preview_path(preview_class, scenario_name)
