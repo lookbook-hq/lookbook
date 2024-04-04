@@ -7,8 +7,6 @@ Lookbook::Engine.routes.draw do
 
   get "/pages/*path", to: "pages#show", as: :show_page
 
-  get "/debug", to: "debug#show", as: :debug
-
   resources :events, only: [:index]
 end
 
