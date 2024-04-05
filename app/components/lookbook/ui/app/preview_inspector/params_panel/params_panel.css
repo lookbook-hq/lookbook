@@ -23,6 +23,11 @@
     &.param-description {
       width: auto;
     }
+
+    &.param-editor {
+      width: 25%;
+      max-width: 400px;
+    }
   }
 
   thead tr,

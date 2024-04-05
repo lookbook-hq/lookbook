@@ -1,3 +1,7 @@
 <button class="<%= @variant %>">
   <%= content %>
+  
+  <% if @arrow %>
+    <span>&rarr;</span>
+  <% end %>
 </button>

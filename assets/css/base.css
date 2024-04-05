@@ -1,80 +1,20 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+@import "./reset.css";
+@import "./forms.css";
 
 html,
 body {
   font-family: var(--sl-font-sans);
   font-size: var(--sl-font-size-medium);
   color: var(--sl-color-neutral-900);
-  padding: 0;
-  margin: 0;
-}
-
-html {
-  -moz-text-size-adjust: none;
-  -webkit-text-size-adjust: none;
-  text-size-adjust: none;
 }
 
 body {
   min-height: 100vh;
-}
-
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-figure,
-blockquote,
-dl,
-dd,
-ol,
-ul,
-li,
-pre,
-code {
-  margin: 0;
-  padding: 0;
-  font-weight: normal;
   font-size: var(--sl-font-size-medium);
 }
 
 code {
   font-family: var(--sl-font-mono);
-}
-
-ol,
-ul,
-dl,
-dd,
-li {
-  list-style: none;
-}
-
-a:not([class]) {
-  text-decoration-skip-ink: auto;
-  color: currentColor;
-}
-
-img,
-picture {
-  max-width: 100%;
-  display: block;
-}
-
-input,
-button,
-textarea,
-select {
-  font: inherit;
-  font-size: var(--sl-font-size-small);
 }
 
 router {

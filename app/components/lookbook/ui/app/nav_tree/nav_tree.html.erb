@@ -10,17 +10,13 @@
   
   <% if filter? %>
     <div class="nav-filter">
-      <sl-input
-        size="small"
+      <input
         placeholder="Filter by name..."
         x-ref="filter"
         x-model="filterText"
-        @sl-clear="clearFilter"
         @keydown.esc.stop="clearFilter"
-        @keydown.stop
-        clearable>
-        <sl-icon slot="clear-icon" name="x"></sl-icon>
-      </sl-input>
+        @keydown.stop>
+      </input>
     </div>
   <% end %>
   

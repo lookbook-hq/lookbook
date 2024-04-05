@@ -32,8 +32,9 @@ module Elements
 
     # @param label
     # @param variant [Symbol] select :button_variant_choices
-    def playground(label: "Click me", variant: :primary)
-      render Elements::ButtonComponent.new(variant: variant) do
+    # @param arrow "Show/hide arrow icon"
+    def playground(label: "Click me", variant: :primary, arrow: false)
+      render Elements::ButtonComponent.new(variant: variant, arrow: arrow) do
         label
       end
     end
