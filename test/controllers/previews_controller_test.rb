@@ -11,6 +11,13 @@ class PreviewsControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
+    describe "Phlex preview" do
+      it "renders" do
+        get scenario_preview_path(Elements::DropdownMenuComponentPreview, :default)
+        assert_response :success
+      end
+    end
+
     describe "ActionView partial preview" do
       it "renders" do
         get scenario_preview_path(Elements::AccordionComponentPreview, :default)
@@ -20,7 +27,7 @@ class PreviewsControllerTest < ActionDispatch::IntegrationTest
 
     describe "Mailer preview" do
       it "renders" do
-        get scenario_preview_path(UserMailerPreview, :welcome)
+        get scenario_preview_path(Emails::UserMailerPreview, :welcome)
         assert_response :success
       end
     end

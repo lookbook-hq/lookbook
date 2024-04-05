@@ -1,5 +1,5 @@
 module Elements
-  # Examples of rendering a template partial preview.
+  # An accordion component implemented using a Rails template partial.
   class AccordionComponentPreview < Lookbook::Preview
     def default
       render "components/accordion", items: [

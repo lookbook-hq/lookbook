@@ -1,5 +1,6 @@
 module Elements
-  # Examples of rendering ViewComponent previews using the `ViewComponent::Preview` base class.
+  # A button component built with `ViewComponent`.
+  # This preview uses the `ViewComponent::Preview` base class.
   class HeadingComponentPreview < ViewComponent::Preview
     def default
       render Elements::HeadingComponent.new do

@@ -1,5 +1,6 @@
 module Elements
-  # Examples of rendering ViewComponent previews using the `Lookbook::Preview` base class.
+  # A button component built with `ViewComponent`.
+  # This preview uses the `Lookbook::Preview` base class.
   class ButtonComponentPreview < Lookbook::Preview
     def default
       render Elements::ButtonComponent.new do

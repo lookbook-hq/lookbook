@@ -105,6 +105,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    cgi (0.4.1)
     combustion (1.4.0)
       activesupport (>= 3.0.0)
       railties (>= 3.0.0)
@@ -118,6 +119,8 @@ GEM
     date (3.3.4)
     debug_inspector (1.2.0)
     drb (2.2.1)
+    erb (4.0.4)
+      cgi (>= 0.3.3)
     erubi (1.12.0)
     ferrum (0.14)
       addressable (~> 2.5)
@@ -186,6 +189,14 @@ GEM
     parser (3.3.0.5)
       ast (~> 2.4.1)
       racc
+    phlex (1.9.1)
+      concurrent-ruby (~> 1.2)
+      erb (>= 4)
+      zeitwerk (~> 2.6)
+    phlex-rails (1.1.2)
+      phlex (~> 1.9.1)
+      railties (>= 6.1, < 8)
+      zeitwerk (~> 2.6)
     psych (5.1.2)
       stringio
     public_suffix (5.0.4)
@@ -319,6 +330,7 @@ DEPENDENCIES
   lookbook!
   minitest-hooks
   minitest-reporters
+  phlex-rails
   puma
   rails
   rubocop-rails
