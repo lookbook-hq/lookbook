@@ -12,7 +12,6 @@ if ENV["RACK_ENV"] == "development"
   BetterErrors.application_root = "test/demo"
 end
 
-Combustion.path = "test/demo"
-Combustion.initialize! :action_controller, :action_view, :action_mailer, :sprockets
+require_relative "test/support/combustion"
 
 run Combustion::Application
