@@ -1,20 +1,10 @@
 <%= render component_tag(key: id, x: {data: "previewInspector", ":class": "{'drawer-closed':drawerClosed}"}) do %> 
-  <% if drawer? %> 
-    <sl-split-panel
-      x-ref="splitter"
-      class="inspector-layout"
-      primary="end"
-      :position="drawerPosition"
-      @sl-reposition="drawerPosition = $el.position"
-      vertical>
-      <section slot="start">
-        <%= render preview_pane %>
-      </section>
-      <section slot="end">
-        <%= render drawer_pane %>
-      </section>
-    </sl-split-panel>
-  <% else %>
-    <%= render preview_pane %>
+  <%= lookbook_layout(id: "inspector-panes", orientation: :horizontal) do |layout| %>
+    <% layout.with_pane do %>
+      <%= render preview_pane %>
+    <% end %>
+    <% layout.with_pane do %>
+      <%= render drawer_pane %>
+    <% end %>
   <% end %>
 <% end %>

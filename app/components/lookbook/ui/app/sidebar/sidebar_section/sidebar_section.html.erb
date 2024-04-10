@@ -1,7 +1,0 @@
-<%= render component_tag(x: {data: "sidebarSection"}) do %>
-  <%= lookbook_pane(id: "#{id}-pane") do |pane| %>
-    <% pane.with_action(icon: :copy_minus, tooltip: "Collapse all", click: "collapseAll") %>
-    <% pane.with_title { title } %>
-    <%= nav %>
-  <% end %>
-<% end %>

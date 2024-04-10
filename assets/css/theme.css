@@ -1,0 +1,55 @@
+:root {
+  --lookbook-color-accent-50: var(--lookbook-color-indigo-50);
+  --lookbook-color-accent-100: var(--lookbook-color-indigo-100);
+  --lookbook-color-accent-200: var(--lookbook-color-indigo-200);
+  --lookbook-color-accent-300: var(--lookbook-color-indigo-300);
+  --lookbook-color-accent-400: var(--lookbook-color-indigo-400);
+  --lookbook-color-accent-500: var(--lookbook-color-indigo-500);
+  --lookbook-color-accent-600: var(--lookbook-color-indigo-600);
+  --lookbook-color-accent-700: var(--lookbook-color-indigo-700);
+  --lookbook-color-accent-800: var(--lookbook-color-indigo-800);
+  --lookbook-color-accent-900: var(--lookbook-color-indigo-900);
+  --lookbook-color-accent-950: var(--lookbook-color-indigo-950);
+
+  --lookbook-color-neutral-50: var(--lookbook-color-gray-50);
+  --lookbook-color-neutral-100: var(--lookbook-color-gray-100);
+  --lookbook-color-neutral-200: var(--lookbook-color-gray-200);
+  --lookbook-color-neutral-300: var(--lookbook-color-gray-300);
+  --lookbook-color-neutral-400: var(--lookbook-color-gray-400);
+  --lookbook-color-neutral-500: var(--lookbook-color-gray-500);
+  --lookbook-color-neutral-600: var(--lookbook-color-gray-600);
+  --lookbook-color-neutral-700: var(--lookbook-color-gray-700);
+  --lookbook-color-neutral-800: var(--lookbook-color-gray-800);
+  --lookbook-color-neutral-900: var(--lookbook-color-gray-900);
+  --lookbook-color-neutral-950: var(--lookbook-color-gray-950);
+
+  /* --lookbook-toolbar-height: 40px;
+  --lookbook-toolbar-icon-button-size: 18px;
+  --lookbook-toolbar-icon-button-color: var(--lookbook-color-neutral-400);
+
+  --lookbook-status-bar-height: 24px;
+
+  --lookbook-divider-color: var(--lookbook-color-neutral-300); */
+}
+
+:root {
+  --sl-color-primary-50: rgb(249 249 254);
+  --sl-color-primary-100: rgb(235 235 252);
+  --sl-color-primary-200: rgb(219 220 249);
+  --sl-color-primary-300: rgb(202 203 246);
+  --sl-color-primary-400: rgb(179 181 243);
+  --sl-color-primary-500: rgb(149 152 238);
+  --sl-color-primary-600: rgb(117 120 233);
+  --sl-color-primary-700: rgb(87 90 228);
+  --sl-color-primary-800: rgb(67 70 204);
+  --sl-color-primary-900: rgb(48 50 146);
+  --sl-color-primary-950: rgb(30 31 90);
+
+  --lookbook-toolbar-height: 40px;
+  --lookbook-toolbar-icon-button-size: 18px;
+  --lookbook-toolbar-icon-button-color: var(--sl-color-neutral-400);
+
+  --lookbook-status-bar-height: 24px;
+
+  --lookbook-divider-color: var(--sl-color-neutral-300);
+}

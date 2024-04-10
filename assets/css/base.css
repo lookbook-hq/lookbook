@@ -1,6 +1,3 @@
-@import "./reset.css";
-@import "./forms.css";
-
 html,
 body {
   font-family: var(--sl-font-sans);

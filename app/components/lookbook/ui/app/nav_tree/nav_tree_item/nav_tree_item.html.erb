@@ -11,6 +11,6 @@
   <sl-icon name="<%= icon %>"></sl-icon>
   <%= label %>
   <% children&.each do |node| %>
-    <%= lookbook_nav_tree_item(node) %>
+    <%= render Lookbook::UI::NavTreeItem.new(node: node) %>
   <% end %>
 <% end %>

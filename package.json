@@ -24,7 +24,8 @@
     "alpinejs": "^3.13.5",
     "container-query-polyfill": "^1.0.2",
     "prettier": "^3.2.5",
-    "shiki": "^1.2.0"
+    "shiki": "^1.2.0",
+    "split-grid": "^1.0.11"
   },
   "devDependencies": {
     "alias-hq": "^6.2.3",

@@ -4,6 +4,10 @@ module Lookbook
       include ActionView::Helpers::TagHelper
       include AppHelper
 
+      with_slot :content do |&block|
+        @content = block.call
+      end
+
       TAG_ATTRIBUTE_NAMES = %i[id class data aria style key x].freeze
 
       def component_name
@@ -52,6 +56,10 @@ module Lookbook
         component_tag(tag_name) do
           content
         end
+      end
+
+      def content
+        @content || super
       end
 
       def before_render

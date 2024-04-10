@@ -1,0 +1,27 @@
+[data-component="toolbar"] {
+  background-color: white;
+  height: var(--lookbook-toolbar-height);
+  display: flex;
+  align-items: center;
+  padding-right: var(--sl-spacing-2x-small);
+  padding-left: var(--sl-spacing-medium);
+  border-bottom: 1px solid var(--lookbook-divider-color);
+
+  sl-button-group {
+    font-size: var(--lookbook-toolbar-icon-button-size);
+    position: relative;
+    margin-left: auto;
+    z-index: 1;
+  }
+
+  sl-icon-button {
+    font-size: var(--sl-font-size-medium);
+    color: var(--lookbook-toolbar-icon-button-color);
+  }
+
+  .toolbar-title {
+    display: flex;
+    align-items: center;
+    font-size: var(--sl-font-size-small);
+  }
+}

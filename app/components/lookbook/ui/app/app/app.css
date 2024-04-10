@@ -3,11 +3,11 @@
   display: grid;
   grid-template-rows: min-content 1fr;
 
-  &.with-status-bar {
+  &[data-status-bar="true"] {
     grid-template-rows: min-content 1fr min-content;
   }
 
-  .app-header {
+  #app-header {
     height: var(--lookbook-toolbar-height);
     border-bottom: 1px solid var(--lookbook-divider-color);
     display: flex;
@@ -19,37 +19,15 @@
     }
   }
 
-  .app-body {
+  #app-body {
     height: 100%;
-
-    > * {
-      height: 100%;
-    }
   }
 
-  .app-layout {
-    --divider-width: 1px;
-    --min: 200px;
-    --max: 400px;
-
-    height: 100%;
-
-    &::part(divider) {
-      background-color: var(--lookbook-divider-color);
-    }
-
-    .app-sidebar {
-      height: 100%;
-      overflow: hidden;
-    }
-
-    .app-main {
-      height: 100%;
-      overflow: hidden;
-    }
+  #app-sidebar {
+    background-color: var(--sl-color-neutral-50);
   }
 
-  .app-status-bar {
+  #app-status-bar {
     border-top: 1px solid var(--lookbook-divider-color);
   }
 }

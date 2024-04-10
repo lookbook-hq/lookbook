@@ -5,6 +5,7 @@
     "data": "navTree('#{id}')",
     "@lookbook:page-update.document": "selectCurrentPageItem(false)",
     "@lookbook:page-load.document": "selectCurrentPageItem(true)",
+    "@nav-tree:collapse-all.document": "if ($event.detail.id == id) collapseAll()",
     "effect": "filter()"
   }) do %>
   
@@ -23,7 +24,7 @@
   <div class="nav-tree">
     <sl-tree x-ref="nav" selection="single" @sl-expand="itemExpanded" @sl-collapse="itemCollapsed">
       <% children.each do |node| %>
-        <%= lookbook_nav_tree_item(node) %>
+        <%= render Lookbook::UI::NavTreeItem.new(node: node) %>
       <% end %>
     </sl-tree>
   </div>

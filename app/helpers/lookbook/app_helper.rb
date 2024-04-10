@@ -6,9 +6,23 @@ module Lookbook
       render Lookbook::UI::Router.new(events_endpoint: events_endpoint, **kwargs), &block
     end
 
+    def lookbook_layout(id = nil, tag: :div, **kwargs, &block)
+      render Lookbook::UI::Layout.new(id: id, tag_name: tag, **kwargs), &block
+    end
+
+    def lookbook_pane(id = nil, **kwargs, &block)
+      render Lookbook::UI::Pane.new(id: id, **kwargs), &block
+    end
+
+    def lookbook_nav_tree(id = nil, tree = nil, **kwargs, &block)
+      render Lookbook::UI::NavTree.new(id: id, tree: tree, **kwargs), &block
+    end
+
     def lookbook_app(**kwargs, &block)
       render Lookbook::UI::App.new(**kwargs), &block
     end
+
+    ## --------------
 
     def lookbook_preview_inspector(preview, target, **kwargs, &block)
       render Lookbook::UI::PreviewInspector.new(preview: preview, target: target, **kwargs), &block
@@ -33,24 +47,8 @@ module Lookbook
       render Lookbook::UI::TabbedPane.new(id: id, **kwargs), &block
     end
 
-    def lookbook_pane(id = nil, **kwargs, &block)
-      render Lookbook::UI::Pane.new(id: id, **kwargs), &block
-    end
-
     def lookbook_panel(id = nil, **kwargs, &block)
       render Lookbook::UI::Panel.new(id: id, **kwargs), &block
-    end
-
-    def lookbook_nav_tree(id = nil, tree = nil, **kwargs, &block)
-      render Lookbook::UI::NavTree.new(id: id, tree: tree, **kwargs), &block
-    end
-
-    def lookbook_nav_tree_item(node = nil, **kwargs, &block)
-      render Lookbook::UI::NavTreeItem.new(node: node, **kwargs), &block
-    end
-
-    def lookbook_nav_tree_filter(**kwargs, &block)
-      render Lookbook::UI::NavTreeFilter.new(**kwargs), &block
     end
 
     def lookbook_viewport(src, **kwargs)

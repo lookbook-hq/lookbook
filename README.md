@@ -1,14 +1,10 @@
-<div align="center">
-<br>
-<p><a href="https://lookbook.build"><img src=".github/assets/lookbook_logo.svg" width="240"></a></p>
-
-<p>A UI development environment for Ruby on Rails applications.</p>
-
-</div>
+<img src=".github/assets/lookbook_logo.svg" width="240">
 
 <hr>
 
-> This is the work-in-progress Lookbook v3 development branch.
+## Lookbook v3 development branch
+
+WIP
 
 ## Requirements
 
@@ -29,7 +25,7 @@ Visit http://localhost:4444/lookbook
 
 ### Testing
 
-Integration tests run against the same demo app.
+Integration tests run against the demo app.
 
 Run the tests:
 

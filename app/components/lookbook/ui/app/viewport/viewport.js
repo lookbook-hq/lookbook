@@ -2,31 +2,22 @@ import AlpineComponent from "@js/alpine/component";
 
 export default AlpineComponent(
   "viewport",
-  ({ id, minWidth = 200, minHeight = 200 }) => {
+  (id, opts = { minWidth: 200, minHeight: 200 }) => {
     return {
-      minWidth,
-      minHeight,
+      minWidth: opts.minWidth,
+      minHeight: opts.minHeight,
       width: Alpine.$persist("100%").as(`viewport#${id}:width`),
       height: Alpine.$persist("100%").as(`viewport#${id}:height`),
       lastWidth: Alpine.$persist("100%").as(`viewport#${id}:last-width`),
       lastHeight: Alpine.$persist("100%").as(`viewport#${id}:last-height`),
       iframeDimensions: {},
       resizing: false,
-      inert: false,
 
       init() {
         this.onResizeWidth = this.onResizeWidth.bind(this);
         this.onResizeWidthEnd = this.onResizeWidthEnd.bind(this);
         this.onResizeHeight = this.onResizeHeight.bind(this);
         this.onResizeHeightEnd = this.onResizeHeightEnd.bind(this);
-      },
-
-      start() {
-        this.resizing = true;
-      },
-
-      end() {
-        this.resizing = false;
       },
 
       onResizeStart(e) {
@@ -55,7 +46,7 @@ export default AlpineComponent(
       },
 
       onResizeWidthStart(e) {
-        this.start();
+        this.resizing = true;
         this.resizeStartPositionX = e.pageX;
         this.resizeStartWidth = this.$refs.wrapper.clientWidth;
         addEventListener("pointermove", this.onResizeWidth);
@@ -65,7 +56,7 @@ export default AlpineComponent(
       onResizeWidthEnd() {
         removeEventListener("pointermove", this.onResizeWidth);
         removeEventListener("pointerup", this.onResizeWidthEnd);
-        this.end();
+        this.resizing = false;
       },
 
       toggleFullWidth() {
@@ -89,7 +80,7 @@ export default AlpineComponent(
       },
 
       onResizeHeightStart(e) {
-        this.start();
+        this.resizing = true;
         this.resizeStartPositionY = e.pageY;
         this.resizeStartHeight = this.$refs.wrapper.clientHeight;
         addEventListener("pointermove", this.onResizeHeight);
@@ -99,7 +90,7 @@ export default AlpineComponent(
       onResizeHeightEnd() {
         removeEventListener("pointermove", this.onResizeHeight);
         removeEventListener("pointerup", this.onResizeHeightEnd);
-        this.end();
+        this.resizing = false;
       },
 
       toggleFullHeight() {
@@ -145,6 +136,10 @@ export default AlpineComponent(
 
       get parentHeight() {
         return Math.round(this.$root.clientHeight);
+      },
+
+      get inert() {
+        return this.resizing || this.appReflowing;
       },
     };
   }

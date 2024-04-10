@@ -18,10 +18,8 @@
         link_to @config.project_name, root_path
       end
 
-      app.with_sidebar do |sidebar|
-        sidebar.with_previews_nav(@inspector.nav_tree)
-        sidebar.with_pages_nav(@docs.nav_tree)
-      end
+      app.with_previews_nav(@inspector.nav_tree)
+      app.with_pages_nav(@docs.nav_tree)
 
       app.with_main do
         content_for?(:main) ? yield(:main) : yield

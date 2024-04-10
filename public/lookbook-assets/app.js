@@ -8659,7 +8659,7 @@ ${t16.join("\n")}`);
     let io4 = null;
     let timeoutId;
     const root2 = getDocumentElement(element2);
-    function cleanup2() {
+    function cleanup3() {
       var _io;
       clearTimeout(timeoutId);
       (_io = io4) == null || _io.disconnect();
@@ -8672,7 +8672,7 @@ ${t16.join("\n")}`);
       if (threshold === void 0) {
         threshold = 1;
       }
-      cleanup2();
+      cleanup3();
       const {
         left,
         top,
@@ -8723,7 +8723,7 @@ ${t16.join("\n")}`);
       io4.observe(element2);
     }
     refresh(true);
-    return cleanup2;
+    return cleanup3;
   }
   function autoUpdate(reference, floating, update2, options) {
     if (options === void 0) {
@@ -9836,13 +9836,13 @@ ${t16.join("\n")}`);
     handleSlotChange() {
       const slottedElements = [...this.defaultSlot.assignedElements({ flatten: true })];
       slottedElements.forEach((el3) => {
-        const index = slottedElements.indexOf(el3);
+        const index2 = slottedElements.indexOf(el3);
         const button = findButton(el3);
         if (button) {
           button.classList.add("sl-button-group__button");
-          button.classList.toggle("sl-button-group__button--first", index === 0);
-          button.classList.toggle("sl-button-group__button--inner", index > 0 && index < slottedElements.length - 1);
-          button.classList.toggle("sl-button-group__button--last", index === slottedElements.length - 1);
+          button.classList.toggle("sl-button-group__button--first", index2 === 0);
+          button.classList.toggle("sl-button-group__button--inner", index2 > 0 && index2 < slottedElements.length - 1);
+          button.classList.toggle("sl-button-group__button--last", index2 === slottedElements.length - 1);
           button.classList.toggle("sl-button-group__button--radio", button.tagName.toLowerCase() === "sl-radio-button");
         }
       });
@@ -9882,324 +9882,6 @@ ${t16.join("\n")}`);
 
   // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.UJYS7SGI.js
   SlButtonGroup.define("sl-button-group");
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.COAGA4BW.js
-  var split_panel_styles_default = i2`
-  ${component_styles_default}
-
-  :host {
-    --divider-width: 4px;
-    --divider-hit-area: 12px;
-    --min: 0%;
-    --max: 100%;
-
-    display: grid;
-  }
-
-  .start,
-  .end {
-    overflow: hidden;
-  }
-
-  .divider {
-    flex: 0 0 var(--divider-width);
-    display: flex;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--sl-color-neutral-200);
-    color: var(--sl-color-neutral-900);
-    z-index: 1;
-  }
-
-  .divider:focus {
-    outline: none;
-  }
-
-  :host(:not([disabled])) .divider:focus-visible {
-    background-color: var(--sl-color-primary-600);
-    color: var(--sl-color-neutral-0);
-  }
-
-  :host([disabled]) .divider {
-    cursor: not-allowed;
-  }
-
-  /* Horizontal */
-  :host(:not([vertical], [disabled])) .divider {
-    cursor: col-resize;
-  }
-
-  :host(:not([vertical])) .divider::after {
-    display: flex;
-    content: '';
-    position: absolute;
-    height: 100%;
-    left: calc(var(--divider-hit-area) / -2 + var(--divider-width) / 2);
-    width: var(--divider-hit-area);
-  }
-
-  /* Vertical */
-  :host([vertical]) {
-    flex-direction: column;
-  }
-
-  :host([vertical]:not([disabled])) .divider {
-    cursor: row-resize;
-  }
-
-  :host([vertical]) .divider::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    top: calc(var(--divider-hit-area) / -2 + var(--divider-width) / 2);
-    height: var(--divider-hit-area);
-  }
-
-  @media (forced-colors: active) {
-    .divider {
-      outline: solid 1px transparent;
-    }
-  }
-`;
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.ESELY2US.js
-  function drag(container, options) {
-    function move(pointerEvent) {
-      const dims = container.getBoundingClientRect();
-      const defaultView = container.ownerDocument.defaultView;
-      const offsetX = dims.left + defaultView.scrollX;
-      const offsetY = dims.top + defaultView.scrollY;
-      const x6 = pointerEvent.pageX - offsetX;
-      const y6 = pointerEvent.pageY - offsetY;
-      if (options == null ? void 0 : options.onMove) {
-        options.onMove(x6, y6);
-      }
-    }
-    function stop2() {
-      document.removeEventListener("pointermove", move);
-      document.removeEventListener("pointerup", stop2);
-      if (options == null ? void 0 : options.onStop) {
-        options.onStop();
-      }
-    }
-    document.addEventListener("pointermove", move, { passive: true });
-    document.addEventListener("pointerup", stop2);
-    if ((options == null ? void 0 : options.initialEvent) instanceof PointerEvent) {
-      move(options.initialEvent);
-    }
-  }
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.HF7GESMZ.js
-  function clamp2(value, min2, max2) {
-    const noNegativeZero = (n8) => Object.is(n8, -0) ? 0 : n8;
-    if (value < min2) {
-      return noNegativeZero(min2);
-    }
-    if (value > max2) {
-      return noNegativeZero(max2);
-    }
-    return noNegativeZero(value);
-  }
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.IEXBLGJW.js
-  var SlSplitPanel = class extends ShoelaceElement {
-    constructor() {
-      super(...arguments);
-      this.localize = new LocalizeController2(this);
-      this.position = 50;
-      this.vertical = false;
-      this.disabled = false;
-      this.snapThreshold = 12;
-    }
-    connectedCallback() {
-      super.connectedCallback();
-      this.resizeObserver = new ResizeObserver((entries) => this.handleResize(entries));
-      this.updateComplete.then(() => this.resizeObserver.observe(this));
-      this.detectSize();
-      this.cachedPositionInPixels = this.percentageToPixels(this.position);
-    }
-    disconnectedCallback() {
-      super.disconnectedCallback();
-      this.resizeObserver.unobserve(this);
-    }
-    detectSize() {
-      const { width, height } = this.getBoundingClientRect();
-      this.size = this.vertical ? height : width;
-    }
-    percentageToPixels(value) {
-      return this.size * (value / 100);
-    }
-    pixelsToPercentage(value) {
-      return value / this.size * 100;
-    }
-    handleDrag(event) {
-      const isRtl = this.localize.dir() === "rtl";
-      if (this.disabled) {
-        return;
-      }
-      if (event.cancelable) {
-        event.preventDefault();
-      }
-      drag(this, {
-        onMove: (x6, y6) => {
-          let newPositionInPixels = this.vertical ? y6 : x6;
-          if (this.primary === "end") {
-            newPositionInPixels = this.size - newPositionInPixels;
-          }
-          if (this.snap) {
-            const snaps = this.snap.split(" ");
-            snaps.forEach((value) => {
-              let snapPoint;
-              if (value.endsWith("%")) {
-                snapPoint = this.size * (parseFloat(value) / 100);
-              } else {
-                snapPoint = parseFloat(value);
-              }
-              if (isRtl && !this.vertical) {
-                snapPoint = this.size - snapPoint;
-              }
-              if (newPositionInPixels >= snapPoint - this.snapThreshold && newPositionInPixels <= snapPoint + this.snapThreshold) {
-                newPositionInPixels = snapPoint;
-              }
-            });
-          }
-          this.position = clamp2(this.pixelsToPercentage(newPositionInPixels), 0, 100);
-        },
-        initialEvent: event
-      });
-    }
-    handleKeyDown(event) {
-      if (this.disabled) {
-        return;
-      }
-      if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) {
-        let newPosition = this.position;
-        const incr = (event.shiftKey ? 10 : 1) * (this.primary === "end" ? -1 : 1);
-        event.preventDefault();
-        if (event.key === "ArrowLeft" && !this.vertical || event.key === "ArrowUp" && this.vertical) {
-          newPosition -= incr;
-        }
-        if (event.key === "ArrowRight" && !this.vertical || event.key === "ArrowDown" && this.vertical) {
-          newPosition += incr;
-        }
-        if (event.key === "Home") {
-          newPosition = this.primary === "end" ? 100 : 0;
-        }
-        if (event.key === "End") {
-          newPosition = this.primary === "end" ? 0 : 100;
-        }
-        this.position = clamp2(newPosition, 0, 100);
-      }
-    }
-    handleResize(entries) {
-      const { width, height } = entries[0].contentRect;
-      this.size = this.vertical ? height : width;
-      if (this.primary) {
-        this.position = this.pixelsToPercentage(this.cachedPositionInPixels);
-      }
-    }
-    handlePositionChange() {
-      this.cachedPositionInPixels = this.percentageToPixels(this.position);
-      this.positionInPixels = this.percentageToPixels(this.position);
-      this.emit("sl-reposition");
-    }
-    handlePositionInPixelsChange() {
-      this.position = this.pixelsToPercentage(this.positionInPixels);
-    }
-    handleVerticalChange() {
-      this.detectSize();
-    }
-    render() {
-      const gridTemplate = this.vertical ? "gridTemplateRows" : "gridTemplateColumns";
-      const gridTemplateAlt = this.vertical ? "gridTemplateColumns" : "gridTemplateRows";
-      const isRtl = this.localize.dir() === "rtl";
-      const primary = `
-      clamp(
-        0%,
-        clamp(
-          var(--min),
-          ${this.position}% - var(--divider-width) / 2,
-          var(--max)
-        ),
-        calc(100% - var(--divider-width))
-      )
-    `;
-      const secondary = "auto";
-      if (this.primary === "end") {
-        if (isRtl && !this.vertical) {
-          this.style[gridTemplate] = `${primary} var(--divider-width) ${secondary}`;
-        } else {
-          this.style[gridTemplate] = `${secondary} var(--divider-width) ${primary}`;
-        }
-      } else {
-        if (isRtl && !this.vertical) {
-          this.style[gridTemplate] = `${secondary} var(--divider-width) ${primary}`;
-        } else {
-          this.style[gridTemplate] = `${primary} var(--divider-width) ${secondary}`;
-        }
-      }
-      this.style[gridTemplateAlt] = "";
-      return x2`
-      <slot name="start" part="panel start" class="start"></slot>
-
-      <div
-        part="divider"
-        class="divider"
-        tabindex=${o7(this.disabled ? void 0 : "0")}
-        role="separator"
-        aria-valuenow=${this.position}
-        aria-valuemin="0"
-        aria-valuemax="100"
-        aria-label=${this.localize.term("resize")}
-        @keydown=${this.handleKeyDown}
-        @mousedown=${this.handleDrag}
-        @touchstart=${this.handleDrag}
-      >
-        <slot name="divider"></slot>
-      </div>
-
-      <slot name="end" part="panel end" class="end"></slot>
-    `;
-    }
-  };
-  SlSplitPanel.styles = split_panel_styles_default;
-  __decorateClass([
-    e6(".divider")
-  ], SlSplitPanel.prototype, "divider", 2);
-  __decorateClass([
-    n5({ type: Number, reflect: true })
-  ], SlSplitPanel.prototype, "position", 2);
-  __decorateClass([
-    n5({ attribute: "position-in-pixels", type: Number })
-  ], SlSplitPanel.prototype, "positionInPixels", 2);
-  __decorateClass([
-    n5({ type: Boolean, reflect: true })
-  ], SlSplitPanel.prototype, "vertical", 2);
-  __decorateClass([
-    n5({ type: Boolean, reflect: true })
-  ], SlSplitPanel.prototype, "disabled", 2);
-  __decorateClass([
-    n5()
-  ], SlSplitPanel.prototype, "primary", 2);
-  __decorateClass([
-    n5()
-  ], SlSplitPanel.prototype, "snap", 2);
-  __decorateClass([
-    n5({ type: Number, attribute: "snap-threshold" })
-  ], SlSplitPanel.prototype, "snapThreshold", 2);
-  __decorateClass([
-    watch("position")
-  ], SlSplitPanel.prototype, "handlePositionChange", 1);
-  __decorateClass([
-    watch("positionInPixels")
-  ], SlSplitPanel.prototype, "handlePositionInPixelsChange", 1);
-  __decorateClass([
-    watch("vertical")
-  ], SlSplitPanel.prototype, "handleVerticalChange", 1);
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.GU4MC6U7.js
-  SlSplitPanel.define("sl-split-panel");
 
   // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.ZUGTGVV2.js
   var tree_styles_default = i2`
@@ -11018,6 +10700,18 @@ ${t16.join("\n")}`);
     options: { duration: 200, easing: "cubic-bezier(0.4, 0.0, 0.2, 1)" }
   });
 
+  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.HF7GESMZ.js
+  function clamp2(value, min2, max2) {
+    const noNegativeZero = (n8) => Object.is(n8, -0) ? 0 : n8;
+    if (value < min2) {
+      return noNegativeZero(min2);
+    }
+    if (value > max2) {
+      return noNegativeZero(max2);
+    }
+    return noNegativeZero(value);
+  }
+
   // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.PTNTNURY.js
   function syncCheckboxes(changedTreeItem, initialSync = false) {
     function syncParentItem(treeItem) {
@@ -11171,8 +10865,8 @@ ${t16.join("\n")}`);
         event.preventDefault();
         const activeItemIndex = items.findIndex((item) => item.matches(":focus"));
         const activeItem = items[activeItemIndex];
-        const focusItemAt = (index) => {
-          const item = items[clamp2(index, 0, items.length - 1)];
+        const focusItemAt = (index2) => {
+          const item = items[clamp2(index2, 0, items.length - 1)];
           this.focusItem(item);
         };
         const toggleExpand = (expanded) => {
@@ -11659,28 +11353,28 @@ ${t16.join("\n")}`);
         const activeEl = this.tabs.find((t14) => t14.matches(":focus"));
         const isRtl = this.localize.dir() === "rtl";
         if ((activeEl == null ? void 0 : activeEl.tagName.toLowerCase()) === "sl-tab") {
-          let index = this.tabs.indexOf(activeEl);
+          let index2 = this.tabs.indexOf(activeEl);
           if (event.key === "Home") {
-            index = 0;
+            index2 = 0;
           } else if (event.key === "End") {
-            index = this.tabs.length - 1;
+            index2 = this.tabs.length - 1;
           } else if (["top", "bottom"].includes(this.placement) && event.key === (isRtl ? "ArrowRight" : "ArrowLeft") || ["start", "end"].includes(this.placement) && event.key === "ArrowUp") {
-            index--;
+            index2--;
           } else if (["top", "bottom"].includes(this.placement) && event.key === (isRtl ? "ArrowLeft" : "ArrowRight") || ["start", "end"].includes(this.placement) && event.key === "ArrowDown") {
-            index++;
+            index2++;
           }
-          if (index < 0) {
-            index = this.tabs.length - 1;
+          if (index2 < 0) {
+            index2 = this.tabs.length - 1;
           }
-          if (index > this.tabs.length - 1) {
-            index = 0;
+          if (index2 > this.tabs.length - 1) {
+            index2 = 0;
           }
-          this.tabs[index].focus({ preventScroll: true });
+          this.tabs[index2].focus({ preventScroll: true });
           if (this.activation === "auto") {
-            this.setActiveTab(this.tabs[index], { scrollBehavior: "smooth" });
+            this.setActiveTab(this.tabs[index2], { scrollBehavior: "smooth" });
           }
           if (["top", "bottom"].includes(this.placement)) {
-            scrollIntoView(this.tabs[index], this.nav, "horizontal");
+            scrollIntoView(this.tabs[index2], this.nav, "horizontal");
           }
           event.preventDefault();
         }
@@ -12728,9 +12422,9 @@ ${t16.join("\n")}`);
     queueFlush();
   }
   function dequeueJob(job) {
-    let index = queue.indexOf(job);
-    if (index !== -1 && index > lastFlushedIndex)
-      queue.splice(index, 1);
+    let index2 = queue.indexOf(job);
+    if (index2 !== -1 && index2 > lastFlushedIndex)
+      queue.splice(index2, 1);
   }
   function queueFlush() {
     if (!flushing && !flushPending) {
@@ -12775,7 +12469,7 @@ ${t16.join("\n")}`);
     effect = override;
   }
   function elementBoundEffect(el3) {
-    let cleanup2 = () => {
+    let cleanup22 = () => {
     };
     let wrappedEffect = (callback) => {
       let effectReference = effect(callback);
@@ -12786,7 +12480,7 @@ ${t16.join("\n")}`);
         };
       }
       el3._x_effects.add(effectReference);
-      cleanup2 = () => {
+      cleanup22 = () => {
         if (effectReference === void 0)
           return;
         el3._x_effects.delete(effectReference);
@@ -12795,7 +12489,7 @@ ${t16.join("\n")}`);
       return effectReference;
     };
     return [wrappedEffect, () => {
-      cleanup2();
+      cleanup22();
     }];
   }
   function watch2(getter, callback) {
@@ -13217,9 +12911,9 @@ ${t16.join("\n")}`);
         if (memoizedUtilities) {
           return memoizedUtilities;
         } else {
-          let [utilities, cleanup2] = getElementBoundUtilities(el3);
+          let [utilities, cleanup22] = getElementBoundUtilities(el3);
           memoizedUtilities = { interceptor, ...utilities };
-          onElRemoved(el3, cleanup2);
+          onElRemoved(el3, cleanup22);
           return memoizedUtilities;
         }
       }
@@ -13414,13 +13108,13 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   }
   function getElementBoundUtilities(el3) {
     let cleanups = [];
-    let cleanup2 = (callback) => cleanups.push(callback);
+    let cleanup22 = (callback) => cleanups.push(callback);
     let [effect3, cleanupEffect] = elementBoundEffect(el3);
     cleanups.push(cleanupEffect);
     let utilities = {
       Alpine: alpine_default,
       effect: effect3,
-      cleanup: cleanup2,
+      cleanup: cleanup22,
       evaluateLater: evaluateLater.bind(evaluateLater, el3),
       evaluate: evaluate2.bind(evaluate2, el3)
     };
@@ -13431,8 +13125,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     let noop = () => {
     };
     let handler4 = directiveHandlers[directive2.type] || noop;
-    let [utilities, cleanup2] = getElementBoundUtilities(el3);
-    onAttributeRemoved(el3, directive2.original, cleanup2);
+    let [utilities, cleanup22] = getElementBoundUtilities(el3);
+    onAttributeRemoved(el3, directive2.original, cleanup22);
     let fullHandler = () => {
       if (el3._x_ignore || el3._x_ignoreSelf)
         return;
@@ -13440,7 +13134,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       handler4 = handler4.bind(handler4, el3, directive2, utilities);
       isDeferringHandlers ? directiveHandlerStacks.get(currentHandlerStackKey).push(handler4) : handler4();
     };
-    fullHandler.runCleanups = cleanup2;
+    fullHandler.runCleanups = cleanup22;
     return fullHandler;
   }
   var startingWith = (subject, replacement) => ({ name, value }) => {
@@ -13662,10 +13356,10 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     let transitioningIn = doesntSpecify || modifiers.includes("in") || ["enter"].includes(stage);
     let transitioningOut = doesntSpecify || modifiers.includes("out") || ["leave"].includes(stage);
     if (modifiers.includes("in") && !doesntSpecify) {
-      modifiers = modifiers.filter((i6, index) => index < modifiers.indexOf("out"));
+      modifiers = modifiers.filter((i6, index2) => index2 < modifiers.indexOf("out"));
     }
     if (modifiers.includes("out") && !doesntSpecify) {
-      modifiers = modifiers.filter((i6, index) => index > modifiers.indexOf("out"));
+      modifiers = modifiers.filter((i6, index2) => index2 > modifiers.indexOf("out"));
     }
     let wantsAll = !modifiers.includes("opacity") && !modifiers.includes("scale");
     let wantsOpacity = wantsAll || modifiers.includes("opacity");
@@ -15045,7 +14739,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   }
   magic("nextTick", () => nextTick);
   magic("dispatch", (el3) => dispatch.bind(dispatch, el3));
-  magic("watch", (el3, { evaluateLater: evaluateLater2, cleanup: cleanup2 }) => (key2, callback) => {
+  magic("watch", (el3, { evaluateLater: evaluateLater2, cleanup: cleanup22 }) => (key2, callback) => {
     let evaluate22 = evaluateLater2(key2);
     let getter = () => {
       let value;
@@ -15053,7 +14747,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       return value;
     };
     let unwatch = watch2(getter, callback);
-    cleanup2(unwatch);
+    cleanup22(unwatch);
   });
   magic("store", getStores);
   magic("data", (el3) => scope(el3));
@@ -15092,9 +14786,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     if (!el3._x_ids[name])
       el3._x_ids[name] = findAndIncrementId(name);
   }
-  magic("id", (el3, { cleanup: cleanup2 }) => (name, key2 = null) => {
+  magic("id", (el3, { cleanup: cleanup22 }) => (name, key2 = null) => {
     let cacheKey = `${name}${key2 ? `-${key2}` : ""}`;
-    return cacheIdByNameOnElement(el3, cacheKey, cleanup2, () => {
+    return cacheIdByNameOnElement(el3, cacheKey, cleanup22, () => {
       let root2 = closestIdRoot(el3, name);
       let id3 = root2 ? root2._x_ids[name] : findAndIncrementId(name);
       return key2 ? `${name}-${id3}-${key2}` : `${name}-${id3}`;
@@ -15105,14 +14799,14 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       to3._x_id = from._x_id;
     }
   });
-  function cacheIdByNameOnElement(el3, cacheKey, cleanup2, callback) {
+  function cacheIdByNameOnElement(el3, cacheKey, cleanup22, callback) {
     if (!el3._x_id)
       el3._x_id = {};
     if (el3._x_id[cacheKey])
       return el3._x_id[cacheKey];
     let output = callback();
     el3._x_id[cacheKey] = output;
-    cleanup2(() => {
+    cleanup22(() => {
       delete el3._x_id[cacheKey];
     });
     return output;
@@ -15123,7 +14817,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   function warnMissingPluginMagic(name, magicName, slug) {
     magic(magicName, (el3) => warn(`You can't use [$${magicName}] without first installing the "${name}" plugin here: https://alpinejs.dev/plugins/${slug}`, el3));
   }
-  directive("modelable", (el3, { expression }, { effect: effect3, evaluateLater: evaluateLater2, cleanup: cleanup2 }) => {
+  directive("modelable", (el3, { expression }, { effect: effect3, evaluateLater: evaluateLater2, cleanup: cleanup22 }) => {
     let func = evaluateLater2(expression);
     let innerGet = () => {
       let result;
@@ -15159,10 +14853,10 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
           }
         }
       );
-      cleanup2(releaseEntanglement);
+      cleanup22(releaseEntanglement);
     });
   });
-  directive("teleport", (el3, { modifiers, expression }, { cleanup: cleanup2 }) => {
+  directive("teleport", (el3, { modifiers, expression }, { cleanup: cleanup22 }) => {
     if (el3.tagName.toLowerCase() !== "template")
       warn("x-teleport can only be used on a <template> tag", el3);
     let target = getTarget(expression);
@@ -15200,7 +14894,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
         placeInDom(el3._x_teleport, target2, modifiers);
       });
     };
-    cleanup2(() => clone22.remove());
+    cleanup22(() => clone22.remove());
   });
   var teleportContainerDuringClone = document.createElement("div");
   function getTarget(expression) {
@@ -15215,9 +14909,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   }
   var handler = () => {
   };
-  handler.inline = (el3, { modifiers }, { cleanup: cleanup2 }) => {
+  handler.inline = (el3, { modifiers }, { cleanup: cleanup22 }) => {
     modifiers.includes("self") ? el3._x_ignoreSelf = true : el3._x_ignore = true;
-    cleanup2(() => {
+    cleanup22(() => {
       modifiers.includes("self") ? delete el3._x_ignoreSelf : delete el3._x_ignore;
     });
   };
@@ -15376,7 +15070,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
         return modifier;
     }).filter((modifier) => modifier);
   }
-  directive("model", (el3, { modifiers, expression }, { effect: effect3, cleanup: cleanup2 }) => {
+  directive("model", (el3, { modifiers, expression }, { effect: effect3, cleanup: cleanup22 }) => {
     let scopeTarget = el3;
     if (modifiers.includes("parent")) {
       scopeTarget = el3.parentNode;
@@ -15427,12 +15121,12 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     if (!el3._x_removeModelListeners)
       el3._x_removeModelListeners = {};
     el3._x_removeModelListeners["default"] = removeListener;
-    cleanup2(() => el3._x_removeModelListeners["default"]());
+    cleanup22(() => el3._x_removeModelListeners["default"]());
     if (el3.form) {
       let removeResetListener = on(el3.form, "reset", [], (e11) => {
         nextTick(() => el3._x_model && el3._x_model.set(el3.value));
       });
-      cleanup2(() => removeResetListener());
+      cleanup22(() => removeResetListener());
     }
     el3._x_model = {
       get() {
@@ -15579,7 +15273,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     el3._x_keyExpression = expression;
   }
   addRootSelector(() => `[${prefix("data")}]`);
-  directive("data", (el3, { expression }, { cleanup: cleanup2 }) => {
+  directive("data", (el3, { expression }, { cleanup: cleanup22 }) => {
     if (shouldSkipRegisteringDataDuringClone(el3))
       return;
     expression = expression === "" ? "{}" : expression;
@@ -15595,7 +15289,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     initInterceptors2(reactiveData);
     let undo = addScopeToNode(el3, reactiveData);
     reactiveData["init"] && evaluate2(el3, reactiveData["init"]);
-    cleanup2(() => {
+    cleanup22(() => {
       reactiveData["destroy"] && evaluate2(el3, reactiveData["destroy"]);
       undo();
     });
@@ -15662,7 +15356,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       firstTime = false;
     }));
   });
-  directive("for", (el3, { expression }, { effect: effect3, cleanup: cleanup2 }) => {
+  directive("for", (el3, { expression }, { effect: effect3, cleanup: cleanup22 }) => {
     let iteratorNames = parseForExpression(expression);
     let evaluateItems = evaluateLater(el3, iteratorNames.items);
     let evaluateKey = evaluateLater(
@@ -15673,7 +15367,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     el3._x_prevKeys = [];
     el3._x_lookup = {};
     effect3(() => loop(el3, iteratorNames, evaluateItems, evaluateKey));
-    cleanup2(() => {
+    cleanup22(() => {
       Object.values(el3._x_lookup).forEach((el22) => el22.remove());
       delete el3._x_prevKeys;
       delete el3._x_lookup;
@@ -15760,12 +15454,12 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
         elForSpot._x_refreshXForScope(scopes[keys.indexOf(keyForSpot)]);
       }
       for (let i6 = 0; i6 < adds.length; i6++) {
-        let [lastKey2, index] = adds[i6];
+        let [lastKey2, index2] = adds[i6];
         let lastEl = lastKey2 === "template" ? templateEl : lookup[lastKey2];
         if (lastEl._x_currentIfEl)
           lastEl = lastEl._x_currentIfEl;
-        let scope2 = scopes[index];
-        let key2 = keys[index];
+        let scope2 = scopes[index2];
+        let key2 = keys[index2];
         let clone22 = document.importNode(templateEl.content, true).firstElementChild;
         let reactiveScope = reactive(scope2);
         addScopeToNode(clone22, reactiveScope, templateEl);
@@ -15811,7 +15505,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     }
     return res;
   }
-  function getIterationScopeVariables(iteratorNames, item, index, items) {
+  function getIterationScopeVariables(iteratorNames, item, index2, items) {
     let scopeVariables = {};
     if (/^\[.*\]$/.test(iteratorNames.item) && Array.isArray(item)) {
       let names = iteratorNames.item.replace("[", "").replace("]", "").split(",").map((i6) => i6.trim());
@@ -15827,7 +15521,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       scopeVariables[iteratorNames.item] = item;
     }
     if (iteratorNames.index)
-      scopeVariables[iteratorNames.index] = index;
+      scopeVariables[iteratorNames.index] = index2;
     if (iteratorNames.collection)
       scopeVariables[iteratorNames.collection] = items;
     return scopeVariables;
@@ -15837,15 +15531,15 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   }
   function handler3() {
   }
-  handler3.inline = (el3, { expression }, { cleanup: cleanup2 }) => {
+  handler3.inline = (el3, { expression }, { cleanup: cleanup22 }) => {
     let root2 = closestRoot(el3);
     if (!root2._x_refs)
       root2._x_refs = {};
     root2._x_refs[expression] = el3;
-    cleanup2(() => delete root2._x_refs[expression]);
+    cleanup22(() => delete root2._x_refs[expression]);
   };
   directive("ref", handler3);
-  directive("if", (el3, { expression }, { effect: effect3, cleanup: cleanup2 }) => {
+  directive("if", (el3, { expression }, { effect: effect3, cleanup: cleanup22 }) => {
     if (el3.tagName.toLowerCase() !== "template")
       warn("x-if can only be used on a <template> tag", el3);
     let evaluate22 = evaluateLater(el3, expression);
@@ -15879,7 +15573,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     effect3(() => evaluate22((value) => {
       value ? show() : hide2();
     }));
-    cleanup2(() => el3._x_undoIf && el3._x_undoIf());
+    cleanup22(() => el3._x_undoIf && el3._x_undoIf());
   });
   directive("id", (el3, { expression }, { evaluate: evaluate22 }) => {
     let names = evaluate22(expression);
@@ -15891,7 +15585,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     }
   });
   mapAttributes(startingWith("@", into(prefix("on:"))));
-  directive("on", skipDuringClone((el3, { value, modifiers, expression }, { cleanup: cleanup2 }) => {
+  directive("on", skipDuringClone((el3, { value, modifiers, expression }, { cleanup: cleanup22 }) => {
     let evaluate22 = expression ? evaluateLater(el3, expression) : () => {
     };
     if (el3.tagName.toLowerCase() === "template") {
@@ -15904,7 +15598,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       evaluate22(() => {
       }, { scope: { "$event": e11 }, params: [e11] });
     });
-    cleanup2(() => removeListener());
+    cleanup22(() => removeListener());
   }));
   warnMissingPluginDirective("Collapse", "collapse", "collapse");
   warnMissingPluginDirective("Intersect", "intersect", "intersect");
@@ -16339,15 +16033,749 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   // app/components/lookbook/ui/app/app/app.js
   var app_default2 = AlpineComponent("app", () => {
     return {
-      sidebarPosition: Alpine.$persist(20).as("app:sidebar-position"),
-      interactionStart() {
-        this.$dispatch("lookbook:interaction-start");
-      },
-      interactionEnd() {
-        this.$dispatch("lookbook:interaction-end");
+      appReflowing: false,
+      bindings: {
+        root: {
+          ["@layout:resizing-start"]() {
+            this.appReflowing = true;
+          },
+          ["@layout:resizing-end"]() {
+            this.appReflowing = false;
+          }
+        }
       }
     };
   });
+
+  // app/components/lookbook/ui/app/layout/layout.js
+  var layout_exports = {};
+  __export(layout_exports, {
+    default: () => layout_default
+  });
+
+  // node_modules/split-grid/dist/split-grid.mjs
+  var numeric = function(value, unit) {
+    return Number(value.slice(0, -1 * unit.length));
+  };
+  var parseValue = function(value) {
+    if (value.endsWith("px")) {
+      return { value, type: "px", numeric: numeric(value, "px") };
+    }
+    if (value.endsWith("fr")) {
+      return { value, type: "fr", numeric: numeric(value, "fr") };
+    }
+    if (value.endsWith("%")) {
+      return { value, type: "%", numeric: numeric(value, "%") };
+    }
+    if (value === "auto") {
+      return { value, type: "auto" };
+    }
+    return null;
+  };
+  var parse = function(rule) {
+    return rule.split(" ").map(parseValue);
+  };
+  var getSizeAtTrack = function(index2, tracks, gap, end) {
+    if (gap === void 0) {
+      gap = 0;
+    }
+    if (end === void 0) {
+      end = false;
+    }
+    var newIndex = end ? index2 + 1 : index2;
+    var trackSum = tracks.slice(0, newIndex).reduce(function(accum, value) {
+      return accum + value.numeric;
+    }, 0);
+    var gapSum = gap ? index2 * gap : 0;
+    return trackSum + gapSum;
+  };
+  var getStyles = function(rule, ownRules, matchedRules) {
+    return ownRules.concat(matchedRules).map(function(r9) {
+      return r9.style[rule];
+    }).filter(function(style) {
+      return style !== void 0 && style !== "";
+    });
+  };
+  var getGapValue = function(unit, size4) {
+    if (size4.endsWith(unit)) {
+      return Number(size4.slice(0, -1 * unit.length));
+    }
+    return null;
+  };
+  var firstNonZero = function(tracks) {
+    for (var i6 = 0; i6 < tracks.length; i6++) {
+      if (tracks[i6].numeric > 0) {
+        return i6;
+      }
+    }
+    return null;
+  };
+  var NOOP = function() {
+    return false;
+  };
+  var defaultWriteStyle = function(element2, gridTemplateProp, style) {
+    element2.style[gridTemplateProp] = style;
+  };
+  var getOption = function(options, propName, def) {
+    var value = options[propName];
+    if (value !== void 0) {
+      return value;
+    }
+    return def;
+  };
+  function getMatchedCSSRules(el3) {
+    var ref;
+    return (ref = []).concat.apply(
+      ref,
+      Array.from(el3.ownerDocument.styleSheets).map(function(s6) {
+        var rules = [];
+        try {
+          rules = Array.from(s6.cssRules || []);
+        } catch (e11) {
+        }
+        return rules;
+      })
+    ).filter(function(r9) {
+      var matches2 = false;
+      try {
+        matches2 = el3.matches(r9.selectorText);
+      } catch (e11) {
+      }
+      return matches2;
+    });
+  }
+  var gridTemplatePropColumns = "grid-template-columns";
+  var gridTemplatePropRows = "grid-template-rows";
+  var Gutter = function Gutter2(direction, options, parentOptions) {
+    this.direction = direction;
+    this.element = options.element;
+    this.track = options.track;
+    if (direction === "column") {
+      this.gridTemplateProp = gridTemplatePropColumns;
+      this.gridGapProp = "grid-column-gap";
+      this.cursor = getOption(
+        parentOptions,
+        "columnCursor",
+        getOption(parentOptions, "cursor", "col-resize")
+      );
+      this.snapOffset = getOption(
+        parentOptions,
+        "columnSnapOffset",
+        getOption(parentOptions, "snapOffset", 30)
+      );
+      this.dragInterval = getOption(
+        parentOptions,
+        "columnDragInterval",
+        getOption(parentOptions, "dragInterval", 1)
+      );
+      this.clientAxis = "clientX";
+      this.optionStyle = getOption(parentOptions, "gridTemplateColumns");
+    } else if (direction === "row") {
+      this.gridTemplateProp = gridTemplatePropRows;
+      this.gridGapProp = "grid-row-gap";
+      this.cursor = getOption(
+        parentOptions,
+        "rowCursor",
+        getOption(parentOptions, "cursor", "row-resize")
+      );
+      this.snapOffset = getOption(
+        parentOptions,
+        "rowSnapOffset",
+        getOption(parentOptions, "snapOffset", 30)
+      );
+      this.dragInterval = getOption(
+        parentOptions,
+        "rowDragInterval",
+        getOption(parentOptions, "dragInterval", 1)
+      );
+      this.clientAxis = "clientY";
+      this.optionStyle = getOption(parentOptions, "gridTemplateRows");
+    }
+    this.onDragStart = getOption(parentOptions, "onDragStart", NOOP);
+    this.onDragEnd = getOption(parentOptions, "onDragEnd", NOOP);
+    this.onDrag = getOption(parentOptions, "onDrag", NOOP);
+    this.writeStyle = getOption(
+      parentOptions,
+      "writeStyle",
+      defaultWriteStyle
+    );
+    this.startDragging = this.startDragging.bind(this);
+    this.stopDragging = this.stopDragging.bind(this);
+    this.drag = this.drag.bind(this);
+    this.minSizeStart = options.minSizeStart;
+    this.minSizeEnd = options.minSizeEnd;
+    if (options.element) {
+      this.element.addEventListener("mousedown", this.startDragging);
+      this.element.addEventListener("touchstart", this.startDragging);
+    }
+  };
+  Gutter.prototype.getDimensions = function getDimensions2() {
+    var ref = this.grid.getBoundingClientRect();
+    var width = ref.width;
+    var height = ref.height;
+    var top = ref.top;
+    var bottom = ref.bottom;
+    var left = ref.left;
+    var right = ref.right;
+    if (this.direction === "column") {
+      this.start = top;
+      this.end = bottom;
+      this.size = height;
+    } else if (this.direction === "row") {
+      this.start = left;
+      this.end = right;
+      this.size = width;
+    }
+  };
+  Gutter.prototype.getSizeAtTrack = function getSizeAtTrack$1(track2, end) {
+    return getSizeAtTrack(
+      track2,
+      this.computedPixels,
+      this.computedGapPixels,
+      end
+    );
+  };
+  Gutter.prototype.getSizeOfTrack = function getSizeOfTrack(track2) {
+    return this.computedPixels[track2].numeric;
+  };
+  Gutter.prototype.getRawTracks = function getRawTracks() {
+    var tracks = getStyles(
+      this.gridTemplateProp,
+      [this.grid],
+      getMatchedCSSRules(this.grid)
+    );
+    if (!tracks.length) {
+      if (this.optionStyle) {
+        return this.optionStyle;
+      }
+      throw Error("Unable to determine grid template tracks from styles.");
+    }
+    return tracks[0];
+  };
+  Gutter.prototype.getGap = function getGap() {
+    var gap = getStyles(
+      this.gridGapProp,
+      [this.grid],
+      getMatchedCSSRules(this.grid)
+    );
+    if (!gap.length) {
+      return null;
+    }
+    return gap[0];
+  };
+  Gutter.prototype.getRawComputedTracks = function getRawComputedTracks() {
+    return window.getComputedStyle(this.grid)[this.gridTemplateProp];
+  };
+  Gutter.prototype.getRawComputedGap = function getRawComputedGap() {
+    return window.getComputedStyle(this.grid)[this.gridGapProp];
+  };
+  Gutter.prototype.setTracks = function setTracks(raw3) {
+    this.tracks = raw3.split(" ");
+    this.trackValues = parse(raw3);
+  };
+  Gutter.prototype.setComputedTracks = function setComputedTracks(raw3) {
+    this.computedTracks = raw3.split(" ");
+    this.computedPixels = parse(raw3);
+  };
+  Gutter.prototype.setGap = function setGap(raw3) {
+    this.gap = raw3;
+  };
+  Gutter.prototype.setComputedGap = function setComputedGap(raw3) {
+    this.computedGap = raw3;
+    this.computedGapPixels = getGapValue("px", this.computedGap) || 0;
+  };
+  Gutter.prototype.getMousePosition = function getMousePosition(e11) {
+    if ("touches" in e11) {
+      return e11.touches[0][this.clientAxis];
+    }
+    return e11[this.clientAxis];
+  };
+  Gutter.prototype.startDragging = function startDragging(e11) {
+    if ("button" in e11 && e11.button !== 0) {
+      return;
+    }
+    e11.preventDefault();
+    if (this.element) {
+      this.grid = this.element.parentNode;
+    } else {
+      this.grid = e11.target.parentNode;
+    }
+    this.getDimensions();
+    this.setTracks(this.getRawTracks());
+    this.setComputedTracks(this.getRawComputedTracks());
+    this.setGap(this.getGap());
+    this.setComputedGap(this.getRawComputedGap());
+    var trackPercentage = this.trackValues.filter(
+      function(track3) {
+        return track3.type === "%";
+      }
+    );
+    var trackFr = this.trackValues.filter(function(track3) {
+      return track3.type === "fr";
+    });
+    this.totalFrs = trackFr.length;
+    if (this.totalFrs) {
+      var track2 = firstNonZero(trackFr);
+      if (track2 !== null) {
+        this.frToPixels = this.computedPixels[track2].numeric / trackFr[track2].numeric;
+      }
+    }
+    if (trackPercentage.length) {
+      var track$1 = firstNonZero(trackPercentage);
+      if (track$1 !== null) {
+        this.percentageToPixels = this.computedPixels[track$1].numeric / trackPercentage[track$1].numeric;
+      }
+    }
+    var gutterStart = this.getSizeAtTrack(this.track, false) + this.start;
+    this.dragStartOffset = this.getMousePosition(e11) - gutterStart;
+    this.aTrack = this.track - 1;
+    if (this.track < this.tracks.length - 1) {
+      this.bTrack = this.track + 1;
+    } else {
+      throw Error(
+        "Invalid track index: " + this.track + ". Track must be between two other tracks and only " + this.tracks.length + " tracks were found."
+      );
+    }
+    this.aTrackStart = this.getSizeAtTrack(this.aTrack, false) + this.start;
+    this.bTrackEnd = this.getSizeAtTrack(this.bTrack, true) + this.start;
+    this.dragging = true;
+    window.addEventListener("mouseup", this.stopDragging);
+    window.addEventListener("touchend", this.stopDragging);
+    window.addEventListener("touchcancel", this.stopDragging);
+    window.addEventListener("mousemove", this.drag);
+    window.addEventListener("touchmove", this.drag);
+    this.grid.addEventListener("selectstart", NOOP);
+    this.grid.addEventListener("dragstart", NOOP);
+    this.grid.style.userSelect = "none";
+    this.grid.style.webkitUserSelect = "none";
+    this.grid.style.MozUserSelect = "none";
+    this.grid.style.pointerEvents = "none";
+    this.grid.style.cursor = this.cursor;
+    window.document.body.style.cursor = this.cursor;
+    this.onDragStart(this.direction, this.track);
+  };
+  Gutter.prototype.stopDragging = function stopDragging() {
+    this.dragging = false;
+    this.cleanup();
+    this.onDragEnd(this.direction, this.track);
+    if (this.needsDestroy) {
+      if (this.element) {
+        this.element.removeEventListener(
+          "mousedown",
+          this.startDragging
+        );
+        this.element.removeEventListener(
+          "touchstart",
+          this.startDragging
+        );
+      }
+      this.destroyCb();
+      this.needsDestroy = false;
+      this.destroyCb = null;
+    }
+  };
+  Gutter.prototype.drag = function drag(e11) {
+    var mousePosition = this.getMousePosition(e11);
+    var gutterSize = this.getSizeOfTrack(this.track);
+    var minMousePosition = this.aTrackStart + this.minSizeStart + this.dragStartOffset + this.computedGapPixels;
+    var maxMousePosition = this.bTrackEnd - this.minSizeEnd - this.computedGapPixels - (gutterSize - this.dragStartOffset);
+    var minMousePositionOffset = minMousePosition + this.snapOffset;
+    var maxMousePositionOffset = maxMousePosition - this.snapOffset;
+    if (mousePosition < minMousePositionOffset) {
+      mousePosition = minMousePosition;
+    }
+    if (mousePosition > maxMousePositionOffset) {
+      mousePosition = maxMousePosition;
+    }
+    if (mousePosition < minMousePosition) {
+      mousePosition = minMousePosition;
+    } else if (mousePosition > maxMousePosition) {
+      mousePosition = maxMousePosition;
+    }
+    var aTrackSize = mousePosition - this.aTrackStart - this.dragStartOffset - this.computedGapPixels;
+    var bTrackSize = this.bTrackEnd - mousePosition + this.dragStartOffset - gutterSize - this.computedGapPixels;
+    if (this.dragInterval > 1) {
+      var aTrackSizeIntervaled = Math.round(aTrackSize / this.dragInterval) * this.dragInterval;
+      bTrackSize -= aTrackSizeIntervaled - aTrackSize;
+      aTrackSize = aTrackSizeIntervaled;
+    }
+    if (aTrackSize < this.minSizeStart) {
+      aTrackSize = this.minSizeStart;
+    }
+    if (bTrackSize < this.minSizeEnd) {
+      bTrackSize = this.minSizeEnd;
+    }
+    if (this.trackValues[this.aTrack].type === "px") {
+      this.tracks[this.aTrack] = aTrackSize + "px";
+    } else if (this.trackValues[this.aTrack].type === "fr") {
+      if (this.totalFrs === 1) {
+        this.tracks[this.aTrack] = "1fr";
+      } else {
+        var targetFr = aTrackSize / this.frToPixels;
+        this.tracks[this.aTrack] = targetFr + "fr";
+      }
+    } else if (this.trackValues[this.aTrack].type === "%") {
+      var targetPercentage = aTrackSize / this.percentageToPixels;
+      this.tracks[this.aTrack] = targetPercentage + "%";
+    }
+    if (this.trackValues[this.bTrack].type === "px") {
+      this.tracks[this.bTrack] = bTrackSize + "px";
+    } else if (this.trackValues[this.bTrack].type === "fr") {
+      if (this.totalFrs === 1) {
+        this.tracks[this.bTrack] = "1fr";
+      } else {
+        var targetFr$1 = bTrackSize / this.frToPixels;
+        this.tracks[this.bTrack] = targetFr$1 + "fr";
+      }
+    } else if (this.trackValues[this.bTrack].type === "%") {
+      var targetPercentage$1 = bTrackSize / this.percentageToPixels;
+      this.tracks[this.bTrack] = targetPercentage$1 + "%";
+    }
+    var style = this.tracks.join(" ");
+    this.writeStyle(this.grid, this.gridTemplateProp, style);
+    this.onDrag(this.direction, this.track, style);
+  };
+  Gutter.prototype.cleanup = function cleanup2() {
+    window.removeEventListener("mouseup", this.stopDragging);
+    window.removeEventListener("touchend", this.stopDragging);
+    window.removeEventListener("touchcancel", this.stopDragging);
+    window.removeEventListener("mousemove", this.drag);
+    window.removeEventListener("touchmove", this.drag);
+    if (this.grid) {
+      this.grid.removeEventListener("selectstart", NOOP);
+      this.grid.removeEventListener("dragstart", NOOP);
+      this.grid.style.userSelect = "";
+      this.grid.style.webkitUserSelect = "";
+      this.grid.style.MozUserSelect = "";
+      this.grid.style.pointerEvents = "";
+      this.grid.style.cursor = "";
+    }
+    window.document.body.style.cursor = "";
+  };
+  Gutter.prototype.destroy = function destroy(immediate, cb) {
+    if (immediate === void 0)
+      immediate = true;
+    if (immediate || this.dragging === false) {
+      this.cleanup();
+      if (this.element) {
+        this.element.removeEventListener(
+          "mousedown",
+          this.startDragging
+        );
+        this.element.removeEventListener(
+          "touchstart",
+          this.startDragging
+        );
+      }
+      if (cb) {
+        cb();
+      }
+    } else {
+      this.needsDestroy = true;
+      if (cb) {
+        this.destroyCb = cb;
+      }
+    }
+  };
+  var getTrackOption = function(options, track2, defaultValue2) {
+    if (track2 in options) {
+      return options[track2];
+    }
+    return defaultValue2;
+  };
+  var createGutter = function(direction, options) {
+    return function(gutterOptions) {
+      if (gutterOptions.track < 1) {
+        throw Error(
+          "Invalid track index: " + gutterOptions.track + ". Track must be between two other tracks."
+        );
+      }
+      var trackMinSizes = direction === "column" ? options.columnMinSizes || {} : options.rowMinSizes || {};
+      var trackMinSize = direction === "column" ? "columnMinSize" : "rowMinSize";
+      return new Gutter(
+        direction,
+        Object.assign(
+          {},
+          {
+            minSizeStart: getTrackOption(
+              trackMinSizes,
+              gutterOptions.track - 1,
+              getOption(
+                options,
+                trackMinSize,
+                getOption(options, "minSize", 0)
+              )
+            ),
+            minSizeEnd: getTrackOption(
+              trackMinSizes,
+              gutterOptions.track + 1,
+              getOption(
+                options,
+                trackMinSize,
+                getOption(options, "minSize", 0)
+              )
+            )
+          },
+          gutterOptions
+        ),
+        options
+      );
+    };
+  };
+  var Grid = function Grid2(options) {
+    var this$1 = this;
+    this.columnGutters = {};
+    this.rowGutters = {};
+    this.options = Object.assign(
+      {},
+      {
+        columnGutters: options.columnGutters || [],
+        rowGutters: options.rowGutters || [],
+        columnMinSizes: options.columnMinSizes || {},
+        rowMinSizes: options.rowMinSizes || {}
+      },
+      options
+    );
+    this.options.columnGutters.forEach(function(gutterOptions) {
+      this$1.columnGutters[gutterOptions.track] = createGutter(
+        "column",
+        this$1.options
+      )(gutterOptions);
+    });
+    this.options.rowGutters.forEach(function(gutterOptions) {
+      this$1.rowGutters[gutterOptions.track] = createGutter(
+        "row",
+        this$1.options
+      )(gutterOptions);
+    });
+  };
+  Grid.prototype.addColumnGutter = function addColumnGutter(element2, track2) {
+    if (this.columnGutters[track2]) {
+      this.columnGutters[track2].destroy();
+    }
+    this.columnGutters[track2] = createGutter(
+      "column",
+      this.options
+    )({
+      element: element2,
+      track: track2
+    });
+  };
+  Grid.prototype.addRowGutter = function addRowGutter(element2, track2) {
+    if (this.rowGutters[track2]) {
+      this.rowGutters[track2].destroy();
+    }
+    this.rowGutters[track2] = createGutter(
+      "row",
+      this.options
+    )({
+      element: element2,
+      track: track2
+    });
+  };
+  Grid.prototype.removeColumnGutter = function removeColumnGutter(track2, immediate) {
+    var this$1 = this;
+    if (immediate === void 0)
+      immediate = true;
+    if (this.columnGutters[track2]) {
+      this.columnGutters[track2].destroy(immediate, function() {
+        delete this$1.columnGutters[track2];
+      });
+    }
+  };
+  Grid.prototype.removeRowGutter = function removeRowGutter(track2, immediate) {
+    var this$1 = this;
+    if (immediate === void 0)
+      immediate = true;
+    if (this.rowGutters[track2]) {
+      this.rowGutters[track2].destroy(immediate, function() {
+        delete this$1.rowGutters[track2];
+      });
+    }
+  };
+  Grid.prototype.handleDragStart = function handleDragStart(e11, direction, track2) {
+    if (direction === "column") {
+      if (this.columnGutters[track2]) {
+        this.columnGutters[track2].destroy();
+      }
+      this.columnGutters[track2] = createGutter(
+        "column",
+        this.options
+      )({
+        track: track2
+      });
+      this.columnGutters[track2].startDragging(e11);
+    } else if (direction === "row") {
+      if (this.rowGutters[track2]) {
+        this.rowGutters[track2].destroy();
+      }
+      this.rowGutters[track2] = createGutter(
+        "row",
+        this.options
+      )({
+        track: track2
+      });
+      this.rowGutters[track2].startDragging(e11);
+    }
+  };
+  Grid.prototype.destroy = function destroy2(immediate) {
+    var this$1 = this;
+    if (immediate === void 0)
+      immediate = true;
+    Object.keys(this.columnGutters).forEach(
+      function(track2) {
+        return this$1.columnGutters[track2].destroy(immediate, function() {
+          delete this$1.columnGutters[track2];
+        });
+      }
+    );
+    Object.keys(this.rowGutters).forEach(
+      function(track2) {
+        return this$1.rowGutters[track2].destroy(immediate, function() {
+          delete this$1.rowGutters[track2];
+        });
+      }
+    );
+  };
+  function index(options) {
+    return new Grid(options);
+  }
+  var split_grid_default = index;
+
+  // assets/js/helpers.js
+  function observeSize(element2, callback = () => {
+  }) {
+    const observer2 = new ResizeObserver((entries) => {
+      const rect = entries[0].target.getBoundingClientRect();
+      callback({
+        width: Math.round(rect.width),
+        height: Math.round(rect.height)
+      });
+    });
+    observer2.observe(element2);
+    return observer2;
+  }
+
+  // app/components/lookbook/ui/app/layout/layout.js
+  var layout_default = AlpineComponent("layout", (id3, opts = {}) => {
+    return {
+      splitter: null,
+      split: Alpine.$persist({
+        orientation: opts.orientation || "horizontal",
+        verticalSizes: opts.verticalSizes || opts.sizes || ["50%", "50%"],
+        horizontalSizes: opts.horizontalSizes || opts.sizes || ["50%", "50%"]
+      }).as(`layout#${id3}:split`),
+      layoutWidth: null,
+      layoutHeight: null,
+      minHorizontalSizes: opts.minHorizontalSizes || opts.minSizes || [],
+      minVerticalSizes: opts.minVerticalSizes || opts.minSizes || [],
+      forceOrientation: false,
+      gutters: [],
+      init() {
+        observeSize(this.$el, ({ width, height }) => {
+          this.layoutWidth = width;
+          this.layoutHeight = height;
+        });
+      },
+      initSplit() {
+        if (this.gutters.length) {
+          this.destroySplitter();
+          const dir = this.horizontal ? "row" : "column";
+          this.splitter = split_grid_default({
+            [`${dir}Gutters`]: gutterSplits(this.gutters),
+            [`${dir}MinSizes`]: sizeSplits(this.minSizes),
+            snapOffset: 0,
+            dragInterval: 1,
+            writeStyle() {
+            },
+            onDrag: (dir2, gutterTrack, style) => {
+              const splits = style.split(" ").map((value, i6) => i6 % 2 == 0 ? value : null).filter((v6) => v6);
+              this.setSplits(splits);
+            },
+            onDragStart: () => {
+              this.$dispatch("layout:resize-start", { layout: this });
+            },
+            onDragEnd: () => {
+              this.$dispatch("layout:resize-start", { layout: this });
+            }
+          });
+        }
+      },
+      registerGutter() {
+        this.gutters.push(this.$el);
+      },
+      setSplits(splits) {
+        if (this.horizontal) {
+          this.split.horizontalSizes = splits;
+        } else {
+          this.split.verticalSizes = splits;
+        }
+      },
+      switchOrientation() {
+        this.split.orientation = this.vertical ? "horizontal" : "vertical";
+      },
+      destroySplitter() {
+        if (this.splitter)
+          this.splitter.destroy();
+      },
+      get minSizes() {
+        if (this.horizontal) {
+          return this.minHorizontalSizes;
+        } else {
+          return this.minVerticalSizes;
+        }
+      },
+      get splits() {
+        return this.horizontal ? this.split.horizontalSizes : this.split.verticalSizes;
+      },
+      get vertical() {
+        if (this.forceOrientation) {
+          return this.forceOrientation === "vertical";
+        }
+        return this.split.orientation === "vertical";
+      },
+      get horizontal() {
+        if (this.forceOrientation) {
+          return this.forceOrientation === "horizontal";
+        }
+        return this.split.orientation === "horizontal";
+      },
+      bindings: {
+        root: {
+          [":style"]() {
+            return {
+              "grid-template-columns": this.vertical && sizeStr(this.splits),
+              "grid-template-rows": this.horizontal && sizeStr(this.splits)
+            };
+          },
+          [":data-orientation"]() {
+            return this.forceOrientation || this.split.orientation;
+          }
+        }
+      }
+    };
+  });
+  function sizeStr(sizes) {
+    const values = [];
+    sizes.forEach((size4) => values.push(size4, "1px"));
+    return values.slice(0, -1).join(" ");
+  }
+  function gutterSplits(gutters) {
+    return gutters.map((element2, i6) => {
+      return {
+        track: i6 * 2 + 1,
+        element: element2
+      };
+    });
+  }
+  function sizeSplits(sizes) {
+    const splits = {};
+    sizes.forEach((value, i6) => {
+      if (value !== null)
+        splits[i6 * 2] = value;
+    });
+    return splits;
+  }
 
   // app/components/lookbook/ui/app/nav_tree/nav_tree.js
   var nav_tree_exports = {};
@@ -16360,6 +16788,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       filterText: Alpine.$persist("").as(`nav-tree#${id3}:filter-text`),
       empty: false,
       filteredOut: false,
+      id: id3,
       async init() {
         this.$nextTick(async () => {
           await this.$el.updateComplete;
@@ -16397,9 +16826,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       },
       itemCollapsed(event) {
         const key2 = event.target.getAttribute("key");
-        const index = this.expanded.indexOf(key2);
-        if (index >= 0)
-          this.expanded.splice(index, 1);
+        const index2 = this.expanded.indexOf(key2);
+        if (index2 >= 0)
+          this.expanded.splice(index2, 1);
       },
       collapseAll() {
         this.items.forEach((item) => item.expanded = false);
@@ -16504,7 +16933,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   __export(notifications_popup_exports, {
     default: () => notifications_popup_default
   });
-  var notifications_popup_default = AlpineComponent("notifications-popup", () => {
+  var notifications_popup_default = AlpineComponent("notificationsPopup", () => {
     return {};
   });
 
@@ -16794,35 +17223,6 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     });
   }
 
-  // app/components/lookbook/ui/app/sidebar/sidebar.js
-  var sidebar_exports = {};
-  __export(sidebar_exports, {
-    default: () => sidebar_default
-  });
-  var sidebar_default = AlpineComponent("sidebar", () => {
-    return {
-      splitPosition: Alpine.$persist(50).as("sidebar:split-position")
-    };
-  });
-
-  // app/components/lookbook/ui/app/sidebar/sidebar_section/sidebar_section.js
-  var sidebar_section_exports = {};
-  __export(sidebar_section_exports, {
-    default: () => sidebar_section_default
-  });
-  var sidebar_section_default = AlpineComponent("sidebarSection", () => {
-    return {
-      collapseAll() {
-        if (this.navTree)
-          this.navTree.collapseAll();
-      },
-      get navTree() {
-        const el3 = this.$root.querySelector("[data-component='nav-tree']");
-        return el3 ? getData(el3) : null;
-      }
-    };
-  });
-
   // app/components/lookbook/ui/app/status_bar/status_bar.js
   var status_bar_exports = {};
   __export(status_bar_exports, {
@@ -16896,6 +17296,15 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     return {};
   });
 
+  // app/components/lookbook/ui/app/toolbar/toolbar.js
+  var toolbar_exports = {};
+  __export(toolbar_exports, {
+    default: () => toolbar_default
+  });
+  var toolbar_default = AlpineComponent("toolbar", () => {
+    return {};
+  });
+
   // app/components/lookbook/ui/app/viewport/viewport.js
   var viewport_exports = {};
   __export(viewport_exports, {
@@ -16903,28 +17312,21 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   });
   var viewport_default = AlpineComponent(
     "viewport",
-    ({ id: id3, minWidth = 200, minHeight = 200 }) => {
+    (id3, opts = { minWidth: 200, minHeight: 200 }) => {
       return {
-        minWidth,
-        minHeight,
+        minWidth: opts.minWidth,
+        minHeight: opts.minHeight,
         width: Alpine.$persist("100%").as(`viewport#${id3}:width`),
         height: Alpine.$persist("100%").as(`viewport#${id3}:height`),
         lastWidth: Alpine.$persist("100%").as(`viewport#${id3}:last-width`),
         lastHeight: Alpine.$persist("100%").as(`viewport#${id3}:last-height`),
         iframeDimensions: {},
         resizing: false,
-        inert: false,
         init() {
           this.onResizeWidth = this.onResizeWidth.bind(this);
           this.onResizeWidthEnd = this.onResizeWidthEnd.bind(this);
           this.onResizeHeight = this.onResizeHeight.bind(this);
           this.onResizeHeightEnd = this.onResizeHeightEnd.bind(this);
-        },
-        start() {
-          this.resizing = true;
-        },
-        end() {
-          this.resizing = false;
         },
         onResizeStart(e11) {
           this.onResizeWidthStart(e11);
@@ -16950,7 +17352,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
           this.width = boundedWidth === this.parentWidth ? "100%" : boundedWidth;
         },
         onResizeWidthStart(e11) {
-          this.start();
+          this.resizing = true;
           this.resizeStartPositionX = e11.pageX;
           this.resizeStartWidth = this.$refs.wrapper.clientWidth;
           addEventListener("pointermove", this.onResizeWidth);
@@ -16959,7 +17361,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
         onResizeWidthEnd() {
           removeEventListener("pointermove", this.onResizeWidth);
           removeEventListener("pointerup", this.onResizeWidthEnd);
-          this.end();
+          this.resizing = false;
         },
         toggleFullWidth() {
           if (this.width === "100%") {
@@ -16978,7 +17380,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
           this.height = boundedHeight === this.parentHeight ? "100%" : boundedHeight;
         },
         onResizeHeightStart(e11) {
-          this.start();
+          this.resizing = true;
           this.resizeStartPositionY = e11.pageY;
           this.resizeStartHeight = this.$refs.wrapper.clientHeight;
           addEventListener("pointermove", this.onResizeHeight);
@@ -16987,7 +17389,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
         onResizeHeightEnd() {
           removeEventListener("pointermove", this.onResizeHeight);
           removeEventListener("pointerup", this.onResizeHeightEnd);
-          this.end();
+          this.resizing = false;
         },
         toggleFullHeight() {
           if (this.height === "100%") {
@@ -17024,6 +17426,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
         },
         get parentHeight() {
           return Math.round(this.$root.clientHeight);
+        },
+        get inert() {
+          return this.resizing || this.appReflowing;
         }
       };
     }
@@ -17282,8 +17687,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       return CAPTURING_REGEX_SOURCE.test(regexSource);
     }
     static replaceCaptures(regexSource, captureSource, captureIndices) {
-      return regexSource.replace(CAPTURING_REGEX_SOURCE, (match, index, commandIndex, command) => {
-        let capture = captureIndices[parseInt(index || commandIndex, 10)];
+      return regexSource.replace(CAPTURING_REGEX_SOURCE, (match, index2, commandIndex, command) => {
+        let capture = captureIndices[parseInt(index2 || commandIndex, 10)];
         if (capture) {
           let result = captureSource.substring(capture.start, capture.end);
           while (result[0] === ".") {
@@ -18150,10 +18555,10 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     length() {
       return this._items.length;
     }
-    setSource(index, newSource) {
-      if (this._items[index].source !== newSource) {
+    setSource(index2, newSource) {
+      if (this._items[index2].source !== newSource) {
         this._disposeCaches();
-        this._items[index].setSource(newSource);
+        this._items[index2].setSource(newSource);
       }
     }
     compile(onigLib) {
@@ -18325,15 +18730,15 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     if (parentScopes === null) {
       return true;
     }
-    let index = 0;
-    let scopePattern = parentScopes[index];
+    let index2 = 0;
+    let scopePattern = parentScopes[index2];
     while (scopePath) {
       if (_matchesScope(scopePath.scopeName, scopePattern)) {
-        index++;
-        if (index === parentScopes.length) {
+        index2++;
+        if (index2 === parentScopes.length) {
           return true;
         }
-        scopePattern = parentScopes[index];
+        scopePattern = parentScopes[index2];
       }
       scopePath = scopePath.parent;
     }
@@ -18428,10 +18833,10 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     fontStyle;
     foreground;
     background;
-    constructor(scope2, parentScopes, index, fontStyle, foreground, background) {
+    constructor(scope2, parentScopes, index2, fontStyle, foreground, background) {
       this.scope = scope2;
       this.parentScopes = parentScopes;
-      this.index = index;
+      this.index = index2;
       this.fontStyle = fontStyle;
       this.foreground = foreground;
       this.background = background;
@@ -19916,13 +20321,13 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   // node_modules/@shikijs/core/dist/index.mjs
   function splitLines(code, preserveEnding = false) {
     const parts = code.split(/(\r?\n)/g);
-    let index = 0;
+    let index2 = 0;
     const lines = [];
     for (let i6 = 0; i6 < parts.length; i6 += 2) {
       const line = preserveEnding ? parts[i6] + (parts[i6 + 1] || "") : parts[i6];
-      lines.push([line, index]);
-      index += parts[i6].length;
-      index += parts[i6 + 1]?.length || 0;
+      lines.push([line, index2]);
+      index2 += parts[i6].length;
+      index2 += parts[i6 + 1]?.length || 0;
     }
     return lines;
   }
@@ -20013,8 +20418,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   }
   function createPositionConverter(code) {
     const lines = splitLines(code, true).map(([line]) => line);
-    function indexToPos(index) {
-      let character = index;
+    function indexToPos(index2) {
+      let character = index2;
       let line = 0;
       for (const lineText of lines) {
         if (character < lineText.length)
@@ -20025,11 +20430,11 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       return { line, character };
     }
     function posToIndex(line, character) {
-      let index = 0;
+      let index2 = 0;
       for (let i6 = 0; i6 < line; i6++)
-        index += lines[i6].length;
-      index += character;
-      return index;
+        index2 += lines[i6].length;
+      index2 += character;
+      return index2;
     }
     return {
       lines,
@@ -20077,15 +20482,15 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       position: value.length
     };
   }
-  function parseColor(sequence, index) {
+  function parseColor(sequence, index2) {
     let offset2 = 1;
-    const colorMode = sequence[index + offset2++];
+    const colorMode = sequence[index2 + offset2++];
     let color;
     if (colorMode === "2") {
       const rgb = [
-        sequence[index + offset2++],
-        sequence[index + offset2++],
-        sequence[index + offset2]
+        sequence[index2 + offset2++],
+        sequence[index2 + offset2++],
+        sequence[index2 + offset2]
       ].map((x6) => Number.parseInt(x6));
       if (rgb.length === 3 && !rgb.some((x6) => Number.isNaN(x6))) {
         color = {
@@ -20094,7 +20499,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
         };
       }
     } else if (colorMode === "5") {
-      const colorIndex = Number.parseInt(sequence[index + offset2]);
+      const colorIndex = Number.parseInt(sequence[index2 + offset2]);
       if (!Number.isNaN(colorIndex)) {
         color = { type: "table", index: Number(colorIndex) };
       }
@@ -20274,8 +20679,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       }
       return colorTable;
     }
-    function tableColor(index) {
-      return getColorTable()[index];
+    function tableColor(index2) {
+      return getColorTable()[index2];
     }
     function value(color) {
       switch (color.type) {
@@ -21007,10 +21412,10 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   function merge(definitions, space) {
     const property = {};
     const normal = {};
-    let index = -1;
-    while (++index < definitions.length) {
-      Object.assign(property, definitions[index].property);
-      Object.assign(normal, definitions[index].normal);
+    let index2 = -1;
+    while (++index2 < definitions.length) {
+      Object.assign(property, definitions[index2].property);
+      Object.assign(normal, definitions[index2].normal);
     }
     return new Schema(property, normal, space);
   }
@@ -21069,13 +21474,13 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
      * @param {string} [space]
      */
     constructor(property, attribute, mask, space) {
-      let index = -1;
+      let index2 = -1;
       super(property, attribute);
       mark(this, "space", space);
       if (typeof mask === "number") {
-        while (++index < checks.length) {
-          const check = checks[index];
-          mark(this, checks[index], (mask & types[check]) === types[check]);
+        while (++index2 < checks.length) {
+          const check = checks[index2];
+          mark(this, checks[index2], (mask & types[check]) === types[check]);
         }
       }
     }
@@ -22188,26 +22593,26 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       /[\x01-\t\v\f\x0E-\x1F\x7F\x81\x8D\x8F\x90\x9D\xA0-\uFFFF]/g,
       basic
     );
-    function surrogate(pair, index, all2) {
+    function surrogate(pair, index2, all2) {
       return options.format(
         (pair.charCodeAt(0) - 55296) * 1024 + pair.charCodeAt(1) - 56320 + 65536,
-        all2.charCodeAt(index + 2),
+        all2.charCodeAt(index2 + 2),
         options
       );
     }
-    function basic(character, index, all2) {
+    function basic(character, index2, all2) {
       return options.format(
         character.charCodeAt(0),
-        all2.charCodeAt(index + 1),
+        all2.charCodeAt(index2 + 1),
         options
       );
     }
   }
   function charactersToExpression(subset) {
     const groups = [];
-    let index = -1;
-    while (++index < subset.length) {
-      groups.push(subset[index].replace(/[|\\{}()[\]^$+*?.]/g, "\\$&"));
+    let index2 = -1;
+    while (++index2 < subset.length) {
+      groups.push(subset[index2].replace(/[|\\{}()[\]^$+*?.]/g, "\\$&"));
     }
     return new RegExp("(?:" + groups.join("|") + ")", "g");
   }
@@ -22612,7 +23017,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     return "";
   }
   function formatSmart(code, next, options) {
-    let numeric = toHexadecimal(code, next, options.omitOptionalSemicolons);
+    let numeric2 = toHexadecimal(code, next, options.omitOptionalSemicolons);
     let named;
     if (options.useNamedReferences || options.useShortestReferences) {
       named = toNamed(
@@ -22624,11 +23029,11 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     }
     if ((options.useShortestReferences || !named) && options.useShortestReferences) {
       const decimal = toDecimal(code, next, options.omitOptionalSemicolons);
-      if (decimal.length < numeric.length) {
-        numeric = decimal;
+      if (decimal.length < numeric2.length) {
+        numeric2 = decimal;
       }
     }
-    return named && (!options.useShortestReferences || named.length < numeric.length) ? named : numeric;
+    return named && (!options.useShortestReferences || named.length < numeric2.length) ? named : numeric2;
   }
   function stringifyEntities(value, options) {
     return core(value, Object.assign({ format: formatSmart }, options));
@@ -22656,10 +23061,10 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       throw new TypeError("Expected character");
     }
     let count = 0;
-    let index = source.indexOf(character);
-    while (index !== -1) {
+    let index2 = source.indexOf(character);
+    while (index2 !== -1) {
       count++;
-      index = source.indexOf(character, index + character.length);
+      index2 = source.indexOf(character, index2 + character.length);
     }
     return count;
   }
@@ -22685,9 +23090,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   var emptyChildren$1 = [];
   function siblings(increment2) {
     return sibling;
-    function sibling(parent, index, includeWhitespace) {
+    function sibling(parent, index2, includeWhitespace) {
       const siblings2 = parent ? parent.children : emptyChildren$1;
-      let offset2 = (index || 0) + increment2;
+      let offset2 = (index2 || 0) + increment2;
       let next = siblings2[offset2];
       if (!includeWhitespace) {
         while (next && whitespace(next)) {
@@ -22701,8 +23106,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   var own = {}.hasOwnProperty;
   function omission(handlers) {
     return omit;
-    function omit(node, index, parent) {
-      return own.call(handlers, node.tagName) && handlers[node.tagName](node, index, parent);
+    function omit(node, index2, parent) {
+      return own.call(handlers, node.tagName) && handlers[node.tagName](node, index2, parent);
     }
   }
   var closing = omission({
@@ -22726,68 +23131,68 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     thead,
     tr
   });
-  function headOrColgroupOrCaption(_4, index, parent) {
-    const next = siblingAfter(parent, index, true);
+  function headOrColgroupOrCaption(_4, index2, parent) {
+    const next = siblingAfter(parent, index2, true);
     return !next || next.type !== "comment" && !(next.type === "text" && whitespace(next.value.charAt(0)));
   }
-  function html$1(_4, index, parent) {
-    const next = siblingAfter(parent, index);
+  function html$1(_4, index2, parent) {
+    const next = siblingAfter(parent, index2);
     return !next || next.type !== "comment";
   }
-  function body$1(_4, index, parent) {
-    const next = siblingAfter(parent, index);
+  function body$1(_4, index2, parent) {
+    const next = siblingAfter(parent, index2);
     return !next || next.type !== "comment";
   }
-  function p4(_4, index, parent) {
-    const next = siblingAfter(parent, index);
+  function p4(_4, index2, parent) {
+    const next = siblingAfter(parent, index2);
     return next ? next.type === "element" && (next.tagName === "address" || next.tagName === "article" || next.tagName === "aside" || next.tagName === "blockquote" || next.tagName === "details" || next.tagName === "div" || next.tagName === "dl" || next.tagName === "fieldset" || next.tagName === "figcaption" || next.tagName === "figure" || next.tagName === "footer" || next.tagName === "form" || next.tagName === "h1" || next.tagName === "h2" || next.tagName === "h3" || next.tagName === "h4" || next.tagName === "h5" || next.tagName === "h6" || next.tagName === "header" || next.tagName === "hgroup" || next.tagName === "hr" || next.tagName === "main" || next.tagName === "menu" || next.tagName === "nav" || next.tagName === "ol" || next.tagName === "p" || next.tagName === "pre" || next.tagName === "section" || next.tagName === "table" || next.tagName === "ul") : !parent || // Confusing parent.
     !(parent.type === "element" && (parent.tagName === "a" || parent.tagName === "audio" || parent.tagName === "del" || parent.tagName === "ins" || parent.tagName === "map" || parent.tagName === "noscript" || parent.tagName === "video"));
   }
-  function li(_4, index, parent) {
-    const next = siblingAfter(parent, index);
+  function li(_4, index2, parent) {
+    const next = siblingAfter(parent, index2);
     return !next || next.type === "element" && next.tagName === "li";
   }
-  function dt(_4, index, parent) {
-    const next = siblingAfter(parent, index);
+  function dt(_4, index2, parent) {
+    const next = siblingAfter(parent, index2);
     return Boolean(
       next && next.type === "element" && (next.tagName === "dt" || next.tagName === "dd")
     );
   }
-  function dd(_4, index, parent) {
-    const next = siblingAfter(parent, index);
+  function dd(_4, index2, parent) {
+    const next = siblingAfter(parent, index2);
     return !next || next.type === "element" && (next.tagName === "dt" || next.tagName === "dd");
   }
-  function rubyElement(_4, index, parent) {
-    const next = siblingAfter(parent, index);
+  function rubyElement(_4, index2, parent) {
+    const next = siblingAfter(parent, index2);
     return !next || next.type === "element" && (next.tagName === "rp" || next.tagName === "rt");
   }
-  function optgroup(_4, index, parent) {
-    const next = siblingAfter(parent, index);
+  function optgroup(_4, index2, parent) {
+    const next = siblingAfter(parent, index2);
     return !next || next.type === "element" && next.tagName === "optgroup";
   }
-  function option(_4, index, parent) {
-    const next = siblingAfter(parent, index);
+  function option(_4, index2, parent) {
+    const next = siblingAfter(parent, index2);
     return !next || next.type === "element" && (next.tagName === "option" || next.tagName === "optgroup");
   }
-  function thead(_4, index, parent) {
-    const next = siblingAfter(parent, index);
+  function thead(_4, index2, parent) {
+    const next = siblingAfter(parent, index2);
     return Boolean(
       next && next.type === "element" && (next.tagName === "tbody" || next.tagName === "tfoot")
     );
   }
-  function tbody$1(_4, index, parent) {
-    const next = siblingAfter(parent, index);
+  function tbody$1(_4, index2, parent) {
+    const next = siblingAfter(parent, index2);
     return !next || next.type === "element" && (next.tagName === "tbody" || next.tagName === "tfoot");
   }
-  function tfoot(_4, index, parent) {
-    return !siblingAfter(parent, index);
+  function tfoot(_4, index2, parent) {
+    return !siblingAfter(parent, index2);
   }
-  function tr(_4, index, parent) {
-    const next = siblingAfter(parent, index);
+  function tr(_4, index2, parent) {
+    const next = siblingAfter(parent, index2);
     return !next || next.type === "element" && next.tagName === "tr";
   }
-  function cells(_4, index, parent) {
-    const next = siblingAfter(parent, index);
+  function cells(_4, index2, parent) {
+    const next = siblingAfter(parent, index2);
     return !next || next.type === "element" && (next.tagName === "td" || next.tagName === "th");
   }
   var opening = omission({
@@ -22804,9 +23209,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   function head(node) {
     const children = node.children;
     const seen = [];
-    let index = -1;
-    while (++index < children.length) {
-      const child = children[index];
+    let index2 = -1;
+    while (++index2 < children.length) {
+      const child = children[index2];
       if (child.type === "element" && (child.tagName === "title" || child.tagName === "base")) {
         if (seen.includes(child.tagName))
           return false;
@@ -22819,16 +23224,16 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     const head2 = siblingAfter(node, -1, true);
     return !head2 || head2.type !== "comment" && !(head2.type === "text" && whitespace(head2.value.charAt(0))) && !(head2.type === "element" && (head2.tagName === "meta" || head2.tagName === "link" || head2.tagName === "script" || head2.tagName === "style" || head2.tagName === "template"));
   }
-  function colgroup(node, index, parent) {
-    const previous = siblingBefore(parent, index);
+  function colgroup(node, index2, parent) {
+    const previous = siblingBefore(parent, index2);
     const head2 = siblingAfter(node, -1, true);
     if (parent && previous && previous.type === "element" && previous.tagName === "colgroup" && closing(previous, parent.children.indexOf(previous), parent)) {
       return false;
     }
     return Boolean(head2 && head2.type === "element" && head2.tagName === "col");
   }
-  function tbody(node, index, parent) {
-    const previous = siblingBefore(parent, index);
+  function tbody(node, index2, parent) {
+    const previous = siblingBefore(parent, index2);
     const head2 = siblingAfter(node, -1);
     if (parent && previous && previous.type === "element" && (previous.tagName === "thead" || previous.tagName === "tbody") && closing(previous, parent.children.indexOf(previous), parent)) {
       return false;
@@ -22858,7 +23263,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       ['\0"&'.split(""), "\0\"&'`".split("")]
     ]
   };
-  function element(node, index, parent, state) {
+  function element(node, index2, parent, state) {
     const schema = state.schema;
     const omit = schema.space === "svg" ? false : state.settings.omitOptionalTags;
     let selfClosing = schema.space === "svg" ? state.settings.closeEmptyElements : state.settings.voids.includes(node.tagName.toLowerCase());
@@ -22874,7 +23279,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     state.schema = schema;
     if (content)
       selfClosing = false;
-    if (attrs || !omit || !opening(node, index, parent)) {
+    if (attrs || !omit || !opening(node, index2, parent)) {
       parts.push("<", node.tagName, attrs ? " " + attrs : "");
       if (selfClosing && (schema.space === "svg" || state.settings.closeSelfClosing)) {
         last = attrs.charAt(attrs.length - 1);
@@ -22886,14 +23291,14 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       parts.push(">");
     }
     parts.push(content);
-    if (!selfClosing && (!omit || !closing(node, index, parent))) {
+    if (!selfClosing && (!omit || !closing(node, index2, parent))) {
       parts.push("</" + node.tagName + ">");
     }
     return parts.join("");
   }
   function serializeAttributes(state, props) {
     const values = [];
-    let index = -1;
+    let index2 = -1;
     let key2;
     if (props) {
       for (key2 in props) {
@@ -22904,10 +23309,10 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
         }
       }
     }
-    while (++index < values.length) {
-      const last = state.settings.tightAttributes ? values[index].charAt(values[index].length - 1) : void 0;
-      if (index !== values.length - 1 && last !== '"' && last !== "'") {
-        values[index] += " ";
+    while (++index2 < values.length) {
+      const last = state.settings.tightAttributes ? values[index2].charAt(values[index2].length - 1) : void 0;
+      if (index2 !== values.length - 1 && last !== '"' && last !== "'") {
+        values[index2] += " ";
       }
     }
     return values.join("");
@@ -22972,8 +23377,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       })
     );
   }
-  function raw2(node, index, parent, state) {
-    return state.settings.allowDangerousHtml ? node.value : text(node, index, parent, state);
+  function raw2(node, index2, parent, state) {
+    return state.settings.allowDangerousHtml ? node.value : text(node, index2, parent, state);
   }
   function root(node, _1, _22, state) {
     return state.all(node);
@@ -23035,15 +23440,15 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       void 0
     );
   }
-  function one(node, index, parent) {
-    return handle(node, index, parent, this);
+  function one(node, index2, parent) {
+    return handle(node, index2, parent, this);
   }
   function all(parent) {
     const results = [];
     const children = parent && parent.children || emptyChildren;
-    let index = -1;
-    while (++index < children.length) {
-      results[index] = this.one(children[index], index, parent);
+    let index2 = -1;
+    while (++index2 < children.length) {
+      results[index2] = this.one(children[index2], index2, parent);
     }
     return results.join("");
   }
@@ -23357,7 +23762,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       }
       const HEAPU32 = onigBinding2.HEAPU32;
       let offset2 = resultPtr / 4;
-      const index = HEAPU32[offset2++];
+      const index2 = HEAPU32[offset2++];
       const count = HEAPU32[offset2++];
       const captureIndices = [];
       for (let i6 = 0; i6 < count; i6++) {
@@ -23370,7 +23775,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
         };
       }
       return {
-        index,
+        index: index2,
         captureIndices
       };
     }
@@ -46874,7 +47279,7 @@ Expected it to be ${r9}.`;
   });
 
   // import-glob:/Users/mark/Code/lookbook/lookbook-v3/assets/js/alpine|../../../app/components/lookbook/ui/**/*.js
-  var modules = [app_exports, nav_tree_exports, nav_tree_item_exports, notifications_popup_exports, pane_exports, code_panel_exports, default_panel_exports, param_editor_exports, params_panel_exports, preview_inspector_exports, prose_panel_exports, preview_overview_exports, reader_exports, router_exports, sidebar_exports, sidebar_section_exports, status_bar_exports, status_bar_item_exports, tab_group_exports, tabbed_pane_exports, viewport_exports, code_exports, page_exports, prose_exports];
+  var modules = [app_exports, layout_exports, nav_tree_exports, nav_tree_item_exports, notifications_popup_exports, pane_exports, code_panel_exports, default_panel_exports, param_editor_exports, params_panel_exports, preview_inspector_exports, prose_panel_exports, preview_overview_exports, reader_exports, router_exports, status_bar_exports, status_bar_item_exports, tab_group_exports, tabbed_pane_exports, toolbar_exports, viewport_exports, code_exports, page_exports, prose_exports];
   var __default = modules;
 
   // assets/js/alpine/app.js

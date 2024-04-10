@@ -1,13 +1,5 @@
-<%= render component_tag(key: id, x: {data: "pane"}) do %>
-  <div class="pane-toolbar">
-    <h3 class="pane-title">
-      <%= title %>
-    </h3>
-        
-    <sl-button-group label="<%= label %> actions">
-      <%= safe_join(actions.reverse) %>
-    </sl-button-group>
-  </div>
+<%= render component_tag(id: nil, key: id, x: {data: "pane"}) do %>
+  <%= toolbar %>
 
   <div class="pane-content">
     <%= content %>

@@ -1,9 +1,7 @@
 <%= render component_tag(
   id: id,
   x: {
-    data: "viewport({id: #{id.to_json}})",
-    "@lookbook:interaction-start.window": "inert = true",
-    "@lookbook:interaction-end.window": "inert = false",
+    data: "viewport(#{id.to_json})",
     "@sl-resize": "onIframeResize"
   },
   class: {"resize-x": resize_x?, "resize-y": resize_y?}

@@ -1,0 +1,13 @@
+<%= render component_tag(x: {"data": "toolbar"}) do %>
+  <% if title? %>
+    <h3 class="toolbar-title">
+      <%= title %>
+    </h3>
+  <% end %>
+  
+  <% if actions? %>
+    <sl-button-group>
+      <%= safe_join(actions.reverse) %>
+    </sl-button-group>  
+  <% end %>
+<% end %>

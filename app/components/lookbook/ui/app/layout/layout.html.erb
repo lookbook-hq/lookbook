@@ -1,0 +1,19 @@
+<%= render component_tag(
+  tag_name,
+  x: {
+    data: "layout(#{id.to_json}, {orientation: #{orientation.to_json}})",
+    effect: "initSplit",
+    bind: "bindings.root",
+  }) do %>
+  <% panes.each do |pane| %>
+    <div class="layout-pane">
+      <%= pane %>
+    </div>
+    
+    <% unless pane == panes.last %>
+      <div class="layout-gutter" x-init="registerGutter">
+        <div class="layout-gutter-handle"></div>
+      </div>
+    <% end %>
+  <% end %> 
+<% end %>

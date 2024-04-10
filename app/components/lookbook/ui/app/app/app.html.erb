@@ -2,40 +2,40 @@
   id: "app",
   x: {
     data: "app",
-    ":class": "{'with-status-bar': #{status_bar?.to_json}}"
-  }
+    bind: "bindings.root"
+  },
+  data: {status_bar: status_bar?.to_json}
 ) do %>
-  <header class="app-header">
+  <header id="app-header">
     <%= header %>
   </header>
-
-  <main
-    class="app-body"
-    @pointerdown="interactionStart"
-    @pointerup="interactionEnd">
-    <% if sidebar? %>
-      <sl-split-panel
-        key="app-layout"
-        class="app-layout"
-        primary="start"
-        :position="sidebarPosition"
-        @sl-reposition="sidebarPosition = $el.position">
-        <div slot="start" class="app-sidebar">
-          <%= sidebar %>
-        </div>
-        <div slot="end" class="app-main">
-          <%= main %>
-        </div>
-      </sl-split-panel>  
-    <% else %>
-      <div class="app-main">
-        <%= main %>
-      </div>
-    <% end %>
-  </main>
+  
+  <%=
+    lookbook_layout("app-layout", tag: :main, orientation: :vertical) do |body|
+      body.with_pane do
+        lookbook_layout("app-sidebar", orientation: :horizontal) do |sidebar|
+          sidebar.with_pane("previews-nav") do |pane|
+            pane.with_toolbar do |toolbar|
+              toolbar.with_title { config.previews_nav_label }
+              toolbar.with_action(icon: :copy_minus, tooltip: "Collapse all", click: "$dispatch('nav-tree:collapse-all', {id: 'previews-nav-tree'})")
+            end
+            previews_nav
+          end
+          sidebar.with_pane("pages-nav") do |pane|
+            pane.with_toolbar do |toolbar|
+              toolbar.with_title { config.pages_nav_label }
+              toolbar.with_action(icon: :copy_minus, tooltip: "Collapse all", click: "$dispatch('nav-tree:collapse-all', {id: 'pages-nav-tree'})")
+            end
+            pages_nav
+          end
+        end 
+      end
+      body.with_pane { main }
+    end
+  %>  
 
   <% if status_bar? %>
-    <footer class="app-status-bar">
+    <footer id="app-status-bar">
       <%= status_bar %>
     </footer>  
   <% end %>
