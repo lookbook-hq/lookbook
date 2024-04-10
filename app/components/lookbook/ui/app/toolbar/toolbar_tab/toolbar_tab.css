@@ -1,0 +1,15 @@
+[data-component="toolbar-tab"] {
+  height: var(--lookbook-toolbar-height);
+  display: flex;
+  align-items: center;
+  font-size: var(--sl-font-size-small);
+  padding-inline: var(--sl-spacing-small);
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+
+  &[aria-selected="true"] {
+    color: var(--lookbook-color-accent-500);
+    border-bottom-color: var(--lookbook-color-accent-500);
+  }
+}

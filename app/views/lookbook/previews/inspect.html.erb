@@ -1,15 +1,1 @@
-<%=
-  lookbook_preview_inspector(@preview, @target) do |layout|
-    @inspector.preview_panels.each do |panel|
-      layout.with_preview_panel(panel) do
-        render panel.partial
-      end
-    end
-
-    @inspector.drawer_panels.each do |panel|
-      layout.with_drawer_panel(panel) do
-        render panel.partial
-      end
-    end
-  end
-%>
+<%= lookbook_preview_inspector(@preview, @target, preview_panels: @inspector.preview_panels, drawer_panels: @inspector.drawer_panels) %>

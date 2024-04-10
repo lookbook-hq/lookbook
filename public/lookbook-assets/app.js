@@ -9625,14 +9625,14 @@ ${t16.join("\n")}`);
         const root2 = this.getRootNode();
         const isProperty = this.from.includes(".");
         const isAttribute = this.from.includes("[") && this.from.includes("]");
-        let id3 = this.from;
+        let id = this.from;
         let field = "";
         if (isProperty) {
-          [id3, field] = this.from.trim().split(".");
+          [id, field] = this.from.trim().split(".");
         } else if (isAttribute) {
-          [id3, field] = this.from.trim().replace(/\]$/, "").split("[");
+          [id, field] = this.from.trim().replace(/\]$/, "").split("[");
         }
-        const target = "getElementById" in root2 ? root2.getElementById(id3) : null;
+        const target = "getElementById" in root2 ? root2.getElementById(id) : null;
         if (target) {
           if (isAttribute) {
             valueToCopy = target.getAttribute(field) || "";
@@ -10995,818 +10995,6 @@ ${t16.join("\n")}`);
 
   // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.V7OZVSGL.js
   SlTreeItem.define("sl-tree-item");
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.UYH2EGUN.js
-  var tab_group_styles_default = i2`
-  ${component_styles_default}
-
-  :host {
-    --indicator-color: var(--sl-color-primary-600);
-    --track-color: var(--sl-color-neutral-200);
-    --track-width: 2px;
-
-    display: block;
-  }
-
-  .tab-group {
-    display: flex;
-    border-radius: 0;
-  }
-
-  .tab-group__tabs {
-    display: flex;
-    position: relative;
-  }
-
-  .tab-group__indicator {
-    position: absolute;
-    transition:
-      var(--sl-transition-fast) translate ease,
-      var(--sl-transition-fast) width ease;
-  }
-
-  .tab-group--has-scroll-controls .tab-group__nav-container {
-    position: relative;
-    padding: 0 var(--sl-spacing-x-large);
-  }
-
-  .tab-group__body {
-    display: block;
-    overflow: auto;
-  }
-
-  .tab-group__scroll-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: var(--sl-spacing-x-large);
-  }
-
-  .tab-group__scroll-button--start {
-    left: 0;
-  }
-
-  .tab-group__scroll-button--end {
-    right: 0;
-  }
-
-  .tab-group--rtl .tab-group__scroll-button--start {
-    left: auto;
-    right: 0;
-  }
-
-  .tab-group--rtl .tab-group__scroll-button--end {
-    left: 0;
-    right: auto;
-  }
-
-  /*
-   * Top
-   */
-
-  .tab-group--top {
-    flex-direction: column;
-  }
-
-  .tab-group--top .tab-group__nav-container {
-    order: 1;
-  }
-
-  .tab-group--top .tab-group__nav {
-    display: flex;
-    overflow-x: auto;
-
-    /* Hide scrollbar in Firefox */
-    scrollbar-width: none;
-  }
-
-  /* Hide scrollbar in Chrome/Safari */
-  .tab-group--top .tab-group__nav::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
-
-  .tab-group--top .tab-group__tabs {
-    flex: 1 1 auto;
-    position: relative;
-    flex-direction: row;
-    border-bottom: solid var(--track-width) var(--track-color);
-  }
-
-  .tab-group--top .tab-group__indicator {
-    bottom: calc(-1 * var(--track-width));
-    border-bottom: solid var(--track-width) var(--indicator-color);
-  }
-
-  .tab-group--top .tab-group__body {
-    order: 2;
-  }
-
-  .tab-group--top ::slotted(sl-tab-panel) {
-    --padding: var(--sl-spacing-medium) 0;
-  }
-
-  /*
-   * Bottom
-   */
-
-  .tab-group--bottom {
-    flex-direction: column;
-  }
-
-  .tab-group--bottom .tab-group__nav-container {
-    order: 2;
-  }
-
-  .tab-group--bottom .tab-group__nav {
-    display: flex;
-    overflow-x: auto;
-
-    /* Hide scrollbar in Firefox */
-    scrollbar-width: none;
-  }
-
-  /* Hide scrollbar in Chrome/Safari */
-  .tab-group--bottom .tab-group__nav::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
-
-  .tab-group--bottom .tab-group__tabs {
-    flex: 1 1 auto;
-    position: relative;
-    flex-direction: row;
-    border-top: solid var(--track-width) var(--track-color);
-  }
-
-  .tab-group--bottom .tab-group__indicator {
-    top: calc(-1 * var(--track-width));
-    border-top: solid var(--track-width) var(--indicator-color);
-  }
-
-  .tab-group--bottom .tab-group__body {
-    order: 1;
-  }
-
-  .tab-group--bottom ::slotted(sl-tab-panel) {
-    --padding: var(--sl-spacing-medium) 0;
-  }
-
-  /*
-   * Start
-   */
-
-  .tab-group--start {
-    flex-direction: row;
-  }
-
-  .tab-group--start .tab-group__nav-container {
-    order: 1;
-  }
-
-  .tab-group--start .tab-group__tabs {
-    flex: 0 0 auto;
-    flex-direction: column;
-    border-inline-end: solid var(--track-width) var(--track-color);
-  }
-
-  .tab-group--start .tab-group__indicator {
-    right: calc(-1 * var(--track-width));
-    border-right: solid var(--track-width) var(--indicator-color);
-  }
-
-  .tab-group--start.tab-group--rtl .tab-group__indicator {
-    right: auto;
-    left: calc(-1 * var(--track-width));
-  }
-
-  .tab-group--start .tab-group__body {
-    flex: 1 1 auto;
-    order: 2;
-  }
-
-  .tab-group--start ::slotted(sl-tab-panel) {
-    --padding: 0 var(--sl-spacing-medium);
-  }
-
-  /*
-   * End
-   */
-
-  .tab-group--end {
-    flex-direction: row;
-  }
-
-  .tab-group--end .tab-group__nav-container {
-    order: 2;
-  }
-
-  .tab-group--end .tab-group__tabs {
-    flex: 0 0 auto;
-    flex-direction: column;
-    border-left: solid var(--track-width) var(--track-color);
-  }
-
-  .tab-group--end .tab-group__indicator {
-    left: calc(-1 * var(--track-width));
-    border-inline-start: solid var(--track-width) var(--indicator-color);
-  }
-
-  .tab-group--end.tab-group--rtl .tab-group__indicator {
-    right: calc(-1 * var(--track-width));
-    left: auto;
-  }
-
-  .tab-group--end .tab-group__body {
-    flex: 1 1 auto;
-    order: 1;
-  }
-
-  .tab-group--end ::slotted(sl-tab-panel) {
-    --padding: 0 var(--sl-spacing-medium);
-  }
-`;
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.RK73WSZS.js
-  function getOffset(element2, parent) {
-    return {
-      top: Math.round(element2.getBoundingClientRect().top - parent.getBoundingClientRect().top),
-      left: Math.round(element2.getBoundingClientRect().left - parent.getBoundingClientRect().left)
-    };
-  }
-  function scrollIntoView(element2, container, direction = "vertical", behavior = "smooth") {
-    const offset2 = getOffset(element2, container);
-    const offsetTop = offset2.top + container.scrollTop;
-    const offsetLeft = offset2.left + container.scrollLeft;
-    const minX = container.scrollLeft;
-    const maxX = container.scrollLeft + container.offsetWidth;
-    const minY = container.scrollTop;
-    const maxY = container.scrollTop + container.offsetHeight;
-    if (direction === "horizontal" || direction === "both") {
-      if (offsetLeft < minX) {
-        container.scrollTo({ left: offsetLeft, behavior });
-      } else if (offsetLeft + element2.clientWidth > maxX) {
-        container.scrollTo({ left: offsetLeft - container.offsetWidth + element2.clientWidth, behavior });
-      }
-    }
-    if (direction === "vertical" || direction === "both") {
-      if (offsetTop < minY) {
-        container.scrollTo({ top: offsetTop, behavior });
-      } else if (offsetTop + element2.clientHeight > maxY) {
-        container.scrollTo({ top: offsetTop - container.offsetHeight + element2.clientHeight, behavior });
-      }
-    }
-  }
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.ANWYW7B6.js
-  var SlTabGroup = class extends ShoelaceElement {
-    constructor() {
-      super(...arguments);
-      this.localize = new LocalizeController2(this);
-      this.tabs = [];
-      this.panels = [];
-      this.hasScrollControls = false;
-      this.placement = "top";
-      this.activation = "auto";
-      this.noScrollControls = false;
-    }
-    connectedCallback() {
-      const whenAllDefined = Promise.all([
-        customElements.whenDefined("sl-tab"),
-        customElements.whenDefined("sl-tab-panel")
-      ]);
-      super.connectedCallback();
-      this.resizeObserver = new ResizeObserver(() => {
-        this.repositionIndicator();
-        this.updateScrollControls();
-      });
-      this.mutationObserver = new MutationObserver((mutations) => {
-        if (mutations.some((m4) => !["aria-labelledby", "aria-controls"].includes(m4.attributeName))) {
-          setTimeout(() => this.setAriaLabels());
-        }
-        if (mutations.some((m4) => m4.attributeName === "disabled")) {
-          this.syncTabsAndPanels();
-        }
-      });
-      this.updateComplete.then(() => {
-        this.syncTabsAndPanels();
-        this.mutationObserver.observe(this, { attributes: true, childList: true, subtree: true });
-        this.resizeObserver.observe(this.nav);
-        whenAllDefined.then(() => {
-          const intersectionObserver = new IntersectionObserver((entries, observer2) => {
-            var _a3;
-            if (entries[0].intersectionRatio > 0) {
-              this.setAriaLabels();
-              this.setActiveTab((_a3 = this.getActiveTab()) != null ? _a3 : this.tabs[0], { emitEvents: false });
-              observer2.unobserve(entries[0].target);
-            }
-          });
-          intersectionObserver.observe(this.tabGroup);
-        });
-      });
-    }
-    disconnectedCallback() {
-      super.disconnectedCallback();
-      this.mutationObserver.disconnect();
-      this.resizeObserver.unobserve(this.nav);
-    }
-    getAllTabs(options = { includeDisabled: true }) {
-      const slot = this.shadowRoot.querySelector('slot[name="nav"]');
-      return [...slot.assignedElements()].filter((el3) => {
-        return options.includeDisabled ? el3.tagName.toLowerCase() === "sl-tab" : el3.tagName.toLowerCase() === "sl-tab" && !el3.disabled;
-      });
-    }
-    getAllPanels() {
-      return [...this.body.assignedElements()].filter((el3) => el3.tagName.toLowerCase() === "sl-tab-panel");
-    }
-    getActiveTab() {
-      return this.tabs.find((el3) => el3.active);
-    }
-    handleClick(event) {
-      const target = event.target;
-      const tab = target.closest("sl-tab");
-      const tabGroup = tab == null ? void 0 : tab.closest("sl-tab-group");
-      if (tabGroup !== this) {
-        return;
-      }
-      if (tab !== null) {
-        this.setActiveTab(tab, { scrollBehavior: "smooth" });
-      }
-    }
-    handleKeyDown(event) {
-      const target = event.target;
-      const tab = target.closest("sl-tab");
-      const tabGroup = tab == null ? void 0 : tab.closest("sl-tab-group");
-      if (tabGroup !== this) {
-        return;
-      }
-      if (["Enter", " "].includes(event.key)) {
-        if (tab !== null) {
-          this.setActiveTab(tab, { scrollBehavior: "smooth" });
-          event.preventDefault();
-        }
-      }
-      if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) {
-        const activeEl = this.tabs.find((t14) => t14.matches(":focus"));
-        const isRtl = this.localize.dir() === "rtl";
-        if ((activeEl == null ? void 0 : activeEl.tagName.toLowerCase()) === "sl-tab") {
-          let index2 = this.tabs.indexOf(activeEl);
-          if (event.key === "Home") {
-            index2 = 0;
-          } else if (event.key === "End") {
-            index2 = this.tabs.length - 1;
-          } else if (["top", "bottom"].includes(this.placement) && event.key === (isRtl ? "ArrowRight" : "ArrowLeft") || ["start", "end"].includes(this.placement) && event.key === "ArrowUp") {
-            index2--;
-          } else if (["top", "bottom"].includes(this.placement) && event.key === (isRtl ? "ArrowLeft" : "ArrowRight") || ["start", "end"].includes(this.placement) && event.key === "ArrowDown") {
-            index2++;
-          }
-          if (index2 < 0) {
-            index2 = this.tabs.length - 1;
-          }
-          if (index2 > this.tabs.length - 1) {
-            index2 = 0;
-          }
-          this.tabs[index2].focus({ preventScroll: true });
-          if (this.activation === "auto") {
-            this.setActiveTab(this.tabs[index2], { scrollBehavior: "smooth" });
-          }
-          if (["top", "bottom"].includes(this.placement)) {
-            scrollIntoView(this.tabs[index2], this.nav, "horizontal");
-          }
-          event.preventDefault();
-        }
-      }
-    }
-    handleScrollToStart() {
-      this.nav.scroll({
-        left: this.localize.dir() === "rtl" ? this.nav.scrollLeft + this.nav.clientWidth : this.nav.scrollLeft - this.nav.clientWidth,
-        behavior: "smooth"
-      });
-    }
-    handleScrollToEnd() {
-      this.nav.scroll({
-        left: this.localize.dir() === "rtl" ? this.nav.scrollLeft - this.nav.clientWidth : this.nav.scrollLeft + this.nav.clientWidth,
-        behavior: "smooth"
-      });
-    }
-    setActiveTab(tab, options) {
-      options = __spreadValues({
-        emitEvents: true,
-        scrollBehavior: "auto"
-      }, options);
-      if (tab !== this.activeTab && !tab.disabled) {
-        const previousTab = this.activeTab;
-        this.activeTab = tab;
-        this.tabs.forEach((el3) => el3.active = el3 === this.activeTab);
-        this.panels.forEach((el3) => {
-          var _a3;
-          return el3.active = el3.name === ((_a3 = this.activeTab) == null ? void 0 : _a3.panel);
-        });
-        this.syncIndicator();
-        if (["top", "bottom"].includes(this.placement)) {
-          scrollIntoView(this.activeTab, this.nav, "horizontal", options.scrollBehavior);
-        }
-        if (options.emitEvents) {
-          if (previousTab) {
-            this.emit("sl-tab-hide", { detail: { name: previousTab.panel } });
-          }
-          this.emit("sl-tab-show", { detail: { name: this.activeTab.panel } });
-        }
-      }
-    }
-    setAriaLabels() {
-      this.tabs.forEach((tab) => {
-        const panel = this.panels.find((el3) => el3.name === tab.panel);
-        if (panel) {
-          tab.setAttribute("aria-controls", panel.getAttribute("id"));
-          panel.setAttribute("aria-labelledby", tab.getAttribute("id"));
-        }
-      });
-    }
-    repositionIndicator() {
-      const currentTab = this.getActiveTab();
-      if (!currentTab) {
-        return;
-      }
-      const width = currentTab.clientWidth;
-      const height = currentTab.clientHeight;
-      const isRtl = this.localize.dir() === "rtl";
-      const allTabs = this.getAllTabs();
-      const precedingTabs = allTabs.slice(0, allTabs.indexOf(currentTab));
-      const offset2 = precedingTabs.reduce(
-        (previous, current) => ({
-          left: previous.left + current.clientWidth,
-          top: previous.top + current.clientHeight
-        }),
-        { left: 0, top: 0 }
-      );
-      switch (this.placement) {
-        case "top":
-        case "bottom":
-          this.indicator.style.width = `${width}px`;
-          this.indicator.style.height = "auto";
-          this.indicator.style.translate = isRtl ? `${-1 * offset2.left}px` : `${offset2.left}px`;
-          break;
-        case "start":
-        case "end":
-          this.indicator.style.width = "auto";
-          this.indicator.style.height = `${height}px`;
-          this.indicator.style.translate = `0 ${offset2.top}px`;
-          break;
-      }
-    }
-    // This stores tabs and panels so we can refer to a cache instead of calling querySelectorAll() multiple times.
-    syncTabsAndPanels() {
-      this.tabs = this.getAllTabs({ includeDisabled: false });
-      this.panels = this.getAllPanels();
-      this.syncIndicator();
-      this.updateComplete.then(() => this.updateScrollControls());
-    }
-    updateScrollControls() {
-      if (this.noScrollControls) {
-        this.hasScrollControls = false;
-      } else {
-        this.hasScrollControls = ["top", "bottom"].includes(this.placement) && this.nav.scrollWidth > this.nav.clientWidth;
-      }
-    }
-    syncIndicator() {
-      const tab = this.getActiveTab();
-      if (tab) {
-        this.indicator.style.display = "block";
-        this.repositionIndicator();
-      } else {
-        this.indicator.style.display = "none";
-      }
-    }
-    /** Shows the specified tab panel. */
-    show(panel) {
-      const tab = this.tabs.find((el3) => el3.panel === panel);
-      if (tab) {
-        this.setActiveTab(tab, { scrollBehavior: "smooth" });
-      }
-    }
-    render() {
-      const isRtl = this.localize.dir() === "rtl";
-      return x2`
-      <div
-        part="base"
-        class=${e9({
-        "tab-group": true,
-        "tab-group--top": this.placement === "top",
-        "tab-group--bottom": this.placement === "bottom",
-        "tab-group--start": this.placement === "start",
-        "tab-group--end": this.placement === "end",
-        "tab-group--rtl": this.localize.dir() === "rtl",
-        "tab-group--has-scroll-controls": this.hasScrollControls
-      })}
-        @click=${this.handleClick}
-        @keydown=${this.handleKeyDown}
-      >
-        <div class="tab-group__nav-container" part="nav">
-          ${this.hasScrollControls ? x2`
-                <sl-icon-button
-                  part="scroll-button scroll-button--start"
-                  exportparts="base:scroll-button__base"
-                  class="tab-group__scroll-button tab-group__scroll-button--start"
-                  name=${isRtl ? "chevron-right" : "chevron-left"}
-                  library="system"
-                  label=${this.localize.term("scrollToStart")}
-                  @click=${this.handleScrollToStart}
-                ></sl-icon-button>
-              ` : ""}
-
-          <div class="tab-group__nav">
-            <div part="tabs" class="tab-group__tabs" role="tablist">
-              <div part="active-tab-indicator" class="tab-group__indicator"></div>
-              <slot name="nav" @slotchange=${this.syncTabsAndPanels}></slot>
-            </div>
-          </div>
-
-          ${this.hasScrollControls ? x2`
-                <sl-icon-button
-                  part="scroll-button scroll-button--end"
-                  exportparts="base:scroll-button__base"
-                  class="tab-group__scroll-button tab-group__scroll-button--end"
-                  name=${isRtl ? "chevron-left" : "chevron-right"}
-                  library="system"
-                  label=${this.localize.term("scrollToEnd")}
-                  @click=${this.handleScrollToEnd}
-                ></sl-icon-button>
-              ` : ""}
-        </div>
-
-        <slot part="body" class="tab-group__body" @slotchange=${this.syncTabsAndPanels}></slot>
-      </div>
-    `;
-    }
-  };
-  SlTabGroup.styles = tab_group_styles_default;
-  SlTabGroup.dependencies = { "sl-icon-button": SlIconButton };
-  __decorateClass([
-    e6(".tab-group")
-  ], SlTabGroup.prototype, "tabGroup", 2);
-  __decorateClass([
-    e6(".tab-group__body")
-  ], SlTabGroup.prototype, "body", 2);
-  __decorateClass([
-    e6(".tab-group__nav")
-  ], SlTabGroup.prototype, "nav", 2);
-  __decorateClass([
-    e6(".tab-group__indicator")
-  ], SlTabGroup.prototype, "indicator", 2);
-  __decorateClass([
-    r7()
-  ], SlTabGroup.prototype, "hasScrollControls", 2);
-  __decorateClass([
-    n5()
-  ], SlTabGroup.prototype, "placement", 2);
-  __decorateClass([
-    n5()
-  ], SlTabGroup.prototype, "activation", 2);
-  __decorateClass([
-    n5({ attribute: "no-scroll-controls", type: Boolean })
-  ], SlTabGroup.prototype, "noScrollControls", 2);
-  __decorateClass([
-    watch("noScrollControls", { waitUntilFirstUpdate: true })
-  ], SlTabGroup.prototype, "updateScrollControls", 1);
-  __decorateClass([
-    watch("placement", { waitUntilFirstUpdate: true })
-  ], SlTabGroup.prototype, "syncIndicator", 1);
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.ZTLT6HHG.js
-  SlTabGroup.define("sl-tab-group");
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.LXNEWTQ2.js
-  var tab_styles_default = i2`
-  ${component_styles_default}
-
-  :host {
-    display: inline-block;
-  }
-
-  .tab {
-    display: inline-flex;
-    align-items: center;
-    font-family: var(--sl-font-sans);
-    font-size: var(--sl-font-size-small);
-    font-weight: var(--sl-font-weight-semibold);
-    border-radius: var(--sl-border-radius-medium);
-    color: var(--sl-color-neutral-600);
-    padding: var(--sl-spacing-medium) var(--sl-spacing-large);
-    white-space: nowrap;
-    user-select: none;
-    -webkit-user-select: none;
-    cursor: pointer;
-    transition:
-      var(--transition-speed) box-shadow,
-      var(--transition-speed) color;
-  }
-
-  .tab:hover:not(.tab--disabled) {
-    color: var(--sl-color-primary-600);
-  }
-
-  .tab:focus {
-    outline: none;
-  }
-
-  .tab:focus-visible:not(.tab--disabled) {
-    color: var(--sl-color-primary-600);
-  }
-
-  .tab:focus-visible {
-    outline: var(--sl-focus-ring);
-    outline-offset: calc(-1 * var(--sl-focus-ring-width) - var(--sl-focus-ring-offset));
-  }
-
-  .tab.tab--active:not(.tab--disabled) {
-    color: var(--sl-color-primary-600);
-  }
-
-  .tab.tab--closable {
-    padding-inline-end: var(--sl-spacing-small);
-  }
-
-  .tab.tab--disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .tab__close-button {
-    font-size: var(--sl-font-size-small);
-    margin-inline-start: var(--sl-spacing-small);
-  }
-
-  .tab__close-button::part(base) {
-    padding: var(--sl-spacing-3x-small);
-  }
-
-  @media (forced-colors: active) {
-    .tab.tab--active:not(.tab--disabled) {
-      outline: solid 1px transparent;
-      outline-offset: -3px;
-    }
-  }
-`;
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.OH5HVVOS.js
-  var id = 0;
-  var SlTab = class extends ShoelaceElement {
-    constructor() {
-      super(...arguments);
-      this.localize = new LocalizeController2(this);
-      this.attrId = ++id;
-      this.componentId = `sl-tab-${this.attrId}`;
-      this.panel = "";
-      this.active = false;
-      this.closable = false;
-      this.disabled = false;
-    }
-    connectedCallback() {
-      super.connectedCallback();
-      this.setAttribute("role", "tab");
-    }
-    handleCloseClick(event) {
-      event.stopPropagation();
-      this.emit("sl-close");
-    }
-    handleActiveChange() {
-      this.setAttribute("aria-selected", this.active ? "true" : "false");
-    }
-    handleDisabledChange() {
-      this.setAttribute("aria-disabled", this.disabled ? "true" : "false");
-    }
-    /** Sets focus to the tab. */
-    focus(options) {
-      this.tab.focus(options);
-    }
-    /** Removes focus from the tab. */
-    blur() {
-      this.tab.blur();
-    }
-    render() {
-      this.id = this.id.length > 0 ? this.id : this.componentId;
-      return x2`
-      <div
-        part="base"
-        class=${e9({
-        tab: true,
-        "tab--active": this.active,
-        "tab--closable": this.closable,
-        "tab--disabled": this.disabled
-      })}
-        tabindex=${this.disabled ? "-1" : "0"}
-      >
-        <slot></slot>
-        ${this.closable ? x2`
-              <sl-icon-button
-                part="close-button"
-                exportparts="base:close-button__base"
-                name="x-lg"
-                library="system"
-                label=${this.localize.term("close")}
-                class="tab__close-button"
-                @click=${this.handleCloseClick}
-                tabindex="-1"
-              ></sl-icon-button>
-            ` : ""}
-      </div>
-    `;
-    }
-  };
-  SlTab.styles = tab_styles_default;
-  SlTab.dependencies = { "sl-icon-button": SlIconButton };
-  __decorateClass([
-    e6(".tab")
-  ], SlTab.prototype, "tab", 2);
-  __decorateClass([
-    n5({ reflect: true })
-  ], SlTab.prototype, "panel", 2);
-  __decorateClass([
-    n5({ type: Boolean, reflect: true })
-  ], SlTab.prototype, "active", 2);
-  __decorateClass([
-    n5({ type: Boolean })
-  ], SlTab.prototype, "closable", 2);
-  __decorateClass([
-    n5({ type: Boolean, reflect: true })
-  ], SlTab.prototype, "disabled", 2);
-  __decorateClass([
-    watch("active")
-  ], SlTab.prototype, "handleActiveChange", 1);
-  __decorateClass([
-    watch("disabled")
-  ], SlTab.prototype, "handleDisabledChange", 1);
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.IWEBRBFK.js
-  SlTab.define("sl-tab");
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.JTIOSPX3.js
-  var tab_panel_styles_default = i2`
-  ${component_styles_default}
-
-  :host {
-    --padding: 0;
-
-    display: none;
-  }
-
-  :host([active]) {
-    display: block;
-  }
-
-  .tab-panel {
-    display: block;
-    padding: var(--padding);
-  }
-`;
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.CCRTZ565.js
-  var id2 = 0;
-  var SlTabPanel = class extends ShoelaceElement {
-    constructor() {
-      super(...arguments);
-      this.attrId = ++id2;
-      this.componentId = `sl-tab-panel-${this.attrId}`;
-      this.name = "";
-      this.active = false;
-    }
-    connectedCallback() {
-      super.connectedCallback();
-      this.id = this.id.length > 0 ? this.id : this.componentId;
-      this.setAttribute("role", "tabpanel");
-    }
-    handleActiveChange() {
-      this.setAttribute("aria-hidden", this.active ? "false" : "true");
-    }
-    render() {
-      return x2`
-      <slot
-        part="base"
-        class=${e9({
-        "tab-panel": true,
-        "tab-panel--active": this.active
-      })}
-      ></slot>
-    `;
-    }
-  };
-  SlTabPanel.styles = tab_panel_styles_default;
-  __decorateClass([
-    n5({ reflect: true })
-  ], SlTabPanel.prototype, "name", 2);
-  __decorateClass([
-    n5({ type: Boolean, reflect: true })
-  ], SlTabPanel.prototype, "active", 2);
-  __decorateClass([
-    watch("active")
-  ], SlTabPanel.prototype, "handleActiveChange", 1);
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.GBZVGO6R.js
-  SlTabPanel.define("sl-tab-panel");
 
   // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.4AZGT5K5.js
   SlPopup.define("sl-popup");
@@ -14790,8 +13978,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     let cacheKey = `${name}${key2 ? `-${key2}` : ""}`;
     return cacheIdByNameOnElement(el3, cacheKey, cleanup22, () => {
       let root2 = closestIdRoot(el3, name);
-      let id3 = root2 ? root2._x_ids[name] : findAndIncrementId(name);
-      return key2 ? `${name}-${id3}-${key2}` : `${name}-${id3}`;
+      let id = root2 ? root2._x_ids[name] : findAndIncrementId(name);
+      return key2 ? `${name}-${id}-${key2}` : `${name}-${id}`;
     });
   });
   interceptClone((from, to3) => {
@@ -16657,14 +15845,14 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   }
 
   // app/components/lookbook/ui/app/layout/layout.js
-  var layout_default = AlpineComponent("layout", (id3, opts = {}) => {
+  var layout_default = AlpineComponent("layout", (id, opts = {}) => {
     return {
       splitter: null,
       split: Alpine.$persist({
         orientation: opts.orientation || "horizontal",
         verticalSizes: opts.verticalSizes || opts.sizes || ["50%", "50%"],
         horizontalSizes: opts.horizontalSizes || opts.sizes || ["50%", "50%"]
-      }).as(`layout#${id3}:split`),
+      }).as(`layout#${id}:split`),
       layoutWidth: null,
       layoutHeight: null,
       minHorizontalSizes: opts.minHorizontalSizes || opts.minSizes || [],
@@ -16782,13 +15970,13 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   __export(nav_tree_exports, {
     default: () => nav_tree_default
   });
-  var nav_tree_default = AlpineComponent("navTree", (id3) => {
+  var nav_tree_default = AlpineComponent("navTree", (id) => {
     return {
-      expanded: Alpine.$persist([]).as(`nav-tree#${id3}:expanded-items`),
-      filterText: Alpine.$persist("").as(`nav-tree#${id3}:filter-text`),
+      expanded: Alpine.$persist([]).as(`nav-tree#${id}:expanded-items`),
+      filterText: Alpine.$persist("").as(`nav-tree#${id}:filter-text`),
       empty: false,
       filteredOut: false,
-      id: id3,
+      id,
       async init() {
         this.$nextTick(async () => {
           await this.$el.updateComplete;
@@ -16942,8 +16130,42 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   __export(pane_exports, {
     default: () => pane_default
   });
-  var pane_default = AlpineComponent("pane", () => {
-    return {};
+  var pane_default = AlpineComponent("pane", (id) => {
+    return {
+      activePanel: Alpine.$persist(null).as(`pane#${id}:active-panel`),
+      init() {
+        this.$nextTick(() => {
+          if (this.activePanel === null && this.toolbar.tabs.length) {
+            this.activePanel = this.toolbar.tabs[0].name;
+          }
+          this.toolbar.activeTab = this.activePanel;
+        });
+      },
+      isActivePanel(name) {
+        return this.activePanel === name;
+      },
+      get toolbar() {
+        return getData(this.$root.querySelector("[data-component='toolbar']"));
+      },
+      bindings: {
+        root: {
+          ["@toolbar:tab-selected"](event) {
+            this.activePanel = event.detail.name;
+          }
+        }
+      }
+    };
+  });
+
+  // app/components/lookbook/ui/app/pane/tab_panel/tab_panel.js
+  var tab_panel_exports = {};
+  __export(tab_panel_exports, {
+    default: () => tab_panel_default
+  });
+  var tab_panel_default = AlpineComponent("tabPanel", (name) => {
+    return {
+      name
+    };
   });
 
   // app/components/lookbook/ui/app/preview_inspector/code_panel/code_panel.js
@@ -17008,30 +16230,30 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   });
   var preview_inspector_default = AlpineComponent("previewInspector", () => {
     return {
-      drawerPosition: Alpine.$persist(20).as("preview-inspector:drawer-position"),
-      drawerLastPosition: Alpine.$persist(20).as(
-        "preview-inspector:drawer-last-position"
-      ),
-      init() {
-        this.$watch("drawerPosition", (value) => {
-          if (value !== 0) {
-            this.drawerLastPosition = value;
-          }
-        });
-      },
-      openDrawer() {
-        this.$refs.splitter.position = this.drawerLastPosition;
-      },
-      closeDrawer() {
-        this.drawerLastPosition = this.drawerPosition;
-        this.$refs.splitter.position = 0;
-      },
-      get drawerClosed() {
-        return this.drawerPosition === 0;
-      },
-      get hasDrawer() {
-        return !!this.$refs.splitter;
-      }
+      // drawerPosition: Alpine.$persist(20).as("preview-inspector:drawer-position"),
+      // drawerLastPosition: Alpine.$persist(20).as(
+      //   "preview-inspector:drawer-last-position"
+      // ),
+      // init() {
+      //   this.$watch("drawerPosition", (value) => {
+      //     if (value !== 0) {
+      //       this.drawerLastPosition = value;
+      //     }
+      //   });
+      // },
+      // openDrawer() {
+      //   this.$refs.splitter.position = this.drawerLastPosition;
+      // },
+      // closeDrawer() {
+      //   this.drawerLastPosition = this.drawerPosition;
+      //   this.$refs.splitter.position = 0;
+      // },
+      // get drawerClosed() {
+      //   return this.drawerPosition === 0;
+      // },
+      // get hasDrawer() {
+      //   return !!this.$refs.splitter;
+      // },
     };
   });
 
@@ -17241,68 +16463,37 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     return {};
   });
 
-  // app/components/lookbook/ui/app/tab_group/tab_group.js
-  var tab_group_exports = {};
-  __export(tab_group_exports, {
-    default: () => tab_group_default2
-  });
-  var tab_group_default2 = AlpineComponent("tabGroup", (id3) => {
-    return {
-      activeTab: Alpine.$persist("").as(`tab-group#${id3}:active-tab`),
-      async init() {
-        this.$watch("activeTab", (tabName) => {
-          this.$dispatch("lookbook:tab-selected", {
-            tabGroup: this,
-            activeTab: this.activeTab
-          });
-          this.$logger.debug(`${id3}: '${this.activeTab}' tab selected`);
-        });
-        await this.selectTab();
-      },
-      async selectTab() {
-        if (this.activeTab !== "") {
-          await this.tabGroup.updateComplete;
-          this.tabGroup.show(this.activeTab);
-        } else {
-          return this.getInitialActiveTab();
-        }
-      },
-      async getInitialActiveTab() {
-        await this.tabsReady;
-        setTimeout(() => {
-          const activeTab = this.tabs.find((tab) => tab.active);
-          if (activeTab)
-            this.activeTab = activeTab.panel;
-        }, 100);
-      },
-      get tabGroup() {
-        return this.$root.querySelector("sl-tab-group");
-      },
-      get tabs() {
-        return Array.from(this.tabGroup.querySelectorAll("sl-tab"));
-      },
-      get tabsReady() {
-        return Promise.all(this.tabs.map((tab) => tab.updateComplete));
-      }
-    };
-  });
-
-  // app/components/lookbook/ui/app/tabbed_pane/tabbed_pane.js
-  var tabbed_pane_exports = {};
-  __export(tabbed_pane_exports, {
-    default: () => tabbed_pane_default
-  });
-  var tabbed_pane_default = AlpineComponent("tabbedPane", () => {
-    return {};
-  });
-
   // app/components/lookbook/ui/app/toolbar/toolbar.js
   var toolbar_exports = {};
   __export(toolbar_exports, {
     default: () => toolbar_default
   });
   var toolbar_default = AlpineComponent("toolbar", () => {
-    return {};
+    return {
+      activeTab: null,
+      selectTab(name) {
+        this.activeTab = name;
+        this.$dispatch("toolbar:tab-selected", { name });
+      },
+      isActive(name) {
+        return this.activeTab === name;
+      },
+      get tabs() {
+        const childNodes = this.$refs.tabs ? this.$refs.tabs.children : [];
+        return Array.from(childNodes).map((child) => getData(child));
+      }
+    };
+  });
+
+  // app/components/lookbook/ui/app/toolbar/toolbar_tab/toolbar_tab.js
+  var toolbar_tab_exports = {};
+  __export(toolbar_tab_exports, {
+    default: () => toolbar_tab_default
+  });
+  var toolbar_tab_default = AlpineComponent("toolbarTab", (name) => {
+    return {
+      name
+    };
   });
 
   // app/components/lookbook/ui/app/viewport/viewport.js
@@ -17312,14 +16503,14 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   });
   var viewport_default = AlpineComponent(
     "viewport",
-    (id3, opts = { minWidth: 200, minHeight: 200 }) => {
+    (id, opts = { minWidth: 200, minHeight: 200 }) => {
       return {
         minWidth: opts.minWidth,
         minHeight: opts.minHeight,
-        width: Alpine.$persist("100%").as(`viewport#${id3}:width`),
-        height: Alpine.$persist("100%").as(`viewport#${id3}:height`),
-        lastWidth: Alpine.$persist("100%").as(`viewport#${id3}:last-width`),
-        lastHeight: Alpine.$persist("100%").as(`viewport#${id3}:last-height`),
+        width: Alpine.$persist("100%").as(`viewport#${id}:width`),
+        height: Alpine.$persist("100%").as(`viewport#${id}:height`),
+        lastWidth: Alpine.$persist("100%").as(`viewport#${id}:last-width`),
+        lastHeight: Alpine.$persist("100%").as(`viewport#${id}:last-height`),
         iframeDimensions: {},
         resizing: false,
         init() {
@@ -17979,11 +17170,11 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   var BACK_REFERENCING_END = /\\(\d+)/g;
   var endRuleId = -1;
   var whileRuleId = -2;
-  function ruleIdFromNumber(id3) {
-    return id3;
+  function ruleIdFromNumber(id) {
+    return id;
   }
-  function ruleIdToNumber(id3) {
-    return id3;
+  function ruleIdToNumber(id) {
+    return id;
   }
   var Rule = class {
     $location;
@@ -17992,9 +17183,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     _name;
     _contentNameIsCapturing;
     _contentName;
-    constructor($location, id3, name, contentName) {
+    constructor($location, id, name, contentName) {
       this.$location = $location;
-      this.id = id3;
+      this.id = id;
       this._name = name || null;
       this._nameIsCapturing = RegexSource.hasCaptures(this._name);
       this._contentName = contentName || null;
@@ -18019,8 +17210,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   };
   var CaptureRule = class extends Rule {
     retokenizeCapturedWithRuleId;
-    constructor($location, id3, name, contentName, retokenizeCapturedWithRuleId) {
-      super($location, id3, name, contentName);
+    constructor($location, id, name, contentName, retokenizeCapturedWithRuleId) {
+      super($location, id, name, contentName);
       this.retokenizeCapturedWithRuleId = retokenizeCapturedWithRuleId;
     }
     dispose() {
@@ -18039,8 +17230,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     _match;
     captures;
     _cachedCompiledPatterns;
-    constructor($location, id3, name, match, captures) {
-      super($location, id3, name, null);
+    constructor($location, id, name, match, captures) {
+      super($location, id, name, null);
       this._match = new RegExpSource(match, this.id);
       this.captures = captures;
       this._cachedCompiledPatterns = null;
@@ -18075,8 +17266,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     hasMissingPatterns;
     patterns;
     _cachedCompiledPatterns;
-    constructor($location, id3, name, contentName, patterns) {
-      super($location, id3, name, contentName);
+    constructor($location, id, name, contentName, patterns) {
+      super($location, id, name, contentName);
       this.patterns = patterns.patterns;
       this.hasMissingPatterns = patterns.hasMissingPatterns;
       this._cachedCompiledPatterns = null;
@@ -18117,8 +17308,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     hasMissingPatterns;
     patterns;
     _cachedCompiledPatterns;
-    constructor($location, id3, name, contentName, begin, beginCaptures, end, endCaptures, applyEndPatternLast, patterns) {
-      super($location, id3, name, contentName);
+    constructor($location, id, name, contentName, begin, beginCaptures, end, endCaptures, applyEndPatternLast, patterns) {
+      super($location, id, name, contentName);
       this._begin = new RegExpSource(begin, this.id);
       this.beginCaptures = beginCaptures;
       this._end = new RegExpSource(end ? end : "\uFFFF", -1);
@@ -18186,8 +17377,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     patterns;
     _cachedCompiledPatterns;
     _cachedCompiledWhilePatterns;
-    constructor($location, id3, name, contentName, begin, beginCaptures, _while, whileCaptures, patterns) {
-      super($location, id3, name, contentName);
+    constructor($location, id, name, contentName, begin, beginCaptures, _while, whileCaptures, patterns) {
+      super($location, id, name, contentName);
       this._begin = new RegExpSource(begin, this.id);
       this.beginCaptures = beginCaptures;
       this.whileCaptures = whileCaptures;
@@ -18255,14 +17446,14 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   };
   var RuleFactory = class _RuleFactory {
     static createCaptureRule(helper, $location, name, contentName, retokenizeCapturedWithRuleId) {
-      return helper.registerRule((id3) => {
-        return new CaptureRule($location, id3, name, contentName, retokenizeCapturedWithRuleId);
+      return helper.registerRule((id) => {
+        return new CaptureRule($location, id, name, contentName, retokenizeCapturedWithRuleId);
       });
     }
     static getCompiledRuleId(desc, helper, repository) {
       if (!desc.id) {
-        helper.registerRule((id3) => {
-          desc.id = id3;
+        helper.registerRule((id) => {
+          desc.id = id;
           if (desc.match) {
             return new MatchRule(desc.$vscodeTextmateLocation, desc.id, desc.name, desc.match, _RuleFactory._compileCaptures(desc.captures, helper, repository));
           }
@@ -19598,9 +18789,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       return this._injections;
     }
     registerRule(factory) {
-      const id3 = ++this._lastRuleId;
-      const result = factory(ruleIdFromNumber(id3));
-      this._ruleId2desc[id3] = result;
+      const id = ++this._lastRuleId;
+      const result = factory(ruleIdFromNumber(id));
+      this._ruleId2desc[id] = result;
       return result;
     }
     getRule(ruleId) {
@@ -22568,8 +21759,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       let fn5 = one2.invalid;
       const handlers = one2.handlers;
       if (value && own$2.call(value, key2)) {
-        const id3 = String(value[key2]);
-        fn5 = own$2.call(handlers, id3) ? handlers[id3] : one2.unknown;
+        const id = String(value[key2]);
+        fn5 = own$2.call(handlers, id) ? handlers[id] : one2.unknown;
       }
       if (fn5) {
         return fn5.call(this, value, ...parameters);
@@ -37461,7 +36652,7 @@ https://evilmartians.com/chronicles/postcss-8-plugin-migration`));
     function nd(t14) {
       return t14 && t14.__esModule ? t14 : { default: t14 };
     }
-    function id3(t14, e11) {
+    function id(t14, e11) {
       if (!(t14 instanceof e11))
         throw new TypeError("Cannot call a class as a function");
     }
@@ -37478,7 +36669,7 @@ https://evilmartians.com/chronicles/postcss-8-plugin-migration`));
     var ud = function(t14) {
       ad(e11, t14);
       function e11(s6) {
-        id3(this, e11);
+        id(this, e11);
         var r9 = od(this, t14.call(this, s6));
         return r9.type = sd.UNIVERSAL, r9.value = "*", r9;
       }
@@ -47279,7 +46470,7 @@ Expected it to be ${r9}.`;
   });
 
   // import-glob:/Users/mark/Code/lookbook/lookbook-v3/assets/js/alpine|../../../app/components/lookbook/ui/**/*.js
-  var modules = [app_exports, layout_exports, nav_tree_exports, nav_tree_item_exports, notifications_popup_exports, pane_exports, code_panel_exports, default_panel_exports, param_editor_exports, params_panel_exports, preview_inspector_exports, prose_panel_exports, preview_overview_exports, reader_exports, router_exports, status_bar_exports, status_bar_item_exports, tab_group_exports, tabbed_pane_exports, toolbar_exports, viewport_exports, code_exports, page_exports, prose_exports];
+  var modules = [app_exports, layout_exports, nav_tree_exports, nav_tree_item_exports, notifications_popup_exports, pane_exports, tab_panel_exports, code_panel_exports, default_panel_exports, param_editor_exports, params_panel_exports, preview_inspector_exports, prose_panel_exports, preview_overview_exports, reader_exports, router_exports, status_bar_exports, status_bar_item_exports, toolbar_exports, toolbar_tab_exports, viewport_exports, code_exports, page_exports, prose_exports];
   var __default = modules;
 
   // assets/js/alpine/app.js

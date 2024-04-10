@@ -1,7 +1,26 @@
-<%= render component_tag(id: nil, key: id, x: {data: "pane"}) do %>
-  <%= toolbar %>
+<%= render component_tag(id: nil, key: id, x: {data: "pane('#{id}')", bind: "bindings.root"}) do %>
+  <%=
+    render Lookbook::UI::Toolbar.new do |toolbar|
+      toolbar.with_title { toolbar_title } if toolbar_title
 
-  <div class="pane-content">
-    <%= content %>
-  </div>
+      toolbar_actions.each do |action|
+        toolbar.with_action(**action)
+      end
+
+      toolbar_tabs.each do |tab|
+        toolbar.with_tab(**tab)
+      end
+    end
+  %>
+
+  <% if tab_panels? %>
+    <div class="pane-panels" role="tabpanels" >
+      <%= safe_join(tab_panels) %>
+    </div>
+  <% else %>
+    <div class="pane-content">
+      <%= content %>  
+    </div>
+  <% end %>
+  
 <% end %>

@@ -1,0 +1,12 @@
+<%= render component_tag(:button,
+  type: "button",
+  x: {
+    data: "toolbarTab(#{name.to_json})",
+    "@click": "selectTab(name)",
+    "@mousedown.prevent": true,
+    "@focus": "selectTab(name)",
+    ":tabindex": "isActive(name) ? 0 : -1",
+    ":aria-selected": "isActive(name)"
+  }) do %>
+  <%= label %>
+<% end %>

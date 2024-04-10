@@ -4,6 +4,12 @@
       <%= title %>
     </h3>
   <% end %>
+
+    <% if tabs? %>
+    <nav role="tablist" class="toolbar-tabs" x-ref="tabs">
+      <%= safe_join(tabs) %>
+    </nav>
+  <% end %>
   
   <% if actions? %>
     <sl-button-group>

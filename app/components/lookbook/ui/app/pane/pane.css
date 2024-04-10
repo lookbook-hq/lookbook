@@ -10,4 +10,10 @@
     width: 100%;
     position: relative;
   }
+
+  .pane-panels {
+    height: 100%;
+    width: 100%;
+    position: relative;
+  }
 }

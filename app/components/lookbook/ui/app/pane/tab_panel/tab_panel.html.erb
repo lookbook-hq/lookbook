@@ -1,0 +1,8 @@
+<%= render component_tag(x: {
+  data: "tabPanel(#{name.to_json})",
+  show: "isActivePanel(name)",
+  cloak: true,
+  ":aria-labelledby": "name"
+}) do %>
+  <%= content %>
+<% end %>

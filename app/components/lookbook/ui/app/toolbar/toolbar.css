@@ -7,6 +7,23 @@
   padding-left: var(--sl-spacing-medium);
   border-bottom: 1px solid var(--lookbook-divider-color);
 
+  .toolbar-title {
+    display: flex;
+    align-items: center;
+    font-size: var(--sl-font-size-small);
+    font-weight: 600;
+  }
+
+  .toolbar-tabs {
+    display: flex;
+    gap: var(--sl-spacing-small);
+    height: var(--lookbook-toolbar-height);
+  }
+
+  .toolbar-title + .toolbar-tabs {
+    margin-left: var(--sl-spacing-medium);
+  }
+
   sl-button-group {
     font-size: var(--lookbook-toolbar-icon-button-size);
     position: relative;
@@ -17,11 +34,5 @@
   sl-icon-button {
     font-size: var(--sl-font-size-medium);
     color: var(--lookbook-toolbar-icon-button-color);
-  }
-
-  .toolbar-title {
-    display: flex;
-    align-items: center;
-    font-size: var(--sl-font-size-small);
   }
 }

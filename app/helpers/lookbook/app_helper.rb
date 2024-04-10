@@ -1,6 +1,10 @@
 module Lookbook
   module AppHelper
     # Components
+    #
+    def lookbook_tag(*args, **kwargs, &block)
+      render Lookbook::UI::Tag.new(*args, **kwargs), &block
+    end
 
     def lookbook_router(events_endpoint = nil, **kwargs, &block)
       render Lookbook::UI::Router.new(events_endpoint: events_endpoint, **kwargs), &block

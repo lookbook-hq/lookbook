@@ -15,17 +15,13 @@
       body.with_pane do
         lookbook_layout("app-sidebar", orientation: :horizontal) do |sidebar|
           sidebar.with_pane("previews-nav") do |pane|
-            pane.with_toolbar do |toolbar|
-              toolbar.with_title { config.previews_nav_label }
-              toolbar.with_action(icon: :copy_minus, tooltip: "Collapse all", click: "$dispatch('nav-tree:collapse-all', {id: 'previews-nav-tree'})")
-            end
+            pane.with_title { config.previews_nav_label }
+            pane.with_action(icon: :copy_minus, tooltip: "Collapse all", click: "$dispatch('nav-tree:collapse-all', {id: 'previews-nav-tree'})")
             previews_nav
           end
           sidebar.with_pane("pages-nav") do |pane|
-            pane.with_toolbar do |toolbar|
-              toolbar.with_title { config.pages_nav_label }
-              toolbar.with_action(icon: :copy_minus, tooltip: "Collapse all", click: "$dispatch('nav-tree:collapse-all', {id: 'pages-nav-tree'})")
-            end
+            pane.with_title { config.pages_nav_label }
+            pane.with_action(icon: :copy_minus, tooltip: "Collapse all", click: "$dispatch('nav-tree:collapse-all', {id: 'pages-nav-tree'})")
             pages_nav
           end
         end 
