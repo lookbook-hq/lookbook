@@ -2,7 +2,7 @@ module Lookbook
   module UI
     class Panel < BaseComponent
       with_slot :action do |*args, **kwargs, &block|
-        block ? block.call : lookbook_icon_button(*args, **kwargs)
+        block ? block.call : lookbook_button(*args, **kwargs)
       end
 
       attr_reader :id

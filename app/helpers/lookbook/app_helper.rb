@@ -26,6 +26,18 @@ module Lookbook
       render Lookbook::UI::App.new(**kwargs), &block
     end
 
+    def lookbook_icon(name = nil, **kwargs)
+      render Lookbook::UI::Icon.new(name: name, **kwargs)
+    end
+
+    def lookbook_button(icon = nil, **kwargs)
+      render Lookbook::UI::Button.new(icon: icon, **kwargs)
+    end
+
+    def lookbook_button_group(**kwargs, &block)
+      render Lookbook::UI::ButtonGroup.new(**kwargs), &block
+    end
+
     ## --------------
 
     def lookbook_preview_inspector(preview, target, **kwargs, &block)
@@ -69,10 +81,6 @@ module Lookbook
 
     def lookbook_notifications_popup(notifications, **kwargs, &block)
       render Lookbook::UI::NotificationsPopup.new(notifications: notifications, **kwargs), &block
-    end
-
-    def lookbook_icon_button(icon = nil, **kwargs, &block)
-      render Lookbook::UI::IconButton.new(icon: icon, **kwargs), &block
     end
 
     def lookbook_param_editor(param = nil, **kwargs, &block)

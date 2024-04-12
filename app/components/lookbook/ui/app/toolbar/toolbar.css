@@ -24,15 +24,13 @@
     margin-left: var(--sl-spacing-medium);
   }
 
-  sl-button-group {
-    font-size: var(--lookbook-toolbar-icon-button-size);
-    position: relative;
+  .toolbar-actions {
     margin-left: auto;
-    z-index: 1;
-  }
 
-  sl-icon-button {
-    font-size: var(--sl-font-size-medium);
-    color: var(--lookbook-toolbar-icon-button-color);
+    [data-component="button"] {
+      padding: 0.5rem;
+      height: 2rem;
+      width: 2rem;
+    }
   }
 }

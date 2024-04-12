@@ -12,8 +12,10 @@
   <% end %>
   
   <% if actions? %>
-    <sl-button-group>
-      <%= safe_join(actions.reverse) %>
-    </sl-button-group>  
+    <%= render Lookbook::UI::ButtonGroup.new(class: "toolbar-actions") do |group| %>
+      <% actions.reverse.each do |action| %>
+        <% group.with_button { action } %>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>

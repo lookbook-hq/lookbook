@@ -1,0 +1,10 @@
+<%= render component_tag(button_tag,
+  x: {
+    data: "button",
+    "@click": (click if click.present?),
+    "show": (show if show.present?),
+  },
+  data: {size: size}
+) do %>
+  <%= render Lookbook::UI::Icon.new(name: icon, class: "button-icon") %>
+<% end %>

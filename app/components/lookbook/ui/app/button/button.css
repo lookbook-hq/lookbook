@@ -1,0 +1,14 @@
+[data-component="button"] {
+  display: inline-block;
+  width: fit-content;
+  line-height: 0;
+
+  .button-icon {
+    width: 100%;
+    height: 100%;
+  }
+
+  &[data-size="md"] {
+    padding: 0.5rem;
+  }
+}

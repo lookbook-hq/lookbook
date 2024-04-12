@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "clean": "rm -rf ./public/lookbook-assets",
+    "copy-icons": "copyfiles -u 3 ./node_modules/lucide-static/icons/*.svg ./public/lookbook-assets/icons",
     "watch": "npm run clean && npm run build:shoelace && concurrently \"npm:watch:css\" \"npm:watch:js\"",
     "build": "npm run clean && npm run build:shoelace && npm run build:css && npm run build:js",
     "build:shoelace": "copyfiles -u 5 ./node_modules/@shoelace-style/shoelace/dist/assets/**/* ./public/lookbook-assets/shoelace/assets",
@@ -23,9 +24,11 @@
     "@shoelace-style/shoelace": "^2.13.1",
     "alpinejs": "^3.13.5",
     "container-query-polyfill": "^1.0.2",
+    "lucide-static": "^0.367.0",
     "prettier": "^3.2.5",
     "shiki": "^1.2.0",
-    "split-grid": "^1.0.11"
+    "split-grid": "^1.0.11",
+    "tippy.js": "^6.3.7"
   },
   "devDependencies": {
     "alias-hq": "^6.2.3",

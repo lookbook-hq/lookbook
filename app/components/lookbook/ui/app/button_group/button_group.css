@@ -1,0 +1,5 @@
+[data-component="button-group"] {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}

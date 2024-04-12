@@ -13,18 +13,13 @@ export default AlpineComponent("previewInspector", () => {
     //     }
     //   });
     // },
-    // openDrawer() {
-    //   this.$refs.splitter.position = this.drawerLastPosition;
-    // },
-    // closeDrawer() {
-    //   this.drawerLastPosition = this.drawerPosition;
-    //   this.$refs.splitter.position = 0;
-    // },
-    // get drawerClosed() {
-    //   return this.drawerPosition === 0;
-    // },
-    // get hasDrawer() {
-    //   return !!this.$refs.splitter;
-    // },
+
+    openDrawer() {},
+
+    closeDrawer() {},
+
+    get drawerClosed() {
+      return false;
+    },
   };
 });
