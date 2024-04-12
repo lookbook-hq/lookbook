@@ -10,5 +10,7 @@
 
   &[data-size="md"] {
     padding: 0.5rem;
+    height: 2rem;
+    width: 2rem;
   }
 }

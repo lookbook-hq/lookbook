@@ -3,5 +3,6 @@
 @import "../css/theme.css";
 @import "../css/reset.css";
 @import "../css/base.css";
+@import "../css/tooltips.css";
 
 @import-glob "../../app/components/lookbook/ui/shared/**/*.css";

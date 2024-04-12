@@ -14,15 +14,6 @@
     width: fit-content;
     align-items: center;
     border: 1px solid var(--lookbook-divider-color);
-
-    sl-button-group {
-      font-size: var(--lookbook-toolbar-icon-button-size);
-    }
-
-    sl-copy-button,
-    sl-icon-button {
-      color: var(--lookbook-toolbar-icon-button-color);
-    }
   }
 
   .panel-content {

@@ -4,7 +4,12 @@
     "@click": (click if click.present?),
     "show": (show if show.present?),
   },
-  data: {size: size}
+  data: {
+    size: size,
+    tooltip: tooltip
+  }
 ) do %>
-  <%= render Lookbook::UI::Icon.new(name: icon, class: "button-icon") %>
+  <div class="button-content" x-ref="content">
+    <%= render Lookbook::UI::Icon.new(name: icon, class: "button-icon") %>
+  </div>
 <% end %>

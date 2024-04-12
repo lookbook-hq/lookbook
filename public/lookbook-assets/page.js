@@ -6799,7 +6799,7 @@ ${t15.join("\n")}`);
     refresh(true);
     return cleanup2;
   }
-  function autoUpdate(reference, floating, update2, options) {
+  function autoUpdate(reference, floating, update, options) {
     if (options === void 0) {
       options = {};
     }
@@ -6813,12 +6813,12 @@ ${t15.join("\n")}`);
     const referenceEl = unwrapElement(reference);
     const ancestors = ancestorScroll || ancestorResize ? [...referenceEl ? getOverflowAncestors(referenceEl) : [], ...getOverflowAncestors(floating)] : [];
     ancestors.forEach((ancestor) => {
-      ancestorScroll && ancestor.addEventListener("scroll", update2, {
+      ancestorScroll && ancestor.addEventListener("scroll", update, {
         passive: true
       });
-      ancestorResize && ancestor.addEventListener("resize", update2);
+      ancestorResize && ancestor.addEventListener("resize", update);
     });
-    const cleanupIo = referenceEl && layoutShift ? observeMove(referenceEl, update2) : null;
+    const cleanupIo = referenceEl && layoutShift ? observeMove(referenceEl, update) : null;
     let reobserveFrame = -1;
     let resizeObserver = null;
     if (elementResize) {
@@ -6832,7 +6832,7 @@ ${t15.join("\n")}`);
             (_resizeObserver = resizeObserver) == null || _resizeObserver.observe(floating);
           });
         }
-        update2();
+        update();
       });
       if (referenceEl && !animationFrame) {
         resizeObserver.observe(referenceEl);
@@ -6847,17 +6847,17 @@ ${t15.join("\n")}`);
     function frameLoop() {
       const nextRefRect = getBoundingClientRect(reference);
       if (prevRefRect && (nextRefRect.x !== prevRefRect.x || nextRefRect.y !== prevRefRect.y || nextRefRect.width !== prevRefRect.width || nextRefRect.height !== prevRefRect.height)) {
-        update2();
+        update();
       }
       prevRefRect = nextRefRect;
       frameId = requestAnimationFrame(frameLoop);
     }
-    update2();
+    update();
     return () => {
       var _resizeObserver2;
       ancestors.forEach((ancestor) => {
-        ancestorScroll && ancestor.removeEventListener("scroll", update2);
-        ancestorResize && ancestor.removeEventListener("resize", update2);
+        ancestorScroll && ancestor.removeEventListener("scroll", update);
+        ancestorResize && ancestor.removeEventListener("resize", update);
       });
       cleanupIo == null || cleanupIo();
       (_resizeObserver2 = resizeObserver) == null || _resizeObserver2.disconnect();
@@ -7352,286 +7352,14 @@ ${t15.join("\n")}`);
   // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.4AZGT5K5.js
   SlPopup.define("sl-popup");
 
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.LTNP3XQR.js
-  var tooltip_styles_default = i2`
+  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.RMCOWJOW.js
+  var resize_observer_styles_default = i2`
   ${component_styles_default}
 
   :host {
-    --max-width: 20rem;
-    --hide-delay: 0ms;
-    --show-delay: 150ms;
-
     display: contents;
   }
-
-  .tooltip {
-    --arrow-size: var(--sl-tooltip-arrow-size);
-    --arrow-color: var(--sl-tooltip-background-color);
-  }
-
-  .tooltip::part(popup) {
-    z-index: var(--sl-z-index-tooltip);
-  }
-
-  .tooltip[placement^='top']::part(popup) {
-    transform-origin: bottom;
-  }
-
-  .tooltip[placement^='bottom']::part(popup) {
-    transform-origin: top;
-  }
-
-  .tooltip[placement^='left']::part(popup) {
-    transform-origin: right;
-  }
-
-  .tooltip[placement^='right']::part(popup) {
-    transform-origin: left;
-  }
-
-  .tooltip__body {
-    display: block;
-    width: max-content;
-    max-width: var(--max-width);
-    border-radius: var(--sl-tooltip-border-radius);
-    background-color: var(--sl-tooltip-background-color);
-    font-family: var(--sl-tooltip-font-family);
-    font-size: var(--sl-tooltip-font-size);
-    font-weight: var(--sl-tooltip-font-weight);
-    line-height: var(--sl-tooltip-line-height);
-    color: var(--sl-tooltip-color);
-    padding: var(--sl-tooltip-padding);
-    pointer-events: none;
-    user-select: none;
-    -webkit-user-select: none;
-  }
 `;
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.DHU6MIVB.js
-  var defaultAnimationRegistry = /* @__PURE__ */ new Map();
-  var customAnimationRegistry = /* @__PURE__ */ new WeakMap();
-  function ensureAnimation(animation) {
-    return animation != null ? animation : { keyframes: [], options: { duration: 0 } };
-  }
-  function getLogicalAnimation(animation, dir) {
-    if (dir.toLowerCase() === "rtl") {
-      return {
-        keyframes: animation.rtlKeyframes || animation.keyframes,
-        options: animation.options
-      };
-    }
-    return animation;
-  }
-  function setDefaultAnimation(animationName, animation) {
-    defaultAnimationRegistry.set(animationName, ensureAnimation(animation));
-  }
-  function getAnimation(el3, animationName, options) {
-    const customAnimation = customAnimationRegistry.get(el3);
-    if (customAnimation == null ? void 0 : customAnimation[animationName]) {
-      return getLogicalAnimation(customAnimation[animationName], options.dir);
-    }
-    const defaultAnimation = defaultAnimationRegistry.get(animationName);
-    if (defaultAnimation) {
-      return getLogicalAnimation(defaultAnimation, options.dir);
-    }
-    return {
-      keyframes: [],
-      options: { duration: 0 }
-    };
-  }
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.B4BZKR24.js
-  function waitForEvent(el3, eventName) {
-    return new Promise((resolve) => {
-      function done(event) {
-        if (event.target === el3) {
-          el3.removeEventListener(eventName, done);
-          resolve();
-        }
-      }
-      el3.addEventListener(eventName, done);
-    });
-  }
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.LHI6QEL2.js
-  function animateTo(el3, keyframes, options) {
-    return new Promise((resolve) => {
-      if ((options == null ? void 0 : options.duration) === Infinity) {
-        throw new Error("Promise-based animations must be finite.");
-      }
-      const animation = el3.animate(keyframes, __spreadProps(__spreadValues({}, options), {
-        duration: prefersReducedMotion() ? 0 : options.duration
-      }));
-      animation.addEventListener("cancel", resolve, { once: true });
-      animation.addEventListener("finish", resolve, { once: true });
-    });
-  }
-  function parseDuration(delay) {
-    delay = delay.toString().toLowerCase();
-    if (delay.indexOf("ms") > -1) {
-      return parseFloat(delay);
-    }
-    if (delay.indexOf("s") > -1) {
-      return parseFloat(delay) * 1e3;
-    }
-    return parseFloat(delay);
-  }
-  function prefersReducedMotion() {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    return query.matches;
-  }
-  function stopAnimations(el3) {
-    return Promise.all(
-      el3.getAnimations().map((animation) => {
-        return new Promise((resolve) => {
-          animation.cancel();
-          requestAnimationFrame(resolve);
-        });
-      })
-    );
-  }
-
-  // node_modules/@shoelace-style/localize/dist/index.js
-  var connectedElements = /* @__PURE__ */ new Set();
-  var documentElementObserver = new MutationObserver(update);
-  var translations = /* @__PURE__ */ new Map();
-  var documentDirection = document.documentElement.dir || "ltr";
-  var documentLanguage = document.documentElement.lang || navigator.language;
-  var fallback;
-  documentElementObserver.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["dir", "lang"]
-  });
-  function registerTranslation(...translation2) {
-    translation2.map((t13) => {
-      const code = t13.$code.toLowerCase();
-      if (translations.has(code)) {
-        translations.set(code, Object.assign(Object.assign({}, translations.get(code)), t13));
-      } else {
-        translations.set(code, t13);
-      }
-      if (!fallback) {
-        fallback = t13;
-      }
-    });
-    update();
-  }
-  function update() {
-    documentDirection = document.documentElement.dir || "ltr";
-    documentLanguage = document.documentElement.lang || navigator.language;
-    [...connectedElements.keys()].map((el3) => {
-      if (typeof el3.requestUpdate === "function") {
-        el3.requestUpdate();
-      }
-    });
-  }
-  var LocalizeController = class {
-    constructor(host) {
-      this.host = host;
-      this.host.addController(this);
-    }
-    hostConnected() {
-      connectedElements.add(this.host);
-    }
-    hostDisconnected() {
-      connectedElements.delete(this.host);
-    }
-    dir() {
-      return `${this.host.dir || documentDirection}`.toLowerCase();
-    }
-    lang() {
-      return `${this.host.lang || documentLanguage}`.toLowerCase();
-    }
-    getTranslationData(lang12) {
-      var _a3, _b;
-      const locale = new Intl.Locale(lang12.replace(/_/g, "-"));
-      const language = locale === null || locale === void 0 ? void 0 : locale.language.toLowerCase();
-      const region = (_b = (_a3 = locale === null || locale === void 0 ? void 0 : locale.region) === null || _a3 === void 0 ? void 0 : _a3.toLowerCase()) !== null && _b !== void 0 ? _b : "";
-      const primary = translations.get(`${language}-${region}`);
-      const secondary = translations.get(language);
-      return { locale, language, region, primary, secondary };
-    }
-    exists(key2, options) {
-      var _a3;
-      const { primary, secondary } = this.getTranslationData((_a3 = options.lang) !== null && _a3 !== void 0 ? _a3 : this.lang());
-      options = Object.assign({ includeFallback: false }, options);
-      if (primary && primary[key2] || secondary && secondary[key2] || options.includeFallback && fallback && fallback[key2]) {
-        return true;
-      }
-      return false;
-    }
-    term(key2, ...args) {
-      const { primary, secondary } = this.getTranslationData(this.lang());
-      let term;
-      if (primary && primary[key2]) {
-        term = primary[key2];
-      } else if (secondary && secondary[key2]) {
-        term = secondary[key2];
-      } else if (fallback && fallback[key2]) {
-        term = fallback[key2];
-      } else {
-        console.error(`No translation found for: ${String(key2)}`);
-        return String(key2);
-      }
-      if (typeof term === "function") {
-        return term(...args);
-      }
-      return term;
-    }
-    date(dateToFormat, options) {
-      dateToFormat = new Date(dateToFormat);
-      return new Intl.DateTimeFormat(this.lang(), options).format(dateToFormat);
-    }
-    number(numberToFormat, options) {
-      numberToFormat = Number(numberToFormat);
-      return isNaN(numberToFormat) ? "" : new Intl.NumberFormat(this.lang(), options).format(numberToFormat);
-    }
-    relativeTime(value, unit, options) {
-      return new Intl.RelativeTimeFormat(this.lang(), options).format(value, unit);
-    }
-  };
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.MAS2SHYD.js
-  var translation = {
-    $code: "en",
-    $name: "English",
-    $dir: "ltr",
-    carousel: "Carousel",
-    clearEntry: "Clear entry",
-    close: "Close",
-    copied: "Copied",
-    copy: "Copy",
-    currentValue: "Current value",
-    error: "Error",
-    goToSlide: (slide, count) => `Go to slide ${slide} of ${count}`,
-    hidePassword: "Hide password",
-    loading: "Loading",
-    nextSlide: "Next slide",
-    numOptionsSelected: (num) => {
-      if (num === 0)
-        return "No options selected";
-      if (num === 1)
-        return "1 option selected";
-      return `${num} options selected`;
-    },
-    previousSlide: "Previous slide",
-    progress: "Progress",
-    remove: "Remove",
-    resize: "Resize",
-    scrollToEnd: "Scroll to end",
-    scrollToStart: "Scroll to start",
-    selectAColorFromTheScreen: "Select a color from the screen",
-    showPassword: "Show password",
-    slideNum: (slide) => `Slide ${slide}`,
-    toggleColorFormat: "Toggle color format"
-  };
-  registerTranslation(translation);
-  var en_default = translation;
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.WLV3FVBR.js
-  var LocalizeController2 = class extends LocalizeController {
-  };
-  registerTranslation(en_default);
 
   // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.2FB5TK5H.js
   function watch(propertyName, options) {
@@ -7639,7 +7367,7 @@ ${t15.join("\n")}`);
       waitUntilFirstUpdate: false
     }, options);
     return (proto, decoratedFnName) => {
-      const { update: update2 } = proto;
+      const { update } = proto;
       const watchedProperties = Array.isArray(propertyName) ? propertyName : [propertyName];
       proto.update = function(changedProps) {
         watchedProperties.forEach((property) => {
@@ -7654,255 +7382,10 @@ ${t15.join("\n")}`);
             }
           }
         });
-        update2.call(this, changedProps);
+        update.call(this, changedProps);
       };
     };
   }
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.KMHZYCWU.js
-  var SlTooltip = class extends ShoelaceElement {
-    constructor() {
-      super();
-      this.localize = new LocalizeController2(this);
-      this.content = "";
-      this.placement = "top";
-      this.disabled = false;
-      this.distance = 8;
-      this.open = false;
-      this.skidding = 0;
-      this.trigger = "hover focus";
-      this.hoist = false;
-      this.handleBlur = () => {
-        if (this.hasTrigger("focus")) {
-          this.hide();
-        }
-      };
-      this.handleClick = () => {
-        if (this.hasTrigger("click")) {
-          if (this.open) {
-            this.hide();
-          } else {
-            this.show();
-          }
-        }
-      };
-      this.handleFocus = () => {
-        if (this.hasTrigger("focus")) {
-          this.show();
-        }
-      };
-      this.handleDocumentKeyDown = (event) => {
-        if (event.key === "Escape") {
-          event.stopPropagation();
-          this.hide();
-        }
-      };
-      this.handleMouseOver = () => {
-        if (this.hasTrigger("hover")) {
-          const delay = parseDuration(getComputedStyle(this).getPropertyValue("--show-delay"));
-          clearTimeout(this.hoverTimeout);
-          this.hoverTimeout = window.setTimeout(() => this.show(), delay);
-        }
-      };
-      this.handleMouseOut = () => {
-        if (this.hasTrigger("hover")) {
-          const delay = parseDuration(getComputedStyle(this).getPropertyValue("--hide-delay"));
-          clearTimeout(this.hoverTimeout);
-          this.hoverTimeout = window.setTimeout(() => this.hide(), delay);
-        }
-      };
-      this.addEventListener("blur", this.handleBlur, true);
-      this.addEventListener("focus", this.handleFocus, true);
-      this.addEventListener("click", this.handleClick);
-      this.addEventListener("mouseover", this.handleMouseOver);
-      this.addEventListener("mouseout", this.handleMouseOut);
-    }
-    disconnectedCallback() {
-      var _a3;
-      (_a3 = this.closeWatcher) == null ? void 0 : _a3.destroy();
-      document.removeEventListener("keydown", this.handleDocumentKeyDown);
-    }
-    firstUpdated() {
-      this.body.hidden = !this.open;
-      if (this.open) {
-        this.popup.active = true;
-        this.popup.reposition();
-      }
-    }
-    hasTrigger(triggerType) {
-      const triggers = this.trigger.split(" ");
-      return triggers.includes(triggerType);
-    }
-    async handleOpenChange() {
-      var _a3, _b;
-      if (this.open) {
-        if (this.disabled) {
-          return;
-        }
-        this.emit("sl-show");
-        if ("CloseWatcher" in window) {
-          (_a3 = this.closeWatcher) == null ? void 0 : _a3.destroy();
-          this.closeWatcher = new CloseWatcher();
-          this.closeWatcher.onclose = () => {
-            this.hide();
-          };
-        } else {
-          document.addEventListener("keydown", this.handleDocumentKeyDown);
-        }
-        await stopAnimations(this.body);
-        this.body.hidden = false;
-        this.popup.active = true;
-        const { keyframes, options } = getAnimation(this, "tooltip.show", { dir: this.localize.dir() });
-        await animateTo(this.popup.popup, keyframes, options);
-        this.popup.reposition();
-        this.emit("sl-after-show");
-      } else {
-        this.emit("sl-hide");
-        (_b = this.closeWatcher) == null ? void 0 : _b.destroy();
-        document.removeEventListener("keydown", this.handleDocumentKeyDown);
-        await stopAnimations(this.body);
-        const { keyframes, options } = getAnimation(this, "tooltip.hide", { dir: this.localize.dir() });
-        await animateTo(this.popup.popup, keyframes, options);
-        this.popup.active = false;
-        this.body.hidden = true;
-        this.emit("sl-after-hide");
-      }
-    }
-    async handleOptionsChange() {
-      if (this.hasUpdated) {
-        await this.updateComplete;
-        this.popup.reposition();
-      }
-    }
-    handleDisabledChange() {
-      if (this.disabled && this.open) {
-        this.hide();
-      }
-    }
-    /** Shows the tooltip. */
-    async show() {
-      if (this.open) {
-        return void 0;
-      }
-      this.open = true;
-      return waitForEvent(this, "sl-after-show");
-    }
-    /** Hides the tooltip */
-    async hide() {
-      if (!this.open) {
-        return void 0;
-      }
-      this.open = false;
-      return waitForEvent(this, "sl-after-hide");
-    }
-    //
-    // NOTE: Tooltip is a bit unique in that we're using aria-live instead of aria-labelledby to trick screen readers into
-    // announcing the content. It works really well, but it violates an accessibility rule. We're also adding the
-    // aria-describedby attribute to a slot, which is required by <sl-popup> to correctly locate the first assigned
-    // element, otherwise positioning is incorrect.
-    //
-    render() {
-      return x2`
-      <sl-popup
-        part="base"
-        exportparts="
-          popup:base__popup,
-          arrow:base__arrow
-        "
-        class=${e8({
-        tooltip: true,
-        "tooltip--open": this.open
-      })}
-        placement=${this.placement}
-        distance=${this.distance}
-        skidding=${this.skidding}
-        strategy=${this.hoist ? "fixed" : "absolute"}
-        flip
-        shift
-        arrow
-        hover-bridge
-      >
-        ${""}
-        <slot slot="anchor" aria-describedby="tooltip"></slot>
-
-        ${""}
-        <div part="body" id="tooltip" class="tooltip__body" role="tooltip" aria-live=${this.open ? "polite" : "off"}>
-          <slot name="content">${this.content}</slot>
-        </div>
-      </sl-popup>
-    `;
-    }
-  };
-  SlTooltip.styles = tooltip_styles_default;
-  SlTooltip.dependencies = { "sl-popup": SlPopup };
-  __decorateClass([
-    e6("slot:not([name])")
-  ], SlTooltip.prototype, "defaultSlot", 2);
-  __decorateClass([
-    e6(".tooltip__body")
-  ], SlTooltip.prototype, "body", 2);
-  __decorateClass([
-    e6("sl-popup")
-  ], SlTooltip.prototype, "popup", 2);
-  __decorateClass([
-    n5()
-  ], SlTooltip.prototype, "content", 2);
-  __decorateClass([
-    n5()
-  ], SlTooltip.prototype, "placement", 2);
-  __decorateClass([
-    n5({ type: Boolean, reflect: true })
-  ], SlTooltip.prototype, "disabled", 2);
-  __decorateClass([
-    n5({ type: Number })
-  ], SlTooltip.prototype, "distance", 2);
-  __decorateClass([
-    n5({ type: Boolean, reflect: true })
-  ], SlTooltip.prototype, "open", 2);
-  __decorateClass([
-    n5({ type: Number })
-  ], SlTooltip.prototype, "skidding", 2);
-  __decorateClass([
-    n5()
-  ], SlTooltip.prototype, "trigger", 2);
-  __decorateClass([
-    n5({ type: Boolean })
-  ], SlTooltip.prototype, "hoist", 2);
-  __decorateClass([
-    watch("open", { waitUntilFirstUpdate: true })
-  ], SlTooltip.prototype, "handleOpenChange", 1);
-  __decorateClass([
-    watch(["content", "distance", "hoist", "placement", "skidding"])
-  ], SlTooltip.prototype, "handleOptionsChange", 1);
-  __decorateClass([
-    watch("disabled")
-  ], SlTooltip.prototype, "handleDisabledChange", 1);
-  setDefaultAnimation("tooltip.show", {
-    keyframes: [
-      { opacity: 0, scale: 0.8 },
-      { opacity: 1, scale: 1 }
-    ],
-    options: { duration: 150, easing: "ease" }
-  });
-  setDefaultAnimation("tooltip.hide", {
-    keyframes: [
-      { opacity: 1, scale: 1 },
-      { opacity: 0, scale: 0.8 }
-    ],
-    options: { duration: 150, easing: "ease" }
-  });
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.YXUIOLC7.js
-  SlTooltip.define("sl-tooltip");
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.RMCOWJOW.js
-  var resize_observer_styles_default = i2`
-  ${component_styles_default}
-
-  :host {
-    display: contents;
-  }
-`;
 
   // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.GU6S3A75.js
   var SlResizeObserver = class extends ShoelaceElement {
@@ -7965,6 +7448,15 @@ ${t15.join("\n")}`);
 
   // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.2XDCNWNM.js
   SlResizeObserver.define("sl-resize-observer");
+
+  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.DHU6MIVB.js
+  var defaultAnimationRegistry = /* @__PURE__ */ new Map();
+  function ensureAnimation(animation) {
+    return animation != null ? animation : { keyframes: [], options: { duration: 0 } };
+  }
+  function setDefaultAnimation(animationName, animation) {
+    defaultAnimationRegistry.set(animationName, ensureAnimation(animation));
+  }
 
   // assets/js/shoelace/animations.js
   setDefaultAnimation("tooltip.show", {
@@ -8878,7 +8370,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   function kebabCase(subject) {
     return subject.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
   }
-  function once(callback, fallback2 = () => {
+  function once(callback, fallback = () => {
   }) {
     let called = false;
     return function() {
@@ -8886,7 +8378,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
         called = true;
         callback.apply(this, arguments);
       } else {
-        fallback2.apply(this, arguments);
+        fallback.apply(this, arguments);
       }
     };
   }
@@ -9143,15 +8635,15 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       });
     });
   }
-  function modifierValue(modifiers, key2, fallback2) {
+  function modifierValue(modifiers, key2, fallback) {
     if (modifiers.indexOf(key2) === -1)
-      return fallback2;
+      return fallback;
     const rawValue = modifiers[modifiers.indexOf(key2) + 1];
     if (!rawValue)
-      return fallback2;
+      return fallback;
     if (key2 === "scale") {
       if (isNaN(rawValue))
-        return fallback2;
+        return fallback;
     }
     if (key2 === "duration" || key2 === "delay") {
       let match = rawValue.match(/([0-9]+)ms/);
@@ -9166,9 +8658,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     return rawValue;
   }
   var isCloning = false;
-  function skipDuringClone(callback, fallback2 = () => {
+  function skipDuringClone(callback, fallback = () => {
   }) {
-    return (...args) => isCloning ? fallback2(...args) : callback(...args);
+    return (...args) => isCloning ? fallback(...args) : callback(...args);
   }
   function onlyDuringClone(callback) {
     return (...args) => isCloning && callback(...args);
@@ -9368,12 +8860,12 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   function attributeShouldntBePreservedIfFalsy(name) {
     return !["aria-pressed", "aria-checked", "aria-expanded", "aria-selected"].includes(name);
   }
-  function getBinding(el3, name, fallback2) {
+  function getBinding(el3, name, fallback) {
     if (el3._x_bindings && el3._x_bindings[name] !== void 0)
       return el3._x_bindings[name];
-    return getAttributeBinding(el3, name, fallback2);
+    return getAttributeBinding(el3, name, fallback);
   }
-  function extractProp(el3, name, fallback2, extract = true) {
+  function extractProp(el3, name, fallback, extract = true) {
     if (el3._x_bindings && el3._x_bindings[name] !== void 0)
       return el3._x_bindings[name];
     if (el3._x_inlineBindings && el3._x_inlineBindings[name] !== void 0) {
@@ -9383,12 +8875,12 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
         return evaluate2(el3, binding.expression);
       });
     }
-    return getAttributeBinding(el3, name, fallback2);
+    return getAttributeBinding(el3, name, fallback);
   }
-  function getAttributeBinding(el3, name, fallback2) {
+  function getAttributeBinding(el3, name, fallback) {
     let attr = el3.getAttribute(name);
     if (attr === null)
-      return typeof fallback2 === "function" ? fallback2() : fallback2;
+      return typeof fallback === "function" ? fallback() : fallback;
     if (attr === "")
       return true;
     if (isBooleanAttr(name)) {
