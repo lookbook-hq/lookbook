@@ -1,7 +1,7 @@
 [data-component="status-bar"] {
-  height: var(--lookbook-status-bar-height);
-  font-size: var(--sl-font-size-x-small);
-  padding-inline: var(--sl-spacing-small);
+  height: 24px;
+  font-size: var(--lookbook-font-size-x-small);
+  padding-inline: var(--lookbook-spacing-small);
 
   display: flex;
   align-items: center;
@@ -10,6 +10,6 @@
   .status-bar-section {
     display: flex;
     align-items: center;
-    gap: var(--sl-spacing-medium);
+    gap: var(--lookbook-spacing-medium);
   }
 }

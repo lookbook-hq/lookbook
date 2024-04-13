@@ -1,10 +1,10 @@
 [data-component="prose"] {
-  color: var(--sl-color-neutral-900);
+  color: var(--lookbook-color-base-900);
   font-size: 1rem;
   line-height: 1.75;
 
   [class~="lead"] {
-    color: var(--sl-color-neutral-900);
+    color: var(--lookbook-color-base-900);
     font-size: 1.25em;
     line-height: 1.6;
     margin-top: 1.2em;
@@ -35,7 +35,7 @@
     content: counter(list-counter) ".";
     position: absolute;
     font-weight: 400;
-    color: var(--sl-color-neutral-600);
+    color: var(--lookbook-color-base-600);
   }
 
   ul > li {
@@ -46,7 +46,7 @@
   ul > li::before {
     content: "";
     position: absolute;
-    background-color: var(--sl-color-neutral-400);
+    background-color: var(--lookbook-color-base-400);
     border-radius: 50%;
     width: 0.375em;
     height: 0.375em;
@@ -85,33 +85,33 @@
   h2,
   h3,
   h4 {
-    line-height: var(--sl-line-height-dense);
+    line-height: var(--lookbook-line-height-dense);
     margin-top: 1.5em;
     margin-bottom: 0.8em;
   }
 
   h1 {
-    font-weight: var(--sl-font-weight-bold);
-    font-size: var(--sl-font-size-2x-large);
+    font-weight: var(--lookbook-font-weight-bold);
+    font-size: var(--lookbook-font-size-2x-large);
   }
 
   h2 {
-    font-weight: var(--sl-font-weight-bold);
-    font-size: var(--sl-font-size-x-large);
+    font-weight: var(--lookbook-font-weight-bold);
+    font-size: var(--lookbook-font-size-x-large);
   }
 
   h3 {
-    font-weight: var(--sl-font-weight-bold);
-    font-size: var(--sl-font-size-large);
+    font-weight: var(--lookbook-font-weight-bold);
+    font-size: var(--lookbook-font-size-large);
   }
 
   h4 {
-    font-weight: var(--sl-font-weight-bold);
-    font-size: var(--sl-font-size-medium);
+    font-weight: var(--lookbook-font-weight-bold);
+    font-size: var(--lookbook-font-size-medium);
   }
 
   figure figcaption {
-    color: var(--sl-color-neutral-600);
+    color: var(--lookbook-color-base-600);
     font-size: 0.875em;
     line-height: 1.4285714;
     margin-top: 0.8571429em;
@@ -120,11 +120,11 @@
   code:not(pre code) {
     font-size: 0.8em;
     display: inline-block;
-    font-family: var(--sl-font-mono);
-    background-color: var(--sl-color-neutral-100);
-    padding-inline: var(--sl-spacing-2x-small);
-    border-radius: var(--sl-border-radius-small);
-    color: var(--sl-color-primary-900);
+    font-family: var(--lookbook-font-mono);
+    background-color: var(--lookbook-color-base-100);
+    padding-inline: var(--lookbook-spacing-2x-small);
+    border-radius: var(--lookbook-border-radius-small);
+    color: var(--lookbook-color-primary-900);
   }
 
   /* 
@@ -138,8 +138,8 @@
   }
 
   pre {
-    color: var(--sl-color-neutral-300);
-    background-color: var(--sl-color-neutral-800);
+    color: var(--lookbook-color-base-300);
+    background-color: var(--lookbook-color-base-800);
     overflow-x: auto;
     font-size: 0.875em;
     line-height: 1.7142857;
@@ -330,8 +330,8 @@
   }
 
   [data-component="code"] {
-    background-color: var(--sl-color-neutral-50);
-    border: 1px solid var(--sl-color-neutral-300);
-    border-radius: var(--sl-border-radius-small);
+    background-color: var(--lookbook-color-base-50);
+    border: 1px solid var(--lookbook-color-base-300);
+    border-radius: var(--lookbook-border-radius-small);
   }
 }

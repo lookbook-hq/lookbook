@@ -1,11 +1,11 @@
 [data-component="panel"][data-panel="params"] {
   height: 100%;
-  background-color: var(--sl-color-neutral-50);
-  padding-top: var(--sl-spacing-medium);
+  background-color: var(--lookbook-color-base-50);
+  padding-top: var(--lookbook-spacing-medium);
 
   .params-panel-table {
     background: #fff;
-    border: 1px solid var(--sl-color-neutral-300);
+    border: 1px solid var(--lookbook-color-base-300);
   }
 
   table {
@@ -16,8 +16,8 @@
   th,
   td {
     text-align: left;
-    padding-inline: var(--sl-spacing-medium);
-    padding-block: var(--sl-spacing-small);
+    padding-inline: var(--lookbook-spacing-medium);
+    padding-block: var(--lookbook-spacing-small);
     width: 1%;
 
     &.param-description {
@@ -32,10 +32,10 @@
 
   thead tr,
   tr:not(:last-child) {
-    border-bottom: 1px solid var(--sl-color-neutral-300);
+    border-bottom: 1px solid var(--lookbook-color-base-300);
   }
 
   code {
-    font-size: var(--sl-font-size-small);
+    font-size: var(--lookbook-font-size-small);
   }
 }

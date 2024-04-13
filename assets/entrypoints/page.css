@@ -1,6 +1,5 @@
 @import "@shoelace-style/shoelace/dist/themes/light.css";
-@import "../css/colors.css";
-@import "../css/theme.css";
+@import "../css/themes/light.css";
 @import "../css/reset.css";
 @import "../css/base.css";
 @import "../css/tooltips.css";

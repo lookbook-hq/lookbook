@@ -1,23 +1,23 @@
 [data-component="notifications-popup"] {
   width: 28rem;
-  padding-inline: var(--sl-spacing-medium);
-  background: var(--sl-color-neutral-0);
+  padding-inline: var(--lookbook-spacing-medium);
+  background: var(--lookbook-color-base-0);
   border: 1px solid var(--lookbook-divider-color);
 
   .notification {
     display: flex;
-    gap: var(--sl-spacing-small);
-    padding-block: var(--sl-spacing-medium);
+    gap: var(--lookbook-spacing-small);
+    padding-block: var(--lookbook-spacing-medium);
 
     & + .notification {
       border-top: 1px solid var(--lookbook-divider-color);
-      padding-top: var(--sl-spacing-small);
-      margin-top: var(--sl-spacing-small);
+      padding-top: var(--lookbook-spacing-small);
+      margin-top: var(--lookbook-spacing-small);
     }
 
     .notification-icon {
       flex: none;
-      font-size: var(--sl-font-size-large);
+      font-size: var(--lookbook-font-size-large);
     }
 
     .notification-message {
@@ -25,9 +25,9 @@
       min-width: 1%;
       width: 100%;
       overflow: hidden;
-      font-family: var(--sl-font-mono);
-      font-size: var(--sl-font-size-x-small);
-      line-height: var(--sl-line-height-dense);
+      font-family: var(--lookbook-font-mono);
+      font-size: var(--lookbook-font-size-x-small);
+      line-height: var(--lookbook-line-height-dense);
       overflow-wrap: break-word;
       word-wrap: break-word;
       word-break: break-word;
@@ -35,19 +35,19 @@
     }
 
     &.notification-error .notification-icon {
-      color: var(--sl-color-danger-600);
+      color: var(--lookbook-color-danger-600);
     }
 
     &.notification-warning .notification-icon {
-      color: var(--sl-color-warning-600);
+      color: var(--lookbook-color-warning-600);
     }
 
     &.notification-notice .notification-icon {
-      color: var(--sl-color-sky-600);
+      color: var(--lookbook-color-sky-600);
     }
 
     &.notification-success .notification-icon {
-      color: var(--sl-color-success-600);
+      color: var(--lookbook-color-success-600);
     }
   }
 }

@@ -3,11 +3,11 @@
     height: var(--lookbook-status-bar-height);
     display: flex;
     align-items: center;
-    gap: var(--sl-spacing-2x-small);
+    gap: var(--lookbook-spacing-2x-small);
 
     sl-icon {
       flex: none;
-      font-size: var(--sl-font-size-medium);
+      font-size: var(--lookbook-font-size-medium);
     }
   }
 
@@ -23,26 +23,26 @@
 
   &[data-theme="success"] {
     .status-bar-item-summary sl-icon {
-      color: var(--sl-color-success-700);
+      color: var(--lookbook-color-success-700);
     }
   }
 
   &[data-theme="error"] {
     .status-bar-item-summary {
-      color: var(--sl-color-danger-600);
+      color: var(--lookbook-color-danger-600);
 
       sl-icon {
-        color: var(--sl-color-danger-600);
+        color: var(--lookbook-color-danger-600);
       }
     }
   }
 
   &[data-theme="warning"] {
     .status-bar-item-summary {
-      color: var(--sl-color-warning-600);
+      color: var(--lookbook-color-warning-600);
 
       sl-icon {
-        color: var(--sl-color-warning-600);
+        color: var(--lookbook-color-warning-600);
       }
     }
   }

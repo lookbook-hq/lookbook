@@ -2,11 +2,11 @@
   /* select,
   input:not([type="checkbox"], [type="radio"], [type="file"]) {
     min-width: 240px;
-    padding-inline: var(--sl-spacing-small);
-    padding-block: var(--sl-spacing-x-small);
-    font-size: var(--sl-font-size-medium);
-    border: 1px solid var(--sl-color-neutral-300);
-    border-radius: var(--sl-border-radius-large);
+    padding-inline: var(--lookbook-spacing-small);
+    padding-block: var(--lookbook-spacing-x-small);
+    font-size: var(--lookbook-font-size-medium);
+    border: 1px solid var(--lookbook-color-base-300);
+    border-radius: var(--lookbook-border-radius-large);
     appearance: none;
   } */
 }

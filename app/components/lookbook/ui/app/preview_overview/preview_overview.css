@@ -11,7 +11,7 @@
   }
 
   .po-title-icon {
-    margin-right: var(--sl-spacing-x-small);
+    margin-right: var(--lookbook-spacing-x-small);
   }
 
   .po-title {
@@ -24,8 +24,8 @@
     overflow: auto;
 
     section {
-      padding-block: var(--sl-spacing-large);
-      padding-inline: var(--sl-spacing-medium);
+      padding-block: var(--lookbook-spacing-large);
+      padding-inline: var(--lookbook-spacing-medium);
     }
 
     section + section {
@@ -35,12 +35,12 @@
 
   .po-section-title {
     font-weight: 400;
-    margin-bottom: var(--sl-spacing-medium);
+    margin-bottom: var(--lookbook-spacing-medium);
   }
 
   .po-targets {
     li:not(:last-child) {
-      margin-bottom: var(--sl-spacing-x-small);
+      margin-bottom: var(--lookbook-spacing-x-small);
     }
   }
 
@@ -48,17 +48,17 @@
     display: flex;
     width: 100%;
     align-items: center;
-    font-size: var(--sl-font-size-small);
-    background-color: var(--sl-color-neutral-50);
-    color: var(--sl-color-neutral-500);
-    padding-inline: var(--sl-spacing-medium);
-    padding-block: var(--sl-spacing-x-small);
+    font-size: var(--lookbook-font-size-small);
+    background-color: var(--lookbook-color-base-50);
+    color: var(--lookbook-color-base-500);
+    padding-inline: var(--lookbook-spacing-medium);
+    padding-block: var(--lookbook-spacing-x-small);
     border-bottom: 1px solid var(--lookbook-divider-color);
 
     .po-breadcrumb-divider {
       display: block;
-      margin-left: var(--sl-spacing-2x-small);
-      margin-right: var(--sl-spacing-2x-small);
+      margin-left: var(--lookbook-spacing-2x-small);
+      margin-right: var(--lookbook-spacing-2x-small);
     }
   }
 }

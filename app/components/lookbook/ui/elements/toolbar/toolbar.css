@@ -1,27 +1,27 @@
 [data-component="toolbar"] {
   background-color: white;
-  height: var(--lookbook-toolbar-height);
+  height: 40px;
   display: flex;
   align-items: center;
-  padding-right: var(--sl-spacing-2x-small);
-  padding-left: var(--sl-spacing-medium);
+  padding-right: var(--lookbook-spacing-2x-small);
+  padding-left: var(--lookbook-spacing-medium);
   border-bottom: 1px solid var(--lookbook-divider-color);
 
   .toolbar-title {
     display: flex;
     align-items: center;
-    font-size: var(--sl-font-size-small);
+    font-size: var(--lookbook-font-size-small);
     font-weight: 600;
   }
 
   .toolbar-tabs {
     display: flex;
-    gap: var(--sl-spacing-small);
+    gap: var(--lookbook-spacing-small);
     height: var(--lookbook-toolbar-height);
   }
 
   .toolbar-title + .toolbar-tabs {
-    margin-left: var(--sl-spacing-medium);
+    margin-left: var(--lookbook-spacing-medium);
   }
 
   .toolbar-actions {

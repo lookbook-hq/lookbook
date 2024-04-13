@@ -8,8 +8,8 @@
     z-index: 2;
     background: #fff;
     border-radius: 8px;
-    right: var(--sl-spacing-2x-small);
-    top: var(--sl-spacing-x-small);
+    right: var(--lookbook-spacing-2x-small);
+    top: var(--lookbook-spacing-x-small);
     display: flex;
     width: fit-content;
     align-items: center;
@@ -24,7 +24,7 @@
 
   &[data-padded="true"] {
     .panel-content {
-      padding-inline: var(--sl-spacing-medium);
+      padding-inline: var(--lookbook-spacing-medium);
     }
   }
 

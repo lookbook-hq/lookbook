@@ -1,9 +1,9 @@
 [data-component="toolbar-tab"] {
-  height: var(--lookbook-toolbar-height);
+  height: 40px;
   display: flex;
   align-items: center;
-  font-size: var(--sl-font-size-small);
-  padding-inline: var(--sl-spacing-small);
+  font-size: var(--lookbook-font-size-small);
+  padding-inline: var(--lookbook-spacing-small);
   border-bottom: 1px solid transparent;
   cursor: pointer;
   user-select: none;

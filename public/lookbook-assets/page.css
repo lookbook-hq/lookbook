@@ -703,7 +703,13 @@
   --lookbook-color-rose-950: hsl(341, 70%, 17%);
 }
 
-:root {
+:root,
+:host,
+.lookbook-theme-light {
+  --csstools-color-scheme--light: initial;
+  --csstools-color-scheme--dark:  ;
+  color-scheme: light;
+
   --lookbook-color-accent-50: var(--lookbook-color-indigo-50);
   --lookbook-color-accent-100: var(--lookbook-color-indigo-100);
   --lookbook-color-accent-200: var(--lookbook-color-indigo-200);
@@ -716,47 +722,101 @@
   --lookbook-color-accent-900: var(--lookbook-color-indigo-900);
   --lookbook-color-accent-950: var(--lookbook-color-indigo-950);
 
-  --lookbook-color-neutral-50: var(--lookbook-color-gray-50);
-  --lookbook-color-neutral-100: var(--lookbook-color-gray-100);
-  --lookbook-color-neutral-200: var(--lookbook-color-gray-200);
-  --lookbook-color-neutral-300: var(--lookbook-color-gray-300);
-  --lookbook-color-neutral-400: var(--lookbook-color-gray-400);
-  --lookbook-color-neutral-500: var(--lookbook-color-gray-500);
-  --lookbook-color-neutral-600: var(--lookbook-color-gray-600);
-  --lookbook-color-neutral-700: var(--lookbook-color-gray-700);
-  --lookbook-color-neutral-800: var(--lookbook-color-gray-800);
-  --lookbook-color-neutral-900: var(--lookbook-color-gray-900);
-  --lookbook-color-neutral-950: var(--lookbook-color-gray-950);
+  --lookbook-color-base-50: var(--lookbook-color-gray-50);
+  --lookbook-color-base-100: var(--lookbook-color-gray-100);
+  --lookbook-color-base-200: var(--lookbook-color-gray-200);
+  --lookbook-color-base-300: var(--lookbook-color-gray-300);
+  --lookbook-color-base-400: var(--lookbook-color-gray-400);
+  --lookbook-color-base-500: var(--lookbook-color-gray-500);
+  --lookbook-color-base-600: var(--lookbook-color-gray-600);
+  --lookbook-color-base-700: var(--lookbook-color-gray-700);
+  --lookbook-color-base-800: var(--lookbook-color-gray-800);
+  --lookbook-color-base-900: var(--lookbook-color-gray-900);
+  --lookbook-color-base-950: var(--lookbook-color-gray-950);
 
-  /* --lookbook-toolbar-height: 40px;
-  --lookbook-toolbar-icon-button-size: 18px;
-  --lookbook-toolbar-icon-button-color: var(--lookbook-color-neutral-400);
+  /* Success */
+  --lookbook-color-success-50: var(--lookbook-color-green-50);
+  --lookbook-color-success-100: var(--lookbook-color-green-100);
+  --lookbook-color-success-200: var(--lookbook-color-green-200);
+  --lookbook-color-success-300: var(--lookbook-color-green-300);
+  --lookbook-color-success-400: var(--lookbook-color-green-400);
+  --lookbook-color-success-500: var(--lookbook-color-green-500);
+  --lookbook-color-success-600: var(--lookbook-color-green-600);
+  --lookbook-color-success-700: var(--lookbook-color-green-700);
+  --lookbook-color-success-800: var(--lookbook-color-green-800);
+  --lookbook-color-success-900: var(--lookbook-color-green-900);
+  --lookbook-color-success-950: var(--lookbook-color-green-950);
 
-  --lookbook-status-bar-height: 24px;
+  /* Warning */
+  --lookbook-color-warning-50: var(--lookbook-color-amber-50);
+  --lookbook-color-warning-100: var(--lookbook-color-amber-100);
+  --lookbook-color-warning-200: var(--lookbook-color-amber-200);
+  --lookbook-color-warning-300: var(--lookbook-color-amber-300);
+  --lookbook-color-warning-400: var(--lookbook-color-amber-400);
+  --lookbook-color-warning-500: var(--lookbook-color-amber-500);
+  --lookbook-color-warning-600: var(--lookbook-color-amber-600);
+  --lookbook-color-warning-700: var(--lookbook-color-amber-700);
+  --lookbook-color-warning-800: var(--lookbook-color-amber-800);
+  --lookbook-color-warning-900: var(--lookbook-color-amber-900);
+  --lookbook-color-warning-950: var(--lookbook-color-amber-950);
 
-  --lookbook-divider-color: var(--lookbook-color-neutral-300); */
-}
+  /* Danger */
+  --lookbook-color-danger-50: var(--lookbook-color-red-50);
+  --lookbook-color-danger-100: var(--lookbook-color-red-100);
+  --lookbook-color-danger-200: var(--lookbook-color-red-200);
+  --lookbook-color-danger-300: var(--lookbook-color-red-300);
+  --lookbook-color-danger-400: var(--lookbook-color-red-400);
+  --lookbook-color-danger-500: var(--lookbook-color-red-500);
+  --lookbook-color-danger-600: var(--lookbook-color-red-600);
+  --lookbook-color-danger-700: var(--lookbook-color-red-700);
+  --lookbook-color-danger-800: var(--lookbook-color-red-800);
+  --lookbook-color-danger-900: var(--lookbook-color-red-900);
+  --lookbook-color-danger-950: var(--lookbook-color-red-950);
 
-:root {
-  --sl-color-primary-50: rgb(249, 249, 254);
-  --sl-color-primary-100: rgb(235, 235, 252);
-  --sl-color-primary-200: rgb(219, 220, 249);
-  --sl-color-primary-300: rgb(202, 203, 246);
-  --sl-color-primary-400: rgb(179, 181, 243);
-  --sl-color-primary-500: rgb(149, 152, 238);
-  --sl-color-primary-600: rgb(117, 120, 233);
-  --sl-color-primary-700: rgb(87, 90, 228);
-  --sl-color-primary-800: rgb(67, 70, 204);
-  --sl-color-primary-900: rgb(48, 50, 146);
-  --sl-color-primary-950: rgb(30, 31, 90);
+  --lookbook-divider-color: var(--lookbook-color-base-300);
 
-  --lookbook-toolbar-height: 40px;
-  --lookbook-toolbar-icon-button-size: 18px;
-  --lookbook-toolbar-icon-button-color: var(--sl-color-neutral-400);
+  /*
+   * Spacings
+   */
 
-  --lookbook-status-bar-height: 24px;
+  --lookbook-spacing-3x-small: 0.125rem; /* 2px */
+  --lookbook-spacing-2x-small: 0.25rem; /* 4px */
+  --lookbook-spacing-x-small: 0.5rem; /* 8px */
+  --lookbook-spacing-small: 0.75rem; /* 12px */
+  --lookbook-spacing-medium: 1rem; /* 16px */
+  --lookbook-spacing-large: 1.25rem; /* 20px */
+  --lookbook-spacing-x-large: 1.75rem; /* 28px */
+  --lookbook-spacing-2x-large: 2.25rem; /* 36px */
+  --lookbook-spacing-3x-large: 3rem; /* 48px */
+  --lookbook-spacing-4x-large: 4.5rem; /* 72px */
 
-  --lookbook-divider-color: var(--sl-color-neutral-300);
+  /*
+   * Typography
+   */
+
+  /* Fonts */
+  --lookbook-font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+    monospace;
+  --lookbook-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+
+  /* Font sizes */
+  --lookbook-font-size-2x-small: 0.625rem; /* 10px */
+  --lookbook-font-size-x-small: 0.75rem; /* 12px */
+  --lookbook-font-size-small: 0.875rem; /* 14px */
+  --lookbook-font-size-medium: 1rem; /* 16px */
+  --lookbook-font-size-large: 1.25rem; /* 20px */
+  --lookbook-font-size-x-large: 1.5rem; /* 24px */
+  --lookbook-font-size-2x-large: 2.25rem; /* 36px */
+  --lookbook-font-size-3x-large: 3rem; /* 48px */
+  --lookbook-font-size-4x-large: 4.5rem; /* 72px */
+
+  /* Font weights */
+  --lookbook-font-weight-light: 300;
+  --lookbook-font-weight-normal: 400;
+  --lookbook-font-weight-semibold: 500;
+  --lookbook-font-weight-bold: 700;
 }
 
 *,
@@ -1011,22 +1071,22 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
-  font-family: var(--sl-font-sans);
+  font-family: var(--lookbook-font-sans);
   font-size: 1rem;
-  font-size: var(--sl-font-size-medium);
-  color: hsl(240, 6%, 10%);
-  color: var(--sl-color-neutral-900);
+  font-size: var(--lookbook-font-size-medium);
+  color: var(--lookbook-color-neutral-900);
 }
 
 body {
   min-height: 100vh;
   font-size: 1rem;
-  font-size: var(--sl-font-size-medium);
+  font-size: var(--lookbook-font-size-medium);
 }
 
 code {
-  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-  font-family: var(--sl-font-mono);
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+    monospace;
+  font-family: var(--lookbook-font-mono);
 }
 
 router {
@@ -1039,7 +1099,7 @@ router {
 
 sl-tooltip::part(body) {
     font-size: 0.75rem;
-    font-size: var(--sl-font-size-x-small);
+    font-size: var(--lookbook-font-size-x-small);
   }
 
 .tippy-box[data-animation=fade][data-state=hidden]{opacity:0}
@@ -1101,16 +1161,16 @@ sl-tooltip::part(body) {
 
 [data-component="code"] .code-highlighted pre > code {
       font-size: 0.875rem;
-      font-size: var(--sl-font-size-small);
+      font-size: var(--lookbook-font-size-small);
       line-height: 1.5;
       padding-left: 0.75rem !important;
       padding-right: 0.75rem !important;
-      padding-left: var(--sl-spacing-small) !important;
-      padding-right: var(--sl-spacing-small) !important;
+      padding-left: var(--lookbook-spacing-small) !important;
+      padding-right: var(--lookbook-spacing-small) !important;
       padding-top: 0.75rem !important;
       padding-bottom: 0.75rem !important;
-      padding-top: var(--sl-spacing-small) !important;
-      padding-bottom: var(--sl-spacing-small) !important;
+      padding-top: var(--lookbook-spacing-small) !important;
+      padding-bottom: var(--lookbook-spacing-small) !important;
       overflow: auto;
     }
 
@@ -1121,52 +1181,52 @@ sl-tooltip::part(body) {
 [data-component="page"] .page-slat {
     padding-left: 1.75rem;
     padding-right: 1.75rem;
-    padding-left: var(--sl-spacing-x-large);
-    padding-right: var(--sl-spacing-x-large);
+    padding-left: var(--lookbook-spacing-x-large);
+    padding-right: var(--lookbook-spacing-x-large);
   }
 
 [data-component="page"] .page-header {
     border-bottom: 1px solid hsl(240, 5%, 84%);
-    border-bottom: 1px solid var(--sl-color-neutral-300);
+    border-bottom: 1px solid var(--lookbook-color-base-300);
     padding-top: 1.75rem;
     padding-bottom: 1.75rem;
-    padding-top: var(--sl-spacing-x-large);
-    padding-bottom: var(--sl-spacing-x-large);
+    padding-top: var(--lookbook-spacing-x-large);
+    padding-bottom: var(--lookbook-spacing-x-large);
   }
 
 [data-component="page"] .page-title {
     font-weight: 700;
-    font-weight: var(--sl-font-weight-bold);
+    font-weight: var(--lookbook-font-weight-bold);
     font-size: 2.25rem;
-    font-size: var(--sl-font-size-2x-large);
+    font-size: var(--lookbook-font-size-2x-large);
   }
 
 [data-component="page"] .page-body {
     padding-top: 2.25rem;
-    padding-top: var(--sl-spacing-2x-large);
+    padding-top: var(--lookbook-spacing-2x-large);
     padding-bottom: 3rem;
-    padding-bottom: var(--sl-spacing-3x-large);
+    padding-bottom: var(--lookbook-spacing-3x-large);
   }
 
 [data-component="page"] .page-footer {
     border-top: 1px solid hsl(240, 5%, 84%);
-    border-top: 1px solid var(--sl-color-neutral-300);
+    border-top: 1px solid var(--lookbook-color-base-300);
     padding-top: 1.75rem;
     padding-bottom: 1.75rem;
-    padding-top: var(--sl-spacing-x-large);
-    padding-bottom: var(--sl-spacing-x-large);
+    padding-top: var(--lookbook-spacing-x-large);
+    padding-bottom: var(--lookbook-spacing-x-large);
   }
 
 [data-component="prose"] {
   color: hsl(240, 6%, 10%);
-  color: var(--sl-color-neutral-900);
+  color: var(--lookbook-color-base-900);
   font-size: 1rem;
   line-height: 1.75;
 }
 
 [data-component="prose"] [class~="lead"] {
     color: hsl(240, 6%, 10%);
-    color: var(--sl-color-neutral-900);
+    color: var(--lookbook-color-base-900);
     font-size: 1.25em;
     line-height: 1.6;
     margin-top: 1.2em;
@@ -1198,7 +1258,7 @@ sl-tooltip::part(body) {
     position: absolute;
     font-weight: 400;
     color: hsl(240, 5%, 34%);
-    color: var(--sl-color-neutral-600);
+    color: var(--lookbook-color-base-600);
   }
 
 [data-component="prose"] ul > li {
@@ -1210,7 +1270,7 @@ sl-tooltip::part(body) {
     content: "";
     position: absolute;
     background-color: hsl(240, 5%, 65%);
-    background-color: var(--sl-color-neutral-400);
+    background-color: var(--lookbook-color-base-400);
     border-radius: 50%;
     width: 0.375em;
     height: 0.375em;
@@ -1251,43 +1311,42 @@ sl-tooltip::part(body) {
   [data-component="prose"] h2,
   [data-component="prose"] h3,
   [data-component="prose"] h4 {
-    line-height: 1.4;
-    line-height: var(--sl-line-height-dense);
+    line-height: var(--lookbook-line-height-dense);
     margin-top: 1.5em;
     margin-bottom: 0.8em;
   }
 
 [data-component="prose"] h1 {
     font-weight: 700;
-    font-weight: var(--sl-font-weight-bold);
+    font-weight: var(--lookbook-font-weight-bold);
     font-size: 2.25rem;
-    font-size: var(--sl-font-size-2x-large);
+    font-size: var(--lookbook-font-size-2x-large);
   }
 
 [data-component="prose"] h2 {
     font-weight: 700;
-    font-weight: var(--sl-font-weight-bold);
+    font-weight: var(--lookbook-font-weight-bold);
     font-size: 1.5rem;
-    font-size: var(--sl-font-size-x-large);
+    font-size: var(--lookbook-font-size-x-large);
   }
 
 [data-component="prose"] h3 {
     font-weight: 700;
-    font-weight: var(--sl-font-weight-bold);
+    font-weight: var(--lookbook-font-weight-bold);
     font-size: 1.25rem;
-    font-size: var(--sl-font-size-large);
+    font-size: var(--lookbook-font-size-large);
   }
 
 [data-component="prose"] h4 {
     font-weight: 700;
-    font-weight: var(--sl-font-weight-bold);
+    font-weight: var(--lookbook-font-weight-bold);
     font-size: 1rem;
-    font-size: var(--sl-font-size-medium);
+    font-size: var(--lookbook-font-size-medium);
   }
 
 [data-component="prose"] figure figcaption {
     color: hsl(240, 5%, 34%);
-    color: var(--sl-color-neutral-600);
+    color: var(--lookbook-color-base-600);
     font-size: 0.875em;
     line-height: 1.4285714;
     margin-top: 0.8571429em;
@@ -1296,18 +1355,17 @@ sl-tooltip::part(body) {
 [data-component="prose"] code:not(pre code) {
     font-size: 0.8em;
     display: inline-block;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-    font-family: var(--sl-font-mono);
+    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+    monospace;
+    font-family: var(--lookbook-font-mono);
     background-color: hsl(240, 5%, 96%);
-    background-color: var(--sl-color-neutral-100);
+    background-color: var(--lookbook-color-base-100);
     padding-left: 0.25rem;
     padding-right: 0.25rem;
-    padding-left: var(--sl-spacing-2x-small);
-    padding-right: var(--sl-spacing-2x-small);
-    border-radius: 0.1875rem;
-    border-radius: var(--sl-border-radius-small);
-    color: rgb(48, 50, 146);
-    color: var(--sl-color-primary-900);
+    padding-left: var(--lookbook-spacing-2x-small);
+    padding-right: var(--lookbook-spacing-2x-small);
+    border-radius: var(--lookbook-border-radius-small);
+    color: var(--lookbook-color-primary-900);
   }
 
 /* 
@@ -1321,8 +1379,8 @@ sl-tooltip::part(body) {
   }
 
   pre {
-    color: var(--sl-color-neutral-300);
-    background-color: var(--sl-color-neutral-800);
+    color: var(--lookbook-color-base-300);
+    background-color: var(--lookbook-color-base-800);
     overflow-x: auto;
     font-size: 0.875em;
     line-height: 1.7142857;
@@ -1516,9 +1574,8 @@ sl-tooltip::part(body) {
 
 [data-component="prose"] [data-component="code"] {
     background-color: hsl(0, 0%, 98%);
-    background-color: var(--sl-color-neutral-50);
+    background-color: var(--lookbook-color-base-50);
     border: 1px solid hsl(240, 5%, 84%);
-    border: 1px solid var(--sl-color-neutral-300);
-    border-radius: 0.1875rem;
-    border-radius: var(--sl-border-radius-small);
+    border: 1px solid var(--lookbook-color-base-300);
+    border-radius: var(--lookbook-border-radius-small);
   }

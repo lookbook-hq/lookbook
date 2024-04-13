@@ -15,18 +15,18 @@
     left: 0;
     right: 0;
     width: 100%;
-    padding-block: var(--sl-spacing-x-small);
-    padding-inline: var(--sl-spacing-small);
+    padding-block: var(--lookbook-spacing-x-small);
+    padding-inline: var(--lookbook-spacing-small);
   }
 
   .nav-tree {
     height: 100%;
     width: 100%;
     overflow: auto;
-    padding-bottom: var(--sl-spacing-medium);
+    padding-bottom: var(--lookbook-spacing-medium);
   }
 
   sl-tree {
-    --indent-size: var(--sl-spacing-small);
+    --indent-size: var(--lookbook-spacing-small);
   }
 }

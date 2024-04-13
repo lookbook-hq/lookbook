@@ -1,6 +1,5 @@
 @import "@shoelace-style/shoelace/dist/themes/light.css";
-@import "../css/colors.css";
-@import "../css/theme.css";
+@import "../css/themes/light.css";
 @import "../css/reset.css";
 @import "../css/base.css";
 
@@ -20,8 +19,8 @@ header {
   padding: 10px 0 0 0;
   margin: 0;
   background: white;
-  font-size: var(--sl-font-size-small);
-  font-family: var(--sl-font-sans);
+  font-size: var(--lookbook-font-size-small);
+  font-family: var(--lookbook-font-sans);
   border-bottom: 1px solid var(--lookbook-divider-color);
   overflow: hidden;
 }
@@ -29,7 +28,7 @@ header {
 dl {
   margin: 0 0 10px 0;
   padding: 0;
-  font-size: var(--sl-font-size-small);
+  font-size: var(--lookbook-font-size-small);
 }
 
 dt {
@@ -39,13 +38,13 @@ dt {
   clear: left;
   text-align: right;
   color: #7f7f7f;
-  font-size: var(--sl-font-size-small);
+  font-size: var(--lookbook-font-size-small);
 }
 
 dd {
   margin-left: 90px;
   padding: 1px;
-  font-size: var(--sl-font-size-small);
+  font-size: var(--lookbook-font-size-small);
 }
 
 dd:empty:before {

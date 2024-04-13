@@ -1,0 +1,115 @@
+@import "./colors.css";
+
+:root,
+:host,
+.lookbook-theme-light {
+  color-scheme: light;
+
+  --lookbook-color-accent-50: var(--lookbook-color-indigo-50);
+  --lookbook-color-accent-100: var(--lookbook-color-indigo-100);
+  --lookbook-color-accent-200: var(--lookbook-color-indigo-200);
+  --lookbook-color-accent-300: var(--lookbook-color-indigo-300);
+  --lookbook-color-accent-400: var(--lookbook-color-indigo-400);
+  --lookbook-color-accent-500: var(--lookbook-color-indigo-500);
+  --lookbook-color-accent-600: var(--lookbook-color-indigo-600);
+  --lookbook-color-accent-700: var(--lookbook-color-indigo-700);
+  --lookbook-color-accent-800: var(--lookbook-color-indigo-800);
+  --lookbook-color-accent-900: var(--lookbook-color-indigo-900);
+  --lookbook-color-accent-950: var(--lookbook-color-indigo-950);
+
+  --lookbook-color-base-50: var(--lookbook-color-gray-50);
+  --lookbook-color-base-100: var(--lookbook-color-gray-100);
+  --lookbook-color-base-200: var(--lookbook-color-gray-200);
+  --lookbook-color-base-300: var(--lookbook-color-gray-300);
+  --lookbook-color-base-400: var(--lookbook-color-gray-400);
+  --lookbook-color-base-500: var(--lookbook-color-gray-500);
+  --lookbook-color-base-600: var(--lookbook-color-gray-600);
+  --lookbook-color-base-700: var(--lookbook-color-gray-700);
+  --lookbook-color-base-800: var(--lookbook-color-gray-800);
+  --lookbook-color-base-900: var(--lookbook-color-gray-900);
+  --lookbook-color-base-950: var(--lookbook-color-gray-950);
+
+  /* Success */
+  --lookbook-color-success-50: var(--lookbook-color-green-50);
+  --lookbook-color-success-100: var(--lookbook-color-green-100);
+  --lookbook-color-success-200: var(--lookbook-color-green-200);
+  --lookbook-color-success-300: var(--lookbook-color-green-300);
+  --lookbook-color-success-400: var(--lookbook-color-green-400);
+  --lookbook-color-success-500: var(--lookbook-color-green-500);
+  --lookbook-color-success-600: var(--lookbook-color-green-600);
+  --lookbook-color-success-700: var(--lookbook-color-green-700);
+  --lookbook-color-success-800: var(--lookbook-color-green-800);
+  --lookbook-color-success-900: var(--lookbook-color-green-900);
+  --lookbook-color-success-950: var(--lookbook-color-green-950);
+
+  /* Warning */
+  --lookbook-color-warning-50: var(--lookbook-color-amber-50);
+  --lookbook-color-warning-100: var(--lookbook-color-amber-100);
+  --lookbook-color-warning-200: var(--lookbook-color-amber-200);
+  --lookbook-color-warning-300: var(--lookbook-color-amber-300);
+  --lookbook-color-warning-400: var(--lookbook-color-amber-400);
+  --lookbook-color-warning-500: var(--lookbook-color-amber-500);
+  --lookbook-color-warning-600: var(--lookbook-color-amber-600);
+  --lookbook-color-warning-700: var(--lookbook-color-amber-700);
+  --lookbook-color-warning-800: var(--lookbook-color-amber-800);
+  --lookbook-color-warning-900: var(--lookbook-color-amber-900);
+  --lookbook-color-warning-950: var(--lookbook-color-amber-950);
+
+  /* Danger */
+  --lookbook-color-danger-50: var(--lookbook-color-red-50);
+  --lookbook-color-danger-100: var(--lookbook-color-red-100);
+  --lookbook-color-danger-200: var(--lookbook-color-red-200);
+  --lookbook-color-danger-300: var(--lookbook-color-red-300);
+  --lookbook-color-danger-400: var(--lookbook-color-red-400);
+  --lookbook-color-danger-500: var(--lookbook-color-red-500);
+  --lookbook-color-danger-600: var(--lookbook-color-red-600);
+  --lookbook-color-danger-700: var(--lookbook-color-red-700);
+  --lookbook-color-danger-800: var(--lookbook-color-red-800);
+  --lookbook-color-danger-900: var(--lookbook-color-red-900);
+  --lookbook-color-danger-950: var(--lookbook-color-red-950);
+
+  --lookbook-divider-color: var(--lookbook-color-base-300);
+
+  /*
+   * Spacings
+   */
+
+  --lookbook-spacing-3x-small: 0.125rem; /* 2px */
+  --lookbook-spacing-2x-small: 0.25rem; /* 4px */
+  --lookbook-spacing-x-small: 0.5rem; /* 8px */
+  --lookbook-spacing-small: 0.75rem; /* 12px */
+  --lookbook-spacing-medium: 1rem; /* 16px */
+  --lookbook-spacing-large: 1.25rem; /* 20px */
+  --lookbook-spacing-x-large: 1.75rem; /* 28px */
+  --lookbook-spacing-2x-large: 2.25rem; /* 36px */
+  --lookbook-spacing-3x-large: 3rem; /* 48px */
+  --lookbook-spacing-4x-large: 4.5rem; /* 72px */
+
+  /*
+   * Typography
+   */
+
+  /* Fonts */
+  --lookbook-font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+    monospace;
+  --lookbook-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+
+  /* Font sizes */
+  --lookbook-font-size-2x-small: 0.625rem; /* 10px */
+  --lookbook-font-size-x-small: 0.75rem; /* 12px */
+  --lookbook-font-size-small: 0.875rem; /* 14px */
+  --lookbook-font-size-medium: 1rem; /* 16px */
+  --lookbook-font-size-large: 1.25rem; /* 20px */
+  --lookbook-font-size-x-large: 1.5rem; /* 24px */
+  --lookbook-font-size-2x-large: 2.25rem; /* 36px */
+  --lookbook-font-size-3x-large: 3rem; /* 48px */
+  --lookbook-font-size-4x-large: 4.5rem; /* 72px */
+
+  /* Font weights */
+  --lookbook-font-weight-light: 300;
+  --lookbook-font-weight-normal: 400;
+  --lookbook-font-weight-semibold: 500;
+  --lookbook-font-weight-bold: 700;
+}

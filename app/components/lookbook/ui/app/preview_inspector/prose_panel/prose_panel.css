@@ -2,7 +2,7 @@
   height: 100%;
 
   [data-component="prose"] {
-    padding-inline: var(--sl-spacing-medium);
+    padding-inline: var(--lookbook-spacing-medium);
     height: 100%;
     overflow: auto;
   }

@@ -1,25 +1,25 @@
 [data-component="page"] {
   .page-slat {
-    padding-inline: var(--sl-spacing-x-large);
+    padding-inline: var(--lookbook-spacing-x-large);
   }
 
   .page-header {
-    border-bottom: 1px solid var(--sl-color-neutral-300);
-    padding-block: var(--sl-spacing-x-large);
+    border-bottom: 1px solid var(--lookbook-color-base-300);
+    padding-block: var(--lookbook-spacing-x-large);
   }
 
   .page-title {
-    font-weight: var(--sl-font-weight-bold);
-    font-size: var(--sl-font-size-2x-large);
+    font-weight: var(--lookbook-font-weight-bold);
+    font-size: var(--lookbook-font-size-2x-large);
   }
 
   .page-body {
-    padding-top: var(--sl-spacing-2x-large);
-    padding-bottom: var(--sl-spacing-3x-large);
+    padding-top: var(--lookbook-spacing-2x-large);
+    padding-bottom: var(--lookbook-spacing-3x-large);
   }
 
   .page-footer {
-    border-top: 1px solid var(--sl-color-neutral-300);
-    padding-block: var(--sl-spacing-x-large);
+    border-top: 1px solid var(--lookbook-color-base-300);
+    padding-block: var(--lookbook-spacing-x-large);
   }
 }

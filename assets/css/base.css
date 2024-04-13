@@ -1,17 +1,17 @@
 html,
 body {
-  font-family: var(--sl-font-sans);
-  font-size: var(--sl-font-size-medium);
-  color: var(--sl-color-neutral-900);
+  font-family: var(--lookbook-font-sans);
+  font-size: var(--lookbook-font-size-medium);
+  color: var(--lookbook-color-neutral-900);
 }
 
 body {
   min-height: 100vh;
-  font-size: var(--sl-font-size-medium);
+  font-size: var(--lookbook-font-size-medium);
 }
 
 code {
-  font-family: var(--sl-font-mono);
+  font-family: var(--lookbook-font-mono);
 }
 
 router {
@@ -24,6 +24,6 @@ router {
 
 sl-tooltip {
   &::part(body) {
-    font-size: var(--sl-font-size-x-small);
+    font-size: var(--lookbook-font-size-x-small);
   }
 }

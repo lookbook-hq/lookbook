@@ -8,11 +8,11 @@
   }
 
   #app-header {
-    height: var(--lookbook-toolbar-height);
+    height: 40px;
     border-bottom: 1px solid var(--lookbook-divider-color);
     display: flex;
     align-items: center;
-    padding-inline: var(--sl-spacing-large);
+    padding-inline: var(--lookbook-spacing-medium);
 
     a {
       text-decoration: none;
@@ -24,7 +24,7 @@
   }
 
   #app-sidebar {
-    background-color: var(--sl-color-neutral-50);
+    background-color: var(--lookbook-color-base-50);
   }
 
   #app-status-bar {
