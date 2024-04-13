@@ -89,28 +89,27 @@
   .viewport-handle-x {
     flex-direction: row;
     border-left: 1px solid var(--lookbook-divider-color);
-    width: var(--lookbook-spacing-medium);
+    width: var(--lookbook-size-medium);
     cursor: ew-resize;
   }
 
   .viewport-handle-y {
     border-top: 1px solid var(--lookbook-divider-color);
-    height: var(--lookbook-spacing-medium);
+    height: var(--lookbook-size-medium);
     cursor: ns-resize;
   }
 
   .viewport-handle-xy {
-    width: var(--lookbook-spacing-medium);
-    height: var(--lookbook-spacing-medium);
+    width: var(--lookbook-size-medium);
+    height: var(--lookbook-size-medium);
     cursor: nwse-resize;
 
-    sl-icon {
+    .icon {
       transform: rotate(45deg) scale(-80%);
     }
   }
 
   .viewport-handle-icon {
-    width: var(--lookbook-spacing-medium);
-    height: var(--lookbook-spacing-medium);
+    width: var(--lookbook-size-medium);
   }
 }

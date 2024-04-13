@@ -790,6 +790,17 @@
   --lookbook-spacing-3x-large: 3rem; /* 48px */
   --lookbook-spacing-4x-large: 4.5rem; /* 72px */
 
+  --lookbook-size-3x-small: 0.125rem; /* 2px */
+  --lookbook-size-2x-small: 0.25rem; /* 4px */
+  --lookbook-size-x-small: 0.5rem; /* 8px */
+  --lookbook-size-small: 0.75rem; /* 12px */
+  --lookbook-size-medium: 1rem; /* 16px */
+  --lookbook-size-large: 1.25rem; /* 20px */
+  --lookbook-size-x-large: 1.75rem; /* 28px */
+  --lookbook-size-2x-large: 2.25rem; /* 36px */
+  --lookbook-size-3x-large: 3rem; /* 48px */
+  --lookbook-size-4x-large: 4.5rem; /* 72px */
+
   /*
    * Typography
    */
@@ -1661,10 +1672,9 @@ select {
     gap: var(--lookbook-spacing-2x-small);
   }
 
-[data-component="status-bar-item"] .status-bar-item-summary sl-icon {
+[data-component="status-bar-item"] .status-bar-item-summary .icon {
       flex: none;
-      font-size: 1rem;
-      font-size: var(--lookbook-font-size-medium);
+      height: 100%;
     }
 
 .with-panel[data-component="status-bar-item"] .status-bar-item-summary {
@@ -1675,7 +1685,7 @@ select {
       border-radius: 0;
     }
 
-[data-component="status-bar-item"][data-theme="success"] .status-bar-item-summary sl-icon {
+[data-component="status-bar-item"][data-theme="success"] .status-bar-item-summary .icon {
       color: hsl(142, 72%, 29%);
       color: var(--lookbook-color-success-700);
     }
@@ -1685,7 +1695,7 @@ select {
       color: var(--lookbook-color-danger-600);
     }
 
-[data-component="status-bar-item"][data-theme="error"] .status-bar-item-summary sl-icon {
+[data-component="status-bar-item"][data-theme="error"] .status-bar-item-summary .icon {
         color: hsl(0, 72%, 51%);
         color: var(--lookbook-color-danger-600);
       }
@@ -1695,7 +1705,7 @@ select {
       color: var(--lookbook-color-warning-600);
     }
 
-[data-component="status-bar-item"][data-theme="warning"] .status-bar-item-summary sl-icon {
+[data-component="status-bar-item"][data-theme="warning"] .status-bar-item-summary .icon {
         color: hsl(32, 95%, 44%);
         color: var(--lookbook-color-warning-600);
       }
@@ -1826,8 +1836,12 @@ select {
     --indent-size: var(--lookbook-spacing-small);
   }
 
-[data-component="nav-tree-item"] {
-}
+[data-component="nav-tree-item"] .icon {
+    margin-right: 0.5rem;
+    margin-right: var(--lookbook-spacing-x-small);
+    height: 1rem;
+    height: var(--lookbook-spacing-medium);
+  }
 
 [data-component="notifications-popup"] {
   width: 28rem;
@@ -1859,11 +1873,11 @@ select {
       margin-top: var(--lookbook-spacing-small);
     }
 
-[data-component="notifications-popup"] .notification .notification-icon {
-      flex: none;
-      font-size: 1.25rem;
-      font-size: var(--lookbook-font-size-large);
-    }
+[data-component="notifications-popup"] .notification .notification-icon .icon {
+        flex: none;
+        width: 1.25rem;
+        width: var(--lookbook-size-large);
+      }
 
 [data-component="notifications-popup"] .notification .notification-message {
       padding-top: 2px;
@@ -2153,7 +2167,7 @@ select {
     border-left: 1px solid hsl(240, 5%, 84%);
     border-left: 1px solid var(--lookbook-divider-color);
     width: 1rem;
-    width: var(--lookbook-spacing-medium);
+    width: var(--lookbook-size-medium);
     cursor: ew-resize;
   }
 
@@ -2161,27 +2175,25 @@ select {
     border-top: 1px solid hsl(240, 5%, 84%);
     border-top: 1px solid var(--lookbook-divider-color);
     height: 1rem;
-    height: var(--lookbook-spacing-medium);
+    height: var(--lookbook-size-medium);
     cursor: ns-resize;
   }
 
 [data-component="viewport"] .viewport-handle-xy {
     width: 1rem;
-    width: var(--lookbook-spacing-medium);
+    width: var(--lookbook-size-medium);
     height: 1rem;
-    height: var(--lookbook-spacing-medium);
+    height: var(--lookbook-size-medium);
     cursor: nwse-resize;
   }
 
-[data-component="viewport"] .viewport-handle-xy sl-icon {
+[data-component="viewport"] .viewport-handle-xy .icon {
       transform: rotate(45deg) scale(-80%);
     }
 
 [data-component="viewport"] .viewport-handle-icon {
     width: 1rem;
-    width: var(--lookbook-spacing-medium);
-    height: 1rem;
-    height: var(--lookbook-spacing-medium);
+    width: var(--lookbook-size-medium);
   }
 
 [data-component="code"] {

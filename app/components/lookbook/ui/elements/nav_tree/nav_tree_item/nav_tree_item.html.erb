@@ -8,7 +8,7 @@
     "@click": "itemClicked"
   }
 ) do %>
-  <sl-icon name="<%= icon %>"></sl-icon>
+  <%= lookbook_icon icon %>
   <%= label %>
   <% children&.each do |node| %>
     <%= render Lookbook::UI::NavTreeItem.new(node: node) %>

@@ -38,7 +38,7 @@
           class="viewport-handle viewport-handle-x"
           @pointerdown="onResizeWidthStart"
           @dblclick="toggleFullWidth">
-          <sl-icon class="viewport-handle-icon" name="grip-vertical"></sl-icon>
+          <%= lookbook_icon :grip_vertical, class: "viewport-handle-icon" %>
         </div>
       <% end %>
       <% if resize_y? %>
@@ -46,7 +46,7 @@
           class="viewport-handle viewport-handle-y"
           @pointerdown="onResizeHeightStart"
           @dblclick="toggleFullHeight">
-          <sl-icon class="viewport-handle-icon" name="grip-horizontal"></sl-icon>
+          <%= lookbook_icon :grip_horizontal, class: "viewport-handle-icon" %>
         </div>
       <% end %>
       <% if resize_y? && resize_x? %>
@@ -54,7 +54,7 @@
           class="viewport-handle viewport-handle-xy"
           x-on:pointerdown="onResizeStart"
           x-on:dblclick="toggleFullSize">
-          <sl-icon class="viewport-handle-icon" name="grip-vertical"></sl-icon>
+          <%= lookbook_icon :grip_vertical, class: "viewport-handle-icon" %>
         </div>
       <% end %>
     </div>

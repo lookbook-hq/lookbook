@@ -1,2 +1,6 @@
 [data-component="nav-tree-item"] {
+  .icon {
+    margin-right: var(--lookbook-spacing-x-small);
+    height: var(--lookbook-spacing-medium);
+  }
 }

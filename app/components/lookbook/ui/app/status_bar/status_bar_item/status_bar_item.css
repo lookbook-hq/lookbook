@@ -5,9 +5,9 @@
     align-items: center;
     gap: var(--lookbook-spacing-2x-small);
 
-    sl-icon {
+    .icon {
       flex: none;
-      font-size: var(--lookbook-font-size-medium);
+      height: 100%;
     }
   }
 
@@ -22,7 +22,7 @@
   }
 
   &[data-theme="success"] {
-    .status-bar-item-summary sl-icon {
+    .status-bar-item-summary .icon {
       color: var(--lookbook-color-success-700);
     }
   }
@@ -31,7 +31,7 @@
     .status-bar-item-summary {
       color: var(--lookbook-color-danger-600);
 
-      sl-icon {
+      .icon {
         color: var(--lookbook-color-danger-600);
       }
     }
@@ -41,7 +41,7 @@
     .status-bar-item-summary {
       color: var(--lookbook-color-warning-600);
 
-      sl-icon {
+      .icon {
         color: var(--lookbook-color-warning-600);
       }
     }

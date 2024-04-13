@@ -1,6 +1,6 @@
 import "container-query-polyfill";
+import "../js/shoelace/app";
 import Logger from "../js/logger";
-import initShoelace from "../js/shoelace/page";
 import initAlpine from "../js/alpine/page";
 
 const logger = new Logger("page");
@@ -25,5 +25,4 @@ addEventListener("click", (event) => {
   }
 });
 
-initShoelace({ logger });
 initAlpine({ logger });

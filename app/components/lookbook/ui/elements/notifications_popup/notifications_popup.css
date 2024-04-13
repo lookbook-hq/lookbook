@@ -16,8 +16,10 @@
     }
 
     .notification-icon {
-      flex: none;
-      font-size: var(--lookbook-font-size-large);
+      .icon {
+        flex: none;
+        width: var(--lookbook-size-large);
+      }
     }
 
     .notification-message {
