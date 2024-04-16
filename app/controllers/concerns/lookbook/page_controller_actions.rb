@@ -21,7 +21,17 @@ module Lookbook
       @config = Lookbook.config
       @pages = Pages.all
       @previews = Previews.all
-      @content = render_to_string(inline: @page.content, layout: false)
+
+      @page_content = render_to_string(
+        inline: @page.content,
+        layout: false,
+        locals: {
+          config: @config,
+          previews: @previews,
+          pages: @pages,
+          page: @page
+        }
+      )
 
       render Lookbook.config.page_template
     end
