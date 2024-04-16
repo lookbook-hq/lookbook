@@ -1059,25 +1059,18 @@ select {
 }
 
 [data-component="preview-inspector"] .inspector-layout {
-    --divider-width: 1px;
-    --max: calc(100% - 200px);
-
     height: 100%;
     width: 100%;
   }
 
-[data-component="preview-inspector"] .inspector-layout::part(divider) {
-      background-color: hsl(240, 5%, 84%);
-      background-color: var(--lookbook-divider-color);
+.drawer-closed[data-component="preview-inspector"] #inspector-panes {
+      grid-template-rows: 1fr !important;
     }
 
-.drawer-closed[data-component="preview-inspector"] .inspector-layout::part(end) {
-      pointer-events: none;
-    }
-
-.drawer-closed[data-component="preview-inspector"] .inspector-layout::part(divider) {
-      display: none;
-    }
+.drawer-closed[data-component="preview-inspector"] #inspector-panes > .pane-group-gutter,
+      .drawer-closed[data-component="preview-inspector"] #inspector-panes > .pane-group-pane:not(:first-child) {
+        display: none;
+      }
 
 [data-component="panel"][data-panel="prose"] {
   height: 100%;
@@ -1558,6 +1551,7 @@ select {
   display: grid;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 [data-component="pane-group"] .pane-group-gutter {

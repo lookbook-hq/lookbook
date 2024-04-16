@@ -8249,23 +8249,12 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   });
   var preview_inspector_default = AlpineComponent("previewInspector", () => {
     return {
-      // drawerPosition: Alpine.$persist(20).as("preview-inspector:drawer-position"),
-      // drawerLastPosition: Alpine.$persist(20).as(
-      //   "preview-inspector:drawer-last-position"
-      // ),
-      // init() {
-      //   this.$watch("drawerPosition", (value) => {
-      //     if (value !== 0) {
-      //       this.drawerLastPosition = value;
-      //     }
-      //   });
-      // },
+      drawerClosed: false,
       openDrawer() {
+        this.drawerClosed = false;
       },
       closeDrawer() {
-      },
-      get drawerClosed() {
-        return false;
+        this.drawerClosed = true;
       }
     };
   });

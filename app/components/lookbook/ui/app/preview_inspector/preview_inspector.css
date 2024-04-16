@@ -3,24 +3,18 @@
   width: 100%;
 
   .inspector-layout {
-    --divider-width: 1px;
-    --max: calc(100% - 200px);
-
     height: 100%;
     width: 100%;
-
-    &::part(divider) {
-      background-color: var(--lookbook-divider-color);
-    }
   }
 
-  &.drawer-closed .inspector-layout {
-    &::part(end) {
-      pointer-events: none;
-    }
+  &.drawer-closed {
+    #inspector-panes {
+      grid-template-rows: 1fr !important;
 
-    &::part(divider) {
-      display: none;
+      > .pane-group-gutter,
+      > .pane-group-pane:not(:first-child) {
+        display: none;
+      }
     }
   }
 }
