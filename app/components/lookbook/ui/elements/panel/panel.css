@@ -3,19 +3,6 @@
   width: 100%;
   overflow: hidden;
 
-  .panel-toolbar {
-    position: absolute;
-    z-index: 2;
-    background: #fff;
-    border-radius: 8px;
-    right: var(--lookbook-spacing-2x-small);
-    top: var(--lookbook-spacing-x-small);
-    display: flex;
-    width: fit-content;
-    align-items: center;
-    border: 1px solid var(--lookbook-divider-color);
-  }
-
   .panel-content {
     z-index: 1;
     height: 100%;

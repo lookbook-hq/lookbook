@@ -1966,23 +1966,6 @@ select {
   overflow: hidden;
 }
 
-[data-component="panel"] .panel-toolbar {
-    position: absolute;
-    z-index: 2;
-    background: #fff;
-    border-radius: 8px;
-    right: 0.25rem;
-    right: var(--lookbook-spacing-2x-small);
-    top: 0.5rem;
-    top: var(--lookbook-spacing-x-small);
-    display: flex;
-    width: -moz-fit-content;
-    width: fit-content;
-    align-items: center;
-    border: 1px solid hsl(240, 5%, 84%);
-    border: 1px solid var(--lookbook-divider-color);
-  }
-
 [data-component="panel"] .panel-content {
     z-index: 1;
     height: 100%;
