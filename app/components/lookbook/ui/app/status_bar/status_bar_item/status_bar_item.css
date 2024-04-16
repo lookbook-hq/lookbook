@@ -1,9 +1,13 @@
 [data-component="status-bar-item"] {
+  position: relative;
+  height: 100%;
+
   .status-bar-item-summary {
-    height: var(--lookbook-status-bar-height);
+    height: 100%;
     display: flex;
     align-items: center;
     gap: var(--lookbook-spacing-2x-small);
+    user-select: none;
 
     .icon {
       flex: none;
@@ -11,14 +15,19 @@
     }
   }
 
-  &.with-panel .status-bar-item-summary {
-    cursor: pointer;
+  .status-bar-item-panel {
+    position: absolute;
+    right: 0;
+    top: calc(-1 * var(--lookbook-spacing-small));
+    transform: translateY(-100%);
+    width: fit-content;
+    box-shadow:
+      0 4px 6px -1px rgb(0 0 0 / 0.1),
+      0 2px 4px -2px rgb(0 0 0 / 0.1);
   }
 
-  sl-dropdown {
-    &::part(panel) {
-      border-radius: 0;
-    }
+  &.with-panel .status-bar-item-summary {
+    cursor: pointer;
   }
 
   &[data-theme="success"] {

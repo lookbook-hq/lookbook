@@ -1,15 +1,13 @@
 <%= render component_tag(x: {data: "statusBarItem"}, data: {theme: theme}, class: {"with-panel": panel?}) do %>
-  <sl-dropdown distance="12" skidding="0">
-    <div class="status-bar-item-summary" slot="trigger">
-      <%= lookbook_icon icon %>
-      <% if label.present? %>
-        <span><%= label %></span>
-      <% end %>
-    </div>
-    <% if panel? %>
-      <div class="status-bar-item-panel" x-cloak>
-        <%= panel %>
-      </div>
+  <div class="status-bar-item-summary" @click="expanded = !expanded">
+    <%= lookbook_icon icon %>
+    <% if label.present? %>
+      <span><%= label %></span>
     <% end %>
-  </sl-dropdown>
+  </div>
+  <% if panel? %>
+    <div class="status-bar-item-panel" x-show="expanded" @click.outside="expanded = false" x-cloak>
+      <%= panel %>
+    </div>
+  <% end %>
 <% end %>

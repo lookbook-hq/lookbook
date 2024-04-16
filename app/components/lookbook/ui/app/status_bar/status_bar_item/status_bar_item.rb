@@ -12,7 +12,7 @@ module Lookbook
       end
 
       def icon
-        @icon || NotificationsPopup.icon_name(theme)
+        @icon || StatusBar.icon_name(theme)
       end
     end
   end

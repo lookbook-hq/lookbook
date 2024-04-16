@@ -1662,14 +1662,23 @@ select {
     align-items: center;
     gap: 1rem;
     gap: var(--lookbook-spacing-medium);
+    height: 100%;
   }
 
+[data-component="status-bar-item"] {
+  position: relative;
+  height: 100%;
+}
+
 [data-component="status-bar-item"] .status-bar-item-summary {
-    height: var(--lookbook-status-bar-height);
+    height: 100%;
     display: flex;
     align-items: center;
     gap: 0.25rem;
     gap: var(--lookbook-spacing-2x-small);
+    -webkit-user-select: none;
+       -moz-user-select: none;
+            user-select: none;
   }
 
 [data-component="status-bar-item"] .status-bar-item-summary .icon {
@@ -1677,13 +1686,22 @@ select {
       height: 100%;
     }
 
+[data-component="status-bar-item"] .status-bar-item-panel {
+    position: absolute;
+    right: 0;
+    top: calc(-1 * 0.75rem);
+    top: calc(-1 * var(--lookbook-spacing-small));
+    transform: translateY(-100%);
+    width: -moz-fit-content;
+    width: fit-content;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  }
+
 .with-panel[data-component="status-bar-item"] .status-bar-item-summary {
     cursor: pointer;
   }
-
-[data-component="status-bar-item"] sl-dropdown::part(panel) {
-      border-radius: 0;
-    }
 
 [data-component="status-bar-item"][data-theme="success"] .status-bar-item-summary .icon {
       color: hsl(142, 72%, 29%);
@@ -1709,6 +1727,80 @@ select {
         color: hsl(32, 95%, 44%);
         color: var(--lookbook-color-warning-600);
       }
+
+[data-component="status-bar-notifications"] {
+  width: 28rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-left: var(--lookbook-spacing-medium);
+  padding-right: var(--lookbook-spacing-medium);
+  background: var(--lookbook-color-base-0);
+  border: 1px solid hsl(240, 5%, 84%);
+  border: 1px solid var(--lookbook-divider-color);
+}
+
+[data-component="status-bar-notifications"] .notification {
+    display: flex;
+    gap: 0.75rem;
+    gap: var(--lookbook-spacing-small);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-top: var(--lookbook-spacing-medium);
+    padding-bottom: var(--lookbook-spacing-medium);
+  }
+
+[data-component="status-bar-notifications"] .notification + .notification {
+      border-top: 1px solid hsl(240, 5%, 84%);
+      border-top: 1px solid var(--lookbook-divider-color);
+      padding-top: 0.75rem;
+      padding-top: var(--lookbook-spacing-small);
+      margin-top: 0.75rem;
+      margin-top: var(--lookbook-spacing-small);
+    }
+
+[data-component="status-bar-notifications"] .notification .notification-icon .icon {
+        flex: none;
+        width: 1.25rem;
+        width: var(--lookbook-size-large);
+      }
+
+[data-component="status-bar-notifications"] .notification .notification-message {
+      padding-top: 2px;
+      min-width: 1%;
+      width: 100%;
+      overflow: hidden;
+      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+    monospace;
+      font-family: var(--lookbook-font-mono);
+      font-size: 0.75rem;
+      font-size: var(--lookbook-font-size-x-small);
+      line-height: var(--lookbook-line-height-dense);
+      word-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+      -webkit-hyphens: auto;
+              hyphens: auto;
+    }
+
+[data-component="status-bar-notifications"] .notification.notification-error .notification-icon {
+      color: hsl(0, 72%, 51%);
+      color: var(--lookbook-color-danger-600);
+    }
+
+[data-component="status-bar-notifications"] .notification.notification-warning .notification-icon {
+      color: hsl(32, 95%, 44%);
+      color: var(--lookbook-color-warning-600);
+    }
+
+[data-component="status-bar-notifications"] .notification.notification-notice .notification-icon {
+      color: hsl(200, 98%, 39%);
+      color: var(--lookbook-color-sky-600);
+    }
+
+[data-component="status-bar-notifications"] .notification.notification-success .notification-icon {
+      color: hsl(142, 76%, 36%);
+      color: var(--lookbook-color-success-600);
+    }
 
 [data-component="button"] {
   display: inline-block;
@@ -1842,80 +1934,6 @@ select {
     height: 1rem;
     height: var(--lookbook-spacing-medium);
   }
-
-[data-component="notifications-popup"] {
-  width: 28rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-left: var(--lookbook-spacing-medium);
-  padding-right: var(--lookbook-spacing-medium);
-  background: var(--lookbook-color-base-0);
-  border: 1px solid hsl(240, 5%, 84%);
-  border: 1px solid var(--lookbook-divider-color);
-}
-
-[data-component="notifications-popup"] .notification {
-    display: flex;
-    gap: 0.75rem;
-    gap: var(--lookbook-spacing-small);
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-top: var(--lookbook-spacing-medium);
-    padding-bottom: var(--lookbook-spacing-medium);
-  }
-
-[data-component="notifications-popup"] .notification + .notification {
-      border-top: 1px solid hsl(240, 5%, 84%);
-      border-top: 1px solid var(--lookbook-divider-color);
-      padding-top: 0.75rem;
-      padding-top: var(--lookbook-spacing-small);
-      margin-top: 0.75rem;
-      margin-top: var(--lookbook-spacing-small);
-    }
-
-[data-component="notifications-popup"] .notification .notification-icon .icon {
-        flex: none;
-        width: 1.25rem;
-        width: var(--lookbook-size-large);
-      }
-
-[data-component="notifications-popup"] .notification .notification-message {
-      padding-top: 2px;
-      min-width: 1%;
-      width: 100%;
-      overflow: hidden;
-      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo,
-    monospace;
-      font-family: var(--lookbook-font-mono);
-      font-size: 0.75rem;
-      font-size: var(--lookbook-font-size-x-small);
-      line-height: var(--lookbook-line-height-dense);
-      word-wrap: break-word;
-      word-wrap: break-word;
-      word-break: break-word;
-      -webkit-hyphens: auto;
-              hyphens: auto;
-    }
-
-[data-component="notifications-popup"] .notification.notification-error .notification-icon {
-      color: hsl(0, 72%, 51%);
-      color: var(--lookbook-color-danger-600);
-    }
-
-[data-component="notifications-popup"] .notification.notification-warning .notification-icon {
-      color: hsl(32, 95%, 44%);
-      color: var(--lookbook-color-warning-600);
-    }
-
-[data-component="notifications-popup"] .notification.notification-notice .notification-icon {
-      color: hsl(200, 98%, 39%);
-      color: var(--lookbook-color-sky-600);
-    }
-
-[data-component="notifications-popup"] .notification.notification-success .notification-icon {
-      color: hsl(142, 76%, 36%);
-      color: var(--lookbook-color-success-600);
-    }
 
 [data-component="pane"] {
   height: 100%;

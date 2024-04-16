@@ -1,5 +1,5 @@
 import AlpineComponent from "@js/alpine/component";
 
-export default AlpineComponent("notificationsPopup", () => {
+export default AlpineComponent("statusBarNotifications", () => {
   return {};
 });

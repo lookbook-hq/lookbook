@@ -11,5 +11,6 @@
     display: flex;
     align-items: center;
     gap: var(--lookbook-spacing-medium);
+    height: 100%;
   }
 }

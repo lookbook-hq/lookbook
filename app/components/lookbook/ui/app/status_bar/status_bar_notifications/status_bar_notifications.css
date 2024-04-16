@@ -1,4 +1,4 @@
-[data-component="notifications-popup"] {
+[data-component="status-bar-notifications"] {
   width: 28rem;
   padding-inline: var(--lookbook-spacing-medium);
   background: var(--lookbook-color-base-0);
