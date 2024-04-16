@@ -7755,7 +7755,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     });
   }
 
-  // app/components/lookbook/ui/base/code/code.js
+  // app/components/lookbook/ui/elements/code/code.js
   var code_exports = {};
   __export(code_exports, {
     default: () => code_default
@@ -37559,7 +37559,7 @@ Expected it to be ${r2}.`;
     }
   };
 
-  // app/components/lookbook/ui/base/code/code.js
+  // app/components/lookbook/ui/elements/code/code.js
   var code_default = AlpineComponent("code", ({ lang: lang12, prettify = true }) => {
     return {
       prettify: true,
@@ -37587,7 +37587,7 @@ Expected it to be ${r2}.`;
     };
   });
 
-  // app/components/lookbook/ui/base/prose/prose.js
+  // app/components/lookbook/ui/elements/prose/prose.js
   var prose_exports = {};
   __export(prose_exports, {
     default: () => prose_default
@@ -37596,7 +37596,7 @@ Expected it to be ${r2}.`;
     return {};
   });
 
-  // import-glob:/Users/mark/Code/lookbook/lookbook-v3/assets/js/alpine|../../../app/components/lookbook/ui/base/{code,prose}/*.js
+  // import-glob:/Users/mark/Code/lookbook/lookbook-v3/assets/js/alpine|../../../app/components/lookbook/ui/elements/{code,prose}/*.js
   var modules = [code_exports, prose_exports];
   var __default = modules;
 

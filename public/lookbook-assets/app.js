@@ -8339,7 +8339,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     return {};
   });
 
-  // app/components/lookbook/ui/base/button/button.js
+  // app/components/lookbook/ui/elements/button/button.js
   var button_exports = {};
   __export(button_exports, {
     default: () => button_default
@@ -11084,7 +11084,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   });
   var tippy_esm_default = tippy;
 
-  // app/components/lookbook/ui/base/button/button.js
+  // app/components/lookbook/ui/elements/button/button.js
   var button_default = AlpineComponent("button", () => {
     return {
       init() {
@@ -11101,7 +11101,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     };
   });
 
-  // app/components/lookbook/ui/base/code/code.js
+  // app/components/lookbook/ui/elements/code/code.js
   var code_exports = {};
   __export(code_exports, {
     default: () => code_default
@@ -40899,7 +40899,7 @@ Expected it to be ${r2}.`;
     }
   };
 
-  // app/components/lookbook/ui/base/code/code.js
+  // app/components/lookbook/ui/elements/code/code.js
   var code_default = AlpineComponent("code", ({ lang: lang12, prettify = true }) => {
     return {
       prettify: true,
@@ -40927,7 +40927,7 @@ Expected it to be ${r2}.`;
     };
   });
 
-  // app/components/lookbook/ui/base/icon/icon.js
+  // app/components/lookbook/ui/elements/icon/icon.js
   var icon_exports = {};
   __export(icon_exports, {
     default: () => icon_default
@@ -40936,7 +40936,7 @@ Expected it to be ${r2}.`;
     return {};
   });
 
-  // app/components/lookbook/ui/base/nav/nav.js
+  // app/components/lookbook/ui/elements/nav/nav.js
   var nav_exports = {};
   __export(nav_exports, {
     default: () => nav_default
@@ -40999,7 +40999,7 @@ Expected it to be ${r2}.`;
     };
   });
 
-  // app/components/lookbook/ui/base/nav/nav_item/nav_item.js
+  // app/components/lookbook/ui/elements/nav/nav_item/nav_item.js
   var nav_item_exports = {};
   __export(nav_item_exports, {
     default: () => nav_item_default
@@ -41072,7 +41072,7 @@ Expected it to be ${r2}.`;
     };
   });
 
-  // app/components/lookbook/ui/base/pane/pane.js
+  // app/components/lookbook/ui/elements/pane/pane.js
   var pane_exports = {};
   __export(pane_exports, {
     default: () => pane_default
@@ -41104,7 +41104,7 @@ Expected it to be ${r2}.`;
     };
   });
 
-  // app/components/lookbook/ui/base/pane/tab_panel/tab_panel.js
+  // app/components/lookbook/ui/elements/pane/tab_panel/tab_panel.js
   var tab_panel_exports = {};
   __export(tab_panel_exports, {
     default: () => tab_panel_default
@@ -41115,7 +41115,7 @@ Expected it to be ${r2}.`;
     };
   });
 
-  // app/components/lookbook/ui/base/pane_group/pane_group.js
+  // app/components/lookbook/ui/elements/pane_group/pane_group.js
   var pane_group_exports = {};
   __export(pane_group_exports, {
     default: () => pane_group_default
@@ -41724,7 +41724,7 @@ Expected it to be ${r2}.`;
     return observer2;
   }
 
-  // app/components/lookbook/ui/base/pane_group/pane_group.js
+  // app/components/lookbook/ui/elements/pane_group/pane_group.js
   var pane_group_default = AlpineComponent("paneGroup", (id, opts = {}) => {
     return {
       splitter: null,
@@ -41845,7 +41845,7 @@ Expected it to be ${r2}.`;
     return splits;
   }
 
-  // app/components/lookbook/ui/base/prose/prose.js
+  // app/components/lookbook/ui/elements/prose/prose.js
   var prose_exports = {};
   __export(prose_exports, {
     default: () => prose_default
@@ -41854,7 +41854,7 @@ Expected it to be ${r2}.`;
     return {};
   });
 
-  // app/components/lookbook/ui/base/router/router.js
+  // app/components/lookbook/ui/elements/router/router.js
   var router_exports = {};
   __export(router_exports, {
     default: () => router_default
@@ -41908,7 +41908,7 @@ Expected it to be ${r2}.`;
     }
   };
 
-  // app/components/lookbook/ui/base/router/router.js
+  // app/components/lookbook/ui/elements/router/router.js
   var router_default = AlpineComponent("router", (sseEndpoint = null) => {
     return {
       serverEventsListener: null,
@@ -42002,7 +42002,7 @@ Expected it to be ${r2}.`;
     });
   }
 
-  // app/components/lookbook/ui/base/toolbar/toolbar.js
+  // app/components/lookbook/ui/elements/toolbar/toolbar.js
   var toolbar_exports = {};
   __export(toolbar_exports, {
     default: () => toolbar_default
@@ -42024,7 +42024,7 @@ Expected it to be ${r2}.`;
     };
   });
 
-  // app/components/lookbook/ui/base/toolbar/toolbar_tab/toolbar_tab.js
+  // app/components/lookbook/ui/elements/toolbar/toolbar_tab/toolbar_tab.js
   var toolbar_tab_exports = {};
   __export(toolbar_tab_exports, {
     default: () => toolbar_tab_default
@@ -42035,7 +42035,7 @@ Expected it to be ${r2}.`;
     };
   });
 
-  // app/components/lookbook/ui/base/viewport/viewport.js
+  // app/components/lookbook/ui/elements/viewport/viewport.js
   var viewport_exports = {};
   __export(viewport_exports, {
     default: () => viewport_default

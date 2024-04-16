@@ -3,5 +3,5 @@
 @import "../css/base.css";
 @import "../css/tooltips.css";
 
-@import-glob "../../app/components/lookbook/ui/base/{code,prose}/*.css";
+@import-glob "../../app/components/lookbook/ui/elements/{code,prose}/*.css";
 @import-glob "../../app/components/lookbook/ui/app/page/*.css";
