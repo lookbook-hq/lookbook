@@ -5,6 +5,7 @@
     "data": "nav('#{id}')",
     "@lookbook:page-update.document": "updateSelection(false)",
     "@lookbook:page-load.document": "updateSelection(true)",
+    "@nav:collapse-all.document": "if ($event.detail.id == id) collapseAll()",
     "effect": "filter()"
   }) do %>
 

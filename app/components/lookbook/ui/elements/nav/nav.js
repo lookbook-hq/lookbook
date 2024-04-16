@@ -3,6 +3,7 @@ import { getData } from "@js/alpine/utils";
 
 export default AlpineComponent("nav", (id) => {
   return {
+    id,
     expandedItems: Alpine.$persist([]).as(`nav#${id}:expanded-items`),
     filterText: Alpine.$persist("").as(`nav#${id}:filter-text`),
     empty: false,
@@ -35,6 +36,14 @@ export default AlpineComponent("nav", (id) => {
           }
         }
       }
+    },
+
+    collapseAll() {
+      Array.from(
+        this.$root.querySelectorAll("[data-component='nav-item']")
+      ).forEach((node) => {
+        getData(node).expanded = false;
+      });
     },
 
     async filter() {

@@ -40943,6 +40943,7 @@ Expected it to be ${r2}.`;
   });
   var nav_default = AlpineComponent("nav", (id) => {
     return {
+      id,
       expandedItems: Alpine.$persist([]).as(`nav#${id}:expanded-items`),
       filterText: Alpine.$persist("").as(`nav#${id}:filter-text`),
       empty: false,
@@ -40970,6 +40971,13 @@ Expected it to be ${r2}.`;
             }
           }
         }
+      },
+      collapseAll() {
+        Array.from(
+          this.$root.querySelectorAll("[data-component='nav-item']")
+        ).forEach((node) => {
+          getData(node).expanded = false;
+        });
       },
       async filter() {
         const text2 = this.filterText;
