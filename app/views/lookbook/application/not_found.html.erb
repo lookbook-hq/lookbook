@@ -1,3 +1,6 @@
-<h1>Not found</h1>
-
-<%= @error.message %>
+<%=
+  render Lookbook::UI::ErrorPage.new(
+    error: @error,
+    title: "Not found"
+  )
+%>
