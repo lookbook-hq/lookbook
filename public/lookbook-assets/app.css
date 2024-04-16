@@ -1428,14 +1428,8 @@ select {
     border-top: 1px solid var(--lookbook-divider-color);
   }
 
-[data-component="panel"][data-panel="code"] .code-panel-code {
-    height: 100%;
-    width: 100%;
-  }
-
-[data-component="panel"][data-panel="code"] .code-panel-raw {
-    display: none;
-  }
+[data-component="panel"][data-panel="code"] {
+}
 
 [data-component="panel"][data-panel="default"] {
   height: 100%;
