@@ -6,7 +6,7 @@ module Lookbook
 
     def block_code(source, lang = "ruby")
       line_numbers = lang.to_s.end_with? "-numbered"
-      template = "<%= lookbook_code(source, lang: lang, line_numbers: line_numbers) %>"
+      template = "<%= lb_code(source, lang: lang, line_numbers: line_numbers) %>"
       ApplicationController.render(
         inline: template,
         locals: {

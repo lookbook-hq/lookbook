@@ -6,7 +6,7 @@
     <% if @target.scenarios.many? %>
       <h3 style="color: var(--lookbook-color-base-400); margin-bottom: var(--lookbook-spacing-small);"><%= scenario.label %></h3>
     <% end %>
-    <%= lookbook_prose { notes } %>
+    <%= lb_prose { notes } %>
   </section>
   <% end %>
   <% else %>

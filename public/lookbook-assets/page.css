@@ -702,45 +702,6 @@ sl-tooltip::part(body) {
     white-space: pre-wrap;
   }
 
-[data-component="page"] .page-slat {
-    padding-left: 1.75rem;
-    padding-right: 1.75rem;
-    padding-left: var(--lookbook-spacing-x-large);
-    padding-right: var(--lookbook-spacing-x-large);
-  }
-
-[data-component="page"] .page-header {
-    border-bottom: 1px solid hsl(240, 5%, 84%);
-    border-bottom: 1px solid var(--lookbook-color-base-300);
-    padding-top: 1.75rem;
-    padding-bottom: 1.75rem;
-    padding-top: var(--lookbook-spacing-x-large);
-    padding-bottom: var(--lookbook-spacing-x-large);
-  }
-
-[data-component="page"] .page-title {
-    font-weight: 700;
-    font-weight: var(--lookbook-font-weight-bold);
-    font-size: 2.25rem;
-    font-size: var(--lookbook-font-size-2x-large);
-  }
-
-[data-component="page"] .page-body {
-    padding-top: 2.25rem;
-    padding-top: var(--lookbook-spacing-2x-large);
-    padding-bottom: 3rem;
-    padding-bottom: var(--lookbook-spacing-3x-large);
-  }
-
-[data-component="page"] .page-footer {
-    border-top: 1px solid hsl(240, 5%, 84%);
-    border-top: 1px solid var(--lookbook-color-base-300);
-    padding-top: 1.75rem;
-    padding-bottom: 1.75rem;
-    padding-top: var(--lookbook-spacing-x-large);
-    padding-bottom: var(--lookbook-spacing-x-large);
-  }
-
 [data-component="prose"] {
   color: hsl(240, 6%, 10%);
   color: var(--lookbook-color-base-900);
@@ -1102,4 +1063,43 @@ sl-tooltip::part(body) {
     border: 1px solid hsl(240, 5%, 84%);
     border: 1px solid var(--lookbook-color-base-300);
     border-radius: var(--lookbook-border-radius-small);
+  }
+
+[data-component="page"] .page-slat {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+    padding-left: var(--lookbook-spacing-x-large);
+    padding-right: var(--lookbook-spacing-x-large);
+  }
+
+[data-component="page"] .page-header {
+    border-bottom: 1px solid hsl(240, 5%, 84%);
+    border-bottom: 1px solid var(--lookbook-color-base-300);
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+    padding-top: var(--lookbook-spacing-x-large);
+    padding-bottom: var(--lookbook-spacing-x-large);
+  }
+
+[data-component="page"] .page-title {
+    font-weight: 700;
+    font-weight: var(--lookbook-font-weight-bold);
+    font-size: 2.25rem;
+    font-size: var(--lookbook-font-size-2x-large);
+  }
+
+[data-component="page"] .page-body {
+    padding-top: 2.25rem;
+    padding-top: var(--lookbook-spacing-2x-large);
+    padding-bottom: 3rem;
+    padding-bottom: var(--lookbook-spacing-3x-large);
+  }
+
+[data-component="page"] .page-footer {
+    border-top: 1px solid hsl(240, 5%, 84%);
+    border-top: 1px solid var(--lookbook-color-base-300);
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+    padding-top: var(--lookbook-spacing-x-large);
+    padding-bottom: var(--lookbook-spacing-x-large);
   }

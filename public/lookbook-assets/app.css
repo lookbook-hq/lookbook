@@ -941,6 +941,45 @@ select {
     border-top: 1px solid var(--lookbook-divider-color);
   }
 
+[data-component="page"] .page-slat {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+    padding-left: var(--lookbook-spacing-x-large);
+    padding-right: var(--lookbook-spacing-x-large);
+  }
+
+[data-component="page"] .page-header {
+    border-bottom: 1px solid hsl(240, 5%, 84%);
+    border-bottom: 1px solid var(--lookbook-color-base-300);
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+    padding-top: var(--lookbook-spacing-x-large);
+    padding-bottom: var(--lookbook-spacing-x-large);
+  }
+
+[data-component="page"] .page-title {
+    font-weight: 700;
+    font-weight: var(--lookbook-font-weight-bold);
+    font-size: 2.25rem;
+    font-size: var(--lookbook-font-size-2x-large);
+  }
+
+[data-component="page"] .page-body {
+    padding-top: 2.25rem;
+    padding-top: var(--lookbook-spacing-2x-large);
+    padding-bottom: 3rem;
+    padding-bottom: var(--lookbook-spacing-3x-large);
+  }
+
+[data-component="page"] .page-footer {
+    border-top: 1px solid hsl(240, 5%, 84%);
+    border-top: 1px solid var(--lookbook-color-base-300);
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+    padding-top: var(--lookbook-spacing-x-large);
+    padding-bottom: var(--lookbook-spacing-x-large);
+  }
+
 [data-component="panel"][data-panel="code"] {
 }
 
@@ -1332,6 +1371,52 @@ select {
   width: fit-content;
 }
 
+[data-component="code"] {
+  display: block;
+
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+[data-component="code"] .code-raw {
+    display: none;
+  }
+
+[data-component="code"] .code-highlighted {
+    height: 100%;
+  }
+
+[data-component="code"] .code-highlighted code,
+    [data-component="code"] .code-highlighted pre {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+
+[data-component="code"] .code-highlighted code:focus-visible, [data-component="code"] .code-highlighted pre:focus-visible {
+        outline: 0;
+      }
+
+[data-component="code"] .code-highlighted pre > code {
+      font-size: 0.875rem;
+      font-size: var(--lookbook-font-size-small);
+      line-height: 1.5;
+      padding-left: 0.75rem !important;
+      padding-right: 0.75rem !important;
+      padding-left: var(--lookbook-spacing-small) !important;
+      padding-right: var(--lookbook-spacing-small) !important;
+      padding-top: 0.75rem !important;
+      padding-bottom: 0.75rem !important;
+      padding-top: var(--lookbook-spacing-small) !important;
+      padding-bottom: var(--lookbook-spacing-small) !important;
+      overflow: auto;
+    }
+
+.wrap-lines[data-component="code"] .code-highlighted code {
+    white-space: pre-wrap;
+  }
+
 [data-component="icon"] {
   display: inline-block;
   aspect-ratio: 1 / 1;
@@ -1529,303 +1614,6 @@ select {
 [data-component="panel"][data-scrollable="true"] .panel-content {
       overflow: auto;
     }
-
-[data-component="router"] {
-  display: contents;
-}
-
-[data-component="toolbar"] {
-  background-color: white;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  padding-right: 0.25rem;
-  padding-right: var(--lookbook-spacing-2x-small);
-  padding-left: 1rem;
-  padding-left: var(--lookbook-spacing-medium);
-  border-bottom: 1px solid hsl(240, 5%, 84%);
-  border-bottom: 1px solid var(--lookbook-divider-color);
-}
-
-[data-component="toolbar"] .toolbar-title {
-    display: flex;
-    align-items: center;
-    font-size: 0.875rem;
-    font-size: var(--lookbook-font-size-small);
-    font-weight: 600;
-  }
-
-[data-component="toolbar"] .toolbar-tabs {
-    display: flex;
-    gap: 0.75rem;
-    gap: var(--lookbook-spacing-small);
-    height: var(--lookbook-toolbar-height);
-  }
-
-[data-component="toolbar"] .toolbar-title + .toolbar-tabs {
-    margin-left: 1rem;
-    margin-left: var(--lookbook-spacing-medium);
-  }
-
-[data-component="toolbar"] .toolbar-actions {
-    margin-left: auto;
-  }
-
-[data-component="toolbar"] .toolbar-actions [data-component="button"] {
-      padding: 0.5rem;
-      height: 2rem;
-      width: 2rem;
-    }
-
-[data-component="toolbar-tab"] {
-  height: 40px;
-  display: flex;
-  align-items: center;
-  font-size: 0.875rem;
-  font-size: var(--lookbook-font-size-small);
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-  padding-left: var(--lookbook-spacing-small);
-  padding-right: var(--lookbook-spacing-small);
-  border-bottom: 2px solid transparent;
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-}
-
-[data-component="toolbar-tab"][aria-selected="true"] {
-    color: hsl(239, 84%, 67%);
-    color: var(--lookbook-color-accent-500);
-    border-bottom-color: hsl(239, 84%, 67%);
-    border-bottom-color: var(--lookbook-color-accent-500);
-  }
-
-[data-component="viewport"] {
-  width: 100%;
-  height: 100%;
-  min-height: 0;
-  overflow: hidden;
-  position: relative;
-  background-color: #fff;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%23f3f3f3' fill-opacity='1'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-  touch-action: none;
-}
-
-[data-component="viewport"] .viewport-wrapper {
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    height: 100%;
-  }
-
-[data-component="viewport"] .viewport-dimensions {
-    font-size: 0.75rem;
-    font-size: var(--lookbook-font-size-x-small);
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo,
-    monospace;
-    font-family: var(--lookbook-font-mono);
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    padding-left: var(--lookbook-spacing-x-small);
-    padding-right: var(--lookbook-spacing-x-small);
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-top: var(--lookbook-spacing-x-small);
-    padding-bottom: var(--lookbook-spacing-x-small);
-    position: absolute;
-    z-index: 10;
-    top: 0;
-    right: 0;
-    display: inline-flex;
-    gap: 0.25rem;
-    gap: var(--lookbook-spacing-2x-small);
-    overflow: hidden;
-    border-bottom-left-radius: var(--lookbook-border-radius-medium);
-    pointer-events: none;
-  }
-
-[data-component="viewport"] .viewport-dimensions::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background: hsl(240, 6%, 90%);
-      background: var(--lookbook-color-base-200);
-      opacity: 0.7;
-    }
-
-[data-component="viewport"] .viewport-dimensions span {
-      position: relative;
-      z-index: 11;
-    }
-
-[data-component="viewport"] .viewport-resizer {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-    outline: 1px solid hsl(240, 5%, 84%);
-    outline: 1px solid var(--lookbook-divider-color);
-  }
-
-.resize-x[data-component="viewport"] .viewport-dimensions {
-      right: 1rem;
-      right: var(--lookbook-spacing-medium);
-    }
-
-.resize-x[data-component="viewport"] .viewport-resizer {
-      grid-template-columns: 1fr min-content;
-    }
-
-.resize-y[data-component="viewport"] .viewport-resizer {
-    grid-template-rows: 1fr min-content;
-  }
-
-[data-component="viewport"] .viewport-window {
-    width: 100%;
-    height: 100%;
-  }
-
-[data-component="viewport"] .viewport-window.inert {
-    pointer-events: none;
-  }
-
-[data-component="viewport"] .viewport-handle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    color: hsl(240, 4%, 46%);
-    color: var(--lookbook-color-base-500);
-  }
-
-[data-component="viewport"] .viewport-handle-x {
-    flex-direction: row;
-    border-left: 1px solid hsl(240, 5%, 84%);
-    border-left: 1px solid var(--lookbook-divider-color);
-    width: 1rem;
-    width: var(--lookbook-size-medium);
-    cursor: ew-resize;
-  }
-
-[data-component="viewport"] .viewport-handle-y {
-    border-top: 1px solid hsl(240, 5%, 84%);
-    border-top: 1px solid var(--lookbook-divider-color);
-    height: 1rem;
-    height: var(--lookbook-size-medium);
-    cursor: ns-resize;
-  }
-
-[data-component="viewport"] .viewport-handle-xy {
-    width: 1rem;
-    width: var(--lookbook-size-medium);
-    height: 1rem;
-    height: var(--lookbook-size-medium);
-    cursor: nwse-resize;
-  }
-
-[data-component="viewport"] .viewport-handle-xy .icon {
-      transform: rotate(45deg) scale(-80%);
-    }
-
-[data-component="viewport"] .viewport-handle-icon {
-    width: 1rem;
-    width: var(--lookbook-size-medium);
-  }
-
-[data-component="code"] {
-  display: block;
-
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-}
-
-[data-component="code"] .code-raw {
-    display: none;
-  }
-
-[data-component="code"] .code-highlighted {
-    height: 100%;
-  }
-
-[data-component="code"] .code-highlighted code,
-    [data-component="code"] .code-highlighted pre {
-      display: block;
-      height: 100%;
-      width: 100%;
-    }
-
-[data-component="code"] .code-highlighted code:focus-visible, [data-component="code"] .code-highlighted pre:focus-visible {
-        outline: 0;
-      }
-
-[data-component="code"] .code-highlighted pre > code {
-      font-size: 0.875rem;
-      font-size: var(--lookbook-font-size-small);
-      line-height: 1.5;
-      padding-left: 0.75rem !important;
-      padding-right: 0.75rem !important;
-      padding-left: var(--lookbook-spacing-small) !important;
-      padding-right: var(--lookbook-spacing-small) !important;
-      padding-top: 0.75rem !important;
-      padding-bottom: 0.75rem !important;
-      padding-top: var(--lookbook-spacing-small) !important;
-      padding-bottom: var(--lookbook-spacing-small) !important;
-      overflow: auto;
-    }
-
-.wrap-lines[data-component="code"] .code-highlighted code {
-    white-space: pre-wrap;
-  }
-
-[data-component="page"] .page-slat {
-    padding-left: 1.75rem;
-    padding-right: 1.75rem;
-    padding-left: var(--lookbook-spacing-x-large);
-    padding-right: var(--lookbook-spacing-x-large);
-  }
-
-[data-component="page"] .page-header {
-    border-bottom: 1px solid hsl(240, 5%, 84%);
-    border-bottom: 1px solid var(--lookbook-color-base-300);
-    padding-top: 1.75rem;
-    padding-bottom: 1.75rem;
-    padding-top: var(--lookbook-spacing-x-large);
-    padding-bottom: var(--lookbook-spacing-x-large);
-  }
-
-[data-component="page"] .page-title {
-    font-weight: 700;
-    font-weight: var(--lookbook-font-weight-bold);
-    font-size: 2.25rem;
-    font-size: var(--lookbook-font-size-2x-large);
-  }
-
-[data-component="page"] .page-body {
-    padding-top: 2.25rem;
-    padding-top: var(--lookbook-spacing-2x-large);
-    padding-bottom: 3rem;
-    padding-bottom: var(--lookbook-spacing-3x-large);
-  }
-
-[data-component="page"] .page-footer {
-    border-top: 1px solid hsl(240, 5%, 84%);
-    border-top: 1px solid var(--lookbook-color-base-300);
-    padding-top: 1.75rem;
-    padding-bottom: 1.75rem;
-    padding-top: var(--lookbook-spacing-x-large);
-    padding-bottom: var(--lookbook-spacing-x-large);
-  }
 
 [data-component="prose"] {
   color: hsl(240, 6%, 10%);
@@ -2188,4 +1976,216 @@ select {
     border: 1px solid hsl(240, 5%, 84%);
     border: 1px solid var(--lookbook-color-base-300);
     border-radius: var(--lookbook-border-radius-small);
+  }
+
+[data-component="router"] {
+  display: contents;
+}
+
+[data-component="toolbar"] {
+  background-color: white;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding-right: 0.25rem;
+  padding-right: var(--lookbook-spacing-2x-small);
+  padding-left: 1rem;
+  padding-left: var(--lookbook-spacing-medium);
+  border-bottom: 1px solid hsl(240, 5%, 84%);
+  border-bottom: 1px solid var(--lookbook-divider-color);
+}
+
+[data-component="toolbar"] .toolbar-title {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    font-size: var(--lookbook-font-size-small);
+    font-weight: 600;
+  }
+
+[data-component="toolbar"] .toolbar-tabs {
+    display: flex;
+    gap: 0.75rem;
+    gap: var(--lookbook-spacing-small);
+    height: var(--lookbook-toolbar-height);
+  }
+
+[data-component="toolbar"] .toolbar-title + .toolbar-tabs {
+    margin-left: 1rem;
+    margin-left: var(--lookbook-spacing-medium);
+  }
+
+[data-component="toolbar"] .toolbar-actions {
+    margin-left: auto;
+  }
+
+[data-component="toolbar"] .toolbar-actions [data-component="button"] {
+      padding: 0.5rem;
+      height: 2rem;
+      width: 2rem;
+    }
+
+[data-component="toolbar-tab"] {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  font-size: var(--lookbook-font-size-small);
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-left: var(--lookbook-spacing-small);
+  padding-right: var(--lookbook-spacing-small);
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+[data-component="toolbar-tab"][aria-selected="true"] {
+    color: hsl(239, 84%, 67%);
+    color: var(--lookbook-color-accent-500);
+    border-bottom-color: hsl(239, 84%, 67%);
+    border-bottom-color: var(--lookbook-color-accent-500);
+  }
+
+[data-component="viewport"] {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%23f3f3f3' fill-opacity='1'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  touch-action: none;
+}
+
+[data-component="viewport"] .viewport-wrapper {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 100%;
+  }
+
+[data-component="viewport"] .viewport-dimensions {
+    font-size: 0.75rem;
+    font-size: var(--lookbook-font-size-x-small);
+    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+    monospace;
+    font-family: var(--lookbook-font-mono);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-left: var(--lookbook-spacing-x-small);
+    padding-right: var(--lookbook-spacing-x-small);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-top: var(--lookbook-spacing-x-small);
+    padding-bottom: var(--lookbook-spacing-x-small);
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    display: inline-flex;
+    gap: 0.25rem;
+    gap: var(--lookbook-spacing-2x-small);
+    overflow: hidden;
+    border-bottom-left-radius: var(--lookbook-border-radius-medium);
+    pointer-events: none;
+  }
+
+[data-component="viewport"] .viewport-dimensions::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: hsl(240, 6%, 90%);
+      background: var(--lookbook-color-base-200);
+      opacity: 0.7;
+    }
+
+[data-component="viewport"] .viewport-dimensions span {
+      position: relative;
+      z-index: 11;
+    }
+
+[data-component="viewport"] .viewport-resizer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    outline: 1px solid hsl(240, 5%, 84%);
+    outline: 1px solid var(--lookbook-divider-color);
+  }
+
+.resize-x[data-component="viewport"] .viewport-dimensions {
+      right: 1rem;
+      right: var(--lookbook-spacing-medium);
+    }
+
+.resize-x[data-component="viewport"] .viewport-resizer {
+      grid-template-columns: 1fr min-content;
+    }
+
+.resize-y[data-component="viewport"] .viewport-resizer {
+    grid-template-rows: 1fr min-content;
+  }
+
+[data-component="viewport"] .viewport-window {
+    width: 100%;
+    height: 100%;
+  }
+
+[data-component="viewport"] .viewport-window.inert {
+    pointer-events: none;
+  }
+
+[data-component="viewport"] .viewport-handle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    color: hsl(240, 4%, 46%);
+    color: var(--lookbook-color-base-500);
+  }
+
+[data-component="viewport"] .viewport-handle-x {
+    flex-direction: row;
+    border-left: 1px solid hsl(240, 5%, 84%);
+    border-left: 1px solid var(--lookbook-divider-color);
+    width: 1rem;
+    width: var(--lookbook-size-medium);
+    cursor: ew-resize;
+  }
+
+[data-component="viewport"] .viewport-handle-y {
+    border-top: 1px solid hsl(240, 5%, 84%);
+    border-top: 1px solid var(--lookbook-divider-color);
+    height: 1rem;
+    height: var(--lookbook-size-medium);
+    cursor: ns-resize;
+  }
+
+[data-component="viewport"] .viewport-handle-xy {
+    width: 1rem;
+    width: var(--lookbook-size-medium);
+    height: 1rem;
+    height: var(--lookbook-size-medium);
+    cursor: nwse-resize;
+  }
+
+[data-component="viewport"] .viewport-handle-xy .icon {
+      transform: rotate(45deg) scale(-80%);
+    }
+
+[data-component="viewport"] .viewport-handle-icon {
+    width: 1rem;
+    width: var(--lookbook-size-medium);
   }

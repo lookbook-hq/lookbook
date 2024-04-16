@@ -7755,7 +7755,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     });
   }
 
-  // app/components/lookbook/ui/shared/code/code.js
+  // app/components/lookbook/ui/base/code/code.js
   var code_exports = {};
   __export(code_exports, {
     default: () => code_default
@@ -37559,7 +37559,7 @@ Expected it to be ${r2}.`;
     }
   };
 
-  // app/components/lookbook/ui/shared/code/code.js
+  // app/components/lookbook/ui/base/code/code.js
   var code_default = AlpineComponent("code", ({ lang: lang12, prettify = true }) => {
     return {
       prettify: true,
@@ -37587,16 +37587,7 @@ Expected it to be ${r2}.`;
     };
   });
 
-  // app/components/lookbook/ui/shared/page/page.js
-  var page_exports = {};
-  __export(page_exports, {
-    default: () => page_default
-  });
-  var page_default = AlpineComponent("page", () => {
-    return {};
-  });
-
-  // app/components/lookbook/ui/shared/prose/prose.js
+  // app/components/lookbook/ui/base/prose/prose.js
   var prose_exports = {};
   __export(prose_exports, {
     default: () => prose_default
@@ -37605,15 +37596,29 @@ Expected it to be ${r2}.`;
     return {};
   });
 
-  // import-glob:/Users/mark/Code/lookbook/lookbook-v3/assets/js/alpine|../../../app/components/lookbook/ui/shared/**/*.js
-  var modules = [code_exports, page_exports, prose_exports];
+  // import-glob:/Users/mark/Code/lookbook/lookbook-v3/assets/js/alpine|../../../app/components/lookbook/ui/base/{code,prose}/*.js
+  var modules = [code_exports, prose_exports];
   var __default = modules;
+
+  // app/components/lookbook/ui/app/page/page.js
+  var page_exports = {};
+  __export(page_exports, {
+    default: () => page_default
+  });
+  var page_default = AlpineComponent("page", () => {
+    return {};
+  });
+
+  // import-glob:/Users/mark/Code/lookbook/lookbook-v3/assets/js/alpine|../../../app/components/lookbook/ui/app/page/*.js
+  var modules2 = [page_exports];
+  var __default2 = modules2;
 
   // assets/js/alpine/page.js
   window.Alpine = module_default;
   function initAlpine({ logger: logger2 }) {
     module_default.magic("logger", () => logger2);
     registerComponents(__default);
+    registerComponents(__default2);
     module_default.start();
   }
 

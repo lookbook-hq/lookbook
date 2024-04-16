@@ -14,8 +14,16 @@ module Lookbook
       render Lookbook::UI::ButtonGroup.new(**kwargs), &block
     end
 
+    def lb_code(source = nil, lang: nil, **kwargs, &block)
+      render Lookbook::UI::Code.new(source: source, lang: lang, **kwargs), &block
+    end
+
     def lb_icon(name = nil, **kwargs)
       render Lookbook::UI::Icon.new(name: name, **kwargs)
+    end
+
+    def lb_page(page, **kwargs, &block)
+      render Lookbook::UI::Page.new(page: page, **kwargs), &block
     end
 
     def lb_pane(id = nil, **kwargs, &block)
@@ -30,6 +38,10 @@ module Lookbook
       render Lookbook::UI::Panel.new(id: id, **kwargs), &block
     end
 
+    def lb_prose(**kwargs, &block)
+      render Lookbook::UI::Prose.new(**kwargs), &block
+    end
+
     def lb_viewport(src, **kwargs)
       render Lookbook::UI::Viewport.new(src: src, **kwargs)
     end
@@ -39,6 +51,16 @@ module Lookbook
       component = component_types[type.to_sym] || component_types[:default]
 
       render component.constantize.new(**kwargs), &block
+    end
+
+    # Paths
+
+    def lookbook_page_path(page, **kwargs)
+      lookbook.show_page_path(page, **kwargs)
+    end
+
+    def lookbook_preview_path(preview, target = nil, **kwargs)
+      target.nil? ? lookbook.show_preview_path(preview, **kwargs) : lookbook.inspect_target_path(preview, target, **kwargs)
     end
 
     # Utilities
