@@ -1,6 +1,6 @@
 module Lookbook
   module UI
-    class NavTreeItem < BaseComponent
+    class NavItem < BaseComponent
       ENTITY_DISPLAY_ATTRIBUTES = {
         preview: {
           icon: :layers
@@ -20,7 +20,7 @@ module Lookbook
 
       attr_reader :node
 
-      def initialize(node:, **kwargs)
+      def initialize(node:, selected: false, **kwargs)
         @node = node
       end
 
@@ -30,6 +30,10 @@ module Lookbook
 
       def icon
         ENTITY_DISPLAY_ATTRIBUTES.dig(type, :icon) || :folder
+      end
+
+      def depth
+        lookup_path.split("/").size - 1
       end
 
       def collection?

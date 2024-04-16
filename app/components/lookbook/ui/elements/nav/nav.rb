@@ -1,6 +1,6 @@
 module Lookbook
   module UI
-    class NavTree < BaseComponent
+    class Nav < BaseComponent
       delegate :children, to: :tree
 
       attr_reader :id, :tree

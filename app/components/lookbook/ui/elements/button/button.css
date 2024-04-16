@@ -8,6 +8,12 @@
     height: 100%;
   }
 
+  &[data-size="sm"] {
+    padding: 0.25rem;
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
   &[data-size="md"] {
     padding: 0.5rem;
     height: 2rem;

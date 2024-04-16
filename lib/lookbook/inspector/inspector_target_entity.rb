@@ -89,11 +89,13 @@ module Lookbook
     end
 
     def output_checksum
-      @output_checksum ||= Utils.hash(@rendered_scenarios.values.join)
+      inputs = scenarios.map { _1.label + @rendered_scenarios[_1.name.to_sym] }
+      @output_checksum ||= Utils.hash(inputs.join)
     end
 
     def source_checksum
-      @source_checksum ||= Utils.hash(scenarios.map(&:source).join)
+      inputs = scenarios.map { _1.source + _1.label }
+      @source_checksum ||= Utils.hash(inputs.join)
     end
 
     def preview_template

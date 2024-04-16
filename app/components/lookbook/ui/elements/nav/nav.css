@@ -1,4 +1,4 @@
-[data-component="nav-tree"] {
+[data-component="nav"] {
   height: 100%;
   position: relative;
   overflow: hidden;
@@ -24,9 +24,5 @@
     width: 100%;
     overflow: auto;
     padding-bottom: var(--lookbook-spacing-medium);
-  }
-
-  sl-tree {
-    --indent-size: var(--lookbook-spacing-small);
   }
 }

@@ -21,7 +21,6 @@
     "@alpinejs/morph": "^3.13.5",
     "@alpinejs/persist": "^3.13.5",
     "@prettier/plugin-ruby": "^4.0.4",
-    "@shoelace-style/shoelace": "^2.13.1",
     "alpinejs": "^3.13.5",
     "container-query-polyfill": "^1.0.2",
     "lucide-static": "^0.367.0",

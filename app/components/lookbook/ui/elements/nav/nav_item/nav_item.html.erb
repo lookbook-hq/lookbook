@@ -1,0 +1,78 @@
+<%= render component_tag(
+  key: lookup_path,
+  x: {
+    data: "navItem({keywords: #{search_terms.to_json}, collection: #{collection?.to_json}})",
+    show: "!filteredOut",
+    cloak: true,
+    ":aria-expanded": "expanded",
+    ":aria-selected": "selected",
+  },
+  data: {url: url_path}
+) do %>
+
+  <div class="nav-item-item" @click.stop="visit">
+    <% (1..depth).each do %>
+      <div class="nav-item-indentation"></div>
+    <% end %>
+    
+    <div class="nav-item-toggle" @click.stop="expanded = !expanded">
+      <% if collection? %>
+        <button x-show="expanded">
+          <%= lookbook_icon :chevron_down %>
+        </button>
+        <button x-show="!expanded">
+          <%= lookbook_icon :chevron_right %>
+        </button>
+      <% end %>
+    </div>
+    
+    <% if url_path %>
+      <a href="<%= url_path %>" class="nav-item-label" @click.prevent="expanded = true">
+        <%= lookbook_icon icon %>
+        <%= label %>
+      </a>
+    <% else %>
+      <button class="nav-item-label" @click.prevent="expanded = !expanded">
+        <%= lookbook_icon icon %>
+        <%= label %>
+      </button>
+    <% end %>
+  </div>
+
+  
+  <% if children&.any? %>
+    <div class="nav-item-children" x-show="expanded" x-ref="children">
+      <% children&.each do |node| %>
+        <%= render Lookbook::UI::NavItem.new(node: node) %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+
+
+
+<% if false %>
+
+
+<%= render component_tag(href: url_path,
+  key: lookup_path,
+  x: {
+    data: "navItem({keywords: #{search_terms.to_json}, collection: #{collection?.to_json}})",
+    show: "!filteredOut",
+    cloak: true,
+    "@click": "itemClicked"
+  }
+) do %>
+  <div>
+    <%= lookbook_icon icon %>
+    <%= label %>
+  </div>
+  <div>
+    <% children&.each do |node| %>
+      <%= render Lookbook::UI::NavItem.new(node: node) %>
+    <% end %>
+  </div>
+<% end %>
+
+<% end %>
