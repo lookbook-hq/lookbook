@@ -8316,7 +8316,12 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     default: () => status_bar_default
   });
   var status_bar_default = AlpineComponent("statusBar", () => {
-    return {};
+    return {
+      reset() {
+        localStorage.clear();
+        window.location.reload();
+      }
+    };
   });
 
   // app/components/lookbook/ui/app/status_bar/status_bar_item/status_bar_item.js
@@ -41748,7 +41753,6 @@ Expected it to be ${r2}.`;
       forceOrientation: false,
       gutters: [],
       init() {
-        console.log(this.minSizes);
         observeSize(this.$el, ({ width, height }) => {
           this.layoutWidth = Math.round(width);
           this.layoutHeight = Math.round(height);

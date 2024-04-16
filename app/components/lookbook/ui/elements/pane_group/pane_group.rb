@@ -9,14 +9,16 @@ module Lookbook
         end
       end
 
-      attr_reader :id, :tag_name, :orientation, :sizes, :min_sizes
+      attr_reader :id, :tag_name
 
-      def initialize(id:, tag_name: :div, orientation: :horizontal, sizes: ["50%", "50%"], min_sizes: [], **kwargs)
+      def initialize(id:, tag_name: :div, opts: {}, **kwargs)
         @id = id
         @tag_name = tag_name
-        @orientation = orientation
-        @sizes = sizes
-        @min_sizes = min_sizes
+        @opts = opts
+      end
+
+      def opts
+        @opts.transform_keys { _1.to_s.camelize(:lower) }
       end
     end
   end

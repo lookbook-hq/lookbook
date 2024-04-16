@@ -1207,6 +1207,16 @@ select {
     height: 100%;
   }
 
+[data-component="status-bar"] .status-bar-info {
+    color: hsl(240, 4%, 46%);
+    color: var(--lookbook-color-base-500);
+  }
+
+[data-component="status-bar"] .status-bar-action {
+    color: hsl(245, 58%, 51%);
+    color: var(--lookbook-color-accent-700);
+  }
+
 [data-component="status-bar-item"] {
   position: relative;
   height: 100%;

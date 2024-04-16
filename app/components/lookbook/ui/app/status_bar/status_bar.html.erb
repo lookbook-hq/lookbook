@@ -1,6 +1,8 @@
 <%= render component_tag(x: {data: "statusBar"}) do %>
   <div class="status-bar-section">
-    <span>Lookbook v<%= Lookbook.version %></span>
+    <span class="status-bar-info">Lookbook v<%= Lookbook.version %></span>
+    
+    <button class="status-bar-action" @click="reset">Reset UI</button>
   </div>
   <div class="status-bar-section">
     <% if warnings.any? %>

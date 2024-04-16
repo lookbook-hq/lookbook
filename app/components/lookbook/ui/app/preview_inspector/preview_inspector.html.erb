@@ -1,10 +1,11 @@
 <%=
   render component_tag(key: "preview-inspector", x: {data: "previewInspector"}) do
     lb_pane_group("inspector-panes",
+    opts: {
       orientation: :horizontal,
-      sizes: ["50%", "50%"],
+      sizes: ["auto", "350px"],
       min_sizes: [200, 200]
-    ) do |layout|
+    }) do |layout|
       layout.with_pane("preview-pane") do |pane|
         pane.with_action(icon: :panel_bottom_open, tooltip: "Open drawer", click: "openDrawer", show: "drawerClosed")
         pane.with_action(icon: :panel_bottom_close, tooltip: "Close drawer", click: "closeDrawer", show: "!drawerClosed")

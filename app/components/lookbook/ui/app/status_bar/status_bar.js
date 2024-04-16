@@ -1,5 +1,10 @@
 import AlpineComponent from "@js/alpine/component";
 
 export default AlpineComponent("statusBar", () => {
-  return {};
+  return {
+    reset() {
+      localStorage.clear();
+      window.location.reload();
+    },
+  };
 });

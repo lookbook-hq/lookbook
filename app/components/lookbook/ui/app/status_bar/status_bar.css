@@ -13,4 +13,12 @@
     gap: var(--lookbook-spacing-medium);
     height: 100%;
   }
+
+  .status-bar-info {
+    color: var(--lookbook-color-base-500);
+  }
+
+  .status-bar-action {
+    color: var(--lookbook-color-accent-700);
+  }
 }
