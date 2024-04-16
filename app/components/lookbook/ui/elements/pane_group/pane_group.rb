@@ -9,12 +9,14 @@ module Lookbook
         end
       end
 
-      attr_reader :id, :tag_name, :orientation
+      attr_reader :id, :tag_name, :orientation, :sizes, :min_sizes
 
-      def initialize(id:, tag_name: :div, orientation: :horizontal, **kwargs)
+      def initialize(id:, tag_name: :div, orientation: :horizontal, sizes: ["50%", "50%"], min_sizes: [], **kwargs)
         @id = id
         @tag_name = tag_name
         @orientation = orientation
+        @sizes = sizes
+        @min_sizes = min_sizes
       end
     end
   end

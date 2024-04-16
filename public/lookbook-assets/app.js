@@ -41748,6 +41748,7 @@ Expected it to be ${r2}.`;
       forceOrientation: false,
       gutters: [],
       init() {
+        console.log(this.minSizes);
         observeSize(this.$el, ({ width, height }) => {
           this.layoutWidth = Math.round(width);
           this.layoutHeight = Math.round(height);

@@ -10,9 +10,18 @@
   </header>
   
   <%=
-    lb_pane_group("app-main", tag: :main, orientation: :vertical) do |body|
+    lb_pane_group("app-main",
+      tag: :main,
+      orientation: :vertical,
+      sizes: ["15%", "85%"],
+      min_sizes: [200, 500]
+    ) do |body|
       body.with_pane do
-        lb_pane_group("app-sidebar", orientation: :horizontal) do |sidebar|
+        lb_pane_group("app-sidebar",
+          orientation: :horizontal,
+          sizes: ["50%", "50%"],
+          min_sizes: [200, 200]
+        ) do |sidebar|
           sidebar.with_pane("previews-nav") do |pane|
             pane.with_title { config.previews_nav_label }
             pane.with_action(icon: :copy_minus, tooltip: "Collapse all", click: "$dispatch('nav:collapse-all', {id: 'previews-nav-tree'})")

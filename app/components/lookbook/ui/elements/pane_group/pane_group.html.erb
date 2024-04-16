@@ -1,7 +1,7 @@
 <%= render component_tag(
   tag_name,
   x: {
-    data: "paneGroup(#{id.to_json}, {orientation: #{orientation.to_json}})",
+    data: "paneGroup(#{id.to_json}, {orientation: #{orientation.to_json}, sizes: #{sizes.to_json}, minSizes: #{min_sizes.to_json}})",
     effect: "initSplit",
     bind: "bindings.root",
   }) do %>

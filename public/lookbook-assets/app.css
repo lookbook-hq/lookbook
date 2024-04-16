@@ -1479,9 +1479,11 @@ select {
 
 [data-component="nav-item"] .nav-item-toggle {
     width: 32px;
+    flex: none;
   }
 
 [data-component="nav-item"] .nav-item-toggle button {
+      flex: none;
       width: 32px;
       height: 32px;
     }

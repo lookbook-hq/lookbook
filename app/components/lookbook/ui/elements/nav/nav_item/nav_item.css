@@ -13,8 +13,10 @@
 
   .nav-item-toggle {
     width: 32px;
+    flex: none;
 
     button {
+      flex: none;
       width: 32px;
       height: 32px;
     }

@@ -23,6 +23,7 @@ export default AlpineComponent("paneGroup", (id, opts = {}) => {
     gutters: [],
 
     init() {
+      console.log(this.minSizes);
       observeSize(this.$el, ({ width, height }) => {
         this.layoutWidth = Math.round(width);
         this.layoutHeight = Math.round(height);
