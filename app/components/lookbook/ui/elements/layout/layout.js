@@ -24,8 +24,8 @@ export default AlpineComponent("layout", (id, opts = {}) => {
 
     init() {
       observeSize(this.$el, ({ width, height }) => {
-        this.layoutWidth = width;
-        this.layoutHeight = height;
+        this.layoutWidth = Math.round(width);
+        this.layoutHeight = Math.round(height);
       });
     },
 

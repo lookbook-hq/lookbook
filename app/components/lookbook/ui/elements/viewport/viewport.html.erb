@@ -1,9 +1,6 @@
 <%= render component_tag(
   id: id,
-  x: {
-    data: "viewport(#{id.to_json})",
-    "@sl-resize": "onIframeResize"
-  },
+  x: {data: "viewport(#{id.to_json})"},
   class: {"resize-x": resize_x?, "resize-y": resize_y?}
 ) do %>
   <div
@@ -24,15 +21,13 @@
     </div>
 
     <div class="viewport-resizer" x-ref="resizer" :style="`max-height: ${maxHeight};`">
-      <sl-resize-observer>
-        <iframe seamless
-          x-ref="iframe"
-          class="viewport-window"
-          :class="{inert}"
-          src="<%= src %>"
-          frameborder="0"
-          title="viewport window"></iframe>
-        </sl-resize-observer>
+      <iframe seamless
+        x-ref="iframe"
+        class="viewport-window"
+        :class="{inert}"
+        src="<%= src %>"
+        frameborder="0"
+        title="viewport window"></iframe>
       <% if resize_x? %>
         <div
           class="viewport-handle viewport-handle-x"

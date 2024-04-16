@@ -9762,77 +9762,6 @@ ${t16.join("\n")}`);
   // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.V7OZVSGL.js
   SlTreeItem.define("sl-tree-item");
 
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.RMCOWJOW.js
-  var resize_observer_styles_default = i2`
-  ${component_styles_default}
-
-  :host {
-    display: contents;
-  }
-`;
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.GU6S3A75.js
-  var SlResizeObserver = class extends ShoelaceElement {
-    constructor() {
-      super(...arguments);
-      this.observedElements = [];
-      this.disabled = false;
-    }
-    connectedCallback() {
-      super.connectedCallback();
-      this.resizeObserver = new ResizeObserver((entries) => {
-        this.emit("sl-resize", { detail: { entries } });
-      });
-      if (!this.disabled) {
-        this.startObserver();
-      }
-    }
-    disconnectedCallback() {
-      super.disconnectedCallback();
-      this.stopObserver();
-    }
-    handleSlotChange() {
-      if (!this.disabled) {
-        this.startObserver();
-      }
-    }
-    startObserver() {
-      const slot = this.shadowRoot.querySelector("slot");
-      if (slot !== null) {
-        const elements = slot.assignedElements({ flatten: true });
-        this.observedElements.forEach((el3) => this.resizeObserver.unobserve(el3));
-        this.observedElements = [];
-        elements.forEach((el3) => {
-          this.resizeObserver.observe(el3);
-          this.observedElements.push(el3);
-        });
-      }
-    }
-    stopObserver() {
-      this.resizeObserver.disconnect();
-    }
-    handleDisabledChange() {
-      if (this.disabled) {
-        this.stopObserver();
-      } else {
-        this.startObserver();
-      }
-    }
-    render() {
-      return x2` <slot @slotchange=${this.handleSlotChange}></slot> `;
-    }
-  };
-  SlResizeObserver.styles = resize_observer_styles_default;
-  __decorateClass([
-    n5({ type: Boolean, reflect: true })
-  ], SlResizeObserver.prototype, "disabled", 2);
-  __decorateClass([
-    watch("disabled", { waitUntilFirstUpdate: true })
-  ], SlResizeObserver.prototype, "handleDisabledChange", 1);
-
-  // node_modules/@shoelace-style/shoelace/dist/chunks/chunk.2XDCNWNM.js
-  SlResizeObserver.define("sl-resize-observer");
-
   // assets/js/logger.js
   var Logger = class {
     constructor(scope2 = null) {
@@ -17198,8 +17127,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
       gutters: [],
       init() {
         observeSize(this.$el, ({ width, height }) => {
-          this.layoutWidth = width;
-          this.layoutHeight = height;
+          this.layoutWidth = Math.round(width);
+          this.layoutHeight = Math.round(height);
         });
       },
       initSplit() {
@@ -17551,6 +17480,12 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
           this.onResizeWidthEnd = this.onResizeWidthEnd.bind(this);
           this.onResizeHeight = this.onResizeHeight.bind(this);
           this.onResizeHeightEnd = this.onResizeHeightEnd.bind(this);
+          observeSize(this.$refs.iframe, ({ width, height }) => {
+            this.iframeDimensions = {
+              width: Math.round(width),
+              height: Math.round(height)
+            };
+          });
         },
         onResizeStart(e10) {
           this.onResizeWidthStart(e10);
@@ -17622,13 +17557,6 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
             this.lastHeight = this.height;
             this.height = "100%";
           }
-        },
-        onIframeResize(event) {
-          const { width, height } = event.detail.entries[0].contentRect;
-          this.iframeDimensions = {
-            width: Math.round(width),
-            height: Math.round(height)
-          };
         },
         reload() {
           this.$refs.iframe.contentlocation.reload();

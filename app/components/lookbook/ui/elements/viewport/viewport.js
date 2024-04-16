@@ -1,4 +1,5 @@
 import AlpineComponent from "@js/alpine/component";
+import { observeSize } from "@js/helpers";
 
 export default AlpineComponent(
   "viewport",
@@ -18,6 +19,13 @@ export default AlpineComponent(
         this.onResizeWidthEnd = this.onResizeWidthEnd.bind(this);
         this.onResizeHeight = this.onResizeHeight.bind(this);
         this.onResizeHeightEnd = this.onResizeHeightEnd.bind(this);
+
+        observeSize(this.$refs.iframe, ({ width, height }) => {
+          this.iframeDimensions = {
+            width: Math.round(width),
+            height: Math.round(height),
+          };
+        });
       },
 
       onResizeStart(e) {
@@ -100,14 +108,6 @@ export default AlpineComponent(
           this.lastHeight = this.height;
           this.height = "100%";
         }
-      },
-
-      onIframeResize(event) {
-        const { width, height } = event.detail.entries[0].contentRect;
-        this.iframeDimensions = {
-          width: Math.round(width),
-          height: Math.round(height),
-        };
       },
 
       reload() {
