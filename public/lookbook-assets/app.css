@@ -900,17 +900,17 @@ select {
 
 .tippy-content{position:relative;padding:5px 9px;z-index:1}
 
-[data-component="app"] {
+[data-component="layout"] {
   height: 100vh;
   display: grid;
   grid-template-rows: min-content 1fr;
 }
 
-[data-component="app"][data-status-bar="true"] {
+[data-component="layout"][data-status-bar="true"] {
     grid-template-rows: min-content 1fr min-content;
   }
 
-[data-component="app"] #app-header {
+[data-component="layout"] #app-header {
     height: 40px;
     border-bottom: 1px solid hsl(240, 5%, 84%);
     border-bottom: 1px solid var(--lookbook-divider-color);
@@ -922,21 +922,21 @@ select {
     padding-right: var(--lookbook-spacing-medium);
   }
 
-[data-component="app"] #app-header a {
+[data-component="layout"] #app-header a {
       -webkit-text-decoration: none;
       text-decoration: none;
     }
 
-[data-component="app"] #app-body {
+[data-component="layout"] #app-body {
     height: 100%;
   }
 
-[data-component="app"] #app-sidebar {
+[data-component="layout"] #app-sidebar {
     background-color: hsl(0, 0%, 98%);
     background-color: var(--lookbook-color-base-50);
   }
 
-[data-component="app"] #app-status-bar {
+[data-component="layout"] #app-status-bar {
     border-top: 1px solid hsl(240, 5%, 84%);
     border-top: 1px solid var(--lookbook-divider-color);
   }
@@ -1146,10 +1146,6 @@ select {
     width: 100%;
   }
 
-[data-component="router"] {
-  display: contents;
-}
-
 [data-component="status-bar"] {
   height: 24px;
   font-size: 0.75rem;
@@ -1347,56 +1343,6 @@ select {
     height: 100%;
   }
 
-[data-component="layout"] {
-  display: grid;
-  width: 100%;
-  height: 100%;
-}
-
-[data-component="layout"] .layout-gutter {
-    position: relative;
-  }
-
-[data-component="layout"] .layout-gutter-handle {
-    position: absolute;
-    z-index: 100;
-  }
-
-[data-component="layout"][data-orientation="horizontal"] > .layout-gutter {
-      border-bottom: 1px solid #ccc;
-      width: 100%;
-      height: 1px;
-    }
-
-[data-component="layout"][data-orientation="horizontal"] > .layout-gutter .layout-gutter-handle {
-        height: 9px;
-        position: absolute;
-        top: -4px;
-        right: 0;
-        left: 0;
-        cursor: ns-resize;
-      }
-
-[data-component="layout"][data-orientation="vertical"] > .layout-gutter {
-      border-right: 1px solid #ccc;
-      height: 100%;
-      width: 1px;
-    }
-
-[data-component="layout"][data-orientation="vertical"] > .layout-gutter .layout-gutter-handle {
-        width: 9px;
-        top: 0;
-        bottom: 0;
-        left: -4px;
-        cursor: ew-resize;
-      }
-
-[data-component="layout"] .layout-pane {
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-  }
-
 [data-component="nav"] {
   height: 100%;
   position: relative;
@@ -1511,6 +1457,56 @@ select {
   overflow: hidden;
 }
 
+[data-component="pane-group"] {
+  display: grid;
+  width: 100%;
+  height: 100%;
+}
+
+[data-component="pane-group"] .pane-group-gutter {
+    position: relative;
+  }
+
+[data-component="pane-group"] .pane-group-gutter-handle {
+    position: absolute;
+    z-index: 100;
+  }
+
+[data-component="pane-group"][data-orientation="horizontal"] > .pane-group-gutter {
+      border-bottom: 1px solid #ccc;
+      width: 100%;
+      height: 1px;
+    }
+
+[data-component="pane-group"][data-orientation="horizontal"] > .pane-group-gutter .pane-group-gutter-handle {
+        height: 9px;
+        position: absolute;
+        top: -4px;
+        right: 0;
+        left: 0;
+        cursor: ns-resize;
+      }
+
+[data-component="pane-group"][data-orientation="vertical"] > .pane-group-gutter {
+      border-right: 1px solid #ccc;
+      height: 100%;
+      width: 1px;
+    }
+
+[data-component="pane-group"][data-orientation="vertical"] > .pane-group-gutter .pane-group-gutter-handle {
+        width: 9px;
+        top: 0;
+        bottom: 0;
+        left: -4px;
+        cursor: ew-resize;
+      }
+
+[data-component="pane-group"] .pane-group-pane {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+
 [data-component="panel"] {
   height: 100%;
   width: 100%;
@@ -1533,6 +1529,10 @@ select {
 [data-component="panel"][data-scrollable="true"] .panel-content {
       overflow: auto;
     }
+
+[data-component="router"] {
+  display: contents;
+}
 
 [data-component="toolbar"] {
   background-color: white;

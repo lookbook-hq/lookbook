@@ -28,7 +28,6 @@ export default AlpineComponent("nav", (id) => {
         if (expandParents) {
           while (currentItem) {
             const parent = currentItem.parent;
-            console.log(parent);
             if (!currentItem.selected) {
               currentItem.expanded = true;
             }

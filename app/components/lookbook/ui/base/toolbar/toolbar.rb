@@ -4,7 +4,7 @@ module Lookbook
       with_slot :title
 
       with_slot :action do |*args, **kwargs|
-        lookbook_button(*args, **kwargs)
+        lb_button(*args, **kwargs)
       end
 
       with_slot :tab, Lookbook::UI::ToolbarTab

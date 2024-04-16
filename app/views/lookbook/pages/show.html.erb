@@ -1,3 +1,3 @@
-<%= lookbook_pane(id: dom_id(@page)) do %>
-  <%= lookbook_page_reader(src: main_app.lookbook_render_page_path(@page)) %>
+<%= lb_pane(id: dom_id(@page)) do %>
+  <%= render Lookbook::UI::Reader.new(src: main_app.lookbook_render_page_path(@page)) %>
 <% end %>

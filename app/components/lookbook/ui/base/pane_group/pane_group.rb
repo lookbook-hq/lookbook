@@ -1,9 +1,9 @@
 module Lookbook
   module UI
-    class Layout < BaseComponent
+    class PaneGroup < BaseComponent
       with_slot :pane do |*args, **kwargs, &block|
         if args.any? || kwargs.any?
-          lookbook_pane(*args, **kwargs, &block)
+          lb_pane(*args, **kwargs, &block)
         else
           block.call
         end

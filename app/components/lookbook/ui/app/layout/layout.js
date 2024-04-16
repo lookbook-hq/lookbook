@@ -1,6 +1,6 @@
 import AlpineComponent from "@js/alpine/component";
 
-export default AlpineComponent("app", () => {
+export default AlpineComponent("layout", () => {
   return {
     appReflowing: false,
 

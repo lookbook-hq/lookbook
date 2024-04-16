@@ -3,7 +3,7 @@
     <% notifications.each do |notification| %>
       <li class="notification notification-<%= notification.type %>">
         <div class="notification-icon">
-          <%= lookbook_icon icon_name(notification) %>
+          <%= lb_icon icon_name(notification) %>
         </div>
         <div class="notification-message">
           <%= notification.detail %>

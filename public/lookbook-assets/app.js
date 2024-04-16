@@ -8154,10 +8154,10 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     return root2 ? module_default.$data(root2) : null;
   }
 
-  // app/components/lookbook/ui/app/app/app.js
-  var app_exports = {};
-  __export(app_exports, {
-    default: () => app_default
+  // app/components/lookbook/ui/app/layout/layout.js
+  var layout_exports = {};
+  __export(layout_exports, {
+    default: () => layout_default
   });
 
   // assets/js/alpine/component.js
@@ -8166,8 +8166,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     return fn6;
   }
 
-  // app/components/lookbook/ui/app/app/app.js
-  var app_default = AlpineComponent("app", () => {
+  // app/components/lookbook/ui/app/layout/layout.js
+  var layout_default = AlpineComponent("layout", () => {
     return {
       appReflowing: false,
       bindings: {
@@ -8301,154 +8301,6 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     };
   });
 
-  // app/components/lookbook/ui/app/router/router.js
-  var router_exports = {};
-  __export(router_exports, {
-    default: () => router_default
-  });
-
-  // assets/js/server_events_listener.js
-  var ServerEventsListener = class {
-    constructor(endpoint) {
-      this.endpoint = endpoint;
-      this.source = null;
-      this.handlers = [];
-      this.$logger = new Logger("EventsListener");
-      addEventListener("visibilitychange", () => {
-        document.hidden ? this.stop() : this.start();
-      });
-    }
-    start() {
-      if (!this.source) {
-        this.$logger.debug(`Starting`);
-        this.source = this.initSource();
-      }
-    }
-    stop() {
-      if (this.source) {
-        this.source.close();
-        this.source = null;
-      }
-      this.$logger.debug(`Stopped`);
-    }
-    on(type, callback) {
-      this.handlers.push({ type, callback });
-    }
-    initSource() {
-      const source = new EventSource(this.endpoint);
-      source.addEventListener("open", () => {
-        this.$logger.debug(`Connected to '${this.endpoint}'`);
-      });
-      source.addEventListener("event", (event) => {
-        const data2 = JSON.parse(event.data);
-        this.handlers.forEach((handler4) => {
-          if (data2.type === handler4.type) {
-            handler4.callback.call(null, data2);
-          }
-        });
-      });
-      source.addEventListener("error", () => {
-        this.$logger.warn(`Event source error`);
-        this.stop();
-      });
-      return source;
-    }
-  };
-
-  // app/components/lookbook/ui/app/router/router.js
-  var router_default = AlpineComponent("router", (sseEndpoint = null) => {
-    return {
-      serverEventsListener: null,
-      routerLogger: null,
-      init() {
-        this.routerLogger = new Logger("Router");
-        if (sseEndpoint) {
-          this.serverEventsListener = new ServerEventsListener(sseEndpoint);
-          this.serverEventsListener.on("update", () => this.updatePage());
-          this.serverEventsListener.start();
-        }
-      },
-      visit(url, updateHistory = true) {
-        this.routerLogger.info(`Navigating to ${url}`);
-        if (updateHistory)
-          history.pushState({}, "", url);
-        this.loadPage(url);
-      },
-      async updatePage() {
-        const html3 = await fetchPageDOM(location);
-        this.updateDOM(html3);
-        this.routerLogger.info(`Page updated`);
-        this.$dispatch("lookbook:page-update");
-      },
-      async loadPage(url = location) {
-        const html3 = await fetchPageDOM(url);
-        this.updateDOM(html3);
-        this.routerLogger.debug(`Page loaded`);
-        this.$dispatch("lookbook:page-load");
-      },
-      updateDOM(html3) {
-        morph2(this.$root, html3);
-        this.$dispatch("lookbook:page-morph");
-      },
-      handleClick(event) {
-        const link = event.target.closest("[href]");
-        if (link) {
-          const isExternalLink = link.host && link.host !== location.host;
-          if (!isExternalLink && !link.hasAttribute("target")) {
-            event.preventDefault();
-            this.visit(link.href);
-          }
-        }
-      },
-      handleVisibilityChange() {
-        if (this.serverEventsListener && !document.hidden)
-          this.updatePage();
-      },
-      destroy() {
-        this.routerLogger.error(`Router instance destroyed!`);
-      }
-    };
-  });
-  async function fetchPageDOM(url) {
-    const { ok, fragment, status } = await fetchHTML(url, "router");
-    if (ok) {
-      return fragment;
-    } else {
-      location.href = url;
-    }
-  }
-  async function fetchHTML(url, selector) {
-    const response = await fetch(url || location);
-    const { status, ok } = response;
-    let fragment, title = null;
-    const result = { ok, status, response, fragment, title };
-    if (response.ok) {
-      const html3 = await response.text();
-      const doc = new DOMParser().parseFromString(html3, "text/html");
-      result.fragment = selector ? doc.querySelector(selector).outerHTML : null;
-    }
-    return result;
-  }
-  function morph2(from, to3) {
-    Alpine.morph(from, to3, {
-      lookahead: true,
-      updating(el3, toEl, childrenOnly, skip) {
-        if (el3.tagName && el3.tagName.includes("-")) {
-          const oldAttrs = Array.from(el3.attributes).reduce((attrs, attr) => {
-            attrs[attr.name] = attr.value;
-            return attrs;
-          }, {});
-          const newAttrs = Array.from(toEl.attributes).map((attr) => attr.name);
-          Object.entries(oldAttrs).forEach(([name, value]) => {
-            if (!newAttrs.includes(name)) {
-              toEl.setAttribute(name, value);
-            }
-          });
-        }
-      }
-    });
-  }
-
   // app/components/lookbook/ui/app/status_bar/status_bar.js
   var status_bar_exports = {};
   __export(status_bar_exports, {
@@ -8478,7 +8330,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     return {};
   });
 
-  // app/components/lookbook/ui/elements/button/button.js
+  // app/components/lookbook/ui/base/button/button.js
   var button_exports = {};
   __export(button_exports, {
     default: () => button_default
@@ -11223,7 +11075,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   });
   var tippy_esm_default = tippy;
 
-  // app/components/lookbook/ui/elements/button/button.js
+  // app/components/lookbook/ui/base/button/button.js
   var button_default = AlpineComponent("button", () => {
     return {
       init() {
@@ -11240,7 +11092,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     };
   });
 
-  // app/components/lookbook/ui/elements/icon/icon.js
+  // app/components/lookbook/ui/base/icon/icon.js
   var icon_exports = {};
   __export(icon_exports, {
     default: () => icon_default
@@ -11249,10 +11101,189 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     return {};
   });
 
-  // app/components/lookbook/ui/elements/layout/layout.js
-  var layout_exports = {};
-  __export(layout_exports, {
-    default: () => layout_default
+  // app/components/lookbook/ui/base/nav/nav.js
+  var nav_exports = {};
+  __export(nav_exports, {
+    default: () => nav_default
+  });
+  var nav_default = AlpineComponent("nav", (id) => {
+    return {
+      expandedItems: Alpine.$persist([]).as(`nav#${id}:expanded-items`),
+      filterText: Alpine.$persist("").as(`nav#${id}:filter-text`),
+      empty: false,
+      filteredOut: false,
+      init() {
+        this.$nextTick(() => this.updateSelection(true));
+      },
+      updateSelection(expandParents = false) {
+        if (this.selectedItem) {
+          this.selectedItem.selected = false;
+        }
+        const currentElement = this.$el.querySelector(
+          `[data-component='nav-item'][data-url='${document.location.pathname}']`
+        );
+        if (currentElement) {
+          let currentItem = getData(currentElement);
+          currentItem.selected = true;
+          if (expandParents) {
+            while (currentItem) {
+              const parent = currentItem.parent;
+              if (!currentItem.selected) {
+                currentItem.expanded = true;
+              }
+              currentItem = parent;
+            }
+          }
+        }
+      },
+      async filter() {
+        const text2 = this.filterText;
+        await this.$nextTick();
+        const filteredStates = await Promise.all(
+          this.children.map(async (data2) => {
+            await data2.filter(text2);
+            return data2.filteredOut;
+          })
+        );
+        const matchedChildCount = filteredStates.filter((s2) => !s2).length;
+        this.empty = matchedChildCount === 0;
+      },
+      clearFilter() {
+        this.filterText = "";
+      },
+      get children() {
+        return Array.from(this.$refs.nav.children).map((node) => getData(node));
+      },
+      get selectedItem() {
+        return getData(
+          this.$el.querySelector(
+            `[data-component='nav-item'][aria-selected='true']`
+          )
+        );
+      }
+    };
+  });
+
+  // app/components/lookbook/ui/base/nav/nav_item/nav_item.js
+  var nav_item_exports = {};
+  __export(nav_item_exports, {
+    default: () => nav_item_default
+  });
+  var nav_item_default = AlpineComponent("navItem", ({ keywords, collection }) => {
+    return {
+      keywords: [],
+      isCollection: false,
+      filteredOut: false,
+      selected: false,
+      init() {
+        this.keywords = keywords || [];
+        this.isCollection = collection || false;
+      },
+      visit() {
+        if (!this.selected && this.targetUrl) {
+          this.$dispatch("lookbook:visit", { url: this.targetUrl });
+        }
+      },
+      async filter(text2) {
+        if (this.isCollection) {
+          this.filteredOut = true;
+          this.children.forEach(async (data2) => {
+            await data2.filter(text2);
+            if (!data2.filteredOut) {
+              this.filteredOut = false;
+            }
+          });
+        } else {
+          this.filteredOut = !this.match(text2);
+        }
+        return this;
+      },
+      match(text2) {
+        if (text2.length) {
+          const matched = this.keywords.map((k5) => k5.includes(text2));
+          return matched.filter((m2) => m2).length;
+        }
+        return true;
+      },
+      get targetUrl() {
+        return this.$root.getAttribute("data-url");
+      },
+      get key() {
+        return this.$root.getAttribute("key");
+      },
+      get expanded() {
+        return this.expandedItems && this.key && this.expandedItems.includes(this.key);
+      },
+      set expanded(isExpanded) {
+        if (isExpanded) {
+          if (this.expandedItems.indexOf(this.key) === -1) {
+            this.expandedItems.push(this.key);
+          }
+        } else {
+          const index2 = this.expandedItems.indexOf(this.key);
+          if (index2 >= 0)
+            this.expandedItems.splice(index2, 1);
+        }
+      },
+      get children() {
+        return this.$refs.children ? Array.from(this.$refs.children.children).map((node) => getData(node)) : [];
+      },
+      get parent() {
+        const parentElement = this.$root.parentElement.closest(
+          "[data-component='nav-item']"
+        );
+        return parentElement ? getData(parentElement) : null;
+      }
+    };
+  });
+
+  // app/components/lookbook/ui/base/pane/pane.js
+  var pane_exports = {};
+  __export(pane_exports, {
+    default: () => pane_default
+  });
+  var pane_default = AlpineComponent("pane", (id) => {
+    return {
+      activePanel: Alpine.$persist(null).as(`pane#${id}:active-panel`),
+      init() {
+        this.$nextTick(() => {
+          if (this.activePanel === null && this.toolbar.tabs.length) {
+            this.activePanel = this.toolbar.tabs[0].name;
+          }
+          this.toolbar.activeTab = this.activePanel;
+        });
+      },
+      isActivePanel(name) {
+        return this.activePanel === name;
+      },
+      get toolbar() {
+        return getData(this.$root.querySelector("[data-component='toolbar']"));
+      },
+      bindings: {
+        root: {
+          ["@toolbar:tab-selected"](event) {
+            this.activePanel = event.detail.name;
+          }
+        }
+      }
+    };
+  });
+
+  // app/components/lookbook/ui/base/pane/tab_panel/tab_panel.js
+  var tab_panel_exports = {};
+  __export(tab_panel_exports, {
+    default: () => tab_panel_default
+  });
+  var tab_panel_default = AlpineComponent("tabPanel", (name) => {
+    return {
+      name
+    };
+  });
+
+  // app/components/lookbook/ui/base/pane_group/pane_group.js
+  var pane_group_exports = {};
+  __export(pane_group_exports, {
+    default: () => pane_group_default
   });
 
   // node_modules/split-grid/dist/split-grid.mjs
@@ -11858,8 +11889,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     return observer2;
   }
 
-  // app/components/lookbook/ui/elements/layout/layout.js
-  var layout_default = AlpineComponent("layout", (id, opts = {}) => {
+  // app/components/lookbook/ui/base/pane_group/pane_group.js
+  var pane_group_default = AlpineComponent("paneGroup", (id, opts = {}) => {
     return {
       splitter: null,
       split: Alpine.$persist({
@@ -11979,187 +12010,155 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     return splits;
   }
 
-  // app/components/lookbook/ui/elements/nav/nav.js
-  var nav_exports = {};
-  __export(nav_exports, {
-    default: () => nav_default
+  // app/components/lookbook/ui/base/router/router.js
+  var router_exports = {};
+  __export(router_exports, {
+    default: () => router_default
   });
-  var nav_default = AlpineComponent("nav", (id) => {
+
+  // assets/js/server_events_listener.js
+  var ServerEventsListener = class {
+    constructor(endpoint) {
+      this.endpoint = endpoint;
+      this.source = null;
+      this.handlers = [];
+      this.$logger = new Logger("EventsListener");
+      addEventListener("visibilitychange", () => {
+        document.hidden ? this.stop() : this.start();
+      });
+    }
+    start() {
+      if (!this.source) {
+        this.$logger.debug(`Starting`);
+        this.source = this.initSource();
+      }
+    }
+    stop() {
+      if (this.source) {
+        this.source.close();
+        this.source = null;
+      }
+      this.$logger.debug(`Stopped`);
+    }
+    on(type, callback) {
+      this.handlers.push({ type, callback });
+    }
+    initSource() {
+      const source = new EventSource(this.endpoint);
+      source.addEventListener("open", () => {
+        this.$logger.debug(`Connected to '${this.endpoint}'`);
+      });
+      source.addEventListener("event", (event) => {
+        const data2 = JSON.parse(event.data);
+        this.handlers.forEach((handler4) => {
+          if (data2.type === handler4.type) {
+            handler4.callback.call(null, data2);
+          }
+        });
+      });
+      source.addEventListener("error", () => {
+        this.$logger.warn(`Event source error`);
+        this.stop();
+      });
+      return source;
+    }
+  };
+
+  // app/components/lookbook/ui/base/router/router.js
+  var router_default = AlpineComponent("router", (sseEndpoint = null) => {
     return {
-      expandedItems: Alpine.$persist([]).as(`nav#${id}:expanded-items`),
-      filterText: Alpine.$persist("").as(`nav#${id}:filter-text`),
-      empty: false,
-      filteredOut: false,
+      serverEventsListener: null,
+      routerLogger: null,
       init() {
-        this.$nextTick(() => this.updateSelection(true));
-      },
-      updateSelection(expandParents = false) {
-        if (this.selectedItem) {
-          this.selectedItem.selected = false;
+        this.routerLogger = new Logger("Router");
+        if (sseEndpoint) {
+          this.serverEventsListener = new ServerEventsListener(sseEndpoint);
+          this.serverEventsListener.on("update", () => this.updatePage());
+          this.serverEventsListener.start();
         }
-        const currentElement = this.$el.querySelector(
-          `[data-component='nav-item'][data-url='${document.location.pathname}']`
-        );
-        if (currentElement) {
-          let currentItem = getData(currentElement);
-          currentItem.selected = true;
-          if (expandParents) {
-            while (currentItem) {
-              const parent = currentItem.parent;
-              console.log(parent);
-              if (!currentItem.selected) {
-                currentItem.expanded = true;
-              }
-              currentItem = parent;
-            }
+      },
+      visit(url, updateHistory = true) {
+        this.routerLogger.info(`Navigating to ${url}`);
+        if (updateHistory)
+          history.pushState({}, "", url);
+        this.loadPage(url);
+      },
+      async updatePage() {
+        const html3 = await fetchPageDOM(location);
+        this.updateDOM(html3);
+        this.routerLogger.info(`Page updated`);
+        this.$dispatch("lookbook:page-update");
+      },
+      async loadPage(url = location) {
+        const html3 = await fetchPageDOM(url);
+        this.updateDOM(html3);
+        this.routerLogger.debug(`Page loaded`);
+        this.$dispatch("lookbook:page-load");
+      },
+      updateDOM(html3) {
+        morph2(this.$root, html3);
+        this.$dispatch("lookbook:page-morph");
+      },
+      handleClick(event) {
+        const link = event.target.closest("[href]");
+        if (link) {
+          const isExternalLink = link.host && link.host !== location.host;
+          if (!isExternalLink && !link.hasAttribute("target")) {
+            event.preventDefault();
+            this.visit(link.href);
           }
         }
       },
-      async filter() {
-        const text2 = this.filterText;
-        await this.$nextTick();
-        const filteredStates = await Promise.all(
-          this.children.map(async (data2) => {
-            await data2.filter(text2);
-            return data2.filteredOut;
-          })
-        );
-        const matchedChildCount = filteredStates.filter((s2) => !s2).length;
-        this.empty = matchedChildCount === 0;
+      handleVisibilityChange() {
+        if (this.serverEventsListener && !document.hidden)
+          this.updatePage();
       },
-      clearFilter() {
-        this.filterText = "";
-      },
-      get children() {
-        return Array.from(this.$refs.nav.children).map((node) => getData(node));
-      },
-      get selectedItem() {
-        return getData(
-          this.$el.querySelector(
-            `[data-component='nav-item'][aria-selected='true']`
-          )
-        );
+      destroy() {
+        this.routerLogger.error(`Router instance destroyed!`);
       }
     };
   });
-
-  // app/components/lookbook/ui/elements/nav/nav_item/nav_item.js
-  var nav_item_exports = {};
-  __export(nav_item_exports, {
-    default: () => nav_item_default
-  });
-  var nav_item_default = AlpineComponent("navItem", ({ keywords, collection }) => {
-    return {
-      keywords: [],
-      isCollection: false,
-      filteredOut: false,
-      selected: false,
-      init() {
-        this.keywords = keywords || [];
-        this.isCollection = collection || false;
-      },
-      visit() {
-        if (!this.selected && this.targetUrl) {
-          this.$dispatch("lookbook:visit", { url: this.targetUrl });
-        }
-      },
-      async filter(text2) {
-        if (this.isCollection) {
-          this.filteredOut = true;
-          this.children.forEach(async (data2) => {
-            await data2.filter(text2);
-            if (!data2.filteredOut) {
-              this.filteredOut = false;
+  async function fetchPageDOM(url) {
+    const { ok, fragment, status } = await fetchHTML(url, "router");
+    if (ok) {
+      return fragment;
+    } else {
+      location.href = url;
+    }
+  }
+  async function fetchHTML(url, selector) {
+    const response = await fetch(url || location);
+    const { status, ok } = response;
+    let fragment, title = null;
+    const result = { ok, status, response, fragment, title };
+    if (response.ok) {
+      const html3 = await response.text();
+      const doc = new DOMParser().parseFromString(html3, "text/html");
+      result.fragment = selector ? doc.querySelector(selector).outerHTML : null;
+    }
+    return result;
+  }
+  function morph2(from, to3) {
+    Alpine.morph(from, to3, {
+      lookahead: true,
+      updating(el3, toEl, childrenOnly, skip) {
+        if (el3.tagName && el3.tagName.includes("-")) {
+          const oldAttrs = Array.from(el3.attributes).reduce((attrs, attr) => {
+            attrs[attr.name] = attr.value;
+            return attrs;
+          }, {});
+          const newAttrs = Array.from(toEl.attributes).map((attr) => attr.name);
+          Object.entries(oldAttrs).forEach(([name, value]) => {
+            if (!newAttrs.includes(name)) {
+              toEl.setAttribute(name, value);
             }
           });
-        } else {
-          this.filteredOut = !this.match(text2);
-        }
-        return this;
-      },
-      match(text2) {
-        if (text2.length) {
-          const matched = this.keywords.map((k5) => k5.includes(text2));
-          return matched.filter((m2) => m2).length;
-        }
-        return true;
-      },
-      get targetUrl() {
-        return this.$root.getAttribute("data-url");
-      },
-      get key() {
-        return this.$root.getAttribute("key");
-      },
-      get expanded() {
-        return this.expandedItems && this.key && this.expandedItems.includes(this.key);
-      },
-      set expanded(isExpanded) {
-        if (isExpanded) {
-          if (this.expandedItems.indexOf(this.key) === -1) {
-            this.expandedItems.push(this.key);
-          }
-        } else {
-          const index2 = this.expandedItems.indexOf(this.key);
-          if (index2 >= 0)
-            this.expandedItems.splice(index2, 1);
-        }
-      },
-      get children() {
-        return this.$refs.children ? Array.from(this.$refs.children.children).map((node) => getData(node)) : [];
-      },
-      get parent() {
-        const parentElement = this.$root.parentElement.closest(
-          "[data-component='nav-item']"
-        );
-        return parentElement ? getData(parentElement) : null;
-      }
-    };
-  });
-
-  // app/components/lookbook/ui/elements/pane/pane.js
-  var pane_exports = {};
-  __export(pane_exports, {
-    default: () => pane_default
-  });
-  var pane_default = AlpineComponent("pane", (id) => {
-    return {
-      activePanel: Alpine.$persist(null).as(`pane#${id}:active-panel`),
-      init() {
-        this.$nextTick(() => {
-          if (this.activePanel === null && this.toolbar.tabs.length) {
-            this.activePanel = this.toolbar.tabs[0].name;
-          }
-          this.toolbar.activeTab = this.activePanel;
-        });
-      },
-      isActivePanel(name) {
-        return this.activePanel === name;
-      },
-      get toolbar() {
-        return getData(this.$root.querySelector("[data-component='toolbar']"));
-      },
-      bindings: {
-        root: {
-          ["@toolbar:tab-selected"](event) {
-            this.activePanel = event.detail.name;
-          }
         }
       }
-    };
-  });
+    });
+  }
 
-  // app/components/lookbook/ui/elements/pane/tab_panel/tab_panel.js
-  var tab_panel_exports = {};
-  __export(tab_panel_exports, {
-    default: () => tab_panel_default
-  });
-  var tab_panel_default = AlpineComponent("tabPanel", (name) => {
-    return {
-      name
-    };
-  });
-
-  // app/components/lookbook/ui/elements/toolbar/toolbar.js
+  // app/components/lookbook/ui/base/toolbar/toolbar.js
   var toolbar_exports = {};
   __export(toolbar_exports, {
     default: () => toolbar_default
@@ -12181,7 +12180,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     };
   });
 
-  // app/components/lookbook/ui/elements/toolbar/toolbar_tab/toolbar_tab.js
+  // app/components/lookbook/ui/base/toolbar/toolbar_tab/toolbar_tab.js
   var toolbar_tab_exports = {};
   __export(toolbar_tab_exports, {
     default: () => toolbar_tab_default
@@ -12192,7 +12191,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     };
   });
 
-  // app/components/lookbook/ui/elements/viewport/viewport.js
+  // app/components/lookbook/ui/base/viewport/viewport.js
   var viewport_exports = {};
   __export(viewport_exports, {
     default: () => viewport_default
@@ -42165,7 +42164,7 @@ Expected it to be ${r2}.`;
   });
 
   // import-glob:/Users/mark/Code/lookbook/lookbook-v3/assets/js/alpine|../../../app/components/lookbook/ui/**/*.js
-  var modules = [app_exports, code_panel_exports, default_panel_exports, param_editor_exports, params_panel_exports, preview_inspector_exports, prose_panel_exports, preview_overview_exports, reader_exports, router_exports, status_bar_exports, status_bar_item_exports, status_bar_notifications_exports, button_exports, icon_exports, layout_exports, nav_exports, nav_item_exports, pane_exports, tab_panel_exports, toolbar_exports, toolbar_tab_exports, viewport_exports, code_exports, page_exports, prose_exports];
+  var modules = [layout_exports, code_panel_exports, default_panel_exports, param_editor_exports, params_panel_exports, preview_inspector_exports, prose_panel_exports, preview_overview_exports, reader_exports, status_bar_exports, status_bar_item_exports, status_bar_notifications_exports, button_exports, icon_exports, nav_exports, nav_item_exports, pane_exports, tab_panel_exports, pane_group_exports, router_exports, toolbar_exports, toolbar_tab_exports, viewport_exports, code_exports, page_exports, prose_exports];
   var __default = modules;
 
   // assets/js/alpine/app.js

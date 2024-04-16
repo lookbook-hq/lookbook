@@ -2,7 +2,7 @@ import AlpineComponent from "@js/alpine/component";
 import Split from "split-grid";
 import { observeSize } from "@js/helpers";
 
-export default AlpineComponent("layout", (id, opts = {}) => {
+export default AlpineComponent("paneGroup", (id, opts = {}) => {
   return {
     splitter: null,
 

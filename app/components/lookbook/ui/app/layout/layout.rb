@@ -1,6 +1,6 @@
 module Lookbook
   module UI
-    class App < BaseComponent
+    class Layout < BaseComponent
       with_slot :header
       with_slot :main
       with_slot :status_bar, Lookbook::UI::StatusBar

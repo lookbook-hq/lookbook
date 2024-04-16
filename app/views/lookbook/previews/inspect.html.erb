@@ -1,1 +1,8 @@
-<%= lookbook_preview_inspector(@preview, @target, preview_panels: @inspector.preview_panels, drawer_panels: @inspector.drawer_panels) %>
+<%=
+  render Lookbook::UI::PreviewInspector.new(
+    preview: @preview,
+    target: @target,
+    preview_panels: @inspector.preview_panels,
+    drawer_panels: @inspector.drawer_panels
+  )
+%>

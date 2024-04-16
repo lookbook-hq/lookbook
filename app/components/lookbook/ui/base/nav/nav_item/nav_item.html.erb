@@ -18,22 +18,22 @@
     <div class="nav-item-toggle" @click.stop="expanded = !expanded">
       <% if collection? %>
         <button x-show="expanded">
-          <%= lookbook_icon :chevron_down %>
+          <%= lb_icon :chevron_down %>
         </button>
         <button x-show="!expanded">
-          <%= lookbook_icon :chevron_right %>
+          <%= lb_icon :chevron_right %>
         </button>
       <% end %>
     </div>
     
     <% if url_path %>
       <a href="<%= url_path %>" class="nav-item-label" @click.prevent="expanded = true">
-        <%= lookbook_icon icon %>
+        <%= lb_icon icon %>
         <%= label %>
       </a>
     <% else %>
       <button class="nav-item-label" @click.prevent="expanded = !expanded">
-        <%= lookbook_icon icon %>
+        <%= lb_icon icon %>
         <%= label %>
       </button>
     <% end %>
@@ -65,7 +65,7 @@
   }
 ) do %>
   <div>
-    <%= lookbook_icon icon %>
+    <%= lb_icon icon %>
     <%= label %>
   </div>
   <div>

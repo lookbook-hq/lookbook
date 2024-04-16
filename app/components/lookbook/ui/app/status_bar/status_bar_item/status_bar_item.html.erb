@@ -1,6 +1,6 @@
 <%= render component_tag(x: {data: "statusBarItem"}, data: {theme: theme}, class: {"with-panel": panel?}) do %>
   <div class="status-bar-item-summary" @click="expanded = !expanded">
-    <%= lookbook_icon icon %>
+    <%= lb_icon icon %>
     <% if label.present? %>
       <span><%= label %></span>
     <% end %>

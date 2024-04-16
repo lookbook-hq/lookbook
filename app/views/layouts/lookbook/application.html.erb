@@ -12,21 +12,21 @@
 </head>
 <body>
 <%=
-  lookbook_router(@events_endpoint.to_json) do
-    lookbook_app do |app|
-      app.with_header do
+  render Lookbook::UI::Router.new(events_endpoint: @events_endpoint.to_json) do
+    render Lookbook::UI::Layout.new(id: "app") do |layout|
+      layout.with_header do
         link_to @config.project_name, root_path
       end
 
-      app.with_previews_nav(@inspector.nav_tree)
-      app.with_pages_nav(@docs.nav_tree)
+      layout.with_previews_nav(@inspector.nav_tree)
+      layout.with_pages_nav(@docs.nav_tree)
 
-      app.with_main do
+      layout.with_main do
         content_for?(:main) ? yield(:main) : yield
       end
 
       if @config.status_bar
-        app.with_status_bar(notifications: @notifications)
+        layout.with_status_bar(notifications: @notifications)
       end
     end
   end

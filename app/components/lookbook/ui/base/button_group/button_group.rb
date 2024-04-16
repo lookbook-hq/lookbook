@@ -3,7 +3,7 @@ module Lookbook
     class ButtonGroup < BaseComponent
       with_slot :button do |*args, **kwargs, &block|
         if args.any? || kwargs.any?
-          lookbook_button(*args, size: @size, **kwargs)
+          lb_button(*args, size: @size, **kwargs)
         else
           block.call
         end
