@@ -2,14 +2,61 @@
 
 <hr>
 
-## Lookbook v3 development branch
+## Lookbook v3.0 development branch
 
-WIP
+Work-in-progress, exploratory rebuild of Lookbook for a future v3.0 release.
+
+### Key goals:
+
+#### UI
+
+* Remove ViewComponent as a dependency, use bespoke component system to build UI (to avoid VC version incompatabilities with parent app)
+* Use vanilla CSS instead of Tailwind
+* Better theming system using CSS variables
+* Improve accessibilty
+
+#### Previews
+
+* Improve previews of partials/views, ensure they are 100% compatible with how they are used in parent app
+* Add support for Mailer previews
+
+#### Development/Testing
+
+* Include runnable test/demo/development app in codebase
+* Make dev setup simpler
+* Use Minitest
+* Run tests against demo app
+* Ensure good integration test coverage
+* Make logging play nicer with standard Rails logging options and third party gems
+
+#### Other
+
+* Remove ActionCable requirement, use SSE for live UI updates in dev
+* Improve error handling and compatability with `better_errors` etc
+* Improve clarity and readability of codebase
+* Drop support for older Ruby/Rails versions
 
 ## Requirements
 
 * Ruby >= 3.0.0
 * Rails >= 6.1.0
+
+## Usage
+
+### Installation
+
+```rb
+group :development do
+  gem "lookbook", github: "ViewComponent/lookbook", branch: "v3"
+  gem "listen" # Optional but enables live UI updates
+end
+```
+
+Lookbook will automatically be mounted at `/lookbook` within your app.
+
+### Configuration
+
+Current configuration options are not documented yet but can be seen in the [config.rb](lib/lookbook/config.rb) file.
 
 ## Development
 
