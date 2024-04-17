@@ -39,7 +39,7 @@ module Lookbook
       def preview_class?(klass)
         if (defined?(ViewComponent) && klass.ancestors.include?(ViewComponent::Preview)) ||
             klass.ancestors.include?(Lookbook::Preview) ||
-            klass.ancestors.include?(ActionMailer::Preview)
+            klass.ancestors.include?(::ActionMailer::Preview)
           !klass.respond_to?(:abstract_class) || klass.abstract_class != true
         end
       end
@@ -70,7 +70,13 @@ module Lookbook
       end
 
       def preview_controller
-        Lookbook.config.preview_controller.constantize
+        @preview_controller ||= begin
+          preview_controller = Lookbook.config.preview_controller.constantize
+          unless preview_controller.include?(Lookbook::PreviewControllerActions)
+            preview_controller.include(Lookbook::PreviewControllerActions)
+          end
+          preview_controller
+        end
       end
 
       def system_templates

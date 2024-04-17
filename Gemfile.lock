@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     lookbook (3.0.0.pre.alpha.0)
+      actionmailer
       redcarpet
       yard
       zeitwerk

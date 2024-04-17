@@ -78,7 +78,7 @@ module Lookbook
     end
 
     def mailer_preview?
-      preview_class.ancestors.include?(ActionMailer::Preview)
+      preview_class.ancestors.include?(::ActionMailer::Preview)
     end
   end
 end
