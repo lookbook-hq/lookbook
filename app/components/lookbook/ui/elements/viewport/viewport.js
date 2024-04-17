@@ -28,6 +28,16 @@ export default AlpineComponent(
         });
       },
 
+      start() {
+        this.resizing = true;
+        this.$dispatch("viewport:resize-start");
+      },
+
+      stop() {
+        this.resizing = false;
+        this.$dispatch("viewport:resize-end");
+      },
+
       onResizeStart(e) {
         this.onResizeWidthStart(e);
         this.onResizeHeightStart(e);
@@ -51,10 +61,11 @@ export default AlpineComponent(
           this.parentWidth
         );
         this.width = boundedWidth === this.parentWidth ? "100%" : boundedWidth;
+        this.$dispatch("viewport:resize-progress");
       },
 
       onResizeWidthStart(e) {
-        this.resizing = true;
+        this.start();
         this.resizeStartPositionX = e.pageX;
         this.resizeStartWidth = this.$refs.wrapper.clientWidth;
         addEventListener("pointermove", this.onResizeWidth);
@@ -64,7 +75,7 @@ export default AlpineComponent(
       onResizeWidthEnd() {
         removeEventListener("pointermove", this.onResizeWidth);
         removeEventListener("pointerup", this.onResizeWidthEnd);
-        this.resizing = false;
+        this.stop();
       },
 
       toggleFullWidth() {
@@ -85,10 +96,11 @@ export default AlpineComponent(
         );
         this.height =
           boundedHeight === this.parentHeight ? "100%" : boundedHeight;
+        this.$dispatch("viewport:resize-progress");
       },
 
       onResizeHeightStart(e) {
-        this.resizing = true;
+        this.start();
         this.resizeStartPositionY = e.pageY;
         this.resizeStartHeight = this.$refs.wrapper.clientHeight;
         addEventListener("pointermove", this.onResizeHeight);
@@ -98,7 +110,7 @@ export default AlpineComponent(
       onResizeHeightEnd() {
         removeEventListener("pointermove", this.onResizeHeight);
         removeEventListener("pointerup", this.onResizeHeightEnd);
-        this.resizing = false;
+        this.stop();
       },
 
       toggleFullHeight() {
@@ -140,6 +152,10 @@ export default AlpineComponent(
 
       get inert() {
         return this.resizing || this.appReflowing;
+      },
+
+      get iframe() {
+        return this.$refs.iframe;
       },
     };
   }

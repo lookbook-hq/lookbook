@@ -2121,7 +2121,6 @@ select {
   }
 
 [data-component="preview-embed"] .embed-preview {
-    height: 300px;
   }
 
 [data-component="preview-embed"] .embed-drawer {

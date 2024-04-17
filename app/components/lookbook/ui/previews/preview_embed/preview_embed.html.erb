@@ -1,9 +1,15 @@
 <%= render component_tag(x: {data: "previewEmbed"}) do %>
   <%=
-    lb_pane(dom_id(target, "embed-preview"), class: "embed-preview") do |pane|
+    lb_pane(dom_id(target, "embed-preview"),
+      class: "embed-preview",
+      x: {
+        "@viewport:resize-progress": "resizeIframe",
+        "@viewport:resize-end": "resizeIframe"
+      }
+    ) do |pane|
       pane.with_title { target.label }
-      
-      lb_viewport(target.preview_path(preview_params), id: "embed-viewport", resize_y: false)
+
+      lb_viewport(target.preview_path(preview_params), id: dom_id(target, "embed-viewport"), resize_y: false)
     end
   %>
 
