@@ -55,6 +55,13 @@ module Lookbook
         end
       end
 
+      def component_paths
+        @component_paths ||= begin
+          paths = [*config.lookbook.component_paths, *view_paths, host_app_path]
+          Utils.normalize_paths(paths)
+        end
+      end
+
       def host_app_path
         Rails.application.root.join("app")
       end

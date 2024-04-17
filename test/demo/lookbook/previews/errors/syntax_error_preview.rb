@@ -1,3 +1,4 @@
+# standard:disable Lint/Syntax
 # Preview with an intentional syntax error in the code
 module Errors
   class SyntaxErrorPreview < Lookbook::Preview
@@ -9,3 +10,4 @@ module Errors
     # Missing `end` statement here
   end
 end
+# standard:enable Lint/Syntax
