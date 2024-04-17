@@ -21,6 +21,7 @@ shared:
     display_option_controls: true
   preview_layout: ~
   preview_disable_action_view_annotations: true
+  preview_disable_action_view_partial_prefixes: true
   preview_type_default: view_component
   preview_sort_scenarios: false
   preview_disable_error_handling: false
