@@ -2,7 +2,7 @@ module Lookbook
   class ActionViewConfigHandler < Service
     attr_reader :disable_annotations, :disable_partial_prefixes
 
-    def initialize(disable_annotations: true, disable_partial_prefixes: false)
+    def initialize(disable_annotations: true, disable_partial_prefixes: true)
       @disable_annotations = disable_annotations
       @disable_partial_prefixes = disable_partial_prefixes
     end

@@ -15,7 +15,7 @@ module Lookbook
       @next_page = @pages.next(@page)
       @previous_page = @pages.previous(@page)
 
-      content = ActionViewConfigHandler.call(disable_annotations: true) do
+      content = ActionViewConfigHandler.call do
         render_to_string inline: @page.content, locals: {
           page: @page,
           next_page: @next_page,
