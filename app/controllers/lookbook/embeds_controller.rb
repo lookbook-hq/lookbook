@@ -39,7 +39,7 @@ module Lookbook
     end
 
     def assign_panels
-      @panels = ListResolver.call(params.fetch(:panels, ""), Inspector.panels.map(&:name))
+      @panels = ListResolver.call(params.fetch(:panels, ""), Inspector.panels.map(&:name).excluding(:preview))
     end
 
     def assign_actions

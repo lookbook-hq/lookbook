@@ -2,7 +2,9 @@
   render Lookbook::UI::PreviewEmbed.new(
     preview: @preview,
     target: @target,
-    panels: @inspector.embed_panels,
-    preview_params: {}
+    targets: @targets,
+    panels: @panels,
+    actions: @actions,
+    preview_params: @preview_params
   )
 %>

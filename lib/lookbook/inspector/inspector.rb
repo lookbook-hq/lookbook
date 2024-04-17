@@ -5,9 +5,15 @@ module Lookbook
     class << self
       include Loggable
 
-      def preview_targets(preview, include_hidden: false)
+      def preview_targets(preview, names = nil, include_hidden: false)
         entities = (targets_cache[preview.id] ||= targets_for(preview)).deep_dup
-        include_hidden ? entities : entities.select(&:visible?)
+        entities = include_hidden ? entities : entities.select(&:visible?)
+        if names.is_a?(Array)
+          names = names.map(&:to_sym)
+          entities.select { _1.name.to_sym.in?(names) }
+        else
+          entities
+        end
       end
 
       def nav_tree
@@ -27,8 +33,9 @@ module Lookbook
         panels.select { names.include?(_1.name) }
       end
 
-      def embed_panels
-        names = Lookbook.config.inspector_embed_panels.map(&:to_sym)
+      def embed_panels(names = nil)
+        names ||= Lookbook.config.inspector_embed_panels
+        names = names.map(&:to_sym)
         panels.select { names.include?(_1.name) }
       end
 

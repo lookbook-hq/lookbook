@@ -14,6 +14,11 @@ module Lookbook
     end
 
     def embed
+      @targets = Inspector.preview_targets(@preview, params[:targets], include_hidden: true)
+      @panels = Inspector.embed_panels(params[:panels])
+      @actions = params.fetch(:actions, [])
+      @preview_params = params.fetch(:preview_params, {}).permit!.to_h
+
       render layout: "lookbook/embed"
     end
 
