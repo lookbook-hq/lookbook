@@ -8,9 +8,17 @@ module Lookbook
 
     def lookbook_asset_tags(context = "app")
       safe_join([
-        stylesheet_link_tag(lookbook_asset_path("/#{context}.css")),
-        javascript_include_tag(lookbook_asset_path("/#{context}.js"), defer: true)
+        lookbook_stylesheet_tag(context),
+        lookbook_script_tag(context)
       ], "\n")
+    end
+
+    def lookbook_script_tag(context = "app")
+      javascript_include_tag(lookbook_asset_path("/#{context}.js"), defer: true)
+    end
+
+    def lookbook_stylesheet_tag(context = "app")
+      stylesheet_link_tag(lookbook_asset_path("/#{context}.css"))
     end
   end
 end

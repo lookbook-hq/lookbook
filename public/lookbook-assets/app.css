@@ -964,6 +964,10 @@ select {
     border-top: 1px solid var(--lookbook-divider-color);
   }
 
+[data-component="router"] {
+  display: contents;
+}
+
 [data-component="status-bar"] {
   height: 24px;
   font-size: 0.75rem;
@@ -1772,10 +1776,6 @@ select {
     border: 1px solid var(--lookbook-color-base-300);
     border-radius: var(--lookbook-border-radius-small);
   }
-
-[data-component="router"] {
-  display: contents;
-}
 
 [data-component="toolbar"] {
   background-color: white;

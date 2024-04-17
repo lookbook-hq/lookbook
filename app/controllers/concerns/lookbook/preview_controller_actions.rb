@@ -35,7 +35,9 @@ module Lookbook
     end
 
     def lookbook_render_template(template, assigns, opts = {})
-      render template, assigns: assigns, **determine_layout(opts[:layout])
+      html = render_to_string(template, assigns: assigns, **determine_layout(opts[:layout]))
+      html += opts[:append_html]
+      render html: html
     end
 
     private

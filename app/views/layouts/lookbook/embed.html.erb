@@ -11,7 +11,7 @@
   <title><%= @config.project_name %></title>
 </head>
 <body>
-  <%= render Lookbook::UI::Router.new(events_endpoint: @events_endpoint.to_json) do %>
+  <%= render Lookbook::UI::Router.new do %>
     <%= yield %>    
   <% end %>
 </body>

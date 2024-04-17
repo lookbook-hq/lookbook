@@ -31,7 +31,11 @@ const importMapper = hq.get(({ rootUrl, baseUrl, paths }) => {
 
 esbuild
   .context({
-    entryPoints: ["assets/entrypoints/app.js", "assets/entrypoints/page.js"],
+    entryPoints: [
+      "assets/entrypoints/app.js",
+      "assets/entrypoints/page.js",
+      "assets/entrypoints/iframe.js",
+    ],
     bundle: true,
     metafile: true,
     outdir: "public/lookbook-assets",

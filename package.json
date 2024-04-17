@@ -22,6 +22,7 @@
     "@prettier/plugin-ruby": "^4.0.4",
     "alpinejs": "^3.13.5",
     "container-query-polyfill": "^1.0.2",
+    "iframe-resizer": "^4.3.9",
     "lucide-static": "^0.367.0",
     "prettier": "^3.2.5",
     "shiki": "^1.2.0",

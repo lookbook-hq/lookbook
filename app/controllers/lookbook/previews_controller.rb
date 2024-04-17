@@ -38,10 +38,15 @@ module Lookbook
       controller.request = scenario_render_request(target.scenarios.first)
       controller.response = ActionDispatch::Response.new
 
+      append_html = if params[:_lookbook_embed] == "true"
+        render_to_string("lookbook/application/_iframe_scripts", layout: nil)
+      end
+
       controller.process(:lookbook_render_template,
         target.preview_template,
         {target: target},
-        layout: target.preview.layout)
+        layout: target.preview.layout,
+        append_html: append_html)
     end
 
     def scenario_render_request(scenario)

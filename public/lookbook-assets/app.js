@@ -8183,6 +8183,154 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     };
   });
 
+  // app/components/lookbook/ui/app/router/router.js
+  var router_exports = {};
+  __export(router_exports, {
+    default: () => router_default
+  });
+
+  // assets/js/server_events_listener.js
+  var ServerEventsListener = class {
+    constructor(endpoint) {
+      this.endpoint = endpoint;
+      this.source = null;
+      this.handlers = [];
+      this.$logger = new Logger("EventsListener");
+      addEventListener("visibilitychange", () => {
+        document.hidden ? this.stop() : this.start();
+      });
+    }
+    start() {
+      if (!this.source) {
+        this.$logger.debug(`Starting`);
+        this.source = this.initSource();
+      }
+    }
+    stop() {
+      if (this.source) {
+        this.source.close();
+        this.source = null;
+      }
+      this.$logger.debug(`Stopped`);
+    }
+    on(type, callback) {
+      this.handlers.push({ type, callback });
+    }
+    initSource() {
+      const source = new EventSource(this.endpoint);
+      source.addEventListener("open", () => {
+        this.$logger.debug(`Connected to '${this.endpoint}'`);
+      });
+      source.addEventListener("event", (event) => {
+        const data2 = JSON.parse(event.data);
+        this.handlers.forEach((handler4) => {
+          if (data2.type === handler4.type) {
+            handler4.callback.call(null, data2);
+          }
+        });
+      });
+      source.addEventListener("error", () => {
+        this.$logger.warn(`Event source error`);
+        this.stop();
+      });
+      return source;
+    }
+  };
+
+  // app/components/lookbook/ui/app/router/router.js
+  var router_default = AlpineComponent("router", (sseEndpoint = null) => {
+    return {
+      serverEventsListener: null,
+      routerLogger: null,
+      init() {
+        this.routerLogger = new Logger("Router");
+        if (sseEndpoint) {
+          this.serverEventsListener = new ServerEventsListener(sseEndpoint);
+          this.serverEventsListener.on("update", () => this.updatePage());
+          this.serverEventsListener.start();
+        }
+      },
+      visit(url, updateHistory = true) {
+        this.routerLogger.info(`Navigating to ${url}`);
+        if (updateHistory)
+          history.pushState({}, "", url);
+        this.loadPage(url);
+      },
+      async updatePage() {
+        const html3 = await fetchPageDOM(location);
+        this.updateDOM(html3);
+        this.routerLogger.info(`Page updated`);
+        this.$dispatch("lookbook:page-update");
+      },
+      async loadPage(url = location) {
+        const html3 = await fetchPageDOM(url);
+        this.updateDOM(html3);
+        this.routerLogger.debug(`Page loaded`);
+        this.$dispatch("lookbook:page-load");
+      },
+      updateDOM(html3) {
+        morph2(this.$root, html3);
+        this.$dispatch("lookbook:page-morph");
+      },
+      handleClick(event) {
+        const link = event.target.closest("[href]");
+        if (link) {
+          const isExternalLink = link.host && link.host !== location.host;
+          if (!isExternalLink && !link.hasAttribute("target")) {
+            event.preventDefault();
+            this.visit(link.href);
+          }
+        }
+      },
+      handleVisibilityChange() {
+        if (this.serverEventsListener && !document.hidden)
+          this.updatePage();
+      },
+      destroy() {
+        this.routerLogger.error(`Router instance destroyed!`);
+      }
+    };
+  });
+  async function fetchPageDOM(url) {
+    const { ok, fragment, status } = await fetchHTML(url, "router");
+    if (ok) {
+      return fragment;
+    } else {
+      location.href = url;
+    }
+  }
+  async function fetchHTML(url, selector) {
+    const response = await fetch(url || location);
+    const { status, ok } = response;
+    let fragment, title = null;
+    const result = { ok, status, response, fragment, title };
+    if (response.ok) {
+      const html3 = await response.text();
+      const doc = new DOMParser().parseFromString(html3, "text/html");
+      result.fragment = selector ? doc.querySelector(selector).outerHTML : null;
+    }
+    return result;
+  }
+  function morph2(from, to3) {
+    Alpine.morph(from, to3, {
+      lookahead: true,
+      updating(el3, toEl, childrenOnly, skip) {
+        if (el3.tagName && el3.tagName.includes("-")) {
+          const oldAttrs = Array.from(el3.attributes).reduce((attrs, attr) => {
+            attrs[attr.name] = attr.value;
+            return attrs;
+          }, {});
+          const newAttrs = Array.from(toEl.attributes).map((attr) => attr.name);
+          Object.entries(oldAttrs).forEach(([name, value]) => {
+            if (!newAttrs.includes(name)) {
+              toEl.setAttribute(name, value);
+            }
+          });
+        }
+      }
+    });
+  }
+
   // app/components/lookbook/ui/app/status_bar/status_bar.js
   var status_bar_exports = {};
   __export(status_bar_exports, {
@@ -41740,154 +41888,6 @@ Expected it to be ${r2}.`;
     return {};
   });
 
-  // app/components/lookbook/ui/elements/router/router.js
-  var router_exports = {};
-  __export(router_exports, {
-    default: () => router_default
-  });
-
-  // assets/js/server_events_listener.js
-  var ServerEventsListener = class {
-    constructor(endpoint) {
-      this.endpoint = endpoint;
-      this.source = null;
-      this.handlers = [];
-      this.$logger = new Logger("EventsListener");
-      addEventListener("visibilitychange", () => {
-        document.hidden ? this.stop() : this.start();
-      });
-    }
-    start() {
-      if (!this.source) {
-        this.$logger.debug(`Starting`);
-        this.source = this.initSource();
-      }
-    }
-    stop() {
-      if (this.source) {
-        this.source.close();
-        this.source = null;
-      }
-      this.$logger.debug(`Stopped`);
-    }
-    on(type, callback) {
-      this.handlers.push({ type, callback });
-    }
-    initSource() {
-      const source = new EventSource(this.endpoint);
-      source.addEventListener("open", () => {
-        this.$logger.debug(`Connected to '${this.endpoint}'`);
-      });
-      source.addEventListener("event", (event) => {
-        const data2 = JSON.parse(event.data);
-        this.handlers.forEach((handler4) => {
-          if (data2.type === handler4.type) {
-            handler4.callback.call(null, data2);
-          }
-        });
-      });
-      source.addEventListener("error", () => {
-        this.$logger.warn(`Event source error`);
-        this.stop();
-      });
-      return source;
-    }
-  };
-
-  // app/components/lookbook/ui/elements/router/router.js
-  var router_default = AlpineComponent("router", (sseEndpoint = null) => {
-    return {
-      serverEventsListener: null,
-      routerLogger: null,
-      init() {
-        this.routerLogger = new Logger("Router");
-        if (sseEndpoint) {
-          this.serverEventsListener = new ServerEventsListener(sseEndpoint);
-          this.serverEventsListener.on("update", () => this.updatePage());
-          this.serverEventsListener.start();
-        }
-      },
-      visit(url, updateHistory = true) {
-        this.routerLogger.info(`Navigating to ${url}`);
-        if (updateHistory)
-          history.pushState({}, "", url);
-        this.loadPage(url);
-      },
-      async updatePage() {
-        const html3 = await fetchPageDOM(location);
-        this.updateDOM(html3);
-        this.routerLogger.info(`Page updated`);
-        this.$dispatch("lookbook:page-update");
-      },
-      async loadPage(url = location) {
-        const html3 = await fetchPageDOM(url);
-        this.updateDOM(html3);
-        this.routerLogger.debug(`Page loaded`);
-        this.$dispatch("lookbook:page-load");
-      },
-      updateDOM(html3) {
-        morph2(this.$root, html3);
-        this.$dispatch("lookbook:page-morph");
-      },
-      handleClick(event) {
-        const link = event.target.closest("[href]");
-        if (link) {
-          const isExternalLink = link.host && link.host !== location.host;
-          if (!isExternalLink && !link.hasAttribute("target")) {
-            event.preventDefault();
-            this.visit(link.href);
-          }
-        }
-      },
-      handleVisibilityChange() {
-        if (this.serverEventsListener && !document.hidden)
-          this.updatePage();
-      },
-      destroy() {
-        this.routerLogger.error(`Router instance destroyed!`);
-      }
-    };
-  });
-  async function fetchPageDOM(url) {
-    const { ok, fragment, status } = await fetchHTML(url, "router");
-    if (ok) {
-      return fragment;
-    } else {
-      location.href = url;
-    }
-  }
-  async function fetchHTML(url, selector) {
-    const response = await fetch(url || location);
-    const { status, ok } = response;
-    let fragment, title = null;
-    const result = { ok, status, response, fragment, title };
-    if (response.ok) {
-      const html3 = await response.text();
-      const doc = new DOMParser().parseFromString(html3, "text/html");
-      result.fragment = selector ? doc.querySelector(selector).outerHTML : null;
-    }
-    return result;
-  }
-  function morph2(from, to3) {
-    Alpine.morph(from, to3, {
-      lookahead: true,
-      updating(el3, toEl, childrenOnly, skip) {
-        if (el3.tagName && el3.tagName.includes("-")) {
-          const oldAttrs = Array.from(el3.attributes).reduce((attrs, attr) => {
-            attrs[attr.name] = attr.value;
-            return attrs;
-          }, {});
-          const newAttrs = Array.from(toEl.attributes).map((attr) => attr.name);
-          Object.entries(oldAttrs).forEach(([name, value]) => {
-            if (!newAttrs.includes(name)) {
-              toEl.setAttribute(name, value);
-            }
-          });
-        }
-      }
-    });
-  }
-
   // app/components/lookbook/ui/elements/toolbar/toolbar.js
   var toolbar_exports = {};
   __export(toolbar_exports, {
@@ -42175,7 +42175,7 @@ Expected it to be ${r2}.`;
   });
 
   // import-glob:/Users/mark/Code/lookbook/lookbook-v3/assets/js/alpine|../../../app/components/lookbook/ui/**/*.js
-  var modules = [layout_exports, status_bar_exports, status_bar_item_exports, status_bar_notifications_exports, button_exports, code_exports, icon_exports, nav_exports, nav_item_exports, pane_exports, tab_panel_exports, pane_group_exports, prose_exports, router_exports, toolbar_exports, toolbar_tab_exports, viewport_exports, page_exports, page_browser_exports, code_panel_exports, default_panel_exports, param_editor_exports, params_panel_exports, prose_panel_exports, preview_embed_exports, preview_inspector_exports, preview_overview_exports];
+  var modules = [layout_exports, router_exports, status_bar_exports, status_bar_item_exports, status_bar_notifications_exports, button_exports, code_exports, icon_exports, nav_exports, nav_item_exports, pane_exports, tab_panel_exports, pane_group_exports, prose_exports, toolbar_exports, toolbar_tab_exports, viewport_exports, page_exports, page_browser_exports, code_panel_exports, default_panel_exports, param_editor_exports, params_panel_exports, prose_panel_exports, preview_embed_exports, preview_inspector_exports, preview_overview_exports];
   var __default = modules;
 
   // assets/js/alpine/app.js
