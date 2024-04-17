@@ -27,6 +27,11 @@ module Lookbook
         panels.select { names.include?(_1.name) }
       end
 
+      def embed_panels
+        names = Lookbook.config.inspector_embed_panels.map(&:to_sym)
+        panels.select { names.include?(_1.name) }
+      end
+
       def param_input(input_type)
         param_inputs.find { _1.name == input_type.to_sym } || param_input(:text)
       end

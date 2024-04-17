@@ -1,0 +1,19 @@
+<%= render component_tag(x: {data: "previewEmbed"}) do %>
+  <%=
+    lb_pane(dom_id(target, "embed-preview"), class: "embed-preview") do |pane|
+      pane.with_title { target.label }
+      
+      lb_viewport(target.preview_path(preview_params), id: "embed-viewport", resize_y: false)
+    end
+  %>
+
+  <%=
+    lb_pane(dom_id(target, "embed-drawer"), class: "embed-drawer") do |pane|
+      panels.each do |panel|
+        pane.with_tab_panel(panel.name, label: panel.label) do
+          render panel.partial, preview: preview, target: target, panel: panel
+        end
+      end
+    end
+  %>
+<% end %>

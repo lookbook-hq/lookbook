@@ -26,6 +26,7 @@ module Lookbook
           inspector_panels: default_inspector_panels,
           inspector_preview_panels: [:preview, :output],
           inspector_drawer_panels: [:source, :notes, :params],
+          inspector_embed_panels: [:source, :output, :notes, :params],
           inspector_param_inputs: default_inspector_param_inputs,
 
           sidebar_nav_panels: [:previews, :pages],

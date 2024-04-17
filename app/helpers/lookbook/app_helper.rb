@@ -47,10 +47,15 @@ module Lookbook
     end
 
     def lb_inspector_panel(type = :default, **kwargs, &block)
-      component_types = Lookbook::UI::PreviewInspector::PANEL_COMPONENTS
-      component = component_types[type.to_sym] || component_types[:default]
+      panel_types = {
+        default: Lookbook::UI::DefaultPanel,
+        code: Lookbook::UI::CodePanel,
+        prose: Lookbook::UI::ProsePanel,
+        params: Lookbook::UI::ParamsPanel
+      }
 
-      render component.constantize.new(**kwargs), &block
+      component = panel_types[type.to_sym] || panel_types[:default]
+      render component.new(**kwargs), &block
     end
 
     # Paths

@@ -1,0 +1,8 @@
+<%=
+  render Lookbook::UI::PreviewEmbed.new(
+    preview: @preview,
+    target: @target,
+    panels: @inspector.embed_panels,
+    preview_params: request.query_parameters
+  )
+%>

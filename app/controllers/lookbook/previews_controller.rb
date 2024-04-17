@@ -3,14 +3,18 @@ module Lookbook
     include Lookbook::PreviewActions
 
     before_action :assign_preview
-    before_action :assign_target, only: %i[inspect preview]
-    before_action :prerender_target, only: %i[inspect preview]
+    before_action :assign_target, only: %i[inspect embed preview]
+    before_action :prerender_target, only: %i[inspect embed preview]
 
     def show
       @targets = Inspector.preview_targets(@preview)
     end
 
     def inspect
+    end
+
+    def embed
+      render layout: "lookbook/embed"
     end
 
     def preview

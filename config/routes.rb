@@ -4,6 +4,7 @@ Lookbook::Engine.routes.draw do
   get "/previews/:preview", to: "previews#show", as: :show_preview
   get "/previews/:preview/:target", to: "previews#inspect", as: :inspect_target
   get "/previews/:preview/:target/preview", to: "previews#preview", as: :preview_target
+  get "/previews/:preview/:target/embed", to: "previews#embed", as: :preview_embed
 
   get "/pages/*path", to: "pages#show", as: :show_page
 

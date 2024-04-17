@@ -37600,7 +37600,7 @@ Expected it to be ${r2}.`;
   var modules = [code_exports, prose_exports];
   var __default = modules;
 
-  // app/components/lookbook/ui/app/page/page.js
+  // app/components/lookbook/ui/pages/page/page.js
   var page_exports = {};
   __export(page_exports, {
     default: () => page_default
@@ -37609,7 +37609,7 @@ Expected it to be ${r2}.`;
     return {};
   });
 
-  // import-glob:/Users/mark/Code/lookbook/lookbook-v3/assets/js/alpine|../../../app/components/lookbook/ui/app/page/*.js
+  // import-glob:/Users/mark/Code/lookbook/lookbook-v3/assets/js/alpine|../../../app/components/lookbook/ui/pages/page/*.js
   var modules2 = [page_exports];
   var __default2 = modules2;
 

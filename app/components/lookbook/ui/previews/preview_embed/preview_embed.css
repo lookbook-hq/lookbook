@@ -1,0 +1,9 @@
+[data-component="preview-embed"] {
+  .embed-preview {
+    height: 300px;
+  }
+
+  .embed-drawer {
+    border-top: 1px solid var(--lookbook-divider-color);
+  }
+}
