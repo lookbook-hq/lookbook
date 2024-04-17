@@ -1,6 +1,6 @@
 import AlpineComponent from "@js/alpine/component";
 
-export default AlpineComponent("reader", () => {
+export default AlpineComponent("pageBrowser", () => {
   return {
     handleMessage(event) {
       try {

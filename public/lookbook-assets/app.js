@@ -42058,12 +42058,12 @@ Expected it to be ${r2}.`;
     return {};
   });
 
-  // app/components/lookbook/ui/pages/reader/reader.js
-  var reader_exports = {};
-  __export(reader_exports, {
-    default: () => reader_default
+  // app/components/lookbook/ui/pages/page_browser/page_browser.js
+  var page_browser_exports = {};
+  __export(page_browser_exports, {
+    default: () => page_browser_default
   });
-  var reader_default = AlpineComponent("reader", () => {
+  var page_browser_default = AlpineComponent("pageBrowser", () => {
     return {
       handleMessage(event) {
         try {
@@ -42175,7 +42175,7 @@ Expected it to be ${r2}.`;
   });
 
   // import-glob:/Users/mark/Code/lookbook/lookbook-v3/assets/js/alpine|../../../app/components/lookbook/ui/**/*.js
-  var modules = [layout_exports, status_bar_exports, status_bar_item_exports, status_bar_notifications_exports, button_exports, code_exports, icon_exports, nav_exports, nav_item_exports, pane_exports, tab_panel_exports, pane_group_exports, prose_exports, router_exports, toolbar_exports, toolbar_tab_exports, viewport_exports, page_exports, reader_exports, code_panel_exports, default_panel_exports, param_editor_exports, params_panel_exports, prose_panel_exports, preview_embed_exports, preview_inspector_exports, preview_overview_exports];
+  var modules = [layout_exports, status_bar_exports, status_bar_item_exports, status_bar_notifications_exports, button_exports, code_exports, icon_exports, nav_exports, nav_item_exports, pane_exports, tab_panel_exports, pane_group_exports, prose_exports, router_exports, toolbar_exports, toolbar_tab_exports, viewport_exports, page_exports, page_browser_exports, code_panel_exports, default_panel_exports, param_editor_exports, params_panel_exports, prose_panel_exports, preview_embed_exports, preview_inspector_exports, preview_overview_exports];
   var __default = modules;
 
   // assets/js/alpine/app.js

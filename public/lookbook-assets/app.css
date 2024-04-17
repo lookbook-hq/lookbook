@@ -2024,12 +2024,12 @@ select {
     padding-bottom: var(--lookbook-spacing-x-large);
   }
 
-[data-component="reader"] {
+[data-component="page-browser"] {
   height: 100%;
   width: 100%;
 }
 
-[data-component="reader"] iframe {
+[data-component="page-browser"] iframe {
     height: 100%;
     width: 100%;
   }
