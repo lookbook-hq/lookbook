@@ -2120,6 +2120,13 @@ select {
     overflow: auto;
   }
 
+[data-component="preview-embed"] {
+  border: 1px solid hsl(240, 5%, 84%);
+  border: 1px solid var(--lookbook-divider-color);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
 [data-component="preview-embed"] .embed-preview {
   }
 

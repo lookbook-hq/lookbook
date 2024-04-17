@@ -1,6 +1,7 @@
 import "container-query-polyfill";
-import Logger from "../js/logger";
-import initAlpine from "../js/alpine/page";
+import Logger from "@js/logger";
+import initAlpine from "@js/alpine/page";
+import "@js/elements/embed";
 
 const logger = new Logger("page");
 

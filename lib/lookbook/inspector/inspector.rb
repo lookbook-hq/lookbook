@@ -53,8 +53,6 @@ module Lookbook
         @nav_tree = nil
       end
 
-      protected
-
       def panels
         @panels ||= Lookbook.config.inspector_panels.map do |name, opts|
           DataObject.new(
@@ -65,6 +63,8 @@ module Lookbook
           )
         end
       end
+
+      protected
 
       def all_preview_targets(include_hidden: false)
         Previews.all.map do |preview|

@@ -1,4 +1,8 @@
 [data-component="preview-embed"] {
+  border: 1px solid var(--lookbook-divider-color);
+  border-radius: 4px;
+  overflow: hidden;
+
   .embed-preview {
   }
 

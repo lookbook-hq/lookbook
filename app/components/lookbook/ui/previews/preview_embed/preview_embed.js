@@ -1,33 +1,34 @@
 import "iframe-resizer/js/iframeResizer";
 import AlpineComponent from "@js/alpine/component";
 import { getData } from "@js/alpine/utils";
+import { observeSize } from "@js/helpers";
 
 export default AlpineComponent("previewEmbed", () => {
   return {
     init() {
-      const onResized = this.onResized.bind(this);
+      const onIframeResized = this.onIframeResized.bind(this);
 
       window.iFrameResize(
-        { onResized, checkOrigin: false },
+        { onIframeResized, checkOrigin: false },
         this.viewport.iframe
+      );
+
+      observeSize(this.$el, this.onResize);
+    },
+
+    onResize({ height }) {
+      window.parent.postMessage(
+        JSON.stringify({
+          event: "embed:resize",
+          height,
+        }),
+        "*"
       );
     },
 
-    onResized({ height }) {
+    onIframeResized({ height }) {
       if (height) {
         this.viewport.height = height;
-
-        // Notify parent window of height resize so the parent window can implement
-        // its own iframe resize strategy if not using the Lookbook JS script.
-        // Uses Embedly-compatible postMessage format: https://docs.embed.ly/reference/provider-height-resizing
-        window.parent.postMessage(
-          JSON.stringify({
-            src: window.location.toString(),
-            context: "iframe.resize",
-            height,
-          }),
-          "*"
-        );
       }
     },
 

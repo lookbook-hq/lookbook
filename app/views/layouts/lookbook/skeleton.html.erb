@@ -6,11 +6,11 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%= lookbook_asset_tags("page") %>
+  <%= lookbook_asset_tags("app") %>
   
-  <title><%= @config.project_name %> | <%= @page.title %></title>
+  <title><%= @config.project_name %></title>
 </head>
 <body>
-  <%= yield %>
+  <%= content_for?(:body) ? yield(:body) : yield %>
 </body>
 </html>

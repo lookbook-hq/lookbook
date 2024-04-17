@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="en" class="lookbook-theme-light">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-
-  <%= lookbook_asset_tags("app") %>
-  
-  <title><%= @config.project_name %></title>
-</head>
-<body>
+<% content_for :body do %>
   <%= render Lookbook::UI::Router.new do %>
     <%= yield %>    
   <% end %>
-</body>
-</html>
+<% end %>
+
+<%= render template: "layouts/lookbook/skeleton" %>

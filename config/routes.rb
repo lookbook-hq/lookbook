@@ -8,6 +8,8 @@ Lookbook::Engine.routes.draw do
 
   get "/pages/*path", to: "pages#show", as: :show_page
 
+  get "/embed", to: "embeds#show", as: :embed
+
   resources :events, only: [:index]
 end
 

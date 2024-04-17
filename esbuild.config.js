@@ -35,6 +35,7 @@ esbuild
       "assets/entrypoints/app.js",
       "assets/entrypoints/page.js",
       "assets/entrypoints/iframe.js",
+      "assets/entrypoints/lookbook.js",
     ],
     bundle: true,
     metafile: true,
