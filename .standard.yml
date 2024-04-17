@@ -1,4 +1,5 @@
 ruby_version: 3.0
 
 ignore:
-  - test/demo/test/components/previews/errors/**/*
+  - test/demo/lookbook/components/previews/errors/**/*
+  - test/demo/lookbook/previews/errors/**/*
