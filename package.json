@@ -86,7 +86,7 @@
     "lint-staged": "^15.0.2",
     "parcel": "^2.10.1",
     "postcss": "^8.4.23",
-    "postcss-import": "^15.0.0",
+    "postcss-import": "^16.1.0",
     "postcss-import-ext-glob": "^2.0.1",
     "prettier": "3.0.3",
     "release-it": "^17.0.3",
