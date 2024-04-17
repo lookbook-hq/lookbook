@@ -2,10 +2,13 @@ import AlpineComponent from "@js/alpine/component";
 import { getData } from "@js/alpine/utils";
 
 export default AlpineComponent("nav", (id) => {
+  const store = Alpine.store("app").fetch("nav", id, {
+    expandedItems: [],
+    filterText: "",
+  });
+
   return {
     id,
-    expandedItems: Alpine.$persist([]).as(`nav#${id}:expanded-items`),
-    filterText: Alpine.$persist("").as(`nav#${id}:filter-text`),
     empty: false,
     filteredOut: false,
 
@@ -47,7 +50,7 @@ export default AlpineComponent("nav", (id) => {
     },
 
     async filter() {
-      const text = this.filterText;
+      const text = store.filterText;
 
       await this.$nextTick();
       const filteredStates = await Promise.all(
@@ -62,7 +65,19 @@ export default AlpineComponent("nav", (id) => {
     },
 
     clearFilter() {
-      this.filterText = "";
+      store.filterText = "";
+    },
+
+    get filterText() {
+      return store.filterText;
+    },
+
+    set filterText(value) {
+      store.filterText = value;
+    },
+
+    get expandedItems() {
+      return store.expandedItems;
     },
 
     get children() {

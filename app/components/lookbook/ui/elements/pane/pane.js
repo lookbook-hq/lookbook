@@ -2,20 +2,22 @@ import AlpineComponent from "@js/alpine/component";
 import { getData } from "@js/alpine/utils";
 
 export default AlpineComponent("pane", (id) => {
-  return {
-    activePanel: Alpine.$persist(null).as(`pane#${id}:active-panel`),
+  const store = Alpine.store("app").fetch("pane", id, {
+    activePanel: null,
+  });
 
+  return {
     init() {
       this.$nextTick(() => {
-        if (this.activePanel === null && this.toolbar.tabs.length) {
-          this.activePanel = this.toolbar.tabs[0].name;
+        if (store.activePanel === null && this.toolbar.tabs.length) {
+          store.activePanel = this.toolbar.tabs[0].name;
         }
-        this.toolbar.activeTab = this.activePanel;
+        this.toolbar.activeTab = store.activePanel;
       });
     },
 
     isActivePanel(name) {
-      return this.activePanel === name;
+      return store.activePanel === name;
     },
 
     get toolbar() {
@@ -25,7 +27,7 @@ export default AlpineComponent("pane", (id) => {
     bindings: {
       root: {
         ["@toolbar:tab-selected"](event) {
-          this.activePanel = event.detail.name;
+          store.activePanel = event.detail.name;
         },
       },
     },

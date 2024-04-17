@@ -9204,6 +9204,25 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   }
   var module_default3 = src_default3;
 
+  // assets/js/alpine/store.js
+  function initStore(id) {
+    return {
+      data: Alpine.$persist({}).as(`store#${id}`),
+      fetch(type, id2, default_value) {
+        if (!this.data[type]) {
+          this.data[type] = {};
+        }
+        if (!this.data[type][id2] && default_value) {
+          this.data[type][id2] = default_value;
+        }
+        return this.data[type][id2];
+      },
+      clear() {
+        Object.keys(this.data).forEach((key2) => delete this.data[key2]);
+      }
+    };
+  }
+
   // assets/js/alpine/utils.js
   function registerComponents(entries) {
     entries.forEach((entry) => {
@@ -9400,8 +9419,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
   var status_bar_default = AlpineComponent("statusBar", () => {
     return {
       reset() {
-        localStorage.clear();
+        Alpine.store("app").clear();
         window.location.reload();
+        this.$logger.info(`Local storage cleared`);
       }
     };
   });
@@ -42029,10 +42049,12 @@ Expected it to be ${r2}.`;
     default: () => nav_default
   });
   var nav_default = AlpineComponent("nav", (id) => {
+    const store2 = Alpine.store("app").fetch("nav", id, {
+      expandedItems: [],
+      filterText: ""
+    });
     return {
       id,
-      expandedItems: Alpine.$persist([]).as(`nav#${id}:expanded-items`),
-      filterText: Alpine.$persist("").as(`nav#${id}:filter-text`),
       empty: false,
       filteredOut: false,
       init() {
@@ -42067,7 +42089,7 @@ Expected it to be ${r2}.`;
         });
       },
       async filter() {
-        const text2 = this.filterText;
+        const text2 = store2.filterText;
         await this.$nextTick();
         const filteredStates = await Promise.all(
           this.children.map(async (data2) => {
@@ -42079,7 +42101,16 @@ Expected it to be ${r2}.`;
         this.empty = matchedChildCount === 0;
       },
       clearFilter() {
-        this.filterText = "";
+        store2.filterText = "";
+      },
+      get filterText() {
+        return store2.filterText;
+      },
+      set filterText(value) {
+        store2.filterText = value;
+      },
+      get expandedItems() {
+        return store2.expandedItems;
       },
       get children() {
         return Array.from(this.$refs.nav.children).map((node) => getData(node));
@@ -42173,18 +42204,20 @@ Expected it to be ${r2}.`;
     default: () => pane_default
   });
   var pane_default = AlpineComponent("pane", (id) => {
+    const store2 = Alpine.store("app").fetch("pane", id, {
+      activePanel: null
+    });
     return {
-      activePanel: Alpine.$persist(null).as(`pane#${id}:active-panel`),
       init() {
         this.$nextTick(() => {
-          if (this.activePanel === null && this.toolbar.tabs.length) {
-            this.activePanel = this.toolbar.tabs[0].name;
+          if (store2.activePanel === null && this.toolbar.tabs.length) {
+            store2.activePanel = this.toolbar.tabs[0].name;
           }
-          this.toolbar.activeTab = this.activePanel;
+          this.toolbar.activeTab = store2.activePanel;
         });
       },
       isActivePanel(name) {
-        return this.activePanel === name;
+        return store2.activePanel === name;
       },
       get toolbar() {
         return getData(this.$root.querySelector("[data-component='toolbar']"));
@@ -42192,7 +42225,7 @@ Expected it to be ${r2}.`;
       bindings: {
         root: {
           ["@toolbar:tab-selected"](event) {
-            this.activePanel = event.detail.name;
+            store2.activePanel = event.detail.name;
           }
         }
       }
@@ -42821,13 +42854,15 @@ Expected it to be ${r2}.`;
 
   // app/components/lookbook/ui/elements/pane_group/pane_group.js
   var pane_group_default = AlpineComponent("paneGroup", (id, opts = {}) => {
-    return {
-      splitter: null,
-      split: Alpine.$persist({
+    const store2 = Alpine.store("app").fetch("pane-group", id, {
+      split: {
         orientation: opts.orientation || "horizontal",
         verticalSizes: opts.verticalSizes || opts.sizes || ["50%", "50%"],
         horizontalSizes: opts.horizontalSizes || opts.sizes || ["50%", "50%"]
-      }).as(`layout#${id}:split`),
+      }
+    });
+    return {
+      splitter: null,
       layoutWidth: null,
       layoutHeight: null,
       minHorizontalSizes: opts.minHorizontalSizes || opts.minSizes || [],
@@ -42869,13 +42904,13 @@ Expected it to be ${r2}.`;
       },
       setSplits(splits) {
         if (this.horizontal) {
-          this.split.horizontalSizes = splits;
+          store2.split.horizontalSizes = splits;
         } else {
-          this.split.verticalSizes = splits;
+          store2.split.verticalSizes = splits;
         }
       },
       switchOrientation() {
-        this.split.orientation = this.vertical ? "horizontal" : "vertical";
+        store2.split.orientation = this.vertical ? "horizontal" : "vertical";
       },
       destroySplitter() {
         if (this.splitter)
@@ -42889,19 +42924,19 @@ Expected it to be ${r2}.`;
         }
       },
       get splits() {
-        return this.horizontal ? this.split.horizontalSizes : this.split.verticalSizes;
+        return this.horizontal ? store2.split.horizontalSizes : store2.split.verticalSizes;
       },
       get vertical() {
         if (this.forceOrientation) {
           return this.forceOrientation === "vertical";
         }
-        return this.split.orientation === "vertical";
+        return store2.split.orientation === "vertical";
       },
       get horizontal() {
         if (this.forceOrientation) {
           return this.forceOrientation === "horizontal";
         }
-        return this.split.orientation === "horizontal";
+        return store2.split.orientation === "horizontal";
       },
       bindings: {
         root: {
@@ -42912,7 +42947,7 @@ Expected it to be ${r2}.`;
             };
           },
           [":data-orientation"]() {
-            return this.forceOrientation || this.split.orientation;
+            return this.forceOrientation || store2.split.orientation;
           }
         }
       }
@@ -42990,13 +43025,15 @@ Expected it to be ${r2}.`;
   var viewport_default = AlpineComponent(
     "viewport",
     (id, opts = { minWidth: 200, minHeight: 200 }) => {
+      const store2 = module_default.store("app").fetch("viewport", id, {
+        width: "100%",
+        height: "100%",
+        lastWidth: "100%",
+        lastHeight: "100%"
+      });
       return {
         minWidth: opts.minWidth,
         minHeight: opts.minHeight,
-        width: Alpine.$persist("100%").as(`viewport#${id}:width`),
-        height: Alpine.$persist("100%").as(`viewport#${id}:height`),
-        lastWidth: Alpine.$persist("100%").as(`viewport#${id}:last-width`),
-        lastHeight: Alpine.$persist("100%").as(`viewport#${id}:last-height`),
         iframeDimensions: {},
         resizing: false,
         init() {
@@ -43024,13 +43061,13 @@ Expected it to be ${r2}.`;
           this.onResizeHeightStart(e2);
         },
         toggleFullSize() {
-          if (this.height === "100%" && this.width === "100%") {
+          if (this.height === "100%" && store2.width === "100%") {
             this.toggleFullHeight();
             this.toggleFullWidth();
           } else {
             if (this.height !== "100%")
               this.toggleFullHeight();
-            if (this.width !== "100%")
+            if (store2.width !== "100%")
               this.toggleFullWidth();
           }
         },
@@ -43040,7 +43077,7 @@ Expected it to be ${r2}.`;
             Math.max(Math.round(width), this.minWidth),
             this.parentWidth
           );
-          this.width = boundedWidth === this.parentWidth ? "100%" : boundedWidth;
+          store2.width = boundedWidth === this.parentWidth ? "100%" : boundedWidth;
           this.$dispatch("viewport:resize-progress");
         },
         onResizeWidthStart(e2) {
@@ -43056,11 +43093,11 @@ Expected it to be ${r2}.`;
           this.stop();
         },
         toggleFullWidth() {
-          if (this.width === "100%") {
-            this.width = this.lastWidth;
+          if (store2.width === "100%") {
+            store2.width = this.lastWidth;
           } else {
-            this.lastWidth = this.width;
-            this.width = "100%";
+            this.lastWidth = store2.width;
+            store2.width = "100%";
           }
         },
         onResizeHeight(e2) {
@@ -43102,7 +43139,7 @@ Expected it to be ${r2}.`;
           return `${this.iframeDimensions.height}px`;
         },
         get maxWidth() {
-          return this.width === "100%" ? "100%" : `${this.width}px`;
+          return store2.width === "100%" ? "100%" : `${store2.width}px`;
         },
         get maxHeight() {
           return this.height === "100%" ? "100%" : `${this.height}px`;
@@ -43286,6 +43323,7 @@ Expected it to be ${r2}.`;
     module_default.plugin(module_default2);
     module_default.plugin(module_default3);
     module_default.magic("logger", () => logger2);
+    module_default.store("app", initStore("app"));
     registerComponents(__default);
     module_default.start();
   }

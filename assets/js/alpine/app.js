@@ -1,6 +1,7 @@
 import Alpine from "alpinejs";
 import morph from "@alpinejs/morph";
 import persist from "@alpinejs/persist";
+import initStore from "./store";
 import { registerComponents } from "./utils";
 import components from "../../../app/components/lookbook/ui/**/*.js";
 
@@ -11,6 +12,8 @@ export default function initAlpine({ logger }) {
   Alpine.plugin(persist);
 
   Alpine.magic("logger", () => logger);
+
+  Alpine.store("app", initStore("app"));
 
   registerComponents(components);
 

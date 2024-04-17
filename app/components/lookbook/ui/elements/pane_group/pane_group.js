@@ -3,23 +3,21 @@ import Split from "split-grid";
 import { observeSize } from "@js/helpers";
 
 export default AlpineComponent("paneGroup", (id, opts = {}) => {
-  return {
-    splitter: null,
-
-    split: Alpine.$persist({
+  const store = Alpine.store("app").fetch("pane-group", id, {
+    split: {
       orientation: opts.orientation || "horizontal",
       verticalSizes: opts.verticalSizes || opts.sizes || ["50%", "50%"],
       horizontalSizes: opts.horizontalSizes || opts.sizes || ["50%", "50%"],
-    }).as(`layout#${id}:split`),
+    },
+  });
 
+  return {
+    splitter: null,
     layoutWidth: null,
     layoutHeight: null,
-
     minHorizontalSizes: opts.minHorizontalSizes || opts.minSizes || [],
     minVerticalSizes: opts.minVerticalSizes || opts.minSizes || [],
-
     forceOrientation: false,
-
     gutters: [],
 
     init() {
@@ -62,14 +60,14 @@ export default AlpineComponent("paneGroup", (id, opts = {}) => {
 
     setSplits(splits) {
       if (this.horizontal) {
-        this.split.horizontalSizes = splits;
+        store.split.horizontalSizes = splits;
       } else {
-        this.split.verticalSizes = splits;
+        store.split.verticalSizes = splits;
       }
     },
 
     switchOrientation() {
-      this.split.orientation = this.vertical ? "horizontal" : "vertical";
+      store.split.orientation = this.vertical ? "horizontal" : "vertical";
     },
 
     destroySplitter() {
@@ -86,22 +84,22 @@ export default AlpineComponent("paneGroup", (id, opts = {}) => {
 
     get splits() {
       return this.horizontal
-        ? this.split.horizontalSizes
-        : this.split.verticalSizes;
+        ? store.split.horizontalSizes
+        : store.split.verticalSizes;
     },
 
     get vertical() {
       if (this.forceOrientation) {
         return this.forceOrientation === "vertical";
       }
-      return this.split.orientation === "vertical";
+      return store.split.orientation === "vertical";
     },
 
     get horizontal() {
       if (this.forceOrientation) {
         return this.forceOrientation === "horizontal";
       }
-      return this.split.orientation === "horizontal";
+      return store.split.orientation === "horizontal";
     },
 
     bindings: {
@@ -113,7 +111,7 @@ export default AlpineComponent("paneGroup", (id, opts = {}) => {
           };
         },
         [":data-orientation"]() {
-          return this.forceOrientation || this.split.orientation;
+          return this.forceOrientation || store.split.orientation;
         },
       },
     },

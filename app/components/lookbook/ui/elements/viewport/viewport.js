@@ -1,16 +1,20 @@
 import AlpineComponent from "@js/alpine/component";
 import { observeSize } from "@js/helpers";
+import Alpine from "alpinejs";
 
 export default AlpineComponent(
   "viewport",
   (id, opts = { minWidth: 200, minHeight: 200 }) => {
+    const store = Alpine.store("app").fetch("viewport", id, {
+      width: "100%",
+      height: "100%",
+      lastWidth: "100%",
+      lastHeight: "100%",
+    });
+
     return {
       minWidth: opts.minWidth,
       minHeight: opts.minHeight,
-      width: Alpine.$persist("100%").as(`viewport#${id}:width`),
-      height: Alpine.$persist("100%").as(`viewport#${id}:height`),
-      lastWidth: Alpine.$persist("100%").as(`viewport#${id}:last-width`),
-      lastHeight: Alpine.$persist("100%").as(`viewport#${id}:last-height`),
       iframeDimensions: {},
       resizing: false,
 
@@ -44,12 +48,12 @@ export default AlpineComponent(
       },
 
       toggleFullSize() {
-        if (this.height === "100%" && this.width === "100%") {
+        if (this.height === "100%" && store.width === "100%") {
           this.toggleFullHeight();
           this.toggleFullWidth();
         } else {
           if (this.height !== "100%") this.toggleFullHeight();
-          if (this.width !== "100%") this.toggleFullWidth();
+          if (store.width !== "100%") this.toggleFullWidth();
         }
       },
 
@@ -60,7 +64,7 @@ export default AlpineComponent(
           Math.max(Math.round(width), this.minWidth),
           this.parentWidth
         );
-        this.width = boundedWidth === this.parentWidth ? "100%" : boundedWidth;
+        store.width = boundedWidth === this.parentWidth ? "100%" : boundedWidth;
         this.$dispatch("viewport:resize-progress");
       },
 
@@ -79,11 +83,11 @@ export default AlpineComponent(
       },
 
       toggleFullWidth() {
-        if (this.width === "100%") {
-          this.width = this.lastWidth;
+        if (store.width === "100%") {
+          store.width = this.lastWidth;
         } else {
-          this.lastWidth = this.width;
-          this.width = "100%";
+          this.lastWidth = store.width;
+          store.width = "100%";
         }
       },
 
@@ -135,7 +139,7 @@ export default AlpineComponent(
       },
 
       get maxWidth() {
-        return this.width === "100%" ? "100%" : `${this.width}px`;
+        return store.width === "100%" ? "100%" : `${store.width}px`;
       },
 
       get maxHeight() {
