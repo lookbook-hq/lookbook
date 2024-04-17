@@ -248,13 +248,13 @@ RSpec.describe Lookbook::ConfigStore do
 
       context "preview_disable_action_view_partial_prefixes" do
         it "is set" do
-          expect(config.preview_disable_action_view_partial_prefixes).to be false
+          expect(config.preview_disable_action_view_partial_prefixes).to be true
         end
 
         it "can be changed" do
-          config.preview_disable_action_view_partial_prefixes = true
+          config.preview_disable_action_view_partial_prefixes = false
 
-          expect(config.preview_disable_action_view_partial_prefixes).to be true
+          expect(config.preview_disable_action_view_partial_prefixes).to be false
         end
       end
 
