@@ -17,5 +17,13 @@ module Lookbook
     end
 
     def any? = all.any?
+
+    def to_h
+      {
+        added: added,
+        removed: removed,
+        modified: modified
+      }
+    end
   end
 end

@@ -2,10 +2,9 @@ module Lookbook
   module Previews
     class << self
       include Loggable
-      include Updatable
 
       delegate :all, :updated_at, to: :store
-      delegate_missing_to :all
+      delegate_missing_to :store
 
       def load_all
         debug("previews: loading previews...")
@@ -21,12 +20,20 @@ module Lookbook
       def update(changes)
         debug("previews: updating previews...")
 
-        # TODO: smart update - only reparse changed files
-        parser.parse do |preview_entities|
-          store.replace_all(preview_entities)
+        # Remove deleted or updated previews from the store
+        tainted_paths = [changes.removed, changes.modified].flatten
+        tainted_entities = tainted_paths.map do |path|
+          store.find { _1.preview_file_path.to_s == path }
+        end
+        store.remove(*tainted_entities)
+
+        # Parse modified or newly added preview files and add into store
+        parser_paths = [changes.modified, changes.added].flatten
+        parser.parse(parser_paths) do |preview_entities|
+          store.add(*preview_entities)
           run_update_callbacks
 
-          debug("previews: #{preview_entities.size} previews updated")
+          debug("previews: #{changes.removed.size} removed, #{changes.modified.size} updated, #{changes.added.size} added")
         end
       end
 
@@ -34,6 +41,10 @@ module Lookbook
         Reloader.new(:previews, watch_paths, watch_extensions) do |changes|
           changes.nil? ? load_all : update(changes)
         end
+      end
+
+      def on_update(&block)
+        update_callbacks << block if block
       end
 
       def preview_class?(klass)
@@ -95,9 +106,17 @@ module Lookbook
 
       def source_parser
         @source_parser ||= SourceParser.new(
-          log_level: Lookbook.logger.level,
+          # log_level: Lookbook.logger.level,
           tags: Lookbook.config.preview_tags
         )
+      end
+
+      def run_update_callbacks
+        update_callbacks.each { _1.call }
+      end
+
+      def update_callbacks
+        @update_callbacks ||= []
       end
     end
   end

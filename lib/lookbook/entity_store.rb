@@ -2,6 +2,8 @@ module Lookbook
   class EntityStore
     attr_reader :updated_at
 
+    delegate_missing_to :@entities
+
     def initialize(klass = Entity)
       @entities = []
       @entity_class = klass

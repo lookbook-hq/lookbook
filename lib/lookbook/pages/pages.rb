@@ -2,7 +2,6 @@ module Lookbook
   module Pages
     class << self
       include Loggable
-      include Updatable
 
       delegate :all, :updated_at, to: :store
       delegate_missing_to :all
@@ -36,6 +35,10 @@ module Lookbook
         end
       end
 
+      def on_update(&block)
+        update_callbacks << block if block
+      end
+
       def page_controller
         Lookbook.config.page_controller.constantize
       end
@@ -47,7 +50,6 @@ module Lookbook
       def watch_paths
         @watch_paths ||= [
           page_paths,
-          Previews.watch_paths,
           Utils.normalize_paths(Lookbook.config.page_watch_paths)
         ].flatten.uniq
       end
@@ -80,6 +82,14 @@ module Lookbook
 
       def store
         @store ||= EntityStore.new(PageEntity)
+      end
+
+      def run_update_callbacks
+        update_callbacks.each { _1.call }
+      end
+
+      def update_callbacks
+        @update_callbacks ||= []
       end
     end
   end
