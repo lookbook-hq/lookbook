@@ -238,6 +238,11 @@
     margin-bottom: 0;
   }
 
+  lookbook-embed {
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+
   h2 code {
     font-size: 0.875em;
   }

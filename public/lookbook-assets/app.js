@@ -43912,6 +43912,10 @@ Expected it to be ${r6}.`;
   var LookbookEmbed = class extends s4 {
     static get styles() {
       return i2`
+      :host {
+        display: block;
+      }
+
       iframe {
         width: 100%;
         border: 0;

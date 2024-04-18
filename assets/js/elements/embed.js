@@ -3,6 +3,10 @@ import { LitElement, css, html } from "lit";
 export class LookbookEmbed extends LitElement {
   static get styles() {
     return css`
+      :host {
+        display: block;
+      }
+
       iframe {
         width: 100%;
         border: 0;

@@ -581,6 +581,10 @@
   var LookbookEmbed = class extends s3 {
     static get styles() {
       return i`
+      :host {
+        display: block;
+      }
+
       iframe {
         width: 100%;
         border: 0;

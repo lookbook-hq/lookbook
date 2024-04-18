@@ -991,6 +991,11 @@ tr:not(:last-child) {
     margin-bottom: 0;
   }
 
+[data-component="prose"] lookbook-embed {
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+
 [data-component="prose"] h2 code {
     font-size: 0.875em;
   }
