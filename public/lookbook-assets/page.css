@@ -1,4 +1,81 @@
 :root {
+  /*
+   * Spacings
+   */
+
+  --lookbook-spacing-3x-small: 0.125rem; /* 2px */
+  --lookbook-spacing-2x-small: 0.25rem; /* 4px */
+  --lookbook-spacing-x-small: 0.5rem; /* 8px */
+  --lookbook-spacing-small: 0.75rem; /* 12px */
+  --lookbook-spacing-medium: 1rem; /* 16px */
+  --lookbook-spacing-large: 1.25rem; /* 20px */
+  --lookbook-spacing-x-large: 1.75rem; /* 28px */
+  --lookbook-spacing-2x-large: 2.25rem; /* 36px */
+  --lookbook-spacing-3x-large: 3rem; /* 48px */
+  --lookbook-spacing-4x-large: 4.5rem; /* 72px */
+
+  --lookbook-size-3x-small: 0.125rem; /* 2px */
+  --lookbook-size-2x-small: 0.25rem; /* 4px */
+  --lookbook-size-x-small: 0.5rem; /* 8px */
+  --lookbook-size-small: 0.75rem; /* 12px */
+  --lookbook-size-medium: 1rem; /* 16px */
+  --lookbook-size-large: 1.25rem; /* 20px */
+  --lookbook-size-x-large: 1.75rem; /* 28px */
+  --lookbook-size-2x-large: 2.25rem; /* 36px */
+  --lookbook-size-3x-large: 3rem; /* 48px */
+  --lookbook-size-4x-large: 4.5rem; /* 72px */
+
+  /*
+   * Typography
+   */
+
+  /* Fonts */
+  --lookbook-font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+    monospace;
+  --lookbook-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+
+  /* Font sizes */
+  --lookbook-font-size-2x-small: 0.625rem; /* 10px */
+  --lookbook-font-size-x-small: 0.75rem; /* 12px */
+  --lookbook-font-size-small: 0.875rem; /* 14px */
+  --lookbook-font-size-medium: 1rem; /* 16px */
+  --lookbook-font-size-large: 1.25rem; /* 20px */
+  --lookbook-font-size-x-large: 1.5rem; /* 24px */
+  --lookbook-font-size-2x-large: 2.25rem; /* 36px */
+  --lookbook-font-size-3x-large: 3rem; /* 48px */
+  --lookbook-font-size-4x-large: 4.5rem; /* 72px */
+
+  /* Font weights */
+  --lookbook-font-weight-light: 300;
+  --lookbook-font-weight-normal: 400;
+  --lookbook-font-weight-semibold: 500;
+  --lookbook-font-weight-bold: 700;
+
+  /*
+   * Border radii
+   */
+
+  --lookbook-border-radius-small: 0.1875rem; /* 3px */
+  --lookbook-border-radius-medium: 0.25rem; /* 4px */
+  --lookbook-border-radius-large: 0.5rem; /* 8px */
+  --lookbook-border-radius-x-large: 1rem; /* 16px */
+
+  --lookbook-border-radius-circle: 50%;
+  --lookbook-border-radius-pill: 9999px;
+
+  /*
+   * Shadows
+   */
+
+  --lookbook-shadow-x-small: 0 1px 2px hsla(240, 4%, 46%, 0.06);
+  --lookbook-shadow-small: 0 1px 2px hsla(240, 4%, 46%, 0.12);
+  --lookbook-shadow-medium: 0 2px 4px hsla(240, 4%, 46%, 0.12);
+  --lookbook-shadow-large: 0 2px 8px hsla(240, 4%, 46%, 0.12);
+  --lookbook-shadow-x-large: 0 4px 16px hsla(240, 4%, 46%, 0.12);
+}
+:root {
   --lookbook-color-gray-50: hsl(0, 0%, 98%);
   --lookbook-color-gray-100: hsl(240, 5%, 96%);
   --lookbook-color-gray-200: hsl(240, 6%, 90%);
@@ -215,7 +292,6 @@
   --lookbook-color-rose-900: hsl(342, 76%, 30%);
   --lookbook-color-rose-950: hsl(341, 70%, 17%);
 }
-
 :root,
 :host,
 .lookbook-theme-light {
@@ -288,62 +364,7 @@
   --lookbook-color-danger-950: var(--lookbook-color-red-950);
 
   --lookbook-divider-color: var(--lookbook-color-base-300);
-
-  /*
-   * Spacings
-   */
-
-  --lookbook-spacing-3x-small: 0.125rem; /* 2px */
-  --lookbook-spacing-2x-small: 0.25rem; /* 4px */
-  --lookbook-spacing-x-small: 0.5rem; /* 8px */
-  --lookbook-spacing-small: 0.75rem; /* 12px */
-  --lookbook-spacing-medium: 1rem; /* 16px */
-  --lookbook-spacing-large: 1.25rem; /* 20px */
-  --lookbook-spacing-x-large: 1.75rem; /* 28px */
-  --lookbook-spacing-2x-large: 2.25rem; /* 36px */
-  --lookbook-spacing-3x-large: 3rem; /* 48px */
-  --lookbook-spacing-4x-large: 4.5rem; /* 72px */
-
-  --lookbook-size-3x-small: 0.125rem; /* 2px */
-  --lookbook-size-2x-small: 0.25rem; /* 4px */
-  --lookbook-size-x-small: 0.5rem; /* 8px */
-  --lookbook-size-small: 0.75rem; /* 12px */
-  --lookbook-size-medium: 1rem; /* 16px */
-  --lookbook-size-large: 1.25rem; /* 20px */
-  --lookbook-size-x-large: 1.75rem; /* 28px */
-  --lookbook-size-2x-large: 2.25rem; /* 36px */
-  --lookbook-size-3x-large: 3rem; /* 48px */
-  --lookbook-size-4x-large: 4.5rem; /* 72px */
-
-  /*
-   * Typography
-   */
-
-  /* Fonts */
-  --lookbook-font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo,
-    monospace;
-  --lookbook-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
-
-  /* Font sizes */
-  --lookbook-font-size-2x-small: 0.625rem; /* 10px */
-  --lookbook-font-size-x-small: 0.75rem; /* 12px */
-  --lookbook-font-size-small: 0.875rem; /* 14px */
-  --lookbook-font-size-medium: 1rem; /* 16px */
-  --lookbook-font-size-large: 1.25rem; /* 20px */
-  --lookbook-font-size-x-large: 1.5rem; /* 24px */
-  --lookbook-font-size-2x-large: 2.25rem; /* 36px */
-  --lookbook-font-size-3x-large: 3rem; /* 48px */
-  --lookbook-font-size-4x-large: 4.5rem; /* 72px */
-
-  /* Font weights */
-  --lookbook-font-weight-light: 300;
-  --lookbook-font-weight-normal: 400;
-  --lookbook-font-weight-semibold: 500;
-  --lookbook-font-weight-bold: 700;
 }
-
 *,
 ::before,
 ::after {
@@ -352,7 +373,6 @@
   border-style: solid;
   border-color: currentColor;
 }
-
 html,
 :host {
   line-height: 1.5;
@@ -364,24 +384,20 @@ html,
   font-variation-settings: normal;
   -webkit-tap-highlight-color: transparent;
 }
-
 body {
   margin: 0;
   line-height: inherit;
 }
-
 hr {
   height: 0;
   color: inherit;
   border-top-width: 1px;
 }
-
 abbr:where([title]) {
   -webkit-text-decoration: underline dotted;
   text-decoration: underline;
   text-decoration: underline dotted;
 }
-
 h1,
 h2,
 h3,
@@ -391,17 +407,14 @@ h6 {
   font-size: inherit;
   font-weight: inherit;
 }
-
 a {
   color: inherit;
   text-decoration: inherit;
 }
-
 b,
 strong {
   font-weight: bolder;
 }
-
 code,
 kbd,
 samp,
@@ -410,11 +423,9 @@ pre {
   font-variation-settings: normal;
   font-size: 1em;
 }
-
 small {
   font-size: 80%;
 }
-
 sub,
 sup {
   font-size: 75%;
@@ -422,21 +433,17 @@ sup {
   position: relative;
   vertical-align: baseline;
 }
-
 sub {
   bottom: -0.25em;
 }
-
 sup {
   top: -0.5em;
 }
-
 table {
   text-indent: 0;
   border-color: inherit;
   border-collapse: collapse;
 }
-
 button,
 input,
 optgroup,
@@ -452,12 +459,10 @@ textarea {
   margin: 0;
   padding: 0;
 }
-
 button,
 select {
   text-transform: none;
 }
-
 button,
 button[type="button"],
 button[type="reset"],
@@ -466,42 +471,33 @@ button[type="submit"] {
   background-color: transparent;
   background-image: none;
 }
-
 :-moz-focusring {
   outline: auto;
 }
-
 :-moz-ui-invalid {
   box-shadow: none;
 }
-
 progress {
   vertical-align: baseline;
 }
-
 ::-webkit-inner-spin-button,
 ::-webkit-outer-spin-button {
   height: auto;
 }
-
 [type="search"] {
   -webkit-appearance: textfield;
   outline-offset: -2px;
 }
-
 ::-webkit-search-decoration {
   -webkit-appearance: none;
 }
-
 ::-webkit-file-upload-button {
   -webkit-appearance: button;
   font: inherit;
 }
-
 summary {
   display: list-item;
 }
-
 blockquote,
 dl,
 dd,
@@ -517,16 +513,13 @@ p,
 pre {
   margin: 0;
 }
-
 fieldset {
   margin: 0;
   padding: 0;
 }
-
 legend {
   padding: 0;
 }
-
 ol,
 ul,
 menu {
@@ -534,41 +527,33 @@ menu {
   margin: 0;
   padding: 0;
 }
-
 dialog {
   padding: 0;
 }
-
 textarea {
   resize: vertical;
 }
-
 input::-moz-placeholder,
 textarea::-moz-placeholder {
   opacity: 1;
   color: #9ca3af;
 }
-
 input::-moz-placeholder, textarea::-moz-placeholder {
   opacity: 1;
   color: #9ca3af;
 }
-
 input::placeholder,
 textarea::placeholder {
   opacity: 1;
   color: #9ca3af;
 }
-
 button,
 [role="button"] {
   cursor: pointer;
 }
-
 :disabled {
   cursor: default;
 }
-
 img,
 svg,
 video,
@@ -580,17 +565,14 @@ object {
   display: block;
   vertical-align: middle;
 }
-
 img,
 video {
   max-width: 100%;
   height: auto;
 }
-
 [hidden] {
   display: none;
 }
-
 html,
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -601,27 +583,22 @@ body {
   font-size: var(--lookbook-font-size-medium);
   color: var(--lookbook-color-neutral-900);
 }
-
 body {
   min-height: 100vh;
   font-size: 1rem;
   font-size: var(--lookbook-font-size-medium);
 }
-
 code {
   font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo,
     monospace;
   font-family: var(--lookbook-font-mono);
 }
-
 router {
   display: contents;
 }
-
 [x-cloak] {
   display: none !important;
 }
-
 table {
   background: #fff;
   background: var(--lookbook-color-base-0);
@@ -630,7 +607,6 @@ table {
   width: 100%;
   border-collapse: collapse;
 }
-
 th,
 td {
   text-align: left;
@@ -644,43 +620,32 @@ td {
   padding-bottom: var(--lookbook-spacing-small);
   width: 1%;
 }
-
 thead tr,
 tr:not(:last-child) {
   border-bottom: 1px solid hsl(240, 5%, 84%);
   border-bottom: 1px solid var(--lookbook-color-base-300);
 }
-
+:focus-visible {
+  outline: 1px solid transparent;
+  outline-offset: 0;
+  outline-color: hsl(228, 97%, 89%);
+  outline-color: var(--lookbook-color-accent-200);
+}
 .tippy-box[data-animation=fade][data-state=hidden]{opacity:0}
-
 [data-tippy-root]{max-width:calc(100vw - 10px)}
-
 .tippy-box{position:relative;background-color:#333;color:#fff;border-radius:4px;font-size:14px;line-height:1.4;white-space:normal;outline:0;transition-property:transform,visibility,opacity}
-
 .tippy-box[data-placement^=top]>.tippy-arrow{bottom:0}
-
 .tippy-box[data-placement^=top]>.tippy-arrow:before{bottom:-7px;left:0;border-width:8px 8px 0;border-top-color:currentcolor;border-top-color:initial;transform-origin:center top}
-
 .tippy-box[data-placement^=bottom]>.tippy-arrow{top:0}
-
 .tippy-box[data-placement^=bottom]>.tippy-arrow:before{top:-7px;left:0;border-width:0 8px 8px;border-bottom-color:currentcolor;border-bottom-color:initial;transform-origin:center bottom}
-
 .tippy-box[data-placement^=left]>.tippy-arrow{right:0}
-
 .tippy-box[data-placement^=left]>.tippy-arrow:before{border-width:8px 0 8px 8px;border-left-color:currentcolor;border-left-color:initial;right:-7px;transform-origin:center left}
-
 .tippy-box[data-placement^=right]>.tippy-arrow{left:0}
-
 .tippy-box[data-placement^=right]>.tippy-arrow:before{left:-7px;border-width:8px 8px 8px 0;border-right-color:currentcolor;border-right-color:initial;transform-origin:center right}
-
 .tippy-box[data-inertia][data-state=visible]{transition-timing-function:cubic-bezier(.54,1.5,.38,1.11)}
-
 .tippy-arrow{width:16px;height:16px;color:#333}
-
 .tippy-arrow:before{content:"";position:absolute;border-color:transparent;border-style:solid}
-
 .tippy-content{position:relative;padding:5px 9px;z-index:1}
-
 [data-component="code"] {
   display: block;
 
@@ -688,26 +653,21 @@ tr:not(:last-child) {
   width: 100%;
   overflow: hidden;
 }
-
 [data-component="code"] .code-raw {
     display: none;
   }
-
 [data-component="code"] .code-highlighted {
     height: 100%;
   }
-
 [data-component="code"] .code-highlighted code,
     [data-component="code"] .code-highlighted pre {
       display: block;
       height: 100%;
       width: 100%;
     }
-
 [data-component="code"] .code-highlighted code:focus-visible, [data-component="code"] .code-highlighted pre:focus-visible {
         outline: 0;
       }
-
 [data-component="code"] .code-highlighted pre > code {
       font-size: 0.875rem;
       font-size: var(--lookbook-font-size-small);
@@ -722,18 +682,15 @@ tr:not(:last-child) {
       padding-bottom: var(--lookbook-spacing-small) !important;
       overflow: auto;
     }
-
 .wrap-lines[data-component="code"] .code-highlighted code {
     white-space: pre-wrap;
   }
-
 [data-component="prose"] {
   color: hsl(240, 6%, 10%);
   color: var(--lookbook-color-base-900);
   font-size: 1rem;
   line-height: 1.75;
 }
-
 [data-component="prose"] [class~="lead"] {
     color: hsl(240, 6%, 10%);
     color: var(--lookbook-color-base-900);
@@ -742,27 +699,22 @@ tr:not(:last-child) {
     margin-top: 1.2em;
     margin-bottom: 1.2em;
   }
-
 [data-component="prose"] a {
     position: relative;
   }
-
 [data-component="prose"] strong {
     font-weight: 600;
   }
-
 [data-component="prose"] ol {
     counter-reset: list-counter;
     margin-top: 1.25em;
     margin-bottom: 1.25em;
   }
-
 [data-component="prose"] ol > li {
     position: relative;
     counter-increment: list-counter;
     padding-left: 1.75em;
   }
-
 [data-component="prose"] ol > li::before {
     content: counter(list-counter) ".";
     position: absolute;
@@ -770,12 +722,10 @@ tr:not(:last-child) {
     color: hsl(240, 5%, 34%);
     color: var(--lookbook-color-base-600);
   }
-
 [data-component="prose"] ul > li {
     position: relative;
     padding-left: 1.75em;
   }
-
 [data-component="prose"] ul > li::before {
     content: "";
     position: absolute;
@@ -787,7 +737,6 @@ tr:not(:last-child) {
     top: calc(0.875em - 0.1875em);
     left: 0.25em;
   }
-
 [data-component="prose"] hr {
     border-color: hsl(240, 5%, 84%);
     border-color: var(--lookbook-divider-color);
@@ -795,7 +744,6 @@ tr:not(:last-child) {
     margin-top: 3em;
     margin-bottom: 3em;
   }
-
 [data-component="prose"] blockquote {
     font-weight: 500;
     font-style: italic;
@@ -808,15 +756,12 @@ tr:not(:last-child) {
     margin-bottom: 1.6em;
     padding-left: 1em;
   }
-
 [data-component="prose"] blockquote p:first-of-type::before {
     content: open-quote;
   }
-
 [data-component="prose"] blockquote p:last-of-type::after {
     content: close-quote;
   }
-
 [data-component="prose"] h1,
   [data-component="prose"] h2,
   [data-component="prose"] h3,
@@ -825,35 +770,30 @@ tr:not(:last-child) {
     margin-top: 1.5em;
     margin-bottom: 0.8em;
   }
-
 [data-component="prose"] h1 {
     font-weight: 700;
     font-weight: var(--lookbook-font-weight-bold);
     font-size: 2.25rem;
     font-size: var(--lookbook-font-size-2x-large);
   }
-
 [data-component="prose"] h2 {
     font-weight: 700;
     font-weight: var(--lookbook-font-weight-bold);
     font-size: 1.5rem;
     font-size: var(--lookbook-font-size-x-large);
   }
-
 [data-component="prose"] h3 {
     font-weight: 700;
     font-weight: var(--lookbook-font-weight-bold);
     font-size: 1.25rem;
     font-size: var(--lookbook-font-size-large);
   }
-
 [data-component="prose"] h4 {
     font-weight: 700;
     font-weight: var(--lookbook-font-weight-bold);
     font-size: 1rem;
     font-size: var(--lookbook-font-size-medium);
   }
-
 [data-component="prose"] figure figcaption {
     color: hsl(240, 5%, 34%);
     color: var(--lookbook-color-base-600);
@@ -861,7 +801,6 @@ tr:not(:last-child) {
     line-height: 1.4285714;
     margin-top: 0.8571429em;
   }
-
 [data-component="prose"] code:not(pre code) {
     font-size: 0.8em;
     display: inline-block;
@@ -874,10 +813,11 @@ tr:not(:last-child) {
     padding-right: 0.25rem;
     padding-left: var(--lookbook-spacing-2x-small);
     padding-right: var(--lookbook-spacing-2x-small);
+    border-radius: 0.1875rem;
     border-radius: var(--lookbook-border-radius-small);
-    color: var(--lookbook-color-primary-900);
+    color: hsl(242, 47%, 34%);
+    color: var(--lookbook-color-accent-900);
   }
-
 /* 
 
   code::before {
@@ -922,7 +862,6 @@ tr:not(:last-child) {
   pre code::after {
     content: "";
   } */
-
 [data-component="prose"] table {
     width: 100%;
     table-layout: auto;
@@ -932,7 +871,6 @@ tr:not(:last-child) {
     font-size: 0.875em;
     line-height: 1.7142857;
   }
-
 [data-component="prose"] thead {
     color: #1a202c;
     font-weight: 600;
@@ -940,24 +878,20 @@ tr:not(:last-child) {
     border-bottom-color: hsl(240, 5%, 84%);
     border-bottom-color: var(--lookbook-divider-color);
   }
-
 [data-component="prose"] thead th {
     vertical-align: bottom;
     padding-right: 0.5714286em;
     padding-bottom: 0.5714286em;
     padding-left: 0.5714286em;
   }
-
 [data-component="prose"] tbody tr {
     border-bottom-width: 1px;
     border-bottom-color: hsl(240, 5%, 84%);
     border-bottom-color: var(--lookbook-divider-color);
   }
-
 [data-component="prose"] tbody tr:last-child {
     border-bottom-width: 0;
   }
-
 [data-component="prose"] tbody td {
     vertical-align: top;
     padding-top: 0.5714286em;
@@ -965,80 +899,63 @@ tr:not(:last-child) {
     padding-bottom: 0.5714286em;
     padding-left: 0.5714286em;
   }
-
 [data-component="prose"] p {
     margin-top: 1.25em;
     margin-bottom: 1.25em;
   }
-
 [data-component="prose"] img {
     margin-top: 2em;
     margin-bottom: 2em;
   }
-
 [data-component="prose"] video {
     margin-top: 2em;
     margin-bottom: 2em;
   }
-
 [data-component="prose"] figure {
     margin-top: 2em;
     margin-bottom: 2em;
   }
-
 [data-component="prose"] figure > * {
     margin-top: 0;
     margin-bottom: 0;
   }
-
 [data-component="prose"] lookbook-embed {
     margin-top: 2em;
     margin-bottom: 2em;
   }
-
 [data-component="prose"] h2 code {
     font-size: 0.875em;
   }
-
 [data-component="prose"] h3 code {
     font-size: 0.9em;
   }
-
 [data-component="prose"] ul {
     margin-top: 1.25em;
     margin-bottom: 1.25em;
   }
-
 [data-component="prose"] li {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
   }
-
 [data-component="prose"] ol > li:before {
     left: 0;
   }
-
 [data-component="prose"] > ul > li p {
     margin-top: 0.75em;
     margin-bottom: 0.75em;
   }
-
 [data-component="prose"] > ul > li > *:first-child {
     margin-top: 1.25em;
   }
-
 [data-component="prose"] > ul > li > *:last-child {
     margin-bottom: 1.25em;
   }
-
 [data-component="prose"] > ol > li > *:first-child {
     margin-top: 1.25em;
   }
-
 [data-component="prose"] > ol > li > *:last-child {
     margin-bottom: 1.25em;
   }
-
 [data-component="prose"] ul ul,
   [data-component="prose"] ul ol,
   [data-component="prose"] ol ul,
@@ -1046,62 +963,50 @@ tr:not(:last-child) {
     margin-top: 0.75em;
     margin-bottom: 0.75em;
   }
-
 [data-component="prose"] hr + * {
     margin-top: 0;
   }
-
 [data-component="prose"] h2 + * {
     margin-top: 0;
   }
-
 [data-component="prose"] h3 + * {
     margin-top: 0;
   }
-
 [data-component="prose"] h4 + * {
     margin-top: 0;
   }
-
 [data-component="prose"] thead th:first-child {
     padding-left: 0;
   }
-
 [data-component="prose"] thead th:last-child {
     padding-right: 0;
   }
-
 [data-component="prose"] tbody td:first-child {
     padding-left: 0;
   }
-
 [data-component="prose"] tbody td:last-child {
     padding-right: 0;
   }
-
 [data-component="prose"] > :first-child {
     margin-top: 0;
   }
-
 [data-component="prose"] > :last-child {
     margin-bottom: 0;
   }
-
 [data-component="prose"] [data-component="code"] {
     background-color: hsl(0, 0%, 98%);
     background-color: var(--lookbook-color-base-50);
     border: 1px solid hsl(240, 5%, 84%);
     border: 1px solid var(--lookbook-color-base-300);
+    border-radius: 0.1875rem;
     border-radius: var(--lookbook-border-radius-small);
   }
-
 [data-component="page"] .page-slat {
     padding-left: 1.75rem;
     padding-right: 1.75rem;
     padding-left: var(--lookbook-spacing-x-large);
     padding-right: var(--lookbook-spacing-x-large);
   }
-
 [data-component="page"] .page-header {
     border-bottom: 1px solid hsl(240, 5%, 84%);
     border-bottom: 1px solid var(--lookbook-color-base-300);
@@ -1110,21 +1015,18 @@ tr:not(:last-child) {
     padding-top: var(--lookbook-spacing-x-large);
     padding-bottom: var(--lookbook-spacing-x-large);
   }
-
 [data-component="page"] .page-title {
     font-weight: 700;
     font-weight: var(--lookbook-font-weight-bold);
     font-size: 2.25rem;
     font-size: var(--lookbook-font-size-2x-large);
   }
-
 [data-component="page"] .page-body {
     padding-top: 2.25rem;
     padding-top: var(--lookbook-spacing-2x-large);
     padding-bottom: 3rem;
     padding-bottom: var(--lookbook-spacing-3x-large);
   }
-
 [data-component="page"] .page-footer {
     border-top: 1px solid hsl(240, 5%, 84%);
     border-top: 1px solid var(--lookbook-color-base-300);

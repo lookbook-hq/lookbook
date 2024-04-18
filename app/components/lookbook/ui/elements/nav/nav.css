@@ -10,19 +10,27 @@
   }
 
   .nav-filter {
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
     padding-block: var(--lookbook-spacing-x-small);
     padding-inline: var(--lookbook-spacing-small);
   }
 
-  .nav-tree {
+  .nav-tree-wrapper {
+    position: relative;
+    overflow: hidden;
     height: 100%;
     width: 100%;
-    overflow: auto;
+  }
+
+  .nav-tree {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
     padding-bottom: var(--lookbook-spacing-medium);
+  }
+
+  &:not(.with-filter) .nav-tree {
+    padding-top: var(--lookbook-spacing-x-small);
   }
 }

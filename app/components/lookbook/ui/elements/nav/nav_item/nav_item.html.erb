@@ -29,12 +29,12 @@
     <% if url_path %>
       <a href="<%= url_path %>" class="nav-item-label" @click.prevent="expanded = true">
         <%= lb_icon icon %>
-        <%= label %>
+        <span><%= label %></span>
       </a>
     <% else %>
       <button class="nav-item-label" @click.prevent="expanded = !expanded">
         <%= lb_icon icon %>
-        <%= label %>
+        <span><%= label %></span>
       </button>
     <% end %>
   </div>

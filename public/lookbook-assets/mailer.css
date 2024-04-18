@@ -1,4 +1,81 @@
 :root {
+  /*
+   * Spacings
+   */
+
+  --lookbook-spacing-3x-small: 0.125rem; /* 2px */
+  --lookbook-spacing-2x-small: 0.25rem; /* 4px */
+  --lookbook-spacing-x-small: 0.5rem; /* 8px */
+  --lookbook-spacing-small: 0.75rem; /* 12px */
+  --lookbook-spacing-medium: 1rem; /* 16px */
+  --lookbook-spacing-large: 1.25rem; /* 20px */
+  --lookbook-spacing-x-large: 1.75rem; /* 28px */
+  --lookbook-spacing-2x-large: 2.25rem; /* 36px */
+  --lookbook-spacing-3x-large: 3rem; /* 48px */
+  --lookbook-spacing-4x-large: 4.5rem; /* 72px */
+
+  --lookbook-size-3x-small: 0.125rem; /* 2px */
+  --lookbook-size-2x-small: 0.25rem; /* 4px */
+  --lookbook-size-x-small: 0.5rem; /* 8px */
+  --lookbook-size-small: 0.75rem; /* 12px */
+  --lookbook-size-medium: 1rem; /* 16px */
+  --lookbook-size-large: 1.25rem; /* 20px */
+  --lookbook-size-x-large: 1.75rem; /* 28px */
+  --lookbook-size-2x-large: 2.25rem; /* 36px */
+  --lookbook-size-3x-large: 3rem; /* 48px */
+  --lookbook-size-4x-large: 4.5rem; /* 72px */
+
+  /*
+   * Typography
+   */
+
+  /* Fonts */
+  --lookbook-font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+    monospace;
+  --lookbook-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+
+  /* Font sizes */
+  --lookbook-font-size-2x-small: 0.625rem; /* 10px */
+  --lookbook-font-size-x-small: 0.75rem; /* 12px */
+  --lookbook-font-size-small: 0.875rem; /* 14px */
+  --lookbook-font-size-medium: 1rem; /* 16px */
+  --lookbook-font-size-large: 1.25rem; /* 20px */
+  --lookbook-font-size-x-large: 1.5rem; /* 24px */
+  --lookbook-font-size-2x-large: 2.25rem; /* 36px */
+  --lookbook-font-size-3x-large: 3rem; /* 48px */
+  --lookbook-font-size-4x-large: 4.5rem; /* 72px */
+
+  /* Font weights */
+  --lookbook-font-weight-light: 300;
+  --lookbook-font-weight-normal: 400;
+  --lookbook-font-weight-semibold: 500;
+  --lookbook-font-weight-bold: 700;
+
+  /*
+   * Border radii
+   */
+
+  --lookbook-border-radius-small: 0.1875rem; /* 3px */
+  --lookbook-border-radius-medium: 0.25rem; /* 4px */
+  --lookbook-border-radius-large: 0.5rem; /* 8px */
+  --lookbook-border-radius-x-large: 1rem; /* 16px */
+
+  --lookbook-border-radius-circle: 50%;
+  --lookbook-border-radius-pill: 9999px;
+
+  /*
+   * Shadows
+   */
+
+  --lookbook-shadow-x-small: 0 1px 2px hsla(240, 4%, 46%, 0.06);
+  --lookbook-shadow-small: 0 1px 2px hsla(240, 4%, 46%, 0.12);
+  --lookbook-shadow-medium: 0 2px 4px hsla(240, 4%, 46%, 0.12);
+  --lookbook-shadow-large: 0 2px 8px hsla(240, 4%, 46%, 0.12);
+  --lookbook-shadow-x-large: 0 4px 16px hsla(240, 4%, 46%, 0.12);
+}
+:root {
   --lookbook-color-gray-50: hsl(0, 0%, 98%);
   --lookbook-color-gray-100: hsl(240, 5%, 96%);
   --lookbook-color-gray-200: hsl(240, 6%, 90%);
@@ -215,7 +292,6 @@
   --lookbook-color-rose-900: hsl(342, 76%, 30%);
   --lookbook-color-rose-950: hsl(341, 70%, 17%);
 }
-
 :root,
 :host,
 .lookbook-theme-light {
@@ -288,62 +364,7 @@
   --lookbook-color-danger-950: var(--lookbook-color-red-950);
 
   --lookbook-divider-color: var(--lookbook-color-base-300);
-
-  /*
-   * Spacings
-   */
-
-  --lookbook-spacing-3x-small: 0.125rem; /* 2px */
-  --lookbook-spacing-2x-small: 0.25rem; /* 4px */
-  --lookbook-spacing-x-small: 0.5rem; /* 8px */
-  --lookbook-spacing-small: 0.75rem; /* 12px */
-  --lookbook-spacing-medium: 1rem; /* 16px */
-  --lookbook-spacing-large: 1.25rem; /* 20px */
-  --lookbook-spacing-x-large: 1.75rem; /* 28px */
-  --lookbook-spacing-2x-large: 2.25rem; /* 36px */
-  --lookbook-spacing-3x-large: 3rem; /* 48px */
-  --lookbook-spacing-4x-large: 4.5rem; /* 72px */
-
-  --lookbook-size-3x-small: 0.125rem; /* 2px */
-  --lookbook-size-2x-small: 0.25rem; /* 4px */
-  --lookbook-size-x-small: 0.5rem; /* 8px */
-  --lookbook-size-small: 0.75rem; /* 12px */
-  --lookbook-size-medium: 1rem; /* 16px */
-  --lookbook-size-large: 1.25rem; /* 20px */
-  --lookbook-size-x-large: 1.75rem; /* 28px */
-  --lookbook-size-2x-large: 2.25rem; /* 36px */
-  --lookbook-size-3x-large: 3rem; /* 48px */
-  --lookbook-size-4x-large: 4.5rem; /* 72px */
-
-  /*
-   * Typography
-   */
-
-  /* Fonts */
-  --lookbook-font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo,
-    monospace;
-  --lookbook-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
-
-  /* Font sizes */
-  --lookbook-font-size-2x-small: 0.625rem; /* 10px */
-  --lookbook-font-size-x-small: 0.75rem; /* 12px */
-  --lookbook-font-size-small: 0.875rem; /* 14px */
-  --lookbook-font-size-medium: 1rem; /* 16px */
-  --lookbook-font-size-large: 1.25rem; /* 20px */
-  --lookbook-font-size-x-large: 1.5rem; /* 24px */
-  --lookbook-font-size-2x-large: 2.25rem; /* 36px */
-  --lookbook-font-size-3x-large: 3rem; /* 48px */
-  --lookbook-font-size-4x-large: 4.5rem; /* 72px */
-
-  /* Font weights */
-  --lookbook-font-weight-light: 300;
-  --lookbook-font-weight-normal: 400;
-  --lookbook-font-weight-semibold: 500;
-  --lookbook-font-weight-bold: 700;
 }
-
 *,
 ::before,
 ::after {
@@ -352,7 +373,6 @@
   border-style: solid;
   border-color: currentColor;
 }
-
 html,
 :host {
   line-height: 1.5;
@@ -364,24 +384,20 @@ html,
   font-variation-settings: normal;
   -webkit-tap-highlight-color: transparent;
 }
-
 body {
   margin: 0;
   line-height: inherit;
 }
-
 hr {
   height: 0;
   color: inherit;
   border-top-width: 1px;
 }
-
 abbr:where([title]) {
   -webkit-text-decoration: underline dotted;
   text-decoration: underline;
   text-decoration: underline dotted;
 }
-
 h1,
 h2,
 h3,
@@ -391,17 +407,14 @@ h6 {
   font-size: inherit;
   font-weight: inherit;
 }
-
 a {
   color: inherit;
   text-decoration: inherit;
 }
-
 b,
 strong {
   font-weight: bolder;
 }
-
 code,
 kbd,
 samp,
@@ -410,11 +423,9 @@ pre {
   font-variation-settings: normal;
   font-size: 1em;
 }
-
 small {
   font-size: 80%;
 }
-
 sub,
 sup {
   font-size: 75%;
@@ -422,21 +433,17 @@ sup {
   position: relative;
   vertical-align: baseline;
 }
-
 sub {
   bottom: -0.25em;
 }
-
 sup {
   top: -0.5em;
 }
-
 table {
   text-indent: 0;
   border-color: inherit;
   border-collapse: collapse;
 }
-
 button,
 input,
 optgroup,
@@ -452,12 +459,10 @@ textarea {
   margin: 0;
   padding: 0;
 }
-
 button,
 select {
   text-transform: none;
 }
-
 button,
 button[type="button"],
 button[type="reset"],
@@ -466,42 +471,33 @@ button[type="submit"] {
   background-color: transparent;
   background-image: none;
 }
-
 :-moz-focusring {
   outline: auto;
 }
-
 :-moz-ui-invalid {
   box-shadow: none;
 }
-
 progress {
   vertical-align: baseline;
 }
-
 ::-webkit-inner-spin-button,
 ::-webkit-outer-spin-button {
   height: auto;
 }
-
 [type="search"] {
   -webkit-appearance: textfield;
   outline-offset: -2px;
 }
-
 ::-webkit-search-decoration {
   -webkit-appearance: none;
 }
-
 ::-webkit-file-upload-button {
   -webkit-appearance: button;
   font: inherit;
 }
-
 summary {
   display: list-item;
 }
-
 blockquote,
 dl,
 dd,
@@ -517,16 +513,13 @@ p,
 pre {
   margin: 0;
 }
-
 fieldset {
   margin: 0;
   padding: 0;
 }
-
 legend {
   padding: 0;
 }
-
 ol,
 ul,
 menu {
@@ -534,41 +527,33 @@ menu {
   margin: 0;
   padding: 0;
 }
-
 dialog {
   padding: 0;
 }
-
 textarea {
   resize: vertical;
 }
-
 input::-moz-placeholder,
 textarea::-moz-placeholder {
   opacity: 1;
   color: #9ca3af;
 }
-
 input::-moz-placeholder, textarea::-moz-placeholder {
   opacity: 1;
   color: #9ca3af;
 }
-
 input::placeholder,
 textarea::placeholder {
   opacity: 1;
   color: #9ca3af;
 }
-
 button,
 [role="button"] {
   cursor: pointer;
 }
-
 :disabled {
   cursor: default;
 }
-
 img,
 svg,
 video,
@@ -580,17 +565,14 @@ object {
   display: block;
   vertical-align: middle;
 }
-
 img,
 video {
   max-width: 100%;
   height: auto;
 }
-
 [hidden] {
   display: none;
 }
-
 html,
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -601,27 +583,22 @@ body {
   font-size: var(--lookbook-font-size-medium);
   color: var(--lookbook-color-neutral-900);
 }
-
 body {
   min-height: 100vh;
   font-size: 1rem;
   font-size: var(--lookbook-font-size-medium);
 }
-
 code {
   font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo,
     monospace;
   font-family: var(--lookbook-font-mono);
 }
-
 router {
   display: contents;
 }
-
 [x-cloak] {
   display: none !important;
 }
-
 table {
   background: #fff;
   background: var(--lookbook-color-base-0);
@@ -630,7 +607,6 @@ table {
   width: 100%;
   border-collapse: collapse;
 }
-
 th,
 td {
   text-align: left;
@@ -644,24 +620,26 @@ td {
   padding-bottom: var(--lookbook-spacing-small);
   width: 1%;
 }
-
 thead tr,
 tr:not(:last-child) {
   border-bottom: 1px solid hsl(240, 5%, 84%);
   border-bottom: 1px solid var(--lookbook-color-base-300);
 }
-
+:focus-visible {
+  outline: 1px solid transparent;
+  outline-offset: 0;
+  outline-color: hsl(228, 97%, 89%);
+  outline-color: var(--lookbook-color-accent-200);
+}
 html,
 body {
   height: 100%;
 }
-
 body {
   margin: 0;
   display: grid;
   grid-template-rows: min-content 1fr;
 }
-
 header {
   width: 100%;
   padding: 10px 0 0 0;
@@ -677,14 +655,12 @@ header {
   border-bottom: 1px solid var(--lookbook-divider-color);
   overflow: hidden;
 }
-
 dl {
   margin: 0 0 10px 0;
   padding: 0;
   font-size: 0.875rem;
   font-size: var(--lookbook-font-size-small);
 }
-
 dt {
   width: 80px;
   padding: 1px;
@@ -695,23 +671,19 @@ dt {
   font-size: 0.875rem;
   font-size: var(--lookbook-font-size-small);
 }
-
 dd {
   margin-left: 90px;
   padding: 1px;
   font-size: 0.875rem;
   font-size: var(--lookbook-font-size-small);
 }
-
 dd:empty:before {
   content: "\00a0";
 }
-
 main {
   height: 100%;
   position: relative;
 }
-
 iframe {
   position: absolute;
   top: 0;

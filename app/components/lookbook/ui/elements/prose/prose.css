@@ -124,7 +124,7 @@
     background-color: var(--lookbook-color-base-100);
     padding-inline: var(--lookbook-spacing-2x-small);
     border-radius: var(--lookbook-border-radius-small);
-    color: var(--lookbook-color-primary-900);
+    color: var(--lookbook-color-accent-900);
   }
 
   /* 

@@ -47,8 +47,8 @@ textarea:focus,
 select:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
-  outline-color: var(--lookbook-color-primary-400);
-  /* border-color: var(--lookbook-color-primary-400); */
+  outline-color: var(--lookbook-color-accent-400);
+  /* border-color: var(--lookbook-color-accent-400); */
 }
 
 input::-moz-placeholder,
@@ -127,9 +127,9 @@ select {
   flex-shrink: 0;
   height: 1.25rem;
   width: 1.25rem;
-  color: var(--lookbook-color-primary-700);
+  color: var(--lookbook-color-accent-700);
   background-color: #fff;
-  border-color: var(--lookbook-color-primary-400);
+  border-color: var(--lookbook-color-accent-400);
   border-width: 1px;
 }
 
@@ -145,7 +145,7 @@ select {
 [type="radio"]:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
-  outline-color: var(--lookbook-color-primary-500);
+  outline-color: var(--lookbook-color-accent-500);
 }
 
 [type="checkbox"]:checked,

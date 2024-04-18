@@ -1,0 +1,77 @@
+:root {
+  /*
+   * Spacings
+   */
+
+  --lookbook-spacing-3x-small: 0.125rem; /* 2px */
+  --lookbook-spacing-2x-small: 0.25rem; /* 4px */
+  --lookbook-spacing-x-small: 0.5rem; /* 8px */
+  --lookbook-spacing-small: 0.75rem; /* 12px */
+  --lookbook-spacing-medium: 1rem; /* 16px */
+  --lookbook-spacing-large: 1.25rem; /* 20px */
+  --lookbook-spacing-x-large: 1.75rem; /* 28px */
+  --lookbook-spacing-2x-large: 2.25rem; /* 36px */
+  --lookbook-spacing-3x-large: 3rem; /* 48px */
+  --lookbook-spacing-4x-large: 4.5rem; /* 72px */
+
+  --lookbook-size-3x-small: 0.125rem; /* 2px */
+  --lookbook-size-2x-small: 0.25rem; /* 4px */
+  --lookbook-size-x-small: 0.5rem; /* 8px */
+  --lookbook-size-small: 0.75rem; /* 12px */
+  --lookbook-size-medium: 1rem; /* 16px */
+  --lookbook-size-large: 1.25rem; /* 20px */
+  --lookbook-size-x-large: 1.75rem; /* 28px */
+  --lookbook-size-2x-large: 2.25rem; /* 36px */
+  --lookbook-size-3x-large: 3rem; /* 48px */
+  --lookbook-size-4x-large: 4.5rem; /* 72px */
+
+  /*
+   * Typography
+   */
+
+  /* Fonts */
+  --lookbook-font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+    monospace;
+  --lookbook-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+
+  /* Font sizes */
+  --lookbook-font-size-2x-small: 0.625rem; /* 10px */
+  --lookbook-font-size-x-small: 0.75rem; /* 12px */
+  --lookbook-font-size-small: 0.875rem; /* 14px */
+  --lookbook-font-size-medium: 1rem; /* 16px */
+  --lookbook-font-size-large: 1.25rem; /* 20px */
+  --lookbook-font-size-x-large: 1.5rem; /* 24px */
+  --lookbook-font-size-2x-large: 2.25rem; /* 36px */
+  --lookbook-font-size-3x-large: 3rem; /* 48px */
+  --lookbook-font-size-4x-large: 4.5rem; /* 72px */
+
+  /* Font weights */
+  --lookbook-font-weight-light: 300;
+  --lookbook-font-weight-normal: 400;
+  --lookbook-font-weight-semibold: 500;
+  --lookbook-font-weight-bold: 700;
+
+  /*
+   * Border radii
+   */
+
+  --lookbook-border-radius-small: 0.1875rem; /* 3px */
+  --lookbook-border-radius-medium: 0.25rem; /* 4px */
+  --lookbook-border-radius-large: 0.5rem; /* 8px */
+  --lookbook-border-radius-x-large: 1rem; /* 16px */
+
+  --lookbook-border-radius-circle: 50%;
+  --lookbook-border-radius-pill: 9999px;
+
+  /*
+   * Shadows
+   */
+
+  --lookbook-shadow-x-small: 0 1px 2px hsl(240 3.8% 46.1% / 6%);
+  --lookbook-shadow-small: 0 1px 2px hsl(240 3.8% 46.1% / 12%);
+  --lookbook-shadow-medium: 0 2px 4px hsl(240 3.8% 46.1% / 12%);
+  --lookbook-shadow-large: 0 2px 8px hsl(240 3.8% 46.1% / 12%);
+  --lookbook-shadow-x-large: 0 4px 16px hsl(240 3.8% 46.1% / 12%);
+}

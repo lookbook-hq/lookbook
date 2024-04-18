@@ -41,3 +41,9 @@ thead tr,
 tr:not(:last-child) {
   border-bottom: 1px solid var(--lookbook-color-base-300);
 }
+
+:focus-visible {
+  outline: 1px solid transparent;
+  outline-offset: 0;
+  outline-color: var(--lookbook-color-accent-200);
+}

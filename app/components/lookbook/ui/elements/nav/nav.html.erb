@@ -21,12 +21,13 @@
     </div>
   <% end %>
 
-  <div class="nav-tree" x-ref="nav">
-    <% children.each do |node| %>
-      <%= render Lookbook::UI::NavItem.new(node: node) %>
-    <% end %>
+  <div class="nav-tree-wrapper">
+    <div class="nav-tree" x-ref="nav">
+      <% children.each do |node| %>
+        <%= render Lookbook::UI::NavItem.new(node: node) %>
+      <% end %>
+    </div>
   </div>
-  
 <% end %>
   
 
