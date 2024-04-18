@@ -25,7 +25,7 @@ module Lookbook
           inspector_target_mailer_template: "lookbook/inspector/mailer_preview",
           inspector_panels: default_inspector_panels,
           inspector_preview_panels: [:preview, :output],
-          inspector_drawer_panels: [:source, :notes, :params],
+          inspector_drawer_panels: [:source, :notes, :params, :metadata],
           inspector_embed_panels: [:source, :output, :notes, :params],
           inspector_param_inputs: default_inspector_param_inputs,
 
@@ -73,6 +73,10 @@ module Lookbook
           params: {
             label: "Params",
             partial: "lookbook/inspector/panels/params"
+          },
+          metadata: {
+            label: "Metadata",
+            partial: "lookbook/inspector/panels/metadata"
           }
         }
       end

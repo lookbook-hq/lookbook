@@ -235,6 +235,7 @@
   --lookbook-color-accent-900: var(--lookbook-color-indigo-900);
   --lookbook-color-accent-950: var(--lookbook-color-indigo-950);
 
+  --lookbook-color-base-0: #fff;
   --lookbook-color-base-50: var(--lookbook-color-gray-50);
   --lookbook-color-base-100: var(--lookbook-color-gray-100);
   --lookbook-color-base-200: var(--lookbook-color-gray-200);
@@ -621,10 +622,34 @@ router {
   display: none !important;
 }
 
-sl-tooltip::part(body) {
-    font-size: 0.75rem;
-    font-size: var(--lookbook-font-size-x-small);
-  }
+table {
+  background: #fff;
+  background: var(--lookbook-color-base-0);
+  border: 1px solid hsl(240, 5%, 84%);
+  border: 1px solid var(--lookbook-color-base-300);
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-left: var(--lookbook-spacing-medium);
+  padding-right: var(--lookbook-spacing-medium);
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-top: var(--lookbook-spacing-small);
+  padding-bottom: var(--lookbook-spacing-small);
+  width: 1%;
+}
+
+thead tr,
+tr:not(:last-child) {
+  border-bottom: 1px solid hsl(240, 5%, 84%);
+  border-bottom: 1px solid var(--lookbook-color-base-300);
+}
 
 html,
 body {

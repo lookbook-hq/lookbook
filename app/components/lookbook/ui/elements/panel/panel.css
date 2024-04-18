@@ -2,6 +2,7 @@
   height: 100%;
   width: 100%;
   overflow: hidden;
+  background-color: var(--lookbook-color-base-50);
 
   .panel-content {
     z-index: 1;
@@ -11,7 +12,7 @@
 
   &[data-padded="true"] {
     .panel-content {
-      padding-inline: var(--lookbook-spacing-medium);
+      padding: var(--lookbook-spacing-medium);
     }
   }
 

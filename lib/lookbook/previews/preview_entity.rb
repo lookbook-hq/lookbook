@@ -80,5 +80,26 @@ module Lookbook
     def mailer_preview?
       preview_class.ancestors.include?(::ActionMailer::Preview)
     end
+
+    def preview_relative_file_path
+      Pathname.new(preview_file_path).relative_path_from(Pathname.new(base_directory))
+    end
+
+    def preview_app_file_path
+      Pathname.new(preview_file_path).relative_path_from(Rails.application.root)
+    end
+
+    private
+
+    def base_directories
+      Previews.preview_paths
+    end
+
+    def base_directory
+      @base_directory ||= begin
+        directories = Array(base_directories).map(&:to_s).sort_by { |path| path.split("/").size }.reverse
+        directories.find { |dir| preview_file_path.to_s.start_with?(dir) }
+      end
+    end
   end
 end

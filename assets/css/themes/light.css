@@ -17,6 +17,7 @@
   --lookbook-color-accent-900: var(--lookbook-color-indigo-900);
   --lookbook-color-accent-950: var(--lookbook-color-indigo-950);
 
+  --lookbook-color-base-0: #fff;
   --lookbook-color-base-50: var(--lookbook-color-gray-50);
   --lookbook-color-base-100: var(--lookbook-color-gray-100);
   --lookbook-color-base-200: var(--lookbook-color-gray-200);

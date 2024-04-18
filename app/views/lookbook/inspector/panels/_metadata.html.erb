@@ -1,0 +1,21 @@
+
+<%= lb_inspector_panel(id: dom_id(target, :metadata_panel), padded: true) do %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Inspector UUID</td>
+        <td><%= target.uuid %></td>
+      </tr>
+      <tr>
+        <td>Preview file path</td>
+        <td><%= preview.preview_app_file_path %></td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>

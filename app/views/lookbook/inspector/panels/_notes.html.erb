@@ -1,17 +1,19 @@
 
 <%= lb_inspector_panel(id: dom_id(@target, :notes_panel), padded: true) do %>
-  <% if @target.scenarios_with_notes.any? %>
-  <% @target.scenarios_with_notes do |scenario, notes| %>
-  <section style="padding-block: var(--lookbook-spacing-medium); <%= 'border-bottom: 1px solid var(--lookbook-divider-color);' unless scenario == @target.scenarios_with_notes.last %>">
-    <% if @target.scenarios.many? %>
-      <h3 style="color: var(--lookbook-color-base-400); margin-bottom: var(--lookbook-spacing-small);"><%= scenario.label %></h3>
+  <div style="margin-top: calc(-1 * var(--lookbook-spacing-medium))">
+    <% if @target.scenarios_with_notes.any? %>
+    <% @target.scenarios_with_notes do |scenario, notes| %>
+    <section style="padding-block: var(--lookbook-spacing-medium); margin-top: -8px; <%= 'border-bottom: 1px solid var(--lookbook-divider-color);' unless scenario == @target.scenarios_with_notes.last %>">
+      <% if @target.scenarios.many? %>
+        <h3 style="color: var(--lookbook-color-base-400); margin-bottom: var(--lookbook-spacing-small);"><%= scenario.label %></h3>
+      <% end %>
+      <%= lb_prose { notes } %>
+    </section>
     <% end %>
-    <%= lb_prose { notes } %>
-  </section>
-  <% end %>
-  <% else %>
-  <section style="padding-block: var(--lookbook-spacing-medium);">
-    <em style="color: var(--lookbook-color-base-400);">No notes available.</em>
-  </section>
-  <% end %>
+    <% else %>
+    <section style="padding-block: var(--lookbook-spacing-medium);">
+      <em style="color: var(--lookbook-color-base-400);">No notes available.</em>
+    </section>
+    <% end %>
+  </div>
 <% end %>
