@@ -80,6 +80,10 @@ module Lookbook
       end
     end
 
+    def source_checksum
+      @source_checksum ||= Utils.hash(file_contents)
+    end
+
     private
 
     def file_contents
