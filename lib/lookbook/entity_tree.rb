@@ -10,11 +10,11 @@ module Lookbook
       @entities = entities.to_a
     end
 
-    def get_entity(lookup_path)
+    def get_entity_by_path(lookup_path)
       node_entities.find { _1.lookup_path == lookup_path }
     end
 
-    def get_child_entities(lookup_path)
+    def get_child_entities_by_path(lookup_path)
       if lookup_path == ""
         node_entities.select { _1.depth == 1 }
       else
@@ -25,7 +25,7 @@ module Lookbook
       end
     end
 
-    def find_node(lookup_path)
+    def find_node_by_path(lookup_path)
       entity = node_entities.find { _1.lookup_path == lookup_path }
       tree.find_node(entity) if entity
     end

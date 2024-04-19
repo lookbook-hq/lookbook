@@ -21,7 +21,7 @@ module Lookbook
     end
 
     def entity
-      @entity ||= @tree.get_entity(lookup_path)
+      @entity ||= @tree.get_entity_by_path(lookup_path)
     end
 
     def search_terms
@@ -29,13 +29,13 @@ module Lookbook
     end
 
     def children
-      @children ||= @tree.get_child_entities(lookup_path).map.with_index(1) do |entity, index|
+      @children ||= @tree.get_child_entities_by_path(lookup_path).map.with_index(1) do |entity, index|
         EntityTreeNode.new(entity.lookup_path, @tree, default_priority: index)
       end.sort!
     end
 
     def parent
-      @parent ||= (@tree.find_node(parent_lookup_path) unless root?)
+      @parent ||= (@tree.find_node_by_path(parent_lookup_path) unless root?)
     end
 
     def child_count
