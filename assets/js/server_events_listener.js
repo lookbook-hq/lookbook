@@ -52,6 +52,8 @@ export default class ServerEventsListener {
       this.stop();
     });
 
+    window.onbeforeunload = () => this.stop();
+
     return source;
   }
 }
