@@ -11,7 +11,7 @@ module Lookbook
 
         parser.parse do |page_entities|
           store.replace_all(page_entities)
-          run_update_callbacks
+          Docs.clear_cache
 
           debug("pages: #{page_entities.size} pages loaded")
         end
@@ -23,7 +23,7 @@ module Lookbook
         # TODO: smart update - only reparse changed files
         parser.parse do |page_entities|
           store.replace_all(page_entities)
-          run_update_callbacks
+          Docs.clear_cache
 
           debug("pages: #{page_entities.size} pages updated")
         end
@@ -82,14 +82,6 @@ module Lookbook
 
       def store
         @store ||= EntityStore.new(PageEntity)
-      end
-
-      def run_update_callbacks
-        update_callbacks.each { _1.call }
-      end
-
-      def update_callbacks
-        @update_callbacks ||= []
       end
     end
   end

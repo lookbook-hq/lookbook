@@ -53,6 +53,10 @@ module Lookbook
       "#{preview_entity.lookup_path}/#{name}"
     end
 
+    def depth
+      @depth ||= lookup_path.split("/").size
+    end
+
     def render_scenarios
       @source_checksum = nil
       scenarios.each do |scenario|

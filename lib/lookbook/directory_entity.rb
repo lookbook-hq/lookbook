@@ -13,5 +13,9 @@ module Lookbook
     def name
       @name ||= lookup_path.split("/").pop
     end
+
+    def depth
+      @depth ||= lookup_path.split("/").size
+    end
   end
 end

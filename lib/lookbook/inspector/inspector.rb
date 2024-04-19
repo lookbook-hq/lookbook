@@ -1,12 +1,10 @@
 module Lookbook
   module Inspector
-    Previews.on_update { Inspector.clear_cache }
-
     class << self
       include Loggable
 
       def preview_targets(preview, names = nil, include_hidden: false)
-        entities = (targets_cache[preview.id] ||= targets_for(preview)).deep_dup
+        entities = targets_for(preview).deep_dup
         entities = include_hidden ? entities : entities.select(&:visible?)
         if names.is_a?(Array)
           names = names.map(&:to_sym)
@@ -53,13 +51,6 @@ module Lookbook
         end
       end
 
-      def clear_cache
-        debug("inspector: clearing cache")
-
-        @targets_cache = nil
-        @nav_tree = nil
-      end
-
       def panels
         @panels ||= Lookbook.config.inspector_panels.map do |name, opts|
           DataObject.new(
@@ -69,6 +60,13 @@ module Lookbook
             options: opts.except(:label, :partial)
           )
         end
+      end
+
+      def clear_cache
+        debug("inspector: clearing cache")
+
+        @targets = nil
+        @nav_tree = nil
       end
 
       protected
@@ -81,12 +79,12 @@ module Lookbook
         end.compact.flatten
       end
 
-      def targets_cache
-        @targets_cache ||= {}
+      def targets
+        @targets ||= {}
       end
 
       def targets_for(preview)
-        if preview.mailer_preview?
+        targets[preview.id] ||= if preview.mailer_preview?
           preview.scenarios.map do |scenario|
             InspectorTargetEntity.new(scenario.name, preview, [scenario], default_priority: scenario.priority)
           end

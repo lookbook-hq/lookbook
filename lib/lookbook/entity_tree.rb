@@ -10,15 +10,31 @@ module Lookbook
       @entities = entities.to_a
     end
 
-    protected
-
-    def tree_node(path, entity, **kwargs)
-      EntityTreeNode.new(path, entity, **kwargs)
+    def get_entity(lookup_path)
+      node_entities.find { _1.lookup_path == lookup_path }
     end
 
+    def get_child_entities(lookup_path)
+      if lookup_path == ""
+        node_entities.select { _1.depth == 1 }
+      else
+        child_depth = lookup_path.split("/").size + 1
+        node_entities.select do |entity|
+          entity.depth == child_depth && entity.lookup_path.start_with?("#{lookup_path}/")
+        end
+      end
+    end
+
+    def find_node(lookup_path)
+      entity = node_entities.find { _1.lookup_path == lookup_path }
+      tree.find_node(entity) if entity
+    end
+
+    protected
+
     def node_entities
-      [entities, directories].flatten.sort do |a, b|
-        [a.lookup_path.split("/").size, a.label] <=> [b.lookup_path.split("/").size, b.label]
+      @node_entities ||= [entities, directories].flatten.sort do |a, b|
+        [a.depth, a.label] <=> [b.depth, b.label]
       end
     end
 
@@ -39,31 +55,7 @@ module Lookbook
     end
 
     def tree
-      @tree ||= begin
-        root_node = EntityTreeNode.new("", root: true)
-
-        node_entities.map(&:lookup_path).each do |lookup_path|
-          current_path = ""
-          current_node = root_node
-          path_segments = lookup_path.split("/")
-
-          path_segments.each do |segment|
-            current_path = "#{current_path}/#{segment}".delete_prefix("/")
-            next_node = current_node.children.find { _1.lookup_path == current_path }
-
-            unless next_node
-              entity = node_entities.find { _1.lookup_path == current_path }
-              next_node = tree_node(current_path, entity, default_priority: current_node.child_count + 1)
-              current_node.children << next_node
-              next_node.parent = current_node
-            end
-
-            current_node = next_node
-          end
-        end
-
-        root_node
-      end
+      @tree ||= EntityTreeNode.new("", self, root: true)
     end
   end
 end

@@ -1,13 +1,15 @@
 module Lookbook
   class EntityStore
+    include Enumerable
+
     attr_reader :updated_at
 
-    delegate_missing_to :@entities
+    delegate :each, to: :@entities
 
     def initialize(klass = Entity)
       @entities = []
       @entity_class = klass
-      @updated_at = Utils.current_timestamp_milliseconds
+      updated!
     end
 
     def add(*entities)
@@ -38,6 +40,7 @@ module Lookbook
     def replace_all(entities)
       @entities.clear
       add(*entities)
+      updated!
     end
 
     def clear
@@ -61,9 +64,11 @@ module Lookbook
 
     protected
 
+    def changed_since(timestamp)
+    end
+
     def updated!
-      @updated_at = Utils.current_timestamp_milliseconds
-      @tree = nil
+      @updated_at = DateTime.now
     end
 
     def validate!(entity)

@@ -1,7 +1,3 @@
-require "rails"
-require "action_mailer"
-require "yard"
-
 module Lookbook
   class Engine < Rails::Engine
     include Loggable

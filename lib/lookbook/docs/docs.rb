@@ -1,7 +1,5 @@
 module Lookbook
   module Docs
-    Pages.on_update { Docs.clear_cache }
-
     class << self
       include Loggable
 

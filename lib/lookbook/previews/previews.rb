@@ -3,7 +3,6 @@ module Lookbook
     class << self
       include Loggable
 
-      delegate :all, :updated_at, to: :store
       delegate_missing_to :store
 
       def load_all
@@ -11,7 +10,7 @@ module Lookbook
 
         parser.parse do |preview_entities|
           store.replace_all(preview_entities)
-          run_update_callbacks
+          Inspector.clear_cache
 
           debug("previews: #{preview_entities.size} previews loaded")
         end
@@ -31,7 +30,7 @@ module Lookbook
         parser_paths = [changes.modified, changes.added].flatten
         parser.parse(parser_paths) do |preview_entities|
           store.add(*preview_entities)
-          run_update_callbacks
+          Inspector.clear_cache
 
           debug("previews: #{changes.removed.size} removed, #{changes.modified.size} updated, #{changes.added.size} added")
         end
@@ -109,14 +108,6 @@ module Lookbook
           # log_level: Lookbook.logger.level,
           tags: Lookbook.config.preview_tags
         )
-      end
-
-      def run_update_callbacks
-        update_callbacks.each { _1.call }
-      end
-
-      def update_callbacks
-        @update_callbacks ||= []
       end
     end
   end

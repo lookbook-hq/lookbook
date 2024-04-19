@@ -1,6 +1,7 @@
 module Lookbook
   class EventsController < ActionController::Base
     include ActionController::Live
+    include Loggable
 
     def index
       response.headers["Content-Type"] = "text/event-stream"
@@ -13,6 +14,7 @@ module Lookbook
 
           loop do
             if last_update_event_sent < Engine.updated_at
+              debug("events: sending update event to clients")
               sse.write({type: "update", updated_at: Engine.updated_at}, event: "event")
               last_update_event_sent = Engine.updated_at
             end

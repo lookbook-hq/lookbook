@@ -1,4 +1,7 @@
 require "zeitwerk"
+require "rails"
+require "action_mailer"
+require "yard"
 require_relative "lookbook/version"
 require_relative "lookbook/logger"
 

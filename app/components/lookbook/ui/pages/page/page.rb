@@ -8,7 +8,7 @@ module Lookbook
       end
 
       def nav_node
-        @nav_node ||= Docs.nav_tree.find_entity_node(page)
+        @nav_node ||= Docs.nav_tree.find_node(page)
       end
     end
   end

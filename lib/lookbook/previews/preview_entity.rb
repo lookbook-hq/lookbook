@@ -57,6 +57,10 @@ module Lookbook
       show_preview_path(self)
     end
 
+    def depth
+      @depth ||= lookup_path.split("/").size
+    end
+
     def layout
       if mailer_preview?
         "layouts/lookbook/mailer_preview"

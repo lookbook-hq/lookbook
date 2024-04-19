@@ -48,6 +48,10 @@ module Lookbook
       @lookup_directory_path ||= File.dirname(lookup_path).delete_prefix(".")
     end
 
+    def depth
+      @depth ||= lookup_path.split("/").size
+    end
+
     def file_name(strip_ext = false)
       basename = file_pathname.basename
       (strip_ext ? basename.to_s.split(".").first : basename).to_s

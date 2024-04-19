@@ -2,29 +2,26 @@ module Lookbook
   class EntityTreeNode
     delegate :url_path, :label, :type, :visible?, :hidden?, to: :entity
 
-    attr_reader :entity, :lookup_path, :parent
+    attr_reader :lookup_path
 
-    def initialize(lookup_path, entity = nil, root: false, default_priority: nil)
+    def initialize(lookup_path, tree, root: false, default_priority: nil)
       @lookup_path = lookup_path
-      @entity = entity
       @default_priority = default_priority
-      @children = []
+      @tree = tree
       @root = root
-      @parent = nil
     end
 
-    def find_entity_node(entity)
+    def find_node(entity)
       children.find do |child|
         break child if child.entity.lookup_path == entity.lookup_path
 
-        node = child.find_entity_node(entity)
+        node = child.find_node(entity)
         break node if node
       end
     end
 
-    def parent=(node)
-      raise "Parent node has already been defined" if @parent
-      @parent = node
+    def entity
+      @entity ||= @tree.get_entity(lookup_path)
     end
 
     def search_terms
@@ -32,11 +29,21 @@ module Lookbook
     end
 
     def children
-      @children.sort!
+      @children ||= @tree.get_child_entities(lookup_path).map.with_index(1) do |entity, index|
+        EntityTreeNode.new(entity.lookup_path, @tree, default_priority: index)
+      end.sort!
+    end
+
+    def parent
+      @parent ||= (@tree.find_node(parent_lookup_path) unless root?)
     end
 
     def child_count
       @children.size
+    end
+
+    def parent_lookup_path
+      @parent_lookup_path ||= lookup_path.split("/")[0...-1].join("/")
     end
 
     def parents
