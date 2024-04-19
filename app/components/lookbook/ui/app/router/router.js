@@ -90,26 +90,5 @@ async function fetchHTML(url, selector) {
 }
 
 function morph(from, to) {
-  Alpine.morph(from, to, {
-    lookahead: true,
-
-    updating(el, toEl, childrenOnly, skip) {
-      if (el.tagName && el.tagName.includes("-")) {
-        // Fix custom element attribute removal when morphing
-
-        const oldAttrs = Array.from(el.attributes).reduce((attrs, attr) => {
-          attrs[attr.name] = attr.value;
-          return attrs;
-        }, {});
-
-        const newAttrs = Array.from(toEl.attributes).map((attr) => attr.name);
-
-        Object.entries(oldAttrs).forEach(([name, value]) => {
-          if (!newAttrs.includes(name)) {
-            toEl.setAttribute(name, value);
-          }
-        });
-      }
-    },
-  });
+  Alpine.morph(from, to, {});
 }
