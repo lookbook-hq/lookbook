@@ -13,7 +13,7 @@ module Lookbook
           last_update_event_sent = Engine.updated_at
 
           loop do
-            if last_update_event_sent < Engine.updated_at
+            if last_update_event_sent.before?(Engine.updated_at)
               debug("events: sending update event to clients")
               sse.write({type: "update", updated_at: Engine.updated_at}, event: "event")
               last_update_event_sent = Engine.updated_at

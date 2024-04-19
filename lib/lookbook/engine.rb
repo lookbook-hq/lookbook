@@ -74,11 +74,11 @@ module Lookbook
 
       def files_updated!
         notifications.clear
-        @updated_at = Utils.current_timestamp_milliseconds
+        @updated_at = DateTime.now
       end
 
       def updated_at
-        @updated_at ||= Utils.current_timestamp_milliseconds
+        @updated_at ||= DateTime.now
       end
 
       def sync_config
