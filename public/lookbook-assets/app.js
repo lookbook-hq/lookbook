@@ -9313,6 +9313,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
         this.$logger.warn(`Event source error`);
         this.stop();
       });
+      window.onbeforeunload = () => this.stop();
       return source;
     }
   };
@@ -9392,23 +9393,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     return result;
   }
   function morph2(from, to3) {
-    Alpine.morph(from, to3, {
-      lookahead: true,
-      updating(el3, toEl, childrenOnly, skip) {
-        if (el3.tagName && el3.tagName.includes("-")) {
-          const oldAttrs = Array.from(el3.attributes).reduce((attrs, attr) => {
-            attrs[attr.name] = attr.value;
-            return attrs;
-          }, {});
-          const newAttrs = Array.from(toEl.attributes).map((attr) => attr.name);
-          Object.entries(oldAttrs).forEach(([name, value]) => {
-            if (!newAttrs.includes(name)) {
-              toEl.setAttribute(name, value);
-            }
-          });
-        }
-      }
-    });
+    Alpine.morph(from, to3, {});
   }
 
   // app/components/lookbook/ui/app/status_bar/status_bar.js
