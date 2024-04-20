@@ -3231,7 +3231,7 @@ var $512e3a9270ec7803$export$2e2bcd8739ae039 = $512e3a9270ec7803$var$src_default
 
 
 // packages/persist/src/index.js
-function $a5acee56471cec18$var$src_default(Alpine) {
+function $a5acee56471cec18$export$9a6132153fba2e0(Alpine) {
     let persist = ()=>{
         let alias;
         let storage;
@@ -3290,7 +3290,7 @@ function $a5acee56471cec18$var$storageSet(key, value, storage) {
     storage.setItem(key, JSON.stringify(value));
 }
 // packages/persist/builds/module.js
-var $a5acee56471cec18$export$2e2bcd8739ae039 = $a5acee56471cec18$var$src_default;
+var $a5acee56471cec18$export$2e2bcd8739ae039 = $a5acee56471cec18$export$9a6132153fba2e0;
 
 
 var $69a8ec8dbeef3157$var$__create = Object.create;
@@ -6612,6 +6612,8 @@ var $5267f0d63de538ba$exports = {};
         "warn",
         "error"
     ];
+    var _loggersByName = {};
+    var defaultLogger = null;
     // Cross-browser bind equivalent that works at least back to IE6
     function bindMethod(obj, methodName) {
         var method = obj[methodName];
@@ -6651,33 +6653,54 @@ var $5267f0d63de538ba$exports = {};
         else return noop;
     }
     // These private functions always need `this` to be set properly
-    function replaceLoggingMethods(level, loggerName) {
-        /*jshint validthis:true */ for(var i = 0; i < logMethods.length; i++){
+    function replaceLoggingMethods() {
+        /*jshint validthis:true */ var level = this.getLevel();
+        // Replace the actual methods.
+        for(var i = 0; i < logMethods.length; i++){
             var methodName = logMethods[i];
-            this[methodName] = i < level ? noop : this.methodFactory(methodName, level, loggerName);
+            this[methodName] = i < level ? noop : this.methodFactory(methodName, level, this.name);
         }
         // Define log.log as an alias for log.debug
         this.log = this.debug;
+        // Return any important warnings.
+        if (typeof console === undefinedType && level < this.levels.SILENT) return "No console available for logging";
     }
     // In old IE versions, the console isn't present until you first open it.
     // We build realMethod() replacements here that regenerate logging methods
-    function enableLoggingWhenConsoleArrives(methodName, level, loggerName) {
+    function enableLoggingWhenConsoleArrives(methodName) {
         return function() {
             if (typeof console !== undefinedType) {
-                replaceLoggingMethods.call(this, level, loggerName);
+                replaceLoggingMethods.call(this);
                 this[methodName].apply(this, arguments);
             }
         };
     }
     // By default, we use closely bound real methods wherever possible, and
     // otherwise we wait for a console to appear, and then try again.
-    function defaultMethodFactory(methodName, level, loggerName) {
+    function defaultMethodFactory(methodName, _level, _loggerName) {
         /*jshint validthis:true */ return realMethod(methodName) || enableLoggingWhenConsoleArrives.apply(this, arguments);
     }
-    function Logger(name, defaultLevel, factory) {
+    function Logger(name, factory) {
+        // Private instance variables.
         var self = this;
-        var currentLevel;
-        defaultLevel = defaultLevel == null ? "WARN" : defaultLevel;
+        /**
+       * The level inherited from a parent logger (or a global default). We
+       * cache this here rather than delegating to the parent so that it stays
+       * in sync with the actual logging methods that we have installed (the
+       * parent could change levels but we might not have rebuilt the loggers
+       * in this child yet).
+       * @type {number}
+       */ var inheritedLevel;
+        /**
+       * The default level for this logger, if any. If set, this overrides
+       * `inheritedLevel`.
+       * @type {number|null}
+       */ var defaultLevel;
+        /**
+       * A user-specific level for this logger. If set, this overrides
+       * `defaultLevel`.
+       * @type {number|null}
+       */ var userLevel;
         var storageKey = "loglevel";
         if (typeof name === "string") storageKey += ":" + name;
         else if (typeof name === "symbol") storageKey = undefined;
@@ -6703,8 +6726,9 @@ var $5267f0d63de538ba$exports = {};
             // Fallback to cookies if local storage gives us nothing
             if (typeof storedLevel === undefinedType) try {
                 var cookie = window.document.cookie;
-                var location = cookie.indexOf(encodeURIComponent(storageKey) + "=");
-                if (location !== -1) storedLevel = /^([^;]+)/.exec(cookie.slice(location))[1];
+                var cookieName = encodeURIComponent(storageKey);
+                var location = cookie.indexOf(cookieName + "=");
+                if (location !== -1) storedLevel = /^([^;]+)/.exec(cookie.slice(location + cookieName.length + 1))[1];
             } catch (ignore) {}
             // If the stored level is not valid, treat it as if nothing was stored.
             if (self.levels[storedLevel] === undefined) storedLevel = undefined;
@@ -6715,12 +6739,17 @@ var $5267f0d63de538ba$exports = {};
             // Use localStorage if available
             try {
                 window.localStorage.removeItem(storageKey);
-                return;
             } catch (ignore) {}
             // Use session cookie as fallback
             try {
                 window.document.cookie = encodeURIComponent(storageKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
             } catch (ignore) {}
+        }
+        function normalizeLevel(input) {
+            var level = input;
+            if (typeof level === "string" && self.levels[level.toUpperCase()] !== undefined) level = self.levels[level.toUpperCase()];
+            if (typeof level === "number" && level >= 0 && level <= self.levels.SILENT) return level;
+            else throw new TypeError("log.setLevel() called with invalid level: " + input);
         }
         /*
        *
@@ -6737,24 +6766,24 @@ var $5267f0d63de538ba$exports = {};
         };
         self.methodFactory = factory || defaultMethodFactory;
         self.getLevel = function() {
-            return currentLevel;
+            if (userLevel != null) return userLevel;
+            else if (defaultLevel != null) return defaultLevel;
+            else return inheritedLevel;
         };
         self.setLevel = function(level, persist) {
-            if (typeof level === "string" && self.levels[level.toUpperCase()] !== undefined) level = self.levels[level.toUpperCase()];
-            if (typeof level === "number" && level >= 0 && level <= self.levels.SILENT) {
-                currentLevel = level;
-                if (persist !== false) persistLevelIfPossible(level);
-                replaceLoggingMethods.call(self, level, name);
-                if (typeof console === undefinedType && level < self.levels.SILENT) return "No console available for logging";
-            } else throw "log.setLevel() called with invalid level: " + level;
+            userLevel = normalizeLevel(level);
+            if (persist !== false) persistLevelIfPossible(userLevel);
+            // NOTE: in v2, this should call rebuild(), which updates children.
+            return replaceLoggingMethods.call(self);
         };
         self.setDefaultLevel = function(level) {
-            defaultLevel = level;
+            defaultLevel = normalizeLevel(level);
             if (!getPersistedLevel()) self.setLevel(level, false);
         };
         self.resetLevel = function() {
-            self.setLevel(defaultLevel, false);
+            userLevel = null;
             clearPersistedLevel();
+            replaceLoggingMethods.call(self);
         };
         self.enableAll = function(persist) {
             self.setLevel(self.levels.TRACE, persist);
@@ -6762,21 +6791,26 @@ var $5267f0d63de538ba$exports = {};
         self.disableAll = function(persist) {
             self.setLevel(self.levels.SILENT, persist);
         };
-        // Initialize with the right level
+        self.rebuild = function() {
+            if (defaultLogger !== self) inheritedLevel = normalizeLevel(defaultLogger.getLevel());
+            replaceLoggingMethods.call(self);
+            if (defaultLogger === self) for(var childName in _loggersByName)_loggersByName[childName].rebuild();
+        };
+        // Initialize all the internal levels.
+        inheritedLevel = normalizeLevel(defaultLogger ? defaultLogger.getLevel() : "WARN");
         var initialLevel = getPersistedLevel();
-        if (initialLevel == null) initialLevel = defaultLevel;
-        self.setLevel(initialLevel, false);
+        if (initialLevel != null) userLevel = normalizeLevel(initialLevel);
+        replaceLoggingMethods.call(self);
     }
     /*
      *
      * Top-level API
      *
-     */ var defaultLogger = new Logger();
-    var _loggersByName = {};
+     */ defaultLogger = new Logger();
     defaultLogger.getLogger = function getLogger(name) {
         if (typeof name !== "symbol" && typeof name !== "string" || name === "") throw new TypeError("You must supply a name when creating a logger.");
         var logger = _loggersByName[name];
-        if (!logger) logger = _loggersByName[name] = new Logger(name, defaultLogger.getLevel(), defaultLogger.methodFactory);
+        if (!logger) logger = _loggersByName[name] = new Logger(name, defaultLogger.methodFactory);
         return logger;
     };
     // Grab the current global log variable in case of overwrite
@@ -7988,7 +8022,7 @@ function $12b7aa006b8a97e1$var$toCamel(s) {
 }
 
 
-var $e29b71de1c821c6e$exports = {};
+var $c9dfaeb25bf110ce$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11507,6 +11541,16 @@ function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
 }
 
 
+var $99486586f6691564$exports = {};
+
+$parcel$defineInteropFlag($99486586f6691564$exports);
+
+$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
+function $99486586f6691564$export$2e2bcd8739ae039() {
+    return {};
+}
+
+
 var $47a1c62621be0c54$exports = {};
 
 $parcel$defineInteropFlag($47a1c62621be0c54$exports);
@@ -11560,16 +11604,6 @@ function $47a1c62621be0c54$export$2e2bcd8739ae039() {
             (0, $4e31c85e11272811$export$c6684e6159b21de3)(this);
         }
     };
-}
-
-
-var $99486586f6691564$exports = {};
-
-$parcel$defineInteropFlag($99486586f6691564$exports);
-
-$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
-function $99486586f6691564$export$2e2bcd8739ae039() {
-    return {};
 }
 
 
@@ -12482,10 +12516,10 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$e29b71de1c821c6e$exports = {
+$c9dfaeb25bf110ce$exports = {
     "button": $cbd28b10fa9798c7$exports,
-    "copy_button": $47a1c62621be0c54$exports,
     "code": $99486586f6691564$exports,
+    "copy_button": $47a1c62621be0c54$exports,
     "dimensions_display": $e398acaded942bbe$exports,
     "embed_code_dropdown": $216ef7001f59f21d$exports,
     "filter": $e9904a14dabf652d$exports,
@@ -12497,7 +12531,7 @@ $e29b71de1c821c6e$exports = {
 };
 
 
-var $6178ee12f80cbf68$exports = {};
+var $3821a3a183a9a321$exports = {};
 var $6a9b69d9cc7f810f$exports = {};
 
 $parcel$defineInteropFlag($6a9b69d9cc7f810f$exports);
@@ -13565,6 +13599,20 @@ function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id, matchers: matchers }
 }
 
 
+var $e773f8ef556b41ff$exports = {};
+
+$parcel$defineInteropFlag($e773f8ef556b41ff$exports);
+
+$parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
+function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
+    return {
+        get isNarrowLayout () {
+            return this.narrow || false;
+        }
+    };
+}
+
+
 var $1a7a7298eec5b755$exports = {};
 
 $parcel$defineInteropFlag($1a7a7298eec5b755$exports);
@@ -13583,21 +13631,7 @@ function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
 }
 
 
-var $e773f8ef556b41ff$exports = {};
-
-$parcel$defineInteropFlag($e773f8ef556b41ff$exports);
-
-$parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
-function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
-    return {
-        get isNarrowLayout () {
-            return this.narrow || false;
-        }
-    };
-}
-
-
-$6178ee12f80cbf68$exports = {
+$3821a3a183a9a321$exports = {
     "display_options": {
         "field": $6a9b69d9cc7f810f$exports
     },
@@ -13608,8 +13642,8 @@ $6178ee12f80cbf68$exports = {
         "item": $9b24cbeb3a465447$exports
     },
     "params": {
-        "editor": $1a7a7298eec5b755$exports,
-        "field": $e773f8ef556b41ff$exports
+        "field": $e773f8ef556b41ff$exports,
+        "editor": $1a7a7298eec5b755$exports
     }
 };
 
@@ -13677,8 +13711,8 @@ const $22969b543678f572$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $5792afa4170ed552$export$2e2bcd8739ae039));
 [
-    $e29b71de1c821c6e$exports,
-    $6178ee12f80cbf68$exports,
+    $c9dfaeb25bf110ce$exports,
+    $3821a3a183a9a321$exports,
     $d56e5cced44001d2$exports
 ].forEach((scripts)=>{
     const components = (0, $12b7aa006b8a97e1$export$4e811121b221213b)(scripts);
