@@ -1,6 +1,6 @@
-<%= lb_inspector_panel(:code, id: dom_id(@target, :output_panel), lang: :html, key: @target.output_checksum) do %>
-<% @target.scenarios_with_output do |scenario, html| %>
-<% if @target.scenarios_with_output.many? %>
+<%= lb_inspector_panel(:code, id: dom_id(target, :output_panel), lang: :html, key: target.output_checksum) do %>
+<% target.scenarios_with_output do |scenario, html| %>
+<% if target.scenarios_with_output.many? %>
 <%= code_comment(:html, scenario.label) %>
 <%= html %>
 

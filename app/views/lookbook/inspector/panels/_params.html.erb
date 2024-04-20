@@ -1,5 +1,5 @@
-<%= lb_inspector_panel(:params, id: dom_id(@target, :params_panel), padded: true) do |panel| %>
-  <% @target.params.each do |param| %>
+<%= lb_inspector_panel(:params, id: dom_id(target, :params_panel), padded: true) do |panel| %>
+  <% target.params.each do |param| %>
     <% panel.with_param(
       param: param,
       value: request.query_parameters[param.name]
