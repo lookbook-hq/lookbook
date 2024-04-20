@@ -5,7 +5,7 @@ module Lookbook
 
       delegate_missing_to :store
 
-      def load_all
+      def load
         debug("pages: loading pages...")
 
         parser.parse do |page_entities|
@@ -16,36 +16,16 @@ module Lookbook
         end
       end
 
-      def update(changes)
-        debug("pages: updating pages...")
-
-        # Remove deleted or updated pages from the store
-        tainted_paths = [changes.removed, changes.modified].flatten
-        tainted_entities = tainted_paths.map do |path|
-          store.find { _1.file_path.to_s == path }
-        end
-        store.remove(*tainted_entities)
-
-        # Parse modified or newly added pages and add into store
-        parser_paths = [changes.modified, changes.added].flatten
-        parser.parse(parser_paths) do |page_entities|
-          store.add(*page_entities)
-          clear_cache
-
-          debug("pages: #{changes.removed.size} removed, #{changes.modified.size} updated, #{changes.added.size} added")
-        end
-      end
-
       def to_tree
         @tree ||= begin
-          debug("docs: building nav tree")
+          debug("pages: building tree")
           EntityTree.new(store.all)
         end
       end
 
       def reloader
         Reloader.new(:pages, watch_paths, watch_extensions) do |changes|
-          changes.nil? ? load_all : update(changes)
+          changes.nil? ? load : update(changes)
         end
       end
 
@@ -90,14 +70,34 @@ module Lookbook
 
       private
 
-      def store
-        @store ||= EntityStore.new(PageEntity)
-      end
-
       def clear_cache
         debug("pages: clearing cache")
 
         @tree = nil
+      end
+
+      def update(changes)
+        debug("pages: updating pages...")
+
+        # Remove deleted or updated pages from the store
+        tainted_paths = [changes.removed, changes.modified].flatten
+        tainted_entities = tainted_paths.map do |path|
+          store.find { _1.file_path.to_s == path }
+        end
+        store.remove(*tainted_entities)
+
+        # Parse modified or newly added pages and add into store
+        parser_paths = [changes.modified, changes.added].flatten
+        parser.parse(parser_paths) do |page_entities|
+          store.add(*page_entities)
+          clear_cache
+
+          debug("pages: #{changes.removed.size} removed, #{changes.modified.size} updated, #{changes.added.size} added")
+        end
+      end
+
+      def store
+        @store ||= EntityStore.new(PageEntity)
       end
     end
   end

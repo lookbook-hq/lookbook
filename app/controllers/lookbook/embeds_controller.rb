@@ -23,14 +23,13 @@ module Lookbook
     end
 
     def assign_targets
-      targets = Inspector.preview_targets(@preview, include_hidden: true)
-      @target_names = targets.map(&:name)
+      @target_names = @preview.inspector_targets.map(&:name)
 
       if params[:scenario]
         @target_names = ListResolver.call(params[:scenario], @target_names)
       end
 
-      @target = targets.find { _1.name == @target_names.first }
+      @target = @preview.inspector_targets.find { _1.name == @target_names.first }
       raise ActionController::RoutingError, "Could not find target '#{params[:scenario]}' for preview '#{params[:preview]}'" unless @target
     end
 

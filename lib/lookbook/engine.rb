@@ -28,8 +28,8 @@ module Lookbook
           Reloaders.register(Pages.reloader)
           Reloaders.execute
         else
-          Previews.load_all
-          Pages.load_all
+          Previews.load
+          Pages.load
         end
 
         @booted = true

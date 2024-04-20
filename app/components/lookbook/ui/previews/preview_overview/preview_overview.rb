@@ -14,7 +14,7 @@ module Lookbook
       end
 
       def nav_node
-        @nav_node ||= Inspector.nav_tree.find_node(preview)
+        @nav_node ||= Previews.to_tree.find_node(preview)
       end
 
       def breadcrumbs = nav_node.parents

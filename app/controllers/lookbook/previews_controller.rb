@@ -7,14 +7,16 @@ module Lookbook
     before_action :prerender_target, only: %i[inspect embed preview]
 
     def show
-      @targets = Inspector.preview_targets(@preview)
+      @targets = @preview.inspector_targets
     end
 
     def inspect
     end
 
     def embed
-      @targets = Inspector.preview_targets(@preview, params[:targets], include_hidden: true)
+      target_names = params[:targets].map(&:to_sym)
+
+      @targets = @preview.inspector_targets.select { _1.name.to_sym.in?(target_names) }
       @panels = Inspector.embed_panels(params[:panels])
       @actions = params.fetch(:actions, [])
       @preview_params = params.fetch(:preview_params, {}).permit!.to_h

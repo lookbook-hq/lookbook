@@ -81,6 +81,34 @@ module Lookbook
       end
     end
 
+    def inspector_targets
+      @inspector_targets ||= if mailer_preview?
+        scenarios.map do |scenario|
+          InspectorTargetEntity.new(scenario.name, self, [scenario], default_priority: scenario.priority)
+        end
+      else
+        targets = []
+        scenarios.each.with_index(1) do |scenario, i|
+          if scenario.group.nil?
+            targets << InspectorTargetEntity.new(scenario.name, self, [scenario], default_priority: scenario.priority)
+          else
+            target_name = scenario.group.presence || name.pluralize
+            target = targets.find { _1.name == Utils.name(target_name) }
+
+            if target
+              target.scenarios << scenario
+            else
+              targets << InspectorTargetEntity.new(target_name, self, [scenario], default_priority: i)
+            end
+
+            # Hidden so won't show in navigation but can still be accessed via it's URL
+            targets << InspectorTargetEntity.new(scenario.name, self, [scenario], hidden: true)
+          end
+        end
+        targets
+      end
+    end
+
     def mailer_preview?
       preview_class.ancestors.include?(::ActionMailer::Preview)
     end

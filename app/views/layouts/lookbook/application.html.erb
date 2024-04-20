@@ -6,7 +6,7 @@
           link_to @config.project_name, root_path
         end
 
-        layout.with_previews_nav(@inspector.nav_tree)
+        layout.with_previews_nav(@previews.to_tree)
         layout.with_pages_nav(@pages.to_tree)
 
         layout.with_main do
