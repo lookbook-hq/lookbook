@@ -7,7 +7,7 @@
         end
 
         layout.with_previews_nav(@inspector.nav_tree)
-        layout.with_pages_nav(@docs.nav_tree)
+        layout.with_pages_nav(@pages.to_tree)
 
         layout.with_main do
           content_for?(:main) ? yield(:main) : yield

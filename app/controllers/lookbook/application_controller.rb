@@ -12,7 +12,8 @@ module Lookbook
     def assign_template_vars
       @config = Lookbook.config
       @inspector = Inspector
-      @docs = Docs
+      @pages = Pages
+      @previews = Previews
       @notifications = Engine.notifications
       @events_endpoint = events_path if Engine.watch_files?
     end

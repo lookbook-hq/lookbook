@@ -3,7 +3,7 @@ module Lookbook
     attr_reader :file_path, :frontmatter
 
     def initialize(file_path)
-      @file_path = file_path
+      @file_path = Pathname(file_path)
       @base_directories = Pages.page_paths
       @frontmatter, @content = FrontmatterExtractor.call(file_contents)
     end

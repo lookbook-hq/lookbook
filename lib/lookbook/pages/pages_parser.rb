@@ -7,14 +7,14 @@ module Lookbook
     def parse(paths = @page_paths, &callback)
       glob_paths = paths.to_a.map do |path|
         if File.directory?(path)
-          ["#{path}/**/*.html.*", "#{path}/**/*.md.*", "#{path}/**/*.md"]
-        elsif path.to_s.end_with?(".erb")
-          path.to_s
+          Lookbook.config.page_extensions.map { "#{path}/**/*.#{_1}" }
+        else
+          path_str = path.to_s
+          path_str if Lookbook.config.page_extensions.find { File.fnmatch?("**/*.#{_1}", path_str) }
         end
       end.flatten.compact
 
-      file_paths = Dir.glob(glob_paths)
-      page_entities = file_paths.map do |path|
+      page_entities = Dir.glob(glob_paths).map do |path|
         PageEntity.new(path)
       rescue => error
         Engine.notifications.add(ParserError.new(error))

@@ -53,7 +53,7 @@ module Lookbook
     end
 
     def index(entity)
-      @entities.index { _1 == entity }
+      @entities.index { _1.id == entity.id }
     end
 
     def all

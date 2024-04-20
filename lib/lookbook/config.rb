@@ -33,8 +33,9 @@ module Lookbook
           status_bar: Rails.env.development?,
 
           page_paths: ["test/components/docs"],
+          page_extensions: ["md", "html.*", "md.*"],
           page_watch_paths: [],
-          page_watch_extensions: ["rb", "html.*"],
+          page_watch_extensions: [],
 
           page_controller: "LookbookPageController",
           page_template: "lookbook/pages/page",
