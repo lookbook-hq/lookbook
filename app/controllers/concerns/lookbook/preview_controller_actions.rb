@@ -35,6 +35,9 @@ module Lookbook
     end
 
     def lookbook_render_template(template, assigns, opts = {})
+      prepend_application_view_paths
+      prepend_preview_scenarios_view_path
+
       html = render_to_string(template, assigns: assigns, **determine_layout(opts[:layout]))
       html += opts[:append_html]
       render html: html

@@ -80,13 +80,11 @@ module Lookbook
       end
 
       def preview_controller
-        @preview_controller ||= begin
-          preview_controller = Lookbook.config.preview_controller.constantize
-          unless preview_controller.include?(Lookbook::PreviewControllerActions)
-            preview_controller.include(Lookbook::PreviewControllerActions)
-          end
-          preview_controller
+        controller = Lookbook.config.preview_controller.constantize
+        unless controller.include?(Lookbook::PreviewControllerActions)
+          controller.include(Lookbook::PreviewControllerActions)
         end
+        controller
       end
 
       def system_templates
