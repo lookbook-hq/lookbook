@@ -84,7 +84,7 @@ module Lookbook
         tainted_entities = tainted_paths.map do |path|
           store.find { _1.file_path.to_s == path }
         end
-        store.remove(*tainted_entities)
+        store.remove(*tainted_entities.compact)
 
         # Parse modified or newly added pages and add into store
         parser_paths = [changes.modified, changes.added].flatten

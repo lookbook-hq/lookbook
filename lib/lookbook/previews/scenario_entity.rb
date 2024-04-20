@@ -67,14 +67,12 @@ module Lookbook
     end
 
     def source
-      @source ||= begin
-        src = if custom_render_template?
-          template_source(render_template_path)
-        else
-          ScenarioEntity.format_source(@method_source)
-        end
-        src.strip_heredoc.strip.html_safe if src.present?
+      src = if custom_render_template?
+        template_source(render_template_path)
+      else
+        ScenarioEntity.format_source(@method_source)
       end
+      src.strip_heredoc.strip.html_safe if src.present?
     end
 
     def source_language
@@ -127,7 +125,7 @@ module Lookbook
     def template_file_path(template_path)
       return full_template_path(template_path) if respond_to?(:full_template_path, true)
 
-      search_dirs = [*Previews.preview_paths, *Engine.view_paths]
+      search_dirs = [*Previews.preview_paths, *Engine.view_paths].uniq
       template_path = "#{template_path.to_s.sub(/\..*$/, "")}.html.*"
       Utils.determine_full_path(template_path, search_dirs)
     end
