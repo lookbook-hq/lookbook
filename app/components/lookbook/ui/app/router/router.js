@@ -66,8 +66,8 @@ export default AlpineComponent("router", (sseEndpoint = null) => {
 });
 
 async function fetchPageDOM(url) {
-  const { ok, fragment, status } = await fetchHTML(url, "router");
-  if (ok) {
+  const { fragment, status } = await fetchHTML(url, "router");
+  if (status < 500) {
     return fragment;
   } else {
     // just redirect to the error page for now
@@ -81,7 +81,7 @@ async function fetchHTML(url, selector) {
   let fragment,
     title = null;
   const result = { ok, status, response, fragment, title };
-  if (response.ok) {
+  if (status < 500) {
     const html = await response.text();
     const doc = new DOMParser().parseFromString(html, "text/html");
     result.fragment = selector ? doc.querySelector(selector).outerHTML : null;

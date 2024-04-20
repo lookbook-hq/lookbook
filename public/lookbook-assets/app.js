@@ -9373,8 +9373,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     };
   });
   async function fetchPageDOM(url) {
-    const { ok, fragment, status } = await fetchHTML(url, "router");
-    if (ok) {
+    const { fragment, status } = await fetchHTML(url, "router");
+    if (status < 500) {
       return fragment;
     } else {
       location.href = url;
@@ -9385,7 +9385,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el3);
     const { status, ok } = response;
     let fragment, title = null;
     const result = { ok, status, response, fragment, title };
-    if (response.ok) {
+    if (status < 500) {
       const html3 = await response.text();
       const doc = new DOMParser().parseFromString(html3, "text/html");
       result.fragment = selector ? doc.querySelector(selector).outerHTML : null;

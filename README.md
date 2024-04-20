@@ -14,6 +14,7 @@ Work-in-progress, exploratory rebuild of Lookbook for a future v3.0 release.
 * Use vanilla CSS instead of Tailwind
 * Better theming system using CSS variables
 * Improve accessibilty
+* Make `<lookbook-embed></lookbook-embed>` a proper web component
 
 #### Previews
 
@@ -23,8 +24,8 @@ Work-in-progress, exploratory rebuild of Lookbook for a future v3.0 release.
 #### Development/Testing
 
 * Include runnable test/demo/development app in codebase
-* Make dev setup simpler
-* Use Minitest
+* Make ongoing Lookbook development easier - simpler asset dev/build process, automated releases
+* Use Minitest instead of Rspec
 * Run tests against demo app
 * Ensure good integration test coverage
 * Make logging play nicer with standard Rails logging options and third party gems
