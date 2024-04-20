@@ -3,6 +3,7 @@ PATH
   specs:
     lookbook (3.0.0.pre.alpha.0)
       actionmailer
+      htmlbeautifier
       redcarpet
       yard
       zeitwerk
@@ -131,6 +132,7 @@ GEM
     ffi (1.16.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    htmlbeautifier (1.4.3)
     i18n (1.14.4)
       concurrent-ruby (~> 1.0)
     io-console (0.7.2)
