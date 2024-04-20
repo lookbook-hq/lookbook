@@ -32,6 +32,7 @@ module Lookbook
           sidebar_nav_panels: [:previews, :pages],
           status_bar: Rails.env.development?,
 
+          page_route: "pages",
           page_paths: ["test/components/docs"],
           page_extensions: ["md", "html.*", "md.*"],
           page_watch_paths: [],
