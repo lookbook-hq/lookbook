@@ -50,10 +50,6 @@ module Lookbook
       [label.downcase, *parent&.search_terms].flatten
     end
 
-    def <=>(other)
-      [priority, label] <=> [other.priority, other.label]
-    end
-
     def children = []
 
     def parent = nil

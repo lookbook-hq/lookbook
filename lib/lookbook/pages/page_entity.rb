@@ -2,12 +2,11 @@ module Lookbook
   class PageEntity < Entity
     include EntityTreeNode
 
-    attr_reader :file_path, :frontmatter
+    attr_writer :lookup_path, :url_path, :frontmatter, :content
 
-    def initialize(file_path, default_priority: nil)
-      @file_path = Pathname(file_path)
+    def initialize(file_path = nil, default_priority: nil)
+      @file_path = file_path
       @base_directories = Pages.page_paths
-      @frontmatter, @content = FrontmatterExtractor.call(file_contents)
       @default_priority = default_priority
     end
 
@@ -31,7 +30,16 @@ module Lookbook
       frontmatter.fetch(:hidden, super)
     end
 
+    def data
+      DataObject.new(frontmatter.fetch(:data, {}))
+    end
+
+    def footer?
+      frontmatter.fetch(:footer, true)
+    end
+
     def content
+      @content = parsed_content[:content] if @content.nil?
       @content.strip_heredoc.strip.html_safe
     end
 
@@ -40,36 +48,77 @@ module Lookbook
     end
 
     def url_path
-      show_page_path(self)
+      @url_path ||= (show_page_path(self) unless virtual?)
     end
 
     def lookup_path
-      @lookup_path ||= Pages.to_lookup_path(relative_file_path)
+      @lookup_path ||= begin
+        relative_file_path = file_path.relative_path_from(base_directory)
+        PageEntity.to_lookup_path(relative_file_path)
+      end
+    end
+
+    def frontmatter
+      @frontmatter = parsed_content[:frontmatter] if @frontmatter.nil?
+      @frontmatter
+    end
+
+    def file_path
+      Pathname(@file_path) if @file_path
+    end
+
+    def parent
+      Pages.directories.find { _1.lookup_path == parent_lookup_path } unless virtual?
+    end
+
+    def next
+      Pages.tree.next(self) unless virtual?
+    end
+
+    def previous
+      Pages.tree.previous(self) unless virtual?
+    end
+
+    def virtual? = file_path.present?
+    class << self
+      def to_lookup_path(page_path)
+        path = page_path.to_s.downcase
+
+        directory_path = File.dirname(path)
+        directory_path = nil if directory_path.start_with?(".")
+
+        file_name = File.basename(path).split(".").first
+
+        segments = [*directory_path&.split("/"), file_name].compact
+        segments.map! do |segment|
+          PriorityPrefixParser.call(segment).last.tr("-", "_")
+        end
+
+        Utils.to_path(segments)
+      end
+
+      def virtual(lookup_path, url_path = nil, content: "", frontmatter: {})
+        page = new
+        page.lookup_path = lookup_path
+        page.url_path = url_path
+        page.frontmatter = DataObject.new(frontmatter)
+        page.content = content
+        page
+      end
+    end
+
+    protected
+
+    def parsed_content
+      @parsed_content ||= begin
+        frontmatter, content = FrontmatterExtractor.call(file_contents)
+        {frontmatter: frontmatter, content: content}
+      end
     end
 
     def file_name(strip_ext = false)
-      basename = file_pathname.basename
+      basename = file_path.basename
       (strip_ext ? basename.to_s.split(".").first : basename).to_s
-    end
-
-    def file_extension
-      file_pathname.extname
-    end
-
-    def directory_path
-      Pathname(file_pathname.dirname)
-    end
-
-    def relative_file_path
-      file_pathname.relative_path_from(base_directory)
-    end
-
-    def relative_directory_path
-      directory_path.relative_path_from(base_directory)
-    end
-
-    def file_pathname
-      Pathname(file_path)
     end
 
     def base_directory
@@ -79,26 +128,8 @@ module Lookbook
       end
     end
 
-    def source_checksum
-      @source_checksum ||= Utils.hash(file_contents)
-    end
-
-    def parent
-      Pages.directories.find { _1.lookup_path == parent_lookup_path }
-    end
-
-    def next
-      Pages.tree.next(self)
-    end
-
-    def previous
-      Pages.tree.previous(self)
-    end
-
-    private
-
     def file_contents
-      @file_contents ||= File.read(file_path)
+      @file_contents ||= virtual? ? File.read(file_path) : ""
     end
   end
 end

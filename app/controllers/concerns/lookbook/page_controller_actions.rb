@@ -23,7 +23,6 @@ module Lookbook
       @config = Lookbook.config
       @pages = Pages.all
       @previews = Previews.all
-      @title = @page.title
 
       @page_content = render_to_string(
         inline: @page.content,
@@ -47,10 +46,35 @@ module Lookbook
       @config = Lookbook.config
       @pages = Pages.all
       @previews = Previews.all
-      @targets = @preview.inspector_targets
-      @title = @preview.title
 
-      render "lookbook/previews/overview"
+      @page = PageEntity.virtual(
+        @preview.lookup_path,
+        @preview.url_path,
+        frontmatter: {
+          label: @preview.label,
+          title: @preview.title,
+          footer: false,
+          data: {
+            preview: @preview,
+            targets: @preview.inspector_targets
+          }
+        }
+      )
+
+      @page_content = render_to_string(
+        Lookbook.config.preview_overview_template,
+        layout: false,
+        locals: {
+          config: @config,
+          previews: @previews,
+          pages: @pages,
+          page: @page,
+          previous_page: nil,
+          next_page: nil
+        }
+      )
+
+      render Lookbook.config.page_template
     end
 
     private

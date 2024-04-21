@@ -1,13 +1,11 @@
-<%= lb_page(@preview, footer: false) do |page| %>
-  <%= @preview.notes %>
+<%= page.data.preview.notes %>
 
-  <h2>Scenarios:</h2>
+<h2>Scenarios:</h2>
 
-  <ul>
-    <% @targets.filter(&:visible?).each do |target| %>
-      <li>
-        <%= link_to target.label, target.url_path %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+<ul>
+  <% page.data.targets.filter(&:visible?).each do |target| %>
+    <li>
+      <%= link_to target.label, target.url_path %>
+    </li>
+  <% end %>
+</ul>
