@@ -4,8 +4,8 @@ module Lookbook
       attr_reader :name, :label
 
       def initialize(name:, **kwargs)
-        @name = name
-        @label = label || name.titleize
+        @name = name.to_s
+        @label = label || name.to_s.titleize
       end
     end
   end

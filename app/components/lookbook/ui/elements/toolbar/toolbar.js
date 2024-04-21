@@ -3,20 +3,18 @@ import { getData } from "@js/alpine/utils";
 
 export default AlpineComponent("toolbar", () => {
   return {
-    activeTab: null,
-
-    selectTab(name) {
-      this.activeTab = name;
-      this.$dispatch("toolbar:tab-selected", { name });
+    set activeTab(value) {
+      if (this.tabGroup) this.tabGroup.activeTab = value;
     },
 
-    isActive(name) {
-      return this.activeTab === name;
+    get tabGroup() {
+      return getData(
+        this.$root.querySelector("[data-component='toolbar-tab-group']")
+      );
     },
 
     get tabs() {
-      const childNodes = this.$refs.tabs ? this.$refs.tabs.children : [];
-      return Array.from(childNodes).map((child) => getData(child));
+      return this.tabGroup ? this.tabGroup.tabs : [];
     },
   };
 });

@@ -3,19 +3,13 @@ module Lookbook
     class Toolbar < BaseComponent
       with_slot :label
 
-      with_slot :action do |*args, **kwargs|
-        @toolbar_actions << lb_button(*args, **kwargs)
+      with_slot :breadcrumb do |*args|
+        lb_breadcrumbs(*args)
       end
 
-      with_slot :divider do
-        @toolbar_actions << :divider
-      end
+      with_slot :button_group, Lookbook::UI::ButtonGroup
 
-      with_slot :tab, Lookbook::UI::ToolbarTab
-
-      def initialize(**kwargs)
-        @toolbar_actions = []
-      end
+      with_slot :tab_group, Lookbook::UI::ToolbarTabGroup
     end
   end
 end

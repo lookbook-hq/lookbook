@@ -1,21 +1,5 @@
 <%= render component_tag(id: nil, key: id, x: {data: "pane('#{id}')", bind: "bindings.root"}) do %>
-  <%=
-    render Lookbook::UI::Toolbar.new do |toolbar|
-      toolbar.with_label { toolbar_label } if label?
-
-      toolbar_actions.each do |action|
-        if action == :divider
-          toolbar.with_divider
-        else
-          toolbar.with_action(**action)
-        end
-      end
-
-      toolbar_tabs.each do |tab|
-        toolbar.with_tab(**tab)
-      end
-    end
-  %>
+  <%= toolbar %>
 
   <% if tab_panels? %>
     <div class="pane-panels" role="tabpanels">

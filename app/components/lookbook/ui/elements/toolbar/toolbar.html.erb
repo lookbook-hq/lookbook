@@ -1,27 +1,25 @@
 <%= render component_tag(x: {"data": "toolbar"}) do %>
-  <% if label? %>
-    <h3 class="toolbar-label">
-      <%= label %>
-    </h3>
-  <% end %>
+  <div class="toolbar-section">
+    <% if label? %>
+      <h3 class="toolbar-label">
+        <%= label %>
+      </h3>
+    <% end %>
 
-  <% if tabs? %>
-    <nav role="tablist" class="toolbar-tabs" x-ref="tabs">
-      <%= safe_join(tabs) %>
-    </nav>
-  <% end %>
+    <% if breadcrumb? %>
+      <div class="toolbar-breadcrumb">
+        <%= breadcrumb %>
+      </div>
+    <% end %>
+
+    <div class="toolbar-tab-group">
+      <%= tab_group %>
+    </div>
+  </div>
   
-  <% if @toolbar_actions.any? %>
-    <%=
-      render Lookbook::UI::ButtonGroup.new(class: "toolbar-actions") do |group|
-        @toolbar_actions.each do |action|
-          if action == :divider
-            group.with_divider
-          else
-            group.with_button { action }
-          end
-        end
-      end
-    %>
-  <% end %>
+  <div class="toolbar-section">
+    <% if button_groups? %>
+      <%= safe_join(button_groups) %>
+    <% end %>
+  </div>
 <% end %>

@@ -7,7 +7,9 @@
         "@viewport:resize-end": "resizeIframe"
       }
     ) do |pane|
-      pane.with_label { target.label }
+      pane.with_toolbar do |toolbar|
+        toolbar.with_label { target.label }
+      end
 
       lb_viewport(target.preview_path(preview_params), id: dom_id(target, "embed-viewport"), resize_y: false)
     end
@@ -15,6 +17,14 @@
 
   <%=
     lb_pane(dom_id(target, "embed-drawer"), class: "embed-drawer") do |pane|
+      pane.with_toolbar do |toolbar|
+        toolbar.with_tab_group do |group|
+          panels.each do |panel|
+            group.with_tab(panel.name, label: panel.label)
+          end
+        end
+      end
+
       panels.each do |panel|
         pane.with_tab_panel(panel.name, label: panel.label) do
           render panel.partial, preview: preview, target: target, panel: panel

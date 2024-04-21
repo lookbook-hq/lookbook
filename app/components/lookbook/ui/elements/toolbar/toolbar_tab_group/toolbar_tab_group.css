@@ -1,0 +1,5 @@
+[data-component="toolbar-tab-group"] {
+  display: flex;
+  gap: var(--lookbook-spacing-small);
+  height: var(--lookbook-toolbar-height);
+}

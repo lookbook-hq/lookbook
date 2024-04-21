@@ -74,4 +74,10 @@
   --lookbook-shadow-medium: 0 2px 4px hsl(240 3.8% 46.1% / 12%);
   --lookbook-shadow-large: 0 2px 8px hsl(240 3.8% 46.1% / 12%);
   --lookbook-shadow-x-large: 0 4px 16px hsl(240 3.8% 46.1% / 12%);
+
+  /*
+   * Toolbars
+   */
+
+  --lookbook-toolbar-height: 2.5rem;
 }

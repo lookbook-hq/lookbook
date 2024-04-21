@@ -74,6 +74,12 @@
   --lookbook-shadow-medium: 0 2px 4px hsla(240, 4%, 46%, 0.12);
   --lookbook-shadow-large: 0 2px 8px hsla(240, 4%, 46%, 0.12);
   --lookbook-shadow-x-large: 0 4px 16px hsla(240, 4%, 46%, 0.12);
+
+  /*
+   * Toolbars
+   */
+
+  --lookbook-toolbar-height: 2.5rem;
 }
 :root {
   --lookbook-color-gray-50: hsl(0, 0%, 98%);
@@ -1128,15 +1134,10 @@ select {
     width: 100%;
     height: 100%;
   }
-[data-component="button"][data-size="sm"] {
-    padding: 0.25rem;
-    height: 1.5rem;
-    width: 1.5rem;
-  }
 [data-component="button"][data-size="md"] {
-    padding: 0.5rem;
-    height: 2rem;
-    width: 2rem;
+    padding: 0.75rem;
+    height: 2.5rem;
+    width: 2.5rem;
   }
 [data-component="button-group"] {
   display: flex;
@@ -1726,7 +1727,8 @@ select {
   }
 [data-component="toolbar"] {
   background-color: white;
-  height: 38px;
+  height: 2.5rem;
+  height: var(--lookbook-toolbar-height);
   display: flex;
   align-items: center;
   padding-left: 1rem;
@@ -1734,46 +1736,64 @@ select {
   border-bottom: 1px solid hsl(240, 5%, 84%);
   border-bottom: 1px solid var(--lookbook-divider-color);
 }
+[data-component="toolbar"] .toolbar-section {
+    display: flex;
+    align-items: center;
+  }
+[data-component="toolbar"] .toolbar-section:last-child {
+    margin-left: auto;
+  }
 [data-component="toolbar"] .toolbar-label {
     display: flex;
     align-items: center;
     font-size: 0.875rem;
     font-size: var(--lookbook-font-size-small);
+    margin-right: 1rem;
+    margin-right: var(--lookbook-spacing-medium);
   }
-[data-component="toolbar"] .toolbar-tabs {
-    display: flex;
-    gap: 0.75rem;
-    gap: var(--lookbook-spacing-small);
-    height: var(--lookbook-toolbar-height);
-  }
-[data-component="toolbar"] .toolbar-title + .toolbar-tabs {
-    margin-left: 1rem;
-    margin-left: var(--lookbook-spacing-medium);
-  }
-[data-component="toolbar"] .toolbar-actions {
-    margin-left: auto;
-  }
-[data-component="toolbar"] .toolbar-actions .button {
-      margin-left: 3px;
-      margin-right: 3px;
+[data-component="toolbar"] [data-component="button-group"] + [data-component="button-group"] {
+      border-left: 1px solid hsl(240, 5%, 84%);
+      border-left: 1px solid var(--lookbook-divider-color);
+    }
+[data-component="toolbar"] [data-component="button-group"] .button {
       color: hsl(240, 4%, 46%);
       color: var(--lookbook-color-base-500);
     }
-[data-component="toolbar"] .toolbar-actions .button:hover {
+[data-component="toolbar"] [data-component="button-group"] .button:hover {
         color: hsl(240, 5%, 26%);
         color: var(--lookbook-color-base-700);
       }
-[data-component="toolbar"] .toolbar-actions .button:active {
+[data-component="toolbar"] [data-component="button-group"] .button:active {
         color: hsl(245, 58%, 51%);
         color: var(--lookbook-color-accent-700);
       }
-[data-component="toolbar"] .toolbar-actions [data-component="button"] {
+/* 
+
+  .toolbar-actions {
+    margin-left: auto;
+
+    .button {
+      margin-inline: 3px;
+      color: var(--lookbook-color-base-500);
+
+      &:hover {
+        color: var(--lookbook-color-base-700);
+      }
+
+      &:active {
+        color: var(--lookbook-color-accent-700);
+      }
+    }
+
+    [data-component="button"] {
       padding: 0.5rem;
       height: 2rem;
       width: 2rem;
-    }
+    } 
+  }*/
 [data-component="toolbar-tab"] {
-  height: 38px;
+  height: 2.5rem;
+  height: var(--lookbook-toolbar-height);
   display: flex;
   align-items: center;
   font-size: 0.875rem;
@@ -1794,6 +1814,13 @@ select {
     border-bottom-color: hsl(239, 84%, 67%);
     border-bottom-color: var(--lookbook-color-accent-500);
   }
+[data-component="toolbar-tab-group"] {
+  display: flex;
+  gap: 0.75rem;
+  gap: var(--lookbook-spacing-small);
+  height: 2.5rem;
+  height: var(--lookbook-toolbar-height);
+}
 [data-component="viewport"] {
   width: 100%;
   height: 100%;

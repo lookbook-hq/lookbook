@@ -6,29 +6,46 @@
       sizes: ["auto", "350px"]
     }) do |layout|
       layout.with_pane("preview-pane") do |pane|
-        # pane.with_action(icon: :layers, tooltip: "Preview overview", href: preview.url_path)
-        pane.with_action(icon: :external_link, tooltip: "Open preview in new window", href: target.preview_path, target: "_blank")    
-        pane.with_action_divider
-        pane.with_action(icon: :panel_bottom_open, tooltip: "Open drawer", click: "openDrawer", show: "drawerClosed", x: {":aria-hidden": "!drawerClosed"})
-        pane.with_action(icon: :panel_bottom_close, tooltip: "Close drawer", click: "closeDrawer", show: "!drawerClosed", x: {":aria-hidden": "drawerClosed"})
-
-        pane.with_label do
-          lb_breadcrumbs(config.previews_nav_label, target.ancestors, target)
+        pane.with_toolbar do |toolbar|
+          toolbar.with_breadcrumb(config.previews_nav_label, target.ancestors, target)
+          toolbar.with_button_group do |group|
+            group.with_button(icon: :external_link, tooltip: "Open preview in new window", href: target.preview_path, target: "_blank")
+          end
+          toolbar.with_button_group do |group|
+            group.with_button(icon: :panel_bottom_open, tooltip: "Open drawer", click: "openDrawer", show: "drawerClosed", x: {":aria-hidden": "!drawerClosed"})
+            group.with_button(icon: :panel_bottom_close, tooltip: "Close drawer", click: "closeDrawer", show: "!drawerClosed", x: {":aria-hidden": "drawerClosed"})
+          end
         end
 
         lb_pane do |pane|
+          pane.with_toolbar do |toolbar|  
+            toolbar.with_tab_group do |group|
+              preview_panels.each do |panel|
+                group.with_tab(panel.name, label: panel.label)
+              end
+            end
+          end
+
           preview_panels.each do |panel|
             pane.with_tab_panel(panel.name, label: panel.label) do
               render panel.partial, preview: preview, target: target, panel: panel
             end
           end
-        end
+        end      
       end
 
       layout.with_pane("drawer-pane") do |pane|
-        pane.with_action_divider
-        pane.with_action(icon: :x, tooltip: "Close drawer", click: "closeDrawer")
-
+        pane.with_toolbar do |toolbar|
+          toolbar.with_tab_group do |group|
+            drawer_panels.each do |panel|
+              group.with_tab(panel.name, label: panel.label)
+            end
+          end
+          toolbar.with_button_group do |group|
+            group.with_button(icon: :x, tooltip: "Close drawer", click: "closeDrawer")
+          end
+        end
+      
         drawer_panels.each do |panel|
           pane.with_tab_panel(panel.name, label: panel.label) do
             render panel.partial, preview: preview, target: target, panel: panel

@@ -74,6 +74,12 @@
   --lookbook-shadow-medium: 0 2px 4px hsla(240, 4%, 46%, 0.12);
   --lookbook-shadow-large: 0 2px 8px hsla(240, 4%, 46%, 0.12);
   --lookbook-shadow-x-large: 0 4px 16px hsla(240, 4%, 46%, 0.12);
+
+  /*
+   * Toolbars
+   */
+
+  --lookbook-toolbar-height: 2.5rem;
 }
 :root {
   --lookbook-color-gray-50: hsl(0, 0%, 98%);

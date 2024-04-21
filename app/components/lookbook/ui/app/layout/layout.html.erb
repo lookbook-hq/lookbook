@@ -26,15 +26,23 @@
         }) do |sidebar|
 
           sidebar.with_pane("previews-nav") do |pane|
-            pane.with_label { config.previews_nav_label }
-            pane.with_action(icon: :copy_minus, tooltip: "Collapse all", click: "$dispatch('nav:collapse-all', {id: 'previews-nav-tree'})")
+            pane.with_toolbar do |toolbar|
+              toolbar.with_label { config.previews_nav_label }
+              toolbar.with_button_group do |group|
+                group.with_button(icon: :copy_minus, tooltip: "Collapse all", click: "$dispatch('nav:collapse-all', {id: 'previews-nav-tree'})")
+              end
+            end
             previews_nav
           end
 
           if pages_nav?
             sidebar.with_pane("pages-nav") do |pane|
-              pane.with_label { config.pages_nav_label }
-              pane.with_action(icon: :copy_minus, tooltip: "Collapse all", click: "$dispatch('nav:collapse-all', {id: 'pages-nav-tree'})")
+              pane.with_toolbar do |toolbar|
+                toolbar.with_label { config.pages_nav_label }
+                toolbar.with_button_group do |group|
+                  group.with_button(icon: :copy_minus, tooltip: "Collapse all", click: "$dispatch('nav:collapse-all', {id: 'pages-nav-tree'})")
+                end
+              end
               pages_nav
             end
           end
