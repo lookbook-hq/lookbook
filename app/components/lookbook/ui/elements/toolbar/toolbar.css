@@ -22,46 +22,14 @@
     margin-right: var(--lookbook-spacing-medium);
   }
 
+  .toolbar-button-groups {
+    display: flex;
+    align-items: center;
+  }
+
   [data-component="button-group"] {
     & + [data-component="button-group"] {
       border-left: 1px solid var(--lookbook-divider-color);
     }
-
-    .button {
-      color: var(--lookbook-color-base-500);
-
-      &:hover {
-        color: var(--lookbook-color-base-700);
-      }
-
-      &:active {
-        color: var(--lookbook-color-accent-700);
-      }
-    }
   }
-
-  /* 
-
-  .toolbar-actions {
-    margin-left: auto;
-
-    .button {
-      margin-inline: 3px;
-      color: var(--lookbook-color-base-500);
-
-      &:hover {
-        color: var(--lookbook-color-base-700);
-      }
-
-      &:active {
-        color: var(--lookbook-color-accent-700);
-      }
-    }
-
-    [data-component="button"] {
-      padding: 0.5rem;
-      height: 2rem;
-      width: 2rem;
-    } 
-  }*/
 }

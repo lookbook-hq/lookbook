@@ -27,16 +27,17 @@ export default AlpineComponent("router", (sseEndpoint = null) => {
     },
 
     async updatePage() {
-      this.$dispatch("lookbook:page-update-start");
-      this.updater.updateDOM(location);
+      this.$dispatch("page-update:start");
+      await this.updater.updateDOM(location);
       this.routerLogger.info(`Page updated`);
-      this.$dispatch("lookbook:page-update");
+      this.$dispatch("page-update:complete");
     },
 
     async loadPage(url = location) {
-      this.updater.updateDOM(url);
+      this.$dispatch("page-load:start");
+      await this.updater.updateDOM(url);
       this.routerLogger.debug(`Page loaded`);
-      this.$dispatch("lookbook:page-load");
+      this.$dispatch("page-load:complete");
     },
 
     handleClick(event) {

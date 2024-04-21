@@ -12,14 +12,19 @@
       </div>
     <% end %>
 
-    <div class="toolbar-tab-group">
-      <%= tab_group %>
-    </div>
+    
+    <% if tab_group? %>
+      <div class="toolbar-tab-group">
+        <%= tab_group %>
+      </div>  
+    <% end %>
   </div>
   
   <div class="toolbar-section">
     <% if button_groups? %>
-      <%= safe_join(button_groups) %>
-    <% end %>
+      <div class="toolbar-button-groups">
+        <%= safe_join(button_groups) %>
+      </div>
+    <% end %>    
   </div>
 <% end %>

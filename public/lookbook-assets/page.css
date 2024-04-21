@@ -69,11 +69,15 @@
    * Shadows
    */
 
-  --lookbook-shadow-x-small: 0 1px 2px hsla(240, 4%, 46%, 0.06);
-  --lookbook-shadow-small: 0 1px 2px hsla(240, 4%, 46%, 0.12);
-  --lookbook-shadow-medium: 0 2px 4px hsla(240, 4%, 46%, 0.12);
-  --lookbook-shadow-large: 0 2px 8px hsla(240, 4%, 46%, 0.12);
-  --lookbook-shadow-x-large: 0 4px 16px hsla(240, 4%, 46%, 0.12);
+  --lookbook-shadow-x-small: 0 0 2px 0 rgba(0, 0, 0, 0.05);
+  --lookbook-shadow-small: 0 0 3px 0 rgba(0, 0, 0, 0.1),
+    0 0 2px -1px rgba(0, 0, 0, 0.1);
+  --lookbook-shadow-medium: 0 0 6px -1px rgba(0, 0, 0, 0.1),
+    0 0 4px -2px rgba(0, 0, 0, 0.1);
+  --lookbook-shadow-large: 0 0 15px -3px rgba(0, 0, 0, 0.1),
+    0 0 6px -4px rgba(0, 0, 0, 0.1);
+  --lookbook-shadow-x-large: 0 0 25px -5px rgba(0, 0, 0, 0.1),
+    0 0 10px -6px rgba(0, 0, 0, 0.1);
 
   /*
    * Toolbars
@@ -655,6 +659,24 @@ tr:not(:last-child) {
 .tippy-arrow{width:16px;height:16px;color:#333}
 .tippy-arrow:before{content:"";position:absolute;border-color:transparent;border-style:solid}
 .tippy-content{position:relative;padding:5px 9px;z-index:1}
+.tippy-box[data-theme~="dropdown"] {
+  box-shadow: 0 0 6px -1px rgba(0, 0, 0, 0.1),
+    0 0 4px -2px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--lookbook-shadow-medium);
+  background: #fff;
+  background: var(--lookbook-color-base-0);
+  color: hsl(240, 4%, 16%);
+  color: var(--lookbook-color-base-800);
+  max-width: 100%;
+  border: 1px solid hsl(240, 5%, 84%);
+  border: 1px solid var(--lookbook-divider-color);
+  border-radius: 0;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.tippy-box[data-theme~="dropdown"] .tippy-content {
+    padding: 0;
+  }
 [data-component="code"] {
   display: block;
 

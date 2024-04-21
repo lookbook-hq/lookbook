@@ -1,13 +1,19 @@
-<%= render component_tag(x: {data: "statusBarItem"}, data: {theme: theme}, class: {"with-panel": panel?}) do %>
-  <div class="status-bar-item-summary" @click="expanded = !expanded">
+<%= render component_tag(x: {
+  data: "statusBarItem",
+  "@page-load:start.document": "hidePanel",
+  "@page-update:start.document": "hidePanel",
+  }, data: {theme: theme}, class: {"with-panel": panel?}) do %>
+  <div class="status-bar-item-summary">
     <%= lb_icon icon %>
     <% if label.present? %>
       <span><%= label %></span>
     <% end %>
   </div>
   <% if panel? %>
-    <div class="status-bar-item-panel" x-show="expanded" @click.outside="expanded = false" x-cloak>
-      <%= panel %>
-    </div>
+    <template x-teleport="body">
+      <div x-ref="dropdown">
+        <%= panel %>
+      </div>
+    </template>
   <% end %>
 <% end %>

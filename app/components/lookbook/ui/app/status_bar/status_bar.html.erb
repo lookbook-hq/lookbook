@@ -6,21 +6,21 @@
   </div>
   <div class="status-bar-section">
     <% if warnings.any? %>
-      <%= render Lookbook::UI::StatusBarItem.new(label: pluralize(warnings.size, "warning"), theme: :warning) do |item| %>
+      <%= render Lookbook::UI::StatusBarItem.new(key: "status-bar-warnings", label: pluralize(warnings.size, "warning"), theme: :warning) do |item| %>
         <% item.with_panel do %>
           <%= render Lookbook::UI::StatusBarNotifications.new(notifications: warnings) %>
         <% end %>
       <% end %>
     <% end %>
     <% if errors.any? %>
-      <%= render Lookbook::UI::StatusBarItem.new(label: pluralize(errors.size, "error"), theme: :error) do |item| %>
+      <%= render Lookbook::UI::StatusBarItem.new(key: "status-bar-errors", label: pluralize(errors.size, "error"), theme: :error) do |item| %>
         <% item.with_panel do %>
           <%= render Lookbook::UI::StatusBarNotifications.new(notifications: errors) %>
         <% end %>
       <% end %>
     <% end %>
     <% if warnings.none? && errors.none? %>
-      <%= render Lookbook::UI::StatusBarItem.new(label: "No issues", theme: :success) %>  
+      <%= render Lookbook::UI::StatusBarItem.new(key: "status-bar-ok", label: "No issues", theme: :success) %>  
     <% end %>
   </div>
 <% end %>

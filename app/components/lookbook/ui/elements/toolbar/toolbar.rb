@@ -7,9 +7,9 @@ module Lookbook
         lb_breadcrumbs(*args)
       end
 
-      with_slot :button_group, Lookbook::UI::ButtonGroup
-
       with_slot :tab_group, Lookbook::UI::ToolbarTabGroup
+
+      with_slot :button_group, Lookbook::UI::ButtonGroup
     end
   end
 end

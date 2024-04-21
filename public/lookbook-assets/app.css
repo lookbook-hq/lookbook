@@ -69,11 +69,15 @@
    * Shadows
    */
 
-  --lookbook-shadow-x-small: 0 1px 2px hsla(240, 4%, 46%, 0.06);
-  --lookbook-shadow-small: 0 1px 2px hsla(240, 4%, 46%, 0.12);
-  --lookbook-shadow-medium: 0 2px 4px hsla(240, 4%, 46%, 0.12);
-  --lookbook-shadow-large: 0 2px 8px hsla(240, 4%, 46%, 0.12);
-  --lookbook-shadow-x-large: 0 4px 16px hsla(240, 4%, 46%, 0.12);
+  --lookbook-shadow-x-small: 0 0 2px 0 rgba(0, 0, 0, 0.05);
+  --lookbook-shadow-small: 0 0 3px 0 rgba(0, 0, 0, 0.1),
+    0 0 2px -1px rgba(0, 0, 0, 0.1);
+  --lookbook-shadow-medium: 0 0 6px -1px rgba(0, 0, 0, 0.1),
+    0 0 4px -2px rgba(0, 0, 0, 0.1);
+  --lookbook-shadow-large: 0 0 15px -3px rgba(0, 0, 0, 0.1),
+    0 0 6px -4px rgba(0, 0, 0, 0.1);
+  --lookbook-shadow-x-large: 0 0 25px -5px rgba(0, 0, 0, 0.1),
+    0 0 10px -6px rgba(0, 0, 0, 0.1);
 
   /*
    * Toolbars
@@ -879,6 +883,24 @@ select {
 .tippy-arrow{width:16px;height:16px;color:#333}
 .tippy-arrow:before{content:"";position:absolute;border-color:transparent;border-style:solid}
 .tippy-content{position:relative;padding:5px 9px;z-index:1}
+.tippy-box[data-theme~="dropdown"] {
+  box-shadow: 0 0 6px -1px rgba(0, 0, 0, 0.1),
+    0 0 4px -2px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--lookbook-shadow-medium);
+  background: #fff;
+  background: var(--lookbook-color-base-0);
+  color: hsl(240, 4%, 16%);
+  color: var(--lookbook-color-base-800);
+  max-width: 100%;
+  border: 1px solid hsl(240, 5%, 84%);
+  border: 1px solid var(--lookbook-divider-color);
+  border-radius: 0;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.tippy-box[data-theme~="dropdown"] .tippy-content {
+    padding: 0;
+  }
 [data-component="error-page"] {
   padding: 1.25rem;
   padding: var(--lookbook-spacing-large);
@@ -1000,18 +1022,6 @@ select {
       flex: none;
       height: 100%;
     }
-[data-component="status-bar-item"] .status-bar-item-panel {
-    position: absolute;
-    right: 0;
-    top: calc(-1 * 0.75rem);
-    top: calc(-1 * var(--lookbook-spacing-small));
-    transform: translateY(-100%);
-    width: -moz-fit-content;
-    width: fit-content;
-    box-shadow:
-      0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  }
 .with-panel[data-component="status-bar-item"] .status-bar-item-summary {
     cursor: pointer;
   }
@@ -1037,23 +1047,21 @@ select {
       }
 [data-component="status-bar-notifications"] {
   width: 28rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-left: var(--lookbook-spacing-medium);
-  padding-right: var(--lookbook-spacing-medium);
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-left: var(--lookbook-spacing-small);
+  padding-right: var(--lookbook-spacing-small);
   background: #fff;
   background: var(--lookbook-color-base-0);
-  border: 1px solid hsl(240, 5%, 84%);
-  border: 1px solid var(--lookbook-divider-color);
 }
 [data-component="status-bar-notifications"] .notification {
     display: flex;
     gap: 0.75rem;
     gap: var(--lookbook-spacing-small);
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-top: var(--lookbook-spacing-medium);
-    padding-bottom: var(--lookbook-spacing-medium);
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-top: var(--lookbook-spacing-small);
+    padding-bottom: var(--lookbook-spacing-small);
   }
 [data-component="status-bar-notifications"] .notification + .notification {
       border-top: 1px solid hsl(240, 5%, 84%);
@@ -1129,10 +1137,21 @@ select {
   width: -moz-fit-content;
   width: fit-content;
   line-height: 0;
+  color: hsl(240, 4%, 46%);
+  color: var(--lookbook-color-base-500);
 }
 [data-component="button"] .button-icon {
     width: 100%;
     height: 100%;
+  }
+[data-component="button"]:hover {
+    color: hsl(240, 5%, 26%);
+    color: var(--lookbook-color-base-700);
+  }
+[data-component="button"]:active,
+  .active[data-component="button"] {
+    color: hsl(245, 58%, 51%);
+    color: var(--lookbook-color-accent-700);
   }
 [data-component="button"][data-size="md"] {
     padding: 0.75rem;
@@ -1751,46 +1770,14 @@ select {
     margin-right: 1rem;
     margin-right: var(--lookbook-spacing-medium);
   }
+[data-component="toolbar"] .toolbar-button-groups {
+    display: flex;
+    align-items: center;
+  }
 [data-component="toolbar"] [data-component="button-group"] + [data-component="button-group"] {
       border-left: 1px solid hsl(240, 5%, 84%);
       border-left: 1px solid var(--lookbook-divider-color);
     }
-[data-component="toolbar"] [data-component="button-group"] .button {
-      color: hsl(240, 4%, 46%);
-      color: var(--lookbook-color-base-500);
-    }
-[data-component="toolbar"] [data-component="button-group"] .button:hover {
-        color: hsl(240, 5%, 26%);
-        color: var(--lookbook-color-base-700);
-      }
-[data-component="toolbar"] [data-component="button-group"] .button:active {
-        color: hsl(245, 58%, 51%);
-        color: var(--lookbook-color-accent-700);
-      }
-/* 
-
-  .toolbar-actions {
-    margin-left: auto;
-
-    .button {
-      margin-inline: 3px;
-      color: var(--lookbook-color-base-500);
-
-      &:hover {
-        color: var(--lookbook-color-base-700);
-      }
-
-      &:active {
-        color: var(--lookbook-color-accent-700);
-      }
-    }
-
-    [data-component="button"] {
-      padding: 0.5rem;
-      height: 2rem;
-      width: 2rem;
-    } 
-  }*/
 [data-component="toolbar-tab"] {
   height: 2.5rem;
   height: var(--lookbook-toolbar-height);
@@ -2003,6 +1990,12 @@ select {
     height: 100%;
     width: 100%;
   }
+[data-component="display-options-editor"] {
+  width: 280px;
+  padding: 0.75rem;
+  padding: var(--lookbook-spacing-small);
+  background: #fff;
+}
 [data-component="panel"][data-panel="code"] {
 }
 [data-component="panel"][data-panel="default"] {

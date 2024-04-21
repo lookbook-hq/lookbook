@@ -9336,7 +9336,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     async updateDOM(url) {
       const { fragment, status } = await fetchHTML(url, this.selector);
       if (status < 500) {
+        document.dispatchEvent(new CustomEvent("morph:start"));
         Alpine.morph(this.root, fragment);
+        document.dispatchEvent(new CustomEvent("morph:complete"));
       } else {
         location.href = url;
       }
@@ -9376,15 +9378,16 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
         this.loadPage(url);
       },
       async updatePage() {
-        this.$dispatch("lookbook:page-update-start");
-        this.updater.updateDOM(location);
+        this.$dispatch("page-update:start");
+        await this.updater.updateDOM(location);
         this.routerLogger.info(`Page updated`);
-        this.$dispatch("lookbook:page-update");
+        this.$dispatch("page-update:complete");
       },
       async loadPage(url = location) {
-        this.updater.updateDOM(url);
+        this.$dispatch("page-load:start");
+        await this.updater.updateDOM(url);
         this.routerLogger.debug(`Page loaded`);
-        this.$dispatch("lookbook:page-load");
+        this.$dispatch("page-load:complete");
       },
       handleClick(event) {
         const link = event.target.closest("[href]");
@@ -9425,26 +9428,6 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   var status_bar_item_exports = {};
   __export(status_bar_item_exports, {
     default: () => status_bar_item_default
-  });
-  var status_bar_item_default = AlpineComponent("statusBarItem", () => {
-    return {
-      expanded: false
-    };
-  });
-
-  // app/components/lookbook/ui/app/status_bar/status_bar_notifications/status_bar_notifications.js
-  var status_bar_notifications_exports = {};
-  __export(status_bar_notifications_exports, {
-    default: () => status_bar_notifications_default
-  });
-  var status_bar_notifications_default = AlpineComponent("statusBarNotifications", () => {
-    return {};
-  });
-
-  // app/components/lookbook/ui/elements/button/button.js
-  var button_exports = {};
-  __export(button_exports, {
-    default: () => button_default
   });
 
   // node_modules/@popperjs/core/lib/enums.js
@@ -12186,18 +12169,103 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   });
   var tippy_esm_default = tippy;
 
+  // app/components/lookbook/ui/app/status_bar/status_bar_item/status_bar_item.js
+  var status_bar_item_default = AlpineComponent("statusBarItem", () => {
+    return {
+      dropdownOpen: false,
+      dropdown: null,
+      init() {
+        this.$nextTick(() => {
+          if (this.$refs.dropdown) {
+            this.dropdown = tippy_esm_default(this.$el, {
+              allowHTML: true,
+              interactive: true,
+              theme: "dropdown",
+              arrow: false,
+              placement: "top-end",
+              duration: 0,
+              maxWidth: "none",
+              offset: [4, 8],
+              trigger: "click",
+              hideOnClick: true,
+              content: () => this.$refs.dropdown
+            });
+          }
+        });
+      },
+      hidePanel() {
+        if (this.dropdown)
+          this.dropdown.hide();
+      },
+      destroy() {
+        if (this.dropdown)
+          this.dropdown.destroy();
+      }
+    };
+  });
+
+  // app/components/lookbook/ui/app/status_bar/status_bar_notifications/status_bar_notifications.js
+  var status_bar_notifications_exports = {};
+  __export(status_bar_notifications_exports, {
+    default: () => status_bar_notifications_default
+  });
+  var status_bar_notifications_default = AlpineComponent("statusBarNotifications", () => {
+    return {};
+  });
+
   // app/components/lookbook/ui/elements/button/button.js
+  var button_exports = {};
+  __export(button_exports, {
+    default: () => button_default
+  });
   var button_default = AlpineComponent("button", () => {
     return {
+      dropdownOpen: false,
+      dropdown: null,
+      tooltip: null,
       init() {
-        if (this.tooltip) {
-          tippy_esm_default(this.$el, {
-            content: () => this.tooltip,
-            appendTo: () => this.$refs.content
+        if (this.tooltipContent) {
+          this.tooltip = tippy_esm_default(this.$refs.content, {
+            content: () => this.tooltipContent,
+            onShow: () => !this.dropdownOpen
           });
         }
+        this.$nextTick(() => {
+          if (this.$refs.dropdown) {
+            this.dropdown = tippy_esm_default(this.$el, {
+              allowHTML: true,
+              interactive: true,
+              theme: "dropdown",
+              arrow: false,
+              placement: "bottom-end",
+              duration: 0,
+              offset: [1, -1],
+              trigger: "click",
+              hideOnClick: true,
+              content: () => this.$refs.dropdown,
+              onShow: () => {
+                this.dropdownOpen = true;
+              },
+              onHide: () => {
+                this.dropdownOpen = false;
+              }
+            });
+          }
+        });
       },
-      get tooltip() {
+      hidePopovers() {
+        if (this.tooltip)
+          this.tooltip.hide();
+        if (this.dropdown)
+          this.dropdown.hide();
+      },
+      destroy() {
+        if (this.tooltip)
+          this.tooltip.destroy();
+        if (this.dropdown)
+          this.dropdown.destroy();
+      },
+      get tooltipContent() {
         return this.$el.hasAttribute("data-tooltip") ? this.$el.getAttribute("data-tooltip") : null;
       }
     };
@@ -20208,6 +20276,15 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     };
   });
 
+  // app/components/lookbook/ui/previews/display_options_editor/display_options_editor.js
+  var display_options_editor_exports = {};
+  __export(display_options_editor_exports, {
+    default: () => display_options_editor_default
+  });
+  var display_options_editor_default = AlpineComponent("displayOptionsEditor", () => {
+    return {};
+  });
+
   // app/components/lookbook/ui/previews/panels/code_panel/code_panel.js
   var code_panel_exports = {};
   __export(code_panel_exports, {
@@ -20324,7 +20401,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   });
 
   // import-glob:/Users/mark/Code/lookbook/lookbook-v3/assets/js/alpine|../../../app/components/lookbook/ui/**/*.js
-  var modules = [header_exports, layout_exports, router_exports, status_bar_exports, status_bar_item_exports, status_bar_notifications_exports, button_exports, code_exports, icon_exports, nav_exports, nav_item_exports, pane_exports, tab_panel_exports, pane_group_exports, prose_exports, toolbar_exports, toolbar_tab_exports, toolbar_tab_group_exports, viewport_exports, page_exports, page_browser_exports, code_panel_exports, default_panel_exports, param_editor_exports, params_panel_exports, prose_panel_exports, preview_embed_exports, preview_inspector_exports];
+  var modules = [header_exports, layout_exports, router_exports, status_bar_exports, status_bar_item_exports, status_bar_notifications_exports, button_exports, code_exports, icon_exports, nav_exports, nav_item_exports, pane_exports, tab_panel_exports, pane_group_exports, prose_exports, toolbar_exports, toolbar_tab_exports, toolbar_tab_group_exports, viewport_exports, page_exports, page_browser_exports, display_options_editor_exports, code_panel_exports, default_panel_exports, param_editor_exports, params_panel_exports, prose_panel_exports, preview_embed_exports, preview_inspector_exports];
   var __default = modules;
 
   // assets/js/alpine/app.js

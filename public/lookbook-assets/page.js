@@ -14937,7 +14937,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     async updateDOM(url) {
       const { fragment, status } = await fetchHTML(url, this.selector);
       if (status < 500) {
+        document.dispatchEvent(new CustomEvent("morph:start"));
         Alpine.morph(this.root, fragment);
+        document.dispatchEvent(new CustomEvent("morph:complete"));
       } else {
         location.href = url;
       }
