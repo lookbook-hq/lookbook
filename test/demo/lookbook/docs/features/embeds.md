@@ -1,3 +1,8 @@
+---
+label: Preview Embeds
+title: Embedding previews in pages
+---
+
 ## Preview embed example
 
 ```erb

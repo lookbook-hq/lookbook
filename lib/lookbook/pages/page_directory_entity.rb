@@ -19,7 +19,11 @@ module Lookbook
     end
 
     def children
-      Pages.tree.children_of(self).sort
+      @children ||= Pages.tree.children_of(self).sort
+    end
+
+    def hidden?
+      children.select(&:visible?).none?
     end
 
     def parent

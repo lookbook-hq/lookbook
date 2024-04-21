@@ -27,6 +27,7 @@ module Lookbook
     end
 
     def hidden?
+      return true if children.select(&:visible?).none?
       metadata.fetch(:hidden, super)
     end
 
@@ -120,7 +121,7 @@ module Lookbook
     end
 
     def children
-      inspector_targets.sort
+      @children ||= inspector_targets.sort
     end
 
     private

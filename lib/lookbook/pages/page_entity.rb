@@ -39,7 +39,7 @@ module Lookbook
     end
 
     def content
-      @content = parsed_content[:content] if @content.nil?
+      @content ||= parsed_content[:content]
       @content.strip_heredoc.strip.html_safe
     end
 
@@ -59,8 +59,7 @@ module Lookbook
     end
 
     def frontmatter
-      @frontmatter = parsed_content[:frontmatter] if @frontmatter.nil?
-      @frontmatter
+      @frontmatter ||= parsed_content[:frontmatter]
     end
 
     def file_path
@@ -79,7 +78,8 @@ module Lookbook
       Pages.tree.previous(self) unless virtual?
     end
 
-    def virtual? = file_path.present?
+    def virtual? = file_path.blank?
+
     class << self
       def to_lookup_path(page_path)
         path = page_path.to_s.downcase
@@ -129,7 +129,7 @@ module Lookbook
     end
 
     def file_contents
-      @file_contents ||= virtual? ? File.read(file_path) : ""
+      @file_contents ||= virtual? ? "" : File.read(file_path)
     end
   end
 end
