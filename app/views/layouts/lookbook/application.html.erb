@@ -7,7 +7,7 @@
         end
 
         layout.with_previews_nav(@previews.tree)
-        layout.with_pages_nav(@pages.tree)
+        layout.with_pages_nav(@pages.tree) if @pages.any?
 
         layout.with_main do
           content_for?(:main) ? yield(:main) : yield

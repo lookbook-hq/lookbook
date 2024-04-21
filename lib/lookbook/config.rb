@@ -40,7 +40,7 @@ module Lookbook
 
           page_controller: "LookbookPageController",
           page_template: "lookbook/pages/page",
-          page_layout: "lookbook/page",
+          page_layout: "layouts/lookbook/page",
 
           pages_nav_label: "Pages",
           pages_nav_filter: true,

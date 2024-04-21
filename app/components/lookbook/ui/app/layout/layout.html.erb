@@ -22,18 +22,23 @@
         opts: {
           orientation: :horizontal,
           sizes: ["50%", "50%"],
-          # min_sizes: [200, 200]
+          min_sizes: [100, 100]
         }) do |sidebar|
+
           sidebar.with_pane("previews-nav") do |pane|
             pane.with_label { config.previews_nav_label }
             pane.with_action(icon: :copy_minus, tooltip: "Collapse all", click: "$dispatch('nav:collapse-all', {id: 'previews-nav-tree'})")
             previews_nav
           end
-          sidebar.with_pane("pages-nav") do |pane|
-            pane.with_label { config.pages_nav_label }
-            pane.with_action(icon: :copy_minus, tooltip: "Collapse all", click: "$dispatch('nav:collapse-all', {id: 'pages-nav-tree'})")
-            pages_nav
+
+          if pages_nav?
+            sidebar.with_pane("pages-nav") do |pane|
+              pane.with_label { config.pages_nav_label }
+              pane.with_action(icon: :copy_minus, tooltip: "Collapse all", click: "$dispatch('nav:collapse-all', {id: 'pages-nav-tree'})")
+              pages_nav
+            end
           end
+
         end 
       end
       body.with_pane { main }
