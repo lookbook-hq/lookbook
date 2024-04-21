@@ -62,9 +62,9 @@ module Lookbook
       preview_target_path(preview, self)
     end
 
-    def depth
-      @depth ||= lookup_path.split("/").size
-    end
+    # def depth
+    #   @depth ||= lookup_path.split("/").size
+    # end
 
     def source
       src = if custom_render_template?

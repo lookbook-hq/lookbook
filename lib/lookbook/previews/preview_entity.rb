@@ -1,5 +1,7 @@
 module Lookbook
   class PreviewEntity < Entity
+    include EntityTreeNode
+
     attr_reader :preview_class, :preview_file_path, :preview_class_name, :preview_methods, :metadata
 
     delegate :notes, :notes?, to: :metadata
@@ -49,16 +51,8 @@ module Lookbook
       preview_class_name.underscore.downcase.gsub("_component", "").gsub("_preview", "")
     end
 
-    def lookup_directory_path
-      @lookup_directory_path ||= File.dirname(lookup_path).delete_prefix(".")
-    end
-
     def url_path
       show_preview_path(self)
-    end
-
-    def depth
-      @depth ||= lookup_path.split("/").size
     end
 
     def layout
@@ -119,6 +113,14 @@ module Lookbook
 
     def preview_app_file_path
       Pathname.new(preview_file_path).relative_path_from(Rails.application.root)
+    end
+
+    def parent
+      Previews.directories.find { _1.lookup_path == parent_lookup_path }
+    end
+
+    def children
+      inspector_targets.sort
     end
 
     private

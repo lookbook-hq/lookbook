@@ -16,7 +16,7 @@ module Lookbook
         }
       }
 
-      delegate :label, :priority, :lookup_path, :url_path, :type, :search_terms, to: :node
+      delegate :label, :priority, :depth, :lookup_path, :url_path, :search_terms, to: :node
 
       attr_reader :node
 
@@ -29,16 +29,12 @@ module Lookbook
       end
 
       def icon
-        ENTITY_DISPLAY_ATTRIBUTES.dig(type, :icon) || :folder
+        ENTITY_DISPLAY_ATTRIBUTES.dig(node.type, :icon) || :folder
       end
 
-      def depth
-        lookup_path.split("/").size - 1
-      end
+      def indentation = depth - 1
 
-      def collection?
-        type == :directory || type == :preview
-      end
+      def collection? = children.any?
     end
   end
 end

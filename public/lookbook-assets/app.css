@@ -1985,7 +1985,7 @@ select {
       border-top: 1px solid var(--lookbook-divider-color);
     }
 [data-component="preview-overview"] .po-section-title {
-    font-weight: 400;
+    font-weight: 700;
     margin-bottom: 1rem;
     margin-bottom: var(--lookbook-spacing-medium);
   }

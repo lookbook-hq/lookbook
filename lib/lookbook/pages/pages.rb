@@ -23,6 +23,17 @@ module Lookbook
         end
       end
 
+      def directories
+        @directories ||= begin
+          directory_paths = store.all.map(&:parent_lookup_path).compact.uniq.each do |path|
+            current_path = ""
+            path.split("/").map { "#{current_path}/#{_1}".delete_prefix("/") }
+          end
+          sorted_paths = directory_paths.flatten.uniq.sort
+          sorted_paths.map.with_index(1) { PageDirectoryEntity.new(_1, default_priority: _2) }
+        end
+      end
+
       def reloader
         Reloader.new(:pages, watch_paths, watch_extensions) do |changes|
           changes.nil? ? load : update(changes)
@@ -74,6 +85,7 @@ module Lookbook
         debug("pages: clearing cache")
 
         @tree = nil
+        @directories = nil
       end
 
       def update(changes)

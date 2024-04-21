@@ -19,7 +19,7 @@ module Lookbook
       def to_tree
         @tree ||= begin
           debug("previews: building tree")
-          EntityTree.new([store.all, inspector_targets].flatten)
+          EntityTree.new(inspector_targets)
         end
       end
 
@@ -82,10 +82,22 @@ module Lookbook
         @inspector_targets ||= Previews.all.map { _1.inspector_targets }.flatten
       end
 
+      def directories
+        @directories ||= begin
+          directory_paths = store.all.map(&:parent_lookup_path).compact.uniq.each do |path|
+            current_path = ""
+            path.split("/").map { "#{current_path}/#{_1}".delete_prefix("/") }
+          end
+          sorted_paths = directory_paths.flatten.uniq.sort
+          sorted_paths.map.with_index(1) { PreviewDirectoryEntity.new(_1, default_priority: _2) }
+        end
+      end
+
       private
 
       def clear_cache
         @inspector_targets = nil
+        @directories = nil
         @tree = nil
       end
 

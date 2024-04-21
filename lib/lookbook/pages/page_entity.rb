@@ -1,5 +1,7 @@
 module Lookbook
   class PageEntity < Entity
+    include EntityTreeNode
+
     attr_reader :file_path, :frontmatter
 
     def initialize(file_path)
@@ -44,14 +46,6 @@ module Lookbook
       @lookup_path ||= Pages.to_lookup_path(relative_file_path)
     end
 
-    def lookup_directory_path
-      @lookup_directory_path ||= File.dirname(lookup_path).delete_prefix(".")
-    end
-
-    def depth
-      @depth ||= lookup_path.split("/").size
-    end
-
     def file_name(strip_ext = false)
       basename = file_pathname.basename
       (strip_ext ? basename.to_s.split(".").first : basename).to_s
@@ -86,6 +80,10 @@ module Lookbook
 
     def source_checksum
       @source_checksum ||= Utils.hash(file_contents)
+    end
+
+    def parent
+      Previews.directories.find { _1.lookup_path == parent_lookup_path }
     end
 
     private

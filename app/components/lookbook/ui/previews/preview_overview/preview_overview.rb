@@ -9,15 +9,7 @@ module Lookbook
         @targets = targets
       end
 
-      def previews_nav_label
-        Lookbook.config.previews_nav_label
-      end
-
-      def nav_node
-        @nav_node ||= Previews.to_tree.find_node(preview)
-      end
-
-      def breadcrumbs = nav_node.parents
+      def breadcrumbs = [preview.ancestors, preview].flatten
     end
   end
 end

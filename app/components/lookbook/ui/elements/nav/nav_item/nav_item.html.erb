@@ -10,7 +10,7 @@
 ) do %>
 
   <div class="nav-item-item" @click.stop="visit">
-    <% (1..depth).each do %>
+    <% (1..indentation).each do %>
       <div class="nav-item-indentation"></div>
     <% end %>
     
@@ -46,32 +46,4 @@
       <% end %>
     </div>
   <% end %>
-<% end %>
-
-
-
-
-<% if false %>
-
-
-<%= render component_tag(href: url_path,
-  key: lookup_path,
-  x: {
-    data: "navItem({keywords: #{search_terms.to_json}, collection: #{collection?.to_json}})",
-    show: "!filteredOut",
-    cloak: true,
-    "@click": "itemClicked"
-  }
-) do %>
-  <div>
-    <%= lb_icon icon %>
-    <%= label %>
-  </div>
-  <div>
-    <% children&.each do |node| %>
-      <%= render Lookbook::UI::NavItem.new(node: node) %>
-    <% end %>
-  </div>
-<% end %>
-
 <% end %>

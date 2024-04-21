@@ -1,7 +1,7 @@
 <%=
   render Lookbook::UI::PreviewOverview.new(
-    preview:@preview,
-    targets: @targets
+    preview: @preview,
+    targets: @targets.select(&:visible?)
   )
 %>
 

@@ -1,6 +1,7 @@
 module Lookbook
   class InspectorTargetEntity < Entity
     include ActionView::Helpers::OutputSafetyHelper
+    include EntityTreeNode
 
     attr_reader :name, :scenarios
 
@@ -53,10 +54,6 @@ module Lookbook
       "#{preview_entity.lookup_path}/#{name}"
     end
 
-    def depth
-      @depth ||= lookup_path.split("/").size
-    end
-
     def render_scenarios
       @source_checksum = nil
       scenarios.each do |scenario|
@@ -107,6 +104,8 @@ module Lookbook
         Lookbook.config.inspector_target_mailer_template :
         Lookbook.config.inspector_target_preview_template
     end
+
+    def parent = preview
 
     def preview = preview_entity
 

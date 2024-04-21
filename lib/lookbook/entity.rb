@@ -38,7 +38,7 @@ module Lookbook
       [priority || Float::INFINITY, label] <=> [other.priority || Float::INFINITY, other.label]
     end
 
-    def lookup_directory_path = nil
+    def parent_lookup_path = nil
 
     def url_path = nil
 

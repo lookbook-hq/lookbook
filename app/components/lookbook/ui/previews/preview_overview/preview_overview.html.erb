@@ -8,7 +8,7 @@
     <% end %>
 
     <div class="po-breadcrumbs">
-      <span class="po-breadcrumb"><%= previews_nav_label %></span>
+      <span class="po-breadcrumb"><%= config.previews_nav_label %></span>
       <%= lb_icon :chevron_right, class: "po-breadcrumb-divider" %>
       <% breadcrumbs.each do |node| %>
         <span class="po-breadcrumb"><%= node.label %></span>
@@ -26,11 +26,7 @@
       <% end %>
 
       <section class="po-targets">
-        <% if false %>
-          <h4 class="po-section-title">
-            <%= pluralize(targets.size, "preview") %>
-          </h4>  
-        <% end %>
+        <h4 class="po-section-title">Scenarios</h4>  
         
         <ol>
           <% targets.each do |target| %>
