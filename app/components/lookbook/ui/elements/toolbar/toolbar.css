@@ -7,11 +7,10 @@
   padding-left: var(--lookbook-spacing-medium);
   border-bottom: 1px solid var(--lookbook-divider-color);
 
-  .toolbar-title {
+  .toolbar-label {
     display: flex;
     align-items: center;
     font-size: var(--lookbook-font-size-small);
-    font-weight: 600;
   }
 
   .toolbar-tabs {

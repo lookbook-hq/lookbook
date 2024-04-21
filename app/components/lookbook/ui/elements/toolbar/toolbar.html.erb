@@ -1,11 +1,11 @@
 <%= render component_tag(x: {"data": "toolbar"}) do %>
-  <% if title? %>
-    <h3 class="toolbar-title">
-      <%= title %>
+  <% if label? %>
+    <h3 class="toolbar-label">
+      <%= label %>
     </h3>
   <% end %>
 
-    <% if tabs? %>
+  <% if tabs? %>
     <nav role="tablist" class="toolbar-tabs" x-ref="tabs">
       <%= safe_join(tabs) %>
     </nav>

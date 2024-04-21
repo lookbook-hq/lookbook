@@ -1,0 +1,12 @@
+<%= render component_tag(:nav) do %>
+  <% items.each do |item| %>
+    <% if item[:url] %>
+      <%= link_to item[:label], item[:url], class: "breadcrumb" %>
+    <% else %>
+      <span class="breadcrumb"><%= item[:label] %></span>
+    <% end %>
+    <% unless item == items.last %>
+      <%= lb_icon :chevron_right, class: "breadcrumb-divider" %>
+    <% end %>
+  <% end %>
+<% end %>

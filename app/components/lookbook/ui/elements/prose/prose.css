@@ -13,6 +13,7 @@
 
   a {
     position: relative;
+    text-decoration: underline;
   }
 
   strong {

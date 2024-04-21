@@ -1,7 +1,7 @@
 <%= render component_tag(id: nil, key: id, x: {data: "pane('#{id}')", bind: "bindings.root"}) do %>
   <%=
     render Lookbook::UI::Toolbar.new do |toolbar|
-      toolbar.with_title { toolbar_title } if toolbar_title
+      toolbar.with_label { toolbar_label } if label?
 
       toolbar_actions.each do |action|
         toolbar.with_action(**action)

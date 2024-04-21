@@ -1070,6 +1070,25 @@ select {
       color: hsl(142, 76%, 36%);
       color: var(--lookbook-color-success-600);
     }
+[data-component="breadcrumbs"] {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  font-size: 0.875rem;
+  font-size: var(--lookbook-font-size-small);
+  color: hsl(240, 4%, 46%);
+  color: var(--lookbook-color-base-500);
+  /* padding-inline: var(--lookbook-spacing-medium);
+  padding-block: var(--lookbook-spacing-x-small); */
+}
+[data-component="breadcrumbs"] .breadcrumb-divider {
+    flex: none;
+    display: block;
+    margin-left: 0.25rem;
+    margin-left: var(--lookbook-spacing-2x-small);
+    margin-right: 0.25rem;
+    margin-right: var(--lookbook-spacing-2x-small);
+  }
 [data-component="button"] {
   display: inline-block;
   width: -moz-fit-content;
@@ -1350,6 +1369,8 @@ select {
   }
 [data-component="prose"] a {
     position: relative;
+    -webkit-text-decoration: underline;
+    text-decoration: underline;
   }
 [data-component="prose"] strong {
     font-weight: 600;
@@ -1662,12 +1683,11 @@ select {
   border-bottom: 1px solid hsl(240, 5%, 84%);
   border-bottom: 1px solid var(--lookbook-divider-color);
 }
-[data-component="toolbar"] .toolbar-title {
+[data-component="toolbar"] .toolbar-label {
     display: flex;
     align-items: center;
     font-size: 0.875rem;
     font-size: var(--lookbook-font-size-small);
-    font-weight: 600;
   }
 [data-component="toolbar"] .toolbar-tabs {
     display: flex;
@@ -1978,61 +1998,24 @@ select {
     margin-right: var(--lookbook-spacing-x-small);
   }
 [data-component="preview-overview"] .po-title {
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.4;
+    font-size: 2.25rem;
+    font-size: var(--lookbook-font-size-2x-large);
   }
 [data-component="preview-overview"] .po-content {
     height: 100%;
     overflow: auto;
   }
-[data-component="preview-overview"] .po-content section {
-      padding-top: 1.25rem;
-      padding-bottom: 1.25rem;
-      padding-top: var(--lookbook-spacing-large);
-      padding-bottom: var(--lookbook-spacing-large);
-      padding-left: 1rem;
-      padding-right: 1rem;
-      padding-left: var(--lookbook-spacing-medium);
-      padding-right: var(--lookbook-spacing-medium);
-    }
-[data-component="preview-overview"] .po-content section + section {
-      border-top: 1px solid hsl(240, 5%, 84%);
-      border-top: 1px solid var(--lookbook-divider-color);
+[data-component="preview-overview"] .po-content [data-component="prose"] + [data-component="prose"] {
+      margin-top: 2.25rem;
+      margin-top: var(--lookbook-spacing-2x-large);
     }
 [data-component="preview-overview"] .po-section-title {
     font-weight: 700;
     margin-bottom: 1rem;
     margin-bottom: var(--lookbook-spacing-medium);
   }
-[data-component="preview-overview"] .po-targets li:not(:last-child) {
-      margin-bottom: 0.5rem;
-      margin-bottom: var(--lookbook-spacing-x-small);
-    }
-[data-component="preview-overview"] .po-breadcrumbs {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    font-size: 0.875rem;
-    font-size: var(--lookbook-font-size-small);
-    background-color: hsl(0, 0%, 98%);
-    background-color: var(--lookbook-color-base-50);
-    color: hsl(240, 4%, 46%);
-    color: var(--lookbook-color-base-500);
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-left: var(--lookbook-spacing-medium);
-    padding-right: var(--lookbook-spacing-medium);
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-top: var(--lookbook-spacing-x-small);
-    padding-bottom: var(--lookbook-spacing-x-small);
-    border-bottom: 1px solid hsl(240, 5%, 84%);
-    border-bottom: 1px solid var(--lookbook-divider-color);
+[data-component="preview-overview"] .po-target {
+    /* text-decoration: underline; */
   }
-[data-component="preview-overview"] .po-breadcrumbs .po-breadcrumb-divider {
-      display: block;
-      margin-left: 0.25rem;
-      margin-left: var(--lookbook-spacing-2x-small);
-      margin-right: 0.25rem;
-      margin-right: var(--lookbook-spacing-2x-small);
-    }

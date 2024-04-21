@@ -1,7 +1,7 @@
 module Lookbook
   module UI
     class Toolbar < BaseComponent
-      with_slot :title
+      with_slot :label
 
       with_slot :action do |*args, **kwargs|
         lb_button(*args, **kwargs)

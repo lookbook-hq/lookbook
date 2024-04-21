@@ -1,3 +1,7 @@
-<%= lb_pane(id: dom_id(@page)) do %>
+<%= lb_pane(id: dom_id(@page)) do |pane| %>
+  <% pane.with_label do %>
+    <%= lb_breadcrumbs(@config.pages_nav_label, @page.ancestors, @page) %>
+  <% end %>
+  
   <%= render Lookbook::UI::PageBrowser.new(src: main_app.lookbook_render_page_path(@page), checksum: @page.source_checksum) %>
 <% end %>

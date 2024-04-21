@@ -710,6 +710,8 @@ tr:not(:last-child) {
   }
 [data-component="prose"] a {
     position: relative;
+    -webkit-text-decoration: underline;
+    text-decoration: underline;
   }
 [data-component="prose"] strong {
     font-weight: 600;

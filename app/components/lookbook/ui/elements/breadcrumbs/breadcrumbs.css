@@ -1,0 +1,16 @@
+[data-component="breadcrumbs"] {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  font-size: var(--lookbook-font-size-small);
+  color: var(--lookbook-color-base-500);
+  /* padding-inline: var(--lookbook-spacing-medium);
+  padding-block: var(--lookbook-spacing-x-small); */
+
+  .breadcrumb-divider {
+    flex: none;
+    display: block;
+    margin-left: var(--lookbook-spacing-2x-small);
+    margin-right: var(--lookbook-spacing-2x-small);
+  }
+}

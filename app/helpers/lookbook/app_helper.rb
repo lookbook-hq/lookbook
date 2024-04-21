@@ -6,6 +6,10 @@ module Lookbook
       render Lookbook::UI::Tag.new(*args, **kwargs), &block
     end
 
+    def lb_breadcrumbs(*args, **kwargs, &block)
+      render Lookbook::UI::Breadcrumbs.new(items: args.flatten, **kwargs), &block
+    end
+
     def lb_button(icon = nil, **kwargs)
       render Lookbook::UI::Button.new(icon: icon, **kwargs)
     end
@@ -22,8 +26,8 @@ module Lookbook
       render Lookbook::UI::Icon.new(name: name, **kwargs)
     end
 
-    def lb_page(page, **kwargs, &block)
-      render Lookbook::UI::Page.new(page: page, **kwargs), &block
+    def lb_page(entity = nil, **kwargs, &block)
+      render Lookbook::UI::Page.new(entity: entity, **kwargs), &block
     end
 
     def lb_pane(id = nil, **kwargs, &block)

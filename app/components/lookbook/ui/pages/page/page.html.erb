@@ -1,7 +1,7 @@
 <%= render component_tag(:article, x: {data: "page"}) do %>
   <div class="page-header-wrapper page-slat">
     <header class="page-header page-container">
-      <h1 class="page-title"><%= page.title %></h1>
+      <h1 class="page-title"><%= title %></h1>
     </header>
   </div>
 
@@ -10,24 +10,26 @@
       <%= lb_prose { content } %>
     </section>
   </div>
-
-  <div class="page-footer-wrapper page-slat">
-    <footer class="page-footer page-container">
-      <nav class="page-nav-links">
-        <% if previous_page %>
-          <%= link_to previous_page.url_path, class: "page-nav-link page-nav-link-previous" do %>
-            <%= lb_icon :arrow_left %>
-            <%= previous_page.label %>
+  
+  <% if footer? %>
+    <div class="page-footer-wrapper page-slat">
+      <footer class="page-footer page-container">
+        <nav class="page-nav-links">
+          <% if previous_page %>
+            <%= link_to previous_page.url_path, class: "page-nav-link page-nav-link-previous" do %>
+              <%= lb_icon :arrow_left %>
+              <%= previous_page.label %>
+            <% end %>
           <% end %>
-        <% end %>
 
-        <% if next_page %>
-          <%= link_to next_page.url_path, class: "page-nav-link page-nav-link-next" do %>        
-            <%= next_page.label %>
-            <%= lb_icon :arrow_right %>
+          <% if next_page %>
+            <%= link_to next_page.url_path, class: "page-nav-link page-nav-link-next" do %>        
+              <%= next_page.label %>
+              <%= lb_icon :arrow_right %>
+            <% end %>
           <% end %>
-        <% end %>
-      </nav>
-    </footer>
-  </div>
+        </nav>
+      </footer>
+    </div>
+  <% end %>
 <% end %>

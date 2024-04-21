@@ -7,7 +7,7 @@
         "@viewport:resize-end": "resizeIframe"
       }
     ) do |pane|
-      pane.with_title { target.label }
+      pane.with_label { target.label }
 
       lb_viewport(target.preview_path(preview_params), id: dom_id(target, "embed-viewport"), resize_y: false)
     end

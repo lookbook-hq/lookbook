@@ -1,8 +1,8 @@
 module Lookbook
   module UI
     class Pane < BaseComponent
-      with_slot :title do |&block|
-        @toolbar_title = block.call
+      with_slot :label do |&block|
+        @toolbar_label = block.call
       end
 
       with_slot :tab_panel do |name, label: nil, **kwargs|
@@ -12,11 +12,11 @@ module Lookbook
         Lookbook::UI::TabPanel.new(name: name, **kwargs)
       end
 
-      attr_reader :id, :toolbar_title, :toolbar_tabs, :toolbar_actions
+      attr_reader :id, :toolbar_label, :toolbar_tabs, :toolbar_actions
 
       def initialize(id:, **kwargs)
         @id = id
-        @toolbar_title = nil
+        @toolbar_label = nil
         @toolbar_actions = []
         @toolbar_tabs = []
       end

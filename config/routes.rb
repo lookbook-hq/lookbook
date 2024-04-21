@@ -23,4 +23,9 @@ Rails.application.routes.draw do
     to: "#{Lookbook.config.page_controller.sub(/Controller$/, "").underscore}#lookbook_render_page",
     as: :lookbook_render_page,
     internal: true
+
+  get "#{Lookbook.config.mount_path}/render_preview_page/:preview",
+    to: "#{Lookbook.config.page_controller.sub(/Controller$/, "").underscore}#lookbook_render_preview_page",
+    as: :lookbook_render_preview_page,
+    internal: true
 end

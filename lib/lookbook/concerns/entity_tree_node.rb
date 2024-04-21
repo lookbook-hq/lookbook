@@ -39,7 +39,7 @@ module Lookbook
     end
 
     def navigable?
-      respond_to?(:url_path) && url_path.present?
+      url_path.present?
     end
 
     def depth

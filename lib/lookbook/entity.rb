@@ -16,6 +16,10 @@ module Lookbook
       Utils.label(name) if name
     end
 
+    def title
+      label
+    end
+
     def visible?
       !hidden?
     end
