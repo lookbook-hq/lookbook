@@ -10,9 +10,8 @@ module Lookbook
           component_paths: ["app/views", "app/components"],
 
           preview_controller: "LookbookPreviewController",
-          preview_template: "lookbook/previews/preview",
-          preview_url_param: :name,
           preview_layout: nil,
+          preview_url_param: :name,
           preview_paths: ["test/components/previews", "test/mailers/previews"],
           preview_watch_paths: [],
           preview_watch_extensions: ["rb", "html.*"],

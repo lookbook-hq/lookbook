@@ -89,7 +89,7 @@ module Lookbook
       if result.is_a?(ActionMailer::Parameterized::MessageDelivery)
         {
           email: result,
-          template: Lookbook.config.preview_template
+          template: Previews.scenario_template
         }
       else
         result[:template] = template_path if result[:template].nil?

@@ -70,8 +70,12 @@ module Lookbook
         controller
       end
 
+      def scenario_template
+        "lookbook/previews/scenario"
+      end
+
       def system_templates
-        ["view_components/preview", Lookbook.config.preview_template]
+        ["view_components/preview", scenario_template]
       end
 
       def parser

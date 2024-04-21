@@ -1984,38 +1984,3 @@ select {
       .drawer-closed[data-component="preview-inspector"] #inspector-panes > .pane-group-pane:not(:first-child) {
         display: none;
       }
-[data-component="preview-overview"] {
-  height: 100%;
-  width: 100%;
-  position: relative;
-}
-[data-component="preview-overview"] [data-component="pane"] .pane-content {
-      display: grid;
-      grid-template-rows: min-content 1fr;
-    }
-[data-component="preview-overview"] .po-title-icon {
-    margin-right: 0.5rem;
-    margin-right: var(--lookbook-spacing-x-small);
-  }
-[data-component="preview-overview"] .po-title {
-    font-weight: 700;
-    letter-spacing: 0.4;
-    font-size: 2.25rem;
-    font-size: var(--lookbook-font-size-2x-large);
-  }
-[data-component="preview-overview"] .po-content {
-    height: 100%;
-    overflow: auto;
-  }
-[data-component="preview-overview"] .po-content [data-component="prose"] + [data-component="prose"] {
-      margin-top: 2.25rem;
-      margin-top: var(--lookbook-spacing-2x-large);
-    }
-[data-component="preview-overview"] .po-section-title {
-    font-weight: 700;
-    margin-bottom: 1rem;
-    margin-bottom: var(--lookbook-spacing-medium);
-  }
-[data-component="preview-overview"] .po-target {
-    /* text-decoration: underline; */
-  }
