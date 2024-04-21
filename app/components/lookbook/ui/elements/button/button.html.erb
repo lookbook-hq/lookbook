@@ -2,7 +2,9 @@
   x: {
     data: "button",
     "@click": (click if click.present?),
+    "@page-load:start.document": "hidePopovers",
     "show": (show if show.present?),
+    ":class": "{active: dropdownOpen}"
   },
   data: {
     size: size,
@@ -13,4 +15,11 @@
   <div class="button-content" x-ref="content">
     <%= render Lookbook::UI::Icon.new(name: icon, class: "button-icon") %>
   </div>
+  <% if dropdown %>
+    <template x-teleport="body">
+      <div x-ref="dropdown">
+        <%= dropdown %>
+      </div>
+    </template>
+  <% end %>
 <% end %>

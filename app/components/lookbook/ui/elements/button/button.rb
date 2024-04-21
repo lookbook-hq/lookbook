@@ -1,6 +1,8 @@
 module Lookbook
   module UI
     class Button < BaseComponent
+      with_slot :dropdown
+
       attr_reader :icon, :size, :click, :show, :tooltip
 
       tag_attr :type, :value, :name, :disabled, :href, :target

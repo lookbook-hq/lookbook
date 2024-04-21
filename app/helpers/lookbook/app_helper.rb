@@ -10,8 +10,8 @@ module Lookbook
       render Lookbook::UI::Breadcrumbs.new(items: args.flatten, **kwargs), &block
     end
 
-    def lb_button(icon = nil, **kwargs)
-      render Lookbook::UI::Button.new(icon: icon, **kwargs)
+    def lb_button(icon = nil, **kwargs, &block)
+      render Lookbook::UI::Button.new(icon: icon, **kwargs), &block
     end
 
     def lb_button_group(**kwargs, &block)

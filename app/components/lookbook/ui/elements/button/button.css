@@ -2,10 +2,20 @@
   display: inline-block;
   width: fit-content;
   line-height: 0;
+  color: var(--lookbook-color-base-500);
 
   .button-icon {
     width: 100%;
     height: 100%;
+  }
+
+  &:hover {
+    color: var(--lookbook-color-base-700);
+  }
+
+  &:active,
+  &.active {
+    color: var(--lookbook-color-accent-700);
   }
 
   &[data-size="md"] {
