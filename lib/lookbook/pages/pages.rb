@@ -25,11 +25,13 @@ module Lookbook
 
       def directories
         @directories ||= begin
-          directory_paths = store.all.map(&:parent_lookup_path).compact_blank.uniq.each do |path|
+          directory_paths = store.all.map(&:parent_lookup_path).compact_blank.uniq.flat_map do |path|
             current_path = ""
-            path.split("/").map { "#{current_path}/#{_1}".delete_prefix("/") }
+            path.split("/").map do |segment|
+              current_path = "#{current_path}/#{segment}".delete_prefix("/")
+            end
           end
-          sorted_paths = directory_paths.flatten.uniq.sort
+          sorted_paths = directory_paths.uniq.sort
           sorted_paths.map.with_index(1) { PageDirectoryEntity.new(_1, default_priority: _2) }
         end
       end
