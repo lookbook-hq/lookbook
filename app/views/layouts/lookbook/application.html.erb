@@ -2,9 +2,7 @@
    <%=
     render Lookbook::UI::Router.new(events_endpoint: @events_endpoint.to_json) do
       render Lookbook::UI::Layout.new(id: "app") do |layout|
-        layout.with_header do
-          link_to @config.project_name, root_path
-        end
+        layout.with_header
 
         layout.with_previews_nav(@previews.tree)
         layout.with_pages_nav(@pages.tree) if @pages.any?

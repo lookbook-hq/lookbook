@@ -48,6 +48,10 @@ module Lookbook
       params.find { _1.name == name.to_sym }
     end
 
+    def display_options
+      DataObject.new(preview.display_options, metadata.display_options)
+    end
+
     alias_method :url_param, :name
 
     def lookup_path
@@ -61,10 +65,6 @@ module Lookbook
     def preview_path
       preview_target_path(preview, self)
     end
-
-    # def depth
-    #   @depth ||= lookup_path.split("/").size
-    # end
 
     def source
       src = if custom_render_template?

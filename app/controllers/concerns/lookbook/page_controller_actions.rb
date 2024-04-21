@@ -20,17 +20,15 @@ module Lookbook
     def lookbook_render_page
       prepend_application_view_paths
 
-      @config = Lookbook.config
-      @pages = Pages.all
-      @previews = Previews.all
+      @lookbook = Lookbook
 
       @page_content = render_to_string(
         inline: @page.content,
         layout: false,
         locals: {
-          config: @config,
-          previews: @previews,
-          pages: @pages,
+          config: Lookbook.config,
+          previews: Previews,
+          pages: Pages,
           page: @page,
           previous_page: @page.previous,
           next_page: @page.next
@@ -43,9 +41,7 @@ module Lookbook
     def lookbook_render_preview_page
       prepend_application_view_paths
 
-      @config = Lookbook.config
-      @pages = Pages.all
-      @previews = Previews.all
+      @lookbook = Lookbook
 
       @page = PageEntity.virtual(
         @preview.lookup_path,
@@ -65,9 +61,9 @@ module Lookbook
         Lookbook.config.preview_overview_template,
         layout: false,
         locals: {
-          config: @config,
-          previews: @previews,
-          pages: @pages,
+          config: Lookbook.config,
+          previews: Previews,
+          pages: Pages,
           page: @page,
           previous_page: nil,
           next_page: nil

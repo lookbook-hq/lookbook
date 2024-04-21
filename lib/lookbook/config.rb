@@ -16,6 +16,7 @@ module Lookbook
           preview_paths: ["test/components/previews", "test/mailers/previews"],
           preview_watch_paths: [],
           preview_watch_extensions: ["rb", "html.*"],
+          preview_display_options: {},
           preview_tags: default_preview_tags,
 
           previews_nav_label: "Previews",
@@ -114,10 +115,11 @@ module Lookbook
 
       def default_preview_tags
         [
-          Lookbook::LabelTag,
+          Lookbook::DisplayTag,
           Lookbook::HiddenTag,
-          Lookbook::PriorityTag,
-          Lookbook::ParamTag
+          Lookbook::LabelTag,
+          Lookbook::ParamTag,
+          Lookbook::PriorityTag
         ]
       end
 

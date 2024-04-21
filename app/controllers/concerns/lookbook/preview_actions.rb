@@ -18,5 +18,9 @@ module Lookbook
       @scenario = @preview.scenarios.find { _1.url_param == params[:scenario] }
       raise ActionController::RoutingError, "Could not find scenario '#{params[:scenario]}' for preview '#{params[:preview]}'" unless @scenario
     end
+
+    def assign_display_options
+      @display_options = @target.display_options
+    end
   end
 end

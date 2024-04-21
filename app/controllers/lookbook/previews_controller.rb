@@ -4,6 +4,7 @@ module Lookbook
 
     before_action :assign_preview
     before_action :assign_target, only: %i[inspect embed preview]
+    before_action :assign_display_options, only: %i[inspect embed preview]
     before_action :prerender_target, only: %i[inspect embed preview]
 
     def show
@@ -51,7 +52,11 @@ module Lookbook
 
       controller.process(:lookbook_render_template,
         target.preview_template,
-        {target: target},
+        {
+          preview: target.preview,
+          target: target,
+          display_options: target.display_options
+        },
         layout: target.preview.layout,
         append_html: append_html)
     end

@@ -12,6 +12,10 @@ module Lookbook
 
     def notes? = notes.present?
 
+    def display_options
+      DataObject.new(tags(:display).map { [_1.key, _1.value] }.to_h)
+    end
+
     def tags(name = nil)
       code_object.tags(name.to_s)
     end

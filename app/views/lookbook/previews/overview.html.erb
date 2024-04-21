@@ -1,9 +1,9 @@
-<%= page.data.preview.notes %>
+<%= @page.data.preview.notes %>
 
 <h2>Scenarios:</h2>
 
 <ul>
-  <% page.data.targets.filter(&:visible?).each do |target| %>
+  <% @page.data.targets.filter(&:visible?).each do |target| %>
     <li>
       <%= link_to target.label, target.url_path %>
     </li>

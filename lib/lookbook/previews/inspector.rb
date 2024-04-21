@@ -3,6 +3,22 @@ module Lookbook
     class << self
       include Loggable
 
+      def default_display_options
+        @default_display_options ||= begin
+          options = Lookbook.config.preview_display_options.map do |key, value|
+            [key, value] unless value.is_a?(Array) || value.is_a?(Hash)
+          end.to_h
+          DataObject.new(options)
+        end
+      end
+
+      def dynamic_display_options
+        @dynamic_display_options ||= begin
+          options = Lookbook.config.preview_display_options.symbolize_keys
+          DataObject.new(options.except(*default_display_options.keys))
+        end
+      end
+
       def preview_panels(*args)
         names = args.any? ? args : Lookbook.config.inspector_preview_panels
         names = names.flatten.map(&:to_sym)

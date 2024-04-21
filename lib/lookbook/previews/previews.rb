@@ -83,7 +83,7 @@ module Lookbook
       end
 
       def inspector_targets
-        @inspector_targets ||= Previews.all.map { _1.inspector_targets }.flatten
+        @inspector_targets ||= Previews.all.flat_map { _1.inspector_targets }
       end
 
       def directories

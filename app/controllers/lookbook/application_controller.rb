@@ -10,6 +10,7 @@ module Lookbook
     protected
 
     def assign_template_vars
+      @lookbook = Lookbook
       @config = Lookbook.config
       @inspector = Inspector
       @pages = Pages

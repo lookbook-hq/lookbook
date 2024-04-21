@@ -56,6 +56,10 @@ module Lookbook
       show_preview_path(self)
     end
 
+    def display_options
+      DataObject.new(Inspector.default_display_options, metadata.display_options)
+    end
+
     def layout
       if mailer_preview?
         "layouts/lookbook/mailer_preview"

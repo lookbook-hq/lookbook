@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html data-theme="light">
 <head>
-  <title>Lookbook Demo App | Preview</title>
+  <title><%= @preview.label %> : <%= @target.label %></title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <%= stylesheet_link_tag "pico.css" %>
   <style>
+    html,
+    body {
+      min-height: 100vh;
+    }
+
     body {
       padding: 1rem;
     }
   </style>
 </head>
-<body>
+<body style="background-color: <%= @display_options.bg_color || "#fff" %>">
   <%= yield %>
 </body>
 </html>

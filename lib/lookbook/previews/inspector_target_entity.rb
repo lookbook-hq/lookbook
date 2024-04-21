@@ -31,7 +31,11 @@ module Lookbook
     end
 
     def params
-      scenarios.flat_map(&:params)
+      scenarios.flat_map(&:params).uniq(&:name)
+    end
+
+    def display_options
+      DataObject.new(*scenarios.map(&:display_options))
     end
 
     def hidden?
@@ -87,16 +91,6 @@ module Lookbook
 
     def notes?
       scenarios.find { _1.notes? }
-    end
-
-    def output_checksum
-      inputs = scenarios.map { _1.label + @rendered_scenarios[_1.name.to_sym] }
-      @output_checksum ||= Utils.hash(inputs.join)
-    end
-
-    def source_checksum
-      inputs = scenarios.map { _1.source + _1.label }
-      @source_checksum ||= Utils.hash(inputs.join)
     end
 
     def preview_template
