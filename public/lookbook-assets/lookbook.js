@@ -621,7 +621,7 @@
       try {
         if (message.source === this.iframeElement.contentWindow) {
           const data = JSON.parse(message.data);
-          if (data.event === "embed:resize") {
+          if (data.action === "embed:resize") {
             this.iframeElement.style.height = `${data.height}px`;
           }
         }

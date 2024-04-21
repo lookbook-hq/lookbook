@@ -3,7 +3,7 @@
     <%= lb_breadcrumbs(@config.previews_nav_label, @preview.ancestors, @preview) %>
   <% end %>
 
-  <%= render Lookbook::UI::PageBrowser.new(src: main_app.lookbook_render_preview_page_path(@preview), checksum: @preview.object_id) %>
+  <%= render Lookbook::UI::PageBrowser.new(src: main_app.lookbook_render_preview_page_path(@preview)) %>
 <% end %>
 
 

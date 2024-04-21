@@ -1,11 +1,10 @@
 module Lookbook
   module UI
     class PageBrowser < BaseComponent
-      attr_reader :src, :checksum
+      attr_reader :src
 
-      def initialize(src:, checksum: nil, **kwargs)
+      def initialize(src:, **kwargs)
         @src = src
-        @checksum = checksum
       end
     end
   end

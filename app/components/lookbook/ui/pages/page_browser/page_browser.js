@@ -11,8 +11,19 @@ export default AlpineComponent("pageBrowser", () => {
       } catch {}
     },
 
+    notifyUpdateRequired() {
+      this.iframeWindow.postMessage(
+        JSON.stringify({ action: "page:update" }),
+        "*"
+      );
+    },
+
     reload() {
-      this.$refs.iframe.contentWindow.location.reload(true);
+      this.iframeWindow.location.reload(true);
+    },
+
+    get iframeWindow() {
+      return this.$refs.iframe.contentWindow;
     },
   };
 });

@@ -1,5 +1,6 @@
 import AlpineComponent from "@js/alpine/component";
 import ServerEventsListener from "@js/server_events_listener";
+import PageUpdater from "@js/page_updater";
 import Logger from "@js/logger";
 
 export default AlpineComponent("router", (sseEndpoint = null) => {
@@ -9,6 +10,7 @@ export default AlpineComponent("router", (sseEndpoint = null) => {
 
     init() {
       this.routerLogger = new Logger("Router");
+      this.updater = new PageUpdater(this.$el, "router");
 
       if (sseEndpoint) {
         this.serverEventsListener = new ServerEventsListener(sseEndpoint);
@@ -25,22 +27,16 @@ export default AlpineComponent("router", (sseEndpoint = null) => {
     },
 
     async updatePage() {
-      const html = await fetchPageDOM(location);
-      this.updateDOM(html);
+      this.$dispatch("lookbook:page-update-start");
+      this.updater.updateDOM(location);
       this.routerLogger.info(`Page updated`);
       this.$dispatch("lookbook:page-update");
     },
 
     async loadPage(url = location) {
-      const html = await fetchPageDOM(url);
-      this.updateDOM(html);
+      this.updater.updateDOM(url);
       this.routerLogger.debug(`Page loaded`);
       this.$dispatch("lookbook:page-load");
-    },
-
-    updateDOM(html) {
-      morph(this.$root, html);
-      this.$dispatch("lookbook:page-morph");
     },
 
     handleClick(event) {
@@ -64,31 +60,3 @@ export default AlpineComponent("router", (sseEndpoint = null) => {
     },
   };
 });
-
-async function fetchPageDOM(url) {
-  const { fragment, status } = await fetchHTML(url, "router");
-  if (status < 500) {
-    return fragment;
-  } else {
-    // just redirect to the error page for now
-    location.href = url;
-  }
-}
-
-async function fetchHTML(url, selector) {
-  const response = await fetch(url || location);
-  const { status, ok } = response;
-  let fragment,
-    title = null;
-  const result = { ok, status, response, fragment, title };
-  if (status < 500) {
-    const html = await response.text();
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    result.fragment = selector ? doc.querySelector(selector).outerHTML : null;
-  }
-  return result;
-}
-
-function morph(from, to) {
-  Alpine.morph(from, to, {});
-}

@@ -9318,6 +9318,34 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     }
   };
 
+  // assets/js/page_updater.js
+  var PageUpdater = class {
+    constructor(root2, selector) {
+      this.root = root2;
+      this.selector = selector;
+    }
+    async updateDOM(url) {
+      const { fragment, status } = await fetchHTML(url, this.selector);
+      if (status < 500) {
+        Alpine.morph(this.root, fragment);
+      } else {
+        location.href = url;
+      }
+    }
+  };
+  async function fetchHTML(url, selector) {
+    const response = await fetch(url || location);
+    const { status, ok } = response;
+    let fragment, title = null;
+    const result = { ok, status, response, fragment, title };
+    if (status < 500) {
+      const html3 = await response.text();
+      const doc = new DOMParser().parseFromString(html3, "text/html");
+      result.fragment = selector ? doc.querySelector(selector).outerHTML : null;
+    }
+    return result;
+  }
+
   // app/components/lookbook/ui/app/router/router.js
   var router_default = AlpineComponent("router", (sseEndpoint = null) => {
     return {
@@ -9325,6 +9353,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       routerLogger: null,
       init() {
         this.routerLogger = new Logger("Router");
+        this.updater = new PageUpdater(this.$el, "router");
         if (sseEndpoint) {
           this.serverEventsListener = new ServerEventsListener(sseEndpoint);
           this.serverEventsListener.on("update", () => this.updatePage());
@@ -9338,20 +9367,15 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
         this.loadPage(url);
       },
       async updatePage() {
-        const html3 = await fetchPageDOM(location);
-        this.updateDOM(html3);
+        this.$dispatch("lookbook:page-update-start");
+        this.updater.updateDOM(location);
         this.routerLogger.info(`Page updated`);
         this.$dispatch("lookbook:page-update");
       },
       async loadPage(url = location) {
-        const html3 = await fetchPageDOM(url);
-        this.updateDOM(html3);
+        this.updater.updateDOM(url);
         this.routerLogger.debug(`Page loaded`);
         this.$dispatch("lookbook:page-load");
-      },
-      updateDOM(html3) {
-        morph2(this.$root, html3);
-        this.$dispatch("lookbook:page-morph");
       },
       handleClick(event) {
         const link = event.target.closest("[href]");
@@ -9372,29 +9396,6 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       }
     };
   });
-  async function fetchPageDOM(url) {
-    const { fragment, status } = await fetchHTML(url, "router");
-    if (status < 500) {
-      return fragment;
-    } else {
-      location.href = url;
-    }
-  }
-  async function fetchHTML(url, selector) {
-    const response = await fetch(url || location);
-    const { status, ok } = response;
-    let fragment, title = null;
-    const result = { ok, status, response, fragment, title };
-    if (status < 500) {
-      const html3 = await response.text();
-      const doc = new DOMParser().parseFromString(html3, "text/html");
-      result.fragment = selector ? doc.querySelector(selector).outerHTML : null;
-    }
-    return result;
-  }
-  function morph2(from, to) {
-    Alpine.morph(from, to, {});
-  }
 
   // app/components/lookbook/ui/app/status_bar/status_bar.js
   var status_bar_exports = {};
@@ -20128,7 +20129,21 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     default: () => page_default
   });
   var page_default = AlpineComponent("page", () => {
-    return {};
+    return {
+      updater: null,
+      init() {
+        this.updater = new PageUpdater(this.$el, "[data-component='page']");
+      },
+      handleMessage(event) {
+        try {
+          const data2 = JSON.parse(event.data);
+          if (data2.action === "page:update") {
+            this.updater.updateDOM(location);
+          }
+        } catch {
+        }
+      }
+    };
   });
 
   // app/components/lookbook/ui/pages/page_browser/page_browser.js
@@ -20147,8 +20162,17 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
         } catch {
         }
       },
+      notifyUpdateRequired() {
+        this.iframeWindow.postMessage(
+          JSON.stringify({ action: "page:update" }),
+          "*"
+        );
+      },
       reload() {
-        this.$refs.iframe.contentWindow.location.reload(true);
+        this.iframeWindow.location.reload(true);
+      },
+      get iframeWindow() {
+        return this.$refs.iframe.contentWindow;
       }
     };
   });
@@ -20231,7 +20255,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       onResize({ height }) {
         window.parent.postMessage(
           JSON.stringify({
-            event: "embed:resize",
+            action: "embed:resize",
             height
           }),
           "*"
@@ -20905,7 +20929,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       try {
         if (message.source === this.iframeElement.contentWindow) {
           const data2 = JSON.parse(message.data);
-          if (data2.event === "embed:resize") {
+          if (data2.action === "embed:resize") {
             this.iframeElement.style.height = `${data2.height}px`;
           }
         }

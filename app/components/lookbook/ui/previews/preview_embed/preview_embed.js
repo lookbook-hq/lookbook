@@ -19,7 +19,7 @@ export default AlpineComponent("previewEmbed", () => {
     onResize({ height }) {
       window.parent.postMessage(
         JSON.stringify({
-          event: "embed:resize",
+          action: "embed:resize",
           height,
         }),
         "*"
