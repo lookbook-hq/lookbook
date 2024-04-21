@@ -1,7 +1,7 @@
 module Lookbook
   module UI
     class Layout < BaseComponent
-      with_slot :header
+      with_slot :header, Lookbook::UI::Header
       with_slot :main
       with_slot :status_bar, Lookbook::UI::StatusBar
 

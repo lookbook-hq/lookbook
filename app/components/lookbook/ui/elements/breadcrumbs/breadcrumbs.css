@@ -3,17 +3,17 @@
   width: 100%;
   align-items: center;
   font-size: var(--lookbook-font-size-small);
-  color: var(--lookbook-color-base-500);
+  color: var(--lookbook-color-base-400);
 
   a.breadcrumb {
     &:hover {
       text-decoration: underline;
-      color: var(--lookbook-color-accent-700);
+      color: var(--lookbook-color-accent-600);
     }
   }
 
   .breadcrumb:last-child {
-    color: var(--lookbook-color-base-700);
+    color: var(--lookbook-color-base-600);
   }
 
   .breadcrumb-divider {

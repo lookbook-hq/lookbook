@@ -1,9 +1,8 @@
 [data-component="toolbar"] {
   background-color: white;
-  height: 40px;
+  height: 38px;
   display: flex;
   align-items: center;
-  /* padding-right: var(--lookbook-spacing-2x-small); */
   padding-left: var(--lookbook-spacing-medium);
   border-bottom: 1px solid var(--lookbook-divider-color);
 

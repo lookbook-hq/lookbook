@@ -8,15 +8,7 @@
   }
 
   #app-header {
-    height: 40px;
     border-bottom: 1px solid var(--lookbook-divider-color);
-    display: flex;
-    align-items: center;
-    padding-inline: var(--lookbook-spacing-medium);
-
-    a {
-      text-decoration: none;
-    }
   }
 
   #app-body {

@@ -14,6 +14,10 @@ code {
   font-family: var(--lookbook-font-mono);
 }
 
+a {
+  transition: color 0.25s ease;
+}
+
 router {
   display: contents;
 }

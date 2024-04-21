@@ -1,5 +1,5 @@
 [data-component="toolbar-tab"] {
-  height: 40px;
+  height: 38px;
   display: flex;
   align-items: center;
   font-size: var(--lookbook-font-size-small);

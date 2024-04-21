@@ -1,0 +1,25 @@
+[data-component="header"] {
+  height: 40px;
+  color: #fff;
+  background-color: var(--lookbook-color-accent-600);
+  padding-inline: var(--lookbook-spacing-medium);
+  padding-bottom: 4px;
+  display: flex;
+  align-items: center;
+
+  .header-branding {
+    display: flex;
+    align-items: center;
+    column-gap: var(--lookbook-spacing-small);
+  }
+
+  .header-project-logo {
+    height: 18px;
+    svg {
+      height: 100%;
+    }
+  }
+
+  .header-project-branding {
+  }
+}

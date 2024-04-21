@@ -23,7 +23,7 @@
     flex: none;
     width: 1px;
     background-color: var(--lookbook-divider-color);
-    height: 40px;
+    height: 38px;
     display: block;
   }
 }
