@@ -1868,6 +1868,21 @@ select {
     padding-top: var(--lookbook-spacing-x-large);
     padding-bottom: var(--lookbook-spacing-x-large);
   }
+[data-component="page"] .page-nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+[data-component="page"] .page-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    gap: var(--lookbook-spacing-2x-small);
+  }
+[data-component="page"] .page-nav-link-next {
+    margin-left: auto;
+  }
 [data-component="page-browser"] {
   height: 100%;
   width: 100%;

@@ -12,12 +12,34 @@ module Lookbook
       ancestors
     end
 
+    def siblings
+      parent.children.filter { _1.lookup_path == lookup_path }
+    end
+
+    def index
+      parent.children.index(self)
+    end
+
+    def last?
+      self == parent.children.last
+    end
+
+    def first?
+      self == parent.children.first
+    end
+
+    def next
+    end
+
+    def previous
+    end
+
     def parent_lookup_path
       File.dirname(lookup_path).delete_prefix(".")
     end
 
-    def addressable?
-      respond_to?(:url_path)
+    def navigable?
+      respond_to?(:url_path) && url_path.present?
     end
 
     def depth

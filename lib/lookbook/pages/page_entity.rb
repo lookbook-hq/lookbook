@@ -4,10 +4,11 @@ module Lookbook
 
     attr_reader :file_path, :frontmatter
 
-    def initialize(file_path)
+    def initialize(file_path, default_priority: nil)
       @file_path = Pathname(file_path)
       @base_directories = Pages.page_paths
       @frontmatter, @content = FrontmatterExtractor.call(file_contents)
+      @default_priority = default_priority
     end
 
     def id
@@ -83,7 +84,15 @@ module Lookbook
     end
 
     def parent
-      Previews.directories.find { _1.lookup_path == parent_lookup_path }
+      Pages.directories.find { _1.lookup_path == parent_lookup_path }
+    end
+
+    def next
+      Pages.tree.next(self)
+    end
+
+    def previous
+      Pages.tree.previous(self)
     end
 
     private

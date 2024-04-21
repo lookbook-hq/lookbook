@@ -20,12 +20,33 @@ module Lookbook
       end
     end
 
+    def next(node)
+      nodes = navigable_nodes.filter(&:visible?)
+      nodes[index(node) + 1] unless node == nodes.last
+    end
+
+    def previous(node)
+      nodes = navigable_nodes.filter(&:visible?)
+      nodes[index(node) - 1] unless node == nodes.first
+    end
+
+    def index(node)
+      navigable_nodes.index(node)
+    end
+
     def root? = true
 
     protected
 
+    def navigable_nodes
+      nodes.select(&:navigable?)
+    end
+
     def nodes
-      @nodes ||= [@leaf_nodes, *@leaf_nodes.map(&:ancestors)].flatten.uniq
+      @nodes ||= begin
+        node_entities = [@leaf_nodes, *@leaf_nodes.map(&:ancestors)].flatten.uniq
+        node_entities.sort_by { _1.lookup_path }
+      end
     end
   end
 end

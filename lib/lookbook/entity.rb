@@ -25,7 +25,7 @@ module Lookbook
     end
 
     def priority
-      default_priority
+      default_priority || 0
     end
 
     attr_reader :default_priority

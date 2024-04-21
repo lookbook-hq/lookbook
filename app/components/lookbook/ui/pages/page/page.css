@@ -22,4 +22,21 @@
     border-top: 1px solid var(--lookbook-color-base-300);
     padding-block: var(--lookbook-spacing-x-large);
   }
+
+  .page-nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .page-nav-link {
+    display: flex;
+    align-items: center;
+    gap: var(--lookbook-spacing-2x-small);
+  }
+
+  .page-nav-link-next {
+    margin-left: auto;
+  }
 }

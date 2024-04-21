@@ -12,6 +12,22 @@
   </div>
 
   <div class="page-footer-wrapper page-slat">
-    <!-- footer class="page-footer page-container"></-->
+    <footer class="page-footer page-container">
+      <nav class="page-nav-links">
+        <% if previous_page %>
+          <%= link_to previous_page.url_path, class: "page-nav-link page-nav-link-previous" do %>
+            <%= lb_icon :arrow_left %>
+            <%= previous_page.label %>
+          <% end %>
+        <% end %>
+
+        <% if next_page %>
+          <%= link_to next_page.url_path, class: "page-nav-link page-nav-link-next" do %>        
+            <%= next_page.label %>
+            <%= lb_icon :arrow_right %>
+          <% end %>
+        <% end %>
+      </nav>
+    </footer>
   </div>
 <% end %>

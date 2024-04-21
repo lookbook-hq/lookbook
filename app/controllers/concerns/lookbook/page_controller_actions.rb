@@ -29,7 +29,9 @@ module Lookbook
           config: @config,
           previews: @previews,
           pages: @pages,
-          page: @page
+          page: @page,
+          previous_page: @page.previous,
+          next_page: @page.next
         }
       )
 

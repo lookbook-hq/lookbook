@@ -685,6 +685,15 @@ tr:not(:last-child) {
 .wrap-lines[data-component="code"] .code-highlighted code {
     white-space: pre-wrap;
   }
+[data-component="icon"] {
+  display: inline-block;
+  aspect-ratio: 1 / 1;
+  width: 1rem;
+}
+[data-component="icon"] svg {
+    width: 100%;
+    height: 100%;
+  }
 [data-component="prose"] {
   color: hsl(240, 6%, 10%);
   color: var(--lookbook-color-base-900);
@@ -1034,4 +1043,19 @@ tr:not(:last-child) {
     padding-bottom: 1.75rem;
     padding-top: var(--lookbook-spacing-x-large);
     padding-bottom: var(--lookbook-spacing-x-large);
+  }
+[data-component="page"] .page-nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+[data-component="page"] .page-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    gap: var(--lookbook-spacing-2x-small);
+  }
+[data-component="page"] .page-nav-link-next {
+    margin-left: auto;
   }
