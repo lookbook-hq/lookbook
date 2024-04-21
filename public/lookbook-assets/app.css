@@ -1078,9 +1078,17 @@ select {
   font-size: var(--lookbook-font-size-small);
   color: hsl(240, 4%, 46%);
   color: var(--lookbook-color-base-500);
-  /* padding-inline: var(--lookbook-spacing-medium);
-  padding-block: var(--lookbook-spacing-x-small); */
 }
+[data-component="breadcrumbs"] a.breadcrumb:hover {
+      -webkit-text-decoration: underline;
+      text-decoration: underline;
+      color: hsl(245, 58%, 51%);
+      color: var(--lookbook-color-accent-700);
+    }
+[data-component="breadcrumbs"] .breadcrumb:last-child {
+    color: hsl(240, 5%, 26%);
+    color: var(--lookbook-color-base-700);
+  }
 [data-component="breadcrumbs"] .breadcrumb-divider {
     flex: none;
     display: block;
@@ -1114,7 +1122,31 @@ select {
   align-items: center;
   width: -moz-fit-content;
   width: fit-content;
+
+  /* .button {
+    margin-right: 5px;
+  }
+
+  .button + .button {
+    margin-left: 5px;
+  } */
+
+  /* .button + .button-group-divider {
+    margin-left: 2px;
+  }
+
+  .button-group-divider + .button {
+    margin-left: px;
+  } */
 }
+[data-component="button-group"] .button-group-divider {
+    flex: none;
+    width: 1px;
+    background-color: hsl(240, 5%, 84%);
+    background-color: var(--lookbook-divider-color);
+    height: 40px;
+    display: block;
+  }
 [data-component="code"] {
   display: block;
 
@@ -1676,8 +1708,7 @@ select {
   height: 40px;
   display: flex;
   align-items: center;
-  padding-right: 0.25rem;
-  padding-right: var(--lookbook-spacing-2x-small);
+  /* padding-right: var(--lookbook-spacing-2x-small); */
   padding-left: 1rem;
   padding-left: var(--lookbook-spacing-medium);
   border-bottom: 1px solid hsl(240, 5%, 84%);
@@ -1702,6 +1733,20 @@ select {
 [data-component="toolbar"] .toolbar-actions {
     margin-left: auto;
   }
+[data-component="toolbar"] .toolbar-actions .button {
+      margin-left: 3px;
+      margin-right: 3px;
+      color: hsl(240, 4%, 46%);
+      color: var(--lookbook-color-base-500);
+    }
+[data-component="toolbar"] .toolbar-actions .button:hover {
+        color: hsl(240, 5%, 26%);
+        color: var(--lookbook-color-base-700);
+      }
+[data-component="toolbar"] .toolbar-actions .button:active {
+        color: hsl(245, 58%, 51%);
+        color: var(--lookbook-color-accent-700);
+      }
 [data-component="toolbar"] .toolbar-actions [data-component="button"] {
       padding: 0.5rem;
       height: 2rem;

@@ -4,7 +4,11 @@
       toolbar.with_label { toolbar_label } if label?
 
       toolbar_actions.each do |action|
-        toolbar.with_action(**action)
+        if action == :divider
+          toolbar.with_divider
+        else
+          toolbar.with_action(**action)
+        end
       end
 
       toolbar_tabs.each do |tab|

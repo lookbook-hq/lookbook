@@ -6,20 +6,27 @@
       sizes: ["auto", "350px"]
     }) do |layout|
       layout.with_pane("preview-pane") do |pane|
-        pane.with_action(icon: :panel_bottom_open, tooltip: "Open drawer", click: "openDrawer", show: "drawerClosed")
-        pane.with_action(icon: :panel_bottom_close, tooltip: "Close drawer", click: "closeDrawer", show: "!drawerClosed")
-        pane.with_action(icon: :external_link, tooltip: "Open preview in new window", href: target.preview_path, target: "_blank")
-        pane.with_action(icon: :layers, tooltip: "Preview overview", href: preview.url_path)
-          
+        # pane.with_action(icon: :layers, tooltip: "Preview overview", href: preview.url_path)
+        pane.with_action(icon: :external_link, tooltip: "Open preview in new window", href: target.preview_path, target: "_blank")    
+        pane.with_action_divider
+        pane.with_action(icon: :panel_bottom_open, tooltip: "Open drawer", click: "openDrawer", show: "drawerClosed", x: {":aria-hidden": "!drawerClosed"})
+        pane.with_action(icon: :panel_bottom_close, tooltip: "Close drawer", click: "closeDrawer", show: "!drawerClosed", x: {":aria-hidden": "drawerClosed"})
 
-        preview_panels.each do |panel|
-          pane.with_tab_panel(panel.name, label: panel.label) do
-            render panel.partial, preview: preview, target: target, panel: panel
+        pane.with_label do
+          lb_breadcrumbs(config.previews_nav_label, target.ancestors, target)
+        end
+
+        lb_pane do |pane|
+          preview_panels.each do |panel|
+            pane.with_tab_panel(panel.name, label: panel.label) do
+              render panel.partial, preview: preview, target: target, panel: panel
+            end
           end
         end
       end
 
       layout.with_pane("drawer-pane") do |pane|
+        pane.with_action_divider
         pane.with_action(icon: :x, tooltip: "Close drawer", click: "closeDrawer")
 
         drawer_panels.each do |panel|

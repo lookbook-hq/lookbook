@@ -3,7 +3,7 @@
   height: 40px;
   display: flex;
   align-items: center;
-  padding-right: var(--lookbook-spacing-2x-small);
+  /* padding-right: var(--lookbook-spacing-2x-small); */
   padding-left: var(--lookbook-spacing-medium);
   border-bottom: 1px solid var(--lookbook-divider-color);
 
@@ -25,6 +25,19 @@
 
   .toolbar-actions {
     margin-left: auto;
+
+    .button {
+      margin-inline: 3px;
+      color: var(--lookbook-color-base-500);
+
+      &:hover {
+        color: var(--lookbook-color-base-700);
+      }
+
+      &:active {
+        color: var(--lookbook-color-accent-700);
+      }
+    }
 
     [data-component="button"] {
       padding: 0.5rem;

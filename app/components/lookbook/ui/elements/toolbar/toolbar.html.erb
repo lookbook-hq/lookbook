@@ -11,11 +11,17 @@
     </nav>
   <% end %>
   
-  <% if actions? %>
-    <%= render Lookbook::UI::ButtonGroup.new(class: "toolbar-actions") do |group| %>
-      <% actions.reverse.each do |action| %>
-        <% group.with_button { action } %>
-      <% end %>
-    <% end %>
+  <% if @toolbar_actions.any? %>
+    <%=
+      render Lookbook::UI::ButtonGroup.new(class: "toolbar-actions") do |group|
+        @toolbar_actions.each do |action|
+          if action == :divider
+            group.with_divider
+          else
+            group.with_button { action }
+          end
+        end
+      end
+    %>
   <% end %>
 <% end %>

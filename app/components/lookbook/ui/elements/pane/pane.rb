@@ -24,6 +24,10 @@ module Lookbook
       def with_action(**kwargs)
         @toolbar_actions << kwargs
       end
+
+      def with_action_divider(**kwargs)
+        @toolbar_actions << :divider
+      end
     end
   end
 end

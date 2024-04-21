@@ -10,7 +10,7 @@ module Lookbook
           if item.is_a?(String)
             {label: item, url: nil}
           else
-            {label: item.label, url: item.url_path}
+            {label: item.label, url: (item != @items.last) ? item.url_path : nil}
           end
         end.compact
       end

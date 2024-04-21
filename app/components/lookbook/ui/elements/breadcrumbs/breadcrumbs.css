@@ -4,8 +4,17 @@
   align-items: center;
   font-size: var(--lookbook-font-size-small);
   color: var(--lookbook-color-base-500);
-  /* padding-inline: var(--lookbook-spacing-medium);
-  padding-block: var(--lookbook-spacing-x-small); */
+
+  a.breadcrumb {
+    &:hover {
+      text-decoration: underline;
+      color: var(--lookbook-color-accent-700);
+    }
+  }
+
+  .breadcrumb:last-child {
+    color: var(--lookbook-color-base-700);
+  }
 
   .breadcrumb-divider {
     flex: none;

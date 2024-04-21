@@ -7,7 +7,8 @@
   data: {
     size: size,
     tooltip: tooltip
-  }
+  },
+  class: "button"
 ) do %>
   <div class="button-content" x-ref="content">
     <%= render Lookbook::UI::Icon.new(name: icon, class: "button-icon") %>
