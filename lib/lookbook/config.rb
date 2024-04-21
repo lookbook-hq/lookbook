@@ -17,6 +17,7 @@ module Lookbook
           preview_watch_paths: [],
           preview_watch_extensions: ["rb", "html.*"],
           preview_display_options: {},
+
           preview_tags: default_preview_tags,
 
           previews_nav_label: "Previews",
