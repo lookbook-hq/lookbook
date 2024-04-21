@@ -6,10 +6,6 @@ module Lookbook
       def initialize(page:, **kwargs)
         @page = page
       end
-
-      def nav_node
-        @nav_node ||= Pages.to_tree.find_node(page)
-      end
     end
   end
 end

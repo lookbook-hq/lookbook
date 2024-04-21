@@ -19,7 +19,7 @@ module Lookbook
     end
 
     def children
-      Previews.to_tree.children_of(self).sort
+      Previews.tree.children_of(self).sort
     end
 
     def parent

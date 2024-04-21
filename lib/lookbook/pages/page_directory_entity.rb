@@ -19,7 +19,7 @@ module Lookbook
     end
 
     def children
-      Pages.to_tree.children_of(self).sort
+      Pages.tree.children_of(self).sort
     end
 
     def parent

@@ -16,7 +16,7 @@ module Lookbook
         end
       end
 
-      def to_tree
+      def tree
         @tree ||= begin
           debug("pages: building tree")
           EntityTree.new(store.all)
