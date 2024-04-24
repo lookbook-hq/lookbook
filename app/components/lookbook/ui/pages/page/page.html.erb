@@ -1,10 +1,12 @@
 <%= render component_tag(:article, x: {data: "page", "@message.window": "handleMessage"}) do %>
-  <div class="page-header-wrapper page-slat">
-    <header class="page-header page-container">
-      <h1 class="page-title"><%= title %></h1>
-    </header>
-  </div>
-
+  <% if header? %>
+    <div class="page-header-wrapper page-slat">
+      <header class="page-header page-container">
+        <h1 class="page-title"><%= title %></h1>
+      </header>
+    </div>
+  <% end %>
+  
   <div class="page-body-wrapper page-slat">
     <section class="page-body page-container">
       <%= lb_prose { content } %>

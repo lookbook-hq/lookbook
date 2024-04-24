@@ -26,12 +26,20 @@ module Lookbook
       frontmatter.fetch(:title, label)
     end
 
+    def data
+      DataObject.new(frontmatter.fetch(:data, {}))
+    end
+
     def hidden?
       frontmatter.fetch(:hidden, super)
     end
 
-    def data
-      DataObject.new(frontmatter.fetch(:data, {}))
+    def landing?
+      frontmatter.fetch(:landing, false)
+    end
+
+    def header?
+      frontmatter.fetch(:header, true)
     end
 
     def footer?

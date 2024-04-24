@@ -5,6 +5,8 @@ module Lookbook
     rescue_from ActionController::RoutingError, with: :not_found
 
     def index
+      landing = @pages.find(&:landing?)
+      redirect_to landing.url_path if landing
     end
 
     protected
