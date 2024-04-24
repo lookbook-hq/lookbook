@@ -8,8 +8,17 @@
       layout.with_pane("preview-pane") do |pane|
         pane.with_toolbar do |toolbar|
           toolbar.with_breadcrumb(config.previews_nav_label, target.ancestors, target)
-          toolbar.with_button_group do |group|
-            group.with_button(icon: :external_link, tooltip: "Open preview in new window", href: target.preview_path, target: "_blank")
+          if display_options.any?
+            toolbar.with_button_group do |group|
+              group.with_button(icon: :settings_2, tooltip: "Display options") do |button|
+                button.with_dropdown do
+                  render Lookbook::UI::DisplayOptionsEditor.new(
+                    options: display_options,
+                    values: display_options_values
+                  )
+                end
+              end
+            end
           end
           toolbar.with_button_group do |group|
             group.with_button(icon: :panel_bottom_open, tooltip: "Open drawer", click: "openDrawer", show: "drawerClosed", x: {":aria-hidden": "!drawerClosed"})
@@ -23,6 +32,9 @@
               preview_panels.each do |panel|
                 group.with_tab(panel.name, label: panel.label)
               end
+            end
+            toolbar.with_button_group do |group|
+              group.with_button(icon: :external_link, tooltip: "Open preview in new window", href: target.preview_path, target: "_blank")
             end
           end
 

@@ -3,6 +3,7 @@
     data: "button",
     "@click": (click if click.present?),
     "@page-load:start.document": "hidePopovers",
+    "@page-update:start.document": "hidePopovers",
     "show": (show if show.present?),
     ":class": "{active: dropdownOpen}"
   },

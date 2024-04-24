@@ -1992,10 +1992,33 @@ select {
   }
 [data-component="display-options-editor"] {
   width: 280px;
-  padding: 0.75rem;
-  padding: var(--lookbook-spacing-small);
+  padding: 1rem;
+  padding: var(--lookbook-spacing-medium);
+  padding-top: 0.75rem;
+  padding-top: var(--lookbook-spacing-small);
   background: #fff;
 }
+[data-component="display-options-editor"] .title {
+    font-size: 1rem;
+    font-size: var(--lookbook-font-size-medium);
+    margin-bottom: 1rem;
+    margin-bottom: var(--lookbook-spacing-medium);
+  }
+[data-component="display-options-editor"] .display-option + .display-option {
+    margin-top: 1rem;
+    margin-top: var(--lookbook-spacing-medium);
+  }
+[data-component="display-options-editor"] .display-option label {
+      font-weight: 500;
+      font-weight: var(--lookbook-font-weight-semibold);
+      display: block;
+      margin-bottom: 0.5rem;
+      margin-bottom: var(--lookbook-spacing-x-small);
+    }
+[data-component="display-options-editor"] .display-option select {
+      font-size: 0.875rem;
+      font-size: var(--lookbook-font-size-small);
+    }
 [data-component="panel"][data-panel="code"] {
 }
 [data-component="panel"][data-panel="default"] {

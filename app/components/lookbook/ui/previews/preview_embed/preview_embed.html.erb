@@ -9,6 +9,18 @@
     ) do |pane|
       pane.with_toolbar do |toolbar|
         toolbar.with_label { target.label }
+        if display_options.any?
+          toolbar.with_button_group do |group|
+            group.with_button(icon: :settings_2, tooltip: "Display options") do |button|
+              button.with_dropdown do
+                render Lookbook::UI::DisplayOptionsEditor.new(
+                  options: display_options,
+                  values: display_options_values
+                )
+              end
+            end
+          end
+        end
       end
 
       lb_viewport(target.preview_path(preview_params), id: dom_id(target, "embed-viewport"), resize_y: false)

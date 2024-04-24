@@ -1,0 +1,11 @@
+<%= render component_tag(x: {data: "displayOptionsEditor", "@change": "update"}) do %>
+  <% options.each do |option| %>
+    <div class="display-option">
+      <label for="<%= option.name %>"><%= option.label %></label>
+      <%= helpers.select_tag(
+        option.name,
+        options_for_select(option.choices, option.value)
+      ) %>
+    </div>
+  <% end %>  
+<% end %>

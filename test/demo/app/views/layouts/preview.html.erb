@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-theme="light">
+<html data-theme="<%= @display_options.color_scheme %>">
 <head>
   <title><%= @preview.label %> : <%= @target.label %></title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -8,17 +8,24 @@
   <%= csp_meta_tag %>
   <%= stylesheet_link_tag "pico.css" %>
   <style>
-    html,
-    body {
-      min-height: 100vh;
-    }
-
     body {
       padding: 1rem;
     }
+
+    [data-theme="light"],
+    [data-theme="light"] body {
+      background-color: #fff;
+    }
+
+    [data-theme="dark"],
+    [data-theme="dark"] body {
+      background-color: #13171f;
+    }
   </style>
 </head>
-<body style="background-color: <%= @display_options.bg_color || "#fff" %>">
-  <%= yield %>
+<body>
+  <div style="max-width: <%= @display_options.max_width %>">
+    <%= yield %>
+  </div>
 </body>
 </html>

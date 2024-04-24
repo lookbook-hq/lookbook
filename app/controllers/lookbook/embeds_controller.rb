@@ -8,10 +8,12 @@ module Lookbook
 
     def show
       redirect_to preview_embed_path(@preview, @target, {
-        targets: @target_names,
-        preview_params: @preview_params,
-        panels: @panels,
-        actions: @actions
+        **@preview_params,
+        _embed: {
+          targets: @target_names,
+          panels: @panels,
+          actions: @actions
+        }
       })
     end
 

@@ -57,7 +57,7 @@ module Lookbook
     end
 
     def display_options
-      DataObject.new(Inspector.default_display_options, metadata.display_options)
+      DataObject.new(Inspector.display_options_defaults, metadata.display_options)
     end
 
     def layout

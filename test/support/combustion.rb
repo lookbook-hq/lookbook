@@ -9,7 +9,15 @@ Combustion.initialize! :action_controller, :action_view, :action_mailer, :sprock
   config.lookbook.project_name = "Lookbook test app"
 
   config.lookbook.preview_display_options = {
-    bg_color: "#fff"
+    max_width: "100%",
+    color_scheme: {
+      label: "Color scheme",
+      choices: [
+        ["Dark", "dark"],
+        ["Light", "light"]
+      ],
+      default: "light"
+    }
   }
 
   config.lookbook.preview_paths << "#{root}/lookbook/previews"

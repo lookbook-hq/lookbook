@@ -3,19 +3,38 @@ module Lookbook
     class << self
       include Loggable
 
-      def default_display_options
-        @default_display_options ||= begin
-          options = Lookbook.config.preview_display_options.map do |key, value|
-            [key, value] unless value.is_a?(Array) || value.is_a?(Hash)
-          end.to_h
-          DataObject.new(options)
+      def display_options_defaults
+        @display_options_defaults ||= begin
+          defaults = Lookbook.config.preview_display_options.select { !_2.is_a?(Array) && !_2.is_a?(Hash) }
+          DataObject.new(defaults)
         end
       end
 
       def dynamic_display_options
         @dynamic_display_options ||= begin
-          options = Lookbook.config.preview_display_options.symbolize_keys
-          DataObject.new(options.except(*default_display_options.keys))
+          options = Lookbook.config.preview_display_options.select { _2.is_a?(Array) || _2.is_a?(Hash) }
+          options.symbolize_keys.map do |key, value|
+            label = key.to_s.titleize
+            option_data = DataObject.new(name: key)
+
+            if value.is_a?(Array)
+              first_choice_value = value.first.is_a?(Array) ? value.first.last : value.first
+              option_data.tap do |option|
+                option.label = label
+                option.choices = value
+                option.default_value = first_choice_value
+              end
+            elsif value.is_a?(Hash)
+              first_choice_value = value[:choices].first.is_a?(Array) ? value[:choices].first.last : value[:choices].first
+              option_data.tap do |option|
+                option.label = value[:label] || label
+                option.choices = value[:choices] || []
+                option.default_value = value[:default] || first_choice_value
+              end
+            end
+
+            [key, option_data]
+          end.compact.to_h
         end
       end
 

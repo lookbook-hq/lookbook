@@ -6,6 +6,7 @@ module Lookbook
     before_action :assign_target, only: %i[inspect embed preview]
     before_action :assign_display_options, only: %i[inspect embed preview]
     before_action :prerender_target, only: %i[inspect embed preview]
+    after_action :persist_display_options, only: %i[inspect embed preview]
 
     def show
       @targets = @preview.inspector_targets
@@ -15,12 +16,12 @@ module Lookbook
     end
 
     def embed
-      target_names = params[:targets].map(&:to_sym)
+      embed_params = params[:_embed]
+      target_names = embed_params[:targets].map(&:to_sym)
 
       @targets = @preview.inspector_targets.select { _1.name.to_sym.in?(target_names) }
-      @panels = Inspector.embed_panels(params[:panels])
-      @actions = params.fetch(:actions, [])
-      @preview_params = params.fetch(:preview_params, {}).permit!.to_h
+      @panels = Inspector.embed_panels(embed_params[:panels])
+      @actions = embed_params.fetch(:actions, [])
 
       render layout: "lookbook/embed"
     end
@@ -55,7 +56,7 @@ module Lookbook
         {
           preview: target.preview,
           target: target,
-          display_options: target.display_options
+          display_options: @display_options
         },
         layout: target.preview.layout,
         append_html: append_html)
