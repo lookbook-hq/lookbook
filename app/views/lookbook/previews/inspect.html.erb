@@ -5,6 +5,7 @@
     preview_panels: @inspector.preview_panels,
     drawer_panels: @inspector.drawer_panels,
     display_options: @inspector.dynamic_display_options,
-    display_options_values: @display_options
+    display_options_values: @display_options,
+    preview_url: @target.preview_path(request.query_parameters) 
   )
 %>
