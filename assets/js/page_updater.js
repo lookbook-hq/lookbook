@@ -1,3 +1,5 @@
+import { fetchHTML } from "./helpers";
+
 export default class PageUpdater {
   constructor(root, selector) {
     this.root = root;
@@ -14,18 +16,4 @@ export default class PageUpdater {
       location.href = url;
     }
   }
-}
-
-async function fetchHTML(url, selector) {
-  const response = await fetch(url || location);
-  const { status, ok } = response;
-  let fragment,
-    title = null;
-  const result = { ok, status, response, fragment, title };
-  if (status < 500) {
-    const html = await response.text();
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    result.fragment = selector ? doc.querySelector(selector).outerHTML : null;
-  }
-  return result;
 }

@@ -2051,6 +2051,15 @@ select {
     height: 100%;
     width: 100%;
   }
+[data-component="page-metadata"] {
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0.75rem;
+  padding: var(--lookbook-spacing-small);
+}
+[data-component="page-metadata"] td {
+    white-space: nowrap;
+  }
 [data-component="display-options-editor"] {
   width: 280px;
   padding: 1rem;

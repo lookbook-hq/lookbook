@@ -9380,28 +9380,24 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     }
   };
 
-  // assets/js/page_updater.js
-  var PageUpdater = class {
-    constructor(root2, selector) {
-      this.root = root2;
-      this.selector = selector;
-    }
-    async updateDOM(url) {
-      const { fragment, status } = await fetchHTML(url, this.selector);
-      if (status < 500) {
-        document.dispatchEvent(new CustomEvent("morph:start"));
-        Alpine.morph(this.root, fragment);
-        document.dispatchEvent(new CustomEvent("morph:complete"));
-      } else {
-        location.href = url;
-      }
-    }
-  };
+  // assets/js/helpers.js
+  function observeSize(element2, callback = () => {
+  }) {
+    const observer2 = new ResizeObserver((entries) => {
+      const rect = entries[0].target.getBoundingClientRect();
+      callback({
+        width: Math.round(rect.width),
+        height: Math.round(rect.height)
+      });
+    });
+    observer2.observe(element2);
+    return observer2;
+  }
   async function fetchHTML(url, selector) {
     const response = await fetch(url || location);
     const { status, ok } = response;
     let fragment, title = null;
-    const result = { ok, status, response, fragment, title };
+    const result = { ok, status, response, fragment, title, url: response.url };
     if (status < 500) {
       const html3 = await response.text();
       const doc = new DOMParser().parseFromString(html3, "text/html");
@@ -9415,9 +9411,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     return {
       serverEventsListener: null,
       routerLogger: null,
+      rootSelector: "router",
       init() {
         this.routerLogger = new Logger("Router");
-        this.updater = new PageUpdater(this.$el, "router");
         if (sseEndpoint) {
           this.serverEventsListener = new ServerEventsListener(sseEndpoint);
           this.serverEventsListener.on("update", () => this.updatePage());
@@ -9426,21 +9422,33 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       },
       visit(url, updateHistory = true) {
         this.routerLogger.info(`Navigating to ${url}`);
-        if (updateHistory)
-          history.pushState({}, "", url);
-        this.loadPage(url);
+        this.loadPage(url, updateHistory);
       },
       async updatePage() {
         this.$dispatch("page-update:start");
-        await this.updater.updateDOM(location);
+        await this.updateDOM(location);
         this.routerLogger.info(`Page updated`);
         this.$dispatch("page-update:complete");
       },
-      async loadPage(url = location) {
+      async loadPage(url, updateHistory = true) {
         this.$dispatch("page-load:start");
-        await this.updater.updateDOM(url);
+        const result = await this.updateDOM(url);
+        if (updateHistory) {
+          history.pushState({}, "", result.url);
+        }
         this.routerLogger.debug(`Page loaded`);
         this.$dispatch("page-load:complete");
+      },
+      async updateDOM(url) {
+        const result = await fetchHTML(url, this.rootSelector);
+        if (result.status < 500) {
+          document.dispatchEvent(new CustomEvent("morph:start"));
+          Alpine.morph(this.$root, result.fragment);
+          document.dispatchEvent(new CustomEvent("morph:complete"));
+        } else {
+          location.href = url;
+        }
+        return result;
       },
       handleClick(event) {
         const link = event.target.closest("[href]");
@@ -20032,20 +20040,6 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   }
   var split_grid_default = index;
 
-  // assets/js/helpers.js
-  function observeSize(element2, callback = () => {
-  }) {
-    const observer2 = new ResizeObserver((entries) => {
-      const rect = entries[0].target.getBoundingClientRect();
-      callback({
-        width: Math.round(rect.width),
-        height: Math.round(rect.height)
-      });
-    });
-    observer2.observe(element2);
-    return observer2;
-  }
-
   // app/components/lookbook/ui/elements/pane_group/pane_group.js
   var pane_group_default = AlpineComponent("paneGroup", (id, opts = {}) => {
     const store2 = Alpine.store("app").fetch("pane-group", id, {
@@ -20381,6 +20375,26 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   __export(page_exports, {
     default: () => page_default
   });
+
+  // assets/js/page_updater.js
+  var PageUpdater = class {
+    constructor(root2, selector) {
+      this.root = root2;
+      this.selector = selector;
+    }
+    async updateDOM(url) {
+      const { fragment, status } = await fetchHTML(url, this.selector);
+      if (status < 500) {
+        document.dispatchEvent(new CustomEvent("morph:start"));
+        Alpine.morph(this.root, fragment);
+        document.dispatchEvent(new CustomEvent("morph:complete"));
+      } else {
+        location.href = url;
+      }
+    }
+  };
+
+  // app/components/lookbook/ui/pages/page/page.js
   var page_default = AlpineComponent("page", () => {
     return {
       updater: null,

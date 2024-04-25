@@ -17,11 +17,14 @@ module Lookbook
     end
 
     def id
-      @id ||= Utils.id(method_name)
+      @id ||= Utils.id(metadata.fetch(:id, method_name))
     end
 
     def uuid
-      @uuid ||= Utils.hash(preview_entity.id, id)
+      @uuid ||= begin
+        stable_id = metadata.has_tag?(:id) ? id : Utils.id(preview.id, method_name)
+        "#{type}_#{Utils.hash(stable_id)}"
+      end
     end
 
     def name

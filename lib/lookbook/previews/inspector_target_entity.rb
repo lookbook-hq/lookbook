@@ -12,6 +12,7 @@ module Lookbook
       @default_priority = default_priority
       @hidden = hidden
       @rendered_scenarios = {}
+      @type = :inspect
     end
 
     def id
@@ -19,7 +20,10 @@ module Lookbook
     end
 
     def uuid
-      @uuid ||= Utils.hash(preview_entity.id, id)
+      @uuid ||= begin
+        stable_id = scenarios.one? ? scenarios.first.uuid.delete_prefix("scenario_") : id
+        "#{type}_#{stable_id}"
+      end
     end
 
     def url_path

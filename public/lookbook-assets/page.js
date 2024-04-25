@@ -14978,6 +14978,20 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     default: () => page_default
   });
 
+  // assets/js/helpers.js
+  async function fetchHTML(url, selector) {
+    const response = await fetch(url || location);
+    const { status, ok } = response;
+    let fragment, title = null;
+    const result = { ok, status, response, fragment, title, url: response.url };
+    if (status < 500) {
+      const html3 = await response.text();
+      const doc = new DOMParser().parseFromString(html3, "text/html");
+      result.fragment = selector ? doc.querySelector(selector).outerHTML : null;
+    }
+    return result;
+  }
+
   // assets/js/page_updater.js
   var PageUpdater = class {
     constructor(root2, selector) {
@@ -14995,18 +15009,6 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       }
     }
   };
-  async function fetchHTML(url, selector) {
-    const response = await fetch(url || location);
-    const { status, ok } = response;
-    let fragment, title = null;
-    const result = { ok, status, response, fragment, title };
-    if (status < 500) {
-      const html3 = await response.text();
-      const doc = new DOMParser().parseFromString(html3, "text/html");
-      result.fragment = selector ? doc.querySelector(selector).outerHTML : null;
-    }
-    return result;
-  }
 
   // app/components/lookbook/ui/pages/page/page.js
   var page_default = AlpineComponent("page", () => {

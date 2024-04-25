@@ -9,4 +9,19 @@ function observeSize(element, callback = () => {}) {
   observer.observe(element);
   return observer;
 }
-export { observeSize };
+
+async function fetchHTML(url, selector) {
+  const response = await fetch(url || location);
+  const { status, ok } = response;
+  let fragment,
+    title = null;
+  const result = { ok, status, response, fragment, title, url: response.url };
+  if (status < 500) {
+    const html = await response.text();
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    result.fragment = selector ? doc.querySelector(selector).outerHTML : null;
+  }
+  return result;
+}
+
+export { observeSize, fetchHTML };

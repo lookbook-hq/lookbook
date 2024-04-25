@@ -9,6 +9,29 @@ module Lookbook
       redirect_to landing.url_path if landing
     end
 
+    def permalink
+      type = params[:uuid].split("_")&.first
+      if type.present?
+        redirect_url = case type.to_sym
+        when :page
+          page = Pages.find { _1.uuid == params[:uuid] }
+          show_page_path(page, request.query_parameters)
+        when :preview
+          preview = Previews.find { _1.uuid == params[:uuid] }
+          show_preview_path(preview, request.query_parameters)
+        when :inspect
+          target = Previews.inspector_targets.find { _1.uuid == params[:uuid] }
+          inspect_target_path(target.preview, target, request.query_parameters)
+        else
+          raise ActionController::RoutingError, "Could not resolve permalink '#{params[:uuid]}'"
+        end
+
+        redirect_to redirect_url
+      else
+        raise ActionController::RoutingError, "Could not resolve permalink '#{params[:uuid]}'"
+      end
+    end
+
     protected
 
     def assign_template_vars

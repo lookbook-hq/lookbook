@@ -16,6 +16,17 @@ module Lookbook
         end
       end
 
+      def resolve_page(identifier)
+        return identifier if identifier.is_a?(PageEntity)
+
+        if identifier.is_a?(String) || identifier.is_a?(Symbol)
+          identifier = identifier.to_s
+          store.find { [_1.id, _1.uuid].include?(identifier.to_s) }
+        else
+          raise ArgumentError, "Invalid page identifier"
+        end
+      end
+
       def tree
         @tree ||= begin
           debug("pages: building tree")

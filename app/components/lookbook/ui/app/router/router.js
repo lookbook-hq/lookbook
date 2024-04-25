@@ -1,16 +1,16 @@
 import AlpineComponent from "@js/alpine/component";
 import ServerEventsListener from "@js/server_events_listener";
-import PageUpdater from "@js/page_updater";
+import { fetchHTML } from "@js/helpers";
 import Logger from "@js/logger";
 
 export default AlpineComponent("router", (sseEndpoint = null) => {
   return {
     serverEventsListener: null,
     routerLogger: null,
+    rootSelector: "router",
 
     init() {
       this.routerLogger = new Logger("Router");
-      this.updater = new PageUpdater(this.$el, "router");
 
       if (sseEndpoint) {
         this.serverEventsListener = new ServerEventsListener(sseEndpoint);
@@ -22,22 +22,36 @@ export default AlpineComponent("router", (sseEndpoint = null) => {
     visit(url, updateHistory = true) {
       this.routerLogger.info(`Navigating to ${url}`);
 
-      if (updateHistory) history.pushState({}, "", url);
-      this.loadPage(url);
+      this.loadPage(url, updateHistory);
     },
 
     async updatePage() {
       this.$dispatch("page-update:start");
-      await this.updater.updateDOM(location);
+      await this.updateDOM(location);
       this.routerLogger.info(`Page updated`);
       this.$dispatch("page-update:complete");
     },
 
-    async loadPage(url = location) {
+    async loadPage(url, updateHistory = true) {
       this.$dispatch("page-load:start");
-      await this.updater.updateDOM(url);
+      const result = await this.updateDOM(url);
+      if (updateHistory) {
+        history.pushState({}, "", result.url);
+      }
       this.routerLogger.debug(`Page loaded`);
       this.$dispatch("page-load:complete");
+    },
+
+    async updateDOM(url) {
+      const result = await fetchHTML(url, this.rootSelector);
+      if (result.status < 500) {
+        document.dispatchEvent(new CustomEvent("morph:start"));
+        Alpine.morph(this.$root, result.fragment);
+        document.dispatchEvent(new CustomEvent("morph:complete"));
+      } else {
+        location.href = url;
+      }
+      return result;
     },
 
     handleClick(event) {

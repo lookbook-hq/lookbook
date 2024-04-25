@@ -120,7 +120,8 @@ module Lookbook
           Lookbook::HiddenTag,
           Lookbook::LabelTag,
           Lookbook::ParamTag,
-          Lookbook::PriorityTag
+          Lookbook::PriorityTag,
+          Lookbook::IdTag
         ]
       end
 

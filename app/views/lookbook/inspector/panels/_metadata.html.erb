@@ -10,15 +10,19 @@
     <tbody>
       <tr>
         <td>UUID</td>
-        <td><%= target.uuid %></td>
+        <td><code><%= target.uuid %></code></td>
+      </tr>
+      <tr>
+        <td>Permalink</td>
+        <td><code><%= link_to permalink_path(target.uuid), permalink_path(target.uuid) %></code></td>
       </tr>
       <tr>
         <td>Preview file path</td>
-        <td><%= preview.preview_app_file_path %></td>
+        <td><code><%= preview.preview_app_file_path %></code></td>
       </tr>
       <tr>
         <td>Display options</td>
-        <td><%= @display_options.to_json %></td>
+        <td><code><%= @display_options.to_json %></code></td>
       </tr>
     </tbody>
   </table>

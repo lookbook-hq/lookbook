@@ -15,7 +15,7 @@ module Lookbook
     end
 
     def id
-      @id ||= Utils.id(lookup_path)
+      @id ||= Utils.id(metadata.fetch(:id, lookup_path))
     end
 
     def name
