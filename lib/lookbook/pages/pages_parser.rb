@@ -8,6 +8,8 @@ module Lookbook
     end
 
     def parse(paths = @page_paths, &callback)
+      Engine.notifications.clear(:pages)
+
       glob_paths = [*error_paths, *paths].to_a.map do |path|
         if File.directory?(path)
           Lookbook.config.page_extensions.map { "#{path}/**/*.#{_1}" }
@@ -22,7 +24,7 @@ module Lookbook
         PageEntity.new(path)
       rescue => error
         error_paths << path
-        Engine.notifications.add(ParserError.new(error))
+        Engine.notifications.add(:pages, ParserError.new(error))
         warn(error.message)
         nil
       end

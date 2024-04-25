@@ -73,7 +73,6 @@ module Lookbook
       end
 
       def files_updated!
-        notifications.clear
         @updated_at = DateTime.now
       end
 

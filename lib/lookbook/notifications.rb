@@ -8,9 +8,9 @@ module Lookbook
       @notifications = []
     end
 
-    def add(*args)
+    def add(context, *args)
       type, detail = args.first.is_a?(StandardError) ? [:error, args.first] : args
-      @notifications << Notification.new(type.to_sym, detail)
+      @notifications << Notification.new(type.to_sym, context.to_sym, detail)
     end
 
     def errors
@@ -37,10 +37,14 @@ module Lookbook
       notices.any?
     end
 
-    def clear
-      @notifications = []
+    def clear(context = nil)
+      @notifications = if context
+        @notifications.select { _1.context != context.to_sym }
+      else
+        []
+      end
     end
 
-    Notification = Struct.new(:type, :detail)
+    Notification = Struct.new(:type, :context, :detail)
   end
 end

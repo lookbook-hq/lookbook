@@ -11,6 +11,8 @@ module Lookbook
     end
 
     def parse(paths = @preview_paths, &callback)
+      Engine.notifications.clear(:previews)
+
       glob_paths = [*error_paths, *paths].to_a.map do |path|
         if File.directory?(path)
           "#{path}/**/*preview.rb"
@@ -26,7 +28,7 @@ module Lookbook
           PreviewEntity.new(code_object, klass) if Previews.preview_class?(klass)
         rescue => error
           error_paths << code_object.file
-          Engine.notifications.add(ParserError.new(error))
+          Engine.notifications.add(:previews, ParserError.new(error))
           warn(error.message)
           nil
         end
