@@ -10,6 +10,9 @@ const themes = [
 
 const langs = [
   import("shiki/langs/html.mjs"),
+  import("shiki/langs/javascript.mjs"),
+  import("shiki/langs/css.mjs"),
+  import("shiki/langs/markdown.mjs"),
   import("shiki/langs/ruby.mjs"),
   import("shiki/langs/erb.mjs"),
 ];
