@@ -1,6 +1,8 @@
-<%=
-  render Lookbook::UI::ErrorPage.new(
-    error: @error,
-    title: "Not found"
-  )
-%>
+<%= render Lookbook::UI::SystemPage.new(theme: :error) do |page| %>
+  <% page.with_message(icon: :file_x) do |message| %>
+    <% message.with_title { "Not found" } %>
+    <p><%= @error.message %></p>
+  <% end %>
+<% end %>
+
+

@@ -1,5 +1,7 @@
 [data-component="page"] {
   font-family: var(--lookbook-font-prose);
+  background-color: var(--lookbook-color-base-0);
+  min-height: 100vh;
 
   .page-slat {
     padding-inline: var(--lookbook-spacing-x-large);

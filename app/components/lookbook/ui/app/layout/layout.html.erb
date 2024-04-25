@@ -9,52 +9,63 @@
     <%= header %>
   </div>
   
-  <%=
-    lb_pane_group("app-main",
-      tag: :main,
-      opts: {
-        orientation: :vertical,
-        sizes: ["280px", "auto"],
-        min_sizes: [200, 200]
-      }) do |body|
-      body.with_pane do
-        lb_pane_group("app-sidebar",
+  
+  <% if pages.any? || previews.any? %>    
+    <%=
+      lb_pane_group("app-main",
+        tag: :main,
         opts: {
-          orientation: :horizontal,
-          sizes: ["50%", "50%"],
-          min_sizes: [100, 100]
-        }) do |sidebar|
+          orientation: :vertical,
+          sizes: ["280px", "auto"],
+          min_sizes: [200, 200]
+        }) do |body|
+        body.with_pane do
+          lb_pane_group("app-sidebar",
+          opts: {
+            orientation: :horizontal,
+            sizes: ["50%", "50%"],
+            min_sizes: [100, 100]
+          }) do |sidebar|
 
-          config.sidebar_nav_panels.each do |name|
-            if name.to_sym == :previews
-              sidebar.with_pane("previews-nav") do |pane|
-                pane.with_toolbar do |toolbar|
-                  toolbar.with_label { config.previews_nav_label }
-                  toolbar.with_button_group do |group|
-                    group.with_button(icon: :copy_minus, tooltip: "Collapse all", click: "$dispatch('nav:collapse-all', {id: 'previews-nav-tree'})")
+            config.sidebar_nav_panels.each do |name|
+              if name.to_sym == :previews
+                sidebar.with_pane("previews-nav") do |pane|
+                  pane.with_toolbar do |toolbar|
+                    toolbar.with_label { config.previews_nav_label }
+                    if previews.any?
+                      toolbar.with_button_group do |group|
+                        group.with_button(icon: :copy_minus, tooltip: "Collapse all", click: "$dispatch('nav:collapse-all', {id: 'previews-nav-tree'})")
+                      end
+                    end
                   end
+                  previews_nav
                 end
-                previews_nav
+              end
+
+              if name.to_sym == :pages && pages_nav?
+                sidebar.with_pane("pages-nav") do |pane|
+                  pane.with_toolbar do |toolbar|
+                    toolbar.with_label { config.pages_nav_label }
+                    if pages.any?
+                      toolbar.with_button_group do |group|
+                        group.with_button(icon: :copy_minus, tooltip: "Collapse all", click: "$dispatch('nav:collapse-all', {id: 'pages-nav-tree'})")
+                      end
+                    end
+                  end
+                  pages_nav
+                end
               end
             end
-
-            if name.to_sym == :pages && pages_nav?
-              sidebar.with_pane("pages-nav") do |pane|
-                pane.with_toolbar do |toolbar|
-                  toolbar.with_label { config.pages_nav_label }
-                  toolbar.with_button_group do |group|
-                    group.with_button(icon: :copy_minus, tooltip: "Collapse all", click: "$dispatch('nav:collapse-all', {id: 'pages-nav-tree'})")
-                  end
-                end
-                pages_nav
-              end
-            end
-          end
-        end 
+          end 
+        end
+        body.with_pane { main }
       end
-      body.with_pane { main }
-    end
-  %>  
+    %>
+  <% else %>
+    <div id="app-main">
+      <%= main %>
+    </div>
+  <% end %>
 
   <% if status_bar? %>
     <footer id="app-status-bar">

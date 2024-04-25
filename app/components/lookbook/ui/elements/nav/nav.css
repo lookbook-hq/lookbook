@@ -33,4 +33,13 @@
   &:not(.with-filter) .nav-tree {
     padding-top: var(--lookbook-spacing-x-small);
   }
+
+  .nav-placeholder {
+    font-size: var(--lookbook-font-size-small);
+    background-color: var(--lookbook-color-base-0);
+    color: var(--lookbook-color-base-500);
+    padding: var(--lookbook-spacing-medium);
+    border: 1px dashed var(--lookbook-color-base-300);
+    margin: var(--lookbook-spacing-small);
+  }
 }

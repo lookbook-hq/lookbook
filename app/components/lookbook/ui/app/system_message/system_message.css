@@ -1,0 +1,54 @@
+[data-component="system-message"] {
+  font-family: var(--lookbook-font-prose);
+  background: var(--lookbook-color-base-0);
+  padding: var(--lookbook-spacing-x-large);
+  border: 1px solid var(--lookbook-color-base-300);
+  box-shadow:
+    0 1px 3px 0 #0000001a,
+    0 1px 2px -1px #0000001a;
+  max-width: 680px;
+  margin-top: var(--lookbook-spacing-large);
+  margin-inline: auto;
+  color: var(--lookbook-color-base-500);
+  border-radius: var(--lookbook-border-radius-medium);
+
+  &.with-icon {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    column-gap: var(--lookbook-spacing-medium);
+    padding-left: var(--lookbook-spacing-large);
+  }
+
+  .message-title {
+    font-weight: var(--lookbook-font-weight-bold);
+    font-size: var(--lookbook-font-size-medium);
+    color: var(--lookbook-color-base-900);
+    margin-bottom: var(--lookbook-spacing-x-small);
+  }
+
+  .message-text {
+    font-size: var(--lookbook-font-size-small);
+  }
+
+  .message-icon svg,
+  .message-icon .icon {
+    width: 40px;
+    color: var(--lookbook-color-base-300);
+  }
+
+  .message-icon > svg {
+    margin-right: var(--lookbook-spacing-2x-small);
+  }
+
+  &[data-theme="error"] {
+    border-color: var(--lookbook-color-danger-200);
+
+    .message-title {
+      color: var(--lookbook-color-danger-600);
+    }
+
+    .message-icon svg {
+      color: var(--lookbook-color-danger-300);
+    }
+  }
+}

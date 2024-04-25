@@ -1,1 +1,17 @@
-Landing page
+<%= render Lookbook::UI::SystemPage.new do |page| %>
+  <% if @previews.any? || @pages.any? %>
+    <% page.with_message(icon: :square_mouse_pointer) do |message| %>
+      <% message.with_title do %>
+        <%= @config.project_name == "Lookbook" ? "Welcome to your Lookbook" : @config.project_name %>
+      <% end %>
+    
+      <p>Select a <%= @previews.any? ? "preview" : "page" %> from the nav to get started.</p>
+    <% end %>    
+  <% else %>
+  <% page.with_message(icon: :lookbook) do |message| %>
+    <% message.with_title { @config.project_name } %>
+      
+      <p>There isn't much to see yet, but component previews and content pages will show up here as soon as they are added.</p>
+    <% end %>
+  <% end %>
+<% end %>

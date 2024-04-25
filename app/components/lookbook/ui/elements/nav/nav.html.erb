@@ -22,10 +22,16 @@
   <% end %>
 
   <div class="nav-tree-wrapper">
-    <div class="nav-tree" x-ref="nav">
-      <% children.each do |node| %>
-        <%= render Lookbook::UI::NavItem.new(node: node) %>
-      <% end %>
-    </div>
+    <% if children.any? %>
+      <div class="nav-tree" x-ref="nav">
+        <% children.each do |node| %>
+          <%= render Lookbook::UI::NavItem.new(node: node) %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="nav-placeholder">
+        <p><%= placeholder %></p>
+      </div>
+    <% end %>
   </div>
 <% end %>

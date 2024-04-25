@@ -3,10 +3,11 @@ module Lookbook
     class Icon < BaseComponent
       ICON_CACHE = {}
 
-      attr_reader :name
+      attr_reader :name, :stroke
 
-      def initialize(name:, **kwargs)
+      def initialize(name:, stroke: 2, **kwargs)
         @name = name.to_s.tr("_", "-")
+        @stroke = stroke
       end
 
       def svg

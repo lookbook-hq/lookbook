@@ -52,7 +52,8 @@
   /* Font weights */
   --lookbook-font-weight-light: 300;
   --lookbook-font-weight-normal: 400;
-  --lookbook-font-weight-semibold: 500;
+  --lookbook-font-weight-medium: 500;
+  --lookbook-font-weight-semibold: 600;
   --lookbook-font-weight-bold: 700;
 
   /*
@@ -692,6 +693,10 @@ tr:not(:last-child) {
   outline-color: hsl(228, 97%, 89%);
   outline-color: var(--lookbook-color-accent-200);
 }
+/* Utilities */
+.bg-checked {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%23f3f3f3' fill-opacity='1'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
+}
 .tippy-box[data-animation=fade][data-state=hidden]{opacity:0}
 [data-tippy-root]{max-width:calc(100vw - 10px)}
 .tippy-box{position:relative;background-color:#333;color:#fff;border-radius:4px;font-size:14px;line-height:1.4;white-space:normal;outline:0;transition-property:transform,visibility,opacity}
@@ -772,6 +777,12 @@ tr:not(:last-child) {
 [data-component="icon"] svg {
     width: 100%;
     height: 100%;
+  }
+.stroke-1[data-component="icon"] svg {
+    stroke-width: 1px;
+  }
+.stroke-2[data-component="icon"] svg {
+    stroke-width: 2px;
   }
 [data-component="prose"] {
   font-family: "Open Sans Var", Avenir, Montserrat, Corbel,
@@ -1102,6 +1113,9 @@ tr:not(:last-child) {
   font-family: "Open Sans Var", Avenir, Montserrat, Corbel,
     "URW Gothic", source-sans-pro, sans-serif;
   font-family: var(--lookbook-font-prose);
+  background-color: #fff;
+  background-color: var(--lookbook-color-base-0);
+  min-height: 100vh;
 }
 [data-component="page"] .page-slat {
     padding-left: 1.75rem;

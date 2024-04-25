@@ -1,9 +1,0 @@
-<%= render component_tag do %>
-  <% if title %>
-    <h1 class="error-page-title"><%= title %></h1>  
-  <% end %>
-  
-  <div class="error-page-content">
-    <%= lb_prose { @error.message } %>
-  </div>
-<% end %>
