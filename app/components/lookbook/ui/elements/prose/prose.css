@@ -93,22 +93,22 @@
   }
 
   h1 {
-    font-weight: var(--lookbook-font-weight-bold);
+    font-weight: 600;
     font-size: var(--lookbook-font-size-2x-large);
   }
 
   h2 {
-    font-weight: var(--lookbook-font-weight-bold);
+    font-weight: 600;
     font-size: var(--lookbook-font-size-x-large);
   }
 
   h3 {
-    font-weight: var(--lookbook-font-weight-bold);
+    font-weight: 600;
     font-size: var(--lookbook-font-size-large);
   }
 
   h4 {
-    font-weight: var(--lookbook-font-weight-bold);
+    font-weight: 600;
     font-size: var(--lookbook-font-size-medium);
   }
 

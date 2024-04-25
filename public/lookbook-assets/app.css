@@ -1344,20 +1344,22 @@ select {
     flex: none;
   }
 [data-component="nav-item"] .nav-item-toggle {
-    width: 32px;
+    width: 28px;
     flex: none;
   }
 [data-component="nav-item"] .nav-item-toggle button {
       flex: none;
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
     }
 [data-component="nav-item"] .nav-item-label {
     display: flex;
     align-items: center;
     width: 100%;
-    height: 32px;
+    height: 28px;
     min-width: 0;
+    font-size: 0.875rem;
+    font-size: var(--lookbook-font-size-small);
   }
 [data-component="nav-item"] .nav-item-label .icon {
       flex: none;
@@ -1365,6 +1367,8 @@ select {
       margin-right: var(--lookbook-spacing-x-small);
       height: 1rem;
       height: var(--lookbook-spacing-medium);
+      color: hsl(245, 58%, 51%);
+      color: var(--lookbook-color-accent-700);
     }
 [data-component="nav-item"] .nav-item-label span {
       overflow: hidden;
@@ -1373,6 +1377,7 @@ select {
       display: block;
       width: 100%;
       text-align: left;
+      letter-spacing: 0.3px;
     }
 [data-component="nav-item"][aria-selected="true"] > .nav-item-item {
       background-color: hsl(240, 5%, 96%);
@@ -1381,7 +1386,8 @@ select {
       border-left-color: var(--lookbook-color-accent-500);
     }
 [data-component="nav-item"][aria-selected="true"] > .nav-item-item .nav-item-label {
-        font-weight: 600;
+        font-weight: 500;
+        font-weight: var(--lookbook-font-weight-semibold);
       }
 [data-component="pane"] {
   height: 100%;
@@ -1565,26 +1571,22 @@ select {
     margin-bottom: 0.8em;
   }
 [data-component="prose"] h1 {
-    font-weight: 700;
-    font-weight: var(--lookbook-font-weight-bold);
+    font-weight: 600;
     font-size: 2.25rem;
     font-size: var(--lookbook-font-size-2x-large);
   }
 [data-component="prose"] h2 {
-    font-weight: 700;
-    font-weight: var(--lookbook-font-weight-bold);
+    font-weight: 600;
     font-size: 1.5rem;
     font-size: var(--lookbook-font-size-x-large);
   }
 [data-component="prose"] h3 {
-    font-weight: 700;
-    font-weight: var(--lookbook-font-weight-bold);
+    font-weight: 600;
     font-size: 1.25rem;
     font-size: var(--lookbook-font-size-large);
   }
 [data-component="prose"] h4 {
-    font-weight: 700;
-    font-weight: var(--lookbook-font-weight-bold);
+    font-weight: 600;
     font-size: 1rem;
     font-size: var(--lookbook-font-size-medium);
   }
@@ -1984,6 +1986,11 @@ select {
     width: 1rem;
     width: var(--lookbook-size-medium);
   }
+[data-component="page"] {
+  font-family: "Open Sans Var", Avenir, Montserrat, Corbel,
+    "URW Gothic", source-sans-pro, sans-serif;
+  font-family: var(--lookbook-font-prose);
+}
 [data-component="page"] .page-slat {
     padding-left: 1.75rem;
     padding-right: 1.75rem;
@@ -1997,9 +2004,6 @@ select {
     padding-bottom: 1.75rem;
     padding-top: var(--lookbook-spacing-x-large);
     padding-bottom: var(--lookbook-spacing-x-large);
-    font-family: "Open Sans Var", Avenir, Montserrat, Corbel,
-    "URW Gothic", source-sans-pro, sans-serif;
-    font-family: var(--lookbook-font-prose);
   }
 [data-component="page"] .page-title {
     font-weight: 700;
@@ -2012,9 +2016,6 @@ select {
     padding-top: var(--lookbook-spacing-2x-large);
     padding-bottom: 3rem;
     padding-bottom: var(--lookbook-spacing-3x-large);
-    font-family: "Open Sans Var", Avenir, Montserrat, Corbel,
-    "URW Gothic", source-sans-pro, sans-serif;
-    font-family: var(--lookbook-font-prose);
   }
 [data-component="page"] .page-footer {
     border-top: 1px solid hsl(240, 5%, 84%);
@@ -2029,6 +2030,9 @@ select {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    font-family: "Inter Var", Roboto, "Helvetica Neue", "Arial Nova",
+    "Nimbus Sans", Arial, sans-serif;
+    font-family: var(--lookbook-font-ui);
   }
 [data-component="page"] .page-nav-link {
     display: flex;

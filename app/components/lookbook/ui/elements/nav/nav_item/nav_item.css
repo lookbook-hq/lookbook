@@ -17,13 +17,13 @@
   }
 
   .nav-item-toggle {
-    width: 32px;
+    width: 28px;
     flex: none;
 
     button {
       flex: none;
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
     }
   }
 
@@ -31,13 +31,15 @@
     display: flex;
     align-items: center;
     width: 100%;
-    height: 32px;
+    height: 28px;
     min-width: 0;
+    font-size: var(--lookbook-font-size-small);
 
     .icon {
       flex: none;
       margin-right: var(--lookbook-spacing-x-small);
       height: var(--lookbook-spacing-medium);
+      color: var(--lookbook-color-accent-700);
     }
 
     span {
@@ -47,6 +49,7 @@
       display: block;
       width: 100%;
       text-align: left;
+      letter-spacing: 0.3px;
     }
   }
 
@@ -56,7 +59,7 @@
       border-left-color: var(--lookbook-color-accent-500);
 
       .nav-item-label {
-        font-weight: 600;
+        font-weight: var(--lookbook-font-weight-semibold);
       }
     }
   }

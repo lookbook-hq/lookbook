@@ -864,26 +864,22 @@ tr:not(:last-child) {
     margin-bottom: 0.8em;
   }
 [data-component="prose"] h1 {
-    font-weight: 700;
-    font-weight: var(--lookbook-font-weight-bold);
+    font-weight: 600;
     font-size: 2.25rem;
     font-size: var(--lookbook-font-size-2x-large);
   }
 [data-component="prose"] h2 {
-    font-weight: 700;
-    font-weight: var(--lookbook-font-weight-bold);
+    font-weight: 600;
     font-size: 1.5rem;
     font-size: var(--lookbook-font-size-x-large);
   }
 [data-component="prose"] h3 {
-    font-weight: 700;
-    font-weight: var(--lookbook-font-weight-bold);
+    font-weight: 600;
     font-size: 1.25rem;
     font-size: var(--lookbook-font-size-large);
   }
 [data-component="prose"] h4 {
-    font-weight: 700;
-    font-weight: var(--lookbook-font-weight-bold);
+    font-weight: 600;
     font-size: 1rem;
     font-size: var(--lookbook-font-size-medium);
   }
@@ -1094,6 +1090,11 @@ tr:not(:last-child) {
     border-radius: 0.1875rem;
     border-radius: var(--lookbook-border-radius-small);
   }
+[data-component="page"] {
+  font-family: "Open Sans Var", Avenir, Montserrat, Corbel,
+    "URW Gothic", source-sans-pro, sans-serif;
+  font-family: var(--lookbook-font-prose);
+}
 [data-component="page"] .page-slat {
     padding-left: 1.75rem;
     padding-right: 1.75rem;
@@ -1107,9 +1108,6 @@ tr:not(:last-child) {
     padding-bottom: 1.75rem;
     padding-top: var(--lookbook-spacing-x-large);
     padding-bottom: var(--lookbook-spacing-x-large);
-    font-family: "Open Sans Var", Avenir, Montserrat, Corbel,
-    "URW Gothic", source-sans-pro, sans-serif;
-    font-family: var(--lookbook-font-prose);
   }
 [data-component="page"] .page-title {
     font-weight: 700;
@@ -1122,9 +1120,6 @@ tr:not(:last-child) {
     padding-top: var(--lookbook-spacing-2x-large);
     padding-bottom: 3rem;
     padding-bottom: var(--lookbook-spacing-3x-large);
-    font-family: "Open Sans Var", Avenir, Montserrat, Corbel,
-    "URW Gothic", source-sans-pro, sans-serif;
-    font-family: var(--lookbook-font-prose);
   }
 [data-component="page"] .page-footer {
     border-top: 1px solid hsl(240, 5%, 84%);
@@ -1139,6 +1134,9 @@ tr:not(:last-child) {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    font-family: "Inter Var", Roboto, "Helvetica Neue", "Arial Nova",
+    "Nimbus Sans", Arial, sans-serif;
+    font-family: var(--lookbook-font-ui);
   }
 [data-component="page"] .page-nav-link {
     display: flex;
