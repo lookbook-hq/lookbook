@@ -30,11 +30,13 @@
    */
 
   /* Fonts */
-  --lookbook-font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo,
-    monospace;
-  --lookbook-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
+
+  --lookbook-font-ui: "Inter Var", Roboto, "Helvetica Neue", "Arial Nova",
+    "Nimbus Sans", Arial, sans-serif;
+  --lookbook-font-prose: "Open Sans Var", Avenir, Montserrat, Corbel,
+    "URW Gothic", source-sans-pro, sans-serif;
+  --lookbook-font-mono: "Source Code Pro Var", ui-monospace, "Cascadia Code",
+    Menlo, Consolas, "DejaVu Sans Mono", monospace;
 
   /* Font sizes */
   --lookbook-font-size-2x-small: 0.625rem; /* 10px */
@@ -375,6 +377,53 @@
 
   --lookbook-divider-color: var(--lookbook-color-base-300);
 }
+@font-face {
+  font-family: "Inter";
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+  font-named-instance: "Regular";
+  src: url("./fonts/Inter-roman.var.woff2?v=3.19") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: italic;
+  font-named-instance: "Italic";
+  src: url("./fonts/Inter-italic.var.woff2?v=3.19") format("woff2");
+}
+@font-face {
+  font-family: "Source Code Pro Var";
+  font-weight: 200 900;
+  font-style: normal;
+  font-stretch: normal;
+  src: url("./fonts/SourceCodeVariable-roman.var.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Source Code Pro Var";
+  font-weight: 200 900;
+  font-style: italic;
+  font-stretch: normal;
+  src: url("./fonts/SourceCodeVariable-italic.var.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sans Var";
+  font-weight: 200 900;
+  font-style: normal;
+  font-stretch: normal;
+  src: url("./fonts/OpenSans-VariableFont_wdth,wght.woff2") format("woff2");
+  font-variation-settings: "wdth" 100;
+}
+@font-face {
+  font-family: "Open Sans Var";
+  font-weight: 200 900;
+  font-style: italic;
+  font-stretch: normal;
+  src: url("./fonts/OpenSans-Italic-VariableFont_wdth,wght.woff2")
+    format("woff2");
+  font-variation-settings: "wdth" 100;
+}
 *,
 ::before,
 ::after {
@@ -585,10 +634,9 @@ video {
 }
 html,
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
-  font-family: var(--lookbook-font-sans);
+  font-family: "Inter Var", Roboto, "Helvetica Neue", "Arial Nova",
+    "Nimbus Sans", Arial, sans-serif;
+  font-family: var(--lookbook-font-ui);
   font-size: 1rem;
   font-size: var(--lookbook-font-size-medium);
   color: var(--lookbook-color-neutral-900);
@@ -599,8 +647,8 @@ body {
   font-size: var(--lookbook-font-size-medium);
 }
 code {
-  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo,
-    monospace;
+  font-family: "Source Code Pro Var", ui-monospace, "Cascadia Code",
+    Menlo, Consolas, "DejaVu Sans Mono", monospace;
   font-family: var(--lookbook-font-mono);
 }
 a {
@@ -660,10 +708,9 @@ header {
   background: white;
   font-size: 0.875rem;
   font-size: var(--lookbook-font-size-small);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
-  font-family: var(--lookbook-font-sans);
+  font-family: "Inter Var", Roboto, "Helvetica Neue", "Arial Nova",
+    "Nimbus Sans", Arial, sans-serif;
+  font-family: var(--lookbook-font-ui);
   border-bottom: 1px solid hsl(240, 5%, 84%);
   border-bottom: 1px solid var(--lookbook-divider-color);
   overflow: hidden;

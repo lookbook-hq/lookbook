@@ -30,11 +30,13 @@
    */
 
   /* Fonts */
-  --lookbook-font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo,
-    monospace;
-  --lookbook-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
+
+  --lookbook-font-ui: "Inter Var", Roboto, "Helvetica Neue", "Arial Nova",
+    "Nimbus Sans", Arial, sans-serif;
+  --lookbook-font-prose: "Open Sans Var", Avenir, Montserrat, Corbel,
+    "URW Gothic", source-sans-pro, sans-serif;
+  --lookbook-font-mono: "Source Code Pro Var", ui-monospace, "Cascadia Code",
+    Menlo, Consolas, "DejaVu Sans Mono", monospace;
 
   /* Font sizes */
   --lookbook-font-size-2x-small: 0.625rem; /* 10px */

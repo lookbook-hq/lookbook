@@ -6,5 +6,7 @@ then
   gem install foreman
 fi
 
+npm run clean
+npm run copy
 foreman start -f Procfile.dev "$@"
 

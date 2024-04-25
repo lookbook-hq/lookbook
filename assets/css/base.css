@@ -1,6 +1,6 @@
 html,
 body {
-  font-family: var(--lookbook-font-sans);
+  font-family: var(--lookbook-font-ui);
   font-size: var(--lookbook-font-size-medium);
   color: var(--lookbook-color-neutral-900);
 }

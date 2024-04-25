@@ -1,0 +1,52 @@
+@font-face {
+  font-family: "Inter";
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+  font-named-instance: "Regular";
+  src: url("./fonts/Inter-roman.var.woff2?v=3.19") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: italic;
+  font-named-instance: "Italic";
+  src: url("./fonts/Inter-italic.var.woff2?v=3.19") format("woff2");
+}
+
+@font-face {
+  font-family: "Source Code Pro Var";
+  font-weight: 200 900;
+  font-style: normal;
+  font-stretch: normal;
+  src: url("./fonts/SourceCodeVariable-roman.var.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Source Code Pro Var";
+  font-weight: 200 900;
+  font-style: italic;
+  font-stretch: normal;
+  src: url("./fonts/SourceCodeVariable-italic.var.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Open Sans Var";
+  font-weight: 200 900;
+  font-style: normal;
+  font-stretch: normal;
+  src: url("./fonts/OpenSans-VariableFont_wdth,wght.woff2") format("woff2");
+  font-variation-settings: "wdth" 100;
+}
+
+@font-face {
+  font-family: "Open Sans Var";
+  font-weight: 200 900;
+  font-style: italic;
+  font-stretch: normal;
+  src: url("./fonts/OpenSans-Italic-VariableFont_wdth,wght.woff2")
+    format("woff2");
+  font-variation-settings: "wdth" 100;
+}
