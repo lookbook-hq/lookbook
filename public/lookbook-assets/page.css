@@ -1029,22 +1029,26 @@ tr:not(:last-child) {
 [data-component="prose"] ol > li:before {
     left: 0;
   }
-[data-component="prose"] > ul > li p {
+/*  > ul > li p {
     margin-top: 0.75em;
     margin-bottom: 0.75em;
   }
-[data-component="prose"] > ul > li > *:first-child {
+ 
+  > ul > li > *:first-child {
     margin-top: 1.25em;
   }
-[data-component="prose"] > ul > li > *:last-child {
+
+  > ul > li > *:last-child {
     margin-bottom: 1.25em;
   }
-[data-component="prose"] > ol > li > *:first-child {
+
+  > ol > li > *:first-child {
     margin-top: 1.25em;
   }
-[data-component="prose"] > ol > li > *:last-child {
+
+  > ol > li > *:last-child {
     margin-bottom: 1.25em;
-  }
+  } */
 [data-component="prose"] ul ul,
   [data-component="prose"] ul ol,
   [data-component="prose"] ol ul,
@@ -1089,6 +1093,10 @@ tr:not(:last-child) {
     border: 1px solid var(--lookbook-color-base-300);
     border-radius: 0.1875rem;
     border-radius: var(--lookbook-border-radius-small);
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+    margin-top: var(--lookbook-spacing-x-large);
+    margin-bottom: var(--lookbook-spacing-x-large);
   }
 [data-component="page"] {
   font-family: "Open Sans Var", Avenir, Montserrat, Corbel,

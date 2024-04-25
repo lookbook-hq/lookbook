@@ -267,11 +267,11 @@
     left: 0;
   }
 
-  > ul > li p {
+  /*  > ul > li p {
     margin-top: 0.75em;
     margin-bottom: 0.75em;
   }
-
+ 
   > ul > li > *:first-child {
     margin-top: 1.25em;
   }
@@ -286,7 +286,7 @@
 
   > ol > li > *:last-child {
     margin-bottom: 1.25em;
-  }
+  } */
 
   ul ul,
   ul ol,
@@ -340,5 +340,6 @@
     background-color: var(--lookbook-color-base-50);
     border: 1px solid var(--lookbook-color-base-300);
     border-radius: var(--lookbook-border-radius-small);
+    margin-block: var(--lookbook-spacing-x-large);
   }
 }
