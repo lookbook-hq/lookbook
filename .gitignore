@@ -2,11 +2,11 @@
 log/*.log
 **/log/*.log
 pkg/
-node_modules/
+node_modules
 .DS_Store
 tmp/
 .yardoc
 gemfiles/*.lock
 
-
+!public/lookbook-assets/icons
 
