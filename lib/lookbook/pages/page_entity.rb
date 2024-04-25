@@ -60,10 +60,7 @@ module Lookbook
     end
 
     def lookup_path
-      @lookup_path ||= begin
-        relative_file_path = file_path.relative_path_from(base_directory)
-        PageEntity.to_lookup_path(relative_file_path)
-      end
+      @lookup_path ||= PageEntity.to_lookup_path(relative_file_path)
     end
 
     def frontmatter
@@ -72,6 +69,10 @@ module Lookbook
 
     def file_path
       Pathname(@file_path) if @file_path
+    end
+
+    def relative_file_path
+      file_path.relative_path_from(base_directory)
     end
 
     def parent
@@ -84,6 +85,13 @@ module Lookbook
 
     def previous
       Pages.tree.previous(self) unless virtual?
+    end
+
+    def priority
+      @priority = begin
+        pos = PriorityPrefixParser.call(file_name).first || frontmatter.fetch(:priority, 0)
+        pos.to_i
+      end
     end
 
     def virtual? = file_path.blank?

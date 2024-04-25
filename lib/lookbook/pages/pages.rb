@@ -36,7 +36,8 @@ module Lookbook
 
       def directories
         @directories ||= begin
-          directory_paths = store.all.map(&:parent_lookup_path).compact_blank.uniq.flat_map do |path|
+          dirnames = store.all.map { _1.relative_file_path.dirname.to_s.delete_prefix(".") }.compact_blank.uniq
+          directory_paths = dirnames.flat_map do |path|
             current_path = ""
             path.split("/").map do |segment|
               current_path = "#{current_path}/#{segment}".delete_prefix("/")

@@ -2,12 +2,16 @@ module Lookbook
   class PageDirectoryEntity < Entity
     include EntityTreeNode
 
-    attr_reader :lookup_path
+    attr_reader :path
 
-    def initialize(lookup_path, default_priority: nil)
-      @lookup_path = lookup_path
+    def initialize(path, default_priority: nil)
+      @path = Pathname(path)
       @default_priority = default_priority
       @type = :directory
+    end
+
+    def lookup_path
+      @lookup_path ||= PageEntity.to_lookup_path(path)
     end
 
     def id
@@ -29,6 +33,17 @@ module Lookbook
     def parent
       parent_lookup_path = File.dirname(lookup_path).delete_prefix(".")
       Pages.directories.find { _1.lookup_path == parent_lookup_path }
+    end
+
+    def dir_name
+      File.basename(path)
+    end
+
+    def priority
+      @priority = begin
+        pos = PriorityPrefixParser.call(dir_name).first || @default_priority
+        pos.to_i
+      end
     end
   end
 end
