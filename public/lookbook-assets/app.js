@@ -3818,7 +3818,7 @@ U[a-fA-F0-9]{,8} )`, "name": "constant.character.escape.c" }, { "match": "\\\\."
               };
             }
           }
-          function init(msg) {
+          function init2(msg) {
             function iFrameLoaded() {
               trigger2("iFrame.onload", msg, iframe, undefined2, true);
               checkReset();
@@ -3902,7 +3902,7 @@ U[a-fA-F0-9]{,8} )`, "name": "constant.character.escape.c" }, { "match": "\\\\."
             setScrolling();
             setLimits();
             setupBodyMarginValues();
-            init(createOutgoingMsg(iframeId));
+            init2(createOutgoingMsg(iframeId));
             setupIFrameObject();
           }
         }
@@ -4003,7 +4003,7 @@ U[a-fA-F0-9]{,8} )`, "name": "constant.character.escape.c" }, { "match": "\\\\."
           addEventListener2(document, "-webkit-visibilitychange", tabVisible);
         }
         function factory() {
-          function init(options, element2) {
+          function init2(options, element2) {
             function chkType() {
               if (!element2.tagName) {
                 throw new TypeError("Object is not a valid DOM element");
@@ -4037,12 +4037,12 @@ U[a-fA-F0-9]{,8} )`, "name": "constant.character.escape.c" }, { "match": "\\\\."
               case "string": {
                 Array.prototype.forEach.call(
                   document.querySelectorAll(target || "iframe"),
-                  init.bind(undefined2, options)
+                  init2.bind(undefined2, options)
                 );
                 break;
               }
               case "object": {
-                init(options, target);
+                init2(options, target);
                 break;
               }
               default: {
@@ -4057,10 +4057,10 @@ U[a-fA-F0-9]{,8} )`, "name": "constant.character.escape.c" }, { "match": "\\\\."
             info("", "Unable to bind to jQuery, it is not fully loaded.");
           } else if (!$3.fn.iFrameResize) {
             $3.fn.iFrameResize = function $iFrameResizeF(options) {
-              function init(index2, element2) {
+              function init2(index2, element2) {
                 setupIFrame(element2, options);
               }
-              return this.filter("iframe").each(init).end();
+              return this.filter("iframe").each(init2).end();
             };
           }
         }
@@ -9467,9 +9467,110 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   __export(status_bar_exports, {
     default: () => status_bar_default
   });
+
+  // node_modules/js-cookie/dist/js.cookie.mjs
+  function assign(target) {
+    for (var i5 = 1; i5 < arguments.length; i5++) {
+      var source = arguments[i5];
+      for (var key2 in source) {
+        target[key2] = source[key2];
+      }
+    }
+    return target;
+  }
+  var defaultConverter = {
+    read: function(value) {
+      if (value[0] === '"') {
+        value = value.slice(1, -1);
+      }
+      return value.replace(/(%[\dA-F]{2})+/gi, decodeURIComponent);
+    },
+    write: function(value) {
+      return encodeURIComponent(value).replace(
+        /%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g,
+        decodeURIComponent
+      );
+    }
+  };
+  function init(converter, defaultAttributes) {
+    function set3(name, value, attributes) {
+      if (typeof document === "undefined") {
+        return;
+      }
+      attributes = assign({}, defaultAttributes, attributes);
+      if (typeof attributes.expires === "number") {
+        attributes.expires = new Date(Date.now() + attributes.expires * 864e5);
+      }
+      if (attributes.expires) {
+        attributes.expires = attributes.expires.toUTCString();
+      }
+      name = encodeURIComponent(name).replace(/%(2[346B]|5E|60|7C)/g, decodeURIComponent).replace(/[()]/g, escape);
+      var stringifiedAttributes = "";
+      for (var attributeName in attributes) {
+        if (!attributes[attributeName]) {
+          continue;
+        }
+        stringifiedAttributes += "; " + attributeName;
+        if (attributes[attributeName] === true) {
+          continue;
+        }
+        stringifiedAttributes += "=" + attributes[attributeName].split(";")[0];
+      }
+      return document.cookie = name + "=" + converter.write(value, name) + stringifiedAttributes;
+    }
+    function get3(name) {
+      if (typeof document === "undefined" || arguments.length && !name) {
+        return;
+      }
+      var cookies = document.cookie ? document.cookie.split("; ") : [];
+      var jar = {};
+      for (var i5 = 0; i5 < cookies.length; i5++) {
+        var parts = cookies[i5].split("=");
+        var value = parts.slice(1).join("=");
+        try {
+          var found = decodeURIComponent(parts[0]);
+          jar[found] = converter.read(value, found);
+          if (name === found) {
+            break;
+          }
+        } catch (e5) {
+        }
+      }
+      return name ? jar[name] : jar;
+    }
+    return Object.create(
+      {
+        set: set3,
+        get: get3,
+        remove: function(name, attributes) {
+          set3(
+            name,
+            "",
+            assign({}, attributes, {
+              expires: -1
+            })
+          );
+        },
+        withAttributes: function(attributes) {
+          return init(this.converter, assign({}, this.attributes, attributes));
+        },
+        withConverter: function(converter2) {
+          return init(assign({}, this.converter, converter2), this.attributes);
+        }
+      },
+      {
+        attributes: { value: Object.freeze(defaultAttributes) },
+        converter: { value: Object.freeze(converter) }
+      }
+    );
+  }
+  var api = init(defaultConverter, { path: "/" });
+
+  // app/components/lookbook/ui/app/status_bar/status_bar.js
   var status_bar_default = AlpineComponent("statusBar", () => {
     return {
       reset() {
+        api.remove("lookbook-display-options");
         Alpine.store("app").clear();
         window.location.reload();
         this.$logger.info(`Local storage cleared`);
@@ -18354,7 +18455,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       result = transformer.postprocess?.call(context, result, options) || result;
     return result;
   }
-  async function main2(init) {
+  async function main2(init2) {
     let wasmMemory;
     let buffer;
     const binding = {};
@@ -18408,7 +18509,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
         env: asmLibraryArg,
         wasi_snapshot_preview1: asmLibraryArg
       };
-      const exports = await init(info);
+      const exports = await init2(info);
       wasmMemory = exports.memory;
       updateGlobalBufferAndViews(wasmMemory.buffer);
       Object.assign(binding, exports);
@@ -21163,6 +21264,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   initAlpine({ logger });
 })();
 /*! Bundled license information:
+
+js-cookie/dist/js.cookie.mjs:
+  (*! js-cookie v3.0.5 | MIT *)
 
 @lit/reactive-element/css-tag.js:
   (**
