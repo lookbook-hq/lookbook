@@ -93,6 +93,10 @@ module Lookbook
       scenarios.find { _1.notes? }
     end
 
+    def mailer_preview?
+      scenarios.first&.mailer_preview?
+    end
+
     def preview_template
       scenarios.first&.mailer_preview? ?
         Lookbook.config.inspector_target_mailer_template :
