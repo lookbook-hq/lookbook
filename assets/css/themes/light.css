@@ -1,10 +1,14 @@
-@import "./base.css";
-@import "./colors.css";
+@import "../tokens/primitives.css";
+@import "../tokens/structure.css";
 
 :root,
 :host,
 .lookbook-theme-light {
   color-scheme: light;
+
+  /*
+   * Colour scheme
+   */
 
   --lookbook-color-accent-50: var(--lookbook-color-indigo-50);
   --lookbook-color-accent-100: var(--lookbook-color-indigo-100);
@@ -18,7 +22,6 @@
   --lookbook-color-accent-900: var(--lookbook-color-indigo-900);
   --lookbook-color-accent-950: var(--lookbook-color-indigo-950);
 
-  --lookbook-color-base-0: #fff;
   --lookbook-color-base-50: var(--lookbook-color-gray-50);
   --lookbook-color-base-100: var(--lookbook-color-gray-100);
   --lookbook-color-base-200: var(--lookbook-color-gray-200);
@@ -31,7 +34,6 @@
   --lookbook-color-base-900: var(--lookbook-color-gray-900);
   --lookbook-color-base-950: var(--lookbook-color-gray-950);
 
-  /* Success */
   --lookbook-color-success-50: var(--lookbook-color-green-50);
   --lookbook-color-success-100: var(--lookbook-color-green-100);
   --lookbook-color-success-200: var(--lookbook-color-green-200);
@@ -44,7 +46,6 @@
   --lookbook-color-success-900: var(--lookbook-color-green-900);
   --lookbook-color-success-950: var(--lookbook-color-green-950);
 
-  /* Warning */
   --lookbook-color-warning-50: var(--lookbook-color-amber-50);
   --lookbook-color-warning-100: var(--lookbook-color-amber-100);
   --lookbook-color-warning-200: var(--lookbook-color-amber-200);
@@ -57,7 +58,6 @@
   --lookbook-color-warning-900: var(--lookbook-color-amber-900);
   --lookbook-color-warning-950: var(--lookbook-color-amber-950);
 
-  /* Danger */
   --lookbook-color-danger-50: var(--lookbook-color-red-50);
   --lookbook-color-danger-100: var(--lookbook-color-red-100);
   --lookbook-color-danger-200: var(--lookbook-color-red-200);
@@ -70,5 +70,64 @@
   --lookbook-color-danger-900: var(--lookbook-color-red-900);
   --lookbook-color-danger-950: var(--lookbook-color-red-950);
 
-  --lookbook-divider-color: var(--lookbook-color-base-300);
+  /*
+   * App
+   */
+
+  --lookbook-app-color: var(--lookbook-color-base-900);
+  --lookbook-app-divider-color: var(--lookbook-color-base-300);
+  --lookbook-app-focus-outline-color: var(--lookbook-color-accent-200);
+
+  /*
+   * Header
+   */
+
+  --lookbook-header-color: var(--lookbook-color-white);
+  --lookbook-header-background-color: var(--lookbook-color-accent-600);
+
+  /*
+   * Tables
+   */
+
+  --lookbook-table-color: var(--lookbook-color-base-900);
+  --lookbook-table-border-color: var(--lookbook-app-divider-color);
+  --lookbook-table-background-color: var(--lookbook-color-white);
+
+  /*
+   * Panes
+   */
+
+  --lookbook-pane-background-color: var(--lookbook-color-base-50);
+
+  /*
+   * Status bar
+   */
+
+  --lookbook-status-bar-color: var(--lookbook-base-600);
+  --lookbook-status-bar-background-color: var(--lookbook-color-white);
+  --lookbook-status-bar-action-color: var(--lookbook-color-accent-700);
+  --lookbook-status-bar-item-color-positive: var(--lookbook-color-success-700);
+  --lookbook-status-bar-item-color-error: var(--lookbook-color-danger-600);
+  --lookbook-status-bar-item-color-warning: var(--lookbook-color-warning-600);
+  --lookbook-status-bar-item-color-info: var(--lookbook-color-info-600);
+  --lookbook-status-bar-notifications-color: var(--lookbook-app-color);
+  --lookbook-status-bar-notifications-background-color: var(
+    --lookbook-color-white
+  );
+
+  /*
+   * System message
+   */
+
+  --lookbook-system-message-color: var(--lookbook-color-base-500);
+  --lookbook-system-message-background-color: var(--lookbook-color-white);
+  --lookbook-system-message-border-color: var(--lookbook-app-divider-color);
+  --lookbook-system-message-title-color: var(--lookbook-color-base-900);
+  --lookbook-system-message-icon-color: var(--lookbook-color-base-300);
+
+  --lookbook-system-message-title-color-error: var(--lookbook-color-danger-600);
+  --lookbook-system-message-border-color-error: var(
+    --lookbook-color-danger-200
+  );
+  --lookbook-system-message-icon-color-error: var(--lookbook-color-danger-300);
 }

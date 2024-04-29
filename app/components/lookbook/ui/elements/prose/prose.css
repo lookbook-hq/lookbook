@@ -57,7 +57,7 @@
   }
 
   hr {
-    border-color: var(--lookbook-divider-color);
+    border-color: var(--lookbook-app-divider-color);
     border-top-width: 1px;
     margin-top: 3em;
     margin-bottom: 3em;
@@ -68,7 +68,7 @@
     font-style: italic;
     color: #1a202c;
     border-left-width: 0.25rem;
-    border-left-color: var(--lookbook-divider-color);
+    border-left-color: var(--lookbook-app-divider-color);
     quotes: "\201C" "\201D" "\2018" "\2019";
     margin-top: 1.6em;
     margin-bottom: 1.6em;
@@ -188,7 +188,7 @@
     color: #1a202c;
     font-weight: 600;
     border-bottom-width: 1px;
-    border-bottom-color: var(--lookbook-divider-color);
+    border-bottom-color: var(--lookbook-app-divider-color);
   }
 
   thead th {
@@ -200,7 +200,7 @@
 
   tbody tr {
     border-bottom-width: 1px;
-    border-bottom-color: var(--lookbook-divider-color);
+    border-bottom-color: var(--lookbook-app-divider-color);
   }
 
   tbody tr:last-child {

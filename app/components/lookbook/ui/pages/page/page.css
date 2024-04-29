@@ -1,6 +1,6 @@
 [data-component="page"] {
   font-family: var(--lookbook-font-prose);
-  background-color: var(--lookbook-color-base-0);
+  background-color: var(--lookbook-color-white);
   min-height: 100vh;
 
   .page-slat {

@@ -20,7 +20,7 @@
       <% end %>
     <% end %>
     <% if warnings.none? && errors.none? %>
-      <%= render Lookbook::UI::StatusBarItem.new(key: "status-bar-ok", label: "No issues", theme: :success) %>  
+      <%= render Lookbook::UI::StatusBarItem.new(key: "status-bar-ok", label: "No issues", theme: :positive) %>  
     <% end %>
   </div>
 <% end %>

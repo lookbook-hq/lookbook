@@ -1,0 +1,25 @@
+:root {
+  /*
+   * App header
+   */
+
+  --lookbook-header-height: 2.5rem;
+
+  /*
+   * Toolbars
+   */
+
+  --lookbook-toolbar-height: 2.5rem;
+
+  /*
+   * Panels
+   */
+
+  --lookbook-panel-padding: var(--lookbook-spacing-medium);
+
+  /*
+   * Status bar
+   */
+
+  --lookbook-status-bar-height: 1.5rem;
+}

@@ -1,100 +1,11 @@
 :root {
   /*
-   * Spacings
+   * Color primitives
    */
 
-  --lookbook-spacing-3x-small: 0.125rem; /* 2px */
-  --lookbook-spacing-2x-small: 0.25rem; /* 4px */
-  --lookbook-spacing-x-small: 0.5rem; /* 8px */
-  --lookbook-spacing-small: 0.75rem; /* 12px */
-  --lookbook-spacing-medium: 1rem; /* 16px */
-  --lookbook-spacing-large: 1.25rem; /* 20px */
-  --lookbook-spacing-x-large: 1.75rem; /* 28px */
-  --lookbook-spacing-2x-large: 2.25rem; /* 36px */
-  --lookbook-spacing-3x-large: 3rem; /* 48px */
-  --lookbook-spacing-4x-large: 4.5rem; /* 72px */
+  --lookbook-color-white: #fff;
+  --lookbook-color-black: #000;
 
-  --lookbook-size-3x-small: 0.125rem; /* 2px */
-  --lookbook-size-2x-small: 0.25rem; /* 4px */
-  --lookbook-size-x-small: 0.5rem; /* 8px */
-  --lookbook-size-small: 0.75rem; /* 12px */
-  --lookbook-size-medium: 1rem; /* 16px */
-  --lookbook-size-large: 1.25rem; /* 20px */
-  --lookbook-size-x-large: 1.75rem; /* 28px */
-  --lookbook-size-2x-large: 2.25rem; /* 36px */
-  --lookbook-size-3x-large: 3rem; /* 48px */
-  --lookbook-size-4x-large: 4.5rem; /* 72px */
-
-  /*
-   * Typography
-   */
-
-  /* Fonts */
-
-  --lookbook-font-ui: "Inter Var", Roboto, "Helvetica Neue", "Arial Nova",
-    "Nimbus Sans", Arial, sans-serif;
-  --lookbook-font-prose: "Open Sans Var", Avenir, Montserrat, Corbel,
-    "URW Gothic", source-sans-pro, sans-serif;
-  --lookbook-font-mono: "Source Code Pro Var", ui-monospace, "Cascadia Code",
-    Menlo, Consolas, "DejaVu Sans Mono", monospace;
-
-  /* Font sizes */
-  --lookbook-font-size-2x-small: 0.625rem; /* 10px */
-  --lookbook-font-size-x-small: 0.75rem; /* 12px */
-  --lookbook-font-size-small: 0.875rem; /* 14px */
-  --lookbook-font-size-medium: 1rem; /* 16px */
-  --lookbook-font-size-large: 1.25rem; /* 20px */
-  --lookbook-font-size-x-large: 1.5rem; /* 24px */
-  --lookbook-font-size-2x-large: 2.25rem; /* 36px */
-  --lookbook-font-size-3x-large: 3rem; /* 48px */
-  --lookbook-font-size-4x-large: 4.5rem; /* 72px */
-
-  /* Font weights */
-  --lookbook-font-weight-light: 300;
-  --lookbook-font-weight-normal: 400;
-  --lookbook-font-weight-medium: 500;
-  --lookbook-font-weight-semibold: 600;
-  --lookbook-font-weight-bold: 700;
-
-  /*
-   * Border radii
-   */
-
-  --lookbook-border-radius-small: 0.1875rem; /* 3px */
-  --lookbook-border-radius-medium: 0.25rem; /* 4px */
-  --lookbook-border-radius-large: 0.5rem; /* 8px */
-  --lookbook-border-radius-x-large: 1rem; /* 16px */
-
-  --lookbook-border-radius-circle: 50%;
-  --lookbook-border-radius-pill: 9999px;
-
-  /*
-   * Shadows
-   */
-
-  --lookbook-shadow-x-small: 0 0 2px 0 rgba(0, 0, 0, 0.05);
-  --lookbook-shadow-small: 0 0 3px 0 rgba(0, 0, 0, 0.1),
-    0 0 2px -1px rgba(0, 0, 0, 0.1);
-  --lookbook-shadow-medium: 0 0 6px -1px rgba(0, 0, 0, 0.1),
-    0 0 4px -2px rgba(0, 0, 0, 0.1);
-  --lookbook-shadow-large: 0 0 15px -3px rgba(0, 0, 0, 0.1),
-    0 0 6px -4px rgba(0, 0, 0, 0.1);
-  --lookbook-shadow-x-large: 0 0 25px -5px rgba(0, 0, 0, 0.1),
-    0 0 10px -6px rgba(0, 0, 0, 0.1);
-
-  /*
-   * Toolbars
-   */
-
-  --lookbook-toolbar-height: 2.5rem;
-
-  /*
-   * Panels
-   */
-
-  --lookbook-panel-padding: var(--lookbook-spacing-medium);
-}
-:root {
   --lookbook-color-gray-50: hsl(0, 0%, 98%);
   --lookbook-color-gray-100: hsl(240, 5%, 96%);
   --lookbook-color-gray-200: hsl(240, 6%, 90%);
@@ -310,6 +221,107 @@
   --lookbook-color-rose-800: hsl(343, 80%, 35%);
   --lookbook-color-rose-900: hsl(342, 76%, 30%);
   --lookbook-color-rose-950: hsl(341, 70%, 17%);
+
+  /*
+   * Spacing and sizes
+   */
+
+  --lookbook-spacing-3x-small: 0.125rem; /* 2px */
+  --lookbook-spacing-2x-small: 0.25rem; /* 4px */
+  --lookbook-spacing-x-small: 0.5rem; /* 8px */
+  --lookbook-spacing-small: 0.75rem; /* 12px */
+  --lookbook-spacing-medium: 1rem; /* 16px */
+  --lookbook-spacing-large: 1.25rem; /* 20px */
+  --lookbook-spacing-x-large: 1.75rem; /* 28px */
+  --lookbook-spacing-2x-large: 2.25rem; /* 36px */
+  --lookbook-spacing-3x-large: 3rem; /* 48px */
+  --lookbook-spacing-4x-large: 4.5rem; /* 72px */
+
+  --lookbook-size-3x-small: 0.125rem; /* 2px */
+  --lookbook-size-2x-small: 0.25rem; /* 4px */
+  --lookbook-size-x-small: 0.5rem; /* 8px */
+  --lookbook-size-small: 0.75rem; /* 12px */
+  --lookbook-size-medium: 1rem; /* 16px */
+  --lookbook-size-large: 1.25rem; /* 20px */
+  --lookbook-size-x-large: 1.75rem; /* 28px */
+  --lookbook-size-2x-large: 2.25rem; /* 36px */
+  --lookbook-size-3x-large: 3rem; /* 48px */
+  --lookbook-size-4x-large: 4.5rem; /* 72px */
+
+  /*
+   * Typography
+   */
+
+  --lookbook-font-ui: "Inter Var", Roboto, "Helvetica Neue", "Arial Nova",
+    "Nimbus Sans", Arial, sans-serif;
+  --lookbook-font-prose: "Open Sans Var", Avenir, Montserrat, Corbel,
+    "URW Gothic", source-sans-pro, sans-serif;
+  --lookbook-font-mono: "Source Code Pro Var", ui-monospace, "Cascadia Code",
+    Menlo, Consolas, "DejaVu Sans Mono", monospace;
+
+  --lookbook-font-size-2x-small: 0.625rem; /* 10px */
+  --lookbook-font-size-x-small: 0.75rem; /* 12px */
+  --lookbook-font-size-small: 0.875rem; /* 14px */
+  --lookbook-font-size-medium: 1rem; /* 16px */
+  --lookbook-font-size-large: 1.25rem; /* 20px */
+  --lookbook-font-size-x-large: 1.5rem; /* 24px */
+  --lookbook-font-size-2x-large: 2.25rem; /* 36px */
+  --lookbook-font-size-3x-large: 3rem; /* 48px */
+  --lookbook-font-size-4x-large: 4.5rem; /* 72px */
+
+  --lookbook-font-weight-light: 300;
+  --lookbook-font-weight-normal: 400;
+  --lookbook-font-weight-medium: 500;
+  --lookbook-font-weight-semibold: 600;
+  --lookbook-font-weight-bold: 700;
+
+  /*
+   * Border radii
+   */
+
+  --lookbook-border-radius-small: 0.1875rem; /* 3px */
+  --lookbook-border-radius-medium: 0.25rem; /* 4px */
+  --lookbook-border-radius-large: 0.5rem; /* 8px */
+  --lookbook-border-radius-x-large: 1rem; /* 16px */
+
+  /*
+   * Shadows
+   */
+
+  --lookbook-shadow-x-small: 0 0 2px 0 rgba(0, 0, 0, 0.05);
+  --lookbook-shadow-small: 0 0 3px 0 rgba(0, 0, 0, 0.1),
+    0 0 2px -1px rgba(0, 0, 0, 0.1);
+  --lookbook-shadow-medium: 0 0 6px -1px rgba(0, 0, 0, 0.1),
+    0 0 4px -2px rgba(0, 0, 0, 0.1);
+  --lookbook-shadow-large: 0 0 15px -3px rgba(0, 0, 0, 0.1),
+    0 0 6px -4px rgba(0, 0, 0, 0.1);
+  --lookbook-shadow-x-large: 0 0 25px -5px rgba(0, 0, 0, 0.1),
+    0 0 10px -6px rgba(0, 0, 0, 0.1);
+}
+:root {
+  /*
+   * App header
+   */
+
+  --lookbook-header-height: 2.5rem;
+
+  /*
+   * Toolbars
+   */
+
+  --lookbook-toolbar-height: 2.5rem;
+
+  /*
+   * Panels
+   */
+
+  --lookbook-panel-padding: var(--lookbook-spacing-medium);
+
+  /*
+   * Status bar
+   */
+
+  --lookbook-status-bar-height: 1.5rem;
 }
 :root,
 :host,
@@ -317,6 +329,10 @@
   --csstools-color-scheme--light: initial;
   --csstools-color-scheme--dark:  ;
   color-scheme: light;
+
+  /*
+   * Colour scheme
+   */
 
   --lookbook-color-accent-50: var(--lookbook-color-indigo-50);
   --lookbook-color-accent-100: var(--lookbook-color-indigo-100);
@@ -330,7 +346,6 @@
   --lookbook-color-accent-900: var(--lookbook-color-indigo-900);
   --lookbook-color-accent-950: var(--lookbook-color-indigo-950);
 
-  --lookbook-color-base-0: #fff;
   --lookbook-color-base-50: var(--lookbook-color-gray-50);
   --lookbook-color-base-100: var(--lookbook-color-gray-100);
   --lookbook-color-base-200: var(--lookbook-color-gray-200);
@@ -343,7 +358,6 @@
   --lookbook-color-base-900: var(--lookbook-color-gray-900);
   --lookbook-color-base-950: var(--lookbook-color-gray-950);
 
-  /* Success */
   --lookbook-color-success-50: var(--lookbook-color-green-50);
   --lookbook-color-success-100: var(--lookbook-color-green-100);
   --lookbook-color-success-200: var(--lookbook-color-green-200);
@@ -356,7 +370,6 @@
   --lookbook-color-success-900: var(--lookbook-color-green-900);
   --lookbook-color-success-950: var(--lookbook-color-green-950);
 
-  /* Warning */
   --lookbook-color-warning-50: var(--lookbook-color-amber-50);
   --lookbook-color-warning-100: var(--lookbook-color-amber-100);
   --lookbook-color-warning-200: var(--lookbook-color-amber-200);
@@ -369,7 +382,6 @@
   --lookbook-color-warning-900: var(--lookbook-color-amber-900);
   --lookbook-color-warning-950: var(--lookbook-color-amber-950);
 
-  /* Danger */
   --lookbook-color-danger-50: var(--lookbook-color-red-50);
   --lookbook-color-danger-100: var(--lookbook-color-red-100);
   --lookbook-color-danger-200: var(--lookbook-color-red-200);
@@ -382,7 +394,66 @@
   --lookbook-color-danger-900: var(--lookbook-color-red-900);
   --lookbook-color-danger-950: var(--lookbook-color-red-950);
 
-  --lookbook-divider-color: var(--lookbook-color-base-300);
+  /*
+   * App
+   */
+
+  --lookbook-app-color: var(--lookbook-color-base-900);
+  --lookbook-app-divider-color: var(--lookbook-color-base-300);
+  --lookbook-app-focus-outline-color: var(--lookbook-color-accent-200);
+
+  /*
+   * Header
+   */
+
+  --lookbook-header-color: var(--lookbook-color-white);
+  --lookbook-header-background-color: var(--lookbook-color-accent-600);
+
+  /*
+   * Tables
+   */
+
+  --lookbook-table-color: var(--lookbook-color-base-900);
+  --lookbook-table-border-color: var(--lookbook-app-divider-color);
+  --lookbook-table-background-color: var(--lookbook-color-white);
+
+  /*
+   * Panes
+   */
+
+  --lookbook-pane-background-color: var(--lookbook-color-base-50);
+
+  /*
+   * Status bar
+   */
+
+  --lookbook-status-bar-color: var(--lookbook-base-600);
+  --lookbook-status-bar-background-color: var(--lookbook-color-white);
+  --lookbook-status-bar-action-color: var(--lookbook-color-accent-700);
+  --lookbook-status-bar-item-color-positive: var(--lookbook-color-success-700);
+  --lookbook-status-bar-item-color-error: var(--lookbook-color-danger-600);
+  --lookbook-status-bar-item-color-warning: var(--lookbook-color-warning-600);
+  --lookbook-status-bar-item-color-info: var(--lookbook-color-info-600);
+  --lookbook-status-bar-notifications-color: var(--lookbook-app-color);
+  --lookbook-status-bar-notifications-background-color: var(
+    --lookbook-color-white
+  );
+
+  /*
+   * System message
+   */
+
+  --lookbook-system-message-color: var(--lookbook-color-base-500);
+  --lookbook-system-message-background-color: var(--lookbook-color-white);
+  --lookbook-system-message-border-color: var(--lookbook-app-divider-color);
+  --lookbook-system-message-title-color: var(--lookbook-color-base-900);
+  --lookbook-system-message-icon-color: var(--lookbook-color-base-300);
+
+  --lookbook-system-message-title-color-error: var(--lookbook-color-danger-600);
+  --lookbook-system-message-border-color-error: var(
+    --lookbook-color-danger-200
+  );
+  --lookbook-system-message-icon-color-error: var(--lookbook-color-danger-300);
 }
 @font-face {
   font-family: "Inter";
@@ -646,7 +717,8 @@ body {
   font-family: var(--lookbook-font-ui);
   font-size: 1rem;
   font-size: var(--lookbook-font-size-medium);
-  color: var(--lookbook-color-neutral-900);
+  color: hsl(240, 6%, 10%);
+  color: var(--lookbook-app-color);
 }
 body {
   min-height: 100vh;
@@ -669,9 +741,11 @@ router {
 }
 table {
   background: #fff;
-  background: var(--lookbook-color-base-0);
+  background: var(--lookbook-table-background-color);
   border: 1px solid hsl(240, 5%, 84%);
-  border: 1px solid var(--lookbook-color-base-300);
+  border: 1px solid var(--lookbook-table-border-color);
+  color: hsl(240, 6%, 10%);
+  color: var(--lookbook-table-color);
   width: 100%;
   border-collapse: collapse;
   font-size: 0.875rem;
@@ -693,13 +767,13 @@ td {
 thead tr,
 tr:not(:last-child) {
   border-bottom: 1px solid hsl(240, 5%, 84%);
-  border-bottom: 1px solid var(--lookbook-color-base-300);
+  border-bottom: 1px solid var(--lookbook-table-border-color);
 }
 :focus-visible {
   outline: 1px solid transparent;
   outline-offset: 0;
   outline-color: hsl(228, 97%, 89%);
-  outline-color: var(--lookbook-color-accent-200);
+  outline-color: var(--lookbook-app-focus-outline-color);
 }
 /* Utilities */
 .bg-checked {
@@ -949,12 +1023,12 @@ select {
     0 0 4px -2px rgba(0, 0, 0, 0.1);
   box-shadow: var(--lookbook-shadow-medium);
   background: #fff;
-  background: var(--lookbook-color-base-0);
+  background: var(--lookbook-color-white);
   color: hsl(240, 4%, 16%);
   color: var(--lookbook-color-base-800);
   max-width: 100%;
   border: 1px solid hsl(240, 5%, 84%);
-  border: 1px solid var(--lookbook-divider-color);
+  border: 1px solid var(--lookbook-app-divider-color);
   border-radius: 0;
   width: -moz-fit-content;
   width: fit-content;
@@ -963,10 +1037,12 @@ select {
     padding: 0;
   }
 [data-component="header"] {
-  height: 40px;
+  height: 2.5rem;
+  height: var(--lookbook-header-height);
   color: #fff;
+  color: var(--lookbook-header-color);
   background-color: hsl(243, 75%, 59%);
-  background-color: var(--lookbook-color-accent-600);
+  background-color: var(--lookbook-header-background-color);
   padding-left: 1rem;
   padding-right: 1rem;
   padding-left: var(--lookbook-spacing-medium);
@@ -1000,30 +1076,31 @@ select {
   }
 [data-component="layout"] #app-header {
     border-bottom: 1px solid hsl(240, 5%, 84%);
-    border-bottom: 1px solid var(--lookbook-divider-color);
+    border-bottom: 1px solid var(--lookbook-app-divider-color);
   }
 [data-component="layout"] #app-body {
     height: 100%;
   }
-[data-component="layout"] #app-sidebar {
-    background-color: hsl(0, 0%, 98%);
-    background-color: var(--lookbook-color-base-50);
-  }
 [data-component="layout"] #app-status-bar {
     border-top: 1px solid hsl(240, 5%, 84%);
-    border-top: 1px solid var(--lookbook-divider-color);
+    border-top: 1px solid var(--lookbook-app-divider-color);
   }
 [data-component="router"] {
   display: contents;
 }
 [data-component="status-bar"] {
-  height: 24px;
+  height: 1.5rem;
+  height: var(--lookbook-status-bar-height);
   font-size: 0.75rem;
   font-size: var(--lookbook-font-size-x-small);
   padding-left: 0.75rem;
   padding-right: 0.75rem;
   padding-left: var(--lookbook-spacing-small);
   padding-right: var(--lookbook-spacing-small);
+  color: var(--lookbook-base-600);
+  color: var(--lookbook-status-bar-color);
+  background-color: #fff;
+  background-color: var(--lookbook-status-bar-background-color);
 
   display: flex;
   align-items: center;
@@ -1065,25 +1142,25 @@ select {
 .with-panel[data-component="status-bar-item"] .status-bar-item-summary {
     cursor: pointer;
   }
-[data-component="status-bar-item"][data-theme="success"] .status-bar-item-summary .icon {
+[data-component="status-bar-item"][data-theme="positive"] .status-bar-item-summary .icon {
       color: hsl(142, 72%, 29%);
-      color: var(--lookbook-color-success-700);
+      color: var(--lookbook-status-bar-item-color-positive);
     }
 [data-component="status-bar-item"][data-theme="error"] .status-bar-item-summary {
       color: hsl(0, 72%, 51%);
-      color: var(--lookbook-color-danger-600);
+      color: var(--lookbook-status-bar-item-color-error);
     }
 [data-component="status-bar-item"][data-theme="error"] .status-bar-item-summary .icon {
         color: hsl(0, 72%, 51%);
-        color: var(--lookbook-color-danger-600);
+        color: var(--lookbook-status-bar-item-color-error);
       }
 [data-component="status-bar-item"][data-theme="warning"] .status-bar-item-summary {
       color: hsl(32, 95%, 44%);
-      color: var(--lookbook-color-warning-600);
+      color: var(--lookbook-status-bar-item-color-warning);
     }
 [data-component="status-bar-item"][data-theme="warning"] .status-bar-item-summary .icon {
         color: hsl(32, 95%, 44%);
-        color: var(--lookbook-color-warning-600);
+        color: var(--lookbook-status-bar-item-color-warning);
       }
 [data-component="status-bar-notifications"] {
   width: 28rem;
@@ -1091,8 +1168,10 @@ select {
   padding-right: 0.75rem;
   padding-left: var(--lookbook-spacing-small);
   padding-right: var(--lookbook-spacing-small);
+  color: hsl(240, 6%, 10%);
+  color: var(--lookbook-status-bar-notifications-color);
   background: #fff;
-  background: var(--lookbook-color-base-0);
+  background: var(--lookbook-status-bar-notifications-background-color);
 }
 [data-component="status-bar-notifications"] .notification {
     display: flex;
@@ -1105,7 +1184,7 @@ select {
   }
 [data-component="status-bar-notifications"] .notification + .notification {
       border-top: 1px solid hsl(240, 5%, 84%);
-      border-top: 1px solid var(--lookbook-divider-color);
+      border-top: 1px solid var(--lookbook-app-divider-color);
     }
 [data-component="status-bar-notifications"] .notification .notification-icon .icon {
         flex: none;
@@ -1131,40 +1210,37 @@ select {
     }
 [data-component="status-bar-notifications"] .notification.notification-error .notification-icon {
       color: hsl(0, 72%, 51%);
-      color: var(--lookbook-color-danger-600);
+      color: var(--lookbook-status-bar-item-color-error);
     }
 [data-component="status-bar-notifications"] .notification.notification-warning .notification-icon {
       color: hsl(32, 95%, 44%);
-      color: var(--lookbook-color-warning-600);
+      color: var(--lookbook-status-bar-item-color-warning);
     }
 [data-component="status-bar-notifications"] .notification.notification-notice .notification-icon {
-      color: hsl(200, 98%, 39%);
-      color: var(--lookbook-color-sky-600);
+      color: var(--lookbook-color-info-600);
+      color: var(--lookbook-status-bar-item-color-info);
     }
 [data-component="status-bar-notifications"] .notification.notification-success .notification-icon {
-      color: hsl(142, 76%, 36%);
-      color: var(--lookbook-color-success-600);
+      color: hsl(142, 72%, 29%);
+      color: var(--lookbook-status-bar-item-color-positive);
     }
 [data-component="system-message"] {
   font-family: "Open Sans Var", Avenir, Montserrat, Corbel,
     "URW Gothic", source-sans-pro, sans-serif;
   font-family: var(--lookbook-font-prose);
+  color: hsl(240, 4%, 46%);
+  color: var(--lookbook-system-message-color);
   background: #fff;
-  background: var(--lookbook-color-base-0);
+  background: var(--lookbook-system-message-background-color);
+  border: 1px solid hsl(240, 5%, 84%);
+  border: 1px solid var(--lookbook-system-message-border-color);
   padding: 1.75rem;
   padding: var(--lookbook-spacing-x-large);
-  border: 1px solid hsl(240, 5%, 84%);
-  border: 1px solid var(--lookbook-color-base-300);
-  box-shadow:
-    0 1px 3px 0 rgba(0,0,0,0.10196),
-    0 1px 2px -1px rgba(0,0,0,0.10196);
   max-width: 680px;
   margin-top: 1.25rem;
   margin-top: var(--lookbook-spacing-large);
   margin-left: auto;
   margin-right: auto;
-  color: hsl(240, 4%, 46%);
-  color: var(--lookbook-color-base-500);
   border-radius: 0.25rem;
   border-radius: var(--lookbook-border-radius-medium);
 }
@@ -1186,7 +1262,7 @@ select {
     font-size: 1rem;
     font-size: var(--lookbook-font-size-medium);
     color: hsl(240, 6%, 10%);
-    color: var(--lookbook-color-base-900);
+    color: var(--lookbook-system-message-title-color);
     margin-bottom: 0.5rem;
     margin-bottom: var(--lookbook-spacing-x-small);
   }
@@ -1198,7 +1274,7 @@ select {
   [data-component="system-message"] .message-icon .icon {
     width: 40px;
     color: hsl(240, 5%, 84%);
-    color: var(--lookbook-color-base-300);
+    color: var(--lookbook-system-message-icon-color);
   }
 [data-component="system-message"] .message-icon > svg {
     margin-right: 0.25rem;
@@ -1206,15 +1282,15 @@ select {
   }
 [data-component="system-message"][data-theme="error"] {
     border-color: hsl(0, 96%, 89%);
-    border-color: var(--lookbook-color-danger-200);
+    border-color: var(--lookbook-system-message-border-color-error);
   }
 [data-component="system-message"][data-theme="error"] .message-title {
       color: hsl(0, 72%, 51%);
-      color: var(--lookbook-color-danger-600);
+      color: var(--lookbook-system-message-title-color-error);
     }
 [data-component="system-message"][data-theme="error"] .message-icon svg {
       color: hsl(0, 94%, 82%);
-      color: var(--lookbook-color-danger-300);
+      color: var(--lookbook-system-message-icon-color-error);
     }
 [data-component="system-page"] {
   padding: 1.25rem;
@@ -1304,7 +1380,7 @@ select {
     flex: none;
     width: 1px;
     background-color: hsl(240, 5%, 84%);
-    background-color: var(--lookbook-divider-color);
+    background-color: var(--lookbook-app-divider-color);
     height: 38px;
     display: block;
   }
@@ -1408,7 +1484,7 @@ select {
     font-size: 0.875rem;
     font-size: var(--lookbook-font-size-small);
     background-color: #fff;
-    background-color: var(--lookbook-color-base-0);
+    background-color: var(--lookbook-color-white);
     color: hsl(240, 4%, 46%);
     color: var(--lookbook-color-base-500);
     padding: 1rem;
@@ -1482,6 +1558,8 @@ select {
         font-weight: var(--lookbook-font-weight-semibold);
       }
 [data-component="pane"] {
+  background-color: hsl(0, 0%, 98%);
+  background-color: var(--lookbook-pane-background-color);
   height: 100%;
   width: 100%;
   position: relative;
@@ -1623,7 +1701,7 @@ select {
   }
 [data-component="prose"] hr {
     border-color: hsl(240, 5%, 84%);
-    border-color: var(--lookbook-divider-color);
+    border-color: var(--lookbook-app-divider-color);
     border-top-width: 1px;
     margin-top: 3em;
     margin-bottom: 3em;
@@ -1634,7 +1712,7 @@ select {
     color: #1a202c;
     border-left-width: 0.25rem;
     border-left-color: hsl(240, 5%, 84%);
-    border-left-color: var(--lookbook-divider-color);
+    border-left-color: var(--lookbook-app-divider-color);
     quotes: "\201C" "\201D" "\2018" "\2019";
     margin-top: 1.6em;
     margin-bottom: 1.6em;
@@ -1756,7 +1834,7 @@ select {
     font-weight: 600;
     border-bottom-width: 1px;
     border-bottom-color: hsl(240, 5%, 84%);
-    border-bottom-color: var(--lookbook-divider-color);
+    border-bottom-color: var(--lookbook-app-divider-color);
   }
 [data-component="prose"] thead th {
     vertical-align: bottom;
@@ -1767,7 +1845,7 @@ select {
 [data-component="prose"] tbody tr {
     border-bottom-width: 1px;
     border-bottom-color: hsl(240, 5%, 84%);
-    border-bottom-color: var(--lookbook-divider-color);
+    border-bottom-color: var(--lookbook-app-divider-color);
   }
 [data-component="prose"] tbody tr:last-child {
     border-bottom-width: 0;
@@ -1898,7 +1976,7 @@ select {
   padding-left: 1rem;
   padding-left: var(--lookbook-spacing-medium);
   border-bottom: 1px solid hsl(240, 5%, 84%);
-  border-bottom: 1px solid var(--lookbook-divider-color);
+  border-bottom: 1px solid var(--lookbook-app-divider-color);
 }
 [data-component="toolbar"] .toolbar-section {
     display: flex;
@@ -1921,7 +1999,7 @@ select {
   }
 [data-component="toolbar"] [data-component="button-group"] + [data-component="button-group"] {
       border-left: 1px solid hsl(240, 5%, 84%);
-      border-left: 1px solid var(--lookbook-divider-color);
+      border-left: 1px solid var(--lookbook-app-divider-color);
     }
 [data-component="toolbar-tab"] {
   color: hsl(240, 4%, 16%);
@@ -2027,7 +2105,7 @@ select {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     outline: 1px solid hsl(240, 5%, 84%);
-    outline: 1px solid var(--lookbook-divider-color);
+    outline: 1px solid var(--lookbook-app-divider-color);
   }
 .resize-x[data-component="viewport"] .viewport-dimensions {
       right: 1rem;
@@ -2057,14 +2135,14 @@ select {
 [data-component="viewport"] .viewport-handle-x {
     flex-direction: row;
     border-left: 1px solid hsl(240, 5%, 84%);
-    border-left: 1px solid var(--lookbook-divider-color);
+    border-left: 1px solid var(--lookbook-app-divider-color);
     width: 1rem;
     width: var(--lookbook-size-medium);
     cursor: ew-resize;
   }
 [data-component="viewport"] .viewport-handle-y {
     border-top: 1px solid hsl(240, 5%, 84%);
-    border-top: 1px solid var(--lookbook-divider-color);
+    border-top: 1px solid var(--lookbook-app-divider-color);
     height: 1rem;
     height: var(--lookbook-size-medium);
     cursor: ns-resize;
@@ -2088,7 +2166,7 @@ select {
     "URW Gothic", source-sans-pro, sans-serif;
   font-family: var(--lookbook-font-prose);
   background-color: #fff;
-  background-color: var(--lookbook-color-base-0);
+  background-color: var(--lookbook-color-white);
   min-height: 100vh;
 }
 [data-component="page"] .page-slat {
@@ -2203,7 +2281,7 @@ select {
 }
 [data-component="preview-embed"] {
   border: 1px solid hsl(240, 5%, 84%);
-  border: 1px solid var(--lookbook-divider-color);
+  border: 1px solid var(--lookbook-app-divider-color);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -2211,7 +2289,7 @@ select {
   }
 [data-component="preview-embed"] .embed-drawer {
     border-top: 1px solid hsl(240, 5%, 84%);
-    border-top: 1px solid var(--lookbook-divider-color);
+    border-top: 1px solid var(--lookbook-app-divider-color);
   }
 [data-component="preview-inspector"] {
   height: 100%;

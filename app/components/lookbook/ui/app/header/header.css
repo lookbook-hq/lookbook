@@ -1,7 +1,7 @@
 [data-component="header"] {
-  height: 40px;
-  color: #fff;
-  background-color: var(--lookbook-color-accent-600);
+  height: var(--lookbook-header-height);
+  color: var(--lookbook-header-color);
+  background-color: var(--lookbook-header-background-color);
   padding-inline: var(--lookbook-spacing-medium);
   padding-bottom: 4px;
   display: flex;

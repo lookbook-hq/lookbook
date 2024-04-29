@@ -19,28 +19,28 @@
     cursor: pointer;
   }
 
-  &[data-theme="success"] {
+  &[data-theme="positive"] {
     .status-bar-item-summary .icon {
-      color: var(--lookbook-color-success-700);
+      color: var(--lookbook-status-bar-item-color-positive);
     }
   }
 
   &[data-theme="error"] {
     .status-bar-item-summary {
-      color: var(--lookbook-color-danger-600);
+      color: var(--lookbook-status-bar-item-color-error);
 
       .icon {
-        color: var(--lookbook-color-danger-600);
+        color: var(--lookbook-status-bar-item-color-error);
       }
     }
   }
 
   &[data-theme="warning"] {
     .status-bar-item-summary {
-      color: var(--lookbook-color-warning-600);
+      color: var(--lookbook-status-bar-item-color-warning);
 
       .icon {
-        color: var(--lookbook-color-warning-600);
+        color: var(--lookbook-status-bar-item-color-warning);
       }
     }
   }

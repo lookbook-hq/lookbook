@@ -1,7 +1,8 @@
 [data-component="status-bar-notifications"] {
   width: 28rem;
   padding-inline: var(--lookbook-spacing-small);
-  background: var(--lookbook-color-base-0);
+  color: var(--lookbook-status-bar-notifications-color);
+  background: var(--lookbook-status-bar-notifications-background-color);
 
   .notification {
     display: flex;
@@ -9,7 +10,7 @@
     padding-block: var(--lookbook-spacing-small);
 
     & + .notification {
-      border-top: 1px solid var(--lookbook-divider-color);
+      border-top: 1px solid var(--lookbook-app-divider-color);
     }
 
     .notification-icon {
@@ -34,19 +35,19 @@
     }
 
     &.notification-error .notification-icon {
-      color: var(--lookbook-color-danger-600);
+      color: var(--lookbook-status-bar-item-color-error);
     }
 
     &.notification-warning .notification-icon {
-      color: var(--lookbook-color-warning-600);
+      color: var(--lookbook-status-bar-item-color-warning);
     }
 
     &.notification-notice .notification-icon {
-      color: var(--lookbook-color-sky-600);
+      color: var(--lookbook-status-bar-item-color-info);
     }
 
     &.notification-success .notification-icon {
-      color: var(--lookbook-color-success-600);
+      color: var(--lookbook-status-bar-item-color-positive);
     }
   }
 }

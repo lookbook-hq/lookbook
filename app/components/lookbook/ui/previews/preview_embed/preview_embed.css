@@ -1,5 +1,5 @@
 [data-component="preview-embed"] {
-  border: 1px solid var(--lookbook-divider-color);
+  border: 1px solid var(--lookbook-app-divider-color);
   border-radius: 4px;
   overflow: hidden;
 
@@ -7,6 +7,6 @@
   }
 
   .embed-drawer {
-    border-top: 1px solid var(--lookbook-divider-color);
+    border-top: 1px solid var(--lookbook-app-divider-color);
   }
 }

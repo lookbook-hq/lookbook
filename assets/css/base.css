@@ -2,7 +2,7 @@ html,
 body {
   font-family: var(--lookbook-font-ui);
   font-size: var(--lookbook-font-size-medium);
-  color: var(--lookbook-color-neutral-900);
+  color: var(--lookbook-app-color);
 }
 
 body {
@@ -27,8 +27,9 @@ router {
 }
 
 table {
-  background: var(--lookbook-color-base-0);
-  border: 1px solid var(--lookbook-color-base-300);
+  background: var(--lookbook-table-background-color);
+  border: 1px solid var(--lookbook-table-border-color);
+  color: var(--lookbook-table-color);
   width: 100%;
   border-collapse: collapse;
   font-size: var(--lookbook-font-size-small);
@@ -44,13 +45,13 @@ td {
 
 thead tr,
 tr:not(:last-child) {
-  border-bottom: 1px solid var(--lookbook-color-base-300);
+  border-bottom: 1px solid var(--lookbook-table-border-color);
 }
 
 :focus-visible {
   outline: 1px solid transparent;
   outline-offset: 0;
-  outline-color: var(--lookbook-color-accent-200);
+  outline-color: var(--lookbook-app-focus-outline-color);
 }
 
 /* Utilities */

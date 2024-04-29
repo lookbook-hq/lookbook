@@ -7,18 +7,14 @@
   }
 
   #app-header {
-    border-bottom: 1px solid var(--lookbook-divider-color);
+    border-bottom: 1px solid var(--lookbook-app-divider-color);
   }
 
   #app-body {
     height: 100%;
   }
 
-  #app-sidebar {
-    background-color: var(--lookbook-color-base-50);
-  }
-
   #app-status-bar {
-    border-top: 1px solid var(--lookbook-divider-color);
+    border-top: 1px solid var(--lookbook-app-divider-color);
   }
 }

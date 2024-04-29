@@ -21,7 +21,7 @@ header {
   background: white;
   font-size: var(--lookbook-font-size-small);
   font-family: var(--lookbook-font-ui);
-  border-bottom: 1px solid var(--lookbook-divider-color);
+  border-bottom: 1px solid var(--lookbook-app-divider-color);
   overflow: hidden;
 }
 

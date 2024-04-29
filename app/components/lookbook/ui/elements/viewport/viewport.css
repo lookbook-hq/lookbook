@@ -51,7 +51,7 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
-    outline: 1px solid var(--lookbook-divider-color);
+    outline: 1px solid var(--lookbook-app-divider-color);
   }
 
   &.resize-x {
@@ -87,13 +87,13 @@
 
   .viewport-handle-x {
     flex-direction: row;
-    border-left: 1px solid var(--lookbook-divider-color);
+    border-left: 1px solid var(--lookbook-app-divider-color);
     width: var(--lookbook-size-medium);
     cursor: ew-resize;
   }
 
   .viewport-handle-y {
-    border-top: 1px solid var(--lookbook-divider-color);
+    border-top: 1px solid var(--lookbook-app-divider-color);
     height: var(--lookbook-size-medium);
     cursor: ns-resize;
   }

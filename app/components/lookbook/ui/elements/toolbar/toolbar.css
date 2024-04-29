@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   padding-left: var(--lookbook-spacing-medium);
-  border-bottom: 1px solid var(--lookbook-divider-color);
+  border-bottom: 1px solid var(--lookbook-app-divider-color);
 
   .toolbar-section {
     display: flex;
@@ -29,7 +29,7 @@
 
   [data-component="button-group"] {
     & + [data-component="button-group"] {
-      border-left: 1px solid var(--lookbook-divider-color);
+      border-left: 1px solid var(--lookbook-app-divider-color);
     }
   }
 }

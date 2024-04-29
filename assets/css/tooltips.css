@@ -2,10 +2,10 @@
 
 .tippy-box[data-theme~="dropdown"] {
   box-shadow: var(--lookbook-shadow-medium);
-  background: var(--lookbook-color-base-0);
+  background: var(--lookbook-color-white);
   color: var(--lookbook-color-base-800);
   max-width: 100%;
-  border: 1px solid var(--lookbook-divider-color);
+  border: 1px solid var(--lookbook-app-divider-color);
   border-radius: 0;
   width: fit-content;
 

@@ -1,15 +1,12 @@
 [data-component="system-message"] {
   font-family: var(--lookbook-font-prose);
-  background: var(--lookbook-color-base-0);
+  color: var(--lookbook-system-message-color);
+  background: var(--lookbook-system-message-background-color);
+  border: 1px solid var(--lookbook-system-message-border-color);
   padding: var(--lookbook-spacing-x-large);
-  border: 1px solid var(--lookbook-color-base-300);
-  box-shadow:
-    0 1px 3px 0 #0000001a,
-    0 1px 2px -1px #0000001a;
   max-width: 680px;
   margin-top: var(--lookbook-spacing-large);
   margin-inline: auto;
-  color: var(--lookbook-color-base-500);
   border-radius: var(--lookbook-border-radius-medium);
 
   &.with-icon {
@@ -22,7 +19,7 @@
   .message-title {
     font-weight: var(--lookbook-font-weight-bold);
     font-size: var(--lookbook-font-size-medium);
-    color: var(--lookbook-color-base-900);
+    color: var(--lookbook-system-message-title-color);
     margin-bottom: var(--lookbook-spacing-x-small);
   }
 
@@ -33,7 +30,7 @@
   .message-icon svg,
   .message-icon .icon {
     width: 40px;
-    color: var(--lookbook-color-base-300);
+    color: var(--lookbook-system-message-icon-color);
   }
 
   .message-icon > svg {
@@ -41,14 +38,14 @@
   }
 
   &[data-theme="error"] {
-    border-color: var(--lookbook-color-danger-200);
+    border-color: var(--lookbook-system-message-border-color-error);
 
     .message-title {
-      color: var(--lookbook-color-danger-600);
+      color: var(--lookbook-system-message-title-color-error);
     }
 
     .message-icon svg {
-      color: var(--lookbook-color-danger-300);
+      color: var(--lookbook-system-message-icon-color-error);
     }
   }
 }

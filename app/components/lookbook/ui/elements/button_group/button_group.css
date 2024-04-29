@@ -22,7 +22,7 @@
   .button-group-divider {
     flex: none;
     width: 1px;
-    background-color: var(--lookbook-divider-color);
+    background-color: var(--lookbook-app-divider-color);
     height: 38px;
     display: block;
   }

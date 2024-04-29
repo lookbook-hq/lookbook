@@ -1,7 +1,9 @@
 [data-component="status-bar"] {
-  height: 24px;
+  height: var(--lookbook-status-bar-height);
   font-size: var(--lookbook-font-size-x-small);
   padding-inline: var(--lookbook-spacing-small);
+  color: var(--lookbook-status-bar-color);
+  background-color: var(--lookbook-status-bar-background-color);
 
   display: flex;
   align-items: center;
