@@ -12,6 +12,8 @@ const langs = [
   import("shiki/langs/html.mjs"),
   import("shiki/langs/javascript.mjs"),
   import("shiki/langs/css.mjs"),
+  import("shiki/langs/yaml.mjs"),
+  import("shiki/langs/json.mjs"),
   import("shiki/langs/markdown.mjs"),
   import("shiki/langs/ruby.mjs"),
   import("shiki/langs/erb.mjs"),
@@ -35,6 +37,10 @@ export default class Highlighter {
       loadWasm: getWasm,
     });
 
-    return highlighter.codeToHtml(code, { lang: this.lang, theme });
+    try {
+      return highlighter.codeToHtml(code, { lang: this.lang, theme });
+    } catch {
+      return `<pre><code>${code}</code></pre>`;
+    }
   }
 }
