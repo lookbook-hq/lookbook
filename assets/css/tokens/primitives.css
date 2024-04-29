@@ -5,6 +5,7 @@
 
   --lookbook-color-white: #fff;
   --lookbook-color-black: #000;
+  --lookbook-color-transparent: transparent;
 
   --lookbook-color-gray-50: hsl(0, 0%, 98%);
   --lookbook-color-gray-100: hsl(240, 5%, 96%);

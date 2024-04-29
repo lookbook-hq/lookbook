@@ -2,7 +2,7 @@
   display: inline-block;
   width: fit-content;
   line-height: 0;
-  color: var(--lookbook-color-base-500);
+  color: var(--lookbook-button-color);
 
   .button-icon {
     width: 100%;
@@ -10,12 +10,12 @@
   }
 
   &:hover {
-    color: var(--lookbook-color-base-700);
+    color: var(--lookbook-button-color-hover);
   }
 
   &:active,
   &.active {
-    color: var(--lookbook-color-accent-700);
+    color: var(--lookbook-button-color-active);
   }
 
   &[data-size="md"] {

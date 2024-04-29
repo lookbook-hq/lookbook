@@ -3,26 +3,10 @@
   align-items: center;
   width: fit-content;
 
-  /* .button {
-    margin-right: 5px;
-  }
-
-  .button + .button {
-    margin-left: 5px;
-  } */
-
-  /* .button + .button-group-divider {
-    margin-left: 2px;
-  }
-
-  .button-group-divider + .button {
-    margin-left: px;
-  } */
-
   .button-group-divider {
     flex: none;
     width: 1px;
-    background-color: var(--lookbook-app-divider-color);
+    background-color: var(--lookbook-button-group-divider-color);
     height: 38px;
     display: block;
   }

@@ -1,5 +1,6 @@
 [data-component="toolbar"] {
-  background-color: white;
+  color: var(--lookbook-toolbar-color);
+  background-color: var(--lookbook-toolbar-background-color);
   height: var(--lookbook-toolbar-height);
   display: flex;
   align-items: center;

@@ -1,5 +1,5 @@
 [data-component="toolbar-tab"] {
-  color: var(--lookbook-color-base-800);
+  color: var(--lookbook-tab-color);
   height: var(--lookbook-toolbar-height);
   display: flex;
   align-items: center;
@@ -10,11 +10,11 @@
   user-select: none;
 
   &.disabled {
-    color: var(--lookbook-color-base-300);
+    color: var(--lookbook-tab-color-disabled);
   }
 
   &[aria-selected="true"] {
-    color: var(--lookbook-color-accent-500);
-    border-bottom-color: var(--lookbook-color-accent-500);
+    color: var(--lookbook-tab-color-selected);
+    border-bottom-color: var(--lookbook-tab-border-color-selected);
   }
 }

@@ -5,6 +5,7 @@
 
   --lookbook-color-white: #fff;
   --lookbook-color-black: #000;
+  --lookbook-color-transparent: transparent;
 
   --lookbook-color-gray-50: hsl(0, 0%, 98%);
   --lookbook-color-gray-100: hsl(240, 5%, 96%);
@@ -322,6 +323,12 @@
    */
 
   --lookbook-status-bar-height: 1.5rem;
+
+  /*
+   * Nav
+   */
+
+  --lookbook-nav-item-height: 1.75rem;
 }
 :root,
 :host,
@@ -454,6 +461,95 @@
     --lookbook-color-danger-200
   );
   --lookbook-system-message-icon-color-error: var(--lookbook-color-danger-300);
+
+  /*
+   * Breadcrumbs
+   */
+
+  --lookbook-breadrumbs-color: var(--lookbook-color-base-400);
+  --lookbook-breadrumbs-color-current: var(--lookbook-color-base-600);
+  --lookbook-breadrumbs-link-color: var(--lookbook-color-base-400);
+  --lookbook-breadrumbs-link-color-hover: var(--lookbook-color-accent-600);
+
+  /*
+   * Buttons
+   */
+
+  --lookbook-button-color: var(--lookbook-color-base-500);
+  --lookbook-button-color-hover: var(--lookbook-color-base-700);
+  --lookbook-button-color-active: var(--lookbook-color-accent-700);
+
+  /*
+   * Button groups
+   */
+
+  --lookbook-button-group-divider-color: var(--lookbook-app-divider-color);
+
+  /*
+   * Nav
+   */
+
+  --lookbook-nav-item-background-color: var(--lookbook-color-transparent);
+  --lookbook-nav-item-border-color: var(--lookbook-color-transparent);
+  --lookbook-nav-item-label-color: var(--lookbook-app-color);
+  --lookbook-nav-item-icon-color: var(--lookbook-color-accent-700);
+  --lookbook-nav-item-toggle-color: var(--lookbook-color-base-600);
+
+  --lookbook-nav-item-background-color-selected: var(--lookbook-color-base-100);
+  --lookbook-nav-item-border-color-selected: var(--lookbook-color-accent-500);
+  --lookbook-nav-item-label-color-selected: var(--lookbook-app-color);
+
+  --lookbook-nav-placeholder-color: var(--lookbook-color-base-500);
+  --lookbook-nav-placeholder-border-color: var(--lookbook-app-divider-color);
+  --lookbook-nav-placeholder-background-color: var(--lookbook-color-white);
+
+  /*
+   * Tabs
+   */
+
+  --lookbook-tab-color: var(--lookbook-color-base-800);
+  --lookbook-tab-color-disabled: var(--lookbook-color-base-300);
+  --lookbook-tab-color-selected: var(--lookbook-color-accent-500);
+  --lookbook-tab-border-color-selected: var(--lookbook-color-accent-500);
+  --lookbook-tab-panel-color: var(--lookbook-app-color);
+  --lookbook-tab-panel-background-color: var(--lookbook-color-base-50);
+
+  /*
+   * Prose
+   */
+
+  --lookbook-prose-color: var(--lookbook-app-color);
+  --lookbook-prose-list-counter-color: var(--lookbook-color-base-600);
+  --lookbook-prose-list-marker-color: var(--lookbook-color-base-400);
+  --lookbook-prose-hr-color: var(--lookbook-color-base-600);
+  --lookbook-prose-blockquote-color: var(--lookbook-color-base-700);
+  --lookbook-prose-blockquote-border-color: var(--lookbook-color-base-300);
+  --lookbook-prose-figcaption-color: var(--lookbook-color-base-600);
+  --lookbook-prose-inline-code-color: var(--lookbook-color-accent-900);
+  --lookbook-prose-inline-code-background-color: var(--lookbook-color-base-100);
+  --lookbook-prose-code-background-color: var(
+    --lookbook-color---lookbook-color-base-800
+  );
+  --lookbook-prose-code-background-color: var(--lookbook-color-white);
+  --lookbook-prose-code-border-color: var(--lookbook-color-base-300);
+
+  /*
+   * Toolbars
+   */
+
+  --lookbook-toolbar-color: var(--lookbook-app-color);
+  --lookbook-toolbar-background-color: var(--lookbook-color-white);
+
+  /*
+   * Viewport
+   */
+
+  --lookbook-viewport-background-color: var(--lookbook-color-white);
+  --lookbook-viewport-dimensions-background-color: var(
+    --lookbook-color-base-200
+  );
+  --lookbook-viewport-handle-background-color: var(--lookbook-color-white);
+  --lookbook-viewport-handle-icon-color: var(--lookbook-color-base-500);
 }
 @font-face {
   font-family: "Inter";
@@ -1308,17 +1404,21 @@ select {
   font-size: 0.875rem;
   font-size: var(--lookbook-font-size-small);
   color: hsl(240, 5%, 65%);
-  color: var(--lookbook-color-base-400);
+  color: var(--lookbook-breadrumbs-color);
 }
+[data-component="breadcrumbs"] a.breadcrumb {
+    color: hsl(240, 5%, 65%);
+    color: var(--lookbook-breadrumbs-link-color);
+  }
 [data-component="breadcrumbs"] a.breadcrumb:hover {
       -webkit-text-decoration: underline;
       text-decoration: underline;
       color: hsl(243, 75%, 59%);
-      color: var(--lookbook-color-accent-600);
+      color: var(--lookbook-breadrumbs-link-color-hover);
     }
 [data-component="breadcrumbs"] .breadcrumb:last-child {
     color: hsl(240, 5%, 34%);
-    color: var(--lookbook-color-base-600);
+    color: var(--lookbook-breadrumbs-color-current);
   }
 [data-component="breadcrumbs"] .breadcrumb-divider {
     flex: none;
@@ -1334,7 +1434,7 @@ select {
   width: fit-content;
   line-height: 0;
   color: hsl(240, 4%, 46%);
-  color: var(--lookbook-color-base-500);
+  color: var(--lookbook-button-color);
 }
 [data-component="button"] .button-icon {
     width: 100%;
@@ -1342,12 +1442,12 @@ select {
   }
 [data-component="button"]:hover {
     color: hsl(240, 5%, 26%);
-    color: var(--lookbook-color-base-700);
+    color: var(--lookbook-button-color-hover);
   }
 [data-component="button"]:active,
   .active[data-component="button"] {
     color: hsl(245, 58%, 51%);
-    color: var(--lookbook-color-accent-700);
+    color: var(--lookbook-button-color-active);
   }
 [data-component="button"][data-size="md"] {
     padding: 0.75rem;
@@ -1359,28 +1459,12 @@ select {
   align-items: center;
   width: -moz-fit-content;
   width: fit-content;
-
-  /* .button {
-    margin-right: 5px;
-  }
-
-  .button + .button {
-    margin-left: 5px;
-  } */
-
-  /* .button + .button-group-divider {
-    margin-left: 2px;
-  }
-
-  .button-group-divider + .button {
-    margin-left: px;
-  } */
 }
 [data-component="button-group"] .button-group-divider {
     flex: none;
     width: 1px;
     background-color: hsl(240, 5%, 84%);
-    background-color: var(--lookbook-app-divider-color);
+    background-color: var(--lookbook-button-group-divider-color);
     height: 38px;
     display: block;
   }
@@ -1484,13 +1568,13 @@ select {
     font-size: 0.875rem;
     font-size: var(--lookbook-font-size-small);
     background-color: #fff;
-    background-color: var(--lookbook-color-white);
+    background-color: var(--lookbook-nav-placeholder-background-color);
     color: hsl(240, 4%, 46%);
-    color: var(--lookbook-color-base-500);
+    color: var(--lookbook-nav-placeholder-color);
     padding: 1rem;
     padding: var(--lookbook-spacing-medium);
     border: 1px dashed hsl(240, 5%, 84%);
-    border: 1px dashed var(--lookbook-color-base-300);
+    border: 1px dashed var(--lookbook-nav-placeholder-border-color);
     margin: 0.75rem;
     margin: var(--lookbook-spacing-small);
   }
@@ -1503,7 +1587,10 @@ select {
     display: flex;
     align-items: center;
     border-left: 3px solid transparent;
+    border-left: 3px solid var(--lookbook-nav-item-border-color);
     cursor: pointer;
+    bacground-color: transparent;
+    bacground-color: var(--lookbook-nav-item-background-color);
   }
 [data-component="nav-item"] .nav-item-indentation {
     width: 1rem;
@@ -1512,22 +1599,28 @@ select {
     flex: none;
   }
 [data-component="nav-item"] .nav-item-toggle {
-    width: 28px;
+    width: 1.75rem;
+    width: var(--lookbook-nav-item-height);
     flex: none;
   }
 [data-component="nav-item"] .nav-item-toggle button {
       flex: none;
-      width: 28px;
-      height: 28px;
+      width: 1.75rem;
+      width: var(--lookbook-nav-item-height);
+      color: hsl(240, 5%, 34%);
+      color: var(--lookbook-nav-item-toggle-color);
     }
 [data-component="nav-item"] .nav-item-label {
     display: flex;
     align-items: center;
     width: 100%;
-    height: 28px;
+    height: 1.75rem;
+    height: var(--lookbook-nav-item-height);
     min-width: 0;
     font-size: 0.875rem;
     font-size: var(--lookbook-font-size-small);
+    color: hsl(240, 6%, 10%);
+    color: var(--lookbook-nav-item-label-color);
   }
 [data-component="nav-item"] .nav-item-label .icon {
       flex: none;
@@ -1536,7 +1629,7 @@ select {
       height: 1rem;
       height: var(--lookbook-spacing-medium);
       color: hsl(245, 58%, 51%);
-      color: var(--lookbook-color-accent-700);
+      color: var(--lookbook-nav-item-icon-color);
     }
 [data-component="nav-item"] .nav-item-label span {
       overflow: hidden;
@@ -1549,10 +1642,14 @@ select {
     }
 [data-component="nav-item"][aria-selected="true"] > .nav-item-item {
       background-color: hsl(240, 5%, 96%);
-      background-color: var(--lookbook-color-base-100);
+      background-color: var(--lookbook-nav-item-background-color-selected);
       border-left-color: hsl(239, 84%, 67%);
-      border-left-color: var(--lookbook-color-accent-500);
+      border-left-color: var(--lookbook-nav-item-border-color-selected);
     }
+[data-component="nav-item"][aria-selected="true"] > .nav-item-item .nav-item-label {
+        color: hsl(240, 6%, 10%);
+        color: var(--lookbook-nav-item-label-color-selected);
+      }
 [data-component="nav-item"][aria-selected="true"] > .nav-item-item .nav-item-label {
         font-weight: 600;
         font-weight: var(--lookbook-font-weight-semibold);
@@ -1580,8 +1677,10 @@ select {
   height: 100%;
   width: 100%;
   overflow: hidden;
+  color: hsl(240, 6%, 10%);
+  color: var(--lookbook-tab-panel-color);
   background-color: hsl(0, 0%, 98%);
-  background-color: var(--lookbook-color-base-50);
+  background-color: var(--lookbook-tab-panel-background-color);
 }
 [data-component="tab-panel"] .tab-panel-content {
     z-index: 1;
@@ -1603,7 +1702,7 @@ select {
     z-index: 100;
   }
 [data-component="pane-group"][data-orientation="horizontal"] > .pane-group-gutter {
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid var(--lookbook-split-pane-gutter-border-color);
       width: 100%;
       height: 1px;
     }
@@ -1616,7 +1715,8 @@ select {
         cursor: ns-resize;
       }
 [data-component="pane-group"][data-orientation="vertical"] > .pane-group-gutter {
-      border-right: 1px solid #ccc;
+      border-right: 1px solid hsl(240, 5%, 84%);
+      border-right: 1px solid var(--lookbook-app-divider-color);
       height: 100%;
       width: 1px;
     }
@@ -1647,13 +1747,13 @@ select {
     "URW Gothic", source-sans-pro, sans-serif;
   font-family: var(--lookbook-font-prose);
   color: hsl(240, 6%, 10%);
-  color: var(--lookbook-color-base-900);
+  color: var(--lookbook-prose-color);
   font-size: 1rem;
   line-height: 1.75;
 }
 [data-component="prose"] [class~="lead"] {
     color: hsl(240, 6%, 10%);
-    color: var(--lookbook-color-base-900);
+    color: var(--lookbook-prose-color);
     font-size: 1.25em;
     line-height: 1.6;
     margin-top: 1.2em;
@@ -1682,7 +1782,7 @@ select {
     position: absolute;
     font-weight: 400;
     color: hsl(240, 5%, 34%);
-    color: var(--lookbook-color-base-600);
+    color: var(--lookbook-prose-list-counter-color);
   }
 [data-component="prose"] ul > li {
     position: relative;
@@ -1692,7 +1792,7 @@ select {
     content: "";
     position: absolute;
     background-color: hsl(240, 5%, 65%);
-    background-color: var(--lookbook-color-base-400);
+    background-color: var(--lookbook-prose-list-marker-color);
     border-radius: 50%;
     width: 0.375em;
     height: 0.375em;
@@ -1700,8 +1800,8 @@ select {
     left: 0.25em;
   }
 [data-component="prose"] hr {
-    border-color: hsl(240, 5%, 84%);
-    border-color: var(--lookbook-app-divider-color);
+    border-color: hsl(240, 5%, 34%);
+    border-color: var(--lookbook-prose-hr-color);
     border-top-width: 1px;
     margin-top: 3em;
     margin-bottom: 3em;
@@ -1709,10 +1809,11 @@ select {
 [data-component="prose"] blockquote {
     font-weight: 500;
     font-style: italic;
-    color: #1a202c;
+    color: hsl(240, 5%, 26%);
+    color: var(--lookbook-prose-blockquote-color);
     border-left-width: 0.25rem;
     border-left-color: hsl(240, 5%, 84%);
-    border-left-color: var(--lookbook-app-divider-color);
+    border-left-color: var(--lookbook-prose-blockquote-border-color);
     quotes: "\201C" "\201D" "\2018" "\2019";
     margin-top: 1.6em;
     margin-bottom: 1.6em;
@@ -1754,7 +1855,7 @@ select {
   }
 [data-component="prose"] figure figcaption {
     color: hsl(240, 5%, 34%);
-    color: var(--lookbook-color-base-600);
+    color: var(--lookbook-prose-figcaption-color);
     font-size: 0.875em;
     line-height: 1.4285714;
     margin-top: 0.8571429em;
@@ -1766,7 +1867,7 @@ select {
     Menlo, Consolas, "DejaVu Sans Mono", monospace;
     font-family: var(--lookbook-font-mono);
     background-color: hsl(240, 5%, 96%);
-    background-color: var(--lookbook-color-base-100);
+    background-color: var(--lookbook-prose-inline-code-background-color);
     padding-left: 0.25rem;
     padding-right: 0.25rem;
     padding-left: var(--lookbook-spacing-2x-small);
@@ -1774,52 +1875,8 @@ select {
     border-radius: 0.1875rem;
     border-radius: var(--lookbook-border-radius-small);
     color: hsl(242, 47%, 34%);
-    color: var(--lookbook-color-accent-900);
+    color: var(--lookbook-prose-inline-code-color);
   }
-/* 
-
-  code::before {
-    content: "`";
-  }
-
-  code::after {
-    content: "`";
-  }
-
-  pre {
-    color: var(--lookbook-color-base-300);
-    background-color: var(--lookbook-color-base-800);
-    overflow-x: auto;
-    font-size: 0.875em;
-    line-height: 1.7142857;
-    margin-top: 1.7142857em;
-    margin-bottom: 1.7142857em;
-    border-radius: 0.375rem;
-    padding-top: 0.8571429em;
-    padding-right: 1.1428571em;
-    padding-bottom: 0.8571429em;
-    padding-left: 1.1428571em;
-  }
-
-  pre code {
-    background-color: transparent;
-    border-width: 0;
-    border-radius: 0;
-    padding: 0;
-    font-weight: 400;
-    color: inherit;
-    font-size: inherit;
-    font-family: inherit;
-    line-height: inherit;
-  }
-
-  pre code::before {
-    content: "";
-  }
-
-  pre code::after {
-    content: "";
-  } */
 [data-component="prose"] table {
     width: 100%;
     table-layout: auto;
@@ -1829,23 +1886,11 @@ select {
     font-size: 0.875em;
     line-height: 1.7142857;
   }
-[data-component="prose"] thead {
-    color: #1a202c;
-    font-weight: 600;
-    border-bottom-width: 1px;
-    border-bottom-color: hsl(240, 5%, 84%);
-    border-bottom-color: var(--lookbook-app-divider-color);
-  }
 [data-component="prose"] thead th {
     vertical-align: bottom;
     padding-right: 0.5714286em;
     padding-bottom: 0.5714286em;
     padding-left: 0.5714286em;
-  }
-[data-component="prose"] tbody tr {
-    border-bottom-width: 1px;
-    border-bottom-color: hsl(240, 5%, 84%);
-    border-bottom-color: var(--lookbook-app-divider-color);
   }
 [data-component="prose"] tbody tr:last-child {
     border-bottom-width: 0;
@@ -1898,26 +1943,6 @@ select {
 [data-component="prose"] ol > li:before {
     left: 0;
   }
-/*  > ul > li p {
-    margin-top: 0.75em;
-    margin-bottom: 0.75em;
-  }
- 
-  > ul > li > *:first-child {
-    margin-top: 1.25em;
-  }
-
-  > ul > li > *:last-child {
-    margin-bottom: 1.25em;
-  }
-
-  > ol > li > *:first-child {
-    margin-top: 1.25em;
-  }
-
-  > ol > li > *:last-child {
-    margin-bottom: 1.25em;
-  } */
 [data-component="prose"] ul ul,
   [data-component="prose"] ul ol,
   [data-component="prose"] ol ul,
@@ -1956,10 +1981,11 @@ select {
     margin-bottom: 0;
   }
 [data-component="prose"] [data-component="code"] {
-    background-color: hsl(0, 0%, 98%);
-    background-color: var(--lookbook-color-base-50);
+    color: var(--lookbook-prose-code-color);
+    background-color: #fff;
+    background-color: var(--lookbook-prose-code-background-color);
     border: 1px solid hsl(240, 5%, 84%);
-    border: 1px solid var(--lookbook-color-base-300);
+    border: 1px solid var(--lookbook-prose-code-border-color);
     border-radius: 0.1875rem;
     border-radius: var(--lookbook-border-radius-small);
     margin-top: 1.75rem;
@@ -1968,7 +1994,10 @@ select {
     margin-bottom: var(--lookbook-spacing-x-large);
   }
 [data-component="toolbar"] {
-  background-color: white;
+  color: hsl(240, 6%, 10%);
+  color: var(--lookbook-toolbar-color);
+  background-color: #fff;
+  background-color: var(--lookbook-toolbar-background-color);
   height: 2.5rem;
   height: var(--lookbook-toolbar-height);
   display: flex;
@@ -2003,7 +2032,7 @@ select {
     }
 [data-component="toolbar-tab"] {
   color: hsl(240, 4%, 16%);
-  color: var(--lookbook-color-base-800);
+  color: var(--lookbook-tab-color);
   height: 2.5rem;
   height: var(--lookbook-toolbar-height);
   display: flex;
@@ -2022,13 +2051,13 @@ select {
 }
 .disabled[data-component="toolbar-tab"] {
     color: hsl(240, 5%, 84%);
-    color: var(--lookbook-color-base-300);
+    color: var(--lookbook-tab-color-disabled);
   }
 [data-component="toolbar-tab"][aria-selected="true"] {
     color: hsl(239, 84%, 67%);
-    color: var(--lookbook-color-accent-500);
+    color: var(--lookbook-tab-color-selected);
     border-bottom-color: hsl(239, 84%, 67%);
-    border-bottom-color: var(--lookbook-color-accent-500);
+    border-bottom-color: var(--lookbook-tab-border-color-selected);
   }
 [data-component="toolbar-tab-group"] {
   display: flex;
@@ -2044,6 +2073,7 @@ select {
   overflow: hidden;
   position: relative;
   background-color: #fff;
+  background-color: var(--lookbook-viewport-background-color);
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
@@ -2090,7 +2120,7 @@ select {
       bottom: 0;
       left: 0;
       background: hsl(240, 6%, 90%);
-      background: var(--lookbook-color-base-200);
+      background: var(--lookbook-viewport-dimensions-background-color);
       opacity: 0.7;
     }
 [data-component="viewport"] .viewport-dimensions span {
@@ -2129,8 +2159,9 @@ select {
     align-items: center;
     justify-content: center;
     background-color: #fff;
+    background-color: var(--lookbook-viewport-handle-background-color);
     color: hsl(240, 4%, 46%);
-    color: var(--lookbook-color-base-500);
+    color: var(--lookbook-viewport-handle-icon-color);
   }
 [data-component="viewport"] .viewport-handle-x {
     flex-direction: row;

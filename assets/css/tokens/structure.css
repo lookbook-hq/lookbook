@@ -22,4 +22,10 @@
    */
 
   --lookbook-status-bar-height: 1.5rem;
+
+  /*
+   * Nav
+   */
+
+  --lookbook-nav-item-height: 1.75rem;
 }

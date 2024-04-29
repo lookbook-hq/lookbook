@@ -130,4 +130,93 @@
     --lookbook-color-danger-200
   );
   --lookbook-system-message-icon-color-error: var(--lookbook-color-danger-300);
+
+  /*
+   * Breadcrumbs
+   */
+
+  --lookbook-breadrumbs-color: var(--lookbook-color-base-400);
+  --lookbook-breadrumbs-color-current: var(--lookbook-color-base-600);
+  --lookbook-breadrumbs-link-color: var(--lookbook-color-base-400);
+  --lookbook-breadrumbs-link-color-hover: var(--lookbook-color-accent-600);
+
+  /*
+   * Buttons
+   */
+
+  --lookbook-button-color: var(--lookbook-color-base-500);
+  --lookbook-button-color-hover: var(--lookbook-color-base-700);
+  --lookbook-button-color-active: var(--lookbook-color-accent-700);
+
+  /*
+   * Button groups
+   */
+
+  --lookbook-button-group-divider-color: var(--lookbook-app-divider-color);
+
+  /*
+   * Nav
+   */
+
+  --lookbook-nav-item-background-color: var(--lookbook-color-transparent);
+  --lookbook-nav-item-border-color: var(--lookbook-color-transparent);
+  --lookbook-nav-item-label-color: var(--lookbook-app-color);
+  --lookbook-nav-item-icon-color: var(--lookbook-color-accent-700);
+  --lookbook-nav-item-toggle-color: var(--lookbook-color-base-600);
+
+  --lookbook-nav-item-background-color-selected: var(--lookbook-color-base-100);
+  --lookbook-nav-item-border-color-selected: var(--lookbook-color-accent-500);
+  --lookbook-nav-item-label-color-selected: var(--lookbook-app-color);
+
+  --lookbook-nav-placeholder-color: var(--lookbook-color-base-500);
+  --lookbook-nav-placeholder-border-color: var(--lookbook-app-divider-color);
+  --lookbook-nav-placeholder-background-color: var(--lookbook-color-white);
+
+  /*
+   * Tabs
+   */
+
+  --lookbook-tab-color: var(--lookbook-color-base-800);
+  --lookbook-tab-color-disabled: var(--lookbook-color-base-300);
+  --lookbook-tab-color-selected: var(--lookbook-color-accent-500);
+  --lookbook-tab-border-color-selected: var(--lookbook-color-accent-500);
+  --lookbook-tab-panel-color: var(--lookbook-app-color);
+  --lookbook-tab-panel-background-color: var(--lookbook-color-base-50);
+
+  /*
+   * Prose
+   */
+
+  --lookbook-prose-color: var(--lookbook-app-color);
+  --lookbook-prose-list-counter-color: var(--lookbook-color-base-600);
+  --lookbook-prose-list-marker-color: var(--lookbook-color-base-400);
+  --lookbook-prose-hr-color: var(--lookbook-color-base-600);
+  --lookbook-prose-blockquote-color: var(--lookbook-color-base-700);
+  --lookbook-prose-blockquote-border-color: var(--lookbook-color-base-300);
+  --lookbook-prose-figcaption-color: var(--lookbook-color-base-600);
+  --lookbook-prose-inline-code-color: var(--lookbook-color-accent-900);
+  --lookbook-prose-inline-code-background-color: var(--lookbook-color-base-100);
+  --lookbook-prose-code-background-color: var(
+    --lookbook-color---lookbook-color-base-800
+  );
+  --lookbook-prose-code-background-color: var(--lookbook-color-white);
+  --lookbook-prose-code-border-color: var(--lookbook-color-base-300);
+
+  /*
+   * Toolbars
+   */
+
+  --lookbook-toolbar-color: var(--lookbook-app-color);
+  --lookbook-toolbar-background-color: var(--lookbook-color-white);
+
+  /*
+   * Viewport
+   */
+
+  --lookbook-viewport-background-color: var(--lookbook-color-white);
+  --lookbook-viewport-dimensions-background-color: var(
+    --lookbook-color-base-200
+  );
+  --lookbook-viewport-handle-background-color: var(--lookbook-color-white);
+  --lookbook-viewport-handle-icon-color: var(--lookbook-color-base-500);
 }

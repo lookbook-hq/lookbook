@@ -3,17 +3,18 @@
   width: 100%;
   align-items: center;
   font-size: var(--lookbook-font-size-small);
-  color: var(--lookbook-color-base-400);
+  color: var(--lookbook-breadrumbs-color);
 
   a.breadcrumb {
+    color: var(--lookbook-breadrumbs-link-color);
     &:hover {
       text-decoration: underline;
-      color: var(--lookbook-color-accent-600);
+      color: var(--lookbook-breadrumbs-link-color-hover);
     }
   }
 
   .breadcrumb:last-child {
-    color: var(--lookbook-color-base-600);
+    color: var(--lookbook-breadrumbs-color-current);
   }
 
   .breadcrumb-divider {
