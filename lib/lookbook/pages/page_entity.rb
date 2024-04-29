@@ -64,7 +64,9 @@ module Lookbook
     end
 
     def frontmatter
-      @frontmatter ||= parsed_content[:frontmatter]
+      @frontmatter ||= DataObject.new(
+        Lookbook.config.page_frontmatter_defaults.deep_merge(parsed_content[:frontmatter])
+      )
     end
 
     def file_path

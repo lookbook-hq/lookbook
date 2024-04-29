@@ -39,6 +39,7 @@ module Lookbook
           page_extensions: ["md", "html.*", "md.*"],
           page_watch_paths: [],
           page_watch_extensions: [],
+          page_frontmatter_defaults: default_frontmatter_options,
 
           page_controller: "LookbookPageController",
           page_template: "lookbook/pages/page",
@@ -157,6 +158,15 @@ module Lookbook
             ext: ".erb",
             comment: "<%%# %s %%>"
           }
+        }
+      end
+
+      def default_frontmatter_options
+        {
+          footer: true,
+          header: true,
+          landing: false,
+          data: {}
         }
       end
 
