@@ -90,7 +90,7 @@ module Lookbook
       private
 
       def names_list(names, defaults)
-        names = names.presence || defaults
+        names = names.compact.presence || defaults
         names.flatten.map(&:to_sym)
       end
 

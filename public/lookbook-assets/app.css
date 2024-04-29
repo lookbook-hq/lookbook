@@ -1556,25 +1556,6 @@ select {
     left: 0;
     overflow: hidden;
   }
-[data-component="panel"] {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  background-color: hsl(0, 0%, 98%);
-  background-color: var(--lookbook-color-base-50);
-}
-[data-component="panel"] .panel-content {
-    z-index: 1;
-    height: 100%;
-    overflow: hidden;
-  }
-[data-component="panel"][data-padded="true"] .panel-content {
-      padding: 1rem;
-      padding: var(--lookbook-spacing-medium);
-    }
-[data-component="panel"][data-scrollable="true"] .panel-content {
-      overflow: auto;
-    }
 [data-component="prose"] {
   font-family: "Open Sans Var", Avenir, Montserrat, Corbel,
     "URW Gothic", source-sans-pro, sans-serif;

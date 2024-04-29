@@ -23,7 +23,12 @@
         end
       end
 
-      lb_viewport(target.preview_path(preview_params), id: "embed-viewport-#{target.name}", resize_y: false)
+      lb_viewport(
+        target.preview_path(preview_params),
+        srcdoc: preview_html,
+        id: "embed-viewport-#{target.name}",
+        resize_y: false
+      )
     end
   %>
 

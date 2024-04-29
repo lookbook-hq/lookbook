@@ -26,6 +26,7 @@
         class="viewport-window"
         :class="{inert}"
         src="<%= src %>"
+        <% if srcdoc.present? %>srcdoc="<%== srcdoc %>"<% end %>
         frameborder="0"
         title="viewport window"></iframe>
       <% if resize_x? %>

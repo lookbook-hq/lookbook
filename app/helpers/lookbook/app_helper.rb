@@ -65,5 +65,9 @@ module Lookbook
     def code_comment(...)
       Languages.comment(...)
     end
+
+    def checksum(input)
+      Lookbook::Utils.hash(input)
+    end
   end
 end

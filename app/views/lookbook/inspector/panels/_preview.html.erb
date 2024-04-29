@@ -1,2 +1,8 @@
-<%= lb_viewport(target.preview_path(request.query_parameters), id: "preview-viewport") %>
+<%=
+  lb_viewport(
+    target.preview_path(request.query_parameters),
+    srcdoc: @preview_html,
+    id: "preview-viewport",
+  ) 
+%>
 

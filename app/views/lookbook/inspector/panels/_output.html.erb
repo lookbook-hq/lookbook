@@ -1,4 +1,4 @@
-<%= lb_code(lang: :html) do %>
+<% output = capture do %>
 <% target.scenarios_with_output do |scenario, html| %>
 <% if target.scenarios_with_output.many? %>
 <%= code_comment(:html, scenario.label) %>
@@ -8,4 +8,8 @@
 <%= html %>
 <% end %>
 <% end %>
+<% end %>
+
+<%= lb_code(lang: :html, key: checksum(output)) do %>
+  <%= output %>
 <% end %>

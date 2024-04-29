@@ -1,4 +1,4 @@
-<%= lb_code(lang: target.source_language) do %>
+<% usage = capture do %>
 <% target.scenarios.each do |scenario| %>
 <% if target.scenarios.many? %>
 <%== code_comment(scenario.source_language, scenario.label) %>
@@ -8,4 +8,8 @@
 <%== scenario.source %>
 <% end %>
 <% end %>
+<% end %>
+
+<%= lb_code(lang: target.source_language, key: checksum(usage)) do %>
+  <%= usage %>
 <% end %>
