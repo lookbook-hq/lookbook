@@ -38,9 +38,13 @@ module Lookbook
       scenarios.flat_map(&:params).uniq(&:name)
     end
 
+    def params? = params.any?
+
     def display_options
       DataObject.new(*scenarios.map(&:display_options))
     end
+
+    def display_options? = display_options.any?
 
     def hidden?
       return true if @hidden

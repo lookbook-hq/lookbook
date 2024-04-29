@@ -13,6 +13,8 @@ module Lookbook
     end
 
     def inspect
+      @preview_panels = Inspector.preview_panels(**panel_context)
+      @drawer_panels = Inspector.drawer_panels(**panel_context)
     end
 
     def embed
@@ -20,7 +22,7 @@ module Lookbook
       target_names = embed_params[:targets].map(&:to_sym)
 
       @targets = @preview.inspector_targets.select { _1.name.to_sym.in?(target_names) }
-      @panels = Inspector.embed_panels(embed_params[:panels])
+      @panels = Inspector.embed_panels(embed_params[:panels], **panel_context)
       @actions = embed_params.fetch(:actions, [])
 
       render layout: "lookbook/embed"
@@ -74,6 +76,14 @@ module Lookbook
 
     def scenario_path_params(scenario)
       Rails.application.routes.recognize_path(main_app.lookbook_render_scenario_path(scenario.preview, scenario))
+    end
+
+    def panel_context
+      {
+        preview: @preview,
+        target: @target,
+        request: request
+      }
     end
   end
 end

@@ -38,22 +38,25 @@ module Lookbook
         end
       end
 
-      def preview_panels(*args)
-        names = args.any? ? args : Lookbook.config.inspector_preview_panels
-        names = names.flatten.map(&:to_sym)
-        panels.select { names.include?(_1.name) }
+      def preview_panels(*args, **data)
+        names = names_list(args, Lookbook.config.inspector_preview_panels)
+        panels.select { names.include?(_1.name) }.map do |panel|
+          resolve_values(panel, data)
+        end
       end
 
-      def drawer_panels(*args)
-        names = args.any? ? args : Lookbook.config.inspector_drawer_panels
-        names = names.flatten.map(&:to_sym)
-        panels.select { names.include?(_1.name) }
+      def drawer_panels(*args, **data)
+        names = names_list(args, Lookbook.config.inspector_drawer_panels)
+        panels.select { names.include?(_1.name) }.map do |panel|
+          resolve_values(panel, data)
+        end
       end
 
-      def embed_panels(*args)
-        names = args.any? ? args : Lookbook.config.inspector_embed_panels
-        names = names.flatten.map(&:to_sym)
-        panels.select { names.include?(_1.name) }
+      def embed_panels(*args, **data)
+        names = names_list(args, Lookbook.config.inspector_embed_panels)
+        panels.select { names.include?(_1.name) }.map do |panel|
+          resolve_values(panel, data)
+        end
       end
 
       def param_input(input_type)
@@ -63,9 +66,8 @@ module Lookbook
       def param_inputs
         @param_inputs ||= Lookbook.config.inspector_param_inputs.map do |name, opts|
           DataObject.new(
-            name: Utils.name(name, true),
-            partial: opts.partial,
-            options: opts.except(:partial)
+            **opts,
+            name: Utils.name(name, true)
           )
         end
       end
@@ -73,12 +75,27 @@ module Lookbook
       def panels
         @panels ||= Lookbook.config.inspector_panels.map do |name, opts|
           DataObject.new(
-            name: Utils.name(name, true),
-            label: Utils.label(opts.label || name),
-            partial: opts.partial,
-            options: opts.except(:label, :partial)
+            label: Utils.label(name),
+            disabled: false,
+            locals: {},
+            **opts,
+            name: Utils.name(name, true)
           )
         end
+      end
+
+      private
+
+      def names_list(names, defaults)
+        names = names.presence || defaults
+        names.flatten.map(&:to_sym)
+      end
+
+      def resolve_values(obj, data)
+        resolved = obj.transform_values do |value|
+          value.respond_to?(:call) ? value.call(DataObject.new(data)) : value
+        end
+        DataObject.new(resolved)
       end
     end
   end

@@ -1,5 +1,6 @@
 <%= render component_tag(:button,
   type: "button",
+  class: {disabled: disabled?},
   x: {
     data: "toolbarTab(#{name.to_json})",
     "@click": "selectTab(name)",

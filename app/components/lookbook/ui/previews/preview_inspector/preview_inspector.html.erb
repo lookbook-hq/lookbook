@@ -30,7 +30,7 @@
           pane.with_toolbar do |toolbar|  
             toolbar.with_tab_group do |group|
               preview_panels.each do |panel|
-                group.with_tab(panel.name, label: panel.label)
+                group.with_tab(panel.name, label: panel.label, disabled: panel.disabled)
               end
             end
             toolbar.with_button_group do |group|
@@ -50,7 +50,7 @@
         pane.with_toolbar do |toolbar|
           toolbar.with_tab_group do |group|
             drawer_panels.each do |panel|
-              group.with_tab(panel.name, label: panel.label)
+              group.with_tab(panel.name, label: panel.label, disabled: panel.disabled)
             end
           end
           toolbar.with_button_group do |group|

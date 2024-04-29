@@ -1924,6 +1924,8 @@ select {
       border-left: 1px solid var(--lookbook-divider-color);
     }
 [data-component="toolbar-tab"] {
+  color: hsl(240, 4%, 16%);
+  color: var(--lookbook-color-base-800);
   height: 2.5rem;
   height: var(--lookbook-toolbar-height);
   display: flex;
@@ -1940,6 +1942,10 @@ select {
      -moz-user-select: none;
           user-select: none;
 }
+.disabled[data-component="toolbar-tab"] {
+    color: hsl(240, 5%, 84%);
+    color: var(--lookbook-color-base-300);
+  }
 [data-component="toolbar-tab"][aria-selected="true"] {
     color: hsl(239, 84%, 67%);
     color: var(--lookbook-color-accent-500);

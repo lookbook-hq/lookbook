@@ -72,11 +72,13 @@ module Lookbook
           },
           notes: {
             label: "Notes",
-            partial: "lookbook/inspector/panels/notes"
+            partial: "lookbook/inspector/panels/notes",
+            disabled: ->(data) { !data.target.notes? }
           },
           params: {
             label: "Params",
-            partial: "lookbook/inspector/panels/params"
+            partial: "lookbook/inspector/panels/params",
+            disabled: ->(data) { !data.target.params? }
           },
           metadata: {
             label: "Metadata",
