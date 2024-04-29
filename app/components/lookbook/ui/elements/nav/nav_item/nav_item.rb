@@ -5,7 +5,7 @@ module Lookbook
         preview: {
           icon: :layers
         },
-        inspect: {
+        target: {
           icon: :eye
         },
         directory: {

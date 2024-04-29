@@ -12,7 +12,7 @@ module Lookbook
       @default_priority = default_priority
       @hidden = hidden
       @rendered_scenarios = {}
-      @type = :inspect
+      @type = :target
     end
 
     def id
