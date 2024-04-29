@@ -1,4 +1,4 @@
-<%= render component_tag(x: {data: "pane('#{id}')", bind: "bindings.root"}) do %>
+<%= render component_tag(id: nil, key: id, x: {data: "pane('#{id}')", bind: "bindings.root"}) do %>
   <%= toolbar %>
 
   <% if tab_panels? %>

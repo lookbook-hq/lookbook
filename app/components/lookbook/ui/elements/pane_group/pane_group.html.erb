@@ -1,5 +1,7 @@
 <%= render component_tag(
   tag_name,
+  id: nil,
+  key: id,
   x: {
     data: "paneGroup(#{id.to_json}, #{opts.to_json})",
     effect: "initSplit",
