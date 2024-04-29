@@ -1,5 +1,5 @@
 <%=
-  render component_tag(key: "preview-inspector", x: {data: "previewInspector", ":class": "{'drawer-closed': drawerClosed}"}) do
+  render component_tag(x: {data: "previewInspector", ":class": "{'drawer-closed': drawerClosed}"}) do
     lb_pane_group("inspector-panes",
     opts: {
       orientation: :horizontal,
@@ -39,11 +39,11 @@
           end
 
           preview_panels.each do |panel|
-            pane.with_tab_panel(panel.name, label: panel.label) do
+            pane.with_tab_panel(panel.name, key: "inspector-panel-#{@target.name}-#{panel.name}", label: panel.label) do
               render panel.partial, preview: preview, target: target, panel: panel
             end
           end
-        end      
+        end
       end
 
       layout.with_pane("drawer-pane") do |pane|
@@ -59,7 +59,7 @@
         end
       
         drawer_panels.each do |panel|
-          pane.with_tab_panel(panel.name, label: panel.label) do
+          pane.with_tab_panel(panel.name, key: "inspector-panel-#{@target.name}-#{panel.name}", label: panel.label) do
             render panel.partial, preview: preview, target: target, panel: panel
           end
         end

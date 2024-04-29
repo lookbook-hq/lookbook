@@ -22,8 +22,8 @@ module Lookbook
 
       def input_options
         {
-          **input.options,
-          **param.input_options
+          **input.options.to_h,
+          **param.input_options.to_h
         }
       end
     end

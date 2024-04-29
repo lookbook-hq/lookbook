@@ -1,4 +1,4 @@
-<%= lb_inspector_panel(:code, id: dom_id(target, :usage_panel), lang: target.source_language, key: target.object_id) do %>
+<%= lb_code(lang: target.source_language) do %>
 <% target.scenarios.each do |scenario| %>
 <% if target.scenarios.many? %>
 <%== code_comment(scenario.source_language, scenario.label) %>

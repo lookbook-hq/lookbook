@@ -1,2 +1,13 @@
 [data-component="tab-panel"] {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--lookbook-color-base-50);
+
+  .tab-panel-content {
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+  }
 }

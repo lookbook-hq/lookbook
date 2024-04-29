@@ -1491,7 +1491,18 @@ select {
     position: relative;
   }
 [data-component="tab-panel"] {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: hsl(0, 0%, 98%);
+  background-color: var(--lookbook-color-base-50);
 }
+[data-component="tab-panel"] .tab-panel-content {
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+  }
 [data-component="pane-group"] {
   display: grid;
   width: 100%;
@@ -2189,11 +2200,6 @@ select {
       font-size: 0.875rem;
       font-size: var(--lookbook-font-size-small);
     }
-[data-component="panel"][data-panel="code"] {
-}
-[data-component="panel"][data-panel="default"] {
-  height: 100%;
-}
 [data-component="param-editor"] {
   /* select,
   input:not([type="checkbox"], [type="radio"], [type="file"]) {
@@ -2206,35 +2212,6 @@ select {
     appearance: none;
   } */
 }
-[data-component="panel"][data-panel="params"] {
-  height: 100%;
-}
-[data-component="panel"][data-panel="params"] th,
-  [data-component="panel"][data-panel="params"] td {
-    width: 1%;
-  }
-[data-component="panel"][data-panel="params"] th.param-description, [data-component="panel"][data-panel="params"] td.param-description {
-      width: auto;
-    }
-[data-component="panel"][data-panel="params"] th.param-editor, [data-component="panel"][data-panel="params"] td.param-editor {
-      width: 25%;
-      max-width: 400px;
-    }
-[data-component="panel"][data-panel="params"] code {
-    font-size: 0.875rem;
-    font-size: var(--lookbook-font-size-small);
-  }
-[data-component="panel"][data-panel="prose"] {
-  height: 100%;
-}
-[data-component="panel"][data-panel="prose"] [data-component="prose"] {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-left: var(--lookbook-spacing-medium);
-    padding-right: var(--lookbook-spacing-medium);
-    height: 100%;
-    overflow: auto;
-  }
 [data-component="preview-embed"] {
   border: 1px solid hsl(240, 5%, 84%);
   border: 1px solid var(--lookbook-divider-color);

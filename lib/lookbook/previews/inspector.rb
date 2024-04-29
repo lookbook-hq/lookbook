@@ -64,21 +64,24 @@ module Lookbook
       end
 
       def param_inputs
-        @param_inputs ||= Lookbook.config.inspector_param_inputs.map do |name, opts|
+        @param_inputs ||= Lookbook.config.inspector_param_inputs.map do |name, props|
           DataObject.new(
-            **opts,
+            options: {},
+            partial: nil,
+            **props,
             name: Utils.name(name, true)
           )
         end
       end
 
       def panels
-        @panels ||= Lookbook.config.inspector_panels.map do |name, opts|
+        @panels ||= Lookbook.config.inspector_panels.map do |name, props|
           DataObject.new(
             label: Utils.label(name),
+            partial: nil,
             disabled: false,
             locals: {},
-            **opts,
+            **props,
             name: Utils.name(name, true)
           )
         end

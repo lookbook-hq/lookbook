@@ -67,7 +67,6 @@ module Lookbook
     end
 
     def render_scenarios
-      @source_checksum = nil
       scenarios.each do |scenario|
         @rendered_scenarios[scenario.name.to_sym] = yield(scenario)
       end

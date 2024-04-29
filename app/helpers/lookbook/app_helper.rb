@@ -38,28 +38,12 @@ module Lookbook
       render Lookbook::UI::PaneGroup.new(id: id, tag_name: tag, **kwargs), &block
     end
 
-    def lb_panel(id = nil, **kwargs, &block)
-      render Lookbook::UI::Panel.new(id: id, **kwargs), &block
-    end
-
     def lb_prose(**kwargs, &block)
       render Lookbook::UI::Prose.new(**kwargs), &block
     end
 
     def lb_viewport(src, **kwargs)
       render Lookbook::UI::Viewport.new(src: src, **kwargs)
-    end
-
-    def lb_inspector_panel(type = :default, **kwargs, &block)
-      panel_types = {
-        default: Lookbook::UI::DefaultPanel,
-        code: Lookbook::UI::CodePanel,
-        prose: Lookbook::UI::ProsePanel,
-        params: Lookbook::UI::ParamsPanel
-      }
-
-      component = panel_types[type.to_sym] || panel_types[:default]
-      render component.new(**kwargs), &block
     end
 
     # Paths

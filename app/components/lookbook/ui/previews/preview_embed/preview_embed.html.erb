@@ -23,7 +23,7 @@
         end
       end
 
-      lb_viewport(target.preview_path(preview_params), id: dom_id(target, "embed-viewport"), resize_y: false)
+      lb_viewport(target.preview_path(preview_params), id: "embed-viewport-#{target.name}", resize_y: false)
     end
   %>
 
@@ -32,13 +32,13 @@
       pane.with_toolbar do |toolbar|
         toolbar.with_tab_group do |group|
           panels.each do |panel|
-            group.with_tab(panel.name, label: panel.label)
+            group.with_tab(panel.name, label: panel.label, disabled: panel.disabled)
           end
         end
       end
 
       panels.each do |panel|
-        pane.with_tab_panel(panel.name, label: panel.label) do
+        pane.with_tab_panel(panel.name, key: "embed-panel-#{target.name}-#{panel.name}", label: panel.label) do
           render panel.partial, preview: preview, target: target, panel: panel
         end
       end

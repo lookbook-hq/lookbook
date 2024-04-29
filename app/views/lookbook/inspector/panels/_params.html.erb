@@ -1,8 +1,28 @@
-<%= lb_inspector_panel(:params, id: dom_id(target, :params_panel), padded: true) do |panel| %>
-  <% target.params.each do |param| %>
-    <% panel.with_param(
-      param: param,
-      value: request.query_parameters[param.name]
-    ) %>
-  <% end %>
-<% end %>
+<table>
+  <thead>
+    <tr>
+      <th class="param-label">Name</th>
+      <th class="param-name">Param</th>
+      <th class="param-description">Info</th>
+      <th class="param-editor">Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% target.params.each do |param| %>
+      <tr @keydown.stop>
+        <td class="param-label">
+          <%= param.label %>
+        </td>
+        <td class="param-name">
+          <code><%= param.name %></code>
+        </td>
+        <td class="param-description">
+          <%= param.description || raw("&mdash;") %>  
+        </td>
+        <td class="param-editor">
+          <%= render Lookbook::UI::ParamEditor.new(param: param, value: request.query_parameters[param.name]) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

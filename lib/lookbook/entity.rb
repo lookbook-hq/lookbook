@@ -51,7 +51,7 @@ module Lookbook
     def to_key = [uuid]
 
     def model_name
-      OpenStruct.new param_key: self.class.name.demodulize.underscore
+      OpenStruct.new param_key: type
     end
   end
 end
