@@ -10,7 +10,7 @@ module Lookbook
       end
 
       def source
-        escaped_source = CGI.escapeHTML(content || @source)
+        escaped_source = CGI.escapeHTML(content.presence || @source)
         WhitespaceStripper.call(escaped_source).html_safe
       end
 
