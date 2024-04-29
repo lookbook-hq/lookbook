@@ -1,28 +1,36 @@
-<table>
-  <thead>
-    <tr>
-      <th class="param-label">Name</th>
-      <th class="param-name">Param</th>
-      <th class="param-description">Info</th>
-      <th class="param-editor">Edit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% target.params.each do |param| %>
-      <tr @keydown.stop>
-        <td class="param-label">
-          <%= param.label %>
-        </td>
-        <td class="param-name">
-          <code><%= param.name %></code>
-        </td>
-        <td class="param-description">
-          <%= param.description || raw("&mdash;") %>  
-        </td>
-        <td class="param-editor">
-          <%= render Lookbook::UI::ParamEditor.new(param: param, value: request.query_parameters[param.name]) %>
-        </td>
+<style>
+  .panel {
+    padding: var(--lookbook-panel-padding);
+  }
+</style>
+
+<div class="panel">
+  <table>
+    <thead>
+      <tr>
+        <th class="label">Name</th>
+        <th class="name">Param</th>
+        <th class="description">Info</th>
+        <th class="editor">Edit</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% target.params.each do |param| %>
+        <tr @keydown.stop>
+          <td class="label">
+            <%= param.label %>
+          </td>
+          <td class="name">
+            <code><%= param.name %></code>
+          </td>
+          <td class="description">
+            <%= param.description || raw("&mdash;") %>  
+          </td>
+          <td class="editor">
+            <%= render Lookbook::UI::ParamEditor.new(param: param, value: request.query_parameters[param.name]) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

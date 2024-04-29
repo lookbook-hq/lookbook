@@ -1,16 +1,47 @@
-<div style="margin-top: calc(-1 * var(--lookbook-spacing-medium))">
+<style>
+  .panel {
+    padding: var(--lookbook-panel-padding);
+  }
+
+  section {
+    padding-block: var(--lookbook-spacing-medium);
+  }
+
+  section:first-child {
+    padding-top: 0;
+  }
+
+  section + section {
+    border-top: 1px dashed var(--lookbook-color-base-400);
+  }
+
+  .label {
+    color: var(--lookbook-color-base-800);
+    margin-bottom: var(--lookbook-spacing-small);
+    font-weight: 500;
+  }
+
+  .placeholder {
+    color: var(--lookbook-color-base-400);
+    font-style: italic;
+  }
+</style>
+
+<div class="panel">
   <% if target.scenarios_with_notes.any? %>
   <% target.scenarios_with_notes do |scenario, notes| %>
-  <section style="padding-block: var(--lookbook-spacing-medium); margin-top: -8px; <%= 'border-bottom: 1px solid var(--lookbook-divider-color);' unless scenario == target.scenarios_with_notes.last %>">
+  <section>
     <% if target.scenarios.many? %>
-      <h3 style="color: var(--lookbook-color-base-400); margin-bottom: var(--lookbook-spacing-small);"><%= scenario.label %></h3>
+      <h3 class="label"><%= scenario.label %></h3>
     <% end %>
-    <%= lb_prose { notes } %>
+    <div class="notes">
+      <%= lb_prose { notes } %>
+    </div>
   </section>
   <% end %>
   <% else %>
-  <section style="padding-block: var(--lookbook-spacing-medium);">
-    <em style="color: var(--lookbook-color-base-400);">No notes available.</em>
-  </section>
+  <div class="placeholder">
+    <p>No notes available.</p>
+  </div>
   <% end %>
 </div>

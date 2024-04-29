@@ -1,10 +1,17 @@
-<%= render component_tag(x: {
-  data: "tabPanel(#{name.to_json})",
-  show: "isActivePanel(name)",
-  cloak: true,
-  ":aria-labelledby": "name"
-}) do %>
+<%= render component_tag(
+  x: {
+    data: "tabPanel(#{name.to_json})",
+    show: "isActivePanel(name)",
+    cloak: true,
+    ":aria-labelledby": "name"
+  },
+  data: {panel: name}
+) do %>
+  <style>
+    <%== panel_styles %>
+  </style>
   <div class="tab-panel-content">
-    <%= content %>
+    
+    <%= panel_html %>
   </div>
 <% end %>

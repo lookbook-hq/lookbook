@@ -31,6 +31,7 @@ table {
   border: 1px solid var(--lookbook-color-base-300);
   width: 100%;
   border-collapse: collapse;
+  font-size: var(--lookbook-font-size-small);
 }
 
 th,

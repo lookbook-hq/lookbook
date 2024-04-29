@@ -11,18 +11,22 @@ module Elements
     # @!group Variants
 
     # @label Default (primary)
+    # A primary button. Use for the most important actions on the page.
     def primary
       render Elements::ButtonComponent.new(variant: :primary) do
         "Primary button"
       end
     end
 
+    # A button for less important actions.
     def secondary
       render Elements::ButtonComponent.new(variant: :secondary) do
         "Secondary button"
       end
     end
 
+    # Useful for displaying over images or wherever a higher-contrast
+    # button option is required.
     def contrast
       render Elements::ButtonComponent.new(variant: :contrast) do
         "Contrast button"

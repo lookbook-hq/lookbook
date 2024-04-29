@@ -1,22 +1,30 @@
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Value</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>UUID</td>
-      <td><code><%= target.uuid %></code></td>
-    </tr>
-    <tr>
-      <td>Permalink</td>
-      <td><code><%= link_to permalink_path(target.uuid), permalink_path(target.uuid) %></code></td>
-    </tr>
-    <tr>
-      <td>Preview file path</td>
-      <td><code><%= preview.preview_app_file_path %></code></td>
-    </tr>
-  </tbody>
-</table>
+<style>
+  .panel {
+    padding: var(--lookbook-panel-padding);
+  }
+</style>
+
+<div class="panel">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>UUID</td>
+        <td><code><%= target.uuid %></code></td>
+      </tr>
+      <tr>
+        <td>Permalink</td>
+        <td><code><%= link_to permalink_path(target.uuid), permalink_path(target.uuid) %></code></td>
+      </tr>
+      <tr>
+        <td>Preview file path</td>
+        <td><code><%= preview.preview_app_file_path %></code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

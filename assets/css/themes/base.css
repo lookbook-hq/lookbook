@@ -87,4 +87,10 @@
    */
 
   --lookbook-toolbar-height: 2.5rem;
+
+  /*
+   * Panels
+   */
+
+  --lookbook-panel-padding: var(--lookbook-spacing-medium);
 }

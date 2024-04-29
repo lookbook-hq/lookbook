@@ -87,6 +87,12 @@
    */
 
   --lookbook-toolbar-height: 2.5rem;
+
+  /*
+   * Panels
+   */
+
+  --lookbook-panel-padding: var(--lookbook-spacing-medium);
 }
 :root {
   --lookbook-color-gray-50: hsl(0, 0%, 98%);
@@ -668,6 +674,8 @@ table {
   border: 1px solid var(--lookbook-color-base-300);
   width: 100%;
   border-collapse: collapse;
+  font-size: 0.875rem;
+  font-size: var(--lookbook-font-size-small);
 }
 th,
 td {
