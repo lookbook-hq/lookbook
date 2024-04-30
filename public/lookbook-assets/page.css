@@ -190,27 +190,27 @@
 
   /* Spacing and sizes */
 
-  --lb-spacing-3x-small: 0.125rem; /* 2px */
-  --lb-spacing-2x-small: 0.25rem; /* 4px */
-  --lb-spacing-x-small: 0.5rem; /* 8px */
-  --lb-spacing-small: 0.75rem; /* 12px */
-  --lb-spacing-medium: 1rem; /* 16px */
-  --lb-spacing-large: 1.25rem; /* 20px */
-  --lb-spacing-x-large: 1.75rem; /* 28px */
-  --lb-spacing-2x-large: 2.25rem; /* 36px */
-  --lb-spacing-3x-large: 3rem; /* 48px */
-  --lb-spacing-4x-large: 4.5rem; /* 72px */
+  --lb-spacing-3xs: 0.125rem; /* 2px */
+  --lb-spacing-2xs: 0.25rem; /* 4px */
+  --lb-spacing-xs: 0.5rem; /* 8px */
+  --lb-spacing-sm: 0.75rem; /* 12px */
+  --lb-spacing-md: 1rem; /* 16px */
+  --lb-spacing-lg: 1.25rem; /* 20px */
+  --lb-spacing-xl: 1.5rem; /* 24px */
+  --lb-spacing-2xl: 2rem; /* 32px */
+  --lb-spacing-3xl: 2.5rem; /* 40px */
+  --lb-spacing-4xl: 3rem; /* 48px */
 
-  --lb-size-3x-small: 0.125rem; /* 2px */
-  --lb-size-2x-small: 0.25rem; /* 4px */
-  --lb-size-x-small: 0.5rem; /* 8px */
-  --lb-size-small: 0.75rem; /* 12px */
-  --lb-size-medium: 1rem; /* 16px */
-  --lb-size-large: 1.25rem; /* 20px */
-  --lb-size-x-large: 1.75rem; /* 28px */
-  --lb-size-2x-large: 2.25rem; /* 36px */
-  --lb-size-3x-large: 3rem; /* 48px */
-  --lb-size-4x-large: 4.5rem; /* 72px */
+  --lb-size-3xs: 0.125rem; /* 2px */
+  --lb-size-2xs: 0.25rem; /* 4px */
+  --lb-size-xs: 0.5rem; /* 8px */
+  --lb-size-sm: 0.75rem; /* 12px */
+  --lb-size-md: 1rem; /* 16px */
+  --lb-size-lg: 1.25rem; /* 20px */
+  --lb-size-xl: 1.5rem; /* 24px */
+  --lb-size-2xl: 2rem; /* 32px */
+  --lb-size-3xl: 2.5rem; /* 40px */
+  --lb-size-4xl: 3rem; /* 48px */
 
   /* Typography */
 
@@ -221,12 +221,12 @@
   --lb-font-mono: "Source Code Pro Var", ui-monospace, "Cascadia Code", Menlo,
     Consolas, "DejaVu Sans Mono", monospace;
 
-  --lb-font-size-x-small: 0.75rem; /* 12px */
-  --lb-font-size-small: 0.875rem; /* 14px */
-  --lb-font-size-medium: 1rem; /* 16px */
-  --lb-font-size-large: 1.25rem; /* 20px */
-  --lb-font-size-x-large: 1.5rem; /* 24px */
-  --lb-font-size-2x-large: 2.25rem; /* 36px */
+  --lb-font-size-xs: 0.75rem; /* 12px */
+  --lb-font-size-sm: 0.875rem; /* 14px */
+  --lb-font-size-md: 1rem; /* 16px */
+  --lb-font-size-lg: 1.25rem; /* 20px */
+  --lb-font-size-xl: 1.5rem; /* 24px */
+  --lb-font-size-2xl: 2.25rem; /* 36px */
 
   --lb-font-weight-light: 300;
   --lb-font-weight-normal: 400;
@@ -236,53 +236,37 @@
 
   /* Borders */
 
-  --lb-border-radius-small: 0.25rem; /* 4px */
-  --lb-border-radius-medium: 0.5rem; /* 8px */
-  --lb-border-radius-large: 1rem; /* 16px */
+  --lb-border-radius-sm: 0.25rem; /* 4px */
+  --lb-border-radius-md: 0.5rem; /* 8px */
+  --lb-border-radius-lg: 1rem; /* 16px */
 
   /* Shadows */
 
-  --lb-shadow-small: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --lb-shadow-medium: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+  --lb-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --lb-shadow-md: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
     0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --lb-shadow-large: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  --lb-shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
   /*
    * Components
    */
 
-  /* Header */
-
-  --lb-header-height: 2.5rem;
-
-  /* Toolbars */
-
-  --lb-toolbar-height: 2.5rem;
-
   /* Panels */
 
-  --lb-panel-padding: var(--lb-spacing-medium);
-
-  /* Status bar */
-
-  --lb-status-bar-height: 1.5rem;
-
-  /* Nav */
-
-  --lb-nav-item-height: 1.75rem;
+  --lb-panel-padding: var(--lb-spacing-3xl);
 }
 @font-face {
-  font-family: "Inter";
-  font-weight: 100 900;
+  font-family: "Inter Var";
+  font-weight: 200 900;
   font-display: swap;
   font-style: normal;
   font-named-instance: "Regular";
   src: url("./fonts/Inter-roman.var.woff2?v=3.19") format("woff2");
 }
 @font-face {
-  font-family: "Inter";
-  font-weight: 100 900;
+  font-family: "Inter Var";
+  font-weight: 200 900;
   font-display: swap;
   font-style: italic;
   font-named-instance: "Italic";
@@ -519,13 +503,13 @@ body {
     "Nimbus Sans", Arial, sans-serif;
   font-family: var(--lb-font-ui);
   font-size: 1rem;
-  font-size: var(--lb-font-size-medium);
+  font-size: var(--lb-font-size-md);
   color: var(--lb-app-color);
 }
 body {
   min-height: 100vh;
   font-size: 1rem;
-  font-size: var(--lb-font-size-medium);
+  font-size: var(--lb-font-size-md);
 }
 code {
   font-family: "Source Code Pro Var", ui-monospace, "Cascadia Code", Menlo,
@@ -548,19 +532,19 @@ table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.875rem;
-  font-size: var(--lb-font-size-small);
+  font-size: var(--lb-font-size-sm);
 }
 th,
 td {
   text-align: left;
   padding-left: 1rem;
   padding-right: 1rem;
-  padding-left: var(--lb-spacing-medium);
-  padding-right: var(--lb-spacing-medium);
+  padding-left: var(--lb-spacing-md);
+  padding-right: var(--lb-spacing-md);
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-  padding-top: var(--lb-spacing-small);
-  padding-bottom: var(--lb-spacing-small);
+  padding-top: var(--lb-spacing-sm);
+  padding-bottom: var(--lb-spacing-sm);
   width: 1%;
 }
 thead tr,
@@ -597,7 +581,7 @@ tr:not(:last-child) {
   border: 1px solid var(--lb-dropdown-border-color);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
     0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  box-shadow: var(--lb-shadow-medium);
+  box-shadow: var(--lb-shadow-md);
   max-width: 100%;
   border-radius: 0;
   width: -moz-fit-content;
@@ -630,16 +614,16 @@ tr:not(:last-child) {
       }
 [data-component="code"] .code-highlighted pre > code {
       font-size: 0.875rem;
-      font-size: var(--lb-font-size-small);
+      font-size: var(--lb-font-size-sm);
       line-height: 1.5;
       padding-left: 0.75rem !important;
       padding-right: 0.75rem !important;
-      padding-left: var(--lb-spacing-small) !important;
-      padding-right: var(--lb-spacing-small) !important;
+      padding-left: var(--lb-spacing-sm) !important;
+      padding-right: var(--lb-spacing-sm) !important;
       padding-top: 0.75rem !important;
       padding-bottom: 0.75rem !important;
-      padding-top: var(--lb-spacing-small) !important;
-      padding-bottom: var(--lb-spacing-small) !important;
+      padding-top: var(--lb-spacing-sm) !important;
+      padding-bottom: var(--lb-spacing-sm) !important;
       overflow: auto;
     }
 .wrap-lines[data-component="code"] .code-highlighted code {
@@ -747,22 +731,22 @@ tr:not(:last-child) {
 [data-component="prose"] h1 {
     font-weight: 600;
     font-size: 2.25rem;
-    font-size: var(--lb-font-size-2x-large);
+    font-size: var(--lb-font-size-2xl);
   }
 [data-component="prose"] h2 {
     font-weight: 600;
     font-size: 1.5rem;
-    font-size: var(--lb-font-size-x-large);
+    font-size: var(--lb-font-size-xl);
   }
 [data-component="prose"] h3 {
     font-weight: 600;
     font-size: 1.25rem;
-    font-size: var(--lb-font-size-large);
+    font-size: var(--lb-font-size-lg);
   }
 [data-component="prose"] h4 {
     font-weight: 600;
     font-size: 1rem;
-    font-size: var(--lb-font-size-medium);
+    font-size: var(--lb-font-size-md);
   }
 [data-component="prose"] figure figcaption {
     color: var(--lb-prose-figcaption-color);
@@ -779,10 +763,10 @@ tr:not(:last-child) {
     background-color: var(--lb-prose-inline-code-background-color);
     padding-left: 0.25rem;
     padding-right: 0.25rem;
-    padding-left: var(--lb-spacing-2x-small);
-    padding-right: var(--lb-spacing-2x-small);
+    padding-left: var(--lb-spacing-2xs);
+    padding-right: var(--lb-spacing-2xs);
     border-radius: 0.25rem;
-    border-radius: var(--lb-border-radius-small);
+    border-radius: var(--lb-border-radius-sm);
     color: var(--lb-prose-inline-code-color);
   }
 [data-component="prose"] table {
@@ -893,11 +877,11 @@ tr:not(:last-child) {
     background-color: var(--lb-prose-code-background-color);
     border: 1px solid var(--lb-prose-code-border-color);
     border-radius: 0.25rem;
-    border-radius: var(--lb-border-radius-small);
-    margin-top: 1.75rem;
-    margin-bottom: 1.75rem;
-    margin-top: var(--lb-spacing-x-large);
-    margin-bottom: var(--lb-spacing-x-large);
+    border-radius: var(--lb-border-radius-sm);
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    margin-top: var(--lb-spacing-xl);
+    margin-bottom: var(--lb-spacing-xl);
   }
 [data-component="page"] {
   font-family: "Open Sans Var", Avenir, Montserrat, Corbel, "URW Gothic",
@@ -908,37 +892,37 @@ tr:not(:last-child) {
   min-height: 100vh;
 }
 [data-component="page"] .page-slat {
-    padding-left: 1.75rem;
-    padding-right: 1.75rem;
-    padding-left: var(--lb-spacing-x-large);
-    padding-right: var(--lb-spacing-x-large);
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-left: var(--lb-spacing-xl);
+    padding-right: var(--lb-spacing-xl);
   }
 [data-component="page"] .page-header {
     border-bottom: 1px solid var(--lb-page-divider-color);
-    padding-top: 1.75rem;
-    padding-bottom: 1.75rem;
-    padding-top: var(--lb-spacing-x-large);
-    padding-bottom: var(--lb-spacing-x-large);
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    padding-top: var(--lb-spacing-xl);
+    padding-bottom: var(--lb-spacing-xl);
   }
 [data-component="page"] .page-title {
     color: var(--lb-page-title-color);
     font-weight: 700;
     font-weight: var(--lb-font-weight-bold);
     font-size: 2.25rem;
-    font-size: var(--lb-font-size-2x-large);
+    font-size: var(--lb-font-size-2xl);
   }
 [data-component="page"] .page-body {
-    padding-top: 2.25rem;
-    padding-top: var(--lb-spacing-2x-large);
-    padding-bottom: 3rem;
-    padding-bottom: var(--lb-spacing-3x-large);
+    padding-top: 2rem;
+    padding-top: var(--lb-spacing-2xl);
+    padding-bottom: 2.5rem;
+    padding-bottom: var(--lb-spacing-3xl);
   }
 [data-component="page"] .page-footer {
     border-top: 1px solid var(--lb-page-divider-color);
-    padding-top: 1.75rem;
-    padding-bottom: 1.75rem;
-    padding-top: var(--lb-spacing-x-large);
-    padding-bottom: var(--lb-spacing-x-large);
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    padding-top: var(--lb-spacing-xl);
+    padding-bottom: var(--lb-spacing-xl);
   }
 [data-component="page"] .page-nav-links {
     display: flex;
@@ -953,7 +937,7 @@ tr:not(:last-child) {
     display: flex;
     align-items: center;
     gap: 0.25rem;
-    gap: var(--lb-spacing-2x-small);
+    gap: var(--lb-spacing-2xs);
   }
 [data-component="page"] .page-nav-link-next {
     margin-left: auto;

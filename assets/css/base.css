@@ -5,13 +5,13 @@
 html,
 body {
   font-family: var(--lb-font-ui);
-  font-size: var(--lb-font-size-medium);
+  font-size: var(--lb-font-size-md);
   color: var(--lb-app-color);
 }
 
 body {
   min-height: 100vh;
-  font-size: var(--lb-font-size-medium);
+  font-size: var(--lb-font-size-md);
 }
 
 code {
@@ -36,14 +36,14 @@ table {
   color: var(--lb-table-color);
   width: 100%;
   border-collapse: collapse;
-  font-size: var(--lb-font-size-small);
+  font-size: var(--lb-font-size-sm);
 }
 
 th,
 td {
   text-align: left;
-  padding-inline: var(--lb-spacing-medium);
-  padding-block: var(--lb-spacing-small);
+  padding-inline: var(--lb-spacing-md);
+  padding-block: var(--lb-spacing-sm);
   width: 1%;
 }
 

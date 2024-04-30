@@ -1,11 +1,10 @@
-:root,
-:root[data-theme="light"] {
+:root[data-color-scheme="light"] {
   --csstools-color-scheme--light: initial;
   --csstools-color-scheme--dark:  ;
   color-scheme: light;
 
   /*
-   * Colour scheme
+   * Colours
    */
 
   --lb-color-accent-50: var(--lb-color-indigo-50);

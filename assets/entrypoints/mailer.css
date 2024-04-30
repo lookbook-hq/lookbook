@@ -16,7 +16,7 @@ header {
   padding: 10px 0 0 0;
   margin: 0;
   background: white;
-  font-size: var(--lb-font-size-small);
+  font-size: var(--lb-font-size-sm);
   font-family: var(--lb-font-ui);
   border-bottom: 1px solid var(--lb-app-divider-color);
   overflow: hidden;
@@ -25,7 +25,7 @@ header {
 dl {
   margin: 0 0 10px 0;
   padding: 0;
-  font-size: var(--lb-font-size-small);
+  font-size: var(--lb-font-size-sm);
 }
 
 dt {
@@ -35,13 +35,13 @@ dt {
   clear: left;
   text-align: right;
   color: #7f7f7f;
-  font-size: var(--lb-font-size-small);
+  font-size: var(--lb-font-size-sm);
 }
 
 dd {
   margin-left: 90px;
   padding: 1px;
-  font-size: var(--lb-font-size-small);
+  font-size: var(--lb-font-size-sm);
 }
 
 dd:empty:before {

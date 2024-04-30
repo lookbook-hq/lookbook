@@ -190,27 +190,27 @@
 
   /* Spacing and sizes */
 
-  --lb-spacing-3x-small: 0.125rem; /* 2px */
-  --lb-spacing-2x-small: 0.25rem; /* 4px */
-  --lb-spacing-x-small: 0.5rem; /* 8px */
-  --lb-spacing-small: 0.75rem; /* 12px */
-  --lb-spacing-medium: 1rem; /* 16px */
-  --lb-spacing-large: 1.25rem; /* 20px */
-  --lb-spacing-x-large: 1.75rem; /* 28px */
-  --lb-spacing-2x-large: 2.25rem; /* 36px */
-  --lb-spacing-3x-large: 3rem; /* 48px */
-  --lb-spacing-4x-large: 4.5rem; /* 72px */
+  --lb-spacing-3xs: 0.125rem; /* 2px */
+  --lb-spacing-2xs: 0.25rem; /* 4px */
+  --lb-spacing-xs: 0.5rem; /* 8px */
+  --lb-spacing-sm: 0.75rem; /* 12px */
+  --lb-spacing-md: 1rem; /* 16px */
+  --lb-spacing-lg: 1.25rem; /* 20px */
+  --lb-spacing-xl: 1.5rem; /* 24px */
+  --lb-spacing-2xl: 2rem; /* 32px */
+  --lb-spacing-3xl: 2.5rem; /* 40px */
+  --lb-spacing-4xl: 3rem; /* 48px */
 
-  --lb-size-3x-small: 0.125rem; /* 2px */
-  --lb-size-2x-small: 0.25rem; /* 4px */
-  --lb-size-x-small: 0.5rem; /* 8px */
-  --lb-size-small: 0.75rem; /* 12px */
-  --lb-size-medium: 1rem; /* 16px */
-  --lb-size-large: 1.25rem; /* 20px */
-  --lb-size-x-large: 1.75rem; /* 28px */
-  --lb-size-2x-large: 2.25rem; /* 36px */
-  --lb-size-3x-large: 3rem; /* 48px */
-  --lb-size-4x-large: 4.5rem; /* 72px */
+  --lb-size-3xs: 0.125rem; /* 2px */
+  --lb-size-2xs: 0.25rem; /* 4px */
+  --lb-size-xs: 0.5rem; /* 8px */
+  --lb-size-sm: 0.75rem; /* 12px */
+  --lb-size-md: 1rem; /* 16px */
+  --lb-size-lg: 1.25rem; /* 20px */
+  --lb-size-xl: 1.5rem; /* 24px */
+  --lb-size-2xl: 2rem; /* 32px */
+  --lb-size-3xl: 2.5rem; /* 40px */
+  --lb-size-4xl: 3rem; /* 48px */
 
   /* Typography */
 
@@ -221,12 +221,12 @@
   --lb-font-mono: "Source Code Pro Var", ui-monospace, "Cascadia Code", Menlo,
     Consolas, "DejaVu Sans Mono", monospace;
 
-  --lb-font-size-x-small: 0.75rem; /* 12px */
-  --lb-font-size-small: 0.875rem; /* 14px */
-  --lb-font-size-medium: 1rem; /* 16px */
-  --lb-font-size-large: 1.25rem; /* 20px */
-  --lb-font-size-x-large: 1.5rem; /* 24px */
-  --lb-font-size-2x-large: 2.25rem; /* 36px */
+  --lb-font-size-xs: 0.75rem; /* 12px */
+  --lb-font-size-sm: 0.875rem; /* 14px */
+  --lb-font-size-md: 1rem; /* 16px */
+  --lb-font-size-lg: 1.25rem; /* 20px */
+  --lb-font-size-xl: 1.5rem; /* 24px */
+  --lb-font-size-2xl: 2.25rem; /* 36px */
 
   --lb-font-weight-light: 300;
   --lb-font-weight-normal: 400;
@@ -236,53 +236,37 @@
 
   /* Borders */
 
-  --lb-border-radius-small: 0.25rem; /* 4px */
-  --lb-border-radius-medium: 0.5rem; /* 8px */
-  --lb-border-radius-large: 1rem; /* 16px */
+  --lb-border-radius-sm: 0.25rem; /* 4px */
+  --lb-border-radius-md: 0.5rem; /* 8px */
+  --lb-border-radius-lg: 1rem; /* 16px */
 
   /* Shadows */
 
-  --lb-shadow-small: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --lb-shadow-medium: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+  --lb-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --lb-shadow-md: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
     0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --lb-shadow-large: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  --lb-shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
   /*
    * Components
    */
 
-  /* Header */
-
-  --lb-header-height: 2.5rem;
-
-  /* Toolbars */
-
-  --lb-toolbar-height: 2.5rem;
-
   /* Panels */
 
-  --lb-panel-padding: var(--lb-spacing-medium);
-
-  /* Status bar */
-
-  --lb-status-bar-height: 1.5rem;
-
-  /* Nav */
-
-  --lb-nav-item-height: 1.75rem;
+  --lb-panel-padding: var(--lb-spacing-3xl);
 }
 @font-face {
-  font-family: "Inter";
-  font-weight: 100 900;
+  font-family: "Inter Var";
+  font-weight: 200 900;
   font-display: swap;
   font-style: normal;
   font-named-instance: "Regular";
   src: url("./fonts/Inter-roman.var.woff2?v=3.19") format("woff2");
 }
 @font-face {
-  font-family: "Inter";
-  font-weight: 100 900;
+  font-family: "Inter Var";
+  font-weight: 200 900;
   font-display: swap;
   font-style: italic;
   font-named-instance: "Italic";
@@ -519,13 +503,13 @@ body {
     "Nimbus Sans", Arial, sans-serif;
   font-family: var(--lb-font-ui);
   font-size: 1rem;
-  font-size: var(--lb-font-size-medium);
+  font-size: var(--lb-font-size-md);
   color: var(--lb-app-color);
 }
 body {
   min-height: 100vh;
   font-size: 1rem;
-  font-size: var(--lb-font-size-medium);
+  font-size: var(--lb-font-size-md);
 }
 code {
   font-family: "Source Code Pro Var", ui-monospace, "Cascadia Code", Menlo,
@@ -548,19 +532,19 @@ table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.875rem;
-  font-size: var(--lb-font-size-small);
+  font-size: var(--lb-font-size-sm);
 }
 th,
 td {
   text-align: left;
   padding-left: 1rem;
   padding-right: 1rem;
-  padding-left: var(--lb-spacing-medium);
-  padding-right: var(--lb-spacing-medium);
+  padding-left: var(--lb-spacing-md);
+  padding-right: var(--lb-spacing-md);
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-  padding-top: var(--lb-spacing-small);
-  padding-bottom: var(--lb-spacing-small);
+  padding-top: var(--lb-spacing-sm);
+  padding-bottom: var(--lb-spacing-sm);
   width: 1%;
 }
 thead tr,
@@ -591,7 +575,7 @@ header {
   margin: 0;
   background: white;
   font-size: 0.875rem;
-  font-size: var(--lb-font-size-small);
+  font-size: var(--lb-font-size-sm);
   font-family: "Inter Var", Roboto, "Helvetica Neue", "Arial Nova",
     "Nimbus Sans", Arial, sans-serif;
   font-family: var(--lb-font-ui);
@@ -602,7 +586,7 @@ dl {
   margin: 0 0 10px 0;
   padding: 0;
   font-size: 0.875rem;
-  font-size: var(--lb-font-size-small);
+  font-size: var(--lb-font-size-sm);
 }
 dt {
   width: 80px;
@@ -612,13 +596,13 @@ dt {
   text-align: right;
   color: #7f7f7f;
   font-size: 0.875rem;
-  font-size: var(--lb-font-size-small);
+  font-size: var(--lb-font-size-sm);
 }
 dd {
   margin-left: 90px;
   padding: 1px;
   font-size: 0.875rem;
-  font-size: var(--lb-font-size-small);
+  font-size: var(--lb-font-size-sm);
 }
 dd:empty:before {
   content: "\00a0";

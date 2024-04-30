@@ -1,0 +1,23 @@
+<%= render component_tag do %>
+  <%= lb_button(class: "switcher-button") do |button| %>
+      <% button.with_dropdown do %>
+        <div class="switcher-dropdown" x-data="colorSchemeSwitcher">
+          <button class="switcher-option" @click="setScheme('light')" :class="{selected: isActiveScheme('light')}">
+            <%= lb_icon(:sun) %>
+            <span class="switcher-label">Light</span>
+          </button>
+          <button class="switcher-option" @click="setScheme('dark')" :class="{selected: isActiveScheme('dark')}">
+            <%= lb_icon(:moon) %>
+            <span class="switcher-label">Dark</span>
+          </button>
+          <button class="switcher-option" @click="setScheme('system')" :class="{selected: isActiveScheme('system')}">
+            <%= lb_icon(:monitor) %>
+            <span class="switcher-label">System</span>
+          </button>
+        </div>
+      <% end %>
+
+      <%= render Lookbook::UI::Icon.new(name: :sun, class: "switcher-icon-light") %>
+      <%= render Lookbook::UI::Icon.new(name: :moon, class: "switcher-icon-dark") %>
+    <% end %>
+<% end %>

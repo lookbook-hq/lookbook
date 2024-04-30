@@ -4,7 +4,7 @@
   background-color: var(--lb-dropdown-background-color);
   color: var(--lb-dropdown-color);
   border: 1px solid var(--lb-dropdown-border-color);
-  box-shadow: var(--lb-shadow-medium);
+  box-shadow: var(--lb-shadow-md);
   max-width: 100%;
   border-radius: 0;
   width: fit-content;

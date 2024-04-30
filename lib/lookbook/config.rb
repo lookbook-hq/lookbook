@@ -32,7 +32,6 @@ module Lookbook
           inspector_param_inputs: default_inspector_param_inputs,
 
           sidebar_nav_panels: [:previews, :pages],
-          status_bar: Rails.env.development?,
 
           page_route: "pages",
           page_paths: ["test/components/docs"],
@@ -51,6 +50,9 @@ module Lookbook
           markdown_options: default_markdown_options,
 
           languages: default_languages,
+
+          status_bar: Rails.env.development?,
+          theme_switcher: true,
 
           reload_on_change: Rails.env.development?,
           mount_path: "/lookbook"

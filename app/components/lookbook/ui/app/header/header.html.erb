@@ -9,7 +9,14 @@
       </svg>
     </div>
     <div class="header-project-name">
-      <%= project_name %>
+      <%= config.project_name %>
     </div>
   </a>
+  
+  
+  <% if config.theme_switcher %>
+    <div class="header-color-scheme-switcher">
+      <%= render Lookbook::UI::ColorSchemeSwitcher.new %>
+    </div>  
+  <% end %>
 <% end %>

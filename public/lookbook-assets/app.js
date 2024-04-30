@@ -9364,14 +9364,25 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   function initStore(id) {
     return {
       data: Alpine.$persist({}).as(`store#${id}`),
-      fetch(type, id2, default_value) {
+      set(key2, value) {
+        this.data[key2] = value;
+      },
+      setDefault(key2, value) {
+        if (!this.data.hasOwnProperty(key2)) {
+          this.data[key2] = value;
+        }
+      },
+      get(key2) {
+        return this.data[key2];
+      },
+      fetch(type, key2, default_value = null) {
         if (!this.data[type]) {
           this.data[type] = {};
         }
-        if (!this.data[type][id2] && default_value) {
-          this.data[type][id2] = default_value;
+        if (!this.data[type][key2] && default_value) {
+          this.data[type][key2] = default_value;
         }
-        return this.data[type][id2];
+        return this.data[type][key2];
       },
       clear() {
         Object.keys(this.data).forEach((key2) => delete this.data[key2]);
@@ -9390,10 +9401,10 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     return root2 ? module_default.$data(root2) : null;
   }
 
-  // app/components/lookbook/ui/app/header/header.js
-  var header_exports = {};
-  __export(header_exports, {
-    default: () => header_default
+  // app/components/lookbook/ui/app/color_scheme_switcher/color_scheme_switcher.js
+  var color_scheme_switcher_exports = {};
+  __export(color_scheme_switcher_exports, {
+    default: () => color_scheme_switcher_default
   });
 
   // assets/js/alpine/component.js
@@ -9402,7 +9413,44 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     return fn2;
   }
 
+  // app/components/lookbook/ui/app/color_scheme_switcher/color_scheme_switcher.js
+  var color_scheme_switcher_default = AlpineComponent("colorSchemeSwitcher", () => {
+    const store2 = Alpine.store("app");
+    store2.setDefault("colorScheme", "system");
+    return {
+      init() {
+        this.onSystemSchemeChange = this.onSystemSchemeChange.bind(this);
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", this.onSystemSchemeChange);
+        this.setScheme(store2.get("colorScheme"));
+      },
+      onSystemSchemeChange(event) {
+        this.applyScheme(event.matches ? "dark" : "light");
+      },
+      applyScheme(scheme) {
+        const schemeValue = scheme === "system" ? this.systemScheme : scheme;
+        document.documentElement.setAttribute("data-color-scheme", schemeValue);
+      },
+      setScheme(scheme) {
+        store2.set("colorScheme", scheme);
+        this.applyScheme(scheme);
+      },
+      isActiveScheme(scheme) {
+        return store2.get("colorScheme") === scheme;
+      },
+      destroy() {
+        window.matchMedia("(prefers-color-scheme: dark)").removeEventListener("change", this.onSystemSchemeChange);
+      },
+      get systemScheme() {
+        return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+    };
+  });
+
   // app/components/lookbook/ui/app/header/header.js
+  var header_exports = {};
+  __export(header_exports, {
+    default: () => header_default
+  });
   var header_default = AlpineComponent("header", () => {
     return {};
   });
@@ -12507,7 +12555,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
               offset: [1, -1],
               trigger: "click",
               hideOnClick: true,
-              content: () => this.$refs.dropdown,
+              content: () => this.$refs.dropdown.outerHTML,
               onShow: () => {
                 this.dropdownOpen = true;
               },
@@ -20669,7 +20717,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   });
 
   // import-glob:/Users/mark/Code/lookbook/lookbook-v3/assets/js/alpine|../../../app/components/lookbook/ui/**/*.js
-  var modules = [header_exports, layout_exports, router_exports, status_bar_exports, status_bar_item_exports, status_bar_notifications_exports, button_exports, code_exports, icon_exports, nav_exports, nav_item_exports, pane_exports, tab_panel_exports, pane_group_exports, prose_exports, toolbar_exports, toolbar_tab_exports, toolbar_tab_group_exports, viewport_exports, page_exports, page_browser_exports, display_options_dropdown_exports, param_editor_exports, preview_embed_exports, preview_inspector_exports];
+  var modules = [color_scheme_switcher_exports, header_exports, layout_exports, router_exports, status_bar_exports, status_bar_item_exports, status_bar_notifications_exports, button_exports, code_exports, icon_exports, nav_exports, nav_item_exports, pane_exports, tab_panel_exports, pane_group_exports, prose_exports, toolbar_exports, toolbar_tab_exports, toolbar_tab_group_exports, viewport_exports, page_exports, page_browser_exports, display_options_dropdown_exports, param_editor_exports, preview_embed_exports, preview_inspector_exports];
   var __default = modules;
 
   // assets/js/alpine/app.js

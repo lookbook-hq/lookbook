@@ -1,9 +1,8 @@
-:root,
-:root[data-theme="light"] {
+:root[data-color-scheme="light"] {
   color-scheme: light;
 
   /*
-   * Colour scheme
+   * Colours
    */
 
   --lb-color-accent-50: var(--lb-color-indigo-50);
