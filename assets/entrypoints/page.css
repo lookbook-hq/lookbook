@@ -1,8 +1,5 @@
-@import "../css/tokens.css";
-@import "../css/fonts.css";
-@import "../css/reset.css";
 @import "../css/base.css";
-@import "../css/tooltips.css";
+@import "../css/tippy.css";
 
 @import-glob "../../app/components/lookbook/ui/elements/{code,prose,icon}/*.css";
 @import-glob "../../app/components/lookbook/ui/pages/page/*.css";
