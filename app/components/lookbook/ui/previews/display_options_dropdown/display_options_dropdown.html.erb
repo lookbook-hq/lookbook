@@ -1,4 +1,4 @@
-<%= render component_tag(x: {data: "displayOptionsEditor", "@change": "update"}) do %>
+<%= render component_tag(x: {data: "displayOptionsDropdown", "@change": "update"}) do %>
   <% options.each do |option| %>
     <div class="display-option">
       <label for="<%= option.name %>"><%= option.label %></label>

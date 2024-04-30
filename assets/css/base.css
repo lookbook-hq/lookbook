@@ -51,7 +51,7 @@ tr:not(:last-child) {
 :focus-visible {
   outline: 1px solid transparent;
   outline-offset: 0;
-  outline-color: var(--lb-app-focus-outline-color);
+  outline-color: var(--lb-app-outline-color-focus);
 }
 
 /* Utilities */

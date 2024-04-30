@@ -76,7 +76,30 @@
 
   --lb-app-color: var(--lb-color-base-900);
   --lb-app-divider-color: var(--lb-color-base-300);
-  --lb-app-focus-outline-color: var(--lb-color-accent-200);
+  --lb-app-outline-color-focus: var(--lb-color-accent-200);
+
+  /*
+   * Dropdowns
+   */
+
+  --lb-dropdown-color: var(--lb-app-color);
+  --lb-dropdown-background-color: var(--lb-color-white);
+  --lb-dropdown-border-color: var(--lb-app-divider-color);
+
+  /*
+   * Inputs
+   */
+
+  --lb-input-color: var(--lb-app-color);
+  --lb-input-background-color: var(--lb-color-white);
+  --lb-input-border-color: var(--lb-color-base-300);
+  --lb-input-outline-color-focus: var(--lb-color-accent-500);
+  --lb-input-placeholder-color: var(--lb-color-base-400);
+
+  --lb-checkbox-color: var(--lb-color-accent-700);
+  --lb-checkbox-background-color: var(--lb-color-white);
+  --lb-checkbox-border-color: var(--lb-color-base-400);
+  --lb-checkbox-outline-color-focus: var(--lb-color-accent-500);
 
   /*
    * Header
@@ -110,8 +133,10 @@
   --lb-status-bar-item-color-error: var(--lb-color-danger-600);
   --lb-status-bar-item-color-warning: var(--lb-color-warning-600);
   --lb-status-bar-item-color-info: var(--lb-color-info-600);
-  --lb-status-bar-notifications-color: var(--lb-app-color);
-  --lb-status-bar-notifications-background-color: var(--lb-color-white);
+  --lb-status-bar-notifications-color: var(--lb-dropdown-color);
+  --lb-status-bar-notifications-background-color: var(
+    --lb-dropdown-background-color
+  );
 
   /*
    * System message
@@ -211,4 +236,20 @@
   --lb-viewport-dimensions-background-color: var(--lb-color-base-200);
   --lb-viewport-handle-background-color: var(--lb-color-white);
   --lb-viewport-handle-icon-color: var(--lb-color-base-500);
+
+  /*
+   * Page
+   */
+
+  --lb-page-color: var(--lb-app-color);
+  --lb-page-background-color: var(--lb-color-white);
+  --lb-page-divider-color: var(--lb-app-divider-color);
+  --lb-page-title-color: var(--lb-app-color);
+
+  /*
+   * Display options dropdown
+   */
+
+  --lb-display-options-color: var(--lb-dropdown-color);
+  --lb-display-options-background-color: var(--lb-dropdown-background-color);
 }

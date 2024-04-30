@@ -1,6 +1,6 @@
 module Lookbook
   module UI
-    class DisplayOptionsEditor < BaseComponent
+    class DisplayOptionsDropdown < BaseComponent
       def initialize(options:, values:, **kwargs)
         @options = options
         @values = values

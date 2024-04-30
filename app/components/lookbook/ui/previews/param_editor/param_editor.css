@@ -1,12 +1,2 @@
 [data-component="param-editor"] {
-  /* select,
-  input:not([type="checkbox"], [type="radio"], [type="file"]) {
-    min-width: 240px;
-    padding-inline: var(--lb-spacing-small);
-    padding-block: var(--lb-spacing-x-small);
-    font-size: var(--lb-font-size-medium);
-    border: 1px solid var(--lb-color-base-300);
-    border-radius: var(--lb-border-radius-large);
-    appearance: none;
-  } */
 }

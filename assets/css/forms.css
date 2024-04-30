@@ -17,8 +17,9 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-color: #fff;
-  border-color: var(--lb-color-base-300);
+  background-color: var(--lb-input-background-color);
+  border-color: var(--lb-input-border-color);
+  color: var(--lb-input-color);
   border-width: 1px;
   border-radius: 0px;
   padding-block: var(--lb-spacing-x-small);
@@ -47,19 +48,18 @@ textarea:focus,
 select:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
-  outline-color: var(--lb-color-accent-400);
-  /* border-color: var(--lb-color-accent-400); */
+  outline-color: var(--lb-input-outline-color-focus);
 }
 
 input::-moz-placeholder,
 textarea::-moz-placeholder {
-  color: var(--lb-color-base-400);
+  color: var(--lb-input-placeholder-color);
   opacity: 1;
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: var(--lb-color-base-400);
+  color: var(--lb-input-placeholder-color);
   opacity: 1;
 }
 
@@ -127,9 +127,9 @@ select {
   flex-shrink: 0;
   height: 1.25rem;
   width: 1.25rem;
-  color: var(--lb-color-accent-700);
-  background-color: #fff;
-  border-color: var(--lb-color-accent-400);
+  color: var(--lb-checkbox-color);
+  background-color: var(--lb-checkbox-background-color);
+  border-color: var(--lb-checkbox-border-color);
   border-width: 1px;
 }
 
@@ -145,7 +145,7 @@ select {
 [type="radio"]:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
-  outline-color: var(--lb-color-accent-500);
+  outline-color: var(--lb-checkbox-outline-color-focus);
 }
 
 [type="checkbox"]:checked,

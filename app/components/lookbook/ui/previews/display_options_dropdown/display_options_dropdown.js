@@ -1,6 +1,6 @@
 import AlpineComponent from "@js/alpine/component";
 
-export default AlpineComponent("displayOptionsEditor", () => {
+export default AlpineComponent("displayOptionsDropdown", () => {
   return {
     init() {
       this.$el.addEventListener("change", (event) => this.update(event));

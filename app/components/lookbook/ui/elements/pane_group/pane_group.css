@@ -15,7 +15,7 @@
 
   &[data-orientation="horizontal"] {
     > .pane-group-gutter {
-      border-bottom: 1px solid var(--lb-split-pane-gutter-border-color);
+      border-bottom: 1px solid var(--lb-app-divider-color);
       width: 100%;
       height: 1px;
 

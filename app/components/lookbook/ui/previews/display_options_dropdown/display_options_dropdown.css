@@ -1,8 +1,9 @@
-[data-component="display-options-editor"] {
+[data-component="display-options-dropdown"] {
   width: 280px;
   padding: var(--lb-spacing-medium);
   padding-top: var(--lb-spacing-small);
-  background: #fff;
+  color: var(--lb-display-options-color);
+  background-color: var(--lb-display-options-background-color);
 
   .title {
     font-size: var(--lb-font-size-medium);

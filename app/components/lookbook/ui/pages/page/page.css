@@ -1,6 +1,7 @@
 [data-component="page"] {
   font-family: var(--lb-font-prose);
-  background-color: var(--lb-color-white);
+  color: var(--lb-page-color);
+  background-color: var(--lb-page-background-color);
   min-height: 100vh;
 
   .page-slat {
@@ -8,11 +9,12 @@
   }
 
   .page-header {
-    border-bottom: 1px solid var(--lb-color-base-300);
+    border-bottom: 1px solid var(--lb-page-divider-color);
     padding-block: var(--lb-spacing-x-large);
   }
 
   .page-title {
+    color: var(--lb-page-title-color);
     font-weight: var(--lb-font-weight-bold);
     font-size: var(--lb-font-size-2x-large);
   }
@@ -23,7 +25,7 @@
   }
 
   .page-footer {
-    border-top: 1px solid var(--lb-color-base-300);
+    border-top: 1px solid var(--lb-page-divider-color);
     padding-block: var(--lb-spacing-x-large);
   }
 

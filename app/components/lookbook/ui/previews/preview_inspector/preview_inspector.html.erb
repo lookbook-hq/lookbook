@@ -12,7 +12,7 @@
             toolbar.with_button_group do |group|
               group.with_button(icon: :settings_2, tooltip: "Display options") do |button|
                 button.with_dropdown do
-                  render Lookbook::UI::DisplayOptionsEditor.new(
+                  render Lookbook::UI::DisplayOptionsDropdown.new(
                     options: display_options,
                     values: display_options_values
                   )
