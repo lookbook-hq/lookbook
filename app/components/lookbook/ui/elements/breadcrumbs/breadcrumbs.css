@@ -2,7 +2,7 @@
   display: flex;
   width: 100%;
   align-items: center;
-  font-size: var(--lb-font-size-small);
+  font-size: var(--lb-font-size-sm);
   color: var(--lb-breadrumbs-color);
 
   a.breadcrumb {
@@ -20,7 +20,7 @@
   .breadcrumb-divider {
     flex: none;
     display: block;
-    margin-left: var(--lb-spacing-2x-small);
-    margin-right: var(--lb-spacing-2x-small);
+    margin-left: var(--lb-spacing-2xs);
+    margin-right: var(--lb-spacing-2xs);
   }
 }

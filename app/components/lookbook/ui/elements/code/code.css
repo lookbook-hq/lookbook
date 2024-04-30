@@ -24,10 +24,10 @@
     }
 
     pre > code {
-      font-size: var(--lb-font-size-small);
+      font-size: var(--lb-font-size-sm);
       line-height: 1.5;
-      padding-inline: var(--lb-spacing-small) !important;
-      padding-block: var(--lb-spacing-small) !important;
+      padding-inline: var(--lb-spacing-sm) !important;
+      padding-block: var(--lb-spacing-sm) !important;
       overflow: auto;
     }
   }

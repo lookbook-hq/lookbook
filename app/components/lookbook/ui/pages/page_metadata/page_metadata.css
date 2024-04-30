@@ -1,6 +1,6 @@
 [data-component="page-metadata"] {
   width: fit-content;
-  padding: var(--lb-spacing-small);
+  padding: var(--lb-spacing-sm);
 
   td {
     white-space: nowrap;

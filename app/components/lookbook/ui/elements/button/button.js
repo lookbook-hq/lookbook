@@ -27,7 +27,7 @@ export default AlpineComponent("button", () => {
             offset: [1, -1],
             trigger: "click",
             hideOnClick: true,
-            content: () => this.$refs.dropdown,
+            content: () => this.$refs.dropdown.outerHTML,
             onShow: () => {
               this.dropdownOpen = true;
             },

@@ -3,8 +3,8 @@
   height: var(--lb-toolbar-height);
   display: flex;
   align-items: center;
-  font-size: var(--lb-font-size-small);
-  padding-inline: var(--lb-spacing-small);
+  font-size: var(--lb-font-size-sm);
+  padding-inline: var(--lb-spacing-sm);
   border-bottom: 2px solid transparent;
   cursor: pointer;
   user-select: none;

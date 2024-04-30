@@ -1,13 +1,13 @@
 [data-component="status-bar-notifications"] {
   width: 28rem;
-  padding-inline: var(--lb-spacing-small);
+  padding-inline: var(--lb-spacing-sm);
   color: var(--lb-status-bar-notifications-color);
   background: var(--lb-status-bar-notifications-background-color);
 
   .notification {
     display: flex;
-    gap: var(--lb-spacing-small);
-    padding-block: var(--lb-spacing-small);
+    gap: var(--lb-spacing-sm);
+    padding-block: var(--lb-spacing-sm);
 
     & + .notification {
       border-top: 1px solid var(--lb-app-divider-color);
@@ -16,7 +16,7 @@
     .notification-icon {
       .icon {
         flex: none;
-        width: var(--lb-size-large);
+        width: var(--lb-size-lg);
       }
     }
 
@@ -26,7 +26,7 @@
       width: 100%;
       overflow: hidden;
       font-family: var(--lb-font-mono);
-      font-size: var(--lb-font-size-x-small);
+      font-size: var(--lb-font-size-xs);
       line-height: var(--lb-line-height-dense);
       overflow-wrap: break-word;
       word-wrap: break-word;

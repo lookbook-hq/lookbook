@@ -94,22 +94,22 @@
 
   h1 {
     font-weight: 600;
-    font-size: var(--lb-font-size-2x-large);
+    font-size: var(--lb-font-size-2xl);
   }
 
   h2 {
     font-weight: 600;
-    font-size: var(--lb-font-size-x-large);
+    font-size: var(--lb-font-size-xl);
   }
 
   h3 {
     font-weight: 600;
-    font-size: var(--lb-font-size-large);
+    font-size: var(--lb-font-size-lg);
   }
 
   h4 {
     font-weight: 600;
-    font-size: var(--lb-font-size-medium);
+    font-size: var(--lb-font-size-md);
   }
 
   figure figcaption {
@@ -124,8 +124,8 @@
     display: inline-block;
     font-family: var(--lb-font-mono);
     background-color: var(--lb-prose-inline-code-background-color);
-    padding-inline: var(--lb-spacing-2x-small);
-    border-radius: var(--lb-border-radius-small);
+    padding-inline: var(--lb-spacing-2xs);
+    border-radius: var(--lb-border-radius-sm);
     color: var(--lb-prose-inline-code-color);
   }
 
@@ -262,7 +262,7 @@
     color: var(--lb-prose-code-color);
     background-color: var(--lb-prose-code-background-color);
     border: 1px solid var(--lb-prose-code-border-color);
-    border-radius: var(--lb-border-radius-small);
-    margin-block: var(--lb-spacing-x-large);
+    border-radius: var(--lb-border-radius-sm);
+    margin-block: var(--lb-spacing-xl);
   }
 }

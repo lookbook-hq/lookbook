@@ -1,27 +1,27 @@
 [data-component="display-options-dropdown"] {
   width: 280px;
-  padding: var(--lb-spacing-medium);
-  padding-top: var(--lb-spacing-small);
+  padding: var(--lb-spacing-md);
+  padding-top: var(--lb-spacing-sm);
   color: var(--lb-display-options-color);
   background-color: var(--lb-display-options-background-color);
 
   .title {
-    font-size: var(--lb-font-size-medium);
-    margin-bottom: var(--lb-spacing-medium);
+    font-size: var(--lb-font-size-md);
+    margin-bottom: var(--lb-spacing-md);
   }
 
   .display-option + .display-option {
-    margin-top: var(--lb-spacing-medium);
+    margin-top: var(--lb-spacing-md);
   }
 
   .display-option {
     label {
       font-weight: var(--lb-font-weight-semibold);
       display: block;
-      margin-bottom: var(--lb-spacing-x-small);
+      margin-bottom: var(--lb-spacing-xs);
     }
     select {
-      font-size: var(--lb-font-size-small);
+      font-size: var(--lb-font-size-sm);
     }
   }
 }

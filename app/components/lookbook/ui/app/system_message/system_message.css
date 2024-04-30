@@ -3,28 +3,28 @@
   color: var(--lb-system-message-color);
   background: var(--lb-system-message-background-color);
   border: 1px solid var(--lb-system-message-border-color);
-  padding: var(--lb-spacing-x-large);
+  padding: var(--lb-spacing-xl);
   max-width: 680px;
-  margin-top: var(--lb-spacing-large);
+  margin-top: var(--lb-spacing-lg);
   margin-inline: auto;
-  border-radius: var(--lb-border-radius-medium);
+  border-radius: var(--lb-border-radius-md);
 
   &.with-icon {
     display: grid;
     grid-template-columns: min-content 1fr;
-    column-gap: var(--lb-spacing-medium);
-    padding-left: var(--lb-spacing-large);
+    column-gap: var(--lb-spacing-md);
+    padding-left: var(--lb-spacing-lg);
   }
 
   .message-title {
     font-weight: var(--lb-font-weight-bold);
-    font-size: var(--lb-font-size-medium);
+    font-size: var(--lb-font-size-md);
     color: var(--lb-system-message-title-color);
-    margin-bottom: var(--lb-spacing-x-small);
+    margin-bottom: var(--lb-spacing-xs);
   }
 
   .message-text {
-    font-size: var(--lb-font-size-small);
+    font-size: var(--lb-font-size-sm);
   }
 
   .message-icon svg,
@@ -34,7 +34,7 @@
   }
 
   .message-icon > svg {
-    margin-right: var(--lb-spacing-2x-small);
+    margin-right: var(--lb-spacing-2xs);
   }
 
   &[data-theme="error"] {

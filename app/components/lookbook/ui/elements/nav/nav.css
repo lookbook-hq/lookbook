@@ -10,8 +10,8 @@
   }
 
   .nav-filter {
-    padding-block: var(--lb-spacing-x-small);
-    padding-inline: var(--lb-spacing-small);
+    padding-block: var(--lb-spacing-xs);
+    padding-inline: var(--lb-spacing-sm);
   }
 
   .nav-tree-wrapper {
@@ -27,19 +27,19 @@
     height: 100%;
     width: 100%;
     overflow-y: auto;
-    padding-bottom: var(--lb-spacing-medium);
+    padding-bottom: var(--lb-spacing-md);
   }
 
   &:not(.with-filter) .nav-tree {
-    padding-top: var(--lb-spacing-x-small);
+    padding-top: var(--lb-spacing-xs);
   }
 
   .nav-placeholder {
-    font-size: var(--lb-font-size-small);
+    font-size: var(--lb-font-size-sm);
     background-color: var(--lb-nav-placeholder-background-color);
     color: var(--lb-nav-placeholder-color);
-    padding: var(--lb-spacing-medium);
+    padding: var(--lb-spacing-md);
     border: 1px dashed var(--lb-nav-placeholder-border-color);
-    margin: var(--lb-spacing-small);
+    margin: var(--lb-spacing-sm);
   }
 }

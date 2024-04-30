@@ -6,7 +6,7 @@
     height: 100%;
     display: flex;
     align-items: center;
-    gap: var(--lb-spacing-2x-small);
+    gap: var(--lb-spacing-2xs);
     user-select: none;
 
     .icon {

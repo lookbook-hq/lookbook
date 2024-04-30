@@ -7,7 +7,7 @@ module Lookbook
 
       tag_attr :type, :value, :name, :disabled, :href, :target
 
-      def initialize(icon:, size: :md, click: nil, show: nil, tooltip: nil, label: nil, **kwargs)
+      def initialize(icon: nil, size: :md, click: nil, show: nil, tooltip: nil, label: nil, **kwargs)
         @icon = icon
         @size = size
         @click = click

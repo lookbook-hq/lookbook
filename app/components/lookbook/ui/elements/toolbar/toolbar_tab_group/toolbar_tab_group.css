@@ -1,5 +1,5 @@
 [data-component="toolbar-tab-group"] {
   display: flex;
-  gap: var(--lb-spacing-small);
+  gap: var(--lb-spacing-sm);
   height: var(--lb-toolbar-height);
 }

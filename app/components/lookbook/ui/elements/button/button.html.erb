@@ -14,7 +14,11 @@
   class: "button"
 ) do %>
   <div class="button-content" x-ref="content">
-    <%= render Lookbook::UI::Icon.new(name: icon, class: "button-icon") %>
+    <% if content.present? %>
+      <%= content %>
+    <% else %>
+      <%= render Lookbook::UI::Icon.new(name: icon) %>
+    <% end %>
   </div>
   <% if dropdown %>
     <template x-teleport="body">

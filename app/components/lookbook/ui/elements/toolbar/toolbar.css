@@ -1,10 +1,12 @@
 [data-component="toolbar"] {
+  --lb-toolbar-height: var(--lb-size-3xl);
+
   color: var(--lb-toolbar-color);
   background-color: var(--lb-toolbar-background-color);
   height: var(--lb-toolbar-height);
   display: flex;
   align-items: center;
-  padding-left: var(--lb-spacing-medium);
+  padding-left: var(--lb-spacing-md);
   border-bottom: 1px solid var(--lb-app-divider-color);
 
   .toolbar-section {
@@ -19,8 +21,8 @@
   .toolbar-label {
     display: flex;
     align-items: center;
-    font-size: var(--lb-font-size-small);
-    margin-right: var(--lb-spacing-medium);
+    font-size: var(--lb-font-size-sm);
+    margin-right: var(--lb-spacing-md);
   }
 
   .toolbar-button-groups {

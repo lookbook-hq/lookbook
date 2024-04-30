@@ -16,18 +16,18 @@
   }
 
   .viewport-dimensions {
-    font-size: var(--lb-font-size-x-small);
+    font-size: var(--lb-font-size-xs);
     font-family: var(--lb-font-mono);
-    padding-inline: var(--lb-spacing-x-small);
-    padding-block: var(--lb-spacing-x-small);
+    padding-inline: var(--lb-spacing-xs);
+    padding-block: var(--lb-spacing-xs);
     position: absolute;
     z-index: 10;
     top: 0;
     right: 0;
     display: inline-flex;
-    gap: var(--lb-spacing-2x-small);
+    gap: var(--lb-spacing-2xs);
     overflow: hidden;
-    border-bottom-left-radius: var(--lb-border-radius-medium);
+    border-bottom-left-radius: var(--lb-border-radius-md);
     pointer-events: none;
 
     &::before {
@@ -56,7 +56,7 @@
 
   &.resize-x {
     .viewport-dimensions {
-      right: var(--lb-spacing-medium);
+      right: var(--lb-spacing-md);
     }
 
     .viewport-resizer {
@@ -88,19 +88,19 @@
   .viewport-handle-x {
     flex-direction: row;
     border-left: 1px solid var(--lb-app-divider-color);
-    width: var(--lb-size-medium);
+    width: var(--lb-size-md);
     cursor: ew-resize;
   }
 
   .viewport-handle-y {
     border-top: 1px solid var(--lb-app-divider-color);
-    height: var(--lb-size-medium);
+    height: var(--lb-size-md);
     cursor: ns-resize;
   }
 
   .viewport-handle-xy {
-    width: var(--lb-size-medium);
-    height: var(--lb-size-medium);
+    width: var(--lb-size-md);
+    height: var(--lb-size-md);
     cursor: nwse-resize;
 
     .icon {
@@ -109,6 +109,6 @@
   }
 
   .viewport-handle-icon {
-    width: var(--lb-size-medium);
+    width: var(--lb-size-md);
   }
 }

@@ -1,6 +1,7 @@
 [data-component="nav-item"] {
   width: 100%;
   overflow: hidden;
+  font-size: var(--lb-font-size-sm);
 
   .nav-item-item {
     width: 100%;
@@ -8,22 +9,25 @@
     align-items: center;
     border-left: 3px solid var(--lb-nav-item-border-color);
     cursor: pointer;
-    bacground-color: var(--lb-nav-item-background-color);
+    background-color: var(--lb-nav-item-background-color);
+    padding-block: var(--lb-spacing-3xs);
   }
 
   .nav-item-indentation {
-    width: var(--lb-spacing-medium);
-    height: 100%;
+    width: var(--lb-spacing-md);
+    height: 1.5rem;
     flex: none;
   }
 
   .nav-item-toggle {
-    width: var(--lb-nav-item-height);
+    width: 1.5rem;
     flex: none;
 
     button {
+      display: block;
+      line-height: 0;
+      padding: var(--lb-spacing-2xs);
       flex: none;
-      width: var(--lb-nav-item-height);
       color: var(--lb-nav-item-toggle-color);
     }
   }
@@ -32,15 +36,14 @@
     display: flex;
     align-items: center;
     width: 100%;
-    height: var(--lb-nav-item-height);
     min-width: 0;
-    font-size: var(--lb-font-size-small);
+    font-size: var(--lb-font-size-sm);
     color: var(--lb-nav-item-label-color);
 
     .icon {
       flex: none;
-      margin-right: var(--lb-spacing-x-small);
-      height: var(--lb-spacing-medium);
+      margin-right: var(--lb-spacing-xs);
+      height: var(--lb-spacing-md);
       color: var(--lb-nav-item-icon-color);
     }
 
@@ -51,7 +54,6 @@
       display: block;
       width: 100%;
       text-align: left;
-      letter-spacing: 0.3px;
     }
   }
 

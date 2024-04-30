@@ -1,7 +1,7 @@
 [data-component="status-bar"] {
-  height: var(--lb-status-bar-height);
-  font-size: var(--lb-font-size-x-small);
-  padding-inline: var(--lb-spacing-small);
+  height: var(--lb-size-xl);
+  font-size: var(--lb-font-size-xs);
+  padding-inline: var(--lb-spacing-sm);
   color: var(--lb-status-bar-color);
   background-color: var(--lb-status-bar-background-color);
 
@@ -12,7 +12,7 @@
   .status-bar-section {
     display: flex;
     align-items: center;
-    gap: var(--lb-spacing-medium);
+    gap: var(--lb-spacing-md);
     height: 100%;
   }
 
