@@ -1,6 +1,7 @@
 [data-component="page-browser"] {
   height: 100%;
   width: 100%;
+  background-color: var(--lb-page-background-color);
 
   iframe {
     height: 100%;

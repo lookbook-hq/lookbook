@@ -4,6 +4,7 @@
     data: "router(#{events_endpoint})",
     "@click": "handleClick",
     "@lookbook:visit": "visit($event.detail.url)",
+    "@lookbook:update": "updatePage",
     "@popstate.window": "visit(location, false)",
     "@visibilitychange.document": "handleVisibilityChange"
   }) do %>

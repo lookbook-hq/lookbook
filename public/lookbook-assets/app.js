@@ -9413,7 +9413,106 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     return fn2;
   }
 
+  // node_modules/js-cookie/dist/js.cookie.mjs
+  function assign(target) {
+    for (var i5 = 1; i5 < arguments.length; i5++) {
+      var source = arguments[i5];
+      for (var key2 in source) {
+        target[key2] = source[key2];
+      }
+    }
+    return target;
+  }
+  var defaultConverter = {
+    read: function(value) {
+      if (value[0] === '"') {
+        value = value.slice(1, -1);
+      }
+      return value.replace(/(%[\dA-F]{2})+/gi, decodeURIComponent);
+    },
+    write: function(value) {
+      return encodeURIComponent(value).replace(
+        /%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g,
+        decodeURIComponent
+      );
+    }
+  };
+  function init(converter, defaultAttributes) {
+    function set3(name, value, attributes) {
+      if (typeof document === "undefined") {
+        return;
+      }
+      attributes = assign({}, defaultAttributes, attributes);
+      if (typeof attributes.expires === "number") {
+        attributes.expires = new Date(Date.now() + attributes.expires * 864e5);
+      }
+      if (attributes.expires) {
+        attributes.expires = attributes.expires.toUTCString();
+      }
+      name = encodeURIComponent(name).replace(/%(2[346B]|5E|60|7C)/g, decodeURIComponent).replace(/[()]/g, escape);
+      var stringifiedAttributes = "";
+      for (var attributeName in attributes) {
+        if (!attributes[attributeName]) {
+          continue;
+        }
+        stringifiedAttributes += "; " + attributeName;
+        if (attributes[attributeName] === true) {
+          continue;
+        }
+        stringifiedAttributes += "=" + attributes[attributeName].split(";")[0];
+      }
+      return document.cookie = name + "=" + converter.write(value, name) + stringifiedAttributes;
+    }
+    function get3(name) {
+      if (typeof document === "undefined" || arguments.length && !name) {
+        return;
+      }
+      var cookies = document.cookie ? document.cookie.split("; ") : [];
+      var jar = {};
+      for (var i5 = 0; i5 < cookies.length; i5++) {
+        var parts = cookies[i5].split("=");
+        var value = parts.slice(1).join("=");
+        try {
+          var found = decodeURIComponent(parts[0]);
+          jar[found] = converter.read(value, found);
+          if (name === found) {
+            break;
+          }
+        } catch (e5) {
+        }
+      }
+      return name ? jar[name] : jar;
+    }
+    return Object.create(
+      {
+        set: set3,
+        get: get3,
+        remove: function(name, attributes) {
+          set3(
+            name,
+            "",
+            assign({}, attributes, {
+              expires: -1
+            })
+          );
+        },
+        withAttributes: function(attributes) {
+          return init(this.converter, assign({}, this.attributes, attributes));
+        },
+        withConverter: function(converter2) {
+          return init(assign({}, this.converter, converter2), this.attributes);
+        }
+      },
+      {
+        attributes: { value: Object.freeze(defaultAttributes) },
+        converter: { value: Object.freeze(converter) }
+      }
+    );
+  }
+  var api = init(defaultConverter, { path: "/" });
+
   // app/components/lookbook/ui/app/color_scheme_switcher/color_scheme_switcher.js
+  var colorSchemeCookie = "lookbook-color-scheme";
   var color_scheme_switcher_default = AlpineComponent("colorSchemeSwitcher", () => {
     const store2 = Alpine.store("app");
     store2.setDefault("colorScheme", "light");
@@ -9421,7 +9520,6 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       init() {
         this.onSystemSchemeChange = this.onSystemSchemeChange.bind(this);
         window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", this.onSystemSchemeChange);
-        this.setScheme(store2.get("colorScheme"));
       },
       onSystemSchemeChange(event) {
         this.applyScheme(event.matches ? "dark" : "light");
@@ -9429,10 +9527,12 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       applyScheme(scheme) {
         const schemeValue = scheme === "system" ? this.systemScheme : scheme;
         document.documentElement.setAttribute("data-color-scheme", schemeValue);
+        api.set(colorSchemeCookie, schemeValue);
       },
       setScheme(scheme) {
         store2.set("colorScheme", scheme);
         this.applyScheme(scheme);
+        this.$nextTick(() => this.$dispatch("color-scheme:change"));
       },
       isActiveScheme(scheme) {
         return store2.get("colorScheme") === scheme;
@@ -9626,110 +9726,11 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   __export(status_bar_exports, {
     default: () => status_bar_default
   });
-
-  // node_modules/js-cookie/dist/js.cookie.mjs
-  function assign(target) {
-    for (var i5 = 1; i5 < arguments.length; i5++) {
-      var source = arguments[i5];
-      for (var key2 in source) {
-        target[key2] = source[key2];
-      }
-    }
-    return target;
-  }
-  var defaultConverter = {
-    read: function(value) {
-      if (value[0] === '"') {
-        value = value.slice(1, -1);
-      }
-      return value.replace(/(%[\dA-F]{2})+/gi, decodeURIComponent);
-    },
-    write: function(value) {
-      return encodeURIComponent(value).replace(
-        /%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g,
-        decodeURIComponent
-      );
-    }
-  };
-  function init(converter, defaultAttributes) {
-    function set3(name, value, attributes) {
-      if (typeof document === "undefined") {
-        return;
-      }
-      attributes = assign({}, defaultAttributes, attributes);
-      if (typeof attributes.expires === "number") {
-        attributes.expires = new Date(Date.now() + attributes.expires * 864e5);
-      }
-      if (attributes.expires) {
-        attributes.expires = attributes.expires.toUTCString();
-      }
-      name = encodeURIComponent(name).replace(/%(2[346B]|5E|60|7C)/g, decodeURIComponent).replace(/[()]/g, escape);
-      var stringifiedAttributes = "";
-      for (var attributeName in attributes) {
-        if (!attributes[attributeName]) {
-          continue;
-        }
-        stringifiedAttributes += "; " + attributeName;
-        if (attributes[attributeName] === true) {
-          continue;
-        }
-        stringifiedAttributes += "=" + attributes[attributeName].split(";")[0];
-      }
-      return document.cookie = name + "=" + converter.write(value, name) + stringifiedAttributes;
-    }
-    function get3(name) {
-      if (typeof document === "undefined" || arguments.length && !name) {
-        return;
-      }
-      var cookies = document.cookie ? document.cookie.split("; ") : [];
-      var jar = {};
-      for (var i5 = 0; i5 < cookies.length; i5++) {
-        var parts = cookies[i5].split("=");
-        var value = parts.slice(1).join("=");
-        try {
-          var found = decodeURIComponent(parts[0]);
-          jar[found] = converter.read(value, found);
-          if (name === found) {
-            break;
-          }
-        } catch (e5) {
-        }
-      }
-      return name ? jar[name] : jar;
-    }
-    return Object.create(
-      {
-        set: set3,
-        get: get3,
-        remove: function(name, attributes) {
-          set3(
-            name,
-            "",
-            assign({}, attributes, {
-              expires: -1
-            })
-          );
-        },
-        withAttributes: function(attributes) {
-          return init(this.converter, assign({}, this.attributes, attributes));
-        },
-        withConverter: function(converter2) {
-          return init(assign({}, this.converter, converter2), this.attributes);
-        }
-      },
-      {
-        attributes: { value: Object.freeze(defaultAttributes) },
-        converter: { value: Object.freeze(converter) }
-      }
-    );
-  }
-  var api = init(defaultConverter, { path: "/" });
-
-  // app/components/lookbook/ui/app/status_bar/status_bar.js
   var status_bar_default = AlpineComponent("statusBar", () => {
     return {
       reset() {
         api.remove("lookbook-display-options");
+        api.remove("lookbook-color-scheme");
         Alpine.store("app").clear();
         window.location.reload();
         this.$logger.info(`Local storage cleared`);
@@ -12555,7 +12556,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
               offset: [1, -1],
               trigger: "click",
               hideOnClick: true,
-              content: () => this.$refs.dropdown.outerHTML,
+              content: () => this.$refs.dropdown.firstElementChild,
               onShow: () => {
                 this.dropdownOpen = true;
               },

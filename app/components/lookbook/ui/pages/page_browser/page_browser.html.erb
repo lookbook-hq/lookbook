@@ -1,7 +1,8 @@
 <%= render component_tag(x: {
   data: "pageBrowser",
   "@message.window": "handleMessage",
-  "@page-update:start.window": "notifyUpdateRequired"
+  "@page-update:start.window": "notifyUpdateRequired",
+  "@color-scheme:change.window": "reload"
 }) do %>
   <iframe x-ref="iframe" src="<%= src %>" frameborder="0" seamless></iframe>
 <% end %>

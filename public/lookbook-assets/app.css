@@ -2007,6 +2007,7 @@ select {
 [data-component="page-browser"] {
   height: 100%;
   width: 100%;
+  background-color: var(--lb-page-background-color);
 }
 [data-component="page-browser"] iframe {
     height: 100%;

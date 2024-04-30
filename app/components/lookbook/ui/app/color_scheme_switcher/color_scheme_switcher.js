@@ -1,4 +1,7 @@
 import AlpineComponent from "@js/alpine/component";
+import Cookies from "js-cookie";
+
+const colorSchemeCookie = "lookbook-color-scheme";
 
 export default AlpineComponent("colorSchemeSwitcher", () => {
   const store = Alpine.store("app");
@@ -10,7 +13,6 @@ export default AlpineComponent("colorSchemeSwitcher", () => {
       window
         .matchMedia("(prefers-color-scheme: dark)")
         .addEventListener("change", this.onSystemSchemeChange);
-      this.setScheme(store.get("colorScheme"));
     },
 
     onSystemSchemeChange(event) {
@@ -20,11 +22,13 @@ export default AlpineComponent("colorSchemeSwitcher", () => {
     applyScheme(scheme) {
       const schemeValue = scheme === "system" ? this.systemScheme : scheme;
       document.documentElement.setAttribute("data-color-scheme", schemeValue);
+      Cookies.set(colorSchemeCookie, schemeValue);
     },
 
     setScheme(scheme) {
       store.set("colorScheme", scheme);
       this.applyScheme(scheme);
+      this.$nextTick(() => this.$dispatch("color-scheme:change"));
     },
 
     isActiveScheme(scheme) {
