@@ -717,6 +717,15 @@ tr:not(:last-child) {
 .wrap-lines[data-component="code"] .code-highlighted code {
     white-space: pre-wrap;
   }
+html[data-color-scheme="dark"] .shiki,
+html[data-color-scheme="dark"] .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  -webkit-text-decoration: var(--shiki-dark-text-decoration) !important;
+          text-decoration: var(--shiki-dark-text-decoration) !important;
+}
 [data-component="icon"] {
   display: inline-block;
   aspect-ratio: 1 / 1;

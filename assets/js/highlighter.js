@@ -3,9 +3,7 @@ import getWasm from "shiki/wasm";
 
 const themes = [
   import("shiki/themes/github-light.mjs"),
-  import("shiki/themes/min-light.mjs"),
-  import("shiki/themes/slack-dark.mjs"),
-  import("shiki/themes/nord.mjs"),
+  import("shiki/themes/github-dark.mjs"),
 ];
 
 const langs = [
@@ -38,7 +36,13 @@ export default class Highlighter {
     });
 
     try {
-      return highlighter.codeToHtml(code, { lang: this.lang, theme });
+      return highlighter.codeToHtml(code, {
+        lang: this.lang,
+        themes: {
+          light: "github-light",
+          dark: "github-dark",
+        },
+      });
     } catch {
       return `<pre><code>${code}</code></pre>`;
     }

@@ -680,10 +680,11 @@ select {
   padding-right: 0.75rem;
   padding-left: var(--lb-spacing-sm);
   padding-right: var(--lb-spacing-sm);
-  font-size: 1rem;
+  font-size: 0.875rem;
+  font-size: var(--lb-font-size-sm);
   line-height: 1.2rem;
-  border-radius: 0.5rem;
-  border-radius: var(--lb-border-radius-md);
+  border-radius: 0.25rem;
+  border-radius: var(--lb-border-radius-sm);
   width: 100%;
 }
 [type="text"]:focus,
@@ -1295,6 +1296,15 @@ select {
 .wrap-lines[data-component="code"] .code-highlighted code {
     white-space: pre-wrap;
   }
+html[data-color-scheme="dark"] .shiki,
+html[data-color-scheme="dark"] .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  -webkit-text-decoration: var(--shiki-dark-text-decoration) !important;
+          text-decoration: var(--shiki-dark-text-decoration) !important;
+}
 [data-component="icon"] {
   display: inline-block;
   aspect-ratio: 1 / 1;

@@ -85,9 +85,8 @@
   --lb-prose-figcaption-color: var(--lb-color-base-600);
   --lb-prose-inline-code-color: var(--lb-color-accent-900);
   --lb-prose-inline-code-background-color: var(--lb-color-base-100);
-  --lb-prose-code-background-color: var(--lb-color---lb-color-base-800);
-  --lb-prose-code-background-color: var(--lb-color-white);
-  --lb-prose-code-border-color: var(--lb-color-base-300);
+  --lb-prose-code-background-color: var(--lb-color-base-800);
+  --lb-prose-code-border-color: var(--lb-color-base-700);
 
   /*
    * Breadcrumbs
@@ -169,7 +168,7 @@
 
   --lb-viewport-background-color: var(--lb-color-white);
   --lb-viewport-dimensions-background-color: var(--lb-color-base-200);
-  --lb-viewport-handle-background-color: var(--lb-color-white);
+  --lb-viewport-handle-background-color: var(--lb-color-base-800);
   --lb-viewport-handle-icon-color: var(--lb-color-base-500);
 
   /*

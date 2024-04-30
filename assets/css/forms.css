@@ -24,9 +24,9 @@ select {
   border-radius: 0px;
   padding-block: var(--lb-spacing-xs);
   padding-inline: var(--lb-spacing-sm);
-  font-size: 1rem;
+  font-size: var(--lb-font-size-sm);
   line-height: 1.2rem;
-  border-radius: var(--lb-border-radius-md);
+  border-radius: var(--lb-border-radius-sm);
   width: 100%;
 }
 
