@@ -4,6 +4,7 @@
   padding-inline: var(--lb-spacing-sm);
   color: var(--lb-status-bar-color);
   background-color: var(--lb-status-bar-background-color);
+  border-top: 1px solid var(--lb-divider-color);
 
   display: flex;
   align-items: center;
@@ -17,10 +18,10 @@
   }
 
   .status-bar-info {
-    color: var(--lb-color-base-500);
+    color: var(--lb-status-bar-color);
   }
 
   .status-bar-action {
-    color: var(--lb-color-accent-700);
+    color: var(--lb-status-bar-action-color);
   }
 }

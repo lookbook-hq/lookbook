@@ -57,6 +57,12 @@
     }
   }
 
+  .nav-item-item:hover {
+    .nav-item-label {
+      color: var(--lb-nav-item-label-color-hover);
+    }
+  }
+
   &[aria-selected="true"] {
     > .nav-item-item {
       background-color: var(--lb-nav-item-background-color-selected);

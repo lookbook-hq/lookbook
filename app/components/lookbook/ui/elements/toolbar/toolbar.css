@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   padding-left: var(--lb-spacing-md);
-  border-bottom: 1px solid var(--lb-app-divider-color);
+  border-bottom: 1px solid var(--lb-divider-color);
 
   .toolbar-section {
     display: flex;
@@ -32,7 +32,7 @@
 
   [data-component="button-group"] {
     & + [data-component="button-group"] {
-      border-left: 1px solid var(--lb-app-divider-color);
+      border-left: 1px solid var(--lb-divider-color);
     }
   }
 }

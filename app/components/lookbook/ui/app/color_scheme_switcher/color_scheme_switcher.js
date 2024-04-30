@@ -2,7 +2,7 @@ import AlpineComponent from "@js/alpine/component";
 
 export default AlpineComponent("colorSchemeSwitcher", () => {
   const store = Alpine.store("app");
-  store.setDefault("colorScheme", "system");
+  store.setDefault("colorScheme", "light");
 
   return {
     init() {

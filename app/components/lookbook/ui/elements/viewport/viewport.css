@@ -51,7 +51,7 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
-    outline: 1px solid var(--lb-app-divider-color);
+    outline: 1px solid var(--lb-divider-color);
   }
 
   &.resize-x {
@@ -87,13 +87,13 @@
 
   .viewport-handle-x {
     flex-direction: row;
-    border-left: 1px solid var(--lb-app-divider-color);
+    border-left: 1px solid var(--lb-divider-color);
     width: var(--lb-size-md);
     cursor: ew-resize;
   }
 
   .viewport-handle-y {
-    border-top: 1px solid var(--lb-app-divider-color);
+    border-top: 1px solid var(--lb-divider-color);
     height: var(--lb-size-md);
     cursor: ns-resize;
   }

@@ -18,7 +18,7 @@ header {
   background: white;
   font-size: var(--lb-font-size-sm);
   font-family: var(--lb-font-ui);
-  border-bottom: 1px solid var(--lb-app-divider-color);
+  border-bottom: 1px solid var(--lb-divider-color);
   overflow: hidden;
 }
 

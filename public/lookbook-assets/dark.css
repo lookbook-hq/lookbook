@@ -1,0 +1,197 @@
+:root[data-color-scheme="dark"] {
+  --csstools-color-scheme--light:  ;
+  --csstools-color-scheme--dark: initial;
+  color-scheme: dark;
+
+  /*
+   * General
+   */
+
+  --lb-body-color: var(--lb-color-base-300);
+  --lb-divider-color: var(--lb-color-base-700);
+  --lb-focus-outline-color: var(--lb-color-accent-500);
+
+  /*
+   * Buttons
+   */
+
+  --lb-button-color: var(--lb-color-base-300);
+  --lb-button-color-hover: var(--lb-color-base-100);
+  --lb-button-color-active: var(--lb-color-accent-300);
+
+  /*
+   * Inputs
+   */
+
+  --lb-input-color: var(--lb-body-color);
+  --lb-input-background-color: var(--lb-color-base-700);
+  --lb-input-border-color: var(--lb-color-base-600);
+  --lb-input-outline-color-focus: var(--lb-color-accent-800);
+  --lb-input-placeholder-color: var(--lb-color-base-500);
+
+  --lb-checkbox-color: var(--lb-color-accent-700);
+  --lb-checkbox-background-color: var(--lb-color-white);
+  --lb-checkbox-border-color: var(--lb-color-base-400);
+  --lb-checkbox-outline-color-focus: var(--lb-color-accent-500);
+
+  /*
+   * Tables
+   */
+
+  --lb-table-color: var(--lb-color-base-300);
+  --lb-table-border-color: var(--lb-divider-color);
+  --lb-table-background-color: var(--lb-color-base-900);
+
+  /*
+   * Dropdowns
+   */
+
+  --lb-dropdown-color: var(--lb-body-color);
+  --lb-dropdown-background-color: var(--lb-color-base-800);
+  --lb-dropdown-border-color: var(--lb-divider-color);
+
+  /*
+   * Toolbars
+   */
+
+  --lb-toolbar-color: var(--lb-body-color);
+  --lb-toolbar-background-color: var(--lb-color-base-900);
+
+  /*
+   * Tabs
+   */
+
+  --lb-tab-color: var(--lb-color-base-300);
+  --lb-tab-color-disabled: var(--lb-color-base-500);
+  --lb-tab-color-selected: var(--lb-color-accent-400);
+  --lb-tab-border-color-selected: var(--lb-color-accent-400);
+  --lb-tab-panel-color: var(--lb-body-color);
+  --lb-tab-panel-background-color: var(--lb-color-base-800);
+
+  /*
+   * Panes
+   */
+
+  --lb-pane-background-color: var(--lb-color-base-800);
+
+  /*
+   * Prose
+   */
+
+  --lb-prose-color: var(--lb-body-color);
+  --lb-prose-list-counter-color: var(--lb-color-base-600);
+  --lb-prose-list-marker-color: var(--lb-color-base-400);
+  --lb-prose-hr-color: var(--lb-color-base-600);
+  --lb-prose-blockquote-color: var(--lb-color-base-700);
+  --lb-prose-blockquote-border-color: var(--lb-color-base-300);
+  --lb-prose-figcaption-color: var(--lb-color-base-600);
+  --lb-prose-inline-code-color: var(--lb-color-accent-900);
+  --lb-prose-inline-code-background-color: var(--lb-color-base-100);
+  --lb-prose-code-background-color: var(--lb-color---lb-color-base-800);
+  --lb-prose-code-background-color: var(--lb-color-white);
+  --lb-prose-code-border-color: var(--lb-color-base-300);
+
+  /*
+   * Breadcrumbs
+   */
+
+  --lb-breadrumbs-color: var(--lb-color-base-500);
+  --lb-breadrumbs-color-current: var(--lb-color-base-300);
+  --lb-breadrumbs-link-color: var(--lb-color-base-500);
+  --lb-breadrumbs-link-color-hover: var(--lb-color-accent-300);
+
+  /*
+   * Header
+   */
+
+  --lb-header-color: var(--lb-color-white);
+  --lb-header-background-color: var(--lb-color-accent-700);
+
+  /*
+   * Nav
+   */
+
+  --lb-nav-item-background-color: transparent;
+  --lb-nav-item-border-color: transparent;
+  --lb-nav-item-label-color: var(--lb-color-base-400);
+  --lb-nav-item-icon-color: var(--lb-color-accent-400);
+  --lb-nav-item-toggle-color: var(--lb-color-base-400);
+
+  --lb-nav-item-background-color-selected: var(--lb-color-base-700);
+  --lb-nav-item-border-color-selected: var(--lb-color-accent-500);
+  --lb-nav-item-label-color-selected: var(--lb-color-base-100);
+  --lb-nav-item-label-color-hover: var(--lb-color-base-200);
+
+  --lb-nav-placeholder-color: var(--lb-color-base-500);
+  --lb-nav-placeholder-border-color: var(--lb-divider-color);
+  --lb-nav-placeholder-background-color: var(--lb-color-white);
+
+  /*
+   * Status bar
+   */
+
+  --lb-status-bar-color: var(--lb-color-base-400);
+  --lb-status-bar-background-color: var(--lb-color-base-900);
+  --lb-status-bar-action-color: var(--lb-color-accent-400);
+  --lb-status-bar-item-color-positive: var(--lb-color-positive-500);
+  --lb-status-bar-item-color-error: var(--lb-color-negative-500);
+  --lb-status-bar-item-color-warning: var(--lb-color-warning-500);
+  --lb-status-bar-item-color-info: var(--lb-color-info-300);
+  --lb-status-bar-notifications-color: var(--lb-dropdown-color);
+  --lb-status-bar-notifications-background-color: var(
+    --lb-dropdown-background-color
+  );
+
+  /*
+   * Page
+   */
+
+  --lb-page-color: var(--lb-body-color);
+  --lb-page-background-color: var(--lb-color-base-800);
+  --lb-page-divider-color: var(--lb-divider-color);
+  --lb-page-title-color: var(--lb-body-color);
+
+  /*
+   * System message
+   */
+
+  --lb-system-message-color: var(--lb-color-base-500);
+  --lb-system-message-background-color: var(--lb-color-white);
+  --lb-system-message-border-color: var(--lb-divider-color);
+  --lb-system-message-title-color: var(--lb-color-base-900);
+  --lb-system-message-icon-color: var(--lb-color-base-300);
+
+  --lb-system-message-title-color-error: var(--lb-color-negative-600);
+  --lb-system-message-border-color-error: var(--lb-color-negative-200);
+  --lb-system-message-icon-color-error: var(--lb-color-negative-300);
+
+  /*
+   * Viewport
+   */
+
+  --lb-viewport-background-color: var(--lb-color-white);
+  --lb-viewport-dimensions-background-color: var(--lb-color-base-200);
+  --lb-viewport-handle-background-color: var(--lb-color-white);
+  --lb-viewport-handle-icon-color: var(--lb-color-base-500);
+
+  /*
+   * Display options dropdown
+   */
+
+  --lb-display-options-color: var(--lb-dropdown-color);
+  --lb-display-options-background-color: var(--lb-dropdown-background-color);
+
+  /*
+   * Color scheme switcher
+   */
+
+  --lb-color-scheme-switcher-background-color: var(
+    --lb-dropdown-background-color
+  );
+  --lb-color-scheme-switcher-button-color: var(--lb-color-base-300);
+  --lb-color-scheme-switcher-button-color-hover: var(--lb-color-base-100);
+  --lb-color-scheme-switcher-icon-color: var(--lb-color-base-300);
+  --lb-color-scheme-switcher-icon-color-hover: var(--lb-color-base-200);
+  --lb-color-scheme-switcher-button-color-selected: var(--lb-color-accent-400);
+  --lb-color-scheme-switcher-icon-color-selected: var(--lb-color-accent-400);
+}

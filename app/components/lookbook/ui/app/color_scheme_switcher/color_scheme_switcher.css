@@ -26,11 +26,13 @@
   }
 
   .switcher-dropdown {
+    background-color: var(--lb-color-scheme-switcher-background-color);
     padding-block: var(--lb-spacing-2xs);
     min-width: 9em;
   }
 
   .switcher-option {
+    color: var(--lb-color-scheme-switcher-button-color);
     padding-block: var(--lb-spacing-xs);
     padding-left: var(--lb-spacing-md);
     padding-right: var(--lb-spacing-lg);
@@ -39,9 +41,25 @@
     column-gap: var(--lb-spacing-sm);
     width: 100%;
 
+    .icon {
+      color: var(--lb-color-scheme-switcher-icon-color);
+    }
+
+    &:hover {
+      color: var(--lb-color-scheme-switcher-button-color-hover);
+
+      .icon {
+        color: var(--lb-color-scheme-switcher-icon-color-hover);
+      }
+    }
+
     &.selected {
       font-weight: var(--lb-font-weight-semibold);
-      color: var(--lb-color-accent-600);
+      color: var(--lb-color-scheme-switcher-button-color-selected);
+
+      .icon {
+        color: var(--lb-color-scheme-switcher-icon-color-selected);
+      }
     }
   }
 }

@@ -140,6 +140,18 @@
   --lb-color-pink-900: #831843;
   --lb-color-pink-950: #500724;
 
+  --lb-color-fuscia-50: #fdf4ff;
+  --lb-color-fuscia-100: #fae8ff;
+  --lb-color-fuscia-200: #f5d0fe;
+  --lb-color-fuscia-300: #f0abfc;
+  --lb-color-fuscia-400: #e879f9;
+  --lb-color-fuscia-500: #d946ef;
+  --lb-color-fuscia-600: #c026d3;
+  --lb-color-fuscia-700: #a21caf;
+  --lb-color-fuscia-800: #86198f;
+  --lb-color-fuscia-900: #701a75;
+  --lb-color-fuscia-950: #4a044e;
+
   --lb-color-positive-50: var(--lb-color-green-50);
   --lb-color-positive-100: var(--lb-color-green-100);
   --lb-color-positive-200: var(--lb-color-green-200);
@@ -254,7 +266,83 @@
 
   /* Panels */
 
-  --lb-panel-padding: var(--lb-spacing-3xl);
+  --lb-panel-padding: var(--lb-spacing-md);
+}
+:root,
+:root[data-theme="indigo"] {
+  --lb-color-accent-50: var(--lb-color-indigo-50);
+  --lb-color-accent-100: var(--lb-color-indigo-100);
+  --lb-color-accent-200: var(--lb-color-indigo-200);
+  --lb-color-accent-300: var(--lb-color-indigo-300);
+  --lb-color-accent-400: var(--lb-color-indigo-400);
+  --lb-color-accent-500: var(--lb-color-indigo-500);
+  --lb-color-accent-600: var(--lb-color-indigo-600);
+  --lb-color-accent-700: var(--lb-color-indigo-700);
+  --lb-color-accent-800: var(--lb-color-indigo-800);
+  --lb-color-accent-900: var(--lb-color-indigo-900);
+  --lb-color-accent-950: var(--lb-color-indigo-950);
+
+  --lb-color-base-50: var(--lb-color-slate-50);
+  --lb-color-base-100: var(--lb-color-slate-100);
+  --lb-color-base-200: var(--lb-color-slate-200);
+  --lb-color-base-300: var(--lb-color-slate-300);
+  --lb-color-base-400: var(--lb-color-slate-400);
+  --lb-color-base-500: var(--lb-color-slate-500);
+  --lb-color-base-600: var(--lb-color-slate-600);
+  --lb-color-base-700: var(--lb-color-slate-700);
+  --lb-color-base-800: var(--lb-color-slate-800);
+  --lb-color-base-900: var(--lb-color-slate-900);
+  --lb-color-base-950: var(--lb-color-slate-950);
+}
+:root[data-theme="pink"] {
+  --lb-color-accent-50: var(--lb-color-pink-50);
+  --lb-color-accent-100: var(--lb-color-pink-100);
+  --lb-color-accent-200: var(--lb-color-pink-200);
+  --lb-color-accent-300: var(--lb-color-pink-300);
+  --lb-color-accent-400: var(--lb-color-pink-400);
+  --lb-color-accent-500: var(--lb-color-pink-500);
+  --lb-color-accent-600: var(--lb-color-pink-600);
+  --lb-color-accent-700: var(--lb-color-pink-700);
+  --lb-color-accent-800: var(--lb-color-pink-800);
+  --lb-color-accent-900: var(--lb-color-pink-900);
+  --lb-color-accent-950: var(--lb-color-pink-950);
+
+  --lb-color-base-50: var(--lb-color-gray-50);
+  --lb-color-base-100: var(--lb-color-gray-100);
+  --lb-color-base-200: var(--lb-color-gray-200);
+  --lb-color-base-300: var(--lb-color-gray-300);
+  --lb-color-base-400: var(--lb-color-gray-400);
+  --lb-color-base-500: var(--lb-color-gray-500);
+  --lb-color-base-600: var(--lb-color-gray-600);
+  --lb-color-base-700: var(--lb-color-gray-700);
+  --lb-color-base-800: var(--lb-color-gray-800);
+  --lb-color-base-900: var(--lb-color-gray-900);
+  --lb-color-base-950: var(--lb-color-gray-950);
+}
+:root[data-theme="fuscia"] {
+  --lb-color-accent-50: var(--lb-color-fuscia-50);
+  --lb-color-accent-100: var(--lb-color-fuscia-100);
+  --lb-color-accent-200: var(--lb-color-fuscia-200);
+  --lb-color-accent-300: var(--lb-color-fuscia-300);
+  --lb-color-accent-400: var(--lb-color-fuscia-400);
+  --lb-color-accent-500: var(--lb-color-fuscia-500);
+  --lb-color-accent-600: var(--lb-color-fuscia-600);
+  --lb-color-accent-700: var(--lb-color-fuscia-700);
+  --lb-color-accent-800: var(--lb-color-fuscia-800);
+  --lb-color-accent-900: var(--lb-color-fuscia-900);
+  --lb-color-accent-950: var(--lb-color-fuscia-950);
+
+  --lb-color-base-50: var(--lb-color-gray-50);
+  --lb-color-base-100: var(--lb-color-gray-100);
+  --lb-color-base-200: var(--lb-color-gray-200);
+  --lb-color-base-300: var(--lb-color-gray-300);
+  --lb-color-base-400: var(--lb-color-gray-400);
+  --lb-color-base-500: var(--lb-color-gray-500);
+  --lb-color-base-600: var(--lb-color-gray-600);
+  --lb-color-base-700: var(--lb-color-gray-700);
+  --lb-color-base-800: var(--lb-color-gray-800);
+  --lb-color-base-900: var(--lb-color-gray-900);
+  --lb-color-base-950: var(--lb-color-gray-950);
 }
 @font-face {
   font-family: "Inter Var";
@@ -504,7 +592,7 @@ body {
   font-family: var(--lb-font-ui);
   font-size: 1rem;
   font-size: var(--lb-font-size-md);
-  color: var(--lb-app-color);
+  color: var(--lb-body-color);
 }
 body {
   min-height: 100vh;
@@ -554,7 +642,7 @@ tr:not(:last-child) {
 :focus-visible {
   outline: 1px solid transparent;
   outline-offset: 0;
-  outline-color: var(--lb-app-outline-color-focus);
+  outline-color: var(--lb-focus-outline-color);
 }
 /* Utilities */
 .bg-checked {
@@ -579,7 +667,7 @@ header {
   font-family: "Inter Var", Roboto, "Helvetica Neue", "Arial Nova",
     "Nimbus Sans", Arial, sans-serif;
   font-family: var(--lb-font-ui);
-  border-bottom: 1px solid var(--lb-app-divider-color);
+  border-bottom: 1px solid var(--lb-divider-color);
   overflow: hidden;
 }
 dl {

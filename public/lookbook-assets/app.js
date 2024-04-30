@@ -9416,7 +9416,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   // app/components/lookbook/ui/app/color_scheme_switcher/color_scheme_switcher.js
   var color_scheme_switcher_default = AlpineComponent("colorSchemeSwitcher", () => {
     const store2 = Alpine.store("app");
-    store2.setDefault("colorScheme", "system");
+    store2.setDefault("colorScheme", "light");
     return {
       init() {
         this.onSystemSchemeChange = this.onSystemSchemeChange.bind(this);

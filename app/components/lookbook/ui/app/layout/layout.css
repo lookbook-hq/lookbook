@@ -6,15 +6,7 @@
     grid-template-rows: min-content 1fr min-content;
   }
 
-  #app-header {
-    border-bottom: 1px solid var(--lb-app-divider-color);
-  }
-
   #app-body {
     height: 100%;
-  }
-
-  #app-status-bar {
-    border-top: 1px solid var(--lb-app-divider-color);
   }
 }

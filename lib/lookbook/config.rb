@@ -52,7 +52,9 @@ module Lookbook
           languages: default_languages,
 
           status_bar: Rails.env.development?,
-          theme_switcher: true,
+
+          ui_theme: :indigo,
+          ui_color_scheme_switcher: true,
 
           reload_on_change: Rails.env.development?,
           mount_path: "/lookbook"

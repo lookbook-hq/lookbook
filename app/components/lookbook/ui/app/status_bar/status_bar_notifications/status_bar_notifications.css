@@ -10,7 +10,7 @@
     padding-block: var(--lb-spacing-sm);
 
     & + .notification {
-      border-top: 1px solid var(--lb-app-divider-color);
+      border-top: 1px solid var(--lb-divider-color);
     }
 
     .notification-icon {

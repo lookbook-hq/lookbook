@@ -140,6 +140,18 @@
   --lb-color-pink-900: #831843;
   --lb-color-pink-950: #500724;
 
+  --lb-color-fuscia-50: #fdf4ff;
+  --lb-color-fuscia-100: #fae8ff;
+  --lb-color-fuscia-200: #f5d0fe;
+  --lb-color-fuscia-300: #f0abfc;
+  --lb-color-fuscia-400: #e879f9;
+  --lb-color-fuscia-500: #d946ef;
+  --lb-color-fuscia-600: #c026d3;
+  --lb-color-fuscia-700: #a21caf;
+  --lb-color-fuscia-800: #86198f;
+  --lb-color-fuscia-900: #701a75;
+  --lb-color-fuscia-950: #4a044e;
+
   --lb-color-positive-50: var(--lb-color-green-50);
   --lb-color-positive-100: var(--lb-color-green-100);
   --lb-color-positive-200: var(--lb-color-green-200);
@@ -254,5 +266,5 @@
 
   /* Panels */
 
-  --lb-panel-padding: var(--lb-spacing-3xl);
+  --lb-panel-padding: var(--lb-spacing-md);
 }
