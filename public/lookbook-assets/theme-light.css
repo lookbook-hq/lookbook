@@ -1,5 +1,7 @@
 :root,
 :root[data-theme="light"] {
+  --csstools-color-scheme--light: initial;
+  --csstools-color-scheme--dark:  ;
   color-scheme: light;
 
   /*

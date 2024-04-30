@@ -6,19 +6,21 @@ module Lookbook
       "/" + (version ? "#{path}?v=#{Lookbook::VERSION}" : path)
     end
 
-    def lookbook_asset_tags(context = "app")
+    def lookbook_asset_tags(name = "app")
       safe_join([
-        lookbook_stylesheet_tag(context),
-        lookbook_script_tag(context)
+        lookbook_stylesheet_tag(name),
+        lookbook_stylesheet_tag("theme-light"),
+        lookbook_stylesheet_tag("theme-dark"),
+        lookbook_script_tag(name)
       ], "\n")
     end
 
-    def lookbook_script_tag(context = "app")
-      javascript_include_tag(lookbook_asset_path("/#{context}.js"), defer: true)
+    def lookbook_script_tag(name = "app")
+      javascript_include_tag(lookbook_asset_path("/#{name}.js"), defer: true)
     end
 
-    def lookbook_stylesheet_tag(context = "app")
-      stylesheet_link_tag(lookbook_asset_path("/#{context}.css"))
+    def lookbook_stylesheet_tag(name = "app")
+      stylesheet_link_tag(lookbook_asset_path("/#{name}.css"))
     end
   end
 end
