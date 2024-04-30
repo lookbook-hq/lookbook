@@ -10,8 +10,8 @@
   }
 
   .nav-filter {
-    padding-block: var(--lookbook-spacing-x-small);
-    padding-inline: var(--lookbook-spacing-small);
+    padding-block: var(--lb-spacing-x-small);
+    padding-inline: var(--lb-spacing-small);
   }
 
   .nav-tree-wrapper {
@@ -27,19 +27,19 @@
     height: 100%;
     width: 100%;
     overflow-y: auto;
-    padding-bottom: var(--lookbook-spacing-medium);
+    padding-bottom: var(--lb-spacing-medium);
   }
 
   &:not(.with-filter) .nav-tree {
-    padding-top: var(--lookbook-spacing-x-small);
+    padding-top: var(--lb-spacing-x-small);
   }
 
   .nav-placeholder {
-    font-size: var(--lookbook-font-size-small);
-    background-color: var(--lookbook-nav-placeholder-background-color);
-    color: var(--lookbook-nav-placeholder-color);
-    padding: var(--lookbook-spacing-medium);
-    border: 1px dashed var(--lookbook-nav-placeholder-border-color);
-    margin: var(--lookbook-spacing-small);
+    font-size: var(--lb-font-size-small);
+    background-color: var(--lb-nav-placeholder-background-color);
+    color: var(--lb-nav-placeholder-color);
+    padding: var(--lb-spacing-medium);
+    border: 1px dashed var(--lb-nav-placeholder-border-color);
+    margin: var(--lb-spacing-small);
   }
 }

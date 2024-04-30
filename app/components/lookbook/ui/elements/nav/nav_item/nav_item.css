@@ -6,25 +6,25 @@
     width: 100%;
     display: flex;
     align-items: center;
-    border-left: 3px solid var(--lookbook-nav-item-border-color);
+    border-left: 3px solid var(--lb-nav-item-border-color);
     cursor: pointer;
-    bacground-color: var(--lookbook-nav-item-background-color);
+    bacground-color: var(--lb-nav-item-background-color);
   }
 
   .nav-item-indentation {
-    width: var(--lookbook-spacing-medium);
+    width: var(--lb-spacing-medium);
     height: 100%;
     flex: none;
   }
 
   .nav-item-toggle {
-    width: var(--lookbook-nav-item-height);
+    width: var(--lb-nav-item-height);
     flex: none;
 
     button {
       flex: none;
-      width: var(--lookbook-nav-item-height);
-      color: var(--lookbook-nav-item-toggle-color);
+      width: var(--lb-nav-item-height);
+      color: var(--lb-nav-item-toggle-color);
     }
   }
 
@@ -32,16 +32,16 @@
     display: flex;
     align-items: center;
     width: 100%;
-    height: var(--lookbook-nav-item-height);
+    height: var(--lb-nav-item-height);
     min-width: 0;
-    font-size: var(--lookbook-font-size-small);
-    color: var(--lookbook-nav-item-label-color);
+    font-size: var(--lb-font-size-small);
+    color: var(--lb-nav-item-label-color);
 
     .icon {
       flex: none;
-      margin-right: var(--lookbook-spacing-x-small);
-      height: var(--lookbook-spacing-medium);
-      color: var(--lookbook-nav-item-icon-color);
+      margin-right: var(--lb-spacing-x-small);
+      height: var(--lb-spacing-medium);
+      color: var(--lb-nav-item-icon-color);
     }
 
     span {
@@ -57,15 +57,15 @@
 
   &[aria-selected="true"] {
     > .nav-item-item {
-      background-color: var(--lookbook-nav-item-background-color-selected);
-      border-left-color: var(--lookbook-nav-item-border-color-selected);
+      background-color: var(--lb-nav-item-background-color-selected);
+      border-left-color: var(--lb-nav-item-border-color-selected);
 
       .nav-item-label {
-        color: var(--lookbook-nav-item-label-color-selected);
+        color: var(--lb-nav-item-label-color-selected);
       }
 
       .nav-item-label {
-        font-weight: var(--lookbook-font-weight-semibold);
+        font-weight: var(--lb-font-weight-semibold);
       }
     }
   }

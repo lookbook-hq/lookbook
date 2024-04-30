@@ -18,14 +18,14 @@ select {
   -moz-appearance: none;
   appearance: none;
   background-color: #fff;
-  border-color: var(--lookbook-color-base-300);
+  border-color: var(--lb-color-base-300);
   border-width: 1px;
   border-radius: 0px;
-  padding-block: var(--lookbook-spacing-x-small);
-  padding-inline: var(--lookbook-spacing-small);
+  padding-block: var(--lb-spacing-x-small);
+  padding-inline: var(--lb-spacing-small);
   font-size: 1rem;
   line-height: 1.2rem;
-  border-radius: var(--lookbook-border-radius-medium);
+  border-radius: var(--lb-border-radius-medium);
   width: 100%;
 }
 
@@ -47,19 +47,19 @@ textarea:focus,
 select:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
-  outline-color: var(--lookbook-color-accent-400);
-  /* border-color: var(--lookbook-color-accent-400); */
+  outline-color: var(--lb-color-accent-400);
+  /* border-color: var(--lb-color-accent-400); */
 }
 
 input::-moz-placeholder,
 textarea::-moz-placeholder {
-  color: var(--lookbook-color-base-400);
+  color: var(--lb-color-base-400);
   opacity: 1;
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: var(--lookbook-color-base-400);
+  color: var(--lb-color-base-400);
   opacity: 1;
 }
 
@@ -127,9 +127,9 @@ select {
   flex-shrink: 0;
   height: 1.25rem;
   width: 1.25rem;
-  color: var(--lookbook-color-accent-700);
+  color: var(--lb-color-accent-700);
   background-color: #fff;
-  border-color: var(--lookbook-color-accent-400);
+  border-color: var(--lb-color-accent-400);
   border-width: 1px;
 }
 
@@ -145,7 +145,7 @@ select {
 [type="radio"]:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
-  outline-color: var(--lookbook-color-accent-500);
+  outline-color: var(--lb-color-accent-500);
 }
 
 [type="checkbox"]:checked,

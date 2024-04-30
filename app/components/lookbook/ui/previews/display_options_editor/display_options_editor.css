@@ -1,26 +1,26 @@
 [data-component="display-options-editor"] {
   width: 280px;
-  padding: var(--lookbook-spacing-medium);
-  padding-top: var(--lookbook-spacing-small);
+  padding: var(--lb-spacing-medium);
+  padding-top: var(--lb-spacing-small);
   background: #fff;
 
   .title {
-    font-size: var(--lookbook-font-size-medium);
-    margin-bottom: var(--lookbook-spacing-medium);
+    font-size: var(--lb-font-size-medium);
+    margin-bottom: var(--lb-spacing-medium);
   }
 
   .display-option + .display-option {
-    margin-top: var(--lookbook-spacing-medium);
+    margin-top: var(--lb-spacing-medium);
   }
 
   .display-option {
     label {
-      font-weight: var(--lookbook-font-weight-semibold);
+      font-weight: var(--lb-font-weight-semibold);
       display: block;
-      margin-bottom: var(--lookbook-spacing-x-small);
+      margin-bottom: var(--lb-spacing-x-small);
     }
     select {
-      font-size: var(--lookbook-font-size-small);
+      font-size: var(--lb-font-size-small);
     }
   }
 }

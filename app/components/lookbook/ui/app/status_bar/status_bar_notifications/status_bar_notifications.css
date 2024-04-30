@@ -1,22 +1,22 @@
 [data-component="status-bar-notifications"] {
   width: 28rem;
-  padding-inline: var(--lookbook-spacing-small);
-  color: var(--lookbook-status-bar-notifications-color);
-  background: var(--lookbook-status-bar-notifications-background-color);
+  padding-inline: var(--lb-spacing-small);
+  color: var(--lb-status-bar-notifications-color);
+  background: var(--lb-status-bar-notifications-background-color);
 
   .notification {
     display: flex;
-    gap: var(--lookbook-spacing-small);
-    padding-block: var(--lookbook-spacing-small);
+    gap: var(--lb-spacing-small);
+    padding-block: var(--lb-spacing-small);
 
     & + .notification {
-      border-top: 1px solid var(--lookbook-app-divider-color);
+      border-top: 1px solid var(--lb-app-divider-color);
     }
 
     .notification-icon {
       .icon {
         flex: none;
-        width: var(--lookbook-size-large);
+        width: var(--lb-size-large);
       }
     }
 
@@ -25,9 +25,9 @@
       min-width: 1%;
       width: 100%;
       overflow: hidden;
-      font-family: var(--lookbook-font-mono);
-      font-size: var(--lookbook-font-size-x-small);
-      line-height: var(--lookbook-line-height-dense);
+      font-family: var(--lb-font-mono);
+      font-size: var(--lb-font-size-x-small);
+      line-height: var(--lb-line-height-dense);
       overflow-wrap: break-word;
       word-wrap: break-word;
       word-break: break-word;
@@ -35,19 +35,19 @@
     }
 
     &.notification-error .notification-icon {
-      color: var(--lookbook-status-bar-item-color-error);
+      color: var(--lb-status-bar-item-color-error);
     }
 
     &.notification-warning .notification-icon {
-      color: var(--lookbook-status-bar-item-color-warning);
+      color: var(--lb-status-bar-item-color-warning);
     }
 
     &.notification-notice .notification-icon {
-      color: var(--lookbook-status-bar-item-color-info);
+      color: var(--lb-status-bar-item-color-info);
     }
 
     &.notification-success .notification-icon {
-      color: var(--lookbook-status-bar-item-color-positive);
+      color: var(--lb-status-bar-item-color-positive);
     }
   }
 }

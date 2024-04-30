@@ -1,6 +1,6 @@
 [data-component="page-metadata"] {
   width: fit-content;
-  padding: var(--lookbook-spacing-small);
+  padding: var(--lb-spacing-small);
 
   td {
     white-space: nowrap;

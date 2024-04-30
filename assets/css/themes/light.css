@@ -10,213 +10,205 @@
    * Colour scheme
    */
 
-  --lookbook-color-accent-50: var(--lookbook-color-indigo-50);
-  --lookbook-color-accent-100: var(--lookbook-color-indigo-100);
-  --lookbook-color-accent-200: var(--lookbook-color-indigo-200);
-  --lookbook-color-accent-300: var(--lookbook-color-indigo-300);
-  --lookbook-color-accent-400: var(--lookbook-color-indigo-400);
-  --lookbook-color-accent-500: var(--lookbook-color-indigo-500);
-  --lookbook-color-accent-600: var(--lookbook-color-indigo-600);
-  --lookbook-color-accent-700: var(--lookbook-color-indigo-700);
-  --lookbook-color-accent-800: var(--lookbook-color-indigo-800);
-  --lookbook-color-accent-900: var(--lookbook-color-indigo-900);
-  --lookbook-color-accent-950: var(--lookbook-color-indigo-950);
+  --lb-color-accent-50: var(--lb-color-indigo-50);
+  --lb-color-accent-100: var(--lb-color-indigo-100);
+  --lb-color-accent-200: var(--lb-color-indigo-200);
+  --lb-color-accent-300: var(--lb-color-indigo-300);
+  --lb-color-accent-400: var(--lb-color-indigo-400);
+  --lb-color-accent-500: var(--lb-color-indigo-500);
+  --lb-color-accent-600: var(--lb-color-indigo-600);
+  --lb-color-accent-700: var(--lb-color-indigo-700);
+  --lb-color-accent-800: var(--lb-color-indigo-800);
+  --lb-color-accent-900: var(--lb-color-indigo-900);
+  --lb-color-accent-950: var(--lb-color-indigo-950);
 
-  --lookbook-color-base-50: var(--lookbook-color-gray-50);
-  --lookbook-color-base-100: var(--lookbook-color-gray-100);
-  --lookbook-color-base-200: var(--lookbook-color-gray-200);
-  --lookbook-color-base-300: var(--lookbook-color-gray-300);
-  --lookbook-color-base-400: var(--lookbook-color-gray-400);
-  --lookbook-color-base-500: var(--lookbook-color-gray-500);
-  --lookbook-color-base-600: var(--lookbook-color-gray-600);
-  --lookbook-color-base-700: var(--lookbook-color-gray-700);
-  --lookbook-color-base-800: var(--lookbook-color-gray-800);
-  --lookbook-color-base-900: var(--lookbook-color-gray-900);
-  --lookbook-color-base-950: var(--lookbook-color-gray-950);
+  --lb-color-base-50: var(--lb-color-gray-50);
+  --lb-color-base-100: var(--lb-color-gray-100);
+  --lb-color-base-200: var(--lb-color-gray-200);
+  --lb-color-base-300: var(--lb-color-gray-300);
+  --lb-color-base-400: var(--lb-color-gray-400);
+  --lb-color-base-500: var(--lb-color-gray-500);
+  --lb-color-base-600: var(--lb-color-gray-600);
+  --lb-color-base-700: var(--lb-color-gray-700);
+  --lb-color-base-800: var(--lb-color-gray-800);
+  --lb-color-base-900: var(--lb-color-gray-900);
+  --lb-color-base-950: var(--lb-color-gray-950);
 
-  --lookbook-color-success-50: var(--lookbook-color-green-50);
-  --lookbook-color-success-100: var(--lookbook-color-green-100);
-  --lookbook-color-success-200: var(--lookbook-color-green-200);
-  --lookbook-color-success-300: var(--lookbook-color-green-300);
-  --lookbook-color-success-400: var(--lookbook-color-green-400);
-  --lookbook-color-success-500: var(--lookbook-color-green-500);
-  --lookbook-color-success-600: var(--lookbook-color-green-600);
-  --lookbook-color-success-700: var(--lookbook-color-green-700);
-  --lookbook-color-success-800: var(--lookbook-color-green-800);
-  --lookbook-color-success-900: var(--lookbook-color-green-900);
-  --lookbook-color-success-950: var(--lookbook-color-green-950);
+  --lb-color-success-50: var(--lb-color-green-50);
+  --lb-color-success-100: var(--lb-color-green-100);
+  --lb-color-success-200: var(--lb-color-green-200);
+  --lb-color-success-300: var(--lb-color-green-300);
+  --lb-color-success-400: var(--lb-color-green-400);
+  --lb-color-success-500: var(--lb-color-green-500);
+  --lb-color-success-600: var(--lb-color-green-600);
+  --lb-color-success-700: var(--lb-color-green-700);
+  --lb-color-success-800: var(--lb-color-green-800);
+  --lb-color-success-900: var(--lb-color-green-900);
+  --lb-color-success-950: var(--lb-color-green-950);
 
-  --lookbook-color-warning-50: var(--lookbook-color-amber-50);
-  --lookbook-color-warning-100: var(--lookbook-color-amber-100);
-  --lookbook-color-warning-200: var(--lookbook-color-amber-200);
-  --lookbook-color-warning-300: var(--lookbook-color-amber-300);
-  --lookbook-color-warning-400: var(--lookbook-color-amber-400);
-  --lookbook-color-warning-500: var(--lookbook-color-amber-500);
-  --lookbook-color-warning-600: var(--lookbook-color-amber-600);
-  --lookbook-color-warning-700: var(--lookbook-color-amber-700);
-  --lookbook-color-warning-800: var(--lookbook-color-amber-800);
-  --lookbook-color-warning-900: var(--lookbook-color-amber-900);
-  --lookbook-color-warning-950: var(--lookbook-color-amber-950);
+  --lb-color-warning-50: var(--lb-color-amber-50);
+  --lb-color-warning-100: var(--lb-color-amber-100);
+  --lb-color-warning-200: var(--lb-color-amber-200);
+  --lb-color-warning-300: var(--lb-color-amber-300);
+  --lb-color-warning-400: var(--lb-color-amber-400);
+  --lb-color-warning-500: var(--lb-color-amber-500);
+  --lb-color-warning-600: var(--lb-color-amber-600);
+  --lb-color-warning-700: var(--lb-color-amber-700);
+  --lb-color-warning-800: var(--lb-color-amber-800);
+  --lb-color-warning-900: var(--lb-color-amber-900);
+  --lb-color-warning-950: var(--lb-color-amber-950);
 
-  --lookbook-color-danger-50: var(--lookbook-color-red-50);
-  --lookbook-color-danger-100: var(--lookbook-color-red-100);
-  --lookbook-color-danger-200: var(--lookbook-color-red-200);
-  --lookbook-color-danger-300: var(--lookbook-color-red-300);
-  --lookbook-color-danger-400: var(--lookbook-color-red-400);
-  --lookbook-color-danger-500: var(--lookbook-color-red-500);
-  --lookbook-color-danger-600: var(--lookbook-color-red-600);
-  --lookbook-color-danger-700: var(--lookbook-color-red-700);
-  --lookbook-color-danger-800: var(--lookbook-color-red-800);
-  --lookbook-color-danger-900: var(--lookbook-color-red-900);
-  --lookbook-color-danger-950: var(--lookbook-color-red-950);
+  --lb-color-danger-50: var(--lb-color-red-50);
+  --lb-color-danger-100: var(--lb-color-red-100);
+  --lb-color-danger-200: var(--lb-color-red-200);
+  --lb-color-danger-300: var(--lb-color-red-300);
+  --lb-color-danger-400: var(--lb-color-red-400);
+  --lb-color-danger-500: var(--lb-color-red-500);
+  --lb-color-danger-600: var(--lb-color-red-600);
+  --lb-color-danger-700: var(--lb-color-red-700);
+  --lb-color-danger-800: var(--lb-color-red-800);
+  --lb-color-danger-900: var(--lb-color-red-900);
+  --lb-color-danger-950: var(--lb-color-red-950);
 
   /*
    * App
    */
 
-  --lookbook-app-color: var(--lookbook-color-base-900);
-  --lookbook-app-divider-color: var(--lookbook-color-base-300);
-  --lookbook-app-focus-outline-color: var(--lookbook-color-accent-200);
+  --lb-app-color: var(--lb-color-base-900);
+  --lb-app-divider-color: var(--lb-color-base-300);
+  --lb-app-focus-outline-color: var(--lb-color-accent-200);
 
   /*
    * Header
    */
 
-  --lookbook-header-color: var(--lookbook-color-white);
-  --lookbook-header-background-color: var(--lookbook-color-accent-600);
+  --lb-header-color: var(--lb-color-white);
+  --lb-header-background-color: var(--lb-color-accent-600);
 
   /*
    * Tables
    */
 
-  --lookbook-table-color: var(--lookbook-color-base-900);
-  --lookbook-table-border-color: var(--lookbook-app-divider-color);
-  --lookbook-table-background-color: var(--lookbook-color-white);
+  --lb-table-color: var(--lb-color-base-900);
+  --lb-table-border-color: var(--lb-app-divider-color);
+  --lb-table-background-color: var(--lb-color-white);
 
   /*
    * Panes
    */
 
-  --lookbook-pane-background-color: var(--lookbook-color-base-50);
+  --lb-pane-background-color: var(--lb-color-base-50);
 
   /*
    * Status bar
    */
 
-  --lookbook-status-bar-color: var(--lookbook-base-600);
-  --lookbook-status-bar-background-color: var(--lookbook-color-white);
-  --lookbook-status-bar-action-color: var(--lookbook-color-accent-700);
-  --lookbook-status-bar-item-color-positive: var(--lookbook-color-success-700);
-  --lookbook-status-bar-item-color-error: var(--lookbook-color-danger-600);
-  --lookbook-status-bar-item-color-warning: var(--lookbook-color-warning-600);
-  --lookbook-status-bar-item-color-info: var(--lookbook-color-info-600);
-  --lookbook-status-bar-notifications-color: var(--lookbook-app-color);
-  --lookbook-status-bar-notifications-background-color: var(
-    --lookbook-color-white
-  );
+  --lb-status-bar-color: var(--lb-base-600);
+  --lb-status-bar-background-color: var(--lb-color-white);
+  --lb-status-bar-action-color: var(--lb-color-accent-700);
+  --lb-status-bar-item-color-positive: var(--lb-color-success-700);
+  --lb-status-bar-item-color-error: var(--lb-color-danger-600);
+  --lb-status-bar-item-color-warning: var(--lb-color-warning-600);
+  --lb-status-bar-item-color-info: var(--lb-color-info-600);
+  --lb-status-bar-notifications-color: var(--lb-app-color);
+  --lb-status-bar-notifications-background-color: var(--lb-color-white);
 
   /*
    * System message
    */
 
-  --lookbook-system-message-color: var(--lookbook-color-base-500);
-  --lookbook-system-message-background-color: var(--lookbook-color-white);
-  --lookbook-system-message-border-color: var(--lookbook-app-divider-color);
-  --lookbook-system-message-title-color: var(--lookbook-color-base-900);
-  --lookbook-system-message-icon-color: var(--lookbook-color-base-300);
+  --lb-system-message-color: var(--lb-color-base-500);
+  --lb-system-message-background-color: var(--lb-color-white);
+  --lb-system-message-border-color: var(--lb-app-divider-color);
+  --lb-system-message-title-color: var(--lb-color-base-900);
+  --lb-system-message-icon-color: var(--lb-color-base-300);
 
-  --lookbook-system-message-title-color-error: var(--lookbook-color-danger-600);
-  --lookbook-system-message-border-color-error: var(
-    --lookbook-color-danger-200
-  );
-  --lookbook-system-message-icon-color-error: var(--lookbook-color-danger-300);
+  --lb-system-message-title-color-error: var(--lb-color-danger-600);
+  --lb-system-message-border-color-error: var(--lb-color-danger-200);
+  --lb-system-message-icon-color-error: var(--lb-color-danger-300);
 
   /*
    * Breadcrumbs
    */
 
-  --lookbook-breadrumbs-color: var(--lookbook-color-base-400);
-  --lookbook-breadrumbs-color-current: var(--lookbook-color-base-600);
-  --lookbook-breadrumbs-link-color: var(--lookbook-color-base-400);
-  --lookbook-breadrumbs-link-color-hover: var(--lookbook-color-accent-600);
+  --lb-breadrumbs-color: var(--lb-color-base-400);
+  --lb-breadrumbs-color-current: var(--lb-color-base-600);
+  --lb-breadrumbs-link-color: var(--lb-color-base-400);
+  --lb-breadrumbs-link-color-hover: var(--lb-color-accent-600);
 
   /*
    * Buttons
    */
 
-  --lookbook-button-color: var(--lookbook-color-base-500);
-  --lookbook-button-color-hover: var(--lookbook-color-base-700);
-  --lookbook-button-color-active: var(--lookbook-color-accent-700);
+  --lb-button-color: var(--lb-color-base-500);
+  --lb-button-color-hover: var(--lb-color-base-700);
+  --lb-button-color-active: var(--lb-color-accent-700);
 
   /*
    * Button groups
    */
 
-  --lookbook-button-group-divider-color: var(--lookbook-app-divider-color);
+  --lb-button-group-divider-color: var(--lb-app-divider-color);
 
   /*
    * Nav
    */
 
-  --lookbook-nav-item-background-color: var(--lookbook-color-transparent);
-  --lookbook-nav-item-border-color: var(--lookbook-color-transparent);
-  --lookbook-nav-item-label-color: var(--lookbook-app-color);
-  --lookbook-nav-item-icon-color: var(--lookbook-color-accent-700);
-  --lookbook-nav-item-toggle-color: var(--lookbook-color-base-600);
+  --lb-nav-item-background-color: var(--lb-color-transparent);
+  --lb-nav-item-border-color: var(--lb-color-transparent);
+  --lb-nav-item-label-color: var(--lb-app-color);
+  --lb-nav-item-icon-color: var(--lb-color-accent-700);
+  --lb-nav-item-toggle-color: var(--lb-color-base-600);
 
-  --lookbook-nav-item-background-color-selected: var(--lookbook-color-base-100);
-  --lookbook-nav-item-border-color-selected: var(--lookbook-color-accent-500);
-  --lookbook-nav-item-label-color-selected: var(--lookbook-app-color);
+  --lb-nav-item-background-color-selected: var(--lb-color-base-100);
+  --lb-nav-item-border-color-selected: var(--lb-color-accent-500);
+  --lb-nav-item-label-color-selected: var(--lb-app-color);
 
-  --lookbook-nav-placeholder-color: var(--lookbook-color-base-500);
-  --lookbook-nav-placeholder-border-color: var(--lookbook-app-divider-color);
-  --lookbook-nav-placeholder-background-color: var(--lookbook-color-white);
+  --lb-nav-placeholder-color: var(--lb-color-base-500);
+  --lb-nav-placeholder-border-color: var(--lb-app-divider-color);
+  --lb-nav-placeholder-background-color: var(--lb-color-white);
 
   /*
    * Tabs
    */
 
-  --lookbook-tab-color: var(--lookbook-color-base-800);
-  --lookbook-tab-color-disabled: var(--lookbook-color-base-300);
-  --lookbook-tab-color-selected: var(--lookbook-color-accent-500);
-  --lookbook-tab-border-color-selected: var(--lookbook-color-accent-500);
-  --lookbook-tab-panel-color: var(--lookbook-app-color);
-  --lookbook-tab-panel-background-color: var(--lookbook-color-base-50);
+  --lb-tab-color: var(--lb-color-base-800);
+  --lb-tab-color-disabled: var(--lb-color-base-300);
+  --lb-tab-color-selected: var(--lb-color-accent-500);
+  --lb-tab-border-color-selected: var(--lb-color-accent-500);
+  --lb-tab-panel-color: var(--lb-app-color);
+  --lb-tab-panel-background-color: var(--lb-color-base-50);
 
   /*
    * Prose
    */
 
-  --lookbook-prose-color: var(--lookbook-app-color);
-  --lookbook-prose-list-counter-color: var(--lookbook-color-base-600);
-  --lookbook-prose-list-marker-color: var(--lookbook-color-base-400);
-  --lookbook-prose-hr-color: var(--lookbook-color-base-600);
-  --lookbook-prose-blockquote-color: var(--lookbook-color-base-700);
-  --lookbook-prose-blockquote-border-color: var(--lookbook-color-base-300);
-  --lookbook-prose-figcaption-color: var(--lookbook-color-base-600);
-  --lookbook-prose-inline-code-color: var(--lookbook-color-accent-900);
-  --lookbook-prose-inline-code-background-color: var(--lookbook-color-base-100);
-  --lookbook-prose-code-background-color: var(
-    --lookbook-color---lookbook-color-base-800
-  );
-  --lookbook-prose-code-background-color: var(--lookbook-color-white);
-  --lookbook-prose-code-border-color: var(--lookbook-color-base-300);
+  --lb-prose-color: var(--lb-app-color);
+  --lb-prose-list-counter-color: var(--lb-color-base-600);
+  --lb-prose-list-marker-color: var(--lb-color-base-400);
+  --lb-prose-hr-color: var(--lb-color-base-600);
+  --lb-prose-blockquote-color: var(--lb-color-base-700);
+  --lb-prose-blockquote-border-color: var(--lb-color-base-300);
+  --lb-prose-figcaption-color: var(--lb-color-base-600);
+  --lb-prose-inline-code-color: var(--lb-color-accent-900);
+  --lb-prose-inline-code-background-color: var(--lb-color-base-100);
+  --lb-prose-code-background-color: var(--lb-color---lb-color-base-800);
+  --lb-prose-code-background-color: var(--lb-color-white);
+  --lb-prose-code-border-color: var(--lb-color-base-300);
 
   /*
    * Toolbars
    */
 
-  --lookbook-toolbar-color: var(--lookbook-app-color);
-  --lookbook-toolbar-background-color: var(--lookbook-color-white);
+  --lb-toolbar-color: var(--lb-app-color);
+  --lb-toolbar-background-color: var(--lb-color-white);
 
   /*
    * Viewport
    */
 
-  --lookbook-viewport-background-color: var(--lookbook-color-white);
-  --lookbook-viewport-dimensions-background-color: var(
-    --lookbook-color-base-200
-  );
-  --lookbook-viewport-handle-background-color: var(--lookbook-color-white);
-  --lookbook-viewport-handle-icon-color: var(--lookbook-color-base-500);
+  --lb-viewport-background-color: var(--lb-color-white);
+  --lb-viewport-dimensions-background-color: var(--lb-color-base-200);
+  --lb-viewport-handle-background-color: var(--lb-color-white);
+  --lb-viewport-handle-icon-color: var(--lb-color-base-500);
 }

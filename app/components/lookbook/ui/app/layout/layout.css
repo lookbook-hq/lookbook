@@ -7,7 +7,7 @@
   }
 
   #app-header {
-    border-bottom: 1px solid var(--lookbook-app-divider-color);
+    border-bottom: 1px solid var(--lb-app-divider-color);
   }
 
   #app-body {
@@ -15,6 +15,6 @@
   }
 
   #app-status-bar {
-    border-top: 1px solid var(--lookbook-app-divider-color);
+    border-top: 1px solid var(--lb-app-divider-color);
   }
 }

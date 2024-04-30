@@ -1,9 +1,9 @@
 [data-component="status-bar"] {
-  height: var(--lookbook-status-bar-height);
-  font-size: var(--lookbook-font-size-x-small);
-  padding-inline: var(--lookbook-spacing-small);
-  color: var(--lookbook-status-bar-color);
-  background-color: var(--lookbook-status-bar-background-color);
+  height: var(--lb-status-bar-height);
+  font-size: var(--lb-font-size-x-small);
+  padding-inline: var(--lb-spacing-small);
+  color: var(--lb-status-bar-color);
+  background-color: var(--lb-status-bar-background-color);
 
   display: flex;
   align-items: center;
@@ -12,15 +12,15 @@
   .status-bar-section {
     display: flex;
     align-items: center;
-    gap: var(--lookbook-spacing-medium);
+    gap: var(--lb-spacing-medium);
     height: 100%;
   }
 
   .status-bar-info {
-    color: var(--lookbook-color-base-500);
+    color: var(--lb-color-base-500);
   }
 
   .status-bar-action {
-    color: var(--lookbook-color-accent-700);
+    color: var(--lb-color-accent-700);
   }
 }

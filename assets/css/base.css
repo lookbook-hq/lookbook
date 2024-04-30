@@ -1,17 +1,17 @@
 html,
 body {
-  font-family: var(--lookbook-font-ui);
-  font-size: var(--lookbook-font-size-medium);
-  color: var(--lookbook-app-color);
+  font-family: var(--lb-font-ui);
+  font-size: var(--lb-font-size-medium);
+  color: var(--lb-app-color);
 }
 
 body {
   min-height: 100vh;
-  font-size: var(--lookbook-font-size-medium);
+  font-size: var(--lb-font-size-medium);
 }
 
 code {
-  font-family: var(--lookbook-font-mono);
+  font-family: var(--lb-font-mono);
 }
 
 a {
@@ -27,31 +27,31 @@ router {
 }
 
 table {
-  background: var(--lookbook-table-background-color);
-  border: 1px solid var(--lookbook-table-border-color);
-  color: var(--lookbook-table-color);
+  background: var(--lb-table-background-color);
+  border: 1px solid var(--lb-table-border-color);
+  color: var(--lb-table-color);
   width: 100%;
   border-collapse: collapse;
-  font-size: var(--lookbook-font-size-small);
+  font-size: var(--lb-font-size-small);
 }
 
 th,
 td {
   text-align: left;
-  padding-inline: var(--lookbook-spacing-medium);
-  padding-block: var(--lookbook-spacing-small);
+  padding-inline: var(--lb-spacing-medium);
+  padding-block: var(--lb-spacing-small);
   width: 1%;
 }
 
 thead tr,
 tr:not(:last-child) {
-  border-bottom: 1px solid var(--lookbook-table-border-color);
+  border-bottom: 1px solid var(--lb-table-border-color);
 }
 
 :focus-visible {
   outline: 1px solid transparent;
   outline-offset: 0;
-  outline-color: var(--lookbook-app-focus-outline-color);
+  outline-color: var(--lb-app-focus-outline-color);
 }
 
 /* Utilities */

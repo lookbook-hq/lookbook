@@ -1,8 +1,8 @@
 [data-component="header"] {
-  height: var(--lookbook-header-height);
-  color: var(--lookbook-header-color);
-  background-color: var(--lookbook-header-background-color);
-  padding-inline: var(--lookbook-spacing-medium);
+  height: var(--lb-header-height);
+  color: var(--lb-header-color);
+  background-color: var(--lb-header-background-color);
+  padding-inline: var(--lb-spacing-medium);
   padding-bottom: 4px;
   display: flex;
   align-items: center;
@@ -10,7 +10,7 @@
   .header-branding {
     display: flex;
     align-items: center;
-    column-gap: var(--lookbook-spacing-small);
+    column-gap: var(--lb-spacing-small);
   }
 
   .header-project-logo {

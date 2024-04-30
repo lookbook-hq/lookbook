@@ -4,7 +4,7 @@
   min-height: 0;
   overflow: hidden;
   position: relative;
-  background-color: var(--lookbook-viewport-background-color);
+  background-color: var(--lb-viewport-background-color);
   user-select: none;
   touch-action: none;
 
@@ -16,25 +16,25 @@
   }
 
   .viewport-dimensions {
-    font-size: var(--lookbook-font-size-x-small);
-    font-family: var(--lookbook-font-mono);
-    padding-inline: var(--lookbook-spacing-x-small);
-    padding-block: var(--lookbook-spacing-x-small);
+    font-size: var(--lb-font-size-x-small);
+    font-family: var(--lb-font-mono);
+    padding-inline: var(--lb-spacing-x-small);
+    padding-block: var(--lb-spacing-x-small);
     position: absolute;
     z-index: 10;
     top: 0;
     right: 0;
     display: inline-flex;
-    gap: var(--lookbook-spacing-2x-small);
+    gap: var(--lb-spacing-2x-small);
     overflow: hidden;
-    border-bottom-left-radius: var(--lookbook-border-radius-medium);
+    border-bottom-left-radius: var(--lb-border-radius-medium);
     pointer-events: none;
 
     &::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: var(--lookbook-viewport-dimensions-background-color);
+      background: var(--lb-viewport-dimensions-background-color);
       opacity: 0.7;
     }
 
@@ -51,12 +51,12 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
-    outline: 1px solid var(--lookbook-app-divider-color);
+    outline: 1px solid var(--lb-app-divider-color);
   }
 
   &.resize-x {
     .viewport-dimensions {
-      right: var(--lookbook-spacing-medium);
+      right: var(--lb-spacing-medium);
     }
 
     .viewport-resizer {
@@ -81,26 +81,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--lookbook-viewport-handle-background-color);
-    color: var(--lookbook-viewport-handle-icon-color);
+    background-color: var(--lb-viewport-handle-background-color);
+    color: var(--lb-viewport-handle-icon-color);
   }
 
   .viewport-handle-x {
     flex-direction: row;
-    border-left: 1px solid var(--lookbook-app-divider-color);
-    width: var(--lookbook-size-medium);
+    border-left: 1px solid var(--lb-app-divider-color);
+    width: var(--lb-size-medium);
     cursor: ew-resize;
   }
 
   .viewport-handle-y {
-    border-top: 1px solid var(--lookbook-app-divider-color);
-    height: var(--lookbook-size-medium);
+    border-top: 1px solid var(--lb-app-divider-color);
+    height: var(--lb-size-medium);
     cursor: ns-resize;
   }
 
   .viewport-handle-xy {
-    width: var(--lookbook-size-medium);
-    height: var(--lookbook-size-medium);
+    width: var(--lb-size-medium);
+    height: var(--lb-size-medium);
     cursor: nwse-resize;
 
     .icon {
@@ -109,6 +109,6 @@
   }
 
   .viewport-handle-icon {
-    width: var(--lookbook-size-medium);
+    width: var(--lb-size-medium);
   }
 }

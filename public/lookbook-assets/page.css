@@ -3,300 +3,299 @@
    * Color primitives
    */
 
-  --lookbook-color-white: #fff;
-  --lookbook-color-black: #000;
-  --lookbook-color-transparent: transparent;
+  --lb-color-white: #fff;
+  --lb-color-black: #000;
+  --lb-color-transparent: transparent;
 
-  --lookbook-color-gray-50: hsl(0, 0%, 98%);
-  --lookbook-color-gray-100: hsl(240, 5%, 96%);
-  --lookbook-color-gray-200: hsl(240, 6%, 90%);
-  --lookbook-color-gray-300: hsl(240, 5%, 84%);
-  --lookbook-color-gray-400: hsl(240, 5%, 65%);
-  --lookbook-color-gray-500: hsl(240, 4%, 46%);
-  --lookbook-color-gray-600: hsl(240, 5%, 34%);
-  --lookbook-color-gray-700: hsl(240, 5%, 26%);
-  --lookbook-color-gray-800: hsl(240, 4%, 16%);
-  --lookbook-color-gray-900: hsl(240, 6%, 10%);
-  --lookbook-color-gray-950: hsl(240, 7%, 8%);
+  --lb-color-gray-50: hsl(0, 0%, 98%);
+  --lb-color-gray-100: hsl(240, 5%, 96%);
+  --lb-color-gray-200: hsl(240, 6%, 90%);
+  --lb-color-gray-300: hsl(240, 5%, 84%);
+  --lb-color-gray-400: hsl(240, 5%, 65%);
+  --lb-color-gray-500: hsl(240, 4%, 46%);
+  --lb-color-gray-600: hsl(240, 5%, 34%);
+  --lb-color-gray-700: hsl(240, 5%, 26%);
+  --lb-color-gray-800: hsl(240, 4%, 16%);
+  --lb-color-gray-900: hsl(240, 6%, 10%);
+  --lb-color-gray-950: hsl(240, 7%, 8%);
 
-  --lookbook-color-red-50: hsl(0, 86%, 97%);
-  --lookbook-color-red-100: hsl(0, 93%, 94%);
-  --lookbook-color-red-200: hsl(0, 96%, 89%);
-  --lookbook-color-red-300: hsl(0, 94%, 82%);
-  --lookbook-color-red-400: hsl(0, 91%, 71%);
-  --lookbook-color-red-500: hsl(0, 84%, 60%);
-  --lookbook-color-red-600: hsl(0, 72%, 51%);
-  --lookbook-color-red-700: hsl(0, 74%, 42%);
-  --lookbook-color-red-800: hsl(0, 70%, 35%);
-  --lookbook-color-red-900: hsl(0, 63%, 31%);
-  --lookbook-color-red-950: hsl(0, 60%, 20%);
+  --lb-color-red-50: hsl(0, 86%, 97%);
+  --lb-color-red-100: hsl(0, 93%, 94%);
+  --lb-color-red-200: hsl(0, 96%, 89%);
+  --lb-color-red-300: hsl(0, 94%, 82%);
+  --lb-color-red-400: hsl(0, 91%, 71%);
+  --lb-color-red-500: hsl(0, 84%, 60%);
+  --lb-color-red-600: hsl(0, 72%, 51%);
+  --lb-color-red-700: hsl(0, 74%, 42%);
+  --lb-color-red-800: hsl(0, 70%, 35%);
+  --lb-color-red-900: hsl(0, 63%, 31%);
+  --lb-color-red-950: hsl(0, 60%, 20%);
 
-  --lookbook-color-orange-50: hsl(33, 100%, 97%);
-  --lookbook-color-orange-100: hsl(34, 100%, 92%);
-  --lookbook-color-orange-200: hsl(32, 98%, 83%);
-  --lookbook-color-orange-300: hsl(31, 97%, 72%);
-  --lookbook-color-orange-400: hsl(27, 96%, 61%);
-  --lookbook-color-orange-500: hsl(25, 95%, 53%);
-  --lookbook-color-orange-600: hsl(21, 90%, 48%);
-  --lookbook-color-orange-700: hsl(18, 88%, 40%);
-  --lookbook-color-orange-800: hsl(15, 79%, 34%);
-  --lookbook-color-orange-900: hsl(15, 75%, 28%);
-  --lookbook-color-orange-950: hsl(15, 69%, 19%);
+  --lb-color-orange-50: hsl(33, 100%, 97%);
+  --lb-color-orange-100: hsl(34, 100%, 92%);
+  --lb-color-orange-200: hsl(32, 98%, 83%);
+  --lb-color-orange-300: hsl(31, 97%, 72%);
+  --lb-color-orange-400: hsl(27, 96%, 61%);
+  --lb-color-orange-500: hsl(25, 95%, 53%);
+  --lb-color-orange-600: hsl(21, 90%, 48%);
+  --lb-color-orange-700: hsl(18, 88%, 40%);
+  --lb-color-orange-800: hsl(15, 79%, 34%);
+  --lb-color-orange-900: hsl(15, 75%, 28%);
+  --lb-color-orange-950: hsl(15, 69%, 19%);
 
-  --lookbook-color-amber-50: hsl(48, 100%, 96%);
-  --lookbook-color-amber-100: hsl(48, 97%, 89%);
-  --lookbook-color-amber-200: hsl(48, 97%, 77%);
-  --lookbook-color-amber-300: hsl(46, 97%, 65%);
-  --lookbook-color-amber-400: hsl(43, 96%, 56%);
-  --lookbook-color-amber-500: hsl(38, 92%, 50%);
-  --lookbook-color-amber-600: hsl(32, 95%, 44%);
-  --lookbook-color-amber-700: hsl(26, 91%, 37%);
-  --lookbook-color-amber-800: hsl(23, 83%, 31%);
-  --lookbook-color-amber-900: hsl(22, 78%, 27%);
-  --lookbook-color-amber-950: hsl(23, 74%, 17%);
+  --lb-color-amber-50: hsl(48, 100%, 96%);
+  --lb-color-amber-100: hsl(48, 97%, 89%);
+  --lb-color-amber-200: hsl(48, 97%, 77%);
+  --lb-color-amber-300: hsl(46, 97%, 65%);
+  --lb-color-amber-400: hsl(43, 96%, 56%);
+  --lb-color-amber-500: hsl(38, 92%, 50%);
+  --lb-color-amber-600: hsl(32, 95%, 44%);
+  --lb-color-amber-700: hsl(26, 91%, 37%);
+  --lb-color-amber-800: hsl(23, 83%, 31%);
+  --lb-color-amber-900: hsl(22, 78%, 27%);
+  --lb-color-amber-950: hsl(23, 74%, 17%);
 
-  --lookbook-color-yellow-50: hsl(55, 92%, 95%);
-  --lookbook-color-yellow-100: hsl(55, 97%, 88%);
-  --lookbook-color-yellow-200: hsl(53, 98%, 77%);
-  --lookbook-color-yellow-300: hsl(50, 98%, 64%);
-  --lookbook-color-yellow-400: hsl(48, 96%, 53%);
-  --lookbook-color-yellow-500: hsl(45, 93%, 48%);
-  --lookbook-color-yellow-600: hsl(41, 96%, 40%);
-  --lookbook-color-yellow-700: hsl(36, 92%, 33%);
-  --lookbook-color-yellow-800: hsl(32, 81%, 29%);
-  --lookbook-color-yellow-900: hsl(28, 73%, 26%);
-  --lookbook-color-yellow-950: hsl(33, 69%, 14%);
+  --lb-color-yellow-50: hsl(55, 92%, 95%);
+  --lb-color-yellow-100: hsl(55, 97%, 88%);
+  --lb-color-yellow-200: hsl(53, 98%, 77%);
+  --lb-color-yellow-300: hsl(50, 98%, 64%);
+  --lb-color-yellow-400: hsl(48, 96%, 53%);
+  --lb-color-yellow-500: hsl(45, 93%, 48%);
+  --lb-color-yellow-600: hsl(41, 96%, 40%);
+  --lb-color-yellow-700: hsl(36, 92%, 33%);
+  --lb-color-yellow-800: hsl(32, 81%, 29%);
+  --lb-color-yellow-900: hsl(28, 73%, 26%);
+  --lb-color-yellow-950: hsl(33, 69%, 14%);
 
-  --lookbook-color-lime-50: hsl(78, 92%, 95%);
-  --lookbook-color-lime-100: hsl(80, 89%, 89%);
-  --lookbook-color-lime-200: hsl(81, 89%, 80%);
-  --lookbook-color-lime-300: hsl(82, 85%, 67%);
-  --lookbook-color-lime-400: hsl(83, 78%, 56%);
-  --lookbook-color-lime-500: hsl(84, 81%, 44%);
-  --lookbook-color-lime-600: hsl(85, 85%, 35%);
-  --lookbook-color-lime-700: hsl(86, 78%, 27%);
-  --lookbook-color-lime-800: hsl(86, 69%, 23%);
-  --lookbook-color-lime-900: hsl(88, 61%, 20%);
-  --lookbook-color-lime-950: hsl(87, 61%, 14%);
+  --lb-color-lime-50: hsl(78, 92%, 95%);
+  --lb-color-lime-100: hsl(80, 89%, 89%);
+  --lb-color-lime-200: hsl(81, 89%, 80%);
+  --lb-color-lime-300: hsl(82, 85%, 67%);
+  --lb-color-lime-400: hsl(83, 78%, 56%);
+  --lb-color-lime-500: hsl(84, 81%, 44%);
+  --lb-color-lime-600: hsl(85, 85%, 35%);
+  --lb-color-lime-700: hsl(86, 78%, 27%);
+  --lb-color-lime-800: hsl(86, 69%, 23%);
+  --lb-color-lime-900: hsl(88, 61%, 20%);
+  --lb-color-lime-950: hsl(87, 61%, 14%);
 
-  --lookbook-color-green-50: hsl(139, 77%, 97%);
-  --lookbook-color-green-100: hsl(141, 84%, 93%);
-  --lookbook-color-green-200: hsl(141, 79%, 85%);
-  --lookbook-color-green-300: hsl(142, 77%, 73%);
-  --lookbook-color-green-400: hsl(142, 69%, 58%);
-  --lookbook-color-green-500: hsl(142, 71%, 45%);
-  --lookbook-color-green-600: hsl(142, 76%, 36%);
-  --lookbook-color-green-700: hsl(142, 72%, 29%);
-  --lookbook-color-green-800: hsl(143, 64%, 24%);
-  --lookbook-color-green-900: hsl(144, 61%, 20%);
-  --lookbook-color-green-950: hsl(144, 61%, 12%);
+  --lb-color-green-50: hsl(139, 77%, 97%);
+  --lb-color-green-100: hsl(141, 84%, 93%);
+  --lb-color-green-200: hsl(141, 79%, 85%);
+  --lb-color-green-300: hsl(142, 77%, 73%);
+  --lb-color-green-400: hsl(142, 69%, 58%);
+  --lb-color-green-500: hsl(142, 71%, 45%);
+  --lb-color-green-600: hsl(142, 76%, 36%);
+  --lb-color-green-700: hsl(142, 72%, 29%);
+  --lb-color-green-800: hsl(143, 64%, 24%);
+  --lb-color-green-900: hsl(144, 61%, 20%);
+  --lb-color-green-950: hsl(144, 61%, 12%);
 
-  --lookbook-color-emerald-50: hsl(152, 81%, 96%);
-  --lookbook-color-emerald-100: hsl(149, 80%, 90%);
-  --lookbook-color-emerald-200: hsl(152, 76%, 80%);
-  --lookbook-color-emerald-300: hsl(156, 72%, 67%);
-  --lookbook-color-emerald-400: hsl(158, 64%, 52%);
-  --lookbook-color-emerald-500: hsl(160, 84%, 39%);
-  --lookbook-color-emerald-600: hsl(161, 94%, 30%);
-  --lookbook-color-emerald-700: hsl(163, 94%, 24%);
-  --lookbook-color-emerald-800: hsl(163, 88%, 20%);
-  --lookbook-color-emerald-900: hsl(164, 86%, 17%);
-  --lookbook-color-emerald-950: hsl(164, 88%, 9%);
+  --lb-color-emerald-50: hsl(152, 81%, 96%);
+  --lb-color-emerald-100: hsl(149, 80%, 90%);
+  --lb-color-emerald-200: hsl(152, 76%, 80%);
+  --lb-color-emerald-300: hsl(156, 72%, 67%);
+  --lb-color-emerald-400: hsl(158, 64%, 52%);
+  --lb-color-emerald-500: hsl(160, 84%, 39%);
+  --lb-color-emerald-600: hsl(161, 94%, 30%);
+  --lb-color-emerald-700: hsl(163, 94%, 24%);
+  --lb-color-emerald-800: hsl(163, 88%, 20%);
+  --lb-color-emerald-900: hsl(164, 86%, 17%);
+  --lb-color-emerald-950: hsl(164, 88%, 9%);
 
-  --lookbook-color-teal-50: hsl(166, 77%, 97%);
-  --lookbook-color-teal-100: hsl(167, 86%, 89%);
-  --lookbook-color-teal-200: hsl(168, 84%, 78%);
-  --lookbook-color-teal-300: hsl(171, 77%, 64%);
-  --lookbook-color-teal-400: hsl(173, 66%, 50%);
-  --lookbook-color-teal-500: hsl(173, 80%, 40%);
-  --lookbook-color-teal-600: hsl(175, 84%, 32%);
-  --lookbook-color-teal-700: hsl(175, 77%, 26%);
-  --lookbook-color-teal-800: hsl(176, 69%, 22%);
-  --lookbook-color-teal-900: hsl(176, 61%, 19%);
-  --lookbook-color-teal-950: hsl(177, 59%, 11%);
+  --lb-color-teal-50: hsl(166, 77%, 97%);
+  --lb-color-teal-100: hsl(167, 86%, 89%);
+  --lb-color-teal-200: hsl(168, 84%, 78%);
+  --lb-color-teal-300: hsl(171, 77%, 64%);
+  --lb-color-teal-400: hsl(173, 66%, 50%);
+  --lb-color-teal-500: hsl(173, 80%, 40%);
+  --lb-color-teal-600: hsl(175, 84%, 32%);
+  --lb-color-teal-700: hsl(175, 77%, 26%);
+  --lb-color-teal-800: hsl(176, 69%, 22%);
+  --lb-color-teal-900: hsl(176, 61%, 19%);
+  --lb-color-teal-950: hsl(177, 59%, 11%);
 
-  --lookbook-color-cyan-50: hsl(183, 100%, 96%);
-  --lookbook-color-cyan-100: hsl(185, 96%, 90%);
-  --lookbook-color-cyan-200: hsl(186, 94%, 82%);
-  --lookbook-color-cyan-300: hsl(187, 92%, 69%);
-  --lookbook-color-cyan-400: hsl(188, 86%, 53%);
-  --lookbook-color-cyan-500: hsl(189, 95%, 43%);
-  --lookbook-color-cyan-600: hsl(192, 91%, 37%);
-  --lookbook-color-cyan-700: hsl(193, 82%, 31%);
-  --lookbook-color-cyan-800: hsl(194, 70%, 27%);
-  --lookbook-color-cyan-900: hsl(196, 64%, 24%);
-  --lookbook-color-cyan-950: hsl(197, 61%, 16%);
+  --lb-color-cyan-50: hsl(183, 100%, 96%);
+  --lb-color-cyan-100: hsl(185, 96%, 90%);
+  --lb-color-cyan-200: hsl(186, 94%, 82%);
+  --lb-color-cyan-300: hsl(187, 92%, 69%);
+  --lb-color-cyan-400: hsl(188, 86%, 53%);
+  --lb-color-cyan-500: hsl(189, 95%, 43%);
+  --lb-color-cyan-600: hsl(192, 91%, 37%);
+  --lb-color-cyan-700: hsl(193, 82%, 31%);
+  --lb-color-cyan-800: hsl(194, 70%, 27%);
+  --lb-color-cyan-900: hsl(196, 64%, 24%);
+  --lb-color-cyan-950: hsl(197, 61%, 16%);
 
-  --lookbook-color-sky-50: hsl(204, 100%, 97%);
-  --lookbook-color-sky-100: hsl(204, 94%, 94%);
-  --lookbook-color-sky-200: hsl(201, 94%, 86%);
-  --lookbook-color-sky-300: hsl(199, 96%, 74%);
-  --lookbook-color-sky-400: hsl(198, 93%, 60%);
-  --lookbook-color-sky-500: hsl(199, 89%, 48%);
-  --lookbook-color-sky-600: hsl(200, 98%, 39%);
-  --lookbook-color-sky-700: hsl(201, 96%, 32%);
-  --lookbook-color-sky-800: hsl(201, 90%, 28%);
-  --lookbook-color-sky-900: hsl(202, 80%, 24%);
-  --lookbook-color-sky-950: hsl(202, 74%, 17%);
+  --lb-color-sky-50: hsl(204, 100%, 97%);
+  --lb-color-sky-100: hsl(204, 94%, 94%);
+  --lb-color-sky-200: hsl(201, 94%, 86%);
+  --lb-color-sky-300: hsl(199, 96%, 74%);
+  --lb-color-sky-400: hsl(198, 93%, 60%);
+  --lb-color-sky-500: hsl(199, 89%, 48%);
+  --lb-color-sky-600: hsl(200, 98%, 39%);
+  --lb-color-sky-700: hsl(201, 96%, 32%);
+  --lb-color-sky-800: hsl(201, 90%, 28%);
+  --lb-color-sky-900: hsl(202, 80%, 24%);
+  --lb-color-sky-950: hsl(202, 74%, 17%);
 
-  --lookbook-color-blue-50: hsl(214, 100%, 97%);
-  --lookbook-color-blue-100: hsl(214, 95%, 93%);
-  --lookbook-color-blue-200: hsl(213, 97%, 87%);
-  --lookbook-color-blue-300: hsl(212, 96%, 78%);
-  --lookbook-color-blue-400: hsl(213, 94%, 68%);
-  --lookbook-color-blue-500: hsl(217, 91%, 60%);
-  --lookbook-color-blue-600: hsl(221, 83%, 53%);
-  --lookbook-color-blue-700: hsl(224, 76%, 48%);
-  --lookbook-color-blue-800: hsl(226, 71%, 40%);
-  --lookbook-color-blue-900: hsl(224, 64%, 33%);
-  --lookbook-color-blue-950: hsl(226, 55%, 18%);
+  --lb-color-blue-50: hsl(214, 100%, 97%);
+  --lb-color-blue-100: hsl(214, 95%, 93%);
+  --lb-color-blue-200: hsl(213, 97%, 87%);
+  --lb-color-blue-300: hsl(212, 96%, 78%);
+  --lb-color-blue-400: hsl(213, 94%, 68%);
+  --lb-color-blue-500: hsl(217, 91%, 60%);
+  --lb-color-blue-600: hsl(221, 83%, 53%);
+  --lb-color-blue-700: hsl(224, 76%, 48%);
+  --lb-color-blue-800: hsl(226, 71%, 40%);
+  --lb-color-blue-900: hsl(224, 64%, 33%);
+  --lb-color-blue-950: hsl(226, 55%, 18%);
 
-  --lookbook-color-indigo-50: hsl(226, 100%, 97%);
-  --lookbook-color-indigo-100: hsl(227, 100%, 94%);
-  --lookbook-color-indigo-200: hsl(228, 97%, 89%);
-  --lookbook-color-indigo-300: hsl(230, 94%, 82%);
-  --lookbook-color-indigo-400: hsl(235, 90%, 74%);
-  --lookbook-color-indigo-500: hsl(239, 84%, 67%);
-  --lookbook-color-indigo-600: hsl(243, 75%, 59%);
-  --lookbook-color-indigo-700: hsl(245, 58%, 51%);
-  --lookbook-color-indigo-800: hsl(244, 55%, 41%);
-  --lookbook-color-indigo-900: hsl(242, 47%, 34%);
-  --lookbook-color-indigo-950: hsl(244, 44%, 23%);
+  --lb-color-indigo-50: hsl(226, 100%, 97%);
+  --lb-color-indigo-100: hsl(227, 100%, 94%);
+  --lb-color-indigo-200: hsl(228, 97%, 89%);
+  --lb-color-indigo-300: hsl(230, 94%, 82%);
+  --lb-color-indigo-400: hsl(235, 90%, 74%);
+  --lb-color-indigo-500: hsl(239, 84%, 67%);
+  --lb-color-indigo-600: hsl(243, 75%, 59%);
+  --lb-color-indigo-700: hsl(245, 58%, 51%);
+  --lb-color-indigo-800: hsl(244, 55%, 41%);
+  --lb-color-indigo-900: hsl(242, 47%, 34%);
+  --lb-color-indigo-950: hsl(244, 44%, 23%);
 
-  --lookbook-color-violet-50: hsl(250, 100%, 98%);
-  --lookbook-color-violet-100: hsl(251, 91%, 96%);
-  --lookbook-color-violet-200: hsl(251, 95%, 92%);
-  --lookbook-color-violet-300: hsl(253, 95%, 85%);
-  --lookbook-color-violet-400: hsl(255, 92%, 76%);
-  --lookbook-color-violet-500: hsl(258, 90%, 66%);
-  --lookbook-color-violet-600: hsl(262, 83%, 58%);
-  --lookbook-color-violet-700: hsl(263, 70%, 50%);
-  --lookbook-color-violet-800: hsl(263, 69%, 42%);
-  --lookbook-color-violet-900: hsl(264, 67%, 35%);
-  --lookbook-color-violet-950: hsl(265, 62%, 21%);
+  --lb-color-violet-50: hsl(250, 100%, 98%);
+  --lb-color-violet-100: hsl(251, 91%, 96%);
+  --lb-color-violet-200: hsl(251, 95%, 92%);
+  --lb-color-violet-300: hsl(253, 95%, 85%);
+  --lb-color-violet-400: hsl(255, 92%, 76%);
+  --lb-color-violet-500: hsl(258, 90%, 66%);
+  --lb-color-violet-600: hsl(262, 83%, 58%);
+  --lb-color-violet-700: hsl(263, 70%, 50%);
+  --lb-color-violet-800: hsl(263, 69%, 42%);
+  --lb-color-violet-900: hsl(264, 67%, 35%);
+  --lb-color-violet-950: hsl(265, 62%, 21%);
 
-  --lookbook-color-purple-50: hsl(270, 100%, 98%);
-  --lookbook-color-purple-100: hsl(269, 100%, 96%);
-  --lookbook-color-purple-200: hsl(269, 100%, 92%);
-  --lookbook-color-purple-300: hsl(269, 97%, 85%);
-  --lookbook-color-purple-400: hsl(270, 95%, 75%);
-  --lookbook-color-purple-500: hsl(271, 91%, 65%);
-  --lookbook-color-purple-600: hsl(272, 81%, 56%);
-  --lookbook-color-purple-700: hsl(272, 72%, 47%);
-  --lookbook-color-purple-800: hsl(273, 67%, 39%);
-  --lookbook-color-purple-900: hsl(274, 66%, 32%);
-  --lookbook-color-purple-950: hsl(276, 60%, 17%);
+  --lb-color-purple-50: hsl(270, 100%, 98%);
+  --lb-color-purple-100: hsl(269, 100%, 96%);
+  --lb-color-purple-200: hsl(269, 100%, 92%);
+  --lb-color-purple-300: hsl(269, 97%, 85%);
+  --lb-color-purple-400: hsl(270, 95%, 75%);
+  --lb-color-purple-500: hsl(271, 91%, 65%);
+  --lb-color-purple-600: hsl(272, 81%, 56%);
+  --lb-color-purple-700: hsl(272, 72%, 47%);
+  --lb-color-purple-800: hsl(273, 67%, 39%);
+  --lb-color-purple-900: hsl(274, 66%, 32%);
+  --lb-color-purple-950: hsl(276, 60%, 17%);
 
-  --lookbook-color-fuchsia-50: hsl(289, 100%, 98%);
-  --lookbook-color-fuchsia-100: hsl(287, 100%, 96%);
-  --lookbook-color-fuchsia-200: hsl(288, 96%, 91%);
-  --lookbook-color-fuchsia-300: hsl(291, 93%, 83%);
-  --lookbook-color-fuchsia-400: hsl(292, 91%, 73%);
-  --lookbook-color-fuchsia-500: hsl(292, 84%, 61%);
-  --lookbook-color-fuchsia-600: hsl(293, 70%, 49%);
-  --lookbook-color-fuchsia-700: hsl(295, 72%, 40%);
-  --lookbook-color-fuchsia-800: hsl(295, 70%, 33%);
-  --lookbook-color-fuchsia-900: hsl(297, 64%, 28%);
-  --lookbook-color-fuchsia-950: hsl(297, 57%, 15%);
+  --lb-color-fuchsia-50: hsl(289, 100%, 98%);
+  --lb-color-fuchsia-100: hsl(287, 100%, 96%);
+  --lb-color-fuchsia-200: hsl(288, 96%, 91%);
+  --lb-color-fuchsia-300: hsl(291, 93%, 83%);
+  --lb-color-fuchsia-400: hsl(292, 91%, 73%);
+  --lb-color-fuchsia-500: hsl(292, 84%, 61%);
+  --lb-color-fuchsia-600: hsl(293, 70%, 49%);
+  --lb-color-fuchsia-700: hsl(295, 72%, 40%);
+  --lb-color-fuchsia-800: hsl(295, 70%, 33%);
+  --lb-color-fuchsia-900: hsl(297, 64%, 28%);
+  --lb-color-fuchsia-950: hsl(297, 57%, 15%);
 
-  --lookbook-color-pink-50: hsl(327, 73%, 97%);
-  --lookbook-color-pink-100: hsl(326, 78%, 95%);
-  --lookbook-color-pink-200: hsl(326, 85%, 90%);
-  --lookbook-color-pink-300: hsl(327, 87%, 82%);
-  --lookbook-color-pink-400: hsl(329, 86%, 70%);
-  --lookbook-color-pink-500: hsl(330, 81%, 60%);
-  --lookbook-color-pink-600: hsl(333, 71%, 51%);
-  --lookbook-color-pink-700: hsl(335, 78%, 42%);
-  --lookbook-color-pink-800: hsl(336, 74%, 35%);
-  --lookbook-color-pink-900: hsl(336, 69%, 30%);
-  --lookbook-color-pink-950: hsl(336, 65%, 16%);
+  --lb-color-pink-50: hsl(327, 73%, 97%);
+  --lb-color-pink-100: hsl(326, 78%, 95%);
+  --lb-color-pink-200: hsl(326, 85%, 90%);
+  --lb-color-pink-300: hsl(327, 87%, 82%);
+  --lb-color-pink-400: hsl(329, 86%, 70%);
+  --lb-color-pink-500: hsl(330, 81%, 60%);
+  --lb-color-pink-600: hsl(333, 71%, 51%);
+  --lb-color-pink-700: hsl(335, 78%, 42%);
+  --lb-color-pink-800: hsl(336, 74%, 35%);
+  --lb-color-pink-900: hsl(336, 69%, 30%);
+  --lb-color-pink-950: hsl(336, 65%, 16%);
 
-  --lookbook-color-rose-50: hsl(356, 100%, 97%);
-  --lookbook-color-rose-100: hsl(356, 100%, 95%);
-  --lookbook-color-rose-200: hsl(353, 96%, 90%);
-  --lookbook-color-rose-300: hsl(353, 96%, 82%);
-  --lookbook-color-rose-400: hsl(351, 95%, 71%);
-  --lookbook-color-rose-500: hsl(350, 89%, 60%);
-  --lookbook-color-rose-600: hsl(347, 77%, 50%);
-  --lookbook-color-rose-700: hsl(345, 83%, 41%);
-  --lookbook-color-rose-800: hsl(343, 80%, 35%);
-  --lookbook-color-rose-900: hsl(342, 76%, 30%);
-  --lookbook-color-rose-950: hsl(341, 70%, 17%);
+  --lb-color-rose-50: hsl(356, 100%, 97%);
+  --lb-color-rose-100: hsl(356, 100%, 95%);
+  --lb-color-rose-200: hsl(353, 96%, 90%);
+  --lb-color-rose-300: hsl(353, 96%, 82%);
+  --lb-color-rose-400: hsl(351, 95%, 71%);
+  --lb-color-rose-500: hsl(350, 89%, 60%);
+  --lb-color-rose-600: hsl(347, 77%, 50%);
+  --lb-color-rose-700: hsl(345, 83%, 41%);
+  --lb-color-rose-800: hsl(343, 80%, 35%);
+  --lb-color-rose-900: hsl(342, 76%, 30%);
+  --lb-color-rose-950: hsl(341, 70%, 17%);
 
   /*
    * Spacing and sizes
    */
 
-  --lookbook-spacing-3x-small: 0.125rem; /* 2px */
-  --lookbook-spacing-2x-small: 0.25rem; /* 4px */
-  --lookbook-spacing-x-small: 0.5rem; /* 8px */
-  --lookbook-spacing-small: 0.75rem; /* 12px */
-  --lookbook-spacing-medium: 1rem; /* 16px */
-  --lookbook-spacing-large: 1.25rem; /* 20px */
-  --lookbook-spacing-x-large: 1.75rem; /* 28px */
-  --lookbook-spacing-2x-large: 2.25rem; /* 36px */
-  --lookbook-spacing-3x-large: 3rem; /* 48px */
-  --lookbook-spacing-4x-large: 4.5rem; /* 72px */
+  --lb-spacing-3x-small: 0.125rem; /* 2px */
+  --lb-spacing-2x-small: 0.25rem; /* 4px */
+  --lb-spacing-x-small: 0.5rem; /* 8px */
+  --lb-spacing-small: 0.75rem; /* 12px */
+  --lb-spacing-medium: 1rem; /* 16px */
+  --lb-spacing-large: 1.25rem; /* 20px */
+  --lb-spacing-x-large: 1.75rem; /* 28px */
+  --lb-spacing-2x-large: 2.25rem; /* 36px */
+  --lb-spacing-3x-large: 3rem; /* 48px */
+  --lb-spacing-4x-large: 4.5rem; /* 72px */
 
-  --lookbook-size-3x-small: 0.125rem; /* 2px */
-  --lookbook-size-2x-small: 0.25rem; /* 4px */
-  --lookbook-size-x-small: 0.5rem; /* 8px */
-  --lookbook-size-small: 0.75rem; /* 12px */
-  --lookbook-size-medium: 1rem; /* 16px */
-  --lookbook-size-large: 1.25rem; /* 20px */
-  --lookbook-size-x-large: 1.75rem; /* 28px */
-  --lookbook-size-2x-large: 2.25rem; /* 36px */
-  --lookbook-size-3x-large: 3rem; /* 48px */
-  --lookbook-size-4x-large: 4.5rem; /* 72px */
+  --lb-size-3x-small: 0.125rem; /* 2px */
+  --lb-size-2x-small: 0.25rem; /* 4px */
+  --lb-size-x-small: 0.5rem; /* 8px */
+  --lb-size-small: 0.75rem; /* 12px */
+  --lb-size-medium: 1rem; /* 16px */
+  --lb-size-large: 1.25rem; /* 20px */
+  --lb-size-x-large: 1.75rem; /* 28px */
+  --lb-size-2x-large: 2.25rem; /* 36px */
+  --lb-size-3x-large: 3rem; /* 48px */
+  --lb-size-4x-large: 4.5rem; /* 72px */
 
   /*
    * Typography
    */
 
-  --lookbook-font-ui: "Inter Var", Roboto, "Helvetica Neue", "Arial Nova",
+  --lb-font-ui: "Inter Var", Roboto, "Helvetica Neue", "Arial Nova",
     "Nimbus Sans", Arial, sans-serif;
-  --lookbook-font-prose: "Open Sans Var", Avenir, Montserrat, Corbel,
-    "URW Gothic", source-sans-pro, sans-serif;
-  --lookbook-font-mono: "Source Code Pro Var", ui-monospace, "Cascadia Code",
-    Menlo, Consolas, "DejaVu Sans Mono", monospace;
+  --lb-font-prose: "Open Sans Var", Avenir, Montserrat, Corbel, "URW Gothic",
+    source-sans-pro, sans-serif;
+  --lb-font-mono: "Source Code Pro Var", ui-monospace, "Cascadia Code", Menlo,
+    Consolas, "DejaVu Sans Mono", monospace;
 
-  --lookbook-font-size-2x-small: 0.625rem; /* 10px */
-  --lookbook-font-size-x-small: 0.75rem; /* 12px */
-  --lookbook-font-size-small: 0.875rem; /* 14px */
-  --lookbook-font-size-medium: 1rem; /* 16px */
-  --lookbook-font-size-large: 1.25rem; /* 20px */
-  --lookbook-font-size-x-large: 1.5rem; /* 24px */
-  --lookbook-font-size-2x-large: 2.25rem; /* 36px */
-  --lookbook-font-size-3x-large: 3rem; /* 48px */
-  --lookbook-font-size-4x-large: 4.5rem; /* 72px */
+  --lb-font-size-2x-small: 0.625rem; /* 10px */
+  --lb-font-size-x-small: 0.75rem; /* 12px */
+  --lb-font-size-small: 0.875rem; /* 14px */
+  --lb-font-size-medium: 1rem; /* 16px */
+  --lb-font-size-large: 1.25rem; /* 20px */
+  --lb-font-size-x-large: 1.5rem; /* 24px */
+  --lb-font-size-2x-large: 2.25rem; /* 36px */
+  --lb-font-size-3x-large: 3rem; /* 48px */
+  --lb-font-size-4x-large: 4.5rem; /* 72px */
 
-  --lookbook-font-weight-light: 300;
-  --lookbook-font-weight-normal: 400;
-  --lookbook-font-weight-medium: 500;
-  --lookbook-font-weight-semibold: 600;
-  --lookbook-font-weight-bold: 700;
+  --lb-font-weight-light: 300;
+  --lb-font-weight-normal: 400;
+  --lb-font-weight-medium: 500;
+  --lb-font-weight-semibold: 600;
+  --lb-font-weight-bold: 700;
 
   /*
    * Border radii
    */
 
-  --lookbook-border-radius-small: 0.1875rem; /* 3px */
-  --lookbook-border-radius-medium: 0.25rem; /* 4px */
-  --lookbook-border-radius-large: 0.5rem; /* 8px */
-  --lookbook-border-radius-x-large: 1rem; /* 16px */
+  --lb-border-radius-small: 0.1875rem; /* 3px */
+  --lb-border-radius-medium: 0.25rem; /* 4px */
+  --lb-border-radius-large: 0.5rem; /* 8px */
+  --lb-border-radius-x-large: 1rem; /* 16px */
 
   /*
    * Shadows
    */
 
-  --lookbook-shadow-x-small: 0 0 2px 0 rgba(0, 0, 0, 0.05);
-  --lookbook-shadow-small: 0 0 3px 0 rgba(0, 0, 0, 0.1),
-    0 0 2px -1px rgba(0, 0, 0, 0.1);
-  --lookbook-shadow-medium: 0 0 6px -1px rgba(0, 0, 0, 0.1),
+  --lb-shadow-x-small: 0 0 2px 0 rgba(0, 0, 0, 0.05);
+  --lb-shadow-small: 0 0 3px 0 rgba(0, 0, 0, 0.1), 0 0 2px -1px rgba(0, 0, 0, 0.1);
+  --lb-shadow-medium: 0 0 6px -1px rgba(0, 0, 0, 0.1),
     0 0 4px -2px rgba(0, 0, 0, 0.1);
-  --lookbook-shadow-large: 0 0 15px -3px rgba(0, 0, 0, 0.1),
+  --lb-shadow-large: 0 0 15px -3px rgba(0, 0, 0, 0.1),
     0 0 6px -4px rgba(0, 0, 0, 0.1);
-  --lookbook-shadow-x-large: 0 0 25px -5px rgba(0, 0, 0, 0.1),
+  --lb-shadow-x-large: 0 0 25px -5px rgba(0, 0, 0, 0.1),
     0 0 10px -6px rgba(0, 0, 0, 0.1);
 }
 :root {
@@ -304,31 +303,31 @@
    * App header
    */
 
-  --lookbook-header-height: 2.5rem;
+  --lb-header-height: 2.5rem;
 
   /*
    * Toolbars
    */
 
-  --lookbook-toolbar-height: 2.5rem;
+  --lb-toolbar-height: 2.5rem;
 
   /*
    * Panels
    */
 
-  --lookbook-panel-padding: var(--lookbook-spacing-medium);
+  --lb-panel-padding: var(--lb-spacing-medium);
 
   /*
    * Status bar
    */
 
-  --lookbook-status-bar-height: 1.5rem;
+  --lb-status-bar-height: 1.5rem;
 
   /*
    * Nav
    */
 
-  --lookbook-nav-item-height: 1.75rem;
+  --lb-nav-item-height: 1.75rem;
 }
 :root,
 :host,
@@ -341,215 +340,207 @@
    * Colour scheme
    */
 
-  --lookbook-color-accent-50: var(--lookbook-color-indigo-50);
-  --lookbook-color-accent-100: var(--lookbook-color-indigo-100);
-  --lookbook-color-accent-200: var(--lookbook-color-indigo-200);
-  --lookbook-color-accent-300: var(--lookbook-color-indigo-300);
-  --lookbook-color-accent-400: var(--lookbook-color-indigo-400);
-  --lookbook-color-accent-500: var(--lookbook-color-indigo-500);
-  --lookbook-color-accent-600: var(--lookbook-color-indigo-600);
-  --lookbook-color-accent-700: var(--lookbook-color-indigo-700);
-  --lookbook-color-accent-800: var(--lookbook-color-indigo-800);
-  --lookbook-color-accent-900: var(--lookbook-color-indigo-900);
-  --lookbook-color-accent-950: var(--lookbook-color-indigo-950);
+  --lb-color-accent-50: var(--lb-color-indigo-50);
+  --lb-color-accent-100: var(--lb-color-indigo-100);
+  --lb-color-accent-200: var(--lb-color-indigo-200);
+  --lb-color-accent-300: var(--lb-color-indigo-300);
+  --lb-color-accent-400: var(--lb-color-indigo-400);
+  --lb-color-accent-500: var(--lb-color-indigo-500);
+  --lb-color-accent-600: var(--lb-color-indigo-600);
+  --lb-color-accent-700: var(--lb-color-indigo-700);
+  --lb-color-accent-800: var(--lb-color-indigo-800);
+  --lb-color-accent-900: var(--lb-color-indigo-900);
+  --lb-color-accent-950: var(--lb-color-indigo-950);
 
-  --lookbook-color-base-50: var(--lookbook-color-gray-50);
-  --lookbook-color-base-100: var(--lookbook-color-gray-100);
-  --lookbook-color-base-200: var(--lookbook-color-gray-200);
-  --lookbook-color-base-300: var(--lookbook-color-gray-300);
-  --lookbook-color-base-400: var(--lookbook-color-gray-400);
-  --lookbook-color-base-500: var(--lookbook-color-gray-500);
-  --lookbook-color-base-600: var(--lookbook-color-gray-600);
-  --lookbook-color-base-700: var(--lookbook-color-gray-700);
-  --lookbook-color-base-800: var(--lookbook-color-gray-800);
-  --lookbook-color-base-900: var(--lookbook-color-gray-900);
-  --lookbook-color-base-950: var(--lookbook-color-gray-950);
+  --lb-color-base-50: var(--lb-color-gray-50);
+  --lb-color-base-100: var(--lb-color-gray-100);
+  --lb-color-base-200: var(--lb-color-gray-200);
+  --lb-color-base-300: var(--lb-color-gray-300);
+  --lb-color-base-400: var(--lb-color-gray-400);
+  --lb-color-base-500: var(--lb-color-gray-500);
+  --lb-color-base-600: var(--lb-color-gray-600);
+  --lb-color-base-700: var(--lb-color-gray-700);
+  --lb-color-base-800: var(--lb-color-gray-800);
+  --lb-color-base-900: var(--lb-color-gray-900);
+  --lb-color-base-950: var(--lb-color-gray-950);
 
-  --lookbook-color-success-50: var(--lookbook-color-green-50);
-  --lookbook-color-success-100: var(--lookbook-color-green-100);
-  --lookbook-color-success-200: var(--lookbook-color-green-200);
-  --lookbook-color-success-300: var(--lookbook-color-green-300);
-  --lookbook-color-success-400: var(--lookbook-color-green-400);
-  --lookbook-color-success-500: var(--lookbook-color-green-500);
-  --lookbook-color-success-600: var(--lookbook-color-green-600);
-  --lookbook-color-success-700: var(--lookbook-color-green-700);
-  --lookbook-color-success-800: var(--lookbook-color-green-800);
-  --lookbook-color-success-900: var(--lookbook-color-green-900);
-  --lookbook-color-success-950: var(--lookbook-color-green-950);
+  --lb-color-success-50: var(--lb-color-green-50);
+  --lb-color-success-100: var(--lb-color-green-100);
+  --lb-color-success-200: var(--lb-color-green-200);
+  --lb-color-success-300: var(--lb-color-green-300);
+  --lb-color-success-400: var(--lb-color-green-400);
+  --lb-color-success-500: var(--lb-color-green-500);
+  --lb-color-success-600: var(--lb-color-green-600);
+  --lb-color-success-700: var(--lb-color-green-700);
+  --lb-color-success-800: var(--lb-color-green-800);
+  --lb-color-success-900: var(--lb-color-green-900);
+  --lb-color-success-950: var(--lb-color-green-950);
 
-  --lookbook-color-warning-50: var(--lookbook-color-amber-50);
-  --lookbook-color-warning-100: var(--lookbook-color-amber-100);
-  --lookbook-color-warning-200: var(--lookbook-color-amber-200);
-  --lookbook-color-warning-300: var(--lookbook-color-amber-300);
-  --lookbook-color-warning-400: var(--lookbook-color-amber-400);
-  --lookbook-color-warning-500: var(--lookbook-color-amber-500);
-  --lookbook-color-warning-600: var(--lookbook-color-amber-600);
-  --lookbook-color-warning-700: var(--lookbook-color-amber-700);
-  --lookbook-color-warning-800: var(--lookbook-color-amber-800);
-  --lookbook-color-warning-900: var(--lookbook-color-amber-900);
-  --lookbook-color-warning-950: var(--lookbook-color-amber-950);
+  --lb-color-warning-50: var(--lb-color-amber-50);
+  --lb-color-warning-100: var(--lb-color-amber-100);
+  --lb-color-warning-200: var(--lb-color-amber-200);
+  --lb-color-warning-300: var(--lb-color-amber-300);
+  --lb-color-warning-400: var(--lb-color-amber-400);
+  --lb-color-warning-500: var(--lb-color-amber-500);
+  --lb-color-warning-600: var(--lb-color-amber-600);
+  --lb-color-warning-700: var(--lb-color-amber-700);
+  --lb-color-warning-800: var(--lb-color-amber-800);
+  --lb-color-warning-900: var(--lb-color-amber-900);
+  --lb-color-warning-950: var(--lb-color-amber-950);
 
-  --lookbook-color-danger-50: var(--lookbook-color-red-50);
-  --lookbook-color-danger-100: var(--lookbook-color-red-100);
-  --lookbook-color-danger-200: var(--lookbook-color-red-200);
-  --lookbook-color-danger-300: var(--lookbook-color-red-300);
-  --lookbook-color-danger-400: var(--lookbook-color-red-400);
-  --lookbook-color-danger-500: var(--lookbook-color-red-500);
-  --lookbook-color-danger-600: var(--lookbook-color-red-600);
-  --lookbook-color-danger-700: var(--lookbook-color-red-700);
-  --lookbook-color-danger-800: var(--lookbook-color-red-800);
-  --lookbook-color-danger-900: var(--lookbook-color-red-900);
-  --lookbook-color-danger-950: var(--lookbook-color-red-950);
+  --lb-color-danger-50: var(--lb-color-red-50);
+  --lb-color-danger-100: var(--lb-color-red-100);
+  --lb-color-danger-200: var(--lb-color-red-200);
+  --lb-color-danger-300: var(--lb-color-red-300);
+  --lb-color-danger-400: var(--lb-color-red-400);
+  --lb-color-danger-500: var(--lb-color-red-500);
+  --lb-color-danger-600: var(--lb-color-red-600);
+  --lb-color-danger-700: var(--lb-color-red-700);
+  --lb-color-danger-800: var(--lb-color-red-800);
+  --lb-color-danger-900: var(--lb-color-red-900);
+  --lb-color-danger-950: var(--lb-color-red-950);
 
   /*
    * App
    */
 
-  --lookbook-app-color: var(--lookbook-color-base-900);
-  --lookbook-app-divider-color: var(--lookbook-color-base-300);
-  --lookbook-app-focus-outline-color: var(--lookbook-color-accent-200);
+  --lb-app-color: var(--lb-color-base-900);
+  --lb-app-divider-color: var(--lb-color-base-300);
+  --lb-app-focus-outline-color: var(--lb-color-accent-200);
 
   /*
    * Header
    */
 
-  --lookbook-header-color: var(--lookbook-color-white);
-  --lookbook-header-background-color: var(--lookbook-color-accent-600);
+  --lb-header-color: var(--lb-color-white);
+  --lb-header-background-color: var(--lb-color-accent-600);
 
   /*
    * Tables
    */
 
-  --lookbook-table-color: var(--lookbook-color-base-900);
-  --lookbook-table-border-color: var(--lookbook-app-divider-color);
-  --lookbook-table-background-color: var(--lookbook-color-white);
+  --lb-table-color: var(--lb-color-base-900);
+  --lb-table-border-color: var(--lb-app-divider-color);
+  --lb-table-background-color: var(--lb-color-white);
 
   /*
    * Panes
    */
 
-  --lookbook-pane-background-color: var(--lookbook-color-base-50);
+  --lb-pane-background-color: var(--lb-color-base-50);
 
   /*
    * Status bar
    */
 
-  --lookbook-status-bar-color: var(--lookbook-base-600);
-  --lookbook-status-bar-background-color: var(--lookbook-color-white);
-  --lookbook-status-bar-action-color: var(--lookbook-color-accent-700);
-  --lookbook-status-bar-item-color-positive: var(--lookbook-color-success-700);
-  --lookbook-status-bar-item-color-error: var(--lookbook-color-danger-600);
-  --lookbook-status-bar-item-color-warning: var(--lookbook-color-warning-600);
-  --lookbook-status-bar-item-color-info: var(--lookbook-color-info-600);
-  --lookbook-status-bar-notifications-color: var(--lookbook-app-color);
-  --lookbook-status-bar-notifications-background-color: var(
-    --lookbook-color-white
-  );
+  --lb-status-bar-color: var(--lb-base-600);
+  --lb-status-bar-background-color: var(--lb-color-white);
+  --lb-status-bar-action-color: var(--lb-color-accent-700);
+  --lb-status-bar-item-color-positive: var(--lb-color-success-700);
+  --lb-status-bar-item-color-error: var(--lb-color-danger-600);
+  --lb-status-bar-item-color-warning: var(--lb-color-warning-600);
+  --lb-status-bar-item-color-info: var(--lb-color-info-600);
+  --lb-status-bar-notifications-color: var(--lb-app-color);
+  --lb-status-bar-notifications-background-color: var(--lb-color-white);
 
   /*
    * System message
    */
 
-  --lookbook-system-message-color: var(--lookbook-color-base-500);
-  --lookbook-system-message-background-color: var(--lookbook-color-white);
-  --lookbook-system-message-border-color: var(--lookbook-app-divider-color);
-  --lookbook-system-message-title-color: var(--lookbook-color-base-900);
-  --lookbook-system-message-icon-color: var(--lookbook-color-base-300);
+  --lb-system-message-color: var(--lb-color-base-500);
+  --lb-system-message-background-color: var(--lb-color-white);
+  --lb-system-message-border-color: var(--lb-app-divider-color);
+  --lb-system-message-title-color: var(--lb-color-base-900);
+  --lb-system-message-icon-color: var(--lb-color-base-300);
 
-  --lookbook-system-message-title-color-error: var(--lookbook-color-danger-600);
-  --lookbook-system-message-border-color-error: var(
-    --lookbook-color-danger-200
-  );
-  --lookbook-system-message-icon-color-error: var(--lookbook-color-danger-300);
+  --lb-system-message-title-color-error: var(--lb-color-danger-600);
+  --lb-system-message-border-color-error: var(--lb-color-danger-200);
+  --lb-system-message-icon-color-error: var(--lb-color-danger-300);
 
   /*
    * Breadcrumbs
    */
 
-  --lookbook-breadrumbs-color: var(--lookbook-color-base-400);
-  --lookbook-breadrumbs-color-current: var(--lookbook-color-base-600);
-  --lookbook-breadrumbs-link-color: var(--lookbook-color-base-400);
-  --lookbook-breadrumbs-link-color-hover: var(--lookbook-color-accent-600);
+  --lb-breadrumbs-color: var(--lb-color-base-400);
+  --lb-breadrumbs-color-current: var(--lb-color-base-600);
+  --lb-breadrumbs-link-color: var(--lb-color-base-400);
+  --lb-breadrumbs-link-color-hover: var(--lb-color-accent-600);
 
   /*
    * Buttons
    */
 
-  --lookbook-button-color: var(--lookbook-color-base-500);
-  --lookbook-button-color-hover: var(--lookbook-color-base-700);
-  --lookbook-button-color-active: var(--lookbook-color-accent-700);
+  --lb-button-color: var(--lb-color-base-500);
+  --lb-button-color-hover: var(--lb-color-base-700);
+  --lb-button-color-active: var(--lb-color-accent-700);
 
   /*
    * Button groups
    */
 
-  --lookbook-button-group-divider-color: var(--lookbook-app-divider-color);
+  --lb-button-group-divider-color: var(--lb-app-divider-color);
 
   /*
    * Nav
    */
 
-  --lookbook-nav-item-background-color: var(--lookbook-color-transparent);
-  --lookbook-nav-item-border-color: var(--lookbook-color-transparent);
-  --lookbook-nav-item-label-color: var(--lookbook-app-color);
-  --lookbook-nav-item-icon-color: var(--lookbook-color-accent-700);
-  --lookbook-nav-item-toggle-color: var(--lookbook-color-base-600);
+  --lb-nav-item-background-color: var(--lb-color-transparent);
+  --lb-nav-item-border-color: var(--lb-color-transparent);
+  --lb-nav-item-label-color: var(--lb-app-color);
+  --lb-nav-item-icon-color: var(--lb-color-accent-700);
+  --lb-nav-item-toggle-color: var(--lb-color-base-600);
 
-  --lookbook-nav-item-background-color-selected: var(--lookbook-color-base-100);
-  --lookbook-nav-item-border-color-selected: var(--lookbook-color-accent-500);
-  --lookbook-nav-item-label-color-selected: var(--lookbook-app-color);
+  --lb-nav-item-background-color-selected: var(--lb-color-base-100);
+  --lb-nav-item-border-color-selected: var(--lb-color-accent-500);
+  --lb-nav-item-label-color-selected: var(--lb-app-color);
 
-  --lookbook-nav-placeholder-color: var(--lookbook-color-base-500);
-  --lookbook-nav-placeholder-border-color: var(--lookbook-app-divider-color);
-  --lookbook-nav-placeholder-background-color: var(--lookbook-color-white);
+  --lb-nav-placeholder-color: var(--lb-color-base-500);
+  --lb-nav-placeholder-border-color: var(--lb-app-divider-color);
+  --lb-nav-placeholder-background-color: var(--lb-color-white);
 
   /*
    * Tabs
    */
 
-  --lookbook-tab-color: var(--lookbook-color-base-800);
-  --lookbook-tab-color-disabled: var(--lookbook-color-base-300);
-  --lookbook-tab-color-selected: var(--lookbook-color-accent-500);
-  --lookbook-tab-border-color-selected: var(--lookbook-color-accent-500);
-  --lookbook-tab-panel-color: var(--lookbook-app-color);
-  --lookbook-tab-panel-background-color: var(--lookbook-color-base-50);
+  --lb-tab-color: var(--lb-color-base-800);
+  --lb-tab-color-disabled: var(--lb-color-base-300);
+  --lb-tab-color-selected: var(--lb-color-accent-500);
+  --lb-tab-border-color-selected: var(--lb-color-accent-500);
+  --lb-tab-panel-color: var(--lb-app-color);
+  --lb-tab-panel-background-color: var(--lb-color-base-50);
 
   /*
    * Prose
    */
 
-  --lookbook-prose-color: var(--lookbook-app-color);
-  --lookbook-prose-list-counter-color: var(--lookbook-color-base-600);
-  --lookbook-prose-list-marker-color: var(--lookbook-color-base-400);
-  --lookbook-prose-hr-color: var(--lookbook-color-base-600);
-  --lookbook-prose-blockquote-color: var(--lookbook-color-base-700);
-  --lookbook-prose-blockquote-border-color: var(--lookbook-color-base-300);
-  --lookbook-prose-figcaption-color: var(--lookbook-color-base-600);
-  --lookbook-prose-inline-code-color: var(--lookbook-color-accent-900);
-  --lookbook-prose-inline-code-background-color: var(--lookbook-color-base-100);
-  --lookbook-prose-code-background-color: var(
-    --lookbook-color---lookbook-color-base-800
-  );
-  --lookbook-prose-code-background-color: var(--lookbook-color-white);
-  --lookbook-prose-code-border-color: var(--lookbook-color-base-300);
+  --lb-prose-color: var(--lb-app-color);
+  --lb-prose-list-counter-color: var(--lb-color-base-600);
+  --lb-prose-list-marker-color: var(--lb-color-base-400);
+  --lb-prose-hr-color: var(--lb-color-base-600);
+  --lb-prose-blockquote-color: var(--lb-color-base-700);
+  --lb-prose-blockquote-border-color: var(--lb-color-base-300);
+  --lb-prose-figcaption-color: var(--lb-color-base-600);
+  --lb-prose-inline-code-color: var(--lb-color-accent-900);
+  --lb-prose-inline-code-background-color: var(--lb-color-base-100);
+  --lb-prose-code-background-color: var(--lb-color---lb-color-base-800);
+  --lb-prose-code-background-color: var(--lb-color-white);
+  --lb-prose-code-border-color: var(--lb-color-base-300);
 
   /*
    * Toolbars
    */
 
-  --lookbook-toolbar-color: var(--lookbook-app-color);
-  --lookbook-toolbar-background-color: var(--lookbook-color-white);
+  --lb-toolbar-color: var(--lb-app-color);
+  --lb-toolbar-background-color: var(--lb-color-white);
 
   /*
    * Viewport
    */
 
-  --lookbook-viewport-background-color: var(--lookbook-color-white);
-  --lookbook-viewport-dimensions-background-color: var(
-    --lookbook-color-base-200
-  );
-  --lookbook-viewport-handle-background-color: var(--lookbook-color-white);
-  --lookbook-viewport-handle-icon-color: var(--lookbook-color-base-500);
+  --lb-viewport-background-color: var(--lb-color-white);
+  --lb-viewport-dimensions-background-color: var(--lb-color-base-200);
+  --lb-viewport-handle-background-color: var(--lb-color-white);
+  --lb-viewport-handle-icon-color: var(--lb-color-base-500);
 }
 @font-face {
   font-family: "Inter";
@@ -810,21 +801,21 @@ html,
 body {
   font-family: "Inter Var", Roboto, "Helvetica Neue", "Arial Nova",
     "Nimbus Sans", Arial, sans-serif;
-  font-family: var(--lookbook-font-ui);
+  font-family: var(--lb-font-ui);
   font-size: 1rem;
-  font-size: var(--lookbook-font-size-medium);
+  font-size: var(--lb-font-size-medium);
   color: hsl(240, 6%, 10%);
-  color: var(--lookbook-app-color);
+  color: var(--lb-app-color);
 }
 body {
   min-height: 100vh;
   font-size: 1rem;
-  font-size: var(--lookbook-font-size-medium);
+  font-size: var(--lb-font-size-medium);
 }
 code {
-  font-family: "Source Code Pro Var", ui-monospace, "Cascadia Code",
-    Menlo, Consolas, "DejaVu Sans Mono", monospace;
-  font-family: var(--lookbook-font-mono);
+  font-family: "Source Code Pro Var", ui-monospace, "Cascadia Code", Menlo,
+    Consolas, "DejaVu Sans Mono", monospace;
+  font-family: var(--lb-font-mono);
 }
 a {
   transition: color 0.25s ease;
@@ -837,39 +828,39 @@ router {
 }
 table {
   background: #fff;
-  background: var(--lookbook-table-background-color);
+  background: var(--lb-table-background-color);
   border: 1px solid hsl(240, 5%, 84%);
-  border: 1px solid var(--lookbook-table-border-color);
+  border: 1px solid var(--lb-table-border-color);
   color: hsl(240, 6%, 10%);
-  color: var(--lookbook-table-color);
+  color: var(--lb-table-color);
   width: 100%;
   border-collapse: collapse;
   font-size: 0.875rem;
-  font-size: var(--lookbook-font-size-small);
+  font-size: var(--lb-font-size-small);
 }
 th,
 td {
   text-align: left;
   padding-left: 1rem;
   padding-right: 1rem;
-  padding-left: var(--lookbook-spacing-medium);
-  padding-right: var(--lookbook-spacing-medium);
+  padding-left: var(--lb-spacing-medium);
+  padding-right: var(--lb-spacing-medium);
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-  padding-top: var(--lookbook-spacing-small);
-  padding-bottom: var(--lookbook-spacing-small);
+  padding-top: var(--lb-spacing-small);
+  padding-bottom: var(--lb-spacing-small);
   width: 1%;
 }
 thead tr,
 tr:not(:last-child) {
   border-bottom: 1px solid hsl(240, 5%, 84%);
-  border-bottom: 1px solid var(--lookbook-table-border-color);
+  border-bottom: 1px solid var(--lb-table-border-color);
 }
 :focus-visible {
   outline: 1px solid transparent;
   outline-offset: 0;
   outline-color: hsl(228, 97%, 89%);
-  outline-color: var(--lookbook-app-focus-outline-color);
+  outline-color: var(--lb-app-focus-outline-color);
 }
 /* Utilities */
 .bg-checked {
@@ -893,14 +884,14 @@ tr:not(:last-child) {
 .tippy-box[data-theme~="dropdown"] {
   box-shadow: 0 0 6px -1px rgba(0, 0, 0, 0.1),
     0 0 4px -2px rgba(0, 0, 0, 0.1);
-  box-shadow: var(--lookbook-shadow-medium);
+  box-shadow: var(--lb-shadow-medium);
   background: #fff;
-  background: var(--lookbook-color-white);
+  background: var(--lb-color-white);
   color: hsl(240, 4%, 16%);
-  color: var(--lookbook-color-base-800);
+  color: var(--lb-color-base-800);
   max-width: 100%;
   border: 1px solid hsl(240, 5%, 84%);
-  border: 1px solid var(--lookbook-app-divider-color);
+  border: 1px solid var(--lb-app-divider-color);
   border-radius: 0;
   width: -moz-fit-content;
   width: fit-content;
@@ -932,16 +923,16 @@ tr:not(:last-child) {
       }
 [data-component="code"] .code-highlighted pre > code {
       font-size: 0.875rem;
-      font-size: var(--lookbook-font-size-small);
+      font-size: var(--lb-font-size-small);
       line-height: 1.5;
       padding-left: 0.75rem !important;
       padding-right: 0.75rem !important;
-      padding-left: var(--lookbook-spacing-small) !important;
-      padding-right: var(--lookbook-spacing-small) !important;
+      padding-left: var(--lb-spacing-small) !important;
+      padding-right: var(--lb-spacing-small) !important;
       padding-top: 0.75rem !important;
       padding-bottom: 0.75rem !important;
-      padding-top: var(--lookbook-spacing-small) !important;
-      padding-bottom: var(--lookbook-spacing-small) !important;
+      padding-top: var(--lb-spacing-small) !important;
+      padding-bottom: var(--lb-spacing-small) !important;
       overflow: auto;
     }
 .wrap-lines[data-component="code"] .code-highlighted code {
@@ -963,17 +954,17 @@ tr:not(:last-child) {
     stroke-width: 2px;
   }
 [data-component="prose"] {
-  font-family: "Open Sans Var", Avenir, Montserrat, Corbel,
-    "URW Gothic", source-sans-pro, sans-serif;
-  font-family: var(--lookbook-font-prose);
+  font-family: "Open Sans Var", Avenir, Montserrat, Corbel, "URW Gothic",
+    source-sans-pro, sans-serif;
+  font-family: var(--lb-font-prose);
   color: hsl(240, 6%, 10%);
-  color: var(--lookbook-prose-color);
+  color: var(--lb-prose-color);
   font-size: 1rem;
   line-height: 1.75;
 }
 [data-component="prose"] [class~="lead"] {
     color: hsl(240, 6%, 10%);
-    color: var(--lookbook-prose-color);
+    color: var(--lb-prose-color);
     font-size: 1.25em;
     line-height: 1.6;
     margin-top: 1.2em;
@@ -1002,7 +993,7 @@ tr:not(:last-child) {
     position: absolute;
     font-weight: 400;
     color: hsl(240, 5%, 34%);
-    color: var(--lookbook-prose-list-counter-color);
+    color: var(--lb-prose-list-counter-color);
   }
 [data-component="prose"] ul > li {
     position: relative;
@@ -1012,7 +1003,7 @@ tr:not(:last-child) {
     content: "";
     position: absolute;
     background-color: hsl(240, 5%, 65%);
-    background-color: var(--lookbook-prose-list-marker-color);
+    background-color: var(--lb-prose-list-marker-color);
     border-radius: 50%;
     width: 0.375em;
     height: 0.375em;
@@ -1021,7 +1012,7 @@ tr:not(:last-child) {
   }
 [data-component="prose"] hr {
     border-color: hsl(240, 5%, 34%);
-    border-color: var(--lookbook-prose-hr-color);
+    border-color: var(--lb-prose-hr-color);
     border-top-width: 1px;
     margin-top: 3em;
     margin-bottom: 3em;
@@ -1030,10 +1021,10 @@ tr:not(:last-child) {
     font-weight: 500;
     font-style: italic;
     color: hsl(240, 5%, 26%);
-    color: var(--lookbook-prose-blockquote-color);
+    color: var(--lb-prose-blockquote-color);
     border-left-width: 0.25rem;
     border-left-color: hsl(240, 5%, 84%);
-    border-left-color: var(--lookbook-prose-blockquote-border-color);
+    border-left-color: var(--lb-prose-blockquote-border-color);
     quotes: "\201C" "\201D" "\2018" "\2019";
     margin-top: 1.6em;
     margin-bottom: 1.6em;
@@ -1049,33 +1040,33 @@ tr:not(:last-child) {
   [data-component="prose"] h2,
   [data-component="prose"] h3,
   [data-component="prose"] h4 {
-    line-height: var(--lookbook-line-height-dense);
+    line-height: var(--lb-line-height-dense);
     margin-top: 1.5em;
     margin-bottom: 0.8em;
   }
 [data-component="prose"] h1 {
     font-weight: 600;
     font-size: 2.25rem;
-    font-size: var(--lookbook-font-size-2x-large);
+    font-size: var(--lb-font-size-2x-large);
   }
 [data-component="prose"] h2 {
     font-weight: 600;
     font-size: 1.5rem;
-    font-size: var(--lookbook-font-size-x-large);
+    font-size: var(--lb-font-size-x-large);
   }
 [data-component="prose"] h3 {
     font-weight: 600;
     font-size: 1.25rem;
-    font-size: var(--lookbook-font-size-large);
+    font-size: var(--lb-font-size-large);
   }
 [data-component="prose"] h4 {
     font-weight: 600;
     font-size: 1rem;
-    font-size: var(--lookbook-font-size-medium);
+    font-size: var(--lb-font-size-medium);
   }
 [data-component="prose"] figure figcaption {
     color: hsl(240, 5%, 34%);
-    color: var(--lookbook-prose-figcaption-color);
+    color: var(--lb-prose-figcaption-color);
     font-size: 0.875em;
     line-height: 1.4285714;
     margin-top: 0.8571429em;
@@ -1083,19 +1074,19 @@ tr:not(:last-child) {
 [data-component="prose"] code:not(pre code) {
     font-size: 0.8em;
     display: inline-block;
-    font-family: "Source Code Pro Var", ui-monospace, "Cascadia Code",
-    Menlo, Consolas, "DejaVu Sans Mono", monospace;
-    font-family: var(--lookbook-font-mono);
+    font-family: "Source Code Pro Var", ui-monospace, "Cascadia Code", Menlo,
+    Consolas, "DejaVu Sans Mono", monospace;
+    font-family: var(--lb-font-mono);
     background-color: hsl(240, 5%, 96%);
-    background-color: var(--lookbook-prose-inline-code-background-color);
+    background-color: var(--lb-prose-inline-code-background-color);
     padding-left: 0.25rem;
     padding-right: 0.25rem;
-    padding-left: var(--lookbook-spacing-2x-small);
-    padding-right: var(--lookbook-spacing-2x-small);
+    padding-left: var(--lb-spacing-2x-small);
+    padding-right: var(--lb-spacing-2x-small);
     border-radius: 0.1875rem;
-    border-radius: var(--lookbook-border-radius-small);
+    border-radius: var(--lb-border-radius-small);
     color: hsl(242, 47%, 34%);
-    color: var(--lookbook-prose-inline-code-color);
+    color: var(--lb-prose-inline-code-color);
   }
 [data-component="prose"] table {
     width: 100%;
@@ -1201,59 +1192,59 @@ tr:not(:last-child) {
     margin-bottom: 0;
   }
 [data-component="prose"] [data-component="code"] {
-    color: var(--lookbook-prose-code-color);
+    color: var(--lb-prose-code-color);
     background-color: #fff;
-    background-color: var(--lookbook-prose-code-background-color);
+    background-color: var(--lb-prose-code-background-color);
     border: 1px solid hsl(240, 5%, 84%);
-    border: 1px solid var(--lookbook-prose-code-border-color);
+    border: 1px solid var(--lb-prose-code-border-color);
     border-radius: 0.1875rem;
-    border-radius: var(--lookbook-border-radius-small);
+    border-radius: var(--lb-border-radius-small);
     margin-top: 1.75rem;
     margin-bottom: 1.75rem;
-    margin-top: var(--lookbook-spacing-x-large);
-    margin-bottom: var(--lookbook-spacing-x-large);
+    margin-top: var(--lb-spacing-x-large);
+    margin-bottom: var(--lb-spacing-x-large);
   }
 [data-component="page"] {
-  font-family: "Open Sans Var", Avenir, Montserrat, Corbel,
-    "URW Gothic", source-sans-pro, sans-serif;
-  font-family: var(--lookbook-font-prose);
+  font-family: "Open Sans Var", Avenir, Montserrat, Corbel, "URW Gothic",
+    source-sans-pro, sans-serif;
+  font-family: var(--lb-font-prose);
   background-color: #fff;
-  background-color: var(--lookbook-color-white);
+  background-color: var(--lb-color-white);
   min-height: 100vh;
 }
 [data-component="page"] .page-slat {
     padding-left: 1.75rem;
     padding-right: 1.75rem;
-    padding-left: var(--lookbook-spacing-x-large);
-    padding-right: var(--lookbook-spacing-x-large);
+    padding-left: var(--lb-spacing-x-large);
+    padding-right: var(--lb-spacing-x-large);
   }
 [data-component="page"] .page-header {
     border-bottom: 1px solid hsl(240, 5%, 84%);
-    border-bottom: 1px solid var(--lookbook-color-base-300);
+    border-bottom: 1px solid var(--lb-color-base-300);
     padding-top: 1.75rem;
     padding-bottom: 1.75rem;
-    padding-top: var(--lookbook-spacing-x-large);
-    padding-bottom: var(--lookbook-spacing-x-large);
+    padding-top: var(--lb-spacing-x-large);
+    padding-bottom: var(--lb-spacing-x-large);
   }
 [data-component="page"] .page-title {
     font-weight: 700;
-    font-weight: var(--lookbook-font-weight-bold);
+    font-weight: var(--lb-font-weight-bold);
     font-size: 2.25rem;
-    font-size: var(--lookbook-font-size-2x-large);
+    font-size: var(--lb-font-size-2x-large);
   }
 [data-component="page"] .page-body {
     padding-top: 2.25rem;
-    padding-top: var(--lookbook-spacing-2x-large);
+    padding-top: var(--lb-spacing-2x-large);
     padding-bottom: 3rem;
-    padding-bottom: var(--lookbook-spacing-3x-large);
+    padding-bottom: var(--lb-spacing-3x-large);
   }
 [data-component="page"] .page-footer {
     border-top: 1px solid hsl(240, 5%, 84%);
-    border-top: 1px solid var(--lookbook-color-base-300);
+    border-top: 1px solid var(--lb-color-base-300);
     padding-top: 1.75rem;
     padding-bottom: 1.75rem;
-    padding-top: var(--lookbook-spacing-x-large);
-    padding-bottom: var(--lookbook-spacing-x-large);
+    padding-top: var(--lb-spacing-x-large);
+    padding-bottom: var(--lb-spacing-x-large);
   }
 [data-component="page"] .page-nav-links {
     display: flex;
@@ -1262,13 +1253,13 @@ tr:not(:last-child) {
     width: 100%;
     font-family: "Inter Var", Roboto, "Helvetica Neue", "Arial Nova",
     "Nimbus Sans", Arial, sans-serif;
-    font-family: var(--lookbook-font-ui);
+    font-family: var(--lb-font-ui);
   }
 [data-component="page"] .page-nav-link {
     display: flex;
     align-items: center;
     gap: 0.25rem;
-    gap: var(--lookbook-spacing-2x-small);
+    gap: var(--lb-spacing-2x-small);
   }
 [data-component="page"] .page-nav-link-next {
     margin-left: auto;

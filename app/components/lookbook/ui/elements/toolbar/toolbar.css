@@ -1,11 +1,11 @@
 [data-component="toolbar"] {
-  color: var(--lookbook-toolbar-color);
-  background-color: var(--lookbook-toolbar-background-color);
-  height: var(--lookbook-toolbar-height);
+  color: var(--lb-toolbar-color);
+  background-color: var(--lb-toolbar-background-color);
+  height: var(--lb-toolbar-height);
   display: flex;
   align-items: center;
-  padding-left: var(--lookbook-spacing-medium);
-  border-bottom: 1px solid var(--lookbook-app-divider-color);
+  padding-left: var(--lb-spacing-medium);
+  border-bottom: 1px solid var(--lb-app-divider-color);
 
   .toolbar-section {
     display: flex;
@@ -19,8 +19,8 @@
   .toolbar-label {
     display: flex;
     align-items: center;
-    font-size: var(--lookbook-font-size-small);
-    margin-right: var(--lookbook-spacing-medium);
+    font-size: var(--lb-font-size-small);
+    margin-right: var(--lb-spacing-medium);
   }
 
   .toolbar-button-groups {
@@ -30,7 +30,7 @@
 
   [data-component="button-group"] {
     & + [data-component="button-group"] {
-      border-left: 1px solid var(--lookbook-app-divider-color);
+      border-left: 1px solid var(--lb-app-divider-color);
     }
   }
 }

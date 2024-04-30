@@ -24,10 +24,10 @@
     }
 
     pre > code {
-      font-size: var(--lookbook-font-size-small);
+      font-size: var(--lb-font-size-small);
       line-height: 1.5;
-      padding-inline: var(--lookbook-spacing-small) !important;
-      padding-block: var(--lookbook-spacing-small) !important;
+      padding-inline: var(--lb-spacing-small) !important;
+      padding-block: var(--lb-spacing-small) !important;
       overflow: auto;
     }
   }

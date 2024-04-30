@@ -6,7 +6,7 @@
   .button-group-divider {
     flex: none;
     width: 1px;
-    background-color: var(--lookbook-button-group-divider-color);
+    background-color: var(--lb-button-group-divider-color);
     height: 38px;
     display: block;
   }

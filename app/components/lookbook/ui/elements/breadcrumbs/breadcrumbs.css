@@ -2,25 +2,25 @@
   display: flex;
   width: 100%;
   align-items: center;
-  font-size: var(--lookbook-font-size-small);
-  color: var(--lookbook-breadrumbs-color);
+  font-size: var(--lb-font-size-small);
+  color: var(--lb-breadrumbs-color);
 
   a.breadcrumb {
-    color: var(--lookbook-breadrumbs-link-color);
+    color: var(--lb-breadrumbs-link-color);
     &:hover {
       text-decoration: underline;
-      color: var(--lookbook-breadrumbs-link-color-hover);
+      color: var(--lb-breadrumbs-link-color-hover);
     }
   }
 
   .breadcrumb:last-child {
-    color: var(--lookbook-breadrumbs-color-current);
+    color: var(--lb-breadrumbs-color-current);
   }
 
   .breadcrumb-divider {
     flex: none;
     display: block;
-    margin-left: var(--lookbook-spacing-2x-small);
-    margin-right: var(--lookbook-spacing-2x-small);
+    margin-left: var(--lb-spacing-2x-small);
+    margin-right: var(--lb-spacing-2x-small);
   }
 }

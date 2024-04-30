@@ -2,8 +2,8 @@
   height: 100%;
   width: 100%;
   overflow: hidden;
-  color: var(--lookbook-tab-panel-color);
-  background-color: var(--lookbook-tab-panel-background-color);
+  color: var(--lb-tab-panel-color);
+  background-color: var(--lb-tab-panel-background-color);
 
   .tab-panel-content {
     z-index: 1;

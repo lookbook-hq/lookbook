@@ -1,11 +1,11 @@
 [data-component="prose"] {
-  font-family: var(--lookbook-font-prose);
-  color: var(--lookbook-prose-color);
+  font-family: var(--lb-font-prose);
+  color: var(--lb-prose-color);
   font-size: 1rem;
   line-height: 1.75;
 
   [class~="lead"] {
-    color: var(--lookbook-prose-color);
+    color: var(--lb-prose-color);
     font-size: 1.25em;
     line-height: 1.6;
     margin-top: 1.2em;
@@ -37,7 +37,7 @@
     content: counter(list-counter) ".";
     position: absolute;
     font-weight: 400;
-    color: var(--lookbook-prose-list-counter-color);
+    color: var(--lb-prose-list-counter-color);
   }
 
   ul > li {
@@ -48,7 +48,7 @@
   ul > li::before {
     content: "";
     position: absolute;
-    background-color: var(--lookbook-prose-list-marker-color);
+    background-color: var(--lb-prose-list-marker-color);
     border-radius: 50%;
     width: 0.375em;
     height: 0.375em;
@@ -57,7 +57,7 @@
   }
 
   hr {
-    border-color: var(--lookbook-prose-hr-color);
+    border-color: var(--lb-prose-hr-color);
     border-top-width: 1px;
     margin-top: 3em;
     margin-bottom: 3em;
@@ -66,9 +66,9 @@
   blockquote {
     font-weight: 500;
     font-style: italic;
-    color: var(--lookbook-prose-blockquote-color);
+    color: var(--lb-prose-blockquote-color);
     border-left-width: 0.25rem;
-    border-left-color: var(--lookbook-prose-blockquote-border-color);
+    border-left-color: var(--lb-prose-blockquote-border-color);
     quotes: "\201C" "\201D" "\2018" "\2019";
     margin-top: 1.6em;
     margin-bottom: 1.6em;
@@ -87,33 +87,33 @@
   h2,
   h3,
   h4 {
-    line-height: var(--lookbook-line-height-dense);
+    line-height: var(--lb-line-height-dense);
     margin-top: 1.5em;
     margin-bottom: 0.8em;
   }
 
   h1 {
     font-weight: 600;
-    font-size: var(--lookbook-font-size-2x-large);
+    font-size: var(--lb-font-size-2x-large);
   }
 
   h2 {
     font-weight: 600;
-    font-size: var(--lookbook-font-size-x-large);
+    font-size: var(--lb-font-size-x-large);
   }
 
   h3 {
     font-weight: 600;
-    font-size: var(--lookbook-font-size-large);
+    font-size: var(--lb-font-size-large);
   }
 
   h4 {
     font-weight: 600;
-    font-size: var(--lookbook-font-size-medium);
+    font-size: var(--lb-font-size-medium);
   }
 
   figure figcaption {
-    color: var(--lookbook-prose-figcaption-color);
+    color: var(--lb-prose-figcaption-color);
     font-size: 0.875em;
     line-height: 1.4285714;
     margin-top: 0.8571429em;
@@ -122,11 +122,11 @@
   code:not(pre code) {
     font-size: 0.8em;
     display: inline-block;
-    font-family: var(--lookbook-font-mono);
-    background-color: var(--lookbook-prose-inline-code-background-color);
-    padding-inline: var(--lookbook-spacing-2x-small);
-    border-radius: var(--lookbook-border-radius-small);
-    color: var(--lookbook-prose-inline-code-color);
+    font-family: var(--lb-font-mono);
+    background-color: var(--lb-prose-inline-code-background-color);
+    padding-inline: var(--lb-spacing-2x-small);
+    border-radius: var(--lb-border-radius-small);
+    color: var(--lb-prose-inline-code-color);
   }
 
   table {
@@ -259,10 +259,10 @@
   }
 
   [data-component="code"] {
-    color: var(--lookbook-prose-code-color);
-    background-color: var(--lookbook-prose-code-background-color);
-    border: 1px solid var(--lookbook-prose-code-border-color);
-    border-radius: var(--lookbook-border-radius-small);
-    margin-block: var(--lookbook-spacing-x-large);
+    color: var(--lb-prose-code-color);
+    background-color: var(--lb-prose-code-background-color);
+    border: 1px solid var(--lb-prose-code-border-color);
+    border-radius: var(--lb-border-radius-small);
+    margin-block: var(--lb-spacing-x-large);
   }
 }

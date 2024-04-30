@@ -1,11 +1,11 @@
 @import "tippy.js/dist/tippy.css";
 
 .tippy-box[data-theme~="dropdown"] {
-  box-shadow: var(--lookbook-shadow-medium);
-  background: var(--lookbook-color-white);
-  color: var(--lookbook-color-base-800);
+  box-shadow: var(--lb-shadow-medium);
+  background: var(--lb-color-white);
+  color: var(--lb-color-base-800);
   max-width: 100%;
-  border: 1px solid var(--lookbook-app-divider-color);
+  border: 1px solid var(--lb-app-divider-color);
   border-radius: 0;
   width: fit-content;
 
