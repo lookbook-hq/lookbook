@@ -1,13 +1,11 @@
 module Lookbook
   class ApplicationController < ActionController::Base
+    helper AppHelper
+    helper AssetHelper
+
     before_action :assign_template_vars
 
     rescue_from ActionController::RoutingError, with: :not_found
-
-    def index
-      landing = @pages.find(&:landing?)
-      redirect_to landing.url_path if landing
-    end
 
     def permalink
       type = params[:uuid].split("_")&.first

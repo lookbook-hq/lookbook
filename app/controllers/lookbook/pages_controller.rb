@@ -6,11 +6,7 @@ module Lookbook
     before_action :assign_preview, only: :preview
 
     def page
-      @page_content = render_to_string(
-        inline: @page.content,
-        layout: false,
-        locals: page_locals
-      )
+      @page_content = render_page(@page)
     end
 
     def preview
@@ -28,29 +24,22 @@ module Lookbook
         }
       )
 
-      @page_content = render_to_string(
-        Lookbook.config.preview_overview_template,
-        layout: false,
-        locals: page_locals
-      )
+      @page_content = render_page(@page, Lookbook.config.preview_overview_template)
     end
 
     private
 
+    def render_page(page, template = nil)
+      controller = PageRenderer.new
+      controller.request = request
+      controller.response = ActionDispatch::Response.new
+
+      controller.process(:render_page, page, template)
+    end
+
     def assign_page
       @page = Pages.all.find { _1.lookup_path == params[:path] }
       raise ActionController::RoutingError, "Could not find page '#{params[:path]}'" unless @page
-    end
-
-    def page_locals
-      {
-        config: Lookbook.config,
-        previews: Previews,
-        pages: Pages,
-        page: @page,
-        previous_page: @page.previous,
-        next_page: @page.next
-      }
     end
   end
 end

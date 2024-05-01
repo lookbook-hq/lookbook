@@ -1,5 +1,5 @@
 Lookbook::Engine.routes.draw do
-  root "application#index"
+  root "landing#index"
 
   get "/permalink/:uuid", to: "application#permalink", as: :permalink
   get "/previews/:preview", to: "pages#preview", as: :preview_page
