@@ -21,10 +21,8 @@
     <% end %>
   </div>
   <% if dropdown %>
-    <template x-teleport="body">
-      <div x-ref="dropdown">
-        <%= dropdown %>
-      </div>
+    <template x-ref="dropdown">
+      <%= dropdown %>
     </template>
   <% end %>
 <% end %>

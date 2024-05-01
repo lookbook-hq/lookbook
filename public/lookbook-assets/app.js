@@ -10896,7 +10896,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
               offset: [1, -1],
               trigger: "click",
               hideOnClick: true,
-              content: () => this.$refs.dropdown.firstElementChild,
+              content: () => this.$refs.dropdown.content.cloneNode(true),
               onShow: () => {
                 this.dropdownOpen = true;
               },
