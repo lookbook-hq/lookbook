@@ -1961,7 +1961,14 @@ html[data-color-scheme="dark"] .shiki span {
   font-family: var(--lb-font-prose);
   color: var(--lb-page-color);
   background-color: var(--lb-page-background-color);
-  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
 }
 [data-component="page"] .page-slat {
     padding-left: 1.5rem;

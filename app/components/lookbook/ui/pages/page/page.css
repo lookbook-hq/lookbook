@@ -2,7 +2,11 @@
   font-family: var(--lb-font-prose);
   color: var(--lb-page-color);
   background-color: var(--lb-page-background-color);
-  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  inset: 0;
+  overflow: auto;
 
   .page-slat {
     padding-inline: var(--lb-spacing-xl);
