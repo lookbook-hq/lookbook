@@ -2,9 +2,10 @@
   lb_pane(id: dom_id(@preview)) do |pane|
     pane.with_toolbar do |toolbar|
       toolbar.with_breadcrumb(@config.previews_nav_label, @preview.ancestors, @preview)      
-    end 
-    render Lookbook::UI::PageBrowser.new(src: main_app.lookbook_render_preview_page_path(@preview))
+    end
+    
+    lb_page(@page) do |page|
+      @page_content
+    end
   end
 %>
-
-

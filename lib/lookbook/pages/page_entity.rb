@@ -56,7 +56,7 @@ module Lookbook
     end
 
     def url_path
-      @url_path ||= (show_page_path(self) unless virtual?)
+      @url_path ||= (page_path(self) unless virtual?)
     end
 
     def lookup_path

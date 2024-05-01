@@ -27,13 +27,13 @@ data:
 Page templates have access to the data set in frontmatter:
 
 ```erb
-<%% @page.data.pets.each do |pet| %>
+<%% page.data.pets.each do |pet| %>
 * A <%%= pet.type %> makes a '<%%= pet.sound %>' noise.
 <%% end %>
 ```
 
 This is the output:
 
-<% @page.data.pets.each do |pet| %>
+<% page.data.pets.each do |pet| %>
 * A <%= pet.type %> makes a '<%= pet.sound %>' noise.
 <% end %>

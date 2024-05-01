@@ -15,10 +15,10 @@ module Lookbook
         redirect_url = case type.to_sym
         when :page
           page = Pages.find { _1.uuid == params[:uuid] }
-          show_page_path(page, request.query_parameters)
+          page_path(page, request.query_parameters)
         when :preview
           preview = Previews.find { _1.uuid == params[:uuid] }
-          show_preview_path(preview, request.query_parameters)
+          preview_page_path(preview, request.query_parameters)
         when :inspect
           target = Previews.inspector_targets.find { _1.uuid == params[:uuid] }
           inspect_target_path(target.preview, target, request.query_parameters)
@@ -35,7 +35,6 @@ module Lookbook
     protected
 
     def assign_template_vars
-      @lookbook = Lookbook
       @config = Lookbook.config
       @inspector = Inspector
       @pages = Pages

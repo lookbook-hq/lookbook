@@ -8,10 +8,6 @@ module Lookbook
     before_action :prerender_target, only: %i[inspect embed preview]
     after_action :persist_display_options, only: %i[inspect embed preview]
 
-    def show
-      @targets = @preview.inspector_targets
-    end
-
     def inspect
       @preview_panels = Inspector.preview_panels(**panel_context)
       @drawer_panels = Inspector.drawer_panels(**panel_context)

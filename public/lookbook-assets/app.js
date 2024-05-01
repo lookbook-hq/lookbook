@@ -18875,80 +18875,6 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     }
   );
 
-  // app/components/lookbook/ui/pages/page/page.js
-  var page_exports = {};
-  __export(page_exports, {
-    default: () => page_default
-  });
-
-  // assets/js/page_updater.js
-  var PageUpdater = class {
-    constructor(root2, selector) {
-      this.root = root2;
-      this.selector = selector;
-    }
-    async updateDOM(url) {
-      const { fragment, status } = await fetchHTML(url, this.selector);
-      if (status < 500) {
-        document.dispatchEvent(new CustomEvent("morph:start"));
-        Alpine.morph(this.root, fragment);
-        document.dispatchEvent(new CustomEvent("morph:complete"));
-      } else {
-        location.href = url;
-      }
-    }
-  };
-
-  // app/components/lookbook/ui/pages/page/page.js
-  var page_default = AlpineComponent("page", () => {
-    return {
-      updater: null,
-      init() {
-        this.updater = new PageUpdater(this.$el, "[data-component='page']");
-      },
-      handleMessage(event) {
-        try {
-          const data2 = JSON.parse(event.data);
-          if (data2.action === "page:update") {
-            this.updater.updateDOM(location);
-          }
-        } catch {
-        }
-      }
-    };
-  });
-
-  // app/components/lookbook/ui/pages/page_browser/page_browser.js
-  var page_browser_exports = {};
-  __export(page_browser_exports, {
-    default: () => page_browser_default
-  });
-  var page_browser_default = AlpineComponent("pageBrowser", () => {
-    return {
-      handleMessage(event) {
-        try {
-          const data2 = JSON.parse(event.data);
-          if (data2.action === "visit") {
-            this.$dispatch("lookbook:visit", { url: data2.url });
-          }
-        } catch {
-        }
-      },
-      notifyUpdateRequired() {
-        this.iframeWindow.postMessage(
-          JSON.stringify({ action: "page:update" }),
-          "*"
-        );
-      },
-      reload() {
-        this.iframeWindow.location.reload(true);
-      },
-      get iframeWindow() {
-        return this.$refs.iframe.contentWindow;
-      }
-    };
-  });
-
   // app/components/lookbook/ui/previews/display_options_dropdown/display_options_dropdown.js
   var display_options_dropdown_exports = {};
   __export(display_options_dropdown_exports, {
@@ -19062,7 +18988,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   });
 
   // import-glob:/Users/mark/Code/lookbook/lookbook-v3/assets/js/alpine|../../../app/components/lookbook/ui/**/*.js
-  var modules = [color_scheme_switcher_exports, header_exports, layout_exports, router_exports, status_bar_exports, status_bar_item_exports, status_bar_notifications_exports, button_exports, code_exports, icon_exports, nav_exports, nav_item_exports, pane_exports, tab_panel_exports, pane_group_exports, prose_exports, toolbar_exports, toolbar_tab_exports, toolbar_tab_group_exports, viewport_exports, page_exports, page_browser_exports, display_options_dropdown_exports, param_editor_exports, preview_embed_exports, preview_inspector_exports];
+  var modules = [color_scheme_switcher_exports, header_exports, layout_exports, router_exports, status_bar_exports, status_bar_item_exports, status_bar_notifications_exports, button_exports, code_exports, icon_exports, nav_exports, nav_item_exports, pane_exports, tab_panel_exports, pane_group_exports, prose_exports, toolbar_exports, toolbar_tab_exports, toolbar_tab_group_exports, viewport_exports, display_options_dropdown_exports, param_editor_exports, preview_embed_exports, preview_inspector_exports];
   var __default = modules;
 
   // assets/js/alpine/app.js

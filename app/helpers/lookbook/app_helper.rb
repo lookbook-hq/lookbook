@@ -49,11 +49,11 @@ module Lookbook
     # Paths
 
     def lookbook_page_path(page, **kwargs)
-      lookbook.show_page_path(page, **kwargs)
+      lookbook.page_path(page, **kwargs)
     end
 
     def lookbook_preview_path(preview, target = nil, **kwargs)
-      target.nil? ? lookbook.show_preview_path(preview, **kwargs) : lookbook.inspect_target_path(preview, target, **kwargs)
+      target.nil? ? lookbook.preview_page_path(preview, **kwargs) : lookbook.inspect_target_path(preview, target, **kwargs)
     end
 
     # Utilities

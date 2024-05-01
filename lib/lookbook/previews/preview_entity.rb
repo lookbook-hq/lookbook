@@ -53,7 +53,7 @@ module Lookbook
     end
 
     def url_path
-      show_preview_path(self)
+      preview_page_path(self)
     end
 
     def display_options

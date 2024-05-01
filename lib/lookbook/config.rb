@@ -40,10 +40,6 @@ module Lookbook
           page_watch_extensions: [],
           page_frontmatter_defaults: default_frontmatter_options,
 
-          page_controller: "LookbookPageController",
-          page_template: "lookbook/pages/page",
-          page_layout: "layouts/lookbook/page",
-
           pages_nav_label: "Pages",
           pages_nav_filter: true,
 

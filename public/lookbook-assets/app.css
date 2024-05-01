@@ -2014,15 +2014,6 @@ html[data-color-scheme="dark"] .shiki span {
 [data-component="page"] .page-nav-link-next {
     margin-left: auto;
   }
-[data-component="page-browser"] {
-  height: 100%;
-  width: 100%;
-  background-color: var(--lb-page-background-color);
-}
-[data-component="page-browser"] iframe {
-    height: 100%;
-    width: 100%;
-  }
 [data-component="page-metadata"] {
   width: -moz-fit-content;
   width: fit-content;
