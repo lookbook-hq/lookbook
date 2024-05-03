@@ -4,7 +4,7 @@
   padding-inline: var(--lb-spacing-sm);
   color: var(--lb-status-bar-color);
   background-color: var(--lb-status-bar-background-color);
-  border-top: 1px solid var(--lb-divider-color);
+  border-top: 1px solid var(--lb-color-surface-divider);
 
   display: flex;
   align-items: center;

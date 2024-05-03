@@ -6,7 +6,7 @@
   .button-group-divider {
     flex: none;
     width: 1px;
-    background-color: var(--lb-divider-color);
+    background-color: var(--lb-color-surface-divider);
     height: 38px;
     display: block;
   }

@@ -2,8 +2,8 @@
   width: 280px;
   padding: var(--lb-spacing-md);
   padding-top: var(--lb-spacing-sm);
-  color: var(--lb-display-options-color);
-  background-color: var(--lb-display-options-background-color);
+  color: var(--lb-dropdown-color);
+  background-color: var(--lb-dropdown-background-color);
 
   .title {
     font-size: var(--lb-font-size-md);

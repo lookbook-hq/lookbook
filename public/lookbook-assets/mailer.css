@@ -667,7 +667,7 @@ header {
   font-family: "Inter Var", Roboto, "Helvetica Neue", "Arial Nova",
     "Nimbus Sans", Arial, sans-serif;
   font-family: var(--lb-font-ui);
-  border-bottom: 1px solid var(--lb-divider-color);
+  border-bottom: 1px solid var(--lb-color-surface-divider);
   overflow: hidden;
 }
 dl {

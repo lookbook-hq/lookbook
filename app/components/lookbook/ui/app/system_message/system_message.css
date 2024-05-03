@@ -38,13 +38,12 @@
   }
 
   &[data-theme="error"] {
-    border-color: var(--lb-system-message-border-color-error);
-
     .message-title {
       color: var(--lb-system-message-title-color-error);
     }
 
     .message-icon svg {
+      opacity: 0.6;
       color: var(--lb-system-message-icon-color-error);
     }
   }

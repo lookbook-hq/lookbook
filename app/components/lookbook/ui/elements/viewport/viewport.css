@@ -35,7 +35,7 @@
       position: absolute;
       inset: 0;
       background: var(--lb-viewport-dimensions-background-color);
-      opacity: 0.7;
+      /* opacity: 0.7; */
     }
 
     span {
@@ -51,7 +51,7 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
-    outline: 1px solid var(--lb-divider-color);
+    outline: 1px solid var(--lb-color-surface-divider);
   }
 
   &.resize-x {
@@ -87,13 +87,13 @@
 
   .viewport-handle-x {
     flex-direction: row;
-    border-left: 1px solid var(--lb-divider-color);
+    border-left: 1px solid var(--lb-color-surface-divider);
     width: var(--lb-size-md);
     cursor: ew-resize;
   }
 
   .viewport-handle-y {
-    border-top: 1px solid var(--lb-divider-color);
+    border-top: 1px solid var(--lb-color-surface-divider);
     height: var(--lb-size-md);
     cursor: ns-resize;
   }

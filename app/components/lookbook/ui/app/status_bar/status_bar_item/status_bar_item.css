@@ -21,26 +21,26 @@
 
   &[data-theme="positive"] {
     .status-bar-item-summary .icon {
-      color: var(--lb-status-bar-item-color-positive);
+      color: var(--lb-color-content-positive);
     }
   }
 
   &[data-theme="error"] {
     .status-bar-item-summary {
-      color: var(--lb-status-bar-item-color-error);
+      color: var(--lb-color-content-negative);
 
       .icon {
-        color: var(--lb-status-bar-item-color-error);
+        color: var(--lb-color-content-negative);
       }
     }
   }
 
   &[data-theme="warning"] {
     .status-bar-item-summary {
-      color: var(--lb-status-bar-item-color-warning);
+      color: var(--lb-color-content-warning);
 
       .icon {
-        color: var(--lb-status-bar-item-color-warning);
+        color: var(--lb-color-content-warning);
       }
     }
   }

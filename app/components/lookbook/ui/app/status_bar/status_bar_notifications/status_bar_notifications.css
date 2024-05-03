@@ -1,8 +1,8 @@
 [data-component="status-bar-notifications"] {
   width: 28rem;
   padding-inline: var(--lb-spacing-sm);
-  color: var(--lb-status-bar-notifications-color);
-  background: var(--lb-status-bar-notifications-background-color);
+  color: var(--lb-dropdown-color);
+  background: var(--lb-dropdown-background-color);
 
   .notification {
     display: flex;
@@ -10,7 +10,7 @@
     padding-block: var(--lb-spacing-sm);
 
     & + .notification {
-      border-top: 1px solid var(--lb-divider-color);
+      border-top: 1px solid var(--lb-color-surface-divider);
     }
 
     .notification-icon {
@@ -35,19 +35,19 @@
     }
 
     &.notification-error .notification-icon {
-      color: var(--lb-status-bar-item-color-error);
+      color: var(--lb-color-content-negative);
     }
 
     &.notification-warning .notification-icon {
-      color: var(--lb-status-bar-item-color-warning);
+      color: var(--lb-color-content-warning);
     }
 
     &.notification-notice .notification-icon {
-      color: var(--lb-status-bar-item-color-info);
+      color: var(--lb-color-content-info);
     }
 
     &.notification-success .notification-icon {
-      color: var(--lb-status-bar-item-color-positive);
+      color: var(--lb-color-content-positive);
     }
   }
 }
