@@ -1,21 +1,25 @@
-<%= render component_tag(:article) do %>
-  <% if header? %>
-    <div class="page-header-wrapper page-slat">
-      <header class="page-header page-container">
-        <h1 class="page-title"><%= title %></h1>
-      </header>
+<%= render component_tag(class: {"with-footer": footer?}) do %>
+  <article class="page-content-wrapper">
+    <div class="page-content">
+      <% if header? %>
+        <div class="page-header-wrapper page-slat">
+          <header class="page-header page-container">
+            <h1 class="page-title"><%= title %></h1>
+          </header>
+        </div>
+      <% end %>
+      
+      <div class="page-body-wrapper page-slat">
+        <section class="page-body page-container">
+          <%= lb_prose { content } %>
+        </section>
+      </div>
     </div>
-  <% end %>
-  
-  <div class="page-body-wrapper page-slat">
-    <section class="page-body page-container">
-      <%= lb_prose { content } %>
-    </section>
-  </div>
+  </article>
   
   <% if footer? %>
-    <div class="page-footer-wrapper page-slat">
-      <footer class="page-footer page-container">
+    <div class="page-footer-wrapper">
+      <footer class="page-footer">
         <nav class="page-nav-links">
           <% if previous_page %>
             <%= link_to previous_page.url_path, class: "page-nav-link page-nav-link-previous" do %>

@@ -1968,13 +1968,24 @@ html[data-color-scheme="dark"] .shiki span {
   right: 0;
   bottom: 0;
   left: 0;
-  overflow: auto;
+  overflow: hidden;
 }
+.with-footer[data-component="page"] {
+    display: grid;
+    grid-template-rows: 1fr min-content;
+  }
 [data-component="page"] .page-slat {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     padding-left: var(--lb-spacing-xl);
     padding-right: var(--lb-spacing-xl);
+  }
+[data-component="page"] .page-content-wrapper {
+    overflow: hidden;
+  }
+[data-component="page"] .page-content {
+    height: 100%;
+    overflow: auto;
   }
 [data-component="page"] .page-header {
     border-bottom: 1px solid var(--lb-page-divider-color);
@@ -1998,19 +2009,25 @@ html[data-color-scheme="dark"] .shiki span {
   }
 [data-component="page"] .page-footer {
     border-top: 1px solid var(--lb-page-divider-color);
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-    padding-top: var(--lb-spacing-xl);
-    padding-bottom: var(--lb-spacing-xl);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-top: var(--lb-spacing-xs);
+    padding-bottom: var(--lb-spacing-xs);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-left: var(--lb-spacing-md);
+    padding-right: var(--lb-spacing-md);
+    font-family: "Inter Var", Roboto, "Helvetica Neue", "Arial Nova",
+    "Nimbus Sans", Arial, sans-serif;
+    font-family: var(--lb-font-ui);
+    font-size: 0.875rem;
+    font-size: var(--lb-font-size-sm);
   }
 [data-component="page"] .page-nav-links {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    font-family: "Inter Var", Roboto, "Helvetica Neue", "Arial Nova",
-    "Nimbus Sans", Arial, sans-serif;
-    font-family: var(--lb-font-ui);
   }
 [data-component="page"] .page-nav-link {
     display: flex;

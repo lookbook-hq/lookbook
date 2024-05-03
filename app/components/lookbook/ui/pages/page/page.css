@@ -6,10 +6,24 @@
   width: 100%;
   position: absolute;
   inset: 0;
-  overflow: auto;
+  overflow: hidden;
+
+  &.with-footer {
+    display: grid;
+    grid-template-rows: 1fr min-content;
+  }
 
   .page-slat {
     padding-inline: var(--lb-spacing-xl);
+  }
+
+  .page-content-wrapper {
+    overflow: hidden;
+  }
+
+  .page-content {
+    height: 100%;
+    overflow: auto;
   }
 
   .page-header {
@@ -30,7 +44,10 @@
 
   .page-footer {
     border-top: 1px solid var(--lb-page-divider-color);
-    padding-block: var(--lb-spacing-xl);
+    padding-block: var(--lb-spacing-xs);
+    padding-inline: var(--lb-spacing-md);
+    font-family: var(--lb-font-ui);
+    font-size: var(--lb-font-size-sm);
   }
 
   .page-nav-links {
@@ -38,7 +55,6 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    font-family: var(--lb-font-ui);
   }
 
   .page-nav-link {
