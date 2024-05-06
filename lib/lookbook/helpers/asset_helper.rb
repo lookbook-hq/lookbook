@@ -9,8 +9,7 @@ module Lookbook
     def lookbook_asset_tags(name = "app")
       safe_join([
         lookbook_stylesheet_tag(name),
-        lookbook_stylesheet_tag("light"),
-        lookbook_stylesheet_tag("dark"),
+        lookbook_stylesheet_tag("theme-default"),
         lookbook_script_tag(name)
       ], "\n")
     end

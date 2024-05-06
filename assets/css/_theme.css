@@ -1,25 +1,29 @@
-:root[data-color-scheme="dark"] {
-  --csstools-color-scheme--light:  ;
-  --csstools-color-scheme--dark: initial;
-  color-scheme: dark;
+:root {
+  /*
+   * Default values
+   */
 
-  --lb-color-surface-1: #252526;
-  --lb-color-surface-2: #2f2f2f;
-  --lb-color-surface-3: #37373c;
+  --lb-color-surface-1: var(--lb-color-white);
+  --lb-color-surface-2: var(--lb-color-gray-50);
+  --lb-color-surface-3: var(--lb-color-gray-100);
 
-  --lb-color-surface-divider: #444;
+  --lb-color-surface-divider: var(--lb-color-gray-300);
   --lb-color-surface-inverted: var(--lb-color-gray-800);
   --lb-color-surface-accent: var(--lb-color-indigo-600);
 
-  --lb-color-content-1: var(--lb-color-gray-300);
-  --lb-color-content-2: var(--lb-color-gray-400);
-  --lb-color-content-3: var(--lb-color-gray-600);
+  --lb-color-content-1: var(--lb-color-gray-800);
+  --lb-color-content-2: var(--lb-color-gray-500);
+  --lb-color-content-3: var(--lb-color-gray-300);
 
-  --lb-color-content-1-accent: var(--lb-color-indigo-300);
-  --lb-color-content-2-accent: var(--lb-color-indigo-400);
-  --lb-color-content-3-accent: var(--lb-color-indigo-600);
+  --lb-color-content-1-accent: var(--lb-color-indigo-700);
+  --lb-color-content-2-accent: var(--lb-color-indigo-500);
+  --lb-color-content-3-accent: var(--lb-color-indigo-300);
 
   --lb-color-content-inverted: var(--lb-color-white);
+  --lb-color-content-positive: var(--lb-color-positive-600);
+  --lb-color-content-negative: var(--lb-color-negative-600);
+  --lb-color-content-info: var(--lb-color-info-600);
+
   --lb-color-content-positive: var(--lb-color-positive-600);
   --lb-color-content-negative: var(--lb-color-negative-600);
   --lb-color-content-info: var(--lb-color-info-600);

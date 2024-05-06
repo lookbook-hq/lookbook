@@ -33,6 +33,7 @@ esbuild
   .context({
     entryPoints: [
       "assets/entrypoints/app.js",
+      "assets/entrypoints/mailer.js",
       "assets/entrypoints/iframe.js",
       "assets/entrypoints/lookbook.js",
     ],

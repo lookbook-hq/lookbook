@@ -8,6 +8,18 @@
   --lb-color-white: #fff;
   --lb-color-black: #000;
 
+  --lb-color-stone-50: #fafaf9;
+  --lb-color-stone-100: #f5f5f4;
+  --lb-color-stone-200: #e7e5e4;
+  --lb-color-stone-300: #d6d3d1;
+  --lb-color-stone-400: #a8a29e;
+  --lb-color-stone-500: #78716c;
+  --lb-color-stone-600: #57534e;
+  --lb-color-stone-700: #44403c;
+  --lb-color-stone-800: #292524;
+  --lb-color-stone-900: #1c1917;
+  --lb-color-stone-950: #0c0a09;
+
   --lb-color-gray-50: #f9fafb;
   --lb-color-gray-100: #f3f4f6;
   --lb-color-gray-200: #e5e7eb;

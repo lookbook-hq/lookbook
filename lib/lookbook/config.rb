@@ -49,7 +49,6 @@ module Lookbook
 
           status_bar: Rails.env.development?,
 
-          ui_theme: :indigo,
           ui_color_scheme_switcher: true,
 
           reload_on_change: Rails.env.development?,
