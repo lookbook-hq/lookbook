@@ -50,6 +50,13 @@ module Lookbook
     def env
       @env ||= ActiveSupport::StringInquirer.new(ENV["LOOKBOOK_ENV"] || "production")
     end
+
+    def add_panel(name, partial_path, opts = {})
+      Lookbook.config.inspector_panels[name.to_sym] = {
+        partial: partial_path,
+        **opts
+      }
+    end
   end
 end
 

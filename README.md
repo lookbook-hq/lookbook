@@ -56,7 +56,7 @@ The majority of these changes will be in the area of extending and theming Lookb
 ```rb
 group :development do
   gem "lookbook", github: "ViewComponent/lookbook", branch: "v3"
-  gem "listen" # Optional but enables live UI updates
+  gem "listen" # Optional but allows faster 'smart' updates when changes occur
 end
 ```
 
