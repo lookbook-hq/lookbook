@@ -39,22 +39,20 @@ module Lookbook
       end
 
       def preview_panels(*args, **data)
-        names = names_list(args, Lookbook.config.inspector_preview_panels)
-        panels.select { names.include?(_1.name) }.map do |panel|
+        panels_list(args, Lookbook.config.inspector_preview_panels).map do |panel|
           resolve_values(panel, data)
         end
       end
 
       def drawer_panels(*args, **data)
-        names = names_list(args, Lookbook.config.inspector_drawer_panels)
-        panels.select { names.include?(_1.name) }.map do |panel|
+        panels = panels_list(args, Lookbook.config.inspector_drawer_panels).filter { !_1.name.in?(preview_panels.map(&:name)) }
+        panels.map do |panel|
           resolve_values(panel, data)
         end
       end
 
       def embed_panels(*args, **data)
-        names = names_list(args, Lookbook.config.inspector_embed_panels)
-        panels.select { names.include?(_1.name) }.map do |panel|
+        panels_list(args, Lookbook.config.preview_embed_panels).map do |panel|
           resolve_values(panel, data)
         end
       end
@@ -89,14 +87,16 @@ module Lookbook
 
       private
 
-      def names_list(names, defaults)
+      def panels_list(names, defaults = [])
         names = names.compact.presence || defaults
-        names.flatten.map(&:to_sym)
+        ListResolver.call(names.flatten.map(&:to_sym), panels.map(&:name)).map do |name|
+          panels.find { _1.name == name.to_sym }
+        end
       end
 
       def resolve_values(obj, data)
         resolved = obj.transform_values do |value|
-          value.respond_to?(:call) ? value.call(DataObject.new(data)) : value
+          value.is_a?(Proc) ? value.call(DataObject.new(data)) : value
         end
         DataObject.new(resolved)
       end

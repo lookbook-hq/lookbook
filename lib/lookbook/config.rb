@@ -20,15 +20,16 @@ module Lookbook
 
           preview_tags: default_preview_tags,
 
+          preview_embed_panels: [:usage, :output, :notes, :params],
+
           previews_nav_label: "Previews",
           previews_nav_filter: true,
 
           inspector_target_preview_template: "lookbook/inspector/preview",
           inspector_target_mailer_template: "lookbook/inspector/mailer_preview",
           inspector_panels: default_inspector_panels,
-          inspector_preview_panels: [:preview, :output],
-          inspector_drawer_panels: [:usage, :notes, :params, :metadata],
-          inspector_embed_panels: [:usage, :output, :notes, :params],
+          inspector_preview_panels: [:preview, :output].freeze,
+          inspector_drawer_panels: [:usage, :notes, :params, :metadata, "*"],
           inspector_param_inputs: default_inspector_param_inputs,
 
           sidebar_nav_panels: [:previews, :pages],

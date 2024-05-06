@@ -9,7 +9,7 @@ module Lookbook
 
     def call(&resolver)
       included = to_include.inject([]) do |result, name|
-        if name == "*"
+        if name.to_s == "*"
           result += item_set.select { |item| !result.include?(item) }
         elsif item_set.include?(name)
           result << name
