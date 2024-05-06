@@ -62,7 +62,11 @@ export class LookbookEmbed extends LitElement {
   }
 
   get src() {
-    const baseUrl = this.app || guessBasePath();
+    let baseUrl = this.app || guessBasePath();
+    if (baseUrl.startsWith("/")) {
+      baseUrl = `${location.protocol}//${location.host}${baseUrl}`;
+    }
+
     const srcUrl = new URL(`${baseUrl}/embed`);
 
     if (this.preview) {
