@@ -15,6 +15,7 @@ Work-in-progress, exploratory rebuild of Lookbook for a future v3.0 release.
 * Better theming system using CSS variables
 * Improve accessibilty
 * Make `<lookbook-embed></lookbook-embed>` a proper web component
+* Light and dark modes out of the box
 
 #### Previews
 
@@ -42,6 +43,12 @@ Work-in-progress, exploratory rebuild of Lookbook for a future v3.0 release.
 * Ruby >= 3.0.0
 * Rails >= 6.1.0
 
+## Breaking changes
+
+Lookbook v3.0 will have a number of breaking changes from the v2.x releases.
+
+The majority of these changes will be in the area of extending and theming Lookbook, so heavily customised Lookbook installations may find upgrading a more involved process.
+
 ## Usage
 
 ### Installation
@@ -54,6 +61,8 @@ end
 ```
 
 Lookbook will automatically be mounted at `/lookbook` within your app.
+
+> Previously Lookbook was required to be manually mounted in your app. This is **no longer the case**, so if upgrading from v2.x versions you must remove [the mounting code](https://lookbook.build/guide/installation#step-2) from your routes.rb file.
 
 ### Configuration
 
