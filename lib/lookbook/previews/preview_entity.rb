@@ -108,6 +108,14 @@ module Lookbook
       end
     end
 
+    def resolve_target(identifier)
+      if identifier.is_a?(String) || identifier.is_a?(Symbol)
+        inspector_targets.find { [_1.id, _1.uuid].include?(identifier.to_s) }
+      else
+        raise ArgumentError, "Invalid preview target identifier"
+      end
+    end
+
     def mailer_preview?
       preview_class.ancestors.include?(::ActionMailer::Preview)
     end

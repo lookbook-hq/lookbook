@@ -16,6 +16,16 @@ module Lookbook
         end
       end
 
+      def resolve_preview(identifier)
+        if identifier.is_a?(Class)
+          store.find { _1.preview_class.to_s == identifier.to_s }
+        elsif identifier.is_a?(String) || identifier.is_a?(Symbol)
+          store.find { [_1.id, _1.uuid].include?(identifier.to_s) }
+        else
+          raise ArgumentError, "Invalid preview identifier"
+        end
+      end
+
       def tree
         @tree ||= begin
           debug("previews: building tree")
