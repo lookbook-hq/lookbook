@@ -21,7 +21,7 @@ module Lookbook
       @targets = @preview.inspector_targets.select { _1.name.to_sym.in?(target_names) }
       @panels = Inspector.embed_panels(embed_params[:panels], **panel_context)
       @actions = embed_params.fetch(:actions, [])
-      @preview_html = render_target_in_layout(@target)
+      @preview_html = render_target_in_layout(@target, embed: true)
 
       render layout: "lookbook/embed"
     end
@@ -42,12 +42,12 @@ module Lookbook
       end
     end
 
-    def render_target_in_layout(target)
+    def render_target_in_layout(target, embed: false)
       controller = preview_controller
       controller.request = scenario_render_request(target.scenarios.first)
       controller.response = ActionDispatch::Response.new
 
-      append_html = if params[:_lookbook_embed] == "true"
+      append_html = if embed || params[:_lookbook_embed] == "true"
         render_to_string("lookbook/application/_iframe_scripts", layout: nil)
       end
 
