@@ -1,5 +1,4 @@
 require "zeitwerk"
-require "rails"
 require "action_mailer"
 require "yard"
 require_relative "lookbook/version"
@@ -8,6 +7,7 @@ require_relative "lookbook/logger"
 loader = Zeitwerk::Loader.for_gem
 loader.push_dir("#{__dir__}/lookbook", namespace: Lookbook)
 loader.ignore("#{__dir__}/lookbook.rb")
+loader.ignore("#{__dir__}/lookbook/logger.rb")
 loader.ignore("#{__dir__}/lookbook/filesystem/evented_file_update_checker.rb")
 loader.collapse("#{__dir__}/lookbook/concerns")
 loader.collapse("#{__dir__}/lookbook/errors")
@@ -60,4 +60,5 @@ module Lookbook
   end
 end
 
+require "rails"
 require "lookbook/engine"
