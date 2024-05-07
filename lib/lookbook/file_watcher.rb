@@ -12,11 +12,11 @@ module Lookbook
       protected
 
       def file_watcher
-        @_file_watcher ||= begin
+        @file_watcher ||= if Gem.loaded_specs.has_key?("listen")
           require_relative "evented_file_update_checker"
 
           Lookbook::EventedFileUpdateChecker
-        rescue LoadError
+        else
           ActiveSupport::FileUpdateChecker
         end
       end
