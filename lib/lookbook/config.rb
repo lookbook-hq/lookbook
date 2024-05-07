@@ -107,6 +107,9 @@ module Lookbook
           url: {
             partial: "lookbook/inspector/inputs/text"
           },
+          textarea: {
+            partial: "lookbook/inspector/inputs/textarea"
+          },
           select: {
             partial: "lookbook/inspector/inputs/select"
           },
