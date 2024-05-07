@@ -81,7 +81,7 @@ module Lookbook
       end
 
       def sync_config
-        if Gem::Specification.find_all_by_name("view_component").present?
+        if Gem.loaded_specs.has_key?("view_component")
           vc_config = Rails.application.config.view_component
 
           Lookbook.config.preview_paths += vc_config.preview_paths
