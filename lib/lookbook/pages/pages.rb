@@ -54,10 +54,6 @@ module Lookbook
         end
       end
 
-      def page_controller
-        Lookbook.config.page_controller.constantize
-      end
-
       def page_paths
         @page_paths ||= Utils.normalize_paths(Lookbook.config.page_paths)
       end

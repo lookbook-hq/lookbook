@@ -14,6 +14,12 @@ module Lookbook
 
     config.after_initialize do
       sync_config
+
+      preview_controller = Lookbook.config.preview_controller.constantize
+      unless preview_controller.include?(Lookbook::PreviewControllerActions)
+        preview_controller.include(Lookbook::PreviewControllerActions)
+      end
+
       boot!
     end
 

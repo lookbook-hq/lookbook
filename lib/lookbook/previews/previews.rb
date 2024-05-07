@@ -73,11 +73,7 @@ module Lookbook
       end
 
       def preview_controller
-        controller = Lookbook.config.preview_controller.constantize
-        unless controller.include?(Lookbook::PreviewControllerActions)
-          controller.include(Lookbook::PreviewControllerActions)
-        end
-        controller
+        Lookbook.config.preview_controller.constantize
       end
 
       def scenario_template
