@@ -19605,6 +19605,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     constructor() {
       super();
       this.onEmbedResize = this.onEmbedResize.bind(this);
+      this.refreshIframe = this.refreshIframe.bind(this);
       this.params = {};
       for (const attr of this.attributes) {
         if (attr.name.startsWith("param-")) {
@@ -19615,10 +19616,12 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     connectedCallback() {
       super.connectedCallback();
       window.addEventListener("message", this.onEmbedResize);
+      window.addEventListener("color-scheme:change", this.refreshIframe);
     }
     disconnectedCallback() {
       super.disconnectedCallback();
       window.removeEventListener("message", this.onEmbedResize);
+      window.removeEventListener("color-scheme:change", this.refreshIframe);
     }
     onEmbedResize(message) {
       try {
@@ -19630,6 +19633,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
         }
       } catch {
       }
+    }
+    refreshIframe() {
+      this.iframeElement.src = this.iframeElement.src;
     }
     get iframeElement() {
       return this.renderRoot.querySelector("iframe");

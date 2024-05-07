@@ -27,6 +27,7 @@ export class LookbookEmbed extends LitElement {
     super();
 
     this.onEmbedResize = this.onEmbedResize.bind(this);
+    this.refreshIframe = this.refreshIframe.bind(this);
 
     this.params = {};
     for (const attr of this.attributes) {
@@ -39,11 +40,13 @@ export class LookbookEmbed extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     window.addEventListener("message", this.onEmbedResize);
+    window.addEventListener("color-scheme:change", this.refreshIframe);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     window.removeEventListener("message", this.onEmbedResize);
+    window.removeEventListener("color-scheme:change", this.refreshIframe);
   }
 
   onEmbedResize(message) {
@@ -55,6 +58,10 @@ export class LookbookEmbed extends LitElement {
         }
       }
     } catch {}
+  }
+
+  refreshIframe() {
+    this.iframeElement.src = this.iframeElement.src;
   }
 
   get iframeElement() {
