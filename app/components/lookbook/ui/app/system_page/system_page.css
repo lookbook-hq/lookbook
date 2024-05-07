@@ -1,5 +1,6 @@
 [data-component="system-page"] {
   padding: var(--lb-spacing-lg);
+  background: var(--lb-background-checked);
   height: 100%;
   width: 100%;
   display: flex;

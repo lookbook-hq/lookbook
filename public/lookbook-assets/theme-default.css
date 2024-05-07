@@ -20,6 +20,8 @@
   --lb-color-content-3-accent: var(--lb-color-indigo-300);
 
   --lb-color-content-inverted: var(--lb-color-white);
+
+  --lb-background-checked: var(--lb-checked-background-light);
 }
 
 :root[data-color-scheme="dark"] {
@@ -44,4 +46,6 @@
   --lb-color-content-3-accent: var(--lb-color-indigo-600);
 
   --lb-color-content-inverted: var(--lb-color-white);
+
+  --lb-background-checked: var(--lb-checked-background-dark);
 }

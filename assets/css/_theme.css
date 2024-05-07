@@ -34,6 +34,7 @@
    */
 
   --lb-focus-outline-color: var(--lb-color-content-3-accent);
+  --lb-background-checked: var(--lb-checked-background-light);
 
   /*
    * Buttons
@@ -167,7 +168,7 @@
   --lb-page-title-color: var(--lb-color-content-1);
 
   /*
-   * System message
+   * System pages
    */
 
   --lb-system-message-color: var(--lb-color-content-2);

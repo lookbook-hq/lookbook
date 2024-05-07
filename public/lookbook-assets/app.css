@@ -272,6 +272,11 @@
   --lb-shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
+  /* Backgrounds */
+
+  --lb-checked-background-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%23f3f3f3' fill-opacity='1'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
+  --lb-checked-background-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%23333333' fill-opacity='1'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
+
   /*
    * Components
    */
@@ -316,6 +321,7 @@
    */
 
   --lb-focus-outline-color: var(--lb-color-content-3-accent);
+  --lb-background-checked: var(--lb-checked-background-light);
 
   /*
    * Buttons
@@ -449,7 +455,7 @@
   --lb-page-title-color: var(--lb-color-content-1);
 
   /*
-   * System message
+   * System pages
    */
 
   --lb-system-message-color: var(--lb-color-content-2);
@@ -789,10 +795,6 @@ tr:not(:last-child) {
   outline-offset: 0;
   outline-color: #a5b4fc;
   outline-color: var(--lb-focus-outline-color);
-}
-/* Utilities */
-.bg-checked {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%23f3f3f3' fill-opacity='1'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
 }
 input[type="text"],
 input:where(:not([type])),
@@ -1378,6 +1380,8 @@ select {
 [data-component="system-page"] {
   padding: 1.25rem;
   padding: var(--lb-spacing-lg);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%23f3f3f3' fill-opacity='1'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
+  background: var(--lb-background-checked);
   height: 100%;
   width: 100%;
   display: flex;
@@ -2082,6 +2086,8 @@ html[data-color-scheme="dark"] .shiki span {
   position: relative;
   background-color: #fff;
   background-color: var(--lb-viewport-background-color);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%23f3f3f3' fill-opacity='1'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
+  background: var(--lb-background-checked);
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;

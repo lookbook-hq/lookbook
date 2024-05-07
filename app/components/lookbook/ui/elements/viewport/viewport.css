@@ -5,6 +5,7 @@
   overflow: hidden;
   position: relative;
   background-color: var(--lb-viewport-background-color);
+  background: var(--lb-background-checked);
   user-select: none;
   touch-action: none;
 

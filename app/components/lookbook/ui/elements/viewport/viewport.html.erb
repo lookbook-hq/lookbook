@@ -1,7 +1,7 @@
 <%= render component_tag(
   id: id,
   x: {data: "viewport(#{id.to_json})"},
-  class: {"resize-x": resize_x?, "resize-y": resize_y?, "bg-checked": true}
+  class: {"resize-x": resize_x?, "resize-y": resize_y?}
 ) do %>
   <div
     x-ref="wrapper"
