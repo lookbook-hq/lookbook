@@ -21,6 +21,7 @@ Work-in-progress, exploratory rebuild of Lookbook for a future v3.0 release.
 
 * Improve previews of partials/views, ensure they are 100% compatible with how they are used in parent app
 * Add support for Mailer previews
+* Handle and display parser errors in the UI
 
 #### Development/Testing
 
