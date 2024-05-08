@@ -17,7 +17,7 @@ module Lookbook
         when :preview
           preview = Previews.find { _1.uuid == params[:uuid] }
           preview_page_path(preview, request.query_parameters)
-        when :inspect
+        when :target
           target = Previews.inspector_targets.find { _1.uuid == params[:uuid] }
           inspect_target_path(target.preview, target, request.query_parameters)
         else
