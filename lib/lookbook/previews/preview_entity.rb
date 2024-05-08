@@ -128,6 +128,12 @@ module Lookbook
       Pathname.new(preview_file_path).relative_path_from(Rails.application.root)
     end
 
+    def readme_file_path
+      if default_readme_file_path.present? && File.exist?(default_readme_file_path)
+        default_readme_file_path
+      end
+    end
+
     def parent
       Previews.directories.find { _1.lookup_path == parent_lookup_path }
     end
@@ -137,6 +143,13 @@ module Lookbook
     end
 
     private
+
+    def default_readme_file_path
+      preview_base_path = preview_file_path.to_s.delete_suffix("_preview.rb")
+      page_extensions_glob = "{#{Lookbook.config.page_extensions.join(",")}}"
+      readme_file_path = Dir["#{preview_base_path}*.#{page_extensions_glob}"].first
+      Pathname(readme_file_path) if readme_file_path
+    end
 
     def base_directories
       Previews.preview_paths

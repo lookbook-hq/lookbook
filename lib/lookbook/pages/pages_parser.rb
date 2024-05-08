@@ -21,7 +21,7 @@ module Lookbook
 
       @error_paths = []
       page_entities = Dir.glob(glob_paths).map do |path|
-        PageEntity.new(path)
+        PageEntity.new(path, File.read(path))
       rescue => error
         error_paths << path
         Engine.notifications.add(:pages, ParserError.new(error))

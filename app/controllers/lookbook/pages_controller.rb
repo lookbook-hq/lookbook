@@ -10,31 +10,37 @@ module Lookbook
     end
 
     def preview
+      readme_file_path = @preview.readme_file_path
+      readme_content = File.read(readme_file_path) unless readme_file_path.nil?
+
       @page = PageEntity.virtual(
         @preview.lookup_path,
-        @preview.url_path,
-        frontmatter: {
+        readme_content,
+        url_path: @preview.url_path,
+        options: {
           label: @preview.label,
           title: @preview.title,
-          footer: false,
-          data: {
-            preview: @preview,
-            targets: @preview.inspector_targets
-          }
+          footer: false
         }
       )
 
-      @page_content = render_page(@page, Lookbook.config.preview_overview_template)
+      template = Lookbook.config.preview_overview_template if readme_file_path.nil?
+      locals = {
+        preview: @preview,
+        targets: @preview.inspector_targets
+      }
+
+      @page_content = render_page(@page, locals, template)
     end
 
     private
 
-    def render_page(page, template = nil)
+    def render_page(page, locals = {}, template = nil)
       controller = PageRenderer.new
       controller.request = request
       controller.response = ActionDispatch::Response.new
 
-      controller.process(:render_page, page, template)
+      controller.process(:render_page, page, locals, template)
     end
 
     def assign_page

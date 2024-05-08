@@ -4,14 +4,15 @@ module Lookbook
 
     layout false
 
-    def render_page(page, template = nil)
+    def render_page(page, locals = {}, template = nil)
       locals = {
         config: Lookbook.config,
         previews: Previews,
         pages: Pages,
         page: page,
         previous_page: page.previous,
-        next_page: page.next
+        next_page: page.next,
+        **locals
       }
 
       if template

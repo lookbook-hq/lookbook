@@ -4,9 +4,11 @@ module Lookbook
 
     attr_writer :lookup_path, :url_path, :frontmatter, :content
 
-    def initialize(file_path = nil, default_priority: nil)
+    def initialize(file_path = nil, file_contents = nil, options: {}, default_priority: nil)
       @file_path = file_path
+      @file_contents = file_contents
       @base_directories = Pages.page_paths
+      @options = options.to_h
       @default_priority = default_priority
     end
 
@@ -65,7 +67,9 @@ module Lookbook
 
     def frontmatter
       @frontmatter ||= DataObject.new(
-        Lookbook.config.page_frontmatter_defaults.deep_merge(parsed_content[:frontmatter])
+        Lookbook.config.page_frontmatter_defaults
+          .deep_merge(@options)
+          .deep_merge(parsed_content[:frontmatter])
       )
     end
 
@@ -115,12 +119,10 @@ module Lookbook
         Utils.to_path(segments)
       end
 
-      def virtual(lookup_path, url_path = nil, content: "", frontmatter: {})
-        page = new
+      def virtual(lookup_path, content = nil, url_path: nil, **kwargs)
+        page = new(nil, content, **kwargs)
         page.lookup_path = lookup_path
         page.url_path = url_path
-        page.frontmatter = DataObject.new(frontmatter)
-        page.content = content
         page
       end
     end
@@ -129,7 +131,7 @@ module Lookbook
 
     def parsed_content
       @parsed_content ||= begin
-        frontmatter, content = FrontmatterExtractor.call(file_contents)
+        frontmatter, content = FrontmatterExtractor.call(@file_contents)
         {frontmatter: frontmatter, content: content}
       end
     end
@@ -146,8 +148,8 @@ module Lookbook
       end
     end
 
-    def file_contents
-      @file_contents ||= virtual? ? "" : File.read(file_path)
-    end
+    # def file_contents
+    #   @file_contents ||= @default_content || (virtual? ? "" : File.read(file_path))
+    # end
   end
 end
