@@ -241,10 +241,10 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 
 * [x] Preview panel
 * [x] Output panel
-* [x] Usage panel (previously called 'source')
-* [x] Notes panel
+* [x] Usage panel (combination of old 'source' and 'notes' panels)
 * [x] Metadata panel 🚧 🆕 🧪
 * [x] Params panel 🚧 
+* [ ] Configurable breakpoints for quick preview viewport resizing
 
 #### Other
 
