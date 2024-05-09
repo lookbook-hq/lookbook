@@ -11,7 +11,7 @@ module Elements
     # @!group Variants
 
     # @label Default (primary)
-    # A primary button. Use for the most important actions on the page.
+    # A primary button. Use for the _most important_ actions on the page.
     def primary
       render Elements::ButtonComponent.new(variant: :primary) do
         "Primary button"

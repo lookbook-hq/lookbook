@@ -1,15 +1,31 @@
+<style>
+  .panel {
+    padding: var(--lb-panel-padding);
+  }
+
+  .scenario + .scenario {
+    margin-top: var(--lb-spacing-lg);
+  }
+</style>
+
 <% usage = capture do %>
-<% target.scenarios.each do |scenario| %>
-<% if target.scenarios.many? %>
-<%== code_comment(scenario.source_language, scenario.label) %>
-<%== scenario.source %>
+  <% target.scenarios.each do |scenario| %>
+    <section class="scenario">  
+      <%= lb_prose(size: :sm) do %>
+      <% if target.scenarios.many? %>
+        <h4><%= scenario.label %></h4>  
+      <% end %>
 
-<% else %>
-<%== scenario.source %>
-<% end %>
-<% end %>
+        <%= scenario.notes %>
+
+        ```<%= scenario.source_language %>
+        <%= scenario.source %>
+        ```
+      <% end %>
+    </section>
+  <% end %>
 <% end %>
 
-<%= lb_code(lang: target.source_language, key: checksum(usage)) do %>
+<div class="panel" key="<%= checksum(usage) %>">
   <%= usage %>
-<% end %>
+</div>

@@ -29,7 +29,7 @@ module Lookbook
           inspector_target_mailer_template: "lookbook/inspector/mailer_preview",
           inspector_panels: default_inspector_panels,
           inspector_preview_panels: [:preview, :output].freeze,
-          inspector_drawer_panels: [:usage, :notes, :params, :metadata, "*"],
+          inspector_drawer_panels: [:usage, :params, :metadata, "*"],
           inspector_param_inputs: default_inspector_param_inputs,
 
           sidebar_nav_panels: [:previews, :pages],
@@ -70,11 +70,6 @@ module Lookbook
           usage: {
             label: "Usage",
             partial: "lookbook/inspector/panels/usage"
-          },
-          notes: {
-            label: "Notes",
-            partial: "lookbook/inspector/panels/notes",
-            disabled: ->(data) { !data.target.notes? }
           },
           params: {
             label: "Params",
