@@ -2,18 +2,19 @@ module Lookbook
   class PageEntity < Entity
     include EntityTreeNode
 
-    attr_writer :lookup_path, :url_path, :frontmatter, :content
+    delegate :data, :landing?, :header?, :footer?, :content, to: :metadata
+
+    attr_reader :metadata
 
     def initialize(file_path = nil, file_contents = nil, options: {}, default_priority: nil)
       @file_path = file_path
-      @file_contents = file_contents
       @base_directories = Pages.page_paths
-      @options = options.to_h
       @default_priority = default_priority
+      @metadata = PageMetadata.new(file_contents, options)
     end
 
     def id
-      @id ||= Utils.id(frontmatter.fetch(:id, lookup_path))
+      @id ||= Utils.id(metadata.fetch(:id, lookup_path))
     end
 
     def name
@@ -21,36 +22,15 @@ module Lookbook
     end
 
     def label
-      frontmatter.fetch(:label, super)
+      metadata.fetch(:label, super)
     end
 
     def title
-      frontmatter.fetch(:title, label)
-    end
-
-    def data
-      DataObject.new(frontmatter.fetch(:data, {}))
+      metadata.fetch(:title, label)
     end
 
     def hidden?
-      frontmatter.fetch(:hidden, super)
-    end
-
-    def landing?
-      frontmatter.fetch(:landing, false)
-    end
-
-    def header?
-      frontmatter.fetch(:header, true)
-    end
-
-    def footer?
-      frontmatter.fetch(:footer, true)
-    end
-
-    def content
-      @content ||= parsed_content[:content]
-      @content.strip_heredoc.strip.html_safe
+      metadata.fetch(:hidden, super)
     end
 
     def url_param
@@ -58,19 +38,11 @@ module Lookbook
     end
 
     def url_path
-      @url_path ||= (page_path(self) unless virtual?)
+      @url_path ||= page_path(self)
     end
 
     def lookup_path
-      @lookup_path ||= PageEntity.to_lookup_path(relative_file_path)
-    end
-
-    def frontmatter
-      @frontmatter ||= DataObject.new(
-        Lookbook.config.page_frontmatter_defaults
-          .deep_merge(@options)
-          .deep_merge(parsed_content[:frontmatter])
-      )
+      @lookup_path ||= PathPriorityPrefixesStripper.call(relative_file_path)
     end
 
     def file_path
@@ -82,59 +54,25 @@ module Lookbook
     end
 
     def parent
-      Pages.directories.find { _1.lookup_path == parent_lookup_path } unless virtual?
+      Pages.directories.find { _1.lookup_path == parent_lookup_path }
     end
 
     def next
-      Pages.tree.next(self) unless virtual?
+      Pages.tree.next(self)
     end
 
     def previous
-      Pages.tree.previous(self) unless virtual?
+      Pages.tree.previous(self)
     end
 
     def priority
       @priority = begin
-        pos = PriorityPrefixParser.call(file_name).first || frontmatter.fetch(:priority, 0)
+        pos = PriorityPrefixParser.call(file_name).first || metadata.fetch(:priority, 0)
         pos.to_i
       end
     end
 
-    def virtual? = file_path.blank?
-
-    class << self
-      def to_lookup_path(page_path)
-        path = page_path.to_s.downcase
-
-        directory_path = File.dirname(path)
-        directory_path = nil if directory_path.start_with?(".")
-
-        file_name = File.basename(path).split(".").first
-
-        segments = [*directory_path&.split("/"), file_name].compact
-        segments.map! do |segment|
-          PriorityPrefixParser.call(segment).last.tr("-", "_")
-        end
-
-        Utils.to_path(segments)
-      end
-
-      def virtual(lookup_path, content = nil, url_path: nil, **kwargs)
-        page = new(nil, content, **kwargs)
-        page.lookup_path = lookup_path
-        page.url_path = url_path
-        page
-      end
-    end
-
     protected
-
-    def parsed_content
-      @parsed_content ||= begin
-        frontmatter, content = FrontmatterExtractor.call(@file_contents)
-        {frontmatter: frontmatter, content: content}
-      end
-    end
 
     def file_name(strip_ext = false)
       basename = file_path.basename
@@ -147,9 +85,5 @@ module Lookbook
         directories.find { |dir| file_path.to_s.start_with?(dir) }
       end
     end
-
-    # def file_contents
-    #   @file_contents ||= @default_content || (virtual? ? "" : File.read(file_path))
-    # end
   end
 end

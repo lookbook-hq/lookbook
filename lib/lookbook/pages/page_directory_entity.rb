@@ -11,7 +11,7 @@ module Lookbook
     end
 
     def lookup_path
-      @lookup_path ||= PageEntity.to_lookup_path(path)
+      @lookup_path ||= PathPriorityPrefixesStripper.call(path)
     end
 
     def id

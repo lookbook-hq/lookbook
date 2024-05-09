@@ -13,7 +13,7 @@ module Lookbook
       readme_file_path = @preview.readme_file_path
       readme_content = File.read(readme_file_path) unless readme_file_path.nil?
 
-      @page = PageEntity.virtual(
+      @page = VirtualPageEntity.new(
         @preview.lookup_path,
         readme_content,
         url_path: @preview.url_path,
