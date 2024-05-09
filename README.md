@@ -2,37 +2,23 @@
 
 <hr>
 
-## Lookbook v3.0 development branch
+## Lookbook v3.0 [development branch]
 
-Work-in-progress, exploratory rebuild of Lookbook for a future v3.0 release.
+This branch contains a work-in-progress, exploratory, from-scratch rebuild of Lookbook, intended to form the basis of a future v3.0 release.
 
-[Overview](#overview) ・ [Requirements](#requirements) ・ [Usage](#usage)  ・ [Development](#development) ・ [Key goals](#key-goals)  ・ [Current status](#current-status)
-
-
-## Overview
-
-The main aims of Lookbook v3 include:
-
-* **UI**: Easier theming, better accessibilty, remove ViewComponent dependency
-* **Previews**: ActionMailer previews, preview overview pages, improved error handling and feedback
-* **Pages**: More styling and layout customisation options
-* Remove ActionCable requirement for live UI updates (use SSE)
-* Streamline the Lookbook development and testing process
-
-> See the [key goals](#key-goals) section for more details on the additions, improvements and updates that are planned for this release.
-
-## Requirements
-
-* Ruby >= 3.0.0
-* Rails >= 6.1.0
+[Usage](#usage)  ・ [Development](#development) ・ [Background & motivation](#motivation) ・ [Current status](#current-status) ・ [Requirements](#requirements)
 
 ## Usage
 
+Lookbook v3 is currently under heavy development and **should not be considered stable**. 
+
+However, intrepid individuals who are familiar with Lookbook and wish to kick the tyres or get a preview of the upcoming changes can install the Lookbook gem directly from the `v3` branch of this repository.
+
+> Alternatively you can pull down the codebase and [run the included demo app](#demo-app) to see some of the new features in action.
+
 ### Installation
 
-Lookbook v3 is currently under heavy development and **should not be considered stable**.
-
-However, intrepid indiviuals who are familiar with Lookbook and wish to kick the tyres or get a preview of the upcoming changes can install the Lookbook gem directly from the `v3` branch of this repo:
+Add Lookbook to the `development` group in your Gemfile:
 
 ```rb
 group :development do
@@ -43,13 +29,13 @@ end
 
 Lookbook will automatically be mounted at `/lookbook` within your app when the server is started.
 
-> **Note:** Previously Lookbook required manual mounting in your app. This is **no longer the case**, so if trialing v3 in a project with an existing Lookbook install you must remove [the mounting code](https://lookbook.build/guide/installation#step-2) from your routes.rb file first.
+> 🚨 Previously Lookbook required manual mounting in your app. This is **no longer the case**, so if trialing v3 in a project with an existing Lookbook install you must remove [the mounting code](https://lookbook.build/guide/installation#step-2) from your routes.rb file first.
 
 ### Configuration
 
 The currently implemented v3 configuration options are not yet documented, but can be seen in the [config.rb](lib/lookbook/config.rb) file.
 
-> **Note:** If testing out the v3 branch on an existing Lookbook install you may see errors if setting v2.x config options that have not yet been re-implemented in v3.
+> 🚨 If testing out the v3 branch on an existing Lookbook install you may see errors if setting v2.x config options that have not yet been re-implemented in v3.
 
 ### Breaking changes
 
@@ -59,35 +45,39 @@ The majority of these changes will be in the _extending_, _theming_ and _API_ ar
 
 In addition, until v3 development reaches beta release stage there are likely to be _unintentional breaking changes_ due to missing or partly-implemented features.
 
-For these reasons, it is recommended that anyone who wants to kick the tyres on the pre-alpha v3 codebase do so **on new projects or existing projects with simple, 'vanilla' Lookbook installs** to minimise the chance of running into issues.
+For these reasons, it is recommended that anyone who wants to kick the tyres on the pre-alpha v3 codebase do so **on new projects** or **existing projects with simple, 'vanilla' Lookbook installs** to minimise the chance of running into issues.
 
 ### Running in production
 
-Please don't do this. It's really not ready yet.
+ Please don't do this. It's really not ready yet.
 
 ## Development
 
 ### Demo app
 
-Start the demo app in development mode:
+The Lookbook v3 codebase includes a runnable dummy/demo app for development and testing purposes.
+
+To run the app, clone the contents of the `v3` branch to your machine and then run the following commands from within the root directory:
 
 ```
+bundle install
+npm install
 bin/dev
 ```
 
-Visit http://localhost:4444/lookbook
+Then visit http://localhost:4444/lookbook to view the Lookbook UI.
 
 > In development mode assets will be rebuilt as changes are made.
 
 ### Testing
-
-Integration tests run against the demo app.
 
 Run the tests:
 
 ```
 bin/test
 ```
+
+> Integration tests run against the demo app.
 
 ### Logging and debugging
 
@@ -128,48 +118,49 @@ If you want to disable `Lookbook` logging, set
 Lookbook.logger = ::Logger.new('/dev/null')
 ```
 
-## Key goals
+## Background and motivation
 
-Below are some of the key goals for the Lookbook v3 release. This is a constantly evolving list!
+The current Lookbook codebase has grown organically and haphazardly from a few custom ViewComponent preview templates into a standalone Rails Engine gem with support for previewing many different types of components and views.
 
-### UI
+In order to provide a solid foundation for future development this v3 branch was created with aspirations to improve the quality of the Lookbook codebase, reduce the number of third party dependencies, fix long-standing issues that are hard to address in the current implementation
+and explore building out new (and experimental) feature ideas.
 
-* Improve accessibilty
-* Remove ViewComponent as a dependency, use bespoke component system to build UI (to avoid VC version incompatabilities with parent app)
-* Use vanilla CSS instead of Tailwind
-* Light and dark modes out of the box
-* Better theming system using CSS variables
-* Make `<lookbook-embed></lookbook-embed>` a proper web component
-* Add status bar for notifications and info
+More concretely, a number of **key goals** are helping shape the development work:
 
-### Previews
+#### UI
 
-* Add support for Mailer previews
-* Per-preview overview/documentation pages 
-* Improve previews of partials/view templates, ensure they are 100% compatible with how they are used in parent app
-* Handle and display parser errors in the UI
-* Configurable frame ancestors for preview embeds
+* Improve accessibilty and usability of the app (#17)
+* Expose a better theming system using CSS variables (with light and dark modes out of the box)
+* Replace ViewComponent dependency with bespoke component system for building the UI
 
-### Pages
+#### Previews
 
-* More customisation and theming options
-* Make linking to other pages and previews easier and more flexible
+* Add support for ActionMailer previews (#570)
+* Implement customisable preview overview/documentation pages
+* Fix compatability issues with partial/view template previews (#581, #555)
+* Improve handling and logging of parser errors (#593)
 
-### Development/Testing
+#### Preview embeds
 
-* Include runnable test/demo/development app in codebase
-* Make ongoing Lookbook development easier - simpler asset dev/build process, automated releases
-* Use Minitest instead of Rspec
-* Run tests against demo app
-* Ensure good integration test coverage
+* Add more granualar security configuration options for embed iframes (#571)
+* Implement `<lookbook-embed></lookbook-embed>` as a native web component
+
+#### Pages
+
+* Make it easier to customise the look and feel of pages
+* Expand set of UI and path helpers available in pages
+
+#### Development/Testing
+
+* Streamline Lookbook development process - runnable test/demo/development app, simpler asset dev/build pipeline
+* Improve test setup - switch to Minitest, run tests against demo app, better integration test coverage
 * Make logging play nicer with standard Rails logging options and third party gems
 
-### Other
+#### Other
 
 * Remove ActionCable requirement, use SSE for live UI updates in dev
-* Improve error handling and compatability with `better_errors` etc
-* Improve clarity and readability of codebase
-* Drop support for older Ruby/Rails versions
+* Improve error handling and compatability with `better_errors` etc (#528)
+* Remove some of the madness from codebase 🙈
 
 ## Current status
 
@@ -284,21 +275,36 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 
 ### Development
 
-* [x] Asset build/compilation system
+* [x] Replace Parcel with PostCSS + esbuild for compiling assets
 * [x] Runnable, bundled demo app for development
 * [x] Minitest test suite setup
 * [ ] Comprehensive set of test components + previews 🚧
-* [ ] Good level of test coverage 🚧
+* [ ] UI integration tests 🚧
 
 ### Internals
 
 * [x] Auto-mounting of Lookbook engine 🆕
-* [x] UI live-refresh using SSE instead of websockets via ActionCable 🆕 🧪
-* [x] UUID-based permalink endpoint 🆕
+* [x] Remove ActionCable dependency, use SSE for triggering UI live updates 🆕 🧪
+* [x] File change detection system
 * [x] Config options defined in Ruby and not YAML
 * [x] Config options synced with ViewComponent where appropriate
-* [x] File change detection system
+* [x] UUID-based permalink endpoint 🆕 🧪
 * [x] Improved logger implementation
+* [ ] Lookbook CLI?
+
+### Documentation
+
+* [ ] Switch to Nanoc for static docs building?
+* [ ] Document new features in v3 
+* [ ] Port and update existing docs to new docs site
+* [ ] Automate config option documentation via YARD
+* [ ] Automate API docs via YARD
+* [ ] Set up automated build & deploy process for docs
+
+## Requirements
+
+* Ruby >= 3.0.0
+* Rails >= 6.1.0
 
 ## License
 
