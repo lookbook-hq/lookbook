@@ -14,7 +14,7 @@ Work-in-progress, exploratory rebuild of Lookbook for a future v3.0 release.
 The main aims of Lookbook v3 include:
 
 * **UI**: Easier theming, better accessibilty, remove ViewComponent dependency
-* **Previews**: ActionMailer preview support, improved error handling and feedback
+* **Previews**: ActionMailer previews, preview overview pages, improved error handling and feedback
 * **Pages**: More styling and layout customisation options
 * Remove ActionCable requirement for live UI updates (use SSE)
 * Streamline the Lookbook development and testing process
@@ -145,6 +145,7 @@ Below are some of the key goals for the Lookbook v3 release. This is a constantl
 ### Previews
 
 * Add support for Mailer previews
+* Per-preview overview/documentation pages 
 * Improve previews of partials/view templates, ensure they are 100% compatible with how they are used in parent app
 * Handle and display parser errors in the UI
 * Configurable frame ancestors for preview embeds
@@ -174,7 +175,7 @@ Below are some of the key goals for the Lookbook v3 release. This is a constantl
 
 Lookbook v3 is currently in a pre-alpha stage and is under active, exploratory development.
 
-The 'todo' list below is intended to provide a _very rough_ overview of the current state of progress. **It is not exhaustive**. Checked off items may still be revisited/refactored/removed in the future without warning, especially those
+The 'todo' list below is intended to provide a _very rough_ overview of the current state of progress. **It is not exhaustive**. Checked off items may still be revisited/refactored/removed in the future without warning.
 
 **Emoji key:**
 
@@ -253,7 +254,7 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] Custom preview layouts support
 * [x] Preview parser error reporting
 * [x] Render previews in parent app context to fix path helper issues
-* [ ] JSON endpoint
+* [ ] JSON endpoint(s)
 * [ ] Output transformation
 * [ ] ActionView annotation stripping
 
