@@ -94,22 +94,22 @@
 
   h1 {
     font-weight: 600;
-    font-size: var(--lb-font-size-2xl);
+    font-size: 2.25em;
   }
 
   h2 {
     font-weight: 600;
-    font-size: var(--lb-font-size-xl);
+    font-size: 1.5em;
   }
 
   h3 {
     font-weight: 600;
-    font-size: var(--lb-font-size-lg);
+    font-size: 1.25em;
   }
 
   h4 {
     font-weight: 600;
-    font-size: var(--lb-font-size-md);
+    font-size: 1.1em;
   }
 
   figure figcaption {
@@ -120,13 +120,21 @@
   }
 
   code:not(pre code) {
-    font-size: 0.8em;
+    font-size: 0.875em;
     display: inline-block;
     font-family: var(--lb-font-mono);
     background-color: var(--lb-prose-inline-code-background-color);
     padding-inline: var(--lb-spacing-2xs);
     border-radius: var(--lb-border-radius-sm);
     color: var(--lb-prose-inline-code-color);
+  }
+
+  [data-component="code"] {
+    color: var(--lb-prose-code-color);
+    background-color: var(--lb-prose-code-background-color);
+    border: 1px solid var(--lb-prose-code-border-color);
+    border-radius: var(--lb-border-radius-sm);
+    margin-block: 1.5em;
   }
 
   table {
@@ -218,51 +226,157 @@
     margin-bottom: 0.75em;
   }
 
-  hr + * {
-    margin-top: 0;
+  &[data-size="sm"] {
+    font-size: 0.9rem;
+    line-height: 1.5;
+
+    [class~="lead"] {
+      line-height: 1.4;
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    ol {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    hr {
+      margin-top: 2em;
+      margin-bottom: 2em;
+    }
+
+    blockquote {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+
+    [data-component="code"] {
+      margin-block: 1.2em;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin-top: 1.2em;
+      margin-bottom: 0.7em;
+    }
+
+    h1 {
+      font-size: 2.25em;
+    }
+
+    h2 {
+      font-size: 1.5em;
+    }
+
+    h3 {
+      font-size: 1.25em;
+    }
+
+    h4 {
+      font-size: 1.1em;
+    }
+
+    table {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+
+    p {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    img {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+
+    video {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+
+    figure {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+
+    figure > * {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    lookbook-embed {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+
+    ul {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    li {
+      margin-top: 0.3em;
+      margin-bottom: 0.3em;
+    }
+
+    ol > li:before {
+      left: 0;
+    }
+
+    ul ul,
+    ul ol,
+    ol ul,
+    ol ol {
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+    }
   }
 
-  h2 + * {
-    margin-top: 0;
-  }
+  &[data-size="sm"],
+  &[data-size="md"] {
+    hr + * {
+      margin-top: 0;
+    }
 
-  h3 + * {
-    margin-top: 0;
-  }
+    h2 + * {
+      margin-top: 0;
+    }
 
-  h4 + * {
-    margin-top: 0;
-  }
+    h3 + * {
+      margin-top: 0;
+    }
 
-  thead th:first-child {
-    padding-left: 0;
-  }
+    h4 + * {
+      margin-top: 0;
+    }
 
-  thead th:last-child {
-    padding-right: 0;
-  }
+    thead th:first-child {
+      padding-left: 0;
+    }
 
-  tbody td:first-child {
-    padding-left: 0;
-  }
+    thead th:last-child {
+      padding-right: 0;
+    }
 
-  tbody td:last-child {
-    padding-right: 0;
-  }
+    tbody td:first-child {
+      padding-left: 0;
+    }
 
-  & > :first-child {
-    margin-top: 0;
-  }
+    tbody td:last-child {
+      padding-right: 0;
+    }
 
-  & > :last-child {
-    margin-bottom: 0;
-  }
+    & > :first-child {
+      margin-top: 0;
+    }
 
-  [data-component="code"] {
-    color: var(--lb-prose-code-color);
-    background-color: var(--lb-prose-code-background-color);
-    border: 1px solid var(--lb-prose-code-border-color);
-    border-radius: var(--lb-border-radius-sm);
-    margin-block: var(--lb-spacing-xl);
+    & > :last-child {
+      margin-bottom: 0;
+    }
   }
 }

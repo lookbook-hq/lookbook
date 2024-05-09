@@ -1,7 +1,10 @@
 module Lookbook
   module UI
     class Prose < BaseComponent
-      def initialize(markdown: true, **kwargs)
+      attr_reader :size
+
+      def initialize(markdown: true, size: :md, **kwargs)
+        @size = size
         @markdown = markdown
       end
 
