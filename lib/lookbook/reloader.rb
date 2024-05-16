@@ -1,3 +1,5 @@
+require_relative "evented_file_update_checker" if Gem.loaded_specs.has_key?("listen")
+
 module Lookbook
   class Reloader
     include Loggable
@@ -34,12 +36,12 @@ module Lookbook
 
     def file_watcher
       @_file_watcher ||= begin
-        file_watcher = FileWatcher.new([], watch_dirs) do
+        file_watcher = file_watcher_class.new([], watch_dirs) do
           @callback.call(@last_changeset)
           @last_changeset = nil
         end
 
-        if FileWatcher.evented?
+        if file_watcher_class == Lookbook::EventedFileUpdateChecker
           file_watcher.on_change do |changeset|
             if watching?(changeset.all)
               debug("#{name}: file changes detected")
@@ -51,6 +53,12 @@ module Lookbook
 
         file_watcher
       end
+    end
+
+    def file_watcher_class
+      Gem.loaded_specs.has_key?("listen") ?
+          Lookbook::EventedFileUpdateChecker :
+          ActiveSupport::FileUpdateChecker
     end
   end
 end
