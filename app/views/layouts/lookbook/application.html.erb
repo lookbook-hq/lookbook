@@ -1,7 +1,7 @@
 <% content_for :body do %>
    <%=
     render Lookbook::UI::Router.new(events_endpoint: @events_endpoint.to_json) do
-      render Lookbook::UI::Layout.new(id: "app") do |layout|
+      render Lookbook::UI::Layout.new(id: "app", x: {cloak: true}) do |layout|
         layout.with_header
 
         layout.with_previews_nav(@previews.tree)
@@ -11,7 +11,7 @@
           content_for?(:main) ? yield(:main) : yield
         end
 
-        if @config.status_bar
+        if @config.ui_status_bar
           layout.with_status_bar(notifications: @notifications)
         end
       end

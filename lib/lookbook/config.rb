@@ -44,16 +44,14 @@ module Lookbook
           pages_nav_label: "Pages",
           pages_nav_filter: true,
 
+          ui_status_bar: Rails.env.development?,
+          ui_color_scheme_switcher: true,
+
           markdown_options: default_markdown_options,
 
           languages: default_languages,
 
-          status_bar: Rails.env.development?,
-
-          ui_color_scheme_switcher: true,
-
           reload_on_change: Rails.env.development?,
-
           mount_path: "/lookbook",
           auto_mount: true
         })

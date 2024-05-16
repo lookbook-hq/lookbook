@@ -22,4 +22,6 @@ Combustion.initialize! :action_controller, :action_view, :action_mailer, :sprock
 
   config.lookbook.preview_paths << "#{root}/lookbook/previews"
   config.lookbook.page_paths << "#{root}/lookbook/docs"
+
+  config.lookbook.ui_status_bar = true
 end
