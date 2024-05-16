@@ -7,11 +7,11 @@ gem "puma"
 gem "rails"
 gem "sprockets-rails"
 gem "view_component"
+gem "listen"
 
 group :development, :test do
   gem "better_errors"
   gem "binding_of_caller"
-  gem "listen"
   gem "rubocop-rails", require: false
   gem "standard", require: false
 end
