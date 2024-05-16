@@ -188,6 +188,7 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [ ] Improve accessibilty (exact requirements tbd)
 * [ ] Mobile/small screen layout optimisations
 * [ ] Side-dockable preview inspector drawer
+* [ ] Replace Shiki syntax highlighter with something lighter
 
 ### Previews
 
