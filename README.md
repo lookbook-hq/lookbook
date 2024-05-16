@@ -23,7 +23,7 @@ Add Lookbook to the `development` group in your Gemfile:
 ```rb
 group :development do
   gem "lookbook", github: "ViewComponent/lookbook", branch: "v3"
-  gem "listen" # Optional but allows faster 'smart' updates when changes occur
+  gem "listen" # Required for 'live' UI updates when file changes are detected
 end
 ```
 
