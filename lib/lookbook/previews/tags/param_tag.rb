@@ -71,7 +71,7 @@ module Lookbook
       # Description
       scanner.scan(/\s?(?:'(?<single>[^'\\]*(?:\\.[^'\\]*)*)'|"(?<double>[^"\\]*(?:\\.[^"\\]*)*)")\s?/i)
       if scanner.matched?
-        parts[:description] = scanner.named_captures["single"] || scanner.named_captures["double"]
+        parts[:description] = scanner.captures.first.presence || scanner.captures.last
       else
         scanner.pos = last_pos
       end
