@@ -9,9 +9,7 @@ Bundler.require :default
 
 if ENV["RACK_ENV"] == "development"
   Bundler.require :development
-end
 
-if ENV["RACK_ENV"] == "development"
   use BetterErrors::Middleware
   BetterErrors.application_root = "test/demo"
 end
