@@ -280,6 +280,8 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] Minitest test suite setup
 * [ ] Comprehensive set of test components + previews 🚧
 * [ ] UI integration tests 🚧
+* [ ] Set up Ruby & Rails versions test matrix via Appraisal
+* [ ] Setup GH actions CI
 
 ### Internals
 
@@ -291,7 +293,10 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] UUID-based permalink endpoint 🆕 🧪
 * [x] Improved logger implementation
 * [ ] Rationalise & document entity method names
-* [ ] Use debug logging consistently
+* [ ] Make debug logging more consitent
+
+### Other/Ideas
+
 * [ ] Lookbook CLI?
 
 ### Documentation
