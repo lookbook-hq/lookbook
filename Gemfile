@@ -1,18 +1,19 @@
 source "https://rubygems.org"
 gemspec
 
+gem "combustion"
+gem "phlex-rails"
+gem "puma"
+gem "rails"
+gem "sprockets-rails"
+gem "view_component"
+
 group :development, :test do
   gem "better_errors"
   gem "binding_of_caller"
-  gem "combustion"
   gem "listen"
-  gem "phlex-rails"
-  gem "puma"
   gem "rubocop-rails", require: false
-  gem "rails"
-  gem "sprockets-rails"
   gem "standard", require: false
-  gem "view_component"
 end
 
 group :test do

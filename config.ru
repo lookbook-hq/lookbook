@@ -5,7 +5,11 @@ ENV["RAILS_ENV"] ||= "development"
 require "rubygems"
 require "bundler"
 
-Bundler.require :default, :development
+Bundler.require :default
+
+if ENV["RACK_ENV"] == "development"
+  Bundler.require :development
+end
 
 if ENV["RACK_ENV"] == "development"
   use BetterErrors::Middleware
