@@ -290,6 +290,8 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] Config options synced with ViewComponent where appropriate
 * [x] UUID-based permalink endpoint 🆕 🧪
 * [x] Improved logger implementation
+* [ ] Rationalise & document entity method names
+* [ ] Use debug logging consistently
 * [ ] Lookbook CLI?
 
 ### Documentation
