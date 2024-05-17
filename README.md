@@ -6,7 +6,13 @@
 
 This branch contains a work-in-progress, exploratory, from-scratch rebuild of Lookbook, intended to form the basis of a future v3.0 release.
 
-[Usage](#usage)  ・ [Development](#development) ・ [Background & motivation](#motivation) ・ [Current status](#current-status) ・ [Requirements](#requirements)
+[Usage](#usage)  ・ [Development](#development) ・ [Background & motivation](#v3-rebuild---background-and-motivation) ・ [Current status](#v3-rebuild---current-status) ・ [Requirements](#requirements)
+
+## Demo site
+
+You can find a hosted version of the [demo/test app](#demo-app) here: https://v3-demo.lookbook.build/
+
+This pulls directly from the `v3` development branch and so may occasionally be broken.
 
 ## Usage
 
@@ -118,7 +124,7 @@ If you want to disable `Lookbook` logging, set
 Lookbook.logger = ::Logger.new('/dev/null')
 ```
 
-## Background and motivation
+## v3 rebuild - background and motivation
 
 The current Lookbook codebase has grown organically and haphazardly from a few custom ViewComponent preview templates into a standalone Rails Engine gem with support for previewing many different types of components and views.
 
@@ -162,7 +168,7 @@ More concretely, a number of **key goals** are helping shape the development wor
 * Improve error handling and compatability with `better_errors` etc (#528)
 * Remove some of the madness from codebase 🙈
 
-## Current status
+## v3 rebuild - Current status
 
 Lookbook v3 is currently in a pre-alpha stage and is under active, exploratory development.
 
