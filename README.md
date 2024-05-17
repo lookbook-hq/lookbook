@@ -184,11 +184,12 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] Light/dark mode themes + toggle 🚧
 * [x] Client-side syntax highlighting via Shiki 🆕 🚧 🧪 
 * [x] SSE-based live UI updating 🧪 
+* [x] Expand nav to current item when opening app
 * [ ] Theme system based on CSS custom properties 🚧
 * [ ] Improve accessibilty (exact requirements tbd)
 * [ ] Mobile/small screen layout optimisations
 * [ ] Side-dockable preview inspector drawer
-* [ ] Replace Shiki syntax highlighter with something lighter
+* [ ] Replace Shiki syntax highlighter with something lighter (server-side?)
 
 ### Previews
 
@@ -213,6 +214,7 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [ ] `@component`
 * [ ] `@source`
 * [ ] `@after_render`
+* [ ] `@status/@wip` ?
 
 #### Dynamic params
 
