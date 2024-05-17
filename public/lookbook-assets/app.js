@@ -10874,50 +10874,17 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   });
   var button_default = AlpineComponent("button", () => {
     return {
-      dropdownOpen: false,
-      dropdown: null,
       tooltip: null,
       init() {
         if (this.tooltipContent) {
-          this.tooltip = tippy_esm_default(this.$refs.content, {
-            content: () => this.tooltipContent,
-            onShow: () => !this.dropdownOpen
+          this.tooltip = tippy_esm_default(this.$el, {
+            content: () => this.tooltipContent
           });
         }
-        this.$nextTick(() => {
-          if (this.$refs.dropdown) {
-            this.dropdown = tippy_esm_default(this.$el, {
-              allowHTML: true,
-              interactive: true,
-              theme: "dropdown",
-              arrow: false,
-              placement: "bottom-end",
-              duration: 0,
-              offset: [1, -1],
-              trigger: "click",
-              hideOnClick: true,
-              content: () => this.$refs.dropdown.content.cloneNode(true),
-              onShow: () => {
-                this.dropdownOpen = true;
-              },
-              onHide: () => {
-                this.dropdownOpen = false;
-              }
-            });
-          }
-        });
-      },
-      hidePopovers() {
-        if (this.tooltip)
-          this.tooltip.hide();
-        if (this.dropdown)
-          this.dropdown.hide();
       },
       destroy() {
         if (this.tooltip)
           this.tooltip.destroy();
-        if (this.dropdown)
-          this.dropdown.destroy();
       },
       get tooltipContent() {
         return this.$el.hasAttribute("data-tooltip") ? this.$el.getAttribute("data-tooltip") : null;
@@ -18699,6 +18666,64 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     };
   });
 
+  // app/components/lookbook/ui/elements/toolbar/toolbar_button/toolbar_button.js
+  var toolbar_button_exports = {};
+  __export(toolbar_button_exports, {
+    default: () => toolbar_button_default
+  });
+  var toolbar_button_default = AlpineComponent("toolbarButton", () => {
+    return {
+      dropdownOpen: false,
+      dropdown: null,
+      tooltip: null,
+      init() {
+        if (this.tooltipContent) {
+          this.tooltip = tippy_esm_default(this.$refs.content, {
+            content: () => this.tooltipContent,
+            onShow: () => !this.dropdownOpen
+          });
+        }
+        this.$nextTick(() => {
+          if (this.$refs.dropdown) {
+            this.dropdown = tippy_esm_default(this.$el, {
+              allowHTML: true,
+              interactive: true,
+              theme: "dropdown",
+              arrow: false,
+              placement: "bottom-end",
+              duration: 0,
+              offset: [1, -1],
+              trigger: "click",
+              hideOnClick: true,
+              content: () => this.$refs.dropdown.content.cloneNode(true),
+              onShow: () => {
+                this.dropdownOpen = true;
+              },
+              onHide: () => {
+                this.dropdownOpen = false;
+              }
+            });
+          }
+        });
+      },
+      hidePopovers() {
+        if (this.tooltip)
+          this.tooltip.hide();
+        if (this.dropdown)
+          this.dropdown.hide();
+      },
+      destroy() {
+        if (this.tooltip)
+          this.tooltip.destroy();
+        if (this.dropdown)
+          this.dropdown.destroy();
+      },
+      get tooltipContent() {
+        return this.$el.hasAttribute("data-tooltip") ? this.$el.getAttribute("data-tooltip") : null;
+      }
+    };
+  });
+
   // app/components/lookbook/ui/elements/toolbar/toolbar_tab/toolbar_tab.js
   var toolbar_tab_exports = {};
   __export(toolbar_tab_exports, {
@@ -18988,7 +19013,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   });
 
   // import-glob:/Users/mark/Code/lookbook/lookbook-v3/assets/js/alpine|../../../app/components/lookbook/ui/**/*.js
-  var modules = [color_scheme_switcher_exports, header_exports, layout_exports, router_exports, status_bar_exports, status_bar_item_exports, status_bar_notifications_exports, button_exports, code_exports, icon_exports, nav_exports, nav_item_exports, pane_exports, tab_panel_exports, pane_group_exports, prose_exports, toolbar_exports, toolbar_tab_exports, toolbar_tab_group_exports, viewport_exports, display_options_dropdown_exports, param_editor_exports, preview_embed_exports, preview_inspector_exports];
+  var modules = [color_scheme_switcher_exports, header_exports, layout_exports, router_exports, status_bar_exports, status_bar_item_exports, status_bar_notifications_exports, button_exports, code_exports, icon_exports, nav_exports, nav_item_exports, pane_exports, tab_panel_exports, pane_group_exports, prose_exports, toolbar_exports, toolbar_button_exports, toolbar_tab_exports, toolbar_tab_group_exports, viewport_exports, display_options_dropdown_exports, param_editor_exports, preview_embed_exports, preview_inspector_exports];
   var __default = modules;
 
   // assets/js/alpine/app.js

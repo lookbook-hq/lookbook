@@ -20,6 +20,7 @@ module Lookbook
         options: {
           label: @preview.label,
           title: @preview.title,
+          markdown: false,
           footer: false
         }
       )

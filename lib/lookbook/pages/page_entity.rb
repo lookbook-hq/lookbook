@@ -2,7 +2,7 @@ module Lookbook
   class PageEntity < Entity
     include EntityTreeNode
 
-    delegate :data, :landing?, :header?, :footer?, :content, to: :metadata
+    delegate :data, :landing?, :header?, :footer?, :markdown?, :content, to: :metadata
 
     attr_reader :metadata
 

@@ -1,0 +1,12 @@
+<%= render component_tag do %>
+  <table>
+    <% if header? %>
+      <thead>
+        <%= header %>
+      </thead>
+    <% end %>
+    <tbody>
+      <%= safe_join(rows) %>
+    </tbody>
+  </table>
+<% end %>

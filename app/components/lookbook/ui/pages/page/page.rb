@@ -30,6 +30,10 @@ module Lookbook
 
         @entity ? @entity.footer? : true
       end
+
+      def markdown?
+        @entity.markdown?
+      end
     end
   end
 end

@@ -1,5 +1,11 @@
 module Lookbook
   module PageHelper
+    COMPONENT_HELPERS = %i[lb_table lb_icon lb_button lb_button_group markdown].freeze
+
+    COMPONENT_HELPERS.each do |name|
+      define_method name, AppHelper.instance_method(name)
+    end
+
     def page_path(identifier, **kwargs)
       page = Lookbook::Pages.resolve_page(identifier)
       lookbook.page_path(page, **kwargs) if page

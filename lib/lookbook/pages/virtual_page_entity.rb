@@ -1,6 +1,6 @@
 module Lookbook
   class VirtualPageEntity < Entity
-    delegate :data, :header?, :content, to: :metadata
+    delegate :data, :header?, :content, :markdown?, to: :metadata
 
     attr_reader :lookup_path, :url_path, :metadata
 

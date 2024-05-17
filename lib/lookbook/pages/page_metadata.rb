@@ -17,6 +17,10 @@ module Lookbook
       frontmatter.fetch(:footer, true)
     end
 
+    def markdown?
+      frontmatter.fetch(:markdown, true)
+    end
+
     def data
       DataObject.new(frontmatter.fetch(:data, {}))
     end

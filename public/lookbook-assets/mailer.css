@@ -327,9 +327,9 @@
    * Buttons
    */
 
-  --lb-button-color: var(--lb-color-content-2);
-  --lb-button-color-hover: var(--lb-color-content-1);
-  --lb-button-color-active: var(--lb-color-content-2-accent);
+  --lb-toolbar-button-color: var(--lb-color-content-2);
+  --lb-toolbar-button-color-hover: var(--lb-color-content-1);
+  --lb-toolbar-button-color-active: var(--lb-color-content-2-accent);
 
   /*
    * Inputs
@@ -759,36 +759,6 @@ router {
 }
 [x-cloak] {
   display: none !important;
-}
-table {
-  background: #fff;
-  background: var(--lb-table-background-color);
-  border: 1px solid #d1d5db;
-  border: 1px solid var(--lb-table-border-color);
-  color: #1f2937;
-  color: var(--lb-table-color);
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.875rem;
-  font-size: var(--lb-font-size-sm);
-}
-th,
-td {
-  text-align: left;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-left: var(--lb-spacing-md);
-  padding-right: var(--lb-spacing-md);
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-  padding-top: var(--lb-spacing-sm);
-  padding-bottom: var(--lb-spacing-sm);
-  width: 1%;
-}
-thead tr,
-tr:not(:last-child) {
-  border-bottom: 1px solid #d1d5db;
-  border-bottom: 1px solid var(--lb-table-border-color);
 }
 :focus-visible {
   outline: 1px solid transparent;
