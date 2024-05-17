@@ -1887,24 +1887,21 @@ html[data-color-scheme="dark"] .shiki span {
   }
 [data-component="prose"] h1:not([data-component="prose"] [data-component] h1) {
     font-weight: 600;
-    font-size: 2.25rem;
-    font-size: var(--lb-font-size-2xl);
+    font-size: 2.25em;
   }
 [data-component="prose"] h1:not([data-component="prose"] [data-component] h1) + * {
       margin-top: 0;
     }
 [data-component="prose"] h2:not([data-component="prose"] [data-component] h2) {
     font-weight: 600;
-    font-size: 1.5rem;
-    font-size: var(--lb-font-size-xl);
+    font-size: 1.5em;
   }
 [data-component="prose"] h2:not([data-component="prose"] [data-component] h2) code {
       font-size: 0.875em;
     }
 [data-component="prose"] h3:not([data-component="prose"] [data-component] h3) {
     font-weight: 600;
-    font-size: 1.25rem;
-    font-size: var(--lb-font-size-lg);
+    font-size: 1.25em;
   }
 [data-component="prose"] h3:not([data-component="prose"] [data-component] h3) + * {
       margin-top: 0;
@@ -1978,10 +1975,8 @@ html[data-color-scheme="dark"] .shiki span {
     margin-bottom: 0;
   }
 [data-component="prose"] > [data-component] {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    margin-top: var(--lb-spacing-2xl);
-    margin-bottom: var(--lb-spacing-2xl);
+    margin-top: 2em;
+    margin-bottom: 2em;
   }
 [data-component="prose"] [data-component="code"] {
     color: var(--lb-prose-code-color);
@@ -1996,17 +1991,94 @@ html[data-color-scheme="dark"] .shiki span {
     margin-top: var(--lb-spacing-xl);
     margin-bottom: var(--lb-spacing-xl);
   }
-[data-component="prose"][data-size="sm"] ol:not([data-component="prose"] [data-component] ol),
-    [data-component="prose"][data-size="md"] ol:not([data-component="prose"] [data-component] ol),
-    [data-component="prose"][data-size="sm"] ul:not([data-component="prose"] [data-component] ul),
-    [data-component="prose"][data-size="md"] ul:not([data-component="prose"] [data-component] ul) {
+[data-component="prose"][data-size="sm"] {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+[data-component="prose"][data-size="sm"] [class~="lead"] {
+      line-height: 1.4;
       margin-top: 1em;
       margin-bottom: 1em;
     }
-[data-component="prose"][data-size="sm"] ol:not([data-component="prose"] [data-component] ol) li, [data-component="prose"][data-size="md"] ol:not([data-component="prose"] [data-component] ol) li, [data-component="prose"][data-size="sm"] ul:not([data-component="prose"] [data-component] ul) li, [data-component="prose"][data-size="md"] ul:not([data-component="prose"] [data-component] ul) li {
+[data-component="prose"][data-size="sm"] ol:not([data-component="prose"] [data-component] ol) {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+[data-component="prose"][data-size="sm"] hr:not([data-component="prose"] [data-component] hr) {
+      margin-top: 2em;
+      margin-bottom: 2em;
+    }
+[data-component="prose"][data-size="sm"] blockquote:not([data-component="prose"] [data-component] blockquote) {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+[data-component="prose"][data-size="sm"] h1:not([data-component="prose"] [data-component] h1),
+    [data-component="prose"][data-size="sm"] h2:not([data-component="prose"] [data-component] h2),
+    [data-component="prose"][data-size="sm"] h3:not([data-component="prose"] [data-component] h3),
+    [data-component="prose"][data-size="sm"] h4:not([data-component="prose"] [data-component] h4) {
+      margin-top: 1.2em;
+      margin-bottom: 0.7em;
+    }
+[data-component="prose"][data-size="sm"] h1:not([data-component="prose"] [data-component] h1) {
+      font-size: 2.25em;
+    }
+[data-component="prose"][data-size="sm"] h2:not([data-component="prose"] [data-component] h2) {
+      font-size: 1.5em;
+    }
+[data-component="prose"][data-size="sm"] h3:not([data-component="prose"] [data-component] h3) {
+      font-size: 1.25em;
+    }
+[data-component="prose"][data-size="sm"] h4:not([data-component="prose"] [data-component] h4) {
+      font-size: 1.1em;
+    }
+[data-component="prose"][data-size="sm"] table:not([data-component="prose"] [data-component] table) {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+[data-component="prose"][data-size="sm"] p:not([data-component="prose"] [data-component] p) {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+[data-component="prose"][data-size="sm"] img:not([data-component="prose"] [data-component] img) {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+[data-component="prose"][data-size="sm"] video:not([data-component="prose"] [data-component] video) {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+[data-component="prose"][data-size="sm"] figure:not([data-component="prose"] [data-component] figure) {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+[data-component="prose"][data-size="sm"] figure:not([data-component="prose"] [data-component] figure) > * {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+[data-component="prose"][data-size="sm"] ol:not([data-component="prose"] [data-component] ol),
+    [data-component="prose"][data-size="sm"] ul:not([data-component="prose"] [data-component] ul) {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+[data-component="prose"][data-size="sm"] ol:not([data-component="prose"] [data-component] ol) li, [data-component="prose"][data-size="sm"] ul:not([data-component="prose"] [data-component] ul) li {
         margin-top: 0.3em;
         margin-bottom: 0.3em;
       }
+[data-component="prose"][data-size="sm"] ol:not([data-component="prose"] [data-component] ol) ol,
+      [data-component="prose"][data-size="sm"] ul:not([data-component="prose"] [data-component] ul) ol,
+      [data-component="prose"][data-size="sm"] ol:not([data-component="prose"] [data-component] ol) ul,
+      [data-component="prose"][data-size="sm"] ul:not([data-component="prose"] [data-component] ul) ul {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+[data-component="prose"][data-size="sm"] > [data-component] {
+      margin-top: 1.2em;
+      margin-bottom: 1.2em;
+    }
+[data-component="prose"][data-size="sm"] lookbook-embed {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
 [data-component="prose"][data-size="sm"]:not([data-component="prose"] [data-component] [data-component="prose"][data-size="sm"]) > :first-child, [data-component="prose"][data-size="sm"]:not([data-component="prose"] [data-component] [data-component="prose"][data-size="md"]) > :first-child, [data-component="prose"][data-size="md"]:not([data-component="prose"] [data-component] [data-component="prose"][data-size="sm"]) > :first-child, [data-component="prose"][data-size="md"]:not([data-component="prose"] [data-component] [data-component="prose"][data-size="md"]) > :first-child {
       margin-top: 0;
     }

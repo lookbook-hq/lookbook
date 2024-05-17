@@ -120,7 +120,7 @@
 
   h1:not([data-component="prose"] [data-component] h1) {
     font-weight: 600;
-    font-size: var(--lb-font-size-2xl);
+    font-size: 2.25em;
 
     & + * {
       margin-top: 0;
@@ -129,7 +129,7 @@
 
   h2:not([data-component="prose"] [data-component] h2) {
     font-weight: 600;
-    font-size: var(--lb-font-size-xl);
+    font-size: 1.5em;
 
     code {
       font-size: 0.875em;
@@ -138,7 +138,7 @@
 
   h3:not([data-component="prose"] [data-component] h3) {
     font-weight: 600;
-    font-size: var(--lb-font-size-lg);
+    font-size: 1.25em;
 
     & + * {
       margin-top: 0;
@@ -221,7 +221,7 @@
   }
 
   > [data-component] {
-    margin-block: var(--lb-spacing-2xl);
+    margin-block: 2em;
   }
 
   [data-component="code"] {
@@ -232,8 +232,85 @@
     margin-block: var(--lb-spacing-xl);
   }
 
-  &[data-size="sm"],
-  &[data-size="md"] {
+  &[data-size="sm"] {
+    font-size: 0.9rem;
+    line-height: 1.5;
+
+    [class~="lead"] {
+      line-height: 1.4;
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    ol:not([data-component="prose"] [data-component] ol) {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    hr:not([data-component="prose"] [data-component] hr) {
+      margin-top: 2em;
+      margin-bottom: 2em;
+    }
+
+    blockquote:not([data-component="prose"] [data-component] blockquote) {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+
+    h1:not([data-component="prose"] [data-component] h1),
+    h2:not([data-component="prose"] [data-component] h2),
+    h3:not([data-component="prose"] [data-component] h3),
+    h4:not([data-component="prose"] [data-component] h4) {
+      margin-top: 1.2em;
+      margin-bottom: 0.7em;
+    }
+
+    h1:not([data-component="prose"] [data-component] h1) {
+      font-size: 2.25em;
+    }
+
+    h2:not([data-component="prose"] [data-component] h2) {
+      font-size: 1.5em;
+    }
+
+    h3:not([data-component="prose"] [data-component] h3) {
+      font-size: 1.25em;
+    }
+
+    h4:not([data-component="prose"] [data-component] h4) {
+      font-size: 1.1em;
+    }
+
+    table:not([data-component="prose"] [data-component] table) {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+
+    p:not([data-component="prose"] [data-component] p) {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    img:not([data-component="prose"] [data-component] img) {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+
+    video:not([data-component="prose"] [data-component] video) {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+
+    figure:not([data-component="prose"] [data-component] figure) {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+
+      & > * {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+
     ol:not([data-component="prose"] [data-component] ol),
     ul:not([data-component="prose"] [data-component] ul) {
       margin-top: 1em;
@@ -243,8 +320,26 @@
         margin-top: 0.3em;
         margin-bottom: 0.3em;
       }
+
+      ol,
+      ul {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
     }
 
+    > [data-component] {
+      margin-block: 1.2em;
+    }
+
+    lookbook-embed {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+  }
+
+  &[data-size="sm"],
+  &[data-size="md"] {
     &:not([data-component="prose"] [data-component] &) > :first-child {
       margin-top: 0;
     }
