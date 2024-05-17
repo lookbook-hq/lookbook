@@ -40,9 +40,9 @@
    * Buttons
    */
 
-  --lb-button-color: var(--lb-color-content-2);
-  --lb-button-color-hover: var(--lb-color-content-1);
-  --lb-button-color-active: var(--lb-color-content-2-accent);
+  --lb-toolbar-button-color: var(--lb-color-content-2);
+  --lb-toolbar-button-color-hover: var(--lb-color-content-1);
+  --lb-toolbar-button-color-active: var(--lb-color-content-2-accent);
 
   /*
    * Inputs

@@ -1,0 +1,6 @@
+[data-component="button-group"] {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  column-gap: var(--lb-spacing-sm);
+}

@@ -2,27 +2,24 @@
   x: {
     data: "button",
     "@click": (click if click.present?),
-    "@page-load:start.document": "hidePopovers",
-    "@page-update:start.document": "hidePopovers",
-    "show": (show if show.present?),
-    ":class": "{active: dropdownOpen}"
   },
   data: {
     size: size,
     tooltip: tooltip
   },
-  class: "button"
+  class: ["button", {"icon-only": content.blank?}]
 ) do %>
   <div class="button-content" x-ref="content">
+    <% if icon? && icon_position == :start %>
+      <%= icon %>
+    <% end %>
+    
     <% if content.present? %>
-      <%= content %>
-    <% else %>
-      <%= render Lookbook::UI::Icon.new(name: icon) %>
+      <span class="button-label"><%= content %></span>      
+    <% end %>
+
+    <% if icon? && icon_position == :end %>
+      <%= icon %>
     <% end %>
   </div>
-  <% if dropdown %>
-    <template x-ref="dropdown">
-      <%= dropdown %>
-    </template>
-  <% end %>
 <% end %>

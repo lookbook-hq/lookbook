@@ -9,7 +9,7 @@ module Lookbook
 
       with_slot :tab_group, Lookbook::UI::ToolbarTabGroup
 
-      with_slot :button_group, Lookbook::UI::ButtonGroup
+      with_slot :button_group, Lookbook::UI::ToolbarButtonGroup
     end
   end
 end

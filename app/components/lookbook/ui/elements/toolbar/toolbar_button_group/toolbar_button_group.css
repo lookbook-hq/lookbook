@@ -1,4 +1,4 @@
-[data-component="button-group"] {
+[data-component="toolbar-button-group"] {
   display: flex;
   align-items: center;
   width: fit-content;

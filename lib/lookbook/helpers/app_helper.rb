@@ -10,8 +10,8 @@ module Lookbook
       render Lookbook::UI::Breadcrumbs.new(items: args.flatten, **kwargs), &block
     end
 
-    def lb_button(icon = nil, **kwargs, &block)
-      render Lookbook::UI::Button.new(icon: icon, **kwargs), &block
+    def lb_button(**kwargs, &block)
+      render Lookbook::UI::Button.new(**kwargs), &block
     end
 
     def lb_button_group(**kwargs, &block)
@@ -24,6 +24,10 @@ module Lookbook
 
     def lb_icon(name = nil, **kwargs)
       render Lookbook::UI::Icon.new(name: name, **kwargs)
+    end
+
+    def lb_table(**kwargs, &block)
+      render Lookbook::UI::Table.new(**kwargs), &block
     end
 
     def lb_page(entity = nil, **kwargs, &block)
@@ -40,6 +44,14 @@ module Lookbook
 
     def lb_prose(**kwargs, &block)
       render Lookbook::UI::Prose.new(**kwargs), &block
+    end
+
+    def lb_toolbar_button(icon = nil, **kwargs, &block)
+      render Lookbook::UI::ToolbarButton.new(icon: icon, **kwargs), &block
+    end
+
+    def lb_toolbar_button_group(**kwargs, &block)
+      render Lookbook::UI::ToolbarButtonGroup.new(**kwargs), &block
     end
 
     def lb_viewport(src, **kwargs)

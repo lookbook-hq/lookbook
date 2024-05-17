@@ -1,5 +1,5 @@
 <%= render component_tag do %>
-  <%= lb_button(class: "switcher-button") do |button| %>
+  <%= lb_toolbar_button(class: "switcher-button") do |button| %>
       <% button.with_dropdown do %>
         <div class="switcher-dropdown" x-data="colorSchemeSwitcher">
           <button class="switcher-option" @click="setScheme('light')" :class="{selected: isActiveScheme('light')}">

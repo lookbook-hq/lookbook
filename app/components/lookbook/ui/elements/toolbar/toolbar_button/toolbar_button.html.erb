@@ -1,0 +1,28 @@
+<%= render component_tag(button_tag,
+  x: {
+    data: "toolbarButton",
+    "@click": (click if click.present?),
+    "@page-load:start.document": "hidePopovers",
+    "@page-update:start.document": "hidePopovers",
+    "show": (show if show.present?),
+    ":class": "{active: dropdownOpen}"
+  },
+  data: {
+    size: size,
+    tooltip: tooltip
+  },
+  class: "toolbar-button"
+) do %>
+  <div class="button-content" x-ref="content">
+    <% if content.present? %>
+      <%= content %>
+    <% else %>
+      <%= render Lookbook::UI::Icon.new(name: icon) %>
+    <% end %>
+  </div>
+  <% if dropdown %>
+    <template x-ref="dropdown">
+      <%= dropdown %>
+    </template>
+  <% end %>
+<% end %>
