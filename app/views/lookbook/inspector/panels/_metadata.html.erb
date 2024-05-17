@@ -5,26 +5,37 @@
 </style>
 
 <div class="panel">
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Value</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>UUID</td>
-        <td><code><%= target.uuid %></code></td>
-      </tr>
-      <tr>
-        <td>Permalink</td>
-        <td><code><%= link_to permalink_path(target.uuid), permalink_path(target.uuid) %></code></td>
-      </tr>
-      <tr>
-        <td>Preview file path</td>
-        <td><code><%= preview.preview_app_file_path %></code></td>
-      </tr>
-    </tbody>
-  </table>
+      <%= lb_table do |table| %>
+      <% table.with_header do |header| %>
+        <% header.with_cell("Name", collapse: true) %>
+        <% header.with_cell("Value") %>
+      <% end %>
+
+      <% table.with_row do |row| %>
+        <% row.with_cell(collapse: true) do %>
+          <strong>UUID</strong>
+        <% end %>
+        <% row.with_cell do %>
+          <code><%= target.uuid %></code>
+        <% end %>
+      <% end %>
+
+      <% table.with_row do |row| %>
+        <% row.with_cell(collapse: true) do %>
+          <strong>Permalink</strong>
+        <% end %>
+        <% row.with_cell do %>
+          <code><%= link_to permalink_path(target.uuid), permalink_path(target.uuid) %></code>
+        <% end %>
+      <% end %>
+
+      <% table.with_row do |row| %>
+        <% row.with_cell(collapse: true) do %>
+          <strong>Preview file path</strong>
+        <% end %>
+        <% row.with_cell do %>
+          <code><%= preview.preview_app_file_path %></code>
+        <% end %>
+      <% end %>
+    <% end %>
 </div>
