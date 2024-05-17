@@ -10,7 +10,7 @@ This branch contains a work-in-progress, exploratory, from-scratch rebuild of Lo
 
 ## Demo site
 
-You can find a hosted version of the [demo/test app](#demo-app) here: https://v3-demo.lookbook.build/
+You can find a hosted version of the [demo/test app](#demo-app) here: https://v3-demo-app.lookbook.build/
 
 This pulls directly from the `v3` development branch and so may occasionally be broken.
 
