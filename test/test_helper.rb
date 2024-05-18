@@ -12,14 +12,6 @@ require "capybara/cuprite"
 
 require_relative "demo/config/application"
 
-module LookbookPathHelpers
-  def scenario_preview_path(preview_class, scenario_name)
-    preview_class_name = preview_class.is_a?(String) ? preview_class : preview_class.name
-    preview = Lookbook::Previews.find { _1.preview_class_name == preview_class_name }
-    lookbook.preview_target_path(preview, scenario_name)
-  end
-end
-
 Minitest::Reporters.use!
 
 class ActiveSupport::TestCase

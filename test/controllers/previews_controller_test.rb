@@ -1,33 +1,33 @@
 require "test_helper"
 
 class PreviewsControllerTest < ActionDispatch::IntegrationTest
-  include LookbookPathHelpers
+  include Lookbook::PathHelper
 
-  describe "#preview" do
+  describe "#inspect" do
     describe "ViewComponent preview" do
       it "renders" do
-        get scenario_preview_path(Elements::ButtonComponentPreview, :default)
+        get inspect_target_path(Elements::ButtonComponentPreview, :default)
         assert_response :success
       end
     end
 
     describe "Phlex preview" do
       it "renders" do
-        get scenario_preview_path(Elements::DropdownMenuComponentPreview, :default)
+        get inspect_target_path(Elements::DropdownMenuComponentPreview, :default)
         assert_response :success
       end
     end
 
     describe "ActionView partial preview" do
       it "renders" do
-        get scenario_preview_path(Elements::AccordionComponentPreview, :default)
+        get inspect_target_path(Elements::AccordionComponentPreview, :default)
         assert_response :success
       end
     end
 
     describe "Mailer preview" do
       it "renders" do
-        get scenario_preview_path(Emails::UserMailerPreview, :welcome)
+        get inspect_target_path(Emails::UserMailerPreview, :welcome)
         assert_response :success
       end
     end

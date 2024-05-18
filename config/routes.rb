@@ -13,7 +13,7 @@ Lookbook::Engine.routes.draw do
 
   resources :events, only: [:index]
 
-  match "*path", to: "application#not_found", status: 404, via: :all
+  match "*path", to: "application#not_found", via: :all
 end
 
 Rails.application.routes.draw do
