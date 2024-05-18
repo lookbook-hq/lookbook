@@ -14,6 +14,6 @@ if ENV["RACK_ENV"] == "development"
   BetterErrors.application_root = "test/demo"
 end
 
-require_relative "test/support/combustion"
+require_relative "test/demo/config/application"
 
 run Combustion::Application

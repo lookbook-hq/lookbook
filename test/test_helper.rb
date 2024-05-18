@@ -10,7 +10,7 @@ require "minitest/autorun"
 require "rails/test_help"
 require "capybara/cuprite"
 
-require_relative "support/combustion"
+require_relative "demo/config/application"
 
 module LookbookPathHelpers
   def scenario_preview_path(preview_class, scenario_name)
