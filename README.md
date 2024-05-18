@@ -6,7 +6,9 @@
 
 This branch contains a work-in-progress, exploratory, from-scratch rebuild of Lookbook, intended to form the basis of a future v3.0 release.
 
-[Usage](#usage)  ・ [Development](#development) ・ [Background & motivation](#v3-rebuild---background-and-motivation) ・ [Current status](#v3-rebuild---current-status) ・ [Requirements](#requirements)
+[Demo](#demo-site)  ・ [Usage](#usage)  ・ [Development](#development) ・ [Background & motivation](#v3-rebuild---background-and-motivation) ・ [Current status](#v3-rebuild---current-status)
+
+![CI status](https://github.com/ViewComponent/lookbook/actions/workflows/ci.yml/badge.svg?branch=v3)
 
 ## Demo site
 
@@ -21,6 +23,11 @@ Lookbook v3 is currently under heavy development and **should not be considered 
 However, intrepid individuals who are familiar with Lookbook and wish to kick the tyres or get a preview of the upcoming changes can install the Lookbook gem directly from the `v3` branch of this repository.
 
 > Alternatively you can pull down the codebase and [run the included demo app](#demo-app) to see some of the new features in action.
+
+### Requirements
+
+* Ruby >= 3.0.0
+* Rails >= 6.1.0
 
 ### Installation
 
@@ -324,11 +331,6 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [ ] Automate config option documentation via YARD
 * [ ] Automate API docs via YARD
 * [ ] Set up automated build & deploy process for docs
-
-## Requirements
-
-* Ruby >= 3.0.0
-* Rails >= 6.1.0
 
 ## License
 
