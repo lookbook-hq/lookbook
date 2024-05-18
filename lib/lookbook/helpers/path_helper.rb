@@ -2,20 +2,26 @@ module Lookbook
   module PathHelper
     def page_path(identifier, **kwargs)
       page = Lookbook::Pages.resolve_page(identifier)
-      lookbook.page_path(page, **kwargs) if page
+      raise ArgumentError, "Could not resolve page identifier" unless page
+
+      lookbook.page_path(page, **kwargs)
     end
 
     def preview_page_path(preview_identifier, **kwargs)
       preview = Lookbook::Previews.resolve_preview(preview_identifier)
-      lookbook.preview_page_path(preview, **kwargs) if preview
+      raise ArgumentError, "Could not resolve preview identifier" unless preview
+
+      lookbook.preview_page_path(preview, **kwargs)
     end
 
     def inspect_target_path(preview_identifier, target_identifier, **kwargs)
       preview = Lookbook::Previews.resolve_preview(preview_identifier)
-      if preview
-        target = preview.resolve_target(target_identifier)
-        lookbook.inspect_target_path(preview, target, **kwargs) if target
-      end
+      raise ArgumentError, "Could not resolve preview identifier" unless preview
+
+      target = preview.resolve_target(target_identifier)
+      raise ArgumentError, "Could not resolve inspector target identifier" unless target
+
+      lookbook.inspect_target_path(preview, target, **kwargs)
     end
   end
 end
