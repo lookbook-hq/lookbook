@@ -17,6 +17,8 @@ module Lookbook
       end
 
       def resolve_preview(identifier)
+        return identifier if identifier.is_a?(PreviewEntity)
+
         if identifier.is_a?(Class)
           store.find { _1.preview_class.to_s == identifier.to_s }
         elsif identifier.is_a?(String) || identifier.is_a?(Symbol)

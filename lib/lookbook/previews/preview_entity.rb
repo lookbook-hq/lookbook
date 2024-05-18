@@ -109,6 +109,8 @@ module Lookbook
     end
 
     def resolve_target(identifier)
+      return identifier if identifier.is_a?(InspectorTargetEntity)
+
       if identifier.is_a?(String) || identifier.is_a?(Symbol)
         inspector_targets.find { [_1.id, _1.uuid].include?(identifier.to_s) }
       else

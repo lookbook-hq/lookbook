@@ -33,5 +33,15 @@ module Lookbook
 
       lookbook.preview_target_path(preview, target, **kwargs)
     end
+
+    def preview_embed_path(preview_identifier, target_identifier, **kwargs)
+      preview = Lookbook::Previews.resolve_preview(preview_identifier)
+      raise ArgumentError, "Could not resolve preview identifier" unless preview
+
+      target = preview.resolve_target(target_identifier)
+      raise ArgumentError, "Could not resolve inspector target identifier" unless target
+
+      lookbook.preview_embed_path(preview, target, **kwargs)
+    end
   end
 end
