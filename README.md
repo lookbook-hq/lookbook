@@ -196,20 +196,26 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] Bespoke component system to replace ViewComponent
 * [x] Status bar 🆕 🚧
 * [x] Notifications for parser errors
-* [x] Syntax highlighting 🆕 🚧 🧪
 * [x] SSE-based live UI updating 🧪 
 * [x] Expand nav to current item when opening app
 * [ ] Improve accessibilty (exact requirements tbd)
 * [ ] Mobile/small screen layout optimisations
 * [ ] Side-dockable preview inspector drawer
+* [ ] Search fields 'clear' buttons
+
+#### Code samples
+
+* [x] Syntax highlighting 🆕 🚧 🧪
 * [ ] Replace Shiki with something lighter (server-side?)
+* [ ] Click to copy
+* [ ] Line wrap toggle
 
 #### Theming/branding
 
-* [x] Light/dark mode themes + toggle 🚧
+* [x] Light/dark mode themes + toggle 🆕 🚧
+* [x] Project links in header 🆕
 * [ ] Theme system based on CSS custom properties 🚧
 * [ ] Project logo customisation
-* [x] Project links in header
 
 ### Previews
 
@@ -231,7 +237,7 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] `@id` 🆕
 * [x] `@priority` 🆕
 * [ ] `@logical_path`
-* [ ] `@component`
+* [ ] `@component/@renders`
 * [ ] `@source`
 * [ ] `@after_render`
 * [ ] `@status/@wip` ?
@@ -259,6 +265,9 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] Metadata panel 🚧 🆕 🧪
 * [x] Params panel 🚧 
 * [ ] Configurable breakpoints for quick preview viewport resizing
+* [ ] Embed code dropdown
+* [ ] Preview URL copy button
+* [ ] Manual preview refresh button
 
 #### Other
 
@@ -319,10 +328,6 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [ ] Make debug logging more consitent
 * [ ] Improve parsing/tree building performance
 
-### Other/Ideas
-
-* [ ] Lookbook CLI?
-
 ### Documentation
 
 * [ ] Switch to Nanoc for static docs building?
@@ -331,6 +336,11 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [ ] Automate config option documentation via YARD
 * [ ] Automate API docs via YARD
 * [ ] Set up automated build & deploy process for docs
+
+### Other/Ideas/Maybe
+
+* [ ] CLI tool
+* [ ] JSON API
 
 ## License
 
