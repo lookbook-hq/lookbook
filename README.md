@@ -8,7 +8,7 @@ This branch contains a work-in-progress, exploratory, from-scratch rebuild of Lo
 
 [Demo](#demo-site)  ・ [Usage](#usage)  ・ [Development](#development) ・ [Background & motivation](#v3-rebuild---background-and-motivation) ・ [Current status](#v3-rebuild---current-status)
 
-![CI status](https://github.com/ViewComponent/lookbook/actions/workflows/ci.yml/badge.svg?branch=v3)
+![CI status](https://github.com/lookbook-hq/lookbook/actions/workflows/ci.yml/badge.svg?branch=v3)
 
 ## Demo site
 
@@ -35,7 +35,7 @@ Add Lookbook to the `development` group in your Gemfile:
 
 ```rb
 group :development do
-  gem "lookbook", github: "ViewComponent/lookbook", branch: "v3"
+  gem "lookbook", github: "lookbook-hq/lookbook", branch: "v3"
   gem "listen" # Required for 'live' UI updates when file changes are detected
 end
 ```

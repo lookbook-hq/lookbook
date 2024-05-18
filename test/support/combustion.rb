@@ -9,7 +9,7 @@ Combustion.initialize! :action_controller, :action_view, :action_mailer, :sprock
   config.lookbook.project_name = "Lookbook v3 test app"
   config.lookbook.project_links = [{
     label: "Github",
-    url: "https://github.com/ViewComponent/lookbook/tree/v3",
+    url: "https://github.com/lookbook-hq/lookbook/tree/v3",
     icon: :github,
     attrs: {target: "_blank"}
   }]
