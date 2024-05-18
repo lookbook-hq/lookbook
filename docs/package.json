@@ -16,7 +16,7 @@
     "postcss-import": "^16.0.1",
     "postcss-import-ext-glob": "^2.1.1",
     "postcss-nesting": "^12.0.2",
-    "postcss-preset-env": "^9.5.2"
-  },
-  "dependencies": {}
+    "postcss-preset-env": "^9.5.2",
+    "postcss-utopia": "^1.0.3"
+  }
 }

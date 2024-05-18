@@ -1,0 +1,57 @@
+/* @link https://utopia.fyi/type/calculator?c=320,16,1.125,1280,18,1.25,4,1,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+/* @link https://utopia.fyi/space/calculator?c=320,16,1.125,1280,18,1.25,4,1,&s=0.75|0.5|0.25,1.5|2|3|4|6,&g=s,l,xl,12 */
+
+:root {
+  @utopia typeScale({
+    minFontSize: 16,
+    maxFontSize: 18,
+    minTypeScale: 1.125,
+    maxTypeScale: 1.25,
+    positiveSteps: 4,
+    negativeSteps: 1,
+    prefix: "step",
+  });
+
+  @utopia spaceScale({
+    minSize: 16,
+    maxSize: 18,
+    positiveSteps: [1.5, 2, 3, 4, 6],
+    negativeSteps: [0.75, 0.5, 0.25],
+    customSizes: ["xs-xl"],
+    prefix: "space",
+  });
+}
+
+html,
+body {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+body {
+  font-size: var(--step-0);
+  line-height: 1.5;
+  font-family: Nunito, Avenir, source-sans-pro, sans-serif;
+  color: var(--color-gray-900);
+}
+
+h1 {
+  font-size: var(--step-4);
+  font-weight: 200;
+}
+
+h2 {
+  font-size: var(--step-3);
+  font-weight: 200;
+}
+
+h3 {
+  font-size: var(--step-2);
+  font-weight: 600;
+}
+
+h3 {
+  font-size: var(--step-1);
+  font-weight: 600;
+}
