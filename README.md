@@ -78,7 +78,7 @@ npm install
 bin/dev
 ```
 
-Then visit http://localhost:4444/lookbook to view the Lookbook UI.
+Visit http://localhost:4444/lookbook to view the Lookbook UI.
 
 > In development mode assets will be rebuilt as changes are made.
 
@@ -91,6 +91,16 @@ bin/test
 ```
 
 > Integration tests run against the demo app.
+
+### Documentation site
+
+Run the docs site locally in dev mode:
+
+```
+bin/docs
+```
+
+Visit http://localhost:4000 to view the docs. Not much to see there at the moment!
 
 ### Logging and debugging
 
@@ -310,10 +320,11 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] Replace Parcel with PostCSS + esbuild for compiling assets
 * [x] Runnable, bundled demo app for development
 * [x] Minitest test suite setup
+* [x] Setup GH actions CI
 * [ ] Comprehensive set of test components + previews 🚧
 * [ ] UI integration tests 🚧
 * [ ] Set up Ruby & Rails versions test matrix via Appraisal
-* [ ] Setup GH actions CI
+* [ ] Release script (automate from GH?)
 
 ### Internals
 

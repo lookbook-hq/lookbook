@@ -10,3 +10,4 @@ gemfiles/*.lock
 
 !public/lookbook-assets/icons
 
+docs/output

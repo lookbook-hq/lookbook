@@ -1,0 +1,3 @@
+web: bundle exec nanoc view --live-reload --port 4000 --host localhost
+compile: bundle exec nanoc compile --watch
+css: npm run watch

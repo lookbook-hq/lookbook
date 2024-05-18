@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+group "nanoc" do
+  gem "adsf"
+  gem "redcarpet"
+  gem "nanoc", "~> 4.12"
+  gem "nanoc-live"
+  gem "webrick"
+end

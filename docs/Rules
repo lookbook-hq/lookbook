@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+compile "/**/*.{html,md}.erb" do
+  filter :erb
+  filter :redcarpet if item.identifier.match?("**/*.md.*")
+  layout "/skeleton.html.erb"
+end
+
+route "/**/*.*.erb" do
+  if item.identifier.match?("**/index.*")
+    "#{item.identifier.without_exts}.html"
+  else
+    "#{item.identifier.without_exts}/index.html"
+  end
+end
+
+passthrough "/**/*"
+
+layout "/**/*", :erb
