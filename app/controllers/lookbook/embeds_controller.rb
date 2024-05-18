@@ -17,6 +17,11 @@ module Lookbook
       })
     end
 
+    def not_found(error = nil)
+      @error = error
+      render :not_found, status: :not_found, layout: "layouts/lookbook/skeleton"
+    end
+
     private
 
     def assign_preview
@@ -45,11 +50,6 @@ module Lookbook
 
     def assign_actions
       @actions = ListResolver.call(params.fetch(:actions, ""), [:open, :inspect])
-    end
-
-    def not_found(error)
-      @error = error
-      render :not_found, status: :not_found, layout: "layouts/lookbook/skeleton"
     end
   end
 end

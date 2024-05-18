@@ -12,6 +12,8 @@ Lookbook::Engine.routes.draw do
   get "/embed", to: "embeds#show", as: :embed
 
   resources :events, only: [:index]
+
+  match "*path", to: "application#not_found", status: 404, via: :all
 end
 
 Rails.application.routes.draw do

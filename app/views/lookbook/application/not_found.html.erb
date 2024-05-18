@@ -1,7 +1,7 @@
 <%= render Lookbook::UI::SystemPage.new(theme: :error) do |page| %>
   <% page.with_message(icon: :file_x) do |message| %>
     <% message.with_title { "Not found" } %>
-    <p><%= @error.message %></p>
+    <p><%= @error&.message || "The page could not be found." %></p>
   <% end %>
 <% end %>
 
