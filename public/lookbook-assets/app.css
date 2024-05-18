@@ -1027,16 +1027,6 @@ select {
 .tippy-box[data-theme~="dropdown"] .tippy-content {
     padding: 0;
   }
-[data-component="button-group"] {
-  display: flex;
-  align-items: center;
-  width: -moz-fit-content;
-  width: fit-content;
-  -moz-column-gap: 0.75rem;
-       column-gap: 0.75rem;
-  -moz-column-gap: var(--lb-spacing-sm);
-       column-gap: var(--lb-spacing-sm);
-}
 [data-component="color-scheme-switcher"] .switcher-button,
     [data-component="color-scheme-switcher"] .switcher-button:hover,
     [data-component="color-scheme-switcher"] .switcher-button:active,
@@ -1522,6 +1512,16 @@ select {
     height: var(--lb-size-3xl);
     width: var(--lb-size-3xl);
   } */
+[data-component="button-group"] {
+  display: flex;
+  align-items: center;
+  width: -moz-fit-content;
+  width: fit-content;
+  -moz-column-gap: 0.75rem;
+       column-gap: 0.75rem;
+  -moz-column-gap: var(--lb-spacing-sm);
+       column-gap: var(--lb-spacing-sm);
+}
 [data-component="code"] {
   display: block;
 

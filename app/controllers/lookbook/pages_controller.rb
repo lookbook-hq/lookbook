@@ -16,11 +16,11 @@ module Lookbook
       @page = VirtualPageEntity.new(
         @preview.lookup_path,
         readme_content,
+        file_path: readme_file_path,
         url_path: @preview.url_path,
         options: {
           label: @preview.label,
           title: @preview.title,
-          markdown: false,
           footer: false
         }
       )

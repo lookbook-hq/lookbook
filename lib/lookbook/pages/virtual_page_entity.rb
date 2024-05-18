@@ -1,11 +1,12 @@
 module Lookbook
   class VirtualPageEntity < Entity
-    delegate :data, :header?, :content, :markdown?, to: :metadata
+    delegate :data, :header?, :content, to: :metadata
 
-    attr_reader :lookup_path, :url_path, :metadata
+    attr_reader :lookup_path, :url_path, :file_path, :metadata
 
-    def initialize(lookup_path, file_contents = nil, url_path: nil, options: {})
+    def initialize(lookup_path, file_contents = nil, file_path: nil, url_path: nil, options: {})
       @lookup_path = lookup_path
+      @file_path = file_path
       @url_path = url_path
       @metadata = PageMetadata.new(file_contents, options)
     end
@@ -26,6 +27,10 @@ module Lookbook
       metadata.fetch(:title, label)
     end
 
+    def markdown?
+      metadata.fetch(:markdown, markdown_extension?)
+    end
+
     def url_param = lookup_path
 
     def hidden? = false
@@ -38,8 +43,12 @@ module Lookbook
 
     def previous = nil
 
-    def file_path = nil
-
     def relative_file_path = nil
+
+    protected
+
+    def markdown_extension?
+      !!@file_path.to_s.match?(/(.+[^\.])\.(md|md\..+)/)
+    end
   end
 end
