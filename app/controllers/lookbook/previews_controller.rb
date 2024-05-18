@@ -15,8 +15,8 @@ module Lookbook
     end
 
     def embed
-      embed_params = params[:_embed]
-      target_names = embed_params[:targets].map(&:to_sym)
+      embed_params = params[:_embed] || {}
+      target_names = Array(embed_params[:targets]).map(&:to_sym)
 
       @targets = @preview.inspector_targets.select { _1.name.to_sym.in?(target_names) }
       @panels = Inspector.embed_panels(embed_params[:panels], **panel_context)
