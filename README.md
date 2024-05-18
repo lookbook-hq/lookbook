@@ -182,20 +182,27 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 
 ### UI
 
+#### General
+
 * [x] Basic desktop UI implementation
 * [x] Replace Tailwind with vanilla CSS
 * [x] Bespoke component system to replace ViewComponent
 * [x] Status bar 🆕 🚧
 * [x] Notifications for parser errors
-* [x] Light/dark mode themes + toggle 🚧
-* [x] Client-side syntax highlighting via Shiki 🆕 🚧 🧪 
+* [x] Syntax highlighting 🆕 🚧 🧪
 * [x] SSE-based live UI updating 🧪 
 * [x] Expand nav to current item when opening app
-* [ ] Theme system based on CSS custom properties 🚧
 * [ ] Improve accessibilty (exact requirements tbd)
 * [ ] Mobile/small screen layout optimisations
 * [ ] Side-dockable preview inspector drawer
-* [ ] Replace Shiki syntax highlighter with something lighter (server-side?)
+* [ ] Replace Shiki with something lighter (server-side?)
+
+#### Theming/branding
+
+* [x] Light/dark mode themes + toggle 🚧
+* [ ] Theme system based on CSS custom properties 🚧
+* [ ] Project logo customisation
+* [ ] Project links in header
 
 ### Previews
 
@@ -303,6 +310,7 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] Improved logger implementation
 * [ ] Rationalise & document entity method names
 * [ ] Make debug logging more consitent
+* [ ] Improve parsing/tree building performance
 
 ### Other/Ideas
 

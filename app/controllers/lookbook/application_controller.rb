@@ -34,6 +34,7 @@ module Lookbook
 
     def assign_template_vars
       @config = Lookbook.config
+      @project = Project
       @inspector = Inspector
       @pages = Pages
       @previews = Previews

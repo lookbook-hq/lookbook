@@ -4,8 +4,17 @@ module Lookbook
       alias_method :default, :new
 
       def defaults
-        options({
+        DataObject.new({
           project_name: "Lookbook",
+          project_links: [
+            # {
+            #   label: "Example",
+            #   url: "https://example.com",
+            #   icon: :smile,
+            #   attrs: {target: "_blank"},
+            #   show: dev?
+            # }
+          ],
 
           component_paths: ["app/views", "app/components"],
 
@@ -44,14 +53,14 @@ module Lookbook
           pages_nav_label: "Pages",
           pages_nav_filter: true,
 
-          ui_status_bar: Rails.env.development?,
+          ui_status_bar: dev?,
           ui_color_scheme_switcher: true,
 
           markdown_options: default_markdown_options,
 
           languages: default_languages,
 
-          reload_on_change: Rails.env.development?,
+          reload_on_change: dev?,
           mount_path: "/lookbook",
           auto_mount: true
         })
@@ -170,10 +179,24 @@ module Lookbook
 
       private
 
-      def options(opts = {})
-        opts.transform_values! { _1.is_a?(Hash) ? options(_1) : _1 }
-        ActiveSupport::OrderedOptions.new.merge!(opts)
+      def dev?
+        Rails.env.development?
       end
+
+      # def options(opts = {})
+      #   return opts unless opts.is_a?(Hash)
+
+      #   opts.transform_values! do |value|
+      #     if value.is_a?(Hash)
+      #       options(value)
+      #     elsif value.is_a?(Array)
+      #       value.map { options(_1) }
+      #     else
+      #       value
+      #     end
+      #   end
+      #   ActiveSupport::OrderedOptions.new.merge!(opts)
+      # end
     end
 
     class_attribute :current, default: defaults, instance_predicate: false

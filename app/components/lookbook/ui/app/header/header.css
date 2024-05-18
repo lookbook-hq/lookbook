@@ -24,6 +24,38 @@
   .header-project-branding {
   }
 
+  .header-project-links {
+    display: flex;
+    align-items: center;
+    column-gap: var(--lb-spacing-sm);
+
+    & + .header-color-scheme-switcher {
+      border-left: 1px solid var(--lb-color-content-1-accent);
+      margin-left: var(--lb-spacing-sm);
+    }
+  }
+
+  .header-project-link {
+    display: flex;
+    align-items: center;
+    whites-space: nowrap;
+    column-gap: var(--lb-spacing-2xs);
+    font-size: var(--lb-font-size-xs);
+    padding-inline: var(--lb-spacing-2xs);
+    padding-block: var(--lb-spacing-xs);
+    opacity: 0.8;
+    transition: opacity 300ms;
+
+    .icon {
+      width: 15px;
+      /* opacity: 0.7; */
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
   .header-color-scheme-switcher {
     margin-right: calc(-1 * var(--lb-spacing-md));
   }
