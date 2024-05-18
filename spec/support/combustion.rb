@@ -2,7 +2,7 @@ Combustion.path = "spec/dummy"
 Combustion.initialize! :action_controller, :action_view do
   config.autoloader = :zeitwerk
 
-  ActiveSupport::Deprecation.silenced = true
+  ActiveSupport::Deprecation.silenced = true if ActiveSupport::Deprecation.respond_to?(:silenced=)
   ActiveSupport::Dependencies.autoload_paths << "#{root}/app"
 
   config.view_component.view_component_path = "app/components"
