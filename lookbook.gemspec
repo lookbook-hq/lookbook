@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.name = "lookbook"
   spec.version = Lookbook::VERSION
   spec.authors = ["Mark Perkins"]
-  spec.homepage = "https://github.com/ViewComponent/lookbook"
+  spec.homepage = "https://github.com/lookbook-hq/lookbook"
   spec.summary = "A native development UI for ViewComponent"
   spec.license = "MIT"
   spec.metadata = {"rubygems_mfa_required" => "true"}

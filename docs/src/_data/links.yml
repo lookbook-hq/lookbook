@@ -1,8 +1,8 @@
-repo: https://github.com/ViewComponent/lookbook
+repo: https://github.com/lookbook-hq/lookbook
 docs: https://lookbook.build/guide
 demo: https://demo.lookbook.build/lookbook
 demo_home: https://demo.lookbook.build
-demo_repo: https://github.com/ViewComponent/lookbook-demo
+demo_repo: https://github.com/lookbook-hq/lookbook-demo
 
 v1:
   docs: https://v1.lookbook.build
