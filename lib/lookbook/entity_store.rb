@@ -2,31 +2,21 @@ module Lookbook
   class EntityStore
     include Enumerable
 
-    attr_reader :updated_at
+    delegate :each, :clear, to: :@entities
 
-    delegate :each, to: :@entities
-
-    def initialize(klass = Entity)
+    def initialize
       @entities = []
-      @entity_class = klass
-      updated!
     end
 
     def add(*entities)
-      entities.each do |entity|
-        validate!(entity)
-        @entities.push(entity)
-      end
-      updated!
+      entities.each { @entities.push(_1) }
     end
 
     def replace(*entities)
       entities.each do |entity|
-        validate!(entity)
         i = index(entity)
         @entities[i] = entity unless i.nil?
       end
-      updated!
     end
 
     def remove(*entities)
@@ -34,18 +24,11 @@ module Lookbook
         i = index(entity)
         @entities.delete_at(i) unless i.nil?
       end
-      updated!
     end
 
     def replace_all(entities)
-      @entities.clear
+      clear
       add(*entities)
-      updated!
-    end
-
-    def clear
-      @entities.clear
-      updated!
     end
 
     def include?(entity)
@@ -56,25 +39,8 @@ module Lookbook
       @entities.index { _1.id == entity.id }
     end
 
-    def all
-      @entities
-    end
+    def all = @entities
 
     alias_method :to_a, :all
-
-    protected
-
-    def changed_since(timestamp)
-    end
-
-    def updated!
-      @updated_at = DateTime.now
-    end
-
-    def validate!(entity)
-      if @entity_class && !entity.is_a?(@entity_class)
-        raise "Store: #{entity.class.name} must be a #{@entity_class} instance"
-      end
-    end
   end
 end

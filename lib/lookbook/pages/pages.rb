@@ -103,7 +103,7 @@ module Lookbook
       end
 
       def store
-        @store ||= EntityStore.new(PageEntity)
+        @store ||= EntityStore.new
       end
     end
   end

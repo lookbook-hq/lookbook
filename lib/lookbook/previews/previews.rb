@@ -134,7 +134,7 @@ module Lookbook
       end
 
       def store
-        @store ||= EntityStore.new(PreviewEntity)
+        @store ||= EntityStore.new
       end
 
       def source_parser
