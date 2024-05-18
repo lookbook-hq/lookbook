@@ -80,7 +80,7 @@ bin/dev
 
 Visit http://localhost:4444/lookbook to view the Lookbook UI.
 
-> In development mode assets will be rebuilt as changes are made.
+> In development mode assets will be rebuilt as changes are made but there is not yet any asset live-reloading in place.
 
 ### Testing
 
