@@ -19,7 +19,7 @@ title: Introduction
 
   <% s.with_block_note :warn, title: "This documentation is for Lookbook v2.0"  do %>
     See the [v1.x](https://v1.lookbook.build) or 
-    [v0.9.x](https://github.com/ViewComponent/lookbook/tree/0.9.x) docs if you are using an older version of Lookbook.
+    [v0.9.x](https://github.com/lookbook-hq/lookbook/tree/0.9.x) docs if you are using an older version of Lookbook.
   <% end %>
   
 <% end %>
@@ -77,9 +77,9 @@ title: Introduction
   * [SearchApi](https://www.searchapi.io/)
   * [Within3](https://within3.com/)
   * [Wrapbook](https://wrapbook.com/)
-  * And [many more...](https://github.com/ViewComponent/lookbook/network/dependents?package_id=UGFja2FnZS0xMDM0MzQ1)
+  * And [many more...](https://github.com/lookbook-hq/lookbook/network/dependents?package_id=UGFja2FnZS0xMDM0MzQ1)
 
-  Using Lookbook? [Send a pull request](https://github.com/ViewComponent/lookbook/edit/main/docs/src/_guide/index.md) to update this list!
+  Using Lookbook? [Send a pull request](https://github.com/lookbook-hq/lookbook/edit/main/docs/src/_guide/index.md) to update this list!
 <% end %>
 
 <%= render section("Articles and videos", id: "related") do |s| %>

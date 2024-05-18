@@ -11,14 +11,14 @@ title: Contributing to Lookbook
 
     Before making your first contribution please to review this document to make contributing easy and effective for everyone involved.
 
-    Contributions to this project are released to the public under the [MIT license](https://github.com/ViewComponent/lookbook/blob/main/LICENSE.txt).
+    Contributions to this project are released to the public under the [MIT license](https://github.com/lookbook-hq/lookbook/blob/main/LICENSE.txt).
 
   <% end %>
 
 <%= render section("Filing an issue", id: "issues") do |s| %>
 
   <% s.with_block_note :warn do %>
-    Please think carefully before using the issue tracker for personal support requests. Whilst we will do our best to help answer them it will take time away from development work and you may be better off starting [a discussion](https://github.com/ViewComponent/lookbook/discussions) instead where fellow community members may be able to help out.
+    Please think carefully before using the issue tracker for personal support requests. Whilst we will do our best to help answer them it will take time away from development work and you may be better off starting [a discussion](https://github.com/lookbook-hq/lookbook/discussions) instead where fellow community members may be able to help out.
   <% end %>
   
   <% s.with_block_prose do %>
