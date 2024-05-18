@@ -1,14 +1,35 @@
 <%= render component_tag do %>
-  <table>
-    <tbody>
-      <tr>
-        <td><strong>Page ID</strong></td>
-        <td><code><%= page.id %></code></td>
-      </tr>
-      <tr>
-        <td><strong>UUID</strong></td>
-        <td><code><%= page.uuid %></code></td>
-      </tr>
-    </tbody>
-  </table>
+    <%= lb_table do |table| %>
+    <% table.with_header do |header| %>
+      <% header.with_cell("Name", collapse: true) %>
+      <% header.with_cell("Value") %>
+    <% end %>
+
+    <% table.with_row do |row| %>
+      <% row.with_cell(collapse: true) do %>
+        <strong>UUID</strong>
+      <% end %>
+      <% row.with_cell do %>
+        <code><%= page.uuid %></code>
+      <% end %>
+    <% end %>
+
+    <% table.with_row do |row| %>
+      <% row.with_cell(collapse: true) do %>
+        <strong>Permalink</strong>
+      <% end %>
+      <% row.with_cell do %>
+        <code><%= link_to permalink_path(page.uuid), permalink_path(page.uuid) %></code>
+      <% end %>
+    <% end %>
+
+    <% table.with_row do |row| %>
+      <% row.with_cell(collapse: true) do %>
+        <strong>Page file path</strong>
+      <% end %>
+      <% row.with_cell do %>
+        <code><%= page.app_file_path %></code>
+      <% end %>
+    <% end %>
+  <% end %>
 <% end %>

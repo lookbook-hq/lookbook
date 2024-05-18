@@ -18690,6 +18690,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
               interactive: true,
               theme: "dropdown",
               arrow: false,
+              maxWidth: false,
               placement: "bottom-end",
               duration: 0,
               offset: [1, -1],

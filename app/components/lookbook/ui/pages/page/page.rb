@@ -1,38 +1,38 @@
 module Lookbook
   module UI
     class Page < BaseComponent
-      def initialize(entity: nil, title: nil, header: nil, footer: nil, **kwargs)
-        @entity = entity
+      def initialize(page: nil, title: nil, header: nil, footer: nil, **kwargs)
+        @page = page
         @title = title
         @footer = footer
       end
 
       def title
-        @title || @entity&.title
+        @title || @page&.title
       end
 
       def previous_page
-        @entity&.previous
+        @page&.previous
       end
 
       def next_page
-        @entity&.next
+        @page&.next
       end
 
       def header?
         return @header unless @header.nil?
 
-        @entity ? @entity.header? : true
+        @page ? @page.header? : true
       end
 
       def footer?
         return @footer unless @footer.nil?
 
-        @entity ? @entity.footer? : true
+        @page ? @page.footer? : true
       end
 
       def markdown?
-        @entity.markdown?
+        @page&.markdown?
       end
     end
   end

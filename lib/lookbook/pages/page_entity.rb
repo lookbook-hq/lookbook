@@ -46,11 +46,15 @@ module Lookbook
     end
 
     def file_path
-      Pathname(@file_path) if @file_path
+      Pathname(@file_path)
     end
 
     def relative_file_path
       file_path.relative_path_from(base_directory)
+    end
+
+    def app_file_path
+      file_path.relative_path_from(Rails.application.root)
     end
 
     def parent

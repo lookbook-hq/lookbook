@@ -30,8 +30,8 @@ module Lookbook
       render Lookbook::UI::Table.new(**kwargs), &block
     end
 
-    def lb_page(entity = nil, **kwargs, &block)
-      render Lookbook::UI::Page.new(entity: entity, **kwargs), &block
+    def lb_page(page = nil, **kwargs, &block)
+      render Lookbook::UI::Page.new(page: page, **kwargs), &block
     end
 
     def lb_pane(id = nil, **kwargs, &block)

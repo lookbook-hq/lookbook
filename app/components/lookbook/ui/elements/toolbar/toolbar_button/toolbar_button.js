@@ -22,6 +22,7 @@ export default AlpineComponent("toolbarButton", () => {
             interactive: true,
             theme: "dropdown",
             arrow: false,
+            maxWidth: false,
             placement: "bottom-end",
             duration: 0,
             offset: [1, -1],
