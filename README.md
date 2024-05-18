@@ -10,7 +10,7 @@ This branch contains a work-in-progress, exploratory, from-scratch rebuild of Lo
 
 ## Demo site
 
-You can find a hosted version of the [demo/test app](#demo-app) here: https://v3-demo-app.lookbook.build/
+You can find a hosted version of the [demo/test app](#demo-app) here: https://v3-demo-app.lookbook.build/lookbook
 
 This pulls directly from the `v3` development branch and so may occasionally be broken.
 
@@ -202,7 +202,7 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] Light/dark mode themes + toggle 🚧
 * [ ] Theme system based on CSS custom properties 🚧
 * [ ] Project logo customisation
-* [ ] Project links in header
+* [x] Project links in header
 
 ### Previews
 
