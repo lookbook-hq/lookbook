@@ -12,16 +12,6 @@ export default function navItemComponent({ id, matchers }) {
       return this.isCollection && this.isOpen(id);
     },
 
-    // get active() {
-    //   if (this.$refs.link) {
-    //     return (
-    //       this.location &&
-    //       this.location.pathname === this.$refs.link.getAttribute("href")
-    //     );
-    //   }
-    //   return false;
-    // },
-
     get children() {
       return this.$refs.items ? Array.from(this.$refs.items.children) : [];
     },
