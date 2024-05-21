@@ -13,5 +13,15 @@ module Lookbook
         lookbook_home_path
       end
     end
+
+    # Requests
+
+    def request_frame
+      request.headers["X-Lookbook-Frame"] || "root"
+    end
+
+    def frame_request?
+      request.headers["X-Lookbook-Frame"].present?
+    end
   end
 end

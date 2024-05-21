@@ -43,7 +43,9 @@ export default function app() {
       this.debug("Navigating to ", window.location.pathname);
       this.$dispatch("navigation:start");
       this.location = window.location;
-      await this.updateDOM();
+      await this.updateDOM("#app-main", {
+        headers: { "X-Lookbook-Frame": "main" },
+      });
       this.$dispatch("navigation:complete");
     },
 
@@ -65,16 +67,17 @@ export default function app() {
       }
     },
 
-    async updateDOM() {
+    async updateDOM(rootSelector = `#${this.$root.id}`, options = {}) {
       this.debug("Starting DOM update");
       this.$dispatch("dom:update-start");
       this.requestStart();
       try {
         const { fragment, title } = await fetchHTML(
           window.location,
-          `#${this.$root.id}`
+          rootSelector,
+          options
         );
-        morph(this.$root, fragment);
+        morph(document.querySelector(rootSelector), fragment);
         document.title = title;
         this.requestEnd();
         this.$dispatch("dom:update-complete");

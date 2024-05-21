@@ -4,7 +4,7 @@
   font-display: swap;
   font-style: normal;
   font-named-instance: "Regular";
-  src: url("../Inter-roman.var.b695afbe.woff2") format("woff2");
+  src: url("../Inter-roman.var.d4f9805a.woff2") format("woff2");
 }
 
 @font-face {
@@ -13,7 +13,7 @@
   font-display: swap;
   font-style: italic;
   font-named-instance: "Italic";
-  src: url("../Inter-italic.var.69eb0fe1.woff2") format("woff2");
+  src: url("../Inter-italic.var.53a0de5f.woff2") format("woff2");
 }
 
 @font-face {
@@ -21,7 +21,7 @@
   font-weight: 200 900;
   font-style: normal;
   font-stretch: normal;
-  src: url("../SourceCodeVariable-Roman.ttf.118e9f22.woff2") format("woff2");
+  src: url("../SourceCodeVariable-Roman.ttf.f1c8fcce.woff2") format("woff2");
 }
 
 @font-face {
@@ -29,7 +29,7 @@
   font-weight: 200 900;
   font-style: italic;
   font-stretch: normal;
-  src: url("../SourceCodeVariable-Italic.ttf.09b4354a.woff2") format("woff2");
+  src: url("../SourceCodeVariable-Italic.ttf.a93fa22f.woff2") format("woff2");
 }
 
 *, :before, :after {
@@ -41,12 +41,13 @@
   --tw-content: "";
 }
 
-html {
+html, :host {
   -webkit-text-size-adjust: 100%;
   tab-size: 4;
   font-feature-settings: normal;
   font-variation-settings: normal;
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  -webkit-tap-highlight-color: transparent;
+  font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
   line-height: 1.5;
 }
 
@@ -82,6 +83,8 @@ b, strong {
 }
 
 code, kbd, samp, pre {
+  font-feature-settings: normal;
+  font-variation-settings: normal;
   font-family: Source Code Variable, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
   font-size: 1em;
 }
@@ -118,6 +121,7 @@ button, input, optgroup, select, textarea {
   font-size: 100%;
   font-weight: inherit;
   line-height: inherit;
+  letter-spacing: inherit;
   color: inherit;
   margin: 0;
   padding: 0;
@@ -127,7 +131,7 @@ button, select {
   text-transform: none;
 }
 
-button, [type="button"], [type="reset"], [type="submit"] {
+button, input:where([type="button"]), input:where([type="reset"]), input:where([type="submit"]) {
   -webkit-appearance: button;
   background-color: #0000;
   background-image: none;
@@ -435,7 +439,7 @@ html {
 body {
   color: var(--lookbook-text);
   width: 100vw;
-  font-family: Inter var, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-family: Inter var, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
   font-size: .875rem;
   line-height: 1.25rem;
   overflow: hidden;
@@ -520,6 +524,10 @@ pre[class*="language-"] {
   --tw-backdrop-opacity: ;
   --tw-backdrop-saturate: ;
   --tw-backdrop-sepia: ;
+  --tw-contain-size: ;
+  --tw-contain-layout: ;
+  --tw-contain-paint: ;
+  --tw-contain-style: ;
 }
 
 .form-input, .form-textarea, .form-select, .form-multiselect {
@@ -3075,7 +3083,7 @@ select.compact {
 }
 
 .font-ui {
-  font-family: Inter var, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-family: Inter var, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
 }
 
 .text-\[11px\] {

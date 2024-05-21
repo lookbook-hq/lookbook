@@ -1,5 +1,5 @@
-async function fetchHTML(url, selector) {
-  const response = await fetch(url || window.document.location);
+async function fetchHTML(url, selector, options = {}) {
+  const response = await fetch(url || window.document.location, options);
   const html = await response.text();
   const doc = new DOMParser().parseFromString(html, "text/html");
   return {
