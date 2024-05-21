@@ -9,11 +9,10 @@
     <%= header %>
   </div>
   
-  
   <% if pages.any? || previews.any? %>    
     <%=
-      lb_pane_group("app-main",
-        tag: :main,
+      lb_pane_group("app-body",
+        tag: :div,
         opts: {
           orientation: :vertical,
           sizes: ["280px", "auto"],
@@ -62,9 +61,7 @@
       end
     %>
   <% else %>
-    <div id="app-main">
-      <%= main %>
-    </div>
+    <%= main %>
   <% end %>
 
   <% if status_bar? %>

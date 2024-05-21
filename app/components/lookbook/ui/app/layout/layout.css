@@ -7,7 +7,7 @@
     grid-template-rows: min-content 1fr min-content;
   }
 
-  #app-body {
-    height: 100%;
+  main {
+    display: contents;
   }
 }

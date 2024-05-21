@@ -1,22 +1,30 @@
 <% content_for :body do %>
-   <%=
-    render Lookbook::UI::Router.new(events_endpoint: @events_endpoint.to_json) do
-      render Lookbook::UI::Layout.new(id: "app", x: {cloak: true}) do |layout|
-        layout.with_header
+  <% if request_frame == "root" %>
+    <%=
+      render Lookbook::UI::Router.new(events_endpoint: @events_endpoint.to_json) do
+        render Lookbook::UI::Layout.new(id: "app", x: {cloak: true}) do |layout|
+          layout.with_header
 
-        layout.with_previews_nav(@previews.tree)
-        layout.with_pages_nav(@pages.tree)
+          layout.with_previews_nav(@previews.tree)
+          layout.with_pages_nav(@pages.tree)
 
-        layout.with_main do
-          content_for?(:main) ? yield(:main) : yield
-        end
+          layout.with_main do
+            tag.main { yield }
+          end
 
-        if @config.ui_status_bar
-          layout.with_status_bar(notifications: @notifications)
+          if @config.ui_status_bar
+            layout.with_status_bar(notifications: @notifications)
+          end
         end
       end
-    end
-  %>
+    %>
+  <% elsif request_frame == "main" %>
+    <%= tag.main { yield } %>
+  <% end %>
 <% end %>
 
-<%= render template: "layouts/lookbook/skeleton" %>
+<% if frame_request? %>
+  <%= yield :body %>
+<% else %>
+  <%= render template: "layouts/lookbook/skeleton" %>
+<% end %>

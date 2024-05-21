@@ -81,5 +81,15 @@ module Lookbook
     def checksum(input)
       Lookbook::Utils.hash(input)
     end
+
+    # Requests
+
+    def request_frame
+      request.headers["X-Lookbook-Frame"] || "root"
+    end
+
+    def frame_request?
+      request.headers["X-Lookbook-Frame"].present?
+    end
   end
 end

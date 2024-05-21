@@ -1180,8 +1180,8 @@ select {
 [data-component="layout"][data-status-bar="true"] {
     grid-template-rows: min-content 1fr min-content;
   }
-[data-component="layout"] #app-body {
-    height: 100%;
+[data-component="layout"] main {
+    display: contents;
   }
 [data-component="router"] {
   display: contents;

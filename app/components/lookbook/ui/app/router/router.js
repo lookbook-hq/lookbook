@@ -7,7 +7,6 @@ export default AlpineComponent("router", (sseEndpoint = null) => {
   return {
     serverEventsListener: null,
     routerLogger: null,
-    rootSelector: "router",
 
     init() {
       this.routerLogger = new Logger("Router");
@@ -27,14 +26,18 @@ export default AlpineComponent("router", (sseEndpoint = null) => {
 
     async updatePage() {
       this.$dispatch("page-update:start");
-      await this.updateDOM(location);
+      await this.updateDOM(location, "router", {
+        headers: { "X-Lookbook-Frame": "root" },
+      });
       this.routerLogger.info(`Page updated`);
       this.$dispatch("page-update:complete");
     },
 
     async loadPage(url, updateHistory = true) {
       this.$dispatch("page-load:start");
-      const result = await this.updateDOM(url);
+      const result = await this.updateDOM(url, "main", {
+        headers: { "X-Lookbook-Frame": "main" },
+      });
       if (updateHistory) {
         history.pushState({}, "", result.url);
       }
@@ -42,11 +45,12 @@ export default AlpineComponent("router", (sseEndpoint = null) => {
       this.$dispatch("page-load:complete");
     },
 
-    async updateDOM(url) {
-      const result = await fetchHTML(url, this.rootSelector);
+    async updateDOM(url, selector, options = {}) {
+      console.log(selector);
+      const result = await fetchHTML(url, selector, options);
       if (result.status < 500) {
         document.dispatchEvent(new CustomEvent("morph:start"));
-        Alpine.morph(this.$root, result.fragment);
+        Alpine.morph(document.querySelector(selector), result.fragment);
         document.dispatchEvent(new CustomEvent("morph:complete"));
       } else {
         location.href = url;

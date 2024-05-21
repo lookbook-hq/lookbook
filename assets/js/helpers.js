@@ -10,8 +10,8 @@ function observeSize(element, callback = () => {}) {
   return observer;
 }
 
-async function fetchHTML(url, selector) {
-  const response = await fetch(url || location);
+async function fetchHTML(url, selector, options = {}) {
+  const response = await fetch(url || location, options);
   const { status, ok } = response;
   let fragment,
     title = null;
