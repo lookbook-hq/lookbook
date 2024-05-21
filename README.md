@@ -212,6 +212,8 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [ ] Mobile/small screen layout optimisations
 * [ ] Side-dockable preview inspector drawer
 * [ ] Search fields 'clear' buttons
+* [ ] Don't fetch/render entire DOM on navigation (no need to re-render sidebar etc)
+* [ ] Use custom icon sprite instead of inlined icons
 
 #### Code samples
 
