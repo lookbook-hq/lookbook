@@ -14,21 +14,5 @@ module Lookbook
     def size_rems
       "#{@size * 0.25}rem"
     end
-
-    def svg
-      ICON_CACHE[@icon_name] ||= read_svg
-    end
-
-    def read_svg
-      File.read(svg_path).html_safe
-    rescue
-      if Rails.env.development? || Rails.env.test?
-        raise "`#{@icon_name}` is not a valid icon name"
-      end
-    end
-
-    def svg_path
-      Lookbook::Engine.root.join("assets/icons/#{@icon_name}.svg")
-    end
   end
 end
