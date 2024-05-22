@@ -208,11 +208,11 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] Notifications for parser errors
 * [x] SSE-based live UI updating 🧪 
 * [x] Expand nav to current item when opening app
+* [x] Don't fetch/render entire DOM on navigation (no need to re-render sidebar etc)
 * [ ] Improve accessibilty (exact requirements tbd)
 * [ ] Mobile/small screen layout optimisations
 * [ ] Side-dockable preview inspector drawer
 * [ ] Search fields 'clear' buttons
-* [ ] Don't fetch/render entire DOM on navigation (no need to re-render sidebar etc)
 * [ ] Use custom icon sprite instead of inlined icons
 
 #### Code samples
@@ -289,8 +289,8 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] Custom preview layouts support
 * [x] Preview parser error reporting
 * [x] Render previews in parent app context to fix path helper issues
+* [x] JSON endpoint
 * [ ] Option to specify order of preview directories in nav (i.e. non-alphabetical)
-* [ ] JSON endpoint(s)
 * [ ] Output transformation
 * [ ] ActionView annotation stripping
 
@@ -305,9 +305,9 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 
 * [x] Basic markdown + ERB pages system
 * [x] YAML Frontmatter config
+* [x] Landing page
 * [ ] Tabbed pages
 * [ ] Page layout and styling options 🚧
-* [ ] Landing page
 
 ### Extending
 
