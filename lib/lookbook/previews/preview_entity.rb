@@ -37,12 +37,10 @@ module Lookbook
 
     def url_param
       case Lookbook.config.preview_url_param.to_sym
-      when :name
-        name
       when :uuid
-        uuid
+        Utils.hash(id)
       when :named_uuid
-        "#{name}_#{uuid}"
+        "#{name}_#{Utils.hash(id)}"
       else
         name
       end

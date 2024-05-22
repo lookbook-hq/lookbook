@@ -21,7 +21,7 @@ module Lookbook
 
     def uuid
       @uuid ||= begin
-        stable_id = scenarios.one? ? scenarios.first.uuid.delete_prefix("scenario_") : id
+        stable_id = scenarios.one? ? scenarios.first.uuid.delete_prefix("scenario_") : Utils.hash(id)
         "#{type}_#{stable_id}"
       end
     end
