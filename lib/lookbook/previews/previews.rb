@@ -121,7 +121,7 @@ module Lookbook
         # Remove deleted or updated previews from the store
         tainted_paths = [changes.removed, changes.modified].flatten
         tainted_entities = tainted_paths.map do |path|
-          store.find { _1.preview_file_path.to_s == path }
+          store.find { _1.file_path.to_s == path }
         end
         store.remove(*tainted_entities.compact)
 

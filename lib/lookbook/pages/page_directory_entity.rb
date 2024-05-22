@@ -35,13 +35,9 @@ module Lookbook
       Pages.directories.find { _1.lookup_path == parent_lookup_path }
     end
 
-    def dir_name
-      File.basename(path)
-    end
-
     def priority
       @priority = begin
-        pos = PriorityPrefixParser.call(dir_name).first || @default_priority
+        pos = PriorityPrefixParser.call(File.basename(path)).first || @default_priority
         pos.to_i
       end
     end

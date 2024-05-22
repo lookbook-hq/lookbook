@@ -34,7 +34,7 @@
         <strong>Preview file path</strong>
       <% end %>
       <% row.with_cell do %>
-        <code><%= preview.preview_app_file_path %></code>
+        <code><%= path_relative_to_app(preview.file_path) %></code>
       <% end %>
     <% end %>
   <% end %>

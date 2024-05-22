@@ -53,10 +53,6 @@ module Lookbook
       file_path.relative_path_from(base_directory)
     end
 
-    def app_file_path
-      file_path.relative_path_from(Rails.application.root)
-    end
-
     def parent
       Pages.directories.find { _1.lookup_path == parent_lookup_path }
     end

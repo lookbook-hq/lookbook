@@ -10,13 +10,13 @@ module Lookbook
     end
 
     def preview
-      readme_file_path = @preview.readme_file_path
-      readme_content = File.read(readme_file_path) unless readme_file_path.nil?
+      readme_path = @preview.readme_path
+      readme_content = File.read(readme_path) unless readme_path.nil?
 
       @page = VirtualPageEntity.new(
         @preview.lookup_path,
         readme_content,
-        file_path: readme_file_path,
+        file_path: readme_path,
         url_path: @preview.url_path,
         options: {
           label: @preview.label,
@@ -25,7 +25,7 @@ module Lookbook
         }
       )
 
-      template = Lookbook.config.preview_overview_template if readme_file_path.nil?
+      template = Lookbook.config.preview_overview_template if readme_path.nil?
       locals = {
         preview: @preview,
         targets: @preview.inspector_targets

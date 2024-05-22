@@ -1,7 +1,7 @@
 require "test_helper"
 
 class PreviewsControllerTest < ActionDispatch::IntegrationTest
-  include Lookbook::PathHelper
+  include Lookbook::UrlHelper
 
   describe "#inspect" do
     before do

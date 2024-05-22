@@ -2,15 +2,15 @@ module Lookbook
   class PreviewEntity < Entity
     include EntityTreeNode
 
-    attr_reader :preview_class, :preview_file_path, :preview_class_name, :preview_methods, :metadata
+    attr_reader :preview_class, :preview_class_name, :preview_methods, :file_path, :metadata
 
     delegate :notes, :notes?, to: :metadata
 
     def initialize(code_object, preview_class)
       @preview_class = preview_class
-      @preview_file_path = Pathname(code_object.file)
       @preview_class_name = code_object.path
       @preview_methods = code_object.meths
+      @file_path = Pathname(code_object.file)
       @metadata = PreviewMetadata.new(code_object)
     end
 
@@ -54,6 +54,16 @@ module Lookbook
 
     def url_path
       preview_page_path(self)
+    end
+
+    def relative_file_path
+      Pathname.new(file_path).relative_path_from(Pathname.new(base_directory))
+    end
+
+    def readme_path
+      if default_readme_path.present? && File.exist?(default_readme_path)
+        default_readme_path
+      end
     end
 
     def display_options
@@ -122,20 +132,6 @@ module Lookbook
       preview_class.ancestors.include?(::ActionMailer::Preview)
     end
 
-    def preview_relative_file_path
-      Pathname.new(preview_file_path).relative_path_from(Pathname.new(base_directory))
-    end
-
-    def preview_app_file_path
-      Pathname.new(preview_file_path).relative_path_from(Rails.application.root)
-    end
-
-    def readme_file_path
-      if default_readme_file_path.present? && File.exist?(default_readme_file_path)
-        default_readme_file_path
-      end
-    end
-
     def parent
       Previews.directories.find { _1.lookup_path == parent_lookup_path }
     end
@@ -146,21 +142,17 @@ module Lookbook
 
     private
 
-    def default_readme_file_path
-      preview_base_path = preview_file_path.to_s.delete_suffix("_preview.rb")
+    def default_readme_path
+      preview_base_path = file_path.to_s.delete_suffix("_preview.rb")
       page_extensions_glob = "{#{Lookbook.config.page_extensions.join(",")}}"
-      readme_file_path = Dir["#{preview_base_path}*.#{page_extensions_glob}"].first
-      Pathname(readme_file_path) if readme_file_path
-    end
-
-    def base_directories
-      Previews.preview_paths
+      readme_path = Dir["#{preview_base_path}*.#{page_extensions_glob}"].first
+      Pathname(readme_path) if readme_path
     end
 
     def base_directory
       @base_directory ||= begin
-        directories = Array(base_directories).map(&:to_s).sort_by { |path| path.split("/").size }.reverse
-        directories.find { |dir| preview_file_path.to_s.start_with?(dir) }
+        directories = Previews.preview_paths.map(&:to_s).sort_by { |path| path.split("/").size }.reverse
+        directories.find { |dir| file_path.to_s.start_with?(dir) }
       end
     end
   end

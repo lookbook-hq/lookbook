@@ -1,5 +1,5 @@
 module Lookbook
-  module PathHelper
+  module UrlHelper
     def page_path(identifier, **kwargs)
       page = Lookbook::Pages.resolve_page(identifier)
       raise ArgumentError, "Could not resolve page identifier" unless page

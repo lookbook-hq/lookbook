@@ -58,16 +58,6 @@ module Lookbook
       render Lookbook::UI::Viewport.new(src: src, **kwargs)
     end
 
-    # Paths
-
-    def lookbook_page_path(page, **kwargs)
-      lookbook.page_path(page, **kwargs)
-    end
-
-    def lookbook_preview_path(preview, target = nil, **kwargs)
-      target.nil? ? lookbook.preview_page_path(preview, **kwargs) : lookbook.inspect_target_path(preview, target, **kwargs)
-    end
-
     # Utilities
 
     def markdown(...)
@@ -80,6 +70,12 @@ module Lookbook
 
     def checksum(input)
       Lookbook::Utils.hash(input)
+    end
+
+    # File paths
+
+    def path_relative_to_app(path)
+      Pathname.new(path).relative_path_from(Rails.application.root)
     end
 
     # Requests

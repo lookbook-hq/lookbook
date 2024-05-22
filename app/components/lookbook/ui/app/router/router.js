@@ -46,7 +46,6 @@ export default AlpineComponent("router", (sseEndpoint = null) => {
     },
 
     async updateDOM(url, selector, options = {}) {
-      console.log(selector);
       const result = await fetchHTML(url, selector, options);
       if (result.status < 500) {
         document.dispatchEvent(new CustomEvent("morph:start"));

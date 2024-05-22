@@ -6,6 +6,6 @@ module Lookbook
       define_method name, AppHelper.instance_method(name)
     end
 
-    include Lookbook::PathHelper
+    include Lookbook::UrlHelper
   end
 end
