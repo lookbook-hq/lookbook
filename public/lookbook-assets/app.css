@@ -2482,6 +2482,9 @@ tr:not(:last-child) {
     padding-bottom: 2.5rem;
     padding-bottom: var(--lb-spacing-3xl);
   }
+[data-component="page"] .page-body > [data-component="prose"] > *:not([data-component]):not(lookbook-embed), [data-component="page"] .page-body [data-component="code"] {
+      max-width: 56rem;
+    }
 [data-component="page"] .page-footer {
     border-top: 1px solid #d1d5db;
     border-top: 1px solid var(--lb-page-divider-color);

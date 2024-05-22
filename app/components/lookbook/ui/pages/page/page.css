@@ -40,6 +40,11 @@
   .page-body {
     padding-top: var(--lb-spacing-2xl);
     padding-bottom: var(--lb-spacing-3xl);
+
+    > [data-component="prose"] > *:not([data-component], lookbook-embed),
+    [data-component="code"] {
+      max-width: 56rem;
+    }
   }
 
   .page-footer {
