@@ -29,18 +29,21 @@ module Lookbook
       opts[:locals] = locals if locals.present?
       opts[:layout] = nil
 
-      html = render_to_string(template, **opts)
-
-      render html: html
+      with_action_view_settings do
+        html = render_to_string(template, **opts)
+        render html: html
+      end
     end
 
     def lookbook_render_template(template, assigns, opts = {})
       prepend_application_view_paths
       prepend_preview_scenarios_view_path
 
-      html = render_to_string(template, assigns: assigns, **determine_layout(opts[:layout]))
-      html += opts[:append_html]
-      render html: html
+      with_action_view_settings do
+        html = render_to_string(template, assigns: assigns, **determine_layout(opts[:layout]))
+        html += opts[:append_html]
+        render html: html
+      end
     end
 
     private
@@ -75,6 +78,13 @@ module Lookbook
 
     def prepend_preview_scenarios_view_path
       prepend_view_path(Previews.preview_paths)
+    end
+
+    def with_action_view_settings(&block)
+      ActionViewConfigHandler.call(
+        disable_annotations: Lookbook.config.preview_disable_action_view_annotations,
+        &block
+      )
     end
   end
 end

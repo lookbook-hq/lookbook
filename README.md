@@ -290,9 +290,9 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] Preview parser error reporting
 * [x] Render previews in parent app context to fix path helper issues
 * [x] JSON endpoint
+* [x] ActionView annotation stripping
 * [ ] Option to specify order of preview directories in nav (i.e. non-alphabetical)
 * [ ] Output transformation
-* [ ] ActionView annotation stripping
 
 ### Preview Embeds
 

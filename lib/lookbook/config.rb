@@ -26,6 +26,7 @@ module Lookbook
           preview_watch_paths: [],
           preview_watch_extensions: ["rb", "html.*"],
           preview_display_options: {},
+          preview_disable_action_view_annotations: true,
 
           preview_tags: default_preview_tags,
 
