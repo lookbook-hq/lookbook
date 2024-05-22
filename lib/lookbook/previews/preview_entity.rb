@@ -66,6 +66,21 @@ module Lookbook
       end
     end
 
+    def readme_page
+      unless readme_path.nil?
+        PreviewPageEntity.new(
+          readme_path,
+          File.read(readme_path),
+          url_path: url_path,
+          lookup_path: lookup_path,
+          options: {
+            label: label,
+            title: title
+          }
+        )
+      end
+    end
+
     def display_options
       DataObject.new(Inspector.display_options_defaults, metadata.display_options)
     end

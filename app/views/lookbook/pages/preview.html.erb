@@ -4,8 +4,12 @@
       toolbar.with_breadcrumb(@config.previews_nav_label, @preview.ancestors, @preview)      
     end
     
-    lb_page(@page) do |page|
-      @page_content
+    if @page
+      lb_page(@page, footer: false) { @page_content }
+    else
+      lb_page(title: @preview.title, footer: false) do
+        @page_content
+      end
     end
   end
 %>

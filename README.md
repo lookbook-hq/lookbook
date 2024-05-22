@@ -289,6 +289,7 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] Custom preview layouts support
 * [x] Preview parser error reporting
 * [x] Render previews in parent app context to fix path helper issues
+* [ ] Option to specify order of preview directories in nav (i.e. non-alphabetical)
 * [ ] JSON endpoint(s)
 * [ ] Output transformation
 * [ ] ActionView annotation stripping

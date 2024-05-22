@@ -4,7 +4,7 @@ module Lookbook
 
     layout false
 
-    def render_page(page, locals = {}, template = nil)
+    def render_page(page, locals = {})
       locals = {
         config: Lookbook.config,
         previews: Previews,
@@ -15,11 +15,7 @@ module Lookbook
         **locals
       }
 
-      if template
-        render template, locals: locals
-      else
-        render inline: page.content, locals: locals
-      end
+      render inline: page.content, locals: locals
     end
   end
 end

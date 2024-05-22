@@ -8,6 +8,10 @@ module Lookbook
         renderer(kwargs).render(WhitespaceStripper.call(content)).html_safe
       end
 
+      def markdown_file?(path)
+        !!path.to_s.match?(/(.+[^\.])\.(md|md\..+)/)
+      end
+
       private
 
       def renderer(opts = {})

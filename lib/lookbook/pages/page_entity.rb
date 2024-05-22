@@ -2,15 +2,17 @@ module Lookbook
   class PageEntity < Entity
     include EntityTreeNode
 
-    delegate :data, :landing?, :header?, :footer?, :markdown?, :content, to: :metadata
+    delegate :data, :landing?, :header?, :footer?, :content, to: :metadata
 
-    attr_reader :metadata
+    attr_reader :metadata, :file_path
 
-    def initialize(file_path = nil, file_contents = nil, options: {}, default_priority: nil)
-      @file_path = file_path
-      @base_directories = Pages.page_paths
+    def initialize(file_path, file_contents = nil, url_path: nil, lookup_path: nil, default_priority: nil, options: {})
+      @file_path = Pathname(file_path)
+      @url_path = url_path
+      @lookup_path = lookup_path
       @default_priority = default_priority
       @metadata = PageMetadata.new(file_contents, options)
+      @base_directories = Pages.page_paths
     end
 
     def id
@@ -33,6 +35,10 @@ module Lookbook
       metadata.fetch(:hidden, super)
     end
 
+    def markdown?
+      metadata.fetch(:markdown, Markdown.markdown_file?(file_path))
+    end
+
     def url_param
       lookup_path
     end
@@ -43,10 +49,6 @@ module Lookbook
 
     def lookup_path
       @lookup_path ||= PathPriorityPrefixesStripper.call(relative_file_path)
-    end
-
-    def file_path
-      Pathname(@file_path)
     end
 
     def relative_file_path
