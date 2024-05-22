@@ -2,7 +2,7 @@ require "redcarpet"
 
 module Lookbook
   class MarkdownRenderer < Redcarpet::Render::HTML
-    HTML_ELEMENT_MATCHER = /^<.*>.*<\/.*>/m
+    HTML_ELEMENT_MATCHER = /^(<([a-z\-]+)(?:\s[^>]*)?>((?:(?!<\/([a-z\-]+)>).)*)<\/([a-z\-]+)>)$/m
 
     def block_code(source, lang = "ruby")
       line_numbers = lang.to_s.end_with? "-numbered"
