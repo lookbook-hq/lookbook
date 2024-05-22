@@ -21,10 +21,7 @@ module Lookbook
     end
 
     def uuid
-      @uuid ||= begin
-        stable_id = metadata.has_tag?(:id) ? id : Utils.id(preview.id, method_name)
-        "#{type}_#{Utils.hash(stable_id)}"
-      end
+      @uuid ||= Utils.hash("#{type}#{Utils.id(preview.id, id)}")
     end
 
     def name

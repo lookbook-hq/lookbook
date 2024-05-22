@@ -1,18 +1,18 @@
 module Lookbook
   class PermalinkController < ApplicationController
     def show
-      type = params[:uuid].split("_")&.first
-      if type.present?
-        redirect_url = case type.to_sym
-        when :page
-          page = Pages.find { _1.uuid == params[:uuid] }
-          page_path(page, request.query_parameters) if page
+      entity = Previews.find { _1.uuid == params[:uuid] } ||
+        Previews.inspector_targets.find { _1.uuid == params[:uuid] } ||
+        Pages.find { _1.uuid == params[:uuid] }
+
+      if entity
+        redirect_url = case entity.type
         when :preview
-          preview = Previews.find { _1.uuid == params[:uuid] }
-          preview_page_path(preview, request.query_parameters) if preview
+          preview_page_path(entity, request.query_parameters)
         when :target
-          target = Previews.inspector_targets.find { _1.uuid == params[:uuid] }
-          inspect_target_path(target.preview, target, request.query_parameters) if target
+          inspect_target_path(entity.preview, entity, request.query_parameters)
+        when :page
+          page_path(entity, request.query_parameters)
         end
 
         redirect_to redirect_url and return if redirect_url

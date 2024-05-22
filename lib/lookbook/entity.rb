@@ -7,7 +7,7 @@ module Lookbook
     end
 
     def uuid
-      @uuid ||= "#{type}_#{Utils.hash(id)}"
+      @uuid ||= Utils.hash("#{type}#{id}")
     end
 
     def name = nil
