@@ -248,7 +248,7 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] `@!group ... @!endgroup`
 * [x] `@id` 🆕
 * [x] `@priority` 🆕
-* [ ] `@logical_path`
+* [x] `@location/@logical_path`
 * [ ] `@component/@renders`
 * [ ] `@source`
 * [ ] `@after_render`

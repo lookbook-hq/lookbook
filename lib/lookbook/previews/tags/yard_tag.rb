@@ -13,6 +13,10 @@ module Lookbook
       end
 
       def label = name.titleize
+
+      def aliases
+        defined?(self::TAG_ALIASES) ? self::TAG_ALIASES : []
+      end
     end
   end
 end

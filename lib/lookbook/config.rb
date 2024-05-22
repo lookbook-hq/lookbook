@@ -128,10 +128,11 @@ module Lookbook
         [
           Lookbook::DisplayTag,
           Lookbook::HiddenTag,
+          Lookbook::IdTag,
           Lookbook::LabelTag,
+          Lookbook::LocationTag,
           Lookbook::ParamTag,
-          Lookbook::PriorityTag,
-          Lookbook::IdTag
+          Lookbook::PriorityTag
         ]
       end
 

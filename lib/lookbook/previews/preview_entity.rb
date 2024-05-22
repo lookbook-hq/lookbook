@@ -47,7 +47,13 @@ module Lookbook
     end
 
     def lookup_path
-      preview_class_name.underscore.downcase.gsub("_component", "").gsub("_preview", "")
+      default_lookup_path = preview_class_name.underscore.downcase.gsub("_component", "").gsub("_preview", "")
+      directory_override = metadata.fetch(:location, metadata.fetch(:logical_path, nil))
+      if directory_override.nil?
+        default_lookup_path
+      else
+        Utils.strip_slashes("#{directory_override}/#{default_lookup_path.split("/").last}")
+      end
     end
 
     def url_path

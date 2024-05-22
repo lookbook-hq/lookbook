@@ -7,6 +7,9 @@ module Lookbook
         tag_class = tag_class.constantize if tag_class.is_a?(String)
 
         YARD::Tags::Library.define_tag(tag_class.label, tag_class.name, tag_class)
+        tag_class.aliases.each do |name|
+          YARD::Tags::Library.define_tag(tag_class.label, name, tag_class)
+        end
       end
     end
 
