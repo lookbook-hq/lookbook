@@ -27,6 +27,8 @@
   }
 
   .page-header {
+    display: flex;
+    align-items: center;
     border-bottom: 1px solid var(--lb-page-divider-color);
     padding-block: var(--lb-spacing-xl);
   }
@@ -35,6 +37,10 @@
     color: var(--lb-page-title-color);
     font-weight: var(--lb-font-weight-bold);
     font-size: var(--lb-font-size-2xl);
+  }
+
+  .page-status {
+    margin-left: auto;
   }
 
   .page-body {

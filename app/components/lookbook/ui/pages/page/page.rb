@@ -1,14 +1,21 @@
 module Lookbook
   module UI
     class Page < BaseComponent
-      def initialize(page: nil, title: nil, header: nil, footer: nil, **kwargs)
+      def initialize(page: nil, options: {}, **kwargs)
         @page = page
-        @title = title
-        @footer = footer
+        @options = options
+      end
+
+      def option(name, fallback = nil)
+        @options.fetch(name, fallback)
       end
 
       def title
-        @title || @page&.title
+        option(:title, @page&.title)
+      end
+
+      def status
+        option(:status)
       end
 
       def previous_page
@@ -20,19 +27,15 @@ module Lookbook
       end
 
       def header?
-        return @header unless @header.nil?
-
-        @page ? @page.header? : true
+        option(:header, @page ? @page.header? : true)
       end
 
       def footer?
-        return @footer unless @footer.nil?
-
-        @page ? @page.footer? : true
+        option(:footer, @page ? @page.footer? : true)
       end
 
       def markdown?
-        @page&.markdown?
+        option(:markdown, @page&.markdown?)
       end
     end
   end

@@ -31,6 +31,10 @@ module Lookbook
       metadata.fetch(:hidden, super)
     end
 
+    def status
+      metadata.status(default: Lookbook.config.preview_default_status)
+    end
+
     def priority
       metadata.fetch(:priority, super)
     end

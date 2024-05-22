@@ -107,6 +107,12 @@ module Lookbook
         end
       end
 
+      def statuses
+        @statuses ||= Lookbook.config.preview_statuses.map do |name, props|
+          Status.new(name, **props)
+        end
+      end
+
       private
 
       def clear_cache

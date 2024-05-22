@@ -5,11 +5,9 @@
     end
     
     if @page
-      lb_page(@page, footer: false) { @page_content }
+      lb_page(@page, {footer: false, status: @preview.status}) { @page_content }
     else
-      lb_page(title: @preview.title, footer: false) do
-        @page_content
-      end
+      lb_page(nil, {title: @preview.title, footer: false, markdown: false, status: @preview.status}) { @page_content }
     end
   end
 %>

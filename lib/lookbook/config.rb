@@ -30,6 +30,9 @@ module Lookbook
 
           preview_tags: default_preview_tags,
 
+          preview_statuses: default_preview_statuses,
+          preview_default_status: nil,
+
           preview_embed_panels: [:usage, :output, :notes, :params],
 
           previews_nav_label: "Previews",
@@ -133,8 +136,29 @@ module Lookbook
           Lookbook::LabelTag,
           Lookbook::LocationTag,
           Lookbook::ParamTag,
-          Lookbook::PriorityTag
+          Lookbook::PriorityTag,
+          Lookbook::StatusTag
         ]
+      end
+
+      def default_preview_statuses
+        {
+          ready: {
+            label: "Ready",
+            color: :green,
+            description: "Ready for use."
+          },
+          wip: {
+            label: "In Progress",
+            color: :amber,
+            description: "Work in progress. Reference with caution."
+          },
+          deprecated: {
+            label: "Deprecated",
+            color: :red,
+            description: "Deprecated, or to be deprecated."
+          }
+        }
       end
 
       def default_markdown_options

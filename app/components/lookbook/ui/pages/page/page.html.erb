@@ -5,6 +5,11 @@
         <div class="page-header-wrapper page-slat">
           <header class="page-header page-container">
             <h1 class="page-title"><%= title %></h1>
+            <div class="page-status">
+              <% if status %>
+                <%= lb_badge(color: status.color, label: status.label) %>  
+              <% end %>  
+            </div>
           </header>
         </div>
       <% end %>

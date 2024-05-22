@@ -1,5 +1,6 @@
 module Elements
   # An accordion component implemented using a Rails template partial.
+  # @status wip
   class AccordionComponentPreview < Lookbook::Preview
     def default
       render "components/accordion", items: [

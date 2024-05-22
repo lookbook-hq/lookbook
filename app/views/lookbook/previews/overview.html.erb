@@ -4,7 +4,6 @@
 <%= lb_table do |table| %>
   <% table.with_header do |header| %>
     <% header.with_cell("Name") %>
-    <% header.with_cell("Params?", centered: true) %>
     <% header.with_cell(centered: true, collapse: true) %>
   <% end %>
 
@@ -13,15 +12,7 @@
       <% row.with_cell do %>
         <strong><%= target.label %></strong>
       <% end %>
-      
-      <% row.with_cell(centered: true) do %>
-        <% if target.params? %>
-          <em>Yes</em>
-        <% else %>
-          <em>No</em>
-        <% end %>
-      <% end %>
-      
+    
       <% row.with_cell do %>
         <%=
           lb_button_group do |group|
