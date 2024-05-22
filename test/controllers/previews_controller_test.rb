@@ -2,6 +2,30 @@ require "test_helper"
 
 class PreviewsControllerTest < ActionDispatch::IntegrationTest
   include Lookbook::UrlHelper
+  describe "#index" do
+    it "redirects HTML requests to the root path" do
+      get lookbook.previews_path
+      assert_redirected_to lookbook.root_path
+    end
+
+    it "returns previews JSON for JSON requests" do
+      get lookbook.previews_path, as: :json
+
+      assert_response :success
+
+      previews = JSON.parse(response.body)
+      assert_kind_of(Array, previews)
+
+      preview = previews.first.symbolize_keys!
+      assert_kind_of(Hash, preview)
+
+      assert_kind_of(String, preview[:id])
+      assert_kind_of(String, preview[:uuid])
+      assert_kind_of(String, preview[:name])
+      assert_kind_of(String, preview[:label])
+      assert_kind_of(Array, preview[:scenarios])
+    end
+  end
 
   describe "#inspect" do
     before do

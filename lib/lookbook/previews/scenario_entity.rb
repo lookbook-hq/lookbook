@@ -148,6 +148,18 @@ module Lookbook
 
     def preview = preview_entity
 
+    def to_h
+      {
+        id: id,
+        uuid: uuid,
+        name: name,
+        label: label,
+        lookup_path: lookup_path,
+        url_path: url_path,
+        preview_path: preview_path
+      }
+    end
+
     protected
 
     attr_reader :preview_entity

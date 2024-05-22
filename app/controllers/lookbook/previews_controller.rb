@@ -7,6 +7,16 @@ module Lookbook
     before_action :assign_display_options, only: %i[inspect embed preview]
     before_action :prerender_target, only: %i[inspect embed preview]
     after_action :persist_display_options, only: %i[inspect embed preview]
+    skip_before_action :assign_preview, only: [:index]
+
+    def index
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.json do
+          render json: Previews.map(&:to_h)
+        end
+      end
+    end
 
     def inspect
       @preview_panels = Inspector.preview_panels(**panel_context)

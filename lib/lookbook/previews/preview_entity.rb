@@ -153,6 +153,19 @@ module Lookbook
       @children ||= inspector_targets.sort
     end
 
+    def to_h
+      {
+        id: id,
+        uuid: uuid,
+        name: name,
+        label: label,
+        lookup_path: lookup_path,
+        url_path: url_path,
+        file_path: file_path,
+        scenarios: scenarios.map(&:to_h)
+      }
+    end
+
     private
 
     def default_readme_path
