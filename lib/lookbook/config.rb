@@ -6,15 +6,7 @@ module Lookbook
       def defaults
         DataObject.new({
           project_name: "Lookbook",
-          project_links: [
-            # {
-            #   label: "Example",
-            #   url: "https://example.com",
-            #   icon: :smile,
-            #   attrs: {target: "_blank"},
-            #   show: dev?
-            # }
-          ],
+          project_links: [],
 
           component_paths: ["app/views", "app/components"],
 

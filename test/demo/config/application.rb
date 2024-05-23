@@ -11,12 +11,13 @@ Combustion.initialize! :action_controller, :action_view, :action_mailer, :sprock
   # Project config
 
   config.lookbook.project_name = "Lookbook v3 demo"
-  config.lookbook.project_links = [{
-    label: "Github",
-    url: "https://github.com/lookbook-hq/lookbook/tree/v3",
-    icon: :github,
-    attrs: {target: "_blank"}
-  }]
+  config.lookbook.project_links = [
+    {
+      label: "Lookbook v3 info",
+      url: "https://github.com/lookbook-hq/lookbook/tree/v3#readme",
+      attrs: {target: "_blank"}
+    }
+  ]
 
   # Previews config
 

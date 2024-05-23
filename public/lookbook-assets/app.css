@@ -1137,8 +1137,8 @@ select {
 [data-component="header"] .header-project-links + .header-color-scheme-switcher {
       border-left: 1px solid #4338ca;
       border-left: 1px solid var(--lb-color-content-1-accent);
-      margin-left: 0.75rem;
-      margin-left: var(--lb-spacing-sm);
+      margin-left: 1.5rem;
+      margin-left: var(--lb-spacing-xl);
     }
 [data-component="header"] .header-project-link {
     display: flex;
@@ -1161,10 +1161,6 @@ select {
     opacity: 0.8;
     transition: opacity 300ms;
   }
-[data-component="header"] .header-project-link .icon {
-      width: 15px;
-      /* opacity: 0.7; */
-    }
 [data-component="header"] .header-project-link:hover {
       opacity: 1;
     }
