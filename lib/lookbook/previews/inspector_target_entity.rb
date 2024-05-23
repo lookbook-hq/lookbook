@@ -114,6 +114,19 @@ module Lookbook
 
     def preview = preview_entity
 
+    def to_h
+      {
+        entity: "inspector_target",
+        id: id,
+        uuid: uuid,
+        name: name,
+        label: label,
+        lookup_path: lookup_path,
+        url_path: url_path,
+        scenarios: scenarios.map(&:to_h)
+      }
+    end
+
     protected
 
     attr_reader :preview_entity

@@ -8,6 +8,7 @@ Lookbook::Engine.routes.draw do
   get "/previews/:preview/:target/preview", to: "previews#preview", as: :preview_target
   get "/previews/:preview/:target/embed", to: "previews#embed", as: :preview_embed
 
+  get "/#{Lookbook.config.page_route}", to: "pages#index", as: :pages
   get "/#{Lookbook.config.page_route}/*path", to: "pages#page", as: :page
 
   get "/embed", to: "embeds#show", as: :embed

@@ -147,6 +147,7 @@ module Lookbook
 
     def to_h
       {
+        entity: "scenario",
         id: id,
         uuid: uuid,
         name: name,

@@ -42,5 +42,9 @@ module Lookbook
     def all = @entities
 
     alias_method :to_a, :all
+
+    def to_data
+      @entities.map(&:to_h)
+    end
   end
 end

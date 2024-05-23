@@ -74,6 +74,20 @@ module Lookbook
       end
     end
 
+    def to_h
+      {
+        entity: "page",
+        id: id,
+        uuid: uuid,
+        name: name,
+        label: label,
+        title: title,
+        lookup_path: lookup_path,
+        url_path: url_path,
+        file_path: file_path
+      }
+    end
+
     protected
 
     def file_name(strip_ext = false)

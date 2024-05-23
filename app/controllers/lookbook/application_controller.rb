@@ -23,5 +23,7 @@ module Lookbook
       @notifications = Engine.notifications
       @events_endpoint = events_path if Engine.watch_files?
     end
+
+    def json_request? = request.format.json?
   end
 end

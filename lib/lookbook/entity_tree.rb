@@ -34,6 +34,10 @@ module Lookbook
 
     def root? = true
 
+    def to_data
+      children.map(&:to_h)
+    end
+
     protected
 
     def navigable_nodes

@@ -30,5 +30,15 @@ module Lookbook
       parent_lookup_path = File.dirname(lookup_path).delete_prefix(".")
       Previews.directories.find { _1.lookup_path == parent_lookup_path }
     end
+
+    def to_h
+      {
+        entity: "directory",
+        name: name,
+        label: label,
+        lookup_path: lookup_path,
+        children: children.map(&:to_h)
+      }
+    end
   end
 end

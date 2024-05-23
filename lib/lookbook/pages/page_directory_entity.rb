@@ -41,5 +41,15 @@ module Lookbook
         pos.to_i
       end
     end
+
+    def to_h
+      {
+        entity: "directory",
+        name: name,
+        label: label,
+        lookup_path: lookup_path,
+        children: children.map(&:to_h)
+      }
+    end
   end
 end

@@ -34,6 +34,12 @@ module Lookbook
         end
       end
 
+      def to_data(format: "list")
+        raise ArgumentError, "Invalid format '#{format}'" unless ["list", "tree"].include?(format)
+
+        (format == "tree") ? tree.to_data : store.to_data
+      end
+
       def directories
         @directories ||= begin
           dirnames = store.all.map { _1.relative_file_path.dirname.to_s.delete_prefix(".") }.compact_blank.uniq

@@ -35,6 +35,12 @@ module Lookbook
         end
       end
 
+      def to_data(format: "list")
+        raise ArgumentError, "Invalid format '#{format}'" unless ["list", "tree"].include?(format)
+
+        (format == "tree") ? tree.to_data : store.to_data
+      end
+
       def reloader
         Reloader.new(:previews, watch_paths, watch_extensions) do |changes|
           changes.nil? ? load : update(changes)

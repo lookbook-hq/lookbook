@@ -4,24 +4,32 @@ module Lookbook
 
     before_action :assign_preview
     before_action :assign_target, only: %i[inspect embed preview]
-    before_action :assign_display_options, only: %i[inspect embed preview]
-    before_action :prerender_target, only: %i[inspect embed preview]
-    after_action :persist_display_options, only: %i[inspect embed preview]
+    before_action :assign_display_options, only: %i[inspect embed preview], unless: :json_request?
+    before_action :prerender_target, only: %i[inspect embed preview], unless: :json_request?
+    after_action :persist_display_options, only: %i[inspect embed preview], unless: :json_request?
     skip_before_action :assign_preview, only: [:index]
 
     def index
       respond_to do |format|
         format.html { redirect_to root_path }
         format.json do
-          render json: Previews.map(&:to_h)
+          render json: Previews.to_data(format: (params[:tree] == "true") ? "tree" : "list")
         end
       end
     end
 
     def inspect
-      @preview_panels = Inspector.preview_panels(**panel_context)
-      @drawer_panels = Inspector.drawer_panels(**panel_context)
-      @preview_html = render_target_in_layout(@target)
+      respond_to do |format|
+        format.html do
+          @preview_panels = Inspector.preview_panels(**panel_context)
+          @drawer_panels = Inspector.drawer_panels(**panel_context)
+          @preview_html = render_target_in_layout(@target)
+        end
+
+        format.json do
+          render json: @target.to_h
+        end
+      end
     end
 
     def embed
