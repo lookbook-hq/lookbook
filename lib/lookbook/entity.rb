@@ -53,5 +53,20 @@ module Lookbook
     def model_name
       OpenStruct.new param_key: type
     end
+
+    def to_h
+      {
+        type: type,
+        id: id,
+        uuid: uuid,
+        name: name,
+        label: label,
+        hidden: hidden?
+      }
+    end
+
+    def to_json
+      Utils.deep_camelize_keys(to_h)
+    end
   end
 end

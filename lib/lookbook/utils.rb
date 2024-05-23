@@ -61,6 +61,20 @@ module Lookbook
       def boolean?(value)
         value.in?([true, false])
       end
+
+      def deep_camelize_keys(obj)
+        if obj.is_a?(Hash)
+          obj.map do |key, value|
+            camel_key = key.to_s.camelize(:lower).to_sym
+            camel_value = deep_camelize_keys(value)
+            [camel_key, camel_value]
+          end.to_h
+        elsif obj.is_a?(Array)
+          obj.map { deep_camelize_keys(_1) }
+        else
+          obj
+        end
+      end
     end
   end
 end

@@ -13,7 +13,7 @@ module Lookbook
       respond_to do |format|
         format.html { redirect_to root_path }
         format.json do
-          render json: Previews.to_data(format: (params[:tree] == "true") ? "tree" : "list")
+          render json: Previews.to_json(format: (params[:tree] == "true") ? "tree" : "list")
         end
       end
     end
@@ -27,7 +27,7 @@ module Lookbook
         end
 
         format.json do
-          render json: @target.to_h
+          render json: @target.to_json
         end
       end
     end

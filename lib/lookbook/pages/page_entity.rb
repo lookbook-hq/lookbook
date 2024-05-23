@@ -82,6 +82,7 @@ module Lookbook
         name: name,
         label: label,
         title: title,
+        hidden: hidden?,
         lookup_path: lookup_path,
         url_path: url_path,
         file_path: file_path

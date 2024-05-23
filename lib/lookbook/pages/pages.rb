@@ -40,6 +40,10 @@ module Lookbook
         (format == "tree") ? tree.to_data : store.to_data
       end
 
+      def to_json(...)
+        Utils.deep_camelize_keys(to_data(...))
+      end
+
       def directories
         @directories ||= begin
           dirnames = store.all.map { _1.relative_file_path.dirname.to_s.delete_prefix(".") }.compact_blank.uniq

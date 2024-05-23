@@ -41,6 +41,10 @@ module Lookbook
         (format == "tree") ? tree.to_data : store.to_data
       end
 
+      def to_json(...)
+        Utils.deep_camelize_keys(to_data(...))
+      end
+
       def reloader
         Reloader.new(:previews, watch_paths, watch_extensions) do |changes|
           changes.nil? ? load : update(changes)

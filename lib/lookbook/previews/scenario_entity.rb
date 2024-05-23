@@ -152,6 +152,7 @@ module Lookbook
         uuid: uuid,
         name: name,
         label: label,
+        hidden: hidden?,
         lookup_path: lookup_path,
         url_path: url_path,
         preview_path: preview_path
