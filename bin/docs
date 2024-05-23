@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 
-cd docs && bin/dev
+cd docs
+bundle
+npm i
+bin/dev
