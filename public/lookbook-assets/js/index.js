@@ -7898,8 +7898,8 @@ function $490552754c23ef6f$export$b98882f166bb7ce2(link) {
 }
 
 
-async function $41e83ac737081df5$export$51c59e2af49c1a92(url, selector) {
-    const response = await fetch(url || window.document.location);
+async function $41e83ac737081df5$export$51c59e2af49c1a92(url, selector, options = {}) {
+    const response = await fetch(url || window.document.location, options);
     const html = await response.text();
     const doc = new DOMParser().parseFromString(html, "text/html");
     return {
@@ -7942,7 +7942,11 @@ function $5792afa4170ed552$export$2e2bcd8739ae039() {
             this.debug("Navigating to ", window.location.pathname);
             this.$dispatch("navigation:start");
             this.location = window.location;
-            await this.updateDOM();
+            await this.updateDOM("#app-main", {
+                headers: {
+                    "X-Lookbook-Frame": "main"
+                }
+            });
             this.$dispatch("navigation:complete");
         },
         hijax (evt) {
@@ -7961,13 +7965,13 @@ function $5792afa4170ed552$export$2e2bcd8739ae039() {
                 }
             }
         },
-        async updateDOM () {
+        async updateDOM (rootSelector = `#${this.$root.id}`, options = {}) {
             this.debug("Starting DOM update");
             this.$dispatch("dom:update-start");
             this.requestStart();
             try {
-                const { fragment: fragment, title: title } = await (0, $41e83ac737081df5$export$51c59e2af49c1a92)(window.location, `#${this.$root.id}`);
-                (0, $490552754c23ef6f$export$2e5e8c41f5d4e7c7)(this.$root, fragment);
+                const { fragment: fragment, title: title } = await (0, $41e83ac737081df5$export$51c59e2af49c1a92)(window.location, rootSelector, options);
+                (0, $490552754c23ef6f$export$2e5e8c41f5d4e7c7)(document.querySelector(rootSelector), fragment);
                 document.title = title;
                 this.requestEnd();
                 this.$dispatch("dom:update-complete");
@@ -8022,7 +8026,7 @@ function $12b7aa006b8a97e1$var$toCamel(s) {
 }
 
 
-var $c9dfaeb25bf110ce$exports = {};
+var $074ec2b102080457$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11541,16 +11545,6 @@ function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
 }
 
 
-var $99486586f6691564$exports = {};
-
-$parcel$defineInteropFlag($99486586f6691564$exports);
-
-$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
-function $99486586f6691564$export$2e2bcd8739ae039() {
-    return {};
-}
-
-
 var $47a1c62621be0c54$exports = {};
 
 $parcel$defineInteropFlag($47a1c62621be0c54$exports);
@@ -11604,6 +11598,16 @@ function $47a1c62621be0c54$export$2e2bcd8739ae039() {
             (0, $4e31c85e11272811$export$c6684e6159b21de3)(this);
         }
     };
+}
+
+
+var $99486586f6691564$exports = {};
+
+$parcel$defineInteropFlag($99486586f6691564$exports);
+
+$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
+function $99486586f6691564$export$2e2bcd8739ae039() {
+    return {};
 }
 
 
@@ -11714,6 +11718,33 @@ function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
             const matchedChildCount = filteredStates.filter((s)=>!s).length;
             this.empty = matchedChildCount === 0;
             this.debug(`Children matching filter: ${matchedChildCount}/${this.children.length}`);
+        }
+    };
+}
+
+
+var $a87dacf5139b5e2f$exports = {};
+
+$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
+
+$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
+function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
+    return {
+        get store () {
+            return store || this;
+        },
+        get id () {
+            return this.$root.id;
+        },
+        get panels () {
+            return Array.from(this.$refs.panels.children);
+        },
+        isActive (el) {
+            return this.store.activeTab === this._getRef(el);
+        },
+        // protected
+        _getRef (el) {
+            return el.getAttribute("x-ref");
         }
     };
 }
@@ -12269,33 +12300,6 @@ function $506dabb2bf255b38$var$sizeSplits(sizes) {
 }
 
 
-var $a87dacf5139b5e2f$exports = {};
-
-$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
-
-$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
-function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
-    return {
-        get store () {
-            return store || this;
-        },
-        get id () {
-            return this.$root.id;
-        },
-        get panels () {
-            return Array.from(this.$refs.panels.children);
-        },
-        isActive (el) {
-            return this.store.activeTab === this._getRef(el);
-        },
-        // protected
-        _getRef (el) {
-            return el.getAttribute("x-ref");
-        }
-    };
-}
-
-
 var $0db07828cadc68e0$exports = {};
 
 $parcel$defineInteropFlag($0db07828cadc68e0$exports);
@@ -12516,16 +12520,16 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$c9dfaeb25bf110ce$exports = {
+$074ec2b102080457$exports = {
     "button": $cbd28b10fa9798c7$exports,
-    "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
+    "code": $99486586f6691564$exports,
     "dimensions_display": $e398acaded942bbe$exports,
     "embed_code_dropdown": $216ef7001f59f21d$exports,
     "filter": $e9904a14dabf652d$exports,
     "nav": $d92d9d5253f84566$exports,
-    "split_layout": $506dabb2bf255b38$exports,
     "tab_panels": $a87dacf5139b5e2f$exports,
+    "split_layout": $506dabb2bf255b38$exports,
     "tabs": $0db07828cadc68e0$exports,
     "viewport": $6d64716f0b34fdf4$exports
 };
@@ -13551,18 +13555,18 @@ function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id, matchers: matchers }
     matchers = matchers.map((matcher)=>matcher.replace(/\s/g, "").toLowerCase());
     return {
         filteredOut: false,
+        active: false,
         get open () {
             return this.isCollection && this.isOpen(id);
-        },
-        get active () {
-            if (this.$refs.link) return this.location && this.location.pathname === this.$refs.link.getAttribute("href");
-            return false;
         },
         get children () {
             return this.$refs.items ? Array.from(this.$refs.items.children) : [];
         },
         get isCollection () {
             return !this.$refs.link;
+        },
+        checkActive () {
+            this.active = this.$refs.link && window.location.pathname === this.$refs.link.getAttribute("href");
         },
         toggle () {
             this.toggleOpen(id);
@@ -13711,7 +13715,7 @@ const $22969b543678f572$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $5792afa4170ed552$export$2e2bcd8739ae039));
 [
-    $c9dfaeb25bf110ce$exports,
+    $074ec2b102080457$exports,
     $9a68326211e66205$exports,
     $d56e5cced44001d2$exports
 ].forEach((scripts)=>{

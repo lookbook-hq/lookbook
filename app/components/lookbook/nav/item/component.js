@@ -6,18 +6,10 @@ export default function navItemComponent({ id, matchers }) {
   return {
     filteredOut: false,
 
+    active: false,
+
     get open() {
       return this.isCollection && this.isOpen(id);
-    },
-
-    get active() {
-      if (this.$refs.link) {
-        return (
-          this.location &&
-          this.location.pathname === this.$refs.link.getAttribute("href")
-        );
-      }
-      return false;
     },
 
     get children() {
@@ -26,6 +18,12 @@ export default function navItemComponent({ id, matchers }) {
 
     get isCollection() {
       return !this.$refs.link;
+    },
+
+    checkActive() {
+      this.active =
+        this.$refs.link &&
+        window.location.pathname === this.$refs.link.getAttribute("href");
     },
 
     toggle() {
