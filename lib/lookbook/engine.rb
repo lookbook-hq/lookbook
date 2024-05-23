@@ -13,7 +13,7 @@ module Lookbook
     end
 
     config.after_initialize do
-      sync_config
+      ViewComponentConfigSync.call if Gem.loaded_specs.has_key?("view_component")
 
       preview_controller = Lookbook.config.preview_controller.constantize
       unless preview_controller.include?(Lookbook::PreviewControllerActions)
@@ -84,30 +84,6 @@ module Lookbook
 
       def updated_at
         @updated_at ||= DateTime.now
-      end
-
-      def sync_config
-        if Gem.loaded_specs.has_key?("view_component")
-          vc_config = Rails.application.config.view_component
-
-          Lookbook.config.preview_paths += vc_config.preview_paths
-
-          if vc_config.preview_controller != ViewComponent::Config.defaults.preview_controller && Lookbook.config.preview_controller == Lookbook::Config.defaults.preview_controller
-            Lookbook.config.preview_controller = vc_config.preview_controller
-          elsif Lookbook.config.preview_controller != Lookbook::Config.defaults.preview_controller
-            vc_config.preview_controller = Lookbook.config.preview_controller
-          end
-
-          if Lookbook.config.preview_layout.nil? || vc_config.default_preview_layout.present?
-            Lookbook.config.preview_layout = vc_config.default_preview_layout
-          else
-            vc_config.default_preview_layout = Lookbook.config.preview_layout
-          end
-
-          if vc_config.view_component_path.present?
-            Lookbook.config.component_paths << vc_config.view_component_path
-          end
-        end
       end
     end
   end
