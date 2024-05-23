@@ -1,7 +1,7 @@
 [data-component="toolbar-button"] {
   display: inline-block;
   width: fit-content;
-  line-height: 0;
+  line-height: 1;
   color: var(--lb-toolbar-button-color);
 
   .icon {
@@ -16,6 +16,10 @@
   &:active,
   &.active {
     color: var(--lb-toolbar-button-color-active);
+  }
+
+  .toolbar-button-content {
+    line-height: 1;
   }
 
   &[data-size="md"] {

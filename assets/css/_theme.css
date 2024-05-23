@@ -37,12 +37,20 @@
   --lb-background-checked: var(--lb-checked-background-light);
 
   /*
+   * Tooltips
+   */
+
+  --lb-tooltip-color: var(--lb-color-content-inverted);
+  --lb-tooltip-background-color: var(--lb-color-surface-inverted);
+
+  /*
    * Buttons
    */
 
-  --lb-toolbar-button-color: var(--lb-color-content-2);
-  --lb-toolbar-button-color-hover: var(--lb-color-content-1);
-  --lb-toolbar-button-color-active: var(--lb-color-content-2-accent);
+  --lb-button-color: var(--lb-color-content-1);
+  --lb-button-background-color: var(--lb-color-surface-3);
+  --lb-button-border-color: var(--lb-color-content-3);
+  --lb-button-color-hover: var(--lb-color-content-1-accent);
 
   /*
    * Inputs
@@ -81,6 +89,10 @@
 
   --lb-toolbar-color: var(--lb-color-content-1);
   --lb-toolbar-background-color: var(--lb-color-surface-1);
+
+  --lb-toolbar-button-color: var(--lb-color-content-2);
+  --lb-toolbar-button-color-hover: var(--lb-color-content-1);
+  --lb-toolbar-button-color-active: var(--lb-color-content-2-accent);
 
   /*
    * Tabs
@@ -128,7 +140,7 @@
    * Header
    */
 
-  --lb-header-color: var(--lb-color-content-inverted);
+  --lb-header-color: var(--lb-color-white);
   --lb-header-background-color: var(--lb-color-surface-accent);
 
   /*

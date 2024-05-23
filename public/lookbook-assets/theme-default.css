@@ -34,7 +34,7 @@
   --lb-color-surface-3: var(--lb-color-zinc-700);
 
   --lb-color-surface-divider: var(--lb-color-zinc-700);
-  --lb-color-surface-inverted: var(--lb-color-zinc-100);
+  --lb-color-surface-inverted: var(--lb-color-zinc-200);
   --lb-color-surface-accent: var(--lb-color-indigo-600);
 
   --lb-color-content-1: var(--lb-color-zinc-300);
@@ -45,7 +45,7 @@
   --lb-color-content-2-accent: var(--lb-color-indigo-400);
   --lb-color-content-3-accent: var(--lb-color-indigo-600);
 
-  --lb-color-content-inverted: var(--lb-color-white);
+  --lb-color-content-inverted: var(--lb-color-zinc-800);
 
   --lb-background-checked: var(--lb-checked-background-dark);
 }

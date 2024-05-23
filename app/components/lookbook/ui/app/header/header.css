@@ -3,7 +3,7 @@
   color: var(--lb-header-color);
   background-color: var(--lb-header-background-color);
   padding-inline: var(--lb-spacing-md);
-  padding-bottom: var(--lb-spacing-2xs);
+  padding-bottom: 1px;
   display: flex;
   align-items: center;
 
@@ -38,16 +38,27 @@
   .header-project-link {
     display: flex;
     align-items: center;
-    whites-space: nowrap;
+    white-space: nowrap;
     column-gap: var(--lb-spacing-2xs);
     font-size: var(--lb-font-size-xs);
     padding-inline: var(--lb-spacing-2xs);
     padding-block: var(--lb-spacing-xs);
-    opacity: 0.8;
-    transition: opacity 300ms;
+
+    span {
+      transition: opacity 300ms;
+      opacity: 0.8;
+    }
+
+    .icon {
+      width: 12px;
+      margin-left: 1px;
+      opacity: 0.6;
+    }
 
     &:hover {
-      opacity: 1;
+      span {
+        opacity: 1;
+      }
     }
   }
 

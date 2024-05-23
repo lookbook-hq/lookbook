@@ -1,19 +1,19 @@
 [data-component="button"] {
   display: block;
   width: fit-content;
-  color: var(--lb-color-content-1);
+  color: var(--lb-button-color);
   text-decoration: none;
   border-radius: 1.5rem;
   padding-inline: var(--lb-spacing-sm);
   padding-block: var(--lb-spacing-xs);
-  background-color: var(--lb-color-surface-3);
+  background-color: var(--lb-button-background-color);
   font-family: var(--lb-font-ui);
   transition: background-color 200ms;
-  outline: 1px solid var(--lb-color-gray-200);
+  outline: 1px solid rgb(from var(--lb-button-border-color) r g b / 80%);
   outline-offset: -1px;
 
   &:hover {
-    color: var(--lb-color-content-1-accent);
+    color: var(--lb-button-color-hover);
   }
 
   .button-content {

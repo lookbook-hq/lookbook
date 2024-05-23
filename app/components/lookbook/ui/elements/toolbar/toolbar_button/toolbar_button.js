@@ -1,5 +1,5 @@
 import AlpineComponent from "@js/alpine/component";
-import tippy from "tippy.js";
+import tippy from "@js/tippy";
 
 export default AlpineComponent("toolbarButton", () => {
   return {
@@ -10,6 +10,8 @@ export default AlpineComponent("toolbarButton", () => {
     init() {
       if (this.tooltipContent) {
         this.tooltip = tippy(this.$refs.content, {
+          triggerTarget: this.$refs.inner,
+          theme: "tooltip",
           content: () => this.tooltipContent,
           onShow: () => !this.dropdownOpen,
         });

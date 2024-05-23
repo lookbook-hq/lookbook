@@ -1,5 +1,5 @@
 import AlpineComponent from "@js/alpine/component";
-import tippy from "tippy.js";
+import tippy from "@js/tippy";
 
 export default AlpineComponent("button", () => {
   return {
@@ -8,6 +8,7 @@ export default AlpineComponent("button", () => {
     init() {
       if (this.tooltipContent) {
         this.tooltip = tippy(this.$el, {
+          theme: "tooltip",
           content: () => this.tooltipContent,
         });
       }

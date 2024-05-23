@@ -18,6 +18,7 @@
       <% project_links.each do |link| %>
         <%= link_to link.url, **(link.attrs || {}), class: "header-project-link" do %>
           <span><%= link.label %></span>
+          <%= lb_icon(:external_link) %>
         <% end %>
       <% end %>
     </nav>

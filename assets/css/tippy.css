@@ -1,4 +1,18 @@
 @import "tippy.js/dist/tippy.css";
+@import "tippy.js/dist/svg-arrow.css";
+
+.tippy-box[data-theme~="tooltip"] {
+  background-color: var(--lb-tooltip-background-color);
+
+  .tippy-content {
+    color: var(--lb-tooltip-color);
+    font-size: var(--lb-font-size-xs);
+  }
+
+  > .tippy-svg-arrow {
+    fill: var(--lb-tooltip-background-color);
+  }
+}
 
 .tippy-box[data-theme~="dropdown"] {
   background-color: var(--lb-dropdown-background-color);

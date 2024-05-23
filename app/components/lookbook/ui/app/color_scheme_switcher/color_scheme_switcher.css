@@ -1,4 +1,8 @@
 [data-component="color-scheme-switcher"] {
+  display: block;
+  height: fit-content;
+  line-height: 1;
+
   .switcher-button {
     &,
     &:hover,

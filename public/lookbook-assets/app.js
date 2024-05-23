@@ -9546,6 +9546,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   });
 
   // node_modules/tippy.js/dist/tippy.esm.js
+  var ROUND_ARROW = '<svg width="16" height="6" xmlns="http://www.w3.org/2000/svg"><path d="M0 6s1.796-.013 4.67-3.615C5.851.9 6.93.006 8 0c1.07-.006 2.148.887 3.343 2.385C14.233 6.005 16 6 16 6H0z"></svg>';
   var BOX_CLASS = "tippy-box";
   var CONTENT_CLASS = "tippy-content";
   var BACKDROP_CLASS = "tippy-backdrop";
@@ -10875,12 +10876,19 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   __export(button_exports, {
     default: () => button_default
   });
+
+  // assets/js/tippy.js
+  tippy_esm_default.setDefaultProps({ arrow: ROUND_ARROW });
+  var tippy_default = tippy_esm_default;
+
+  // app/components/lookbook/ui/elements/button/button.js
   var button_default = AlpineComponent("button", () => {
     return {
       tooltip: null,
       init() {
         if (this.tooltipContent) {
-          this.tooltip = tippy_esm_default(this.$el, {
+          this.tooltip = tippy_default(this.$el, {
+            theme: "tooltip",
             content: () => this.tooltipContent
           });
         }
@@ -18681,14 +18689,16 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       tooltip: null,
       init() {
         if (this.tooltipContent) {
-          this.tooltip = tippy_esm_default(this.$refs.content, {
+          this.tooltip = tippy_default(this.$refs.content, {
+            triggerTarget: this.$refs.inner,
+            theme: "tooltip",
             content: () => this.tooltipContent,
             onShow: () => !this.dropdownOpen
           });
         }
         this.$nextTick(() => {
           if (this.$refs.dropdown) {
-            this.dropdown = tippy_esm_default(this.$el, {
+            this.dropdown = tippy_default(this.$el, {
               allowHTML: true,
               interactive: true,
               theme: "dropdown",
