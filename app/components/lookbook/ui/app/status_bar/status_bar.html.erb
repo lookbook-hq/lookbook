@@ -1,26 +1,37 @@
 <%= render component_tag(x: {data: "statusBar"}) do %>
-  <div class="status-bar-section">
-    <span class="status-bar-info">Lookbook v<%= Lookbook.version %></span>
-    
-    <button class="status-bar-action" @click="reset">Reset UI</button>
+  <div class="status-bar-section status-bar-system-info">  
+    <svg class="lookbook-logo" viewBox="0 0 18 22" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="currentColor" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3.5 1H17v20H3.5A2.5 2.5 0 0 1 1 18.5v-15A2.5 2.5 0 0 1 3.5 1Z"></path>
+        <path d="M1.153 19.36c0-.737.261-1.188.596-1.57.417-.475.985-.79 1.751-.79H17M6.801 5.1v7.554L6.8 12.7h5.57"></path>
+      </g>
+    </svg>
+    <span class="lookbook-version">v<%= Lookbook.version %></span>
   </div>
   <div class="status-bar-section">
-    <% if warnings.any? %>
-      <%= render Lookbook::UI::StatusBarItem.new(key: "status-bar-warnings", label: pluralize(warnings.size, "warning"), theme: :warning) do |item| %>
-        <% item.with_panel do %>
-          <%= render Lookbook::UI::StatusBarNotifications.new(notifications: warnings) %>
+    <div class="status-bar-items">
+      <%= status_bar_item(tooltip: "Reset UI", theme: :action,  icon: :rotate_ccw, x: {"@click": "$dispatch('layout:reset')"}) %>
+    </div>
+  </div>
+  <div class="status-bar-section status-bar-notifications">
+    <div class="status-bar-items">
+      <% if warnings.any? %>
+        <%= status_bar_item(key: "status-bar-warnings", label: pluralize(warnings.size, "warning"), theme: :warning) do |item| %>
+          <% item.with_panel do %>
+            <%= render Lookbook::UI::StatusBarNotifications.new(notifications: warnings) %>
+          <% end %>
         <% end %>
       <% end %>
-    <% end %>
-    <% if errors.any? %>
-      <%= render Lookbook::UI::StatusBarItem.new(key: "status-bar-errors", label: pluralize(errors.size, "error"), theme: :error) do |item| %>
-        <% item.with_panel do %>
-          <%= render Lookbook::UI::StatusBarNotifications.new(notifications: errors) %>
+      <% if errors.any? %>
+        <%= status_bar_item(key: "status-bar-errors", label: pluralize(errors.size, "error"), theme: :error) do |item| %>
+          <% item.with_panel do %>
+            <%= render Lookbook::UI::StatusBarNotifications.new(notifications: errors) %>
+          <% end %>
         <% end %>
       <% end %>
-    <% end %>
-    <% if warnings.none? && errors.none? %>
-      <%= render Lookbook::UI::StatusBarItem.new(key: "status-bar-ok", label: "No issues", theme: :positive) %>  
-    <% end %>
+      <% if warnings.none? && errors.none? %>
+        <%= status_bar_item.new(key: "status-bar-ok", label: "No issues", theme: :positive) %>  
+      <% end %>
+    </div>
   </div>
 <% end %>

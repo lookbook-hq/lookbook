@@ -3,12 +3,13 @@ module Lookbook
     class StatusBarItem < BaseComponent
       with_slot :panel
 
-      attr_reader :label, :theme
+      attr_reader :label, :theme, :tooltip
 
-      def initialize(icon: nil, label: nil, theme: :notice, **kwargs)
+      def initialize(icon: nil, label: nil, tooltip: nil, theme: :notice, click: nil, **kwargs)
         @icon = icon
         @label = label
         @theme = theme
+        @tooltip = tooltip
       end
 
       def icon

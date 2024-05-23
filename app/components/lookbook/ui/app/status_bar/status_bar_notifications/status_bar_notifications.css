@@ -6,7 +6,7 @@
 
   .notification {
     display: flex;
-    gap: var(--lb-spacing-sm);
+    gap: var(--lb-spacing-xs);
     padding-block: var(--lb-spacing-sm);
 
     & + .notification {
@@ -16,12 +16,11 @@
     .notification-icon {
       .icon {
         flex: none;
-        width: var(--lb-size-lg);
+        width: var(--lb-size-md);
       }
     }
 
     .notification-message {
-      padding-top: 2px;
       min-width: 1%;
       width: 100%;
       overflow: hidden;

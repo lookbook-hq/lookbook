@@ -7903,6 +7903,13 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   var layout_default = AlpineComponent("layout", () => {
     return {
       appReflowing: false,
+      resetLayout() {
+        api.remove("lookbook-display-options");
+        api.remove("lookbook-color-scheme");
+        Alpine.store("app").clear();
+        window.location.reload();
+        this.$logger.info(`Local storage cleared`);
+      },
       bindings: {
         root: {
           ["@layout:resizing-start"]() {
@@ -7910,6 +7917,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
           },
           ["@layout:resizing-end"]() {
             this.appReflowing = false;
+          },
+          ["@layout:reset"]() {
+            this.resetLayout();
           }
         }
       }
@@ -8070,15 +8080,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     default: () => status_bar_default
   });
   var status_bar_default = AlpineComponent("statusBar", () => {
-    return {
-      reset() {
-        api.remove("lookbook-display-options");
-        api.remove("lookbook-color-scheme");
-        Alpine.store("app").clear();
-        window.location.reload();
-        this.$logger.info(`Local storage cleared`);
-      }
-    };
+    return {};
   });
 
   // app/components/lookbook/ui/app/status_bar/status_bar_item/status_bar_item.js
@@ -10830,10 +10832,16 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   // app/components/lookbook/ui/app/status_bar/status_bar_item/status_bar_item.js
   var status_bar_item_default = AlpineComponent("statusBarItem", () => {
     return {
-      dropdownOpen: false,
       dropdown: null,
+      tooltip: null,
       init() {
         this.$nextTick(() => {
+          if (this.tooltipContent) {
+            this.tooltip = tippy_esm_default(this.$refs.content, {
+              theme: "tooltip",
+              content: () => this.tooltipContent
+            });
+          }
           if (this.$refs.dropdown) {
             this.dropdown = tippy_esm_default(this.$el, {
               allowHTML: true,
@@ -10856,8 +10864,13 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
           this.dropdown.hide();
       },
       destroy() {
+        if (this.tooltip)
+          this.tooltip.destroy();
         if (this.dropdown)
           this.dropdown.destroy();
+      },
+      get tooltipContent() {
+        return this.$el.hasAttribute("data-tooltip") ? this.$el.getAttribute("data-tooltip") : null;
       }
     };
   });

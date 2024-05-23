@@ -453,9 +453,8 @@
    * Status bar
    */
 
-  --lb-status-bar-color: var(--lb-color-content-2);
+  --lb-status-bar-color: var(--lb-color-content-1);
   --lb-status-bar-background-color: var(--lb-color-surface-1);
-  --lb-status-bar-action-color: var(--lb-color-content-1-accent);
 
   /*
    * Page

@@ -1,27 +1,43 @@
 [data-component="status-bar"] {
   height: var(--lb-size-xl);
   font-size: var(--lb-font-size-xs);
-  padding-inline: var(--lb-spacing-sm);
   color: var(--lb-status-bar-color);
   background-color: var(--lb-status-bar-background-color);
   border-top: 1px solid var(--lb-color-surface-divider);
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
 
   .status-bar-section {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-inline: var(--lb-spacing-xs);
+  }
+
+  .status-bar-items {
     display: flex;
     align-items: center;
     gap: var(--lb-spacing-md);
     height: 100%;
   }
 
-  .status-bar-info {
-    color: var(--lb-status-bar-color);
+  .status-bar-system-info {
+    display: flex;
+    align-items: center;
+    gap: var(--lb-spacing-xs);
+    background-color: var(--lb-color-surface-3);
+    font-family: var(--lb-font-mono);
+    font-size: 0.9em;
+    border-right: 1px solid var(--lb-color-surface-divider);
+
+    .lookbook-logo {
+      height: 14px;
+      opacity: 0.8;
+    }
   }
 
-  .status-bar-action {
-    color: var(--lb-status-bar-action-color);
+  .status-bar-notifications {
+    margin-left: auto;
   }
 }

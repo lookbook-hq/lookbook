@@ -453,9 +453,8 @@
    * Status bar
    */
 
-  --lb-status-bar-color: var(--lb-color-content-2);
+  --lb-status-bar-color: var(--lb-color-content-1);
   --lb-status-bar-background-color: var(--lb-color-surface-1);
-  --lb-status-bar-action-color: var(--lb-color-content-1-accent);
 
   /*
    * Page
@@ -1235,11 +1234,7 @@ select {
   height: var(--lb-size-xl);
   font-size: 0.75rem;
   font-size: var(--lb-font-size-xs);
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-  padding-left: var(--lb-spacing-sm);
-  padding-right: var(--lb-spacing-sm);
-  color: #6b7280;
+  color: #1f2937;
   color: var(--lb-status-bar-color);
   background-color: #fff;
   background-color: var(--lb-status-bar-background-color);
@@ -1248,28 +1243,53 @@ select {
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 [data-component="status-bar"] .status-bar-section {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-left: var(--lb-spacing-xs);
+    padding-right: var(--lb-spacing-xs);
+  }
+[data-component="status-bar"] .status-bar-items {
     display: flex;
     align-items: center;
     gap: 1rem;
     gap: var(--lb-spacing-md);
     height: 100%;
   }
-[data-component="status-bar"] .status-bar-info {
-    color: #6b7280;
-    color: var(--lb-status-bar-color);
+[data-component="status-bar"] .status-bar-system-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    gap: var(--lb-spacing-xs);
+    background-color: #f3f4f6;
+    background-color: var(--lb-color-surface-3);
+    font-family: "Source Code Pro Var", ui-monospace, "Cascadia Code", Menlo,
+    Consolas, "DejaVu Sans Mono", monospace;
+    font-family: var(--lb-font-mono);
+    font-size: 0.9em;
+    border-right: 1px solid #d1d5db;
+    border-right: 1px solid var(--lb-color-surface-divider);
   }
-[data-component="status-bar"] .status-bar-action {
-    color: #4338ca;
-    color: var(--lb-status-bar-action-color);
+[data-component="status-bar"] .status-bar-system-info .lookbook-logo {
+      height: 14px;
+      opacity: 0.8;
+    }
+[data-component="status-bar"] .status-bar-notifications {
+    margin-left: auto;
   }
 [data-component="status-bar-item"] {
   position: relative;
   height: 100%;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  padding-left: var(--lb-spacing-2xs);
+  padding-right: var(--lb-spacing-2xs);
 }
-[data-component="status-bar-item"] .status-bar-item-summary {
+[data-component="status-bar-item"] .status-bar-item-content {
     height: 100%;
     display: flex;
     align-items: center;
@@ -1279,33 +1299,29 @@ select {
        -moz-user-select: none;
             user-select: none;
   }
-[data-component="status-bar-item"] .status-bar-item-summary .icon {
+[data-component="status-bar-item"] .status-bar-item-content .icon {
       flex: none;
-      height: 100%;
+      height: 14px;
     }
-.with-panel[data-component="status-bar-item"] .status-bar-item-summary {
+.with-panel[data-component="status-bar-item"] .status-bar-item-content {
     cursor: pointer;
   }
-[data-component="status-bar-item"][data-theme="positive"] .status-bar-item-summary .icon {
+[data-component="status-bar-item"][data-theme="action"] .status-bar-item-content {
+      color: #6366f1;
+      color: var(--lb-color-content-2-accent);
+    }
+[data-component="status-bar-item"][data-theme="positive"] .status-bar-item-content {
       color: #16a34a;
       color: var(--lb-color-content-positive);
     }
-[data-component="status-bar-item"][data-theme="error"] .status-bar-item-summary {
+[data-component="status-bar-item"][data-theme="error"] .status-bar-item-content {
       color: #dc2626;
       color: var(--lb-color-content-negative);
     }
-[data-component="status-bar-item"][data-theme="error"] .status-bar-item-summary .icon {
-        color: #dc2626;
-        color: var(--lb-color-content-negative);
-      }
-[data-component="status-bar-item"][data-theme="warning"] .status-bar-item-summary {
+[data-component="status-bar-item"][data-theme="warning"] .status-bar-item-content {
       color: #d97706;
       color: var(--lb-color-content-warning);
     }
-[data-component="status-bar-item"][data-theme="warning"] .status-bar-item-summary .icon {
-        color: #d97706;
-        color: var(--lb-color-content-warning);
-      }
 [data-component="status-bar-notifications"] {
   width: 28rem;
   padding-left: 0.75rem;
@@ -1319,8 +1335,8 @@ select {
 }
 [data-component="status-bar-notifications"] .notification {
     display: flex;
-    gap: 0.75rem;
-    gap: var(--lb-spacing-sm);
+    gap: 0.5rem;
+    gap: var(--lb-spacing-xs);
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     padding-top: var(--lb-spacing-sm);
@@ -1332,11 +1348,10 @@ select {
     }
 [data-component="status-bar-notifications"] .notification .notification-icon .icon {
         flex: none;
-        width: 1.25rem;
-        width: var(--lb-size-lg);
+        width: 1rem;
+        width: var(--lb-size-md);
       }
 [data-component="status-bar-notifications"] .notification .notification-message {
-      padding-top: 2px;
       min-width: 1%;
       width: 100%;
       overflow: hidden;

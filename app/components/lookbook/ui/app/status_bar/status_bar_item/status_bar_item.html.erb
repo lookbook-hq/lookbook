@@ -1,9 +1,16 @@
-<%= render component_tag(x: {
-  data: "statusBarItem",
-  "@page-load:start.document": "hidePanel",
-  "@page-update:start.document": "hidePanel",
-  }, data: {theme: theme}, class: {"with-panel": panel?}) do %>
-  <div class="status-bar-item-summary">
+<%= render component_tag(:button,
+  x: {
+    data: "statusBarItem",
+    "@page-load:start.document": "hidePanel",
+    "@page-update:start.document": "hidePanel",
+  },
+  data: {
+    theme: theme,
+    tooltip: tooltip
+  },
+  class: {"with-panel": panel?}
+) do %>
+  <div class="status-bar-item-content" x-ref="content">
     <%= lb_icon icon %>
     <% if label.present? %>
       <span><%= label %></span>

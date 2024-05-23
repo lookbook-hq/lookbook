@@ -17,6 +17,10 @@ module Lookbook
       def self.icon_name(type)
         ICONS.fetch(type, ICONS[:info])
       end
+
+      def status_bar_item(**kwargs, &block)
+        render Lookbook::UI::StatusBarItem.new(**kwargs), &block
+      end
     end
   end
 end
