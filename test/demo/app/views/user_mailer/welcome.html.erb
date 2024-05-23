@@ -1,1 +1,49 @@
-<h1>hello <%= @user_name %></h1>
+ <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
+  <tr>
+    <td>&nbsp;</td>
+    <td class="container">
+      <div class="content">
+        <span class="preheader">This is preheader text. Some clients will show this text as a preview.</span>
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="main">
+          <tr>
+            <td class="wrapper">
+              <p>Hi <%= @user_name %>,</p>
+              <p><%== sanitize(@body_text.gsub("\n", "<br>")) %></p>
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                <tbody>
+                  <tr>
+                    <td align="left">
+                      <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                          <tr>
+                            <td> <a href="" target="_blank"><%= @button_label %></a></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <div class="footer">
+          <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td class="content-block">
+                Don't like these emails? <a href="#">Unsubscribe</a>.
+              </td>
+            </tr>
+            <tr>
+              <td class="content-block powered-by">
+                <small>Template sourced from <a href="https://github.com/leemunroe/responsive-html-email-template">@leemunroe</a></small>
+              </td>
+            </tr>
+          </table>
+        </div>
+    </div>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
