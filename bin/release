@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-rake build
+bundle exec rake build
 
 printf "\n✅ Lookbook v${1/-/.} gem built."
 printf "\n\n💎 Now push to RubyGems:"
