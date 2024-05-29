@@ -11,6 +11,8 @@ gem "view_component"
 group :development, :test do
   gem "better_errors"
   gem "binding_of_caller"
+  gem "colorize"
+  gem "dry-cli"
   gem "listen"
   gem "rubocop-rails", require: false
   gem "standard", require: false
