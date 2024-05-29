@@ -2,9 +2,9 @@ module Lookbook
   module UI
     class StatusBar < BaseComponent
       ICONS = {
-        error: "circle-x",
+        negative: "circle-x",
         warning: "triangle-alert",
-        success: "circle-check",
+        positive: "circle-check",
         info: "info"
       }
 

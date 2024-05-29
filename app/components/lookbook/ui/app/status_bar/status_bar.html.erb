@@ -23,14 +23,14 @@
         <% end %>
       <% end %>
       <% if errors.any? %>
-        <%= status_bar_item(key: "status-bar-errors", label: pluralize(errors.size, "error"), theme: :error) do |item| %>
+        <%= status_bar_item(key: "status-bar-errors", label: pluralize(errors.size, "error"), theme: :negative) do |item| %>
           <% item.with_panel do %>
             <%= render Lookbook::UI::StatusBarNotifications.new(notifications: errors) %>
           <% end %>
         <% end %>
       <% end %>
       <% if warnings.none? && errors.none? %>
-        <%= status_bar_item.new(key: "status-bar-ok", label: "No issues", theme: :positive) %>  
+        <%= status_bar_item(key: "status-bar-ok", label: "No issues", theme: :positive) %>  
       <% end %>
     </div>
   </div>

@@ -32,7 +32,7 @@
     }
   }
 
-  &[data-theme="error"] {
+  &[data-theme="negative"] {
     .status-bar-item-content {
       color: var(--lb-color-content-negative);
     }

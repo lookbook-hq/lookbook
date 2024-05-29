@@ -1314,7 +1314,7 @@ select {
       color: #16a34a;
       color: var(--lb-color-content-positive);
     }
-[data-component="status-bar-item"][data-theme="error"] .status-bar-item-content {
+[data-component="status-bar-item"][data-theme="negative"] .status-bar-item-content {
       color: #dc2626;
       color: var(--lb-color-content-negative);
     }
