@@ -16,6 +16,7 @@ group :development, :test do
   gem "listen"
   gem "rubocop-rails", require: false
   gem "standard", require: false
+  gem "tty-prompt"
 end
 
 group :test do

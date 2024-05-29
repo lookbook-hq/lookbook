@@ -3,7 +3,7 @@
 require "bundler/setup"
 require "dry/cli"
 require "bundler/gem_tasks"
-
+require "tty-prompt"
 require "colorize"
 require "lookbook"
 
@@ -12,7 +12,7 @@ def info(message)
 end
 
 def success(message)
-  puts "→ #{message}".colorize(color: :green, mode: :bold)
+  puts "→ #{message}".colorize(:green)
 end
 
 def error(message)
@@ -21,6 +21,10 @@ end
 
 def debug(message)
   puts "→ #{message}".colorize(:gray)
+end
+
+def ask(question)
+  TTY::Prompt.new.ask("\n→ #{question}".colorize(color: :magenta, mode: :bold))
 end
 
 module Lookbook
@@ -64,12 +68,13 @@ module Lookbook
         desc "Publishes the Lookbook gem to RubyGems"
 
         option :dry_run, type: :boolean, default: false, desc: "Perform a dry run (no actual file changes)"
+        option :otp, type: :string, default: nil, desc: "RubyGems publish OTP code"
 
         def pkg_dir
           File.expand_path("#{File.dirname(__FILE__)}/../pkg")
         end
 
-        def call(dry_run:)
+        def call(dry_run:, otp: nil)
           version = Lookbook::VERSION
 
           info "Packaging Lookbook #{version}..."
@@ -81,10 +86,14 @@ module Lookbook
           success "Gem packaging complete."
 
           info "Publishing Lookbook #{version} to RubyGems..."
+
+          otp ||= ask("Please provide RubyGems OPT code:")
+          raise ArgumentError, "OTP code cannot be blank." unless otp.present?
+
           if dry_run
-            debug "[dry-run] Gem not pushed to RubyGems."
+            debug "[dry-run] Gem not pushed to RubyGems (OTP code: #{otp})"
             success("Lookbook #{version} successfully published.")
-          elsif system("gem push #{pkg_dir}/lookbook-#{version}.gem")
+          elsif system("gem push #{pkg_dir}/lookbook-#{version}.gem --otp=#{otp}")
             success("Lookbook #{version} successfully published.")
           else
             error("Error pushing gem to RubyGems")
@@ -106,9 +115,7 @@ module Lookbook
 
       register "start", Start
       register "bump", Bump
-      # register "package", Package
       register "publish", Publish
-      # register "packpub", PackageAndPublish
     end
   end
 end
