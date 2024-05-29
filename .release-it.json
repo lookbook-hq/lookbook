@@ -1,0 +1,14 @@
+{
+  "github": {
+    "release": true
+  },
+  "npm": {
+    "publish": false
+  },
+  "hooks": {
+    "before:init": ["npm install", "bundle install", "bin/test"],
+    "after:bump": ["npm run lint:fix", "npm run build"],
+    "after:version:bump": "bin/release bump_version ${version} && bundle",
+    "after:release": "bin/release package_and_publish"
+  }
+}

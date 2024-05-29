@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lookbook (3.0.0.pre.alpha.0)
+    lookbook (3.0.0.alpha.0)
       actionmailer
       css_parser
       htmlbeautifier

@@ -9,6 +9,7 @@ Gem::Specification.new do |spec|
   spec.homepage = "https://github.com/lookbook-hq/lookbook"
   spec.summary = "A UI development environment for Ruby on Rails applications"
   spec.license = "MIT"
+  spec.metadata = {"rubygems_mfa_required" => "true"}
 
   spec.files = Dir["{app,config,lib,public}/**/*", "LICENSE.txt", "README.md"]
   spec.require_paths = ["lib"]
