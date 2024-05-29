@@ -50,8 +50,17 @@ module Lookbook
         info("Lookbook initialized#{" - watching filesystem for changes" if watch_files?}")
       end
 
+      def mount(mount_path = nil)
+        config.lookbook.mount_path = mount_path unless mount_path.nil?
+
+        Rails.application.routes.draw do
+          mount Lookbook::Engine => Lookbook::Engine.mount_path
+        end
+      end
+
       def mount_path
-        "/" + Utils.strip_slashes(routes.find_script_name({}))
+        path = config.lookbook.mount_path || Lookbook::Config.defaults.mount_path
+        "/#{Utils.strip_slashes(path)}"
       end
 
       def view_paths

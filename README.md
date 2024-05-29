@@ -45,7 +45,7 @@ Mount Lookbook at a path of your choosing in your `config/routes.rb` file:
 ```rb
 Rails.application.routes.draw do
   if Rails.env.development?
-    mount Lookbook::Engine => "/lookbook"
+    Lookbook::Engine.mount("/lookbook")
   end
 end
 ```
