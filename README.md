@@ -40,9 +40,21 @@ group :development do
 end
 ```
 
-Lookbook will automatically be mounted at `/lookbook` within your app when the server is started.
+Mount Lookbook at a path of your choosing in your `config/routes.rb` file:
 
-> 🚨 Previously Lookbook required manual mounting in your app. This is **no longer the case**, so if trialing v3 in a project with an existing Lookbook install you must remove [the mounting code](https://lookbook.build/guide/installation#step-2) from your routes.rb file first.
+```rb
+Rails.application.routes.draw do
+  if Rails.env.development?
+    mount Lookbook::Engine => "/lookbook"
+  end
+end
+```
+
+> The mount path (`/lookbook` in the example above) will be the URL that the Lookbook UI will be made accessible at within your app.
+
+Once everything is installed, start your app as normal.
+
+Assuming your app is running on port 3000 and you mounted Lookbook at the path `/lookbook` then browse to http://localhost:3000/lookbook to view the Lookbook UI.
 
 ### Configuration
 

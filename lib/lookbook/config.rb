@@ -56,9 +56,7 @@ module Lookbook
 
           languages: default_languages,
 
-          reload_on_change: dev?,
-          mount_path: "/lookbook",
-          auto_mount: true
+          reload_on_change: dev?
         })
       end
 
