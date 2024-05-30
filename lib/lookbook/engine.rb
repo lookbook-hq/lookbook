@@ -22,14 +22,18 @@ module Lookbook
     end
 
     config.after_initialize do
-      boot!
+      if Engine.enabled?
+        start
+      else
+        info("Lookbook is loaded but not enabled in this environment (#{Rails.env}).")
+      end
     end
 
     class << self
-      def boot!
-        raise "Lookbook is already booted!" if @booted
+      def start
+        raise "Lookbook is already started!" if @started
 
-        info("Initializing Lookbook in #{Lookbook.env} mode...")
+        info("Starting Lookbook in #{Lookbook.env} mode...")
 
         if watch_files?
           Reloaders.register(Previews.reloader)
@@ -40,9 +44,9 @@ module Lookbook
           Pages.load
         end
 
-        @booted = true
+        @started = true
 
-        info("Lookbook initialized#{" - watching filesystem for changes" if watch_files?}")
+        info("Lookbook started#{" - watching filesystem for changes" if watch_files?}")
       end
 
       def mount_path
@@ -86,6 +90,10 @@ module Lookbook
 
       def updated_at
         @updated_at ||= DateTime.now
+      end
+
+      def enabled?
+        config.lookbook.enabled
       end
     end
   end

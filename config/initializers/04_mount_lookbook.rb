@@ -1,5 +1,5 @@
+# if Lookbook::Engine.enabled?
 Rails.application.routes.append do
-  if Lookbook.config.auto_mount
-    mount Lookbook::Engine => Lookbook::Engine.mount_path
-  end
+  mount Lookbook::Engine => Lookbook::Engine.mount_path
 end
+# end

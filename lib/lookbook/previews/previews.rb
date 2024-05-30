@@ -126,9 +126,13 @@ module Lookbook
       private
 
       def clear_cache
-        @inspector_targets = nil
-        @directories = nil
-        @tree = nil
+        if @inspector_targets || @directories || @tree
+          debug("previews: clearing cache")
+
+          @inspector_targets = nil
+          @directories = nil
+          @tree = nil
+        end
       end
 
       def update(changes)

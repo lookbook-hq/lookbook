@@ -86,10 +86,12 @@ module Lookbook
       private
 
       def clear_cache
-        debug("pages: clearing cache")
+        if @tree || @directories
+          debug("pages: clearing cache")
 
-        @tree = nil
-        @directories = nil
+          @tree = nil
+          @directories = nil
+        end
       end
 
       def update(changes)

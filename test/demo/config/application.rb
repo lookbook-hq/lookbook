@@ -19,6 +19,8 @@ Combustion.initialize! :action_controller, :action_view, :action_mailer, :sprock
     }
   ]
 
+  config.lookbook.enabled = true
+
   # Previews config
 
   config.lookbook.preview_controller = "PreviewController"

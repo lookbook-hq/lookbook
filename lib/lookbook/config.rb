@@ -49,16 +49,17 @@ module Lookbook
           pages_nav_label: "Pages",
           pages_nav_filter: true,
 
-          ui_status_bar: dev?,
+          ui_status_bar: Rails.env.development?,
           ui_color_scheme_switcher: true,
 
           markdown_options: default_markdown_options,
 
           languages: default_languages,
 
-          reload_on_change: dev?,
+          reload_on_change: Rails.env.development?,
           mount_path: "/lookbook",
-          auto_mount: true
+
+          enabled: Rails.env.development? || Rails.env.test?
         })
       end
 
@@ -194,27 +195,6 @@ module Lookbook
           data: {}
         }
       end
-
-      private
-
-      def dev?
-        Rails.env.development?
-      end
-
-      # def options(opts = {})
-      #   return opts unless opts.is_a?(Hash)
-
-      #   opts.transform_values! do |value|
-      #     if value.is_a?(Hash)
-      #       options(value)
-      #     elsif value.is_a?(Array)
-      #       value.map { options(_1) }
-      #     else
-      #       value
-      #     end
-      #   end
-      #   ActiveSupport::OrderedOptions.new.merge!(opts)
-      # end
     end
 
     class_attribute :current, default: defaults, instance_predicate: false
