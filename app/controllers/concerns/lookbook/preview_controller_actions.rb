@@ -13,6 +13,8 @@ module Lookbook
       content_security_policy(false) if respond_to?(:content_security_policy)
 
       helper :all if include_all_helpers
+      helper Lookbook::AssetHelper
+      helper Lookbook::PreviewHelper
     end
 
     def lookbook_render_scenario(scenario = @scenario)
