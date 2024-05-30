@@ -32,6 +32,10 @@ module Lookbook
       def previews
         Lookbook::Previews
       end
+
+      def nav_panels
+        config.ui_nav_panels.take(2)
+      end
     end
   end
 end

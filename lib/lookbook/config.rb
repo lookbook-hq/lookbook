@@ -37,8 +37,6 @@ module Lookbook
           inspector_drawer_panels: [:usage, :params, :metadata, "*"],
           inspector_param_inputs: default_inspector_param_inputs,
 
-          sidebar_nav_panels: [:previews, :pages],
-
           page_route: "pages",
           page_paths: ["test/components/docs"],
           page_extensions: ["md", "html.*", "md.*"],
@@ -49,6 +47,7 @@ module Lookbook
           pages_nav_label: "Pages",
           pages_nav_filter: true,
 
+          ui_nav_panels: [:previews, :pages],
           ui_status_bar: Rails.env.development?,
           ui_color_scheme_switcher: true,
 

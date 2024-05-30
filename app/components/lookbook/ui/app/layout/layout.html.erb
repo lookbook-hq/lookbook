@@ -22,11 +22,11 @@
           lb_pane_group("app-sidebar",
           opts: {
             orientation: :horizontal,
-            sizes: ["50%", "50%"],
-            min_sizes: [100, 100]
+            sizes: nav_panels.take(2).map {"#{100 / nav_panels.size}%"},
+            min_sizes: nav_panels.take(2).map {100}
           }) do |sidebar|
 
-            config.sidebar_nav_panels.each do |name|
+            config.ui_nav_panels.each do |name|
               if name.to_sym == :previews
                 sidebar.with_pane("previews-nav") do |pane|
                   pane.with_toolbar do |toolbar|
