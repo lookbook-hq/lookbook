@@ -3,5 +3,5 @@
 Rails.application.routes.draw do
   root "demo#index"
 
-  Lookbook::Engine.mount("/lookbook")
+  mount Lookbook::Engine => "/lookbook"
 end
