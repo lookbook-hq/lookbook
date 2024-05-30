@@ -17,3 +17,10 @@ Lookbook::Engine.routes.draw do
 
   match "*path", to: "application#not_found", via: :all
 end
+
+Rails.application.routes.draw do
+  get "#{Lookbook.config.mount_path}/render_scenario/:preview/:scenario",
+    to: "#{Lookbook.config.preview_controller.sub(/Controller$/, "").underscore}#lookbook_render_scenario",
+    as: :lookbook_render_scenario,
+    internal: true
+end

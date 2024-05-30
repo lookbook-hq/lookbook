@@ -12,19 +12,12 @@ module Lookbook
       YARD::Parser::Ruby::RipperParser.prepend YardParserPatch
     end
 
-    config.after_initialize do |app|
+    config.after_initialize do
       ViewComponentConfigSync.call if Gem.loaded_specs.has_key?("view_component")
 
       preview_controller = Lookbook.config.preview_controller.constantize
       unless preview_controller.include?(Lookbook::PreviewControllerActions)
         preview_controller.include(Lookbook::PreviewControllerActions)
-      end
-
-      app.routes.prepend do
-        get "#{Engine.mount_path}/render_scenario/:preview/:scenario",
-          to: "#{Lookbook.config.preview_controller.sub(/Controller$/, "").underscore}#lookbook_render_scenario",
-          as: :lookbook_render_scenario,
-          internal: true
       end
 
       boot!
@@ -51,7 +44,7 @@ module Lookbook
       end
 
       def mount_path
-        "/" + Utils.strip_slashes(routes.find_script_name({}))
+        config.lookbook.mount_path || Lookbook::Config.defaults.mount_path
       end
 
       def view_paths
