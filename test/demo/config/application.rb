@@ -21,6 +21,7 @@ Combustion.initialize! :action_controller, :action_view, :action_mailer, :sprock
 
   # Previews config
 
+  config.lookbook.preview_controller = "PreviewController"
   config.lookbook.preview_paths << "#{root}/lookbook/previews"
   config.lookbook.preview_display_options = {
     max_width: "100%",
