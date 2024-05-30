@@ -12,14 +12,16 @@ module Lookbook
       YARD::Parser::Ruby::RipperParser.prepend YardParserPatch
     end
 
-    config.after_initialize do
+    config.to_prepare do
       ViewComponentConfigSync.call if Gem.loaded_specs.has_key?("view_component")
 
       preview_controller = Lookbook.config.preview_controller.constantize
       unless preview_controller.include?(Lookbook::PreviewControllerActions)
         preview_controller.include(Lookbook::PreviewControllerActions)
       end
+    end
 
+    config.after_initialize do
       boot!
     end
 
