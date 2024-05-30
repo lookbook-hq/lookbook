@@ -4,6 +4,7 @@ module Lookbook
     include Loggable
 
     def index
+      response.headers["Cache-Control"] = "no-transform" # prevent compression
       response.headers["Content-Type"] = "text/event-stream"
       response.headers["Last-Modified"] = Time.now.httpdate
 
