@@ -2,8 +2,6 @@
   class: {"with-filter": filter?},
   x: {
     "data": "nav('#{id}')",
-    "@page-update:complete.document": "updateSelection(false)",
-    "@page-load:complete.document": "updateSelection(true)",
     "@nav:collapse-all.document": "if ($event.detail.id == id) collapseAll()",
     "effect": "filter()"
   }) do %>

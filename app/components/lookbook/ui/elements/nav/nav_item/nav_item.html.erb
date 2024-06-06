@@ -2,9 +2,7 @@
   key: lookup_path,
   x: {
     data: "navItem({keywords: #{search_terms.to_json}, collection: #{collection?.to_json}})",
-    show: "!filteredOut",
-    ":aria-expanded": "expanded",
-    ":aria-selected": "selected",
+    bind: "bindings.root"
   },
   data: {url: url_path}
 ) do %>

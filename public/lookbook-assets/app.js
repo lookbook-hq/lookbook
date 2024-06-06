@@ -5124,7 +5124,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
             let carry = Promise.all([
               el2._x_hidePromise,
               ...(el2._x_hideChildren || []).map(hideAfterChildren)
-            ]).then(([i5]) => i5());
+            ]).then(([i5]) => i5?.());
             delete el2._x_hidePromise;
             delete el2._x_hideChildren;
             return carry;
@@ -5637,7 +5637,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     get raw() {
       return raw;
     },
-    version: "3.13.10",
+    version: "3.14.0",
     flushAndStopDeferringMutations,
     dontAutoEvaluateFunctions,
     disableEffectScheduling,
@@ -6643,14 +6643,14 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       handler4 = wrapHandler(handler4, (next, e5) => {
         e5.target === el && next(e5);
       });
-    handler4 = wrapHandler(handler4, (next, e5) => {
-      if (isKeyEvent(event)) {
+    if (isKeyEvent(event) || isClickEvent(event)) {
+      handler4 = wrapHandler(handler4, (next, e5) => {
         if (isListeningForASpecificKeyThatHasntBeenPressed(e5, modifiers)) {
           return;
         }
-      }
-      next(e5);
-    });
+        next(e5);
+      });
+    }
     listenerTarget.addEventListener(event, handler4, options);
     return () => {
       listenerTarget.removeEventListener(event, handler4, options);
@@ -6675,9 +6675,12 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   function isKeyEvent(event) {
     return ["keydown", "keyup"].includes(event);
   }
+  function isClickEvent(event) {
+    return ["contextmenu", "click", "mouse"].some((i5) => event.includes(i5));
+  }
   function isListeningForASpecificKeyThatHasntBeenPressed(e5, modifiers) {
     let keyModifiers = modifiers.filter((i5) => {
-      return !["window", "document", "prevent", "stop", "once", "capture"].includes(i5);
+      return !["window", "document", "prevent", "stop", "once", "capture", "self", "away", "outside", "passive"].includes(i5);
     });
     if (keyModifiers.includes("debounce")) {
       let debounceIndex = keyModifiers.indexOf("debounce");
@@ -6701,6 +6704,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
         return e5[`${modifier}Key`];
       });
       if (activelyPressedKeyModifiers.length === selectedSystemKeyModifiers.length) {
+        if (isClickEvent(e5.type))
+          return false;
         if (keyToModifiers(e5.key).includes(keyModifiers[0]))
           return false;
       }
@@ -17756,27 +17761,25 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       empty: false,
       filteredOut: false,
       init() {
-        this.$nextTick(() => this.updateSelection(true));
-      },
-      updateSelection(expandParents = false) {
-        if (this.selectedItem) {
-          this.selectedItem.selected = false;
-        }
-        const currentElement = this.$el.querySelector(
-          `[data-component='nav-item'][data-url='${document.location.pathname}']`
-        );
-        if (currentElement) {
-          let currentItem = getData(currentElement);
-          currentItem.selected = true;
-          if (expandParents) {
-            while (currentItem) {
-              const parent = currentItem.parent;
-              if (!currentItem.selected) {
-                currentItem.expanded = true;
-              }
-              currentItem = parent;
-            }
+        this.$nextTick(() => {
+          const currentElement = this.$el.querySelector(
+            `[data-component='nav-item'][data-url='${document.location.pathname}']`
+          );
+          if (currentElement) {
+            let currentItem = getData(currentElement);
+            currentItem.selected = true;
+            this.expandParentsOfItem(currentItem);
           }
+        });
+      },
+      expandParentsOfItem(item) {
+        let currentItem = item;
+        while (currentItem) {
+          const parent = currentItem.parent;
+          if (!currentItem.selected) {
+            currentItem.expanded = true;
+          }
+          currentItem = parent;
         }
       },
       collapseAll() {
@@ -17812,13 +17815,6 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       },
       get children() {
         return Array.from(this.$refs.nav.children).map((node) => getData(node));
-      },
-      get selectedItem() {
-        return getData(
-          this.$el.querySelector(
-            `[data-component='nav-item'][aria-selected='true']`
-          )
-        );
       }
     };
   });
@@ -17837,6 +17833,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       init() {
         this.keywords = keywords || [];
         this.isCollection = collection || false;
+        this.setSelectionState();
       },
       visit() {
         if (!this.selected && this.targetUrl) {
@@ -17863,6 +17860,10 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
           return matched.filter((m3) => m3).length;
         }
         return true;
+      },
+      setSelectionState() {
+        const selected = this.targetUrl === document.location.pathname;
+        this.selected = selected;
       },
       get targetUrl() {
         return this.$root.getAttribute("data-url");
@@ -17892,6 +17893,25 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
           "[data-component='nav-item']"
         );
         return parentElement ? getData(parentElement) : null;
+      },
+      bindings: {
+        root: {
+          ["x-show"]() {
+            return !this.filteredOut;
+          },
+          ["@page-update:complete.document"]() {
+            this.setSelectionState();
+          },
+          ["@page-load:complete.document"]() {
+            this.setSelectionState();
+          },
+          [":aria-expanded"]() {
+            return this.expanded;
+          },
+          [":aria-selected"]() {
+            return this.selected;
+          }
+        }
       }
     };
   });

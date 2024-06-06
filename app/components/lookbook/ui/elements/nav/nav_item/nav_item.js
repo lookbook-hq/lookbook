@@ -11,6 +11,7 @@ export default AlpineComponent("navItem", ({ keywords, collection }) => {
     init() {
       this.keywords = keywords || [];
       this.isCollection = collection || false;
+      this.setSelectionState();
     },
 
     visit() {
@@ -40,6 +41,11 @@ export default AlpineComponent("navItem", ({ keywords, collection }) => {
         return matched.filter((m) => m).length;
       }
       return true;
+    },
+
+    setSelectionState() {
+      const selected = this.targetUrl === document.location.pathname;
+      this.selected = selected;
     },
 
     get targetUrl() {
@@ -78,6 +84,26 @@ export default AlpineComponent("navItem", ({ keywords, collection }) => {
         "[data-component='nav-item']"
       );
       return parentElement ? getData(parentElement) : null;
+    },
+
+    bindings: {
+      root: {
+        ["x-show"]() {
+          return !this.filteredOut;
+        },
+        ["@page-update:complete.document"]() {
+          this.setSelectionState();
+        },
+        ["@page-load:complete.document"]() {
+          this.setSelectionState();
+        },
+        [":aria-expanded"]() {
+          return this.expanded;
+        },
+        [":aria-selected"]() {
+          return this.selected;
+        },
+      },
     },
   };
 });

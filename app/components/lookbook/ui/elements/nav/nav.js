@@ -13,31 +13,27 @@ export default AlpineComponent("nav", (id) => {
     filteredOut: false,
 
     init() {
-      this.$nextTick(() => this.updateSelection(true));
+      this.$nextTick(() => {
+        const currentElement = this.$el.querySelector(
+          `[data-component='nav-item'][data-url='${document.location.pathname}']`
+        );
+
+        if (currentElement) {
+          let currentItem = getData(currentElement);
+          currentItem.selected = true;
+          this.expandParentsOfItem(currentItem);
+        }
+      });
     },
 
-    updateSelection(expandParents = false) {
-      if (this.selectedItem) {
-        this.selectedItem.selected = false;
-      }
-
-      const currentElement = this.$el.querySelector(
-        `[data-component='nav-item'][data-url='${document.location.pathname}']`
-      );
-
-      if (currentElement) {
-        let currentItem = getData(currentElement);
-        currentItem.selected = true;
-
-        if (expandParents) {
-          while (currentItem) {
-            const parent = currentItem.parent;
-            if (!currentItem.selected) {
-              currentItem.expanded = true;
-            }
-            currentItem = parent;
-          }
+    expandParentsOfItem(item) {
+      let currentItem = item;
+      while (currentItem) {
+        const parent = currentItem.parent;
+        if (!currentItem.selected) {
+          currentItem.expanded = true;
         }
+        currentItem = parent;
       }
     },
 
@@ -82,14 +78,6 @@ export default AlpineComponent("nav", (id) => {
 
     get children() {
       return Array.from(this.$refs.nav.children).map((node) => getData(node));
-    },
-
-    get selectedItem() {
-      return getData(
-        this.$el.querySelector(
-          `[data-component='nav-item'][aria-selected='true']`
-        )
-      );
     },
   };
 });
