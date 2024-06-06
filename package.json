@@ -22,9 +22,9 @@
   "author": "Mark Perkins",
   "license": "MIT",
   "dependencies": {
-    "@alpinejs/morph": "^3.13.10",
-    "@alpinejs/persist": "^3.13.10",
-    "alpinejs": "^3.13.10",
+    "@alpinejs/morph": "^3.14.0",
+    "@alpinejs/persist": "^3.14.0",
+    "alpinejs": "^3.14.0",
     "container-query-polyfill": "^1.0.2",
     "iframe-resizer": "^4.3.9",
     "js-cookie": "^3.0.5",
