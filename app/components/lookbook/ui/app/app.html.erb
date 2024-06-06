@@ -1,0 +1,24 @@
+<%= render component_tag(x: {data: "app", bind: "bindings.root"}, data: {status_bar: status_bar?.to_json}) do %>
+  <div id="app-header">
+    <%= header %>
+  </div>
+  
+  <% if pages.any? || previews.any? %>    
+    <%=
+      lb_pane_group("app-body", tag: :div, opts: body_split) do |body|
+        body.with_pane do
+          sidebar
+        end
+        body.with_pane { main }
+      end
+    %>
+  <% else %>
+    <%= main %>
+  <% end %>
+
+  <% if status_bar? %>
+    <footer id="app-status-bar">
+      <%= status_bar %>
+    </footer>  
+  <% end %>
+<% end %>

@@ -1,0 +1,19 @@
+<%= render component_tag do %>
+  <%= lb_table do |table| %>
+    <% table.with_header do |header| %>
+      <% header.with_cell("Name", collapse: true) %>
+      <% header.with_cell("Value") %>
+    <% end %>
+
+    <% entries.each do |entry| %>
+      <% table.with_row do |row| %>
+        <% row.with_cell(collapse: true) do %>
+          <strong><%= entry.name %></strong>
+        <% end %>
+        <% row.with_cell do %>
+          <code><%= entry.value %></code>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,11 +1,11 @@
 import AlpineComponent from "@js/alpine/component";
 import Cookies from "js-cookie";
 
-export default AlpineComponent("layout", () => {
+export default AlpineComponent("app", () => {
   return {
-    appReflowing: false,
+    reflowing: false,
 
-    resetLayout() {
+    resetUI() {
       Cookies.remove("lookbook-display-options");
       Cookies.remove("lookbook-color-scheme");
       Alpine.store("app").clear();
@@ -15,14 +15,14 @@ export default AlpineComponent("layout", () => {
 
     bindings: {
       root: {
-        ["@layout:resizing-start"]() {
-          this.appReflowing = true;
+        ["@ui:resizing-start"]() {
+          this.reflowing = true;
         },
-        ["@layout:resizing-end"]() {
-          this.appReflowing = false;
+        ["@ui:resizing-end"]() {
+          this.reflowing = false;
         },
-        ["@layout:reset"]() {
-          this.resetLayout();
+        ["@ui:reset"]() {
+          this.resetUI();
         },
       },
     },

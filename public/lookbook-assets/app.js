@@ -7746,10 +7746,10 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     return root2 ? module_default.$data(root2) : null;
   }
 
-  // app/components/lookbook/ui/app/color_scheme_switcher/color_scheme_switcher.js
-  var color_scheme_switcher_exports = {};
-  __export(color_scheme_switcher_exports, {
-    default: () => color_scheme_switcher_default
+  // app/components/lookbook/ui/app/app.js
+  var app_exports = {};
+  __export(app_exports, {
+    default: () => app_default
   });
 
   // assets/js/alpine/component.js
@@ -7856,7 +7856,38 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   }
   var api = init(defaultConverter, { path: "/" });
 
-  // app/components/lookbook/ui/app/color_scheme_switcher/color_scheme_switcher.js
+  // app/components/lookbook/ui/app/app.js
+  var app_default = AlpineComponent("app", () => {
+    return {
+      reflowing: false,
+      resetUI() {
+        api.remove("lookbook-display-options");
+        api.remove("lookbook-color-scheme");
+        Alpine.store("app").clear();
+        window.location.reload();
+        this.$logger.info(`Local storage cleared`);
+      },
+      bindings: {
+        root: {
+          ["@ui:resizing-start"]() {
+            this.reflowing = true;
+          },
+          ["@ui:resizing-end"]() {
+            this.reflowing = false;
+          },
+          ["@ui:reset"]() {
+            this.resetUI();
+          }
+        }
+      }
+    };
+  });
+
+  // app/components/lookbook/ui/app/header/color_scheme_switcher/color_scheme_switcher.js
+  var color_scheme_switcher_exports = {};
+  __export(color_scheme_switcher_exports, {
+    default: () => color_scheme_switcher_default
+  });
   var colorSchemeCookie = "lookbook-color-scheme";
   var color_scheme_switcher_default = AlpineComponent("colorSchemeSwitcher", () => {
     const store2 = Alpine.store("app");
@@ -7898,37 +7929,6 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   });
   var header_default = AlpineComponent("header", () => {
     return {};
-  });
-
-  // app/components/lookbook/ui/app/layout/layout.js
-  var layout_exports = {};
-  __export(layout_exports, {
-    default: () => layout_default
-  });
-  var layout_default = AlpineComponent("layout", () => {
-    return {
-      appReflowing: false,
-      resetLayout() {
-        api.remove("lookbook-display-options");
-        api.remove("lookbook-color-scheme");
-        Alpine.store("app").clear();
-        window.location.reload();
-        this.$logger.info(`Local storage cleared`);
-      },
-      bindings: {
-        root: {
-          ["@layout:resizing-start"]() {
-            this.appReflowing = true;
-          },
-          ["@layout:resizing-end"]() {
-            this.appReflowing = false;
-          },
-          ["@layout:reset"]() {
-            this.resetLayout();
-          }
-        }
-      }
-    };
   });
 
   // app/components/lookbook/ui/app/router/router.js
@@ -18942,7 +18942,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
           return Math.round(this.$root.clientHeight);
         },
         get inert() {
-          return this.resizing || this.appReflowing;
+          return this.resizing || this.reflowing;
         },
         get iframe() {
           return this.$refs.iframe;
@@ -19064,7 +19064,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   });
 
   // import-glob:/Users/mark/Code/lookbook/lookbook/assets/js/alpine|../../../app/components/lookbook/ui/**/*.js
-  var modules = [color_scheme_switcher_exports, header_exports, layout_exports, router_exports, status_bar_exports, status_bar_item_exports, status_bar_notifications_exports, button_exports, code_exports, icon_exports, nav_exports, nav_item_exports, pane_exports, tab_panel_exports, pane_group_exports, prose_exports, toolbar_exports, toolbar_button_exports, toolbar_tab_exports, toolbar_tab_group_exports, viewport_exports, display_options_dropdown_exports, param_editor_exports, preview_embed_exports, preview_inspector_exports];
+  var modules = [app_exports, color_scheme_switcher_exports, header_exports, router_exports, status_bar_exports, status_bar_item_exports, status_bar_notifications_exports, button_exports, code_exports, icon_exports, nav_exports, nav_item_exports, pane_exports, tab_panel_exports, pane_group_exports, prose_exports, toolbar_exports, toolbar_button_exports, toolbar_tab_exports, toolbar_tab_group_exports, viewport_exports, display_options_dropdown_exports, param_editor_exports, preview_embed_exports, preview_inspector_exports];
   var __default = modules;
 
   // assets/js/alpine/app.js

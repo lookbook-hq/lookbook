@@ -30,6 +30,10 @@ module Lookbook
       render Lookbook::UI::Icon.new(name: name, **kwargs)
     end
 
+    def lb_metadata_table(**kwargs, &block)
+      render Lookbook::UI::MetadataTable.new(**kwargs), &block
+    end
+
     def lb_table(**kwargs, &block)
       render Lookbook::UI::Table.new(**kwargs), &block
     end

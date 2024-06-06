@@ -1,10 +1,6 @@
 module Lookbook
   module UI
-    class Layout < BaseComponent
-      with_slot :header, Lookbook::UI::Header
-      with_slot :main
-      with_slot :status_bar, Lookbook::UI::StatusBar
-
+    class Sidebar < BaseComponent
       with_slot :previews_nav do |tree, **kwargs|
         Lookbook::UI::Nav.new(
           id: "previews-nav-tree",
@@ -23,22 +19,6 @@ module Lookbook
           placeholder: "Your pages will appear here as you add them.",
           **kwargs
         )
-      end
-
-      def pages
-        Lookbook::Pages
-      end
-
-      def previews
-        Lookbook::Previews
-      end
-
-      def body_split
-        {
-          orientation: :vertical,
-          sizes: ["280px", "auto"],
-          min_sizes: [200, 200]
-        }
       end
 
       def sidebar_split
@@ -60,6 +40,14 @@ module Lookbook
             false
           end
         end
+      end
+
+      def pages
+        Lookbook::Pages
+      end
+
+      def previews
+        Lookbook::Previews
       end
     end
   end

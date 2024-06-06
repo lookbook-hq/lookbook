@@ -155,7 +155,7 @@ export default AlpineComponent(
       },
 
       get inert() {
-        return this.resizing || this.appReflowing;
+        return this.resizing || this.reflowing;
       },
 
       get iframe() {

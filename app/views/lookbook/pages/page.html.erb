@@ -5,7 +5,11 @@
       toolbar.with_button_group do |group|
         group.with_button(icon: :info, tooltip: "Page info") do |button|
           button.with_dropdown do 
-            render Lookbook::UI::PageMetadata.new(page: @page)
+            lb_metadata_table do |data|
+              data.with_entry("UUID", @page.uuid)
+              data.with_entry("Permalink", link_to(permalink_path(@page.uuid), permalink_path(@page.uuid)))
+              data.with_entry("Page file path", path_relative_to_app(@page.file_path))
+            end
           end
         end
       end

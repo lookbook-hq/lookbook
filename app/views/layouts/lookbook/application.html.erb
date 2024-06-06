@@ -2,18 +2,20 @@
   <% if request_frame == "root" %>
     <%=
       render Lookbook::UI::Router.new(events_endpoint: @events_endpoint.to_json) do
-        render Lookbook::UI::Layout.new(id: "app", x: {cloak: true}) do |layout|
-          layout.with_header
+        render Lookbook::UI::App.new(id: "app", x: {cloak: true}) do |app|
+          app.with_header
 
-          layout.with_previews_nav(@previews.tree)
-          layout.with_pages_nav(@pages.tree) if @pages.directory_exists?
+          app.with_sidebar do |sidebar|
+            sidebar.with_previews_nav(@previews.tree)
+            sidebar.with_pages_nav(@pages.tree) if @pages.directory_exists?
+          end
 
-          layout.with_main do
+          app.with_main do
             tag.main { yield }
           end
 
           if @config.ui_status_bar
-            layout.with_status_bar(notifications: @notifications)
+            app.with_status_bar(notifications: @notifications)
           end
         end
       end
