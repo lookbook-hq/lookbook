@@ -69,7 +69,7 @@ module Lookbook
 
     def priority
       @priority = begin
-        pos = PriorityPrefixParser.call(file_name).first || metadata.fetch(:priority, 0)
+        pos = PriorityPrefixParser.call(file_name).first || metadata.fetch(:priority, Entity::DEFAULT_PRIORITY)
         pos.to_i
       end
     end

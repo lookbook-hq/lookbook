@@ -37,7 +37,7 @@ module Lookbook
 
     def priority
       @priority = begin
-        pos = PriorityPrefixParser.call(File.basename(path)).first || @default_priority
+        pos = PriorityPrefixParser.call(File.basename(path)).first || @default_priority || Entity::DEFAULT_PRIORITY
         pos.to_i
       end
     end

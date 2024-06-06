@@ -1,5 +1,7 @@
 module Lookbook
   class Entity
+    DEFAULT_PRIORITY = 1
+
     send(:include, Lookbook::Engine.routes.url_helpers) # YARD parsing workaround: https://github.com/lsegal/yard/issues/546
 
     def id
@@ -29,7 +31,7 @@ module Lookbook
     end
 
     def priority
-      default_priority || 0
+      default_priority || DEFAULT_PRIORITY
     end
 
     attr_reader :default_priority
@@ -39,7 +41,7 @@ module Lookbook
     end
 
     def <=>(other)
-      [priority || Float::INFINITY, label] <=> [other.priority || Float::INFINITY, other.label]
+      [priority || DEFAULT_PRIORITY, label] <=> [other.priority || DEFAULT_PRIORITY, other.label]
     end
 
     def parent_lookup_path = nil

@@ -54,7 +54,7 @@ module Lookbook
             end
           end
           sorted_paths = directory_paths.uniq.sort
-          sorted_paths.map.with_index(1) { PageDirectoryEntity.new(_1, default_priority: _2) }
+          sorted_paths.map { PageDirectoryEntity.new(_1) }
         end
       end
 
