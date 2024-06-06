@@ -21,7 +21,7 @@ module Lookbook
             end
             sleep 0.5
           end
-        rescue ClientDisconnected, Errno::EPIPE, IOError
+        rescue ClientDisconnected, Errno::EPIPE, Errno::ECONNRESET, IOError
           sse.close
         ensure
           sse.close
