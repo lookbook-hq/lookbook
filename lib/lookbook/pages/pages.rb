@@ -83,6 +83,10 @@ module Lookbook
         @parser ||= PagesParser.new(page_paths)
       end
 
+      def directory_exists?
+        page_paths.find { File.exist?(_1) }
+      end
+
       private
 
       def clear_cache

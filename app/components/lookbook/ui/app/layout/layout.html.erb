@@ -11,21 +11,8 @@
   
   <% if pages.any? || previews.any? %>    
     <%=
-      lb_pane_group("app-body",
-        tag: :div,
-        opts: {
-          orientation: :vertical,
-          sizes: ["280px", "auto"],
-          min_sizes: [200, 200]
-        }) do |body|
-        body.with_pane do
-          lb_pane_group("app-sidebar",
-          opts: {
-            orientation: :horizontal,
-            sizes: nav_panels.take(2).map {"#{100 / nav_panels.size}%"},
-            min_sizes: nav_panels.take(2).map {100}
-          }) do |sidebar|
-
+      lb_pane_group("app-body", tag: :div, opts: body_split) do |body|
+        body.with_pane do lb_pane_group("app-sidebar", opts: sidebar_split) do |sidebar|
             config.ui_nav_panels.each do |name|
               if name.to_sym == :previews
                 sidebar.with_pane("previews-nav") do |pane|

@@ -77,7 +77,11 @@ export default AlpineComponent("nav", (id) => {
     },
 
     get children() {
-      return Array.from(this.$refs.nav.children).map((node) => getData(node));
+      if (this.$refs.nav) {
+        return Array.from(this.$refs.nav.children).map((node) => getData(node));
+      } else {
+        return [];
+      }
     },
   };
 });

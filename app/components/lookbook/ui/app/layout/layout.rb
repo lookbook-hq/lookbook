@@ -33,8 +33,33 @@ module Lookbook
         Lookbook::Previews
       end
 
+      def body_split
+        {
+          orientation: :vertical,
+          sizes: ["280px", "auto"],
+          min_sizes: [200, 200]
+        }
+      end
+
+      def sidebar_split
+        {
+          orientation: :horizontal,
+          sizes: nav_panels.map { "#{100 / nav_panels.size}%" },
+          min_sizes: nav_panels.map { 100 }
+        }
+      end
+
       def nav_panels
-        config.ui_nav_panels.take(2)
+        config.ui_nav_panels.take(2).filter do |name|
+          case name.to_sym
+          when :previews
+            previews_nav?
+          when :pages
+            pages_nav?
+          else
+            false
+          end
+        end
       end
     end
   end
