@@ -160,6 +160,7 @@ More concretely, a number of **key goals** are helping shape the development wor
 
 * Add support for ActionMailer previews (#570)
 * Implement customisable preview overview/documentation pages
+* Add support for customisable ordering + renaming of folders/previews in nav (#125)
 * Fix compatability issues with partial/view template previews (#581, #555)
 * Improve handling and logging of parser errors (#593)
 
@@ -171,6 +172,7 @@ More concretely, a number of **key goals** are helping shape the development wor
 #### Pages
 
 * Make it easier to customise the look and feel of pages
+* Implement a better system for ordering folders/pages in nav
 * Expand set of UI and path helpers available in pages
 
 #### Development/Testing
@@ -247,7 +249,6 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] `@display`
 * [x] `@!group ... @!endgroup`
 * [x] `@id` 🆕
-* [x] `@priority` 🆕
 * [x] `@location/@logical_path`
 * [ ] `@component/@renders`
 * [ ] `@source`
@@ -291,7 +292,7 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] Render previews in parent app context to fix path helper issues
 * [x] JSON endpoint
 * [x] ActionView annotation stripping
-* [ ] Option to specify order of preview directories in nav (i.e. non-alphabetical)
+* [x] Config files for directories, nav order and label customisation
 * [ ] Output transformation
 
 ### Preview Embeds
@@ -306,6 +307,7 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] Basic markdown + ERB pages system
 * [x] YAML Frontmatter config
 * [x] Landing page
+* [x] Config files for directories, nav order and label customisation
 * [ ] Tabbed pages
 * [ ] Page layout and styling options 🚧
 
@@ -324,10 +326,10 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 * [x] Runnable, bundled demo app for development
 * [x] Minitest test suite setup
 * [x] Setup GH actions CI
+* [x] Release script
 * [ ] Comprehensive set of test components + previews 🚧
 * [ ] UI integration tests 🚧
 * [ ] Set up Ruby & Rails versions test matrix via Appraisal
-* [ ] Release script (automate from GH?)
 
 ### Internals
 
@@ -344,7 +346,7 @@ The 'todo' list below is intended to provide a _very rough_ overview of the curr
 
 ### Documentation
 
-* [ ] Switch to Nanoc for static docs building?
+* [x] Switch to Nanoc for static docs building?
 * [ ] Document new features in v3 
 * [ ] Port and update existing docs to new docs site
 * [ ] Automate config option documentation via YARD
