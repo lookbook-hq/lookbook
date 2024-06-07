@@ -156,7 +156,9 @@ module Lookbook
     end
 
     def parent
-      Previews.directories.find_or_add(parent_lookup_path, File.dirname(file_path))
+      if parent_lookup_path.present?
+        Previews.directories.find_or_add(parent_lookup_path, File.dirname(file_path))
+      end
     end
 
     def children
