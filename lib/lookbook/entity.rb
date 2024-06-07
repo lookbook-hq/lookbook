@@ -41,7 +41,7 @@ module Lookbook
     end
 
     def <=>(other)
-      [priority || DEFAULT_PRIORITY, label] <=> [other.priority || DEFAULT_PRIORITY, other.label]
+      [priority || DEFAULT_PRIORITY, label.downcase] <=> [other.priority || DEFAULT_PRIORITY, other.label.downcase]
     end
 
     def parent_lookup_path = nil
