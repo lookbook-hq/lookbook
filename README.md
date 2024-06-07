@@ -6,7 +6,7 @@
 
 This branch contains a work-in-progress, exploratory, from-scratch rebuild of Lookbook, intended to form the basis of a future v3.0 release.
 
-[Demo](#demo-site)  ・ [Usage](#usage)  ・ [Development](#development) ・ [Background & motivation](#v3-rebuild---background-and-motivation) ・ [Current status](#v3-rebuild---current-status)
+[Demo](#demo-site)  ・ [Documentation](#documentation)  ・ [Development](#development)
 
 ![CI status](https://github.com/lookbook-hq/lookbook/actions/workflows/ci.yml/badge.svg?branch=v3)
 
@@ -16,53 +16,15 @@ You can find a hosted version of the [demo/test app](#demo-app) here: https://v3
 
 This pulls directly from the `v3` development branch and so may occasionally be broken.
 
-## Usage
+## Documentation
 
-Lookbook v3 is currently under heavy development and **should not be considered stable**. 
+v3-specific documentation is still very much a work in progress. The pages below should provide enough information if you wish to install the latest alpha release and test out some of the new features.
 
-However, intrepid individuals who are familiar with Lookbook and wish to kick the tyres or get a preview of the upcoming changes can install the Lookbook gem directly from the `v3` branch of this repository.
-
-> Alternatively you can pull down the codebase and [run the included demo app](#demo-app) to see some of the new features in action.
-
-### Requirements
-
-* Ruby >= 3.0.0
-* Rails >= 6.1.0
-
-### Installation
-
-Add Lookbook to the `development` group in your Gemfile:
-
-```rb
-group :development do
-  gem "lookbook", github: "lookbook-hq/lookbook", branch: "v3"
-  gem "listen" # Required for 'live' UI updates when file changes are detected
-end
-```
-
-Lookbook will automatically be mounted at `/lookbook` within your app when the server is started.
-
-> 🚨 Previously Lookbook required manual mounting in your app. This is **no longer the case**, so if trialing v3 in a project with an existing Lookbook install you must remove [the mounting code](https://lookbook.build/guide/installation#step-2) from your routes.rb file first.
-
-### Configuration
-
-The currently implemented v3 configuration options are not yet documented, but can be seen in the [config.rb](lib/lookbook/config.rb) file.
-
-> 🚨 If testing out the v3 branch on an existing Lookbook install you may see errors if setting v2.x config options that have not yet been re-implemented in v3.
-
-### Breaking changes
-
-Lookbook v3.0 will contain a number of breaking changes from the v2.x releases.
-
-The majority of these changes will be in the _extending_, _theming_ and _API_ areas, so heavily customised Lookbook installations may find upgrading a more involved process. As yet there is no documentation on the exact scope of these changes.
-
-In addition, until v3 development reaches beta release stage there are likely to be _unintentional breaking changes_ due to missing or partly-implemented features.
-
-For these reasons, it is recommended that anyone who wants to kick the tyres on the pre-alpha v3 codebase do so **on new projects** or **existing projects with simple, 'vanilla' Lookbook installs** to minimise the chance of running into issues.
-
-### Running in production
-
- Please don't do this. It's really not ready yet.
+* [Installing/Upgrading](./docs/alpha/01_usage.md)
+* [New features](./docs/alpha/02_new_features.md)
+* [Background and motivation](./docs/alpha/03_motivation.md)
+* [Development status](./docs/alpha/08_status.md)
+* [Troubleshooting/Known issues](./docs/alpha/09_troubleshooting.md)
 
 ## Development
 
@@ -140,223 +102,6 @@ If you want to disable `Lookbook` logging, set
 ```rb
 Lookbook.logger = ::Logger.new('/dev/null')
 ```
-
-## v3 rebuild - background and motivation
-
-The current Lookbook codebase has grown organically and haphazardly from a few custom ViewComponent preview templates into a standalone Rails Engine gem with support for previewing many different types of components and views.
-
-In order to provide a solid foundation for future development this v3 branch was created with aspirations to improve the quality of the Lookbook codebase, reduce the number of third party dependencies, fix long-standing issues that are hard to address in the current implementation
-and explore building out new (and experimental) feature ideas.
-
-More concretely, a number of **key goals** are helping shape the development work:
-
-#### UI
-
-* Improve accessibilty and usability of the app (#17)
-* Expose a better theming system using CSS variables (with light and dark modes out of the box)
-* Replace ViewComponent dependency with bespoke component system for building the UI
-
-#### Previews
-
-* Add support for ActionMailer previews (#570)
-* Implement customisable preview overview/documentation pages
-* Add support for customisable ordering + renaming of folders/previews in nav (#125)
-* Fix compatability issues with partial/view template previews (#581, #555)
-* Improve handling and logging of parser errors (#593)
-
-#### Preview embeds
-
-* Add more granualar security configuration options for embed iframes (#571)
-* Implement `<lookbook-embed></lookbook-embed>` as a native web component
-
-#### Pages
-
-* Make it easier to customise the look and feel of pages
-* Implement a better system for ordering folders/pages in nav
-* Expand set of UI and path helpers available in pages
-
-#### Development/Testing
-
-* Streamline Lookbook development process - runnable test/demo/development app, simpler asset dev/build pipeline
-* Improve test setup - switch to Minitest, run tests against demo app, better integration test coverage
-* Make logging play nicer with standard Rails logging options and third party gems
-
-#### Other
-
-* Remove ActionCable requirement, use SSE for live UI updates in dev
-* Improve error handling and compatability with `better_errors` etc (#528)
-* Remove some of the madness from codebase 🙈
-
-## v3 rebuild - Current status
-
-Lookbook v3 is currently in a pre-alpha stage and is under active, exploratory development.
-
-The 'todo' list below is intended to provide a _very rough_ overview of the current state of progress. **It is not exhaustive**. Checked off items may still be revisited/refactored/removed in the future without warning.
-
-**Emoji key:**
-
-* 🆕 - New feature in v3
-* 🚧 - In progress or implemented but incomplete 
-* 🧪 - Experimental feature/implementation
-
-### UI
-
-#### General
-
-* [x] Basic desktop UI implementation
-* [x] Replace Tailwind with vanilla CSS
-* [x] Bespoke component system to replace ViewComponent
-* [x] Status bar 🆕 🚧
-* [x] Notifications for parser errors
-* [x] SSE-based live UI updating 🧪 
-* [x] Expand nav to current item when opening app
-* [x] Don't fetch/render entire DOM on navigation (no need to re-render sidebar etc)
-* [ ] Improve accessibilty (exact requirements tbd)
-* [ ] Mobile/small screen layout optimisations
-* [ ] Side-dockable preview inspector drawer
-* [ ] Search fields 'clear' buttons
-* [ ] Use custom icon sprite instead of inlined icons
-
-#### Code samples
-
-* [x] Syntax highlighting 🆕 🚧 🧪
-* [ ] Replace Shiki with something lighter (server-side?)
-* [ ] Click to copy
-* [ ] Line wrap toggle
-
-#### Theming/branding
-
-* [x] Light/dark mode themes + toggle 🆕 🚧
-* [x] Project links in header 🆕
-* [ ] Theme system based on CSS custom properties 🚧
-* [ ] Project logo customisation
-
-### Previews
-
-#### Preview types
-
-* [x] ViewComponent previews
-* [x] Phlex previews
-* [x] Partials/templates previews
-* [x] ActionMailer previews 🆕 🧪
-
-#### Tags/annotations
-
-* [x] Notes
-* [x] `@label`
-* [x] `@hidden`
-* [x] `@param`
-* [x] `@display`
-* [x] `@!group ... @!endgroup`
-* [x] `@id` 🆕
-* [x] `@location/@logical_path`
-* [ ] `@component/@renders`
-* [ ] `@source`
-* [ ] `@after_render`
-* [ ] `@status/@wip` ?
-
-#### Dynamic params
-
-* [x] Text input
-* [x] Textarea input
-* [x] Select input
-* [x] Checkbox input 🆕
-* [ ] Toggle input
-* [ ] Color picker input
-* [ ] Range input
-
-#### Display options
-
-* [x] Static display options
-* [x] Dynamic display options
-
-#### Inspector
-
-* [x] Preview panel
-* [x] Output panel
-* [x] Usage panel (combination of old 'source' and 'notes' panels)
-* [x] Metadata panel 🚧 🆕 🧪
-* [x] Params panel 🚧 
-* [ ] Configurable breakpoints for quick preview viewport resizing
-* [ ] Embed code dropdown
-* [ ] Preview URL copy button
-* [ ] Manual preview refresh button
-
-#### Other
-
-* [x] Grouped scenarios
-* [x] Preview overview pages 🚧 🆕
-* [x] Custom preview controllers support
-* [x] Custom preview layouts support
-* [x] Preview parser error reporting
-* [x] Render previews in parent app context to fix path helper issues
-* [x] JSON endpoint
-* [x] ActionView annotation stripping
-* [x] Config files for directories, nav order and label customisation
-* [ ] Output transformation
-
-### Preview Embeds
-
-* [x] `<lookbook-embed>` implemented as HTML custom element
-* [x] Internal embeds (within pages in Lookbook)
-* [ ] External embeds (outside of Lookbook)
-* [ ] Configurable frame ancestors
-
-### Pages
-
-* [x] Basic markdown + ERB pages system
-* [x] YAML Frontmatter config
-* [x] Landing page
-* [x] Config files for directories, nav order and label customisation
-* [ ] Tabbed pages
-* [ ] Page layout and styling options 🚧
-
-### Extending
-
-* [x] Custom inspector panels 🚧
-* [ ] Custom param inputs
-* [ ] Custom tags
-* [ ] Lifecycle hooks
-* [ ] Global data store
-* [ ] Ruby API
-
-### Development
-
-* [x] Replace Parcel with PostCSS + esbuild for compiling assets
-* [x] Runnable, bundled demo app for development
-* [x] Minitest test suite setup
-* [x] Setup GH actions CI
-* [x] Release script
-* [ ] Comprehensive set of test components + previews 🚧
-* [ ] UI integration tests 🚧
-* [ ] Set up Ruby & Rails versions test matrix via Appraisal
-
-### Internals
-
-* [x] Auto-mounting of Lookbook engine 🆕
-* [x] Remove ActionCable dependency, use SSE for triggering UI live updates 🆕 🧪
-* [x] File change detection system
-* [x] Config options defined in Ruby and not YAML
-* [x] Config options synced with ViewComponent where appropriate
-* [x] UUID-based permalink endpoint 🆕 🧪
-* [x] Improved logger implementation
-* [ ] Rationalise & document entity method names
-* [ ] Make debug logging more consitent
-* [ ] Improve parsing/tree building performance
-
-### Documentation
-
-* [x] Switch to Nanoc for static docs building?
-* [ ] Document new features in v3 
-* [ ] Port and update existing docs to new docs site
-* [ ] Automate config option documentation via YARD
-* [ ] Automate API docs via YARD
-* [ ] Set up automated build & deploy process for docs
-
-### Other/Ideas/Maybe
-
-* [ ] CLI tool
-* [ ] JSON API
 
 ## License
 
