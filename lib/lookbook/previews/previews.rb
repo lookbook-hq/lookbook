@@ -104,18 +104,7 @@ module Lookbook
         @inspector_targets ||= Previews.all.flat_map { _1.inspector_targets }
       end
 
-      def directories
-        @directories ||= begin
-          directory_paths = store.all.map(&:parent_lookup_path).compact_blank.uniq.flat_map do |path|
-            current_path = ""
-            path.split("/").map do |segment|
-              current_path = "#{current_path}/#{segment}".delete_prefix("/")
-            end
-          end
-          sorted_paths = directory_paths.uniq.sort
-          sorted_paths.map { PreviewDirectoryEntity.new(_1) }
-        end
-      end
+      def directories = @directories ||= PreviewDirectories.new
 
       def statuses
         @statuses ||= Lookbook.config.preview_statuses.map do |name, props|

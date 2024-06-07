@@ -2,11 +2,13 @@ module Lookbook
   class PreviewDirectoryEntity < Entity
     include EntityTreeNode
 
+    CONFIG_FILE_NAME = "_config.yml"
+
     attr_reader :lookup_path
 
-    def initialize(lookup_path, default_priority: nil)
+    def initialize(lookup_path, path: nil)
       @lookup_path = lookup_path
-      @default_priority = default_priority
+      @path = path
       @type = :directory
     end
 
@@ -18,6 +20,10 @@ module Lookbook
       @name ||= lookup_path.split("/").pop
     end
 
+    def label
+      config.fetch(:label, super)
+    end
+
     def children
       @children ||= Previews.tree.children_of(self).sort
     end
@@ -26,9 +32,29 @@ module Lookbook
       children.select(&:visible?).none?
     end
 
+    def path
+      Pathname(@path) if @path
+    end
+
+    def exists?
+      path ? File.exist?(path) : false
+    end
+
     def parent
       parent_lookup_path = File.dirname(lookup_path).delete_prefix(".")
-      Previews.directories.find { _1.lookup_path == parent_lookup_path }
+      Previews.directories.find_or_add(parent_lookup_path, File.dirname(path)) if parent_lookup_path.present?
+    end
+
+    def config
+      @config ||= begin
+        opts = if exists?
+          config_file_path = File.join(path, CONFIG_FILE_NAME)
+          if File.exist?(config_file_path)
+            YAML.safe_load_file(config_file_path)
+          end
+        end
+        DataObject.new(opts || {})
+      end
     end
 
     def to_h
