@@ -128,7 +128,6 @@ module Lookbook
           Lookbook::LabelTag,
           Lookbook::LocationTag,
           Lookbook::ParamTag,
-          Lookbook::PriorityTag,
           Lookbook::StatusTag
         ]
       end

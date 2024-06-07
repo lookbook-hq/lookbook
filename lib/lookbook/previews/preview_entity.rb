@@ -35,10 +35,6 @@ module Lookbook
       metadata.status(default: Lookbook.config.preview_default_status)
     end
 
-    def priority
-      metadata.fetch(:priority, super)
-    end
-
     def url_param
       case Lookbook.config.preview_url_param.to_sym
       when :uuid
