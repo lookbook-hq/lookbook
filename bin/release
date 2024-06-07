@@ -109,7 +109,9 @@ module Lookbook
         option :dry_run, type: :boolean, default: false, desc: "Perform a dry run (no actual file changes)"
 
         def call(dry_run:)
-          system("npm run release #{" -- --dry-run" if dry_run}")
+          if system("npm run release #{" -- --dry-run" if dry_run}")
+            system("bin/release publish")
+          end
         end
       end
 
