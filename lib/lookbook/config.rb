@@ -14,7 +14,7 @@ module Lookbook
           preview_layout: nil,
           preview_url_param: :name,
           preview_overview_template: "lookbook/previews/overview",
-          preview_paths: ["test/components/previews", "test/mailers/previews"],
+          preview_paths: ["lookbook/previews", "test/components/previews"],
           preview_watch_paths: [],
           preview_watch_extensions: ["rb", "html.*"],
           preview_display_options: {},
@@ -38,7 +38,7 @@ module Lookbook
           inspector_param_inputs: default_inspector_param_inputs,
 
           page_route: "pages",
-          page_paths: ["test/components/docs"],
+          page_paths: ["lookbook/docs", "test/components/docs"],
           page_extensions: ["md", "html.*", "md.*"],
           page_watch_paths: [],
           page_watch_extensions: [],
