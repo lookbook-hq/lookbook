@@ -179,9 +179,9 @@ module Lookbook
     private
 
     def default_readme_path
-      preview_base_path = file_path.to_s.delete_suffix("_preview.rb")
+      preview_basename = File.basename(file_path)
       page_extensions_glob = "{#{Lookbook.config.page_extensions.join(",")}}"
-      readme_path = Dir["#{preview_base_path}*.#{page_extensions_glob}"].first
+      readme_path = Dir["#{preview_basename}.#{page_extensions_glob}"].first
       Pathname(readme_path) if readme_path
     end
 
