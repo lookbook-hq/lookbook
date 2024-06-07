@@ -66,7 +66,7 @@ module Lookbook
         @preview_paths ||= Utils.normalize_paths([
           Lookbook.config.preview_paths,
           Rails.application.config.action_mailer.preview_paths
-        ])
+        ].flatten)
       end
 
       def component_paths
