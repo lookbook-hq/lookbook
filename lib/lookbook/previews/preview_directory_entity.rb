@@ -25,7 +25,12 @@ module Lookbook
     end
 
     def children
-      @children ||= Previews.tree.children_of(self).sort
+      @children ||= begin
+        child_nodes = Previews.tree.children_of(self).sort
+        ListResolver.call(config.fetch(:children, "*"), child_nodes.map(&:name)) do |name|
+          child_nodes.find { _1.name == name }
+        end
+      end
     end
 
     def hidden?
