@@ -56,7 +56,9 @@ module Lookbook
     end
 
     def parent
-      Pages.directories.find { _1.lookup_path == parent_lookup_path }
+      if parent_lookup_path.present?
+        Pages.directories.find_or_add(parent_lookup_path, File.dirname(file_path))
+      end
     end
 
     def next

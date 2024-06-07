@@ -44,19 +44,7 @@ module Lookbook
         Utils.deep_camelize_keys(to_data(...))
       end
 
-      def directories
-        @directories ||= begin
-          dirnames = store.all.map { _1.relative_file_path.dirname.to_s.delete_prefix(".") }.compact_blank.uniq
-          directory_paths = dirnames.flat_map do |path|
-            current_path = ""
-            path.split("/").map do |segment|
-              current_path = "#{current_path}/#{segment}".delete_prefix("/")
-            end
-          end
-          sorted_paths = directory_paths.uniq.sort
-          sorted_paths.map { PageDirectoryEntity.new(_1) }
-        end
-      end
+      def directories = @directories ||= PageDirectories.new
 
       def reloader
         Reloader.new(:pages, watch_paths, watch_extensions) do |changes|

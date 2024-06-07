@@ -1,55 +1,24 @@
 module Lookbook
-  class PageDirectoryEntity < Entity
-    include EntityTreeNode
-
-    attr_reader :path
-
-    def initialize(path, default_priority: nil)
-      @path = Pathname(path)
-      @default_priority = default_priority
-      @type = :directory
-    end
-
-    def lookup_path
-      @lookup_path ||= PathPriorityPrefixesStripper.call(path)
-    end
-
-    def id
-      @id ||= Utils.id(lookup_path)
-    end
-
-    def name
-      @name ||= lookup_path.split("/").pop
-    end
-
+  class PageDirectoryEntity < DirectoryEntity
     def children
-      @children ||= Pages.tree.children_of(self).sort
-    end
-
-    def hidden?
-      children.select(&:visible?).none?
+      @children ||= begin
+        child_nodes = Pages.tree.children_of(self).sort
+        ListResolver.call(config.fetch(:children, "*"), child_nodes.map(&:name)) do |name|
+          child_nodes.find { _1.name == name }
+        end
+      end
     end
 
     def parent
       parent_lookup_path = File.dirname(lookup_path).delete_prefix(".")
-      Pages.directories.find { _1.lookup_path == parent_lookup_path }
+      Pages.directories.find_or_add(parent_lookup_path, File.dirname(path)) if parent_lookup_path.present?
     end
 
     def priority
       @priority = begin
-        pos = PriorityPrefixParser.call(File.basename(path)).first || @default_priority || Entity::DEFAULT_PRIORITY
+        pos = PriorityPrefixParser.call(File.basename(path)).first || Entity::DEFAULT_PRIORITY
         pos.to_i
       end
-    end
-
-    def to_h
-      {
-        entity: "directory",
-        name: name,
-        label: label,
-        lookup_path: lookup_path,
-        children: children.map(&:to_h)
-      }
     end
   end
 end
