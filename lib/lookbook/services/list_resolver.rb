@@ -8,13 +8,24 @@ module Lookbook
     end
 
     def call(&resolver)
-      included = to_include.inject([]) do |result, name|
+      included = to_include.each_with_object([]) do |name, result|
         if name.to_s == "*"
-          result += item_set.select { |item| !result.include?(item) }
+          result << "*"
         elsif item_set.include?(name)
           result << name
         end
         result
+      end
+
+      remaining_items = item_set.difference(included)
+      included = included.flat_map do |name|
+        if name == "*"
+          rest = remaining_items
+          remaining_items = []
+          rest
+        else
+          name
+        end
       end
 
       resolved = resolver ? included.map { |item| resolver.call(item) } : included
