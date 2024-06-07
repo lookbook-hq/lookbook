@@ -30,7 +30,10 @@ module Lookbook
       def tree
         @tree ||= begin
           debug("pages: building tree")
-          EntityTree.new(store.all)
+
+          config_dir = page_paths.detect { Dir["#{_1}/#{DirectoryEntity::CONFIG_FILE_NAME}"].first }
+          config_path = File.join(config_dir, DirectoryEntity::CONFIG_FILE_NAME) if config_dir
+          EntityTree.new(store.all, config_path: config_path)
         end
       end
 

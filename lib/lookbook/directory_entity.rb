@@ -44,6 +44,19 @@ module Lookbook
       raise Lookbook::Error, "DirectoryEntity subclasses must define a #parent method"
     end
 
+    def to_h
+      {
+        entity: "directory",
+        name: name,
+        label: label,
+        lookup_path: lookup_path,
+        path: path.to_s,
+        children: children.map(&:to_h)
+      }
+    end
+
+    protected
+
     def config
       @config ||= begin
         opts = if exists?
@@ -54,17 +67,6 @@ module Lookbook
         end
         DataObject.new(opts || {})
       end
-    end
-
-    def to_h
-      {
-        entity: "directory",
-        name: name,
-        label: label,
-        lookup_path: lookup_path,
-        path: path.to_s,
-        children: children.map(&:to_h)
-      }
     end
   end
 end
