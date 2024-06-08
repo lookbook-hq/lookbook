@@ -1,10 +1,10 @@
 # Lookbook v3 alpha
 
-## New features 
+### New features 
 
 Below are details of some of the main new features that have been implemented so far in Lookbook v3. Give them a try and let us know what you think!
 
-### ActionMailer previews
+## 🆕 ActionMailer previews
 
 [➡️ Demo example](https://v3-demo-app.lookbook.build/lookbook/previews/user_mailer/welcome)
 
@@ -59,7 +59,7 @@ class UserMailerPreview < ActionMailer::Preview
 end
 ```
 
-### Preview overview pages
+## 🆕 Preview overview pages
 
 Preview overview pages are generated for each preview class and shown when clicking on the preview name in the navigation.
 
@@ -143,23 +143,15 @@ These files are rendered as ERB templates and then run through the markdown pars
 [➡️ Demo example](https://v3-demo-app.lookbook.build/lookbook/previews/heading)
 
 
-## Better nav customisation 
+## 🆕 Better nav customisation 
 
-Lookbook v3 adds support for **directory config files**. These are YAML files (named `_config.yml`) that can be added into any directory to allow customisation of folder labels and to override the default alphabetical ordering of child items in the navigation.
+Lookbook v3 allows for more fine-grained control over the  display of items in the sidebar navigation, including the ability to relabel folders and override the default (alphabetical) order of items in the nav.
+
+Config options for each folder can be specified in a `_config.yml` file within the target directory, including in the root previews/pages directory if required.
 
 ### Ordering child items
 
-```
-test/components/previews/
-├── _config.yml
-├── alerts/
-├── buttons/
-├── emails/
-├── forms/
-└── navigation/
-```
-
-The `children` array determines the ordering of child items in the nav:
+By default all items are ordered alphabetically in the navigation. This can be overridden in the `_config.yml` file by specifying an array of ordered child items names as the `children` property value:
 
 ```yml
 # test/components/previews/_config.yml
@@ -171,7 +163,9 @@ children:
   - emails
 ```
 
-Sometimes you may just want to ensure that a number of specific items are displayed first, and then all of the rest after them. This can be done with the special `"*"` item:
+Each item in the array should match the name of a folder, preview or page that exists within that directory.
+
+Sometimes you may just want to ensure that a number of specific items are displayed first, and then all of the rest after them. This can be done with the special `"*"` entry:
 
 ```yml
 # test/components/previews/_config.yml
