@@ -1,6 +1,6 @@
 <%=
   lb_viewport(
-    target.preview_path(request.query_parameters),
+    target.preview_path(request.query_parameters.merge({checksum: checksum(preview_html)})),
     id: "preview-viewport",
   ) 
 %>

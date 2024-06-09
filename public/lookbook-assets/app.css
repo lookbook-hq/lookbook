@@ -765,7 +765,8 @@ code {
 a {
   transition: color 0.25s ease;
 }
-router {
+router,
+main {
   display: contents;
 }
 [x-cloak] {
@@ -1069,9 +1070,6 @@ select {
 }
 [data-component="app"][data-status-bar="true"] {
     grid-template-rows: min-content 1fr min-content;
-  }
-[data-component="app"] main {
-    display: contents;
   }
 [data-component="color-scheme-switcher"] {
   display: block;

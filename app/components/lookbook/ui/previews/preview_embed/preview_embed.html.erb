@@ -43,7 +43,7 @@
 
       panels.each do |panel|
         pane.with_tab_panel(panel.name, key: "embed-panel-#{target.name}-#{panel.name}", label: panel.label) do
-          render panel.partial, preview: preview, target: target, panel: panel
+          render panel.partial, preview: preview, target: target, panel: panel, preview_html: preview_html, **panel.locals
         end
       end
     end

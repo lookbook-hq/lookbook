@@ -1,6 +1,6 @@
 <% content_for :body do %>
   <%= render Lookbook::UI::Router.new do %>
-    <%= yield %>    
+    <%= tag.main { yield } %>
   <% end %>
 <% end %>
 

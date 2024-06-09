@@ -23,6 +23,7 @@ module Lookbook
         format.html do
           @preview_panels = Inspector.preview_panels(**panel_context)
           @drawer_panels = Inspector.drawer_panels(**panel_context)
+          @preview_html = render_target_in_layout(@target)
         end
 
         format.json do
@@ -38,6 +39,7 @@ module Lookbook
       @targets = @preview.inspector_targets.select { _1.name.to_sym.in?(target_names) }
       @panels = Inspector.embed_panels(embed_params[:panels], **panel_context)
       @actions = embed_params.fetch(:actions, [])
+      @preview_html = render_target_in_layout(@target)
 
       render layout: "lookbook/embed"
     end

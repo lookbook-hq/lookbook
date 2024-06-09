@@ -40,7 +40,7 @@
 
           preview_panels.each do |panel|
             pane.with_tab_panel(panel.name, key: "inspector-panel-#{@target.name}-#{panel.name}", label: panel.label) do
-              render panel.partial, preview: preview, target: target, panel: panel, **panel.locals
+              render panel.partial, preview: preview, target: target, panel: panel, preview_html: preview_html, **panel.locals
             end
           end
         end
@@ -60,7 +60,7 @@
       
         drawer_panels.each do |panel|
           pane.with_tab_panel(panel.name, key: "inspector-panel-#{@target.name}-#{panel.name}", label: panel.label) do
-            render panel.partial, preview: preview, target: target, panel: panel, **panel.locals
+            render panel.partial, preview: preview, target: target, panel: panel, preview_html: preview_html, **panel.locals
           end
         end
       end

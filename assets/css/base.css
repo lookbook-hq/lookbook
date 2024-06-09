@@ -23,7 +23,8 @@ a {
   transition: color 0.25s ease;
 }
 
-router {
+router,
+main {
   display: contents;
 }
 
