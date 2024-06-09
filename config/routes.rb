@@ -14,7 +14,8 @@ if Lookbook::Engine.enabled?
 
     get "/embed", to: "embeds#show", as: :embed
 
-    resources :events, only: [:index]
+    get "/events", to: "events#index", as: :events
+    get "/events/ping", to: "events#ping", as: :ping
 
     match "*path", to: "application#not_found", via: :all
   end

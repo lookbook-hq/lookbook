@@ -30,5 +30,9 @@ module Lookbook
 
       head :ok
     end
+
+    def ping
+      render html: Engine.updated_at
+    end
   end
 end

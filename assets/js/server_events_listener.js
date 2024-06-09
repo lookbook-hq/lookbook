@@ -4,11 +4,12 @@ export default class ServerEventsListener {
   constructor(endpoint) {
     this.endpoint = endpoint;
     this.source = null;
+    this.broadcastChannel = this.initBroadCastChannel();
     this.handlers = [];
     this.$logger = new Logger("EventsListener");
 
     addEventListener("visibilitychange", () => {
-      document.hidden ? this.stop() : this.start();
+      if (!document.hidden) this.start();
     });
   }
 
@@ -16,6 +17,7 @@ export default class ServerEventsListener {
     if (!this.source) {
       this.$logger.debug(`Starting`);
       this.source = this.initSource();
+      this.broadcastStart();
     }
   }
 
@@ -55,5 +57,24 @@ export default class ServerEventsListener {
     window.onbeforeunload = () => this.stop();
 
     return source;
+  }
+
+  initBroadCastChannel() {
+    const bc = new BroadcastChannel("lookbook_events");
+
+    bc.addEventListener("message", (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type === "event-source-start") {
+        this.stop();
+      }
+    });
+
+    return bc;
+  }
+
+  broadcastStart() {
+    this.broadcastChannel.postMessage(
+      JSON.stringify({ type: "event-source-start" })
+    );
   }
 }

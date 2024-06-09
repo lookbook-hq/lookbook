@@ -7,6 +7,7 @@ export default AlpineComponent("router", (sseEndpoint = null) => {
   return {
     serverEventsListener: null,
     routerLogger: null,
+    lastUpdate: Date.now(),
 
     init() {
       this.routerLogger = new Logger("Router");
@@ -29,6 +30,7 @@ export default AlpineComponent("router", (sseEndpoint = null) => {
       await this.updateDOM(location, "router", {
         headers: { "X-Lookbook-Frame": "root" },
       });
+      this.lastUpdate = Date.now();
       this.routerLogger.info(`Page updated`);
       this.$dispatch("page-update:complete");
     },
@@ -41,6 +43,7 @@ export default AlpineComponent("router", (sseEndpoint = null) => {
       if (updateHistory) {
         history.pushState({}, "", result.url);
       }
+      this.lastUpdate = Date.now();
       this.routerLogger.debug(`Page loaded`);
       this.$dispatch("page-load:complete");
     },
@@ -69,8 +72,13 @@ export default AlpineComponent("router", (sseEndpoint = null) => {
       }
     },
 
-    handleVisibilityChange() {
-      if (this.serverEventsListener && !document.hidden) this.updatePage();
+    async handleVisibilityChange() {
+      if (this.serverEventsListener && !document.hidden) {
+        const response = await fetch(`${sseEndpoint}/ping`);
+        const lastServerUpdate = Date.parse(await response.text());
+
+        if (lastServerUpdate > this.lastUpdate) this.updatePage();
+      }
     },
 
     destroy() {

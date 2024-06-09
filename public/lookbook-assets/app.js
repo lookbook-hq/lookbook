@@ -7942,16 +7942,19 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     constructor(endpoint) {
       this.endpoint = endpoint;
       this.source = null;
+      this.broadcastChannel = this.initBroadCastChannel();
       this.handlers = [];
       this.$logger = new Logger("EventsListener");
       addEventListener("visibilitychange", () => {
-        document.hidden ? this.stop() : this.start();
+        if (!document.hidden)
+          this.start();
       });
     }
     start() {
       if (!this.source) {
         this.$logger.debug(`Starting`);
         this.source = this.initSource();
+        this.broadcastStart();
       }
     }
     stop() {
@@ -7983,6 +7986,21 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       });
       window.onbeforeunload = () => this.stop();
       return source;
+    }
+    initBroadCastChannel() {
+      const bc = new BroadcastChannel("lookbook_events");
+      bc.addEventListener("message", (event) => {
+        const data2 = JSON.parse(event.data);
+        if (data2.type === "event-source-start") {
+          this.stop();
+        }
+      });
+      return bc;
+    }
+    broadcastStart() {
+      this.broadcastChannel.postMessage(
+        JSON.stringify({ type: "event-source-start" })
+      );
     }
   };
 
@@ -8017,6 +8035,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     return {
       serverEventsListener: null,
       routerLogger: null,
+      lastUpdate: Date.now(),
       init() {
         this.routerLogger = new Logger("Router");
         if (sseEndpoint) {
@@ -8034,6 +8053,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
         await this.updateDOM(location, "router", {
           headers: { "X-Lookbook-Frame": "root" }
         });
+        this.lastUpdate = Date.now();
         this.routerLogger.info(`Page updated`);
         this.$dispatch("page-update:complete");
       },
@@ -8045,6 +8065,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
         if (updateHistory) {
           history.pushState({}, "", result.url);
         }
+        this.lastUpdate = Date.now();
         this.routerLogger.debug(`Page loaded`);
         this.$dispatch("page-load:complete");
       },
@@ -8069,9 +8090,13 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
           }
         }
       },
-      handleVisibilityChange() {
-        if (this.serverEventsListener && !document.hidden)
-          this.updatePage();
+      async handleVisibilityChange() {
+        if (this.serverEventsListener && !document.hidden) {
+          const response = await fetch(`${sseEndpoint}/ping`);
+          const lastServerUpdate = Date.parse(await response.text());
+          if (lastServerUpdate > this.lastUpdate)
+            this.updatePage();
+        }
       },
       destroy() {
         this.routerLogger.error(`Router instance destroyed!`);
