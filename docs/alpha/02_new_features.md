@@ -6,6 +6,8 @@ Below are details of some of the main new features that have been implemented so
 
 ## 🆕 ActionMailer previews
 
+> ⚠️ ActionMailer preview support is still very much at an experimental stage. Any feedback and/or suggestions on this feature would be very welcome!
+
 [➡️ Demo example](https://v3-demo-app.lookbook.build/lookbook/previews/user_mailer/welcome)
 
 ActionMailer previews are supported out-of-the-box in v3, with no changes required to the regular [ActionMailer preview format](https://guides.rubyonrails.org/action_mailer_basics.html#previewing-emails):
