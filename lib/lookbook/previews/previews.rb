@@ -2,6 +2,7 @@ module Lookbook
   module Previews
     class << self
       include Loggable
+      include FeatureChecks
 
       delegate_missing_to :store
 
@@ -57,7 +58,7 @@ module Lookbook
       def preview_class?(klass)
         if (defined?(ViewComponent) && klass.ancestors.include?(ViewComponent::Preview)) ||
             klass.ancestors.include?(Lookbook::Preview) ||
-            klass.ancestors.include?(::ActionMailer::Preview)
+            (action_mailer_available? && klass.ancestors.include?(::ActionMailer::Preview))
           !klass.respond_to?(:abstract_class) || klass.abstract_class != true
         end
       end

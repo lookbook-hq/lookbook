@@ -5,7 +5,11 @@
     <%= render(@render_args[:component], @render_args[:args], &@render_args[:block]) %>
   <% end %>
 <% elsif @render_args[:email] %>
-  <%= raw(@render_args[:email].decoded) %>
+  <% if @render_args[:email].multipart? %>
+    <%= raw(@render_args[:email].html_part.decoded) %>
+  <% else %>
+    <%= raw(@render_args[:email].decoded) %>
+  <% end %>
 <% else %>
   <%= render(@render_args[:template], **@render_args[:locals], &@render_args[:block]) %>
 <% end %>
