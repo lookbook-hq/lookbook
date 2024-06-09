@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lookbook (3.0.0.alpha.1)
+    lookbook (3.0.0.alpha.2)
       css_parser
       htmlbeautifier
       redcarpet
