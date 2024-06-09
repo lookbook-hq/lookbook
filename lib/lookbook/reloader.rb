@@ -1,6 +1,7 @@
 module Lookbook
   class Reloader
     include Loggable
+    include FeatureChecks
 
     delegate :execute, :execute_if_updated, :updated?, to: :file_watcher
 
@@ -39,7 +40,7 @@ module Lookbook
           @last_changeset = nil
         end
 
-        if evented?
+        if listen_available?
           file_watcher.on_change do |changeset|
             if watching?(changeset.all)
               debug("#{name}: file changes detected")
@@ -54,17 +55,13 @@ module Lookbook
     end
 
     def file_watcher_class
-      if evented?
+      if listen_available?
         require_relative "evented_file_update_checker"
 
         Lookbook::EventedFileUpdateChecker
       else
         ActiveSupport::FileUpdateChecker
       end
-    end
-
-    def evented?
-      Gem.loaded_specs.has_key?("listen")
     end
   end
 end

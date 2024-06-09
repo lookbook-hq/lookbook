@@ -1,6 +1,7 @@
 module Lookbook
   class PreviewEntity < Entity
     include EntityTreeNode
+    include FeatureChecks
 
     attr_reader :preview_class, :preview_class_name, :preview_methods, :file_path, :metadata
 
@@ -148,7 +149,7 @@ module Lookbook
     end
 
     def mailer_preview?
-      preview_class.ancestors.include?(::ActionMailer::Preview)
+      action_mailer_available? && preview_class.ancestors.include?(::ActionMailer::Preview)
     end
 
     def parent

@@ -19,7 +19,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "css_parser"
   spec.add_dependency "redcarpet"
   spec.add_dependency "htmlbeautifier"
-  spec.add_dependency "actionmailer"
   spec.add_dependency "yard"
   spec.add_dependency "zeitwerk"
 end

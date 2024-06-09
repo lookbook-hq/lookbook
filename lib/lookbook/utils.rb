@@ -75,6 +75,10 @@ module Lookbook
           obj
         end
       end
+
+      def gem_installed?(name)
+        Gem.loaded_specs.has_key?(name)
+      end
     end
   end
 end

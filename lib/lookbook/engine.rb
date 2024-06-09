@@ -13,7 +13,7 @@ module Lookbook
     end
 
     config.to_prepare do
-      ViewComponentConfigSync.call if Gem.loaded_specs.has_key?("view_component")
+      ViewComponentConfigSync.call if Utils.gem_installed?("view_component")
 
       preview_controller = Lookbook.config.preview_controller.constantize
       unless preview_controller.include?(Lookbook::PreviewControllerActions)

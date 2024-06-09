@@ -86,7 +86,7 @@ module Lookbook
     def render_args(request_params: {})
       resolved_params = resolve_request_params(request_params)
       result = call_method(**resolved_params)
-      if result.is_a?(ActionMailer::Parameterized::MessageDelivery)
+      if mailer_preview? && result.is_a?(::ActionMailer::Parameterized::MessageDelivery)
         {
           email: result,
           template: Previews.scenario_template

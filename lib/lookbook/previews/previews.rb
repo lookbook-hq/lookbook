@@ -63,10 +63,13 @@ module Lookbook
       end
 
       def preview_paths
-        @preview_paths ||= Utils.normalize_paths([
-          Lookbook.config.preview_paths,
-          Rails.application.config.action_mailer.preview_paths
-        ].flatten)
+        @preview_paths ||= begin
+          action_mailer_paths = if Rails.application.config.respond_to?(:action_mailer)
+            Rails.application.config.action_mailer.preview_paths
+          end
+          paths = [Lookbook.config.preview_paths, action_mailer_paths].compact.flatten
+          Utils.normalize_paths(paths)
+        end
       end
 
       def component_paths
