@@ -2402,6 +2402,8 @@ tr:not(:last-child) {
     grid-template-rows: 1fr;
     outline: 1px solid #d1d5db;
     outline: 1px solid var(--lb-color-surface-divider);
+    background-color: #fff;
+    background-color: var(--lb-viewport-background-color);
   }
 .resize-x[data-component="viewport"] .viewport-dimensions {
       right: 1rem;

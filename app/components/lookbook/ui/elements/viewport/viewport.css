@@ -53,6 +53,7 @@
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     outline: 1px solid var(--lb-color-surface-divider);
+    background-color: var(--lb-viewport-background-color);
   }
 
   &.resize-x {
