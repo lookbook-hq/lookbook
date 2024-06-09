@@ -765,8 +765,7 @@ code {
 a {
   transition: color 0.25s ease;
 }
-router,
-main {
+router {
   display: contents;
 }
 [x-cloak] {

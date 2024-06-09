@@ -6,4 +6,8 @@
   &[data-status-bar="true"] {
     grid-template-rows: min-content 1fr min-content;
   }
+
+  main {
+    display: contents;
+  }
 }
