@@ -8,6 +8,7 @@ export default AlpineComponent("router", (sseEndpoint = null) => {
     serverEventsListener: null,
     routerLogger: null,
     lastUpdate: Date.now(),
+    morphing: false,
 
     init() {
       this.routerLogger = new Logger("Router");
@@ -48,12 +49,29 @@ export default AlpineComponent("router", (sseEndpoint = null) => {
       this.$dispatch("page-load:complete");
     },
 
+    async handleError(error) {
+      if (this.morphing) {
+        const { stack } = error.error;
+        if (stack.indexOf("Alpine") >= 0) {
+          window.location.reload();
+        }
+      }
+    },
+
     async updateDOM(url, selector, options = {}) {
+      if (this.morphing) {
+        return;
+      }
+
       const result = await fetchHTML(url, selector, options);
       if (result.status < 500) {
+        this.morphing = true;
         document.dispatchEvent(new CustomEvent("morph:start"));
         Alpine.morph(document.querySelector(selector), result.fragment);
-        document.dispatchEvent(new CustomEvent("morph:complete"));
+        this.$nextTick(() => {
+          document.dispatchEvent(new CustomEvent("morph:complete"));
+          this.morphing = false;
+        });
       } else {
         location.href = url;
       }

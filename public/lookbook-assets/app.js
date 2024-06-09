@@ -8036,6 +8036,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       serverEventsListener: null,
       routerLogger: null,
       lastUpdate: Date.now(),
+      morphing: false,
       init() {
         this.routerLogger = new Logger("Router");
         if (sseEndpoint) {
@@ -8069,12 +8070,27 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
         this.routerLogger.debug(`Page loaded`);
         this.$dispatch("page-load:complete");
       },
+      async handleError(error2) {
+        if (this.morphing) {
+          const { stack } = error2.error;
+          if (stack.indexOf("Alpine") >= 0) {
+            window.location.reload();
+          }
+        }
+      },
       async updateDOM(url, selector, options = {}) {
+        if (this.morphing) {
+          return;
+        }
         const result = await fetchHTML(url, selector, options);
         if (result.status < 500) {
+          this.morphing = true;
           document.dispatchEvent(new CustomEvent("morph:start"));
           Alpine.morph(document.querySelector(selector), result.fragment);
-          document.dispatchEvent(new CustomEvent("morph:complete"));
+          this.$nextTick(() => {
+            document.dispatchEvent(new CustomEvent("morph:complete"));
+            this.morphing = false;
+          });
         } else {
           location.href = url;
         }
@@ -17855,11 +17871,13 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   });
   var nav_item_default = AlpineComponent("navItem", ({ keywords, collection }) => {
     return {
+      key: null,
       keywords: [],
       isCollection: false,
       filteredOut: false,
       selected: false,
       init() {
+        this.key = this.$el.getAttribute("key");
         this.keywords = keywords || [];
         this.isCollection = collection || false;
         this.setSelectionState();
@@ -17896,9 +17914,6 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       },
       get targetUrl() {
         return this.$root.getAttribute("data-url");
-      },
-      get key() {
-        return this.$root.getAttribute("key");
       },
       get expanded() {
         return this.expandedItems && this.key && this.expandedItems.includes(this.key);

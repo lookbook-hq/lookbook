@@ -5,6 +5,7 @@
     "@click": "handleClick",
     "@lookbook:visit": "visit($event.detail.url)",
     "@lookbook:update": "updatePage",
+    "@error.window": "handleError",
     "@popstate.window": "visit(location, false)",
     "@visibilitychange.document": "handleVisibilityChange"
   }) do %>

@@ -3,12 +3,14 @@ import { getData } from "@js/alpine/utils";
 
 export default AlpineComponent("navItem", ({ keywords, collection }) => {
   return {
+    key: null,
     keywords: [],
     isCollection: false,
     filteredOut: false,
     selected: false,
 
     init() {
+      this.key = this.$el.getAttribute("key");
       this.keywords = keywords || [];
       this.isCollection = collection || false;
       this.setSelectionState();
@@ -50,10 +52,6 @@ export default AlpineComponent("navItem", ({ keywords, collection }) => {
 
     get targetUrl() {
       return this.$root.getAttribute("data-url");
-    },
-
-    get key() {
-      return this.$root.getAttribute("key");
     },
 
     get expanded() {
