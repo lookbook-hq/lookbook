@@ -33,7 +33,7 @@ module Lookbook
     end
 
     def strip_styles(text)
-      iframes = text.scan(IFRAME_REGEX).flatten
+      iframes = text.scan(IFRAME_REGEX).flatten.map(&:strip).compact_blank
       iframes.each.with_index(1) { text.gsub!(_1, "IFRAME_#{_2}") }
       text = text.gsub(STYLE_TAGS_REGEX, "").strip
       iframes.each.with_index(1) { text.gsub!("IFRAME_#{_2}", _1) }
