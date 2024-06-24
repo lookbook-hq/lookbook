@@ -29,17 +29,17 @@ title: Display Options
     end
     ```
 
-    Display param values can then be accessed via the `params` hash in your preview layout using `params[:lookbook][:display][<key>]`:
+    Display param values can then be accessed via the `params` hash in your preview layout using `params.dig(:lookbook, :display, <key>)`:
 
     ```html
     <!DOCTYPE html>
-    <html style="background-color: <%%= params[:lookbook][:display][:bg_color] %>">
+    <html style="background-color: <%%= params.dig(:lookbook, :display, :bg_color) %>">
       <head>
         <title>Preview Layout</title>
       </head>
       <body>
-        <div style="max-width: <%%= params[:lookbook][:display][:max_width] || '100%' %>">
-          <%% if params[:lookbook][:display][:wrapper] == true %>
+        <div style="max-width: <%%= params.dig(:lookbook, :display, :max_width) || '100%' %>">
+          <%% if params.dig(:lookbook, :display, :wrapper) == true %>
           <div class="wrapper"><%%= yield %></div>
           <%% else %> <%%= yield %> <%% end %>
         </div>
@@ -136,7 +136,7 @@ title: Display Options
     <!DOCTYPE html>
     <html>
       <head>
-        <link href="<%%= params[:lookbook][:display][:theme] %>.css" rel="stylesheet" />
+        <link href="<%%= params.dig(:lookbook, :display, :theme) %>.css" rel="stylesheet" />
       </head>
       <body>
         <%%= yield %>
