@@ -56,7 +56,7 @@ title: Global Data Store
   <!-- app/views/layouts/preview.html.erb -->
   ...
   <div><%%= yield %></div>
-  <p>Built by <%%= params[:lookbook][:data][:company_name] %></p>
+  <p>Built by <%%= params.dig(:lookbook, :data, :company_name) %></p>
   ...
   ```
 

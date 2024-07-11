@@ -56,7 +56,7 @@ title: Preview Layouts
     ```erb
     <!-- app/views/layouts/component_preview.html.erb -->
     <!DOCTYPE html>
-    <html style="background-color: <%%= params[:lookbook][:display][:bg_color] || "white" %>">
+    <html style="background-color: <%%= params.dig(:lookbook, :display, :bg_color) || "white" %>">
     <head>
       <title>Component Preview</title>
       <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -67,7 +67,7 @@ title: Preview Layouts
       <div style="
         margin-left: auto;
         margin-right: auto;
-        max-width: <%%= params[:lookbook][:display][:max_width] || "100%" %>
+        max-width: <%%= params.dig(:lookbook, :display, :max_width) || "100%" %>
       ">
         <%%= yield %> <!-- rendered preview will be injected here -->
       </div>
