@@ -50,6 +50,7 @@ shared:
   component_paths: [app/views, app/components]
 
   reload_on_change: ~
+  lazy_load_previews_and_pages: false
   live_updates: false
   listen_paths: []
   listen_extensions: [rb, html.*]

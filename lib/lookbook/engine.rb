@@ -68,13 +68,15 @@ module Lookbook
     end
 
     config.after_initialize do
-      if Engine.reloading?
-        reloaders.add(:previews, Engine.preview_watch_paths, opts.listen_extensions, &Engine.method(:load_previews))
-        reloaders.add(:pages, Engine.page_watch_paths, opts.page_extensions, &Engine.method(:load_pages))
-        reloaders.execute
-      else
-        Engine.load_previews
-        Engine.load_pages
+      unless opts.lazy_load_previews_and_pages
+        if Engine.reloading?
+          reloaders.add(:previews, Engine.preview_watch_paths, opts.listen_extensions, &Engine.method(:load_previews))
+          reloaders.add(:pages, Engine.page_watch_paths, opts.page_extensions, &Engine.method(:load_pages))
+          reloaders.execute
+        else
+          Engine.load_previews
+          Engine.load_pages
+        end
       end
 
       Engine.run_hooks(:after_initialize)
@@ -196,10 +198,36 @@ module Lookbook
 
       def pages
         @_pages ||= PageCollection.new
+
+        if opts.lazy_load_previews_and_pages && !@_loaded_pages
+          @_loaded_pages = true
+
+          if reloading?
+            reloader = reloaders.add(:pages, Engine.page_watch_paths, opts.page_extensions, &Engine.method(:load_pages))
+            reloader.execute
+          else
+            load_pages
+          end
+        end
+
+        @_pages
       end
 
       def previews
         @_previews ||= PreviewCollection.new
+
+        if opts.lazy_load_previews_and_pages && !@_loaded_previews
+          @_loaded_previews = true
+
+          if reloading?
+            reloader = reloaders.add(:previews, Engine.preview_watch_paths, opts.listen_extensions, &Engine.method(:load_previews))
+            reloader.execute
+          else
+            load_previews
+          end
+        end
+
+        @_previews
       end
 
       def preview_controller

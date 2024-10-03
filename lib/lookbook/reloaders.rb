@@ -16,6 +16,8 @@ module Lookbook
         Rails.application.reloaders << reloader
         Rails.application.reloader.to_run { reloader.execute_if_updated }
       end
+
+      reloader
     end
 
     def execute
