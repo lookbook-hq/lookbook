@@ -58,6 +58,8 @@ module Lookbook
           reload_on_change: Rails.env.development?,
           mount_path: "/lookbook",
 
+          experimental_features: [],
+
           enabled: Rails.env.development? || Rails.env.test?
         })
       end

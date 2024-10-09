@@ -65,7 +65,7 @@ module Lookbook
 
       def preview_paths
         @preview_paths ||= begin
-          action_mailer_paths = if Rails.application.config.respond_to?(:action_mailer)
+          action_mailer_paths = if mailer_previews_enabled? && Rails.application.config.respond_to?(:action_mailer)
             Rails.application.config.action_mailer.preview_paths
           end
           paths = [Lookbook.config.preview_paths, action_mailer_paths].compact.flatten
@@ -120,6 +120,10 @@ module Lookbook
         @statuses ||= Lookbook.config.preview_statuses.map do |name, props|
           Status.new(name, **props)
         end
+      end
+
+      def mailer_previews_enabled?
+        Lookbook.config.experimental_features.include?(:mailer_previews)
       end
 
       private

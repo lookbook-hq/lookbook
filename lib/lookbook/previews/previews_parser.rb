@@ -33,6 +33,10 @@ module Lookbook
           nil
         end
 
+        unless Previews.mailer_previews_enabled?
+          preview_entities = preview_entities.filter { !_1.mailer_preview? }
+        end
+
         callback.call(preview_entities.compact)
       end
     end

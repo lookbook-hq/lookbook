@@ -4,63 +4,6 @@
 
 Below are details of some of the main new features that have been implemented so far in Lookbook v3. Give them a try and let us know what you think!
 
-## 🆕 ActionMailer previews
-
-> ⚠️ ActionMailer preview support is still very much at an experimental stage. Any feedback and/or suggestions on this feature would be very welcome!
-
-[➡️ Demo example](https://v3-demo-app.lookbook.build/lookbook/previews/user_mailer/welcome)
-
-ActionMailer previews are supported out-of-the-box in v3, with no changes required to the regular [ActionMailer preview format](https://guides.rubyonrails.org/action_mailer_basics.html#previewing-emails):
-
-```rb
-class UserMailerPreview < ActionMailer::Preview
-  def welcome_email
-    UserMailer.with(name: "Bob").welcome_email
-  end
-end
-```
-
-Any existing mailer previews in your should automatically appear in the Lookbook UI.
-
-Mailer previews can be located in the standard Rails mailer preview directory (`test/mailers/previews`) or if you prefer to keep things altogether they can be added into the main Lookbook previews directory.
-
-All the usual Lookbook [tags/annotations](https://lookbook.build/guide/tags) (apart from `@!group` tags) can be used in ActionMailer previews in exactly the same way as in component previews:
-
-```rb
-class UserMailerPreview < ActionMailer::Preview
-  # @label New user welcome
-  def welcome_email
-    UserMailer.with(name: "Bob").welcome_email
-  end
-
-  # This email is still WIP and not ready for use.
-  # @hidden
-  def experimental_email
-    UserMailer.with(name: "Bob").experimental_email
-  end
-end
-```
-
-[Dynamic params](https://lookbook.build/guide/previews/params) work in the same way as component previews, as long as the param values are passed to the email template as instance variables:
-
-```rb
-class UserMailer < ApplicationMailer
-  def welcome
-    @name = params[:name]
-    mail(to: "user@example.com", subject: "Welcome")
-  end
-end
-```
-
-```rb
-class UserMailerPreview < ActionMailer::Preview
-  # @param name
-  def welcome_email(name: "Bob")
-    UserMailer.with(name: name).welcome_email
-  end
-end
-```
-
 ## 🆕 Preview overview pages
 
 Preview overview pages are generated for each preview class and shown when clicking on the preview name in the navigation.
@@ -202,10 +145,76 @@ label: Feedback
 In the example above the parent folder name would be displayed as `Feedback` instead of `Alerts` in the navigation.
 
 
+## 🆕 ActionMailer previews
 
+> ⚠️ ActionMailer preview support is still very much at an experimental stage. Any feedback and/or suggestions on this feature would be very welcome!
 
+[➡️ Demo example](https://v3-demo-app.lookbook.build/lookbook/previews/user_mailer/welcome)
 
+### Enabling ActionMailer preview support
 
+Lookbook mailer previews are an experimental feature and must be enabled using the `experimental_features` config option:
+
+```rb
+config.lookbook.experimental_features << :mailer_previews
+```
+
+### Usage
+
+The intention is to support standard ActionMailer previews are out-of-the-box in Lookbook v3, with no changes required to the regular [ActionMailer preview format](https://guides.rubyonrails.org/action_mailer_basics.html#previewing-emails):
+
+```rb
+class UserMailerPreview < ActionMailer::Preview
+  def welcome_email
+    UserMailer.with(name: "Bob").welcome_email
+  end
+end
+```
+
+Any existing mailer previews in your should automatically appear in the Lookbook UI.
+
+Mailer previews can be located in the standard Rails mailer preview directory (`test/mailers/previews`) or if you prefer to keep things altogether they can be added into the main Lookbook previews directory.
+
+All the usual Lookbook [tags/annotations](https://lookbook.build/guide/tags) (apart from `@!group` tags) can be used in ActionMailer previews in exactly the same way as in component previews:
+
+```rb
+class UserMailerPreview < ActionMailer::Preview
+  # @label New user welcome
+  def welcome_email
+    UserMailer.with(name: "Bob").welcome_email
+  end
+
+  # This email is still WIP and not ready for use.
+  # @hidden
+  def experimental_email
+    UserMailer.with(name: "Bob").experimental_email
+  end
+end
+```
+
+[Dynamic params](https://lookbook.build/guide/previews/params) work in the same way as component previews, as long as the param values are passed to the email template as instance variables:
+
+```rb
+class UserMailer < ApplicationMailer
+  def welcome
+    @name = params[:name]
+    mail(to: "user@example.com", subject: "Welcome")
+  end
+end
+```
+
+```rb
+class UserMailerPreview < ActionMailer::Preview
+  # @param name
+  def welcome_email(name: "Bob")
+    UserMailer.with(name: name).welcome_email
+  end
+end
+```
+
+## Lots more!
+
+More docs/info to come.
 
 
 

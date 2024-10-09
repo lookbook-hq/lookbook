@@ -24,7 +24,7 @@ Add Lookbook to the `development` group in your Gemfile:
 
 ```rb
 group :development do
-  gem "lookbook", "~> 3.0.0.alpha.1"
+  gem "lookbook", "~> 3.0.0.alpha.2"
   gem "listen" # Required for 'live' UI updates when file changes are detected
 end
 ```
@@ -57,7 +57,7 @@ gem "actioncable" # Remove this!
 Lastly **update the Lookbook version** in your `Gemfile`:
 
 ```rb
-gem "lookbook", "~> 3.0.0.alpha.1"
+gem "lookbook", "~> 3.0.0.alpha.2"
 ```
 
 Run `bundle update lookbook` to update to the latest Lookbook alpha release and then start your server in the usual way.

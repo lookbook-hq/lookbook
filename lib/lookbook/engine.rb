@@ -22,6 +22,12 @@ module Lookbook
     end
 
     config.after_initialize do
+      if Lookbook.config.experimental_features.any?
+        warn(%(
+          The following experimental features are enabled: #{Lookbook.config.experimental_features.join(", ")}
+          Please note these may change or be removed at any time.).strip_heredoc)
+      end
+
       if Engine.enabled?
         start
       else
