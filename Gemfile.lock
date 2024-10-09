@@ -1,13 +1,3 @@
-GIT
-  remote: https://github.com/thoughtbot/appraisal.git
-  revision: feb78bcc6177038399bff098cb6c2bd4bca4972a
-  branch: main
-  specs:
-    appraisal (2.5.0)
-      bundler
-      rake
-      thor (>= 0.14.0)
-
 PATH
   remote: .
   specs:
@@ -94,6 +84,10 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
+    appraisal (2.5.0)
+      bundler
+      rake
+      thor (>= 0.14.0)
     ast (2.4.2)
     base64 (0.2.0)
     builder (3.2.4)
@@ -272,7 +266,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  appraisal!
+  appraisal
   capybara (~> 3.39)
   combustion (~> 1.3)
   factory_bot

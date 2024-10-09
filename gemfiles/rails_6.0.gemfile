@@ -10,7 +10,7 @@ gem "yard-activesupport-concern"
 gem "rspec-rails", "~> 5"
 
 group :test do
-  gem "appraisal", github: "thoughtbot/appraisal", branch: "main"
+  gem "appraisal"
   gem "phlex-rails", require: false
   gem "factory_bot", require: false
   gem "capybara", "~> 3.39"
