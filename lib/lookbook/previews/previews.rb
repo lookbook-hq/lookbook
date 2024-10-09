@@ -65,7 +65,7 @@ module Lookbook
 
       def preview_paths
         @preview_paths ||= begin
-          action_mailer_paths = if Rails.application.config.respond_to?(:action_mailer)
+          action_mailer_paths = if Lookbook.config.preview_mailers && Rails.application.config.respond_to?(:action_mailer)
             Rails.application.config.action_mailer.preview_paths
           end
           paths = [Lookbook.config.preview_paths, action_mailer_paths].compact.flatten

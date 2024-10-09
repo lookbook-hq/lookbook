@@ -37,6 +37,8 @@ Combustion.initialize! :action_controller, :action_view, :action_mailer, :sprock
     }
   }
 
+  config.lookbook.preview_mailers = true
+
   # Pages config
 
   config.lookbook.page_paths << "#{root}/lookbook/docs"
