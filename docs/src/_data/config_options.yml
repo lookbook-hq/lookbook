@@ -261,7 +261,16 @@ system:
     example: config.lookbook.reload_on_change = true
     description: |
       By default Lookbook uses the value of the `cache_classes` and `reload_classes_only_on_change` Rails config options to decide if
-      it should attempt to update the preview data after changes. If set the value of this config option will take precedence and be used instead.
+      it should attempt to update the preview data after changes. If set, the value of this config option will take precedence and be used instead.
+
+  - name: lazy_load_previews_and_pages
+    types: Boolean
+    default: "false"
+    example: config.lookbook.lazy_load_previews_and_pages = true
+    description: |
+      By default Lookbook loads all preview and page data on application initialization, and then on changes depending
+      on the value of `config.lookbook.reload_on_change`. If set to `true`, Lookbook will defer the initial loading of
+      preview and page data until it is first requested.
 
   - name: live_updates
     types: Boolean
