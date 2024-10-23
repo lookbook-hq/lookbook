@@ -68,12 +68,12 @@ module Lookbook
     end
 
     config.after_initialize do
-      unless opts.lazy_load_previews_and_pages
-        if Engine.reloading?
-          reloaders.add(:previews, Engine.preview_watch_paths, opts.listen_extensions, &Engine.method(:load_previews))
-          reloaders.add(:pages, Engine.page_watch_paths, opts.page_extensions, &Engine.method(:load_pages))
-          reloaders.execute
-        else
+      if Engine.reloading?
+        reloaders.add(:previews, Engine.preview_watch_paths, opts.listen_extensions, &Engine.method(:load_previews))
+        reloaders.add(:pages, Engine.page_watch_paths, opts.page_extensions, &Engine.method(:load_pages))
+        reloaders.execute unless opts.lazy_load_previews_and_pages
+      else
+        unless opts.lazy_load_previews_and_pages
           Engine.load_previews
           Engine.load_pages
         end
@@ -203,8 +203,7 @@ module Lookbook
           @_loaded_pages = true
 
           if reloading?
-            reloader = reloaders.add(:pages, Engine.page_watch_paths, opts.page_extensions, &Engine.method(:load_pages))
-            reloader.execute
+            reloaders.execute(:pages)
           else
             load_pages
           end
@@ -220,8 +219,7 @@ module Lookbook
           @_loaded_previews = true
 
           if reloading?
-            reloader = reloaders.add(:previews, Engine.preview_watch_paths, opts.listen_extensions, &Engine.method(:load_previews))
-            reloader.execute
+            reloaders.execute(:previews)
           else
             load_previews
           end
@@ -236,6 +234,7 @@ module Lookbook
       end
 
       def load_previews(changes = nil)
+        puts "----------------------------- LOADING PREVIEWS"
         changed_files = [*changes[:added], *changes[:modified]] if changes
         parser.parse(changed_files) do |code_objects|
           previews.load(code_objects.all(:class), changes)
@@ -246,6 +245,7 @@ module Lookbook
       end
 
       def load_pages(changes = nil)
+        puts "----------------------------- LOADING PAGES"
         pages.load(Engine.page_paths, changes)
       rescue => e
         Lookbook.logger.error(e)

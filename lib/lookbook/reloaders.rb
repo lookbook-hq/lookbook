@@ -20,8 +20,10 @@ module Lookbook
       reloader
     end
 
-    def execute
-      reloaders.each { |reloader| reloader.execute }
+    def execute(name = nil)
+      reloaders.each do |reloader|
+        reloader.execute if name.nil? || name == reloader.name
+      end
     end
 
     def register_changes(changes)
