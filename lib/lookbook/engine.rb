@@ -9,6 +9,7 @@ module Lookbook
     end
 
     config.before_initialize do |app|
+      ViewComponentConfigSync.call if Utils.gem_installed?("view_component")
       YARD::Parser::Ruby::RipperParser.prepend YardParserPatch
     end
 
