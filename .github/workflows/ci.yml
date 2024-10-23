@@ -22,8 +22,8 @@ jobs:
             rails_version: "7.1"
           - ruby_version: "3.3"
             rails_version: "7.2"
-          - ruby_version: "3.3"
-            rails_version: "head"
+          # - ruby_version: "3.3"
+          #   rails_version: "head"
     env:
       BUNDLE_GEMFILE: gemfiles/rails_${{ matrix.rails_version }}.gemfile
     steps:

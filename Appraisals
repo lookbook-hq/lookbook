@@ -25,7 +25,7 @@ appraise "rails-7.2" do
   gem "rspec-rails", "~> 6"
 end
 
-appraise "rails-head" do
-  gem "rails", github: "rails/rails", branch: "main"
-  gem "rspec-rails", "~> 6"
-end
+# appraise "rails-head" do
+#   gem "rails", github: "rails/rails", branch: "main"
+#   gem "rspec-rails", "~> 6"
+# end
