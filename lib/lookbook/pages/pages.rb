@@ -20,8 +20,8 @@ module Lookbook
         return identifier if identifier.is_a?(PageEntity)
 
         if identifier.is_a?(String) || identifier.is_a?(Symbol)
-          identifier = identifier.to_s
-          store.find { [_1.id, _1.uuid].include?(identifier.to_s) }
+          identifier = Utils.id(identifier)
+          store.find { [_1.id, _1.uuid].include?(identifier) }
         else
           raise ArgumentError, "Invalid page identifier"
         end
