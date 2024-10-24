@@ -234,7 +234,6 @@ module Lookbook
       end
 
       def load_previews(changes = nil)
-        puts "----------------------------- LOADING PREVIEWS"
         changed_files = [*changes[:added], *changes[:modified]] if changes
         parser.parse(changed_files) do |code_objects|
           previews.load(code_objects.all(:class), changes)
@@ -245,7 +244,6 @@ module Lookbook
       end
 
       def load_pages(changes = nil)
-        puts "----------------------------- LOADING PAGES"
         pages.load(Engine.page_paths, changes)
       rescue => e
         Lookbook.logger.error(e)
