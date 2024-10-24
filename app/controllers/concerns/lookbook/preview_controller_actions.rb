@@ -8,7 +8,7 @@ module Lookbook
 
       before_action :assign_preview, only: :lookbook_render_scenario
       before_action :assign_scenario, only: :lookbook_render_scenario
-      around_action :set_locale, only: :lookbook_render_scenario
+      around_action :lookbook_set_locale, only: :lookbook_render_scenario
 
       content_security_policy(false) if respond_to?(:content_security_policy)
 
@@ -42,7 +42,7 @@ module Lookbook
       prepend_preview_scenarios_view_path
 
       with_action_view_settings do
-        html = render_to_string(template, assigns: assigns, **determine_layout(opts[:layout]))
+        html = render_to_string(template, assigns: assigns, **lookbook_determine_layout(opts[:layout]))
         html += opts[:append_html]
         render html: html
       end
@@ -50,11 +50,11 @@ module Lookbook
 
     private
 
-    def set_locale(&block)
+    def lookbook_set_locale(&block)
       I18n.with_locale(params[:locale] || I18n.default_locale, &block)
     end
 
-    def determine_layout(layout_override = nil)
+    def lookbook_determine_layout(layout_override = nil)
       return {} unless defined?(Rails.root)
 
       layout_declaration = {}
