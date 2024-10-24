@@ -37,12 +37,14 @@ export default AlpineComponent("router", (sseEndpoint = null) => {
     },
 
     async loadPage(url, updateHistory = true) {
+      const [urlPath, urlHash] = url.toString().split("#");
       this.$dispatch("page-load:start");
-      const result = await this.updateDOM(url, "main", {
+      const result = await this.updateDOM(urlPath, "main", {
         headers: { "X-Lookbook-Frame": "main" },
       });
       if (updateHistory) {
-        history.pushState({}, "", result.url);
+        const fullUrl = urlHash ? `${result.url}#${urlHash}` : result.url;
+        history.pushState({}, "", fullUrl);
       }
       this.lastUpdate = Date.now();
       this.routerLogger.debug(`Page loaded`);

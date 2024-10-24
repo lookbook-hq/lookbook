@@ -8059,12 +8059,14 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
         this.$dispatch("page-update:complete");
       },
       async loadPage(url, updateHistory = true) {
+        const [urlPath, urlHash] = url.toString().split("#");
         this.$dispatch("page-load:start");
-        const result = await this.updateDOM(url, "main", {
+        const result = await this.updateDOM(urlPath, "main", {
           headers: { "X-Lookbook-Frame": "main" }
         });
         if (updateHistory) {
-          history.pushState({}, "", result.url);
+          const fullUrl = urlHash ? `${result.url}#${urlHash}` : result.url;
+          history.pushState({}, "", fullUrl);
         }
         this.lastUpdate = Date.now();
         this.routerLogger.debug(`Page loaded`);
@@ -18991,6 +18993,27 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     }
   );
 
+  // app/components/lookbook/ui/pages/page/page.js
+  var page_exports = {};
+  __export(page_exports, {
+    default: () => page_default
+  });
+  var page_default = AlpineComponent("page", () => {
+    return {
+      init() {
+        setTimeout(() => this.scrollToTarget(), 1);
+      },
+      scrollToTarget() {
+        if (location.hash?.startsWith("#")) {
+          const scrollTarget = this.$root.querySelector(location.hash);
+          if (scrollTarget) {
+            scrollTarget.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      }
+    };
+  });
+
   // app/components/lookbook/ui/previews/display_options_dropdown/display_options_dropdown.js
   var display_options_dropdown_exports = {};
   __export(display_options_dropdown_exports, {
@@ -19104,7 +19127,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   });
 
   // import-glob:/Users/mark/Code/lookbook/lookbook/assets/js/alpine|../../../app/components/lookbook/ui/**/*.js
-  var modules = [app_exports, color_scheme_switcher_exports, header_exports, router_exports, status_bar_exports, status_bar_item_exports, status_bar_notifications_exports, button_exports, code_exports, icon_exports, nav_exports, nav_item_exports, pane_exports, tab_panel_exports, pane_group_exports, prose_exports, toolbar_exports, toolbar_button_exports, toolbar_tab_exports, toolbar_tab_group_exports, viewport_exports, display_options_dropdown_exports, param_editor_exports, preview_embed_exports, preview_inspector_exports];
+  var modules = [app_exports, color_scheme_switcher_exports, header_exports, router_exports, status_bar_exports, status_bar_item_exports, status_bar_notifications_exports, button_exports, code_exports, icon_exports, nav_exports, nav_item_exports, pane_exports, tab_panel_exports, pane_group_exports, prose_exports, toolbar_exports, toolbar_button_exports, toolbar_tab_exports, toolbar_tab_group_exports, viewport_exports, page_exports, display_options_dropdown_exports, param_editor_exports, preview_embed_exports, preview_inspector_exports];
   var __default = modules;
 
   // assets/js/alpine/app.js

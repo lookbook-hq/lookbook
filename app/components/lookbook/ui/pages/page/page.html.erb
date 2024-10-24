@@ -1,4 +1,9 @@
-<%= render component_tag(class: {"with-footer": footer?}) do %>
+<%= render component_tag(
+  class: {"with-footer": footer?},
+  x: {
+    data: "page",
+    "@page-load:complete.document": "scrollToTarget"
+  }) do %>
   <article class="page-content-wrapper">
     <div class="page-content">
       <% if header? %>
