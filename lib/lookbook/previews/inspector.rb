@@ -89,7 +89,8 @@ module Lookbook
 
       def panels_list(names, defaults = [])
         names = names.compact.presence || defaults
-        ListResolver.call(names.flatten.map(&:to_sym), panels.map(&:name)).map do |name|
+        names = names.flatten.map(&:to_sym).map { |name| (name == :source) ? :usage : name }
+        ListResolver.call(names, panels.map(&:name)).map do |name|
           panels.find { _1.name == name.to_sym }
         end
       end
