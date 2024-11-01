@@ -56,7 +56,7 @@
     "@alpinejs/collapse": "^3.13.2",
     "@alpinejs/morph": "^3.13.2",
     "@alpinejs/persist": "^3.13.7",
-    "@rails/actioncable": "^6.1.4",
+    "@rails/actioncable": "^6.1.710",
     "@ryangjchandler/alpine-tooltip": "^2.0.0",
     "@tailwindcss/forms": "^0.5.6",
     "@tailwindcss/typography": "^0.5.12",
