@@ -14,11 +14,11 @@ module Lookbook
       )
     end
 
-    initializer "lookbook.set_autoload_paths" do
+    initializer "lookbook.set_autoload_paths", before: :set_autoload_paths do |app|
       if opts.autoload_previews && opts.preview_paths.any?
-        paths_to_add = opts.preview_paths - ActiveSupport::Dependencies.autoload_paths
+        paths_to_add = opts.preview_paths - app.config.autoload_paths
         filtered_paths = paths_to_add.filter { |p| !Engine.component_paths.include?(p) }
-        ActiveSupport::Dependencies.autoload_paths.concat(filtered_paths) if filtered_paths.any?
+        app.config.autoload_paths.concat(filtered_paths) if filtered_paths.any?
       end
     end
 
