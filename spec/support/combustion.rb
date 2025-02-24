@@ -26,7 +26,7 @@ Combustion.initialize! :action_controller, :action_view do
   # will be the case for regular strings ion config files.
   #
   # Obs.: At this point here the Lookbook::Engine is already loaded and it
-  #   momoizes the page_paths, so it DOES NOT WORK by adding the
+  #   memoizes the page_paths, so it DOES NOT WORK by adding the
   #   config.lookbook.page_paths here
   Lookbook::Engine.page_paths.each do
     _1.force_encoding(Encoding::ASCII_8BIT)
