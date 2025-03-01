@@ -1,3 +1,3 @@
-web: RACK_ENV=development LOOKBOOK_ENV=development bundle exec puma -t 1:5 -w 3 -p 4444 -e development
+web: RACK_ENV=development LOOKBOOK_ENV=development bundle exec puma -t 5:5 -w 3 -p 4444 -e development
 css: NODE_ENV=development npm run watch:css
 js: NODE_ENV=development npm run watch:js
