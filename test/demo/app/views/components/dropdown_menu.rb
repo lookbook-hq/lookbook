@@ -3,7 +3,7 @@ class DropdownMenu < Phlex::HTML
     @label = label
   end
 
-  def template(&content)
+  def view_template(&content)
     details(class: "dropdown") {
       summary { @label }
       ul(&content)
