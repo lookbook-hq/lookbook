@@ -8,7 +8,7 @@ module Lookbook
 
     def initialize(**html_attrs)
       @panel_counter = 0
-      super(**html_attrs)
+      super
     end
 
     protected

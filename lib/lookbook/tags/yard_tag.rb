@@ -5,7 +5,7 @@ module Lookbook
         tag_name = self.class.name.demodulize.underscore.chomp("_tag")
         super(tag_name, args.first, nil, @name)
       else
-        super(*args)
+        super
       end
     end
 
