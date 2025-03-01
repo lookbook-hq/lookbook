@@ -64,7 +64,7 @@
     "autoprefixer": "^10.4.13",
     "iframe-resizer": "^4.3.2",
     "js-cookie": "^3.0.5",
-    "loglevel": "^1.9.1",
+    "loglevel": "^1.9.2",
     "loglevel-plugin-prefix": "^0.8.4",
     "lucide-static": "^0.274.0",
     "split-grid": "^1.0.11",
