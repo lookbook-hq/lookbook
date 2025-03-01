@@ -1,3 +1,4 @@
+require "ostruct"
 module Lookbook
   class Entity
     DEFAULT_PRIORITY = 1

@@ -1,4 +1,5 @@
 require "concurrent-ruby"
+require "ostruct"
 
 module Lookbook
   module Component
