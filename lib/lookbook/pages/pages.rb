@@ -33,7 +33,11 @@ module Lookbook
 
           config_dir = page_paths.detect { Dir["#{_1}/#{DirectoryEntity::CONFIG_FILE_NAME}"].first }
           config_path = File.join(config_dir, DirectoryEntity::CONFIG_FILE_NAME) if config_dir
-          EntityTree.new(store.all, config_path: config_path)
+          tree = EntityTree.new(store.all, config_path: config_path)
+
+          debug("pages: tree build complete")
+
+          tree
         end
       end
 

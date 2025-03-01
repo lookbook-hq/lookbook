@@ -35,7 +35,11 @@ module Lookbook
 
           config_dir = preview_paths.detect { Dir["#{_1}/#{DirectoryEntity::CONFIG_FILE_NAME}"].first }
           config_path = File.join(config_dir, DirectoryEntity::CONFIG_FILE_NAME) if config_dir
-          EntityTree.new(inspector_targets, config_path: config_path)
+          tree = EntityTree.new(inspector_targets, config_path: config_path)
+
+          debug("previews: tree build complete")
+
+          tree
         end
       end
 
