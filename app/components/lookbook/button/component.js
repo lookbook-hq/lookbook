@@ -6,7 +6,12 @@ export default function buttonComponent() {
   let dropdown = null;
 
   return {
+    updateAfterNavigate: true,
+
     init() {
+      this.updateAfterNavigate =
+        this.$el.dataset.updateAfterNavigate !== "false";
+
       if (this.$refs.tooltip) {
         tooltip = initTooltip(this, {
           target: this.$refs.icon,
@@ -51,9 +56,11 @@ export default function buttonComponent() {
     updateDropdown() {
       if (dropdown) {
         dropdown.hide();
-        this.$nextTick(() => {
-          dropdown.setContent(this.dropdownContent);
-        });
+        if (this.updateAfterNavigate) {
+          this.$nextTick(() => {
+            dropdown.setContent(this.dropdownContent);
+          });
+        }
       }
     },
 
