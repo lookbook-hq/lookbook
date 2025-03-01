@@ -49,9 +49,9 @@ To preview changes locally you can run a development version of the docs site:
 
 ### Testing
 
-Lookbook uses [RSpec](https://relishapp.com/rspec) for testing.
+Lookbook uses [RSpec](https://relishapp.com/rspec). [Appraisal](https://github.com/thoughtbot/appraisal) is used to run tests against different Ruby and Rails versions.
 
-Tests can be run using the `rake spec` or `bundle exec rspec` commands.
+Tests can be run using the `bundle exec appraisal rspec` command.
 
 The dummy app that the tests are being run against can be viewed by running the `bin/dummy` command and then browsing to http://localhost:9292/lookbook
 
