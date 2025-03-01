@@ -9,13 +9,14 @@ module Lookbook
       response.headers["Last-Modified"] = Time.now.httpdate
 
       response.headers["rack.hijack"] = proc do |stream|
-        queue = Thread::Queue.new
-        trigger_background_loop(queue)
+        event_queue = Thread::Queue.new
+        trigger_background_loop(event_queue)
 
         Thread.new do
           sse = SSE.new(stream, retry: 300, event: "open")
           loop do
-            data = queue.pop
+            data = event_queue.pop
+            debug("events: sending update event to clients | #{data.inspect}")
             sse.write(data, event: "event")
           end
         rescue ClientDisconnected, Errno::EPIPE, Errno::ECONNRESET, IOError => err
@@ -35,13 +36,12 @@ module Lookbook
 
     private
 
-    def trigger_background_loop(queue)
+    def trigger_background_loop(event_queue)
       Thread.new do
         last_update_event_sent = Engine.updated_at
         loop do
           if last_update_event_sent.before?(Engine.updated_at)
-            debug("events: sending update event to clients")
-            queue.push({type: "update", updated_at: Engine.updated_at})
+            event_queue.push({type: "update", updated_at: Engine.updated_at})
             last_update_event_sent = Engine.updated_at
           end
           sleep 0.5
