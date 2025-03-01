@@ -36,7 +36,7 @@ jobs:
           bundler-cache: true
 
       - name: Set system gem command
-        run: gem update --system
+        run: gem update --system 3.5.23
 
       - name: Install bundler
         run: gem install bundler
