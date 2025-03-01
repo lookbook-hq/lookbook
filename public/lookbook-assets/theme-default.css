@@ -1,5 +1,4 @@
 :root[data-color-scheme="light"] {
-  --csstools-color-scheme--light: initial;
   --csstools-color-scheme--dark:  ;
   color-scheme: light;
 
@@ -25,7 +24,6 @@
 }
 
 :root[data-color-scheme="dark"] {
-  --csstools-color-scheme--light:  ;
   --csstools-color-scheme--dark: initial;
   color-scheme: dark;
 

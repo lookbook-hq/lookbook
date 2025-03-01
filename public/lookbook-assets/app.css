@@ -2008,7 +2008,6 @@ html[data-color-scheme="dark"] .shiki span {
     padding-right: var(--lb-spacing-2xs);
     border-radius: 0.25rem;
     border-radius: var(--lb-border-radius-sm);
-    color: var(--lb-color-content-accent-1);
     color: var(--lb-prose-inline-code-color);
   }
 [data-component="prose"] p:not([data-component="prose"] [data-component] p) {

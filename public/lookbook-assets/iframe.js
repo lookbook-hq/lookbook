@@ -966,9 +966,14 @@
             window.parent.postMessage("[iFrameResizerChild]Ready", "*");
           }
         }
-        addEventListener(window, "message", receiver);
-        addEventListener(window, "readystatechange", chkLateLoaded);
-        chkLateLoaded();
+        if (!("iframeResizer" in window)) {
+          window.iframeChildListener = function(data) {
+            receiver({ data, sameDomian: true });
+          };
+          addEventListener(window, "message", receiver);
+          addEventListener(window, "readystatechange", chkLateLoaded);
+          chkLateLoaded();
+        }
       })();
     }
   });
