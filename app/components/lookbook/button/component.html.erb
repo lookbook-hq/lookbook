@@ -2,7 +2,7 @@
   id: id,
   icon: icon,
   **button_attrs,
-  "x-on:keydown.esc.stop": "hideDropdown",
+  "x-on:keydown.esc.stop.document": "hideDropdown",
   "x-on:navigation:complete.window": "updateDropdown") do %>
   <%= content %>
 <% end %>

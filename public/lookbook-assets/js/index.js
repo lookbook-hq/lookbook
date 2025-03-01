@@ -7760,11 +7760,14 @@ var $7d6b1fa982d8364d$exports = {};
    * `callback` is executed at the proper times in `throttle` and `end`
    * debounce modes.
    */ var timeoutID;
-    var cancelled = false; // Keep track of the last time `callback` was executed.
-    var lastExec = 0; // Function to clear existing timeout
+    var cancelled = false;
+    // Keep track of the last time `callback` was executed.
+    var lastExec = 0;
+    // Function to clear existing timeout
     function clearExistingTimeout() {
         if (timeoutID) clearTimeout(timeoutID);
-    } // Function to cancel next exec
+    }
+    // Function to cancel next exec
     function cancel(options) {
         var _ref2 = options || {}, _ref2$upcomingOnly = _ref2.upcomingOnly, upcomingOnly = _ref2$upcomingOnly === void 0 ? false : _ref2$upcomingOnly;
         clearExistingTimeout();
@@ -7779,7 +7782,7 @@ var $7d6b1fa982d8364d$exports = {};
         var self = this;
         var elapsed = Date.now() - lastExec;
         if (cancelled) return;
-         // Execute `callback` and update the `lastExec` timestamp.
+        // Execute `callback` and update the `lastExec` timestamp.
         function exec() {
             lastExec = Date.now();
             callback.apply(self, arguments_);
@@ -7820,7 +7823,8 @@ var $7d6b1fa982d8364d$exports = {};
        * execute after `delay` ms.
        */ timeoutID = setTimeout(debounceMode ? clear : exec, debounceMode === undefined ? delay - elapsed : delay);
     }
-    wrapper.cancel = cancel; // Return the wrapper function.
+    wrapper.cancel = cancel;
+    // Return the wrapper function.
     return wrapper;
 }
 /* eslint-disable no-undefined */ /**
@@ -8026,7 +8030,7 @@ function $12b7aa006b8a97e1$var$toCamel(s) {
 }
 
 
-var $d93ebb7d29fc0464$exports = {};
+var $08c9097efd5dcc2d$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11491,7 +11495,9 @@ function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
     let tooltip = null;
     let dropdown = null;
     return {
+        updateAfterNavigate: true,
         init () {
+            this.updateAfterNavigate = this.$el.dataset.updateAfterNavigate !== "false";
             if (this.$refs.tooltip) tooltip = (0, $7a759511c361f2bd$export$353372104066311a)(this, {
                 target: this.$refs.icon
             });
@@ -11526,7 +11532,7 @@ function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
         updateDropdown () {
             if (dropdown) {
                 dropdown.hide();
-                this.$nextTick(()=>{
+                if (this.updateAfterNavigate) this.$nextTick(()=>{
                     dropdown.setContent(this.dropdownContent);
                 });
             }
@@ -11552,6 +11558,39 @@ $parcel$defineInteropFlag($99486586f6691564$exports);
 $parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
 function $99486586f6691564$export$2e2bcd8739ae039() {
     return {};
+}
+
+
+var $e398acaded942bbe$exports = {};
+
+$parcel$defineInteropFlag($e398acaded942bbe$exports);
+
+$parcel$export($e398acaded942bbe$exports, "default", () => $e398acaded942bbe$export$2e2bcd8739ae039);
+
+function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
+    return {
+        width: 0,
+        height: 0,
+        resizing: false,
+        target: null,
+        init () {
+            this.target = document.querySelector(targetSelector);
+            if (this.target) {
+                this.width = Math.round(this.target.clientWidth);
+                this.height = Math.round(this.target.clientHeight);
+                this.createObserver();
+            }
+        },
+        createObserver () {
+            if (this.target) this.observer = (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.target, ({ width: width, height: height })=>{
+                this.width = width;
+                this.height = height;
+            });
+        },
+        tearDown () {
+            if (this.observer) this.observer.disconnect();
+        }
+    };
 }
 
 
@@ -11611,39 +11650,6 @@ function $47a1c62621be0c54$export$2e2bcd8739ae039() {
 }
 
 
-var $e398acaded942bbe$exports = {};
-
-$parcel$defineInteropFlag($e398acaded942bbe$exports);
-
-$parcel$export($e398acaded942bbe$exports, "default", () => $e398acaded942bbe$export$2e2bcd8739ae039);
-
-function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
-    return {
-        width: 0,
-        height: 0,
-        resizing: false,
-        target: null,
-        init () {
-            this.target = document.querySelector(targetSelector);
-            if (this.target) {
-                this.width = Math.round(this.target.clientWidth);
-                this.height = Math.round(this.target.clientHeight);
-                this.createObserver();
-            }
-        },
-        createObserver () {
-            if (this.target) this.observer = (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.target, ({ width: width, height: height })=>{
-                this.width = width;
-                this.height = height;
-            });
-        },
-        tearDown () {
-            if (this.observer) this.observer.disconnect();
-        }
-    };
-}
-
-
 var $216ef7001f59f21d$exports = {};
 
 $parcel$defineInteropFlag($216ef7001f59f21d$exports);
@@ -11651,6 +11657,31 @@ $parcel$defineInteropFlag($216ef7001f59f21d$exports);
 $parcel$export($216ef7001f59f21d$exports, "default", () => $216ef7001f59f21d$export$2e2bcd8739ae039);
 function $216ef7001f59f21d$export$2e2bcd8739ae039() {
     return {};
+}
+
+
+var $e9904a14dabf652d$exports = {};
+
+$parcel$defineInteropFlag($e9904a14dabf652d$exports);
+
+$parcel$export($e9904a14dabf652d$exports, "default", () => $e9904a14dabf652d$export$2e2bcd8739ae039);
+function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
+    return {
+        focussed: false,
+        get active () {
+            return store.active;
+        },
+        get text () {
+            return store.text;
+        },
+        clear () {
+            if (store.raw === "") this.$refs.input.blur();
+            else store.raw = "";
+        },
+        focus () {
+            this.$refs.input.focus();
+        }
+    };
 }
 
 
@@ -11693,31 +11724,6 @@ function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
             const matchedChildCount = filteredStates.filter((s)=>!s).length;
             this.empty = matchedChildCount === 0;
             this.debug(`Children matching filter: ${matchedChildCount}/${this.children.length}`);
-        }
-    };
-}
-
-
-var $e9904a14dabf652d$exports = {};
-
-$parcel$defineInteropFlag($e9904a14dabf652d$exports);
-
-$parcel$export($e9904a14dabf652d$exports, "default", () => $e9904a14dabf652d$export$2e2bcd8739ae039);
-function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
-    return {
-        focussed: false,
-        get active () {
-            return store.active;
-        },
-        get text () {
-            return store.text;
-        },
-        clear () {
-            if (store.raw === "") this.$refs.input.blur();
-            else store.raw = "";
-        },
-        focus () {
-            this.$refs.input.focus();
         }
     };
 }
@@ -12273,33 +12279,6 @@ function $506dabb2bf255b38$var$sizeSplits(sizes) {
 }
 
 
-var $a87dacf5139b5e2f$exports = {};
-
-$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
-
-$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
-function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
-    return {
-        get store () {
-            return store || this;
-        },
-        get id () {
-            return this.$root.id;
-        },
-        get panels () {
-            return Array.from(this.$refs.panels.children);
-        },
-        isActive (el) {
-            return this.store.activeTab === this._getRef(el);
-        },
-        // protected
-        _getRef (el) {
-            return el.getAttribute("x-ref");
-        }
-    };
-}
-
-
 var $0db07828cadc68e0$exports = {};
 
 $parcel$defineInteropFlag($0db07828cadc68e0$exports);
@@ -12388,6 +12367,33 @@ function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
         _lastMeasuredWidth: 0,
         _getRef (el) {
             return el ? el.getAttribute("x-ref").replace("dropdown-", "") : null;
+        }
+    };
+}
+
+
+var $a87dacf5139b5e2f$exports = {};
+
+$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
+
+$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
+function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
+    return {
+        get store () {
+            return store || this;
+        },
+        get id () {
+            return this.$root.id;
+        },
+        get panels () {
+            return Array.from(this.$refs.panels.children);
+        },
+        isActive (el) {
+            return this.store.activeTab === this._getRef(el);
+        },
+        // protected
+        _getRef (el) {
+            return el.getAttribute("x-ref");
         }
     };
 }
@@ -12520,22 +12526,22 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$d93ebb7d29fc0464$exports = {
+$08c9097efd5dcc2d$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
-    "copy_button": $47a1c62621be0c54$exports,
     "dimensions_display": $e398acaded942bbe$exports,
+    "copy_button": $47a1c62621be0c54$exports,
     "embed_code_dropdown": $216ef7001f59f21d$exports,
-    "nav": $d92d9d5253f84566$exports,
     "filter": $e9904a14dabf652d$exports,
+    "nav": $d92d9d5253f84566$exports,
     "split_layout": $506dabb2bf255b38$exports,
-    "tab_panels": $a87dacf5139b5e2f$exports,
     "tabs": $0db07828cadc68e0$exports,
+    "tab_panels": $a87dacf5139b5e2f$exports,
     "viewport": $6d64716f0b34fdf4$exports
 };
 
 
-var $5e362abaad0ffde8$exports = {};
+var $7894fa32ab1ccbee$exports = {};
 var $c299e36fa9e271bc$exports = {};
 
 $parcel$defineInteropFlag($c299e36fa9e271bc$exports);
@@ -13428,63 +13434,6 @@ function $c299e36fa9e271bc$export$2e2bcd8739ae039(id, embedStore) {
 }
 
 
-var $9b24cbeb3a465447$exports = {};
-
-$parcel$defineInteropFlag($9b24cbeb3a465447$exports);
-
-$parcel$export($9b24cbeb3a465447$exports, "default", () => $9b24cbeb3a465447$export$2e2bcd8739ae039);
-function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id, matchers: matchers }) {
-    matchers = matchers.map((matcher)=>matcher.replace(/\s/g, "").toLowerCase());
-    return {
-        filteredOut: false,
-        active: false,
-        get open () {
-            return this.isCollection && this.isOpen(id);
-        },
-        get children () {
-            return this.$refs.items ? Array.from(this.$refs.items.children) : [];
-        },
-        get isCollection () {
-            return !this.$refs.link;
-        },
-        checkActive () {
-            this.active = this.$refs.link && window.location.pathname === this.$refs.link.getAttribute("href");
-        },
-        toggle () {
-            this.toggleOpen(id);
-        },
-        async filter (text) {
-            if (this.isCollection) {
-                this.filteredOut = true;
-                this.children.forEach(async (child)=>{
-                    const data = Alpine.$data(child);
-                    await data.filter(text);
-                    if (!data.filteredOut) this.filteredOut = false;
-                });
-            } else this.filteredOut = !this.match(text);
-            return this;
-        },
-        match (text) {
-            if (text.length) {
-                const matched = (matchers || []).map((m)=>m.includes(text));
-                return matched.filter((m)=>m).length;
-            }
-            return true;
-        },
-        bindings: {
-            toggle: {
-                ["x-on:click.stop"]: "toggle",
-                ["x-ref"]: "toggle"
-            },
-            link: {
-                [":class"]: "{'!bg-lookbook-nav-item-active':active}",
-                ["x-ref"]: "link"
-            }
-        }
-    };
-}
-
-
 var $6a9b69d9cc7f810f$exports = {};
 
 $parcel$defineInteropFlag($6a9b69d9cc7f810f$exports);
@@ -13603,19 +13552,58 @@ function $6a9b69d9cc7f810f$export$2e2bcd8739ae039({ name: name, value: value }) 
 }
 
 
-var $1a7a7298eec5b755$exports = {};
+var $9b24cbeb3a465447$exports = {};
 
-$parcel$defineInteropFlag($1a7a7298eec5b755$exports);
+$parcel$defineInteropFlag($9b24cbeb3a465447$exports);
 
-$parcel$export($1a7a7298eec5b755$exports, "default", () => $1a7a7298eec5b755$export$2e2bcd8739ae039);
-
-function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
+$parcel$export($9b24cbeb3a465447$exports, "default", () => $9b24cbeb3a465447$export$2e2bcd8739ae039);
+function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id, matchers: matchers }) {
+    matchers = matchers.map((matcher)=>matcher.replace(/\s/g, "").toLowerCase());
     return {
-        narrow: false,
-        init () {
-            (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$el, ({ width: width })=>{
-                this.narrow = width < 500;
-            });
+        filteredOut: false,
+        active: false,
+        get open () {
+            return this.isCollection && this.isOpen(id);
+        },
+        get children () {
+            return this.$refs.items ? Array.from(this.$refs.items.children) : [];
+        },
+        get isCollection () {
+            return !this.$refs.link;
+        },
+        checkActive () {
+            this.active = this.$refs.link && window.location.pathname === this.$refs.link.getAttribute("href");
+        },
+        toggle () {
+            this.toggleOpen(id);
+        },
+        async filter (text) {
+            if (this.isCollection) {
+                this.filteredOut = true;
+                this.children.forEach(async (child)=>{
+                    const data = Alpine.$data(child);
+                    await data.filter(text);
+                    if (!data.filteredOut) this.filteredOut = false;
+                });
+            } else this.filteredOut = !this.match(text);
+            return this;
+        },
+        match (text) {
+            if (text.length) {
+                const matched = (matchers || []).map((m)=>m.includes(text));
+                return matched.filter((m)=>m).length;
+            }
+            return true;
+        },
+        bindings: {
+            toggle: {
+                ["x-on:click.stop"]: "toggle",
+                ["x-ref"]: "toggle"
+            },
+            link: {
+                [":class"]: "{'!bg-lookbook-nav-item-active':active}",
+                ["x-ref"]: "link"
+            }
         }
     };
 }
@@ -13635,19 +13623,37 @@ function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
 }
 
 
-$5e362abaad0ffde8$exports = {
+var $1a7a7298eec5b755$exports = {};
+
+$parcel$defineInteropFlag($1a7a7298eec5b755$exports);
+
+$parcel$export($1a7a7298eec5b755$exports, "default", () => $1a7a7298eec5b755$export$2e2bcd8739ae039);
+
+function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
+    return {
+        narrow: false,
+        init () {
+            (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$el, ({ width: width })=>{
+                this.narrow = width < 500;
+            });
+        }
+    };
+}
+
+
+$7894fa32ab1ccbee$exports = {
     "embed": {
         "inspector": $c299e36fa9e271bc$exports
-    },
-    "nav": {
-        "item": $9b24cbeb3a465447$exports
     },
     "display_options": {
         "field": $6a9b69d9cc7f810f$exports
     },
+    "nav": {
+        "item": $9b24cbeb3a465447$exports
+    },
     "params": {
-        "editor": $1a7a7298eec5b755$exports,
-        "field": $e773f8ef556b41ff$exports
+        "field": $e773f8ef556b41ff$exports,
+        "editor": $1a7a7298eec5b755$exports
     }
 };
 
@@ -13715,8 +13721,8 @@ const $22969b543678f572$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $5792afa4170ed552$export$2e2bcd8739ae039));
 [
-    $d93ebb7d29fc0464$exports,
-    $5e362abaad0ffde8$exports,
+    $08c9097efd5dcc2d$exports,
+    $7894fa32ab1ccbee$exports,
     $d56e5cced44001d2$exports
 ].forEach((scripts)=>{
     const components = (0, $12b7aa006b8a97e1$export$4e811121b221213b)(scripts);
