@@ -1,6 +1,10 @@
 <% if @render_args[:component] %>
   <% if defined?(Phlex::SGML) && @render_args[:component].is_a?(Phlex::SGML) %>
-    <%= raw(@render_args[:component].call(view_context: self, &@render_args[:block])) %>
+    <% if @render_args[:component].method(:call).parameters.include?([:key, :context])%>
+      <%= raw(@render_args[:component].call(context: { rails_view_context: self }, &@render_args[:block])) %>
+    <% else %>
+      <%= raw(@render_args[:component].call(view_context: self, &@render_args[:block])) %>
+    <% end %>
   <% else %>
     <%= render(@render_args[:component], @render_args[:args], &@render_args[:block]) %>
   <% end %>
