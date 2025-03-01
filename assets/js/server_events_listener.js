@@ -9,7 +9,11 @@ export default class ServerEventsListener {
     this.$logger = new Logger("EventsListener");
 
     addEventListener("visibilitychange", () => {
-      if (!document.hidden) this.start();
+      if (document.hidden) {
+        this.stop();
+      } else {
+        this.start();
+      }
     });
   }
 
@@ -25,8 +29,8 @@ export default class ServerEventsListener {
     if (this.source) {
       this.source.close();
       this.source = null;
+      this.$logger.debug(`Stopped`);
     }
-    this.$logger.debug(`Stopped`);
   }
 
   on(type, callback) {

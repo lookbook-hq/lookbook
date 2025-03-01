@@ -7946,8 +7946,11 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       this.handlers = [];
       this.$logger = new Logger("EventsListener");
       addEventListener("visibilitychange", () => {
-        if (!document.hidden)
+        if (document.hidden) {
+          this.stop();
+        } else {
           this.start();
+        }
       });
     }
     start() {
@@ -7961,8 +7964,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       if (this.source) {
         this.source.close();
         this.source = null;
+        this.$logger.debug(`Stopped`);
       }
-      this.$logger.debug(`Stopped`);
     }
     on(type, callback) {
       this.handlers.push({ type, callback });

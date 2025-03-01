@@ -10,18 +10,20 @@ module Lookbook
 
       response.headers["rack.hijack"] = proc do |stream|
         event_queue = Thread::Queue.new
+        sse = SSE.new(stream, retry: 300, event: "open")
+
         trigger_background_loop(event_queue)
 
         Thread.new do
-          sse = SSE.new(stream, retry: 300, event: "open")
           loop do
             data = event_queue.pop
-            debug("events: sending update event to clients | #{data.inspect}")
             sse.write(data, event: "event")
+            debug("events: sent update event to clients | #{data.inspect}")
           end
         rescue ClientDisconnected, Errno::EPIPE, Errno::ECONNRESET, IOError => err
-          warn("events: #{err}")
+          debug("events: #{err}")
         ensure
+          debug("events: closing event stream")
           sse.close
           stream.close
         end
