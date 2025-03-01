@@ -59,7 +59,7 @@
     "@rails/actioncable": "^6.1.4",
     "@ryangjchandler/alpine-tooltip": "^2.0.0",
     "@tailwindcss/forms": "^0.5.6",
-    "@tailwindcss/typography": "^0.5.12",
+    "@tailwindcss/typography": "^0.5.16",
     "alpinejs": "^3.13.2",
     "autoprefixer": "^10.4.13",
     "iframe-resizer": "^4.3.2",
