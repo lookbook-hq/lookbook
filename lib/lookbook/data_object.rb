@@ -3,7 +3,7 @@ module Lookbook
     class << self
       def new(*args, **properties)
         merged_args = args.map(&:to_h).reduce({}) { _1.merge(_2) }
-        data = {**merged_args, **properties}.deep_symbolize_keys
+        data = {}.merge(merged_args).merge(properties).deep_symbolize_keys
         ActiveSupport::OrderedOptions.new.merge!(data.transform_values { convert_value(_1) })
       end
 

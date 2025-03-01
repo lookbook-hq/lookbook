@@ -21,10 +21,7 @@ module Lookbook
       end
 
       def input_options
-        {
-          **input.options.to_h,
-          **param.input_options.to_h
-        }
+        {}.merge(input.options.to_h).merge(param.input_options.to_h)
       end
     end
   end
