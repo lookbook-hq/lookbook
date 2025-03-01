@@ -32,7 +32,7 @@ module Lookbook
 
       logger = ::Logger.new($stderr, level: level)
       logger.formatter = proc do |severity, datetime, progname, msg|
-        "[LOOKBOOK] #{severity.to_s.ljust(5)} | #{msg.upcase_first}\n"
+        "[LOOKBOOK] #{severity.to_s.ljust(5)} | #{msg}\n"
       end
       logger
     end
