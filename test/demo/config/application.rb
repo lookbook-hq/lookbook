@@ -53,4 +53,7 @@ Combustion.initialize! :action_controller, :action_view, :action_mailer, :sprock
   config.lookbook.ui_status_bar = true
 
   config.action_mailer.preview_paths << "#{root}/lookbook/previews"
+
+  config.hosts << /[a-z0-9]+\.local/
+  config.hosts << /[a-z0-9\-]+\.localcan\.dev/
 end
