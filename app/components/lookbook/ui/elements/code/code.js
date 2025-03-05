@@ -6,16 +6,13 @@ export default AlpineComponent("code", ({ lang }) => {
     lang,
     output: "",
     wrap: false,
-    theme: "github-light",
 
     init() {
       this.highlightCode();
     },
 
     async highlightCode() {
-      this.output = await this.highlighter.highlight(this.source, {
-        theme: this.theme,
-      });
+      this.output = await this.highlighter.highlight(this.source);
     },
 
     get highlighter() {

@@ -1,40 +1,42 @@
-import { getHighlighterCore } from "shiki/core";
-import getWasm from "shiki/wasm";
+import { createHighlighterCore } from "shiki/core";
+import { createOnigurumaEngine } from "shiki/engine/oniguruma";
 
 const themes = [
-  import("shiki/themes/github-light.mjs"),
-  import("shiki/themes/github-dark.mjs"),
+  import("@shikijs/themes/github-light"),
+  import("@shikijs/themes/github-dark"),
 ];
 
 const langs = [
-  import("shiki/langs/html.mjs"),
-  import("shiki/langs/javascript.mjs"),
-  import("shiki/langs/css.mjs"),
-  import("shiki/langs/yaml.mjs"),
-  import("shiki/langs/json.mjs"),
-  import("shiki/langs/markdown.mjs"),
-  import("shiki/langs/ruby.mjs"),
-  import("shiki/langs/erb.mjs"),
+  import("@shikijs/langs/html"),
+  import("@shikijs/langs/javascript"),
+  import("@shikijs/langs/css"),
+  import("@shikijs/langs/yaml"),
+  import("@shikijs/langs/json"),
+  import("@shikijs/langs/markdown"),
+  import("@shikijs/langs/ruby"),
+  import("@shikijs/langs/erb"),
 ];
 
-const shikiDefaults = {
-  theme: "github-light",
-};
+let highlighterInstance = null;
 
-export default class Highlighter {
-  constructor(lang, opts = {}) {
-    this.lang = lang;
-    this.theme = opts.theme || shikiDefaults.theme;
-  }
-
-  async highlight(code, opts = {}) {
-    const theme = opts.theme || this.theme;
-    const highlighter = await getHighlighterCore({
+async function getHighlighter() {
+  if (highlighterInstance === null) {
+    highlighterInstance = await createHighlighterCore({
       themes,
       langs,
-      loadWasm: getWasm,
+      engine: createOnigurumaEngine(import("shiki/wasm")),
     });
+  }
+  return highlighterInstance;
+}
 
+export default class Highlighter {
+  constructor(lang) {
+    this.lang = lang;
+  }
+
+  async highlight(code) {
+    const highlighter = await getHighlighter();
     try {
       return highlighter.codeToHtml(code, {
         lang: this.lang,
@@ -43,7 +45,8 @@ export default class Highlighter {
           dark: "github-dark",
         },
       });
-    } catch {
+    } catch (err) {
+      console.error(err);
       return `<pre><code>${code}</code></pre>`;
     }
   }
