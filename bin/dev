@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+bundle install
+npm install
+
 if ! foreman version &> /dev/null
 then
   echo "Installing foreman..."
