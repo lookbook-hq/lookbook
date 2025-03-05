@@ -1,19 +1,32 @@
-import "iframe-resizer/js/iframeResizer";
+import "@iframe-resizer/parent";
 import AlpineComponent from "@js/alpine/component";
 import { getData } from "@js/alpine/utils";
 import { observeSize } from "@js/helpers";
 
 export default AlpineComponent("previewEmbed", () => {
   return {
+    viewport: null,
+
     init() {
-      const onIframeResized = this.onIframeResized.bind(this);
+      this.$nextTick(() => {
+        this.viewport = getData(
+          this.$el.querySelector("[data-component='viewport']")
+        );
 
-      window.iFrameResize(
-        { onIframeResized, checkOrigin: false },
-        this.viewport.iframe
-      );
+        const onIframeResized = this.onIframeResized.bind(this);
 
-      observeSize(this.$el, this.onResize);
+        window.iFrameResize(
+          {
+            license: "GPLv3",
+            onIframeResized,
+            checkOrigin: false,
+            waitForLoad: false,
+          },
+          this.viewport.iframe
+        );
+
+        observeSize(this.$el, this.onResize);
+      });
     },
 
     onResize({ height }) {
@@ -32,12 +45,16 @@ export default AlpineComponent("previewEmbed", () => {
       }
     },
 
-    resizeIframe() {
-      this.viewport.iframe.iFrameResizer.resize();
+    get iframe() {
+      return this.viewport.iframe;
     },
 
-    get viewport() {
-      return getData(this.$root.querySelector("[data-component='viewport']"));
+    get iFrameResizer() {
+      return this.iframe.iFrameResizer;
+    },
+
+    resizeIframe() {
+      this.iFrameResizer.resize();
     },
   };
 });

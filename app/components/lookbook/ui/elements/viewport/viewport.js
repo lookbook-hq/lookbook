@@ -161,6 +161,12 @@ export default AlpineComponent(
       get iframe() {
         return this.$refs.iframe;
       },
+
+      destroy() {
+        if (this.iframe.iFrameResizer) {
+          this.iFrameResizer.disconnect();
+        }
+      },
     };
   }
 );
