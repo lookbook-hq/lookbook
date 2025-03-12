@@ -12,7 +12,7 @@ module Lookbook
       end
 
       def name(str)
-        str.to_s.force_encoding("UTF-8").parameterize.tr("-", "_")
+        str.to_s.dup.force_encoding("UTF-8").parameterize.tr("-", "_")
       end
 
       def symbolize_name(str)

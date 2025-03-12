@@ -1,6 +1,5 @@
 require "bundler"
 require "logger"
-
 Bundler.require :default, :development
 
 require_relative "support/combustion"
@@ -9,6 +8,8 @@ require "view_component/test_helpers"
 require "factory_bot"
 require "rspec/rails"
 require "capybara/rspec"
+
+Warning[:deprecated] = true
 
 Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
 
