@@ -66,10 +66,7 @@ Steps:
 * Launch the release command:
   - Optionally, launch a dry run: `npm run release:dry-run`
   - `npm run release`
-* Push to RubyGems:
-  - Copy the `gem push ...` command from the previous command output
-  - Add your OTP at the end of the line
-  - Run the command
+* The new gem is automatically pushed to RubyGems by Github Actions, thanks to [Trusted Publishing](https://guides.rubygems.org/trusted-publishing/)
 * Update the [demo](https://github.com/lookbook-hq/lookbook-demo):
   - Bump the version in [lookbook-demo/blob/main/Gemfile](https://github.com/lookbook-hq/lookbook-demo/blob/main/Gemfile#L29)
   - Commit and push, so it gets deployed to Heroku
