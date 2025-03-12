@@ -12541,7 +12541,7 @@ $c9dfaeb25bf110ce$exports = {
 };
 
 
-var $5d1c9207cb730903$exports = {};
+var $6178ee12f80cbf68$exports = {};
 var $6a9b69d9cc7f810f$exports = {};
 
 $parcel$defineInteropFlag($6a9b69d9cc7f810f$exports);
@@ -13552,38 +13552,6 @@ function $c299e36fa9e271bc$export$2e2bcd8739ae039(id, embedStore) {
 }
 
 
-var $1a7a7298eec5b755$exports = {};
-
-$parcel$defineInteropFlag($1a7a7298eec5b755$exports);
-
-$parcel$export($1a7a7298eec5b755$exports, "default", () => $1a7a7298eec5b755$export$2e2bcd8739ae039);
-
-function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
-    return {
-        narrow: false,
-        init () {
-            (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$el, ({ width: width })=>{
-                this.narrow = width < 500;
-            });
-        }
-    };
-}
-
-
-var $e773f8ef556b41ff$exports = {};
-
-$parcel$defineInteropFlag($e773f8ef556b41ff$exports);
-
-$parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
-function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
-    return {
-        get isNarrowLayout () {
-            return this.narrow || false;
-        }
-    };
-}
-
-
 var $9b24cbeb3a465447$exports = {};
 
 $parcel$defineInteropFlag($9b24cbeb3a465447$exports);
@@ -13641,19 +13609,51 @@ function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id, matchers: matchers }
 }
 
 
-$5d1c9207cb730903$exports = {
+var $1a7a7298eec5b755$exports = {};
+
+$parcel$defineInteropFlag($1a7a7298eec5b755$exports);
+
+$parcel$export($1a7a7298eec5b755$exports, "default", () => $1a7a7298eec5b755$export$2e2bcd8739ae039);
+
+function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
+    return {
+        narrow: false,
+        init () {
+            (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$el, ({ width: width })=>{
+                this.narrow = width < 500;
+            });
+        }
+    };
+}
+
+
+var $e773f8ef556b41ff$exports = {};
+
+$parcel$defineInteropFlag($e773f8ef556b41ff$exports);
+
+$parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
+function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
+    return {
+        get isNarrowLayout () {
+            return this.narrow || false;
+        }
+    };
+}
+
+
+$6178ee12f80cbf68$exports = {
     "display_options": {
         "field": $6a9b69d9cc7f810f$exports
     },
     "embed": {
         "inspector": $c299e36fa9e271bc$exports
     },
+    "nav": {
+        "item": $9b24cbeb3a465447$exports
+    },
     "params": {
         "editor": $1a7a7298eec5b755$exports,
         "field": $e773f8ef556b41ff$exports
-    },
-    "nav": {
-        "item": $9b24cbeb3a465447$exports
     }
 };
 
@@ -13722,7 +13722,7 @@ const $22969b543678f572$var$prefix = window.APP_NAME;
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $5792afa4170ed552$export$2e2bcd8739ae039));
 [
     $c9dfaeb25bf110ce$exports,
-    $5d1c9207cb730903$exports,
+    $6178ee12f80cbf68$exports,
     $d56e5cced44001d2$exports
 ].forEach((scripts)=>{
     const components = (0, $12b7aa006b8a97e1$export$4e811121b221213b)(scripts);
