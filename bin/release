@@ -3,6 +3,4 @@
 bundle exec rake build
 
 printf "\n✅ Lookbook v${1/-/.} gem built."
-printf "\n\n💎 Now push to RubyGems:"
-
-printf "\n\n👉 gem push pkg/lookbook-${1/-/.}.gem --otp "
+printf "\n\n💎 The gem will be pushed to RubyGems automatically by Github Actions, using Trusted Publishing."
