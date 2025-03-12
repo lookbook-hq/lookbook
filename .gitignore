@@ -11,3 +11,5 @@ gemfiles/*.lock
 !public/lookbook-assets/icons
 
 docs/output
+
+.parcel-cache/
