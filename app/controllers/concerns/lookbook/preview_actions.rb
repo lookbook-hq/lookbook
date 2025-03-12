@@ -21,10 +21,10 @@ module Lookbook
 
     def assign_display_options
       @display_options = DataObject.new(
-        dynamic_display_options_defaults
-          .merge(cookie_display_options)
-          .merge(@target.display_options)
-          .merge(url_display_options)
+        dynamic_display_options_defaults,
+        cookie_display_options,
+        @target.display_options,
+        url_display_options
       )
     end
 

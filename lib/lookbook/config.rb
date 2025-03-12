@@ -4,7 +4,7 @@ module Lookbook
       alias_method :default, :new
 
       def defaults
-        DataObject.new({
+        DataObject.new(
           project_name: "Lookbook",
           project_links: [],
 
@@ -61,7 +61,7 @@ module Lookbook
           experimental_features: [],
 
           enabled: Rails.env.development? || Rails.env.test?
-        })
+        )
       end
 
       def default_inspector_panels

@@ -8,7 +8,7 @@ module Lookbook
       end
 
       def with_entry(name, value)
-        @entries << DataObject.new({name: name, value: value})
+        @entries << DataObject.new(name: name, value: value)
       end
     end
   end

@@ -18,7 +18,7 @@ module Lookbook
     end
 
     def display_options
-      DataObject.new(tags(:display).map { [_1.key, _1.value] }.to_h)
+      DataObject.new(tags(:display).map { [_1.key, _1.value] })
     end
 
     def tags(name = nil)

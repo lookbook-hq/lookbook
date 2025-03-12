@@ -6,7 +6,7 @@ module Lookbook
       end
 
       def links
-        Lookbook.config.project_links.map { DataObject.new(_1) }
+        DataObject.array(Lookbook.config.project_links)
       end
     end
   end

@@ -117,7 +117,7 @@ module Lookbook
 
     def method_parameter_data
       if scenario.method_parameters[name]
-        DataObject.new({name: name, value: scenario.method_parameters[name]})
+        DataObject.new(name: name, value: scenario.method_parameters[name])
       end
     end
 

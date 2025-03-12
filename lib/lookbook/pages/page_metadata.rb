@@ -38,9 +38,9 @@ module Lookbook
 
     def frontmatter
       @frontmatter ||= DataObject.new(
-        Lookbook.config.page_frontmatter_defaults
-          .deep_merge(@frontmatter_defaults)
-          .deep_merge(parsed_content[:frontmatter])
+        Lookbook.config.page_frontmatter_defaults,
+        @frontmatter_defaults,
+        parsed_content[:frontmatter]
       )
     end
 
