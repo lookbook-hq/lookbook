@@ -21,4 +21,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "htmlbeautifier"
   spec.add_dependency "yard"
   spec.add_dependency "zeitwerk"
+  spec.add_dependency "ostruct"
 end
