@@ -13,3 +13,4 @@ gemfiles/*.lock
 docs/output
 
 .parcel-cache/
+spec/
