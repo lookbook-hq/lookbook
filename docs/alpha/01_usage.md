@@ -13,8 +13,8 @@ There is much still left to do and undoubtably many bugs at this stage but any f
 
 ### Requirements
 
-* Ruby >= 3.0.0
-* Rails >= 6.1.0
+* Ruby >= 3.1.0
+* Rails >= 7.1.0
 
 ### Installing 
 
