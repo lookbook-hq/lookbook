@@ -12,6 +12,8 @@ require "capybara/cuprite"
 
 require_relative "demo/config/application"
 
+Warning[:deprecated] = true
+
 Minitest::Reporters.use!
 
 class ActiveSupport::TestCase
