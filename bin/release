@@ -1,6 +1,3 @@
 #!/usr/bin/env bash
 
-bundle exec rake build
-
-printf "\n✅ Lookbook v${1/-/.} gem built."
 printf "\n\n💎 The gem will be pushed to RubyGems automatically by Github Actions, using Trusted Publishing."
