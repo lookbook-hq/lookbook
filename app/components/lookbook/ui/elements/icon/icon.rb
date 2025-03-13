@@ -10,8 +10,8 @@ module Lookbook
         @stroke = stroke
       end
 
-      def svg
-        ICON_CACHE[name] ||= read_svg
+      def icon
+        tag.i(data: {lucide: name})
       end
 
       def read_svg

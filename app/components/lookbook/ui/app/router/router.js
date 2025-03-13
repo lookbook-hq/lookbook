@@ -1,5 +1,6 @@
 import AlpineComponent from "@js/alpine/component";
 import ServerEventsListener from "@js/server_events_listener";
+import { loadIcons } from "@js/icons";
 import { fetchHTML } from "@js/helpers";
 import Logger from "@js/logger";
 
@@ -47,6 +48,7 @@ export default AlpineComponent("router", (sseEndpoint = null) => {
         history.pushState({}, "", fullUrl);
       }
       this.lastUpdate = Date.now();
+      loadIcons();
       this.routerLogger.debug(`Page loaded`);
       this.$dispatch("page-load:complete");
     },
