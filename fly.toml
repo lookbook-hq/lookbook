@@ -1,0 +1,28 @@
+# fly.toml app configuration file generated for lookbook-v3-demo on 2025-03-13T03:26:52Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'lookbook-v3-demo'
+primary_region = 'lhr'
+swap_size_mb = 512
+console_command = '/rails/bin/rails console'
+
+[build]
+
+[deploy]
+
+[processes]
+  app = 'bundle exec puma -C test/demo/config/puma.rb'
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'off'
+  processes = ['app']
+
+[[vm]]
+  size = 'shared-cpu-1x'
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1

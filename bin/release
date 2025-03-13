@@ -42,8 +42,12 @@ module Lookbook
           Lookbook::VERSION.to_s
         end
 
-        def version_file
+        def version_file_path
           File.expand_path("#{File.dirname(__FILE__)}/../lib/lookbook/version.rb")
+        end
+
+        def gemspec_file_path
+          File.expand_path("#{File.dirname(__FILE__)}/../lookbook.gemspec")
         end
 
         def call(version:, dry_run: false)
@@ -54,10 +58,15 @@ module Lookbook
           if dry_run
             debug "[dry-run] Version file #{version_file} not updated."
           else
-            file = File.open(version_file)
-            contents = file.read
-            File.write(version_file, contents.gsub(current_version, new_version))
+            version_file = File.open(version_file_path)
+            version_file_contents = version_file.read
+            File.write(version_file_path, version_file_contents.gsub(current_version, new_version))
             debug "Updated version file #{version_file}"
+
+            gemspec_file = File.open(gemspec_file_path)
+            gemspec_file_contents = gemspec_file.read
+            File.write(gemspec_file_path, gemspec_file_contents.gsub(current_version, new_version))
+            debug "Updated gemspec file #{version_file}"
           end
 
           success "Version bump to #{new_version} complete."

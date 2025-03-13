@@ -1,10 +1,6 @@
-$:.push File.expand_path("lib", __dir__)
-
-require "lookbook/version"
-
 Gem::Specification.new do |spec|
   spec.name = "lookbook"
-  spec.version = Lookbook::VERSION
+  spec.version = "3.0.0.alpha.2"
   spec.authors = ["Mark Perkins"]
   spec.homepage = "https://github.com/lookbook-hq/lookbook"
   spec.summary = "A UI development environment for Ruby on Rails applications"

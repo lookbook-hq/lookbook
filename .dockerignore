@@ -1,0 +1,34 @@
+# See https://docs.docker.com/engine/reference/builder/#dockerignore-file for more about ignoring files.
+
+# Ignore git directory.
+/.git/
+/.gitignore
+
+# Ignore bundler config.
+/.bundle
+
+# Ignore all environment files.
+/.env*
+
+# Ignore all logfiles and tempfiles.
+test/demo/log/*
+test/demo/tmp/*
+!test/demo/log/.keep
+!test/demo/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+test/demo/tmp/pids/*
+!test/demo/tmp/pids/.keep
+
+# Ignore assets.
+/node_modules/
+/app/assets/builds/*
+!/app/assets/builds/.keep
+/public/assets
+
+# Ignore CI service files.
+/.github
+
+# Ignore Docker-related files
+/.dockerignore
+/Dockerfile*
