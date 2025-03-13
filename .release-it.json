@@ -8,7 +8,6 @@
   "hooks": {
     "before:init": ["npm install", "bundle install", "bin/test"],
     "after:bump": ["npm run lint:fix", "npm run build"],
-    "after:version:bump": "bin/release bump ${version} && bundle",
-    "after:release": "bin/release publish"
+    "after:version:bump": "bin/release bump ${version} && bundle"
   }
 }
