@@ -129,7 +129,7 @@ GEM
       concurrent-ruby (~> 1.1)
       webrick (~> 1.7)
       websocket-driver (~> 0.7)
-    ffi (1.17.1-arm64-darwin)
+    ffi (1.17.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
     htmlbeautifier (1.4.3)
@@ -159,6 +159,7 @@ GEM
     matrix (0.4.2)
     method_source (1.1.0)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.8)
     minitest (5.25.5)
     minitest-hooks (1.5.2)
       minitest (> 5.3)
@@ -177,7 +178,8 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.4)
-    nokogiri (1.18.3-arm64-darwin)
+    nokogiri (1.18.3)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     ostruct (0.6.1)
     parallel (1.26.3)
@@ -329,6 +331,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-23
+  x86_64-linux
 
 DEPENDENCIES
   better_errors
