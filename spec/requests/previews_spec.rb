@@ -60,6 +60,12 @@ RSpec.describe "previews", type: :request do
       expect(html).to have_selector "a[href='/']"
     end
 
+    it 'supports content_for' do
+      get lookbook_preview_path('partial_example/helpers')
+
+      expect(html.has_css('title', text: 'Custom title using content_for')).to be true
+    end
+
     it "has access to host app url helpers" do
       get lookbook_preview_path("partial_example/url_helpers")
 
