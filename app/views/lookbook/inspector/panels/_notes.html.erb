@@ -11,7 +11,7 @@
     <% end %>
   </div>
 <% else %>
-  <div class="p-4 w-full h-full bg-lookbook-prose-bg">
+  <div class="p-4 w-full min-h-full h-max bg-lookbook-prose-bg">
     <%= lookbook_render :prose do %>
       <%== items.any? ? items.first.notes : "<em class='opacity-50'>No notes provided.</em>" %>
     <% end %>
