@@ -1,6 +1,4 @@
 class PartialExamplePreview < Lookbook::Preview
-  layout "application"
-
   def default
     render "partials/basic_example"
   end

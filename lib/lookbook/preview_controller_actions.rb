@@ -17,7 +17,7 @@ module Lookbook
         template = @render_args[:template]
         locals = @render_args[:locals]
         opts = {}
-        opts[:layout] = scenario.group.present? ? nil : determine_layout(preview.layout)[:layout]
+        opts[:layout] = scenario.group.present? ? nil : determine_layout(preview.layout)[:layout] || "application"
         opts[:assigns] = @render_args[:assigns] || {}
         opts[:locals] = locals if locals.present?
 

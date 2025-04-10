@@ -1,6 +1,4 @@
 class StandardComponentPreview < ViewComponent::Preview
-  layout "application"
-
   def default
     render StandardComponent.new title: "default" do
       "standard component content"
