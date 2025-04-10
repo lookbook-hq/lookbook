@@ -52,3 +52,21 @@ Steps:
 * Push to the fork and submit a pull request.
 * Wait for the pull request to be reviewed and merged.
 
+## Releasing a new version
+
+The release process is based on [release-it](https://www.npmjs.com/package/release-it).
+
+Steps:
+
+* Configure and install the dependencies:
+  - `bundle install`
+  - `bundle exec appraisal install`
+  - `npm install`
+  - `npm install -g parcel`
+* Launch the release command:
+  - Optionally, launch a dry run: `npm run release:dry-run`
+  - `npm run release`
+* The new gem is automatically pushed to RubyGems by Github Actions, thanks to [Trusted Publishing](https://guides.rubygems.org/trusted-publishing/)
+* Update the [demo](https://github.com/lookbook-hq/lookbook-demo):
+  - Bump the version in [lookbook-demo/blob/main/Gemfile](https://github.com/lookbook-hq/lookbook-demo/blob/main/Gemfile#L29)
+  - Commit and push, so it gets deployed to Heroku

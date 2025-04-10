@@ -1,6 +1,6 @@
 module Views::Phlex
   class ListExample < Phlex::HTML
-    def template
+    def view_template
       ul { yield }
     end
 
@@ -10,7 +10,7 @@ module Views::Phlex
   end
 
   class Item < Phlex::HTML
-    def template
+    def view_template
       li { yield }
     end
   end

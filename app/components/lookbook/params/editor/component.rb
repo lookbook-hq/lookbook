@@ -9,7 +9,7 @@ module Lookbook
       def initialize(**html_attrs)
         @field_count = -1
         @@input_styles = {}
-        super(**html_attrs)
+        super
       end
 
       def before_render

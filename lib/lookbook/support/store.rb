@@ -27,7 +27,7 @@ module Lookbook
       if name.to_s.end_with?("=")
         args[0] = normalize_value(args[0])
       end
-      super(name, *args)
+      super
     end
 
     def respond_to_missing?(name, include_private)

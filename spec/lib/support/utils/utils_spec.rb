@@ -15,4 +15,13 @@ RSpec.describe Lookbook::Utils do
       end
     end
   end
+
+  context ".name" do
+    it "does not emit Ruby frozen string deprecation warnings" do
+      allow(Warning).to receive(:warn)
+
+      Lookbook::Utils.name(:symbol_name)
+      expect(Warning).not_to have_received(:warn)
+    end
+  end
 end

@@ -57,13 +57,12 @@ body {
 }
 
 hr {
+  height: 0;
   color: inherit;
   border-top-width: 1px;
-  height: 0;
 }
 
 abbr:where([title]) {
-  -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
 }
 
@@ -74,7 +73,6 @@ h1, h2, h3, h4, h5, h6 {
 
 a {
   color: inherit;
-  -webkit-text-decoration: inherit;
   text-decoration: inherit;
 }
 
@@ -264,8 +262,8 @@ input::placeholder, textarea::placeholder {
 }
 
 ::-webkit-date-and-time-value {
-  text-align: inherit;
   min-height: 1.5em;
+  text-align: inherit;
 }
 
 ::-webkit-datetime-edit {
@@ -339,7 +337,6 @@ select {
   appearance: none;
   print-color-adjust: exact;
   vertical-align: middle;
-  -webkit-user-select: none;
   user-select: none;
   color: #2563eb;
   --tw-shadow: 0 0 #0000;
@@ -420,7 +417,7 @@ select {
 }
 
 [type="file"]:focus {
-  outline: 1px solid ButtonText;
+  outline: 1px solid buttontext;
   outline: 1px auto -webkit-focus-ring-color;
 }
 
@@ -437,8 +434,8 @@ html {
 }
 
 body {
-  color: var(--lookbook-text);
   width: 100vw;
+  color: var(--lookbook-text);
   font-family: Inter var, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
   font-size: .875rem;
   line-height: 1.25rem;
@@ -565,8 +562,8 @@ pre[class*="language-"] {
 }
 
 .form-input::-webkit-date-and-time-value {
-  text-align: inherit;
   min-height: 1.5em;
+  text-align: inherit;
 }
 
 .form-input::-webkit-datetime-edit {
@@ -889,7 +886,6 @@ pre[class*="language-"] {
 
 .prose :where(table):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   table-layout: auto;
-  text-align: start;
   width: 100%;
   margin-top: 2em;
   margin-bottom: 2em;
@@ -931,6 +927,10 @@ pre[class*="language-"] {
 
 .prose :where(tfoot td):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   vertical-align: top;
+}
+
+.prose :where(th, td):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  text-align: start;
 }
 
 .prose :where(figure > *):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
@@ -1005,19 +1005,19 @@ pre[class*="language-"] {
   margin-bottom: .75em;
 }
 
-.prose :where(.prose > ul > li > :first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose :where(.prose > ul > li > p:first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   margin-top: 1.25em;
 }
 
-.prose :where(.prose > ul > li > :last-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose :where(.prose > ul > li > p:last-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   margin-bottom: 1.25em;
 }
 
-.prose :where(.prose > ol > li > :first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose :where(.prose > ol > li > p:first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   margin-top: 1.25em;
 }
 
-.prose :where(.prose > ol > li > :last-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose :where(.prose > ol > li > p:last-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   margin-bottom: 1.25em;
 }
 
@@ -1194,19 +1194,19 @@ pre[class*="language-"] {
   margin-bottom: .571429em;
 }
 
-.prose-sm :where(.prose-sm > ul > li > :first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose-sm :where(.prose-sm > ul > li > p:first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   margin-top: 1.14286em;
 }
 
-.prose-sm :where(.prose-sm > ul > li > :last-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose-sm :where(.prose-sm > ul > li > p:last-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   margin-bottom: 1.14286em;
 }
 
-.prose-sm :where(.prose-sm > ol > li > :first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose-sm :where(.prose-sm > ol > li > p:first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   margin-top: 1.14286em;
 }
 
-.prose-sm :where(.prose-sm > ol > li > :last-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose-sm :where(.prose-sm > ol > li > p:last-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   margin-bottom: 1.14286em;
 }
 
@@ -1414,19 +1414,19 @@ pre[class*="language-"] {
   margin-bottom: .888889em;
 }
 
-.prose-lg :where(.prose-lg > ul > li > :first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose-lg :where(.prose-lg > ul > li > p:first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   margin-top: 1.33333em;
 }
 
-.prose-lg :where(.prose-lg > ul > li > :last-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose-lg :where(.prose-lg > ul > li > p:last-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   margin-bottom: 1.33333em;
 }
 
-.prose-lg :where(.prose-lg > ol > li > :first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose-lg :where(.prose-lg > ol > li > p:first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   margin-top: 1.33333em;
 }
 
-.prose-lg :where(.prose-lg > ol > li > :last-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose-lg :where(.prose-lg > ol > li > p:last-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   margin-bottom: 1.33333em;
 }
 
@@ -1549,7 +1549,6 @@ pre[class*="language-"] {
 
 [data-component="code"].numbered .line-numbers {
   z-index: 10;
-  -webkit-user-select: none;
   user-select: none;
   text-align: right;
   border-style: dashed;
@@ -1629,7 +1628,7 @@ pre[class*="language-"] {
 [data-component="icon"] {
   flex: none;
   line-height: 1;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-duration: .15s;
   transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   display: block;
@@ -1663,10 +1662,10 @@ pre[class*="language-"] {
   background-color: var(--lookbook-message-bg);
   --tw-shadow: 0 1px 3px 0 #0000001a, 0 1px 2px -1px #0000001a;
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+  width: 100%;
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   border-radius: .25rem;
   gap: 1.5rem;
-  width: 100%;
   padding: 1rem;
   display: flex;
 }
@@ -1727,14 +1726,13 @@ pre[class*="language-"] {
 
 [data-component="nav"] .nav-action {
   cursor: pointer;
-  -webkit-user-select: none;
   user-select: none;
+  width: 100%;
   color: var(--lookbook-nav-text);
   align-items: center;
-  width: 100%;
   padding-top: .25rem;
   padding-bottom: .25rem;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-duration: .15s;
   transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   display: flex;
@@ -1910,10 +1908,9 @@ pre[class*="language-"] {
 
 [data-component="viewport"] .resize-handle {
   touch-action: none;
-  -webkit-user-select: none;
   user-select: none;
   color: var(--lookbook-viewport-handle-icon-stroke);
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-duration: .15s;
   transition-timing-function: cubic-bezier(.4, 0, .2, 1);
 }
@@ -2526,7 +2523,6 @@ select.compact {
 }
 
 .select-none {
-  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -3242,7 +3238,6 @@ select.compact {
 }
 
 .decoration-lookbook-viewport-handle-icon-stroke-hover {
-  -webkit-text-decoration-color: var(--lookbook-viewport-handle-icon-stroke-hover);
   text-decoration-color: var(--lookbook-viewport-handle-icon-stroke-hover);
 }
 
@@ -3341,7 +3336,7 @@ select.compact {
 }
 
 .transition {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-duration: .15s;
   transition-timing-function: cubic-bezier(.4, 0, .2, 1);
 }
@@ -4108,19 +4103,19 @@ select.compact {
     margin-bottom: .75em;
   }
 
-  .lg\:prose-base :where(.lg\:prose-base > ul > li > :first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  .lg\:prose-base :where(.lg\:prose-base > ul > li > p:first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
     margin-top: 1.25em;
   }
 
-  .lg\:prose-base :where(.lg\:prose-base > ul > li > :last-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  .lg\:prose-base :where(.lg\:prose-base > ul > li > p:last-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
     margin-bottom: 1.25em;
   }
 
-  .lg\:prose-base :where(.lg\:prose-base > ol > li > :first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  .lg\:prose-base :where(.lg\:prose-base > ol > li > p:first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
     margin-top: 1.25em;
   }
 
-  .lg\:prose-base :where(.lg\:prose-base > ol > li > :last-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  .lg\:prose-base :where(.lg\:prose-base > ol > li > p:last-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
     margin-bottom: 1.25em;
   }
 
@@ -4375,5 +4370,4 @@ select.compact {
     padding-top: 3rem;
   }
 }
-
 /*# sourceMappingURL=lookbook.css.map */

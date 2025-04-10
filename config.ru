@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require "logger"
 require "rubygems"
+require "active_support"
 require "bundler"
 require "phlex-rails"
 

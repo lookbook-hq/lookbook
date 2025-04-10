@@ -9,3 +9,4 @@ docs/output/
 .parcel-cache/
 pkg/
 spec/fixtures
+.ruby-lsp/

@@ -1,6 +1,6 @@
 {
   "name": "lookbook",
-  "version": "2.3.4",
+  "version": "2.3.8",
   "description": "A native development UI for ViewComponent",
   "targets": {
     "app": {
@@ -59,18 +59,18 @@
     "@rails/actioncable": "^6.1.4",
     "@ryangjchandler/alpine-tooltip": "^2.0.0",
     "@tailwindcss/forms": "^0.5.6",
-    "@tailwindcss/typography": "^0.5.12",
+    "@tailwindcss/typography": "^0.5.16",
     "alpinejs": "^3.13.2",
     "autoprefixer": "^10.4.13",
     "iframe-resizer": "^4.3.2",
     "js-cookie": "^3.0.5",
-    "loglevel": "^1.9.1",
+    "loglevel": "^1.9.2",
     "loglevel-plugin-prefix": "^0.8.4",
     "lucide-static": "^0.274.0",
     "split-grid": "^1.0.11",
     "svgo": "^3.2.0",
     "tailwindcss": "^3.4.3",
-    "throttle-debounce": "^5.0.0",
+    "throttle-debounce": "^5.0.2",
     "tippy.js": "^6.3.2"
   },
   "devDependencies": {
@@ -84,11 +84,11 @@
     "eslint-plugin-import": "^2.29.1",
     "husky": "^9.0.11",
     "lint-staged": "^15.0.2",
-    "parcel": "^2.10.1",
+    "parcel": "^2.13.3",
     "postcss": "^8.4.23",
     "postcss-import": "^16.1.0",
     "postcss-import-ext-glob": "^2.0.1",
-    "prettier": "3.0.3",
+    "prettier": "3.5.2",
     "release-it": "^17.2.1",
     "watch": "^0.13.0"
   },

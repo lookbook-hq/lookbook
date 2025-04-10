@@ -16,4 +16,5 @@ group :test do
   gem "capybara", "~> 3.39"
   gem "selenium-webdriver", "4.17.0"
   gem "puma", "~> 6"
+  gem "rspec-rails", "~> 6"
 end
