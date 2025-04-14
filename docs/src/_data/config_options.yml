@@ -125,8 +125,8 @@ previews:
     default: "false"
     example: "config.lookbook.preview_single_pass_rendering = true"
     description: |
-      Enables single-pass rendering for ungrouped scenarios to support 
-      layout-specific features like content_for.
+      Enables single-pass rendering for ungrouped scenarios to support layout-specific features
+      like content_for. Note that this has no effect on grouped previews.
 
 pages:
   - name: page_collection_label

@@ -48,6 +48,23 @@ RSpec.describe "previews", type: :request do
   end
 
   context "View partials" do
+    context "with single-pass rendering" do
+      before { Lookbook.config.preview_single_pass_rendering = true }
+      after { Lookbook.config.preview_single_pass_rendering = false }
+
+      it 'supports content_for' do
+        get lookbook_preview_path('partial_example/content_for')
+
+        expect(html).to have_content 'Custom title using content_for'
+      end
+    end
+
+    it 'does not support content_for by default' do
+      get lookbook_preview_path('partial_example/content_for')
+
+      expect(html).not_to have_content 'Custom title using content_for'
+    end
+
     it "renders view partial previews" do
       get lookbook_preview_path("partial_example/default")
 
@@ -58,12 +75,6 @@ RSpec.describe "previews", type: :request do
       get lookbook_preview_path("partial_example/helpers")
 
       expect(html).to have_selector "a[href='/']"
-    end
-
-    it 'supports content_for' do
-      get lookbook_preview_path('partial_example/content_for')
-
-      expect(html).to have_content 'Custom title using content_for'
     end
 
     it "has access to host app url helpers" do
