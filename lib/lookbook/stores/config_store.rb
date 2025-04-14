@@ -63,6 +63,10 @@ module Lookbook
       store[:preview_disable_error_handling] = value
     end
 
+    def preview_single_pass_rendering=(value)
+      store[:preview_single_pass_rendering] = value
+    end
+
     def ui_theme=(name)
       name = name.to_s
       if Theme.valid_theme?(name)
