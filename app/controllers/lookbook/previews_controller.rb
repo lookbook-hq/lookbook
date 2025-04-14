@@ -48,7 +48,7 @@ module Lookbook
           append_html: (iframe_content_scripts if embedded?)
         )
       else
-        inspector_data.scenarios.first.output
+        inspector_data.scenarios.first.output  + (iframe_content_scripts if embedded?)
       end
     end
 
