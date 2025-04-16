@@ -16,8 +16,13 @@ module Lookbook
         @render_args = @preview.render_args(@scenario_name, params: params.permit!)
         template = @render_args[:template]
         locals = @render_args[:locals]
-        opts = {}
-        opts[:layout] = nil
+
+        opts = if Lookbook.config.preview_single_pass_rendering && !scenario.group.present?
+          determine_layout(preview.layout)
+        else
+          { layout: nil }
+        end
+
         opts[:assigns] = @render_args[:assigns] || {}
         opts[:locals] = locals if locals.present?
 

@@ -25,6 +25,7 @@ shared:
   preview_type_default: view_component
   preview_sort_scenarios: false
   preview_disable_error_handling: false
+  preview_single_pass_rendering: false
 
   page_collection_label: "Pages"
   page_nav_filter: false

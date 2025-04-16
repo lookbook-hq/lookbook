@@ -39,13 +39,17 @@ module Lookbook
     def show
       raise_not_found("Preview not found") unless @target
 
-      @preview_html = preview_controller.process(
-        :render_in_layout_to_string,
-        "lookbook/previews/group",
-        inspector_data,
-        layout: @preview.layout,
-        append_html: (iframe_content_scripts if embedded?)
-      )
+      @preview_html = if Lookbook.config.preview_single_pass_rendering && !inspector_data.scenarios.many?
+        inspector_data.scenarios.first.output + (iframe_content_scripts if embedded?)
+      else
+        preview_controller.process(
+          :render_in_layout_to_string,
+          "lookbook/previews/group",
+          inspector_data,
+          layout: @preview.layout,
+          append_html: (iframe_content_scripts if embedded?)
+        )
+      end
     end
 
     private
