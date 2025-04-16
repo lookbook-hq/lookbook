@@ -20,7 +20,7 @@ module Lookbook
         opts = if Lookbook.config.preview_single_pass_rendering && !scenario.group.present?
           determine_layout(preview.layout)
         else
-          { layout: nil }
+          {layout: nil}
         end
 
         opts[:assigns] = @render_args[:assigns] || {}
