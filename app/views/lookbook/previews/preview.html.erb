@@ -1,6 +1,6 @@
 <% if @render_args[:component] %>
   <% if defined?(Phlex::SGML) && @render_args[:component].is_a?(Phlex::SGML) %>
-    <% if @render_args[:component].method(:call).parameters.include?([:key, :context])%>
+    <% if defined?(Phlex::VERSION) && Gem::Version.new(Phlex::VERSION) >= Gem::Version.new("2.0.0") %>
       <%= raw(@render_args[:component].call(context: { rails_view_context: self }, &@render_args[:block])) %>
     <% else %>
       <%= raw(@render_args[:component].call(view_context: self, &@render_args[:block])) %>

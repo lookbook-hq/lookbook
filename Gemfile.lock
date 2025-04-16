@@ -153,9 +153,9 @@ GEM
     parser (3.3.7.1)
       ast (~> 2.4.1)
       racc
-    phlex (2.0.2)
-    phlex-rails (2.0.2)
-      phlex (~> 2.0.2)
+    phlex (1.11.0)
+    phlex-rails (1.2.2)
+      phlex (>= 1.10, < 2)
       railties (>= 6.1, < 9)
     public_suffix (6.0.1)
     puma (6.6.0)
@@ -285,7 +285,7 @@ DEPENDENCIES
   combustion (~> 1.3)
   factory_bot
   lookbook!
-  phlex-rails
+  phlex-rails (~> 1.2.2)
   puma (~> 6)
   rails (~> 7.0.0)
   rspec-rails (~> 6)
