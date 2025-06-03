@@ -66,7 +66,7 @@ module Lookbook
           if vc_config.default_preview_layout.present?
             opts.preview_layout = vc_config.default_preview_layout
           else
-            opts.preview_layout = vc_config.previews.default_layout
+            opts.preview_layout = vc_config.previews&.default_layout
           end
         else
           if vc_config.default_preview_layout.present?
