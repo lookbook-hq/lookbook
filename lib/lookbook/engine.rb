@@ -37,23 +37,50 @@ module Lookbook
       if opts.using_view_component
         vc_config = Engine.host_config.view_component
 
-        opts.preview_paths += vc_config.preview_paths
+        if vc_config.preview_paths.present?
+          opts.preview_paths += vc_config.preview_paths
+        else
+          opts.preview_paths += vc_config.previews.paths
+        end
+
+        vc_config_preview_controller = vc_config.preview_controller.present? ? vc_config.preview_controller : vc_config.previews.controller
 
         # sync preview controller and layout setting between Lookbook and ViewComponent
         if opts.preview_controller == "Lookbook::PreviewController" ||
             vc_config.preview_controller != ViewComponent::Config.defaults.preview_controller
-          opts.preview_controller = vc_config.preview_controller
+
+          if vc_config.preview_controller.present?
+            opts.preview_controller = vc_config.preview_controller
+          else
+            opts.preview_controller = vc_config.previews.controller
+          end
         else
-          vc_config.preview_controller = opts.preview_controller
+          if vc_config.preview_controller.present?
+            vc_config.preview_controller = opts.preview_controller
+          else
+            vc_config.previews.controller = opts.preview_controller
+          end
         end
 
         if opts.preview_layout.nil? || vc_config.default_preview_layout.present?
-          opts.preview_layout = vc_config.default_preview_layout
+          if vc_config.default_preview_layout.present?
+            opts.preview_layout = vc_config.default_preview_layout
+          else
+            opts.preview_layout = vc_config.previews.default_layout
+          end
         else
-          vc_config.default_preview_layout = opts.preview_layout
+          if vc_config.default_preview_layout.present?
+            vc_config.default_preview_layout = opts.preview_layout
+          else
+            vc_config.previews.default_layout = opts.preview_layout
+          end
         end
 
-        vc_config.show_previews = true
+        if vc_config.show_previews.present?
+          vc_config.show_previews = true
+        else
+          vc_config.previews.enabled = true
+        end
 
         if vc_config.view_component_path.present?
           opts.component_paths << vc_config.view_component_path

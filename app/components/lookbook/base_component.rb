@@ -3,6 +3,7 @@ module Lookbook
     send(:include, Lookbook::Engine.routes.url_helpers) # YARD parsing workaround: https://github.com/lsegal/yard/issues/546
     include Lookbook::UiElementsHelper
     include Lookbook::ClassNamesHelper if Engine.runtime_context.rails_older_than?("6.1.0")
+    include ERB::Util # for json_escape
 
     def initialize(alpine_data: [], **html_attrs)
       @alpine_data ||= alpine_data
