@@ -7,7 +7,7 @@ Combustion.initialize! :action_controller, :action_view do
 
   if config.view_component.preview_paths.present?
     config.view_component.preview_paths << "test/components/previews"
-  else
+  elsif config.view_component.previews.paths.present?
     config.view_component.previews.paths << "test/components/previews"
   end
 
