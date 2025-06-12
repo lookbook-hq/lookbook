@@ -73,7 +73,7 @@ title: Previews Overview
   <% end %>
 
   <% s.with_block_subheading "Passing parameters", id: "parameters" %>
-  
+
   <% s.with_block_prose do %>
     You can set dynamic values from URL parameters by setting them as arguments:
 
@@ -87,14 +87,14 @@ title: Previews Overview
     ```
 
     And then supply values via URL parameters:
-    
+
     ```
     /lookbook/inspect/example/with_dynamic_title?title=Custom+title
     ```
-    
+
     For better ease of use and discoverability you can optionally add preview param tags
     to **generate form fields** so that parameter values can be **set on-the-fly from within the Lookbook UI**.
-    
+
     Read more about [dynamic preview params &rarr;](<%= guide_url :previews_params %>)
   <% end %>
 
@@ -160,11 +160,11 @@ title: Previews Overview
 
   <% s.with_block_subheading "Configuring the preview controller", id: "controller" %>
 
-  <% s.with_block_prose do %>  
+  <% s.with_block_prose do %>
     Extend previews to add authentication, authorization, before actions, etc. using the `lookbook.preview_controller` [config option](<%= guide_url :config_reference %>#preview_controller):
 
     ```rb
-    config.lookbook.preview_controller = "MyPreviewController"
+    config.lookbook.previews.controller = "MyPreviewController"
     ```
   <% end %>
 
@@ -172,7 +172,7 @@ title: Previews Overview
     Note that if you are using ViewComponent, this option should be set via the `view_component.preview_controller` config option instead, as per the ViewComponent docs:
 
     ```rb
-    config.view_component.preview_controller = "MyPreviewController"
+    config.view_component.previews.controller = "MyPreviewController"
     ```
 
     Lookbook will respect this value when rendering its previews.
@@ -181,7 +181,7 @@ title: Previews Overview
 <% end %>
 
 <%= render section("Organizing previews", id: "organizing") do |s| %>
-  <% s.with_block_prose do %>    
+  <% s.with_block_prose do %>
     The contents of the preview directory can be organised into folders and Lookbook will reflect this structure in its navigation tree.
 
     Watch out for **preview class namespacing in subdirectories** - the class namespace must reflect the relative path to the preview class (just like classes in the main Rails `app` directory). Note the file path and the (correct) namespacing in the example below:
@@ -198,14 +198,14 @@ title: Previews Overview
 <% end %>
 
 <% if false %>
-  
+
 
 
 <%= render section("Rendering components", id: "rendering-components") do |s| %>
   <% s.with_block_prose do %>
     Preview class methods can render components by calling the `render` method with the
     appropriate arguments for the type of component being rendered.
-  <% end %> 
+  <% end %>
 
   <% s.with_block_subheading("ViewComponents", id: "view-components") %>
 
@@ -227,7 +227,7 @@ title: Previews Overview
       end
     end
     ```
-  <% end %> 
+  <% end %>
 
   <% s.with_block_subheading("Phlex views", id: "phlex") %>
 

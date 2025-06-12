@@ -84,6 +84,8 @@ module Lookbook
 
         if vc_config.view_component_path.present?
           opts.component_paths << vc_config.view_component_path
+        elsif vc_config.generate.path.present?
+          opts.component_paths << vc_config.generate.path
         end
 
         ViewComponent::Preview.extend(Lookbook::PreviewAfterRender)

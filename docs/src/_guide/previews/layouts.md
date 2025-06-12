@@ -16,7 +16,7 @@ title: Preview Layouts
 <%= render section("Setting the layout", id: "config") do |s| %>
 
   <% s.with_block_prose do %>
-  
+
     Use the `layout` option to set a specific layout for an individual preview class:
 
     ```rb
@@ -40,7 +40,7 @@ title: Preview Layouts
     Note that if you are using ViewComponent, this option should be set via the `view_component.default_preview_layout` config option instead, as per the ViewComponent docs:
 
     ```rb
-    config.view_component.default_preview_layout = "component_preview"
+    config.view_component.previews.default_layout = "component_preview"
     ```
 
     Lookbook will respect this value when rendering its previews.
@@ -85,5 +85,5 @@ title: Preview Layouts
   <% end %>
 
   <% s.with_block_api_module_methods(:preview_helper) %>
-  
+
 <% end %>
