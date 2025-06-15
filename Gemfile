@@ -1,12 +1,12 @@
 source "https://rubygems.org"
 gemspec
 
-rails_version = (ENV["RAILS_VERSION"] || "~> 7.0.0").to_s
+rails_version = (ENV["RAILS_VERSION"] || "~> 8.0.0").to_s
 gem "rails", (rails_version == "main") ? {git: "https://github.com/rails/rails", ref: "main"} : rails_version
 
 gem "combustion", "~> 1.3"
 gem "standard"
-gem "view_component"
+gem "view_component", "4.0.0.alpha6"
 gem "yard-activesupport-concern"
 
 group :test do
