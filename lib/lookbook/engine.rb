@@ -37,43 +37,39 @@ module Lookbook
       if opts.using_view_component
         vc_config = Engine.host_config.view_component
 
-        if vc_config.preview_paths.present?
-          opts.preview_paths += vc_config.preview_paths
+        opts.preview_paths += if vc_config.preview_paths.present?
+          vc_config.preview_paths
         else
-          opts.preview_paths += vc_config.previews.paths
+          vc_config.previews.paths
         end
 
-        vc_config_preview_controller = vc_config.preview_controller.present? ? vc_config.preview_controller : vc_config.previews.controller
+        vc_config.preview_controller.present? ? vc_config.preview_controller : vc_config.previews.controller
 
         # sync preview controller and layout setting between Lookbook and ViewComponent
         if opts.preview_controller == "Lookbook::PreviewController" ||
             vc_config.preview_controller != ViewComponent::Config.defaults.preview_controller
 
-          if vc_config.preview_controller.present?
-            opts.preview_controller = vc_config.preview_controller
+          opts.preview_controller = if vc_config.preview_controller.present?
+            vc_config.preview_controller
           else
-            opts.preview_controller = vc_config.previews.controller
+            vc_config.previews.controller
           end
+        elsif vc_config.preview_controller.present?
+          vc_config.preview_controller = opts.preview_controller
         else
-          if vc_config.preview_controller.present?
-            vc_config.preview_controller = opts.preview_controller
-          else
-            vc_config.previews.controller = opts.preview_controller
-          end
+          vc_config.previews.controller = opts.preview_controller
         end
 
         if opts.preview_layout.nil? || vc_config.default_preview_layout.present?
-          if vc_config.default_preview_layout.present?
-            opts.preview_layout = vc_config.default_preview_layout
+          opts.preview_layout = if vc_config.default_preview_layout.present?
+            vc_config.default_preview_layout
           else
-            opts.preview_layout = vc_config.previews&.default_layout
+            vc_config.previews&.default_layout
           end
+        elsif vc_config.default_preview_layout.present?
+          vc_config.default_preview_layout = opts.preview_layout
         else
-          if vc_config.default_preview_layout.present?
-            vc_config.default_preview_layout = opts.preview_layout
-          else
-            vc_config.previews.default_layout = opts.preview_layout
-          end
+          vc_config.previews.default_layout = opts.preview_layout
         end
 
         if vc_config.show_previews.present?
