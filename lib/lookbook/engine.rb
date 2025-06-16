@@ -37,51 +37,50 @@ module Lookbook
       if opts.using_view_component
         vc_config = Engine.host_config.view_component
 
-        opts.preview_paths += if vc_config.preview_paths.present?
-          vc_config.preview_paths
-        else
-          vc_config.previews.paths
-        end
+        if vc_config.key?(:previews)
+          # New config style (ViewComponent >= 4.0)
+          opts.preview_paths += vc_config.previews.paths
 
-        vc_config.preview_controller.present? ? vc_config.preview_controller : vc_config.previews.controller
-
-        # sync preview controller and layout setting between Lookbook and ViewComponent
-        if opts.preview_controller == "Lookbook::PreviewController" ||
-            vc_config.preview_controller != ViewComponent::Config.defaults.preview_controller
-
-          opts.preview_controller = if vc_config.preview_controller.present?
-            vc_config.preview_controller
+          if opts.preview_controller == "Lookbook::PreviewController" ||
+              vc_config.previews.controller != "ViewComponentsController"
+            opts.preview_controller = vc_config.previews.controller
           else
-            vc_config.previews.controller
+            vc_config.previews.controller = opts.preview_controller
           end
-        elsif vc_config.preview_controller.present?
-          vc_config.preview_controller = opts.preview_controller
-        else
-          vc_config.previews.controller = opts.preview_controller
-        end
 
-        if opts.preview_layout.nil? || vc_config.default_preview_layout.present?
-          opts.preview_layout = if vc_config.default_preview_layout.present?
-            vc_config.default_preview_layout
+          if opts.preview_layout.nil? || vc_config.previews.default_layout.present?
+            opts.preview_layout = vc_config.previews.default_layout
           else
-            vc_config.previews&.default_layout
+            vc_config.previews.default_layout = opts.preview_layout
           end
-        elsif vc_config.default_preview_layout.present?
-          vc_config.default_preview_layout = opts.preview_layout
-        else
-          vc_config.previews.default_layout = opts.preview_layout
-        end
 
-        if vc_config.show_previews.present?
-          vc_config.show_previews = true
-        else
           vc_config.previews.enabled = true
-        end
 
-        if vc_config.view_component_path.present?
-          opts.component_paths << vc_config.view_component_path
-        elsif vc_config.generate.path.present?
-          opts.component_paths << vc_config.generate.path
+          if vc_config.generate.path.present?
+            opts.component_paths << vc_config.generate.path
+          end
+        else
+          # Legacy config style (ViewComponent < 4.0)
+          opts.preview_paths += vc_config.preview_paths
+
+          if opts.preview_controller == "Lookbook::PreviewController" ||
+              vc_config.preview_controller != ViewComponent::Config.defaults.preview_controller
+            opts.preview_controller = vc_config.preview_controller
+          else
+            vc_config.preview_controller = opts.preview_controller
+          end
+
+          if opts.preview_layout.nil? || vc_config.default_preview_layout.present?
+            opts.preview_layout = vc_config.default_preview_layout
+          else
+            vc_config.default_preview_layout = opts.preview_layout
+          end
+
+          vc_config.show_previews = true
+
+          if vc_config.view_component_path.present?
+            opts.component_paths << vc_config.view_component_path
+          end
         end
 
         ViewComponent::Preview.extend(Lookbook::PreviewAfterRender)
