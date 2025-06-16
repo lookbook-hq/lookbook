@@ -74,7 +74,7 @@ module Lookbook
 
         if vc_config.show_previews.present?
           vc_config.show_previews = true
-        else
+        elsif vc_config.previews.present?
           vc_config.previews.enabled = true
         end
 
