@@ -6,15 +6,14 @@ module Lookbook
       @paths = paths
       @after_parse_callbacks = []
       @after_parse_once_callbacks = []
-      @parsing = false
+      @parsing = Mutex.new
 
       define_tags(tags)
       YARD::Parser::SourceParser.after_parse_list { run_callbacks }
     end
 
     def parse(files = nil, &block)
-      unless @parsing
-        @parsing = true
+      @parsing.synchronize do
         @after_parse_once_callbacks << block if block
         files_list = files ? files.select { |file| file.to_s.end_with?(".rb") } : paths
 
@@ -43,7 +42,6 @@ module Lookbook
     def run_callbacks
       callbacks.each { |cb| cb.call(YARD::Registry) }
       @after_parse_once_callbacks = []
-      @parsing = false
     end
 
     def define_tags(tags = nil)
