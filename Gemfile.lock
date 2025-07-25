@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lookbook (2.3.11)
+    lookbook (2.3.12)
       activemodel
       css_parser
       htmlbeautifier (~> 1.3)
