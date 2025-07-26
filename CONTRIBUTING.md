@@ -46,7 +46,7 @@ Steps:
 
 * Fork and clone the repository.
 * Configure and install the dependencies: `bundle install`.
-* Make sure the tests pass: `rake test`.
+* Make sure the tests pass: `bundle exec rspec`.
 * Create a new branch: `git checkout -b my-branch-name`.
 * Add tests, make the change, and make sure the tests still pass.
 * Push to the fork and submit a pull request.

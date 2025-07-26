@@ -12,6 +12,12 @@ RSpec.describe "pages", type: :request do
       expect(html).to have_css("#page-content")
     end
 
+    it "should add id to headings" do
+      get Lookbook::Engine.pages.find_by_path("overview").url_path
+      expect(html).to have_css("#page-content h2#heading-2")
+      expect(html).to have_css("#page-content h3#heading-3")
+    end
+
     it "includes the pages nav" do
       get Lookbook::Engine.pages.find_by_path("overview").url_path
       expect(html).to have_css("#pages-nav")

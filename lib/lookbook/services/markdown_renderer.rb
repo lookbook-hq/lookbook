@@ -2,16 +2,17 @@ require "redcarpet"
 
 module Lookbook
   class MarkdownRenderer < Service
-    attr_reader :text, :opts
+    attr_reader :text, :extensions, :opts
 
     def initialize(text, opts = {})
       @text = text
+      @extensions = Lookbook.config.markdown_extensions
       @opts = Lookbook.config.markdown_options.merge(opts.to_h)
     end
 
     def call
       clean_text = ActionViewAnnotationsStripper.call(text)
-      md = Redcarpet::Markdown.new(LookbookMarkdownRenderer, opts)
+      md = Redcarpet::Markdown.new(LookbookMarkdownRenderer.new(opts), extensions)
       md.render(clean_text).html_safe
     end
 
