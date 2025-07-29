@@ -2,16 +2,18 @@ require "redcarpet"
 
 module Lookbook
   class MarkdownRenderer < Service
-    attr_reader :text, :opts
+    attr_reader :text, :extensions, :options
 
-    def initialize(text, opts = {})
+    # In Lookbook config, `markdown_options` are actually Redcarpet `extensions` so we store them as `@extensions`
+    def initialize(text, extensions = {}, options = {})
       @text = text
-      @opts = Lookbook.config.markdown_options.merge(opts.to_h)
+      @extensions = Lookbook.config.markdown_options.merge(extensions.to_h)
+      @options = default_options.merge(options.to_h)
     end
 
     def call
       clean_text = ActionViewAnnotationsStripper.call(text)
-      md = Redcarpet::Markdown.new(LookbookMarkdownRenderer, opts)
+      md = Redcarpet::Markdown.new(LookbookMarkdownRenderer.new(default_options), extensions)
       md.render(clean_text).html_safe
     end
 
@@ -28,6 +30,12 @@ module Lookbook
         full_document&.gsub!("</lookbook-embed></p>", "</lookbook-embed>")
         full_document
       end
+    end
+
+    def default_options
+      {
+        with_toc_data: true
+      }
     end
   end
 end
