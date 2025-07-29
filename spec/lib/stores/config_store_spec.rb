@@ -162,45 +162,24 @@ RSpec.describe Lookbook::ConfigStore do
         end
       end
 
-      context "markdown_extensions" do
-        it "is a hash of extensions" do
-          expect(config.markdown_extensions).to be_a Hash
-        end
-
-        it "can have an individual value changed" do
-          config.markdown_extensions.tables = false
-
-          expect(config.markdown_extensions.tables).to be false
-        end
-
-        it "merges existing extensions when set as a hash" do
-          config.markdown_extensions = {
-            tables: false
-          }
-
-          expect(config.markdown_extensions.tables).to be false
-          expect(config.markdown_extensions.fenced_code_blocks).to be true
-        end
-      end
-
       context "markdown_options" do
         it "is a hash of options" do
           expect(config.markdown_options).to be_a Hash
         end
 
         it "can have an individual value changed" do
-          config.markdown_options.with_toc_data = false
+          config.markdown_options.tables = false
 
-          expect(config.markdown_options.with_toc_data).to be false
+          expect(config.markdown_options.tables).to be false
         end
 
         it "merges existing options when set as a hash" do
           config.markdown_options = {
-            prettify: false
+            tables: false
           }
 
-          expect(config.markdown_options.prettify).to be false
-          expect(config.markdown_options.with_toc_data).to be true
+          expect(config.markdown_options.tables).to be false
+          expect(config.markdown_options.fenced_code_blocks).to be true
         end
       end
 

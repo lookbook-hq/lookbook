@@ -35,16 +35,13 @@ shared:
   page_extensions: [html.*, md.*]
   page_options: {}
 
-  markdown_extensions:
+  markdown_options:
     tables: true
     fenced_code_blocks: true
     disable_indented_code_blocks: true
     strikethrough: true
     highlight: true
     lax_spacing: true
-
-  markdown_options:
-    with_toc_data: true
 
   highlighter_options:
     theme: github

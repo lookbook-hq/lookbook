@@ -207,28 +207,28 @@ theming:
       Customise or disable the favicon served by Lookbook.
 
 markdown:
-  - name: markdown_extensions.tables
+  - name: markdown_options.tables
     types: Boolean
     default: "true"
-    example: config.lookbook.markdown_extensions.tables = false
+    example: config.lookbook.markdown_options.tables = false
     description: Enable/disable support for tables
 
-  - name: markdown_extensions.fenced_code_blocks
+  - name: markdown_options.fenced_code_blocks
     types: Boolean
     default: "true"
-    example: config.lookbook.markdown_extensions.fenced_code_blocks = false
+    example: config.lookbook.markdown_options.fenced_code_blocks = false
     description: Enable/disable support for fenced code blocks
 
-  - name: markdown_extensions.disable_indented_code_blocks
+  - name: markdown_options.disable_indented_code_blocks
     types: Boolean
     default: "true"
-    example: config.lookbook.markdown_extensions.disable_indented_code_blocks = false
+    example: config.lookbook.markdown_options.disable_indented_code_blocks = false
     description: Enable/disable support for indented code blocks
 
-  - name: markdown_extensions.lax_spacing
+  - name: markdown_options.lax_spacing
     types: Boolean
     default: "true"
-    example: config.lookbook.markdown_extensions.lax_spacing = false
+    example: config.lookbook.markdown_options.lax_spacing = false
     description: Enable/disable support for lax spacing
 
 highlighter:
