@@ -5,8 +5,8 @@ var $b2e1fd3e30ab1f5c$exports = {};
  * Desc: Include this file in any page being loaded into an iframe
  *       to force the iframe to resize to the content size.
  * Requires: iframeResizer.js on host page.
- * Doc: https://github.com/davidjbradshaw/iframe-resizer
- * Author: David J. Bradshaw - dave@bradshaw.net
+ * Doc: https://iframe-resizer.com
+ * Author: David J. Bradshaw - info@iframe-resizer.com
  *
  */ // eslint-disable-next-line sonarjs/cognitive-complexity, no-shadow-restricted-names
 (function(undefined) {
@@ -869,7 +869,7 @@ var $b2e1fd3e30ab1f5c$exports = {};
             return event.data.slice(event.data.indexOf(':') + 1);
         }
         function isMiddleTier() {
-            return !(0, $b2e1fd3e30ab1f5c$exports) && 'iFrameResize' in window || window.jQuery !== undefined && 'iFrameResize' in window.jQuery.prototype;
+            return !$b2e1fd3e30ab1f5c$exports && 'iFrameResize' in window || window.jQuery !== undefined && 'iFrameResize' in window.jQuery.prototype;
         }
         function isInitMsg() {
             // Test if this message is from a child below us. This is an ugly test, however, updating
@@ -896,9 +896,18 @@ var $b2e1fd3e30ab1f5c$exports = {};
     function chkLateLoaded() {
         if ('loading' !== document.readyState) window.parent.postMessage('[iFrameResizerChild]Ready', '*');
     }
-    addEventListener(window, 'message', receiver);
-    addEventListener(window, 'readystatechange', chkLateLoaded);
-    chkLateLoaded();
+    // Setup if not already running
+    if (!('iframeResizer' in window)) {
+        window.iframeChildListener = function(data) {
+            receiver({
+                data: data,
+                sameDomian: true
+            });
+        };
+        addEventListener(window, 'message', receiver);
+        addEventListener(window, 'readystatechange', chkLateLoaded);
+        chkLateLoaded();
+    }
 })();
 
 

@@ -94,104 +94,20 @@ function $caa9439642c6336c$var$elementBoundEffect(el) {
         }
     ];
 }
-// packages/alpinejs/src/utils/dispatch.js
-function $caa9439642c6336c$var$dispatch(el, name, detail = {}) {
-    el.dispatchEvent(new CustomEvent(name, {
-        detail: detail,
-        bubbles: true,
-        // Allows events to pass the shadow DOM barrier.
-        composed: true,
-        cancelable: true
-    }));
-}
-// packages/alpinejs/src/utils/walk.js
-function $caa9439642c6336c$var$walk(el, callback) {
-    if (typeof ShadowRoot === "function" && el instanceof ShadowRoot) {
-        Array.from(el.children).forEach((el2)=>$caa9439642c6336c$var$walk(el2, callback));
-        return;
-    }
-    let skip = false;
-    callback(el, ()=>skip = true);
-    if (skip) return;
-    let node = el.firstElementChild;
-    while(node){
-        $caa9439642c6336c$var$walk(node, callback, false);
-        node = node.nextElementSibling;
-    }
-}
-// packages/alpinejs/src/utils/warn.js
-function $caa9439642c6336c$var$warn(message, ...args) {
-    console.warn(`Alpine Warning: ${message}`, ...args);
-}
-// packages/alpinejs/src/lifecycle.js
-var $caa9439642c6336c$var$started = false;
-function $caa9439642c6336c$var$start() {
-    if ($caa9439642c6336c$var$started) $caa9439642c6336c$var$warn("Alpine has already been initialized on this page. Calling Alpine.start() more than once can cause problems.");
-    $caa9439642c6336c$var$started = true;
-    if (!document.body) $caa9439642c6336c$var$warn("Unable to initialize. Trying to load Alpine before `<body>` is available. Did you forget to add `defer` in Alpine's `<script>` tag?");
-    $caa9439642c6336c$var$dispatch(document, "alpine:init");
-    $caa9439642c6336c$var$dispatch(document, "alpine:initializing");
-    $caa9439642c6336c$var$startObservingMutations();
-    $caa9439642c6336c$var$onElAdded((el)=>$caa9439642c6336c$var$initTree(el, $caa9439642c6336c$var$walk));
-    $caa9439642c6336c$var$onElRemoved((el)=>$caa9439642c6336c$var$destroyTree(el));
-    $caa9439642c6336c$var$onAttributesAdded((el, attrs)=>{
-        $caa9439642c6336c$var$directives(el, attrs).forEach((handle)=>handle());
-    });
-    let outNestedComponents = (el)=>!$caa9439642c6336c$var$closestRoot(el.parentElement, true);
-    Array.from(document.querySelectorAll($caa9439642c6336c$var$allSelectors().join(","))).filter(outNestedComponents).forEach((el)=>{
-        $caa9439642c6336c$var$initTree(el);
-    });
-    $caa9439642c6336c$var$dispatch(document, "alpine:initialized");
-}
-var $caa9439642c6336c$var$rootSelectorCallbacks = [];
-var $caa9439642c6336c$var$initSelectorCallbacks = [];
-function $caa9439642c6336c$var$rootSelectors() {
-    return $caa9439642c6336c$var$rootSelectorCallbacks.map((fn)=>fn());
-}
-function $caa9439642c6336c$var$allSelectors() {
-    return $caa9439642c6336c$var$rootSelectorCallbacks.concat($caa9439642c6336c$var$initSelectorCallbacks).map((fn)=>fn());
-}
-function $caa9439642c6336c$var$addRootSelector(selectorCallback) {
-    $caa9439642c6336c$var$rootSelectorCallbacks.push(selectorCallback);
-}
-function $caa9439642c6336c$var$addInitSelector(selectorCallback) {
-    $caa9439642c6336c$var$initSelectorCallbacks.push(selectorCallback);
-}
-function $caa9439642c6336c$var$closestRoot(el, includeInitSelectors = false) {
-    return $caa9439642c6336c$var$findClosest(el, (element)=>{
-        const selectors = includeInitSelectors ? $caa9439642c6336c$var$allSelectors() : $caa9439642c6336c$var$rootSelectors();
-        if (selectors.some((selector)=>element.matches(selector))) return true;
-    });
-}
-function $caa9439642c6336c$var$findClosest(el, callback) {
-    if (!el) return;
-    if (callback(el)) return el;
-    if (el._x_teleportBack) el = el._x_teleportBack;
-    if (!el.parentElement) return;
-    return $caa9439642c6336c$var$findClosest(el.parentElement, callback);
-}
-function $caa9439642c6336c$var$isRoot(el) {
-    return $caa9439642c6336c$var$rootSelectors().some((selector)=>el.matches(selector));
-}
-var $caa9439642c6336c$var$initInterceptors = [];
-function $caa9439642c6336c$var$interceptInit(callback) {
-    $caa9439642c6336c$var$initInterceptors.push(callback);
-}
-function $caa9439642c6336c$var$initTree(el, walker = $caa9439642c6336c$var$walk, intercept = ()=>{}) {
-    $caa9439642c6336c$var$deferHandlingDirectives(()=>{
-        walker(el, (el2, skip)=>{
-            intercept(el2, skip);
-            $caa9439642c6336c$var$initInterceptors.forEach((i)=>i(el2, skip));
-            $caa9439642c6336c$var$directives(el2, el2.attributes).forEach((handle)=>handle());
-            el2._x_ignore && skip();
+function $caa9439642c6336c$var$watch(getter, callback) {
+    let firstTime = true;
+    let oldValue;
+    let effectReference = $caa9439642c6336c$var$effect(()=>{
+        let value = getter();
+        JSON.stringify(value);
+        if (!firstTime) queueMicrotask(()=>{
+            callback(value, oldValue);
+            oldValue = value;
         });
+        else oldValue = value;
+        firstTime = false;
     });
-}
-function $caa9439642c6336c$var$destroyTree(root) {
-    $caa9439642c6336c$var$walk(root, (el)=>{
-        $caa9439642c6336c$var$cleanupAttributes(el);
-        $caa9439642c6336c$var$cleanupElement(el);
-    });
+    return ()=>$caa9439642c6336c$var$release(effectReference);
 }
 // packages/alpinejs/src/mutation.js
 var $caa9439642c6336c$var$onAttributeAddeds = [];
@@ -227,7 +143,8 @@ function $caa9439642c6336c$var$cleanupAttributes(el, names) {
     });
 }
 function $caa9439642c6336c$var$cleanupElement(el) {
-    if (el._x_cleanups) while(el._x_cleanups.length)el._x_cleanups.pop()();
+    el._x_effects?.forEach($caa9439642c6336c$var$dequeueJob);
+    while(el._x_cleanups?.length)el._x_cleanups.pop()();
 }
 var $caa9439642c6336c$var$observer = new MutationObserver($caa9439642c6336c$var$onMutate);
 var $caa9439642c6336c$var$currentlyObserving = false;
@@ -245,21 +162,14 @@ function $caa9439642c6336c$var$stopObservingMutations() {
     $caa9439642c6336c$var$observer.disconnect();
     $caa9439642c6336c$var$currentlyObserving = false;
 }
-var $caa9439642c6336c$var$recordQueue = [];
-var $caa9439642c6336c$var$willProcessRecordQueue = false;
+var $caa9439642c6336c$var$queuedMutations = [];
 function $caa9439642c6336c$var$flushObserver() {
-    $caa9439642c6336c$var$recordQueue = $caa9439642c6336c$var$recordQueue.concat($caa9439642c6336c$var$observer.takeRecords());
-    if ($caa9439642c6336c$var$recordQueue.length && !$caa9439642c6336c$var$willProcessRecordQueue) {
-        $caa9439642c6336c$var$willProcessRecordQueue = true;
-        queueMicrotask(()=>{
-            $caa9439642c6336c$var$processRecordQueue();
-            $caa9439642c6336c$var$willProcessRecordQueue = false;
-        });
-    }
-}
-function $caa9439642c6336c$var$processRecordQueue() {
-    $caa9439642c6336c$var$onMutate($caa9439642c6336c$var$recordQueue);
-    $caa9439642c6336c$var$recordQueue.length = 0;
+    let records = $caa9439642c6336c$var$observer.takeRecords();
+    $caa9439642c6336c$var$queuedMutations.push(()=>records.length > 0 && $caa9439642c6336c$var$onMutate(records));
+    let queueLengthWhenTriggered = $caa9439642c6336c$var$queuedMutations.length;
+    queueMicrotask(()=>{
+        if ($caa9439642c6336c$var$queuedMutations.length === queueLengthWhenTriggered) while($caa9439642c6336c$var$queuedMutations.length > 0)$caa9439642c6336c$var$queuedMutations.shift()();
+    });
 }
 function $caa9439642c6336c$var$mutateDom(callback) {
     if (!$caa9439642c6336c$var$currentlyObserving) return callback();
@@ -284,14 +194,26 @@ function $caa9439642c6336c$var$onMutate(mutations) {
         return;
     }
     let addedNodes = [];
-    let removedNodes = [];
+    let removedNodes = /* @__PURE__ */ new Set();
     let addedAttributes = /* @__PURE__ */ new Map();
     let removedAttributes = /* @__PURE__ */ new Map();
     for(let i = 0; i < mutations.length; i++){
         if (mutations[i].target._x_ignoreMutationObserver) continue;
         if (mutations[i].type === "childList") {
-            mutations[i].addedNodes.forEach((node)=>node.nodeType === 1 && addedNodes.push(node));
-            mutations[i].removedNodes.forEach((node)=>node.nodeType === 1 && removedNodes.push(node));
+            mutations[i].removedNodes.forEach((node)=>{
+                if (node.nodeType !== 1) return;
+                if (!node._x_marker) return;
+                removedNodes.add(node);
+            });
+            mutations[i].addedNodes.forEach((node)=>{
+                if (node.nodeType !== 1) return;
+                if (removedNodes.has(node)) {
+                    removedNodes.delete(node);
+                    return;
+                }
+                if (node._x_marker) return;
+                addedNodes.push(node);
+            });
         }
         if (mutations[i].type === "attributes") {
             let el = mutations[i].target;
@@ -322,27 +244,13 @@ function $caa9439642c6336c$var$onMutate(mutations) {
         $caa9439642c6336c$var$onAttributeAddeds.forEach((i)=>i(el, attrs));
     });
     for (let node of removedNodes){
-        if (addedNodes.includes(node)) continue;
+        if (addedNodes.some((i)=>i.contains(node))) continue;
         $caa9439642c6336c$var$onElRemoveds.forEach((i)=>i(node));
-        $caa9439642c6336c$var$destroyTree(node);
     }
-    addedNodes.forEach((node)=>{
-        node._x_ignoreSelf = true;
-        node._x_ignore = true;
-    });
     for (let node of addedNodes){
-        if (removedNodes.includes(node)) continue;
         if (!node.isConnected) continue;
-        delete node._x_ignoreSelf;
-        delete node._x_ignore;
         $caa9439642c6336c$var$onElAddeds.forEach((i)=>i(node));
-        node._x_ignore = true;
-        node._x_ignoreSelf = true;
     }
-    addedNodes.forEach((node)=>{
-        delete node._x_ignoreSelf;
-        delete node._x_ignore;
-    });
     addedNodes = null;
     removedNodes = null;
     addedAttributes = null;
@@ -378,16 +286,16 @@ var $caa9439642c6336c$var$mergeProxyTrap = {
     },
     has ({ objects: objects }, name) {
         if (name == Symbol.unscopables) return false;
-        return objects.some((obj)=>Object.prototype.hasOwnProperty.call(obj, name));
+        return objects.some((obj)=>Object.prototype.hasOwnProperty.call(obj, name) || Reflect.has(obj, name));
     },
     get ({ objects: objects }, name, thisProxy) {
         if (name == "toJSON") return $caa9439642c6336c$var$collapseProxies;
-        return Reflect.get(objects.find((obj)=>Object.prototype.hasOwnProperty.call(obj, name)) || {}, name, thisProxy);
+        return Reflect.get(objects.find((obj)=>Reflect.has(obj, name)) || {}, name, thisProxy);
     },
     set ({ objects: objects }, name, value, thisProxy) {
         const target = objects.find((obj)=>Object.prototype.hasOwnProperty.call(obj, name)) || objects[objects.length - 1];
         const descriptor = Object.getOwnPropertyDescriptor(target, name);
-        if (descriptor?.set && descriptor?.get) return Reflect.set(target, name, value, thisProxy);
+        if (descriptor?.set && descriptor?.get) return descriptor.set.call(thisProxy, value) || true;
         return Reflect.set(target, name, value);
     }
 };
@@ -399,11 +307,12 @@ function $caa9439642c6336c$var$collapseProxies() {
     }, {});
 }
 // packages/alpinejs/src/interceptor.js
-function $caa9439642c6336c$var$initInterceptors2(data2) {
+function $caa9439642c6336c$var$initInterceptors(data2) {
     let isObject2 = (val)=>typeof val === "object" && !Array.isArray(val) && val !== null;
     let recurse = (obj, basePath = "")=>{
         Object.entries(Object.getOwnPropertyDescriptors(obj)).forEach(([key, { value: value, enumerable: enumerable }])=>{
             if (enumerable === false || value === void 0) return;
+            if (typeof value === "object" && value !== null && value.__v_skip) return;
             let path = basePath === "" ? key : `${basePath}.${key}`;
             if (typeof value === "object" && value !== null && value._x_interceptor) obj[key] = value.initialize(data2, path, key);
             else if (isObject2(value) && value !== obj && !(value instanceof Element)) recurse(value, path);
@@ -453,28 +362,25 @@ function $caa9439642c6336c$var$magic(name, callback) {
     $caa9439642c6336c$var$magics[name] = callback;
 }
 function $caa9439642c6336c$var$injectMagics(obj, el) {
+    let memoizedUtilities = $caa9439642c6336c$var$getUtilities(el);
     Object.entries($caa9439642c6336c$var$magics).forEach(([name, callback])=>{
-        let memoizedUtilities = null;
-        function getUtilities() {
-            if (memoizedUtilities) return memoizedUtilities;
-            else {
-                let [utilities, cleanup2] = $caa9439642c6336c$var$getElementBoundUtilities(el);
-                memoizedUtilities = {
-                    interceptor: $caa9439642c6336c$var$interceptor,
-                    ...utilities
-                };
-                $caa9439642c6336c$var$onElRemoved(el, cleanup2);
-                return memoizedUtilities;
-            }
-        }
         Object.defineProperty(obj, `$${name}`, {
             get () {
-                return callback(el, getUtilities());
+                return callback(el, memoizedUtilities);
             },
             enumerable: false
         });
     });
     return obj;
+}
+function $caa9439642c6336c$var$getUtilities(el) {
+    let [utilities, cleanup2] = $caa9439642c6336c$var$getElementBoundUtilities(el);
+    let utils = {
+        interceptor: $caa9439642c6336c$var$interceptor,
+        ...utilities
+    };
+    $caa9439642c6336c$var$onElRemoved(el, cleanup2);
+    return utils;
 }
 // packages/alpinejs/src/utils/error.js
 function $caa9439642c6336c$var$tryCatch(el, expression, callback, ...args) {
@@ -485,7 +391,9 @@ function $caa9439642c6336c$var$tryCatch(el, expression, callback, ...args) {
     }
 }
 function $caa9439642c6336c$var$handleError(error2, el, expression) {
-    Object.assign(error2, {
+    error2 = Object.assign(error2 ?? {
+        message: "No error message given."
+    }, {
         el: el,
         expression: expression
     });
@@ -602,13 +510,16 @@ function $caa9439642c6336c$var$directive(name, callback) {
     return {
         before (directive2) {
             if (!$caa9439642c6336c$var$directiveHandlers[directive2]) {
-                console.warn("Cannot find directive `${directive}`. `${name}` will use the default order of execution");
+                console.warn(String.raw`Cannot find directive \`${directive2}\`. \`${name}\` will use the default order of execution`);
                 return;
             }
             const pos = $caa9439642c6336c$var$directiveOrder.indexOf(directive2);
             $caa9439642c6336c$var$directiveOrder.splice(pos >= 0 ? pos : $caa9439642c6336c$var$directiveOrder.indexOf("DEFAULT"), 0, name);
         }
     };
+}
+function $caa9439642c6336c$var$directiveExists(name) {
+    return Object.keys($caa9439642c6336c$var$directiveHandlers).includes(name);
 }
 function $caa9439642c6336c$var$directives(el, attributes, originalAttributeOverride) {
     attributes = Array.from(attributes);
@@ -755,6 +666,147 @@ function $caa9439642c6336c$var$byPriority(a, b) {
     let typeA = $caa9439642c6336c$var$directiveOrder.indexOf(a.type) === -1 ? $caa9439642c6336c$var$DEFAULT : a.type;
     let typeB = $caa9439642c6336c$var$directiveOrder.indexOf(b.type) === -1 ? $caa9439642c6336c$var$DEFAULT : b.type;
     return $caa9439642c6336c$var$directiveOrder.indexOf(typeA) - $caa9439642c6336c$var$directiveOrder.indexOf(typeB);
+}
+// packages/alpinejs/src/utils/dispatch.js
+function $caa9439642c6336c$var$dispatch(el, name, detail = {}) {
+    el.dispatchEvent(new CustomEvent(name, {
+        detail: detail,
+        bubbles: true,
+        // Allows events to pass the shadow DOM barrier.
+        composed: true,
+        cancelable: true
+    }));
+}
+// packages/alpinejs/src/utils/walk.js
+function $caa9439642c6336c$var$walk(el, callback) {
+    if (typeof ShadowRoot === "function" && el instanceof ShadowRoot) {
+        Array.from(el.children).forEach((el2)=>$caa9439642c6336c$var$walk(el2, callback));
+        return;
+    }
+    let skip = false;
+    callback(el, ()=>skip = true);
+    if (skip) return;
+    let node = el.firstElementChild;
+    while(node){
+        $caa9439642c6336c$var$walk(node, callback, false);
+        node = node.nextElementSibling;
+    }
+}
+// packages/alpinejs/src/utils/warn.js
+function $caa9439642c6336c$var$warn(message, ...args) {
+    console.warn(`Alpine Warning: ${message}`, ...args);
+}
+// packages/alpinejs/src/lifecycle.js
+var $caa9439642c6336c$var$started = false;
+function $caa9439642c6336c$var$start() {
+    if ($caa9439642c6336c$var$started) $caa9439642c6336c$var$warn("Alpine has already been initialized on this page. Calling Alpine.start() more than once can cause problems.");
+    $caa9439642c6336c$var$started = true;
+    if (!document.body) $caa9439642c6336c$var$warn("Unable to initialize. Trying to load Alpine before `<body>` is available. Did you forget to add `defer` in Alpine's `<script>` tag?");
+    $caa9439642c6336c$var$dispatch(document, "alpine:init");
+    $caa9439642c6336c$var$dispatch(document, "alpine:initializing");
+    $caa9439642c6336c$var$startObservingMutations();
+    $caa9439642c6336c$var$onElAdded((el)=>$caa9439642c6336c$var$initTree(el, $caa9439642c6336c$var$walk));
+    $caa9439642c6336c$var$onElRemoved((el)=>$caa9439642c6336c$var$destroyTree(el));
+    $caa9439642c6336c$var$onAttributesAdded((el, attrs)=>{
+        $caa9439642c6336c$var$directives(el, attrs).forEach((handle)=>handle());
+    });
+    let outNestedComponents = (el)=>!$caa9439642c6336c$var$closestRoot(el.parentElement, true);
+    Array.from(document.querySelectorAll($caa9439642c6336c$var$allSelectors().join(","))).filter(outNestedComponents).forEach((el)=>{
+        $caa9439642c6336c$var$initTree(el);
+    });
+    $caa9439642c6336c$var$dispatch(document, "alpine:initialized");
+    setTimeout(()=>{
+        $caa9439642c6336c$var$warnAboutMissingPlugins();
+    });
+}
+var $caa9439642c6336c$var$rootSelectorCallbacks = [];
+var $caa9439642c6336c$var$initSelectorCallbacks = [];
+function $caa9439642c6336c$var$rootSelectors() {
+    return $caa9439642c6336c$var$rootSelectorCallbacks.map((fn)=>fn());
+}
+function $caa9439642c6336c$var$allSelectors() {
+    return $caa9439642c6336c$var$rootSelectorCallbacks.concat($caa9439642c6336c$var$initSelectorCallbacks).map((fn)=>fn());
+}
+function $caa9439642c6336c$var$addRootSelector(selectorCallback) {
+    $caa9439642c6336c$var$rootSelectorCallbacks.push(selectorCallback);
+}
+function $caa9439642c6336c$var$addInitSelector(selectorCallback) {
+    $caa9439642c6336c$var$initSelectorCallbacks.push(selectorCallback);
+}
+function $caa9439642c6336c$var$closestRoot(el, includeInitSelectors = false) {
+    return $caa9439642c6336c$var$findClosest(el, (element)=>{
+        const selectors = includeInitSelectors ? $caa9439642c6336c$var$allSelectors() : $caa9439642c6336c$var$rootSelectors();
+        if (selectors.some((selector)=>element.matches(selector))) return true;
+    });
+}
+function $caa9439642c6336c$var$findClosest(el, callback) {
+    if (!el) return;
+    if (callback(el)) return el;
+    if (el._x_teleportBack) el = el._x_teleportBack;
+    if (!el.parentElement) return;
+    return $caa9439642c6336c$var$findClosest(el.parentElement, callback);
+}
+function $caa9439642c6336c$var$isRoot(el) {
+    return $caa9439642c6336c$var$rootSelectors().some((selector)=>el.matches(selector));
+}
+var $caa9439642c6336c$var$initInterceptors2 = [];
+function $caa9439642c6336c$var$interceptInit(callback) {
+    $caa9439642c6336c$var$initInterceptors2.push(callback);
+}
+var $caa9439642c6336c$var$markerDispenser = 1;
+function $caa9439642c6336c$var$initTree(el, walker = $caa9439642c6336c$var$walk, intercept = ()=>{}) {
+    if ($caa9439642c6336c$var$findClosest(el, (i)=>i._x_ignore)) return;
+    $caa9439642c6336c$var$deferHandlingDirectives(()=>{
+        walker(el, (el2, skip)=>{
+            if (el2._x_marker) return;
+            intercept(el2, skip);
+            $caa9439642c6336c$var$initInterceptors2.forEach((i)=>i(el2, skip));
+            $caa9439642c6336c$var$directives(el2, el2.attributes).forEach((handle)=>handle());
+            if (!el2._x_ignore) el2._x_marker = $caa9439642c6336c$var$markerDispenser++;
+            el2._x_ignore && skip();
+        });
+    });
+}
+function $caa9439642c6336c$var$destroyTree(root, walker = $caa9439642c6336c$var$walk) {
+    walker(root, (el)=>{
+        $caa9439642c6336c$var$cleanupElement(el);
+        $caa9439642c6336c$var$cleanupAttributes(el);
+        delete el._x_marker;
+    });
+}
+function $caa9439642c6336c$var$warnAboutMissingPlugins() {
+    let pluginDirectives = [
+        [
+            "ui",
+            "dialog",
+            [
+                "[x-dialog], [x-popover]"
+            ]
+        ],
+        [
+            "anchor",
+            "anchor",
+            [
+                "[x-anchor]"
+            ]
+        ],
+        [
+            "sort",
+            "sort",
+            [
+                "[x-sort]"
+            ]
+        ]
+    ];
+    pluginDirectives.forEach(([plugin2, directive2, selectors])=>{
+        if ($caa9439642c6336c$var$directiveExists(directive2)) return;
+        selectors.some((selector)=>{
+            if (document.querySelector(selector)) {
+                $caa9439642c6336c$var$warn(`found "${selector}", but missing ${plugin2} plugin`);
+                return true;
+            }
+        });
+    });
 }
 // packages/alpinejs/src/nextTick.js
 var $caa9439642c6336c$var$tickStack = [];
@@ -1000,7 +1052,7 @@ window.Element.prototype._x_toggleAndCascadeWithTransitions = function(el, value
                 let carry = Promise.all([
                     el2._x_hidePromise,
                     ...(el2._x_hideChildren || []).map(hideAfterChildren)
-                ]).then(([i])=>i());
+                ]).then(([i])=>i?.());
                 delete el2._x_hidePromise;
                 delete el2._x_hideChildren;
                 return carry;
@@ -1198,13 +1250,13 @@ function $caa9439642c6336c$var$bind(el, name, value, modifiers = []) {
     }
 }
 function $caa9439642c6336c$var$bindInputValue(el, value) {
-    if (el.type === "radio") {
+    if ($caa9439642c6336c$var$isRadio(el)) {
         if (el.attributes.value === void 0) el.value = value;
         if (window.fromModel) {
             if (typeof value === "boolean") el.checked = $caa9439642c6336c$var$safeParseBoolean(el.value) === value;
             else el.checked = $caa9439642c6336c$var$checkedAttrLooseCompare(el.value, value);
         }
-    } else if (el.type === "checkbox") {
+    } else if ($caa9439642c6336c$var$isCheckbox(el)) {
         if (Number.isInteger(value)) el.value = value;
         else if (!Array.isArray(value) && typeof value !== "boolean" && ![
             null,
@@ -1280,35 +1332,37 @@ function $caa9439642c6336c$var$safeParseBoolean(rawValue) {
     ].includes(rawValue)) return false;
     return rawValue ? Boolean(rawValue) : null;
 }
+var $caa9439642c6336c$var$booleanAttributes = /* @__PURE__ */ new Set([
+    "allowfullscreen",
+    "async",
+    "autofocus",
+    "autoplay",
+    "checked",
+    "controls",
+    "default",
+    "defer",
+    "disabled",
+    "formnovalidate",
+    "inert",
+    "ismap",
+    "itemscope",
+    "loop",
+    "multiple",
+    "muted",
+    "nomodule",
+    "novalidate",
+    "open",
+    "playsinline",
+    "readonly",
+    "required",
+    "reversed",
+    "selected",
+    "shadowrootclonable",
+    "shadowrootdelegatesfocus",
+    "shadowrootserializable"
+]);
 function $caa9439642c6336c$var$isBooleanAttr(attrName) {
-    const booleanAttributes = [
-        "disabled",
-        "checked",
-        "required",
-        "readonly",
-        "hidden",
-        "open",
-        "selected",
-        "autofocus",
-        "itemscope",
-        "multiple",
-        "novalidate",
-        "allowfullscreen",
-        "allowpaymentrequest",
-        "formnovalidate",
-        "autoplay",
-        "controls",
-        "loop",
-        "muted",
-        "playsinline",
-        "default",
-        "ismap",
-        "reversed",
-        "async",
-        "defer",
-        "nomodule"
-    ];
-    return booleanAttributes.includes(attrName);
+    return $caa9439642c6336c$var$booleanAttributes.has(attrName);
 }
 function $caa9439642c6336c$var$attributeShouldntBePreservedIfFalsy(name) {
     return ![
@@ -1343,6 +1397,12 @@ function $caa9439642c6336c$var$getAttributeBinding(el, name, fallback) {
     ].includes(attr);
     return attr;
 }
+function $caa9439642c6336c$var$isCheckbox(el) {
+    return el.type === "checkbox" || el.localName === "ui-checkbox" || el.localName === "ui-switch";
+}
+function $caa9439642c6336c$var$isRadio(el) {
+    return el.type === "radio" || el.localName === "ui-radio";
+}
 // packages/alpinejs/src/utils/debounce.js
 function $caa9439642c6336c$var$debounce(func, wait) {
     var timeout;
@@ -1372,25 +1432,21 @@ function $caa9439642c6336c$var$throttle(func, limit) {
 function $caa9439642c6336c$var$entangle({ get: outerGet, set: outerSet }, { get: innerGet, set: innerSet }) {
     let firstRun = true;
     let outerHash;
+    let innerHash;
     let reference = $caa9439642c6336c$var$effect(()=>{
-        const outer = outerGet();
-        const inner = innerGet();
+        let outer = outerGet();
+        let inner = innerGet();
         if (firstRun) {
             innerSet($caa9439642c6336c$var$cloneIfObject(outer));
             firstRun = false;
-            outerHash = JSON.stringify(outer);
         } else {
-            const outerHashLatest = JSON.stringify(outer);
-            if (outerHashLatest !== outerHash) {
-                innerSet($caa9439642c6336c$var$cloneIfObject(outer));
-                outerHash = outerHashLatest;
-            } else {
-                outerSet($caa9439642c6336c$var$cloneIfObject(inner));
-                outerHash = JSON.stringify(inner);
-            }
+            let outerHashLatest = JSON.stringify(outer);
+            let innerHashLatest = JSON.stringify(inner);
+            if (outerHashLatest !== outerHash) innerSet($caa9439642c6336c$var$cloneIfObject(outer));
+            else if (outerHashLatest !== innerHashLatest) outerSet($caa9439642c6336c$var$cloneIfObject(inner));
         }
-        JSON.stringify(innerGet());
-        JSON.stringify(outerGet());
+        outerHash = JSON.stringify(outerGet());
+        innerHash = JSON.stringify(innerGet());
     });
     return ()=>{
         $caa9439642c6336c$var$release(reference);
@@ -1416,8 +1472,8 @@ function $caa9439642c6336c$var$store(name, value) {
     }
     if (value === void 0) return $caa9439642c6336c$var$stores[name];
     $caa9439642c6336c$var$stores[name] = value;
+    $caa9439642c6336c$var$initInterceptors($caa9439642c6336c$var$stores[name]);
     if (typeof value === "object" && value !== null && value.hasOwnProperty("init") && typeof value.init === "function") $caa9439642c6336c$var$stores[name].init();
-    $caa9439642c6336c$var$initInterceptors2($caa9439642c6336c$var$stores[name]);
 }
 function $caa9439642c6336c$var$getStores() {
     return $caa9439642c6336c$var$stores;
@@ -1497,7 +1553,7 @@ var $caa9439642c6336c$var$Alpine = {
     get raw () {
         return $caa9439642c6336c$var$raw;
     },
-    version: "3.13.3",
+    version: "3.14.9",
     flushAndStopDeferringMutations: $caa9439642c6336c$var$flushAndStopDeferringMutations,
     dontAutoEvaluateFunctions: $caa9439642c6336c$var$dontAutoEvaluateFunctions,
     disableEffectScheduling: $caa9439642c6336c$var$disableEffectScheduling,
@@ -1550,6 +1606,7 @@ var $caa9439642c6336c$var$Alpine = {
     // INTERNAL
     bound: $caa9439642c6336c$var$getBinding,
     $data: $caa9439642c6336c$var$scope,
+    watch: $caa9439642c6336c$var$watch,
     walk: $caa9439642c6336c$var$walk,
     data: $caa9439642c6336c$var$data,
     bind: $caa9439642c6336c$var$bind2
@@ -2125,20 +2182,15 @@ $caa9439642c6336c$var$magic("nextTick", ()=>$caa9439642c6336c$var$nextTick);
 // packages/alpinejs/src/magics/$dispatch.js
 $caa9439642c6336c$var$magic("dispatch", (el)=>$caa9439642c6336c$var$dispatch.bind($caa9439642c6336c$var$dispatch, el));
 // packages/alpinejs/src/magics/$watch.js
-$caa9439642c6336c$var$magic("watch", (el, { evaluateLater: evaluateLater2, effect: effect3 })=>(key, callback)=>{
+$caa9439642c6336c$var$magic("watch", (el, { evaluateLater: evaluateLater2, cleanup: cleanup2 })=>(key, callback)=>{
         let evaluate2 = evaluateLater2(key);
-        let firstTime = true;
-        let oldValue;
-        let effectReference = effect3(()=>evaluate2((value)=>{
-                JSON.stringify(value);
-                if (!firstTime) queueMicrotask(()=>{
-                    callback(value, oldValue);
-                    oldValue = value;
-                });
-                else oldValue = value;
-                firstTime = false;
-            }));
-        el._x_effects.delete(effectReference);
+        let getter = ()=>{
+            let value;
+            evaluate2((i)=>value = i);
+            return value;
+        };
+        let unwatch = $caa9439642c6336c$var$watch(getter, callback);
+        cleanup2(unwatch);
     });
 // packages/alpinejs/src/magics/$store.js
 $caa9439642c6336c$var$magic("store", $caa9439642c6336c$var$getStores);
@@ -2154,11 +2206,9 @@ $caa9439642c6336c$var$magic("refs", (el)=>{
 });
 function $caa9439642c6336c$var$getArrayOfRefObject(el) {
     let refObjects = [];
-    let currentEl = el;
-    while(currentEl){
-        if (currentEl._x_refs) refObjects.push(currentEl._x_refs);
-        currentEl = currentEl.parentNode;
-    }
+    $caa9439642c6336c$var$findClosest(el, (i)=>{
+        if (i._x_refs) refObjects.push(i._x_refs);
+    });
     return refObjects;
 }
 // packages/alpinejs/src/ids.js
@@ -2177,11 +2227,27 @@ function $caa9439642c6336c$var$setIdRoot(el, name) {
     if (!el._x_ids[name]) el._x_ids[name] = $caa9439642c6336c$var$findAndIncrementId(name);
 }
 // packages/alpinejs/src/magics/$id.js
-$caa9439642c6336c$var$magic("id", (el)=>(name, key = null)=>{
-        let root = $caa9439642c6336c$var$closestIdRoot(el, name);
-        let id = root ? root._x_ids[name] : $caa9439642c6336c$var$findAndIncrementId(name);
-        return key ? `${name}-${id}-${key}` : `${name}-${id}`;
+$caa9439642c6336c$var$magic("id", (el, { cleanup: cleanup2 })=>(name, key = null)=>{
+        let cacheKey = `${name}${key ? `-${key}` : ""}`;
+        return $caa9439642c6336c$var$cacheIdByNameOnElement(el, cacheKey, cleanup2, ()=>{
+            let root = $caa9439642c6336c$var$closestIdRoot(el, name);
+            let id = root ? root._x_ids[name] : $caa9439642c6336c$var$findAndIncrementId(name);
+            return key ? `${name}-${id}-${key}` : `${name}-${id}`;
+        });
     });
+$caa9439642c6336c$var$interceptClone((from, to)=>{
+    if (from._x_id) to._x_id = from._x_id;
+});
+function $caa9439642c6336c$var$cacheIdByNameOnElement(el, cacheKey, cleanup2, callback) {
+    if (!el._x_id) el._x_id = {};
+    if (el._x_id[cacheKey]) return el._x_id[cacheKey];
+    let output = callback();
+    el._x_id[cacheKey] = output;
+    cleanup2(()=>{
+        delete el._x_id[cacheKey];
+    });
+    return output;
+}
 // packages/alpinejs/src/magics/$el.js
 $caa9439642c6336c$var$magic("el", (el)=>el);
 // packages/alpinejs/src/magics/index.js
@@ -2252,8 +2318,9 @@ $caa9439642c6336c$var$directive("teleport", (el, { modifiers: modifiers, express
     };
     $caa9439642c6336c$var$mutateDom(()=>{
         placeInDom(clone2, target, modifiers);
-        $caa9439642c6336c$var$initTree(clone2);
-        clone2._x_ignore = true;
+        $caa9439642c6336c$var$skipDuringClone(()=>{
+            $caa9439642c6336c$var$initTree(clone2);
+        })();
     });
     el._x_teleportPutBack = ()=>{
         let target2 = $caa9439642c6336c$var$getTarget(expression);
@@ -2261,7 +2328,10 @@ $caa9439642c6336c$var$directive("teleport", (el, { modifiers: modifiers, express
             placeInDom(el._x_teleport, target2, modifiers);
         });
     };
-    cleanup2(()=>clone2.remove());
+    cleanup2(()=>$caa9439642c6336c$var$mutateDom(()=>{
+            clone2.remove();
+            $caa9439642c6336c$var$destroyTree(clone2);
+        }));
 });
 var $caa9439642c6336c$var$teleportContainerDuringClone = document.createElement("div");
 function $caa9439642c6336c$var$getTarget(expression) {
@@ -2316,8 +2386,9 @@ function $caa9439642c6336c$var$on(el, event, modifiers, callback) {
         e.stopPropagation();
         next(e);
     });
-    if (modifiers.includes("self")) handler4 = wrapHandler(handler4, (next, e)=>{
-        e.target === el && next(e);
+    if (modifiers.includes("once")) handler4 = wrapHandler(handler4, (next, e)=>{
+        next(e);
+        listenerTarget.removeEventListener(event, handler4, options);
     });
     if (modifiers.includes("away") || modifiers.includes("outside")) {
         listenerTarget = document;
@@ -2329,14 +2400,11 @@ function $caa9439642c6336c$var$on(el, event, modifiers, callback) {
             next(e);
         });
     }
-    if (modifiers.includes("once")) handler4 = wrapHandler(handler4, (next, e)=>{
-        next(e);
-        listenerTarget.removeEventListener(event, handler4, options);
+    if (modifiers.includes("self")) handler4 = wrapHandler(handler4, (next, e)=>{
+        e.target === el && next(e);
     });
-    handler4 = wrapHandler(handler4, (next, e)=>{
-        if ($caa9439642c6336c$var$isKeyEvent(event)) {
-            if ($caa9439642c6336c$var$isListeningForASpecificKeyThatHasntBeenPressed(e, modifiers)) return;
-        }
+    if ($caa9439642c6336c$var$isKeyEvent(event) || $caa9439642c6336c$var$isClickEvent(event)) handler4 = wrapHandler(handler4, (next, e)=>{
+        if ($caa9439642c6336c$var$isListeningForASpecificKeyThatHasntBeenPressed(e, modifiers)) return;
         next(e);
     });
     listenerTarget.addEventListener(event, handler4, options);
@@ -2366,6 +2434,13 @@ function $caa9439642c6336c$var$isKeyEvent(event) {
         "keyup"
     ].includes(event);
 }
+function $caa9439642c6336c$var$isClickEvent(event) {
+    return [
+        "contextmenu",
+        "click",
+        "mouse"
+    ].some((i)=>event.includes(i));
+}
 function $caa9439642c6336c$var$isListeningForASpecificKeyThatHasntBeenPressed(e, modifiers) {
     let keyModifiers = modifiers.filter((i)=>{
         return ![
@@ -2374,7 +2449,11 @@ function $caa9439642c6336c$var$isListeningForASpecificKeyThatHasntBeenPressed(e,
             "prevent",
             "stop",
             "once",
-            "capture"
+            "capture",
+            "self",
+            "away",
+            "outside",
+            "passive"
         ].includes(i);
     });
     if (keyModifiers.includes("debounce")) {
@@ -2403,6 +2482,7 @@ function $caa9439642c6336c$var$isListeningForASpecificKeyThatHasntBeenPressed(e,
             return e[`${modifier}Key`];
         });
         if (activelyPressedKeyModifiers.length === selectedSystemKeyModifiers.length) {
+            if ($caa9439642c6336c$var$isClickEvent(e.type)) return false;
             if ($caa9439642c6336c$var$keyToModifiers(e.key).includes(keyModifiers[0])) return false;
         }
     }
@@ -2423,6 +2503,7 @@ function $caa9439642c6336c$var$keyToModifiers(key) {
         "left": "arrow-left",
         "right": "arrow-right",
         "period": ".",
+        "comma": ",",
         "equal": "=",
         "minus": "-",
         "underscore": "_"
@@ -2468,16 +2549,21 @@ $caa9439642c6336c$var$directive("model", (el, { modifiers: modifiers, expression
     });
     if (modifiers.includes("fill")) {
         if ([
+            void 0,
             null,
             ""
-        ].includes(getValue()) || el.type === "checkbox" && Array.isArray(getValue())) el.dispatchEvent(new Event(event, {}));
+        ].includes(getValue()) || $caa9439642c6336c$var$isCheckbox(el) && Array.isArray(getValue()) || el.tagName.toLowerCase() === "select" && el.multiple) setValue($caa9439642c6336c$var$getInputValue(el, modifiers, {
+            target: el
+        }, getValue()));
     }
     if (!el._x_removeModelListeners) el._x_removeModelListeners = {};
     el._x_removeModelListeners["default"] = removeListener;
     cleanup2(()=>el._x_removeModelListeners["default"]());
     if (el.form) {
         let removeResetListener = $caa9439642c6336c$var$on(el.form, "reset", [], (e)=>{
-            $caa9439642c6336c$var$nextTick(()=>el._x_model && el._x_model.set(el.value));
+            $caa9439642c6336c$var$nextTick(()=>el._x_model && el._x_model.set($caa9439642c6336c$var$getInputValue(el, modifiers, {
+                    target: el
+                }, getValue())));
         });
         cleanup2(()=>removeResetListener());
     }
@@ -2504,13 +2590,13 @@ $caa9439642c6336c$var$directive("model", (el, { modifiers: modifiers, expression
 function $caa9439642c6336c$var$getInputValue(el, modifiers, event, currentValue) {
     return $caa9439642c6336c$var$mutateDom(()=>{
         if (event instanceof CustomEvent && event.detail !== void 0) return event.detail !== null && event.detail !== void 0 ? event.detail : event.target.value;
-        else if (el.type === "checkbox") {
+        else if ($caa9439642c6336c$var$isCheckbox(el)) {
             if (Array.isArray(currentValue)) {
                 let newValue = null;
                 if (modifiers.includes("number")) newValue = $caa9439642c6336c$var$safeParseNumber(event.target.value);
                 else if (modifiers.includes("boolean")) newValue = $caa9439642c6336c$var$safeParseBoolean(event.target.value);
                 else newValue = event.target.value;
-                return event.target.checked ? currentValue.concat([
+                return event.target.checked ? currentValue.includes(newValue) ? currentValue : currentValue.concat([
                     newValue
                 ]) : currentValue.filter((el2)=>!$caa9439642c6336c$var$checkedAttrLooseCompare2(el2, newValue));
             } else return event.target.checked;
@@ -2527,9 +2613,15 @@ function $caa9439642c6336c$var$getInputValue(el, modifiers, event, currentValue)
                 return option.value || option.text;
             });
         } else {
-            if (modifiers.includes("number")) return $caa9439642c6336c$var$safeParseNumber(event.target.value);
-            else if (modifiers.includes("boolean")) return $caa9439642c6336c$var$safeParseBoolean(event.target.value);
-            return modifiers.includes("trim") ? event.target.value.trim() : event.target.value;
+            let newValue;
+            if ($caa9439642c6336c$var$isRadio(el)) {
+                if (event.target.checked) newValue = event.target.value;
+                else newValue = currentValue;
+            } else newValue = event.target.value;
+            if (modifiers.includes("number")) return $caa9439642c6336c$var$safeParseNumber(newValue);
+            else if (modifiers.includes("boolean")) return $caa9439642c6336c$var$safeParseBoolean(newValue);
+            else if (modifiers.includes("trim")) return newValue.trim();
+            else return newValue;
         }
     });
 }
@@ -2581,7 +2673,7 @@ $caa9439642c6336c$var$directive("html", (el, { expression: expression }, { effec
 });
 // packages/alpinejs/src/directives/x-bind.js
 $caa9439642c6336c$var$mapAttributes($caa9439642c6336c$var$startingWith(":", $caa9439642c6336c$var$into($caa9439642c6336c$var$prefix("bind:"))));
-var $caa9439642c6336c$var$handler2 = (el, { value: value, modifiers: modifiers, expression: expression, original: original }, { effect: effect3 })=>{
+var $caa9439642c6336c$var$handler2 = (el, { value: value, modifiers: modifiers, expression: expression, original: original }, { effect: effect3, cleanup: cleanup2 })=>{
     if (!value) {
         let bindingProviders = {};
         $caa9439642c6336c$var$injectBindingProviders(bindingProviders);
@@ -2600,6 +2692,10 @@ var $caa9439642c6336c$var$handler2 = (el, { value: value, modifiers: modifiers, 
             if (result === void 0 && typeof expression === "string" && expression.match(/\./)) result = "";
             $caa9439642c6336c$var$mutateDom(()=>$caa9439642c6336c$var$bind(el, value, result, modifiers));
         }));
+    cleanup2(()=>{
+        el._x_undoAddedClasses && el._x_undoAddedClasses();
+        el._x_undoAddedStyles && el._x_undoAddedStyles();
+    });
 };
 $caa9439642c6336c$var$handler2.inline = (el, { value: value, modifiers: modifiers, expression: expression })=>{
     if (!value) return;
@@ -2628,7 +2724,7 @@ $caa9439642c6336c$var$directive("data", (el, { expression: expression }, { clean
     if (data2 === void 0 || data2 === true) data2 = {};
     $caa9439642c6336c$var$injectMagics(data2, el);
     let reactiveData = $caa9439642c6336c$var$reactive(data2);
-    $caa9439642c6336c$var$initInterceptors2(reactiveData);
+    $caa9439642c6336c$var$initInterceptors(reactiveData);
     let undo = $caa9439642c6336c$var$addScopeToNode(el, reactiveData);
     reactiveData["init"] && $caa9439642c6336c$var$evaluate(el, reactiveData["init"]);
     cleanup2(()=>{
@@ -2694,7 +2790,10 @@ $caa9439642c6336c$var$directive("for", (el, { expression: expression }, { effect
     el._x_lookup = {};
     effect3(()=>$caa9439642c6336c$var$loop(el, iteratorNames, evaluateItems, evaluateKey));
     cleanup2(()=>{
-        Object.values(el._x_lookup).forEach((el2)=>el2.remove());
+        Object.values(el._x_lookup).forEach((el2)=>$caa9439642c6336c$var$mutateDom(()=>{
+                $caa9439642c6336c$var$destroyTree(el2);
+                el2.remove();
+            }));
         delete el._x_prevKeys;
         delete el._x_lookup;
     });
@@ -2711,7 +2810,10 @@ function $caa9439642c6336c$var$loop(el, iteratorNames, evaluateItems, evaluateKe
         let keys = [];
         if (isObject2(items)) items = Object.entries(items).map(([key, value])=>{
             let scope2 = $caa9439642c6336c$var$getIterationScopeVariables(iteratorNames, value, key, items);
-            evaluateKey((value2)=>keys.push(value2), {
+            evaluateKey((value2)=>{
+                if (keys.includes(value2)) $caa9439642c6336c$var$warn("Duplicate key on x-for", el);
+                keys.push(value2);
+            }, {
                 scope: {
                     index: key,
                     ...scope2
@@ -2721,7 +2823,10 @@ function $caa9439642c6336c$var$loop(el, iteratorNames, evaluateItems, evaluateKe
         });
         else for(let i = 0; i < items.length; i++){
             let scope2 = $caa9439642c6336c$var$getIterationScopeVariables(iteratorNames, items[i], i, items);
-            evaluateKey((value)=>keys.push(value), {
+            evaluateKey((value)=>{
+                if (keys.includes(value)) $caa9439642c6336c$var$warn("Duplicate key on x-for", el);
+                keys.push(value);
+            }, {
                 scope: {
                     index: i,
                     ...scope2
@@ -2762,9 +2867,11 @@ function $caa9439642c6336c$var$loop(el, iteratorNames, evaluateItems, evaluateKe
         }
         for(let i = 0; i < removes.length; i++){
             let key = removes[i];
-            if (!!lookup[key]._x_effects) lookup[key]._x_effects.forEach($caa9439642c6336c$var$dequeueJob);
-            lookup[key].remove();
-            lookup[key] = null;
+            if (!(key in lookup)) continue;
+            $caa9439642c6336c$var$mutateDom(()=>{
+                $caa9439642c6336c$var$destroyTree(lookup[key]);
+                lookup[key].remove();
+            });
             delete lookup[key];
         }
         for(let i = 0; i < moves.length; i++){
@@ -2773,7 +2880,7 @@ function $caa9439642c6336c$var$loop(el, iteratorNames, evaluateItems, evaluateKe
             let elForSpot = lookup[keyForSpot];
             let marker = document.createElement("div");
             $caa9439642c6336c$var$mutateDom(()=>{
-                if (!elForSpot) $caa9439642c6336c$var$warn(`x-for ":key" is undefined or invalid`, templateEl);
+                if (!elForSpot) $caa9439642c6336c$var$warn(`x-for ":key" is undefined or invalid`, templateEl, keyForSpot, lookup);
                 elForSpot.after(marker);
                 elInSpot.after(elForSpot);
                 elForSpot._x_currentIfEl && elForSpot.after(elForSpot._x_currentIfEl);
@@ -2799,7 +2906,7 @@ function $caa9439642c6336c$var$loop(el, iteratorNames, evaluateItems, evaluateKe
             };
             $caa9439642c6336c$var$mutateDom(()=>{
                 lastEl.after(clone2);
-                $caa9439642c6336c$var$initTree(clone2);
+                $caa9439642c6336c$var$skipDuringClone(()=>$caa9439642c6336c$var$initTree(clone2))();
             });
             if (typeof key === "object") $caa9439642c6336c$var$warn("x-for key cannot be an object, it must be a string or an integer", templateEl);
             lookup[key] = clone2;
@@ -2864,14 +2971,14 @@ $caa9439642c6336c$var$directive("if", (el, { expression: expression }, { effect:
         $caa9439642c6336c$var$addScopeToNode(clone2, {}, el);
         $caa9439642c6336c$var$mutateDom(()=>{
             el.after(clone2);
-            $caa9439642c6336c$var$initTree(clone2);
+            $caa9439642c6336c$var$skipDuringClone(()=>$caa9439642c6336c$var$initTree(clone2))();
         });
         el._x_currentIfEl = clone2;
         el._x_undoIf = ()=>{
-            $caa9439642c6336c$var$walk(clone2, (node)=>{
-                if (!!node._x_effects) node._x_effects.forEach($caa9439642c6336c$var$dequeueJob);
+            $caa9439642c6336c$var$mutateDom(()=>{
+                $caa9439642c6336c$var$destroyTree(clone2);
+                clone2.remove();
             });
-            clone2.remove();
             delete el._x_currentIfEl;
         };
         return clone2;
@@ -2890,6 +2997,9 @@ $caa9439642c6336c$var$directive("if", (el, { expression: expression }, { effect:
 $caa9439642c6336c$var$directive("id", (el, { expression: expression }, { evaluate: evaluate2 })=>{
     let names = evaluate2(expression);
     names.forEach((name)=>$caa9439642c6336c$var$setIdRoot(el, name));
+});
+$caa9439642c6336c$var$interceptClone((from, to)=>{
+    if (from._x_ids) to._x_ids = from._x_ids;
 });
 // packages/alpinejs/src/directives/x-on.js
 $caa9439642c6336c$var$mapAttributes($caa9439642c6336c$var$startingWith("@", $caa9439642c6336c$var$into($caa9439642c6336c$var$prefix("on:"))));
@@ -2927,13 +3037,13 @@ $caa9439642c6336c$var$alpine_default.setReactivityEngine({
     release: $caa9439642c6336c$var$stop,
     raw: $caa9439642c6336c$var$toRaw
 });
-var $caa9439642c6336c$var$src_default = $caa9439642c6336c$var$alpine_default;
+var $caa9439642c6336c$export$b7ee041e4ad2afec = $caa9439642c6336c$var$alpine_default;
 // packages/alpinejs/builds/module.js
-var $caa9439642c6336c$export$2e2bcd8739ae039 = $caa9439642c6336c$var$src_default;
+var $caa9439642c6336c$export$2e2bcd8739ae039 = $caa9439642c6336c$export$b7ee041e4ad2afec;
 
 
 // packages/morph/src/morph.js
-function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) {
+function $512e3a9270ec7803$var$morph(from, toHtml, options) {
     $512e3a9270ec7803$var$monkeyPatchDomSetAttributeToAllowAtSymbols();
     let fromEl;
     let toEl;
@@ -2953,8 +3063,12 @@ function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) {
     function patch(from2, to) {
         if (differentElementNamesTypesOrKeys(from2, to)) return swapElements(from2, to);
         let updateChildrenOnly = false;
-        if ($512e3a9270ec7803$var$shouldSkip(updating, from2, to, ()=>updateChildrenOnly = true)) return;
-        if (from2.nodeType === 1 && window.Alpine) window.Alpine.cloneNode(from2, to);
+        let skipChildren = false;
+        if ($512e3a9270ec7803$var$shouldSkipChildren(updating, ()=>skipChildren = true, from2, to, ()=>updateChildrenOnly = true)) return;
+        if (from2.nodeType === 1 && window.Alpine) {
+            window.Alpine.cloneNode(from2, to);
+            if (from2._x_teleport && to._x_teleport) patch(from2._x_teleport, to._x_teleport);
+        }
         if ($512e3a9270ec7803$var$textOrComment(to)) {
             patchNodeValue(from2, to);
             updated(from2, to);
@@ -2962,7 +3076,7 @@ function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) {
         }
         if (!updateChildrenOnly) patchAttributes(from2, to);
         updated(from2, to);
-        patchChildren(from2, to);
+        if (!skipChildren) patchChildren(from2, to);
     }
     function differentElementNamesTypesOrKeys(from2, to) {
         return from2.nodeType != to.nodeType || from2.nodeName != to.nodeName || getKey(from2) != getKey(to);
@@ -2996,8 +3110,6 @@ function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) {
         }
     }
     function patchChildren(from2, to) {
-        if (from2._x_teleport) from2 = from2._x_teleport;
-        if (to._x_teleport) to = to._x_teleport;
         let fromKeys = keyToMap(from2.children);
         let fromKeyHoldovers = {};
         let currentTo = $512e3a9270ec7803$var$getFirstNode(to);
@@ -3011,6 +3123,7 @@ function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) {
                     let holdover = fromKeyHoldovers[toKey];
                     from2.appendChild(holdover);
                     currentFrom = holdover;
+                    fromKey = getKey(currentFrom);
                 } else {
                     if (!$512e3a9270ec7803$var$shouldSkip(adding, currentTo)) {
                         let clone = currentTo.cloneNode(true);
@@ -3080,6 +3193,7 @@ function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) {
                     if (fromKeys[toKey]) {
                         currentFrom.replaceWith(fromKeys[toKey]);
                         currentFrom = fromKeys[toKey];
+                        fromKey = getKey(currentFrom);
                     }
                 }
                 if (toKey && fromKey) {
@@ -3088,6 +3202,7 @@ function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) {
                         fromKeyHoldovers[fromKey] = currentFrom;
                         currentFrom.replaceWith(fromKeyNode);
                         currentFrom = fromKeyNode;
+                        fromKey = getKey(currentFrom);
                     } else {
                         fromKeyHoldovers[fromKey] = currentFrom;
                         currentFrom = addNodeBefore(from2, currentTo, currentFrom);
@@ -3146,11 +3261,16 @@ function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(from, toHtml, options) {
     toEl = void 0;
     return from;
 }
-$512e3a9270ec7803$export$2e5e8c41f5d4e7c7.step = ()=>{};
-$512e3a9270ec7803$export$2e5e8c41f5d4e7c7.log = ()=>{};
+$512e3a9270ec7803$var$morph.step = ()=>{};
+$512e3a9270ec7803$var$morph.log = ()=>{};
 function $512e3a9270ec7803$var$shouldSkip(hook, ...args) {
     let skip = false;
     hook(...args, ()=>skip = true);
+    return skip;
+}
+function $512e3a9270ec7803$var$shouldSkipChildren(hook, skipChildren, ...args) {
+    let skip = false;
+    hook(...args, ()=>skip = true, skipChildren);
     return skip;
 }
 var $512e3a9270ec7803$var$patched = false;
@@ -3219,15 +3339,16 @@ function $512e3a9270ec7803$var$monkeyPatchDomSetAttributeToAllowAtSymbols() {
 function $512e3a9270ec7803$var$seedingMatchingId(to, from) {
     let fromId = from && from._x_bindings && from._x_bindings.id;
     if (!fromId) return;
+    if (!to.setAttribute) return;
     to.setAttribute("id", fromId);
     to.id = fromId;
 }
 // packages/morph/src/index.js
-function $512e3a9270ec7803$var$src_default(Alpine) {
-    Alpine.morph = $512e3a9270ec7803$export$2e5e8c41f5d4e7c7;
+function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(Alpine) {
+    Alpine.morph = $512e3a9270ec7803$var$morph;
 }
 // packages/morph/builds/module.js
-var $512e3a9270ec7803$export$2e2bcd8739ae039 = $512e3a9270ec7803$var$src_default;
+var $512e3a9270ec7803$export$2e2bcd8739ae039 = $512e3a9270ec7803$export$2e5e8c41f5d4e7c7;
 
 
 // packages/persist/src/index.js
@@ -3284,7 +3405,9 @@ function $a5acee56471cec18$var$storageHas(key, storage) {
     return storage.getItem(key) !== null;
 }
 function $a5acee56471cec18$var$storageGet(key, storage) {
-    return JSON.parse(storage.getItem(key, storage));
+    let value = storage.getItem(key, storage);
+    if (value === void 0) return;
+    return JSON.parse(value);
 }
 function $a5acee56471cec18$var$storageSet(key, value, storage) {
     storage.setItem(key, JSON.stringify(value));
@@ -4930,7 +5053,7 @@ var $69a8ec8dbeef3157$var$require_tippy_cjs = $69a8ec8dbeef3157$var$__commonJS((
         return value.replace(spacesAndTabs, " ").replace(lineStartWithSpaces, "").trim();
     }
     function getDevMessage(message) {
-        return clean("\n  %ctippy.js\n\n  %c" + clean(message) + "\n\n  %c\u{1F477}\u200D This is a development-only message. It will be removed in production.\n  ");
+        return clean("\n  %ctippy.js\n\n  %c" + clean(message) + "\n\n  %c\uD83D\uDC77\u200D This is a development-only message. It will be removed in production.\n  ");
     }
     function getFormattedMessage(message) {
         return [
@@ -6553,9 +6676,15 @@ function $69a8ec8dbeef3157$var$Tooltip(Alpine) {
             }, timeout || 2e3);
         };
     });
-    Alpine.directive("tooltip", (el, { modifiers: modifiers, expression: expression }, { evaluateLater: evaluateLater, effect: effect })=>{
+    Alpine.directive("tooltip", (el, { modifiers: modifiers, expression: expression }, { evaluateLater: evaluateLater, effect: effect, cleanup: cleanup })=>{
         const config = modifiers.length > 0 ? $69a8ec8dbeef3157$var$buildConfigFromModifiers(modifiers) : {};
         if (!el.__x_tippy) el.__x_tippy = (0, $69a8ec8dbeef3157$var$import_tippy2.default)(el, config);
+        cleanup(()=>{
+            if (el.__x_tippy) {
+                el.__x_tippy.destroy();
+                delete el.__x_tippy;
+            }
+        });
         const enableTooltip = ()=>el.__x_tippy.enable();
         const disableTooltip = ()=>el.__x_tippy.disable();
         const setupTooltip = (content)=>{
@@ -6597,7 +6726,7 @@ var $5267f0d63de538ba$exports = {};
 */ (function(root, definition) {
     "use strict";
     if (typeof define === 'function' && define.amd) define(definition);
-    else if (0, $5267f0d63de538ba$exports) $5267f0d63de538ba$exports = definition();
+    else if ($5267f0d63de538ba$exports) $5267f0d63de538ba$exports = definition();
     else root.log = definition();
 })($5267f0d63de538ba$exports, function() {
     "use strict";
@@ -6831,7 +6960,7 @@ var $5267f0d63de538ba$exports = {};
 var $1ffebed09abdb92f$exports = {};
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) define(factory);
-    else if (0, $1ffebed09abdb92f$exports) $1ffebed09abdb92f$exports = factory();
+    else if ($1ffebed09abdb92f$exports) $1ffebed09abdb92f$exports = factory();
     else root.prefix = factory(root);
 })($1ffebed09abdb92f$exports, function(root) {
     'use strict';
@@ -8030,7 +8159,7 @@ function $12b7aa006b8a97e1$var$toCamel(s) {
 }
 
 
-var $e3048089509446aa$exports = {};
+var $e29b71de1c821c6e$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11551,16 +11680,6 @@ function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
 }
 
 
-var $99486586f6691564$exports = {};
-
-$parcel$defineInteropFlag($99486586f6691564$exports);
-
-$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
-function $99486586f6691564$export$2e2bcd8739ae039() {
-    return {};
-}
-
-
 var $47a1c62621be0c54$exports = {};
 
 $parcel$defineInteropFlag($47a1c62621be0c54$exports);
@@ -11614,6 +11733,16 @@ function $47a1c62621be0c54$export$2e2bcd8739ae039() {
             (0, $4e31c85e11272811$export$c6684e6159b21de3)(this);
         }
     };
+}
+
+
+var $99486586f6691564$exports = {};
+
+$parcel$defineInteropFlag($99486586f6691564$exports);
+
+$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
+function $99486586f6691564$export$2e2bcd8739ae039() {
+    return {};
 }
 
 
@@ -12279,6 +12408,33 @@ function $506dabb2bf255b38$var$sizeSplits(sizes) {
 }
 
 
+var $a87dacf5139b5e2f$exports = {};
+
+$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
+
+$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
+function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
+    return {
+        get store () {
+            return store || this;
+        },
+        get id () {
+            return this.$root.id;
+        },
+        get panels () {
+            return Array.from(this.$refs.panels.children);
+        },
+        isActive (el) {
+            return this.store.activeTab === this._getRef(el);
+        },
+        // protected
+        _getRef (el) {
+            return el.getAttribute("x-ref");
+        }
+    };
+}
+
+
 var $0db07828cadc68e0$exports = {};
 
 $parcel$defineInteropFlag($0db07828cadc68e0$exports);
@@ -12499,45 +12655,18 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-var $a87dacf5139b5e2f$exports = {};
-
-$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
-
-$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
-function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
-    return {
-        get store () {
-            return store || this;
-        },
-        get id () {
-            return this.$root.id;
-        },
-        get panels () {
-            return Array.from(this.$refs.panels.children);
-        },
-        isActive (el) {
-            return this.store.activeTab === this._getRef(el);
-        },
-        // protected
-        _getRef (el) {
-            return el.getAttribute("x-ref");
-        }
-    };
-}
-
-
-$e3048089509446aa$exports = {
+$e29b71de1c821c6e$exports = {
     "button": $cbd28b10fa9798c7$exports,
-    "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
+    "code": $99486586f6691564$exports,
     "dimensions_display": $e398acaded942bbe$exports,
     "embed_code_dropdown": $216ef7001f59f21d$exports,
     "filter": $e9904a14dabf652d$exports,
     "nav": $d92d9d5253f84566$exports,
     "split_layout": $506dabb2bf255b38$exports,
+    "tab_panels": $a87dacf5139b5e2f$exports,
     "tabs": $0db07828cadc68e0$exports,
-    "viewport": $6d64716f0b34fdf4$exports,
-    "tab_panels": $a87dacf5139b5e2f$exports
+    "viewport": $6d64716f0b34fdf4$exports
 };
 
 
@@ -12548,7 +12677,7 @@ $parcel$defineInteropFlag($6a9b69d9cc7f810f$exports);
 
 $parcel$export($6a9b69d9cc7f810f$exports, "default", () => $6a9b69d9cc7f810f$export$2e2bcd8739ae039);
 var $cdfeaa1e0e8d642c$exports = {};
-(function(global, factory) {
+/*! js-cookie v3.0.5 | MIT */ (function(global, factory) {
     $cdfeaa1e0e8d642c$exports = factory();
 })($cdfeaa1e0e8d642c$exports, function() {
     'use strict';
@@ -12670,14 +12799,26 @@ var $ef5e88eaa61efd95$exports = {};
  * File: iframeResizer.js
  * Desc: Force iframes to size to content.
  * Requires: iframeResizer.contentWindow.js to be loaded into the target frame.
- * Doc: https://github.com/davidjbradshaw/iframe-resizer
- * Author: David J. Bradshaw - dave@bradshaw.net
- * Contributor: Jure Mav - jure.mav@gmail.com
- * Contributor: Reed Dadoune - reed@dadoune.com
- */ // eslint-disable-next-line sonarjs/cognitive-complexity, no-shadow-restricted-names
+ * Doc: https://iframe-resizer.com
+ * Author: David J. Bradshaw - info@iframe-resizer.com
+ */ console.info(`
+IFRAME-RESIZER
+
+Iframe-Resizer 5 is now available via the following two packages:
+
+ * @iframe-resizer/parent
+ * @iframe-resizer/child
+
+Additionally their are also new versions of iframe-resizer for React, Vue, and jQuery.
+
+Version 5 of iframe-resizer has been extensively rewritten to use modern browser APIs, which has enabled significantly better performance and greater accuracy in the detection of content resizing events.
+
+Please see https://iframe-resizer.com/upgrade for more details.
+`);
 (function(undefined) {
     if (typeof window === 'undefined') return; // don't run for server side render
-    var count = 0, logEnabled = false, hiddenCheckEnabled = false, msgHeader = 'message', msgHeaderLen = msgHeader.length, msgId = '[iFrameSizer]', msgIdLen = msgId.length, pagePosition = null, requestAnimationFrame = window.requestAnimationFrame, resetRequiredMethods = Object.freeze({
+    // var VERSION = '4.3.11'
+    var count = 0, destroyObserver, logEnabled = false, hiddenCheckEnabled = false, msgHeader = 'message', msgHeaderLen = msgHeader.length, msgId = '[iFrameSizer]', msgIdLen = msgId.length, pagePosition = null, requestAnimationFrame = window.requestAnimationFrame, resetRequiredMethods = Object.freeze({
         max: 1,
         scroll: 1,
         bodyScroll: 1,
@@ -12694,6 +12835,7 @@ var $ef5e88eaa61efd95$exports = {};
         heightCalculationMethod: 'bodyOffset',
         id: 'iFrameResizer',
         interval: 32,
+        license: '1jqr0si6pnt',
         log: false,
         maxHeight: Infinity,
         maxWidth: Infinity,
@@ -13111,6 +13253,10 @@ var $ef5e88eaa61efd95$exports = {};
         chkEvent(iframeId, 'onClosed', iframeId);
         log(iframeId, '--');
         removeIframeListeners(iframe);
+        if (destroyObserver) {
+            destroyObserver.disconnect();
+            destroyObserver = null;
+        }
     }
     function getPagePosition(iframeId) {
         if (null === pagePosition) {
@@ -13308,7 +13454,7 @@ var $ef5e88eaa61efd95$exports = {};
                 checkReset();
             }
             function createDestroyObserver(MutationObserver) {
-                if (!iframe.parentNode) return;
+                if (!iframe.parentNode) return null;
                 var destroyObserver = new MutationObserver(function(mutations) {
                     mutations.forEach(function(mutation) {
                         var removedNodes = Array.prototype.slice.call(mutation.removedNodes) // Transform NodeList into an Array
@@ -13321,9 +13467,10 @@ var $ef5e88eaa61efd95$exports = {};
                 destroyObserver.observe(iframe.parentNode, {
                     childList: true
                 });
+                return destroyObserver;
             }
             var MutationObserver = getMutationObserver();
-            if (MutationObserver) createDestroyObserver(MutationObserver);
+            if (MutationObserver) destroyObserver = createDestroyObserver(MutationObserver);
             addEventListener(iframe, 'load', iFrameLoaded);
             trigger('init', msg, iframe, undefined, true);
         }
@@ -13721,7 +13868,7 @@ const $22969b543678f572$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $5792afa4170ed552$export$2e2bcd8739ae039));
 [
-    $e3048089509446aa$exports,
+    $e29b71de1c821c6e$exports,
     $6178ee12f80cbf68$exports,
     $d56e5cced44001d2$exports
 ].forEach((scripts)=>{

@@ -4,14 +4,26 @@ var $5180433265c858be$exports = {};
  * File: iframeResizer.js
  * Desc: Force iframes to size to content.
  * Requires: iframeResizer.contentWindow.js to be loaded into the target frame.
- * Doc: https://github.com/davidjbradshaw/iframe-resizer
- * Author: David J. Bradshaw - dave@bradshaw.net
- * Contributor: Jure Mav - jure.mav@gmail.com
- * Contributor: Reed Dadoune - reed@dadoune.com
- */ // eslint-disable-next-line sonarjs/cognitive-complexity, no-shadow-restricted-names
+ * Doc: https://iframe-resizer.com
+ * Author: David J. Bradshaw - info@iframe-resizer.com
+ */ console.info(`
+IFRAME-RESIZER
+
+Iframe-Resizer 5 is now available via the following two packages:
+
+ * @iframe-resizer/parent
+ * @iframe-resizer/child
+
+Additionally their are also new versions of iframe-resizer for React, Vue, and jQuery.
+
+Version 5 of iframe-resizer has been extensively rewritten to use modern browser APIs, which has enabled significantly better performance and greater accuracy in the detection of content resizing events.
+
+Please see https://iframe-resizer.com/upgrade for more details.
+`);
 (function(undefined) {
     if (typeof window === 'undefined') return; // don't run for server side render
-    var count = 0, logEnabled = false, hiddenCheckEnabled = false, msgHeader = 'message', msgHeaderLen = msgHeader.length, msgId = '[iFrameSizer]', msgIdLen = msgId.length, pagePosition = null, requestAnimationFrame = window.requestAnimationFrame, resetRequiredMethods = Object.freeze({
+    // var VERSION = '4.3.11'
+    var count = 0, destroyObserver, logEnabled = false, hiddenCheckEnabled = false, msgHeader = 'message', msgHeaderLen = msgHeader.length, msgId = '[iFrameSizer]', msgIdLen = msgId.length, pagePosition = null, requestAnimationFrame = window.requestAnimationFrame, resetRequiredMethods = Object.freeze({
         max: 1,
         scroll: 1,
         bodyScroll: 1,
@@ -28,6 +40,7 @@ var $5180433265c858be$exports = {};
         heightCalculationMethod: 'bodyOffset',
         id: 'iFrameResizer',
         interval: 32,
+        license: '1jqr0si6pnt',
         log: false,
         maxHeight: Infinity,
         maxWidth: Infinity,
@@ -445,6 +458,10 @@ var $5180433265c858be$exports = {};
         chkEvent(iframeId, 'onClosed', iframeId);
         log(iframeId, '--');
         removeIframeListeners(iframe);
+        if (destroyObserver) {
+            destroyObserver.disconnect();
+            destroyObserver = null;
+        }
     }
     function getPagePosition(iframeId) {
         if (null === pagePosition) {
@@ -642,7 +659,7 @@ var $5180433265c858be$exports = {};
                 checkReset();
             }
             function createDestroyObserver(MutationObserver) {
-                if (!iframe.parentNode) return;
+                if (!iframe.parentNode) return null;
                 var destroyObserver = new MutationObserver(function(mutations) {
                     mutations.forEach(function(mutation) {
                         var removedNodes = Array.prototype.slice.call(mutation.removedNodes) // Transform NodeList into an Array
@@ -655,9 +672,10 @@ var $5180433265c858be$exports = {};
                 destroyObserver.observe(iframe.parentNode, {
                     childList: true
                 });
+                return destroyObserver;
             }
             var MutationObserver = getMutationObserver();
-            if (MutationObserver) createDestroyObserver(MutationObserver);
+            if (MutationObserver) destroyObserver = createDestroyObserver(MutationObserver);
             addEventListener(iframe, 'load', iFrameLoaded);
             trigger('init', msg, iframe, undefined, true);
         }
