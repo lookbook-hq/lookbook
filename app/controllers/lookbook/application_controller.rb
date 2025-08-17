@@ -10,6 +10,9 @@ module Lookbook
     helper Lookbook::ApplicationHelper
     helper Lookbook::UiElementsHelper
 
+    before_action :disable_annotations
+    after_action :restore_annotations
+
     before_action :assign_theme_overrides
     before_action :assign_instance_vars
 
@@ -36,6 +39,20 @@ module Lookbook
     end
 
     protected
+
+    def disable_annotations
+      return unless ActionView::Base.respond_to?(:annotate_rendered_view_with_filenames)
+
+      @original_annotations_value = ActionView::Base.annotate_rendered_view_with_filenames
+      ActionView::Base.annotate_rendered_view_with_filenames = false
+    end
+
+    def restore_annotations
+      return if @original_annotations_value.nil?
+
+      ActionView::Base.annotate_rendered_view_with_filenames = @original_annotations_value
+      @original_annotations_value = nil
+    end
 
     def assign_theme_overrides
       @theme_overrides ||= Engine.theme.to_css
