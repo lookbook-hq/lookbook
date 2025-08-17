@@ -6,12 +6,7 @@ export default function buttonComponent() {
   let dropdown = null;
 
   return {
-    updateAfterNavigate: true,
-
     init() {
-      this.updateAfterNavigate =
-        this.$el.dataset.updateAfterNavigate !== "false";
-
       if (this.$refs.tooltip) {
         tooltip = initTooltip(this, {
           target: this.$refs.icon,
@@ -19,22 +14,26 @@ export default function buttonComponent() {
       }
 
       if (this.dropdownContent) {
-        dropdown = tippy(this.$el, {
-          content: this.dropdownContent,
-          trigger: "click",
-          theme: "menu",
-          triggerTarget: this.$el,
-          interactive: true,
-          zIndex: 99999,
-          onShow: () => {
-            if (!this.$store.settings.showTooltips) {
-              return false;
-            }
-            this.$dispatch("dropdown:show", { dropdown: this });
-          },
-          onHide: () => this.$dispatch("dropdown:hide", { dropdown: this }),
-        });
+        this.initDropdown();
       }
+    },
+
+    initDropdown() {
+      dropdown = tippy(this.$el, {
+        content: this.dropdownContent,
+        trigger: "click",
+        theme: "menu",
+        triggerTarget: this.$el,
+        interactive: true,
+        zIndex: 99999,
+        onShow: () => {
+          if (!this.$store.settings.showTooltips) {
+            return false;
+          }
+          this.$dispatch("dropdown:show", { dropdown: this });
+        },
+        onHide: () => this.$dispatch("dropdown:hide", { dropdown: this }),
+      });
     },
 
     get dropdownContent() {
@@ -50,17 +49,6 @@ export default function buttonComponent() {
     hideDropdown() {
       if (dropdown) {
         dropdown.hide();
-      }
-    },
-
-    updateDropdown() {
-      if (dropdown) {
-        dropdown.hide();
-        if (this.updateAfterNavigate) {
-          this.$nextTick(() => {
-            dropdown.setContent(this.dropdownContent);
-          });
-        }
       }
     },
 
