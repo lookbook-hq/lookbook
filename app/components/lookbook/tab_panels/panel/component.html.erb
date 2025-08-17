@@ -3,6 +3,6 @@
   "data-tab-panel": @name,
   cloak: true,
   class: "h-full",
-  ":class": "{ hidden: !isActive($el) }" do %>
+  "x-bind:class": "{ hidden: !isActive($el) }" do %>
     <%== content %>
 <% end %>

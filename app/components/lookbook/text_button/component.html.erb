@@ -13,7 +13,7 @@
 
   <span class="flex items-center space-x-2 justify-center">
     <span x-ref="icon">
-      <%= icons.present? ? safe_join(icons) : (lookbook_render(:icon, name: icon, size: icon_size, ":class": "{'animate-spin': _spinning}") if icon) %>
+      <%= icons.present? ? safe_join(icons) : (lookbook_render(:icon, name: icon, size: icon_size, "x-bind:class": "{'animate-spin': _spinning}") if icon) %>
     </span>
     <% if content %>
       <span><%= content %></span>

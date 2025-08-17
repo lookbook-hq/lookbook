@@ -1,6 +1,6 @@
 <div
   class="absolute left-0 right-0 bottom-0 top-[48px] z-[1000] md:hidden transition"
-  :class="{
+  x-bind:class="{
     'bg-black/40 backdrop-blur-sm pointer-events-auto': mobileNavOpen,
     'bg-black/0 pointer-events-none': !mobileNavOpen
   }"
@@ -8,7 +8,7 @@
   x-cloak></div>
 <div
   class="absolute bg-white px-6 py-6 top-[48px] right-0 h-[calc(100vh_-_48px)] w-full max-w-[340px] border-l border-gray-300 overflow-y-auto space-y-10 z-[1100] transition md:hidden"
-  :class="{
+  x-bind:class="{
     'translate-x-0': mobileNavOpen,
     'translate-x-full': !mobileNavOpen
   }"

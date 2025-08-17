@@ -1,5 +1,5 @@
 <%= render_component_tag class: "flex items-center text-xs font-mono space-x-1 transition",
-  ":class":"{'!opacity-100': resizing}",
+  "x-bind:class":"{'!opacity-100': resizing}",
   "x-on:viewport:resize-start.window": "resizing = true",
   "x-on:viewport:resize-complete.window": "resizing = false",
   "x-on:dom:update-start.window": "tearDown",

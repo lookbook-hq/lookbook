@@ -2,7 +2,7 @@
   <%= lookbook_render :split_layout,
     id: "inspector",
     alpine_data: "$store.layout.inspector",
-    ":class": "($store.inspector.drawer.hidden || #{@drawer_panels.none?}) && '!grid-rows-[1fr] !grid-cols-[1fr]'",
+    "x-bind:class": "($store.inspector.drawer.hidden || #{@drawer_panels.none?}) && '!grid-rows-[1fr] !grid-cols-[1fr]'",
     data: {
       "preview-target": @target.id
     } do |layout| %>
@@ -11,7 +11,7 @@
       "x-effect": "forceOrientation = (layoutWidth < $store.inspector.minVerticalSplitWidth) ? 'horizontal' : null" do %>
     
       <%= lookbook_render :toolbar, id: "main-toolbar" do |toolbar| %>
-        <% toolbar.with_section ":class": "layoutResizing && 'overflow-hidden'" do %>
+        <% toolbar.with_section "x-bind:class": "layoutResizing && 'overflow-hidden'" do %>
           <%= lookbook_render :tabs, alpine_data: "$store.inspector.main", id: "inspector-tabs-main" do |tabs| %>
             <%= @main_panels.each do |panel| %>
               <% tabs.with_tab name: panel.name,
@@ -99,7 +99,7 @@
       "x-show": "!$store.inspector.drawer.hidden && #{@drawer_panels.any?}" do %>
 
       <%= lookbook_render :toolbar, id: "drawer-toolbar" do |toolbar| %>
-        <% toolbar.with_section ":class": "layoutResizing && 'overflow-hidden'" do %>
+        <% toolbar.with_section "x-bind:class": "layoutResizing && 'overflow-hidden'" do %>
           <%= lookbook_render :tabs, alpine_data: "$store.inspector.drawer", id: "inspector-tabs-drawer" do |tabs| %>
             <%= @drawer_panels.each do |panel| %>
               <% tabs.with_tab name: panel.name,
@@ -133,7 +133,7 @@
               tooltip: "Pin drawer on right",
               "x-on:click": "switchOrientation",
               "x-show": "horizontal",
-              ":class": "{'pointer-events-none opacity-50 !cursor-not-allowed': horizontal && layoutWidth <= $store.inspector.minVerticalSplitWidth}",
+              "x-bind:class": "{'pointer-events-none opacity-50 !cursor-not-allowed': horizontal && layoutWidth <= $store.inspector.minVerticalSplitWidth}",
               cloak: true %>
 
             <% group.with_button id: "drawer-to-bottom-button",

@@ -8,7 +8,7 @@
       "py-2 text-base": @theme == :page,
     }
   ],
-  ":class": "{
+  "x-bind:class": "{
     'border-lookbook-tabs-border-active': isSelected($el),
     'border-transparent text-lookbook-tabs-text hover:text-lookbook-tabs-text-hover': !isSelected($el),
     'hidden': visibleTabsCount >= #{@position}

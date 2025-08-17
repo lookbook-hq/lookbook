@@ -9,7 +9,7 @@
       "px-2 text-lg relative -bottom-px": @theme == :page,
     }
   ],
-  ":class": "{
+  "x-bind:class": "{
     'border-lookbook-tabs-border-active': isSelected($el),
     'border-transparent text-lookbook-tabs-text hover:text-lookbook-tabs-text-hover': !isSelected($el),
     '!text-lookbook-tabs-text-disabled': isDisabled($el),
