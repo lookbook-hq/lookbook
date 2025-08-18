@@ -6,7 +6,7 @@ module Lookbook
       @paths = paths
       @after_parse_callbacks = []
       @after_parse_once_callbacks = []
-      @parsing = Mutex.new
+      @parsing = Monitor.new
 
       define_tags(tags)
       YARD::Parser::SourceParser.after_parse_list { run_callbacks }
