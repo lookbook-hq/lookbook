@@ -1,18 +1,17 @@
-<%= lookbook_render button_component.new(
-  id: id,
-  icon: icon,
-  **button_attrs,
-  "x-on:keydown.esc.stop.document": "hideDropdown",
-  "x-on:navigation:complete.window": "updateDropdown") do %>
-  <%= content %>
-<% end %>
+<div class="contents" key="<%= key %>">
+  <%= lookbook_render button_component.new(
+    id: id,
+    icon: icon,
+    **button_attrs,
+    "x-on:keydown.esc.stop.document": "hideDropdown") do %>
+    <%= content %>
+  <% end %>
 
-<% if dropdown? %>
-  <% content_for :dropdowns do %>
-    <div data-dropdown-id="<%= id %>">
+  <% if dropdown? %>
+    <div data-dropdown-id="<%= id %>" hidden>
       <div class="divide-y divide-lookbook-divider text-left">
         <%= dropdown %>
       </div>
     </div>
   <% end %>
-<% end %>
+</div>

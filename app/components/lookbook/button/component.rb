@@ -10,6 +10,10 @@ module Lookbook
       @button_attrs = html_attrs
     end
 
+    def key
+      Digest::SHA256.hexdigest(icon.to_s + dropdown.to_s + @button_attrs.to_json)
+    end
+
     def dropdown?
       dropdown.present?
     end
