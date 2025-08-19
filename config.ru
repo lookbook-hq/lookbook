@@ -1,13 +1,19 @@
 # frozen_string_literal: true
 
-require "logger"
+ENV["RAILS_ENV"] ||= "development"
+
 require "rubygems"
-require "active_support"
 require "bundler"
-require "phlex-rails"
 
-Bundler.require :default, :development
+Bundler.require :default
 
-require_relative "spec/support/combustion"
+case ENV["RAILS_ENV"]
+when "development"
+  Bundler.require :development
+when "test"
+  Bundler.require :test
+end
+
+require_relative "test/demo/config/application"
 
 run Combustion::Application
