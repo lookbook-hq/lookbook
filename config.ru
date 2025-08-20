@@ -5,15 +5,8 @@ ENV["RAILS_ENV"] ||= "development"
 require "rubygems"
 require "bundler"
 
-Bundler.require :default
+Bundler.require :default, :development
 
-case ENV["RAILS_ENV"]
-when "development"
-  Bundler.require :development
-when "test"
-  Bundler.require :test
-end
-
-require_relative "test/demo/config/application"
+require_relative "test/dummy/config/application"
 
 run Combustion::Application
