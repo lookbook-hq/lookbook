@@ -1,10 +1,8 @@
-name: CI
+name: CI (minitest)
 
 on:
   push:
-    branches: [main, v2]
-  pull_request:
-    branches: ["**"]
+    branches: [improve-dev-setup]
 
 jobs:
   test:
@@ -49,7 +47,7 @@ jobs:
       - name: Build and test
         run: |
           bundle exec appraisal rails-${{ matrix.rails_version }} bundle
-          bundle exec appraisal rails-${{ matrix.rails_version }} rspec
+          bundle exec appraisal rails-${{ matrix.rails_version }} rake test
         env:
           RAILS_VERSION: ${{ matrix.rails_version }}
           RUBY_VERSION: ${{ matrix.ruby_version }}
