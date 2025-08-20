@@ -3,7 +3,7 @@ module Lookbook
     # Simple feature flag system.
     #
     # Feature flags are defined in `config/feature_flags.yml` and can be enabled
-    # via ENV var or by adding the feature name to the `config.enabled_beta_features` array.
+    # via ENV var or by adding the feature name to the `config.experimental_features` array.
     class << self
       def configuration
         defaults = Rails.application.config_for(config_path) || {}
@@ -17,7 +17,7 @@ module Lookbook
       private
 
       def user_enabled_features
-        Lookbook.config.enabled_beta_features.map { [_1, true] }.to_h
+        Lookbook.config.experimental_features.map { [_1, true] }.to_h
       end
 
       def config_path

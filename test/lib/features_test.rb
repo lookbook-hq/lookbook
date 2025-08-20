@@ -27,12 +27,12 @@ module Lookbook
           ENV["LOOKBOOK_#{feature_name.upcase}"] = "false"
         end
 
-        it "can be enabled/disabled by adding to config.enabled_beta_features array" do
-          Lookbook.config.enabled_beta_features = [feature_name.to_sym]
+        it "can be enabled/disabled by adding to config.experimental_features array" do
+          Lookbook.config.experimental_features = [feature_name.to_sym]
 
           assert_equal true, Features.enabled?(feature_name)
 
-          Lookbook.config.enabled_beta_features = []
+          Lookbook.config.experimental_features = []
 
           assert_equal false, Features.enabled?(feature_name)
         end
