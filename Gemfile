@@ -7,6 +7,8 @@ gem "rails", (rails_version == "main") ? {git: "https://github.com/rails/rails",
 gem "combustion", "~> 1.3"
 gem "standard"
 gem "yard-activesupport-concern"
+gem "actioncable"
+gem "listen"
 
 # ----- Gems for current RSpec-based test setup (will be removed) ----- #
 

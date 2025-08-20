@@ -11,7 +11,7 @@ require "capybara/minitest/spec"
 require "minitest/reporters"
 require "minitest/autorun"
 
-require_relative "demo/config/application"
+require_relative "dummy/config/application"
 
 # Capybara.javascript_driver = :cuprite
 Capybara.register_driver(:cuprite) do |app|
