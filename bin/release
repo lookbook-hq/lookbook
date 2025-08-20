@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-printf "\n\n💎 The gem will be pushed to RubyGems automatically by Github Actions, using Trusted Publishing."

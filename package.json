@@ -47,8 +47,7 @@
     "themes:watch": "watch 'npm run themes:generate' ./theme --filter=./theme/watch.js",
     "lint:fix": "bundle exec standardrb --fix && prettier --write .",
     "release": "release-it --verbose",
-    "release:dry-run": "release-it --dry-run --verbose",
-    "prepare": "husky install"
+    "release:dry-run": "release-it --dry-run --verbose"
   },
   "author": "Mark Perkins",
   "license": "MIT",
@@ -74,10 +73,8 @@
     "tippy.js": "^6.3.2"
   },
   "devDependencies": {
-    "@parcel/resolver-glob": "^2.16.0",
-    "commitizen": "^4.3.1",
-    "concurrently": "^9.2.1",
-    "cz-conventional-changelog": "^3.3.0",
+    "@parcel/resolver-glob": "^2.10.3",
+    "concurrently": "^9.2.0",
     "eslint": "^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.1.0",
@@ -120,9 +117,10 @@
     },
     "hooks": {
       "before:init": [
-        "npm install",
+        "npm ci",
         "bundle install",
-        "bundle exec appraisal rails-8.0 rspec"
+        "bundle exec rspec",
+        "bundle exec rake test"
       ],
       "after:bump": [
         "bundle exec appraisal install",
@@ -130,12 +128,7 @@
         "npm run build"
       ],
       "after:version:bump": "./bin/bump-version ${version} && bundle",
-      "after:release": "./bin/release ${version}"
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "after:release": "printf \"\n\n💎 And updated version of the Lookbook gem (v${version}) will be automatically generated and pushed to RubyGems using Github Actions.\""
     }
   }
 }
