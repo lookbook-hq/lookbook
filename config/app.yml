@@ -65,6 +65,8 @@ shared:
 
   debug_menu: false
 
+  enabled_beta_features: []
+
   links:
     docs: https://v2.lookbook.build
     demo: https://v2-demo.lookbook.build
