@@ -1,22 +1,18 @@
 Lookbook::Engine.routes.draw do
-  if Lookbook::Engine.websocket.mountable?
-    mount Lookbook::Engine.websocket.server => "/cable", :as => :cable
+  root to: "landing#show", as: :lookbook_landing
+
+  get "/events", to: "events#index", as: :lookbook_event_stream
+
+  get "/ui/partials/*partial", to: "ui/partials#show", as: :lookbook_partial
+
+  scope "/inspect" do
+    constraints subject: /[^\/]+/ do
+      get "/:subject", to: "subjects#show", as: :lookbook_inspect_subject
+      get "/:subject/:group", to: "groups#show", as: :lookbook_inspect_group
+      get "/:subject/:group/:scenario", to: "scenarios#show", as: :lookbook_inspect_scenario
+      get "/:subject/:group/:scenario/:panel", to: "panels#show", as: :lookbook_panel
+    end
   end
 
-  root to: "application#index", as: :lookbook_home
-
-  get "/#{Lookbook.config.page_route}", to: "pages#index", as: :lookbook_page_index
-  get "/#{Lookbook.config.page_route}/*path", to: "pages#show", as: :lookbook_page
-
-  get "/previews", to: "previews#index", as: :lookbook_previews
-  get "/preview/*path", to: "previews#show", as: :lookbook_preview
-
-  get "/inspect/*path", to: "inspector#show", as: :lookbook_inspect
-
-  if Lookbook::Engine.preview_embeds_allowed?
-    get "/embed", to: "embeds#lookup", as: :lookbook_embed_lookup
-    get "/embed/*path", to: "embeds#show", as: :lookbook_embed
-  end
-
-  get "/*path", to: "application#not_found", via: :all
+  get "/*path", to: "errors#not_found", via: :all
 end

@@ -55,6 +55,21 @@ module Lookbook
       content.present?
     end
 
+    def url_path(**params)
+      if content? && content.respond_to?(:url_path)
+        content.url_path(**params)
+      end
+    end
+
+    def to_partial_path
+      "lookbook/components/nav_tree_item"
+    end
+
+    def lookup_hash
+      content? ? content.lookup_hash : Digest::SHA256.hexdigest(id)[0..8]
+    end
+    alias_method :to_key, :lookup_hash
+
     def each(&block)
       if block
         children.sort.each do |child|

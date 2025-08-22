@@ -1,0 +1,27 @@
+<%= component_tag(:li,
+  key: id,
+  data: { active: "#{active?(request).to_json}" },
+  "x-data": "{
+    get expanded() { return this.isExpanded($el.getAttribute('key')) }
+  }",
+  "x-init": ("if (!expanded) expandedNodes.push('#{id}')" if active?(request))
+) do %>
+  <div x-on:click="toggle('<%= id %>')">
+    <% if children.any? %>
+      <button>
+        <%= Icon :caret_right, style: :fill, "x-show": "!expanded" %>
+        <%= Icon :caret_down, style: :fill, "x-show": "expanded" %>
+      </button>
+    <% end %>
+  
+    <%= href.present? ? link_to(label, href) : tag.span(label) %>
+  </div>
+
+  <% if children.any? %>
+    <ul x-show="expanded" x-collapse.duration.100ms>
+      <% children.each do |child| %>
+        <%= render child %>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

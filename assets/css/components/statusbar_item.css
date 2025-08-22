@@ -1,0 +1,22 @@
+[data-component="statusbar-item"] {
+  --widget-panel-min-width: 16rem;
+
+  position: relative;
+
+  .trigger {
+    anchor-name: --popover-trigger;
+    padding: var(--size-1);
+  }
+
+  dialog {
+    position: absolute;
+    position-anchor: --popover-trigger;
+    position-area: top span-right;
+    position-try-fallbacks: flip-inline;
+    font-family: var(--font-system-ui);
+    font-size: var(--font-size-1);
+    border: var(--border-size-1) solid var(--divider-1);
+    padding: var(--size-3);
+    min-width: var(--widget-panel-min-width);
+  }
+}

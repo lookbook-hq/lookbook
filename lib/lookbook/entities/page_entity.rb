@@ -95,8 +95,8 @@ module Lookbook
     # The docs URL path for this page.
     #
     # @return [String] URL path
-    def docs_path
-      lookbook_page_path(lookup_path)
+    def docs_path(**params)
+      lookbook_page_path(lookup_path, **params)
     end
 
     alias_method :url_path, :docs_path

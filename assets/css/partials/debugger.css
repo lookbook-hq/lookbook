@@ -1,0 +1,14 @@
+#debugger {
+}
+
+#debugger-panel {
+  > .title {
+    font-size: var(--font-size-0);
+    font-weight: var(--font-weight-5);
+    margin-bottom: var(--size-2);
+  }
+
+  code {
+    font-size: var(--font-size-0);
+  }
+}

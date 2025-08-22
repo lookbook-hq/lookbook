@@ -1,0 +1,12 @@
+@import "https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css";
+@import "https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css";
+@import "https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/fill/style.css";
+
+[data-component="icon"] {
+  display: block;
+  line-height: 1em;
+  width: 1em;
+  height: 1em;
+  flex: none;
+  user-select: none;
+}

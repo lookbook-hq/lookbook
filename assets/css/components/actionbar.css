@@ -1,0 +1,27 @@
+[data-component="actionbar"] {
+  --actionbar-height: var(--size-7);
+
+  background-color: var(--surface-0);
+  height: var(--size-6);
+  display: flex;
+  align-items: stretch;
+  justify-content: end;
+  padding-inline: var(--size-1);
+}
+
+[data-component="actionbar-button"] {
+  font-size: var(--font-size-0);
+  padding-inline: var(--size-2);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  column-gap: var(--size-1);
+
+  .icon {
+    font-size: var(--font-size-1);
+  }
+
+  .button-label {
+    font-size: var(--font-size-000);
+  }
+}

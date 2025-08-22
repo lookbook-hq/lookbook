@@ -125,8 +125,8 @@ module Lookbook
     # The inspector URL path for this preview
     #
     # @return [String] URL path
-    def inspect_path
-      lookbook_inspect_path(lookup_path)
+    def inspect_path(**params)
+      lookbook_inspect_subject_path(self, **params)
     end
 
     alias_method :url_path, :inspect_path
@@ -135,7 +135,8 @@ module Lookbook
     #
     # @return [String] URL path
     def preview_path
-      lookbook_preview_path(lookup_path)
+      # lookup_path
+      # lookbook_preview_path(lookup_path)
     end
 
     # @!endgroup
@@ -145,6 +146,11 @@ module Lookbook
     # @return [String] Class name
     def preview_class_name
       preview_class.name
+    end
+
+    # @api private
+    def to_param
+      lookup_path.tr("/", ":")
     end
 
     # @api private

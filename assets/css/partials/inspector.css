@@ -1,0 +1,9 @@
+#inspector {
+  height: 100%;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+
+  section + section {
+    border-top: var(--border-size-1) solid var(--divider-1);
+  }
+}

@@ -97,18 +97,25 @@ module Lookbook
     # The inspector URL path for this preview
     #
     # @return [String] URL path
-    def inspect_path
-      lookbook_inspect_path(lookup_path)
+    def inspect_path(**params)
+      lookbook_inspect_scenario_path(preview, group_name, self, **params)
+      # lookbook_inspect_path(lookup_path)
     end
 
     # The standalone preview URL path for this preview
     #
     # @return [String] URL path
     def preview_path
-      lookbook_preview_path(lookup_path)
+      # lookup_path
+      # lookbook_preview_path(lookup_path)
     end
 
     # @!endgroup
+
+    # @api private
+    def to_param
+      name
+    end
 
     # @api private
     def after_render_method
@@ -145,6 +152,10 @@ module Lookbook
     deprecate examples: :scenarios, deprecator: Deprecation
 
     protected
+
+    def group_name
+      group || "default"
+    end
 
     def sort_handler(other_entity)
       if Lookbook.config.preview_sort_scenarios

@@ -1,0 +1,21 @@
+@import "prism-code-editor/dist/layout.css";
+@import "prism-code-editor/dist/guides.css";
+@import "prism-code-editor/dist/copy.css";
+@import "prism-code-editor/dist/folding.css";
+@import "prism-code-editor/dist/search.css";
+
+@import "prism-code-editor/dist/themes/github-light.css";
+
+[data-component="code-block"] {
+  height: 100%;
+
+  .code-block-container {
+    display: grid;
+    height: 100%;
+  }
+
+  .prism-code-editor {
+    font-family: var(--font-monospace-code);
+    height: 100%;
+  }
+}

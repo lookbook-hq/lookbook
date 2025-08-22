@@ -1,0 +1,32 @@
+/* Foundation */
+
+@import "./css/fonts.css";
+@import "./css/theme.css";
+@import "./css/base.css";
+@import "./css/utilities.css";
+
+/* Components */
+
+@import "./css/components/actionbar.css";
+@import "./css/components/code_block.css";
+@import "./css/components/icon.css";
+@import "./css/components/nav_tree.css";
+@import "./css/components/panel.css";
+@import "./css/components/tab_group.css";
+@import "./css/components/toolbar.css";
+@import "./css/components/split_layout.css";
+@import "./css/components/statusbar_item.css";
+@import "./css/components/viewport.css";
+
+/* Partials */
+
+@import "./css/partials/debugger.css";
+@import "./css/partials/inspector.css";
+@import "./css/partials/sidebar.css";
+@import "./css/partials/statusbar.css";
+@import "./css/partials/topbar.css";
+@import "./css/partials/workspace.css";
+
+/* Layout */
+
+@import "./css/layout.css";

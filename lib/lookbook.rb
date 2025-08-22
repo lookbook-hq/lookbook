@@ -2,13 +2,12 @@ require "zeitwerk"
 require "lookbook/version"
 
 loader = Zeitwerk::Loader.for_gem
-loader.ignore("#{__dir__}/lookbook.rb")
-loader.push_dir("#{__dir__}/lookbook", namespace: Lookbook)
-loader.collapse("#{__dir__}/lookbook/*")
+loader.inflector.inflect "ui" => "UI"
+loader.collapse("#{__dir__}/lookbook/{cable,entities,helpers,services,stores,support,tags,ui}")
 loader.collapse("#{__dir__}/lookbook/*/*")
 loader.collapse("#{__dir__}/lookbook/*/*/*")
 loader.ignore("#{__dir__}/lookbook/support/evented_file_update_checker.rb")
-loader.ignore("#{__dir__}/lookbook/cable")
+loader.enable_reloading if ENV["LOOKBOOK_ENV"] == "development"
 loader.setup
 
 # The Lookbook application entry point.

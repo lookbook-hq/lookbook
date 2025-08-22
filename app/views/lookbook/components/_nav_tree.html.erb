@@ -1,0 +1,20 @@
+<%= component_tag(
+  "x-data": "{
+    expandedNodes: $persist([]).as('#{id}-expanded'),
+    collapseAll() { this.expandedNodes.length = 0 },
+    isExpanded(id) { return this.expandedNodes.includes(id) },
+    toggle(id) { this.$addOrRemove(id, this.expandedNodes) }
+  }"
+) do %>
+  <nav aria-label="<%= label %>">
+    <% if children.any? %>
+      <ul>
+        <% children.each do |child| %>
+          <%= render child %>
+        <% end %>
+      </ul>
+    <% else %>
+      <p><em>Nothing here!</em></p>
+    <% end %>
+  </nav>
+<% end %>

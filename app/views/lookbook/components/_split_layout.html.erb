@@ -1,0 +1,16 @@
+<%= component_tag(
+  "x-data": "splitLayout('#{id}', {orientation: '#{orientation}'})",
+  "x-bind": "root",
+  "x-resize": "layoutWidth = Math.round($width); layoutHeight = Math.round($height)"
+) do %>
+  <% panes.each do |pane| %>
+    <div class="split-layout-pane">
+      <%= pane %>
+    </div>
+    <% unless pane == panes.last %>
+      <div class="split-layout-gutter" x-init="registerGutter($el)">
+        <div class="split-layout-gutter-handle"></div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

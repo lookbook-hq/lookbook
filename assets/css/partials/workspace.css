@@ -1,0 +1,17 @@
+#workspace {
+  /* height: 100%;
+  overflow: hidden; */
+  /* display: grid;
+  grid-template-columns: min-content 1fr; */
+}
+
+#workspace-sidebar {
+  /* width: 280px; */
+  /* padding: var(--surface-padding-1); */
+  /* background-color: var(--surface-2); */
+  /* border-right: var(--border-size-1) solid var(--divider-1); */
+}
+
+#workspace-main {
+  /* padding: var(--surface-padding-1); */
+}

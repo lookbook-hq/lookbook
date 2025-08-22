@@ -23,7 +23,9 @@ module Dummy
     config.lookbook.listen = Rails.env.development?
     config.lookbook.using_view_component = true
 
-    config.lookbook.preview_paths << "#{root}/previews/#{Rails.env.test? ? "test" : "dev"}"
+    config.lookbook.preview_paths << "#{root}/previews/test"
+    config.lookbook.preview_paths << "#{root}/previews/dev" if Rails.env.development?
+
     config.lookbook.preview_layout = "preview"
   end
 end

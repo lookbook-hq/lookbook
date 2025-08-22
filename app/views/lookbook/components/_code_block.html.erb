@@ -1,0 +1,4 @@
+<%= component_tag("x-data": "codeBlock(#{opts.to_json})") do %>
+  <div class="code-block-container" x-ref="container"></div>
+  <textarea class="code-block-raw" x-ref="raw" hidden disabled><%= code || content -%></textarea>
+<% end %>

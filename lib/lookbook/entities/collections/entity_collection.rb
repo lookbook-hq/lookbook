@@ -57,6 +57,10 @@ module Lookbook
       clear_cache
     end
 
+    def name
+      self.class.name.demodulize.delete_suffix("Collection").camelize(:lower)
+    end
+
     protected
 
     def clear_cache

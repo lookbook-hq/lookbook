@@ -1,0 +1,198 @@
+html {
+  tab-size: 2;
+  hanging-punctuation: first allow-end last;
+  box-sizing: border-box;
+  block-size: 100%;
+  background-color: var(--surface-1);
+  color: var(--text-1);
+  accent-color: var(--brand);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100vh;
+  height: 100dvh;
+  min-block-size: 100%;
+  line-height: var(--font-lineheight-1);
+  font-family: var(--font-ui-sans);
+  font-weight: 400;
+}
+
+body {
+  font-size: var(--base-font-size);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--base-font-size);
+  font-weight: var(--font-weight-bold);
+  text-wrap: balance;
+  margin: 0;
+}
+
+p,
+li,
+dd {
+  text-wrap: pretty;
+  margin: 0;
+}
+
+a {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+button,
+input[type="submit"],
+input[type="reset"] {
+  background: none;
+  color: inherit;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+ul,
+ol,
+dl {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img,
+video,
+iframe {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+  border-style: none;
+}
+
+figure {
+  inline-size: fit-content;
+  margin-inline: auto;
+}
+
+figcaption {
+  contain: inline-size;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+label {
+  display: block;
+}
+
+input:not(
+    :where(
+      [type="submit"],
+      [type="checkbox"],
+      [type="radio"],
+      [type="button"],
+      [type="reset"]
+    )
+  ) {
+  inline-size: 100%;
+}
+
+textarea {
+  field-sizing: content;
+  min-block-size: 5lh;
+  inline-size: 100%;
+  max-inline-size: 100%;
+}
+
+pre,
+code,
+kbd,
+samp {
+  font-family: var(--font-monospace-code);
+  font-size: var(--font-size-1);
+  margin: 0;
+  padding: 0;
+}
+
+svg {
+  fill: currentColor;
+}
+
+[aria-disabled="true"],
+[disabled] {
+  cursor: not-allowed;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+[disabled],
+label:has(input[disabled]) {
+  opacity: 0.5;
+
+  [disabled] {
+    opacity: 1;
+  }
+}
+
+pre {
+  white-space: pre-wrap;
+  background: transparent;
+  color: currentColor;
+  padding: 0;
+}
+
+:target {
+  scroll-margin: 3rlh;
+}
+
+table {
+  caption-side: bottom;
+  border-collapse: collapse;
+
+  td,
+  th {
+    word-break: normal;
+    border: 1px solid var(--divider-1);
+    padding: var(--size-2);
+  }
+}
+
+[role="region"][aria-labelledby][tabindex] {
+  overflow: auto;
+}
+
+:focus-visible {
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+    &:focus-within {
+      scroll-behavior: smooth;
+    }
+  }
+}

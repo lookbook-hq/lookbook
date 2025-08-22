@@ -1,8 +1,11 @@
 {
   "plugins": {
-    "postcss-import-ext-glob": {},
     "postcss-import": {},
-    "tailwindcss/nesting": {},
-    "tailwindcss": {}
+    "postcss-url": {
+      "url": "rebase"
+    },
+    "postcss-custom-media": {},
+    "postcss-nesting": {},
+    "postcss-preset-env": {}
   }
 }

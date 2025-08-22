@@ -1,0 +1,25 @@
+<%= component_tag(
+  "x-data": "{ activeTab: $persist('#{tabs&.first&.panel}').as('#{id}-active')}",
+  "x-on:click": "
+    tab = $event.target.closest('[data-component=tab]');
+    activeTab = tab ? tab.dataset.panel : activeTab
+  "
+) do %>
+  <%= Toolbar do %>
+    <% if tabs? %>
+      <div class="tab-group-tabs" role="tablist" aria-label="Tab buttons">
+        <%= safe_join(tabs) %>
+      </div>
+    <% end %>
+      
+    <% if actions? %>
+      <div class="tab-group-actions">
+        <%= safe_join(actions) %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div class="tab-group-panels">
+    <%= safe_join(panels) %>
+  </div>
+<% end %>

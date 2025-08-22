@@ -29,7 +29,7 @@ module Lookbook
       false
     end
 
-    def url_path
+    def url_path(*)
       nil
     end
 

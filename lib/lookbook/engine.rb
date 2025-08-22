@@ -26,12 +26,7 @@ module Lookbook
     config.before_configuration do
       config.lookbook = Lookbook.config
 
-      if defined?(ViewComponent)
-        config.lookbook.using_view_component ||= true
-      else
-        require "view_component"
-        config.lookbook.using_view_component ||= false
-      end
+      config.lookbook.using_view_component ||= defined?(ViewComponent)
     end
 
     config.after_initialize do
@@ -143,10 +138,6 @@ module Lookbook
 
       def preview_embeds_allowed?
         opts.preview_embeds.enabled == true && opts.preview_embeds.policy != "DENY"
-      end
-
-      def websocket
-        @_websocket ||= auto_refresh? ? Websocket.new(mount_path, logger: Lookbook.logger) : NullWebsocket.new
       end
 
       def runtime_context
@@ -275,17 +266,21 @@ module Lookbook
         raise e
       end
 
-      def notify_clients(changes = nil)
-        return unless changes.present?
-
-        websocket.broadcast(:reload)
-        run_hooks(:after_change, changes.to_h)
-      end
-
       def files_changed(modified, added, removed)
         changes = {modified: modified, added: added, removed: removed}
         reloaders.register_changes(changes)
-        notify_clients(changes)
+        if changes.present?
+          files_updated!
+          run_hooks(:after_change, changes.to_h)
+        end
+      end
+
+      def files_updated!
+        @updated_at = DateTime.now
+      end
+
+      def updated_at
+        @updated_at ||= DateTime.now
       end
     end
 

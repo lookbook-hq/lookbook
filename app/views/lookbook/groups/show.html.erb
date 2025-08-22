@@ -1,0 +1,8 @@
+<%#= render "lookbook/components/inspector", subject: @subject, group: @group %>
+<h2>[group] <%= @subject %> / <%= @group %></h2>
+
+<ul>
+  <li>
+    <%= link_to "Primary", lookbook_inspect_scenario_path(@subject, @group, "primary") %>
+  </li>
+</ul>

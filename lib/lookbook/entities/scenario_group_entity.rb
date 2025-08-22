@@ -95,8 +95,8 @@ module Lookbook
     # The inspector URL path for this scenario group
     #
     # @return [String] URL path
-    def inspect_path
-      lookbook_inspect_path(lookup_path)
+    def inspect_path(**params)
+      lookbook_inspect_path(lookup_path, **params)
     end
 
     # The standalone preview URL path for this scenario group

@@ -1,6 +1,12 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  Warning[:deprecated] = true
+
+  Rails.autoloaders.main.push_dir(
+    Rails.root.join("app/views"), namespace: Lookbook
+  )
+
   # Make code changes take effect immediately without server restart.
   config.enable_reloading = true
 

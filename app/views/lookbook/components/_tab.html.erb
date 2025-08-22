@@ -1,0 +1,9 @@
+<%= component_tag(:button,
+  role: "tab",
+  data: {panel: panel},
+  "x-bind:aria-selected": "activeTab === $el.dataset.panel"
+) do %>
+  <span class="tab-label">
+    <%= label %>
+  </span>
+<% end %>

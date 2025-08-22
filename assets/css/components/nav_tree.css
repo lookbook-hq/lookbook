@@ -1,0 +1,8 @@
+[data-component="nav-tree"] {
+  font-size: var(--font-size-1);
+  padding: var(--surface-padding-1);
+
+  ul ul li {
+    padding-left: var(--size-4);
+  }
+}

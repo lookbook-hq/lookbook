@@ -1,0 +1,46 @@
+[data-component="panel"] {
+  --panel-padding: var(--surface-padding-1);
+
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
+
+  .panel-main {
+    height: 100%;
+    width: 100%;
+    position: relative;
+  }
+
+  .panel-scroller {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    inset: 0;
+    overflow: auto;
+  }
+
+  &[data-padded="true"] {
+    .panel-scroller {
+      padding: var(--panel-padding);
+    }
+  }
+
+  &[data-overflow="hidden"] {
+    .panel-main {
+      overflow: hidden;
+    }
+  }
+
+  &[data-actions="true"] {
+    grid-template-rows: min-content 1fr;
+
+    [data-component="actionbar"] {
+      border-bottom: var(--border-size-1) solid var(--divider-1);
+      border-top: var(--border-size-1) solid var(--divider-1);
+      position: relative;
+      top: -1px;
+    }
+  }
+}

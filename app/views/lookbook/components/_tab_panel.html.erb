@@ -1,0 +1,7 @@
+<%= component_tag(
+  data: {panel: name},
+  role: "tabpanel",
+  "x-bind:hidden": "activeTab != $el.dataset.panel"
+) do %>
+  <%= content %>
+<% end %>

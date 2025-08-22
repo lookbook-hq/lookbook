@@ -1,0 +1,26 @@
+#topbar {
+  border-bottom: var(--border-size-1) solid var(--divider-1);
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  align-items: center;
+  background-color: var(--color-brand-600);
+  -webkit-font-smoothing: antialiased;
+  color: var(--gray-0);
+  height: var(--size-10);
+}
+
+#topbar-branding {
+  font-weight: 600;
+  display: block;
+
+  a {
+    display: block;
+    padding-inline: var(--surface-padding-1);
+    color: var(--gray-0);
+    text-decoration: none;
+  }
+}
+
+#topbar-nav {
+  text-align: end;
+}

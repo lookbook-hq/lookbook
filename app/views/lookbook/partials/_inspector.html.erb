@@ -1,0 +1,58 @@
+<div id="inspector">
+  <%= Toolbar(id: "inspector-toolbar", title: @scenario) %>
+
+  <%= SplitLayout id: "inspector-panes", orientation: :horizontal do |layout| %>
+    <% layout.with_pane do %>
+      <%= TabGroup(id: "inspector-main") do |group| %>
+        <% group.with_tab label: "Preview", panel: :preview %>
+        <% group.with_action label: "Copy", icon: :copy, panel: :preview %>
+        <% group.with_panel name: :preview do %>
+          <%= Panel(padded: false, overflow: :hidden) do %>
+            <%= Viewport(id: "inspector-preview", src: "https://example.com") %>
+          <% end %>
+        <% end %>
+
+        <% group.with_tab label: "Output", panel: :output %>
+        <% group.with_panel name: :output do %>
+          <%= Panel(padded: false, overflow: :hidden) do %>
+            <p>Output tab for <%= @scenario %></p>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% layout.with_pane do %>
+      <%= TabGroup(id: "inspector-drawer") do |group| %>
+        <% group.with_tab label: "Source", panel: :source %>
+        <% group.with_panel name: :source do %>
+          <%= Panel(padded: false, overflow: :hidden) do %>
+            <%= CodeBlock(
+              <<~HTML
+                <div class="container">
+                  <p>code block for <strong>#{@scenario}</strong></p>
+                  <div>
+                    <h1>Foo</h1>
+                  </div>
+                </div>
+              HTML
+            ) %>
+          <% end %>
+        <% end %>
+
+        <% group.with_tab label: "Metadata", panel: :metadata %>
+        <% group.with_panel name: :metadata do %>
+          <%= Panel(padded: false, overflow: :hidden) do %>
+            <p>Metadata</p>
+          <% end %>
+        <% end %>
+
+        <% group.with_tab label: "Params", panel: :params %>
+        <% group.with_panel name: :params do %>
+          <%= Panel(padded: false, overflow: :hidden) do %>
+            <p>Params</p>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

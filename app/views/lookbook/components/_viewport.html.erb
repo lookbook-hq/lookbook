@@ -1,0 +1,58 @@
+<%= component_tag(
+  data: {resize_x: resize_x?, resize_y: resize_y?},
+  "x-data": "viewport('#{id}')"
+) do %>  
+  
+  <div
+    x-ref="wrapper"
+    class="viewport-wrapper"
+    x-bind:style="`max-width: ${maxWidth}; max-height: ${maxHeight}`"
+    x-resize="iframeDimensions.width = Math.round($width); iframeDimensions.height = Math.round($height)">
+    <div
+      class="viewport-dimensions"
+      x-ref="dimensions"
+      x-show="resizing"
+      x-cloak
+      x-transition:enter.opacity.duration.300ms
+      x-transition:leave.opacity.duration.500ms.delay.600ms>
+      <span x-text="displayWidth"></span>
+      <span>x</span>
+      <span x-text="displayHeight"></span>
+    </div>
+
+    <div class="viewport-resizer" x-ref="resizer" x-bind:style="`max-height: ${maxHeight}`">
+      <iframe seamless
+        x-ref="iframe"
+        class="viewport-window"
+        x-bind:class="{inert}"
+        src="<%= src %>"
+        frameborder="0"
+        title="viewport content"></iframe>
+      <% if resize_x? %>
+        <div
+          class="viewport-handle viewport-handle-x"
+          x-on:pointerdown="onResizeWidthStart"
+          x-on:dblclick="toggleFullWidth">
+          <%= Icon :dots_six_vertical, style: :bold, class: "viewport-handle-icon" %>
+        </div>
+      <% end %>
+      <% if resize_y? %>
+        <div
+          class="viewport-handle viewport-handle-y"
+          x-on:pointerdown="onResizeHeightStart"
+          x-on:dblclick="toggleFullHeight">
+          <%= Icon :dots_six, style: :bold, class: "viewport-handle-icon" %>
+        </div>
+      <% end %>
+      <% if resize_y? && resize_x? %>
+        <div
+          class="viewport-handle viewport-handle-xy"
+          x-on:pointerdown="onResizeStart"
+          x-on:dblclick="toggleFullSize">
+          <%= Icon :dots_six, style: :bold, class: "viewport-handle-icon" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+

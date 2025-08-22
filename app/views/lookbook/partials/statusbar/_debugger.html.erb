@@ -1,0 +1,37 @@
+<%# locals: (lazy: false) %>
+
+<%= StatusbarItem(id: "debugger") do %>
+  <%= Icon(:bug) %>
+<% end %>
+
+<% if false %>
+  
+
+<%= Partial :widget, :debugger, x: {
+    data: {open: true},
+    sync: (lazy ? true : nil),
+    "on:click.outside": "open = false"
+  } do %>
+  <% if lazy %>
+    <%= button_to(
+      lookbook_partial_path("statusbar/debugger"),
+      method: :get,
+      form: {"x-target": "debugger"},
+      class: "trigger"
+    ) do %>
+      <%= Icon :bug, size: :sm %>
+    <% end %>
+  <% else %>
+    <button id="debugger-toggle" class="trigger" x-on:click="open = !open">
+      <%= Icon :bug, size: :sm %>
+    </button>
+    
+    <dialog id="debugger-panel" x-bind:open="open">
+      <h5 class="title">Lookbook debug panel</h5>
+      <div>
+        <code>Debug panel contents</code>
+      </div>
+    </dialog>
+  <% end %>
+<% end %>
+<% end %>

@@ -1,0 +1,12 @@
+#statusbar {
+  background-color: var(--surface-2);
+  font-family: var(--font-monospace-code);
+  font-size: var(--font-size-0);
+  height: var(--size-7);
+  padding-inline: var(--size-2);
+  border-top: var(--border-size-1) solid var(--divider-1);
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  white-space: nowrap;
+  align-items: center;
+}
