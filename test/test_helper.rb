@@ -11,6 +11,7 @@ require "capybara/minitest/spec"
 require "minitest/reporters"
 require "minitest/autorun"
 
+require_relative "support/lookbook_helper"
 require_relative "dummy/config/application"
 
 # Capybara.javascript_driver = :cuprite
@@ -26,12 +27,14 @@ Capybara.default_driver = Capybara.javascript_driver = :cuprite
 
 class ActiveSupport::TestCase
   extend Minitest::Spec::DSL
+  include LookbookHelper
 end
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   extend Minitest::Spec::DSL
   include Capybara::DSL
   include Capybara::Minitest::Assertions
+  include LookbookHelper
 
   driven_by :cuprite
 end
@@ -40,6 +43,7 @@ class ActionDispatch::IntegrationTest
   extend Minitest::Spec::DSL
   include Capybara::DSL
   include Capybara::Minitest::Assertions
+  include LookbookHelper
 
   teardown do
     Capybara.reset_sessions!
