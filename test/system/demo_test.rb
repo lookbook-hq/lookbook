@@ -6,7 +6,7 @@ module Lookbook
       it "shows the title" do
         visit "/"
 
-        assert_element "h1", text: "Lookbook demo app"
+        assert_element "h1", text: "Lookbook dummy app"
       end
     end
   end
