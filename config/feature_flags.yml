@@ -1,0 +1,2 @@
+shared:
+  example_beta_feature: <%= ENV["LOOKBOOK_EXAMPLE_BETA_FEATURE"] == "true" %>
