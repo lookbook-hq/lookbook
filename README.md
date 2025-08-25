@@ -47,6 +47,21 @@ To preview changes locally you can run a development version of the docs site:
 3. Start the app: `bin/docs`
 4. Visit http://localhost:4000 
 
+### Experimental features opt-in
+
+Lookbook occasionally has one or more experimental/beta/work-in-progress features that are made available for testing before they are released (or abandoned!).
+
+You can add the name of any experimental feature you wish to opt-in to into the `config.lookbook.experimental_features` array:
+
+```ruby
+# config/application.rb
+config.lookbook.experimental_features << :the_feature_name
+```
+
+#### Available features
+
+_There are currently no experimental features available._
+
 ### Testing
 
 Lookbook uses [RSpec](https://relishapp.com/rspec). [Appraisal](https://github.com/thoughtbot/appraisal) is used to run tests against different Ruby and Rails versions.
