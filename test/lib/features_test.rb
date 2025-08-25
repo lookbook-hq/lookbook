@@ -13,6 +13,12 @@ module Lookbook
       end
     end
 
+    describe "unknown feature" do
+      it "is always disabled" do
+        assert_equal false, Features.enabled?(:not_a_real_feature)
+      end
+    end
+
     Features.configuration.keys.each do |feature_name|
       describe feature_name do
         it "is disabled by default" do
@@ -36,10 +42,6 @@ module Lookbook
 
           assert_equal false, Features.enabled?(feature_name)
         end
-
-        # teardown do
-        #   ENV["LOOKBOOK_#{feature_name.upcase}"] = "false"
-        # end
       end
     end
   end

@@ -8,14 +8,15 @@ module ViewComponents
       render ViewComponents::ParagraphComponent.new(text: "Paragraph text from keyword argument")
     end
 
-    def text_as_block
+    def with_text
       render ViewComponents::ParagraphComponent.new(text: "Paragraph text from block")
     end
 
     # @param text
-
-    def text_param(text: "Edit this text via the params panel")
-      render ViewComponents::ParagraphComponent.new(text: text)
+    def playground(text: "Edit this text via the params panel")
+      render ViewComponents::ParagraphComponent.new do
+        text
+      end
     end
   end
 end
