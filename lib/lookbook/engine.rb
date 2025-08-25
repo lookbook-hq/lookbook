@@ -37,11 +37,13 @@ module Lookbook
       if opts.using_view_component
         vc_config = Engine.host_config.view_component
 
+        default_preview_controller = Features.enabled?(:preview_controller_compatability) ? "LookbookPreviewController" : "Lookbook::PreviewController"
+
         if vc_config.key?(:previews)
           # New config style (ViewComponent >= 4.0)
           opts.preview_paths += vc_config.previews.paths
 
-          if opts.preview_controller == "Lookbook::PreviewController" ||
+          if opts.preview_controller == default_preview_controller ||
               vc_config.previews.controller != "ViewComponentsController"
             opts.preview_controller = vc_config.previews.controller
           else
@@ -63,7 +65,7 @@ module Lookbook
           # Legacy config style (ViewComponent < 4.0)
           opts.preview_paths += vc_config.preview_paths
 
-          if opts.preview_controller == "Lookbook::PreviewController" ||
+          if opts.preview_controller == default_preview_controller ||
               vc_config.preview_controller != ViewComponent::Config.defaults.preview_controller
             opts.preview_controller = vc_config.preview_controller
           else

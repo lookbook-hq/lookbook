@@ -1,2 +1,3 @@
 shared:
   example_beta_feature: <%= ENV["LOOKBOOK_EXAMPLE_BETA_FEATURE"] == "true" %>
+  preview_controller_compatability: <%= ENV["LOOKBOOK_PREVIEW_CONTROLLER_COMPATABILITY"] == "true" %>
