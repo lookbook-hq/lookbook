@@ -4,51 +4,43 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
-  config.cache_classes = true
+  config.enable_reloading = false
 
-  # Eager load code on boot. This eager loads most of Rails and
-  # your application in memory, allowing both threaded web servers
-  # and those relying on copy on write to perform better.
-  # Rake tasks automatically ignore this option for performance.
+  # Eager load code on boot for better performance and memory savings (ignored by Rake tasks).
   config.eager_load = true
 
-  # Full error reports are disabled and caching is turned on.
+  # Full error reports are disabled.
   config.consider_all_requests_local = false
+
+  # Turn on fragment caching in view templates.
   config.action_controller.perform_caching = true
 
-  # Disable serving static files from the `/public` folder by default since
-  # Apache or NGINX already handles this.
-  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
+  # Cache assets for far-future expiry since they are all digest stamped.
+  config.public_file_server.headers = {"cache-control" => "public, max-age=#{1.year.to_i}"}
 
-  config.assets.css_compressor = nil
-  config.assets.js_compressor = nil
-
-  # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = true
+  # Assume all access to the app is happening through a SSL-terminating reverse proxy.
+  config.assume_ssl = true
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
-  # Include generic and useful information about system operation, but avoid logging too much
-  # information to avoid inadvertent exposure of personally identifiable information (PII).
-  config.log_level = :info
+  # Skip http-to-https redirect for the default health check endpoint.
+  # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
 
-  # Prepend all log lines with the following tags.
+  # Log to STDOUT with the current request id as a default log tag.
   config.log_tags = [:request_id]
+  config.logger = ActiveSupport::TaggedLogging.logger(STDOUT)
 
-  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
-  # the I18n.default_locale when a translation cannot be found).
-  config.i18n.fallbacks = true
+  # Change to "debug" to log everything (including potentially personally-identifiable information!)
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
+
+  # Prevent health checks from clogging up the logs.
+  config.silence_healthcheck_path = "/up"
 
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
-
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger = ActiveSupport::Logger.new($stdout)
-    logger.formatter = config.log_formatter
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
-  end
+  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
+  # the I18n.default_locale when a translation cannot be found).
+  config.i18n.fallbacks = true
 end

@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-LOOKBOOK_NEW_TEST_SETUP=true bundle exec rake test
+bin/rails test

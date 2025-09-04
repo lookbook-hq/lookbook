@@ -1,9 +1,7 @@
 ENV["RAILS_ENV"] = "test"
 
-require "bundler"
-Bundler.require :default, :test
-
-require "rails/test_help"
+require "active_support/test_case"
+require "active_support/testing/autorun"
 require "capybara/rails"
 require "capybara/cuprite"
 require "capybara/minitest"
@@ -12,9 +10,8 @@ require "minitest/reporters"
 require "minitest/autorun"
 
 require_relative "support/lookbook_helper"
-require_relative "dummy/config/application"
+require_relative "dummy/config/environment"
 
-# Capybara.javascript_driver = :cuprite
 Capybara.register_driver(:cuprite) do |app|
   Capybara::Cuprite::Driver.new(app, window_size: [1200, 800],
     browser_options: {},
@@ -36,6 +33,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include Capybara::Minitest::Assertions
   include LookbookHelper
 
+  setup do
+    @routes = Lookbook::Engine.routes
+  end
+
   driven_by :cuprite
 end
 
@@ -44,6 +45,10 @@ class ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Capybara::Minitest::Assertions
   include LookbookHelper
+
+  setup do
+    @routes = Lookbook::Engine.routes
+  end
 
   teardown do
     Capybara.reset_sessions!
