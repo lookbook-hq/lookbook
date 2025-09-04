@@ -1,4 +1,5 @@
 module TestSuitePreviews
+  # @hidden
   # @after_render :preview_after_render
   class AfterRenderComponentPreview < Lookbook::Preview
     def default
