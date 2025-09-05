@@ -18,3 +18,8 @@ description = "Serve the dummy app in dev mode"
 run = "bin/dev"
 alias = "d"
 
+[tasks.build]
+description = "Build the assets for production"
+run = "npm run build"
+alias = "b"
+
