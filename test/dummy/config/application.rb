@@ -13,6 +13,9 @@ require "phlex-rails"
 module Dummy
   class Application < Rails::Application
     config.load_defaults Rails::VERSION::STRING.to_f
+    config.action_controller.default_url_options = {host: "localhost"}
+
+    previews_path = "#{root}/previews/#{Rails.env.test? ? "test" : "dev"}"
 
     config.lookbook.project_name = "Lookbook dummy app"
 
@@ -20,12 +23,14 @@ module Dummy
     config.lookbook.using_view_component = true
 
     if config.view_component.key?(:previews)
-      config.view_component.previews.paths << "#{root}/previews"
+      # ViewComponent >= v4.0 config style
+      config.view_component.previews.paths << previews_path
     else
-      config.view_component.preview_paths << "#{root}/previews"
+      # ViewComponent < v4.0 config style
+      config.view_component.preview_paths << previews_path
     end
 
-    config.action_controller.default_url_options = {host: "localhost"}
+    Lookbook.add_tag(:customtag)
 
     # Regression case with exception:
     #
