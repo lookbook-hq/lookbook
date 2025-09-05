@@ -12,47 +12,68 @@ require "minitest/autorun"
 require_relative "support/lookbook_helper"
 require_relative "dummy/config/environment"
 
+Capybara.default_driver = :cuprite
+Capybara.javascript_driver = :cuprite
 Capybara.register_driver(:cuprite) do |app|
-  Capybara::Cuprite::Driver.new(app, window_size: [1200, 800],
-    browser_options: {},
-    process_timeout: 10,
-    inspector: true,
-    headless: !ENV["HEADLESS"].in?(%w[n 0 no false]))
+  Capybara::Cuprite::Driver.new(app, window_size: [1200, 800])
 end
 
-Capybara.default_driver = Capybara.javascript_driver = :cuprite
+ActiveSupport.on_load :action_dispatch_integration_test do
+  include(Module.new do
+    extend ActiveSupport::Concern
+
+    included do
+      extend Minitest::Spec::DSL
+      include Capybara::Minitest::Assertions
+      include LookbookHelper
+
+      setup do
+        @routes = Lookbook::Engine.routes
+
+        integration_session.extend(Module.new do
+          def page
+            @page ||= ::Capybara::Session.new(:rack_test, @app)
+          end
+
+          def _mock_session
+            @_mock_session ||= page.driver.browser.rack_mock_session
+          end
+        end)
+      end
+
+      teardown do
+        Capybara.reset_sessions!
+      end
+    end
+  end)
+end
+
+ActiveSupport.on_load :action_dispatch_system_test_case do
+  include(Module.new do
+    extend ActiveSupport::Concern
+
+    included do
+      extend Minitest::Spec::DSL
+      include Capybara::DSL
+      include Capybara::Minitest::Assertions
+      include LookbookHelper
+
+      driven_by :cuprite
+
+      setup do
+        @routes = Lookbook::Engine.routes
+      end
+
+      teardown do
+        Capybara.reset_sessions!
+      end
+    end
+  end)
+end
 
 class ActiveSupport::TestCase
   extend Minitest::Spec::DSL
   include LookbookHelper
-end
-
-class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-  extend Minitest::Spec::DSL
-  include Capybara::DSL
-  include Capybara::Minitest::Assertions
-  include LookbookHelper
-
-  setup do
-    @routes = Lookbook::Engine.routes
-  end
-
-  driven_by :cuprite
-end
-
-class ActionDispatch::IntegrationTest
-  extend Minitest::Spec::DSL
-  include Capybara::DSL
-  include Capybara::Minitest::Assertions
-  include LookbookHelper
-
-  setup do
-    @routes = Lookbook::Engine.routes
-  end
-
-  teardown do
-    Capybara.reset_sessions!
-  end
 end
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
