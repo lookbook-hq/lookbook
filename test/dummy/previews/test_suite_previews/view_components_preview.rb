@@ -1,4 +1,5 @@
 module TestSuitePreviews
+  # @hidden
   class ViewComponentsPreview < ViewComponent::Preview
     def paragraph
       render ViewComponents::ParagraphComponent.new do

@@ -1,7 +1,7 @@
 module TestSuitePreviews
   # @hidden
   # @after_render :preview_after_render
-  class AfterRenderComponentPreview < Lookbook::Preview
+  class AfterRenderComponentsPreview < Lookbook::Preview
     def default
       render ViewComponents::TitleAndContentComponent.new do
         "default after render content"
