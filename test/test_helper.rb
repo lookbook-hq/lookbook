@@ -8,6 +8,7 @@ require "capybara/minitest"
 require "capybara/minitest/spec"
 require "minitest/reporters"
 require "minitest/autorun"
+require "lookbook"
 
 require_relative "support/lookbook_helper"
 require_relative "dummy/config/environment"
