@@ -5,7 +5,7 @@ module ViewComponents
     end
 
     def call
-      tag.div data: {component: "viewcomponent-paragraph"} do
+      tag.p data: {component: "viewcomponent-paragraph"} do
         content || @text
       end
     end
