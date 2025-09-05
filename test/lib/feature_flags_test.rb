@@ -1,7 +1,7 @@
 require "test_helper"
 
 module Lookbook
-  class FeaturesTest < ActiveSupport::TestCase
+  class FeatureFlagsTest < ActiveSupport::TestCase
     describe "#configuration" do
       it "returns an OrderedOptions instance" do
         assert_kind_of ActiveSupport::OrderedOptions, Features.configuration

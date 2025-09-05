@@ -8190,7 +8190,7 @@ function $12b7aa006b8a97e1$var$toCamel(s) {
 }
 
 
-var $6ab57a750e12fc2c$exports = {};
+var $c9dfaeb25bf110ce$exports = {};
 var $cbd28b10fa9798c7$exports = {};
 
 $parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
@@ -11770,16 +11770,6 @@ function $47a1c62621be0c54$export$2e2bcd8739ae039() {
 }
 
 
-var $216ef7001f59f21d$exports = {};
-
-$parcel$defineInteropFlag($216ef7001f59f21d$exports);
-
-$parcel$export($216ef7001f59f21d$exports, "default", () => $216ef7001f59f21d$export$2e2bcd8739ae039);
-function $216ef7001f59f21d$export$2e2bcd8739ae039() {
-    return {};
-}
-
-
 var $e398acaded942bbe$exports = {};
 
 $parcel$defineInteropFlag($e398acaded942bbe$exports);
@@ -11810,6 +11800,16 @@ function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
             if (this.observer) this.observer.disconnect();
         }
     };
+}
+
+
+var $216ef7001f59f21d$exports = {};
+
+$parcel$defineInteropFlag($216ef7001f59f21d$exports);
+
+$parcel$export($216ef7001f59f21d$exports, "default", () => $216ef7001f59f21d$export$2e2bcd8739ae039);
+function $216ef7001f59f21d$export$2e2bcd8739ae039() {
+    return {};
 }
 
 
@@ -12679,12 +12679,12 @@ function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
 }
 
 
-$6ab57a750e12fc2c$exports = {
+$c9dfaeb25bf110ce$exports = {
     "button": $cbd28b10fa9798c7$exports,
     "code": $99486586f6691564$exports,
     "copy_button": $47a1c62621be0c54$exports,
-    "embed_code_dropdown": $216ef7001f59f21d$exports,
     "dimensions_display": $e398acaded942bbe$exports,
+    "embed_code_dropdown": $216ef7001f59f21d$exports,
     "filter": $e9904a14dabf652d$exports,
     "nav": $d92d9d5253f84566$exports,
     "split_layout": $506dabb2bf255b38$exports,
@@ -12694,7 +12694,7 @@ $6ab57a750e12fc2c$exports = {
 };
 
 
-var $0830198785993b42$exports = {};
+var $6178ee12f80cbf68$exports = {};
 var $6a9b69d9cc7f810f$exports = {};
 
 $parcel$defineInteropFlag($6a9b69d9cc7f810f$exports);
@@ -13723,38 +13723,6 @@ function $c299e36fa9e271bc$export$2e2bcd8739ae039(id, embedStore) {
 }
 
 
-var $e773f8ef556b41ff$exports = {};
-
-$parcel$defineInteropFlag($e773f8ef556b41ff$exports);
-
-$parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
-function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
-    return {
-        get isNarrowLayout () {
-            return this.narrow || false;
-        }
-    };
-}
-
-
-var $1a7a7298eec5b755$exports = {};
-
-$parcel$defineInteropFlag($1a7a7298eec5b755$exports);
-
-$parcel$export($1a7a7298eec5b755$exports, "default", () => $1a7a7298eec5b755$export$2e2bcd8739ae039);
-
-function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
-    return {
-        narrow: false,
-        init () {
-            (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$el, ({ width: width })=>{
-                this.narrow = width < 500;
-            });
-        }
-    };
-}
-
-
 var $9b24cbeb3a465447$exports = {};
 
 $parcel$defineInteropFlag($9b24cbeb3a465447$exports);
@@ -13812,19 +13780,51 @@ function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id, matchers: matchers }
 }
 
 
-$0830198785993b42$exports = {
+var $1a7a7298eec5b755$exports = {};
+
+$parcel$defineInteropFlag($1a7a7298eec5b755$exports);
+
+$parcel$export($1a7a7298eec5b755$exports, "default", () => $1a7a7298eec5b755$export$2e2bcd8739ae039);
+
+function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
+    return {
+        narrow: false,
+        init () {
+            (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$el, ({ width: width })=>{
+                this.narrow = width < 500;
+            });
+        }
+    };
+}
+
+
+var $e773f8ef556b41ff$exports = {};
+
+$parcel$defineInteropFlag($e773f8ef556b41ff$exports);
+
+$parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
+function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
+    return {
+        get isNarrowLayout () {
+            return this.narrow || false;
+        }
+    };
+}
+
+
+$6178ee12f80cbf68$exports = {
     "display_options": {
         "field": $6a9b69d9cc7f810f$exports
     },
     "embed": {
         "inspector": $c299e36fa9e271bc$exports
     },
-    "params": {
-        "field": $e773f8ef556b41ff$exports,
-        "editor": $1a7a7298eec5b755$exports
-    },
     "nav": {
         "item": $9b24cbeb3a465447$exports
+    },
+    "params": {
+        "editor": $1a7a7298eec5b755$exports,
+        "field": $e773f8ef556b41ff$exports
     }
 };
 
@@ -13892,8 +13892,8 @@ const $22969b543678f572$var$prefix = window.APP_NAME;
 // Components
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $5792afa4170ed552$export$2e2bcd8739ae039));
 [
-    $6ab57a750e12fc2c$exports,
-    $0830198785993b42$exports,
+    $c9dfaeb25bf110ce$exports,
+    $6178ee12f80cbf68$exports,
     $d56e5cced44001d2$exports
 ].forEach((scripts)=>{
     const components = (0, $12b7aa006b8a97e1$export$4e811121b221213b)(scripts);

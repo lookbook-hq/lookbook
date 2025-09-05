@@ -12,6 +12,8 @@ require "minitest/autorun"
 require_relative "support/lookbook_helper"
 require_relative "dummy/config/environment"
 
+ActiveSupport::Deprecation.silenced = true if ActiveSupport::Deprecation.respond_to?(:silenced=)
+
 Capybara.default_driver = :cuprite
 Capybara.javascript_driver = :cuprite
 Capybara.register_driver(:cuprite) do |app|

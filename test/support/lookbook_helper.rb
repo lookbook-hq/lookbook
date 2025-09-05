@@ -1,4 +1,5 @@
 module LookbookHelper
+  # include ::Rails.application.routes.url_helpers
   include Lookbook::Engine.routes.url_helpers
 
   def self.rails_older_than?(version)

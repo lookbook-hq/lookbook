@@ -7,7 +7,7 @@ gem "rails", (rails_version == "main") ? {git: "https://github.com/rails/rails",
 gem "actioncable"
 gem "debug", platforms: %i[mri windows], require: "debug/prelude"
 gem "listen"
-gem "phlex-rails", require: false
+gem "phlex-rails"
 gem "propshaft"
 gem "puma"
 gem "standard"
