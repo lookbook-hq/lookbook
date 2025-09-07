@@ -1,10 +1,13 @@
-<h1>Lookbook dummy app</h1>
+<div id="welcome" class="container">  
+  <div class="panel">
+    <h1>Lookbook dummy app</h1>
 
-<p>Used for developing and testing Lookbook.</p>
-<p>All system/integration tests in the Minitest test suite run against this app.</p>
+    <p>This app can be used for viewing and testing changes made during Lookbook development.</p>
 
-<p>
-  <%= link_to lookbook_path, id: "lookbook-link" do %>
-    Go to the Lookbook UI &rarr;
-  <% end %>
-</p>
+    <p>All system &amp; integration tests in the Minitest test suite run against this using the previews in the <em>`test/dummy/previews/test`</em> directory.</p>
+
+    <%= link_to lookbook_path, id: "lookbook-link" do %>
+      Go to the Lookbook UI &rarr;
+    <% end %>
+  </div>
+</div>

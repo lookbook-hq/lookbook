@@ -1,813 +1,78 @@
-// modules are defined as an array
-// [ module function, map of requires ]
-//
-// map of requires is short require name -> numeric require
-//
-// anything defined in a previous bundle is accessed via the
-// orig method which is the require for previous bundles
+(() => {
 
-(function (
-  modules,
-  entry,
-  mainEntry,
-  parcelRequireName,
-  externals,
-  distDir,
-  publicUrl,
-  devServer
-) {
-  /* eslint-disable no-undef */
-  var globalObject =
-    typeof globalThis !== 'undefined'
-      ? globalThis
-      : typeof self !== 'undefined'
-      ? self
-      : typeof window !== 'undefined'
-      ? window
-      : typeof global !== 'undefined'
-      ? global
-      : {};
-  /* eslint-enable no-undef */
-
-  // Save the require from previous bundle to this closure if any
-  var previousRequire =
-    typeof globalObject[parcelRequireName] === 'function' &&
-    globalObject[parcelRequireName];
-
-  var importMap = previousRequire.i || {};
-  var cache = previousRequire.cache || {};
-  // Do not use `require` to prevent Webpack from trying to bundle this call
-  var nodeRequire =
-    typeof module !== 'undefined' &&
-    typeof module.require === 'function' &&
-    module.require.bind(module);
-
-  function newRequire(name, jumped) {
-    if (!cache[name]) {
-      if (!modules[name]) {
-        if (externals[name]) {
-          return externals[name];
-        }
-        // if we cannot find the module within our internal map or
-        // cache jump to the current global require ie. the last bundle
-        // that was added to the page.
-        var currentRequire =
-          typeof globalObject[parcelRequireName] === 'function' &&
-          globalObject[parcelRequireName];
-        if (!jumped && currentRequire) {
-          return currentRequire(name, true);
-        }
-
-        // If there are other bundles on this page the require from the
-        // previous one is saved to 'previousRequire'. Repeat this as
-        // many times as there are bundles until the module is found or
-        // we exhaust the require chain.
-        if (previousRequire) {
-          return previousRequire(name, true);
-        }
-
-        // Try the node require function if it exists.
-        if (nodeRequire && typeof name === 'string') {
-          return nodeRequire(name);
-        }
-
-        var err = new Error("Cannot find module '" + name + "'");
-        err.code = 'MODULE_NOT_FOUND';
-        throw err;
-      }
-
-      localRequire.resolve = resolve;
-      localRequire.cache = {};
-
-      var module = (cache[name] = new newRequire.Module(name));
-
-      modules[name][0].call(
-        module.exports,
-        localRequire,
-        module,
-        module.exports,
-        globalObject
-      );
-    }
-
-    return cache[name].exports;
-
-    function localRequire(x) {
-      var res = localRequire.resolve(x);
-      return res === false ? {} : newRequire(res);
-    }
-
-    function resolve(x) {
-      var id = modules[name][1][x];
-      return id != null ? id : x;
-    }
-  }
-
-  function Module(moduleName) {
-    this.id = moduleName;
-    this.bundle = newRequire;
-    this.require = nodeRequire;
-    this.exports = {};
-  }
-
-  newRequire.isParcelRequire = true;
-  newRequire.Module = Module;
-  newRequire.modules = modules;
-  newRequire.cache = cache;
-  newRequire.parent = previousRequire;
-  newRequire.distDir = distDir;
-  newRequire.publicUrl = publicUrl;
-  newRequire.devServer = devServer;
-  newRequire.i = importMap;
-  newRequire.register = function (id, exports) {
-    modules[id] = [
-      function (require, module) {
-        module.exports = exports;
-      },
-      {},
-    ];
-  };
-
-  // Only insert newRequire.load when it is actually used.
-  // The code in this file is linted against ES5, so dynamic import is not allowed.
-  // INSERT_LOAD_HERE
-
-  Object.defineProperty(newRequire, 'root', {
-    get: function () {
-      return globalObject[parcelRequireName];
-    },
-  });
-
-  globalObject[parcelRequireName] = newRequire;
-
-  for (var i = 0; i < entry.length; i++) {
-    newRequire(entry[i]);
-  }
-
-  if (mainEntry) {
-    // Expose entry point to Node, AMD or browser globals
-    // Based on https://github.com/ForbesLindesay/umd/blob/master/template.js
-    var mainExports = newRequire(mainEntry);
-
-    // CommonJS
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-      module.exports = mainExports;
-
-      // RequireJS
-    } else if (typeof define === 'function' && define.amd) {
-      define(function () {
-        return mainExports;
-      });
-    }
-  }
-})({"eDn0s":[function(require,module,exports,__globalThis) {
-var global = arguments[3];
-var HMR_HOST = null;
-var HMR_PORT = 5111;
-var HMR_SERVER_PORT = 5111;
-var HMR_SECURE = false;
-var HMR_ENV_HASH = "d6ea1d42532a7575";
-var HMR_USE_SSE = false;
-module.bundle.HMR_BUNDLE_ID = "e826c22bb82ef09a";
-"use strict";
-/* global HMR_HOST, HMR_PORT, HMR_SERVER_PORT, HMR_ENV_HASH, HMR_SECURE, HMR_USE_SSE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
-import type {
-  HMRAsset,
-  HMRMessage,
-} from '@parcel/reporter-dev-server/src/HMRServer.js';
-interface ParcelRequire {
-  (string): mixed;
-  cache: {|[string]: ParcelModule|};
-  hotData: {|[string]: mixed|};
-  Module: any;
-  parent: ?ParcelRequire;
-  isParcelRequire: true;
-  modules: {|[string]: [Function, {|[string]: string|}]|};
-  HMR_BUNDLE_ID: string;
-  root: ParcelRequire;
-}
-interface ParcelModule {
-  hot: {|
-    data: mixed,
-    accept(cb: (Function) => void): void,
-    dispose(cb: (mixed) => void): void,
-    // accept(deps: Array<string> | string, cb: (Function) => void): void,
-    // decline(): void,
-    _acceptCallbacks: Array<(Function) => void>,
-    _disposeCallbacks: Array<(mixed) => void>,
-  |};
-}
-interface ExtensionContext {
-  runtime: {|
-    reload(): void,
-    getURL(url: string): string;
-    getManifest(): {manifest_version: number, ...};
-  |};
-}
-declare var module: {bundle: ParcelRequire, ...};
-declare var HMR_HOST: string;
-declare var HMR_PORT: string;
-declare var HMR_SERVER_PORT: string;
-declare var HMR_ENV_HASH: string;
-declare var HMR_SECURE: boolean;
-declare var HMR_USE_SSE: boolean;
-declare var chrome: ExtensionContext;
-declare var browser: ExtensionContext;
-declare var __parcel__import__: (string) => Promise<void>;
-declare var __parcel__importScripts__: (string) => Promise<void>;
-declare var globalThis: typeof self;
-declare var ServiceWorkerGlobalScope: Object;
-*/ var OVERLAY_ID = '__parcel__error__overlay__';
-var OldModule = module.bundle.Module;
-function Module(moduleName) {
-    OldModule.call(this, moduleName);
-    this.hot = {
-        data: module.bundle.hotData[moduleName],
-        _acceptCallbacks: [],
-        _disposeCallbacks: [],
-        accept: function(fn) {
-            this._acceptCallbacks.push(fn || function() {});
-        },
-        dispose: function(fn) {
-            this._disposeCallbacks.push(fn);
-        }
-    };
-    module.bundle.hotData[moduleName] = undefined;
-}
-module.bundle.Module = Module;
-module.bundle.hotData = {};
-var checkedAssets /*: {|[string]: boolean|} */ , disposedAssets /*: {|[string]: boolean|} */ , assetsToDispose /*: Array<[ParcelRequire, string]> */ , assetsToAccept /*: Array<[ParcelRequire, string]> */ , bundleNotFound = false;
-function getHostname() {
-    return HMR_HOST || (typeof location !== 'undefined' && location.protocol.indexOf('http') === 0 ? location.hostname : 'localhost');
-}
-function getPort() {
-    return HMR_PORT || (typeof location !== 'undefined' ? location.port : HMR_SERVER_PORT);
-}
-// eslint-disable-next-line no-redeclare
-let WebSocket = globalThis.WebSocket;
-if (!WebSocket && typeof module.bundle.root === 'function') try {
-    // eslint-disable-next-line no-global-assign
-    WebSocket = module.bundle.root('ws');
-} catch  {
-// ignore.
-}
-var hostname = getHostname();
-var port = getPort();
-var protocol = HMR_SECURE || typeof location !== 'undefined' && location.protocol === 'https:' && ![
-    'localhost',
-    '127.0.0.1',
-    '0.0.0.0'
-].includes(hostname) ? 'wss' : 'ws';
-// eslint-disable-next-line no-redeclare
-var parent = module.bundle.parent;
-if (!parent || !parent.isParcelRequire) {
-    // Web extension context
-    var extCtx = typeof browser === 'undefined' ? typeof chrome === 'undefined' ? null : chrome : browser;
-    // Safari doesn't support sourceURL in error stacks.
-    // eval may also be disabled via CSP, so do a quick check.
-    var supportsSourceURL = false;
-    try {
-        (0, eval)('throw new Error("test"); //# sourceURL=test.js');
-    } catch (err) {
-        supportsSourceURL = err.stack.includes('test.js');
-    }
-    var ws;
-    if (HMR_USE_SSE) ws = new EventSource('/__parcel_hmr');
-    else try {
-        // If we're running in the dev server's node runner, listen for messages on the parent port.
-        let { workerData, parentPort } = module.bundle.root('node:worker_threads') /*: any*/ ;
-        if (workerData !== null && workerData !== void 0 && workerData.__parcel) {
-            parentPort.on('message', async (message)=>{
-                try {
-                    await handleMessage(message);
-                    parentPort.postMessage('updated');
-                } catch  {
-                    parentPort.postMessage('restart');
-                }
-            });
-            // After the bundle has finished running, notify the dev server that the HMR update is complete.
-            queueMicrotask(()=>parentPort.postMessage('ready'));
-        }
-    } catch  {
-        if (typeof WebSocket !== 'undefined') try {
-            ws = new WebSocket(protocol + '://' + hostname + (port ? ':' + port : '') + '/');
-        } catch (err) {
-            // Ignore cloudflare workers error.
-            if (err.message && !err.message.includes('Disallowed operation called within global scope')) console.error(err.message);
-        }
-    }
-    if (ws) {
-        // $FlowFixMe
-        ws.onmessage = async function(event /*: {data: string, ...} */ ) {
-            var data /*: HMRMessage */  = JSON.parse(event.data);
-            await handleMessage(data);
-        };
-        if (ws instanceof WebSocket) {
-            ws.onerror = function(e) {
-                if (e.message) console.error(e.message);
-            };
-            ws.onclose = function() {
-                console.warn("[parcel] \uD83D\uDEA8 Connection to the HMR server was lost");
-            };
-        }
-    }
-}
-async function handleMessage(data /*: HMRMessage */ ) {
-    checkedAssets = {} /*: {|[string]: boolean|} */ ;
-    disposedAssets = {} /*: {|[string]: boolean|} */ ;
-    assetsToAccept = [];
-    assetsToDispose = [];
-    bundleNotFound = false;
-    if (data.type === 'reload') fullReload();
-    else if (data.type === 'update') {
-        // Remove error overlay if there is one
-        if (typeof document !== 'undefined') removeErrorOverlay();
-        let assets = data.assets;
-        // Handle HMR Update
-        let handled = assets.every((asset)=>{
-            return asset.type === 'css' || asset.type === 'js' && hmrAcceptCheck(module.bundle.root, asset.id, asset.depsByBundle);
-        });
-        // Dispatch a custom event in case a bundle was not found. This might mean
-        // an asset on the server changed and we should reload the page. This event
-        // gives the client an opportunity to refresh without losing state
-        // (e.g. via React Server Components). If e.preventDefault() is not called,
-        // we will trigger a full page reload.
-        if (handled && bundleNotFound && assets.some((a)=>a.envHash !== HMR_ENV_HASH) && typeof window !== 'undefined' && typeof CustomEvent !== 'undefined') handled = !window.dispatchEvent(new CustomEvent('parcelhmrreload', {
-            cancelable: true
-        }));
-        if (handled) {
-            console.clear();
-            // Dispatch custom event so other runtimes (e.g React Refresh) are aware.
-            if (typeof window !== 'undefined' && typeof CustomEvent !== 'undefined') window.dispatchEvent(new CustomEvent('parcelhmraccept'));
-            await hmrApplyUpdates(assets);
-            hmrDisposeQueue();
-            // Run accept callbacks. This will also re-execute other disposed assets in topological order.
-            let processedAssets = {};
-            for(let i = 0; i < assetsToAccept.length; i++){
-                let id = assetsToAccept[i][1];
-                if (!processedAssets[id]) {
-                    hmrAccept(assetsToAccept[i][0], id);
-                    processedAssets[id] = true;
-                }
-            }
-        } else fullReload();
-    }
-    if (data.type === 'error') {
-        // Log parcel errors to console
-        for (let ansiDiagnostic of data.diagnostics.ansi){
-            let stack = ansiDiagnostic.codeframe ? ansiDiagnostic.codeframe : ansiDiagnostic.stack;
-            console.error("\uD83D\uDEA8 [parcel]: " + ansiDiagnostic.message + '\n' + stack + '\n\n' + ansiDiagnostic.hints.join('\n'));
-        }
-        if (typeof document !== 'undefined') {
-            // Render the fancy html overlay
-            removeErrorOverlay();
-            var overlay = createErrorOverlay(data.diagnostics.html);
-            // $FlowFixMe
-            document.body.appendChild(overlay);
-        }
-    }
-}
-function removeErrorOverlay() {
-    var overlay = document.getElementById(OVERLAY_ID);
-    if (overlay) {
-        overlay.remove();
-        console.log("[parcel] \u2728 Error resolved");
-    }
-}
-function createErrorOverlay(diagnostics) {
-    var overlay = document.createElement('div');
-    overlay.id = OVERLAY_ID;
-    let errorHTML = '<div style="background: black; opacity: 0.85; font-size: 16px; color: white; position: fixed; height: 100%; width: 100%; top: 0px; left: 0px; padding: 30px; font-family: Menlo, Consolas, monospace; z-index: 9999;">';
-    for (let diagnostic of diagnostics){
-        let stack = diagnostic.frames.length ? diagnostic.frames.reduce((p, frame)=>{
-            return `${p}
-<a href="${protocol === 'wss' ? 'https' : 'http'}://${hostname}:${port}/__parcel_launch_editor?file=${encodeURIComponent(frame.location)}" style="text-decoration: underline; color: #888" onclick="fetch(this.href); return false">${frame.location}</a>
-${frame.code}`;
-        }, '') : diagnostic.stack;
-        errorHTML += `
-      <div>
-        <div style="font-size: 18px; font-weight: bold; margin-top: 20px;">
-          \u{1F6A8} ${diagnostic.message}
-        </div>
-        <pre>${stack}</pre>
-        <div>
-          ${diagnostic.hints.map((hint)=>"<div>\uD83D\uDCA1 " + hint + '</div>').join('')}
-        </div>
-        ${diagnostic.documentation ? `<div>\u{1F4DD} <a style="color: violet" href="${diagnostic.documentation}" target="_blank">Learn more</a></div>` : ''}
-      </div>
-    `;
-    }
-    errorHTML += '</div>';
-    overlay.innerHTML = errorHTML;
-    return overlay;
-}
-function fullReload() {
-    if (typeof location !== 'undefined' && 'reload' in location) location.reload();
-    else if (typeof extCtx !== 'undefined' && extCtx && extCtx.runtime && extCtx.runtime.reload) extCtx.runtime.reload();
-    else try {
-        let { workerData, parentPort } = module.bundle.root('node:worker_threads') /*: any*/ ;
-        if (workerData !== null && workerData !== void 0 && workerData.__parcel) parentPort.postMessage('restart');
-    } catch (err) {
-        console.error("[parcel] \u26A0\uFE0F An HMR update was not accepted. Please restart the process.");
-    }
-}
-function getParents(bundle, id) /*: Array<[ParcelRequire, string]> */ {
-    var modules = bundle.modules;
-    if (!modules) return [];
-    var parents = [];
-    var k, d, dep;
-    for(k in modules)for(d in modules[k][1]){
-        dep = modules[k][1][d];
-        if (dep === id || Array.isArray(dep) && dep[dep.length - 1] === id) parents.push([
-            bundle,
-            k
-        ]);
-    }
-    if (bundle.parent) parents = parents.concat(getParents(bundle.parent, id));
-    return parents;
-}
-function updateLink(link) {
-    var href = link.getAttribute('href');
-    if (!href) return;
-    var newLink = link.cloneNode();
-    newLink.onload = function() {
-        if (link.parentNode !== null) // $FlowFixMe
-        link.parentNode.removeChild(link);
-    };
-    newLink.setAttribute('href', // $FlowFixMe
-    href.split('?')[0] + '?' + Date.now());
-    // $FlowFixMe
-    link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-var cssTimeout = null;
-function reloadCSS() {
-    if (cssTimeout || typeof document === 'undefined') return;
-    cssTimeout = setTimeout(function() {
-        var links = document.querySelectorAll('link[rel="stylesheet"]');
-        for(var i = 0; i < links.length; i++){
-            // $FlowFixMe[incompatible-type]
-            var href /*: string */  = links[i].getAttribute('href');
-            var hostname = getHostname();
-            var servedFromHMRServer = hostname === 'localhost' ? new RegExp('^(https?:\\/\\/(0.0.0.0|127.0.0.1)|localhost):' + getPort()).test(href) : href.indexOf(hostname + ':' + getPort());
-            var absolute = /^https?:\/\//i.test(href) && href.indexOf(location.origin) !== 0 && !servedFromHMRServer;
-            if (!absolute) updateLink(links[i]);
-        }
-        cssTimeout = null;
-    }, 50);
-}
-function hmrDownload(asset) {
-    if (asset.type === 'js') {
-        if (typeof document !== 'undefined') {
-            let script = document.createElement('script');
-            script.src = asset.url + '?t=' + Date.now();
-            if (asset.outputFormat === 'esmodule') script.type = 'module';
-            return new Promise((resolve, reject)=>{
-                var _document$head;
-                script.onload = ()=>resolve(script);
-                script.onerror = reject;
-                (_document$head = document.head) === null || _document$head === void 0 || _document$head.appendChild(script);
-            });
-        } else if (typeof importScripts === 'function') {
-            // Worker scripts
-            if (asset.outputFormat === 'esmodule') return import(asset.url + '?t=' + Date.now());
-            else return new Promise((resolve, reject)=>{
-                try {
-                    importScripts(asset.url + '?t=' + Date.now());
-                    resolve();
-                } catch (err) {
-                    reject(err);
-                }
-            });
-        }
-    }
-}
-async function hmrApplyUpdates(assets) {
-    global.parcelHotUpdate = Object.create(null);
-    let scriptsToRemove;
-    try {
-        // If sourceURL comments aren't supported in eval, we need to load
-        // the update from the dev server over HTTP so that stack traces
-        // are correct in errors/logs. This is much slower than eval, so
-        // we only do it if needed (currently just Safari).
-        // https://bugs.webkit.org/show_bug.cgi?id=137297
-        // This path is also taken if a CSP disallows eval.
-        if (!supportsSourceURL) {
-            let promises = assets.map((asset)=>{
-                var _hmrDownload;
-                return (_hmrDownload = hmrDownload(asset)) === null || _hmrDownload === void 0 ? void 0 : _hmrDownload.catch((err)=>{
-                    // Web extension fix
-                    if (extCtx && extCtx.runtime && extCtx.runtime.getManifest().manifest_version == 3 && typeof ServiceWorkerGlobalScope != 'undefined' && global instanceof ServiceWorkerGlobalScope) {
-                        extCtx.runtime.reload();
-                        return;
-                    }
-                    throw err;
-                });
-            });
-            scriptsToRemove = await Promise.all(promises);
-        }
-        assets.forEach(function(asset) {
-            hmrApply(module.bundle.root, asset);
-        });
-    } finally{
-        delete global.parcelHotUpdate;
-        if (scriptsToRemove) scriptsToRemove.forEach((script)=>{
-            if (script) {
-                var _document$head2;
-                (_document$head2 = document.head) === null || _document$head2 === void 0 || _document$head2.removeChild(script);
-            }
-        });
-    }
-}
-function hmrApply(bundle /*: ParcelRequire */ , asset /*:  HMRAsset */ ) {
-    var modules = bundle.modules;
-    if (!modules) return;
-    if (asset.type === 'css') reloadCSS();
-    else if (asset.type === 'js') {
-        let deps = asset.depsByBundle[bundle.HMR_BUNDLE_ID];
-        if (deps) {
-            if (modules[asset.id]) {
-                // Remove dependencies that are removed and will become orphaned.
-                // This is necessary so that if the asset is added back again, the cache is gone, and we prevent a full page reload.
-                let oldDeps = modules[asset.id][1];
-                for(let dep in oldDeps)if (!deps[dep] || deps[dep] !== oldDeps[dep]) {
-                    let id = oldDeps[dep];
-                    let parents = getParents(module.bundle.root, id);
-                    if (parents.length === 1) hmrDelete(module.bundle.root, id);
-                }
-            }
-            if (supportsSourceURL) // Global eval. We would use `new Function` here but browser
-            // support for source maps is better with eval.
-            (0, eval)(asset.output);
-            // $FlowFixMe
-            let fn = global.parcelHotUpdate[asset.id];
-            modules[asset.id] = [
-                fn,
-                deps
-            ];
-        }
-        // Always traverse to the parent bundle, even if we already replaced the asset in this bundle.
-        // This is required in case modules are duplicated. We need to ensure all instances have the updated code.
-        if (bundle.parent) hmrApply(bundle.parent, asset);
-    }
-}
-function hmrDelete(bundle, id) {
-    let modules = bundle.modules;
-    if (!modules) return;
-    if (modules[id]) {
-        // Collect dependencies that will become orphaned when this module is deleted.
-        let deps = modules[id][1];
-        let orphans = [];
-        for(let dep in deps){
-            let parents = getParents(module.bundle.root, deps[dep]);
-            if (parents.length === 1) orphans.push(deps[dep]);
-        }
-        // Delete the module. This must be done before deleting dependencies in case of circular dependencies.
-        delete modules[id];
-        delete bundle.cache[id];
-        // Now delete the orphans.
-        orphans.forEach((id)=>{
-            hmrDelete(module.bundle.root, id);
-        });
-    } else if (bundle.parent) hmrDelete(bundle.parent, id);
-}
-function hmrAcceptCheck(bundle /*: ParcelRequire */ , id /*: string */ , depsByBundle /*: ?{ [string]: { [string]: string } }*/ ) {
-    checkedAssets = {};
-    if (hmrAcceptCheckOne(bundle, id, depsByBundle)) return true;
-    // Traverse parents breadth first. All possible ancestries must accept the HMR update, or we'll reload.
-    let parents = getParents(module.bundle.root, id);
-    let accepted = false;
-    while(parents.length > 0){
-        let v = parents.shift();
-        let a = hmrAcceptCheckOne(v[0], v[1], null);
-        if (a) // If this parent accepts, stop traversing upward, but still consider siblings.
-        accepted = true;
-        else if (a !== null) {
-            // Otherwise, queue the parents in the next level upward.
-            let p = getParents(module.bundle.root, v[1]);
-            if (p.length === 0) {
-                // If there are no parents, then we've reached an entry without accepting. Reload.
-                accepted = false;
-                break;
-            }
-            parents.push(...p);
-        }
-    }
-    return accepted;
-}
-function hmrAcceptCheckOne(bundle /*: ParcelRequire */ , id /*: string */ , depsByBundle /*: ?{ [string]: { [string]: string } }*/ ) {
-    var modules = bundle.modules;
-    if (!modules) return;
-    if (depsByBundle && !depsByBundle[bundle.HMR_BUNDLE_ID]) {
-        // If we reached the root bundle without finding where the asset should go,
-        // there's nothing to do. Mark as "accepted" so we don't reload the page.
-        if (!bundle.parent) {
-            bundleNotFound = true;
-            return true;
-        }
-        return hmrAcceptCheckOne(bundle.parent, id, depsByBundle);
-    }
-    if (checkedAssets[id]) return null;
-    checkedAssets[id] = true;
-    var cached = bundle.cache[id];
-    if (!cached) return true;
-    assetsToDispose.push([
-        bundle,
-        id
-    ]);
-    if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
-        assetsToAccept.push([
-            bundle,
-            id
-        ]);
-        return true;
-    }
-    return false;
-}
-function hmrDisposeQueue() {
-    // Dispose all old assets.
-    for(let i = 0; i < assetsToDispose.length; i++){
-        let id = assetsToDispose[i][1];
-        if (!disposedAssets[id]) {
-            hmrDispose(assetsToDispose[i][0], id);
-            disposedAssets[id] = true;
-        }
-    }
-    assetsToDispose = [];
-}
-function hmrDispose(bundle /*: ParcelRequire */ , id /*: string */ ) {
-    var cached = bundle.cache[id];
-    bundle.hotData[id] = {};
-    if (cached && cached.hot) cached.hot.data = bundle.hotData[id];
-    if (cached && cached.hot && cached.hot._disposeCallbacks.length) cached.hot._disposeCallbacks.forEach(function(cb) {
-        cb(bundle.hotData[id]);
-    });
-    delete bundle.cache[id];
-}
-function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
-    // Execute the module.
-    bundle(id);
-    // Run the accept callbacks in the new version of the module.
-    var cached = bundle.cache[id];
-    if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
-        let assetsToAlsoAccept = [];
-        cached.hot._acceptCallbacks.forEach(function(cb) {
-            let additionalAssets = cb(function() {
-                return getParents(module.bundle.root, id);
-            });
-            if (Array.isArray(additionalAssets) && additionalAssets.length) assetsToAlsoAccept.push(...additionalAssets);
-        });
-        if (assetsToAlsoAccept.length) {
-            let handled = assetsToAlsoAccept.every(function(a) {
-                return hmrAcceptCheck(a[0], a[1]);
-            });
-            if (!handled) return fullReload();
-            hmrDisposeQueue();
-        }
-    }
+function $parcel$interopDefault(a) {
+  return a && a.__esModule ? a.default : a;
 }
 
-},{}],"1E7ZB":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _alpinejs = require("alpinejs");
-var _alpinejsDefault = parcelHelpers.interopDefault(_alpinejs);
-var _morph = require("@alpinejs/morph");
-var _morphDefault = parcelHelpers.interopDefault(_morph);
-var _persist = require("@alpinejs/persist");
-var _persistDefault = parcelHelpers.interopDefault(_persist);
-var _alpineTooltip = require("@ryangjchandler/alpine-tooltip");
-var _alpineTooltipDefault = parcelHelpers.interopDefault(_alpineTooltip);
-var _logger = require("./plugins/logger");
-var _loggerDefault = parcelHelpers.interopDefault(_logger);
-var _layout = require("./stores/layout");
-var _layoutDefault = parcelHelpers.interopDefault(_layout);
-var _nav = require("./stores/nav");
-var _navDefault = parcelHelpers.interopDefault(_nav);
-var _inspector = require("./stores/inspector");
-var _inspectorDefault = parcelHelpers.interopDefault(_inspector);
-var _pages = require("./stores/pages");
-var _pagesDefault = parcelHelpers.interopDefault(_pages);
-var _settings = require("./stores/settings");
-var _settingsDefault = parcelHelpers.interopDefault(_settings);
-var _workbench = require("./stores/workbench");
-var _workbenchDefault = parcelHelpers.interopDefault(_workbench);
-var _app = require("./app");
-var _appDefault = parcelHelpers.interopDefault(_app);
-// Note: A ParcelJS issue prevents loading all depths of component JS files in one glob,
-// so need to split it up. Path aliases also do not work with the glob imports.
-var _build = require("./helpers/build");
-var _componentJs = require("../../app/components/lookbook/*/*component.js");
-var _componentJs1 = require("../../app/components/lookbook/*/*/component.js");
-var _js = require("./components/*.js");
-// Plugins
-(0, _alpinejsDefault.default).plugin((0, _morphDefault.default));
-(0, _alpinejsDefault.default).plugin((0, _persistDefault.default));
-(0, _alpinejsDefault.default).plugin((0, _morphDefault.default));
-(0, _alpinejsDefault.default).plugin((0, _alpineTooltipDefault.default));
-(0, _alpinejsDefault.default).plugin((0, _loggerDefault.default));
-// Stores
-const prefix = window.APP_NAME;
-(0, _alpinejsDefault.default).store("layout", (0, _layoutDefault.default)((0, _alpinejsDefault.default), {
-    prefix
-}));
-(0, _alpinejsDefault.default).store("nav", (0, _navDefault.default)((0, _alpinejsDefault.default), {
-    prefix
-}));
-(0, _alpinejsDefault.default).store("inspector", (0, _inspectorDefault.default)((0, _alpinejsDefault.default), {
-    prefix
-}));
-(0, _alpinejsDefault.default).store("pages", (0, _pagesDefault.default)((0, _alpinejsDefault.default), {
-    prefix
-}));
-(0, _alpinejsDefault.default).store("settings", (0, _settingsDefault.default)((0, _alpinejsDefault.default), {
-    prefix
-}));
-(0, _alpinejsDefault.default).store("workbench", (0, _workbenchDefault.default)((0, _alpinejsDefault.default), {
-    prefix
-}));
-// Components
-(0, _alpinejsDefault.default).data("app", (0, _appDefault.default));
-[
-    _componentJs,
-    _componentJs1,
-    _js
-].forEach((scripts)=>{
-    const components = (0, _build.getComponents)(scripts);
-    Object.keys(components).forEach((name)=>{
-        (0, _alpinejsDefault.default).data(`${name}Component`, components[name]);
-    });
-});
-// Init
-window.log = (0, _logger.log);
-window.Alpine = (0, _alpinejsDefault.default);
-(0, _alpinejsDefault.default).start();
+function $parcel$defineInteropFlag(a) {
+  Object.defineProperty(a, '__esModule', {value: true, configurable: true});
+}
 
-},{"alpinejs":"69hXP","@alpinejs/morph":"h2FeS","@alpinejs/persist":"hOl6K","@ryangjchandler/alpine-tooltip":"j3Uyt","./plugins/logger":"l4Lxa","./stores/layout":"exY8V","./stores/nav":"BDSAj","./stores/inspector":"hZzc1","./stores/pages":"YMhO1","./stores/settings":"3IUHF","./stores/workbench":"gtFME","./app":"6Bv9J","./helpers/build":"fqLiH","../../app/components/lookbook/*/*component.js":"6Tzpn","../../app/components/lookbook/*/*/component.js":"hDlVs","./components/*.js":"kyiar","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"69hXP":[function(require,module,exports,__globalThis) {
+function $parcel$export(e, n, v, s) {
+  Object.defineProperty(e, n, {get: v, set: s, enumerable: true, configurable: true});
+}
 // packages/alpinejs/src/scheduler.js
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Alpine", ()=>src_default);
-parcelHelpers.export(exports, "default", ()=>module_default);
-var flushPending = false;
-var flushing = false;
-var queue = [];
-var lastFlushedIndex = -1;
-function scheduler(callback) {
-    queueJob(callback);
+var $caa9439642c6336c$var$flushPending = false;
+var $caa9439642c6336c$var$flushing = false;
+var $caa9439642c6336c$var$queue = [];
+var $caa9439642c6336c$var$lastFlushedIndex = -1;
+function $caa9439642c6336c$var$scheduler(callback) {
+    $caa9439642c6336c$var$queueJob(callback);
 }
-function queueJob(job) {
-    if (!queue.includes(job)) queue.push(job);
-    queueFlush();
+function $caa9439642c6336c$var$queueJob(job) {
+    if (!$caa9439642c6336c$var$queue.includes(job)) $caa9439642c6336c$var$queue.push(job);
+    $caa9439642c6336c$var$queueFlush();
 }
-function dequeueJob(job) {
-    let index = queue.indexOf(job);
-    if (index !== -1 && index > lastFlushedIndex) queue.splice(index, 1);
+function $caa9439642c6336c$var$dequeueJob(job) {
+    let index = $caa9439642c6336c$var$queue.indexOf(job);
+    if (index !== -1 && index > $caa9439642c6336c$var$lastFlushedIndex) $caa9439642c6336c$var$queue.splice(index, 1);
 }
-function queueFlush() {
-    if (!flushing && !flushPending) {
-        flushPending = true;
-        queueMicrotask(flushJobs);
+function $caa9439642c6336c$var$queueFlush() {
+    if (!$caa9439642c6336c$var$flushing && !$caa9439642c6336c$var$flushPending) {
+        $caa9439642c6336c$var$flushPending = true;
+        queueMicrotask($caa9439642c6336c$var$flushJobs);
     }
 }
-function flushJobs() {
-    flushPending = false;
-    flushing = true;
-    for(let i = 0; i < queue.length; i++){
-        queue[i]();
-        lastFlushedIndex = i;
+function $caa9439642c6336c$var$flushJobs() {
+    $caa9439642c6336c$var$flushPending = false;
+    $caa9439642c6336c$var$flushing = true;
+    for(let i = 0; i < $caa9439642c6336c$var$queue.length; i++){
+        $caa9439642c6336c$var$queue[i]();
+        $caa9439642c6336c$var$lastFlushedIndex = i;
     }
-    queue.length = 0;
-    lastFlushedIndex = -1;
-    flushing = false;
+    $caa9439642c6336c$var$queue.length = 0;
+    $caa9439642c6336c$var$lastFlushedIndex = -1;
+    $caa9439642c6336c$var$flushing = false;
 }
 // packages/alpinejs/src/reactivity.js
-var reactive;
-var effect;
-var release;
-var raw;
-var shouldSchedule = true;
-function disableEffectScheduling(callback) {
-    shouldSchedule = false;
+var $caa9439642c6336c$var$reactive;
+var $caa9439642c6336c$var$effect;
+var $caa9439642c6336c$var$release;
+var $caa9439642c6336c$var$raw;
+var $caa9439642c6336c$var$shouldSchedule = true;
+function $caa9439642c6336c$var$disableEffectScheduling(callback) {
+    $caa9439642c6336c$var$shouldSchedule = false;
     callback();
-    shouldSchedule = true;
+    $caa9439642c6336c$var$shouldSchedule = true;
 }
-function setReactivityEngine(engine) {
-    reactive = engine.reactive;
-    release = engine.release;
-    effect = (callback)=>engine.effect(callback, {
+function $caa9439642c6336c$var$setReactivityEngine(engine) {
+    $caa9439642c6336c$var$reactive = engine.reactive;
+    $caa9439642c6336c$var$release = engine.release;
+    $caa9439642c6336c$var$effect = (callback)=>engine.effect(callback, {
             scheduler: (task)=>{
-                if (shouldSchedule) scheduler(task);
+                if ($caa9439642c6336c$var$shouldSchedule) $caa9439642c6336c$var$scheduler(task);
                 else task();
             }
         });
-    raw = engine.raw;
+    $caa9439642c6336c$var$raw = engine.raw;
 }
-function overrideEffect(override) {
-    effect = override;
+function $caa9439642c6336c$var$overrideEffect(override) {
+    $caa9439642c6336c$var$effect = override;
 }
-function elementBoundEffect(el) {
+function $caa9439642c6336c$var$elementBoundEffect(el) {
     let cleanup2 = ()=>{};
     let wrappedEffect = (callback)=>{
-        let effectReference = effect(callback);
+        let effectReference = $caa9439642c6336c$var$effect(callback);
         if (!el._x_effects) {
             el._x_effects = /* @__PURE__ */ new Set();
             el._x_runEffects = ()=>{
@@ -818,7 +83,7 @@ function elementBoundEffect(el) {
         cleanup2 = ()=>{
             if (effectReference === void 0) return;
             el._x_effects.delete(effectReference);
-            release(effectReference);
+            $caa9439642c6336c$var$release(effectReference);
         };
         return effectReference;
     };
@@ -829,10 +94,10 @@ function elementBoundEffect(el) {
         }
     ];
 }
-function watch(getter, callback) {
+function $caa9439642c6336c$var$watch(getter, callback) {
     let firstTime = true;
     let oldValue;
-    let effectReference = effect(()=>{
+    let effectReference = $caa9439642c6336c$var$effect(()=>{
         let value = getter();
         JSON.stringify(value);
         if (!firstTime) queueMicrotask(()=>{
@@ -842,33 +107,33 @@ function watch(getter, callback) {
         else oldValue = value;
         firstTime = false;
     });
-    return ()=>release(effectReference);
+    return ()=>$caa9439642c6336c$var$release(effectReference);
 }
 // packages/alpinejs/src/mutation.js
-var onAttributeAddeds = [];
-var onElRemoveds = [];
-var onElAddeds = [];
-function onElAdded(callback) {
-    onElAddeds.push(callback);
+var $caa9439642c6336c$var$onAttributeAddeds = [];
+var $caa9439642c6336c$var$onElRemoveds = [];
+var $caa9439642c6336c$var$onElAddeds = [];
+function $caa9439642c6336c$var$onElAdded(callback) {
+    $caa9439642c6336c$var$onElAddeds.push(callback);
 }
-function onElRemoved(el, callback) {
+function $caa9439642c6336c$var$onElRemoved(el, callback) {
     if (typeof callback === "function") {
         if (!el._x_cleanups) el._x_cleanups = [];
         el._x_cleanups.push(callback);
     } else {
         callback = el;
-        onElRemoveds.push(callback);
+        $caa9439642c6336c$var$onElRemoveds.push(callback);
     }
 }
-function onAttributesAdded(callback) {
-    onAttributeAddeds.push(callback);
+function $caa9439642c6336c$var$onAttributesAdded(callback) {
+    $caa9439642c6336c$var$onAttributeAddeds.push(callback);
 }
-function onAttributeRemoved(el, name, callback) {
+function $caa9439642c6336c$var$onAttributeRemoved(el, name, callback) {
     if (!el._x_attributeCleanups) el._x_attributeCleanups = {};
     if (!el._x_attributeCleanups[name]) el._x_attributeCleanups[name] = [];
     el._x_attributeCleanups[name].push(callback);
 }
-function cleanupAttributes(el, names) {
+function $caa9439642c6336c$var$cleanupAttributes(el, names) {
     if (!el._x_attributeCleanups) return;
     Object.entries(el._x_attributeCleanups).forEach(([name, value])=>{
         if (names === void 0 || names.includes(name)) {
@@ -877,55 +142,55 @@ function cleanupAttributes(el, names) {
         }
     });
 }
-function cleanupElement(el) {
-    el._x_effects?.forEach(dequeueJob);
+function $caa9439642c6336c$var$cleanupElement(el) {
+    el._x_effects?.forEach($caa9439642c6336c$var$dequeueJob);
     while(el._x_cleanups?.length)el._x_cleanups.pop()();
 }
-var observer = new MutationObserver(onMutate);
-var currentlyObserving = false;
-function startObservingMutations() {
-    observer.observe(document, {
+var $caa9439642c6336c$var$observer = new MutationObserver($caa9439642c6336c$var$onMutate);
+var $caa9439642c6336c$var$currentlyObserving = false;
+function $caa9439642c6336c$var$startObservingMutations() {
+    $caa9439642c6336c$var$observer.observe(document, {
         subtree: true,
         childList: true,
         attributes: true,
         attributeOldValue: true
     });
-    currentlyObserving = true;
+    $caa9439642c6336c$var$currentlyObserving = true;
 }
-function stopObservingMutations() {
-    flushObserver();
-    observer.disconnect();
-    currentlyObserving = false;
+function $caa9439642c6336c$var$stopObservingMutations() {
+    $caa9439642c6336c$var$flushObserver();
+    $caa9439642c6336c$var$observer.disconnect();
+    $caa9439642c6336c$var$currentlyObserving = false;
 }
-var queuedMutations = [];
-function flushObserver() {
-    let records = observer.takeRecords();
-    queuedMutations.push(()=>records.length > 0 && onMutate(records));
-    let queueLengthWhenTriggered = queuedMutations.length;
+var $caa9439642c6336c$var$queuedMutations = [];
+function $caa9439642c6336c$var$flushObserver() {
+    let records = $caa9439642c6336c$var$observer.takeRecords();
+    $caa9439642c6336c$var$queuedMutations.push(()=>records.length > 0 && $caa9439642c6336c$var$onMutate(records));
+    let queueLengthWhenTriggered = $caa9439642c6336c$var$queuedMutations.length;
     queueMicrotask(()=>{
-        if (queuedMutations.length === queueLengthWhenTriggered) while(queuedMutations.length > 0)queuedMutations.shift()();
+        if ($caa9439642c6336c$var$queuedMutations.length === queueLengthWhenTriggered) while($caa9439642c6336c$var$queuedMutations.length > 0)$caa9439642c6336c$var$queuedMutations.shift()();
     });
 }
-function mutateDom(callback) {
-    if (!currentlyObserving) return callback();
-    stopObservingMutations();
+function $caa9439642c6336c$var$mutateDom(callback) {
+    if (!$caa9439642c6336c$var$currentlyObserving) return callback();
+    $caa9439642c6336c$var$stopObservingMutations();
     let result = callback();
-    startObservingMutations();
+    $caa9439642c6336c$var$startObservingMutations();
     return result;
 }
-var isCollecting = false;
-var deferredMutations = [];
-function deferMutations() {
-    isCollecting = true;
+var $caa9439642c6336c$var$isCollecting = false;
+var $caa9439642c6336c$var$deferredMutations = [];
+function $caa9439642c6336c$var$deferMutations() {
+    $caa9439642c6336c$var$isCollecting = true;
 }
-function flushAndStopDeferringMutations() {
-    isCollecting = false;
-    onMutate(deferredMutations);
-    deferredMutations = [];
+function $caa9439642c6336c$var$flushAndStopDeferringMutations() {
+    $caa9439642c6336c$var$isCollecting = false;
+    $caa9439642c6336c$var$onMutate($caa9439642c6336c$var$deferredMutations);
+    $caa9439642c6336c$var$deferredMutations = [];
 }
-function onMutate(mutations) {
-    if (isCollecting) {
-        deferredMutations = deferredMutations.concat(mutations);
+function $caa9439642c6336c$var$onMutate(mutations) {
+    if ($caa9439642c6336c$var$isCollecting) {
+        $caa9439642c6336c$var$deferredMutations = $caa9439642c6336c$var$deferredMutations.concat(mutations);
         return;
     }
     let addedNodes = [];
@@ -957,7 +222,7 @@ function onMutate(mutations) {
             let add2 = ()=>{
                 if (!addedAttributes.has(el)) addedAttributes.set(el, []);
                 addedAttributes.get(el).push({
-                    name,
+                    name: name,
                     value: el.getAttribute(name)
                 });
             };
@@ -973,18 +238,18 @@ function onMutate(mutations) {
         }
     }
     removedAttributes.forEach((attrs, el)=>{
-        cleanupAttributes(el, attrs);
+        $caa9439642c6336c$var$cleanupAttributes(el, attrs);
     });
     addedAttributes.forEach((attrs, el)=>{
-        onAttributeAddeds.forEach((i)=>i(el, attrs));
+        $caa9439642c6336c$var$onAttributeAddeds.forEach((i)=>i(el, attrs));
     });
     for (let node of removedNodes){
         if (addedNodes.some((i)=>i.contains(node))) continue;
-        onElRemoveds.forEach((i)=>i(node));
+        $caa9439642c6336c$var$onElRemoveds.forEach((i)=>i(node));
     }
     for (let node of addedNodes){
         if (!node.isConnected) continue;
-        onElAddeds.forEach((i)=>i(node));
+        $caa9439642c6336c$var$onElAddeds.forEach((i)=>i(node));
     }
     addedNodes = null;
     removedNodes = null;
@@ -992,49 +257,49 @@ function onMutate(mutations) {
     removedAttributes = null;
 }
 // packages/alpinejs/src/scope.js
-function scope(node) {
-    return mergeProxies(closestDataStack(node));
+function $caa9439642c6336c$var$scope(node) {
+    return $caa9439642c6336c$var$mergeProxies($caa9439642c6336c$var$closestDataStack(node));
 }
-function addScopeToNode(node, data2, referenceNode) {
+function $caa9439642c6336c$var$addScopeToNode(node, data2, referenceNode) {
     node._x_dataStack = [
         data2,
-        ...closestDataStack(referenceNode || node)
+        ...$caa9439642c6336c$var$closestDataStack(referenceNode || node)
     ];
     return ()=>{
         node._x_dataStack = node._x_dataStack.filter((i)=>i !== data2);
     };
 }
-function closestDataStack(node) {
+function $caa9439642c6336c$var$closestDataStack(node) {
     if (node._x_dataStack) return node._x_dataStack;
-    if (typeof ShadowRoot === "function" && node instanceof ShadowRoot) return closestDataStack(node.host);
+    if (typeof ShadowRoot === "function" && node instanceof ShadowRoot) return $caa9439642c6336c$var$closestDataStack(node.host);
     if (!node.parentNode) return [];
-    return closestDataStack(node.parentNode);
+    return $caa9439642c6336c$var$closestDataStack(node.parentNode);
 }
-function mergeProxies(objects) {
+function $caa9439642c6336c$var$mergeProxies(objects) {
     return new Proxy({
-        objects
-    }, mergeProxyTrap);
+        objects: objects
+    }, $caa9439642c6336c$var$mergeProxyTrap);
 }
-var mergeProxyTrap = {
-    ownKeys ({ objects }) {
+var $caa9439642c6336c$var$mergeProxyTrap = {
+    ownKeys ({ objects: objects }) {
         return Array.from(new Set(objects.flatMap((i)=>Object.keys(i))));
     },
-    has ({ objects }, name) {
+    has ({ objects: objects }, name) {
         if (name == Symbol.unscopables) return false;
         return objects.some((obj)=>Object.prototype.hasOwnProperty.call(obj, name) || Reflect.has(obj, name));
     },
-    get ({ objects }, name, thisProxy) {
-        if (name == "toJSON") return collapseProxies;
+    get ({ objects: objects }, name, thisProxy) {
+        if (name == "toJSON") return $caa9439642c6336c$var$collapseProxies;
         return Reflect.get(objects.find((obj)=>Reflect.has(obj, name)) || {}, name, thisProxy);
     },
-    set ({ objects }, name, value, thisProxy) {
+    set ({ objects: objects }, name, value, thisProxy) {
         const target = objects.find((obj)=>Object.prototype.hasOwnProperty.call(obj, name)) || objects[objects.length - 1];
         const descriptor = Object.getOwnPropertyDescriptor(target, name);
         if (descriptor?.set && descriptor?.get) return descriptor.set.call(thisProxy, value) || true;
         return Reflect.set(target, name, value);
     }
 };
-function collapseProxies() {
+function $caa9439642c6336c$var$collapseProxies() {
     let keys = Reflect.ownKeys(this);
     return keys.reduce((acc, key)=>{
         acc[key] = Reflect.get(this, key);
@@ -1042,10 +307,10 @@ function collapseProxies() {
     }, {});
 }
 // packages/alpinejs/src/interceptor.js
-function initInterceptors(data2) {
+function $caa9439642c6336c$var$initInterceptors(data2) {
     let isObject2 = (val)=>typeof val === "object" && !Array.isArray(val) && val !== null;
     let recurse = (obj, basePath = "")=>{
-        Object.entries(Object.getOwnPropertyDescriptors(obj)).forEach(([key, { value, enumerable }])=>{
+        Object.entries(Object.getOwnPropertyDescriptors(obj)).forEach(([key, { value: value, enumerable: enumerable }])=>{
             if (enumerable === false || value === void 0) return;
             if (typeof value === "object" && value !== null && value.__v_skip) return;
             let path = basePath === "" ? key : `${basePath}.${key}`;
@@ -1055,12 +320,12 @@ function initInterceptors(data2) {
     };
     return recurse(data2);
 }
-function interceptor(callback, mutateObj = ()=>{}) {
+function $caa9439642c6336c$var$interceptor(callback, mutateObj = ()=>{}) {
     let obj = {
         initialValue: void 0,
         _x_interceptor: true,
         initialize (data2, path, key) {
-            return callback(this.initialValue, ()=>get(data2, path), (value)=>set(data2, path, value), path, key);
+            return callback(this.initialValue, ()=>$caa9439642c6336c$var$get(data2, path), (value)=>$caa9439642c6336c$var$set(data2, path, value), path, key);
         }
     };
     mutateObj(obj);
@@ -1076,29 +341,29 @@ function interceptor(callback, mutateObj = ()=>{}) {
         return obj;
     };
 }
-function get(obj, path) {
+function $caa9439642c6336c$var$get(obj, path) {
     return path.split(".").reduce((carry, segment)=>carry[segment], obj);
 }
-function set(obj, path, value) {
+function $caa9439642c6336c$var$set(obj, path, value) {
     if (typeof path === "string") path = path.split(".");
     if (path.length === 1) obj[path[0]] = value;
     else if (path.length === 0) throw error;
     else {
-        if (obj[path[0]]) return set(obj[path[0]], path.slice(1), value);
+        if (obj[path[0]]) return $caa9439642c6336c$var$set(obj[path[0]], path.slice(1), value);
         else {
             obj[path[0]] = {};
-            return set(obj[path[0]], path.slice(1), value);
+            return $caa9439642c6336c$var$set(obj[path[0]], path.slice(1), value);
         }
     }
 }
 // packages/alpinejs/src/magics.js
-var magics = {};
-function magic(name, callback) {
-    magics[name] = callback;
+var $caa9439642c6336c$var$magics = {};
+function $caa9439642c6336c$var$magic(name, callback) {
+    $caa9439642c6336c$var$magics[name] = callback;
 }
-function injectMagics(obj, el) {
-    let memoizedUtilities = getUtilities(el);
-    Object.entries(magics).forEach(([name, callback])=>{
+function $caa9439642c6336c$var$injectMagics(obj, el) {
+    let memoizedUtilities = $caa9439642c6336c$var$getUtilities(el);
+    Object.entries($caa9439642c6336c$var$magics).forEach(([name, callback])=>{
         Object.defineProperty(obj, `$${name}`, {
             get () {
                 return callback(el, memoizedUtilities);
@@ -1108,29 +373,29 @@ function injectMagics(obj, el) {
     });
     return obj;
 }
-function getUtilities(el) {
-    let [utilities, cleanup2] = getElementBoundUtilities(el);
+function $caa9439642c6336c$var$getUtilities(el) {
+    let [utilities, cleanup2] = $caa9439642c6336c$var$getElementBoundUtilities(el);
     let utils = {
-        interceptor,
+        interceptor: $caa9439642c6336c$var$interceptor,
         ...utilities
     };
-    onElRemoved(el, cleanup2);
+    $caa9439642c6336c$var$onElRemoved(el, cleanup2);
     return utils;
 }
 // packages/alpinejs/src/utils/error.js
-function tryCatch(el, expression, callback, ...args) {
+function $caa9439642c6336c$var$tryCatch(el, expression, callback, ...args) {
     try {
         return callback(...args);
     } catch (e) {
-        handleError(e, el, expression);
+        $caa9439642c6336c$var$handleError(e, el, expression);
     }
 }
-function handleError(error2, el, expression) {
+function $caa9439642c6336c$var$handleError(error2, el, expression) {
     error2 = Object.assign(error2 ?? {
         message: "No error message given."
     }, {
-        el,
-        expression
+        el: el,
+        expression: expression
     });
     console.warn(`Alpine Expression Error: ${error2.message}
 
@@ -1140,48 +405,48 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     }, 0);
 }
 // packages/alpinejs/src/evaluator.js
-var shouldAutoEvaluateFunctions = true;
-function dontAutoEvaluateFunctions(callback) {
-    let cache = shouldAutoEvaluateFunctions;
-    shouldAutoEvaluateFunctions = false;
+var $caa9439642c6336c$var$shouldAutoEvaluateFunctions = true;
+function $caa9439642c6336c$var$dontAutoEvaluateFunctions(callback) {
+    let cache = $caa9439642c6336c$var$shouldAutoEvaluateFunctions;
+    $caa9439642c6336c$var$shouldAutoEvaluateFunctions = false;
     let result = callback();
-    shouldAutoEvaluateFunctions = cache;
+    $caa9439642c6336c$var$shouldAutoEvaluateFunctions = cache;
     return result;
 }
-function evaluate(el, expression, extras = {}) {
+function $caa9439642c6336c$var$evaluate(el, expression, extras = {}) {
     let result;
-    evaluateLater(el, expression)((value)=>result = value, extras);
+    $caa9439642c6336c$var$evaluateLater(el, expression)((value)=>result = value, extras);
     return result;
 }
-function evaluateLater(...args) {
-    return theEvaluatorFunction(...args);
+function $caa9439642c6336c$var$evaluateLater(...args) {
+    return $caa9439642c6336c$var$theEvaluatorFunction(...args);
 }
-var theEvaluatorFunction = normalEvaluator;
-function setEvaluator(newEvaluator) {
-    theEvaluatorFunction = newEvaluator;
+var $caa9439642c6336c$var$theEvaluatorFunction = $caa9439642c6336c$var$normalEvaluator;
+function $caa9439642c6336c$var$setEvaluator(newEvaluator) {
+    $caa9439642c6336c$var$theEvaluatorFunction = newEvaluator;
 }
-function normalEvaluator(el, expression) {
+function $caa9439642c6336c$var$normalEvaluator(el, expression) {
     let overriddenMagics = {};
-    injectMagics(overriddenMagics, el);
+    $caa9439642c6336c$var$injectMagics(overriddenMagics, el);
     let dataStack = [
         overriddenMagics,
-        ...closestDataStack(el)
+        ...$caa9439642c6336c$var$closestDataStack(el)
     ];
-    let evaluator = typeof expression === "function" ? generateEvaluatorFromFunction(dataStack, expression) : generateEvaluatorFromString(dataStack, expression, el);
-    return tryCatch.bind(null, el, expression, evaluator);
+    let evaluator = typeof expression === "function" ? $caa9439642c6336c$var$generateEvaluatorFromFunction(dataStack, expression) : $caa9439642c6336c$var$generateEvaluatorFromString(dataStack, expression, el);
+    return $caa9439642c6336c$var$tryCatch.bind(null, el, expression, evaluator);
 }
-function generateEvaluatorFromFunction(dataStack, func) {
-    return (receiver = ()=>{}, { scope: scope2 = {}, params = [], context } = {})=>{
-        let result = func.apply(mergeProxies([
+function $caa9439642c6336c$var$generateEvaluatorFromFunction(dataStack, func) {
+    return (receiver = ()=>{}, { scope: scope2 = {}, params: params = [], context: context } = {})=>{
+        let result = func.apply($caa9439642c6336c$var$mergeProxies([
             scope2,
             ...dataStack
         ]), params);
-        runIfTypeOfFunction(receiver, result);
+        $caa9439642c6336c$var$runIfTypeOfFunction(receiver, result);
     };
 }
-var evaluatorMemo = {};
-function generateFunctionFromString(expression, el) {
-    if (evaluatorMemo[expression]) return evaluatorMemo[expression];
+var $caa9439642c6336c$var$evaluatorMemo = {};
+function $caa9439642c6336c$var$generateFunctionFromString(expression, el) {
+    if ($caa9439642c6336c$var$evaluatorMemo[expression]) return $caa9439642c6336c$var$evaluatorMemo[expression];
     let AsyncFunction = Object.getPrototypeOf(async function() {}).constructor;
     let rightSideSafeExpression = /^[\n\s]*if.*\(.*\)/.test(expression.trim()) || /^(let|const)\s/.test(expression.trim()) ? `(async()=>{ ${expression} })()` : expression;
     const safeAsyncFunction = ()=>{
@@ -1195,75 +460,75 @@ function generateFunctionFromString(expression, el) {
             });
             return func2;
         } catch (error2) {
-            handleError(error2, el, expression);
+            $caa9439642c6336c$var$handleError(error2, el, expression);
             return Promise.resolve();
         }
     };
     let func = safeAsyncFunction();
-    evaluatorMemo[expression] = func;
+    $caa9439642c6336c$var$evaluatorMemo[expression] = func;
     return func;
 }
-function generateEvaluatorFromString(dataStack, expression, el) {
-    let func = generateFunctionFromString(expression, el);
-    return (receiver = ()=>{}, { scope: scope2 = {}, params = [], context } = {})=>{
+function $caa9439642c6336c$var$generateEvaluatorFromString(dataStack, expression, el) {
+    let func = $caa9439642c6336c$var$generateFunctionFromString(expression, el);
+    return (receiver = ()=>{}, { scope: scope2 = {}, params: params = [], context: context } = {})=>{
         func.result = void 0;
         func.finished = false;
-        let completeScope = mergeProxies([
+        let completeScope = $caa9439642c6336c$var$mergeProxies([
             scope2,
             ...dataStack
         ]);
         if (typeof func === "function") {
-            let promise = func.call(context, func, completeScope).catch((error2)=>handleError(error2, el, expression));
+            let promise = func.call(context, func, completeScope).catch((error2)=>$caa9439642c6336c$var$handleError(error2, el, expression));
             if (func.finished) {
-                runIfTypeOfFunction(receiver, func.result, completeScope, params, el);
+                $caa9439642c6336c$var$runIfTypeOfFunction(receiver, func.result, completeScope, params, el);
                 func.result = void 0;
             } else promise.then((result)=>{
-                runIfTypeOfFunction(receiver, result, completeScope, params, el);
-            }).catch((error2)=>handleError(error2, el, expression)).finally(()=>func.result = void 0);
+                $caa9439642c6336c$var$runIfTypeOfFunction(receiver, result, completeScope, params, el);
+            }).catch((error2)=>$caa9439642c6336c$var$handleError(error2, el, expression)).finally(()=>func.result = void 0);
         }
     };
 }
-function runIfTypeOfFunction(receiver, value, scope2, params, el) {
-    if (shouldAutoEvaluateFunctions && typeof value === "function") {
+function $caa9439642c6336c$var$runIfTypeOfFunction(receiver, value, scope2, params, el) {
+    if ($caa9439642c6336c$var$shouldAutoEvaluateFunctions && typeof value === "function") {
         let result = value.apply(scope2, params);
-        if (result instanceof Promise) result.then((i)=>runIfTypeOfFunction(receiver, i, scope2, params)).catch((error2)=>handleError(error2, el, value));
+        if (result instanceof Promise) result.then((i)=>$caa9439642c6336c$var$runIfTypeOfFunction(receiver, i, scope2, params)).catch((error2)=>$caa9439642c6336c$var$handleError(error2, el, value));
         else receiver(result);
     } else if (typeof value === "object" && value instanceof Promise) value.then((i)=>receiver(i));
     else receiver(value);
 }
 // packages/alpinejs/src/directives.js
-var prefixAsString = "x-";
-function prefix(subject = "") {
-    return prefixAsString + subject;
+var $caa9439642c6336c$var$prefixAsString = "x-";
+function $caa9439642c6336c$var$prefix(subject = "") {
+    return $caa9439642c6336c$var$prefixAsString + subject;
 }
-function setPrefix(newPrefix) {
-    prefixAsString = newPrefix;
+function $caa9439642c6336c$var$setPrefix(newPrefix) {
+    $caa9439642c6336c$var$prefixAsString = newPrefix;
 }
-var directiveHandlers = {};
-function directive(name, callback) {
-    directiveHandlers[name] = callback;
+var $caa9439642c6336c$var$directiveHandlers = {};
+function $caa9439642c6336c$var$directive(name, callback) {
+    $caa9439642c6336c$var$directiveHandlers[name] = callback;
     return {
         before (directive2) {
-            if (!directiveHandlers[directive2]) {
+            if (!$caa9439642c6336c$var$directiveHandlers[directive2]) {
                 console.warn(String.raw`Cannot find directive \`${directive2}\`. \`${name}\` will use the default order of execution`);
                 return;
             }
-            const pos = directiveOrder.indexOf(directive2);
-            directiveOrder.splice(pos >= 0 ? pos : directiveOrder.indexOf("DEFAULT"), 0, name);
+            const pos = $caa9439642c6336c$var$directiveOrder.indexOf(directive2);
+            $caa9439642c6336c$var$directiveOrder.splice(pos >= 0 ? pos : $caa9439642c6336c$var$directiveOrder.indexOf("DEFAULT"), 0, name);
         }
     };
 }
-function directiveExists(name) {
-    return Object.keys(directiveHandlers).includes(name);
+function $caa9439642c6336c$var$directiveExists(name) {
+    return Object.keys($caa9439642c6336c$var$directiveHandlers).includes(name);
 }
-function directives(el, attributes, originalAttributeOverride) {
+function $caa9439642c6336c$var$directives(el, attributes, originalAttributeOverride) {
     attributes = Array.from(attributes);
     if (el._x_virtualDirectives) {
         let vAttributes = Object.entries(el._x_virtualDirectives).map(([name, value])=>({
-                name,
-                value
+                name: name,
+                value: value
             }));
-        let staticAttributes = attributesOnly(vAttributes);
+        let staticAttributes = $caa9439642c6336c$var$attributesOnly(vAttributes);
         vAttributes = vAttributes.map((attribute)=>{
             if (staticAttributes.find((attr)=>attr.name === attribute.name)) return {
                 name: `x-bind:${attribute.name}`,
@@ -1274,44 +539,44 @@ function directives(el, attributes, originalAttributeOverride) {
         attributes = attributes.concat(vAttributes);
     }
     let transformedAttributeMap = {};
-    let directives2 = attributes.map(toTransformedAttributes((newName, oldName)=>transformedAttributeMap[newName] = oldName)).filter(outNonAlpineAttributes).map(toParsedDirectives(transformedAttributeMap, originalAttributeOverride)).sort(byPriority);
+    let directives2 = attributes.map($caa9439642c6336c$var$toTransformedAttributes((newName, oldName)=>transformedAttributeMap[newName] = oldName)).filter($caa9439642c6336c$var$outNonAlpineAttributes).map($caa9439642c6336c$var$toParsedDirectives(transformedAttributeMap, originalAttributeOverride)).sort($caa9439642c6336c$var$byPriority);
     return directives2.map((directive2)=>{
-        return getDirectiveHandler(el, directive2);
+        return $caa9439642c6336c$var$getDirectiveHandler(el, directive2);
     });
 }
-function attributesOnly(attributes) {
-    return Array.from(attributes).map(toTransformedAttributes()).filter((attr)=>!outNonAlpineAttributes(attr));
+function $caa9439642c6336c$var$attributesOnly(attributes) {
+    return Array.from(attributes).map($caa9439642c6336c$var$toTransformedAttributes()).filter((attr)=>!$caa9439642c6336c$var$outNonAlpineAttributes(attr));
 }
-var isDeferringHandlers = false;
-var directiveHandlerStacks = /* @__PURE__ */ new Map();
-var currentHandlerStackKey = Symbol();
-function deferHandlingDirectives(callback) {
-    isDeferringHandlers = true;
+var $caa9439642c6336c$var$isDeferringHandlers = false;
+var $caa9439642c6336c$var$directiveHandlerStacks = /* @__PURE__ */ new Map();
+var $caa9439642c6336c$var$currentHandlerStackKey = Symbol();
+function $caa9439642c6336c$var$deferHandlingDirectives(callback) {
+    $caa9439642c6336c$var$isDeferringHandlers = true;
     let key = Symbol();
-    currentHandlerStackKey = key;
-    directiveHandlerStacks.set(key, []);
+    $caa9439642c6336c$var$currentHandlerStackKey = key;
+    $caa9439642c6336c$var$directiveHandlerStacks.set(key, []);
     let flushHandlers = ()=>{
-        while(directiveHandlerStacks.get(key).length)directiveHandlerStacks.get(key).shift()();
-        directiveHandlerStacks.delete(key);
+        while($caa9439642c6336c$var$directiveHandlerStacks.get(key).length)$caa9439642c6336c$var$directiveHandlerStacks.get(key).shift()();
+        $caa9439642c6336c$var$directiveHandlerStacks.delete(key);
     };
     let stopDeferring = ()=>{
-        isDeferringHandlers = false;
+        $caa9439642c6336c$var$isDeferringHandlers = false;
         flushHandlers();
     };
     callback(flushHandlers);
     stopDeferring();
 }
-function getElementBoundUtilities(el) {
+function $caa9439642c6336c$var$getElementBoundUtilities(el) {
     let cleanups = [];
     let cleanup2 = (callback)=>cleanups.push(callback);
-    let [effect3, cleanupEffect] = elementBoundEffect(el);
+    let [effect3, cleanupEffect] = $caa9439642c6336c$var$elementBoundEffect(el);
     cleanups.push(cleanupEffect);
     let utilities = {
-        Alpine: alpine_default,
+        Alpine: $caa9439642c6336c$var$alpine_default,
         effect: effect3,
         cleanup: cleanup2,
-        evaluateLater: evaluateLater.bind(evaluateLater, el),
-        evaluate: evaluate.bind(evaluate, el)
+        evaluateLater: $caa9439642c6336c$var$evaluateLater.bind($caa9439642c6336c$var$evaluateLater, el),
+        evaluate: $caa9439642c6336c$var$evaluate.bind($caa9439642c6336c$var$evaluate, el)
     };
     let doCleanup = ()=>cleanups.forEach((i)=>i());
     return [
@@ -1319,35 +584,35 @@ function getElementBoundUtilities(el) {
         doCleanup
     ];
 }
-function getDirectiveHandler(el, directive2) {
+function $caa9439642c6336c$var$getDirectiveHandler(el, directive2) {
     let noop = ()=>{};
-    let handler4 = directiveHandlers[directive2.type] || noop;
-    let [utilities, cleanup2] = getElementBoundUtilities(el);
-    onAttributeRemoved(el, directive2.original, cleanup2);
+    let handler4 = $caa9439642c6336c$var$directiveHandlers[directive2.type] || noop;
+    let [utilities, cleanup2] = $caa9439642c6336c$var$getElementBoundUtilities(el);
+    $caa9439642c6336c$var$onAttributeRemoved(el, directive2.original, cleanup2);
     let fullHandler = ()=>{
         if (el._x_ignore || el._x_ignoreSelf) return;
         handler4.inline && handler4.inline(el, directive2, utilities);
         handler4 = handler4.bind(handler4, el, directive2, utilities);
-        isDeferringHandlers ? directiveHandlerStacks.get(currentHandlerStackKey).push(handler4) : handler4();
+        $caa9439642c6336c$var$isDeferringHandlers ? $caa9439642c6336c$var$directiveHandlerStacks.get($caa9439642c6336c$var$currentHandlerStackKey).push(handler4) : handler4();
     };
     fullHandler.runCleanups = cleanup2;
     return fullHandler;
 }
-var startingWith = (subject, replacement)=>({ name, value })=>{
+var $caa9439642c6336c$var$startingWith = (subject, replacement)=>({ name: name, value: value })=>{
         if (name.startsWith(subject)) name = name.replace(subject, replacement);
         return {
-            name,
-            value
+            name: name,
+            value: value
         };
     };
-var into = (i)=>i;
-function toTransformedAttributes(callback = ()=>{}) {
-    return ({ name, value })=>{
-        let { name: newName, value: newValue } = attributeTransformers.reduce((carry, transform)=>{
+var $caa9439642c6336c$var$into = (i)=>i;
+function $caa9439642c6336c$var$toTransformedAttributes(callback = ()=>{}) {
+    return ({ name: name, value: value })=>{
+        let { name: newName, value: newValue } = $caa9439642c6336c$var$attributeTransformers.reduce((carry, transform)=>{
             return transform(carry);
         }, {
-            name,
-            value
+            name: name,
+            value: value
         });
         if (newName !== name) callback(newName, name);
         return {
@@ -1356,17 +621,17 @@ function toTransformedAttributes(callback = ()=>{}) {
         };
     };
 }
-var attributeTransformers = [];
-function mapAttributes(callback) {
-    attributeTransformers.push(callback);
+var $caa9439642c6336c$var$attributeTransformers = [];
+function $caa9439642c6336c$var$mapAttributes(callback) {
+    $caa9439642c6336c$var$attributeTransformers.push(callback);
 }
-function outNonAlpineAttributes({ name }) {
-    return alpineAttributeRegex().test(name);
+function $caa9439642c6336c$var$outNonAlpineAttributes({ name: name }) {
+    return $caa9439642c6336c$var$alpineAttributeRegex().test(name);
 }
-var alpineAttributeRegex = ()=>new RegExp(`^${prefixAsString}([^:^.]+)\\b`);
-function toParsedDirectives(transformedAttributeMap, originalAttributeOverride) {
-    return ({ name, value })=>{
-        let typeMatch = name.match(alpineAttributeRegex());
+var $caa9439642c6336c$var$alpineAttributeRegex = ()=>new RegExp(`^${$caa9439642c6336c$var$prefixAsString}([^:^.]+)\\b`);
+function $caa9439642c6336c$var$toParsedDirectives(transformedAttributeMap, originalAttributeOverride) {
+    return ({ name: name, value: value })=>{
+        let typeMatch = name.match($caa9439642c6336c$var$alpineAttributeRegex());
         let valueMatch = name.match(/:([a-zA-Z0-9\-_:]+)/);
         let modifiers = name.match(/\.[^.\]]+(?=[^\]]*$)/g) || [];
         let original = originalAttributeOverride || transformedAttributeMap[name] || name;
@@ -1375,12 +640,12 @@ function toParsedDirectives(transformedAttributeMap, originalAttributeOverride) 
             value: valueMatch ? valueMatch[1] : null,
             modifiers: modifiers.map((i)=>i.replace(".", "")),
             expression: value,
-            original
+            original: original
         };
     };
 }
-var DEFAULT = "DEFAULT";
-var directiveOrder = [
+var $caa9439642c6336c$var$DEFAULT = "DEFAULT";
+var $caa9439642c6336c$var$directiveOrder = [
     "ignore",
     "ref",
     "data",
@@ -1394,18 +659,18 @@ var directiveOrder = [
     "transition",
     "show",
     "if",
-    DEFAULT,
+    $caa9439642c6336c$var$DEFAULT,
     "teleport"
 ];
-function byPriority(a, b) {
-    let typeA = directiveOrder.indexOf(a.type) === -1 ? DEFAULT : a.type;
-    let typeB = directiveOrder.indexOf(b.type) === -1 ? DEFAULT : b.type;
-    return directiveOrder.indexOf(typeA) - directiveOrder.indexOf(typeB);
+function $caa9439642c6336c$var$byPriority(a, b) {
+    let typeA = $caa9439642c6336c$var$directiveOrder.indexOf(a.type) === -1 ? $caa9439642c6336c$var$DEFAULT : a.type;
+    let typeB = $caa9439642c6336c$var$directiveOrder.indexOf(b.type) === -1 ? $caa9439642c6336c$var$DEFAULT : b.type;
+    return $caa9439642c6336c$var$directiveOrder.indexOf(typeA) - $caa9439642c6336c$var$directiveOrder.indexOf(typeB);
 }
 // packages/alpinejs/src/utils/dispatch.js
-function dispatch(el, name, detail = {}) {
+function $caa9439642c6336c$var$dispatch(el, name, detail = {}) {
     el.dispatchEvent(new CustomEvent(name, {
-        detail,
+        detail: detail,
         bubbles: true,
         // Allows events to pass the shadow DOM barrier.
         composed: true,
@@ -1413,9 +678,9 @@ function dispatch(el, name, detail = {}) {
     }));
 }
 // packages/alpinejs/src/utils/walk.js
-function walk(el, callback) {
+function $caa9439642c6336c$var$walk(el, callback) {
     if (typeof ShadowRoot === "function" && el instanceof ShadowRoot) {
-        Array.from(el.children).forEach((el2)=>walk(el2, callback));
+        Array.from(el.children).forEach((el2)=>$caa9439642c6336c$var$walk(el2, callback));
         return;
     }
     let skip = false;
@@ -1423,93 +688,93 @@ function walk(el, callback) {
     if (skip) return;
     let node = el.firstElementChild;
     while(node){
-        walk(node, callback, false);
+        $caa9439642c6336c$var$walk(node, callback, false);
         node = node.nextElementSibling;
     }
 }
 // packages/alpinejs/src/utils/warn.js
-function warn(message, ...args) {
+function $caa9439642c6336c$var$warn(message, ...args) {
     console.warn(`Alpine Warning: ${message}`, ...args);
 }
 // packages/alpinejs/src/lifecycle.js
-var started = false;
-function start() {
-    if (started) warn("Alpine has already been initialized on this page. Calling Alpine.start() more than once can cause problems.");
-    started = true;
-    if (!document.body) warn("Unable to initialize. Trying to load Alpine before `<body>` is available. Did you forget to add `defer` in Alpine's `<script>` tag?");
-    dispatch(document, "alpine:init");
-    dispatch(document, "alpine:initializing");
-    startObservingMutations();
-    onElAdded((el)=>initTree(el, walk));
-    onElRemoved((el)=>destroyTree(el));
-    onAttributesAdded((el, attrs)=>{
-        directives(el, attrs).forEach((handle)=>handle());
+var $caa9439642c6336c$var$started = false;
+function $caa9439642c6336c$var$start() {
+    if ($caa9439642c6336c$var$started) $caa9439642c6336c$var$warn("Alpine has already been initialized on this page. Calling Alpine.start() more than once can cause problems.");
+    $caa9439642c6336c$var$started = true;
+    if (!document.body) $caa9439642c6336c$var$warn("Unable to initialize. Trying to load Alpine before `<body>` is available. Did you forget to add `defer` in Alpine's `<script>` tag?");
+    $caa9439642c6336c$var$dispatch(document, "alpine:init");
+    $caa9439642c6336c$var$dispatch(document, "alpine:initializing");
+    $caa9439642c6336c$var$startObservingMutations();
+    $caa9439642c6336c$var$onElAdded((el)=>$caa9439642c6336c$var$initTree(el, $caa9439642c6336c$var$walk));
+    $caa9439642c6336c$var$onElRemoved((el)=>$caa9439642c6336c$var$destroyTree(el));
+    $caa9439642c6336c$var$onAttributesAdded((el, attrs)=>{
+        $caa9439642c6336c$var$directives(el, attrs).forEach((handle)=>handle());
     });
-    let outNestedComponents = (el)=>!closestRoot(el.parentElement, true);
-    Array.from(document.querySelectorAll(allSelectors().join(","))).filter(outNestedComponents).forEach((el)=>{
-        initTree(el);
+    let outNestedComponents = (el)=>!$caa9439642c6336c$var$closestRoot(el.parentElement, true);
+    Array.from(document.querySelectorAll($caa9439642c6336c$var$allSelectors().join(","))).filter(outNestedComponents).forEach((el)=>{
+        $caa9439642c6336c$var$initTree(el);
     });
-    dispatch(document, "alpine:initialized");
+    $caa9439642c6336c$var$dispatch(document, "alpine:initialized");
     setTimeout(()=>{
-        warnAboutMissingPlugins();
+        $caa9439642c6336c$var$warnAboutMissingPlugins();
     });
 }
-var rootSelectorCallbacks = [];
-var initSelectorCallbacks = [];
-function rootSelectors() {
-    return rootSelectorCallbacks.map((fn)=>fn());
+var $caa9439642c6336c$var$rootSelectorCallbacks = [];
+var $caa9439642c6336c$var$initSelectorCallbacks = [];
+function $caa9439642c6336c$var$rootSelectors() {
+    return $caa9439642c6336c$var$rootSelectorCallbacks.map((fn)=>fn());
 }
-function allSelectors() {
-    return rootSelectorCallbacks.concat(initSelectorCallbacks).map((fn)=>fn());
+function $caa9439642c6336c$var$allSelectors() {
+    return $caa9439642c6336c$var$rootSelectorCallbacks.concat($caa9439642c6336c$var$initSelectorCallbacks).map((fn)=>fn());
 }
-function addRootSelector(selectorCallback) {
-    rootSelectorCallbacks.push(selectorCallback);
+function $caa9439642c6336c$var$addRootSelector(selectorCallback) {
+    $caa9439642c6336c$var$rootSelectorCallbacks.push(selectorCallback);
 }
-function addInitSelector(selectorCallback) {
-    initSelectorCallbacks.push(selectorCallback);
+function $caa9439642c6336c$var$addInitSelector(selectorCallback) {
+    $caa9439642c6336c$var$initSelectorCallbacks.push(selectorCallback);
 }
-function closestRoot(el, includeInitSelectors = false) {
-    return findClosest(el, (element)=>{
-        const selectors = includeInitSelectors ? allSelectors() : rootSelectors();
+function $caa9439642c6336c$var$closestRoot(el, includeInitSelectors = false) {
+    return $caa9439642c6336c$var$findClosest(el, (element)=>{
+        const selectors = includeInitSelectors ? $caa9439642c6336c$var$allSelectors() : $caa9439642c6336c$var$rootSelectors();
         if (selectors.some((selector)=>element.matches(selector))) return true;
     });
 }
-function findClosest(el, callback) {
+function $caa9439642c6336c$var$findClosest(el, callback) {
     if (!el) return;
     if (callback(el)) return el;
     if (el._x_teleportBack) el = el._x_teleportBack;
     if (!el.parentElement) return;
-    return findClosest(el.parentElement, callback);
+    return $caa9439642c6336c$var$findClosest(el.parentElement, callback);
 }
-function isRoot(el) {
-    return rootSelectors().some((selector)=>el.matches(selector));
+function $caa9439642c6336c$var$isRoot(el) {
+    return $caa9439642c6336c$var$rootSelectors().some((selector)=>el.matches(selector));
 }
-var initInterceptors2 = [];
-function interceptInit(callback) {
-    initInterceptors2.push(callback);
+var $caa9439642c6336c$var$initInterceptors2 = [];
+function $caa9439642c6336c$var$interceptInit(callback) {
+    $caa9439642c6336c$var$initInterceptors2.push(callback);
 }
-var markerDispenser = 1;
-function initTree(el, walker = walk, intercept = ()=>{}) {
-    if (findClosest(el, (i)=>i._x_ignore)) return;
-    deferHandlingDirectives(()=>{
+var $caa9439642c6336c$var$markerDispenser = 1;
+function $caa9439642c6336c$var$initTree(el, walker = $caa9439642c6336c$var$walk, intercept = ()=>{}) {
+    if ($caa9439642c6336c$var$findClosest(el, (i)=>i._x_ignore)) return;
+    $caa9439642c6336c$var$deferHandlingDirectives(()=>{
         walker(el, (el2, skip)=>{
             if (el2._x_marker) return;
             intercept(el2, skip);
-            initInterceptors2.forEach((i)=>i(el2, skip));
-            directives(el2, el2.attributes).forEach((handle)=>handle());
-            if (!el2._x_ignore) el2._x_marker = markerDispenser++;
+            $caa9439642c6336c$var$initInterceptors2.forEach((i)=>i(el2, skip));
+            $caa9439642c6336c$var$directives(el2, el2.attributes).forEach((handle)=>handle());
+            if (!el2._x_ignore) el2._x_marker = $caa9439642c6336c$var$markerDispenser++;
             el2._x_ignore && skip();
         });
     });
 }
-function destroyTree(root, walker = walk) {
+function $caa9439642c6336c$var$destroyTree(root, walker = $caa9439642c6336c$var$walk) {
     walker(root, (el)=>{
-        cleanupElement(el);
-        cleanupAttributes(el);
+        $caa9439642c6336c$var$cleanupElement(el);
+        $caa9439642c6336c$var$cleanupAttributes(el);
         delete el._x_marker;
     });
 }
-function warnAboutMissingPlugins() {
+function $caa9439642c6336c$var$warnAboutMissingPlugins() {
     let pluginDirectives = [
         [
             "ui",
@@ -1534,46 +799,46 @@ function warnAboutMissingPlugins() {
         ]
     ];
     pluginDirectives.forEach(([plugin2, directive2, selectors])=>{
-        if (directiveExists(directive2)) return;
+        if ($caa9439642c6336c$var$directiveExists(directive2)) return;
         selectors.some((selector)=>{
             if (document.querySelector(selector)) {
-                warn(`found "${selector}", but missing ${plugin2} plugin`);
+                $caa9439642c6336c$var$warn(`found "${selector}", but missing ${plugin2} plugin`);
                 return true;
             }
         });
     });
 }
 // packages/alpinejs/src/nextTick.js
-var tickStack = [];
-var isHolding = false;
-function nextTick(callback = ()=>{}) {
+var $caa9439642c6336c$var$tickStack = [];
+var $caa9439642c6336c$var$isHolding = false;
+function $caa9439642c6336c$var$nextTick(callback = ()=>{}) {
     queueMicrotask(()=>{
-        isHolding || setTimeout(()=>{
-            releaseNextTicks();
+        $caa9439642c6336c$var$isHolding || setTimeout(()=>{
+            $caa9439642c6336c$var$releaseNextTicks();
         });
     });
     return new Promise((res)=>{
-        tickStack.push(()=>{
+        $caa9439642c6336c$var$tickStack.push(()=>{
             callback();
             res();
         });
     });
 }
-function releaseNextTicks() {
-    isHolding = false;
-    while(tickStack.length)tickStack.shift()();
+function $caa9439642c6336c$var$releaseNextTicks() {
+    $caa9439642c6336c$var$isHolding = false;
+    while($caa9439642c6336c$var$tickStack.length)$caa9439642c6336c$var$tickStack.shift()();
 }
-function holdNextTicks() {
-    isHolding = true;
+function $caa9439642c6336c$var$holdNextTicks() {
+    $caa9439642c6336c$var$isHolding = true;
 }
 // packages/alpinejs/src/utils/classes.js
-function setClasses(el, value) {
-    if (Array.isArray(value)) return setClassesFromString(el, value.join(" "));
-    else if (typeof value === "object" && value !== null) return setClassesFromObject(el, value);
-    else if (typeof value === "function") return setClasses(el, value());
-    return setClassesFromString(el, value);
+function $caa9439642c6336c$var$setClasses(el, value) {
+    if (Array.isArray(value)) return $caa9439642c6336c$var$setClassesFromString(el, value.join(" "));
+    else if (typeof value === "object" && value !== null) return $caa9439642c6336c$var$setClassesFromObject(el, value);
+    else if (typeof value === "function") return $caa9439642c6336c$var$setClasses(el, value());
+    return $caa9439642c6336c$var$setClassesFromString(el, value);
 }
-function setClassesFromString(el, classString) {
+function $caa9439642c6336c$var$setClassesFromString(el, classString) {
     let split = (classString2)=>classString2.split(" ").filter(Boolean);
     let missingClasses = (classString2)=>classString2.split(" ").filter((i)=>!el.classList.contains(i)).filter(Boolean);
     let addClassesAndReturnUndo = (classes)=>{
@@ -1585,7 +850,7 @@ function setClassesFromString(el, classString) {
     classString = classString === true ? classString = "" : classString || "";
     return addClassesAndReturnUndo(missingClasses(classString));
 }
-function setClassesFromObject(el, classObject) {
+function $caa9439642c6336c$var$setClassesFromObject(el, classObject) {
     let split = (classString)=>classString.split(" ").filter(Boolean);
     let forAdd = Object.entries(classObject).flatMap(([classString, bool])=>bool ? split(classString) : false).filter(Boolean);
     let forRemove = Object.entries(classObject).flatMap(([classString, bool])=>!bool ? split(classString) : false).filter(Boolean);
@@ -1609,36 +874,36 @@ function setClassesFromObject(el, classObject) {
     };
 }
 // packages/alpinejs/src/utils/styles.js
-function setStyles(el, value) {
-    if (typeof value === "object" && value !== null) return setStylesFromObject(el, value);
-    return setStylesFromString(el, value);
+function $caa9439642c6336c$var$setStyles(el, value) {
+    if (typeof value === "object" && value !== null) return $caa9439642c6336c$var$setStylesFromObject(el, value);
+    return $caa9439642c6336c$var$setStylesFromString(el, value);
 }
-function setStylesFromObject(el, value) {
+function $caa9439642c6336c$var$setStylesFromObject(el, value) {
     let previousStyles = {};
     Object.entries(value).forEach(([key, value2])=>{
         previousStyles[key] = el.style[key];
-        if (!key.startsWith("--")) key = kebabCase(key);
+        if (!key.startsWith("--")) key = $caa9439642c6336c$var$kebabCase(key);
         el.style.setProperty(key, value2);
     });
     setTimeout(()=>{
         if (el.style.length === 0) el.removeAttribute("style");
     });
     return ()=>{
-        setStyles(el, previousStyles);
+        $caa9439642c6336c$var$setStyles(el, previousStyles);
     };
 }
-function setStylesFromString(el, value) {
+function $caa9439642c6336c$var$setStylesFromString(el, value) {
     let cache = el.getAttribute("style", value);
     el.setAttribute("style", value);
     return ()=>{
         el.setAttribute("style", cache || "");
     };
 }
-function kebabCase(subject) {
+function $caa9439642c6336c$var$kebabCase(subject) {
     return subject.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
 }
 // packages/alpinejs/src/utils/once.js
-function once(callback, fallback = ()=>{}) {
+function $caa9439642c6336c$var$once(callback, fallback = ()=>{}) {
     let called = false;
     return function() {
         if (!called) {
@@ -1648,14 +913,14 @@ function once(callback, fallback = ()=>{}) {
     };
 }
 // packages/alpinejs/src/directives/x-transition.js
-directive("transition", (el, { value, modifiers, expression }, { evaluate: evaluate2 })=>{
+$caa9439642c6336c$var$directive("transition", (el, { value: value, modifiers: modifiers, expression: expression }, { evaluate: evaluate2 })=>{
     if (typeof expression === "function") expression = evaluate2(expression);
     if (expression === false) return;
-    if (!expression || typeof expression === "boolean") registerTransitionsFromHelper(el, modifiers, value);
-    else registerTransitionsFromClassString(el, expression, value);
+    if (!expression || typeof expression === "boolean") $caa9439642c6336c$var$registerTransitionsFromHelper(el, modifiers, value);
+    else $caa9439642c6336c$var$registerTransitionsFromClassString(el, expression, value);
 });
-function registerTransitionsFromClassString(el, classString, stage) {
-    registerTransitionObject(el, setClasses, "");
+function $caa9439642c6336c$var$registerTransitionsFromClassString(el, classString, stage) {
+    $caa9439642c6336c$var$registerTransitionObject(el, $caa9439642c6336c$var$setClasses, "");
     let directiveStorageMap = {
         "enter": (classes)=>{
             el._x_transition.enter.during = classes;
@@ -1678,8 +943,8 @@ function registerTransitionsFromClassString(el, classString, stage) {
     };
     directiveStorageMap[stage](classString);
 }
-function registerTransitionsFromHelper(el, modifiers, stage) {
-    registerTransitionObject(el, setStyles);
+function $caa9439642c6336c$var$registerTransitionsFromHelper(el, modifiers, stage) {
+    $caa9439642c6336c$var$registerTransitionObject(el, $caa9439642c6336c$var$setStyles);
     let doesntSpecify = !modifiers.includes("in") && !modifiers.includes("out") && !stage;
     let transitioningIn = doesntSpecify || modifiers.includes("in") || [
         "enter"
@@ -1693,12 +958,12 @@ function registerTransitionsFromHelper(el, modifiers, stage) {
     let wantsOpacity = wantsAll || modifiers.includes("opacity");
     let wantsScale = wantsAll || modifiers.includes("scale");
     let opacityValue = wantsOpacity ? 0 : 1;
-    let scaleValue = wantsScale ? modifierValue(modifiers, "scale", 95) / 100 : 1;
-    let delay = modifierValue(modifiers, "delay", 0) / 1e3;
-    let origin = modifierValue(modifiers, "origin", "center");
+    let scaleValue = wantsScale ? $caa9439642c6336c$var$modifierValue(modifiers, "scale", 95) / 100 : 1;
+    let delay = $caa9439642c6336c$var$modifierValue(modifiers, "delay", 0) / 1e3;
+    let origin = $caa9439642c6336c$var$modifierValue(modifiers, "origin", "center");
     let property = "opacity, transform";
-    let durationIn = modifierValue(modifiers, "duration", 150) / 1e3;
-    let durationOut = modifierValue(modifiers, "duration", 75) / 1e3;
+    let durationIn = $caa9439642c6336c$var$modifierValue(modifiers, "duration", 150) / 1e3;
+    let durationOut = $caa9439642c6336c$var$modifierValue(modifiers, "duration", 75) / 1e3;
     let easing = `cubic-bezier(0.4, 0.0, 0.2, 1)`;
     if (transitioningIn) {
         el._x_transition.enter.during = {
@@ -1735,7 +1000,7 @@ function registerTransitionsFromHelper(el, modifiers, stage) {
         };
     }
 }
-function registerTransitionObject(el, setFunction, defaultValue = {}) {
+function $caa9439642c6336c$var$registerTransitionObject(el, setFunction, defaultValue = {}) {
     if (!el._x_transition) el._x_transition = {
         enter: {
             during: defaultValue,
@@ -1748,14 +1013,14 @@ function registerTransitionObject(el, setFunction, defaultValue = {}) {
             end: defaultValue
         },
         in (before = ()=>{}, after = ()=>{}) {
-            transition(el, setFunction, {
+            $caa9439642c6336c$var$transition(el, setFunction, {
                 during: this.enter.during,
                 start: this.enter.start,
                 end: this.enter.end
             }, before, after);
         },
         out (before = ()=>{}, after = ()=>{}) {
-            transition(el, setFunction, {
+            $caa9439642c6336c$var$transition(el, setFunction, {
                 during: this.leave.during,
                 start: this.leave.start,
                 end: this.leave.end
@@ -1778,7 +1043,7 @@ window.Element.prototype._x_toggleAndCascadeWithTransitions = function(el, value
             }));
     }) : Promise.resolve(hide);
     queueMicrotask(()=>{
-        let closest = closestHide(el);
+        let closest = $caa9439642c6336c$var$closestHide(el);
         if (closest) {
             if (!closest._x_hideChildren) closest._x_hideChildren = [];
             closest._x_hideChildren.push(el);
@@ -1798,12 +1063,12 @@ window.Element.prototype._x_toggleAndCascadeWithTransitions = function(el, value
         });
     });
 };
-function closestHide(el) {
+function $caa9439642c6336c$var$closestHide(el) {
     let parent = el.parentNode;
     if (!parent) return;
-    return parent._x_hidePromise ? parent : closestHide(parent);
+    return parent._x_hidePromise ? parent : $caa9439642c6336c$var$closestHide(parent);
 }
-function transition(el, setFunction, { during, start: start2, end } = {}, before = ()=>{}, after = ()=>{}) {
+function $caa9439642c6336c$var$transition(el, setFunction, { during: during, start: start2, end: end } = {}, before = ()=>{}, after = ()=>{}) {
     if (el._x_transitioning) el._x_transitioning.cancel();
     if (Object.keys(during).length === 0 && Object.keys(start2).length === 0 && Object.keys(end).length === 0) {
         before();
@@ -1811,34 +1076,34 @@ function transition(el, setFunction, { during, start: start2, end } = {}, before
         return;
     }
     let undoStart, undoDuring, undoEnd;
-    performTransition(el, {
+    $caa9439642c6336c$var$performTransition(el, {
         start () {
             undoStart = setFunction(el, start2);
         },
         during () {
             undoDuring = setFunction(el, during);
         },
-        before,
+        before: before,
         end () {
             undoStart();
             undoEnd = setFunction(el, end);
         },
-        after,
+        after: after,
         cleanup () {
             undoDuring();
             undoEnd();
         }
     });
 }
-function performTransition(el, stages) {
+function $caa9439642c6336c$var$performTransition(el, stages) {
     let interrupted, reachedBefore, reachedEnd;
-    let finish = once(()=>{
-        mutateDom(()=>{
+    let finish = $caa9439642c6336c$var$once(()=>{
+        $caa9439642c6336c$var$mutateDom(()=>{
             interrupted = true;
             if (!reachedBefore) stages.before();
             if (!reachedEnd) {
                 stages.end();
-                releaseNextTicks();
+                $caa9439642c6336c$var$releaseNextTicks();
             }
             stages.after();
             if (el.isConnected) stages.cleanup();
@@ -1850,38 +1115,38 @@ function performTransition(el, stages) {
         beforeCancel (callback) {
             this.beforeCancels.push(callback);
         },
-        cancel: once(function() {
+        cancel: $caa9439642c6336c$var$once(function() {
             while(this.beforeCancels.length)this.beforeCancels.shift()();
             finish();
         }),
-        finish
+        finish: finish
     };
-    mutateDom(()=>{
+    $caa9439642c6336c$var$mutateDom(()=>{
         stages.start();
         stages.during();
     });
-    holdNextTicks();
+    $caa9439642c6336c$var$holdNextTicks();
     requestAnimationFrame(()=>{
         if (interrupted) return;
         let duration = Number(getComputedStyle(el).transitionDuration.replace(/,.*/, "").replace("s", "")) * 1e3;
         let delay = Number(getComputedStyle(el).transitionDelay.replace(/,.*/, "").replace("s", "")) * 1e3;
         if (duration === 0) duration = Number(getComputedStyle(el).animationDuration.replace("s", "")) * 1e3;
-        mutateDom(()=>{
+        $caa9439642c6336c$var$mutateDom(()=>{
             stages.before();
         });
         reachedBefore = true;
         requestAnimationFrame(()=>{
             if (interrupted) return;
-            mutateDom(()=>{
+            $caa9439642c6336c$var$mutateDom(()=>{
                 stages.end();
             });
-            releaseNextTicks();
+            $caa9439642c6336c$var$releaseNextTicks();
             setTimeout(el._x_transitioning.finish, duration + delay);
             reachedEnd = true;
         });
     });
 }
-function modifierValue(modifiers, key, fallback) {
+function $caa9439642c6336c$var$modifierValue(modifiers, key, fallback) {
     if (modifiers.indexOf(key) === -1) return fallback;
     const rawValue = modifiers[modifiers.indexOf(key) + 1];
     if (!rawValue) return fallback;
@@ -1907,134 +1172,134 @@ function modifierValue(modifiers, key, fallback) {
     return rawValue;
 }
 // packages/alpinejs/src/clone.js
-var isCloning = false;
-function skipDuringClone(callback, fallback = ()=>{}) {
-    return (...args)=>isCloning ? fallback(...args) : callback(...args);
+var $caa9439642c6336c$var$isCloning = false;
+function $caa9439642c6336c$var$skipDuringClone(callback, fallback = ()=>{}) {
+    return (...args)=>$caa9439642c6336c$var$isCloning ? fallback(...args) : callback(...args);
 }
-function onlyDuringClone(callback) {
-    return (...args)=>isCloning && callback(...args);
+function $caa9439642c6336c$var$onlyDuringClone(callback) {
+    return (...args)=>$caa9439642c6336c$var$isCloning && callback(...args);
 }
-var interceptors = [];
-function interceptClone(callback) {
-    interceptors.push(callback);
+var $caa9439642c6336c$var$interceptors = [];
+function $caa9439642c6336c$var$interceptClone(callback) {
+    $caa9439642c6336c$var$interceptors.push(callback);
 }
-function cloneNode(from, to) {
-    interceptors.forEach((i)=>i(from, to));
-    isCloning = true;
-    dontRegisterReactiveSideEffects(()=>{
-        initTree(to, (el, callback)=>{
+function $caa9439642c6336c$var$cloneNode(from, to) {
+    $caa9439642c6336c$var$interceptors.forEach((i)=>i(from, to));
+    $caa9439642c6336c$var$isCloning = true;
+    $caa9439642c6336c$var$dontRegisterReactiveSideEffects(()=>{
+        $caa9439642c6336c$var$initTree(to, (el, callback)=>{
             callback(el, ()=>{});
         });
     });
-    isCloning = false;
+    $caa9439642c6336c$var$isCloning = false;
 }
-var isCloningLegacy = false;
-function clone(oldEl, newEl) {
+var $caa9439642c6336c$var$isCloningLegacy = false;
+function $caa9439642c6336c$var$clone(oldEl, newEl) {
     if (!newEl._x_dataStack) newEl._x_dataStack = oldEl._x_dataStack;
-    isCloning = true;
-    isCloningLegacy = true;
-    dontRegisterReactiveSideEffects(()=>{
-        cloneTree(newEl);
+    $caa9439642c6336c$var$isCloning = true;
+    $caa9439642c6336c$var$isCloningLegacy = true;
+    $caa9439642c6336c$var$dontRegisterReactiveSideEffects(()=>{
+        $caa9439642c6336c$var$cloneTree(newEl);
     });
-    isCloning = false;
-    isCloningLegacy = false;
+    $caa9439642c6336c$var$isCloning = false;
+    $caa9439642c6336c$var$isCloningLegacy = false;
 }
-function cloneTree(el) {
+function $caa9439642c6336c$var$cloneTree(el) {
     let hasRunThroughFirstEl = false;
     let shallowWalker = (el2, callback)=>{
-        walk(el2, (el3, skip)=>{
-            if (hasRunThroughFirstEl && isRoot(el3)) return skip();
+        $caa9439642c6336c$var$walk(el2, (el3, skip)=>{
+            if (hasRunThroughFirstEl && $caa9439642c6336c$var$isRoot(el3)) return skip();
             hasRunThroughFirstEl = true;
             callback(el3, skip);
         });
     };
-    initTree(el, shallowWalker);
+    $caa9439642c6336c$var$initTree(el, shallowWalker);
 }
-function dontRegisterReactiveSideEffects(callback) {
-    let cache = effect;
-    overrideEffect((callback2, el)=>{
+function $caa9439642c6336c$var$dontRegisterReactiveSideEffects(callback) {
+    let cache = $caa9439642c6336c$var$effect;
+    $caa9439642c6336c$var$overrideEffect((callback2, el)=>{
         let storedEffect = cache(callback2);
-        release(storedEffect);
+        $caa9439642c6336c$var$release(storedEffect);
         return ()=>{};
     });
     callback();
-    overrideEffect(cache);
+    $caa9439642c6336c$var$overrideEffect(cache);
 }
 // packages/alpinejs/src/utils/bind.js
-function bind(el, name, value, modifiers = []) {
-    if (!el._x_bindings) el._x_bindings = reactive({});
+function $caa9439642c6336c$var$bind(el, name, value, modifiers = []) {
+    if (!el._x_bindings) el._x_bindings = $caa9439642c6336c$var$reactive({});
     el._x_bindings[name] = value;
-    name = modifiers.includes("camel") ? camelCase(name) : name;
+    name = modifiers.includes("camel") ? $caa9439642c6336c$var$camelCase(name) : name;
     switch(name){
         case "value":
-            bindInputValue(el, value);
+            $caa9439642c6336c$var$bindInputValue(el, value);
             break;
         case "style":
-            bindStyles(el, value);
+            $caa9439642c6336c$var$bindStyles(el, value);
             break;
         case "class":
-            bindClasses(el, value);
+            $caa9439642c6336c$var$bindClasses(el, value);
             break;
         case "selected":
         case "checked":
-            bindAttributeAndProperty(el, name, value);
+            $caa9439642c6336c$var$bindAttributeAndProperty(el, name, value);
             break;
         default:
-            bindAttribute(el, name, value);
+            $caa9439642c6336c$var$bindAttribute(el, name, value);
             break;
     }
 }
-function bindInputValue(el, value) {
-    if (isRadio(el)) {
+function $caa9439642c6336c$var$bindInputValue(el, value) {
+    if ($caa9439642c6336c$var$isRadio(el)) {
         if (el.attributes.value === void 0) el.value = value;
         if (window.fromModel) {
-            if (typeof value === "boolean") el.checked = safeParseBoolean(el.value) === value;
-            else el.checked = checkedAttrLooseCompare(el.value, value);
+            if (typeof value === "boolean") el.checked = $caa9439642c6336c$var$safeParseBoolean(el.value) === value;
+            else el.checked = $caa9439642c6336c$var$checkedAttrLooseCompare(el.value, value);
         }
-    } else if (isCheckbox(el)) {
+    } else if ($caa9439642c6336c$var$isCheckbox(el)) {
         if (Number.isInteger(value)) el.value = value;
         else if (!Array.isArray(value) && typeof value !== "boolean" && ![
             null,
             void 0
         ].includes(value)) el.value = String(value);
-        else if (Array.isArray(value)) el.checked = value.some((val)=>checkedAttrLooseCompare(val, el.value));
+        else if (Array.isArray(value)) el.checked = value.some((val)=>$caa9439642c6336c$var$checkedAttrLooseCompare(val, el.value));
         else el.checked = !!value;
-    } else if (el.tagName === "SELECT") updateSelect(el, value);
+    } else if (el.tagName === "SELECT") $caa9439642c6336c$var$updateSelect(el, value);
     else {
         if (el.value === value) return;
         el.value = value === void 0 ? "" : value;
     }
 }
-function bindClasses(el, value) {
+function $caa9439642c6336c$var$bindClasses(el, value) {
     if (el._x_undoAddedClasses) el._x_undoAddedClasses();
-    el._x_undoAddedClasses = setClasses(el, value);
+    el._x_undoAddedClasses = $caa9439642c6336c$var$setClasses(el, value);
 }
-function bindStyles(el, value) {
+function $caa9439642c6336c$var$bindStyles(el, value) {
     if (el._x_undoAddedStyles) el._x_undoAddedStyles();
-    el._x_undoAddedStyles = setStyles(el, value);
+    el._x_undoAddedStyles = $caa9439642c6336c$var$setStyles(el, value);
 }
-function bindAttributeAndProperty(el, name, value) {
-    bindAttribute(el, name, value);
-    setPropertyIfChanged(el, name, value);
+function $caa9439642c6336c$var$bindAttributeAndProperty(el, name, value) {
+    $caa9439642c6336c$var$bindAttribute(el, name, value);
+    $caa9439642c6336c$var$setPropertyIfChanged(el, name, value);
 }
-function bindAttribute(el, name, value) {
+function $caa9439642c6336c$var$bindAttribute(el, name, value) {
     if ([
         null,
         void 0,
         false
-    ].includes(value) && attributeShouldntBePreservedIfFalsy(name)) el.removeAttribute(name);
+    ].includes(value) && $caa9439642c6336c$var$attributeShouldntBePreservedIfFalsy(name)) el.removeAttribute(name);
     else {
-        if (isBooleanAttr(name)) value = name;
-        setIfChanged(el, name, value);
+        if ($caa9439642c6336c$var$isBooleanAttr(name)) value = name;
+        $caa9439642c6336c$var$setIfChanged(el, name, value);
     }
 }
-function setIfChanged(el, attrName, value) {
+function $caa9439642c6336c$var$setIfChanged(el, attrName, value) {
     if (el.getAttribute(attrName) != value) el.setAttribute(attrName, value);
 }
-function setPropertyIfChanged(el, propName, value) {
+function $caa9439642c6336c$var$setPropertyIfChanged(el, propName, value) {
     if (el[propName] !== value) el[propName] = value;
 }
-function updateSelect(el, value) {
+function $caa9439642c6336c$var$updateSelect(el, value) {
     const arrayWrappedValue = [].concat(value).map((value2)=>{
         return value2 + "";
     });
@@ -2042,13 +1307,13 @@ function updateSelect(el, value) {
         option.selected = arrayWrappedValue.includes(option.value);
     });
 }
-function camelCase(subject) {
+function $caa9439642c6336c$var$camelCase(subject) {
     return subject.toLowerCase().replace(/-(\w)/g, (match, char)=>char.toUpperCase());
 }
-function checkedAttrLooseCompare(valueA, valueB) {
+function $caa9439642c6336c$var$checkedAttrLooseCompare(valueA, valueB) {
     return valueA == valueB;
 }
-function safeParseBoolean(rawValue) {
+function $caa9439642c6336c$var$safeParseBoolean(rawValue) {
     if ([
         1,
         "1",
@@ -2067,7 +1332,7 @@ function safeParseBoolean(rawValue) {
     ].includes(rawValue)) return false;
     return rawValue ? Boolean(rawValue) : null;
 }
-var booleanAttributes = /* @__PURE__ */ new Set([
+var $caa9439642c6336c$var$booleanAttributes = /* @__PURE__ */ new Set([
     "allowfullscreen",
     "async",
     "autofocus",
@@ -2096,10 +1361,10 @@ var booleanAttributes = /* @__PURE__ */ new Set([
     "shadowrootdelegatesfocus",
     "shadowrootserializable"
 ]);
-function isBooleanAttr(attrName) {
-    return booleanAttributes.has(attrName);
+function $caa9439642c6336c$var$isBooleanAttr(attrName) {
+    return $caa9439642c6336c$var$booleanAttributes.has(attrName);
 }
-function attributeShouldntBePreservedIfFalsy(name) {
+function $caa9439642c6336c$var$attributeShouldntBePreservedIfFalsy(name) {
     return ![
         "aria-pressed",
         "aria-checked",
@@ -2107,39 +1372,39 @@ function attributeShouldntBePreservedIfFalsy(name) {
         "aria-selected"
     ].includes(name);
 }
-function getBinding(el, name, fallback) {
+function $caa9439642c6336c$var$getBinding(el, name, fallback) {
     if (el._x_bindings && el._x_bindings[name] !== void 0) return el._x_bindings[name];
-    return getAttributeBinding(el, name, fallback);
+    return $caa9439642c6336c$var$getAttributeBinding(el, name, fallback);
 }
-function extractProp(el, name, fallback, extract = true) {
+function $caa9439642c6336c$var$extractProp(el, name, fallback, extract = true) {
     if (el._x_bindings && el._x_bindings[name] !== void 0) return el._x_bindings[name];
     if (el._x_inlineBindings && el._x_inlineBindings[name] !== void 0) {
         let binding = el._x_inlineBindings[name];
         binding.extract = extract;
-        return dontAutoEvaluateFunctions(()=>{
-            return evaluate(el, binding.expression);
+        return $caa9439642c6336c$var$dontAutoEvaluateFunctions(()=>{
+            return $caa9439642c6336c$var$evaluate(el, binding.expression);
         });
     }
-    return getAttributeBinding(el, name, fallback);
+    return $caa9439642c6336c$var$getAttributeBinding(el, name, fallback);
 }
-function getAttributeBinding(el, name, fallback) {
+function $caa9439642c6336c$var$getAttributeBinding(el, name, fallback) {
     let attr = el.getAttribute(name);
     if (attr === null) return typeof fallback === "function" ? fallback() : fallback;
     if (attr === "") return true;
-    if (isBooleanAttr(name)) return !![
+    if ($caa9439642c6336c$var$isBooleanAttr(name)) return !![
         name,
         "true"
     ].includes(attr);
     return attr;
 }
-function isCheckbox(el) {
+function $caa9439642c6336c$var$isCheckbox(el) {
     return el.type === "checkbox" || el.localName === "ui-checkbox" || el.localName === "ui-switch";
 }
-function isRadio(el) {
+function $caa9439642c6336c$var$isRadio(el) {
     return el.type === "radio" || el.localName === "ui-radio";
 }
 // packages/alpinejs/src/utils/debounce.js
-function debounce(func, wait) {
+function $caa9439642c6336c$var$debounce(func, wait) {
     let timeout;
     return function() {
         const context = this, args = arguments;
@@ -2152,7 +1417,7 @@ function debounce(func, wait) {
     };
 }
 // packages/alpinejs/src/utils/throttle.js
-function throttle(func, limit) {
+function $caa9439642c6336c$var$throttle(func, limit) {
     let inThrottle;
     return function() {
         let context = this, args = arguments;
@@ -2164,65 +1429,65 @@ function throttle(func, limit) {
     };
 }
 // packages/alpinejs/src/entangle.js
-function entangle({ get: outerGet, set: outerSet }, { get: innerGet, set: innerSet }) {
+function $caa9439642c6336c$var$entangle({ get: outerGet, set: outerSet }, { get: innerGet, set: innerSet }) {
     let firstRun = true;
     let outerHash;
     let innerHash;
-    let reference = effect(()=>{
+    let reference = $caa9439642c6336c$var$effect(()=>{
         let outer = outerGet();
         let inner = innerGet();
         if (firstRun) {
-            innerSet(cloneIfObject(outer));
+            innerSet($caa9439642c6336c$var$cloneIfObject(outer));
             firstRun = false;
         } else {
             let outerHashLatest = JSON.stringify(outer);
             let innerHashLatest = JSON.stringify(inner);
-            if (outerHashLatest !== outerHash) innerSet(cloneIfObject(outer));
-            else if (outerHashLatest !== innerHashLatest) outerSet(cloneIfObject(inner));
+            if (outerHashLatest !== outerHash) innerSet($caa9439642c6336c$var$cloneIfObject(outer));
+            else if (outerHashLatest !== innerHashLatest) outerSet($caa9439642c6336c$var$cloneIfObject(inner));
         }
         outerHash = JSON.stringify(outerGet());
         innerHash = JSON.stringify(innerGet());
     });
     return ()=>{
-        release(reference);
+        $caa9439642c6336c$var$release(reference);
     };
 }
-function cloneIfObject(value) {
+function $caa9439642c6336c$var$cloneIfObject(value) {
     return typeof value === "object" ? JSON.parse(JSON.stringify(value)) : value;
 }
 // packages/alpinejs/src/plugin.js
-function plugin(callback) {
+function $caa9439642c6336c$var$plugin(callback) {
     let callbacks = Array.isArray(callback) ? callback : [
         callback
     ];
-    callbacks.forEach((i)=>i(alpine_default));
+    callbacks.forEach((i)=>i($caa9439642c6336c$var$alpine_default));
 }
 // packages/alpinejs/src/store.js
-var stores = {};
-var isReactive = false;
-function store(name, value) {
-    if (!isReactive) {
-        stores = reactive(stores);
-        isReactive = true;
+var $caa9439642c6336c$var$stores = {};
+var $caa9439642c6336c$var$isReactive = false;
+function $caa9439642c6336c$var$store(name, value) {
+    if (!$caa9439642c6336c$var$isReactive) {
+        $caa9439642c6336c$var$stores = $caa9439642c6336c$var$reactive($caa9439642c6336c$var$stores);
+        $caa9439642c6336c$var$isReactive = true;
     }
-    if (value === void 0) return stores[name];
-    stores[name] = value;
-    initInterceptors(stores[name]);
-    if (typeof value === "object" && value !== null && value.hasOwnProperty("init") && typeof value.init === "function") stores[name].init();
+    if (value === void 0) return $caa9439642c6336c$var$stores[name];
+    $caa9439642c6336c$var$stores[name] = value;
+    $caa9439642c6336c$var$initInterceptors($caa9439642c6336c$var$stores[name]);
+    if (typeof value === "object" && value !== null && value.hasOwnProperty("init") && typeof value.init === "function") $caa9439642c6336c$var$stores[name].init();
 }
-function getStores() {
-    return stores;
+function $caa9439642c6336c$var$getStores() {
+    return $caa9439642c6336c$var$stores;
 }
 // packages/alpinejs/src/binds.js
-var binds = {};
-function bind2(name, bindings) {
+var $caa9439642c6336c$var$binds = {};
+function $caa9439642c6336c$var$bind2(name, bindings) {
     let getBindings = typeof bindings !== "function" ? ()=>bindings : bindings;
-    if (name instanceof Element) return applyBindingsObject(name, getBindings());
-    else binds[name] = getBindings;
+    if (name instanceof Element) return $caa9439642c6336c$var$applyBindingsObject(name, getBindings());
+    else $caa9439642c6336c$var$binds[name] = getBindings;
     return ()=>{};
 }
-function injectBindingProviders(obj) {
-    Object.entries(binds).forEach(([name, callback])=>{
+function $caa9439642c6336c$var$injectBindingProviders(obj) {
+    Object.entries($caa9439642c6336c$var$binds).forEach(([name, callback])=>{
         Object.defineProperty(obj, name, {
             get () {
                 return (...args)=>{
@@ -2233,14 +1498,14 @@ function injectBindingProviders(obj) {
     });
     return obj;
 }
-function applyBindingsObject(el, obj, original) {
+function $caa9439642c6336c$var$applyBindingsObject(el, obj, original) {
     let cleanupRunners = [];
     while(cleanupRunners.length)cleanupRunners.pop()();
     let attributes = Object.entries(obj).map(([name, value])=>({
-            name,
-            value
+            name: name,
+            value: value
         }));
-    let staticAttributes = attributesOnly(attributes);
+    let staticAttributes = $caa9439642c6336c$var$attributesOnly(attributes);
     attributes = attributes.map((attribute)=>{
         if (staticAttributes.find((attr)=>attr.name === attribute.name)) return {
             name: `x-bind:${attribute.name}`,
@@ -2248,7 +1513,7 @@ function applyBindingsObject(el, obj, original) {
         };
         return attribute;
     });
-    directives(el, attributes, original).map((handle)=>{
+    $caa9439642c6336c$var$directives(el, attributes, original).map((handle)=>{
         cleanupRunners.push(handle.runCleanups);
         handle();
     });
@@ -2257,12 +1522,12 @@ function applyBindingsObject(el, obj, original) {
     };
 }
 // packages/alpinejs/src/datas.js
-var datas = {};
-function data(name, callback) {
-    datas[name] = callback;
+var $caa9439642c6336c$var$datas = {};
+function $caa9439642c6336c$var$data(name, callback) {
+    $caa9439642c6336c$var$datas[name] = callback;
 }
-function injectDataProviders(obj, context) {
-    Object.entries(datas).forEach(([name, callback])=>{
+function $caa9439642c6336c$var$injectDataProviders(obj, context) {
+    Object.entries($caa9439642c6336c$var$datas).forEach(([name, callback])=>{
         Object.defineProperty(obj, name, {
             get () {
                 return (...args)=>{
@@ -2275,159 +1540,159 @@ function injectDataProviders(obj, context) {
     return obj;
 }
 // packages/alpinejs/src/alpine.js
-var Alpine = {
+var $caa9439642c6336c$var$Alpine = {
     get reactive () {
-        return reactive;
+        return $caa9439642c6336c$var$reactive;
     },
     get release () {
-        return release;
+        return $caa9439642c6336c$var$release;
     },
     get effect () {
-        return effect;
+        return $caa9439642c6336c$var$effect;
     },
     get raw () {
-        return raw;
+        return $caa9439642c6336c$var$raw;
     },
     version: "3.15.0",
-    flushAndStopDeferringMutations,
-    dontAutoEvaluateFunctions,
-    disableEffectScheduling,
-    startObservingMutations,
-    stopObservingMutations,
-    setReactivityEngine,
-    onAttributeRemoved,
-    onAttributesAdded,
-    closestDataStack,
-    skipDuringClone,
-    onlyDuringClone,
-    addRootSelector,
-    addInitSelector,
-    interceptClone,
-    addScopeToNode,
-    deferMutations,
-    mapAttributes,
-    evaluateLater,
-    interceptInit,
-    setEvaluator,
-    mergeProxies,
-    extractProp,
-    findClosest,
-    onElRemoved,
-    closestRoot,
-    destroyTree,
-    interceptor,
-    // INTERNAL: not public API and is subject to change without major release.
-    transition,
+    flushAndStopDeferringMutations: $caa9439642c6336c$var$flushAndStopDeferringMutations,
+    dontAutoEvaluateFunctions: $caa9439642c6336c$var$dontAutoEvaluateFunctions,
+    disableEffectScheduling: $caa9439642c6336c$var$disableEffectScheduling,
+    startObservingMutations: $caa9439642c6336c$var$startObservingMutations,
+    stopObservingMutations: $caa9439642c6336c$var$stopObservingMutations,
+    setReactivityEngine: $caa9439642c6336c$var$setReactivityEngine,
+    onAttributeRemoved: $caa9439642c6336c$var$onAttributeRemoved,
+    onAttributesAdded: $caa9439642c6336c$var$onAttributesAdded,
+    closestDataStack: $caa9439642c6336c$var$closestDataStack,
+    skipDuringClone: $caa9439642c6336c$var$skipDuringClone,
+    onlyDuringClone: $caa9439642c6336c$var$onlyDuringClone,
+    addRootSelector: $caa9439642c6336c$var$addRootSelector,
+    addInitSelector: $caa9439642c6336c$var$addInitSelector,
+    interceptClone: $caa9439642c6336c$var$interceptClone,
+    addScopeToNode: $caa9439642c6336c$var$addScopeToNode,
+    deferMutations: $caa9439642c6336c$var$deferMutations,
+    mapAttributes: $caa9439642c6336c$var$mapAttributes,
+    evaluateLater: $caa9439642c6336c$var$evaluateLater,
+    interceptInit: $caa9439642c6336c$var$interceptInit,
+    setEvaluator: $caa9439642c6336c$var$setEvaluator,
+    mergeProxies: $caa9439642c6336c$var$mergeProxies,
+    extractProp: $caa9439642c6336c$var$extractProp,
+    findClosest: $caa9439642c6336c$var$findClosest,
+    onElRemoved: $caa9439642c6336c$var$onElRemoved,
+    closestRoot: $caa9439642c6336c$var$closestRoot,
+    destroyTree: $caa9439642c6336c$var$destroyTree,
+    interceptor: $caa9439642c6336c$var$interceptor,
+    transition: // INTERNAL: not public API and is subject to change without major release.
+    $caa9439642c6336c$var$transition,
+    setStyles: // INTERNAL
+    $caa9439642c6336c$var$setStyles,
+    mutateDom: // INTERNAL
+    $caa9439642c6336c$var$mutateDom,
+    directive: $caa9439642c6336c$var$directive,
+    entangle: $caa9439642c6336c$var$entangle,
+    throttle: $caa9439642c6336c$var$throttle,
+    debounce: $caa9439642c6336c$var$debounce,
+    evaluate: $caa9439642c6336c$var$evaluate,
+    initTree: $caa9439642c6336c$var$initTree,
+    nextTick: $caa9439642c6336c$var$nextTick,
+    prefixed: $caa9439642c6336c$var$prefix,
+    prefix: $caa9439642c6336c$var$setPrefix,
+    plugin: $caa9439642c6336c$var$plugin,
+    magic: $caa9439642c6336c$var$magic,
+    store: $caa9439642c6336c$var$store,
+    start: $caa9439642c6336c$var$start,
+    clone: $caa9439642c6336c$var$clone,
+    cloneNode: // INTERNAL
+    $caa9439642c6336c$var$cloneNode,
     // INTERNAL
-    setStyles,
-    // INTERNAL
-    mutateDom,
-    directive,
-    entangle,
-    throttle,
-    debounce,
-    evaluate,
-    initTree,
-    nextTick,
-    prefixed: prefix,
-    prefix: setPrefix,
-    plugin,
-    magic,
-    store,
-    start,
-    clone,
-    // INTERNAL
-    cloneNode,
-    // INTERNAL
-    bound: getBinding,
-    $data: scope,
-    watch,
-    walk,
-    data,
-    bind: bind2
+    bound: $caa9439642c6336c$var$getBinding,
+    $data: $caa9439642c6336c$var$scope,
+    watch: $caa9439642c6336c$var$watch,
+    walk: $caa9439642c6336c$var$walk,
+    data: $caa9439642c6336c$var$data,
+    bind: $caa9439642c6336c$var$bind2
 };
-var alpine_default = Alpine;
+var $caa9439642c6336c$var$alpine_default = $caa9439642c6336c$var$Alpine;
 // node_modules/@vue/shared/dist/shared.esm-bundler.js
-function makeMap(str, expectsLowerCase) {
+function $caa9439642c6336c$var$makeMap(str, expectsLowerCase) {
     const map = /* @__PURE__ */ Object.create(null);
     const list = str.split(",");
     for(let i = 0; i < list.length; i++)map[list[i]] = true;
     return expectsLowerCase ? (val)=>!!map[val.toLowerCase()] : (val)=>!!map[val];
 }
-var specialBooleanAttrs = `itemscope,allowfullscreen,formnovalidate,ismap,nomodule,novalidate,readonly`;
-var isBooleanAttr2 = /* @__PURE__ */ makeMap(specialBooleanAttrs + `,async,autofocus,autoplay,controls,default,defer,disabled,hidden,loop,open,required,reversed,scoped,seamless,checked,muted,multiple,selected`);
-var EMPTY_OBJ = Object.freeze({});
-var EMPTY_ARR = Object.freeze([]);
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-var hasOwn = (val, key)=>hasOwnProperty.call(val, key);
-var isArray = Array.isArray;
-var isMap = (val)=>toTypeString(val) === "[object Map]";
-var isString = (val)=>typeof val === "string";
-var isSymbol = (val)=>typeof val === "symbol";
-var isObject = (val)=>val !== null && typeof val === "object";
-var objectToString = Object.prototype.toString;
-var toTypeString = (value)=>objectToString.call(value);
-var toRawType = (value)=>{
-    return toTypeString(value).slice(8, -1);
+var $caa9439642c6336c$var$specialBooleanAttrs = `itemscope,allowfullscreen,formnovalidate,ismap,nomodule,novalidate,readonly`;
+var $caa9439642c6336c$var$isBooleanAttr2 = /* @__PURE__ */ $caa9439642c6336c$var$makeMap($caa9439642c6336c$var$specialBooleanAttrs + `,async,autofocus,autoplay,controls,default,defer,disabled,hidden,loop,open,required,reversed,scoped,seamless,checked,muted,multiple,selected`);
+var $caa9439642c6336c$var$EMPTY_OBJ = Object.freeze({});
+var $caa9439642c6336c$var$EMPTY_ARR = Object.freeze([]);
+var $caa9439642c6336c$var$hasOwnProperty = Object.prototype.hasOwnProperty;
+var $caa9439642c6336c$var$hasOwn = (val, key)=>$caa9439642c6336c$var$hasOwnProperty.call(val, key);
+var $caa9439642c6336c$var$isArray = Array.isArray;
+var $caa9439642c6336c$var$isMap = (val)=>$caa9439642c6336c$var$toTypeString(val) === "[object Map]";
+var $caa9439642c6336c$var$isString = (val)=>typeof val === "string";
+var $caa9439642c6336c$var$isSymbol = (val)=>typeof val === "symbol";
+var $caa9439642c6336c$var$isObject = (val)=>val !== null && typeof val === "object";
+var $caa9439642c6336c$var$objectToString = Object.prototype.toString;
+var $caa9439642c6336c$var$toTypeString = (value)=>$caa9439642c6336c$var$objectToString.call(value);
+var $caa9439642c6336c$var$toRawType = (value)=>{
+    return $caa9439642c6336c$var$toTypeString(value).slice(8, -1);
 };
-var isIntegerKey = (key)=>isString(key) && key !== "NaN" && key[0] !== "-" && "" + parseInt(key, 10) === key;
-var cacheStringFunction = (fn)=>{
+var $caa9439642c6336c$var$isIntegerKey = (key)=>$caa9439642c6336c$var$isString(key) && key !== "NaN" && key[0] !== "-" && "" + parseInt(key, 10) === key;
+var $caa9439642c6336c$var$cacheStringFunction = (fn)=>{
     const cache = /* @__PURE__ */ Object.create(null);
     return (str)=>{
         const hit = cache[str];
         return hit || (cache[str] = fn(str));
     };
 };
-var camelizeRE = /-(\w)/g;
-var camelize = cacheStringFunction((str)=>{
-    return str.replace(camelizeRE, (_, c)=>c ? c.toUpperCase() : "");
+var $caa9439642c6336c$var$camelizeRE = /-(\w)/g;
+var $caa9439642c6336c$var$camelize = $caa9439642c6336c$var$cacheStringFunction((str)=>{
+    return str.replace($caa9439642c6336c$var$camelizeRE, (_, c)=>c ? c.toUpperCase() : "");
 });
-var hyphenateRE = /\B([A-Z])/g;
-var hyphenate = cacheStringFunction((str)=>str.replace(hyphenateRE, "-$1").toLowerCase());
-var capitalize = cacheStringFunction((str)=>str.charAt(0).toUpperCase() + str.slice(1));
-var toHandlerKey = cacheStringFunction((str)=>str ? `on${capitalize(str)}` : ``);
-var hasChanged = (value, oldValue)=>value !== oldValue && (value === value || oldValue === oldValue);
+var $caa9439642c6336c$var$hyphenateRE = /\B([A-Z])/g;
+var $caa9439642c6336c$var$hyphenate = $caa9439642c6336c$var$cacheStringFunction((str)=>str.replace($caa9439642c6336c$var$hyphenateRE, "-$1").toLowerCase());
+var $caa9439642c6336c$var$capitalize = $caa9439642c6336c$var$cacheStringFunction((str)=>str.charAt(0).toUpperCase() + str.slice(1));
+var $caa9439642c6336c$var$toHandlerKey = $caa9439642c6336c$var$cacheStringFunction((str)=>str ? `on${$caa9439642c6336c$var$capitalize(str)}` : ``);
+var $caa9439642c6336c$var$hasChanged = (value, oldValue)=>value !== oldValue && (value === value || oldValue === oldValue);
 // node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js
-var targetMap = /* @__PURE__ */ new WeakMap();
-var effectStack = [];
-var activeEffect;
-var ITERATE_KEY = Symbol("iterate");
-var MAP_KEY_ITERATE_KEY = Symbol("Map key iterate");
-function isEffect(fn) {
+var $caa9439642c6336c$var$targetMap = /* @__PURE__ */ new WeakMap();
+var $caa9439642c6336c$var$effectStack = [];
+var $caa9439642c6336c$var$activeEffect;
+var $caa9439642c6336c$var$ITERATE_KEY = Symbol("iterate");
+var $caa9439642c6336c$var$MAP_KEY_ITERATE_KEY = Symbol("Map key iterate");
+function $caa9439642c6336c$var$isEffect(fn) {
     return fn && fn._isEffect === true;
 }
-function effect2(fn, options = EMPTY_OBJ) {
-    if (isEffect(fn)) fn = fn.raw;
-    const effect3 = createReactiveEffect(fn, options);
+function $caa9439642c6336c$var$effect2(fn, options = $caa9439642c6336c$var$EMPTY_OBJ) {
+    if ($caa9439642c6336c$var$isEffect(fn)) fn = fn.raw;
+    const effect3 = $caa9439642c6336c$var$createReactiveEffect(fn, options);
     if (!options.lazy) effect3();
     return effect3;
 }
-function stop(effect3) {
+function $caa9439642c6336c$var$stop(effect3) {
     if (effect3.active) {
-        cleanup(effect3);
+        $caa9439642c6336c$var$cleanup(effect3);
         if (effect3.options.onStop) effect3.options.onStop();
         effect3.active = false;
     }
 }
-var uid = 0;
-function createReactiveEffect(fn, options) {
+var $caa9439642c6336c$var$uid = 0;
+function $caa9439642c6336c$var$createReactiveEffect(fn, options) {
     const effect3 = function reactiveEffect() {
         if (!effect3.active) return fn();
-        if (!effectStack.includes(effect3)) {
-            cleanup(effect3);
+        if (!$caa9439642c6336c$var$effectStack.includes(effect3)) {
+            $caa9439642c6336c$var$cleanup(effect3);
             try {
-                enableTracking();
-                effectStack.push(effect3);
-                activeEffect = effect3;
+                $caa9439642c6336c$var$enableTracking();
+                $caa9439642c6336c$var$effectStack.push(effect3);
+                $caa9439642c6336c$var$activeEffect = effect3;
                 return fn();
             } finally{
-                effectStack.pop();
-                resetTracking();
-                activeEffect = effectStack[effectStack.length - 1];
+                $caa9439642c6336c$var$effectStack.pop();
+                $caa9439642c6336c$var$resetTracking();
+                $caa9439642c6336c$var$activeEffect = $caa9439642c6336c$var$effectStack[$caa9439642c6336c$var$effectStack.length - 1];
             }
         }
     };
-    effect3.id = uid++;
+    effect3.id = $caa9439642c6336c$var$uid++;
     effect3.allowRecurse = !!options.allowRecurse;
     effect3._isEffect = true;
     effect3.active = true;
@@ -2436,98 +1701,98 @@ function createReactiveEffect(fn, options) {
     effect3.options = options;
     return effect3;
 }
-function cleanup(effect3) {
-    const { deps } = effect3;
+function $caa9439642c6336c$var$cleanup(effect3) {
+    const { deps: deps } = effect3;
     if (deps.length) {
         for(let i = 0; i < deps.length; i++)deps[i].delete(effect3);
         deps.length = 0;
     }
 }
-var shouldTrack = true;
-var trackStack = [];
-function pauseTracking() {
-    trackStack.push(shouldTrack);
-    shouldTrack = false;
+var $caa9439642c6336c$var$shouldTrack = true;
+var $caa9439642c6336c$var$trackStack = [];
+function $caa9439642c6336c$var$pauseTracking() {
+    $caa9439642c6336c$var$trackStack.push($caa9439642c6336c$var$shouldTrack);
+    $caa9439642c6336c$var$shouldTrack = false;
 }
-function enableTracking() {
-    trackStack.push(shouldTrack);
-    shouldTrack = true;
+function $caa9439642c6336c$var$enableTracking() {
+    $caa9439642c6336c$var$trackStack.push($caa9439642c6336c$var$shouldTrack);
+    $caa9439642c6336c$var$shouldTrack = true;
 }
-function resetTracking() {
-    const last = trackStack.pop();
-    shouldTrack = last === void 0 ? true : last;
+function $caa9439642c6336c$var$resetTracking() {
+    const last = $caa9439642c6336c$var$trackStack.pop();
+    $caa9439642c6336c$var$shouldTrack = last === void 0 ? true : last;
 }
-function track(target, type, key) {
-    if (!shouldTrack || activeEffect === void 0) return;
-    let depsMap = targetMap.get(target);
-    if (!depsMap) targetMap.set(target, depsMap = /* @__PURE__ */ new Map());
+function $caa9439642c6336c$var$track(target, type, key) {
+    if (!$caa9439642c6336c$var$shouldTrack || $caa9439642c6336c$var$activeEffect === void 0) return;
+    let depsMap = $caa9439642c6336c$var$targetMap.get(target);
+    if (!depsMap) $caa9439642c6336c$var$targetMap.set(target, depsMap = /* @__PURE__ */ new Map());
     let dep = depsMap.get(key);
     if (!dep) depsMap.set(key, dep = /* @__PURE__ */ new Set());
-    if (!dep.has(activeEffect)) {
-        dep.add(activeEffect);
-        activeEffect.deps.push(dep);
-        if (activeEffect.options.onTrack) activeEffect.options.onTrack({
-            effect: activeEffect,
-            target,
-            type,
-            key
+    if (!dep.has($caa9439642c6336c$var$activeEffect)) {
+        dep.add($caa9439642c6336c$var$activeEffect);
+        $caa9439642c6336c$var$activeEffect.deps.push(dep);
+        if ($caa9439642c6336c$var$activeEffect.options.onTrack) $caa9439642c6336c$var$activeEffect.options.onTrack({
+            effect: $caa9439642c6336c$var$activeEffect,
+            target: target,
+            type: type,
+            key: key
         });
     }
 }
-function trigger(target, type, key, newValue, oldValue, oldTarget) {
-    const depsMap = targetMap.get(target);
+function $caa9439642c6336c$var$trigger(target, type, key, newValue, oldValue, oldTarget) {
+    const depsMap = $caa9439642c6336c$var$targetMap.get(target);
     if (!depsMap) return;
     const effects = /* @__PURE__ */ new Set();
     const add2 = (effectsToAdd)=>{
         if (effectsToAdd) effectsToAdd.forEach((effect3)=>{
-            if (effect3 !== activeEffect || effect3.allowRecurse) effects.add(effect3);
+            if (effect3 !== $caa9439642c6336c$var$activeEffect || effect3.allowRecurse) effects.add(effect3);
         });
     };
     if (type === "clear") depsMap.forEach(add2);
-    else if (key === "length" && isArray(target)) depsMap.forEach((dep, key2)=>{
+    else if (key === "length" && $caa9439642c6336c$var$isArray(target)) depsMap.forEach((dep, key2)=>{
         if (key2 === "length" || key2 >= newValue) add2(dep);
     });
     else {
         if (key !== void 0) add2(depsMap.get(key));
         switch(type){
             case "add":
-                if (!isArray(target)) {
-                    add2(depsMap.get(ITERATE_KEY));
-                    if (isMap(target)) add2(depsMap.get(MAP_KEY_ITERATE_KEY));
-                } else if (isIntegerKey(key)) add2(depsMap.get("length"));
+                if (!$caa9439642c6336c$var$isArray(target)) {
+                    add2(depsMap.get($caa9439642c6336c$var$ITERATE_KEY));
+                    if ($caa9439642c6336c$var$isMap(target)) add2(depsMap.get($caa9439642c6336c$var$MAP_KEY_ITERATE_KEY));
+                } else if ($caa9439642c6336c$var$isIntegerKey(key)) add2(depsMap.get("length"));
                 break;
             case "delete":
-                if (!isArray(target)) {
-                    add2(depsMap.get(ITERATE_KEY));
-                    if (isMap(target)) add2(depsMap.get(MAP_KEY_ITERATE_KEY));
+                if (!$caa9439642c6336c$var$isArray(target)) {
+                    add2(depsMap.get($caa9439642c6336c$var$ITERATE_KEY));
+                    if ($caa9439642c6336c$var$isMap(target)) add2(depsMap.get($caa9439642c6336c$var$MAP_KEY_ITERATE_KEY));
                 }
                 break;
             case "set":
-                if (isMap(target)) add2(depsMap.get(ITERATE_KEY));
+                if ($caa9439642c6336c$var$isMap(target)) add2(depsMap.get($caa9439642c6336c$var$ITERATE_KEY));
                 break;
         }
     }
     const run = (effect3)=>{
         if (effect3.options.onTrigger) effect3.options.onTrigger({
             effect: effect3,
-            target,
-            key,
-            type,
-            newValue,
-            oldValue,
-            oldTarget
+            target: target,
+            key: key,
+            type: type,
+            newValue: newValue,
+            oldValue: oldValue,
+            oldTarget: oldTarget
         });
         if (effect3.options.scheduler) effect3.options.scheduler(effect3);
         else effect3();
     };
     effects.forEach(run);
 }
-var isNonTrackableKeys = /* @__PURE__ */ makeMap(`__proto__,__v_isRef,__isVue`);
-var builtInSymbols = new Set(Object.getOwnPropertyNames(Symbol).map((key)=>Symbol[key]).filter(isSymbol));
-var get2 = /* @__PURE__ */ createGetter();
-var readonlyGet = /* @__PURE__ */ createGetter(true);
-var arrayInstrumentations = /* @__PURE__ */ createArrayInstrumentations();
-function createArrayInstrumentations() {
+var $caa9439642c6336c$var$isNonTrackableKeys = /* @__PURE__ */ $caa9439642c6336c$var$makeMap(`__proto__,__v_isRef,__isVue`);
+var $caa9439642c6336c$var$builtInSymbols = new Set(Object.getOwnPropertyNames(Symbol).map((key)=>Symbol[key]).filter($caa9439642c6336c$var$isSymbol));
+var $caa9439642c6336c$var$get2 = /* @__PURE__ */ $caa9439642c6336c$var$createGetter();
+var $caa9439642c6336c$var$readonlyGet = /* @__PURE__ */ $caa9439642c6336c$var$createGetter(true);
+var $caa9439642c6336c$var$arrayInstrumentations = /* @__PURE__ */ $caa9439642c6336c$var$createArrayInstrumentations();
+function $caa9439642c6336c$var$createArrayInstrumentations() {
     const instrumentations = {};
     [
         "includes",
@@ -2535,10 +1800,10 @@ function createArrayInstrumentations() {
         "lastIndexOf"
     ].forEach((key)=>{
         instrumentations[key] = function(...args) {
-            const arr = toRaw(this);
-            for(let i = 0, l = this.length; i < l; i++)track(arr, "get", i + "");
+            const arr = $caa9439642c6336c$var$toRaw(this);
+            for(let i = 0, l = this.length; i < l; i++)$caa9439642c6336c$var$track(arr, "get", i + "");
             const res = arr[key](...args);
-            if (res === -1 || res === false) return arr[key](...args.map(toRaw));
+            if (res === -1 || res === false) return arr[key](...args.map($caa9439642c6336c$var$toRaw));
             else return res;
         };
     });
@@ -2550,79 +1815,79 @@ function createArrayInstrumentations() {
         "splice"
     ].forEach((key)=>{
         instrumentations[key] = function(...args) {
-            pauseTracking();
-            const res = toRaw(this)[key].apply(this, args);
-            resetTracking();
+            $caa9439642c6336c$var$pauseTracking();
+            const res = $caa9439642c6336c$var$toRaw(this)[key].apply(this, args);
+            $caa9439642c6336c$var$resetTracking();
             return res;
         };
     });
     return instrumentations;
 }
-function createGetter(isReadonly = false, shallow = false) {
+function $caa9439642c6336c$var$createGetter(isReadonly = false, shallow = false) {
     return function get3(target, key, receiver) {
         if (key === "__v_isReactive") return !isReadonly;
         else if (key === "__v_isReadonly") return isReadonly;
-        else if (key === "__v_raw" && receiver === (isReadonly ? shallow ? shallowReadonlyMap : readonlyMap : shallow ? shallowReactiveMap : reactiveMap).get(target)) return target;
-        const targetIsArray = isArray(target);
-        if (!isReadonly && targetIsArray && hasOwn(arrayInstrumentations, key)) return Reflect.get(arrayInstrumentations, key, receiver);
+        else if (key === "__v_raw" && receiver === (isReadonly ? shallow ? $caa9439642c6336c$var$shallowReadonlyMap : $caa9439642c6336c$var$readonlyMap : shallow ? $caa9439642c6336c$var$shallowReactiveMap : $caa9439642c6336c$var$reactiveMap).get(target)) return target;
+        const targetIsArray = $caa9439642c6336c$var$isArray(target);
+        if (!isReadonly && targetIsArray && $caa9439642c6336c$var$hasOwn($caa9439642c6336c$var$arrayInstrumentations, key)) return Reflect.get($caa9439642c6336c$var$arrayInstrumentations, key, receiver);
         const res = Reflect.get(target, key, receiver);
-        if (isSymbol(key) ? builtInSymbols.has(key) : isNonTrackableKeys(key)) return res;
-        if (!isReadonly) track(target, "get", key);
+        if ($caa9439642c6336c$var$isSymbol(key) ? $caa9439642c6336c$var$builtInSymbols.has(key) : $caa9439642c6336c$var$isNonTrackableKeys(key)) return res;
+        if (!isReadonly) $caa9439642c6336c$var$track(target, "get", key);
         if (shallow) return res;
-        if (isRef(res)) {
-            const shouldUnwrap = !targetIsArray || !isIntegerKey(key);
+        if ($caa9439642c6336c$var$isRef(res)) {
+            const shouldUnwrap = !targetIsArray || !$caa9439642c6336c$var$isIntegerKey(key);
             return shouldUnwrap ? res.value : res;
         }
-        if (isObject(res)) return isReadonly ? readonly(res) : reactive2(res);
+        if ($caa9439642c6336c$var$isObject(res)) return isReadonly ? $caa9439642c6336c$var$readonly(res) : $caa9439642c6336c$var$reactive2(res);
         return res;
     };
 }
-var set2 = /* @__PURE__ */ createSetter();
-function createSetter(shallow = false) {
+var $caa9439642c6336c$var$set2 = /* @__PURE__ */ $caa9439642c6336c$var$createSetter();
+function $caa9439642c6336c$var$createSetter(shallow = false) {
     return function set3(target, key, value, receiver) {
         let oldValue = target[key];
         if (!shallow) {
-            value = toRaw(value);
-            oldValue = toRaw(oldValue);
-            if (!isArray(target) && isRef(oldValue) && !isRef(value)) {
+            value = $caa9439642c6336c$var$toRaw(value);
+            oldValue = $caa9439642c6336c$var$toRaw(oldValue);
+            if (!$caa9439642c6336c$var$isArray(target) && $caa9439642c6336c$var$isRef(oldValue) && !$caa9439642c6336c$var$isRef(value)) {
                 oldValue.value = value;
                 return true;
             }
         }
-        const hadKey = isArray(target) && isIntegerKey(key) ? Number(key) < target.length : hasOwn(target, key);
+        const hadKey = $caa9439642c6336c$var$isArray(target) && $caa9439642c6336c$var$isIntegerKey(key) ? Number(key) < target.length : $caa9439642c6336c$var$hasOwn(target, key);
         const result = Reflect.set(target, key, value, receiver);
-        if (target === toRaw(receiver)) {
-            if (!hadKey) trigger(target, "add", key, value);
-            else if (hasChanged(value, oldValue)) trigger(target, "set", key, value, oldValue);
+        if (target === $caa9439642c6336c$var$toRaw(receiver)) {
+            if (!hadKey) $caa9439642c6336c$var$trigger(target, "add", key, value);
+            else if ($caa9439642c6336c$var$hasChanged(value, oldValue)) $caa9439642c6336c$var$trigger(target, "set", key, value, oldValue);
         }
         return result;
     };
 }
-function deleteProperty(target, key) {
-    const hadKey = hasOwn(target, key);
+function $caa9439642c6336c$var$deleteProperty(target, key) {
+    const hadKey = $caa9439642c6336c$var$hasOwn(target, key);
     const oldValue = target[key];
     const result = Reflect.deleteProperty(target, key);
-    if (result && hadKey) trigger(target, "delete", key, void 0, oldValue);
+    if (result && hadKey) $caa9439642c6336c$var$trigger(target, "delete", key, void 0, oldValue);
     return result;
 }
-function has(target, key) {
+function $caa9439642c6336c$var$has(target, key) {
     const result = Reflect.has(target, key);
-    if (!isSymbol(key) || !builtInSymbols.has(key)) track(target, "has", key);
+    if (!$caa9439642c6336c$var$isSymbol(key) || !$caa9439642c6336c$var$builtInSymbols.has(key)) $caa9439642c6336c$var$track(target, "has", key);
     return result;
 }
-function ownKeys(target) {
-    track(target, "iterate", isArray(target) ? "length" : ITERATE_KEY);
+function $caa9439642c6336c$var$ownKeys(target) {
+    $caa9439642c6336c$var$track(target, "iterate", $caa9439642c6336c$var$isArray(target) ? "length" : $caa9439642c6336c$var$ITERATE_KEY);
     return Reflect.ownKeys(target);
 }
-var mutableHandlers = {
-    get: get2,
-    set: set2,
-    deleteProperty,
-    has,
-    ownKeys
+var $caa9439642c6336c$var$mutableHandlers = {
+    get: $caa9439642c6336c$var$get2,
+    set: $caa9439642c6336c$var$set2,
+    deleteProperty: $caa9439642c6336c$var$deleteProperty,
+    has: $caa9439642c6336c$var$has,
+    ownKeys: $caa9439642c6336c$var$ownKeys
 };
-var readonlyHandlers = {
-    get: readonlyGet,
+var $caa9439642c6336c$var$readonlyHandlers = {
+    get: $caa9439642c6336c$var$readonlyGet,
     set (target, key) {
         console.warn(`Set operation on key "${String(key)}" failed: target is readonly.`, target);
         return true;
@@ -2632,117 +1897,117 @@ var readonlyHandlers = {
         return true;
     }
 };
-var toReactive = (value)=>isObject(value) ? reactive2(value) : value;
-var toReadonly = (value)=>isObject(value) ? readonly(value) : value;
-var toShallow = (value)=>value;
-var getProto = (v)=>Reflect.getPrototypeOf(v);
-function get$1(target, key, isReadonly = false, isShallow = false) {
+var $caa9439642c6336c$var$toReactive = (value)=>$caa9439642c6336c$var$isObject(value) ? $caa9439642c6336c$var$reactive2(value) : value;
+var $caa9439642c6336c$var$toReadonly = (value)=>$caa9439642c6336c$var$isObject(value) ? $caa9439642c6336c$var$readonly(value) : value;
+var $caa9439642c6336c$var$toShallow = (value)=>value;
+var $caa9439642c6336c$var$getProto = (v)=>Reflect.getPrototypeOf(v);
+function $caa9439642c6336c$var$get$1(target, key, isReadonly = false, isShallow = false) {
     target = target["__v_raw"];
-    const rawTarget = toRaw(target);
-    const rawKey = toRaw(key);
-    if (key !== rawKey) !isReadonly && track(rawTarget, "get", key);
-    !isReadonly && track(rawTarget, "get", rawKey);
-    const { has: has2 } = getProto(rawTarget);
-    const wrap = isShallow ? toShallow : isReadonly ? toReadonly : toReactive;
+    const rawTarget = $caa9439642c6336c$var$toRaw(target);
+    const rawKey = $caa9439642c6336c$var$toRaw(key);
+    if (key !== rawKey) !isReadonly && $caa9439642c6336c$var$track(rawTarget, "get", key);
+    !isReadonly && $caa9439642c6336c$var$track(rawTarget, "get", rawKey);
+    const { has: has2 } = $caa9439642c6336c$var$getProto(rawTarget);
+    const wrap = isShallow ? $caa9439642c6336c$var$toShallow : isReadonly ? $caa9439642c6336c$var$toReadonly : $caa9439642c6336c$var$toReactive;
     if (has2.call(rawTarget, key)) return wrap(target.get(key));
     else if (has2.call(rawTarget, rawKey)) return wrap(target.get(rawKey));
     else if (target !== rawTarget) target.get(key);
 }
-function has$1(key, isReadonly = false) {
+function $caa9439642c6336c$var$has$1(key, isReadonly = false) {
     const target = this["__v_raw"];
-    const rawTarget = toRaw(target);
-    const rawKey = toRaw(key);
-    if (key !== rawKey) !isReadonly && track(rawTarget, "has", key);
-    !isReadonly && track(rawTarget, "has", rawKey);
+    const rawTarget = $caa9439642c6336c$var$toRaw(target);
+    const rawKey = $caa9439642c6336c$var$toRaw(key);
+    if (key !== rawKey) !isReadonly && $caa9439642c6336c$var$track(rawTarget, "has", key);
+    !isReadonly && $caa9439642c6336c$var$track(rawTarget, "has", rawKey);
     return key === rawKey ? target.has(key) : target.has(key) || target.has(rawKey);
 }
-function size(target, isReadonly = false) {
+function $caa9439642c6336c$var$size(target, isReadonly = false) {
     target = target["__v_raw"];
-    !isReadonly && track(toRaw(target), "iterate", ITERATE_KEY);
+    !isReadonly && $caa9439642c6336c$var$track($caa9439642c6336c$var$toRaw(target), "iterate", $caa9439642c6336c$var$ITERATE_KEY);
     return Reflect.get(target, "size", target);
 }
-function add(value) {
-    value = toRaw(value);
-    const target = toRaw(this);
-    const proto = getProto(target);
+function $caa9439642c6336c$var$add(value) {
+    value = $caa9439642c6336c$var$toRaw(value);
+    const target = $caa9439642c6336c$var$toRaw(this);
+    const proto = $caa9439642c6336c$var$getProto(target);
     const hadKey = proto.has.call(target, value);
     if (!hadKey) {
         target.add(value);
-        trigger(target, "add", value, value);
+        $caa9439642c6336c$var$trigger(target, "add", value, value);
     }
     return this;
 }
-function set$1(key, value) {
-    value = toRaw(value);
-    const target = toRaw(this);
-    const { has: has2, get: get3 } = getProto(target);
+function $caa9439642c6336c$var$set$1(key, value) {
+    value = $caa9439642c6336c$var$toRaw(value);
+    const target = $caa9439642c6336c$var$toRaw(this);
+    const { has: has2, get: get3 } = $caa9439642c6336c$var$getProto(target);
     let hadKey = has2.call(target, key);
     if (!hadKey) {
-        key = toRaw(key);
+        key = $caa9439642c6336c$var$toRaw(key);
         hadKey = has2.call(target, key);
-    } else checkIdentityKeys(target, has2, key);
+    } else $caa9439642c6336c$var$checkIdentityKeys(target, has2, key);
     const oldValue = get3.call(target, key);
     target.set(key, value);
-    if (!hadKey) trigger(target, "add", key, value);
-    else if (hasChanged(value, oldValue)) trigger(target, "set", key, value, oldValue);
+    if (!hadKey) $caa9439642c6336c$var$trigger(target, "add", key, value);
+    else if ($caa9439642c6336c$var$hasChanged(value, oldValue)) $caa9439642c6336c$var$trigger(target, "set", key, value, oldValue);
     return this;
 }
-function deleteEntry(key) {
-    const target = toRaw(this);
-    const { has: has2, get: get3 } = getProto(target);
+function $caa9439642c6336c$var$deleteEntry(key) {
+    const target = $caa9439642c6336c$var$toRaw(this);
+    const { has: has2, get: get3 } = $caa9439642c6336c$var$getProto(target);
     let hadKey = has2.call(target, key);
     if (!hadKey) {
-        key = toRaw(key);
+        key = $caa9439642c6336c$var$toRaw(key);
         hadKey = has2.call(target, key);
-    } else checkIdentityKeys(target, has2, key);
+    } else $caa9439642c6336c$var$checkIdentityKeys(target, has2, key);
     const oldValue = get3 ? get3.call(target, key) : void 0;
     const result = target.delete(key);
-    if (hadKey) trigger(target, "delete", key, void 0, oldValue);
+    if (hadKey) $caa9439642c6336c$var$trigger(target, "delete", key, void 0, oldValue);
     return result;
 }
-function clear() {
-    const target = toRaw(this);
+function $caa9439642c6336c$var$clear() {
+    const target = $caa9439642c6336c$var$toRaw(this);
     const hadItems = target.size !== 0;
-    const oldTarget = isMap(target) ? new Map(target) : new Set(target);
+    const oldTarget = $caa9439642c6336c$var$isMap(target) ? new Map(target) : new Set(target);
     const result = target.clear();
-    if (hadItems) trigger(target, "clear", void 0, void 0, oldTarget);
+    if (hadItems) $caa9439642c6336c$var$trigger(target, "clear", void 0, void 0, oldTarget);
     return result;
 }
-function createForEach(isReadonly, isShallow) {
+function $caa9439642c6336c$var$createForEach(isReadonly, isShallow) {
     return function forEach(callback, thisArg) {
         const observed = this;
         const target = observed["__v_raw"];
-        const rawTarget = toRaw(target);
-        const wrap = isShallow ? toShallow : isReadonly ? toReadonly : toReactive;
-        !isReadonly && track(rawTarget, "iterate", ITERATE_KEY);
+        const rawTarget = $caa9439642c6336c$var$toRaw(target);
+        const wrap = isShallow ? $caa9439642c6336c$var$toShallow : isReadonly ? $caa9439642c6336c$var$toReadonly : $caa9439642c6336c$var$toReactive;
+        !isReadonly && $caa9439642c6336c$var$track(rawTarget, "iterate", $caa9439642c6336c$var$ITERATE_KEY);
         return target.forEach((value, key)=>{
             return callback.call(thisArg, wrap(value), wrap(key), observed);
         });
     };
 }
-function createIterableMethod(method, isReadonly, isShallow) {
+function $caa9439642c6336c$var$createIterableMethod(method, isReadonly, isShallow) {
     return function(...args) {
         const target = this["__v_raw"];
-        const rawTarget = toRaw(target);
-        const targetIsMap = isMap(rawTarget);
+        const rawTarget = $caa9439642c6336c$var$toRaw(target);
+        const targetIsMap = $caa9439642c6336c$var$isMap(rawTarget);
         const isPair = method === "entries" || method === Symbol.iterator && targetIsMap;
         const isKeyOnly = method === "keys" && targetIsMap;
         const innerIterator = target[method](...args);
-        const wrap = isShallow ? toShallow : isReadonly ? toReadonly : toReactive;
-        !isReadonly && track(rawTarget, "iterate", isKeyOnly ? MAP_KEY_ITERATE_KEY : ITERATE_KEY);
+        const wrap = isShallow ? $caa9439642c6336c$var$toShallow : isReadonly ? $caa9439642c6336c$var$toReadonly : $caa9439642c6336c$var$toReactive;
+        !isReadonly && $caa9439642c6336c$var$track(rawTarget, "iterate", isKeyOnly ? $caa9439642c6336c$var$MAP_KEY_ITERATE_KEY : $caa9439642c6336c$var$ITERATE_KEY);
         return {
             // iterator protocol
             next () {
-                const { value, done } = innerIterator.next();
+                const { value: value, done: done } = innerIterator.next();
                 return done ? {
-                    value,
-                    done
+                    value: value,
+                    done: done
                 } : {
                     value: isPair ? [
                         wrap(value[0]),
                         wrap(value[1])
                     ] : wrap(value),
-                    done
+                    done: done
                 };
             },
             // iterable protocol
@@ -2752,75 +2017,75 @@ function createIterableMethod(method, isReadonly, isShallow) {
         };
     };
 }
-function createReadonlyMethod(type) {
+function $caa9439642c6336c$var$createReadonlyMethod(type) {
     return function(...args) {
         {
             const key = args[0] ? `on key "${args[0]}" ` : ``;
-            console.warn(`${capitalize(type)} operation ${key}failed: target is readonly.`, toRaw(this));
+            console.warn(`${$caa9439642c6336c$var$capitalize(type)} operation ${key}failed: target is readonly.`, $caa9439642c6336c$var$toRaw(this));
         }
         return type === "delete" ? false : this;
     };
 }
-function createInstrumentations() {
+function $caa9439642c6336c$var$createInstrumentations() {
     const mutableInstrumentations2 = {
         get (key) {
-            return get$1(this, key);
+            return $caa9439642c6336c$var$get$1(this, key);
         },
         get size () {
-            return size(this);
+            return $caa9439642c6336c$var$size(this);
         },
-        has: has$1,
-        add,
-        set: set$1,
-        delete: deleteEntry,
-        clear,
-        forEach: createForEach(false, false)
+        has: $caa9439642c6336c$var$has$1,
+        add: $caa9439642c6336c$var$add,
+        set: $caa9439642c6336c$var$set$1,
+        delete: $caa9439642c6336c$var$deleteEntry,
+        clear: $caa9439642c6336c$var$clear,
+        forEach: $caa9439642c6336c$var$createForEach(false, false)
     };
     const shallowInstrumentations2 = {
         get (key) {
-            return get$1(this, key, false, true);
+            return $caa9439642c6336c$var$get$1(this, key, false, true);
         },
         get size () {
-            return size(this);
+            return $caa9439642c6336c$var$size(this);
         },
-        has: has$1,
-        add,
-        set: set$1,
-        delete: deleteEntry,
-        clear,
-        forEach: createForEach(false, true)
+        has: $caa9439642c6336c$var$has$1,
+        add: $caa9439642c6336c$var$add,
+        set: $caa9439642c6336c$var$set$1,
+        delete: $caa9439642c6336c$var$deleteEntry,
+        clear: $caa9439642c6336c$var$clear,
+        forEach: $caa9439642c6336c$var$createForEach(false, true)
     };
     const readonlyInstrumentations2 = {
         get (key) {
-            return get$1(this, key, true);
+            return $caa9439642c6336c$var$get$1(this, key, true);
         },
         get size () {
-            return size(this, true);
+            return $caa9439642c6336c$var$size(this, true);
         },
         has (key) {
-            return has$1.call(this, key, true);
+            return $caa9439642c6336c$var$has$1.call(this, key, true);
         },
-        add: createReadonlyMethod("add"),
-        set: createReadonlyMethod("set"),
-        delete: createReadonlyMethod("delete"),
-        clear: createReadonlyMethod("clear"),
-        forEach: createForEach(true, false)
+        add: $caa9439642c6336c$var$createReadonlyMethod("add"),
+        set: $caa9439642c6336c$var$createReadonlyMethod("set"),
+        delete: $caa9439642c6336c$var$createReadonlyMethod("delete"),
+        clear: $caa9439642c6336c$var$createReadonlyMethod("clear"),
+        forEach: $caa9439642c6336c$var$createForEach(true, false)
     };
     const shallowReadonlyInstrumentations2 = {
         get (key) {
-            return get$1(this, key, true, true);
+            return $caa9439642c6336c$var$get$1(this, key, true, true);
         },
         get size () {
-            return size(this, true);
+            return $caa9439642c6336c$var$size(this, true);
         },
         has (key) {
-            return has$1.call(this, key, true);
+            return $caa9439642c6336c$var$has$1.call(this, key, true);
         },
-        add: createReadonlyMethod("add"),
-        set: createReadonlyMethod("set"),
-        delete: createReadonlyMethod("delete"),
-        clear: createReadonlyMethod("clear"),
-        forEach: createForEach(true, true)
+        add: $caa9439642c6336c$var$createReadonlyMethod("add"),
+        set: $caa9439642c6336c$var$createReadonlyMethod("set"),
+        delete: $caa9439642c6336c$var$createReadonlyMethod("delete"),
+        clear: $caa9439642c6336c$var$createReadonlyMethod("clear"),
+        forEach: $caa9439642c6336c$var$createForEach(true, true)
     };
     const iteratorMethods = [
         "keys",
@@ -2829,10 +2094,10 @@ function createInstrumentations() {
         Symbol.iterator
     ];
     iteratorMethods.forEach((method)=>{
-        mutableInstrumentations2[method] = createIterableMethod(method, false, false);
-        readonlyInstrumentations2[method] = createIterableMethod(method, true, false);
-        shallowInstrumentations2[method] = createIterableMethod(method, false, true);
-        shallowReadonlyInstrumentations2[method] = createIterableMethod(method, true, true);
+        mutableInstrumentations2[method] = $caa9439642c6336c$var$createIterableMethod(method, false, false);
+        readonlyInstrumentations2[method] = $caa9439642c6336c$var$createIterableMethod(method, true, false);
+        shallowInstrumentations2[method] = $caa9439642c6336c$var$createIterableMethod(method, false, true);
+        shallowReadonlyInstrumentations2[method] = $caa9439642c6336c$var$createIterableMethod(method, true, true);
     });
     return [
         mutableInstrumentations2,
@@ -2841,34 +2106,34 @@ function createInstrumentations() {
         shallowReadonlyInstrumentations2
     ];
 }
-var [mutableInstrumentations, readonlyInstrumentations, shallowInstrumentations, shallowReadonlyInstrumentations] = /* @__PURE__ */ createInstrumentations();
-function createInstrumentationGetter(isReadonly, shallow) {
-    const instrumentations = shallow ? isReadonly ? shallowReadonlyInstrumentations : shallowInstrumentations : isReadonly ? readonlyInstrumentations : mutableInstrumentations;
+var [$caa9439642c6336c$var$mutableInstrumentations, $caa9439642c6336c$var$readonlyInstrumentations, $caa9439642c6336c$var$shallowInstrumentations, $caa9439642c6336c$var$shallowReadonlyInstrumentations] = /* @__PURE__ */ $caa9439642c6336c$var$createInstrumentations();
+function $caa9439642c6336c$var$createInstrumentationGetter(isReadonly, shallow) {
+    const instrumentations = shallow ? isReadonly ? $caa9439642c6336c$var$shallowReadonlyInstrumentations : $caa9439642c6336c$var$shallowInstrumentations : isReadonly ? $caa9439642c6336c$var$readonlyInstrumentations : $caa9439642c6336c$var$mutableInstrumentations;
     return (target, key, receiver)=>{
         if (key === "__v_isReactive") return !isReadonly;
         else if (key === "__v_isReadonly") return isReadonly;
         else if (key === "__v_raw") return target;
-        return Reflect.get(hasOwn(instrumentations, key) && key in target ? instrumentations : target, key, receiver);
+        return Reflect.get($caa9439642c6336c$var$hasOwn(instrumentations, key) && key in target ? instrumentations : target, key, receiver);
     };
 }
-var mutableCollectionHandlers = {
-    get: /* @__PURE__ */ createInstrumentationGetter(false, false)
+var $caa9439642c6336c$var$mutableCollectionHandlers = {
+    get: /* @__PURE__ */ $caa9439642c6336c$var$createInstrumentationGetter(false, false)
 };
-var readonlyCollectionHandlers = {
-    get: /* @__PURE__ */ createInstrumentationGetter(true, false)
+var $caa9439642c6336c$var$readonlyCollectionHandlers = {
+    get: /* @__PURE__ */ $caa9439642c6336c$var$createInstrumentationGetter(true, false)
 };
-function checkIdentityKeys(target, has2, key) {
-    const rawKey = toRaw(key);
+function $caa9439642c6336c$var$checkIdentityKeys(target, has2, key) {
+    const rawKey = $caa9439642c6336c$var$toRaw(key);
     if (rawKey !== key && has2.call(target, rawKey)) {
-        const type = toRawType(target);
+        const type = $caa9439642c6336c$var$toRawType(target);
         console.warn(`Reactive ${type} contains both the raw and reactive versions of the same object${type === `Map` ? ` as keys` : ``}, which can lead to inconsistencies. Avoid differentiating between the raw and reactive versions of an object and only use the reactive version if possible.`);
     }
 }
-var reactiveMap = /* @__PURE__ */ new WeakMap();
-var shallowReactiveMap = /* @__PURE__ */ new WeakMap();
-var readonlyMap = /* @__PURE__ */ new WeakMap();
-var shallowReadonlyMap = /* @__PURE__ */ new WeakMap();
-function targetTypeMap(rawType) {
+var $caa9439642c6336c$var$reactiveMap = /* @__PURE__ */ new WeakMap();
+var $caa9439642c6336c$var$shallowReactiveMap = /* @__PURE__ */ new WeakMap();
+var $caa9439642c6336c$var$readonlyMap = /* @__PURE__ */ new WeakMap();
+var $caa9439642c6336c$var$shallowReadonlyMap = /* @__PURE__ */ new WeakMap();
+function $caa9439642c6336c$var$targetTypeMap(rawType) {
     switch(rawType){
         case "Object":
         case "Array":
@@ -2882,98 +2147,98 @@ function targetTypeMap(rawType) {
             return 0;
     }
 }
-function getTargetType(value) {
-    return value["__v_skip"] || !Object.isExtensible(value) ? 0 : targetTypeMap(toRawType(value));
+function $caa9439642c6336c$var$getTargetType(value) {
+    return value["__v_skip"] || !Object.isExtensible(value) ? 0 : $caa9439642c6336c$var$targetTypeMap($caa9439642c6336c$var$toRawType(value));
 }
-function reactive2(target) {
+function $caa9439642c6336c$var$reactive2(target) {
     if (target && target["__v_isReadonly"]) return target;
-    return createReactiveObject(target, false, mutableHandlers, mutableCollectionHandlers, reactiveMap);
+    return $caa9439642c6336c$var$createReactiveObject(target, false, $caa9439642c6336c$var$mutableHandlers, $caa9439642c6336c$var$mutableCollectionHandlers, $caa9439642c6336c$var$reactiveMap);
 }
-function readonly(target) {
-    return createReactiveObject(target, true, readonlyHandlers, readonlyCollectionHandlers, readonlyMap);
+function $caa9439642c6336c$var$readonly(target) {
+    return $caa9439642c6336c$var$createReactiveObject(target, true, $caa9439642c6336c$var$readonlyHandlers, $caa9439642c6336c$var$readonlyCollectionHandlers, $caa9439642c6336c$var$readonlyMap);
 }
-function createReactiveObject(target, isReadonly, baseHandlers, collectionHandlers, proxyMap) {
-    if (!isObject(target)) {
+function $caa9439642c6336c$var$createReactiveObject(target, isReadonly, baseHandlers, collectionHandlers, proxyMap) {
+    if (!$caa9439642c6336c$var$isObject(target)) {
         console.warn(`value cannot be made reactive: ${String(target)}`);
         return target;
     }
     if (target["__v_raw"] && !(isReadonly && target["__v_isReactive"])) return target;
     const existingProxy = proxyMap.get(target);
     if (existingProxy) return existingProxy;
-    const targetType = getTargetType(target);
+    const targetType = $caa9439642c6336c$var$getTargetType(target);
     if (targetType === 0) return target;
     const proxy = new Proxy(target, targetType === 2 ? collectionHandlers : baseHandlers);
     proxyMap.set(target, proxy);
     return proxy;
 }
-function toRaw(observed) {
-    return observed && toRaw(observed["__v_raw"]) || observed;
+function $caa9439642c6336c$var$toRaw(observed) {
+    return observed && $caa9439642c6336c$var$toRaw(observed["__v_raw"]) || observed;
 }
-function isRef(r) {
+function $caa9439642c6336c$var$isRef(r) {
     return Boolean(r && r.__v_isRef === true);
 }
 // packages/alpinejs/src/magics/$nextTick.js
-magic("nextTick", ()=>nextTick);
+$caa9439642c6336c$var$magic("nextTick", ()=>$caa9439642c6336c$var$nextTick);
 // packages/alpinejs/src/magics/$dispatch.js
-magic("dispatch", (el)=>dispatch.bind(dispatch, el));
+$caa9439642c6336c$var$magic("dispatch", (el)=>$caa9439642c6336c$var$dispatch.bind($caa9439642c6336c$var$dispatch, el));
 // packages/alpinejs/src/magics/$watch.js
-magic("watch", (el, { evaluateLater: evaluateLater2, cleanup: cleanup2 })=>(key, callback)=>{
+$caa9439642c6336c$var$magic("watch", (el, { evaluateLater: evaluateLater2, cleanup: cleanup2 })=>(key, callback)=>{
         let evaluate2 = evaluateLater2(key);
         let getter = ()=>{
             let value;
             evaluate2((i)=>value = i);
             return value;
         };
-        let unwatch = watch(getter, callback);
+        let unwatch = $caa9439642c6336c$var$watch(getter, callback);
         cleanup2(unwatch);
     });
 // packages/alpinejs/src/magics/$store.js
-magic("store", getStores);
+$caa9439642c6336c$var$magic("store", $caa9439642c6336c$var$getStores);
 // packages/alpinejs/src/magics/$data.js
-magic("data", (el)=>scope(el));
+$caa9439642c6336c$var$magic("data", (el)=>$caa9439642c6336c$var$scope(el));
 // packages/alpinejs/src/magics/$root.js
-magic("root", (el)=>closestRoot(el));
+$caa9439642c6336c$var$magic("root", (el)=>$caa9439642c6336c$var$closestRoot(el));
 // packages/alpinejs/src/magics/$refs.js
-magic("refs", (el)=>{
+$caa9439642c6336c$var$magic("refs", (el)=>{
     if (el._x_refs_proxy) return el._x_refs_proxy;
-    el._x_refs_proxy = mergeProxies(getArrayOfRefObject(el));
+    el._x_refs_proxy = $caa9439642c6336c$var$mergeProxies($caa9439642c6336c$var$getArrayOfRefObject(el));
     return el._x_refs_proxy;
 });
-function getArrayOfRefObject(el) {
+function $caa9439642c6336c$var$getArrayOfRefObject(el) {
     let refObjects = [];
-    findClosest(el, (i)=>{
+    $caa9439642c6336c$var$findClosest(el, (i)=>{
         if (i._x_refs) refObjects.push(i._x_refs);
     });
     return refObjects;
 }
 // packages/alpinejs/src/ids.js
-var globalIdMemo = {};
-function findAndIncrementId(name) {
-    if (!globalIdMemo[name]) globalIdMemo[name] = 0;
-    return ++globalIdMemo[name];
+var $caa9439642c6336c$var$globalIdMemo = {};
+function $caa9439642c6336c$var$findAndIncrementId(name) {
+    if (!$caa9439642c6336c$var$globalIdMemo[name]) $caa9439642c6336c$var$globalIdMemo[name] = 0;
+    return ++$caa9439642c6336c$var$globalIdMemo[name];
 }
-function closestIdRoot(el, name) {
-    return findClosest(el, (element)=>{
+function $caa9439642c6336c$var$closestIdRoot(el, name) {
+    return $caa9439642c6336c$var$findClosest(el, (element)=>{
         if (element._x_ids && element._x_ids[name]) return true;
     });
 }
-function setIdRoot(el, name) {
+function $caa9439642c6336c$var$setIdRoot(el, name) {
     if (!el._x_ids) el._x_ids = {};
-    if (!el._x_ids[name]) el._x_ids[name] = findAndIncrementId(name);
+    if (!el._x_ids[name]) el._x_ids[name] = $caa9439642c6336c$var$findAndIncrementId(name);
 }
 // packages/alpinejs/src/magics/$id.js
-magic("id", (el, { cleanup: cleanup2 })=>(name, key = null)=>{
+$caa9439642c6336c$var$magic("id", (el, { cleanup: cleanup2 })=>(name, key = null)=>{
         let cacheKey = `${name}${key ? `-${key}` : ""}`;
-        return cacheIdByNameOnElement(el, cacheKey, cleanup2, ()=>{
-            let root = closestIdRoot(el, name);
-            let id = root ? root._x_ids[name] : findAndIncrementId(name);
+        return $caa9439642c6336c$var$cacheIdByNameOnElement(el, cacheKey, cleanup2, ()=>{
+            let root = $caa9439642c6336c$var$closestIdRoot(el, name);
+            let id = root ? root._x_ids[name] : $caa9439642c6336c$var$findAndIncrementId(name);
             return key ? `${name}-${id}-${key}` : `${name}-${id}`;
         });
     });
-interceptClone((from, to)=>{
+$caa9439642c6336c$var$interceptClone((from, to)=>{
     if (from._x_id) to._x_id = from._x_id;
 });
-function cacheIdByNameOnElement(el, cacheKey, cleanup2, callback) {
+function $caa9439642c6336c$var$cacheIdByNameOnElement(el, cacheKey, cleanup2, callback) {
     if (!el._x_id) el._x_id = {};
     if (el._x_id[cacheKey]) return el._x_id[cacheKey];
     let output = callback();
@@ -2984,15 +2249,15 @@ function cacheIdByNameOnElement(el, cacheKey, cleanup2, callback) {
     return output;
 }
 // packages/alpinejs/src/magics/$el.js
-magic("el", (el)=>el);
+$caa9439642c6336c$var$magic("el", (el)=>el);
 // packages/alpinejs/src/magics/index.js
-warnMissingPluginMagic("Focus", "focus", "focus");
-warnMissingPluginMagic("Persist", "persist", "persist");
-function warnMissingPluginMagic(name, magicName, slug) {
-    magic(magicName, (el)=>warn(`You can't use [$${magicName}] without first installing the "${name}" plugin here: https://alpinejs.dev/plugins/${slug}`, el));
+$caa9439642c6336c$var$warnMissingPluginMagic("Focus", "focus", "focus");
+$caa9439642c6336c$var$warnMissingPluginMagic("Persist", "persist", "persist");
+function $caa9439642c6336c$var$warnMissingPluginMagic(name, magicName, slug) {
+    $caa9439642c6336c$var$magic(magicName, (el)=>$caa9439642c6336c$var$warn(`You can't use [$${magicName}] without first installing the "${name}" plugin here: https://alpinejs.dev/plugins/${slug}`, el));
 }
 // packages/alpinejs/src/directives/x-modelable.js
-directive("modelable", (el, { expression }, { effect: effect3, evaluateLater: evaluateLater2, cleanup: cleanup2 })=>{
+$caa9439642c6336c$var$directive("modelable", (el, { expression: expression }, { effect: effect3, evaluateLater: evaluateLater2, cleanup: cleanup2 })=>{
     let func = evaluateLater2(expression);
     let innerGet = ()=>{
         let result;
@@ -3012,7 +2277,7 @@ directive("modelable", (el, { expression }, { effect: effect3, evaluateLater: ev
         el._x_removeModelListeners["default"]();
         let outerGet = el._x_model.get;
         let outerSet = el._x_model.set;
-        let releaseEntanglement = entangle({
+        let releaseEntanglement = $caa9439642c6336c$var$entangle({
             get () {
                 return outerGet();
             },
@@ -3031,9 +2296,9 @@ directive("modelable", (el, { expression }, { effect: effect3, evaluateLater: ev
     });
 });
 // packages/alpinejs/src/directives/x-teleport.js
-directive("teleport", (el, { modifiers, expression }, { cleanup: cleanup2 })=>{
-    if (el.tagName.toLowerCase() !== "template") warn("x-teleport can only be used on a <template> tag", el);
-    let target = getTarget(expression);
+$caa9439642c6336c$var$directive("teleport", (el, { modifiers: modifiers, expression: expression }, { cleanup: cleanup2 })=>{
+    if (el.tagName.toLowerCase() !== "template") $caa9439642c6336c$var$warn("x-teleport can only be used on a <template> tag", el);
+    let target = $caa9439642c6336c$var$getTarget(expression);
     let clone2 = el.content.cloneNode(true).firstElementChild;
     el._x_teleport = clone2;
     clone2._x_teleportBack = el;
@@ -3045,73 +2310,73 @@ directive("teleport", (el, { modifiers, expression }, { cleanup: cleanup2 })=>{
             el.dispatchEvent(new e.constructor(e.type, e));
         });
     });
-    addScopeToNode(clone2, {}, el);
+    $caa9439642c6336c$var$addScopeToNode(clone2, {}, el);
     let placeInDom = (clone3, target2, modifiers2)=>{
         if (modifiers2.includes("prepend")) target2.parentNode.insertBefore(clone3, target2);
         else if (modifiers2.includes("append")) target2.parentNode.insertBefore(clone3, target2.nextSibling);
         else target2.appendChild(clone3);
     };
-    mutateDom(()=>{
+    $caa9439642c6336c$var$mutateDom(()=>{
         placeInDom(clone2, target, modifiers);
-        skipDuringClone(()=>{
-            initTree(clone2);
+        $caa9439642c6336c$var$skipDuringClone(()=>{
+            $caa9439642c6336c$var$initTree(clone2);
         })();
     });
     el._x_teleportPutBack = ()=>{
-        let target2 = getTarget(expression);
-        mutateDom(()=>{
+        let target2 = $caa9439642c6336c$var$getTarget(expression);
+        $caa9439642c6336c$var$mutateDom(()=>{
             placeInDom(el._x_teleport, target2, modifiers);
         });
     };
-    cleanup2(()=>mutateDom(()=>{
+    cleanup2(()=>$caa9439642c6336c$var$mutateDom(()=>{
             clone2.remove();
-            destroyTree(clone2);
+            $caa9439642c6336c$var$destroyTree(clone2);
         }));
 });
-var teleportContainerDuringClone = document.createElement("div");
-function getTarget(expression) {
-    let target = skipDuringClone(()=>{
+var $caa9439642c6336c$var$teleportContainerDuringClone = document.createElement("div");
+function $caa9439642c6336c$var$getTarget(expression) {
+    let target = $caa9439642c6336c$var$skipDuringClone(()=>{
         return document.querySelector(expression);
     }, ()=>{
-        return teleportContainerDuringClone;
+        return $caa9439642c6336c$var$teleportContainerDuringClone;
     })();
-    if (!target) warn(`Cannot find x-teleport element for selector: "${expression}"`);
+    if (!target) $caa9439642c6336c$var$warn(`Cannot find x-teleport element for selector: "${expression}"`);
     return target;
 }
 // packages/alpinejs/src/directives/x-ignore.js
-var handler = ()=>{};
-handler.inline = (el, { modifiers }, { cleanup: cleanup2 })=>{
+var $caa9439642c6336c$var$handler = ()=>{};
+$caa9439642c6336c$var$handler.inline = (el, { modifiers: modifiers }, { cleanup: cleanup2 })=>{
     modifiers.includes("self") ? el._x_ignoreSelf = true : el._x_ignore = true;
     cleanup2(()=>{
         modifiers.includes("self") ? delete el._x_ignoreSelf : delete el._x_ignore;
     });
 };
-directive("ignore", handler);
+$caa9439642c6336c$var$directive("ignore", $caa9439642c6336c$var$handler);
 // packages/alpinejs/src/directives/x-effect.js
-directive("effect", skipDuringClone((el, { expression }, { effect: effect3 })=>{
-    effect3(evaluateLater(el, expression));
+$caa9439642c6336c$var$directive("effect", $caa9439642c6336c$var$skipDuringClone((el, { expression: expression }, { effect: effect3 })=>{
+    effect3($caa9439642c6336c$var$evaluateLater(el, expression));
 }));
 // packages/alpinejs/src/utils/on.js
-function on(el, event, modifiers, callback) {
+function $caa9439642c6336c$var$on(el, event, modifiers, callback) {
     let listenerTarget = el;
     let handler4 = (e)=>callback(e);
     let options = {};
     let wrapHandler = (callback2, wrapper)=>(e)=>wrapper(callback2, e);
-    if (modifiers.includes("dot")) event = dotSyntax(event);
-    if (modifiers.includes("camel")) event = camelCase2(event);
+    if (modifiers.includes("dot")) event = $caa9439642c6336c$var$dotSyntax(event);
+    if (modifiers.includes("camel")) event = $caa9439642c6336c$var$camelCase2(event);
     if (modifiers.includes("passive")) options.passive = true;
     if (modifiers.includes("capture")) options.capture = true;
     if (modifiers.includes("window")) listenerTarget = window;
     if (modifiers.includes("document")) listenerTarget = document;
     if (modifiers.includes("debounce")) {
         let nextModifier = modifiers[modifiers.indexOf("debounce") + 1] || "invalid-wait";
-        let wait = isNumeric(nextModifier.split("ms")[0]) ? Number(nextModifier.split("ms")[0]) : 250;
-        handler4 = debounce(handler4, wait);
+        let wait = $caa9439642c6336c$var$isNumeric(nextModifier.split("ms")[0]) ? Number(nextModifier.split("ms")[0]) : 250;
+        handler4 = $caa9439642c6336c$var$debounce(handler4, wait);
     }
     if (modifiers.includes("throttle")) {
         let nextModifier = modifiers[modifiers.indexOf("throttle") + 1] || "invalid-wait";
-        let wait = isNumeric(nextModifier.split("ms")[0]) ? Number(nextModifier.split("ms")[0]) : 250;
-        handler4 = throttle(handler4, wait);
+        let wait = $caa9439642c6336c$var$isNumeric(nextModifier.split("ms")[0]) ? Number(nextModifier.split("ms")[0]) : 250;
+        handler4 = $caa9439642c6336c$var$throttle(handler4, wait);
     }
     if (modifiers.includes("prevent")) handler4 = wrapHandler(handler4, (next, e)=>{
         e.preventDefault();
@@ -3138,8 +2403,8 @@ function on(el, event, modifiers, callback) {
     if (modifiers.includes("self")) handler4 = wrapHandler(handler4, (next, e)=>{
         e.target === el && next(e);
     });
-    if (isKeyEvent(event) || isClickEvent(event)) handler4 = wrapHandler(handler4, (next, e)=>{
-        if (isListeningForASpecificKeyThatHasntBeenPressed(e, modifiers)) return;
+    if ($caa9439642c6336c$var$isKeyEvent(event) || $caa9439642c6336c$var$isClickEvent(event)) handler4 = wrapHandler(handler4, (next, e)=>{
+        if ($caa9439642c6336c$var$isListeningForASpecificKeyThatHasntBeenPressed(e, modifiers)) return;
         next(e);
     });
     listenerTarget.addEventListener(event, handler4, options);
@@ -3147,36 +2412,36 @@ function on(el, event, modifiers, callback) {
         listenerTarget.removeEventListener(event, handler4, options);
     };
 }
-function dotSyntax(subject) {
+function $caa9439642c6336c$var$dotSyntax(subject) {
     return subject.replace(/-/g, ".");
 }
-function camelCase2(subject) {
+function $caa9439642c6336c$var$camelCase2(subject) {
     return subject.toLowerCase().replace(/-(\w)/g, (match, char)=>char.toUpperCase());
 }
-function isNumeric(subject) {
+function $caa9439642c6336c$var$isNumeric(subject) {
     return !Array.isArray(subject) && !isNaN(subject);
 }
-function kebabCase2(subject) {
+function $caa9439642c6336c$var$kebabCase2(subject) {
     if ([
         " ",
         "_"
     ].includes(subject)) return subject;
     return subject.replace(/([a-z])([A-Z])/g, "$1-$2").replace(/[_\s]/, "-").toLowerCase();
 }
-function isKeyEvent(event) {
+function $caa9439642c6336c$var$isKeyEvent(event) {
     return [
         "keydown",
         "keyup"
     ].includes(event);
 }
-function isClickEvent(event) {
+function $caa9439642c6336c$var$isClickEvent(event) {
     return [
         "contextmenu",
         "click",
         "mouse"
     ].some((i)=>event.includes(i));
 }
-function isListeningForASpecificKeyThatHasntBeenPressed(e, modifiers) {
+function $caa9439642c6336c$var$isListeningForASpecificKeyThatHasntBeenPressed(e, modifiers) {
     let keyModifiers = modifiers.filter((i)=>{
         return ![
             "window",
@@ -3194,14 +2459,14 @@ function isListeningForASpecificKeyThatHasntBeenPressed(e, modifiers) {
     });
     if (keyModifiers.includes("debounce")) {
         let debounceIndex = keyModifiers.indexOf("debounce");
-        keyModifiers.splice(debounceIndex, isNumeric((keyModifiers[debounceIndex + 1] || "invalid-wait").split("ms")[0]) ? 2 : 1);
+        keyModifiers.splice(debounceIndex, $caa9439642c6336c$var$isNumeric((keyModifiers[debounceIndex + 1] || "invalid-wait").split("ms")[0]) ? 2 : 1);
     }
     if (keyModifiers.includes("throttle")) {
         let debounceIndex = keyModifiers.indexOf("throttle");
-        keyModifiers.splice(debounceIndex, isNumeric((keyModifiers[debounceIndex + 1] || "invalid-wait").split("ms")[0]) ? 2 : 1);
+        keyModifiers.splice(debounceIndex, $caa9439642c6336c$var$isNumeric((keyModifiers[debounceIndex + 1] || "invalid-wait").split("ms")[0]) ? 2 : 1);
     }
     if (keyModifiers.length === 0) return false;
-    if (keyModifiers.length === 1 && keyToModifiers(e.key).includes(keyModifiers[0])) return false;
+    if (keyModifiers.length === 1 && $caa9439642c6336c$var$keyToModifiers(e.key).includes(keyModifiers[0])) return false;
     const systemKeyModifiers = [
         "ctrl",
         "shift",
@@ -3218,15 +2483,15 @@ function isListeningForASpecificKeyThatHasntBeenPressed(e, modifiers) {
             return e[`${modifier}Key`];
         });
         if (activelyPressedKeyModifiers.length === selectedSystemKeyModifiers.length) {
-            if (isClickEvent(e.type)) return false;
-            if (keyToModifiers(e.key).includes(keyModifiers[0])) return false;
+            if ($caa9439642c6336c$var$isClickEvent(e.type)) return false;
+            if ($caa9439642c6336c$var$keyToModifiers(e.key).includes(keyModifiers[0])) return false;
         }
     }
     return true;
 }
-function keyToModifiers(key) {
+function $caa9439642c6336c$var$keyToModifiers(key) {
     if (!key) return [];
-    key = kebabCase2(key);
+    key = $caa9439642c6336c$var$kebabCase2(key);
     let modifierToKeyMap = {
         "ctrl": "control",
         "slash": "/",
@@ -3250,45 +2515,45 @@ function keyToModifiers(key) {
     }).filter((modifier)=>modifier);
 }
 // packages/alpinejs/src/directives/x-model.js
-directive("model", (el, { modifiers, expression }, { effect: effect3, cleanup: cleanup2 })=>{
+$caa9439642c6336c$var$directive("model", (el, { modifiers: modifiers, expression: expression }, { effect: effect3, cleanup: cleanup2 })=>{
     let scopeTarget = el;
     if (modifiers.includes("parent")) scopeTarget = el.parentNode;
-    let evaluateGet = evaluateLater(scopeTarget, expression);
+    let evaluateGet = $caa9439642c6336c$var$evaluateLater(scopeTarget, expression);
     let evaluateSet;
-    if (typeof expression === "string") evaluateSet = evaluateLater(scopeTarget, `${expression} = __placeholder`);
-    else if (typeof expression === "function" && typeof expression() === "string") evaluateSet = evaluateLater(scopeTarget, `${expression()} = __placeholder`);
+    if (typeof expression === "string") evaluateSet = $caa9439642c6336c$var$evaluateLater(scopeTarget, `${expression} = __placeholder`);
+    else if (typeof expression === "function" && typeof expression() === "string") evaluateSet = $caa9439642c6336c$var$evaluateLater(scopeTarget, `${expression()} = __placeholder`);
     else evaluateSet = ()=>{};
     let getValue = ()=>{
         let result;
         evaluateGet((value)=>result = value);
-        return isGetterSetter(result) ? result.get() : result;
+        return $caa9439642c6336c$var$isGetterSetter(result) ? result.get() : result;
     };
     let setValue = (value)=>{
         let result;
         evaluateGet((value2)=>result = value2);
-        if (isGetterSetter(result)) result.set(value);
+        if ($caa9439642c6336c$var$isGetterSetter(result)) result.set(value);
         else evaluateSet(()=>{}, {
             scope: {
                 "__placeholder": value
             }
         });
     };
-    if (typeof expression === "string" && el.type === "radio") mutateDom(()=>{
+    if (typeof expression === "string" && el.type === "radio") $caa9439642c6336c$var$mutateDom(()=>{
         if (!el.hasAttribute("name")) el.setAttribute("name", expression);
     });
     let event = el.tagName.toLowerCase() === "select" || [
         "checkbox",
         "radio"
     ].includes(el.type) || modifiers.includes("lazy") ? "change" : "input";
-    let removeListener = isCloning ? ()=>{} : on(el, event, modifiers, (e)=>{
-        setValue(getInputValue(el, modifiers, e, getValue()));
+    let removeListener = $caa9439642c6336c$var$isCloning ? ()=>{} : $caa9439642c6336c$var$on(el, event, modifiers, (e)=>{
+        setValue($caa9439642c6336c$var$getInputValue(el, modifiers, e, getValue()));
     });
     if (modifiers.includes("fill")) {
         if ([
             void 0,
             null,
             ""
-        ].includes(getValue()) || isCheckbox(el) && Array.isArray(getValue()) || el.tagName.toLowerCase() === "select" && el.multiple) setValue(getInputValue(el, modifiers, {
+        ].includes(getValue()) || $caa9439642c6336c$var$isCheckbox(el) && Array.isArray(getValue()) || el.tagName.toLowerCase() === "select" && el.multiple) setValue($caa9439642c6336c$var$getInputValue(el, modifiers, {
             target: el
         }, getValue()));
     }
@@ -3296,8 +2561,8 @@ directive("model", (el, { modifiers, expression }, { effect: effect3, cleanup: c
     el._x_removeModelListeners["default"] = removeListener;
     cleanup2(()=>el._x_removeModelListeners["default"]());
     if (el.form) {
-        let removeResetListener = on(el.form, "reset", [], (e)=>{
-            nextTick(()=>el._x_model && el._x_model.set(getInputValue(el, modifiers, {
+        let removeResetListener = $caa9439642c6336c$var$on(el.form, "reset", [], (e)=>{
+            $caa9439642c6336c$var$nextTick(()=>el._x_model && el._x_model.set($caa9439642c6336c$var$getInputValue(el, modifiers, {
                     target: el
                 }, getValue())));
         });
@@ -3314,7 +2579,7 @@ directive("model", (el, { modifiers, expression }, { effect: effect3, cleanup: c
     el._x_forceModelUpdate = (value)=>{
         if (value === void 0 && typeof expression === "string" && expression.match(/\./)) value = "";
         window.fromModel = true;
-        mutateDom(()=>bind(el, "value", value));
+        $caa9439642c6336c$var$mutateDom(()=>$caa9439642c6336c$var$bind(el, "value", value));
         delete window.fromModel;
     };
     effect3(()=>{
@@ -3323,172 +2588,172 @@ directive("model", (el, { modifiers, expression }, { effect: effect3, cleanup: c
         el._x_forceModelUpdate(value);
     });
 });
-function getInputValue(el, modifiers, event, currentValue) {
-    return mutateDom(()=>{
+function $caa9439642c6336c$var$getInputValue(el, modifiers, event, currentValue) {
+    return $caa9439642c6336c$var$mutateDom(()=>{
         if (event instanceof CustomEvent && event.detail !== void 0) return event.detail !== null && event.detail !== void 0 ? event.detail : event.target.value;
-        else if (isCheckbox(el)) {
+        else if ($caa9439642c6336c$var$isCheckbox(el)) {
             if (Array.isArray(currentValue)) {
                 let newValue = null;
-                if (modifiers.includes("number")) newValue = safeParseNumber(event.target.value);
-                else if (modifiers.includes("boolean")) newValue = safeParseBoolean(event.target.value);
+                if (modifiers.includes("number")) newValue = $caa9439642c6336c$var$safeParseNumber(event.target.value);
+                else if (modifiers.includes("boolean")) newValue = $caa9439642c6336c$var$safeParseBoolean(event.target.value);
                 else newValue = event.target.value;
                 return event.target.checked ? currentValue.includes(newValue) ? currentValue : currentValue.concat([
                     newValue
-                ]) : currentValue.filter((el2)=>!checkedAttrLooseCompare2(el2, newValue));
+                ]) : currentValue.filter((el2)=>!$caa9439642c6336c$var$checkedAttrLooseCompare2(el2, newValue));
             } else return event.target.checked;
         } else if (el.tagName.toLowerCase() === "select" && el.multiple) {
             if (modifiers.includes("number")) return Array.from(event.target.selectedOptions).map((option)=>{
                 let rawValue = option.value || option.text;
-                return safeParseNumber(rawValue);
+                return $caa9439642c6336c$var$safeParseNumber(rawValue);
             });
             else if (modifiers.includes("boolean")) return Array.from(event.target.selectedOptions).map((option)=>{
                 let rawValue = option.value || option.text;
-                return safeParseBoolean(rawValue);
+                return $caa9439642c6336c$var$safeParseBoolean(rawValue);
             });
             return Array.from(event.target.selectedOptions).map((option)=>{
                 return option.value || option.text;
             });
         } else {
             let newValue;
-            if (isRadio(el)) {
+            if ($caa9439642c6336c$var$isRadio(el)) {
                 if (event.target.checked) newValue = event.target.value;
                 else newValue = currentValue;
             } else newValue = event.target.value;
-            if (modifiers.includes("number")) return safeParseNumber(newValue);
-            else if (modifiers.includes("boolean")) return safeParseBoolean(newValue);
+            if (modifiers.includes("number")) return $caa9439642c6336c$var$safeParseNumber(newValue);
+            else if (modifiers.includes("boolean")) return $caa9439642c6336c$var$safeParseBoolean(newValue);
             else if (modifiers.includes("trim")) return newValue.trim();
             else return newValue;
         }
     });
 }
-function safeParseNumber(rawValue) {
+function $caa9439642c6336c$var$safeParseNumber(rawValue) {
     let number = rawValue ? parseFloat(rawValue) : null;
-    return isNumeric2(number) ? number : rawValue;
+    return $caa9439642c6336c$var$isNumeric2(number) ? number : rawValue;
 }
-function checkedAttrLooseCompare2(valueA, valueB) {
+function $caa9439642c6336c$var$checkedAttrLooseCompare2(valueA, valueB) {
     return valueA == valueB;
 }
-function isNumeric2(subject) {
+function $caa9439642c6336c$var$isNumeric2(subject) {
     return !Array.isArray(subject) && !isNaN(subject);
 }
-function isGetterSetter(value) {
+function $caa9439642c6336c$var$isGetterSetter(value) {
     return value !== null && typeof value === "object" && typeof value.get === "function" && typeof value.set === "function";
 }
 // packages/alpinejs/src/directives/x-cloak.js
-directive("cloak", (el)=>queueMicrotask(()=>mutateDom(()=>el.removeAttribute(prefix("cloak")))));
+$caa9439642c6336c$var$directive("cloak", (el)=>queueMicrotask(()=>$caa9439642c6336c$var$mutateDom(()=>el.removeAttribute($caa9439642c6336c$var$prefix("cloak")))));
 // packages/alpinejs/src/directives/x-init.js
-addInitSelector(()=>`[${prefix("init")}]`);
-directive("init", skipDuringClone((el, { expression }, { evaluate: evaluate2 })=>{
+$caa9439642c6336c$var$addInitSelector(()=>`[${$caa9439642c6336c$var$prefix("init")}]`);
+$caa9439642c6336c$var$directive("init", $caa9439642c6336c$var$skipDuringClone((el, { expression: expression }, { evaluate: evaluate2 })=>{
     if (typeof expression === "string") return !!expression.trim() && evaluate2(expression, {}, false);
     return evaluate2(expression, {}, false);
 }));
 // packages/alpinejs/src/directives/x-text.js
-directive("text", (el, { expression }, { effect: effect3, evaluateLater: evaluateLater2 })=>{
+$caa9439642c6336c$var$directive("text", (el, { expression: expression }, { effect: effect3, evaluateLater: evaluateLater2 })=>{
     let evaluate2 = evaluateLater2(expression);
     effect3(()=>{
         evaluate2((value)=>{
-            mutateDom(()=>{
+            $caa9439642c6336c$var$mutateDom(()=>{
                 el.textContent = value;
             });
         });
     });
 });
 // packages/alpinejs/src/directives/x-html.js
-directive("html", (el, { expression }, { effect: effect3, evaluateLater: evaluateLater2 })=>{
+$caa9439642c6336c$var$directive("html", (el, { expression: expression }, { effect: effect3, evaluateLater: evaluateLater2 })=>{
     let evaluate2 = evaluateLater2(expression);
     effect3(()=>{
         evaluate2((value)=>{
-            mutateDom(()=>{
+            $caa9439642c6336c$var$mutateDom(()=>{
                 el.innerHTML = value;
                 el._x_ignoreSelf = true;
-                initTree(el);
+                $caa9439642c6336c$var$initTree(el);
                 delete el._x_ignoreSelf;
             });
         });
     });
 });
 // packages/alpinejs/src/directives/x-bind.js
-mapAttributes(startingWith(":", into(prefix("bind:"))));
-var handler2 = (el, { value, modifiers, expression, original }, { effect: effect3, cleanup: cleanup2 })=>{
+$caa9439642c6336c$var$mapAttributes($caa9439642c6336c$var$startingWith(":", $caa9439642c6336c$var$into($caa9439642c6336c$var$prefix("bind:"))));
+var $caa9439642c6336c$var$handler2 = (el, { value: value, modifiers: modifiers, expression: expression, original: original }, { effect: effect3, cleanup: cleanup2 })=>{
     if (!value) {
         let bindingProviders = {};
-        injectBindingProviders(bindingProviders);
-        let getBindings = evaluateLater(el, expression);
+        $caa9439642c6336c$var$injectBindingProviders(bindingProviders);
+        let getBindings = $caa9439642c6336c$var$evaluateLater(el, expression);
         getBindings((bindings)=>{
-            applyBindingsObject(el, bindings, original);
+            $caa9439642c6336c$var$applyBindingsObject(el, bindings, original);
         }, {
             scope: bindingProviders
         });
         return;
     }
-    if (value === "key") return storeKeyForXFor(el, expression);
+    if (value === "key") return $caa9439642c6336c$var$storeKeyForXFor(el, expression);
     if (el._x_inlineBindings && el._x_inlineBindings[value] && el._x_inlineBindings[value].extract) return;
-    let evaluate2 = evaluateLater(el, expression);
+    let evaluate2 = $caa9439642c6336c$var$evaluateLater(el, expression);
     effect3(()=>evaluate2((result)=>{
             if (result === void 0 && typeof expression === "string" && expression.match(/\./)) result = "";
-            mutateDom(()=>bind(el, value, result, modifiers));
+            $caa9439642c6336c$var$mutateDom(()=>$caa9439642c6336c$var$bind(el, value, result, modifiers));
         }));
     cleanup2(()=>{
         el._x_undoAddedClasses && el._x_undoAddedClasses();
         el._x_undoAddedStyles && el._x_undoAddedStyles();
     });
 };
-handler2.inline = (el, { value, modifiers, expression })=>{
+$caa9439642c6336c$var$handler2.inline = (el, { value: value, modifiers: modifiers, expression: expression })=>{
     if (!value) return;
     if (!el._x_inlineBindings) el._x_inlineBindings = {};
     el._x_inlineBindings[value] = {
-        expression,
+        expression: expression,
         extract: false
     };
 };
-directive("bind", handler2);
-function storeKeyForXFor(el, expression) {
+$caa9439642c6336c$var$directive("bind", $caa9439642c6336c$var$handler2);
+function $caa9439642c6336c$var$storeKeyForXFor(el, expression) {
     el._x_keyExpression = expression;
 }
 // packages/alpinejs/src/directives/x-data.js
-addRootSelector(()=>`[${prefix("data")}]`);
-directive("data", (el, { expression }, { cleanup: cleanup2 })=>{
-    if (shouldSkipRegisteringDataDuringClone(el)) return;
+$caa9439642c6336c$var$addRootSelector(()=>`[${$caa9439642c6336c$var$prefix("data")}]`);
+$caa9439642c6336c$var$directive("data", (el, { expression: expression }, { cleanup: cleanup2 })=>{
+    if ($caa9439642c6336c$var$shouldSkipRegisteringDataDuringClone(el)) return;
     expression = expression === "" ? "{}" : expression;
     let magicContext = {};
-    injectMagics(magicContext, el);
+    $caa9439642c6336c$var$injectMagics(magicContext, el);
     let dataProviderContext = {};
-    injectDataProviders(dataProviderContext, magicContext);
-    let data2 = evaluate(el, expression, {
+    $caa9439642c6336c$var$injectDataProviders(dataProviderContext, magicContext);
+    let data2 = $caa9439642c6336c$var$evaluate(el, expression, {
         scope: dataProviderContext
     });
     if (data2 === void 0 || data2 === true) data2 = {};
-    injectMagics(data2, el);
-    let reactiveData = reactive(data2);
-    initInterceptors(reactiveData);
-    let undo = addScopeToNode(el, reactiveData);
-    reactiveData["init"] && evaluate(el, reactiveData["init"]);
+    $caa9439642c6336c$var$injectMagics(data2, el);
+    let reactiveData = $caa9439642c6336c$var$reactive(data2);
+    $caa9439642c6336c$var$initInterceptors(reactiveData);
+    let undo = $caa9439642c6336c$var$addScopeToNode(el, reactiveData);
+    reactiveData["init"] && $caa9439642c6336c$var$evaluate(el, reactiveData["init"]);
     cleanup2(()=>{
-        reactiveData["destroy"] && evaluate(el, reactiveData["destroy"]);
+        reactiveData["destroy"] && $caa9439642c6336c$var$evaluate(el, reactiveData["destroy"]);
         undo();
     });
 });
-interceptClone((from, to)=>{
+$caa9439642c6336c$var$interceptClone((from, to)=>{
     if (from._x_dataStack) {
         to._x_dataStack = from._x_dataStack;
         to.setAttribute("data-has-alpine-state", true);
     }
 });
-function shouldSkipRegisteringDataDuringClone(el) {
-    if (!isCloning) return false;
-    if (isCloningLegacy) return true;
+function $caa9439642c6336c$var$shouldSkipRegisteringDataDuringClone(el) {
+    if (!$caa9439642c6336c$var$isCloning) return false;
+    if ($caa9439642c6336c$var$isCloningLegacy) return true;
     return el.hasAttribute("data-has-alpine-state");
 }
 // packages/alpinejs/src/directives/x-show.js
-directive("show", (el, { modifiers, expression }, { effect: effect3 })=>{
-    let evaluate2 = evaluateLater(el, expression);
+$caa9439642c6336c$var$directive("show", (el, { modifiers: modifiers, expression: expression }, { effect: effect3 })=>{
+    let evaluate2 = $caa9439642c6336c$var$evaluateLater(el, expression);
     if (!el._x_doHide) el._x_doHide = ()=>{
-        mutateDom(()=>{
+        $caa9439642c6336c$var$mutateDom(()=>{
             el.style.setProperty("display", "none", modifiers.includes("important") ? "important" : void 0);
         });
     };
     if (!el._x_doShow) el._x_doShow = ()=>{
-        mutateDom(()=>{
+        $caa9439642c6336c$var$mutateDom(()=>{
             if (el.style.length === 1 && el.style.display === "none") el.removeAttribute("style");
             else el.style.removeProperty("display");
         });
@@ -3502,7 +2767,7 @@ directive("show", (el, { modifiers, expression }, { effect: effect3 })=>{
         el._x_isShown = true;
     };
     let clickAwayCompatibleShow = ()=>setTimeout(show);
-    let toggle = once((value)=>value ? show() : hide(), (value)=>{
+    let toggle = $caa9439642c6336c$var$once((value)=>value ? show() : hide(), (value)=>{
         if (typeof el._x_toggleAndCascadeWithTransitions === "function") el._x_toggleAndCascadeWithTransitions(el, value, show, hide);
         else value ? clickAwayCompatibleShow() : hide();
     });
@@ -3517,37 +2782,37 @@ directive("show", (el, { modifiers, expression }, { effect: effect3 })=>{
         }));
 });
 // packages/alpinejs/src/directives/x-for.js
-directive("for", (el, { expression }, { effect: effect3, cleanup: cleanup2 })=>{
-    let iteratorNames = parseForExpression(expression);
-    let evaluateItems = evaluateLater(el, iteratorNames.items);
-    let evaluateKey = evaluateLater(el, // the x-bind:key expression is stored for our use instead of evaluated.
+$caa9439642c6336c$var$directive("for", (el, { expression: expression }, { effect: effect3, cleanup: cleanup2 })=>{
+    let iteratorNames = $caa9439642c6336c$var$parseForExpression(expression);
+    let evaluateItems = $caa9439642c6336c$var$evaluateLater(el, iteratorNames.items);
+    let evaluateKey = $caa9439642c6336c$var$evaluateLater(el, // the x-bind:key expression is stored for our use instead of evaluated.
     el._x_keyExpression || "index");
     el._x_prevKeys = [];
     el._x_lookup = {};
-    effect3(()=>loop(el, iteratorNames, evaluateItems, evaluateKey));
+    effect3(()=>$caa9439642c6336c$var$loop(el, iteratorNames, evaluateItems, evaluateKey));
     cleanup2(()=>{
-        Object.values(el._x_lookup).forEach((el2)=>mutateDom(()=>{
-                destroyTree(el2);
+        Object.values(el._x_lookup).forEach((el2)=>$caa9439642c6336c$var$mutateDom(()=>{
+                $caa9439642c6336c$var$destroyTree(el2);
                 el2.remove();
             }));
         delete el._x_prevKeys;
         delete el._x_lookup;
     });
 });
-function loop(el, iteratorNames, evaluateItems, evaluateKey) {
+function $caa9439642c6336c$var$loop(el, iteratorNames, evaluateItems, evaluateKey) {
     let isObject2 = (i)=>typeof i === "object" && !Array.isArray(i);
     let templateEl = el;
     evaluateItems((items)=>{
-        if (isNumeric3(items) && items >= 0) items = Array.from(Array(items).keys(), (i)=>i + 1);
+        if ($caa9439642c6336c$var$isNumeric3(items) && items >= 0) items = Array.from(Array(items).keys(), (i)=>i + 1);
         if (items === void 0) items = [];
         let lookup = el._x_lookup;
         let prevKeys = el._x_prevKeys;
         let scopes = [];
         let keys = [];
         if (isObject2(items)) items = Object.entries(items).map(([key, value])=>{
-            let scope2 = getIterationScopeVariables(iteratorNames, value, key, items);
+            let scope2 = $caa9439642c6336c$var$getIterationScopeVariables(iteratorNames, value, key, items);
             evaluateKey((value2)=>{
-                if (keys.includes(value2)) warn("Duplicate key on x-for", el);
+                if (keys.includes(value2)) $caa9439642c6336c$var$warn("Duplicate key on x-for", el);
                 keys.push(value2);
             }, {
                 scope: {
@@ -3558,9 +2823,9 @@ function loop(el, iteratorNames, evaluateItems, evaluateKey) {
             scopes.push(scope2);
         });
         else for(let i = 0; i < items.length; i++){
-            let scope2 = getIterationScopeVariables(iteratorNames, items[i], i, items);
+            let scope2 = $caa9439642c6336c$var$getIterationScopeVariables(iteratorNames, items[i], i, items);
             evaluateKey((value)=>{
-                if (keys.includes(value)) warn("Duplicate key on x-for", el);
+                if (keys.includes(value)) $caa9439642c6336c$var$warn("Duplicate key on x-for", el);
                 keys.push(value);
             }, {
                 scope: {
@@ -3604,8 +2869,8 @@ function loop(el, iteratorNames, evaluateItems, evaluateKey) {
         for(let i = 0; i < removes.length; i++){
             let key = removes[i];
             if (!(key in lookup)) continue;
-            mutateDom(()=>{
-                destroyTree(lookup[key]);
+            $caa9439642c6336c$var$mutateDom(()=>{
+                $caa9439642c6336c$var$destroyTree(lookup[key]);
                 lookup[key].remove();
             });
             delete lookup[key];
@@ -3615,8 +2880,8 @@ function loop(el, iteratorNames, evaluateItems, evaluateKey) {
             let elInSpot = lookup[keyInSpot];
             let elForSpot = lookup[keyForSpot];
             let marker = document.createElement("div");
-            mutateDom(()=>{
-                if (!elForSpot) warn(`x-for ":key" is undefined or invalid`, templateEl, keyForSpot, lookup);
+            $caa9439642c6336c$var$mutateDom(()=>{
+                if (!elForSpot) $caa9439642c6336c$var$warn(`x-for ":key" is undefined or invalid`, templateEl, keyForSpot, lookup);
                 elForSpot.after(marker);
                 elInSpot.after(elForSpot);
                 elForSpot._x_currentIfEl && elForSpot.after(elForSpot._x_currentIfEl);
@@ -3633,25 +2898,25 @@ function loop(el, iteratorNames, evaluateItems, evaluateKey) {
             let scope2 = scopes[index];
             let key = keys[index];
             let clone2 = document.importNode(templateEl.content, true).firstElementChild;
-            let reactiveScope = reactive(scope2);
-            addScopeToNode(clone2, reactiveScope, templateEl);
+            let reactiveScope = $caa9439642c6336c$var$reactive(scope2);
+            $caa9439642c6336c$var$addScopeToNode(clone2, reactiveScope, templateEl);
             clone2._x_refreshXForScope = (newScope)=>{
                 Object.entries(newScope).forEach(([key2, value])=>{
                     reactiveScope[key2] = value;
                 });
             };
-            mutateDom(()=>{
+            $caa9439642c6336c$var$mutateDom(()=>{
                 lastEl.after(clone2);
-                skipDuringClone(()=>initTree(clone2))();
+                $caa9439642c6336c$var$skipDuringClone(()=>$caa9439642c6336c$var$initTree(clone2))();
             });
-            if (typeof key === "object") warn("x-for key cannot be an object, it must be a string or an integer", templateEl);
+            if (typeof key === "object") $caa9439642c6336c$var$warn("x-for key cannot be an object, it must be a string or an integer", templateEl);
             lookup[key] = clone2;
         }
         for(let i = 0; i < sames.length; i++)lookup[sames[i]]._x_refreshXForScope(scopes[keys.indexOf(sames[i])]);
         templateEl._x_prevKeys = keys;
     });
 }
-function parseForExpression(expression) {
+function $caa9439642c6336c$var$parseForExpression(expression) {
     let forIteratorRE = /,([^,\}\]]*)(?:,([^,\}\]]*))?$/;
     let stripParensRE = /^\s*\(|\)\s*$/g;
     let forAliasRE = /([\s\S]*?)\s+(?:in|of)\s+([\s\S]*)/;
@@ -3668,7 +2933,7 @@ function parseForExpression(expression) {
     } else res.item = item;
     return res;
 }
-function getIterationScopeVariables(iteratorNames, item, index, items) {
+function $caa9439642c6336c$var$getIterationScopeVariables(iteratorNames, item, index, items) {
     let scopeVariables = {};
     if (/^\[.*\]$/.test(iteratorNames.item) && Array.isArray(item)) {
         let names = iteratorNames.item.replace("[", "").replace("]", "").split(",").map((i)=>i.trim());
@@ -3685,34 +2950,34 @@ function getIterationScopeVariables(iteratorNames, item, index, items) {
     if (iteratorNames.collection) scopeVariables[iteratorNames.collection] = items;
     return scopeVariables;
 }
-function isNumeric3(subject) {
+function $caa9439642c6336c$var$isNumeric3(subject) {
     return !Array.isArray(subject) && !isNaN(subject);
 }
 // packages/alpinejs/src/directives/x-ref.js
-function handler3() {}
-handler3.inline = (el, { expression }, { cleanup: cleanup2 })=>{
-    let root = closestRoot(el);
+function $caa9439642c6336c$var$handler3() {}
+$caa9439642c6336c$var$handler3.inline = (el, { expression: expression }, { cleanup: cleanup2 })=>{
+    let root = $caa9439642c6336c$var$closestRoot(el);
     if (!root._x_refs) root._x_refs = {};
     root._x_refs[expression] = el;
     cleanup2(()=>delete root._x_refs[expression]);
 };
-directive("ref", handler3);
+$caa9439642c6336c$var$directive("ref", $caa9439642c6336c$var$handler3);
 // packages/alpinejs/src/directives/x-if.js
-directive("if", (el, { expression }, { effect: effect3, cleanup: cleanup2 })=>{
-    if (el.tagName.toLowerCase() !== "template") warn("x-if can only be used on a <template> tag", el);
-    let evaluate2 = evaluateLater(el, expression);
+$caa9439642c6336c$var$directive("if", (el, { expression: expression }, { effect: effect3, cleanup: cleanup2 })=>{
+    if (el.tagName.toLowerCase() !== "template") $caa9439642c6336c$var$warn("x-if can only be used on a <template> tag", el);
+    let evaluate2 = $caa9439642c6336c$var$evaluateLater(el, expression);
     let show = ()=>{
         if (el._x_currentIfEl) return el._x_currentIfEl;
         let clone2 = el.content.cloneNode(true).firstElementChild;
-        addScopeToNode(clone2, {}, el);
-        mutateDom(()=>{
+        $caa9439642c6336c$var$addScopeToNode(clone2, {}, el);
+        $caa9439642c6336c$var$mutateDom(()=>{
             el.after(clone2);
-            skipDuringClone(()=>initTree(clone2))();
+            $caa9439642c6336c$var$skipDuringClone(()=>$caa9439642c6336c$var$initTree(clone2))();
         });
         el._x_currentIfEl = clone2;
         el._x_undoIf = ()=>{
-            mutateDom(()=>{
-                destroyTree(clone2);
+            $caa9439642c6336c$var$mutateDom(()=>{
+                $caa9439642c6336c$var$destroyTree(clone2);
                 clone2.remove();
             });
             delete el._x_currentIfEl;
@@ -3730,22 +2995,22 @@ directive("if", (el, { expression }, { effect: effect3, cleanup: cleanup2 })=>{
     cleanup2(()=>el._x_undoIf && el._x_undoIf());
 });
 // packages/alpinejs/src/directives/x-id.js
-directive("id", (el, { expression }, { evaluate: evaluate2 })=>{
+$caa9439642c6336c$var$directive("id", (el, { expression: expression }, { evaluate: evaluate2 })=>{
     let names = evaluate2(expression);
-    names.forEach((name)=>setIdRoot(el, name));
+    names.forEach((name)=>$caa9439642c6336c$var$setIdRoot(el, name));
 });
-interceptClone((from, to)=>{
+$caa9439642c6336c$var$interceptClone((from, to)=>{
     if (from._x_ids) to._x_ids = from._x_ids;
 });
 // packages/alpinejs/src/directives/x-on.js
-mapAttributes(startingWith("@", into(prefix("on:"))));
-directive("on", skipDuringClone((el, { value, modifiers, expression }, { cleanup: cleanup2 })=>{
-    let evaluate2 = expression ? evaluateLater(el, expression) : ()=>{};
+$caa9439642c6336c$var$mapAttributes($caa9439642c6336c$var$startingWith("@", $caa9439642c6336c$var$into($caa9439642c6336c$var$prefix("on:"))));
+$caa9439642c6336c$var$directive("on", $caa9439642c6336c$var$skipDuringClone((el, { value: value, modifiers: modifiers, expression: expression }, { cleanup: cleanup2 })=>{
+    let evaluate2 = expression ? $caa9439642c6336c$var$evaluateLater(el, expression) : ()=>{};
     if (el.tagName.toLowerCase() === "template") {
         if (!el._x_forwardEvents) el._x_forwardEvents = [];
         if (!el._x_forwardEvents.includes(value)) el._x_forwardEvents.push(value);
     }
-    let removeListener = on(el, value, modifiers, (e)=>{
+    let removeListener = $caa9439642c6336c$var$on(el, value, modifiers, (e)=>{
         evaluate2(()=>{}, {
             scope: {
                 "$event": e
@@ -3758,65 +3023,31 @@ directive("on", skipDuringClone((el, { value, modifiers, expression }, { cleanup
     cleanup2(()=>removeListener());
 }));
 // packages/alpinejs/src/directives/index.js
-warnMissingPluginDirective("Collapse", "collapse", "collapse");
-warnMissingPluginDirective("Intersect", "intersect", "intersect");
-warnMissingPluginDirective("Focus", "trap", "focus");
-warnMissingPluginDirective("Mask", "mask", "mask");
-function warnMissingPluginDirective(name, directiveName, slug) {
-    directive(directiveName, (el)=>warn(`You can't use [x-${directiveName}] without first installing the "${name}" plugin here: https://alpinejs.dev/plugins/${slug}`, el));
+$caa9439642c6336c$var$warnMissingPluginDirective("Collapse", "collapse", "collapse");
+$caa9439642c6336c$var$warnMissingPluginDirective("Intersect", "intersect", "intersect");
+$caa9439642c6336c$var$warnMissingPluginDirective("Focus", "trap", "focus");
+$caa9439642c6336c$var$warnMissingPluginDirective("Mask", "mask", "mask");
+function $caa9439642c6336c$var$warnMissingPluginDirective(name, directiveName, slug) {
+    $caa9439642c6336c$var$directive(directiveName, (el)=>$caa9439642c6336c$var$warn(`You can't use [x-${directiveName}] without first installing the "${name}" plugin here: https://alpinejs.dev/plugins/${slug}`, el));
 }
 // packages/alpinejs/src/index.js
-alpine_default.setEvaluator(normalEvaluator);
-alpine_default.setReactivityEngine({
-    reactive: reactive2,
-    effect: effect2,
-    release: stop,
-    raw: toRaw
+$caa9439642c6336c$var$alpine_default.setEvaluator($caa9439642c6336c$var$normalEvaluator);
+$caa9439642c6336c$var$alpine_default.setReactivityEngine({
+    reactive: $caa9439642c6336c$var$reactive2,
+    effect: $caa9439642c6336c$var$effect2,
+    release: $caa9439642c6336c$var$stop,
+    raw: $caa9439642c6336c$var$toRaw
 });
-var src_default = alpine_default;
+var $caa9439642c6336c$export$b7ee041e4ad2afec = $caa9439642c6336c$var$alpine_default;
 // packages/alpinejs/builds/module.js
-var module_default = src_default;
+var $caa9439642c6336c$export$2e2bcd8739ae039 = $caa9439642c6336c$export$b7ee041e4ad2afec;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports,__globalThis) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, '__esModule', {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === 'default' || key === '__esModule' || Object.prototype.hasOwnProperty.call(dest, key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
 
-},{}],"h2FeS":[function(require,module,exports,__globalThis) {
 // packages/morph/src/morph.js
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>module_default);
-parcelHelpers.export(exports, "morph", ()=>src_default);
-function morph(from, toHtml, options) {
-    monkeyPatchDomSetAttributeToAllowAtSymbols();
-    let context = createMorphContext(options);
-    let toEl = typeof toHtml === "string" ? createElement(toHtml) : toHtml;
+function $512e3a9270ec7803$var$morph(from, toHtml, options) {
+    $512e3a9270ec7803$var$monkeyPatchDomSetAttributeToAllowAtSymbols();
+    let context = $512e3a9270ec7803$var$createMorphContext(options);
+    let toEl = typeof toHtml === "string" ? $512e3a9270ec7803$var$createElement(toHtml) : toHtml;
     if (window.Alpine && window.Alpine.closestDataStack && !from._x_dataStack) {
         toEl._x_dataStack = window.Alpine.closestDataStack(from);
         toEl._x_dataStack && window.Alpine.cloneNode(from, toEl);
@@ -3824,11 +3055,11 @@ function morph(from, toHtml, options) {
     context.patch(from, toEl);
     return from;
 }
-function morphBetween(startMarker, endMarker, toHtml, options = {}) {
-    monkeyPatchDomSetAttributeToAllowAtSymbols();
-    let context = createMorphContext(options);
+function $512e3a9270ec7803$var$morphBetween(startMarker, endMarker, toHtml, options = {}) {
+    $512e3a9270ec7803$var$monkeyPatchDomSetAttributeToAllowAtSymbols();
+    let context = $512e3a9270ec7803$var$createMorphContext(options);
     let fromContainer = startMarker.parentNode;
-    let fromBlock = new Block(startMarker, endMarker);
+    let fromBlock = new $512e3a9270ec7803$var$Block(startMarker, endMarker);
     let toContainer = typeof toHtml === "string" ? (()=>{
         let container = document.createElement("div");
         container.insertAdjacentHTML("beforeend", toHtml);
@@ -3838,14 +3069,14 @@ function morphBetween(startMarker, endMarker, toHtml, options = {}) {
     let toEndMarker = document.createComment("[morph-end]");
     toContainer.insertBefore(toStartMarker, toContainer.firstChild);
     toContainer.appendChild(toEndMarker);
-    let toBlock = new Block(toStartMarker, toEndMarker);
+    let toBlock = new $512e3a9270ec7803$var$Block(toStartMarker, toEndMarker);
     if (window.Alpine && window.Alpine.closestDataStack) {
         toContainer._x_dataStack = window.Alpine.closestDataStack(fromContainer);
         toContainer._x_dataStack && window.Alpine.cloneNode(fromContainer, toContainer);
     }
     context.patchChildren(fromBlock, toBlock);
 }
-function createMorphContext(options = {}) {
+function $512e3a9270ec7803$var$createMorphContext(options = {}) {
     let defaultGetKey = (el)=>el.getAttribute("key");
     let noop = ()=>{};
     let context = {
@@ -3863,12 +3094,12 @@ function createMorphContext(options = {}) {
         let updateChildrenOnly = false;
         let skipChildren = false;
         let skipUntil = (predicate)=>context.skipUntilCondition = predicate;
-        if (shouldSkipChildren(context.updating, ()=>skipChildren = true, skipUntil, from, to, ()=>updateChildrenOnly = true)) return;
+        if ($512e3a9270ec7803$var$shouldSkipChildren(context.updating, ()=>skipChildren = true, skipUntil, from, to, ()=>updateChildrenOnly = true)) return;
         if (from.nodeType === 1 && window.Alpine) {
             window.Alpine.cloneNode(from, to);
             if (from._x_teleport && to._x_teleport) context.patch(from._x_teleport, to._x_teleport);
         }
-        if (textOrComment(to)) {
+        if ($512e3a9270ec7803$var$textOrComment(to)) {
             context.patchNodeValue(from, to);
             context.updated(from, to);
             return;
@@ -3881,9 +3112,9 @@ function createMorphContext(options = {}) {
         return from.nodeType != to.nodeType || from.nodeName != to.nodeName || context.getKey(from) != context.getKey(to);
     };
     context.swapElements = function(from, to) {
-        if (shouldSkip(context.removing, from)) return;
+        if ($512e3a9270ec7803$var$shouldSkip(context.removing, from)) return;
         let toCloned = to.cloneNode(true);
-        if (shouldSkip(context.adding, toCloned)) return;
+        if ($512e3a9270ec7803$var$shouldSkip(context.adding, toCloned)) return;
         from.replaceWith(toCloned);
         context.removed(from);
         context.added(toCloned);
@@ -3911,10 +3142,10 @@ function createMorphContext(options = {}) {
     context.patchChildren = function(from, to) {
         let fromKeys = context.keyToMap(from.children);
         let fromKeyHoldovers = {};
-        let currentTo = getFirstNode(to);
-        let currentFrom = getFirstNode(from);
+        let currentTo = $512e3a9270ec7803$var$getFirstNode(to);
+        let currentFrom = $512e3a9270ec7803$var$getFirstNode(from);
         while(currentTo){
-            seedingMatchingId(currentTo, currentFrom);
+            $512e3a9270ec7803$var$seedingMatchingId(currentTo, currentFrom);
             let toKey = context.getKey(currentTo);
             let fromKey = context.getKey(currentFrom);
             if (context.skipUntilCondition) {
@@ -3922,8 +3153,8 @@ function createMorphContext(options = {}) {
                 let toDone = !currentTo || context.skipUntilCondition(currentTo);
                 if (fromDone && toDone) context.skipUntilCondition = null;
                 else {
-                    if (!fromDone) currentFrom = currentFrom && getNextSibling(from, currentFrom);
-                    if (!toDone) currentTo = currentTo && getNextSibling(to, currentTo);
+                    if (!fromDone) currentFrom = currentFrom && $512e3a9270ec7803$var$getNextSibling(from, currentFrom);
+                    if (!toDone) currentTo = currentTo && $512e3a9270ec7803$var$getNextSibling(to, currentTo);
                     continue;
                 }
             }
@@ -3934,12 +3165,12 @@ function createMorphContext(options = {}) {
                     currentFrom = holdover;
                     fromKey = context.getKey(currentFrom);
                 } else {
-                    if (!shouldSkip(context.adding, currentTo)) {
+                    if (!$512e3a9270ec7803$var$shouldSkip(context.adding, currentTo)) {
                         let clone = currentTo.cloneNode(true);
                         from.appendChild(clone);
                         context.added(clone);
                     }
-                    currentTo = getNextSibling(to, currentTo);
+                    currentTo = $512e3a9270ec7803$var$getNextSibling(to, currentTo);
                     continue;
                 }
             }
@@ -3949,7 +3180,7 @@ function createMorphContext(options = {}) {
                 let nestedIfCount = 0;
                 let fromBlockStart = currentFrom;
                 while(currentFrom){
-                    let next = getNextSibling(from, currentFrom);
+                    let next = $512e3a9270ec7803$var$getNextSibling(from, currentFrom);
                     if (isIf(next)) nestedIfCount++;
                     else if (isEnd(next) && nestedIfCount > 0) nestedIfCount--;
                     else if (isEnd(next) && nestedIfCount === 0) {
@@ -3962,7 +3193,7 @@ function createMorphContext(options = {}) {
                 nestedIfCount = 0;
                 let toBlockStart = currentTo;
                 while(currentTo){
-                    let next = getNextSibling(to, currentTo);
+                    let next = $512e3a9270ec7803$var$getNextSibling(to, currentTo);
                     if (isIf(next)) nestedIfCount++;
                     else if (isEnd(next) && nestedIfCount > 0) nestedIfCount--;
                     else if (isEnd(next) && nestedIfCount === 0) {
@@ -3972,13 +3203,13 @@ function createMorphContext(options = {}) {
                     currentTo = next;
                 }
                 let toBlockEnd = currentTo;
-                let fromBlock = new Block(fromBlockStart, fromBlockEnd);
-                let toBlock = new Block(toBlockStart, toBlockEnd);
+                let fromBlock = new $512e3a9270ec7803$var$Block(fromBlockStart, fromBlockEnd);
+                let toBlock = new $512e3a9270ec7803$var$Block(toBlockStart, toBlockEnd);
                 context.patchChildren(fromBlock, toBlock);
                 continue;
             }
             if (currentFrom.nodeType === 1 && context.lookahead && !currentFrom.isEqualNode(currentTo)) {
-                let nextToElementSibling = getNextSibling(to, currentTo);
+                let nextToElementSibling = $512e3a9270ec7803$var$getNextSibling(to, currentTo);
                 let found = false;
                 while(!found && nextToElementSibling){
                     if (nextToElementSibling.nodeType === 1 && currentFrom.isEqualNode(nextToElementSibling)) {
@@ -3986,7 +3217,7 @@ function createMorphContext(options = {}) {
                         currentFrom = context.addNodeBefore(from, currentTo, currentFrom);
                         fromKey = context.getKey(currentFrom);
                     }
-                    nextToElementSibling = getNextSibling(to, nextToElementSibling);
+                    nextToElementSibling = $512e3a9270ec7803$var$getNextSibling(to, nextToElementSibling);
                 }
             }
             if (toKey !== fromKey) {
@@ -3994,8 +3225,8 @@ function createMorphContext(options = {}) {
                     fromKeyHoldovers[fromKey] = currentFrom;
                     currentFrom = context.addNodeBefore(from, currentTo, currentFrom);
                     fromKeyHoldovers[fromKey].remove();
-                    currentFrom = getNextSibling(from, currentFrom);
-                    currentTo = getNextSibling(to, currentTo);
+                    currentFrom = $512e3a9270ec7803$var$getNextSibling(from, currentFrom);
+                    currentTo = $512e3a9270ec7803$var$getNextSibling(to, currentTo);
                     continue;
                 }
                 if (toKey && !fromKey) {
@@ -4016,21 +3247,21 @@ function createMorphContext(options = {}) {
                         fromKeyHoldovers[fromKey] = currentFrom;
                         currentFrom = context.addNodeBefore(from, currentTo, currentFrom);
                         fromKeyHoldovers[fromKey].remove();
-                        currentFrom = getNextSibling(from, currentFrom);
-                        currentTo = getNextSibling(to, currentTo);
+                        currentFrom = $512e3a9270ec7803$var$getNextSibling(from, currentFrom);
+                        currentTo = $512e3a9270ec7803$var$getNextSibling(to, currentTo);
                         continue;
                     }
                 }
             }
-            let currentFromNext = currentFrom && getNextSibling(from, currentFrom);
+            let currentFromNext = currentFrom && $512e3a9270ec7803$var$getNextSibling(from, currentFrom);
             context.patch(currentFrom, currentTo);
-            currentTo = currentTo && getNextSibling(to, currentTo);
+            currentTo = currentTo && $512e3a9270ec7803$var$getNextSibling(to, currentTo);
             currentFrom = currentFromNext;
         }
         let removals = [];
         while(currentFrom){
-            if (!shouldSkip(context.removing, currentFrom)) removals.push(currentFrom);
-            currentFrom = getNextSibling(from, currentFrom);
+            if (!$512e3a9270ec7803$var$shouldSkip(context.removing, currentFrom)) removals.push(currentFrom);
+            currentFrom = $512e3a9270ec7803$var$getNextSibling(from, currentFrom);
         }
         while(removals.length){
             let domForRemoval = removals.shift();
@@ -4050,7 +3281,7 @@ function createMorphContext(options = {}) {
         return map;
     };
     context.addNodeBefore = function(parent, node, beforeMe) {
-        if (!shouldSkip(context.adding, node)) {
+        if (!$512e3a9270ec7803$var$shouldSkip(context.adding, node)) {
             let clone = node.cloneNode(true);
             parent.insertBefore(clone, beforeMe);
             context.added(clone);
@@ -4060,28 +3291,28 @@ function createMorphContext(options = {}) {
     };
     return context;
 }
-morph.step = ()=>{};
-morph.log = ()=>{};
-function shouldSkip(hook, ...args) {
+$512e3a9270ec7803$var$morph.step = ()=>{};
+$512e3a9270ec7803$var$morph.log = ()=>{};
+function $512e3a9270ec7803$var$shouldSkip(hook, ...args) {
     let skip = false;
     hook(...args, ()=>skip = true);
     return skip;
 }
-function shouldSkipChildren(hook, skipChildren, skipUntil, ...args) {
+function $512e3a9270ec7803$var$shouldSkipChildren(hook, skipChildren, skipUntil, ...args) {
     let skip = false;
     hook(...args, ()=>skip = true, skipChildren, skipUntil);
     return skip;
 }
-var patched = false;
-function createElement(html) {
+var $512e3a9270ec7803$var$patched = false;
+function $512e3a9270ec7803$var$createElement(html) {
     const template = document.createElement("template");
     template.innerHTML = html;
     return template.content.firstElementChild;
 }
-function textOrComment(el) {
+function $512e3a9270ec7803$var$textOrComment(el) {
     return el.nodeType === 3 || el.nodeType === 8;
 }
-var Block = class {
+var $512e3a9270ec7803$var$Block = class {
     constructor(start, end){
         this.startComment = start;
         this.endComment = end;
@@ -4113,18 +3344,18 @@ var Block = class {
         return newNode;
     }
 };
-function getFirstNode(parent) {
+function $512e3a9270ec7803$var$getFirstNode(parent) {
     return parent.firstChild;
 }
-function getNextSibling(parent, reference) {
+function $512e3a9270ec7803$var$getNextSibling(parent, reference) {
     let next;
-    if (parent instanceof Block) next = parent.nextNode(reference);
+    if (parent instanceof $512e3a9270ec7803$var$Block) next = parent.nextNode(reference);
     else next = reference.nextSibling;
     return next;
 }
-function monkeyPatchDomSetAttributeToAllowAtSymbols() {
-    if (patched) return;
-    patched = true;
+function $512e3a9270ec7803$var$monkeyPatchDomSetAttributeToAllowAtSymbols() {
+    if ($512e3a9270ec7803$var$patched) return;
+    $512e3a9270ec7803$var$patched = true;
     let original = Element.prototype.setAttribute;
     let hostDiv = document.createElement("div");
     Element.prototype.setAttribute = function newSetAttribute(name, value) {
@@ -4135,7 +3366,7 @@ function monkeyPatchDomSetAttributeToAllowAtSymbols() {
         this.setAttributeNode(attr);
     };
 }
-function seedingMatchingId(to, from) {
+function $512e3a9270ec7803$var$seedingMatchingId(to, from) {
     let fromId = from && from._x_bindings && from._x_bindings.id;
     if (!fromId) return;
     if (!to.setAttribute) return;
@@ -4143,20 +3374,16 @@ function seedingMatchingId(to, from) {
     to.id = fromId;
 }
 // packages/morph/src/index.js
-function src_default(Alpine) {
-    Alpine.morph = morph;
-    Alpine.morphBetween = morphBetween;
+function $512e3a9270ec7803$export$2e5e8c41f5d4e7c7(Alpine) {
+    Alpine.morph = $512e3a9270ec7803$var$morph;
+    Alpine.morphBetween = $512e3a9270ec7803$var$morphBetween;
 }
 // packages/morph/builds/module.js
-var module_default = src_default;
+var $512e3a9270ec7803$export$2e2bcd8739ae039 = $512e3a9270ec7803$export$2e5e8c41f5d4e7c7;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hOl6K":[function(require,module,exports,__globalThis) {
+
 // packages/persist/src/index.js
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>module_default);
-parcelHelpers.export(exports, "persist", ()=>src_default);
-function src_default(Alpine) {
+function $a5acee56471cec18$export$9a6132153fba2e0(Alpine) {
     let persist = ()=>{
         let alias;
         let storage;
@@ -4173,11 +3400,11 @@ function src_default(Alpine) {
         }
         return Alpine.interceptor((initialValue, getter, setter, path, key)=>{
             let lookup = alias || `_x_${path}`;
-            let initial = storageHas(lookup, storage) ? storageGet(lookup, storage) : initialValue;
+            let initial = $a5acee56471cec18$var$storageHas(lookup, storage) ? $a5acee56471cec18$var$storageGet(lookup, storage) : initialValue;
             setter(initial);
             Alpine.effect(()=>{
                 let value = getter();
-                storageSet(lookup, value, storage);
+                $a5acee56471cec18$var$storageSet(lookup, value, storage);
                 setter(value);
             });
             return initial;
@@ -4195,44 +3422,41 @@ function src_default(Alpine) {
         get: ()=>persist()
     });
     Alpine.magic("persist", persist);
-    Alpine.persist = (key, { get, set }, storage = localStorage)=>{
-        let initial = storageHas(key, storage) ? storageGet(key, storage) : get();
+    Alpine.persist = (key, { get: get, set: set }, storage = localStorage)=>{
+        let initial = $a5acee56471cec18$var$storageHas(key, storage) ? $a5acee56471cec18$var$storageGet(key, storage) : get();
         set(initial);
         Alpine.effect(()=>{
             let value = get();
-            storageSet(key, value, storage);
+            $a5acee56471cec18$var$storageSet(key, value, storage);
             set(value);
         });
     };
 }
-function storageHas(key, storage) {
+function $a5acee56471cec18$var$storageHas(key, storage) {
     return storage.getItem(key) !== null;
 }
-function storageGet(key, storage) {
+function $a5acee56471cec18$var$storageGet(key, storage) {
     let value = storage.getItem(key);
     if (value === void 0) return;
     return JSON.parse(value);
 }
-function storageSet(key, value, storage) {
+function $a5acee56471cec18$var$storageSet(key, value, storage) {
     storage.setItem(key, JSON.stringify(value));
 }
 // packages/persist/builds/module.js
-var module_default = src_default;
+var $a5acee56471cec18$export$2e2bcd8739ae039 = $a5acee56471cec18$export$9a6132153fba2e0;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j3Uyt":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>module_default);
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __markAsModule = (target)=>__defProp(target, "__esModule", {
+
+var $69a8ec8dbeef3157$var$__create = Object.create;
+var $69a8ec8dbeef3157$var$__defProp = Object.defineProperty;
+var $69a8ec8dbeef3157$var$__getProtoOf = Object.getPrototypeOf;
+var $69a8ec8dbeef3157$var$__hasOwnProp = Object.prototype.hasOwnProperty;
+var $69a8ec8dbeef3157$var$__getOwnPropNames = Object.getOwnPropertyNames;
+var $69a8ec8dbeef3157$var$__getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var $69a8ec8dbeef3157$var$__markAsModule = (target)=>$69a8ec8dbeef3157$var$__defProp(target, "__esModule", {
         value: true
     });
-var __commonJS = (callback, module)=>()=>{
+var $69a8ec8dbeef3157$var$__commonJS = (callback, module)=>()=>{
         if (!module) {
             module = {
                 exports: {}
@@ -4241,17 +3465,17 @@ var __commonJS = (callback, module)=>()=>{
         }
         return module.exports;
     };
-var __exportStar = (target, module, desc)=>{
+var $69a8ec8dbeef3157$var$__exportStar = (target, module, desc)=>{
     if (module && typeof module === "object" || typeof module === "function") {
-        for (let key of __getOwnPropNames(module))if (!__hasOwnProp.call(target, key) && key !== "default") __defProp(target, key, {
+        for (let key of $69a8ec8dbeef3157$var$__getOwnPropNames(module))if (!$69a8ec8dbeef3157$var$__hasOwnProp.call(target, key) && key !== "default") $69a8ec8dbeef3157$var$__defProp(target, key, {
             get: ()=>module[key],
-            enumerable: !(desc = __getOwnPropDesc(module, key)) || desc.enumerable
+            enumerable: !(desc = $69a8ec8dbeef3157$var$__getOwnPropDesc(module, key)) || desc.enumerable
         });
     }
     return target;
 };
-var __toModule = (module)=>{
-    return __exportStar(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", module && module.__esModule && "default" in module ? {
+var $69a8ec8dbeef3157$var$__toModule = (module)=>{
+    return $69a8ec8dbeef3157$var$__exportStar($69a8ec8dbeef3157$var$__markAsModule($69a8ec8dbeef3157$var$__defProp(module != null ? $69a8ec8dbeef3157$var$__create($69a8ec8dbeef3157$var$__getProtoOf(module)) : {}, "default", module && module.__esModule && "default" in module ? {
         get: ()=>module.default,
         enumerable: true
     } : {
@@ -4260,7 +3484,7 @@ var __toModule = (module)=>{
     })), module);
 };
 // node_modules/@popperjs/core/dist/cjs/popper.js
-var require_popper = __commonJS((exports)=>{
+var $69a8ec8dbeef3157$var$require_popper = $69a8ec8dbeef3157$var$__commonJS((exports)=>{
     "use strict";
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -4291,8 +3515,8 @@ var require_popper = __commonJS((exports)=>{
         var scrollLeft = win.pageXOffset;
         var scrollTop = win.pageYOffset;
         return {
-            scrollLeft,
-            scrollTop
+            scrollLeft: scrollLeft,
+            scrollTop: scrollTop
         };
     }
     function isElement(node) {
@@ -4371,8 +3595,8 @@ var require_popper = __commonJS((exports)=>{
         return {
             x: element.offsetLeft,
             y: element.offsetTop,
-            width,
-            height
+            width: width,
+            height: height
         };
     }
     function getParentNode(element) {
@@ -4634,10 +3858,10 @@ var require_popper = __commonJS((exports)=>{
             }
         }
         return {
-            width,
-            height,
+            width: width,
+            height: height,
             x: x + getWindowScrollBarX(element),
-            y
+            y: y
         };
     }
     var max = Math.max;
@@ -4654,10 +3878,10 @@ var require_popper = __commonJS((exports)=>{
         var y = -winScroll.scrollTop;
         if (getComputedStyle(body || html).direction === "rtl") x += max(html.clientWidth, body ? body.clientWidth : 0) - width;
         return {
-            width,
-            height,
-            x,
-            y
+            width: width,
+            height: height,
+            x: x,
+            y: y
         };
     }
     function contains(parent, child) {
@@ -4819,7 +4043,7 @@ var require_popper = __commonJS((exports)=>{
             reference: referenceClientRect,
             element: popperRect,
             strategy: "absolute",
-            placement
+            placement: placement
         });
         var popperClientRect = rectToClientRect(Object.assign({}, popperRect, popperOffsets2));
         var elementClientRect = elementContext === popper ? popperClientRect : referenceClientRect;
@@ -4879,7 +4103,7 @@ var require_popper = __commonJS((exports)=>{
             var effectCleanupFns = [];
             var isDestroyed = false;
             var instance = {
-                state,
+                state: state,
                 setOptions: function setOptions(options2) {
                     cleanupModifierEffects();
                     state.options = Object.assign({}, defaultOptions, state.options, options2);
@@ -4954,10 +4178,10 @@ var require_popper = __commonJS((exports)=>{
                         }
                         var _state$orderedModifie = state.orderedModifiers[index], fn = _state$orderedModifie.fn, _state$orderedModifie2 = _state$orderedModifie.options, _options = _state$orderedModifie2 === void 0 ? {} : _state$orderedModifie2, name = _state$orderedModifie.name;
                         if (typeof fn === "function") state = fn({
-                            state,
+                            state: state,
                             options: _options,
-                            name,
-                            instance
+                            name: name,
+                            instance: instance
                         }) || state;
                     }
                 },
@@ -4984,9 +4208,9 @@ var require_popper = __commonJS((exports)=>{
                     var name = _ref3.name, _ref3$options = _ref3.options, options2 = _ref3$options === void 0 ? {} : _ref3$options, effect2 = _ref3.effect;
                     if (typeof effect2 === "function") {
                         var cleanupFn = effect2({
-                            state,
-                            name,
-                            instance,
+                            state: state,
+                            name: name,
+                            instance: instance,
                             options: options2
                         });
                         var noopFn = function noopFn2() {};
@@ -5094,7 +4318,7 @@ var require_popper = __commonJS((exports)=>{
             }
         }
         var commonStyles = Object.assign({
-            position
+            position: position
         }, adaptive && unsetSides);
         if (gpuAcceleration) {
             var _Object$assign;
@@ -5130,19 +4354,19 @@ var require_popper = __commonJS((exports)=>{
             placement: getBasePlacement(state.placement),
             popper: state.elements.popper,
             popperRect: state.rects.popper,
-            gpuAcceleration
+            gpuAcceleration: gpuAcceleration
         };
         if (state.modifiersData.popperOffsets != null) state.styles.popper = Object.assign({}, state.styles.popper, mapToStyles(Object.assign({}, commonStyles, {
             offsets: state.modifiersData.popperOffsets,
             position: state.options.strategy,
-            adaptive,
-            roundOffsets
+            adaptive: adaptive,
+            roundOffsets: roundOffsets
         })));
         if (state.modifiersData.arrow != null) state.styles.arrow = Object.assign({}, state.styles.arrow, mapToStyles(Object.assign({}, commonStyles, {
             offsets: state.modifiersData.arrow,
             position: "absolute",
             adaptive: false,
-            roundOffsets
+            roundOffsets: roundOffsets
         })));
         state.attributes.popper = Object.assign({}, state.attributes.popper, {
             "data-popper-placement": state.placement
@@ -5221,7 +4445,7 @@ var require_popper = __commonJS((exports)=>{
             top
         ].indexOf(basePlacement) >= 0 ? -1 : 1;
         var _ref = typeof offset2 === "function" ? offset2(Object.assign({}, rects, {
-            placement
+            placement: placement
         })) : offset2, skidding = _ref[0], distance = _ref[1];
         skidding = skidding || 0;
         distance = (distance || 0) * invertDistance;
@@ -5305,9 +4529,9 @@ var require_popper = __commonJS((exports)=>{
         var overflows = allowedPlacements.reduce(function(acc, placement2) {
             acc[placement2] = detectOverflow(state, {
                 placement: placement2,
-                boundary,
-                rootBoundary,
-                padding
+                boundary: boundary,
+                rootBoundary: rootBoundary,
+                padding: padding
             })[getBasePlacement(placement2)];
             return acc;
         }, {});
@@ -5339,11 +4563,11 @@ var require_popper = __commonJS((exports)=>{
         ].concat(fallbackPlacements).reduce(function(acc, placement2) {
             return acc.concat(getBasePlacement(placement2) === auto ? computeAutoPlacement(state, {
                 placement: placement2,
-                boundary,
-                rootBoundary,
-                padding,
-                flipVariations,
-                allowedAutoPlacements
+                boundary: boundary,
+                rootBoundary: rootBoundary,
+                padding: padding,
+                flipVariations: flipVariations,
+                allowedAutoPlacements: allowedAutoPlacements
             }) : placement2);
         }, []);
         var referenceRect = state.rects.reference;
@@ -5361,11 +4585,11 @@ var require_popper = __commonJS((exports)=>{
             ].indexOf(_basePlacement) >= 0;
             var len = isVertical ? "width" : "height";
             var overflow = detectOverflow(state, {
-                placement,
-                boundary,
-                rootBoundary,
-                altBoundary,
-                padding
+                placement: placement,
+                boundary: boundary,
+                rootBoundary: rootBoundary,
+                altBoundary: altBoundary,
+                padding: padding
             });
             var mainVariationSide = isVertical ? isStartVariation ? right : left : isStartVariation ? bottom : top;
             if (referenceRect[len] > popperRect[len]) mainVariationSide = getOppositePlacement(mainVariationSide);
@@ -5429,10 +4653,10 @@ var require_popper = __commonJS((exports)=>{
         var state = _ref.state, options = _ref.options, name = _ref.name;
         var _options$mainAxis = options.mainAxis, checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis, _options$altAxis = options.altAxis, checkAltAxis = _options$altAxis === void 0 ? false : _options$altAxis, boundary = options.boundary, rootBoundary = options.rootBoundary, altBoundary = options.altBoundary, padding = options.padding, _options$tether = options.tether, tether = _options$tether === void 0 ? true : _options$tether, _options$tetherOffset = options.tetherOffset, tetherOffset = _options$tetherOffset === void 0 ? 0 : _options$tetherOffset;
         var overflow = detectOverflow(state, {
-            boundary,
-            rootBoundary,
-            padding,
-            altBoundary
+            boundary: boundary,
+            rootBoundary: rootBoundary,
+            padding: padding,
+            altBoundary: altBoundary
         });
         var basePlacement = getBasePlacement(state.placement);
         var variation = getVariation(state.placement);
@@ -5565,7 +4789,7 @@ var require_popper = __commonJS((exports)=>{
         enabled: true,
         phase: "main",
         fn: arrow,
-        effect,
+        effect: effect,
         requires: [
             "popperOffsets"
         ],
@@ -5611,10 +4835,10 @@ var require_popper = __commonJS((exports)=>{
         var isReferenceHidden = isAnySideFullyClipped(referenceClippingOffsets);
         var hasPopperEscaped = isAnySideFullyClipped(popperEscapeOffsets);
         state.modifiersData[name] = {
-            referenceClippingOffsets,
-            popperEscapeOffsets,
-            isReferenceHidden,
-            hasPopperEscaped
+            referenceClippingOffsets: referenceClippingOffsets,
+            popperEscapeOffsets: popperEscapeOffsets,
+            isReferenceHidden: isReferenceHidden,
+            hasPopperEscaped: hasPopperEscaped
         };
         state.attributes.popper = Object.assign({}, state.attributes.popper, {
             "data-popper-reference-hidden": isReferenceHidden,
@@ -5651,7 +4875,7 @@ var require_popper = __commonJS((exports)=>{
         hide$1
     ];
     var createPopper = /* @__PURE__ */ popperGenerator({
-        defaultModifiers
+        defaultModifiers: defaultModifiers
     });
     exports.applyStyles = applyStyles$1;
     exports.arrow = arrow$1;
@@ -5669,12 +4893,12 @@ var require_popper = __commonJS((exports)=>{
     exports.preventOverflow = preventOverflow$1;
 });
 // node_modules/tippy.js/dist/tippy.cjs.js
-var require_tippy_cjs = __commonJS((exports)=>{
+var $69a8ec8dbeef3157$var$require_tippy_cjs = $69a8ec8dbeef3157$var$__commonJS((exports)=>{
     "use strict";
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
-    var core = require_popper();
+    var core = $69a8ec8dbeef3157$var$require_popper();
     var ROUND_ARROW = '<svg width="16" height="6" xmlns="http://www.w3.org/2000/svg"><path d="M0 6s1.796-.013 4.67-3.615C5.851.9 6.93.006 8 0c1.07-.006 2.148.887 3.343 2.385C14.233 6.005 16 6 16 6H0z"></svg>';
     var BOX_CLASS = "tippy-box";
     var CONTENT_CLASS = "tippy-content";
@@ -5984,7 +5208,7 @@ var require_tippy_cjs = __commonJS((exports)=>{
     }
     function getDataAttributeProps(reference, plugins) {
         var propKeys = plugins ? Object.keys(getExtendedPassedProps(Object.assign({}, defaultProps, {
-            plugins
+            plugins: plugins
         }))) : defaultKeys;
         var props = propKeys.reduce(function(acc, key) {
             var valueAsString = (reference.getAttribute("data-tippy-" + key) || "").trim();
@@ -6061,7 +5285,7 @@ var require_tippy_cjs = __commonJS((exports)=>{
         var box = popper.firstElementChild;
         var boxChildren = arrayFrom(box.children);
         return {
-            box,
+            box: box,
             content: boxChildren.find(function(node) {
                 return node.classList.contains(CONTENT_CLASS);
             }),
@@ -6107,8 +5331,8 @@ var require_tippy_cjs = __commonJS((exports)=>{
             } else if (arrow) box2.removeChild(arrow);
         }
         return {
-            popper,
-            onUpdate
+            popper: popper,
+            onUpdate: onUpdate
         };
     }
     render.$$tippy = true;
@@ -6141,23 +5365,23 @@ var require_tippy_cjs = __commonJS((exports)=>{
             isShown: false
         };
         var instance = {
-            id,
-            reference,
+            id: id,
+            reference: reference,
             popper: div(),
-            popperInstance,
-            props,
-            state,
-            plugins,
-            clearDelayTimeouts,
-            setProps,
+            popperInstance: popperInstance,
+            props: props,
+            state: state,
+            plugins: plugins,
+            clearDelayTimeouts: clearDelayTimeouts,
+            setProps: setProps,
             setContent: setContent2,
-            show,
-            hide,
-            hideWithInteractivity,
-            enable,
-            disable,
-            unmount,
-            destroy
+            show: show,
+            hide: hide,
+            hideWithInteractivity: hideWithInteractivity,
+            enable: enable,
+            disable: disable,
+            unmount: unmount,
+            destroy: destroy
         };
         if (!props.render) {
             errorWhen(true, "render() function has not been supplied.");
@@ -6331,10 +5555,10 @@ var require_tippy_cjs = __commonJS((exports)=>{
             nodes.forEach(function(node) {
                 node.addEventListener(eventType, handler, options);
                 listeners.push({
-                    node,
-                    eventType,
-                    handler,
-                    options
+                    node: node,
+                    eventType: eventType,
+                    handler: handler,
+                    options: options
                 });
             });
         }
@@ -6397,7 +5621,7 @@ var require_tippy_cjs = __commonJS((exports)=>{
                 if (state2) return {
                     popperRect: popper2.getBoundingClientRect(),
                     popperState: state2,
-                    props
+                    props: props
                 };
                 return null;
             }).filter(Boolean);
@@ -6459,7 +5683,7 @@ var require_tippy_cjs = __commonJS((exports)=>{
                 {
                     name: "offset",
                     options: {
-                        offset
+                        offset: offset
                     }
                 },
                 {
@@ -6496,9 +5720,9 @@ var require_tippy_cjs = __commonJS((exports)=>{
             });
             modifiers.push.apply(modifiers, (popperOptions == null ? void 0 : popperOptions.modifiers) || []);
             instance.popperInstance = core.createPopper(computedReference, popper, Object.assign({}, popperOptions, {
-                placement,
-                onFirstUpdate,
-                modifiers
+                placement: placement,
+                onFirstUpdate: onFirstUpdate,
+                modifiers: modifiers
             }));
         }
         function destroyPopperInstance() {
@@ -6622,7 +5846,7 @@ var require_tippy_cjs = __commonJS((exports)=>{
         }
         function setContent2(content) {
             instance.setProps({
-                content
+                content: content
             });
         }
         function show() {
@@ -6765,7 +5989,7 @@ var require_tippy_cjs = __commonJS((exports)=>{
         validateProps(optionalProps, plugins);
         bindGlobalEventListeners();
         var passedProps = Object.assign({}, optionalProps, {
-            plugins
+            plugins: plugins
         });
         var elements = getArrayOfElements(targets);
         var isSingleContentElement = isElement(passedProps.content);
@@ -6799,7 +6023,7 @@ var require_tippy_cjs = __commonJS((exports)=>{
             if (!isExcluded) {
                 var originalDuration = instance.props.duration;
                 instance.setProps({
-                    duration
+                    duration: duration
                 });
                 instance.hide();
                 if (!instance.state.isDestroyed) instance.setProps({
@@ -7008,10 +6232,10 @@ var require_tippy_cjs = __commonJS((exports)=>{
             if (options === void 0) options = false;
             node.addEventListener(eventType, handler, options);
             listeners.push({
-                node,
-                eventType,
-                handler,
-                options
+                node: node,
+                eventType: eventType,
+                handler: handler,
+                options: options
             });
         }
         function addEventListeners(instance) {
@@ -7121,8 +6345,8 @@ var require_tippy_cjs = __commonJS((exports)=>{
     function storeMouseCoords(_ref) {
         var clientX = _ref.clientX, clientY = _ref.clientY;
         mouseCoords = {
-            clientX,
-            clientY
+            clientX: clientX,
+            clientY: clientY
         };
     }
     function addMouseCoordsListener(doc) {
@@ -7180,10 +6404,10 @@ var require_tippy_cjs = __commonJS((exports)=>{
                         return {
                             width: right - left,
                             height: bottom - top,
-                            top,
-                            right,
-                            bottom,
-                            left
+                            top: top,
+                            right: right,
+                            bottom: bottom,
+                            left: left
                         };
                     }
                 });
@@ -7191,8 +6415,8 @@ var require_tippy_cjs = __commonJS((exports)=>{
             function create() {
                 if (instance.props.followCursor) {
                     activeInstances.push({
-                        instance,
-                        doc
+                        instance: instance,
+                        doc: doc
                     });
                     addMouseCoordsListener(doc);
                 }
@@ -7336,12 +6560,12 @@ var require_tippy_cjs = __commonJS((exports)=>{
                 var width = right - left;
                 var height = bottom - top;
                 return {
-                    top,
-                    bottom,
-                    left,
-                    right,
-                    width,
-                    height
+                    top: top,
+                    bottom: bottom,
+                    left: left,
+                    right: right,
+                    width: width,
+                    height: height
                 };
             case "left":
             case "right":
@@ -7407,7 +6631,7 @@ var require_tippy_cjs = __commonJS((exports)=>{
         return true;
     }
     tippy2.setDefaultProps({
-        render
+        render: render
     });
     exports.animateFill = animateFill;
     exports.createSingleton = createSingleton;
@@ -7420,10 +6644,10 @@ var require_tippy_cjs = __commonJS((exports)=>{
     exports.sticky = sticky;
 });
 // src/index.js
-var import_tippy2 = __toModule(require_tippy_cjs());
+var $69a8ec8dbeef3157$var$import_tippy2 = $69a8ec8dbeef3157$var$__toModule($69a8ec8dbeef3157$var$require_tippy_cjs());
 // src/buildConfigFromModifiers.js
-var import_tippy = __toModule(require_tippy_cjs());
-var buildConfigFromModifiers = (modifiers)=>{
+var $69a8ec8dbeef3157$var$import_tippy = $69a8ec8dbeef3157$var$__toModule($69a8ec8dbeef3157$var$require_tippy_cjs());
+var $69a8ec8dbeef3157$var$buildConfigFromModifiers = (modifiers)=>{
     const config = {
         plugins: []
     };
@@ -7437,7 +6661,7 @@ var buildConfigFromModifiers = (modifiers)=>{
         config.delay = delay.includes("-") ? delay.split("-").map((n)=>parseInt(n)) : parseInt(delay);
     }
     if (modifiers.includes("cursor")) {
-        config.plugins.push(import_tippy.followCursor);
+        config.plugins.push($69a8ec8dbeef3157$var$import_tippy.followCursor);
         const next = getModifierArgument("cursor");
         if ([
             "x",
@@ -7466,13 +6690,13 @@ var buildConfigFromModifiers = (modifiers)=>{
     return config;
 };
 // src/index.js
-function Tooltip(Alpine) {
+function $69a8ec8dbeef3157$var$Tooltip(Alpine) {
     Alpine.magic("tooltip", (el)=>{
         return (content, config = {})=>{
             const timeout = config.timeout;
             delete config.timeout;
-            const instance = (0, import_tippy2.default)(el, {
-                content,
+            const instance = (0, $69a8ec8dbeef3157$var$import_tippy2.default)(el, {
+                content: content,
                 trigger: "manual",
                 ...config
             });
@@ -7483,9 +6707,9 @@ function Tooltip(Alpine) {
             }, timeout || 2e3);
         };
     });
-    Alpine.directive("tooltip", (el, { modifiers, expression }, { evaluateLater, effect, cleanup })=>{
-        const config = modifiers.length > 0 ? buildConfigFromModifiers(modifiers) : {};
-        if (!el.__x_tippy) el.__x_tippy = (0, import_tippy2.default)(el, config);
+    Alpine.directive("tooltip", (el, { modifiers: modifiers, expression: expression }, { evaluateLater: evaluateLater, effect: effect, cleanup: cleanup })=>{
+        const config = modifiers.length > 0 ? $69a8ec8dbeef3157$var$buildConfigFromModifiers(modifiers) : {};
+        if (!el.__x_tippy) el.__x_tippy = (0, $69a8ec8dbeef3157$var$import_tippy2.default)(el, config);
         cleanup(()=>{
             if (el.__x_tippy) {
                 el.__x_tippy.destroy();
@@ -7515,45 +6739,16 @@ function Tooltip(Alpine) {
         }
     });
 }
-Tooltip.defaultProps = (props)=>{
-    import_tippy2.default.setDefaultProps(props);
-    return Tooltip;
+$69a8ec8dbeef3157$var$Tooltip.defaultProps = (props)=>{
+    $69a8ec8dbeef3157$var$import_tippy2.default.setDefaultProps(props);
+    return $69a8ec8dbeef3157$var$Tooltip;
 };
-var src_default = Tooltip;
+var $69a8ec8dbeef3157$var$src_default = $69a8ec8dbeef3157$var$Tooltip;
 // builds/module.js
-var module_default = src_default;
+var $69a8ec8dbeef3157$export$2e2bcd8739ae039 = $69a8ec8dbeef3157$var$src_default;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"l4Lxa":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>loggerPlugin);
-parcelHelpers.export(exports, "log", ()=>(0, _loglevelDefault.default));
-var _loglevel = require("loglevel");
-var _loglevelDefault = parcelHelpers.interopDefault(_loglevel);
-var _loglevelPluginPrefix = require("loglevel-plugin-prefix");
-var _loglevelPluginPrefixDefault = parcelHelpers.interopDefault(_loglevelPluginPrefix);
-(0, _loglevelPluginPrefixDefault.default).reg((0, _loglevelDefault.default));
-(0, _loglevelPluginPrefixDefault.default).apply((0, _loglevelDefault.default), {
-    format: (level)=>`${`[${level}]`.padStart(7)} Lookbook:`
-});
-let logLevel = 2;
-if (window.LOG_LEVEL !== undefined) logLevel = window.LOG_LEVEL;
-(0, _loglevelDefault.default).setLevel(logLevel);
-function loggerPlugin(Alpine) {
-    Alpine.directive("log", (el, { modifiers, expression }, { evaluateLater, effect })=>{
-        let logFn = typeof expression === "string" ? (callback)=>callback(expression) : evaluateLater(expression);
-        effect(()=>logFn((message)=>{
-                const level = modifiers[0] || "debug";
-                (0, _loglevelDefault.default)[level](message);
-            }));
-    });
-    Alpine.magic("log", ()=>{
-        return 0, _loglevelDefault.default;
-    });
-    Alpine.$log = (0, _loglevelDefault.default);
-}
 
-},{"loglevel":"7kRFs","loglevel-plugin-prefix":"cLqdu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7kRFs":[function(require,module,exports,__globalThis) {
+var $5267f0d63de538ba$exports = {};
 /*
 * loglevel - https://github.com/pimterry/loglevel
 *
@@ -7562,9 +6757,9 @@ function loggerPlugin(Alpine) {
 */ (function(root, definition) {
     "use strict";
     if (typeof define === 'function' && define.amd) define(definition);
-    else if (module.exports) module.exports = definition();
+    else if ($5267f0d63de538ba$exports) $5267f0d63de538ba$exports = definition();
     else root.log = definition();
-})(this, function() {
+})($5267f0d63de538ba$exports, function() {
     "use strict";
     // Slightly dubious tricks to cut down minimized file size
     var noop = function() {};
@@ -7792,12 +6987,13 @@ function loggerPlugin(Alpine) {
     return defaultLogger;
 });
 
-},{}],"cLqdu":[function(require,module,exports,__globalThis) {
+
+var $1ffebed09abdb92f$exports = {};
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) define(factory);
-    else if (module.exports) module.exports = factory();
+    else if ($1ffebed09abdb92f$exports) $1ffebed09abdb92f$exports = factory();
     else root.prefix = factory(root);
-})(this, function(root) {
+})($1ffebed09abdb92f$exports, function(root) {
     'use strict';
     var merge = function(target) {
         var i = 1;
@@ -7887,112 +7083,30 @@ function loggerPlugin(Alpine) {
     return api;
 });
 
-},{}],"exY8V":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>initLayoutStore);
-var _config = require("../config");
-var _configDefault = parcelHelpers.interopDefault(_config);
-var _layout = require("../helpers/layout");
-var _logger = require("../plugins/logger");
-var _string = require("../helpers/string");
-const { sidebar, main, inspector } = (0, _configDefault.default);
-function initLayoutStore(Alpine, { prefix }) {
-    return {
-        init () {
-            (0, _layout.addMediaQueryListener)(`(min-width: ${(0, _configDefault.default).desktopWidth}px)`, (matches)=>{
-                this._isDesktop = matches;
-                (0, _logger.log).debug(`Media query 'desktop': ${matches ? "\u2705 match" : "\u274C no match"}`);
-            });
-        },
-        get desktop () {
-            return this._isDesktop;
-        },
-        get mobile () {
-            return !this.desktop;
-        },
-        reflowing: false,
-        // Main app sidebar/content layout
-        main: {
-            split: Alpine.$persist({
-                direction: "vertical",
-                sizes: [
-                    `${sidebar.defaultWidth}px`,
-                    "1fr"
-                ]
-            }).as((0, _string.prefixString)("main-split", prefix)),
-            opts: {
-                minSizes: [
-                    sidebar.minWidth,
-                    main.minWidth
-                ]
-            }
-        },
-        // Sidebar visibility and sections
-        sidebar: {
-            _hiddenDesktop: Alpine.$persist(false).as((0, _string.prefixString)("sidebar-hidden-desktop", prefix)),
-            _hiddenMobile: Alpine.$persist(true).as((0, _string.prefixString)("sidebar-hidden-mobile", prefix)),
-            set hidden (value){
-                if (Alpine.store("layout").desktop) this._hiddenDesktop = value;
-                else this._hiddenMobile = value;
-            },
-            get hidden () {
-                const isDesktop = Alpine.store("layout").desktop;
-                return isDesktop && this._hiddenDesktop || !isDesktop && this._hiddenMobile;
-            },
-            split: Alpine.$persist({
-                direction: "horizontal",
-                sizes: [
-                    "50%",
-                    "50%"
-                ]
-            }).as((0, _string.prefixString)("sidebar-split", prefix)),
-            opts: {
-                minSizes: [
-                    sidebar.minSectionHeight,
-                    sidebar.minSectionHeight
-                ]
-            }
-        },
-        singleSectionSidebar: {
-            split: {
-                direction: "horizontal",
-                sizes: null
-            }
-        },
-        // Inspector drawer/preview layout
-        inspector: {
-            split: Alpine.$persist({
-                direction: "horizontal",
-                horizontalSizes: [
-                    "1fr",
-                    `${inspector.drawer.defaultHeight}px`
-                ],
-                verticalSizes: [
-                    "1fr",
-                    `${inspector.drawer.defaultWidth}px`
-                ]
-            }).as((0, _string.prefixString)("inspector-split", prefix)),
-            opts: {
-                minVerticalSizes: [
-                    inspector.drawer.minWidth,
-                    inspector.drawer.minWidth
-                ],
-                minHorizontalSizes: [
-                    inspector.drawer.minHeight,
-                    inspector.drawer.minHeight
-                ]
-            }
-        },
-        // protected
-        _isDesktop: true
-    };
+
+(0, (/*@__PURE__*/$parcel$interopDefault($1ffebed09abdb92f$exports))).reg((0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports))));
+(0, (/*@__PURE__*/$parcel$interopDefault($1ffebed09abdb92f$exports))).apply((0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports))), {
+    format: (level)=>`${`[${level}]`.padStart(7)} Lookbook:`
+});
+let $227a3c1b2ea887ad$var$logLevel = 3;
+if (window.LOG_LEVEL !== undefined) $227a3c1b2ea887ad$var$logLevel = window.LOG_LEVEL;
+(0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports))).setLevel($227a3c1b2ea887ad$var$logLevel);
+function $227a3c1b2ea887ad$export$2e2bcd8739ae039(Alpine) {
+    Alpine.directive("log", (el, { modifiers: modifiers, expression: expression }, { evaluateLater: evaluateLater, effect: effect })=>{
+        let logFn = typeof expression === "string" ? (callback)=>callback(expression) : evaluateLater(expression);
+        effect(()=>logFn((message)=>{
+                const level = modifiers[0] || "debug";
+                (0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports)))[level](message);
+            }));
+    });
+    Alpine.magic("log", ()=>{
+        return 0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports));
+    });
+    Alpine.$log = (0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports)));
 }
 
-},{"../config":"c93Tb","../helpers/layout":"cQnTi","../plugins/logger":"l4Lxa","../helpers/string":"gpMOS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c93Tb":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-exports.default = {
+
+var $f4afa2ce11c8f99d$export$2e2bcd8739ae039 = {
     desktopWidth: 768,
     wideDesktopWidth: 1200,
     sidebar: {
@@ -8017,19 +7131,15 @@ exports.default = {
     }
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cQnTi":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "addMediaQueryListener", ()=>addMediaQueryListener);
-parcelHelpers.export(exports, "observeSize", ()=>observeSize);
-function addMediaQueryListener(condition, callback) {
+
+function $7ecd1fc3a6b35e5c$export$33d4bfa367d0ee08(condition, callback) {
     const mediaQueryList = window.matchMedia(condition);
     const handleChange = (mql)=>callback(mql.matches);
     handleChange(mediaQueryList);
     mediaQueryList.addEventListener("change", (mql)=>handleChange(mql));
     return mediaQueryList;
 }
-function observeSize(element, callback = ()=>{}) {
+function $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44(element, callback = ()=>{}) {
     const observer = new ResizeObserver((entries)=>{
         const rect = entries[0].target.getBoundingClientRect();
         callback({
@@ -8041,55 +7151,121 @@ function observeSize(element, callback = ()=>{}) {
     return observer;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gpMOS":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "prefixString", ()=>prefixString);
-parcelHelpers.export(exports, "decodeEntities", ()=>decodeEntities);
-parcelHelpers.export(exports, "parseSearchParamValue", ()=>parseSearchParamValue);
-parcelHelpers.export(exports, "buildSearchParamValue", ()=>buildSearchParamValue);
-function decodeEntities(content) {
+
+
+function $fb8f79f7dd40b68f$export$6cb344a21ca18aec(content) {
     var txt = document.createElement("textarea");
     txt.innerHTML = content;
     return txt.value;
 }
-function prefixString(string, prefix = null) {
+function $fb8f79f7dd40b68f$export$2ce3c33e50a76e49(string, prefix = null) {
     return prefix ? `${prefix}-${string}` : string;
 }
-function parseSearchParamValue(value) {
+function $fb8f79f7dd40b68f$export$f720fd0ddbeb53d9(value) {
     const json = decodeURIComponent(value);
     return JSON.parse(json);
 }
-function buildSearchParamValue(data) {
+function $fb8f79f7dd40b68f$export$c788aab010beeaec(data) {
     const str = JSON.stringify(data);
     return encodeURIComponent(str);
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"BDSAj":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>initNavStore);
-var _filter = require("./filter");
-var _filterDefault = parcelHelpers.interopDefault(_filter);
-var _string = require("../helpers/string");
-function initNavStore(Alpine, { prefix }) {
+
+const { sidebar: $b8cbee737d5fb22b$var$sidebar, main: $b8cbee737d5fb22b$var$main, inspector: $b8cbee737d5fb22b$var$inspector } = (0, $f4afa2ce11c8f99d$export$2e2bcd8739ae039);
+function $b8cbee737d5fb22b$export$2e2bcd8739ae039(Alpine, { prefix: prefix }) {
     return {
-        previews: {
-            filter: (0, _filterDefault.default)(Alpine, (0, _string.prefixString)("previews-filter-text", prefix)),
-            open: Alpine.$persist([]).as((0, _string.prefixString)("previews-nav-open", prefix))
+        init () {
+            (0, $7ecd1fc3a6b35e5c$export$33d4bfa367d0ee08)(`(min-width: ${(0, $f4afa2ce11c8f99d$export$2e2bcd8739ae039).desktopWidth}px)`, (matches)=>{
+                this._isDesktop = matches;
+                (0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports))).debug(`Media query 'desktop': ${matches ? "\u2705 match" : "\u274C no match"}`);
+            });
         },
-        pages: {
-            filter: (0, _filterDefault.default)(Alpine, (0, _string.prefixString)("pages-filter-text", prefix)),
-            open: Alpine.$persist([]).as((0, _string.prefixString)("pages-nav-open", prefix))
-        }
+        get desktop () {
+            return this._isDesktop;
+        },
+        get mobile () {
+            return !this.desktop;
+        },
+        reflowing: false,
+        // Main app sidebar/content layout
+        main: {
+            split: Alpine.$persist({
+                direction: "vertical",
+                sizes: [
+                    `${$b8cbee737d5fb22b$var$sidebar.defaultWidth}px`,
+                    "1fr"
+                ]
+            }).as((0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("main-split", prefix)),
+            opts: {
+                minSizes: [
+                    $b8cbee737d5fb22b$var$sidebar.minWidth,
+                    $b8cbee737d5fb22b$var$main.minWidth
+                ]
+            }
+        },
+        // Sidebar visibility and sections
+        sidebar: {
+            _hiddenDesktop: Alpine.$persist(false).as((0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("sidebar-hidden-desktop", prefix)),
+            _hiddenMobile: Alpine.$persist(true).as((0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("sidebar-hidden-mobile", prefix)),
+            set hidden (value){
+                if (Alpine.store("layout").desktop) this._hiddenDesktop = value;
+                else this._hiddenMobile = value;
+            },
+            get hidden () {
+                const isDesktop = Alpine.store("layout").desktop;
+                return isDesktop && this._hiddenDesktop || !isDesktop && this._hiddenMobile;
+            },
+            split: Alpine.$persist({
+                direction: "horizontal",
+                sizes: [
+                    "50%",
+                    "50%"
+                ]
+            }).as((0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("sidebar-split", prefix)),
+            opts: {
+                minSizes: [
+                    $b8cbee737d5fb22b$var$sidebar.minSectionHeight,
+                    $b8cbee737d5fb22b$var$sidebar.minSectionHeight
+                ]
+            }
+        },
+        singleSectionSidebar: {
+            split: {
+                direction: "horizontal",
+                sizes: null
+            }
+        },
+        // Inspector drawer/preview layout
+        inspector: {
+            split: Alpine.$persist({
+                direction: "horizontal",
+                horizontalSizes: [
+                    "1fr",
+                    `${$b8cbee737d5fb22b$var$inspector.drawer.defaultHeight}px`
+                ],
+                verticalSizes: [
+                    "1fr",
+                    `${$b8cbee737d5fb22b$var$inspector.drawer.defaultWidth}px`
+                ]
+            }).as((0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("inspector-split", prefix)),
+            opts: {
+                minVerticalSizes: [
+                    $b8cbee737d5fb22b$var$inspector.drawer.minWidth,
+                    $b8cbee737d5fb22b$var$inspector.drawer.minWidth
+                ],
+                minHorizontalSizes: [
+                    $b8cbee737d5fb22b$var$inspector.drawer.minHeight,
+                    $b8cbee737d5fb22b$var$inspector.drawer.minHeight
+                ]
+            }
+        },
+        // protected
+        _isDesktop: true
     };
 }
 
-},{"./filter":"kSXjE","../helpers/string":"gpMOS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kSXjE":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>initFilterStore);
-function initFilterStore(Alpine, name) {
+
+function $c87b0f0bca2ce26b$export$2e2bcd8739ae039(Alpine, name) {
     return {
         raw: Alpine.$persist("").as(name),
         get text () {
@@ -8101,63 +7277,65 @@ function initFilterStore(Alpine, name) {
     };
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hZzc1":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>initInspectorStore);
-var _string = require("../helpers/string");
-function initInspectorStore(Alpine, { prefix }) {
+
+
+function $44e1c947423754b0$export$2e2bcd8739ae039(Alpine, { prefix: prefix }) {
+    return {
+        previews: {
+            filter: (0, $c87b0f0bca2ce26b$export$2e2bcd8739ae039)(Alpine, (0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("previews-filter-text", prefix)),
+            open: Alpine.$persist([]).as((0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("previews-nav-open", prefix))
+        },
+        pages: {
+            filter: (0, $c87b0f0bca2ce26b$export$2e2bcd8739ae039)(Alpine, (0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("pages-filter-text", prefix)),
+            open: Alpine.$persist([]).as((0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("pages-nav-open", prefix))
+        }
+    };
+}
+
+
+
+function $9c7d83377882e3b9$export$2e2bcd8739ae039(Alpine, { prefix: prefix }) {
     return {
         minVerticalSplitWidth: 800,
         main: {
-            activeTab: Alpine.$persist("").as((0, _string.prefixString)("inspector-main-active-tab", prefix)),
-            width: Alpine.$persist("100%").as((0, _string.prefixString)("inspector-main-width", prefix)),
-            height: Alpine.$persist("100%").as((0, _string.prefixString)("inspector-main-height", prefix)),
+            activeTab: Alpine.$persist("").as((0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("inspector-main-active-tab", prefix)),
+            width: Alpine.$persist("100%").as((0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("inspector-main-width", prefix)),
+            height: Alpine.$persist("100%").as((0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("inspector-main-height", prefix)),
             lastWidth: null,
             lastHeight: null,
             resizing: false
         },
         drawer: {
-            hidden: Alpine.$persist(false).as((0, _string.prefixString)("inspector-drawer-hidden", prefix)),
-            activeTab: Alpine.$persist("").as((0, _string.prefixString)("inspector-drawer-active-tab", prefix))
+            hidden: Alpine.$persist(false).as((0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("inspector-drawer-hidden", prefix)),
+            activeTab: Alpine.$persist("").as((0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("inspector-drawer-active-tab", prefix))
         }
     };
 }
 
-},{"../helpers/string":"gpMOS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"YMhO1":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>initPagesStore);
-var _string = require("../helpers/string");
-function initPagesStore(Alpine, { prefix }) {
+
+
+function $1fa236e81ee747be$export$2e2bcd8739ae039(Alpine, { prefix: prefix }) {
     return {
-        embeds: Alpine.$persist({}).as((0, _string.prefixString)("pages-embeds", prefix))
+        embeds: Alpine.$persist({}).as((0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("pages-embeds", prefix))
     };
 }
 
-},{"../helpers/string":"gpMOS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3IUHF":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>initSettingsStore);
-var _string = require("../helpers/string");
-function initSettingsStore(Alpine, { prefix }) {
+
+
+function $d56ec5b1270324e7$export$2e2bcd8739ae039(Alpine, { prefix: prefix }) {
     return {
         showTooltips: true
     };
 }
 
-},{"../helpers/string":"gpMOS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gtFME":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>initWorkbenchStore);
-var _filter = require("./filter");
-var _filterDefault = parcelHelpers.interopDefault(_filter);
-var _string = require("../helpers/string");
-function initWorkbenchStore(Alpine, { prefix }) {
+
+
+
+function $728fb5b231175bdb$export$2e2bcd8739ae039(Alpine, { prefix: prefix }) {
     return {
-        filter: (0, _filterDefault.default)(Alpine, (0, _string.prefixString)("workbench-filter", prefix)),
+        filter: (0, $c87b0f0bca2ce26b$export$2e2bcd8739ae039)(Alpine, (0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("workbench-filter", prefix)),
         nav: {
-            open: Alpine.$persist([]).as((0, _string.prefixString)("workbench-nav-open", prefix)),
+            open: Alpine.$persist([]).as((0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("workbench-nav-open", prefix)),
             location: {
                 pathname: null
             }
@@ -8169,7 +7347,7 @@ function initWorkbenchStore(Alpine, { prefix }) {
                     "50%",
                     "50%"
                 ]
-            }).as((0, _string.prefixString)("workbench-horizontal-split", prefix))
+            }).as((0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("workbench-horizontal-split", prefix))
         },
         verticalSplitLayout: {
             split: Alpine.$persist({
@@ -8179,7 +7357,7 @@ function initWorkbenchStore(Alpine, { prefix }) {
                     "30%",
                     "30%"
                 ]
-            }).as((0, _string.prefixString)("workbench-vertical-split", prefix))
+            }).as((0, $fb8f79f7dd40b68f$export$2ce3c33e50a76e49)("workbench-vertical-split", prefix))
         },
         tabbedPanels: {
             activeTab: "tab-1"
@@ -8187,140 +7365,11 @@ function initWorkbenchStore(Alpine, { prefix }) {
     };
 }
 
-},{"./filter":"kSXjE","../helpers/string":"gpMOS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6Bv9J":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>app);
-var _socket = require("./lib/socket");
-var _socketDefault = parcelHelpers.interopDefault(_socket);
-var _dom = require("./helpers/dom");
-var _request = require("./helpers/request");
-function app() {
-    return {
-        _requestsInProgress: 0,
-        version: Alpine.$persist("").as("lookbook-version"),
-        location: window.location,
-        get sidebarHidden () {
-            return this.$store.layout.sidebar.hidden;
-        },
-        get loading () {
-            return this._requestsInProgress > 0;
-        },
-        init () {
-            if (window.SOCKET_PATH) {
-                this.debug(`Lookbook socket created`);
-                const socket = (0, _socketDefault.default)(window.SOCKET_PATH);
-                socket.addListener("Lookbook::ReloadChannel", ()=>this.updateDOM());
-            }
-            this.$watch("$store.layout.mobile", (mobile)=>{
-                if (!mobile) this.$store.layout.sidebar.hidden = true;
-            });
-        },
-        navigateTo (path) {
-            this.debug(`Navigating to ${path}`);
-            history.pushState({}, null, path);
-            this.$dispatch("popstate");
-        },
-        async handleNavigation () {
-            this.debug("Navigating to ", window.location.pathname);
-            this.$dispatch("navigation:start");
-            this.location = window.location;
-            await this.updateDOM("#app-main", {
-                headers: {
-                    "X-Lookbook-Frame": "main"
-                }
-            });
-            this.$dispatch("navigation:complete");
-        },
-        hijax (evt) {
-            const link = evt.target.closest("a[href]");
-            if (link) {
-                const external = (0, _dom.isExternalLink)(link);
-                const embedded = this.isEmbedded();
-                if (embedded && (!link.hasAttribute("target") || external)) {
-                    evt.preventDefault();
-                    window.top.location = link.href;
-                    return;
-                } else if (!embedded && !external && !link.hasAttribute("target")) {
-                    evt.preventDefault();
-                    this.navigateTo(link.href);
-                    return;
-                }
-            }
-        },
-        async updateDOM (rootSelector = `#${this.$root.id}`, options = {}) {
-            this.debug("Starting DOM update");
-            this.$dispatch("dom:update-start");
-            this.requestStart();
-            try {
-                const { fragment, title } = await (0, _request.fetchHTML)(window.location, rootSelector, options);
-                (0, _dom.morph)(document.querySelector(rootSelector), fragment);
-                document.title = title;
-                this.requestEnd();
-                this.$dispatch("dom:update-complete");
-                this.debug("DOM update complete");
-            } catch (err) {
-                this.error(err);
-                window.location.reload();
-            }
-        },
-        toggleSidebar () {
-            this.$store.layout.sidebar.hidden = !this.$store.layout.sidebar.hidden;
-        },
-        closeMobileSidebar () {
-            if (this.$store.layout.mobile && !this.sidebarHidden) this.toggleSidebar();
-        },
-        requestStart () {
-            this._requestsInProgress += 1;
-        },
-        requestEnd () {
-            if (this._requestsInProgress > 0) this._requestsInProgress -= 1;
-        },
-        isEmbedded () {
-            try {
-                return window.self !== window.top;
-            } catch (e) {
-                return true;
-            }
-        },
-        ...Alpine.$log
-    };
-}
 
-},{"./lib/socket":"2qflw","./helpers/dom":"j7Svb","./helpers/request":"8pgqx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2qflw":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>socket);
-var _actioncable = require("@rails/actioncable");
-var _throttleDebounce = require("throttle-debounce");
-var _logger = require("../plugins/logger");
-function socket(endpoint) {
-    const uid = (Date.now() + (Math.random() * 100 | 0)).toString();
-    const consumer = (0, _actioncable.createConsumer)(`${endpoint}?uid=${uid}`);
-    return {
-        addListener (channel, callback) {
-            consumer.subscriptions.create(channel, {
-                received: (0, _throttleDebounce.debounce)(200, (data)=>{
-                    (0, _logger.log).debug("Lookbook files changed");
-                    callback(data);
-                }, {
-                    atBegin: true
-                }),
-                connected () {
-                    (0, _logger.log).info("Lookbook websocket connected");
-                },
-                disconnected () {
-                    (0, _logger.log).info("Lookbook websocket disconnected");
-                }
-            });
-        }
-    };
-}
-
-},{"@rails/actioncable":"01WFa","throttle-debounce":"81w4t","../plugins/logger":"l4Lxa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"01WFa":[function(require,module,exports,__globalThis) {
+var $7d6b1fa982d8364d$exports = {};
 (function(global, factory) {
-    factory(exports);
-})(this, function(exports1) {
+    factory($7d6b1fa982d8364d$exports);
+})($7d6b1fa982d8364d$exports, function(exports1) {
     "use strict";
     var adapters = {
         logger: self.console,
@@ -8843,7 +7892,7 @@ function socket(endpoint) {
     });
 });
 
-},{}],"81w4t":[function(require,module,exports,__globalThis) {
+
 /* eslint-disable no-undefined,no-param-reassign,no-shadow */ /**
  * Throttle execution of a function. Especially useful for rate limiting
  * execution of handlers on events like resize and scroll.
@@ -8864,11 +7913,7 @@ function socket(endpoint) {
  *                                            false (at end), schedule `callback` to execute after `delay` ms.
  *
  * @returns {Function} A new, throttled, function.
- */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "debounce", ()=>debounce);
-parcelHelpers.export(exports, "throttle", ()=>throttle);
-function throttle(delay, callback, options) {
+ */ function $c5d017602d25d050$export$de363e709c412c8a(delay, callback, options) {
     var _ref = options || {}, _ref$noTrailing = _ref.noTrailing, noTrailing = _ref$noTrailing === void 0 ? false : _ref$noTrailing, _ref$noLeading = _ref.noLeading, noLeading = _ref$noLeading === void 0 ? false : _ref$noLeading, _ref$debounceMode = _ref.debounceMode, debounceMode = _ref$debounceMode === void 0 ? undefined : _ref$debounceMode;
     /*
    * After wrapper has stopped being called, this timeout ensures that
@@ -8956,20 +8001,40 @@ function throttle(delay, callback, options) {
  *                                        (After the throttled-function has not been called for `delay` milliseconds, the internal counter is reset).
  *
  * @returns {Function} A new, debounced function.
- */ function debounce(delay, callback, options) {
+ */ function $c5d017602d25d050$export$61fc7d43ac8f84b0(delay, callback, options) {
     var _ref = options || {}, _ref$atBegin = _ref.atBegin, atBegin = _ref$atBegin === void 0 ? false : _ref$atBegin;
-    return throttle(delay, callback, {
+    return $c5d017602d25d050$export$de363e709c412c8a(delay, callback, {
         debounceMode: atBegin !== false
     });
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j7Svb":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "morph", ()=>morph);
-parcelHelpers.export(exports, "getElementSize", ()=>getElementSize);
-parcelHelpers.export(exports, "isExternalLink", ()=>isExternalLink);
-function morph(from, to) {
+
+
+function $f57397824b7ddfec$export$2e2bcd8739ae039(endpoint) {
+    const uid = (Date.now() + (Math.random() * 100 | 0)).toString();
+    const consumer = (0, $7d6b1fa982d8364d$exports.createConsumer)(`${endpoint}?uid=${uid}`);
+    return {
+        addListener (channel, callback) {
+            consumer.subscriptions.create(channel, {
+                received: (0, $c5d017602d25d050$export$61fc7d43ac8f84b0)(200, (data)=>{
+                    (0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports))).debug("Lookbook files changed");
+                    callback(data);
+                }, {
+                    atBegin: true
+                }),
+                connected () {
+                    (0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports))).info("Lookbook websocket connected");
+                },
+                disconnected () {
+                    (0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports))).info("Lookbook websocket disconnected");
+                }
+            });
+        }
+    };
+}
+
+
+function $490552754c23ef6f$export$2e5e8c41f5d4e7c7(from, to) {
     Alpine.morph(from, to, {
         key (el) {
             return el.getAttribute("key") ? el.getAttribute("key") : el.id;
@@ -8984,23 +8049,20 @@ function morph(from, to) {
         }
     });
 }
-function getElementSize(el, opts = {}) {
+function $490552754c23ef6f$export$bdf7e699b242f476(el, opts = {}) {
     const style = window.getComputedStyle(el, null);
     return {
         width: opts.includeMargins ? el.offsetWidth + parseInt(style.getPropertyValue("margin-left")) + parseInt(style.getPropertyValue("margin-right")) : el.offsetWidth,
         height: opts.includeMargins ? el.offsetHeight + parseInt(style.getPropertyValue("margin-top")) + parseInt(style.getPropertyValue("margin-bottom")) : el.offsetHeight
     };
 }
-function isExternalLink(link) {
+function $490552754c23ef6f$export$b98882f166bb7ce2(link) {
     if (link.href) return link.host !== window.location.host;
     return false;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8pgqx":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "fetchHTML", ()=>fetchHTML);
-async function fetchHTML(url, selector, options = {}) {
+
+async function $41e83ac737081df5$export$51c59e2af49c1a92(url, selector, options = {}) {
     const response = await fetch(url || window.document.location, options);
     const html = await response.text();
     const doc = new DOMParser().parseFromString(html, "text/html");
@@ -9008,22 +8070,112 @@ async function fetchHTML(url, selector, options = {}) {
         ok: response.ok,
         fragment: selector ? doc.querySelector(selector).outerHTML : null,
         title: doc.title,
-        response,
-        doc
+        response: response,
+        doc: doc
     };
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fqLiH":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "getComponents", ()=>getComponents);
-function getComponents(importObject, path = []) {
+
+function $5792afa4170ed552$export$2e2bcd8739ae039() {
+    return {
+        _requestsInProgress: 0,
+        version: Alpine.$persist("").as("lookbook-version"),
+        location: window.location,
+        get sidebarHidden () {
+            return this.$store.layout.sidebar.hidden;
+        },
+        get loading () {
+            return this._requestsInProgress > 0;
+        },
+        init () {
+            if (window.SOCKET_PATH) {
+                this.debug(`Lookbook socket created`);
+                const socket = (0, $f57397824b7ddfec$export$2e2bcd8739ae039)(window.SOCKET_PATH);
+                socket.addListener("Lookbook::ReloadChannel", ()=>this.updateDOM());
+            }
+            this.$watch("$store.layout.mobile", (mobile)=>{
+                if (!mobile) this.$store.layout.sidebar.hidden = true;
+            });
+        },
+        navigateTo (path) {
+            this.debug(`Navigating to ${path}`);
+            history.pushState({}, null, path);
+            this.$dispatch("popstate");
+        },
+        async handleNavigation () {
+            this.debug("Navigating to ", window.location.pathname);
+            this.$dispatch("navigation:start");
+            this.location = window.location;
+            await this.updateDOM("#app-main", {
+                headers: {
+                    "X-Lookbook-Frame": "main"
+                }
+            });
+            this.$dispatch("navigation:complete");
+        },
+        hijax (evt) {
+            const link = evt.target.closest("a[href]");
+            if (link) {
+                const external = (0, $490552754c23ef6f$export$b98882f166bb7ce2)(link);
+                const embedded = this.isEmbedded();
+                if (embedded && (!link.hasAttribute("target") || external)) {
+                    evt.preventDefault();
+                    window.top.location = link.href;
+                    return;
+                } else if (!embedded && !external && !link.hasAttribute("target")) {
+                    evt.preventDefault();
+                    this.navigateTo(link.href);
+                    return;
+                }
+            }
+        },
+        async updateDOM (rootSelector = `#${this.$root.id}`, options = {}) {
+            this.debug("Starting DOM update");
+            this.$dispatch("dom:update-start");
+            this.requestStart();
+            try {
+                const { fragment: fragment, title: title } = await (0, $41e83ac737081df5$export$51c59e2af49c1a92)(window.location, rootSelector, options);
+                (0, $490552754c23ef6f$export$2e5e8c41f5d4e7c7)(document.querySelector(rootSelector), fragment);
+                document.title = title;
+                this.requestEnd();
+                this.$dispatch("dom:update-complete");
+                this.debug("DOM update complete");
+            } catch (err) {
+                this.error(err);
+                window.location.reload();
+            }
+        },
+        toggleSidebar () {
+            this.$store.layout.sidebar.hidden = !this.$store.layout.sidebar.hidden;
+        },
+        closeMobileSidebar () {
+            if (this.$store.layout.mobile && !this.sidebarHidden) this.toggleSidebar();
+        },
+        requestStart () {
+            this._requestsInProgress += 1;
+        },
+        requestEnd () {
+            if (this._requestsInProgress > 0) this._requestsInProgress -= 1;
+        },
+        isEmbedded () {
+            try {
+                return window.self !== window.top;
+            } catch (e) {
+                return true;
+            }
+        },
+        ...Alpine.$log
+    };
+}
+
+
+function $12b7aa006b8a97e1$export$4e811121b221213b(importObject, path = []) {
     let components = {};
     Object.keys(importObject).forEach((key)=>{
-        if (key === "default") components[toCamel(path.join("_"))] = importObject[key];
+        if (key === "default") components[$12b7aa006b8a97e1$var$toCamel(path.join("_"))] = importObject[key];
         else components = {
             ...components,
-            ...getComponents(importObject[key], [
+            ...$12b7aa006b8a97e1$export$4e811121b221213b(importObject[key], [
                 ...path,
                 key
             ])
@@ -9031,156 +8183,1637 @@ function getComponents(importObject, path = []) {
     });
     return components;
 }
-function toCamel(s) {
+function $12b7aa006b8a97e1$var$toCamel(s) {
     return s.replace(/([-_][a-z])/gi, ($1)=>{
         return $1.toUpperCase().replace("-", "").replace("_", "");
     });
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6Tzpn":[function(require,module,exports,__globalThis) {
-const _temp0 = require("a7e66db5f3cf7b68");
-const _temp1 = require("b7341c34075b4ff8");
-const _temp2 = require("7aefeaefc404d454");
-const _temp3 = require("f48ca5ab38fb288e");
-const _temp4 = require("84476f638def8698");
-const _temp5 = require("9b24d4fe0a64ec15");
-const _temp6 = require("bacbe391ee7ffa14");
-const _temp7 = require("7d9f5d54e56df1d0");
-const _temp8 = require("392408e262d504fd");
-const _temp9 = require("d1630acec0153abf");
-const _temp10 = require("2c84544d8687ed6b");
-module.exports = {
-    "button": _temp0,
-    "copy_button": _temp1,
-    "code": _temp2,
-    "dimensions_display": _temp3,
-    "embed_code_dropdown": _temp4,
-    "filter": _temp5,
-    "nav": _temp6,
-    "split_layout": _temp7,
-    "tab_panels": _temp8,
-    "tabs": _temp9,
-    "viewport": _temp10
-};
 
-},{"a7e66db5f3cf7b68":"lQApy","b7341c34075b4ff8":"1HiHq","7aefeaefc404d454":"2jedY","f48ca5ab38fb288e":"kFxrd","84476f638def8698":"30Q4x","9b24d4fe0a64ec15":"c1bw6","bacbe391ee7ffa14":"bGQJL","7d9f5d54e56df1d0":"dX3DZ","392408e262d504fd":"jPEON","d1630acec0153abf":"dvr8m","2c84544d8687ed6b":"6kmWp"}],"lQApy":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>buttonComponent);
-var _tippy = require("~/assets/js/lib/tippy");
-var _tippyDefault = parcelHelpers.interopDefault(_tippy);
-var _tooltip = require("~/assets/js/components/tooltip");
-function buttonComponent() {
-    let tooltip = null;
-    let dropdown = null;
-    return {
-        init () {
-            if (this.$refs.tooltip) tooltip = (0, _tooltip.initTooltip)(this, {
-                target: this.$refs.icon
-            });
-            if (this.dropdownContent) this.initDropdown();
-        },
-        initDropdown () {
-            dropdown = (0, _tippyDefault.default)(this.$el, {
-                content: this.dropdownContent,
-                trigger: "click",
-                theme: "menu",
-                triggerTarget: this.$el,
-                interactive: true,
-                zIndex: 99999,
-                onShow: ()=>{
-                    if (!this.$store.settings.showTooltips) return false;
-                    this.$dispatch("dropdown:show", {
-                        dropdown: this
-                    });
-                },
-                onHide: ()=>this.$dispatch("dropdown:hide", {
-                        dropdown: this
-                    })
-            });
-        },
-        get dropdownContent () {
-            if (this.$root && this.$root.id) {
-                const dropdown = document.querySelector(`[data-dropdown-id="${this.$root.id}"]`);
-                return dropdown ? dropdown.innerHTML : null;
-            }
-            return null;
-        },
-        hideDropdown () {
-            if (dropdown) dropdown.hide();
-        },
-        startSpin () {
-            this._spinning = true;
-        },
-        stopSpin (delay = 0) {
-            setTimeout(()=>this._spinning = false, delay);
-        },
-        get _tooltip () {
-            return tooltip;
-        },
-        _spinning: false
-    };
-}
+var $fc302d8526a036f0$exports = {};
+var $cbd28b10fa9798c7$exports = {};
 
-},{"~/assets/js/lib/tippy":"hK1T5","~/assets/js/components/tooltip":"8ZeYL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hK1T5":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _tippyJs = require("tippy.js");
-var _tippyJsDefault = parcelHelpers.interopDefault(_tippyJs);
-(0, _tippyJsDefault.default).setDefaultProps({
-    allowHTML: true,
-    theme: "tooltip",
-    appendTo: document.getElementById("app")
-});
-exports.default = (0, _tippyJsDefault.default);
+$parcel$defineInteropFlag($cbd28b10fa9798c7$exports);
 
-},{"tippy.js":"ccpCS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ccpCS":[function(require,module,exports,__globalThis) {
+$parcel$export($cbd28b10fa9798c7$exports, "default", () => $cbd28b10fa9798c7$export$2e2bcd8739ae039);
 /**!
 * tippy.js v6.3.7
 * (c) 2017-2021 atomiks
 * MIT License
-*/ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "animateFill", ()=>animateFill);
-parcelHelpers.export(exports, "createSingleton", ()=>createSingleton);
-parcelHelpers.export(exports, "delegate", ()=>delegate);
-parcelHelpers.export(exports, "followCursor", ()=>followCursor);
-parcelHelpers.export(exports, "hideAll", ()=>hideAll);
-parcelHelpers.export(exports, "inlinePositioning", ()=>inlinePositioning);
-parcelHelpers.export(exports, "roundArrow", ()=>ROUND_ARROW);
-parcelHelpers.export(exports, "sticky", ()=>sticky);
-var _core = require("@popperjs/core");
-var ROUND_ARROW = '<svg width="16" height="6" xmlns="http://www.w3.org/2000/svg"><path d="M0 6s1.796-.013 4.67-3.615C5.851.9 6.93.006 8 0c1.07-.006 2.148.887 3.343 2.385C14.233 6.005 16 6 16 6H0z"></svg>';
-var BOX_CLASS = "tippy-box";
-var CONTENT_CLASS = "tippy-content";
-var BACKDROP_CLASS = "tippy-backdrop";
-var ARROW_CLASS = "tippy-arrow";
-var SVG_ARROW_CLASS = "tippy-svg-arrow";
-var TOUCH_OPTIONS = {
+*/ function $59d97a6bab2b727e$export$2e2bcd8739ae039(element) {
+    return element ? (element.nodeName || '').toLowerCase() : null;
+}
+
+
+function $f41f4520bee001a7$export$2e2bcd8739ae039(node) {
+    if (node == null) return window;
+    if (node.toString() !== '[object Window]') {
+        var ownerDocument = node.ownerDocument;
+        return ownerDocument ? ownerDocument.defaultView || window : window;
+    }
+    return node;
+}
+
+
+function $1fa2a5446b18c455$export$45a5e7f76e0caa8d(node) {
+    var OwnElement = (0, $f41f4520bee001a7$export$2e2bcd8739ae039)(node).Element;
+    return node instanceof OwnElement || node instanceof Element;
+}
+function $1fa2a5446b18c455$export$1b3bfaa9684536aa(node) {
+    var OwnElement = (0, $f41f4520bee001a7$export$2e2bcd8739ae039)(node).HTMLElement;
+    return node instanceof OwnElement || node instanceof HTMLElement;
+}
+function $1fa2a5446b18c455$export$af51f0f06c0f328a(node) {
+    // IE 11 has no ShadowRoot
+    if (typeof ShadowRoot === 'undefined') return false;
+    var OwnElement = (0, $f41f4520bee001a7$export$2e2bcd8739ae039)(node).ShadowRoot;
+    return node instanceof OwnElement || node instanceof ShadowRoot;
+}
+
+
+// and applies them to the HTMLElements such as popper and arrow
+function $dfb41fce0bddd2d8$var$applyStyles(_ref) {
+    var state = _ref.state;
+    Object.keys(state.elements).forEach(function(name) {
+        var style = state.styles[name] || {};
+        var attributes = state.attributes[name] || {};
+        var element = state.elements[name]; // arrow is optional + virtual elements
+        if (!(0, $1fa2a5446b18c455$export$1b3bfaa9684536aa)(element) || !(0, $59d97a6bab2b727e$export$2e2bcd8739ae039)(element)) return;
+         // Flow doesn't support to extend this property, but it's the most
+        // effective way to apply styles to an HTMLElement
+        // $FlowFixMe[cannot-write]
+        Object.assign(element.style, style);
+        Object.keys(attributes).forEach(function(name) {
+            var value = attributes[name];
+            if (value === false) element.removeAttribute(name);
+            else element.setAttribute(name, value === true ? '' : value);
+        });
+    });
+}
+function $dfb41fce0bddd2d8$var$effect(_ref2) {
+    var state = _ref2.state;
+    var initialStyles = {
+        popper: {
+            position: state.options.strategy,
+            left: '0',
+            top: '0',
+            margin: '0'
+        },
+        arrow: {
+            position: 'absolute'
+        },
+        reference: {}
+    };
+    Object.assign(state.elements.popper.style, initialStyles.popper);
+    state.styles = initialStyles;
+    if (state.elements.arrow) Object.assign(state.elements.arrow.style, initialStyles.arrow);
+    return function() {
+        Object.keys(state.elements).forEach(function(name) {
+            var element = state.elements[name];
+            var attributes = state.attributes[name] || {};
+            var styleProperties = Object.keys(state.styles.hasOwnProperty(name) ? state.styles[name] : initialStyles[name]); // Set all values to an empty string to unset them
+            var style = styleProperties.reduce(function(style, property) {
+                style[property] = '';
+                return style;
+            }, {}); // arrow is optional + virtual elements
+            if (!(0, $1fa2a5446b18c455$export$1b3bfaa9684536aa)(element) || !(0, $59d97a6bab2b727e$export$2e2bcd8739ae039)(element)) return;
+            Object.assign(element.style, style);
+            Object.keys(attributes).forEach(function(attribute) {
+                element.removeAttribute(attribute);
+            });
+        });
+    };
+} // eslint-disable-next-line import/no-unused-modules
+var $dfb41fce0bddd2d8$export$2e2bcd8739ae039 = {
+    name: 'applyStyles',
+    enabled: true,
+    phase: 'write',
+    fn: $dfb41fce0bddd2d8$var$applyStyles,
+    effect: $dfb41fce0bddd2d8$var$effect,
+    requires: [
+        'computeStyles'
+    ]
+};
+
+
+var $a435872b5ba665df$export$8960430cfd85939f = Math.max;
+var $a435872b5ba665df$export$96ec731ed4dcb222 = Math.min;
+var $a435872b5ba665df$export$2077e0241d6afd3c = Math.round;
+
+
+
+function $beb42d7aceecf8c8$export$2e2bcd8739ae039() {
+    var uaData = navigator.userAgentData;
+    if (uaData != null && uaData.brands && Array.isArray(uaData.brands)) return uaData.brands.map(function(item) {
+        return item.brand + "/" + item.version;
+    }).join(' ');
+    return navigator.userAgent;
+}
+
+
+function $f6bdda075fc14cbf$export$2e2bcd8739ae039() {
+    return !/^((?!chrome|android).)*safari/i.test((0, $beb42d7aceecf8c8$export$2e2bcd8739ae039)());
+}
+
+
+function $b854957821c00430$export$2e2bcd8739ae039(element, includeScale, isFixedStrategy) {
+    if (includeScale === void 0) includeScale = false;
+    if (isFixedStrategy === void 0) isFixedStrategy = false;
+    var clientRect = element.getBoundingClientRect();
+    var scaleX = 1;
+    var scaleY = 1;
+    if (includeScale && (0, $1fa2a5446b18c455$export$1b3bfaa9684536aa)(element)) {
+        scaleX = element.offsetWidth > 0 ? (0, $a435872b5ba665df$export$2077e0241d6afd3c)(clientRect.width) / element.offsetWidth || 1 : 1;
+        scaleY = element.offsetHeight > 0 ? (0, $a435872b5ba665df$export$2077e0241d6afd3c)(clientRect.height) / element.offsetHeight || 1 : 1;
+    }
+    var _ref = (0, $1fa2a5446b18c455$export$45a5e7f76e0caa8d)(element) ? (0, $f41f4520bee001a7$export$2e2bcd8739ae039)(element) : window, visualViewport = _ref.visualViewport;
+    var addVisualOffsets = !(0, $f6bdda075fc14cbf$export$2e2bcd8739ae039)() && isFixedStrategy;
+    var x = (clientRect.left + (addVisualOffsets && visualViewport ? visualViewport.offsetLeft : 0)) / scaleX;
+    var y = (clientRect.top + (addVisualOffsets && visualViewport ? visualViewport.offsetTop : 0)) / scaleY;
+    var width = clientRect.width / scaleX;
+    var height = clientRect.height / scaleY;
+    return {
+        width: width,
+        height: height,
+        top: y,
+        right: x + width,
+        bottom: y + height,
+        left: x,
+        x: x,
+        y: y
+    };
+}
+
+
+
+function $2f82ac4f0d5b4512$export$2e2bcd8739ae039(node) {
+    var win = (0, $f41f4520bee001a7$export$2e2bcd8739ae039)(node);
+    var scrollLeft = win.pageXOffset;
+    var scrollTop = win.pageYOffset;
+    return {
+        scrollLeft: scrollLeft,
+        scrollTop: scrollTop
+    };
+}
+
+
+
+
+function $3c2db27a5892c2b6$export$2e2bcd8739ae039(element) {
+    return {
+        scrollLeft: element.scrollLeft,
+        scrollTop: element.scrollTop
+    };
+}
+
+
+function $40149fb4267f270e$export$2e2bcd8739ae039(node) {
+    if (node === (0, $f41f4520bee001a7$export$2e2bcd8739ae039)(node) || !(0, $1fa2a5446b18c455$export$1b3bfaa9684536aa)(node)) return (0, $2f82ac4f0d5b4512$export$2e2bcd8739ae039)(node);
+    else return (0, $3c2db27a5892c2b6$export$2e2bcd8739ae039)(node);
+}
+
+
+
+
+
+
+function $3e02d6708e2a16ac$export$2e2bcd8739ae039(element) {
+    // $FlowFixMe[incompatible-return]: assume body is always available
+    return (((0, $1fa2a5446b18c455$export$45a5e7f76e0caa8d)(element) ? element.ownerDocument : element.document) || window.document).documentElement;
+}
+
+
+
+function $05804587c501a8a1$export$2e2bcd8739ae039(element) {
+    // If <html> has a CSS width greater than the viewport, then this will be
+    // incorrect for RTL.
+    // Popper 1 is broken in this case and never had a bug report so let's assume
+    // it's not an issue. I don't think anyone ever specifies width on <html>
+    // anyway.
+    // Browsers where the left scrollbar doesn't cause an issue report `0` for
+    // this (e.g. Edge 2019, IE11, Safari)
+    return (0, $b854957821c00430$export$2e2bcd8739ae039)((0, $3e02d6708e2a16ac$export$2e2bcd8739ae039)(element)).left + (0, $2f82ac4f0d5b4512$export$2e2bcd8739ae039)(element).scrollLeft;
+}
+
+
+
+
+function $392247934674b5b4$export$2e2bcd8739ae039(element) {
+    return (0, $f41f4520bee001a7$export$2e2bcd8739ae039)(element).getComputedStyle(element);
+}
+
+
+function $d0e76ea5ac4d8fe1$export$2e2bcd8739ae039(element) {
+    // Firefox wants us to check `-x` and `-y` variations as well
+    var _getComputedStyle = (0, $392247934674b5b4$export$2e2bcd8739ae039)(element), overflow = _getComputedStyle.overflow, overflowX = _getComputedStyle.overflowX, overflowY = _getComputedStyle.overflowY;
+    return /auto|scroll|overlay|hidden/.test(overflow + overflowY + overflowX);
+}
+
+
+
+function $a195ad21b1cffe79$var$isElementScaled(element) {
+    var rect = element.getBoundingClientRect();
+    var scaleX = (0, $a435872b5ba665df$export$2077e0241d6afd3c)(rect.width) / element.offsetWidth || 1;
+    var scaleY = (0, $a435872b5ba665df$export$2077e0241d6afd3c)(rect.height) / element.offsetHeight || 1;
+    return scaleX !== 1 || scaleY !== 1;
+} // Returns the composite rect of an element relative to its offsetParent.
+function $a195ad21b1cffe79$export$2e2bcd8739ae039(elementOrVirtualElement, offsetParent, isFixed) {
+    if (isFixed === void 0) isFixed = false;
+    var isOffsetParentAnElement = (0, $1fa2a5446b18c455$export$1b3bfaa9684536aa)(offsetParent);
+    var offsetParentIsScaled = (0, $1fa2a5446b18c455$export$1b3bfaa9684536aa)(offsetParent) && $a195ad21b1cffe79$var$isElementScaled(offsetParent);
+    var documentElement = (0, $3e02d6708e2a16ac$export$2e2bcd8739ae039)(offsetParent);
+    var rect = (0, $b854957821c00430$export$2e2bcd8739ae039)(elementOrVirtualElement, offsetParentIsScaled, isFixed);
+    var scroll = {
+        scrollLeft: 0,
+        scrollTop: 0
+    };
+    var offsets = {
+        x: 0,
+        y: 0
+    };
+    if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
+        if ((0, $59d97a6bab2b727e$export$2e2bcd8739ae039)(offsetParent) !== 'body' || // https://github.com/popperjs/popper-core/issues/1078
+        (0, $d0e76ea5ac4d8fe1$export$2e2bcd8739ae039)(documentElement)) scroll = (0, $40149fb4267f270e$export$2e2bcd8739ae039)(offsetParent);
+        if ((0, $1fa2a5446b18c455$export$1b3bfaa9684536aa)(offsetParent)) {
+            offsets = (0, $b854957821c00430$export$2e2bcd8739ae039)(offsetParent, true);
+            offsets.x += offsetParent.clientLeft;
+            offsets.y += offsetParent.clientTop;
+        } else if (documentElement) offsets.x = (0, $05804587c501a8a1$export$2e2bcd8739ae039)(documentElement);
+    }
+    return {
+        x: rect.left + scroll.scrollLeft - offsets.x,
+        y: rect.top + scroll.scrollTop - offsets.y,
+        width: rect.width,
+        height: rect.height
+    };
+}
+
+
+
+function $e287ac773d355028$export$2e2bcd8739ae039(element) {
+    var clientRect = (0, $b854957821c00430$export$2e2bcd8739ae039)(element); // Use the clientRect sizes if it's not been transformed.
+    // Fixes https://github.com/popperjs/popper-core/issues/1223
+    var width = element.offsetWidth;
+    var height = element.offsetHeight;
+    if (Math.abs(clientRect.width - width) <= 1) width = clientRect.width;
+    if (Math.abs(clientRect.height - height) <= 1) height = clientRect.height;
+    return {
+        x: element.offsetLeft,
+        y: element.offsetTop,
+        width: width,
+        height: height
+    };
+}
+
+
+
+
+
+function $b1adb38089003474$export$2e2bcd8739ae039(element) {
+    if ((0, $59d97a6bab2b727e$export$2e2bcd8739ae039)(element) === 'html') return element;
+    return(// $FlowFixMe[incompatible-return]
+    // $FlowFixMe[prop-missing]
+    element.assignedSlot || // step into the shadow DOM of the parent of a slotted node
+    element.parentNode || ((0, $1fa2a5446b18c455$export$af51f0f06c0f328a)(element) ? element.host : null) || // ShadowRoot detected
+    // $FlowFixMe[incompatible-call]: HTMLElement is a Node
+    (0, $3e02d6708e2a16ac$export$2e2bcd8739ae039)(element) // fallback
+    );
+}
+
+
+
+
+
+function $8fec37e99f881747$export$2e2bcd8739ae039(node) {
+    if ([
+        'html',
+        'body',
+        '#document'
+    ].indexOf((0, $59d97a6bab2b727e$export$2e2bcd8739ae039)(node)) >= 0) // $FlowFixMe[incompatible-return]: assume body is always available
+    return node.ownerDocument.body;
+    if ((0, $1fa2a5446b18c455$export$1b3bfaa9684536aa)(node) && (0, $d0e76ea5ac4d8fe1$export$2e2bcd8739ae039)(node)) return node;
+    return $8fec37e99f881747$export$2e2bcd8739ae039((0, $b1adb38089003474$export$2e2bcd8739ae039)(node));
+}
+
+
+
+
+
+function $f14b4e1cd31512ee$export$2e2bcd8739ae039(element, list) {
+    var _element$ownerDocumen;
+    if (list === void 0) list = [];
+    var scrollParent = (0, $8fec37e99f881747$export$2e2bcd8739ae039)(element);
+    var isBody = scrollParent === ((_element$ownerDocumen = element.ownerDocument) == null ? void 0 : _element$ownerDocumen.body);
+    var win = (0, $f41f4520bee001a7$export$2e2bcd8739ae039)(scrollParent);
+    var target = isBody ? [
+        win
+    ].concat(win.visualViewport || [], (0, $d0e76ea5ac4d8fe1$export$2e2bcd8739ae039)(scrollParent) ? scrollParent : []) : scrollParent;
+    var updatedList = list.concat(target);
+    return isBody ? updatedList : updatedList.concat($f14b4e1cd31512ee$export$2e2bcd8739ae039((0, $b1adb38089003474$export$2e2bcd8739ae039)(target)));
+}
+
+
+
+
+
+
+
+function $b7f6a1d3d9524a70$export$2e2bcd8739ae039(element) {
+    return [
+        'table',
+        'td',
+        'th'
+    ].indexOf((0, $59d97a6bab2b727e$export$2e2bcd8739ae039)(element)) >= 0;
+}
+
+
+
+
+function $4acba801a6bfbaa3$var$getTrueOffsetParent(element) {
+    if (!(0, $1fa2a5446b18c455$export$1b3bfaa9684536aa)(element) || // https://github.com/popperjs/popper-core/issues/837
+    (0, $392247934674b5b4$export$2e2bcd8739ae039)(element).position === 'fixed') return null;
+    return element.offsetParent;
+} // `.offsetParent` reports `null` for fixed elements, while absolute elements
+// return the containing block
+function $4acba801a6bfbaa3$var$getContainingBlock(element) {
+    var isFirefox = /firefox/i.test((0, $beb42d7aceecf8c8$export$2e2bcd8739ae039)());
+    var isIE = /Trident/i.test((0, $beb42d7aceecf8c8$export$2e2bcd8739ae039)());
+    if (isIE && (0, $1fa2a5446b18c455$export$1b3bfaa9684536aa)(element)) {
+        // In IE 9, 10 and 11 fixed elements containing block is always established by the viewport
+        var elementCss = (0, $392247934674b5b4$export$2e2bcd8739ae039)(element);
+        if (elementCss.position === 'fixed') return null;
+    }
+    var currentNode = (0, $b1adb38089003474$export$2e2bcd8739ae039)(element);
+    if ((0, $1fa2a5446b18c455$export$af51f0f06c0f328a)(currentNode)) currentNode = currentNode.host;
+    while((0, $1fa2a5446b18c455$export$1b3bfaa9684536aa)(currentNode) && [
+        'html',
+        'body'
+    ].indexOf((0, $59d97a6bab2b727e$export$2e2bcd8739ae039)(currentNode)) < 0){
+        var css = (0, $392247934674b5b4$export$2e2bcd8739ae039)(currentNode); // This is non-exhaustive but covers the most common CSS properties that
+        // create a containing block.
+        // https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block
+        if (css.transform !== 'none' || css.perspective !== 'none' || css.contain === 'paint' || [
+            'transform',
+            'perspective'
+        ].indexOf(css.willChange) !== -1 || isFirefox && css.willChange === 'filter' || isFirefox && css.filter && css.filter !== 'none') return currentNode;
+        else currentNode = currentNode.parentNode;
+    }
+    return null;
+} // Gets the closest ancestor positioned element. Handles some edge cases,
+function $4acba801a6bfbaa3$export$2e2bcd8739ae039(element) {
+    var window = (0, $f41f4520bee001a7$export$2e2bcd8739ae039)(element);
+    var offsetParent = $4acba801a6bfbaa3$var$getTrueOffsetParent(element);
+    while(offsetParent && (0, $b7f6a1d3d9524a70$export$2e2bcd8739ae039)(offsetParent) && (0, $392247934674b5b4$export$2e2bcd8739ae039)(offsetParent).position === 'static')offsetParent = $4acba801a6bfbaa3$var$getTrueOffsetParent(offsetParent);
+    if (offsetParent && ((0, $59d97a6bab2b727e$export$2e2bcd8739ae039)(offsetParent) === 'html' || (0, $59d97a6bab2b727e$export$2e2bcd8739ae039)(offsetParent) === 'body' && (0, $392247934674b5b4$export$2e2bcd8739ae039)(offsetParent).position === 'static')) return window;
+    return offsetParent || $4acba801a6bfbaa3$var$getContainingBlock(element) || window;
+}
+
+
+var $9b56e55559dfbda1$export$1e95b668f3b82d = 'top';
+var $9b56e55559dfbda1$export$40e543e69a8b3fbb = 'bottom';
+var $9b56e55559dfbda1$export$79ffe56a765070d2 = 'right';
+var $9b56e55559dfbda1$export$eabcd2c8791e7bf4 = 'left';
+var $9b56e55559dfbda1$export$dfb5619354ba860 = 'auto';
+var $9b56e55559dfbda1$export$aec2ce47c367b8c3 = [
+    $9b56e55559dfbda1$export$1e95b668f3b82d,
+    $9b56e55559dfbda1$export$40e543e69a8b3fbb,
+    $9b56e55559dfbda1$export$79ffe56a765070d2,
+    $9b56e55559dfbda1$export$eabcd2c8791e7bf4
+];
+var $9b56e55559dfbda1$export$b3571188c770cc5a = 'start';
+var $9b56e55559dfbda1$export$bd5df0f255a350f8 = 'end';
+var $9b56e55559dfbda1$export$390fd549c5303b4d = 'clippingParents';
+var $9b56e55559dfbda1$export$d7b7311ec04a3e8f = 'viewport';
+var $9b56e55559dfbda1$export$ae5ab1c730825774 = 'popper';
+var $9b56e55559dfbda1$export$ca50aac9f3ba507f = 'reference';
+var $9b56e55559dfbda1$export$368f9a87e87fa4e1 = /*#__PURE__*/ $9b56e55559dfbda1$export$aec2ce47c367b8c3.reduce(function(acc, placement) {
+    return acc.concat([
+        placement + "-" + $9b56e55559dfbda1$export$b3571188c770cc5a,
+        placement + "-" + $9b56e55559dfbda1$export$bd5df0f255a350f8
+    ]);
+}, []);
+var $9b56e55559dfbda1$export$803cd8101b6c182b = /*#__PURE__*/ [].concat($9b56e55559dfbda1$export$aec2ce47c367b8c3, [
+    $9b56e55559dfbda1$export$dfb5619354ba860
+]).reduce(function(acc, placement) {
+    return acc.concat([
+        placement,
+        placement + "-" + $9b56e55559dfbda1$export$b3571188c770cc5a,
+        placement + "-" + $9b56e55559dfbda1$export$bd5df0f255a350f8
+    ]);
+}, []); // modifiers that need to read the DOM
+var $9b56e55559dfbda1$export$421679a7c3d56e = 'beforeRead';
+var $9b56e55559dfbda1$export$aafa59e2e03f2942 = 'read';
+var $9b56e55559dfbda1$export$6964f6c886723980 = 'afterRead'; // pure-logic modifiers
+var $9b56e55559dfbda1$export$c65e99957a05207c = 'beforeMain';
+var $9b56e55559dfbda1$export$f22da7240b7add18 = 'main';
+var $9b56e55559dfbda1$export$bab79516f2d662fe = 'afterMain'; // modifier with the purpose to write to the DOM (or write into a framework state)
+var $9b56e55559dfbda1$export$8d4d2d70e7d46032 = 'beforeWrite';
+var $9b56e55559dfbda1$export$68d8715fc104d294 = 'write';
+var $9b56e55559dfbda1$export$70a6e5159acce2e6 = 'afterWrite';
+var $9b56e55559dfbda1$export$d087d3878fdf71d5 = [
+    $9b56e55559dfbda1$export$421679a7c3d56e,
+    $9b56e55559dfbda1$export$aafa59e2e03f2942,
+    $9b56e55559dfbda1$export$6964f6c886723980,
+    $9b56e55559dfbda1$export$c65e99957a05207c,
+    $9b56e55559dfbda1$export$f22da7240b7add18,
+    $9b56e55559dfbda1$export$bab79516f2d662fe,
+    $9b56e55559dfbda1$export$8d4d2d70e7d46032,
+    $9b56e55559dfbda1$export$68d8715fc104d294,
+    $9b56e55559dfbda1$export$70a6e5159acce2e6
+];
+
+
+function $6e11c0a2f23600d6$var$order(modifiers) {
+    var map = new Map();
+    var visited = new Set();
+    var result = [];
+    modifiers.forEach(function(modifier) {
+        map.set(modifier.name, modifier);
+    }); // On visiting object, check for its dependencies and visit them recursively
+    function sort(modifier) {
+        visited.add(modifier.name);
+        var requires = [].concat(modifier.requires || [], modifier.requiresIfExists || []);
+        requires.forEach(function(dep) {
+            if (!visited.has(dep)) {
+                var depModifier = map.get(dep);
+                if (depModifier) sort(depModifier);
+            }
+        });
+        result.push(modifier);
+    }
+    modifiers.forEach(function(modifier) {
+        if (!visited.has(modifier.name)) // check for visited object
+        sort(modifier);
+    });
+    return result;
+}
+function $6e11c0a2f23600d6$export$2e2bcd8739ae039(modifiers) {
+    // order based on dependencies
+    var orderedModifiers = $6e11c0a2f23600d6$var$order(modifiers); // order based on phase
+    return (0, $9b56e55559dfbda1$export$d087d3878fdf71d5).reduce(function(acc, phase) {
+        return acc.concat(orderedModifiers.filter(function(modifier) {
+            return modifier.phase === phase;
+        }));
+    }, []);
+}
+
+
+function $d6d1d118731c5c9c$export$2e2bcd8739ae039(fn) {
+    var pending;
+    return function() {
+        if (!pending) pending = new Promise(function(resolve) {
+            Promise.resolve().then(function() {
+                pending = undefined;
+                resolve(fn());
+            });
+        });
+        return pending;
+    };
+}
+
+
+function $6af99e74d4c8a734$export$2e2bcd8739ae039(modifiers) {
+    var merged = modifiers.reduce(function(merged, current) {
+        var existing = merged[current.name];
+        merged[current.name] = existing ? Object.assign({}, existing, current, {
+            options: Object.assign({}, existing.options, current.options),
+            data: Object.assign({}, existing.data, current.data)
+        }) : current;
+        return merged;
+    }, {}); // IE11 does not support Object.values
+    return Object.keys(merged).map(function(key) {
+        return merged[key];
+    });
+}
+
+
+
+
+var $8e357be334f3fad9$var$DEFAULT_OPTIONS = {
+    placement: 'bottom',
+    modifiers: [],
+    strategy: 'absolute'
+};
+function $8e357be334f3fad9$var$areValidElements() {
+    for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++)args[_key] = arguments[_key];
+    return !args.some(function(element) {
+        return !(element && typeof element.getBoundingClientRect === 'function');
+    });
+}
+function $8e357be334f3fad9$export$ed5e13716264f202(generatorOptions) {
+    if (generatorOptions === void 0) generatorOptions = {};
+    var _generatorOptions = generatorOptions, _generatorOptions$def = _generatorOptions.defaultModifiers, defaultModifiers = _generatorOptions$def === void 0 ? [] : _generatorOptions$def, _generatorOptions$def2 = _generatorOptions.defaultOptions, defaultOptions = _generatorOptions$def2 === void 0 ? $8e357be334f3fad9$var$DEFAULT_OPTIONS : _generatorOptions$def2;
+    return function createPopper(reference, popper, options) {
+        if (options === void 0) options = defaultOptions;
+        var state = {
+            placement: 'bottom',
+            orderedModifiers: [],
+            options: Object.assign({}, $8e357be334f3fad9$var$DEFAULT_OPTIONS, defaultOptions),
+            modifiersData: {},
+            elements: {
+                reference: reference,
+                popper: popper
+            },
+            attributes: {},
+            styles: {}
+        };
+        var effectCleanupFns = [];
+        var isDestroyed = false;
+        var instance = {
+            state: state,
+            setOptions: function setOptions(setOptionsAction) {
+                var options = typeof setOptionsAction === 'function' ? setOptionsAction(state.options) : setOptionsAction;
+                cleanupModifierEffects();
+                state.options = Object.assign({}, defaultOptions, state.options, options);
+                state.scrollParents = {
+                    reference: (0, $1fa2a5446b18c455$export$45a5e7f76e0caa8d)(reference) ? (0, $f14b4e1cd31512ee$export$2e2bcd8739ae039)(reference) : reference.contextElement ? (0, $f14b4e1cd31512ee$export$2e2bcd8739ae039)(reference.contextElement) : [],
+                    popper: (0, $f14b4e1cd31512ee$export$2e2bcd8739ae039)(popper)
+                }; // Orders the modifiers based on their dependencies and `phase`
+                // properties
+                var orderedModifiers = (0, $6e11c0a2f23600d6$export$2e2bcd8739ae039)((0, $6af99e74d4c8a734$export$2e2bcd8739ae039)([].concat(defaultModifiers, state.options.modifiers))); // Strip out disabled modifiers
+                state.orderedModifiers = orderedModifiers.filter(function(m) {
+                    return m.enabled;
+                });
+                runModifierEffects();
+                return instance.update();
+            },
+            // Sync update – it will always be executed, even if not necessary. This
+            // is useful for low frequency updates where sync behavior simplifies the
+            // logic.
+            // For high frequency updates (e.g. `resize` and `scroll` events), always
+            // prefer the async Popper#update method
+            forceUpdate: function forceUpdate() {
+                if (isDestroyed) return;
+                var _state$elements = state.elements, reference = _state$elements.reference, popper = _state$elements.popper; // Don't proceed if `reference` or `popper` are not valid elements
+                // anymore
+                if (!$8e357be334f3fad9$var$areValidElements(reference, popper)) return;
+                 // Store the reference and popper rects to be read by modifiers
+                state.rects = {
+                    reference: (0, $a195ad21b1cffe79$export$2e2bcd8739ae039)(reference, (0, $4acba801a6bfbaa3$export$2e2bcd8739ae039)(popper), state.options.strategy === 'fixed'),
+                    popper: (0, $e287ac773d355028$export$2e2bcd8739ae039)(popper)
+                }; // Modifiers have the ability to reset the current update cycle. The
+                // most common use case for this is the `flip` modifier changing the
+                // placement, which then needs to re-run all the modifiers, because the
+                // logic was previously ran for the previous placement and is therefore
+                // stale/incorrect
+                state.reset = false;
+                state.placement = state.options.placement; // On each update cycle, the `modifiersData` property for each modifier
+                // is filled with the initial data specified by the modifier. This means
+                // it doesn't persist and is fresh on each update.
+                // To ensure persistent data, use `${name}#persistent`
+                state.orderedModifiers.forEach(function(modifier) {
+                    return state.modifiersData[modifier.name] = Object.assign({}, modifier.data);
+                });
+                for(var index = 0; index < state.orderedModifiers.length; index++){
+                    if (state.reset === true) {
+                        state.reset = false;
+                        index = -1;
+                        continue;
+                    }
+                    var _state$orderedModifie = state.orderedModifiers[index], fn = _state$orderedModifie.fn, _state$orderedModifie2 = _state$orderedModifie.options, _options = _state$orderedModifie2 === void 0 ? {} : _state$orderedModifie2, name = _state$orderedModifie.name;
+                    if (typeof fn === 'function') state = fn({
+                        state: state,
+                        options: _options,
+                        name: name,
+                        instance: instance
+                    }) || state;
+                }
+            },
+            // Async and optimistically optimized update – it will not be executed if
+            // not necessary (debounced to run at most once-per-tick)
+            update: (0, $d6d1d118731c5c9c$export$2e2bcd8739ae039)(function() {
+                return new Promise(function(resolve) {
+                    instance.forceUpdate();
+                    resolve(state);
+                });
+            }),
+            destroy: function destroy() {
+                cleanupModifierEffects();
+                isDestroyed = true;
+            }
+        };
+        if (!$8e357be334f3fad9$var$areValidElements(reference, popper)) return instance;
+        instance.setOptions(options).then(function(state) {
+            if (!isDestroyed && options.onFirstUpdate) options.onFirstUpdate(state);
+        }); // Modifiers have the ability to execute arbitrary code before the first
+        // update cycle runs. They will be executed in the same order as the update
+        // cycle. This is useful when a modifier adds some persistent data that
+        // other modifiers need to use, but the modifier is run after the dependent
+        // one.
+        function runModifierEffects() {
+            state.orderedModifiers.forEach(function(_ref) {
+                var name = _ref.name, _ref$options = _ref.options, options = _ref$options === void 0 ? {} : _ref$options, effect = _ref.effect;
+                if (typeof effect === 'function') {
+                    var cleanupFn = effect({
+                        state: state,
+                        name: name,
+                        instance: instance,
+                        options: options
+                    });
+                    var noopFn = function noopFn() {};
+                    effectCleanupFns.push(cleanupFn || noopFn);
+                }
+            });
+        }
+        function cleanupModifierEffects() {
+            effectCleanupFns.forEach(function(fn) {
+                return fn();
+            });
+            effectCleanupFns = [];
+        }
+        return instance;
+    };
+}
+var $8e357be334f3fad9$export$8f7491d57c8f97a9 = /*#__PURE__*/ $8e357be334f3fad9$export$ed5e13716264f202(); // eslint-disable-next-line import/no-unused-modules
+
+
+
+var $e3348dc516600e8b$var$passive = {
+    passive: true
+};
+function $e3348dc516600e8b$var$effect(_ref) {
+    var state = _ref.state, instance = _ref.instance, options = _ref.options;
+    var _options$scroll = options.scroll, scroll = _options$scroll === void 0 ? true : _options$scroll, _options$resize = options.resize, resize = _options$resize === void 0 ? true : _options$resize;
+    var window = (0, $f41f4520bee001a7$export$2e2bcd8739ae039)(state.elements.popper);
+    var scrollParents = [].concat(state.scrollParents.reference, state.scrollParents.popper);
+    if (scroll) scrollParents.forEach(function(scrollParent) {
+        scrollParent.addEventListener('scroll', instance.update, $e3348dc516600e8b$var$passive);
+    });
+    if (resize) window.addEventListener('resize', instance.update, $e3348dc516600e8b$var$passive);
+    return function() {
+        if (scroll) scrollParents.forEach(function(scrollParent) {
+            scrollParent.removeEventListener('scroll', instance.update, $e3348dc516600e8b$var$passive);
+        });
+        if (resize) window.removeEventListener('resize', instance.update, $e3348dc516600e8b$var$passive);
+    };
+} // eslint-disable-next-line import/no-unused-modules
+var $e3348dc516600e8b$export$2e2bcd8739ae039 = {
+    name: 'eventListeners',
+    enabled: true,
+    phase: 'write',
+    fn: function fn() {},
+    effect: $e3348dc516600e8b$var$effect,
+    data: {}
+};
+
+
+
+function $923eec132c8d334b$export$2e2bcd8739ae039(placement) {
+    return placement.split('-')[0];
+}
+
+
+function $6572b8fb6297a772$export$2e2bcd8739ae039(placement) {
+    return placement.split('-')[1];
+}
+
+
+function $d388da57f90fb762$export$2e2bcd8739ae039(placement) {
+    return [
+        'top',
+        'bottom'
+    ].indexOf(placement) >= 0 ? 'x' : 'y';
+}
+
+
+
+function $05d4a7bd7e0110bf$export$2e2bcd8739ae039(_ref) {
+    var reference = _ref.reference, element = _ref.element, placement = _ref.placement;
+    var basePlacement = placement ? (0, $923eec132c8d334b$export$2e2bcd8739ae039)(placement) : null;
+    var variation = placement ? (0, $6572b8fb6297a772$export$2e2bcd8739ae039)(placement) : null;
+    var commonX = reference.x + reference.width / 2 - element.width / 2;
+    var commonY = reference.y + reference.height / 2 - element.height / 2;
+    var offsets;
+    switch(basePlacement){
+        case 0, $9b56e55559dfbda1$export$1e95b668f3b82d:
+            offsets = {
+                x: commonX,
+                y: reference.y - element.height
+            };
+            break;
+        case 0, $9b56e55559dfbda1$export$40e543e69a8b3fbb:
+            offsets = {
+                x: commonX,
+                y: reference.y + reference.height
+            };
+            break;
+        case 0, $9b56e55559dfbda1$export$79ffe56a765070d2:
+            offsets = {
+                x: reference.x + reference.width,
+                y: commonY
+            };
+            break;
+        case 0, $9b56e55559dfbda1$export$eabcd2c8791e7bf4:
+            offsets = {
+                x: reference.x - element.width,
+                y: commonY
+            };
+            break;
+        default:
+            offsets = {
+                x: reference.x,
+                y: reference.y
+            };
+    }
+    var mainAxis = basePlacement ? (0, $d388da57f90fb762$export$2e2bcd8739ae039)(basePlacement) : null;
+    if (mainAxis != null) {
+        var len = mainAxis === 'y' ? 'height' : 'width';
+        switch(variation){
+            case 0, $9b56e55559dfbda1$export$b3571188c770cc5a:
+                offsets[mainAxis] = offsets[mainAxis] - (reference[len] / 2 - element[len] / 2);
+                break;
+            case 0, $9b56e55559dfbda1$export$bd5df0f255a350f8:
+                offsets[mainAxis] = offsets[mainAxis] + (reference[len] / 2 - element[len] / 2);
+                break;
+            default:
+        }
+    }
+    return offsets;
+}
+
+
+function $4aa27a7a3db85746$var$popperOffsets(_ref) {
+    var state = _ref.state, name = _ref.name;
+    // Offsets are the actual position the popper needs to have to be
+    // properly positioned near its reference element
+    // This is the most basic placement, and will be adjusted by
+    // the modifiers in the next step
+    state.modifiersData[name] = (0, $05d4a7bd7e0110bf$export$2e2bcd8739ae039)({
+        reference: state.rects.reference,
+        element: state.rects.popper,
+        strategy: 'absolute',
+        placement: state.placement
+    });
+} // eslint-disable-next-line import/no-unused-modules
+var $4aa27a7a3db85746$export$2e2bcd8739ae039 = {
+    name: 'popperOffsets',
+    enabled: true,
+    phase: 'read',
+    fn: $4aa27a7a3db85746$var$popperOffsets,
+    data: {}
+};
+
+
+
+
+
+
+
+
+
+
+var $03e421bdaa8eda14$var$unsetSides = {
+    top: 'auto',
+    right: 'auto',
+    bottom: 'auto',
+    left: 'auto'
+}; // Round the offsets to the nearest suitable subpixel based on the DPR.
+// Zooming can change the DPR, but it seems to report a value that will
+// cleanly divide the values into the appropriate subpixels.
+function $03e421bdaa8eda14$var$roundOffsetsByDPR(_ref, win) {
+    var x = _ref.x, y = _ref.y;
+    var dpr = win.devicePixelRatio || 1;
+    return {
+        x: (0, $a435872b5ba665df$export$2077e0241d6afd3c)(x * dpr) / dpr || 0,
+        y: (0, $a435872b5ba665df$export$2077e0241d6afd3c)(y * dpr) / dpr || 0
+    };
+}
+function $03e421bdaa8eda14$export$378fa78a8fea596f(_ref2) {
+    var _Object$assign2;
+    var popper = _ref2.popper, popperRect = _ref2.popperRect, placement = _ref2.placement, variation = _ref2.variation, offsets = _ref2.offsets, position = _ref2.position, gpuAcceleration = _ref2.gpuAcceleration, adaptive = _ref2.adaptive, roundOffsets = _ref2.roundOffsets, isFixed = _ref2.isFixed;
+    var _offsets$x = offsets.x, x = _offsets$x === void 0 ? 0 : _offsets$x, _offsets$y = offsets.y, y = _offsets$y === void 0 ? 0 : _offsets$y;
+    var _ref3 = typeof roundOffsets === 'function' ? roundOffsets({
+        x: x,
+        y: y
+    }) : {
+        x: x,
+        y: y
+    };
+    x = _ref3.x;
+    y = _ref3.y;
+    var hasX = offsets.hasOwnProperty('x');
+    var hasY = offsets.hasOwnProperty('y');
+    var sideX = (0, $9b56e55559dfbda1$export$eabcd2c8791e7bf4);
+    var sideY = (0, $9b56e55559dfbda1$export$1e95b668f3b82d);
+    var win = window;
+    if (adaptive) {
+        var offsetParent = (0, $4acba801a6bfbaa3$export$2e2bcd8739ae039)(popper);
+        var heightProp = 'clientHeight';
+        var widthProp = 'clientWidth';
+        if (offsetParent === (0, $f41f4520bee001a7$export$2e2bcd8739ae039)(popper)) {
+            offsetParent = (0, $3e02d6708e2a16ac$export$2e2bcd8739ae039)(popper);
+            if ((0, $392247934674b5b4$export$2e2bcd8739ae039)(offsetParent).position !== 'static' && position === 'absolute') {
+                heightProp = 'scrollHeight';
+                widthProp = 'scrollWidth';
+            }
+        } // $FlowFixMe[incompatible-cast]: force type refinement, we compare offsetParent with window above, but Flow doesn't detect it
+        offsetParent;
+        if (placement === (0, $9b56e55559dfbda1$export$1e95b668f3b82d) || (placement === (0, $9b56e55559dfbda1$export$eabcd2c8791e7bf4) || placement === (0, $9b56e55559dfbda1$export$79ffe56a765070d2)) && variation === (0, $9b56e55559dfbda1$export$bd5df0f255a350f8)) {
+            sideY = (0, $9b56e55559dfbda1$export$40e543e69a8b3fbb);
+            var offsetY = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.height : offsetParent[heightProp];
+            y -= offsetY - popperRect.height;
+            y *= gpuAcceleration ? 1 : -1;
+        }
+        if (placement === (0, $9b56e55559dfbda1$export$eabcd2c8791e7bf4) || (placement === (0, $9b56e55559dfbda1$export$1e95b668f3b82d) || placement === (0, $9b56e55559dfbda1$export$40e543e69a8b3fbb)) && variation === (0, $9b56e55559dfbda1$export$bd5df0f255a350f8)) {
+            sideX = (0, $9b56e55559dfbda1$export$79ffe56a765070d2);
+            var offsetX = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.width : offsetParent[widthProp];
+            x -= offsetX - popperRect.width;
+            x *= gpuAcceleration ? 1 : -1;
+        }
+    }
+    var commonStyles = Object.assign({
+        position: position
+    }, adaptive && $03e421bdaa8eda14$var$unsetSides);
+    var _ref4 = roundOffsets === true ? $03e421bdaa8eda14$var$roundOffsetsByDPR({
+        x: x,
+        y: y
+    }, (0, $f41f4520bee001a7$export$2e2bcd8739ae039)(popper)) : {
+        x: x,
+        y: y
+    };
+    x = _ref4.x;
+    y = _ref4.y;
+    if (gpuAcceleration) {
+        var _Object$assign;
+        return Object.assign({}, commonStyles, (_Object$assign = {}, _Object$assign[sideY] = hasY ? '0' : '', _Object$assign[sideX] = hasX ? '0' : '', _Object$assign.transform = (win.devicePixelRatio || 1) <= 1 ? "translate(" + x + "px, " + y + "px)" : "translate3d(" + x + "px, " + y + "px, 0)", _Object$assign));
+    }
+    return Object.assign({}, commonStyles, (_Object$assign2 = {}, _Object$assign2[sideY] = hasY ? y + "px" : '', _Object$assign2[sideX] = hasX ? x + "px" : '', _Object$assign2.transform = '', _Object$assign2));
+}
+function $03e421bdaa8eda14$var$computeStyles(_ref5) {
+    var state = _ref5.state, options = _ref5.options;
+    var _options$gpuAccelerat = options.gpuAcceleration, gpuAcceleration = _options$gpuAccelerat === void 0 ? true : _options$gpuAccelerat, _options$adaptive = options.adaptive, adaptive = _options$adaptive === void 0 ? true : _options$adaptive, _options$roundOffsets = options.roundOffsets, roundOffsets = _options$roundOffsets === void 0 ? true : _options$roundOffsets;
+    var commonStyles = {
+        placement: (0, $923eec132c8d334b$export$2e2bcd8739ae039)(state.placement),
+        variation: (0, $6572b8fb6297a772$export$2e2bcd8739ae039)(state.placement),
+        popper: state.elements.popper,
+        popperRect: state.rects.popper,
+        gpuAcceleration: gpuAcceleration,
+        isFixed: state.options.strategy === 'fixed'
+    };
+    if (state.modifiersData.popperOffsets != null) state.styles.popper = Object.assign({}, state.styles.popper, $03e421bdaa8eda14$export$378fa78a8fea596f(Object.assign({}, commonStyles, {
+        offsets: state.modifiersData.popperOffsets,
+        position: state.options.strategy,
+        adaptive: adaptive,
+        roundOffsets: roundOffsets
+    })));
+    if (state.modifiersData.arrow != null) state.styles.arrow = Object.assign({}, state.styles.arrow, $03e421bdaa8eda14$export$378fa78a8fea596f(Object.assign({}, commonStyles, {
+        offsets: state.modifiersData.arrow,
+        position: 'absolute',
+        adaptive: false,
+        roundOffsets: roundOffsets
+    })));
+    state.attributes.popper = Object.assign({}, state.attributes.popper, {
+        'data-popper-placement': state.placement
+    });
+} // eslint-disable-next-line import/no-unused-modules
+var $03e421bdaa8eda14$export$2e2bcd8739ae039 = {
+    name: 'computeStyles',
+    enabled: true,
+    phase: 'beforeWrite',
+    fn: $03e421bdaa8eda14$var$computeStyles,
+    data: {}
+};
+
+
+
+
+
+function $b2dec03e76957d70$export$7fa02d8595b015ed(placement, rects, offset) {
+    var basePlacement = (0, $923eec132c8d334b$export$2e2bcd8739ae039)(placement);
+    var invertDistance = [
+        (0, $9b56e55559dfbda1$export$eabcd2c8791e7bf4),
+        (0, $9b56e55559dfbda1$export$1e95b668f3b82d)
+    ].indexOf(basePlacement) >= 0 ? -1 : 1;
+    var _ref = typeof offset === 'function' ? offset(Object.assign({}, rects, {
+        placement: placement
+    })) : offset, skidding = _ref[0], distance = _ref[1];
+    skidding = skidding || 0;
+    distance = (distance || 0) * invertDistance;
+    return [
+        (0, $9b56e55559dfbda1$export$eabcd2c8791e7bf4),
+        (0, $9b56e55559dfbda1$export$79ffe56a765070d2)
+    ].indexOf(basePlacement) >= 0 ? {
+        x: distance,
+        y: skidding
+    } : {
+        x: skidding,
+        y: distance
+    };
+}
+function $b2dec03e76957d70$var$offset(_ref2) {
+    var state = _ref2.state, options = _ref2.options, name = _ref2.name;
+    var _options$offset = options.offset, offset = _options$offset === void 0 ? [
+        0,
+        0
+    ] : _options$offset;
+    var data = (0, $9b56e55559dfbda1$export$803cd8101b6c182b).reduce(function(acc, placement) {
+        acc[placement] = $b2dec03e76957d70$export$7fa02d8595b015ed(placement, state.rects, offset);
+        return acc;
+    }, {});
+    var _data$state$placement = data[state.placement], x = _data$state$placement.x, y = _data$state$placement.y;
+    if (state.modifiersData.popperOffsets != null) {
+        state.modifiersData.popperOffsets.x += x;
+        state.modifiersData.popperOffsets.y += y;
+    }
+    state.modifiersData[name] = data;
+} // eslint-disable-next-line import/no-unused-modules
+var $b2dec03e76957d70$export$2e2bcd8739ae039 = {
+    name: 'offset',
+    enabled: true,
+    phase: 'main',
+    requires: [
+        'popperOffsets'
+    ],
+    fn: $b2dec03e76957d70$var$offset
+};
+
+
+var $e21601d0082602f5$var$hash = {
+    left: 'right',
+    right: 'left',
+    bottom: 'top',
+    top: 'bottom'
+};
+function $e21601d0082602f5$export$2e2bcd8739ae039(placement) {
+    return placement.replace(/left|right|bottom|top/g, function(matched) {
+        return $e21601d0082602f5$var$hash[matched];
+    });
+}
+
+
+
+var $e23a845ff98433e2$var$hash = {
+    start: 'end',
+    end: 'start'
+};
+function $e23a845ff98433e2$export$2e2bcd8739ae039(placement) {
+    return placement.replace(/start|end/g, function(matched) {
+        return $e23a845ff98433e2$var$hash[matched];
+    });
+}
+
+
+
+
+
+
+
+function $ed6afea5d5a4d314$export$2e2bcd8739ae039(element, strategy) {
+    var win = (0, $f41f4520bee001a7$export$2e2bcd8739ae039)(element);
+    var html = (0, $3e02d6708e2a16ac$export$2e2bcd8739ae039)(element);
+    var visualViewport = win.visualViewport;
+    var width = html.clientWidth;
+    var height = html.clientHeight;
+    var x = 0;
+    var y = 0;
+    if (visualViewport) {
+        width = visualViewport.width;
+        height = visualViewport.height;
+        var layoutViewport = (0, $f6bdda075fc14cbf$export$2e2bcd8739ae039)();
+        if (layoutViewport || !layoutViewport && strategy === 'fixed') {
+            x = visualViewport.offsetLeft;
+            y = visualViewport.offsetTop;
+        }
+    }
+    return {
+        width: width,
+        height: height,
+        x: x + (0, $05804587c501a8a1$export$2e2bcd8739ae039)(element),
+        y: y
+    };
+}
+
+
+
+
+
+
+
+function $048158ac5222e515$export$2e2bcd8739ae039(element) {
+    var _element$ownerDocumen;
+    var html = (0, $3e02d6708e2a16ac$export$2e2bcd8739ae039)(element);
+    var winScroll = (0, $2f82ac4f0d5b4512$export$2e2bcd8739ae039)(element);
+    var body = (_element$ownerDocumen = element.ownerDocument) == null ? void 0 : _element$ownerDocumen.body;
+    var width = (0, $a435872b5ba665df$export$8960430cfd85939f)(html.scrollWidth, html.clientWidth, body ? body.scrollWidth : 0, body ? body.clientWidth : 0);
+    var height = (0, $a435872b5ba665df$export$8960430cfd85939f)(html.scrollHeight, html.clientHeight, body ? body.scrollHeight : 0, body ? body.clientHeight : 0);
+    var x = -winScroll.scrollLeft + (0, $05804587c501a8a1$export$2e2bcd8739ae039)(element);
+    var y = -winScroll.scrollTop;
+    if ((0, $392247934674b5b4$export$2e2bcd8739ae039)(body || html).direction === 'rtl') x += (0, $a435872b5ba665df$export$8960430cfd85939f)(html.clientWidth, body ? body.clientWidth : 0) - width;
+    return {
+        width: width,
+        height: height,
+        x: x,
+        y: y
+    };
+}
+
+
+
+
+
+
+
+
+
+
+function $d1f185f47d247fa7$export$2e2bcd8739ae039(parent, child) {
+    var rootNode = child.getRootNode && child.getRootNode(); // First, attempt with faster native method
+    if (parent.contains(child)) return true;
+    else if (rootNode && (0, $1fa2a5446b18c455$export$af51f0f06c0f328a)(rootNode)) {
+        var next = child;
+        do {
+            if (next && parent.isSameNode(next)) return true;
+             // $FlowFixMe[prop-missing]: need a better way to handle this...
+            next = next.parentNode || next.host;
+        }while (next);
+    } // Give up, the result is false
+    return false;
+}
+
+
+
+function $611b7cfc3d40c8f5$export$2e2bcd8739ae039(rect) {
+    return Object.assign({}, rect, {
+        left: rect.x,
+        top: rect.y,
+        right: rect.x + rect.width,
+        bottom: rect.y + rect.height
+    });
+}
+
+
+
+function $1ae21a55ad42cc80$var$getInnerBoundingClientRect(element, strategy) {
+    var rect = (0, $b854957821c00430$export$2e2bcd8739ae039)(element, false, strategy === 'fixed');
+    rect.top = rect.top + element.clientTop;
+    rect.left = rect.left + element.clientLeft;
+    rect.bottom = rect.top + element.clientHeight;
+    rect.right = rect.left + element.clientWidth;
+    rect.width = element.clientWidth;
+    rect.height = element.clientHeight;
+    rect.x = rect.left;
+    rect.y = rect.top;
+    return rect;
+}
+function $1ae21a55ad42cc80$var$getClientRectFromMixedType(element, clippingParent, strategy) {
+    return clippingParent === (0, $9b56e55559dfbda1$export$d7b7311ec04a3e8f) ? (0, $611b7cfc3d40c8f5$export$2e2bcd8739ae039)((0, $ed6afea5d5a4d314$export$2e2bcd8739ae039)(element, strategy)) : (0, $1fa2a5446b18c455$export$45a5e7f76e0caa8d)(clippingParent) ? $1ae21a55ad42cc80$var$getInnerBoundingClientRect(clippingParent, strategy) : (0, $611b7cfc3d40c8f5$export$2e2bcd8739ae039)((0, $048158ac5222e515$export$2e2bcd8739ae039)((0, $3e02d6708e2a16ac$export$2e2bcd8739ae039)(element)));
+} // A "clipping parent" is an overflowable container with the characteristic of
+// clipping (or hiding) overflowing elements with a position different from
+// `initial`
+function $1ae21a55ad42cc80$var$getClippingParents(element) {
+    var clippingParents = (0, $f14b4e1cd31512ee$export$2e2bcd8739ae039)((0, $b1adb38089003474$export$2e2bcd8739ae039)(element));
+    var canEscapeClipping = [
+        'absolute',
+        'fixed'
+    ].indexOf((0, $392247934674b5b4$export$2e2bcd8739ae039)(element).position) >= 0;
+    var clipperElement = canEscapeClipping && (0, $1fa2a5446b18c455$export$1b3bfaa9684536aa)(element) ? (0, $4acba801a6bfbaa3$export$2e2bcd8739ae039)(element) : element;
+    if (!(0, $1fa2a5446b18c455$export$45a5e7f76e0caa8d)(clipperElement)) return [];
+     // $FlowFixMe[incompatible-return]: https://github.com/facebook/flow/issues/1414
+    return clippingParents.filter(function(clippingParent) {
+        return (0, $1fa2a5446b18c455$export$45a5e7f76e0caa8d)(clippingParent) && (0, $d1f185f47d247fa7$export$2e2bcd8739ae039)(clippingParent, clipperElement) && (0, $59d97a6bab2b727e$export$2e2bcd8739ae039)(clippingParent) !== 'body';
+    });
+} // Gets the maximum area that the element is visible in due to any number of
+function $1ae21a55ad42cc80$export$2e2bcd8739ae039(element, boundary, rootBoundary, strategy) {
+    var mainClippingParents = boundary === 'clippingParents' ? $1ae21a55ad42cc80$var$getClippingParents(element) : [].concat(boundary);
+    var clippingParents = [].concat(mainClippingParents, [
+        rootBoundary
+    ]);
+    var firstClippingParent = clippingParents[0];
+    var clippingRect = clippingParents.reduce(function(accRect, clippingParent) {
+        var rect = $1ae21a55ad42cc80$var$getClientRectFromMixedType(element, clippingParent, strategy);
+        accRect.top = (0, $a435872b5ba665df$export$8960430cfd85939f)(rect.top, accRect.top);
+        accRect.right = (0, $a435872b5ba665df$export$96ec731ed4dcb222)(rect.right, accRect.right);
+        accRect.bottom = (0, $a435872b5ba665df$export$96ec731ed4dcb222)(rect.bottom, accRect.bottom);
+        accRect.left = (0, $a435872b5ba665df$export$8960430cfd85939f)(rect.left, accRect.left);
+        return accRect;
+    }, $1ae21a55ad42cc80$var$getClientRectFromMixedType(element, firstClippingParent, strategy));
+    clippingRect.width = clippingRect.right - clippingRect.left;
+    clippingRect.height = clippingRect.bottom - clippingRect.top;
+    clippingRect.x = clippingRect.left;
+    clippingRect.y = clippingRect.top;
+    return clippingRect;
+}
+
+
+
+
+
+
+
+
+function $d245fd553c91b4b7$export$2e2bcd8739ae039() {
+    return {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+    };
+}
+
+
+function $4867192599152955$export$2e2bcd8739ae039(paddingObject) {
+    return Object.assign({}, (0, $d245fd553c91b4b7$export$2e2bcd8739ae039)(), paddingObject);
+}
+
+
+function $f5b522f3e076d616$export$2e2bcd8739ae039(value, keys) {
+    return keys.reduce(function(hashMap, key) {
+        hashMap[key] = value;
+        return hashMap;
+    }, {});
+}
+
+
+function $223e3075705edc49$export$2e2bcd8739ae039(state, options) {
+    if (options === void 0) options = {};
+    var _options = options, _options$placement = _options.placement, placement = _options$placement === void 0 ? state.placement : _options$placement, _options$strategy = _options.strategy, strategy = _options$strategy === void 0 ? state.strategy : _options$strategy, _options$boundary = _options.boundary, boundary = _options$boundary === void 0 ? (0, $9b56e55559dfbda1$export$390fd549c5303b4d) : _options$boundary, _options$rootBoundary = _options.rootBoundary, rootBoundary = _options$rootBoundary === void 0 ? (0, $9b56e55559dfbda1$export$d7b7311ec04a3e8f) : _options$rootBoundary, _options$elementConte = _options.elementContext, elementContext = _options$elementConte === void 0 ? (0, $9b56e55559dfbda1$export$ae5ab1c730825774) : _options$elementConte, _options$altBoundary = _options.altBoundary, altBoundary = _options$altBoundary === void 0 ? false : _options$altBoundary, _options$padding = _options.padding, padding = _options$padding === void 0 ? 0 : _options$padding;
+    var paddingObject = (0, $4867192599152955$export$2e2bcd8739ae039)(typeof padding !== 'number' ? padding : (0, $f5b522f3e076d616$export$2e2bcd8739ae039)(padding, (0, $9b56e55559dfbda1$export$aec2ce47c367b8c3)));
+    var altContext = elementContext === (0, $9b56e55559dfbda1$export$ae5ab1c730825774) ? (0, $9b56e55559dfbda1$export$ca50aac9f3ba507f) : (0, $9b56e55559dfbda1$export$ae5ab1c730825774);
+    var popperRect = state.rects.popper;
+    var element = state.elements[altBoundary ? altContext : elementContext];
+    var clippingClientRect = (0, $1ae21a55ad42cc80$export$2e2bcd8739ae039)((0, $1fa2a5446b18c455$export$45a5e7f76e0caa8d)(element) ? element : element.contextElement || (0, $3e02d6708e2a16ac$export$2e2bcd8739ae039)(state.elements.popper), boundary, rootBoundary, strategy);
+    var referenceClientRect = (0, $b854957821c00430$export$2e2bcd8739ae039)(state.elements.reference);
+    var popperOffsets = (0, $05d4a7bd7e0110bf$export$2e2bcd8739ae039)({
+        reference: referenceClientRect,
+        element: popperRect,
+        strategy: 'absolute',
+        placement: placement
+    });
+    var popperClientRect = (0, $611b7cfc3d40c8f5$export$2e2bcd8739ae039)(Object.assign({}, popperRect, popperOffsets));
+    var elementClientRect = elementContext === (0, $9b56e55559dfbda1$export$ae5ab1c730825774) ? popperClientRect : referenceClientRect; // positive = overflowing the clipping rect
+    // 0 or negative = within the clipping rect
+    var overflowOffsets = {
+        top: clippingClientRect.top - elementClientRect.top + paddingObject.top,
+        bottom: elementClientRect.bottom - clippingClientRect.bottom + paddingObject.bottom,
+        left: clippingClientRect.left - elementClientRect.left + paddingObject.left,
+        right: elementClientRect.right - clippingClientRect.right + paddingObject.right
+    };
+    var offsetData = state.modifiersData.offset; // Offsets can be applied only to the popper element
+    if (elementContext === (0, $9b56e55559dfbda1$export$ae5ab1c730825774) && offsetData) {
+        var offset = offsetData[placement];
+        Object.keys(overflowOffsets).forEach(function(key) {
+            var multiply = [
+                (0, $9b56e55559dfbda1$export$79ffe56a765070d2),
+                (0, $9b56e55559dfbda1$export$40e543e69a8b3fbb)
+            ].indexOf(key) >= 0 ? 1 : -1;
+            var axis = [
+                (0, $9b56e55559dfbda1$export$1e95b668f3b82d),
+                (0, $9b56e55559dfbda1$export$40e543e69a8b3fbb)
+            ].indexOf(key) >= 0 ? 'y' : 'x';
+            overflowOffsets[key] += offset[axis] * multiply;
+        });
+    }
+    return overflowOffsets;
+}
+
+
+
+
+
+
+function $4ec2b0d0092c1820$export$2e2bcd8739ae039(state, options) {
+    if (options === void 0) options = {};
+    var _options = options, placement = _options.placement, boundary = _options.boundary, rootBoundary = _options.rootBoundary, padding = _options.padding, flipVariations = _options.flipVariations, _options$allowedAutoP = _options.allowedAutoPlacements, allowedAutoPlacements = _options$allowedAutoP === void 0 ? (0, $9b56e55559dfbda1$export$803cd8101b6c182b) : _options$allowedAutoP;
+    var variation = (0, $6572b8fb6297a772$export$2e2bcd8739ae039)(placement);
+    var placements = variation ? flipVariations ? (0, $9b56e55559dfbda1$export$368f9a87e87fa4e1) : (0, $9b56e55559dfbda1$export$368f9a87e87fa4e1).filter(function(placement) {
+        return (0, $6572b8fb6297a772$export$2e2bcd8739ae039)(placement) === variation;
+    }) : (0, $9b56e55559dfbda1$export$aec2ce47c367b8c3);
+    var allowedPlacements = placements.filter(function(placement) {
+        return allowedAutoPlacements.indexOf(placement) >= 0;
+    });
+    if (allowedPlacements.length === 0) allowedPlacements = placements;
+     // $FlowFixMe[incompatible-type]: Flow seems to have problems with two array unions...
+    var overflows = allowedPlacements.reduce(function(acc, placement) {
+        acc[placement] = (0, $223e3075705edc49$export$2e2bcd8739ae039)(state, {
+            placement: placement,
+            boundary: boundary,
+            rootBoundary: rootBoundary,
+            padding: padding
+        })[(0, $923eec132c8d334b$export$2e2bcd8739ae039)(placement)];
+        return acc;
+    }, {});
+    return Object.keys(overflows).sort(function(a, b) {
+        return overflows[a] - overflows[b];
+    });
+}
+
+
+
+
+function $d886080699dc4994$var$getExpandedFallbackPlacements(placement) {
+    if ((0, $923eec132c8d334b$export$2e2bcd8739ae039)(placement) === (0, $9b56e55559dfbda1$export$dfb5619354ba860)) return [];
+    var oppositePlacement = (0, $e21601d0082602f5$export$2e2bcd8739ae039)(placement);
+    return [
+        (0, $e23a845ff98433e2$export$2e2bcd8739ae039)(placement),
+        oppositePlacement,
+        (0, $e23a845ff98433e2$export$2e2bcd8739ae039)(oppositePlacement)
+    ];
+}
+function $d886080699dc4994$var$flip(_ref) {
+    var state = _ref.state, options = _ref.options, name = _ref.name;
+    if (state.modifiersData[name]._skip) return;
+    var _options$mainAxis = options.mainAxis, checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis, _options$altAxis = options.altAxis, checkAltAxis = _options$altAxis === void 0 ? true : _options$altAxis, specifiedFallbackPlacements = options.fallbackPlacements, padding = options.padding, boundary = options.boundary, rootBoundary = options.rootBoundary, altBoundary = options.altBoundary, _options$flipVariatio = options.flipVariations, flipVariations = _options$flipVariatio === void 0 ? true : _options$flipVariatio, allowedAutoPlacements = options.allowedAutoPlacements;
+    var preferredPlacement = state.options.placement;
+    var basePlacement = (0, $923eec132c8d334b$export$2e2bcd8739ae039)(preferredPlacement);
+    var isBasePlacement = basePlacement === preferredPlacement;
+    var fallbackPlacements = specifiedFallbackPlacements || (isBasePlacement || !flipVariations ? [
+        (0, $e21601d0082602f5$export$2e2bcd8739ae039)(preferredPlacement)
+    ] : $d886080699dc4994$var$getExpandedFallbackPlacements(preferredPlacement));
+    var placements = [
+        preferredPlacement
+    ].concat(fallbackPlacements).reduce(function(acc, placement) {
+        return acc.concat((0, $923eec132c8d334b$export$2e2bcd8739ae039)(placement) === (0, $9b56e55559dfbda1$export$dfb5619354ba860) ? (0, $4ec2b0d0092c1820$export$2e2bcd8739ae039)(state, {
+            placement: placement,
+            boundary: boundary,
+            rootBoundary: rootBoundary,
+            padding: padding,
+            flipVariations: flipVariations,
+            allowedAutoPlacements: allowedAutoPlacements
+        }) : placement);
+    }, []);
+    var referenceRect = state.rects.reference;
+    var popperRect = state.rects.popper;
+    var checksMap = new Map();
+    var makeFallbackChecks = true;
+    var firstFittingPlacement = placements[0];
+    for(var i = 0; i < placements.length; i++){
+        var placement = placements[i];
+        var _basePlacement = (0, $923eec132c8d334b$export$2e2bcd8739ae039)(placement);
+        var isStartVariation = (0, $6572b8fb6297a772$export$2e2bcd8739ae039)(placement) === (0, $9b56e55559dfbda1$export$b3571188c770cc5a);
+        var isVertical = [
+            (0, $9b56e55559dfbda1$export$1e95b668f3b82d),
+            (0, $9b56e55559dfbda1$export$40e543e69a8b3fbb)
+        ].indexOf(_basePlacement) >= 0;
+        var len = isVertical ? 'width' : 'height';
+        var overflow = (0, $223e3075705edc49$export$2e2bcd8739ae039)(state, {
+            placement: placement,
+            boundary: boundary,
+            rootBoundary: rootBoundary,
+            altBoundary: altBoundary,
+            padding: padding
+        });
+        var mainVariationSide = isVertical ? isStartVariation ? (0, $9b56e55559dfbda1$export$79ffe56a765070d2) : (0, $9b56e55559dfbda1$export$eabcd2c8791e7bf4) : isStartVariation ? (0, $9b56e55559dfbda1$export$40e543e69a8b3fbb) : (0, $9b56e55559dfbda1$export$1e95b668f3b82d);
+        if (referenceRect[len] > popperRect[len]) mainVariationSide = (0, $e21601d0082602f5$export$2e2bcd8739ae039)(mainVariationSide);
+        var altVariationSide = (0, $e21601d0082602f5$export$2e2bcd8739ae039)(mainVariationSide);
+        var checks = [];
+        if (checkMainAxis) checks.push(overflow[_basePlacement] <= 0);
+        if (checkAltAxis) checks.push(overflow[mainVariationSide] <= 0, overflow[altVariationSide] <= 0);
+        if (checks.every(function(check) {
+            return check;
+        })) {
+            firstFittingPlacement = placement;
+            makeFallbackChecks = false;
+            break;
+        }
+        checksMap.set(placement, checks);
+    }
+    if (makeFallbackChecks) {
+        // `2` may be desired in some cases – research later
+        var numberOfChecks = flipVariations ? 3 : 1;
+        var _loop = function _loop(_i) {
+            var fittingPlacement = placements.find(function(placement) {
+                var checks = checksMap.get(placement);
+                if (checks) return checks.slice(0, _i).every(function(check) {
+                    return check;
+                });
+            });
+            if (fittingPlacement) {
+                firstFittingPlacement = fittingPlacement;
+                return "break";
+            }
+        };
+        for(var _i = numberOfChecks; _i > 0; _i--){
+            var _ret = _loop(_i);
+            if (_ret === "break") break;
+        }
+    }
+    if (state.placement !== firstFittingPlacement) {
+        state.modifiersData[name]._skip = true;
+        state.placement = firstFittingPlacement;
+        state.reset = true;
+    }
+} // eslint-disable-next-line import/no-unused-modules
+var $d886080699dc4994$export$2e2bcd8739ae039 = {
+    name: 'flip',
+    enabled: true,
+    phase: 'main',
+    fn: $d886080699dc4994$var$flip,
+    requiresIfExists: [
+        'offset'
+    ],
+    data: {
+        _skip: false
+    }
+};
+
+
+
+
+
+function $635c62073241bcfb$export$2e2bcd8739ae039(axis) {
+    return axis === 'x' ? 'y' : 'x';
+}
+
+
+
+function $bced921644bd7e12$export$f28d906d67a997f3(min, value, max) {
+    return (0, $a435872b5ba665df$export$8960430cfd85939f)(min, (0, $a435872b5ba665df$export$96ec731ed4dcb222)(value, max));
+}
+function $bced921644bd7e12$export$86c8af6d3ef0b4a(min, value, max) {
+    var v = $bced921644bd7e12$export$f28d906d67a997f3(min, value, max);
+    return v > max ? max : v;
+}
+
+
+
+
+
+
+
+
+function $59ad2e7a9286a2b9$var$preventOverflow(_ref) {
+    var state = _ref.state, options = _ref.options, name = _ref.name;
+    var _options$mainAxis = options.mainAxis, checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis, _options$altAxis = options.altAxis, checkAltAxis = _options$altAxis === void 0 ? false : _options$altAxis, boundary = options.boundary, rootBoundary = options.rootBoundary, altBoundary = options.altBoundary, padding = options.padding, _options$tether = options.tether, tether = _options$tether === void 0 ? true : _options$tether, _options$tetherOffset = options.tetherOffset, tetherOffset = _options$tetherOffset === void 0 ? 0 : _options$tetherOffset;
+    var overflow = (0, $223e3075705edc49$export$2e2bcd8739ae039)(state, {
+        boundary: boundary,
+        rootBoundary: rootBoundary,
+        padding: padding,
+        altBoundary: altBoundary
+    });
+    var basePlacement = (0, $923eec132c8d334b$export$2e2bcd8739ae039)(state.placement);
+    var variation = (0, $6572b8fb6297a772$export$2e2bcd8739ae039)(state.placement);
+    var isBasePlacement = !variation;
+    var mainAxis = (0, $d388da57f90fb762$export$2e2bcd8739ae039)(basePlacement);
+    var altAxis = (0, $635c62073241bcfb$export$2e2bcd8739ae039)(mainAxis);
+    var popperOffsets = state.modifiersData.popperOffsets;
+    var referenceRect = state.rects.reference;
+    var popperRect = state.rects.popper;
+    var tetherOffsetValue = typeof tetherOffset === 'function' ? tetherOffset(Object.assign({}, state.rects, {
+        placement: state.placement
+    })) : tetherOffset;
+    var normalizedTetherOffsetValue = typeof tetherOffsetValue === 'number' ? {
+        mainAxis: tetherOffsetValue,
+        altAxis: tetherOffsetValue
+    } : Object.assign({
+        mainAxis: 0,
+        altAxis: 0
+    }, tetherOffsetValue);
+    var offsetModifierState = state.modifiersData.offset ? state.modifiersData.offset[state.placement] : null;
+    var data = {
+        x: 0,
+        y: 0
+    };
+    if (!popperOffsets) return;
+    if (checkMainAxis) {
+        var _offsetModifierState$;
+        var mainSide = mainAxis === 'y' ? (0, $9b56e55559dfbda1$export$1e95b668f3b82d) : (0, $9b56e55559dfbda1$export$eabcd2c8791e7bf4);
+        var altSide = mainAxis === 'y' ? (0, $9b56e55559dfbda1$export$40e543e69a8b3fbb) : (0, $9b56e55559dfbda1$export$79ffe56a765070d2);
+        var len = mainAxis === 'y' ? 'height' : 'width';
+        var offset = popperOffsets[mainAxis];
+        var min = offset + overflow[mainSide];
+        var max = offset - overflow[altSide];
+        var additive = tether ? -popperRect[len] / 2 : 0;
+        var minLen = variation === (0, $9b56e55559dfbda1$export$b3571188c770cc5a) ? referenceRect[len] : popperRect[len];
+        var maxLen = variation === (0, $9b56e55559dfbda1$export$b3571188c770cc5a) ? -popperRect[len] : -referenceRect[len]; // We need to include the arrow in the calculation so the arrow doesn't go
+        // outside the reference bounds
+        var arrowElement = state.elements.arrow;
+        var arrowRect = tether && arrowElement ? (0, $e287ac773d355028$export$2e2bcd8739ae039)(arrowElement) : {
+            width: 0,
+            height: 0
+        };
+        var arrowPaddingObject = state.modifiersData['arrow#persistent'] ? state.modifiersData['arrow#persistent'].padding : (0, $d245fd553c91b4b7$export$2e2bcd8739ae039)();
+        var arrowPaddingMin = arrowPaddingObject[mainSide];
+        var arrowPaddingMax = arrowPaddingObject[altSide]; // If the reference length is smaller than the arrow length, we don't want
+        // to include its full size in the calculation. If the reference is small
+        // and near the edge of a boundary, the popper can overflow even if the
+        // reference is not overflowing as well (e.g. virtual elements with no
+        // width or height)
+        var arrowLen = (0, $bced921644bd7e12$export$f28d906d67a997f3)(0, referenceRect[len], arrowRect[len]);
+        var minOffset = isBasePlacement ? referenceRect[len] / 2 - additive - arrowLen - arrowPaddingMin - normalizedTetherOffsetValue.mainAxis : minLen - arrowLen - arrowPaddingMin - normalizedTetherOffsetValue.mainAxis;
+        var maxOffset = isBasePlacement ? -referenceRect[len] / 2 + additive + arrowLen + arrowPaddingMax + normalizedTetherOffsetValue.mainAxis : maxLen + arrowLen + arrowPaddingMax + normalizedTetherOffsetValue.mainAxis;
+        var arrowOffsetParent = state.elements.arrow && (0, $4acba801a6bfbaa3$export$2e2bcd8739ae039)(state.elements.arrow);
+        var clientOffset = arrowOffsetParent ? mainAxis === 'y' ? arrowOffsetParent.clientTop || 0 : arrowOffsetParent.clientLeft || 0 : 0;
+        var offsetModifierValue = (_offsetModifierState$ = offsetModifierState == null ? void 0 : offsetModifierState[mainAxis]) != null ? _offsetModifierState$ : 0;
+        var tetherMin = offset + minOffset - offsetModifierValue - clientOffset;
+        var tetherMax = offset + maxOffset - offsetModifierValue;
+        var preventedOffset = (0, $bced921644bd7e12$export$f28d906d67a997f3)(tether ? (0, $a435872b5ba665df$export$96ec731ed4dcb222)(min, tetherMin) : min, offset, tether ? (0, $a435872b5ba665df$export$8960430cfd85939f)(max, tetherMax) : max);
+        popperOffsets[mainAxis] = preventedOffset;
+        data[mainAxis] = preventedOffset - offset;
+    }
+    if (checkAltAxis) {
+        var _offsetModifierState$2;
+        var _mainSide = mainAxis === 'x' ? (0, $9b56e55559dfbda1$export$1e95b668f3b82d) : (0, $9b56e55559dfbda1$export$eabcd2c8791e7bf4);
+        var _altSide = mainAxis === 'x' ? (0, $9b56e55559dfbda1$export$40e543e69a8b3fbb) : (0, $9b56e55559dfbda1$export$79ffe56a765070d2);
+        var _offset = popperOffsets[altAxis];
+        var _len = altAxis === 'y' ? 'height' : 'width';
+        var _min = _offset + overflow[_mainSide];
+        var _max = _offset - overflow[_altSide];
+        var isOriginSide = [
+            (0, $9b56e55559dfbda1$export$1e95b668f3b82d),
+            (0, $9b56e55559dfbda1$export$eabcd2c8791e7bf4)
+        ].indexOf(basePlacement) !== -1;
+        var _offsetModifierValue = (_offsetModifierState$2 = offsetModifierState == null ? void 0 : offsetModifierState[altAxis]) != null ? _offsetModifierState$2 : 0;
+        var _tetherMin = isOriginSide ? _min : _offset - referenceRect[_len] - popperRect[_len] - _offsetModifierValue + normalizedTetherOffsetValue.altAxis;
+        var _tetherMax = isOriginSide ? _offset + referenceRect[_len] + popperRect[_len] - _offsetModifierValue - normalizedTetherOffsetValue.altAxis : _max;
+        var _preventedOffset = tether && isOriginSide ? (0, $bced921644bd7e12$export$86c8af6d3ef0b4a)(_tetherMin, _offset, _tetherMax) : (0, $bced921644bd7e12$export$f28d906d67a997f3)(tether ? _tetherMin : _min, _offset, tether ? _tetherMax : _max);
+        popperOffsets[altAxis] = _preventedOffset;
+        data[altAxis] = _preventedOffset - _offset;
+    }
+    state.modifiersData[name] = data;
+} // eslint-disable-next-line import/no-unused-modules
+var $59ad2e7a9286a2b9$export$2e2bcd8739ae039 = {
+    name: 'preventOverflow',
+    enabled: true,
+    phase: 'main',
+    fn: $59ad2e7a9286a2b9$var$preventOverflow,
+    requiresIfExists: [
+        'offset'
+    ]
+};
+
+
+
+
+
+
+
+
+
+
+
+var $84962ce4645f8891$var$toPaddingObject = function toPaddingObject(padding, state) {
+    padding = typeof padding === 'function' ? padding(Object.assign({}, state.rects, {
+        placement: state.placement
+    })) : padding;
+    return (0, $4867192599152955$export$2e2bcd8739ae039)(typeof padding !== 'number' ? padding : (0, $f5b522f3e076d616$export$2e2bcd8739ae039)(padding, (0, $9b56e55559dfbda1$export$aec2ce47c367b8c3)));
+};
+function $84962ce4645f8891$var$arrow(_ref) {
+    var _state$modifiersData$;
+    var state = _ref.state, name = _ref.name, options = _ref.options;
+    var arrowElement = state.elements.arrow;
+    var popperOffsets = state.modifiersData.popperOffsets;
+    var basePlacement = (0, $923eec132c8d334b$export$2e2bcd8739ae039)(state.placement);
+    var axis = (0, $d388da57f90fb762$export$2e2bcd8739ae039)(basePlacement);
+    var isVertical = [
+        (0, $9b56e55559dfbda1$export$eabcd2c8791e7bf4),
+        (0, $9b56e55559dfbda1$export$79ffe56a765070d2)
+    ].indexOf(basePlacement) >= 0;
+    var len = isVertical ? 'height' : 'width';
+    if (!arrowElement || !popperOffsets) return;
+    var paddingObject = $84962ce4645f8891$var$toPaddingObject(options.padding, state);
+    var arrowRect = (0, $e287ac773d355028$export$2e2bcd8739ae039)(arrowElement);
+    var minProp = axis === 'y' ? (0, $9b56e55559dfbda1$export$1e95b668f3b82d) : (0, $9b56e55559dfbda1$export$eabcd2c8791e7bf4);
+    var maxProp = axis === 'y' ? (0, $9b56e55559dfbda1$export$40e543e69a8b3fbb) : (0, $9b56e55559dfbda1$export$79ffe56a765070d2);
+    var endDiff = state.rects.reference[len] + state.rects.reference[axis] - popperOffsets[axis] - state.rects.popper[len];
+    var startDiff = popperOffsets[axis] - state.rects.reference[axis];
+    var arrowOffsetParent = (0, $4acba801a6bfbaa3$export$2e2bcd8739ae039)(arrowElement);
+    var clientSize = arrowOffsetParent ? axis === 'y' ? arrowOffsetParent.clientHeight || 0 : arrowOffsetParent.clientWidth || 0 : 0;
+    var centerToReference = endDiff / 2 - startDiff / 2; // Make sure the arrow doesn't overflow the popper if the center point is
+    // outside of the popper bounds
+    var min = paddingObject[minProp];
+    var max = clientSize - arrowRect[len] - paddingObject[maxProp];
+    var center = clientSize / 2 - arrowRect[len] / 2 + centerToReference;
+    var offset = (0, $bced921644bd7e12$export$f28d906d67a997f3)(min, center, max); // Prevents breaking syntax highlighting...
+    var axisProp = axis;
+    state.modifiersData[name] = (_state$modifiersData$ = {}, _state$modifiersData$[axisProp] = offset, _state$modifiersData$.centerOffset = offset - center, _state$modifiersData$);
+}
+function $84962ce4645f8891$var$effect(_ref2) {
+    var state = _ref2.state, options = _ref2.options;
+    var _options$element = options.element, arrowElement = _options$element === void 0 ? '[data-popper-arrow]' : _options$element;
+    if (arrowElement == null) return;
+     // CSS selector
+    if (typeof arrowElement === 'string') {
+        arrowElement = state.elements.popper.querySelector(arrowElement);
+        if (!arrowElement) return;
+    }
+    if (!(0, $d1f185f47d247fa7$export$2e2bcd8739ae039)(state.elements.popper, arrowElement)) return;
+    state.elements.arrow = arrowElement;
+} // eslint-disable-next-line import/no-unused-modules
+var $84962ce4645f8891$export$2e2bcd8739ae039 = {
+    name: 'arrow',
+    enabled: true,
+    phase: 'main',
+    fn: $84962ce4645f8891$var$arrow,
+    effect: $84962ce4645f8891$var$effect,
+    requires: [
+        'popperOffsets'
+    ],
+    requiresIfExists: [
+        'preventOverflow'
+    ]
+};
+
+
+
+
+function $c7da519ecac238a3$var$getSideOffsets(overflow, rect, preventedOffsets) {
+    if (preventedOffsets === void 0) preventedOffsets = {
+        x: 0,
+        y: 0
+    };
+    return {
+        top: overflow.top - rect.height - preventedOffsets.y,
+        right: overflow.right - rect.width + preventedOffsets.x,
+        bottom: overflow.bottom - rect.height + preventedOffsets.y,
+        left: overflow.left - rect.width - preventedOffsets.x
+    };
+}
+function $c7da519ecac238a3$var$isAnySideFullyClipped(overflow) {
+    return [
+        (0, $9b56e55559dfbda1$export$1e95b668f3b82d),
+        (0, $9b56e55559dfbda1$export$79ffe56a765070d2),
+        (0, $9b56e55559dfbda1$export$40e543e69a8b3fbb),
+        (0, $9b56e55559dfbda1$export$eabcd2c8791e7bf4)
+    ].some(function(side) {
+        return overflow[side] >= 0;
+    });
+}
+function $c7da519ecac238a3$var$hide(_ref) {
+    var state = _ref.state, name = _ref.name;
+    var referenceRect = state.rects.reference;
+    var popperRect = state.rects.popper;
+    var preventedOffsets = state.modifiersData.preventOverflow;
+    var referenceOverflow = (0, $223e3075705edc49$export$2e2bcd8739ae039)(state, {
+        elementContext: 'reference'
+    });
+    var popperAltOverflow = (0, $223e3075705edc49$export$2e2bcd8739ae039)(state, {
+        altBoundary: true
+    });
+    var referenceClippingOffsets = $c7da519ecac238a3$var$getSideOffsets(referenceOverflow, referenceRect);
+    var popperEscapeOffsets = $c7da519ecac238a3$var$getSideOffsets(popperAltOverflow, popperRect, preventedOffsets);
+    var isReferenceHidden = $c7da519ecac238a3$var$isAnySideFullyClipped(referenceClippingOffsets);
+    var hasPopperEscaped = $c7da519ecac238a3$var$isAnySideFullyClipped(popperEscapeOffsets);
+    state.modifiersData[name] = {
+        referenceClippingOffsets: referenceClippingOffsets,
+        popperEscapeOffsets: popperEscapeOffsets,
+        isReferenceHidden: isReferenceHidden,
+        hasPopperEscaped: hasPopperEscaped
+    };
+    state.attributes.popper = Object.assign({}, state.attributes.popper, {
+        'data-popper-reference-hidden': isReferenceHidden,
+        'data-popper-escaped': hasPopperEscaped
+    });
+} // eslint-disable-next-line import/no-unused-modules
+var $c7da519ecac238a3$export$2e2bcd8739ae039 = {
+    name: 'hide',
+    enabled: true,
+    phase: 'main',
+    requiresIfExists: [
+        'preventOverflow'
+    ],
+    fn: $c7da519ecac238a3$var$hide
+};
+
+
+
+
+var $d3ca9c4a635d8f8b$export$d34966752335dd47 = [
+    (0, $e3348dc516600e8b$export$2e2bcd8739ae039),
+    (0, $4aa27a7a3db85746$export$2e2bcd8739ae039),
+    (0, $03e421bdaa8eda14$export$2e2bcd8739ae039),
+    (0, $dfb41fce0bddd2d8$export$2e2bcd8739ae039),
+    (0, $b2dec03e76957d70$export$2e2bcd8739ae039),
+    (0, $d886080699dc4994$export$2e2bcd8739ae039),
+    (0, $59ad2e7a9286a2b9$export$2e2bcd8739ae039),
+    (0, $84962ce4645f8891$export$2e2bcd8739ae039),
+    (0, $c7da519ecac238a3$export$2e2bcd8739ae039)
+];
+var $d3ca9c4a635d8f8b$export$8f7491d57c8f97a9 = /*#__PURE__*/ (0, $8e357be334f3fad9$export$ed5e13716264f202)({
+    defaultModifiers: $d3ca9c4a635d8f8b$export$d34966752335dd47
+}); // eslint-disable-next-line import/no-unused-modules
+
+
+var $b013befce1f6217f$export$c96c811c44a42da5 = '<svg width="16" height="6" xmlns="http://www.w3.org/2000/svg"><path d="M0 6s1.796-.013 4.67-3.615C5.851.9 6.93.006 8 0c1.07-.006 2.148.887 3.343 2.385C14.233 6.005 16 6 16 6H0z"></svg>';
+var $b013befce1f6217f$var$BOX_CLASS = "tippy-box";
+var $b013befce1f6217f$var$CONTENT_CLASS = "tippy-content";
+var $b013befce1f6217f$var$BACKDROP_CLASS = "tippy-backdrop";
+var $b013befce1f6217f$var$ARROW_CLASS = "tippy-arrow";
+var $b013befce1f6217f$var$SVG_ARROW_CLASS = "tippy-svg-arrow";
+var $b013befce1f6217f$var$TOUCH_OPTIONS = {
     passive: true,
     capture: true
 };
-var TIPPY_DEFAULT_APPEND_TO = function TIPPY_DEFAULT_APPEND_TO() {
+var $b013befce1f6217f$var$TIPPY_DEFAULT_APPEND_TO = function TIPPY_DEFAULT_APPEND_TO() {
     return document.body;
 };
-function hasOwnProperty(obj, key) {
+function $b013befce1f6217f$var$hasOwnProperty(obj, key) {
     return ({}).hasOwnProperty.call(obj, key);
 }
-function getValueAtIndexOrReturn(value, index, defaultValue) {
+function $b013befce1f6217f$var$getValueAtIndexOrReturn(value, index, defaultValue) {
     if (Array.isArray(value)) {
         var v = value[index];
         return v == null ? Array.isArray(defaultValue) ? defaultValue[index] : defaultValue : v;
     }
     return value;
 }
-function isType(value, type) {
+function $b013befce1f6217f$var$isType(value, type) {
     var str = ({}).toString.call(value);
     return str.indexOf('[object') === 0 && str.indexOf(type + "]") > -1;
 }
-function invokeWithArgsOrReturn(value, args) {
+function $b013befce1f6217f$var$invokeWithArgsOrReturn(value, args) {
     return typeof value === 'function' ? value.apply(void 0, args) : value;
 }
-function debounce(fn, ms) {
+function $b013befce1f6217f$var$debounce(fn, ms) {
     // Avoid wrapping in `setTimeout` if ms is 0 anyway
     if (ms === 0) return fn;
     var timeout;
@@ -9191,88 +9824,88 @@ function debounce(fn, ms) {
         }, ms);
     };
 }
-function removeProperties(obj, keys) {
+function $b013befce1f6217f$var$removeProperties(obj, keys) {
     var clone = Object.assign({}, obj);
     keys.forEach(function(key) {
         delete clone[key];
     });
     return clone;
 }
-function splitBySpaces(value) {
+function $b013befce1f6217f$var$splitBySpaces(value) {
     return value.split(/\s+/).filter(Boolean);
 }
-function normalizeToArray(value) {
+function $b013befce1f6217f$var$normalizeToArray(value) {
     return [].concat(value);
 }
-function pushIfUnique(arr, value) {
+function $b013befce1f6217f$var$pushIfUnique(arr, value) {
     if (arr.indexOf(value) === -1) arr.push(value);
 }
-function unique(arr) {
+function $b013befce1f6217f$var$unique(arr) {
     return arr.filter(function(item, index) {
         return arr.indexOf(item) === index;
     });
 }
-function getBasePlacement(placement) {
+function $b013befce1f6217f$var$getBasePlacement(placement) {
     return placement.split('-')[0];
 }
-function arrayFrom(value) {
+function $b013befce1f6217f$var$arrayFrom(value) {
     return [].slice.call(value);
 }
-function removeUndefinedProps(obj) {
+function $b013befce1f6217f$var$removeUndefinedProps(obj) {
     return Object.keys(obj).reduce(function(acc, key) {
         if (obj[key] !== undefined) acc[key] = obj[key];
         return acc;
     }, {});
 }
-function div() {
+function $b013befce1f6217f$var$div() {
     return document.createElement('div');
 }
-function isElement(value) {
+function $b013befce1f6217f$var$isElement(value) {
     return [
         'Element',
         'Fragment'
     ].some(function(type) {
-        return isType(value, type);
+        return $b013befce1f6217f$var$isType(value, type);
     });
 }
-function isNodeList(value) {
-    return isType(value, 'NodeList');
+function $b013befce1f6217f$var$isNodeList(value) {
+    return $b013befce1f6217f$var$isType(value, 'NodeList');
 }
-function isMouseEvent(value) {
-    return isType(value, 'MouseEvent');
+function $b013befce1f6217f$var$isMouseEvent(value) {
+    return $b013befce1f6217f$var$isType(value, 'MouseEvent');
 }
-function isReferenceElement(value) {
+function $b013befce1f6217f$var$isReferenceElement(value) {
     return !!(value && value._tippy && value._tippy.reference === value);
 }
-function getArrayOfElements(value) {
-    if (isElement(value)) return [
+function $b013befce1f6217f$var$getArrayOfElements(value) {
+    if ($b013befce1f6217f$var$isElement(value)) return [
         value
     ];
-    if (isNodeList(value)) return arrayFrom(value);
+    if ($b013befce1f6217f$var$isNodeList(value)) return $b013befce1f6217f$var$arrayFrom(value);
     if (Array.isArray(value)) return value;
-    return arrayFrom(document.querySelectorAll(value));
+    return $b013befce1f6217f$var$arrayFrom(document.querySelectorAll(value));
 }
-function setTransitionDuration(els, value) {
+function $b013befce1f6217f$var$setTransitionDuration(els, value) {
     els.forEach(function(el) {
         if (el) el.style.transitionDuration = value + "ms";
     });
 }
-function setVisibilityState(els, state) {
+function $b013befce1f6217f$var$setVisibilityState(els, state) {
     els.forEach(function(el) {
         if (el) el.setAttribute('data-state', state);
     });
 }
-function getOwnerDocument(elementOrElements) {
+function $b013befce1f6217f$var$getOwnerDocument(elementOrElements) {
     var _element$ownerDocumen;
-    var _normalizeToArray = normalizeToArray(elementOrElements), element = _normalizeToArray[0]; // Elements created via a <template> have an ownerDocument with no reference to the body
+    var _normalizeToArray = $b013befce1f6217f$var$normalizeToArray(elementOrElements), element = _normalizeToArray[0]; // Elements created via a <template> have an ownerDocument with no reference to the body
     return element != null && (_element$ownerDocumen = element.ownerDocument) != null && _element$ownerDocumen.body ? element.ownerDocument : document;
 }
-function isCursorOutsideInteractiveBorder(popperTreeData, event) {
+function $b013befce1f6217f$var$isCursorOutsideInteractiveBorder(popperTreeData, event) {
     var clientX = event.clientX, clientY = event.clientY;
     return popperTreeData.every(function(_ref) {
         var popperRect = _ref.popperRect, popperState = _ref.popperState, props = _ref.props;
         var interactiveBorder = props.interactiveBorder;
-        var basePlacement = getBasePlacement(popperState.placement);
+        var basePlacement = $b013befce1f6217f$var$getBasePlacement(popperState.placement);
         var offsetData = popperState.modifiersData.offset;
         if (!offsetData) return true;
         var topDistance = basePlacement === 'bottom' ? offsetData.top.y : 0;
@@ -9286,7 +9919,7 @@ function isCursorOutsideInteractiveBorder(popperTreeData, event) {
         return exceedsTop || exceedsBottom || exceedsLeft || exceedsRight;
     });
 }
-function updateTransitionEndListener(box, action, listener) {
+function $b013befce1f6217f$var$updateTransitionEndListener(box, action, listener) {
     var method = action + "EventListener"; // some browsers apparently support `transition` (unprefixed) but only fire
     // `webkitTransitionEnd`...
     [
@@ -9299,7 +9932,7 @@ function updateTransitionEndListener(box, action, listener) {
 /**
  * Compared to xxx.contains, this function works for dom structures with shadow
  * dom
- */ function actualContains(parent, child) {
+ */ function $b013befce1f6217f$var$actualContains(parent, child) {
     var target = child;
     while(target){
         var _target$getRootNode;
@@ -9308,113 +9941,112 @@ function updateTransitionEndListener(box, action, listener) {
     }
     return false;
 }
-var currentInput = {
+var $b013befce1f6217f$var$currentInput = {
     isTouch: false
 };
-var lastMouseMoveTime = 0;
+var $b013befce1f6217f$var$lastMouseMoveTime = 0;
 /**
  * When a `touchstart` event is fired, it's assumed the user is using touch
  * input. We'll bind a `mousemove` event listener to listen for mouse input in
  * the future. This way, the `isTouch` property is fully dynamic and will handle
  * hybrid devices that use a mix of touch + mouse input.
- */ function onDocumentTouchStart() {
-    if (currentInput.isTouch) return;
-    currentInput.isTouch = true;
-    if (window.performance) document.addEventListener('mousemove', onDocumentMouseMove);
+ */ function $b013befce1f6217f$var$onDocumentTouchStart() {
+    if ($b013befce1f6217f$var$currentInput.isTouch) return;
+    $b013befce1f6217f$var$currentInput.isTouch = true;
+    if (window.performance) document.addEventListener('mousemove', $b013befce1f6217f$var$onDocumentMouseMove);
 }
 /**
  * When two `mousemove` event are fired consecutively within 20ms, it's assumed
  * the user is using mouse input again. `mousemove` can fire on touch devices as
  * well, but very rarely that quickly.
- */ function onDocumentMouseMove() {
+ */ function $b013befce1f6217f$var$onDocumentMouseMove() {
     var now = performance.now();
-    if (now - lastMouseMoveTime < 20) {
-        currentInput.isTouch = false;
-        document.removeEventListener('mousemove', onDocumentMouseMove);
+    if (now - $b013befce1f6217f$var$lastMouseMoveTime < 20) {
+        $b013befce1f6217f$var$currentInput.isTouch = false;
+        document.removeEventListener('mousemove', $b013befce1f6217f$var$onDocumentMouseMove);
     }
-    lastMouseMoveTime = now;
+    $b013befce1f6217f$var$lastMouseMoveTime = now;
 }
 /**
  * When an element is in focus and has a tippy, leaving the tab/window and
  * returning causes it to show again. For mouse users this is unexpected, but
  * for keyboard use it makes sense.
  * TODO: find a better technique to solve this problem
- */ function onWindowBlur() {
+ */ function $b013befce1f6217f$var$onWindowBlur() {
     var activeElement = document.activeElement;
-    if (isReferenceElement(activeElement)) {
+    if ($b013befce1f6217f$var$isReferenceElement(activeElement)) {
         var instance = activeElement._tippy;
         if (activeElement.blur && !instance.state.isVisible) activeElement.blur();
     }
 }
-function bindGlobalEventListeners() {
-    document.addEventListener('touchstart', onDocumentTouchStart, TOUCH_OPTIONS);
-    window.addEventListener('blur', onWindowBlur);
+function $b013befce1f6217f$var$bindGlobalEventListeners() {
+    document.addEventListener('touchstart', $b013befce1f6217f$var$onDocumentTouchStart, $b013befce1f6217f$var$TOUCH_OPTIONS);
+    window.addEventListener('blur', $b013befce1f6217f$var$onWindowBlur);
 }
-var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
-var isIE11 = isBrowser ? !!window.msCrypto : false;
-function createMemoryLeakWarning(method) {
+var $b013befce1f6217f$var$isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
+var $b013befce1f6217f$var$isIE11 = $b013befce1f6217f$var$isBrowser ? !!window.msCrypto : false;
+function $b013befce1f6217f$var$createMemoryLeakWarning(method) {
     var txt = method === 'destroy' ? 'n already-' : ' ';
     return [
         method + "() was called on a" + txt + "destroyed instance. This is a no-op but",
         'indicates a potential memory leak.'
     ].join(' ');
 }
-function clean(value) {
+function $b013befce1f6217f$var$clean(value) {
     var spacesAndTabs = /[ \t]{2,}/g;
     var lineStartWithSpaces = /^[ \t]*/gm;
     return value.replace(spacesAndTabs, ' ').replace(lineStartWithSpaces, '').trim();
 }
-function getDevMessage(message) {
-    return clean("\n  %ctippy.js\n\n  %c" + clean(message) + "\n\n  %c\uD83D\uDC77\u200D This is a development-only message. It will be removed in production.\n  ");
+function $b013befce1f6217f$var$getDevMessage(message) {
+    return $b013befce1f6217f$var$clean("\n  %ctippy.js\n\n  %c" + $b013befce1f6217f$var$clean(message) + "\n\n  %c\uD83D\uDC77\u200D This is a development-only message. It will be removed in production.\n  ");
 }
-function getFormattedMessage(message) {
+function $b013befce1f6217f$var$getFormattedMessage(message) {
     return [
-        getDevMessage(message),
+        $b013befce1f6217f$var$getDevMessage(message),
         'color: #00C584; font-size: 1.3em; font-weight: bold;',
         'line-height: 1.5',
         'color: #a6a095;'
     ];
 } // Assume warnings and errors never have the same message
-var visitedMessages;
-resetVisitedMessages();
-function resetVisitedMessages() {
-    visitedMessages = new Set();
+var $b013befce1f6217f$var$visitedMessages;
+function $b013befce1f6217f$var$resetVisitedMessages() {
+    $b013befce1f6217f$var$visitedMessages = new Set();
 }
-function warnWhen(condition, message) {
-    if (condition && !visitedMessages.has(message)) {
+function $b013befce1f6217f$var$warnWhen(condition, message) {
+    if (condition && !$b013befce1f6217f$var$visitedMessages.has(message)) {
         var _console;
-        visitedMessages.add(message);
-        (_console = console).warn.apply(_console, getFormattedMessage(message));
+        $b013befce1f6217f$var$visitedMessages.add(message);
+        (_console = console).warn.apply(_console, $b013befce1f6217f$var$getFormattedMessage(message));
     }
 }
-function errorWhen(condition, message) {
-    if (condition && !visitedMessages.has(message)) {
+function $b013befce1f6217f$var$errorWhen(condition, message) {
+    if (condition && !$b013befce1f6217f$var$visitedMessages.has(message)) {
         var _console2;
-        visitedMessages.add(message);
-        (_console2 = console).error.apply(_console2, getFormattedMessage(message));
+        $b013befce1f6217f$var$visitedMessages.add(message);
+        (_console2 = console).error.apply(_console2, $b013befce1f6217f$var$getFormattedMessage(message));
     }
 }
-function validateTargets(targets) {
+function $b013befce1f6217f$var$validateTargets(targets) {
     var didPassFalsyValue = !targets;
     var didPassPlainObject = Object.prototype.toString.call(targets) === '[object Object]' && !targets.addEventListener;
-    errorWhen(didPassFalsyValue, [
+    $b013befce1f6217f$var$errorWhen(didPassFalsyValue, [
         'tippy() was passed',
         '`' + String(targets) + '`',
         'as its targets (first) argument. Valid types are: String, Element,',
         'Element[], or NodeList.'
     ].join(' '));
-    errorWhen(didPassPlainObject, [
+    $b013befce1f6217f$var$errorWhen(didPassPlainObject, [
         'tippy() was passed a plain object which is not supported as an argument',
         'for virtual positioning. Use props.getReferenceClientRect instead.'
     ].join(' '));
 }
-var pluginProps = {
+var $b013befce1f6217f$var$pluginProps = {
     animateFill: false,
     followCursor: false,
     inlinePositioning: false,
     sticky: false
 };
-var renderProps = {
+var $b013befce1f6217f$var$renderProps = {
     allowHTML: false,
     animation: 'fade',
     arrow: true,
@@ -9425,8 +10057,8 @@ var renderProps = {
     theme: '',
     zIndex: 9999
 };
-var defaultProps = Object.assign({
-    appendTo: TIPPY_DEFAULT_APPEND_TO,
+var $b013befce1f6217f$var$defaultProps = Object.assign({
+    appendTo: $b013befce1f6217f$var$TIPPY_DEFAULT_APPEND_TO,
     aria: {
         content: 'auto',
         expanded: 'auto'
@@ -9467,31 +10099,30 @@ var defaultProps = Object.assign({
     touch: true,
     trigger: 'mouseenter focus',
     triggerTarget: null
-}, pluginProps, renderProps);
-var defaultKeys = Object.keys(defaultProps);
-var setDefaultProps = function setDefaultProps(partialProps) {
-    validateProps(partialProps, []);
+}, $b013befce1f6217f$var$pluginProps, $b013befce1f6217f$var$renderProps);
+var $b013befce1f6217f$var$defaultKeys = Object.keys($b013befce1f6217f$var$defaultProps);
+var $b013befce1f6217f$var$setDefaultProps = function setDefaultProps(partialProps) {
     var keys = Object.keys(partialProps);
     keys.forEach(function(key) {
-        defaultProps[key] = partialProps[key];
+        $b013befce1f6217f$var$defaultProps[key] = partialProps[key];
     });
 };
-function getExtendedPassedProps(passedProps) {
+function $b013befce1f6217f$var$getExtendedPassedProps(passedProps) {
     var plugins = passedProps.plugins || [];
     var pluginProps = plugins.reduce(function(acc, plugin) {
         var name = plugin.name, defaultValue = plugin.defaultValue;
         if (name) {
             var _name;
-            acc[name] = passedProps[name] !== undefined ? passedProps[name] : (_name = defaultProps[name]) != null ? _name : defaultValue;
+            acc[name] = passedProps[name] !== undefined ? passedProps[name] : (_name = $b013befce1f6217f$var$defaultProps[name]) != null ? _name : defaultValue;
         }
         return acc;
     }, {});
     return Object.assign({}, passedProps, pluginProps);
 }
-function getDataAttributeProps(reference, plugins) {
-    var propKeys = plugins ? Object.keys(getExtendedPassedProps(Object.assign({}, defaultProps, {
+function $b013befce1f6217f$var$getDataAttributeProps(reference, plugins) {
+    var propKeys = plugins ? Object.keys($b013befce1f6217f$var$getExtendedPassedProps(Object.assign({}, $b013befce1f6217f$var$defaultProps, {
         plugins: plugins
-    }))) : defaultKeys;
+    }))) : $b013befce1f6217f$var$defaultKeys;
     var props = propKeys.reduce(function(acc, key) {
         var valueAsString = (reference.getAttribute("data-tippy-" + key) || '').trim();
         if (!valueAsString) return acc;
@@ -9505,30 +10136,30 @@ function getDataAttributeProps(reference, plugins) {
     }, {});
     return props;
 }
-function evaluateProps(reference, props) {
+function $b013befce1f6217f$var$evaluateProps(reference, props) {
     var out = Object.assign({}, props, {
-        content: invokeWithArgsOrReturn(props.content, [
+        content: $b013befce1f6217f$var$invokeWithArgsOrReturn(props.content, [
             reference
         ])
-    }, props.ignoreAttributes ? {} : getDataAttributeProps(reference, props.plugins));
-    out.aria = Object.assign({}, defaultProps.aria, out.aria);
+    }, props.ignoreAttributes ? {} : $b013befce1f6217f$var$getDataAttributeProps(reference, props.plugins));
+    out.aria = Object.assign({}, $b013befce1f6217f$var$defaultProps.aria, out.aria);
     out.aria = {
         expanded: out.aria.expanded === 'auto' ? props.interactive : out.aria.expanded,
         content: out.aria.content === 'auto' ? props.interactive ? null : 'describedby' : out.aria.content
     };
     return out;
 }
-function validateProps(partialProps, plugins) {
+function $b013befce1f6217f$var$validateProps(partialProps, plugins) {
     if (partialProps === void 0) partialProps = {};
     if (plugins === void 0) plugins = [];
     var keys = Object.keys(partialProps);
     keys.forEach(function(prop) {
-        var nonPluginProps = removeProperties(defaultProps, Object.keys(pluginProps));
-        var didPassUnknownProp = !hasOwnProperty(nonPluginProps, prop); // Check if the prop exists in `plugins`
+        var nonPluginProps = $b013befce1f6217f$var$removeProperties($b013befce1f6217f$var$defaultProps, Object.keys($b013befce1f6217f$var$pluginProps));
+        var didPassUnknownProp = !$b013befce1f6217f$var$hasOwnProperty(nonPluginProps, prop); // Check if the prop exists in `plugins`
         if (didPassUnknownProp) didPassUnknownProp = plugins.filter(function(plugin) {
             return plugin.name === prop;
         }).length === 0;
-        warnWhen(didPassUnknownProp, [
+        $b013befce1f6217f$var$warnWhen(didPassUnknownProp, [
             "`" + prop + "`",
             "is not a valid prop. You may have spelled it incorrectly, or if it's",
             'a plugin, forgot to pass it in an array as props.plugins.',
@@ -9538,62 +10169,62 @@ function validateProps(partialProps, plugins) {
         ].join(' '));
     });
 }
-var innerHTML = function innerHTML() {
+var $b013befce1f6217f$var$innerHTML = function innerHTML() {
     return 'innerHTML';
 };
-function dangerouslySetInnerHTML(element, html) {
-    element[innerHTML()] = html;
+function $b013befce1f6217f$var$dangerouslySetInnerHTML(element, html) {
+    element[$b013befce1f6217f$var$innerHTML()] = html;
 }
-function createArrowElement(value) {
-    var arrow = div();
-    if (value === true) arrow.className = ARROW_CLASS;
+function $b013befce1f6217f$var$createArrowElement(value) {
+    var arrow = $b013befce1f6217f$var$div();
+    if (value === true) arrow.className = $b013befce1f6217f$var$ARROW_CLASS;
     else {
-        arrow.className = SVG_ARROW_CLASS;
-        if (isElement(value)) arrow.appendChild(value);
-        else dangerouslySetInnerHTML(arrow, value);
+        arrow.className = $b013befce1f6217f$var$SVG_ARROW_CLASS;
+        if ($b013befce1f6217f$var$isElement(value)) arrow.appendChild(value);
+        else $b013befce1f6217f$var$dangerouslySetInnerHTML(arrow, value);
     }
     return arrow;
 }
-function setContent(content, props) {
-    if (isElement(props.content)) {
-        dangerouslySetInnerHTML(content, '');
+function $b013befce1f6217f$var$setContent(content, props) {
+    if ($b013befce1f6217f$var$isElement(props.content)) {
+        $b013befce1f6217f$var$dangerouslySetInnerHTML(content, '');
         content.appendChild(props.content);
     } else if (typeof props.content !== 'function') {
-        if (props.allowHTML) dangerouslySetInnerHTML(content, props.content);
+        if (props.allowHTML) $b013befce1f6217f$var$dangerouslySetInnerHTML(content, props.content);
         else content.textContent = props.content;
     }
 }
-function getChildren(popper) {
+function $b013befce1f6217f$var$getChildren(popper) {
     var box = popper.firstElementChild;
-    var boxChildren = arrayFrom(box.children);
+    var boxChildren = $b013befce1f6217f$var$arrayFrom(box.children);
     return {
         box: box,
         content: boxChildren.find(function(node) {
-            return node.classList.contains(CONTENT_CLASS);
+            return node.classList.contains($b013befce1f6217f$var$CONTENT_CLASS);
         }),
         arrow: boxChildren.find(function(node) {
-            return node.classList.contains(ARROW_CLASS) || node.classList.contains(SVG_ARROW_CLASS);
+            return node.classList.contains($b013befce1f6217f$var$ARROW_CLASS) || node.classList.contains($b013befce1f6217f$var$SVG_ARROW_CLASS);
         }),
         backdrop: boxChildren.find(function(node) {
-            return node.classList.contains(BACKDROP_CLASS);
+            return node.classList.contains($b013befce1f6217f$var$BACKDROP_CLASS);
         })
     };
 }
-function render(instance) {
-    var popper = div();
-    var box = div();
-    box.className = BOX_CLASS;
+function $b013befce1f6217f$var$render(instance) {
+    var popper = $b013befce1f6217f$var$div();
+    var box = $b013befce1f6217f$var$div();
+    box.className = $b013befce1f6217f$var$BOX_CLASS;
     box.setAttribute('data-state', 'hidden');
     box.setAttribute('tabindex', '-1');
-    var content = div();
-    content.className = CONTENT_CLASS;
+    var content = $b013befce1f6217f$var$div();
+    content.className = $b013befce1f6217f$var$CONTENT_CLASS;
     content.setAttribute('data-state', 'hidden');
-    setContent(content, instance.props);
+    $b013befce1f6217f$var$setContent(content, instance.props);
     popper.appendChild(box);
     box.appendChild(content);
     onUpdate(instance.props, instance.props);
     function onUpdate(prevProps, nextProps) {
-        var _getChildren = getChildren(popper), box = _getChildren.box, content = _getChildren.content, arrow = _getChildren.arrow;
+        var _getChildren = $b013befce1f6217f$var$getChildren(popper), box = _getChildren.box, content = _getChildren.content, arrow = _getChildren.arrow;
         if (nextProps.theme) box.setAttribute('data-theme', nextProps.theme);
         else box.removeAttribute('data-theme');
         if (typeof nextProps.animation === 'string') box.setAttribute('data-animation', nextProps.animation);
@@ -9603,12 +10234,12 @@ function render(instance) {
         box.style.maxWidth = typeof nextProps.maxWidth === 'number' ? nextProps.maxWidth + "px" : nextProps.maxWidth;
         if (nextProps.role) box.setAttribute('role', nextProps.role);
         else box.removeAttribute('role');
-        if (prevProps.content !== nextProps.content || prevProps.allowHTML !== nextProps.allowHTML) setContent(content, instance.props);
+        if (prevProps.content !== nextProps.content || prevProps.allowHTML !== nextProps.allowHTML) $b013befce1f6217f$var$setContent(content, instance.props);
         if (nextProps.arrow) {
-            if (!arrow) box.appendChild(createArrowElement(nextProps.arrow));
+            if (!arrow) box.appendChild($b013befce1f6217f$var$createArrowElement(nextProps.arrow));
             else if (prevProps.arrow !== nextProps.arrow) {
                 box.removeChild(arrow);
-                box.appendChild(createArrowElement(nextProps.arrow));
+                box.appendChild($b013befce1f6217f$var$createArrowElement(nextProps.arrow));
             }
         } else if (arrow) box.removeChild(arrow);
     }
@@ -9618,12 +10249,12 @@ function render(instance) {
     };
 } // Runtime check to identify if the render function is the default one; this
 // way we can apply default CSS transitions logic and it can be tree-shaken away
-render.$$tippy = true;
-var idCounter = 1;
-var mouseMoveListeners = []; // Used by `hideAll()`
-var mountedInstances = [];
-function createTippy(reference, passedProps) {
-    var props = evaluateProps(reference, Object.assign({}, defaultProps, getExtendedPassedProps(removeUndefinedProps(passedProps)))); // ===========================================================================
+$b013befce1f6217f$var$render.$$tippy = true;
+var $b013befce1f6217f$var$idCounter = 1;
+var $b013befce1f6217f$var$mouseMoveListeners = []; // Used by `hideAll()`
+var $b013befce1f6217f$var$mountedInstances = [];
+function $b013befce1f6217f$var$createTippy(reference, passedProps) {
+    var props = $b013befce1f6217f$var$evaluateProps(reference, Object.assign({}, $b013befce1f6217f$var$defaultProps, $b013befce1f6217f$var$getExtendedPassedProps($b013befce1f6217f$var$removeUndefinedProps(passedProps)))); // ===========================================================================
     // 🔒 Private members
     // ===========================================================================
     var showTimeout;
@@ -9637,13 +10268,13 @@ function createTippy(reference, passedProps) {
     var currentTransitionEndListener;
     var onFirstUpdate;
     var listeners = [];
-    var debouncedOnMouseMove = debounce(onMouseMove, props.interactiveDebounce);
+    var debouncedOnMouseMove = $b013befce1f6217f$var$debounce(onMouseMove, props.interactiveDebounce);
     var currentTarget; // ===========================================================================
     // 🔑 Public members
     // ===========================================================================
-    var id = idCounter++;
+    var id = $b013befce1f6217f$var$idCounter++;
     var popperInstance = null;
-    var plugins = unique(props.plugins);
+    var plugins = $b013befce1f6217f$var$unique(props.plugins);
     var state = {
         // Is the instance currently enabled?
         isEnabled: true,
@@ -9660,7 +10291,7 @@ function createTippy(reference, passedProps) {
         // properties
         id: id,
         reference: reference,
-        popper: div(),
+        popper: $b013befce1f6217f$var$div(),
         popperInstance: popperInstance,
         props: props,
         state: state,
@@ -9678,10 +10309,8 @@ function createTippy(reference, passedProps) {
         destroy: destroy
     }; // TODO: Investigate why this early return causes a TDZ error in the tests —
     // it doesn't seem to happen in the browser
-    /* istanbul ignore if */ if (!props.render) {
-        errorWhen(true, 'render() function has not been supplied.');
-        return instance;
-    } // ===========================================================================
+    /* istanbul ignore if */ if (!props.render) return instance;
+     // ===========================================================================
     // Initial mutations
     // ===========================================================================
     var _props$render = props.render(instance), popper = _props$render.popper, onUpdate = _props$render.onUpdate;
@@ -9732,17 +10361,17 @@ function createTippy(reference, passedProps) {
     }
     function getDocument() {
         var parent = getCurrentTarget().parentNode;
-        return parent ? getOwnerDocument(parent) : document;
+        return parent ? $b013befce1f6217f$var$getOwnerDocument(parent) : document;
     }
     function getDefaultTemplateChildren() {
-        return getChildren(popper);
+        return $b013befce1f6217f$var$getChildren(popper);
     }
     function getDelay(isShow) {
         // For touch or keyboard input, force `0` delay for UX reasons
         // Also if the instance is mounted but not visible (transitioning out),
         // ignore delay
-        if (instance.state.isMounted && !instance.state.isVisible || currentInput.isTouch || lastTriggerEvent && lastTriggerEvent.type === 'focus') return 0;
-        return getValueAtIndexOrReturn(instance.props.delay, isShow ? 0 : 1, defaultProps.delay);
+        if (instance.state.isMounted && !instance.state.isVisible || $b013befce1f6217f$var$currentInput.isTouch || lastTriggerEvent && lastTriggerEvent.type === 'focus') return 0;
+        return $b013befce1f6217f$var$getValueAtIndexOrReturn(instance.props.delay, isShow ? 0 : 1, $b013befce1f6217f$var$defaultProps.delay);
     }
     function handleStyles(fromHide) {
         if (fromHide === void 0) fromHide = false;
@@ -9764,7 +10393,7 @@ function createTippy(reference, passedProps) {
         if (!aria.content) return;
         var attr = "aria-" + aria.content;
         var id = popper.id;
-        var nodes = normalizeToArray(instance.props.triggerTarget || reference);
+        var nodes = $b013befce1f6217f$var$normalizeToArray(instance.props.triggerTarget || reference);
         nodes.forEach(function(node) {
             var currentValue = node.getAttribute(attr);
             if (instance.state.isVisible) node.setAttribute(attr, currentValue ? currentValue + " " + id : id);
@@ -9777,7 +10406,7 @@ function createTippy(reference, passedProps) {
     }
     function handleAriaExpandedAttribute() {
         if (hasAriaExpanded || !instance.props.aria.expanded) return;
-        var nodes = normalizeToArray(instance.props.triggerTarget || reference);
+        var nodes = $b013befce1f6217f$var$normalizeToArray(instance.props.triggerTarget || reference);
         nodes.forEach(function(node) {
             if (instance.props.interactive) node.setAttribute('aria-expanded', instance.state.isVisible && node === getCurrentTarget() ? 'true' : 'false');
             else node.removeAttribute('aria-expanded');
@@ -9785,22 +10414,22 @@ function createTippy(reference, passedProps) {
     }
     function cleanupInteractiveMouseListeners() {
         getDocument().removeEventListener('mousemove', debouncedOnMouseMove);
-        mouseMoveListeners = mouseMoveListeners.filter(function(listener) {
+        $b013befce1f6217f$var$mouseMoveListeners = $b013befce1f6217f$var$mouseMoveListeners.filter(function(listener) {
             return listener !== debouncedOnMouseMove;
         });
     }
     function onDocumentPress(event) {
         // Moved finger to scroll instead of an intentional tap outside
-        if (currentInput.isTouch) {
+        if ($b013befce1f6217f$var$currentInput.isTouch) {
             if (didTouchMove || event.type === 'mousedown') return;
         }
         var actualTarget = event.composedPath && event.composedPath()[0] || event.target; // Clicked on interactive popper
-        if (instance.props.interactive && actualContains(popper, actualTarget)) return;
+        if (instance.props.interactive && $b013befce1f6217f$var$actualContains(popper, actualTarget)) return;
          // Clicked on the event listeners target
-        if (normalizeToArray(instance.props.triggerTarget || reference).some(function(el) {
-            return actualContains(el, actualTarget);
+        if ($b013befce1f6217f$var$normalizeToArray(instance.props.triggerTarget || reference).some(function(el) {
+            return $b013befce1f6217f$var$actualContains(el, actualTarget);
         })) {
-            if (currentInput.isTouch) return;
+            if ($b013befce1f6217f$var$currentInput.isTouch) return;
             if (instance.state.isVisible && instance.props.trigger.indexOf('click') >= 0) return;
         } else invokeHook('onClickOutside', [
             instance,
@@ -9829,16 +10458,16 @@ function createTippy(reference, passedProps) {
     function addDocumentPress() {
         var doc = getDocument();
         doc.addEventListener('mousedown', onDocumentPress, true);
-        doc.addEventListener('touchend', onDocumentPress, TOUCH_OPTIONS);
-        doc.addEventListener('touchstart', onTouchStart, TOUCH_OPTIONS);
-        doc.addEventListener('touchmove', onTouchMove, TOUCH_OPTIONS);
+        doc.addEventListener('touchend', onDocumentPress, $b013befce1f6217f$var$TOUCH_OPTIONS);
+        doc.addEventListener('touchstart', onTouchStart, $b013befce1f6217f$var$TOUCH_OPTIONS);
+        doc.addEventListener('touchmove', onTouchMove, $b013befce1f6217f$var$TOUCH_OPTIONS);
     }
     function removeDocumentPress() {
         var doc = getDocument();
         doc.removeEventListener('mousedown', onDocumentPress, true);
-        doc.removeEventListener('touchend', onDocumentPress, TOUCH_OPTIONS);
-        doc.removeEventListener('touchstart', onTouchStart, TOUCH_OPTIONS);
-        doc.removeEventListener('touchmove', onTouchMove, TOUCH_OPTIONS);
+        doc.removeEventListener('touchend', onDocumentPress, $b013befce1f6217f$var$TOUCH_OPTIONS);
+        doc.removeEventListener('touchstart', onTouchStart, $b013befce1f6217f$var$TOUCH_OPTIONS);
+        doc.removeEventListener('touchmove', onTouchMove, $b013befce1f6217f$var$TOUCH_OPTIONS);
     }
     function onTransitionedOut(duration, callback) {
         onTransitionEnd(duration, function() {
@@ -9852,19 +10481,19 @@ function createTippy(reference, passedProps) {
         var box = getDefaultTemplateChildren().box;
         function listener(event) {
             if (event.target === box) {
-                updateTransitionEndListener(box, 'remove', listener);
+                $b013befce1f6217f$var$updateTransitionEndListener(box, 'remove', listener);
                 callback();
             }
         } // Make callback synchronous if duration is 0
         // `transitionend` won't fire otherwise
         if (duration === 0) return callback();
-        updateTransitionEndListener(box, 'remove', currentTransitionEndListener);
-        updateTransitionEndListener(box, 'add', listener);
+        $b013befce1f6217f$var$updateTransitionEndListener(box, 'remove', currentTransitionEndListener);
+        $b013befce1f6217f$var$updateTransitionEndListener(box, 'add', listener);
         currentTransitionEndListener = listener;
     }
     function on(eventType, handler, options) {
         if (options === void 0) options = false;
-        var nodes = normalizeToArray(instance.props.triggerTarget || reference);
+        var nodes = $b013befce1f6217f$var$normalizeToArray(instance.props.triggerTarget || reference);
         nodes.forEach(function(node) {
             node.addEventListener(eventType, handler, options);
             listeners.push({
@@ -9884,7 +10513,7 @@ function createTippy(reference, passedProps) {
                 passive: true
             });
         }
-        splitBySpaces(instance.props.trigger).forEach(function(eventType) {
+        $b013befce1f6217f$var$splitBySpaces(instance.props.trigger).forEach(function(eventType) {
             if (eventType === 'manual') return;
             on(eventType, onTrigger);
             switch(eventType){
@@ -9892,7 +10521,7 @@ function createTippy(reference, passedProps) {
                     on('mouseleave', onMouseLeave);
                     break;
                 case 'focus':
-                    on(isIE11 ? 'focusout' : 'blur', onBlurOrFocusOut);
+                    on($b013befce1f6217f$var$isIE11 ? 'focusout' : 'blur', onBlurOrFocusOut);
                     break;
                 case 'focusin':
                     on('focusout', onBlurOrFocusOut);
@@ -9915,11 +10544,11 @@ function createTippy(reference, passedProps) {
         lastTriggerEvent = event;
         currentTarget = event.currentTarget;
         handleAriaExpandedAttribute();
-        if (!instance.state.isVisible && isMouseEvent(event)) // If scrolling, `mouseenter` events can be fired if the cursor lands
+        if (!instance.state.isVisible && $b013befce1f6217f$var$isMouseEvent(event)) // If scrolling, `mouseenter` events can be fired if the cursor lands
         // over a new target, but `mousemove` events don't get fired. This
         // causes interactive tooltips to get stuck open until the cursor is
         // moved
-        mouseMoveListeners.forEach(function(listener) {
+        $b013befce1f6217f$var$mouseMoveListeners.forEach(function(listener) {
             return listener(event);
         });
          // Toggle show/hide when clicking click-triggered tooltips
@@ -9943,7 +10572,7 @@ function createTippy(reference, passedProps) {
             };
             return null;
         }).filter(Boolean);
-        if (isCursorOutsideInteractiveBorder(popperTreeData, event)) {
+        if ($b013befce1f6217f$var$isCursorOutsideInteractiveBorder(popperTreeData, event)) {
             cleanupInteractiveMouseListeners();
             scheduleHide(event);
         }
@@ -9964,12 +10593,12 @@ function createTippy(reference, passedProps) {
         scheduleHide(event);
     }
     function isEventListenerStopped(event) {
-        return currentInput.isTouch ? getIsCustomTouchBehavior() !== event.type.indexOf('touch') >= 0 : false;
+        return $b013befce1f6217f$var$currentInput.isTouch ? getIsCustomTouchBehavior() !== event.type.indexOf('touch') >= 0 : false;
     }
     function createPopperInstance() {
         destroyPopperInstance();
         var _instance$props2 = instance.props, popperOptions = _instance$props2.popperOptions, placement = _instance$props2.placement, offset = _instance$props2.offset, getReferenceClientRect = _instance$props2.getReferenceClientRect, moveTransition = _instance$props2.moveTransition;
-        var arrow = getIsDefaultRenderFn() ? getChildren(popper).arrow : null;
+        var arrow = getIsDefaultRenderFn() ? $b013befce1f6217f$var$getChildren(popper).arrow : null;
         var computedReference = getReferenceClientRect ? {
             getBoundingClientRect: getReferenceClientRect,
             contextElement: getReferenceClientRect.contextElement || getCurrentTarget()
@@ -10038,7 +10667,7 @@ function createTippy(reference, passedProps) {
             }
         });
         modifiers.push.apply(modifiers, (popperOptions == null ? void 0 : popperOptions.modifiers) || []);
-        instance.popperInstance = (0, _core.createPopper)(computedReference, popper, Object.assign({}, popperOptions, {
+        instance.popperInstance = (0, $d3ca9c4a635d8f8b$export$8f7491d57c8f97a9)(computedReference, popper, Object.assign({}, popperOptions, {
             placement: placement,
             onFirstUpdate: onFirstUpdate,
             modifiers: modifiers
@@ -10058,8 +10687,8 @@ function createTippy(reference, passedProps) {
         // If there are clipping issues, the user can specify a different appendTo
         // and ensure focus management is handled correctly manually
         var node = getCurrentTarget();
-        if (instance.props.interactive && appendTo === TIPPY_DEFAULT_APPEND_TO || appendTo === 'parent') parentNode = node.parentNode;
-        else parentNode = invokeWithArgsOrReturn(appendTo, [
+        if (instance.props.interactive && appendTo === $b013befce1f6217f$var$TIPPY_DEFAULT_APPEND_TO || appendTo === 'parent') parentNode = node.parentNode;
+        else parentNode = $b013befce1f6217f$var$invokeWithArgsOrReturn(appendTo, [
             node
         ]);
          // The popper element needs to exist on the DOM before its position can be
@@ -10067,24 +10696,9 @@ function createTippy(reference, passedProps) {
         if (!parentNode.contains(popper)) parentNode.appendChild(popper);
         instance.state.isMounted = true;
         createPopperInstance();
-        // Accessibility check
-        warnWhen(instance.props.interactive && appendTo === defaultProps.appendTo && node.nextElementSibling !== popper, [
-            'Interactive tippy element may not be accessible via keyboard',
-            'navigation because it is not directly after the reference element',
-            'in the DOM source order.',
-            '\n\n',
-            'Using a wrapper <div> or <span> tag around the reference element',
-            'solves this by creating a new parentNode context.',
-            '\n\n',
-            'Specifying `appendTo: document.body` silences this warning, but it',
-            'assumes you are using a focus management solution to handle',
-            'keyboard navigation.',
-            '\n\n',
-            'See: https://atomiks.github.io/tippyjs/v6/accessibility/#interactivity'
-        ].join(' '));
     }
     function getNestedPopperTree() {
-        return arrayFrom(popper.querySelectorAll('[data-tippy-root]'));
+        return $b013befce1f6217f$var$arrayFrom(popper.querySelectorAll('[data-tippy-root]'));
     }
     function scheduleShow(event) {
         instance.clearDelayTimeouts();
@@ -10095,7 +10709,7 @@ function createTippy(reference, passedProps) {
         addDocumentPress();
         var delay = getDelay(true);
         var _getNormalizedTouchSe = getNormalizedTouchSettings(), touchValue = _getNormalizedTouchSe[0], touchDelay = _getNormalizedTouchSe[1];
-        if (currentInput.isTouch && touchValue === 'hold' && touchDelay) delay = touchDelay;
+        if ($b013befce1f6217f$var$currentInput.isTouch && touchValue === 'hold' && touchDelay) delay = touchDelay;
         if (delay) showTimeout = setTimeout(function() {
             instance.show();
         }, delay);
@@ -10145,7 +10759,6 @@ function createTippy(reference, passedProps) {
         cancelAnimationFrame(scheduleHideAnimationFrame);
     }
     function setProps(partialProps) {
-        warnWhen(instance.state.isDestroyed, createMemoryLeakWarning('setProps'));
         if (instance.state.isDestroyed) return;
         invokeHook('onBeforeUpdate', [
             instance,
@@ -10153,16 +10766,16 @@ function createTippy(reference, passedProps) {
         ]);
         removeListeners();
         var prevProps = instance.props;
-        var nextProps = evaluateProps(reference, Object.assign({}, prevProps, removeUndefinedProps(partialProps), {
+        var nextProps = $b013befce1f6217f$var$evaluateProps(reference, Object.assign({}, prevProps, $b013befce1f6217f$var$removeUndefinedProps(partialProps), {
             ignoreAttributes: true
         }));
         instance.props = nextProps;
         addListeners();
         if (prevProps.interactiveDebounce !== nextProps.interactiveDebounce) {
             cleanupInteractiveMouseListeners();
-            debouncedOnMouseMove = debounce(onMouseMove, nextProps.interactiveDebounce);
+            debouncedOnMouseMove = $b013befce1f6217f$var$debounce(onMouseMove, nextProps.interactiveDebounce);
         } // Ensure stale aria-expanded attributes are removed
-        if (prevProps.triggerTarget && !nextProps.triggerTarget) normalizeToArray(prevProps.triggerTarget).forEach(function(node) {
+        if (prevProps.triggerTarget && !nextProps.triggerTarget) $b013befce1f6217f$var$normalizeToArray(prevProps.triggerTarget).forEach(function(node) {
             node.removeAttribute('aria-expanded');
         });
         else if (nextProps.triggerTarget) reference.removeAttribute('aria-expanded');
@@ -10191,12 +10804,11 @@ function createTippy(reference, passedProps) {
         });
     }
     function show() {
-        warnWhen(instance.state.isDestroyed, createMemoryLeakWarning('show'));
         var isAlreadyVisible = instance.state.isVisible;
         var isDestroyed = instance.state.isDestroyed;
         var isDisabled = !instance.state.isEnabled;
-        var isTouchAndTouchDisabled = currentInput.isTouch && !instance.props.touch;
-        var duration = getValueAtIndexOrReturn(instance.props.duration, 0, defaultProps.duration);
+        var isTouchAndTouchDisabled = $b013befce1f6217f$var$currentInput.isTouch && !instance.props.touch;
+        var duration = $b013befce1f6217f$var$getValueAtIndexOrReturn(instance.props.duration, 0, $b013befce1f6217f$var$defaultProps.duration);
         if (isAlreadyVisible || isDestroyed || isDisabled || isTouchAndTouchDisabled) return;
          // Normalize `disabled` behavior across browsers.
         // Firefox allows events on disabled elements, but Chrome doesn't.
@@ -10215,7 +10827,7 @@ function createTippy(reference, passedProps) {
         // animation will use the wrong placement without resetting the duration
         if (getIsDefaultRenderFn()) {
             var _getDefaultTemplateCh2 = getDefaultTemplateChildren(), box = _getDefaultTemplateCh2.box, content = _getDefaultTemplateCh2.content;
-            setTransitionDuration([
+            $b013befce1f6217f$var$setTransitionDuration([
                 box,
                 content
             ], 0);
@@ -10228,18 +10840,18 @@ function createTippy(reference, passedProps) {
             popper.style.transition = instance.props.moveTransition;
             if (getIsDefaultRenderFn() && instance.props.animation) {
                 var _getDefaultTemplateCh3 = getDefaultTemplateChildren(), _box = _getDefaultTemplateCh3.box, _content = _getDefaultTemplateCh3.content;
-                setTransitionDuration([
+                $b013befce1f6217f$var$setTransitionDuration([
                     _box,
                     _content
                 ], duration);
-                setVisibilityState([
+                $b013befce1f6217f$var$setVisibilityState([
                     _box,
                     _content
                 ], 'visible');
             }
             handleAriaContentAttribute();
             handleAriaExpandedAttribute();
-            pushIfUnique(mountedInstances, instance); // certain modifiers (e.g. `maxSize`) require a second update after the
+            $b013befce1f6217f$var$pushIfUnique($b013befce1f6217f$var$mountedInstances, instance); // certain modifiers (e.g. `maxSize`) require a second update after the
             // popper has been positioned for the first time
             (_instance$popperInsta2 = instance.popperInstance) == null || _instance$popperInsta2.forceUpdate();
             invokeHook('onMount', [
@@ -10255,11 +10867,10 @@ function createTippy(reference, passedProps) {
         mount();
     }
     function hide() {
-        warnWhen(instance.state.isDestroyed, createMemoryLeakWarning('hide'));
         var isAlreadyHidden = !instance.state.isVisible;
         var isDestroyed = instance.state.isDestroyed;
         var isDisabled = !instance.state.isEnabled;
-        var duration = getValueAtIndexOrReturn(instance.props.duration, 1, defaultProps.duration);
+        var duration = $b013befce1f6217f$var$getValueAtIndexOrReturn(instance.props.duration, 1, $b013befce1f6217f$var$defaultProps.duration);
         if (isAlreadyHidden || isDestroyed || isDisabled) return;
         invokeHook('onHide', [
             instance
@@ -10276,11 +10887,11 @@ function createTippy(reference, passedProps) {
         if (getIsDefaultRenderFn()) {
             var _getDefaultTemplateCh4 = getDefaultTemplateChildren(), box = _getDefaultTemplateCh4.box, content = _getDefaultTemplateCh4.content;
             if (instance.props.animation) {
-                setTransitionDuration([
+                $b013befce1f6217f$var$setTransitionDuration([
                     box,
                     content
                 ], duration);
-                setVisibilityState([
+                $b013befce1f6217f$var$setVisibilityState([
                     box,
                     content
                 ], 'hidden');
@@ -10293,13 +10904,11 @@ function createTippy(reference, passedProps) {
         } else instance.unmount();
     }
     function hideWithInteractivity(event) {
-        warnWhen(instance.state.isDestroyed, createMemoryLeakWarning('hideWithInteractivity'));
         getDocument().addEventListener('mousemove', debouncedOnMouseMove);
-        pushIfUnique(mouseMoveListeners, debouncedOnMouseMove);
+        $b013befce1f6217f$var$pushIfUnique($b013befce1f6217f$var$mouseMoveListeners, debouncedOnMouseMove);
         debouncedOnMouseMove(event);
     }
     function unmount() {
-        warnWhen(instance.state.isDestroyed, createMemoryLeakWarning('unmount'));
         if (instance.state.isVisible) instance.hide();
         if (!instance.state.isMounted) return;
         destroyPopperInstance(); // If a popper is not interactive, it will be appended outside the popper
@@ -10309,7 +10918,7 @@ function createTippy(reference, passedProps) {
             nestedPopper._tippy.unmount();
         });
         if (popper.parentNode) popper.parentNode.removeChild(popper);
-        mountedInstances = mountedInstances.filter(function(i) {
+        $b013befce1f6217f$var$mountedInstances = $b013befce1f6217f$var$mountedInstances.filter(function(i) {
             return i !== instance;
         });
         instance.state.isMounted = false;
@@ -10318,7 +10927,6 @@ function createTippy(reference, passedProps) {
         ]);
     }
     function destroy() {
-        warnWhen(instance.state.isDestroyed, createMemoryLeakWarning('destroy'));
         if (instance.state.isDestroyed) return;
         instance.clearDelayTimeouts();
         instance.unmount();
@@ -10330,44 +10938,30 @@ function createTippy(reference, passedProps) {
         ]);
     }
 }
-function tippy(targets, optionalProps) {
+function $b013befce1f6217f$var$tippy(targets, optionalProps) {
     if (optionalProps === void 0) optionalProps = {};
-    var plugins = defaultProps.plugins.concat(optionalProps.plugins || []);
-    validateTargets(targets);
-    validateProps(optionalProps, plugins);
-    bindGlobalEventListeners();
+    var plugins = $b013befce1f6217f$var$defaultProps.plugins.concat(optionalProps.plugins || []);
+    $b013befce1f6217f$var$bindGlobalEventListeners();
     var passedProps = Object.assign({}, optionalProps, {
         plugins: plugins
     });
-    var elements = getArrayOfElements(targets);
-    var isSingleContentElement = isElement(passedProps.content);
-    var isMoreThanOneReferenceElement = elements.length > 1;
-    warnWhen(isSingleContentElement && isMoreThanOneReferenceElement, [
-        'tippy() was passed an Element as the `content` prop, but more than',
-        'one tippy instance was created by this invocation. This means the',
-        'content element will only be appended to the last tippy instance.',
-        '\n\n',
-        'Instead, pass the .innerHTML of the element, or use a function that',
-        'returns a cloned version of the element instead.',
-        '\n\n',
-        '1) content: element.innerHTML\n',
-        '2) content: () => element.cloneNode(true)'
-    ].join(' '));
+    var elements = $b013befce1f6217f$var$getArrayOfElements(targets);
+    var isSingleContentElement, isMoreThanOneReferenceElement;
     var instances = elements.reduce(function(acc, reference) {
-        var instance = reference && createTippy(reference, passedProps);
+        var instance = reference && $b013befce1f6217f$var$createTippy(reference, passedProps);
         if (instance) acc.push(instance);
         return acc;
     }, []);
-    return isElement(targets) ? instances[0] : instances;
+    return $b013befce1f6217f$var$isElement(targets) ? instances[0] : instances;
 }
-tippy.defaultProps = defaultProps;
-tippy.setDefaultProps = setDefaultProps;
-tippy.currentInput = currentInput;
-var hideAll = function hideAll(_temp) {
+$b013befce1f6217f$var$tippy.defaultProps = $b013befce1f6217f$var$defaultProps;
+$b013befce1f6217f$var$tippy.setDefaultProps = $b013befce1f6217f$var$setDefaultProps;
+$b013befce1f6217f$var$tippy.currentInput = $b013befce1f6217f$var$currentInput;
+var $b013befce1f6217f$export$a9608aab345f7e75 = function hideAll(_temp) {
     var _ref = _temp === void 0 ? {} : _temp, excludedReferenceOrInstance = _ref.exclude, duration = _ref.duration;
-    mountedInstances.forEach(function(instance) {
+    $b013befce1f6217f$var$mountedInstances.forEach(function(instance) {
         var isExcluded = false;
-        if (excludedReferenceOrInstance) isExcluded = isReferenceElement(excludedReferenceOrInstance) ? instance.reference === excludedReferenceOrInstance : instance.popper === excludedReferenceOrInstance.popper;
+        if (excludedReferenceOrInstance) isExcluded = $b013befce1f6217f$var$isReferenceElement(excludedReferenceOrInstance) ? instance.reference === excludedReferenceOrInstance : instance.popper === excludedReferenceOrInstance.popper;
         if (!isExcluded) {
             var originalDuration = instance.props.duration;
             instance.setProps({
@@ -10383,7 +10977,7 @@ var hideAll = function hideAll(_temp) {
 // every time the popper is destroyed (i.e. a new target), removing the styles
 // and causing transitions to break for singletons when the console is open, but
 // most notably for non-transform styles being used, `gpuAcceleration: false`.
-var applyStylesModifier = Object.assign({}, (0, _core.applyStyles), {
+var $b013befce1f6217f$var$applyStylesModifier = Object.assign({}, (0, $dfb41fce0bddd2d8$export$2e2bcd8739ae039), {
     effect: function effect(_ref) {
         var state = _ref.state;
         var initialStyles = {
@@ -10405,14 +10999,9 @@ var applyStylesModifier = Object.assign({}, (0, _core.applyStyles), {
     // return () => { ... }
     }
 });
-var createSingleton = function createSingleton(tippyInstances, optionalProps) {
+var $b013befce1f6217f$export$374c483667c1ea9b = function createSingleton(tippyInstances, optionalProps) {
     var _optionalProps$popper;
     if (optionalProps === void 0) optionalProps = {};
-    errorWhen(!Array.isArray(tippyInstances), [
-        'The first argument passed to createSingleton() must be an array of',
-        'tippy instances. The passed value was',
-        String(tippyInstances)
-    ].join(' '));
     var individualInstances = tippyInstances;
     var references = [];
     var triggerTargets = [];
@@ -10422,7 +11011,7 @@ var createSingleton = function createSingleton(tippyInstances, optionalProps) {
     var shownOnCreate = false;
     function setTriggerTargets() {
         triggerTargets = individualInstances.map(function(instance) {
-            return normalizeToArray(instance.props.triggerTarget || instance.reference);
+            return $b013befce1f6217f$var$normalizeToArray(instance.props.triggerTarget || instance.reference);
         }).reduce(function(acc, item) {
             return acc.concat(item);
         }, []);
@@ -10495,7 +11084,7 @@ var createSingleton = function createSingleton(tippyInstances, optionalProps) {
             };
         }
     };
-    var singleton = tippy(div(), Object.assign({}, removeProperties(optionalProps, [
+    var singleton = $b013befce1f6217f$var$tippy($b013befce1f6217f$var$div(), Object.assign({}, $b013befce1f6217f$var$removeProperties(optionalProps, [
         'overrides'
     ]), {
         plugins: [
@@ -10504,7 +11093,7 @@ var createSingleton = function createSingleton(tippyInstances, optionalProps) {
         triggerTarget: triggerTargets,
         popperOptions: Object.assign({}, optionalProps.popperOptions, {
             modifiers: [].concat(((_optionalProps$popper = optionalProps.popperOptions) == null ? void 0 : _optionalProps$popper.modifiers) || [], [
-                applyStylesModifier
+                $b013befce1f6217f$var$applyStylesModifier
             ])
         })
     }));
@@ -10560,7 +11149,7 @@ var createSingleton = function createSingleton(tippyInstances, optionalProps) {
     interceptSetPropsCleanups = interceptSetProps(singleton);
     return singleton;
 };
-var BUBBLING_EVENTS_MAP = {
+var $b013befce1f6217f$var$BUBBLING_EVENTS_MAP = {
     mouseover: 'mouseenter',
     focusin: 'focus',
     click: 'click'
@@ -10568,16 +11157,12 @@ var BUBBLING_EVENTS_MAP = {
 /**
  * Creates a delegate instance that controls the creation of tippy instances
  * for child elements (`target` CSS selector).
- */ function delegate(targets, props) {
-    errorWhen(!(props && props.target), [
-        'You must specity a `target` prop indicating a CSS selector string matching',
-        'the target elements that should receive a tippy.'
-    ].join(' '));
+ */ function $b013befce1f6217f$export$10b1921597150314(targets, props) {
     var listeners = [];
     var childTippyInstances = [];
     var disabled = false;
     var target = props.target;
-    var nativeProps = removeProperties(props, [
+    var nativeProps = $b013befce1f6217f$var$removeProperties(props, [
         'target'
     ]);
     var parentProps = Object.assign({}, nativeProps, {
@@ -10585,12 +11170,12 @@ var BUBBLING_EVENTS_MAP = {
         touch: false
     });
     var childProps = Object.assign({
-        touch: defaultProps.touch
+        touch: $b013befce1f6217f$var$defaultProps.touch
     }, nativeProps, {
         showOnCreate: true
     });
-    var returnValue = tippy(targets, parentProps);
-    var normalizedReturnValue = normalizeToArray(returnValue);
+    var returnValue = $b013befce1f6217f$var$tippy(targets, parentProps);
+    var normalizedReturnValue = $b013befce1f6217f$var$normalizeToArray(returnValue);
     function onTrigger(event) {
         if (!event.target || disabled) return;
         var targetNode = event.target.closest(target);
@@ -10599,11 +11184,11 @@ var BUBBLING_EVENTS_MAP = {
         // 1. Check `data-tippy-trigger` attribute on target node
         // 2. Fallback to `trigger` passed to `delegate()`
         // 3. Fallback to `defaultProps.trigger`
-        var trigger = targetNode.getAttribute('data-tippy-trigger') || props.trigger || defaultProps.trigger; // @ts-ignore
+        var trigger = targetNode.getAttribute('data-tippy-trigger') || props.trigger || $b013befce1f6217f$var$defaultProps.trigger; // @ts-ignore
         if (targetNode._tippy) return;
         if (event.type === 'touchstart' && typeof childProps.touch === 'boolean') return;
-        if (event.type !== 'touchstart' && trigger.indexOf(BUBBLING_EVENTS_MAP[event.type]) < 0) return;
-        var instance = tippy(targetNode, childProps);
+        if (event.type !== 'touchstart' && trigger.indexOf($b013befce1f6217f$var$BUBBLING_EVENTS_MAP[event.type]) < 0) return;
+        var instance = $b013befce1f6217f$var$tippy(targetNode, childProps);
         if (instance) childTippyInstances = childTippyInstances.concat(instance);
     }
     function on(node, eventType, handler, options) {
@@ -10618,7 +11203,7 @@ var BUBBLING_EVENTS_MAP = {
     }
     function addEventListeners(instance) {
         var reference = instance.reference;
-        on(reference, 'touchstart', onTrigger, TOUCH_OPTIONS);
+        on(reference, 'touchstart', onTrigger, $b013befce1f6217f$var$TOUCH_OPTIONS);
         on(reference, 'mouseover', onTrigger);
         on(reference, 'focusin', onTrigger);
         on(reference, 'click', onTrigger);
@@ -10662,18 +11247,15 @@ var BUBBLING_EVENTS_MAP = {
     normalizedReturnValue.forEach(applyMutations);
     return returnValue;
 }
-var animateFill = {
+var $b013befce1f6217f$export$dd8ded329c01db79 = {
     name: 'animateFill',
     defaultValue: false,
     fn: function fn(instance) {
         var _instance$props$rende;
         // @ts-ignore
-        if (!((_instance$props$rende = instance.props.render) != null && _instance$props$rende.$$tippy)) {
-            errorWhen(instance.props.animateFill, 'The `animateFill` plugin requires the default render function.');
-            return {};
-        }
-        var _getChildren = getChildren(instance.popper), box = _getChildren.box, content = _getChildren.content;
-        var backdrop = instance.props.animateFill ? createBackdropElement() : null;
+        if (!((_instance$props$rende = instance.props.render) != null && _instance$props$rende.$$tippy)) return {};
+        var _getChildren = $b013befce1f6217f$var$getChildren(instance.popper), box = _getChildren.box, content = _getChildren.content;
+        var backdrop = instance.props.animateFill ? $b013befce1f6217f$var$createBackdropElement() : null;
         return {
             onCreate: function onCreate() {
                 if (backdrop) {
@@ -10694,7 +11276,7 @@ var animateFill = {
                     // well-supported and is buggy on some devices.
                     content.style.transitionDelay = Math.round(duration / 10) + "ms";
                     backdrop.style.transitionDuration = transitionDuration;
-                    setVisibilityState([
+                    $b013befce1f6217f$var$setVisibilityState([
                         backdrop
                     ], 'visible');
                 }
@@ -10703,45 +11285,45 @@ var animateFill = {
                 if (backdrop) backdrop.style.transitionDuration = '0ms';
             },
             onHide: function onHide() {
-                if (backdrop) setVisibilityState([
+                if (backdrop) $b013befce1f6217f$var$setVisibilityState([
                     backdrop
                 ], 'hidden');
             }
         };
     }
 };
-function createBackdropElement() {
-    var backdrop = div();
-    backdrop.className = BACKDROP_CLASS;
-    setVisibilityState([
+function $b013befce1f6217f$var$createBackdropElement() {
+    var backdrop = $b013befce1f6217f$var$div();
+    backdrop.className = $b013befce1f6217f$var$BACKDROP_CLASS;
+    $b013befce1f6217f$var$setVisibilityState([
         backdrop
     ], 'hidden');
     return backdrop;
 }
-var mouseCoords = {
+var $b013befce1f6217f$var$mouseCoords = {
     clientX: 0,
     clientY: 0
 };
-var activeInstances = [];
-function storeMouseCoords(_ref) {
+var $b013befce1f6217f$var$activeInstances = [];
+function $b013befce1f6217f$var$storeMouseCoords(_ref) {
     var clientX = _ref.clientX, clientY = _ref.clientY;
-    mouseCoords = {
+    $b013befce1f6217f$var$mouseCoords = {
         clientX: clientX,
         clientY: clientY
     };
 }
-function addMouseCoordsListener(doc) {
-    doc.addEventListener('mousemove', storeMouseCoords);
+function $b013befce1f6217f$var$addMouseCoordsListener(doc) {
+    doc.addEventListener('mousemove', $b013befce1f6217f$var$storeMouseCoords);
 }
-function removeMouseCoordsListener(doc) {
-    doc.removeEventListener('mousemove', storeMouseCoords);
+function $b013befce1f6217f$var$removeMouseCoordsListener(doc) {
+    doc.removeEventListener('mousemove', $b013befce1f6217f$var$storeMouseCoords);
 }
-var followCursor = {
+var $b013befce1f6217f$export$ac81526b64504ab6 = {
     name: 'followCursor',
     defaultValue: false,
     fn: function fn(instance) {
         var reference = instance.reference;
-        var doc = getOwnerDocument(instance.props.triggerTarget || reference);
+        var doc = $b013befce1f6217f$var$getOwnerDocument(instance.props.triggerTarget || reference);
         var isInternalUpdate = false;
         var wasFocusEvent = false;
         var isUnmounted = true;
@@ -10798,20 +11380,20 @@ var followCursor = {
         }
         function create() {
             if (instance.props.followCursor) {
-                activeInstances.push({
+                $b013befce1f6217f$var$activeInstances.push({
                     instance: instance,
                     doc: doc
                 });
-                addMouseCoordsListener(doc);
+                $b013befce1f6217f$var$addMouseCoordsListener(doc);
             }
         }
         function destroy() {
-            activeInstances = activeInstances.filter(function(data) {
+            $b013befce1f6217f$var$activeInstances = $b013befce1f6217f$var$activeInstances.filter(function(data) {
                 return data.instance !== instance;
             });
-            if (activeInstances.filter(function(data) {
+            if ($b013befce1f6217f$var$activeInstances.filter(function(data) {
                 return data.doc === doc;
-            }).length === 0) removeMouseCoordsListener(doc);
+            }).length === 0) $b013befce1f6217f$var$removeMouseCoordsListener(doc);
         }
         return {
             onCreate: create,
@@ -10836,14 +11418,14 @@ var followCursor = {
             onMount: function onMount() {
                 if (instance.props.followCursor && !wasFocusEvent) {
                     if (isUnmounted) {
-                        onMouseMove(mouseCoords);
+                        onMouseMove($b013befce1f6217f$var$mouseCoords);
                         isUnmounted = false;
                     }
                     if (!getIsInitialBehavior()) addListener();
                 }
             },
             onTrigger: function onTrigger(_, event) {
-                if (isMouseEvent(event)) mouseCoords = {
+                if ($b013befce1f6217f$var$isMouseEvent(event)) $b013befce1f6217f$var$mouseCoords = {
                     clientX: event.clientX,
                     clientY: event.clientY
                 };
@@ -10859,7 +11441,7 @@ var followCursor = {
         };
     }
 };
-function getProps(props, modifier) {
+function $b013befce1f6217f$var$getProps(props, modifier) {
     var _props$popperOptions;
     return {
         popperOptions: Object.assign({}, props.popperOptions, {
@@ -10872,7 +11454,7 @@ function getProps(props, modifier) {
         })
     };
 }
-var inlinePositioning = {
+var $b013befce1f6217f$export$e2b668424a9c728 = {
     name: 'inlinePositioning',
     defaultValue: false,
     fn: function fn(instance) {
@@ -10906,7 +11488,7 @@ var inlinePositioning = {
             }
         };
         function _getReferenceClientRect(placement) {
-            return getInlineBoundingClientRect(getBasePlacement(placement), reference.getBoundingClientRect(), arrayFrom(reference.getClientRects()), cursorRectIndex);
+            return $b013befce1f6217f$var$getInlineBoundingClientRect($b013befce1f6217f$var$getBasePlacement(placement), reference.getBoundingClientRect(), $b013befce1f6217f$var$arrayFrom(reference.getClientRects()), cursorRectIndex);
         }
         function setInternalProps(partialProps) {
             isInternalUpdate = true;
@@ -10914,14 +11496,14 @@ var inlinePositioning = {
             isInternalUpdate = false;
         }
         function addModifier() {
-            if (!isInternalUpdate) setInternalProps(getProps(instance.props, modifier));
+            if (!isInternalUpdate) setInternalProps($b013befce1f6217f$var$getProps(instance.props, modifier));
         }
         return {
             onCreate: addModifier,
             onAfterUpdate: addModifier,
             onTrigger: function onTrigger(_, event) {
-                if (isMouseEvent(event)) {
-                    var rects = arrayFrom(instance.reference.getClientRects());
+                if ($b013befce1f6217f$var$isMouseEvent(event)) {
+                    var rects = $b013befce1f6217f$var$arrayFrom(instance.reference.getClientRects());
                     var cursorRect = rects.find(function(rect) {
                         return rect.left - 2 <= event.clientX && rect.right + 2 >= event.clientX && rect.top - 2 <= event.clientY && rect.bottom + 2 >= event.clientY;
                     });
@@ -10935,7 +11517,7 @@ var inlinePositioning = {
         };
     }
 };
-function getInlineBoundingClientRect(currentBasePlacement, boundingRect, clientRects, cursorRectIndex) {
+function $b013befce1f6217f$var$getInlineBoundingClientRect(currentBasePlacement, boundingRect, clientRects, cursorRectIndex) {
     // Not an inline element, or placement is not yet known
     if (clientRects.length < 2 || currentBasePlacement === null) return boundingRect;
      // There are two rects and they are disjoined
@@ -10989,7 +11571,7 @@ function getInlineBoundingClientRect(currentBasePlacement, boundingRect, clientR
             return boundingRect;
     }
 }
-var sticky = {
+var $b013befce1f6217f$export$4bd4b47501432316 = {
     name: 'sticky',
     defaultValue: false,
     fn: function fn(instance) {
@@ -11005,7 +11587,7 @@ var sticky = {
         function updatePosition() {
             var currentRefRect = shouldCheck('reference') ? getReference().getBoundingClientRect() : null;
             var currentPopRect = shouldCheck('popper') ? popper.getBoundingClientRect() : null;
-            if (currentRefRect && areRectsDifferent(prevRefRect, currentRefRect) || currentPopRect && areRectsDifferent(prevPopRect, currentPopRect)) {
+            if (currentRefRect && $b013befce1f6217f$var$areRectsDifferent(prevRefRect, currentRefRect) || currentPopRect && $b013befce1f6217f$var$areRectsDifferent(prevPopRect, currentPopRect)) {
                 if (instance.popperInstance) instance.popperInstance.update();
             }
             prevRefRect = currentRefRect;
@@ -11019,2109 +11601,126 @@ var sticky = {
         };
     }
 };
-function areRectsDifferent(rectA, rectB) {
+function $b013befce1f6217f$var$areRectsDifferent(rectA, rectB) {
     if (rectA && rectB) return rectA.top !== rectB.top || rectA.right !== rectB.right || rectA.bottom !== rectB.bottom || rectA.left !== rectB.left;
     return true;
 }
-tippy.setDefaultProps({
-    render: render
+$b013befce1f6217f$var$tippy.setDefaultProps({
+    render: $b013befce1f6217f$var$render
 });
-exports.default = tippy;
+var $b013befce1f6217f$export$2e2bcd8739ae039 = $b013befce1f6217f$var$tippy;
 
-},{"@popperjs/core":"7unqC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7unqC":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "popperGenerator", ()=>(0, _createPopperJs.popperGenerator)) // eslint-disable-next-line import/no-unused-modules
-;
-parcelHelpers.export(exports, "detectOverflow", ()=>(0, _createPopperJs.detectOverflow));
-parcelHelpers.export(exports, "createPopperBase", ()=>(0, _createPopperJs.createPopper));
-parcelHelpers.export(exports, "createPopper", ()=>(0, _popperJs.createPopper)) // eslint-disable-next-line import/no-unused-modules
-;
-parcelHelpers.export(exports, "createPopperLite", ()=>(0, _popperLiteJs.createPopper));
-var _enumsJs = require("./enums.js");
-parcelHelpers.exportAll(_enumsJs, exports);
-var _indexJs = require("./modifiers/index.js"); // eslint-disable-next-line import/no-unused-modules
-parcelHelpers.exportAll(_indexJs, exports);
-var _createPopperJs = require("./createPopper.js");
-var _popperJs = require("./popper.js");
-var _popperLiteJs = require("./popper-lite.js");
 
-},{"./enums.js":false,"./modifiers/index.js":"cap3W","./createPopper.js":false,"./popper.js":"1PuRF","./popper-lite.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lCAq5":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "top", ()=>top);
-parcelHelpers.export(exports, "bottom", ()=>bottom);
-parcelHelpers.export(exports, "right", ()=>right);
-parcelHelpers.export(exports, "left", ()=>left);
-parcelHelpers.export(exports, "auto", ()=>auto);
-parcelHelpers.export(exports, "basePlacements", ()=>basePlacements);
-parcelHelpers.export(exports, "start", ()=>start);
-parcelHelpers.export(exports, "end", ()=>end);
-parcelHelpers.export(exports, "clippingParents", ()=>clippingParents);
-parcelHelpers.export(exports, "viewport", ()=>viewport);
-parcelHelpers.export(exports, "popper", ()=>popper);
-parcelHelpers.export(exports, "reference", ()=>reference);
-parcelHelpers.export(exports, "variationPlacements", ()=>variationPlacements);
-parcelHelpers.export(exports, "placements", ()=>placements);
-parcelHelpers.export(exports, "beforeRead", ()=>beforeRead);
-parcelHelpers.export(exports, "read", ()=>read);
-parcelHelpers.export(exports, "afterRead", ()=>afterRead);
-parcelHelpers.export(exports, "beforeMain", ()=>beforeMain);
-parcelHelpers.export(exports, "main", ()=>main);
-parcelHelpers.export(exports, "afterMain", ()=>afterMain);
-parcelHelpers.export(exports, "beforeWrite", ()=>beforeWrite);
-parcelHelpers.export(exports, "write", ()=>write);
-parcelHelpers.export(exports, "afterWrite", ()=>afterWrite);
-parcelHelpers.export(exports, "modifierPhases", ()=>modifierPhases);
-var top = 'top';
-var bottom = 'bottom';
-var right = 'right';
-var left = 'left';
-var auto = 'auto';
-var basePlacements = [
-    top,
-    bottom,
-    right,
-    left
-];
-var start = 'start';
-var end = 'end';
-var clippingParents = 'clippingParents';
-var viewport = 'viewport';
-var popper = 'popper';
-var reference = 'reference';
-var variationPlacements = /*#__PURE__*/ basePlacements.reduce(function(acc, placement) {
-    return acc.concat([
-        placement + "-" + start,
-        placement + "-" + end
-    ]);
-}, []);
-var placements = /*#__PURE__*/ [].concat(basePlacements, [
-    auto
-]).reduce(function(acc, placement) {
-    return acc.concat([
-        placement,
-        placement + "-" + start,
-        placement + "-" + end
-    ]);
-}, []); // modifiers that need to read the DOM
-var beforeRead = 'beforeRead';
-var read = 'read';
-var afterRead = 'afterRead'; // pure-logic modifiers
-var beforeMain = 'beforeMain';
-var main = 'main';
-var afterMain = 'afterMain'; // modifier with the purpose to write to the DOM (or write into a framework state)
-var beforeWrite = 'beforeWrite';
-var write = 'write';
-var afterWrite = 'afterWrite';
-var modifierPhases = [
-    beforeRead,
-    read,
-    afterRead,
-    beforeMain,
-    main,
-    afterMain,
-    beforeWrite,
-    write,
-    afterWrite
-];
+(0, $b013befce1f6217f$export$2e2bcd8739ae039).setDefaultProps({
+    allowHTML: true,
+    theme: "tooltip",
+    appendTo: document.getElementById("app")
+});
+var $789b7d27a7c715a6$export$2e2bcd8739ae039 = (0, $b013befce1f6217f$export$2e2bcd8739ae039);
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cap3W":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "applyStyles", ()=>(0, _applyStylesJsDefault.default));
-parcelHelpers.export(exports, "arrow", ()=>(0, _arrowJsDefault.default));
-parcelHelpers.export(exports, "computeStyles", ()=>(0, _computeStylesJsDefault.default));
-parcelHelpers.export(exports, "eventListeners", ()=>(0, _eventListenersJsDefault.default));
-parcelHelpers.export(exports, "flip", ()=>(0, _flipJsDefault.default));
-parcelHelpers.export(exports, "hide", ()=>(0, _hideJsDefault.default));
-parcelHelpers.export(exports, "offset", ()=>(0, _offsetJsDefault.default));
-parcelHelpers.export(exports, "popperOffsets", ()=>(0, _popperOffsetsJsDefault.default));
-parcelHelpers.export(exports, "preventOverflow", ()=>(0, _preventOverflowJsDefault.default));
-var _applyStylesJs = require("./applyStyles.js");
-var _applyStylesJsDefault = parcelHelpers.interopDefault(_applyStylesJs);
-var _arrowJs = require("./arrow.js");
-var _arrowJsDefault = parcelHelpers.interopDefault(_arrowJs);
-var _computeStylesJs = require("./computeStyles.js");
-var _computeStylesJsDefault = parcelHelpers.interopDefault(_computeStylesJs);
-var _eventListenersJs = require("./eventListeners.js");
-var _eventListenersJsDefault = parcelHelpers.interopDefault(_eventListenersJs);
-var _flipJs = require("./flip.js");
-var _flipJsDefault = parcelHelpers.interopDefault(_flipJs);
-var _hideJs = require("./hide.js");
-var _hideJsDefault = parcelHelpers.interopDefault(_hideJs);
-var _offsetJs = require("./offset.js");
-var _offsetJsDefault = parcelHelpers.interopDefault(_offsetJs);
-var _popperOffsetsJs = require("./popperOffsets.js");
-var _popperOffsetsJsDefault = parcelHelpers.interopDefault(_popperOffsetsJs);
-var _preventOverflowJs = require("./preventOverflow.js");
-var _preventOverflowJsDefault = parcelHelpers.interopDefault(_preventOverflowJs);
 
-},{"./applyStyles.js":"4iMn4","./arrow.js":false,"./computeStyles.js":false,"./eventListeners.js":false,"./flip.js":false,"./hide.js":false,"./offset.js":false,"./popperOffsets.js":false,"./preventOverflow.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4iMn4":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _getNodeNameJs = require("../dom-utils/getNodeName.js");
-var _getNodeNameJsDefault = parcelHelpers.interopDefault(_getNodeNameJs);
-var _instanceOfJs = require("../dom-utils/instanceOf.js"); // This modifier takes the styles prepared by the `computeStyles` modifier
-// and applies them to the HTMLElements such as popper and arrow
-function applyStyles(_ref) {
-    var state = _ref.state;
-    Object.keys(state.elements).forEach(function(name) {
-        var style = state.styles[name] || {};
-        var attributes = state.attributes[name] || {};
-        var element = state.elements[name]; // arrow is optional + virtual elements
-        if (!(0, _instanceOfJs.isHTMLElement)(element) || !(0, _getNodeNameJsDefault.default)(element)) return;
-         // Flow doesn't support to extend this property, but it's the most
-        // effective way to apply styles to an HTMLElement
-        // $FlowFixMe[cannot-write]
-        Object.assign(element.style, style);
-        Object.keys(attributes).forEach(function(name) {
-            var value = attributes[name];
-            if (value === false) element.removeAttribute(name);
-            else element.setAttribute(name, value === true ? '' : value);
-        });
-    });
-}
-function effect(_ref2) {
-    var state = _ref2.state;
-    var initialStyles = {
-        popper: {
-            position: state.options.strategy,
-            left: '0',
-            top: '0',
-            margin: '0'
-        },
-        arrow: {
-            position: 'absolute'
-        },
-        reference: {}
-    };
-    Object.assign(state.elements.popper.style, initialStyles.popper);
-    state.styles = initialStyles;
-    if (state.elements.arrow) Object.assign(state.elements.arrow.style, initialStyles.arrow);
-    return function() {
-        Object.keys(state.elements).forEach(function(name) {
-            var element = state.elements[name];
-            var attributes = state.attributes[name] || {};
-            var styleProperties = Object.keys(state.styles.hasOwnProperty(name) ? state.styles[name] : initialStyles[name]); // Set all values to an empty string to unset them
-            var style = styleProperties.reduce(function(style, property) {
-                style[property] = '';
-                return style;
-            }, {}); // arrow is optional + virtual elements
-            if (!(0, _instanceOfJs.isHTMLElement)(element) || !(0, _getNodeNameJsDefault.default)(element)) return;
-            Object.assign(element.style, style);
-            Object.keys(attributes).forEach(function(attribute) {
-                element.removeAttribute(attribute);
-            });
-        });
-    };
-} // eslint-disable-next-line import/no-unused-modules
-exports.default = {
-    name: 'applyStyles',
-    enabled: true,
-    phase: 'write',
-    fn: applyStyles,
-    effect: effect,
-    requires: [
-        'computeStyles'
-    ]
-};
+var $7a759511c361f2bd$exports = {};
 
-},{"../dom-utils/getNodeName.js":"a2Qom","../dom-utils/instanceOf.js":"gYFUC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a2Qom":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getNodeName);
-function getNodeName(element) {
-    return element ? (element.nodeName || '').toLowerCase() : null;
-}
+$parcel$defineInteropFlag($7a759511c361f2bd$exports);
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gYFUC":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "isElement", ()=>isElement);
-parcelHelpers.export(exports, "isHTMLElement", ()=>isHTMLElement);
-parcelHelpers.export(exports, "isShadowRoot", ()=>isShadowRoot);
-var _getWindowJs = require("./getWindow.js");
-var _getWindowJsDefault = parcelHelpers.interopDefault(_getWindowJs);
-function isElement(node) {
-    var OwnElement = (0, _getWindowJsDefault.default)(node).Element;
-    return node instanceof OwnElement || node instanceof Element;
-}
-function isHTMLElement(node) {
-    var OwnElement = (0, _getWindowJsDefault.default)(node).HTMLElement;
-    return node instanceof OwnElement || node instanceof HTMLElement;
-}
-function isShadowRoot(node) {
-    // IE 11 has no ShadowRoot
-    if (typeof ShadowRoot === 'undefined') return false;
-    var OwnElement = (0, _getWindowJsDefault.default)(node).ShadowRoot;
-    return node instanceof OwnElement || node instanceof ShadowRoot;
-}
+$parcel$export($7a759511c361f2bd$exports, "initTooltip", () => $7a759511c361f2bd$export$353372104066311a);
+$parcel$export($7a759511c361f2bd$exports, "default", () => $7a759511c361f2bd$export$2e2bcd8739ae039);
 
-},{"./getWindow.js":"2SkOo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2SkOo":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getWindow);
-function getWindow(node) {
-    if (node == null) return window;
-    if (node.toString() !== '[object Window]') {
-        var ownerDocument = node.ownerDocument;
-        return ownerDocument ? ownerDocument.defaultView || window : window;
-    }
-    return node;
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"31HFW":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _getBasePlacementJs = require("../utils/getBasePlacement.js");
-var _getBasePlacementJsDefault = parcelHelpers.interopDefault(_getBasePlacementJs);
-var _getLayoutRectJs = require("../dom-utils/getLayoutRect.js");
-var _getLayoutRectJsDefault = parcelHelpers.interopDefault(_getLayoutRectJs);
-var _containsJs = require("../dom-utils/contains.js");
-var _containsJsDefault = parcelHelpers.interopDefault(_containsJs);
-var _getOffsetParentJs = require("../dom-utils/getOffsetParent.js");
-var _getOffsetParentJsDefault = parcelHelpers.interopDefault(_getOffsetParentJs);
-var _getMainAxisFromPlacementJs = require("../utils/getMainAxisFromPlacement.js");
-var _getMainAxisFromPlacementJsDefault = parcelHelpers.interopDefault(_getMainAxisFromPlacementJs);
-var _withinJs = require("../utils/within.js");
-var _mergePaddingObjectJs = require("../utils/mergePaddingObject.js");
-var _mergePaddingObjectJsDefault = parcelHelpers.interopDefault(_mergePaddingObjectJs);
-var _expandToHashMapJs = require("../utils/expandToHashMap.js");
-var _expandToHashMapJsDefault = parcelHelpers.interopDefault(_expandToHashMapJs);
-var _enumsJs = require("../enums.js"); // eslint-disable-next-line import/no-unused-modules
-var toPaddingObject = function toPaddingObject(padding, state) {
-    padding = typeof padding === 'function' ? padding(Object.assign({}, state.rects, {
-        placement: state.placement
-    })) : padding;
-    return (0, _mergePaddingObjectJsDefault.default)(typeof padding !== 'number' ? padding : (0, _expandToHashMapJsDefault.default)(padding, (0, _enumsJs.basePlacements)));
-};
-function arrow(_ref) {
-    var _state$modifiersData$;
-    var state = _ref.state, name = _ref.name, options = _ref.options;
-    var arrowElement = state.elements.arrow;
-    var popperOffsets = state.modifiersData.popperOffsets;
-    var basePlacement = (0, _getBasePlacementJsDefault.default)(state.placement);
-    var axis = (0, _getMainAxisFromPlacementJsDefault.default)(basePlacement);
-    var isVertical = [
-        (0, _enumsJs.left),
-        (0, _enumsJs.right)
-    ].indexOf(basePlacement) >= 0;
-    var len = isVertical ? 'height' : 'width';
-    if (!arrowElement || !popperOffsets) return;
-    var paddingObject = toPaddingObject(options.padding, state);
-    var arrowRect = (0, _getLayoutRectJsDefault.default)(arrowElement);
-    var minProp = axis === 'y' ? (0, _enumsJs.top) : (0, _enumsJs.left);
-    var maxProp = axis === 'y' ? (0, _enumsJs.bottom) : (0, _enumsJs.right);
-    var endDiff = state.rects.reference[len] + state.rects.reference[axis] - popperOffsets[axis] - state.rects.popper[len];
-    var startDiff = popperOffsets[axis] - state.rects.reference[axis];
-    var arrowOffsetParent = (0, _getOffsetParentJsDefault.default)(arrowElement);
-    var clientSize = arrowOffsetParent ? axis === 'y' ? arrowOffsetParent.clientHeight || 0 : arrowOffsetParent.clientWidth || 0 : 0;
-    var centerToReference = endDiff / 2 - startDiff / 2; // Make sure the arrow doesn't overflow the popper if the center point is
-    // outside of the popper bounds
-    var min = paddingObject[minProp];
-    var max = clientSize - arrowRect[len] - paddingObject[maxProp];
-    var center = clientSize / 2 - arrowRect[len] / 2 + centerToReference;
-    var offset = (0, _withinJs.within)(min, center, max); // Prevents breaking syntax highlighting...
-    var axisProp = axis;
-    state.modifiersData[name] = (_state$modifiersData$ = {}, _state$modifiersData$[axisProp] = offset, _state$modifiersData$.centerOffset = offset - center, _state$modifiersData$);
-}
-function effect(_ref2) {
-    var state = _ref2.state, options = _ref2.options;
-    var _options$element = options.element, arrowElement = _options$element === void 0 ? '[data-popper-arrow]' : _options$element;
-    if (arrowElement == null) return;
-     // CSS selector
-    if (typeof arrowElement === 'string') {
-        arrowElement = state.elements.popper.querySelector(arrowElement);
-        if (!arrowElement) return;
-    }
-    if (!(0, _containsJsDefault.default)(state.elements.popper, arrowElement)) return;
-    state.elements.arrow = arrowElement;
-} // eslint-disable-next-line import/no-unused-modules
-exports.default = {
-    name: 'arrow',
-    enabled: true,
-    phase: 'main',
-    fn: arrow,
-    effect: effect,
-    requires: [
-        'popperOffsets'
-    ],
-    requiresIfExists: [
-        'preventOverflow'
-    ]
-};
-
-},{"../utils/getBasePlacement.js":"59Wp3","../dom-utils/getLayoutRect.js":"jvjuf","../dom-utils/contains.js":"4QxRR","../dom-utils/getOffsetParent.js":"laoYw","../utils/getMainAxisFromPlacement.js":"1Xlom","../utils/within.js":"3glSz","../utils/mergePaddingObject.js":"lEIf9","../utils/expandToHashMap.js":"iQlH5","../enums.js":"lCAq5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"59Wp3":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getBasePlacement);
-var _enumsJs = require("../enums.js");
-function getBasePlacement(placement) {
-    return placement.split('-')[0];
-}
-
-},{"../enums.js":"lCAq5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jvjuf":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getLayoutRect);
-var _getBoundingClientRectJs = require("./getBoundingClientRect.js"); // Returns the layout rect of an element relative to its offsetParent. Layout
-var _getBoundingClientRectJsDefault = parcelHelpers.interopDefault(_getBoundingClientRectJs);
-function getLayoutRect(element) {
-    var clientRect = (0, _getBoundingClientRectJsDefault.default)(element); // Use the clientRect sizes if it's not been transformed.
-    // Fixes https://github.com/popperjs/popper-core/issues/1223
-    var width = element.offsetWidth;
-    var height = element.offsetHeight;
-    if (Math.abs(clientRect.width - width) <= 1) width = clientRect.width;
-    if (Math.abs(clientRect.height - height) <= 1) height = clientRect.height;
-    return {
-        x: element.offsetLeft,
-        y: element.offsetTop,
-        width: width,
-        height: height
-    };
-}
-
-},{"./getBoundingClientRect.js":"9CFSQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9CFSQ":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getBoundingClientRect);
-var _instanceOfJs = require("./instanceOf.js");
-var _mathJs = require("../utils/math.js");
-var _getWindowJs = require("./getWindow.js");
-var _getWindowJsDefault = parcelHelpers.interopDefault(_getWindowJs);
-var _isLayoutViewportJs = require("./isLayoutViewport.js");
-var _isLayoutViewportJsDefault = parcelHelpers.interopDefault(_isLayoutViewportJs);
-function getBoundingClientRect(element, includeScale, isFixedStrategy) {
-    if (includeScale === void 0) includeScale = false;
-    if (isFixedStrategy === void 0) isFixedStrategy = false;
-    var clientRect = element.getBoundingClientRect();
-    var scaleX = 1;
-    var scaleY = 1;
-    if (includeScale && (0, _instanceOfJs.isHTMLElement)(element)) {
-        scaleX = element.offsetWidth > 0 ? (0, _mathJs.round)(clientRect.width) / element.offsetWidth || 1 : 1;
-        scaleY = element.offsetHeight > 0 ? (0, _mathJs.round)(clientRect.height) / element.offsetHeight || 1 : 1;
-    }
-    var _ref = (0, _instanceOfJs.isElement)(element) ? (0, _getWindowJsDefault.default)(element) : window, visualViewport = _ref.visualViewport;
-    var addVisualOffsets = !(0, _isLayoutViewportJsDefault.default)() && isFixedStrategy;
-    var x = (clientRect.left + (addVisualOffsets && visualViewport ? visualViewport.offsetLeft : 0)) / scaleX;
-    var y = (clientRect.top + (addVisualOffsets && visualViewport ? visualViewport.offsetTop : 0)) / scaleY;
-    var width = clientRect.width / scaleX;
-    var height = clientRect.height / scaleY;
-    return {
-        width: width,
-        height: height,
-        top: y,
-        right: x + width,
-        bottom: y + height,
-        left: x,
-        x: x,
-        y: y
-    };
-}
-
-},{"./instanceOf.js":"gYFUC","../utils/math.js":"gQqVe","./getWindow.js":"2SkOo","./isLayoutViewport.js":"3ipHv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gQqVe":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "max", ()=>max);
-parcelHelpers.export(exports, "min", ()=>min);
-parcelHelpers.export(exports, "round", ()=>round);
-var max = Math.max;
-var min = Math.min;
-var round = Math.round;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3ipHv":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>isLayoutViewport);
-var _userAgentJs = require("../utils/userAgent.js");
-var _userAgentJsDefault = parcelHelpers.interopDefault(_userAgentJs);
-function isLayoutViewport() {
-    return !/^((?!chrome|android).)*safari/i.test((0, _userAgentJsDefault.default)());
-}
-
-},{"../utils/userAgent.js":"1hEx0","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1hEx0":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getUAString);
-function getUAString() {
-    var uaData = navigator.userAgentData;
-    if (uaData != null && uaData.brands && Array.isArray(uaData.brands)) return uaData.brands.map(function(item) {
-        return item.brand + "/" + item.version;
-    }).join(' ');
-    return navigator.userAgent;
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4QxRR":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>contains);
-var _instanceOfJs = require("./instanceOf.js");
-function contains(parent, child) {
-    var rootNode = child.getRootNode && child.getRootNode(); // First, attempt with faster native method
-    if (parent.contains(child)) return true;
-    else if (rootNode && (0, _instanceOfJs.isShadowRoot)(rootNode)) {
-        var next = child;
-        do {
-            if (next && parent.isSameNode(next)) return true;
-             // $FlowFixMe[prop-missing]: need a better way to handle this...
-            next = next.parentNode || next.host;
-        }while (next);
-    } // Give up, the result is false
-    return false;
-}
-
-},{"./instanceOf.js":"gYFUC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"laoYw":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getOffsetParent);
-var _getWindowJs = require("./getWindow.js");
-var _getWindowJsDefault = parcelHelpers.interopDefault(_getWindowJs);
-var _getNodeNameJs = require("./getNodeName.js");
-var _getNodeNameJsDefault = parcelHelpers.interopDefault(_getNodeNameJs);
-var _getComputedStyleJs = require("./getComputedStyle.js");
-var _getComputedStyleJsDefault = parcelHelpers.interopDefault(_getComputedStyleJs);
-var _instanceOfJs = require("./instanceOf.js");
-var _isTableElementJs = require("./isTableElement.js");
-var _isTableElementJsDefault = parcelHelpers.interopDefault(_isTableElementJs);
-var _getParentNodeJs = require("./getParentNode.js");
-var _getParentNodeJsDefault = parcelHelpers.interopDefault(_getParentNodeJs);
-var _userAgentJs = require("../utils/userAgent.js");
-var _userAgentJsDefault = parcelHelpers.interopDefault(_userAgentJs);
-function getTrueOffsetParent(element) {
-    if (!(0, _instanceOfJs.isHTMLElement)(element) || // https://github.com/popperjs/popper-core/issues/837
-    (0, _getComputedStyleJsDefault.default)(element).position === 'fixed') return null;
-    return element.offsetParent;
-} // `.offsetParent` reports `null` for fixed elements, while absolute elements
-// return the containing block
-function getContainingBlock(element) {
-    var isFirefox = /firefox/i.test((0, _userAgentJsDefault.default)());
-    var isIE = /Trident/i.test((0, _userAgentJsDefault.default)());
-    if (isIE && (0, _instanceOfJs.isHTMLElement)(element)) {
-        // In IE 9, 10 and 11 fixed elements containing block is always established by the viewport
-        var elementCss = (0, _getComputedStyleJsDefault.default)(element);
-        if (elementCss.position === 'fixed') return null;
-    }
-    var currentNode = (0, _getParentNodeJsDefault.default)(element);
-    if ((0, _instanceOfJs.isShadowRoot)(currentNode)) currentNode = currentNode.host;
-    while((0, _instanceOfJs.isHTMLElement)(currentNode) && [
-        'html',
-        'body'
-    ].indexOf((0, _getNodeNameJsDefault.default)(currentNode)) < 0){
-        var css = (0, _getComputedStyleJsDefault.default)(currentNode); // This is non-exhaustive but covers the most common CSS properties that
-        // create a containing block.
-        // https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block
-        if (css.transform !== 'none' || css.perspective !== 'none' || css.contain === 'paint' || [
-            'transform',
-            'perspective'
-        ].indexOf(css.willChange) !== -1 || isFirefox && css.willChange === 'filter' || isFirefox && css.filter && css.filter !== 'none') return currentNode;
-        else currentNode = currentNode.parentNode;
-    }
-    return null;
-} // Gets the closest ancestor positioned element. Handles some edge cases,
-function getOffsetParent(element) {
-    var window = (0, _getWindowJsDefault.default)(element);
-    var offsetParent = getTrueOffsetParent(element);
-    while(offsetParent && (0, _isTableElementJsDefault.default)(offsetParent) && (0, _getComputedStyleJsDefault.default)(offsetParent).position === 'static')offsetParent = getTrueOffsetParent(offsetParent);
-    if (offsetParent && ((0, _getNodeNameJsDefault.default)(offsetParent) === 'html' || (0, _getNodeNameJsDefault.default)(offsetParent) === 'body' && (0, _getComputedStyleJsDefault.default)(offsetParent).position === 'static')) return window;
-    return offsetParent || getContainingBlock(element) || window;
-}
-
-},{"./getWindow.js":"2SkOo","./getNodeName.js":"a2Qom","./getComputedStyle.js":"3mZjB","./instanceOf.js":"gYFUC","./isTableElement.js":"2qBb7","./getParentNode.js":"bIHpd","../utils/userAgent.js":"1hEx0","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3mZjB":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getComputedStyle);
-var _getWindowJs = require("./getWindow.js");
-var _getWindowJsDefault = parcelHelpers.interopDefault(_getWindowJs);
-function getComputedStyle(element) {
-    return (0, _getWindowJsDefault.default)(element).getComputedStyle(element);
-}
-
-},{"./getWindow.js":"2SkOo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2qBb7":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>isTableElement);
-var _getNodeNameJs = require("./getNodeName.js");
-var _getNodeNameJsDefault = parcelHelpers.interopDefault(_getNodeNameJs);
-function isTableElement(element) {
-    return [
-        'table',
-        'td',
-        'th'
-    ].indexOf((0, _getNodeNameJsDefault.default)(element)) >= 0;
-}
-
-},{"./getNodeName.js":"a2Qom","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bIHpd":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getParentNode);
-var _getNodeNameJs = require("./getNodeName.js");
-var _getNodeNameJsDefault = parcelHelpers.interopDefault(_getNodeNameJs);
-var _getDocumentElementJs = require("./getDocumentElement.js");
-var _getDocumentElementJsDefault = parcelHelpers.interopDefault(_getDocumentElementJs);
-var _instanceOfJs = require("./instanceOf.js");
-function getParentNode(element) {
-    if ((0, _getNodeNameJsDefault.default)(element) === 'html') return element;
-    return(// $FlowFixMe[incompatible-return]
-    // $FlowFixMe[prop-missing]
-    element.assignedSlot || // step into the shadow DOM of the parent of a slotted node
-    element.parentNode || ((0, _instanceOfJs.isShadowRoot)(element) ? element.host : null) || // ShadowRoot detected
-    // $FlowFixMe[incompatible-call]: HTMLElement is a Node
-    (0, _getDocumentElementJsDefault.default)(element) // fallback
-    );
-}
-
-},{"./getNodeName.js":"a2Qom","./getDocumentElement.js":"eJ9Y1","./instanceOf.js":"gYFUC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eJ9Y1":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getDocumentElement);
-var _instanceOfJs = require("./instanceOf.js");
-function getDocumentElement(element) {
-    // $FlowFixMe[incompatible-return]: assume body is always available
-    return (((0, _instanceOfJs.isElement)(element) ? element.ownerDocument : element.document) || window.document).documentElement;
-}
-
-},{"./instanceOf.js":"gYFUC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1Xlom":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getMainAxisFromPlacement);
-function getMainAxisFromPlacement(placement) {
-    return [
-        'top',
-        'bottom'
-    ].indexOf(placement) >= 0 ? 'x' : 'y';
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3glSz":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "within", ()=>within);
-parcelHelpers.export(exports, "withinMaxClamp", ()=>withinMaxClamp);
-var _mathJs = require("./math.js");
-function within(min, value, max) {
-    return (0, _mathJs.max)(min, (0, _mathJs.min)(value, max));
-}
-function withinMaxClamp(min, value, max) {
-    var v = within(min, value, max);
-    return v > max ? max : v;
-}
-
-},{"./math.js":"gQqVe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lEIf9":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>mergePaddingObject);
-var _getFreshSideObjectJs = require("./getFreshSideObject.js");
-var _getFreshSideObjectJsDefault = parcelHelpers.interopDefault(_getFreshSideObjectJs);
-function mergePaddingObject(paddingObject) {
-    return Object.assign({}, (0, _getFreshSideObjectJsDefault.default)(), paddingObject);
-}
-
-},{"./getFreshSideObject.js":"g4xOt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g4xOt":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getFreshSideObject);
-function getFreshSideObject() {
-    return {
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0
-    };
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iQlH5":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>expandToHashMap);
-function expandToHashMap(value, keys) {
-    return keys.reduce(function(hashMap, key) {
-        hashMap[key] = value;
-        return hashMap;
-    }, {});
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gDlm2":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "mapToStyles", ()=>mapToStyles);
-var _enumsJs = require("../enums.js");
-var _getOffsetParentJs = require("../dom-utils/getOffsetParent.js");
-var _getOffsetParentJsDefault = parcelHelpers.interopDefault(_getOffsetParentJs);
-var _getWindowJs = require("../dom-utils/getWindow.js");
-var _getWindowJsDefault = parcelHelpers.interopDefault(_getWindowJs);
-var _getDocumentElementJs = require("../dom-utils/getDocumentElement.js");
-var _getDocumentElementJsDefault = parcelHelpers.interopDefault(_getDocumentElementJs);
-var _getComputedStyleJs = require("../dom-utils/getComputedStyle.js");
-var _getComputedStyleJsDefault = parcelHelpers.interopDefault(_getComputedStyleJs);
-var _getBasePlacementJs = require("../utils/getBasePlacement.js");
-var _getBasePlacementJsDefault = parcelHelpers.interopDefault(_getBasePlacementJs);
-var _getVariationJs = require("../utils/getVariation.js");
-var _getVariationJsDefault = parcelHelpers.interopDefault(_getVariationJs);
-var _mathJs = require("../utils/math.js"); // eslint-disable-next-line import/no-unused-modules
-var unsetSides = {
-    top: 'auto',
-    right: 'auto',
-    bottom: 'auto',
-    left: 'auto'
-}; // Round the offsets to the nearest suitable subpixel based on the DPR.
-// Zooming can change the DPR, but it seems to report a value that will
-// cleanly divide the values into the appropriate subpixels.
-function roundOffsetsByDPR(_ref, win) {
-    var x = _ref.x, y = _ref.y;
-    var dpr = win.devicePixelRatio || 1;
-    return {
-        x: (0, _mathJs.round)(x * dpr) / dpr || 0,
-        y: (0, _mathJs.round)(y * dpr) / dpr || 0
-    };
-}
-function mapToStyles(_ref2) {
-    var _Object$assign2;
-    var popper = _ref2.popper, popperRect = _ref2.popperRect, placement = _ref2.placement, variation = _ref2.variation, offsets = _ref2.offsets, position = _ref2.position, gpuAcceleration = _ref2.gpuAcceleration, adaptive = _ref2.adaptive, roundOffsets = _ref2.roundOffsets, isFixed = _ref2.isFixed;
-    var _offsets$x = offsets.x, x = _offsets$x === void 0 ? 0 : _offsets$x, _offsets$y = offsets.y, y = _offsets$y === void 0 ? 0 : _offsets$y;
-    var _ref3 = typeof roundOffsets === 'function' ? roundOffsets({
-        x: x,
-        y: y
-    }) : {
-        x: x,
-        y: y
-    };
-    x = _ref3.x;
-    y = _ref3.y;
-    var hasX = offsets.hasOwnProperty('x');
-    var hasY = offsets.hasOwnProperty('y');
-    var sideX = (0, _enumsJs.left);
-    var sideY = (0, _enumsJs.top);
-    var win = window;
-    if (adaptive) {
-        var offsetParent = (0, _getOffsetParentJsDefault.default)(popper);
-        var heightProp = 'clientHeight';
-        var widthProp = 'clientWidth';
-        if (offsetParent === (0, _getWindowJsDefault.default)(popper)) {
-            offsetParent = (0, _getDocumentElementJsDefault.default)(popper);
-            if ((0, _getComputedStyleJsDefault.default)(offsetParent).position !== 'static' && position === 'absolute') {
-                heightProp = 'scrollHeight';
-                widthProp = 'scrollWidth';
-            }
-        } // $FlowFixMe[incompatible-cast]: force type refinement, we compare offsetParent with window above, but Flow doesn't detect it
-        offsetParent;
-        if (placement === (0, _enumsJs.top) || (placement === (0, _enumsJs.left) || placement === (0, _enumsJs.right)) && variation === (0, _enumsJs.end)) {
-            sideY = (0, _enumsJs.bottom);
-            var offsetY = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.height : offsetParent[heightProp];
-            y -= offsetY - popperRect.height;
-            y *= gpuAcceleration ? 1 : -1;
-        }
-        if (placement === (0, _enumsJs.left) || (placement === (0, _enumsJs.top) || placement === (0, _enumsJs.bottom)) && variation === (0, _enumsJs.end)) {
-            sideX = (0, _enumsJs.right);
-            var offsetX = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.width : offsetParent[widthProp];
-            x -= offsetX - popperRect.width;
-            x *= gpuAcceleration ? 1 : -1;
-        }
-    }
-    var commonStyles = Object.assign({
-        position: position
-    }, adaptive && unsetSides);
-    var _ref4 = roundOffsets === true ? roundOffsetsByDPR({
-        x: x,
-        y: y
-    }, (0, _getWindowJsDefault.default)(popper)) : {
-        x: x,
-        y: y
-    };
-    x = _ref4.x;
-    y = _ref4.y;
-    if (gpuAcceleration) {
-        var _Object$assign;
-        return Object.assign({}, commonStyles, (_Object$assign = {}, _Object$assign[sideY] = hasY ? '0' : '', _Object$assign[sideX] = hasX ? '0' : '', _Object$assign.transform = (win.devicePixelRatio || 1) <= 1 ? "translate(" + x + "px, " + y + "px)" : "translate3d(" + x + "px, " + y + "px, 0)", _Object$assign));
-    }
-    return Object.assign({}, commonStyles, (_Object$assign2 = {}, _Object$assign2[sideY] = hasY ? y + "px" : '', _Object$assign2[sideX] = hasX ? x + "px" : '', _Object$assign2.transform = '', _Object$assign2));
-}
-function computeStyles(_ref5) {
-    var state = _ref5.state, options = _ref5.options;
-    var _options$gpuAccelerat = options.gpuAcceleration, gpuAcceleration = _options$gpuAccelerat === void 0 ? true : _options$gpuAccelerat, _options$adaptive = options.adaptive, adaptive = _options$adaptive === void 0 ? true : _options$adaptive, _options$roundOffsets = options.roundOffsets, roundOffsets = _options$roundOffsets === void 0 ? true : _options$roundOffsets;
-    var commonStyles = {
-        placement: (0, _getBasePlacementJsDefault.default)(state.placement),
-        variation: (0, _getVariationJsDefault.default)(state.placement),
-        popper: state.elements.popper,
-        popperRect: state.rects.popper,
-        gpuAcceleration: gpuAcceleration,
-        isFixed: state.options.strategy === 'fixed'
-    };
-    if (state.modifiersData.popperOffsets != null) state.styles.popper = Object.assign({}, state.styles.popper, mapToStyles(Object.assign({}, commonStyles, {
-        offsets: state.modifiersData.popperOffsets,
-        position: state.options.strategy,
-        adaptive: adaptive,
-        roundOffsets: roundOffsets
-    })));
-    if (state.modifiersData.arrow != null) state.styles.arrow = Object.assign({}, state.styles.arrow, mapToStyles(Object.assign({}, commonStyles, {
-        offsets: state.modifiersData.arrow,
-        position: 'absolute',
-        adaptive: false,
-        roundOffsets: roundOffsets
-    })));
-    state.attributes.popper = Object.assign({}, state.attributes.popper, {
-        'data-popper-placement': state.placement
-    });
-} // eslint-disable-next-line import/no-unused-modules
-exports.default = {
-    name: 'computeStyles',
-    enabled: true,
-    phase: 'beforeWrite',
-    fn: computeStyles,
-    data: {}
-};
-
-},{"../enums.js":"lCAq5","../dom-utils/getOffsetParent.js":"laoYw","../dom-utils/getWindow.js":"2SkOo","../dom-utils/getDocumentElement.js":"eJ9Y1","../dom-utils/getComputedStyle.js":"3mZjB","../utils/getBasePlacement.js":"59Wp3","../utils/getVariation.js":"hIo7Y","../utils/math.js":"gQqVe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hIo7Y":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getVariation);
-function getVariation(placement) {
-    return placement.split('-')[1];
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hBKsL":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _getWindowJs = require("../dom-utils/getWindow.js"); // eslint-disable-next-line import/no-unused-modules
-var _getWindowJsDefault = parcelHelpers.interopDefault(_getWindowJs);
-var passive = {
-    passive: true
-};
-function effect(_ref) {
-    var state = _ref.state, instance = _ref.instance, options = _ref.options;
-    var _options$scroll = options.scroll, scroll = _options$scroll === void 0 ? true : _options$scroll, _options$resize = options.resize, resize = _options$resize === void 0 ? true : _options$resize;
-    var window = (0, _getWindowJsDefault.default)(state.elements.popper);
-    var scrollParents = [].concat(state.scrollParents.reference, state.scrollParents.popper);
-    if (scroll) scrollParents.forEach(function(scrollParent) {
-        scrollParent.addEventListener('scroll', instance.update, passive);
-    });
-    if (resize) window.addEventListener('resize', instance.update, passive);
-    return function() {
-        if (scroll) scrollParents.forEach(function(scrollParent) {
-            scrollParent.removeEventListener('scroll', instance.update, passive);
-        });
-        if (resize) window.removeEventListener('resize', instance.update, passive);
-    };
-} // eslint-disable-next-line import/no-unused-modules
-exports.default = {
-    name: 'eventListeners',
-    enabled: true,
-    phase: 'write',
-    fn: function fn() {},
-    effect: effect,
-    data: {}
-};
-
-},{"../dom-utils/getWindow.js":"2SkOo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fv5wq":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _getOppositePlacementJs = require("../utils/getOppositePlacement.js");
-var _getOppositePlacementJsDefault = parcelHelpers.interopDefault(_getOppositePlacementJs);
-var _getBasePlacementJs = require("../utils/getBasePlacement.js");
-var _getBasePlacementJsDefault = parcelHelpers.interopDefault(_getBasePlacementJs);
-var _getOppositeVariationPlacementJs = require("../utils/getOppositeVariationPlacement.js");
-var _getOppositeVariationPlacementJsDefault = parcelHelpers.interopDefault(_getOppositeVariationPlacementJs);
-var _detectOverflowJs = require("../utils/detectOverflow.js");
-var _detectOverflowJsDefault = parcelHelpers.interopDefault(_detectOverflowJs);
-var _computeAutoPlacementJs = require("../utils/computeAutoPlacement.js");
-var _computeAutoPlacementJsDefault = parcelHelpers.interopDefault(_computeAutoPlacementJs);
-var _enumsJs = require("../enums.js");
-var _getVariationJs = require("../utils/getVariation.js"); // eslint-disable-next-line import/no-unused-modules
-var _getVariationJsDefault = parcelHelpers.interopDefault(_getVariationJs);
-function getExpandedFallbackPlacements(placement) {
-    if ((0, _getBasePlacementJsDefault.default)(placement) === (0, _enumsJs.auto)) return [];
-    var oppositePlacement = (0, _getOppositePlacementJsDefault.default)(placement);
-    return [
-        (0, _getOppositeVariationPlacementJsDefault.default)(placement),
-        oppositePlacement,
-        (0, _getOppositeVariationPlacementJsDefault.default)(oppositePlacement)
-    ];
-}
-function flip(_ref) {
-    var state = _ref.state, options = _ref.options, name = _ref.name;
-    if (state.modifiersData[name]._skip) return;
-    var _options$mainAxis = options.mainAxis, checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis, _options$altAxis = options.altAxis, checkAltAxis = _options$altAxis === void 0 ? true : _options$altAxis, specifiedFallbackPlacements = options.fallbackPlacements, padding = options.padding, boundary = options.boundary, rootBoundary = options.rootBoundary, altBoundary = options.altBoundary, _options$flipVariatio = options.flipVariations, flipVariations = _options$flipVariatio === void 0 ? true : _options$flipVariatio, allowedAutoPlacements = options.allowedAutoPlacements;
-    var preferredPlacement = state.options.placement;
-    var basePlacement = (0, _getBasePlacementJsDefault.default)(preferredPlacement);
-    var isBasePlacement = basePlacement === preferredPlacement;
-    var fallbackPlacements = specifiedFallbackPlacements || (isBasePlacement || !flipVariations ? [
-        (0, _getOppositePlacementJsDefault.default)(preferredPlacement)
-    ] : getExpandedFallbackPlacements(preferredPlacement));
-    var placements = [
-        preferredPlacement
-    ].concat(fallbackPlacements).reduce(function(acc, placement) {
-        return acc.concat((0, _getBasePlacementJsDefault.default)(placement) === (0, _enumsJs.auto) ? (0, _computeAutoPlacementJsDefault.default)(state, {
-            placement: placement,
-            boundary: boundary,
-            rootBoundary: rootBoundary,
-            padding: padding,
-            flipVariations: flipVariations,
-            allowedAutoPlacements: allowedAutoPlacements
-        }) : placement);
-    }, []);
-    var referenceRect = state.rects.reference;
-    var popperRect = state.rects.popper;
-    var checksMap = new Map();
-    var makeFallbackChecks = true;
-    var firstFittingPlacement = placements[0];
-    for(var i = 0; i < placements.length; i++){
-        var placement = placements[i];
-        var _basePlacement = (0, _getBasePlacementJsDefault.default)(placement);
-        var isStartVariation = (0, _getVariationJsDefault.default)(placement) === (0, _enumsJs.start);
-        var isVertical = [
-            (0, _enumsJs.top),
-            (0, _enumsJs.bottom)
-        ].indexOf(_basePlacement) >= 0;
-        var len = isVertical ? 'width' : 'height';
-        var overflow = (0, _detectOverflowJsDefault.default)(state, {
-            placement: placement,
-            boundary: boundary,
-            rootBoundary: rootBoundary,
-            altBoundary: altBoundary,
-            padding: padding
-        });
-        var mainVariationSide = isVertical ? isStartVariation ? (0, _enumsJs.right) : (0, _enumsJs.left) : isStartVariation ? (0, _enumsJs.bottom) : (0, _enumsJs.top);
-        if (referenceRect[len] > popperRect[len]) mainVariationSide = (0, _getOppositePlacementJsDefault.default)(mainVariationSide);
-        var altVariationSide = (0, _getOppositePlacementJsDefault.default)(mainVariationSide);
-        var checks = [];
-        if (checkMainAxis) checks.push(overflow[_basePlacement] <= 0);
-        if (checkAltAxis) checks.push(overflow[mainVariationSide] <= 0, overflow[altVariationSide] <= 0);
-        if (checks.every(function(check) {
-            return check;
-        })) {
-            firstFittingPlacement = placement;
-            makeFallbackChecks = false;
-            break;
-        }
-        checksMap.set(placement, checks);
-    }
-    if (makeFallbackChecks) {
-        // `2` may be desired in some cases – research later
-        var numberOfChecks = flipVariations ? 3 : 1;
-        var _loop = function _loop(_i) {
-            var fittingPlacement = placements.find(function(placement) {
-                var checks = checksMap.get(placement);
-                if (checks) return checks.slice(0, _i).every(function(check) {
-                    return check;
-                });
-            });
-            if (fittingPlacement) {
-                firstFittingPlacement = fittingPlacement;
-                return "break";
-            }
-        };
-        for(var _i = numberOfChecks; _i > 0; _i--){
-            var _ret = _loop(_i);
-            if (_ret === "break") break;
-        }
-    }
-    if (state.placement !== firstFittingPlacement) {
-        state.modifiersData[name]._skip = true;
-        state.placement = firstFittingPlacement;
-        state.reset = true;
-    }
-} // eslint-disable-next-line import/no-unused-modules
-exports.default = {
-    name: 'flip',
-    enabled: true,
-    phase: 'main',
-    fn: flip,
-    requiresIfExists: [
-        'offset'
-    ],
-    data: {
-        _skip: false
-    }
-};
-
-},{"../utils/getOppositePlacement.js":"a8CY0","../utils/getBasePlacement.js":"59Wp3","../utils/getOppositeVariationPlacement.js":"bKTLC","../utils/detectOverflow.js":"ltCuw","../utils/computeAutoPlacement.js":"gytMj","../enums.js":"lCAq5","../utils/getVariation.js":"hIo7Y","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a8CY0":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getOppositePlacement);
-var hash = {
-    left: 'right',
-    right: 'left',
-    bottom: 'top',
-    top: 'bottom'
-};
-function getOppositePlacement(placement) {
-    return placement.replace(/left|right|bottom|top/g, function(matched) {
-        return hash[matched];
-    });
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bKTLC":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getOppositeVariationPlacement);
-var hash = {
-    start: 'end',
-    end: 'start'
-};
-function getOppositeVariationPlacement(placement) {
-    return placement.replace(/start|end/g, function(matched) {
-        return hash[matched];
-    });
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ltCuw":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>detectOverflow);
-var _getClippingRectJs = require("../dom-utils/getClippingRect.js");
-var _getClippingRectJsDefault = parcelHelpers.interopDefault(_getClippingRectJs);
-var _getDocumentElementJs = require("../dom-utils/getDocumentElement.js");
-var _getDocumentElementJsDefault = parcelHelpers.interopDefault(_getDocumentElementJs);
-var _getBoundingClientRectJs = require("../dom-utils/getBoundingClientRect.js");
-var _getBoundingClientRectJsDefault = parcelHelpers.interopDefault(_getBoundingClientRectJs);
-var _computeOffsetsJs = require("./computeOffsets.js");
-var _computeOffsetsJsDefault = parcelHelpers.interopDefault(_computeOffsetsJs);
-var _rectToClientRectJs = require("./rectToClientRect.js");
-var _rectToClientRectJsDefault = parcelHelpers.interopDefault(_rectToClientRectJs);
-var _enumsJs = require("../enums.js");
-var _instanceOfJs = require("../dom-utils/instanceOf.js");
-var _mergePaddingObjectJs = require("./mergePaddingObject.js");
-var _mergePaddingObjectJsDefault = parcelHelpers.interopDefault(_mergePaddingObjectJs);
-var _expandToHashMapJs = require("./expandToHashMap.js"); // eslint-disable-next-line import/no-unused-modules
-var _expandToHashMapJsDefault = parcelHelpers.interopDefault(_expandToHashMapJs);
-function detectOverflow(state, options) {
-    if (options === void 0) options = {};
-    var _options = options, _options$placement = _options.placement, placement = _options$placement === void 0 ? state.placement : _options$placement, _options$strategy = _options.strategy, strategy = _options$strategy === void 0 ? state.strategy : _options$strategy, _options$boundary = _options.boundary, boundary = _options$boundary === void 0 ? (0, _enumsJs.clippingParents) : _options$boundary, _options$rootBoundary = _options.rootBoundary, rootBoundary = _options$rootBoundary === void 0 ? (0, _enumsJs.viewport) : _options$rootBoundary, _options$elementConte = _options.elementContext, elementContext = _options$elementConte === void 0 ? (0, _enumsJs.popper) : _options$elementConte, _options$altBoundary = _options.altBoundary, altBoundary = _options$altBoundary === void 0 ? false : _options$altBoundary, _options$padding = _options.padding, padding = _options$padding === void 0 ? 0 : _options$padding;
-    var paddingObject = (0, _mergePaddingObjectJsDefault.default)(typeof padding !== 'number' ? padding : (0, _expandToHashMapJsDefault.default)(padding, (0, _enumsJs.basePlacements)));
-    var altContext = elementContext === (0, _enumsJs.popper) ? (0, _enumsJs.reference) : (0, _enumsJs.popper);
-    var popperRect = state.rects.popper;
-    var element = state.elements[altBoundary ? altContext : elementContext];
-    var clippingClientRect = (0, _getClippingRectJsDefault.default)((0, _instanceOfJs.isElement)(element) ? element : element.contextElement || (0, _getDocumentElementJsDefault.default)(state.elements.popper), boundary, rootBoundary, strategy);
-    var referenceClientRect = (0, _getBoundingClientRectJsDefault.default)(state.elements.reference);
-    var popperOffsets = (0, _computeOffsetsJsDefault.default)({
-        reference: referenceClientRect,
-        element: popperRect,
-        strategy: 'absolute',
-        placement: placement
-    });
-    var popperClientRect = (0, _rectToClientRectJsDefault.default)(Object.assign({}, popperRect, popperOffsets));
-    var elementClientRect = elementContext === (0, _enumsJs.popper) ? popperClientRect : referenceClientRect; // positive = overflowing the clipping rect
-    // 0 or negative = within the clipping rect
-    var overflowOffsets = {
-        top: clippingClientRect.top - elementClientRect.top + paddingObject.top,
-        bottom: elementClientRect.bottom - clippingClientRect.bottom + paddingObject.bottom,
-        left: clippingClientRect.left - elementClientRect.left + paddingObject.left,
-        right: elementClientRect.right - clippingClientRect.right + paddingObject.right
-    };
-    var offsetData = state.modifiersData.offset; // Offsets can be applied only to the popper element
-    if (elementContext === (0, _enumsJs.popper) && offsetData) {
-        var offset = offsetData[placement];
-        Object.keys(overflowOffsets).forEach(function(key) {
-            var multiply = [
-                (0, _enumsJs.right),
-                (0, _enumsJs.bottom)
-            ].indexOf(key) >= 0 ? 1 : -1;
-            var axis = [
-                (0, _enumsJs.top),
-                (0, _enumsJs.bottom)
-            ].indexOf(key) >= 0 ? 'y' : 'x';
-            overflowOffsets[key] += offset[axis] * multiply;
-        });
-    }
-    return overflowOffsets;
-}
-
-},{"../dom-utils/getClippingRect.js":"eeg2s","../dom-utils/getDocumentElement.js":"eJ9Y1","../dom-utils/getBoundingClientRect.js":"9CFSQ","./computeOffsets.js":"7jtXk","./rectToClientRect.js":"cQ3tg","../enums.js":"lCAq5","../dom-utils/instanceOf.js":"gYFUC","./mergePaddingObject.js":"lEIf9","./expandToHashMap.js":"iQlH5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eeg2s":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getClippingRect);
-var _enumsJs = require("../enums.js");
-var _getViewportRectJs = require("./getViewportRect.js");
-var _getViewportRectJsDefault = parcelHelpers.interopDefault(_getViewportRectJs);
-var _getDocumentRectJs = require("./getDocumentRect.js");
-var _getDocumentRectJsDefault = parcelHelpers.interopDefault(_getDocumentRectJs);
-var _listScrollParentsJs = require("./listScrollParents.js");
-var _listScrollParentsJsDefault = parcelHelpers.interopDefault(_listScrollParentsJs);
-var _getOffsetParentJs = require("./getOffsetParent.js");
-var _getOffsetParentJsDefault = parcelHelpers.interopDefault(_getOffsetParentJs);
-var _getDocumentElementJs = require("./getDocumentElement.js");
-var _getDocumentElementJsDefault = parcelHelpers.interopDefault(_getDocumentElementJs);
-var _getComputedStyleJs = require("./getComputedStyle.js");
-var _getComputedStyleJsDefault = parcelHelpers.interopDefault(_getComputedStyleJs);
-var _instanceOfJs = require("./instanceOf.js");
-var _getBoundingClientRectJs = require("./getBoundingClientRect.js");
-var _getBoundingClientRectJsDefault = parcelHelpers.interopDefault(_getBoundingClientRectJs);
-var _getParentNodeJs = require("./getParentNode.js");
-var _getParentNodeJsDefault = parcelHelpers.interopDefault(_getParentNodeJs);
-var _containsJs = require("./contains.js");
-var _containsJsDefault = parcelHelpers.interopDefault(_containsJs);
-var _getNodeNameJs = require("./getNodeName.js");
-var _getNodeNameJsDefault = parcelHelpers.interopDefault(_getNodeNameJs);
-var _rectToClientRectJs = require("../utils/rectToClientRect.js");
-var _rectToClientRectJsDefault = parcelHelpers.interopDefault(_rectToClientRectJs);
-var _mathJs = require("../utils/math.js");
-function getInnerBoundingClientRect(element, strategy) {
-    var rect = (0, _getBoundingClientRectJsDefault.default)(element, false, strategy === 'fixed');
-    rect.top = rect.top + element.clientTop;
-    rect.left = rect.left + element.clientLeft;
-    rect.bottom = rect.top + element.clientHeight;
-    rect.right = rect.left + element.clientWidth;
-    rect.width = element.clientWidth;
-    rect.height = element.clientHeight;
-    rect.x = rect.left;
-    rect.y = rect.top;
-    return rect;
-}
-function getClientRectFromMixedType(element, clippingParent, strategy) {
-    return clippingParent === (0, _enumsJs.viewport) ? (0, _rectToClientRectJsDefault.default)((0, _getViewportRectJsDefault.default)(element, strategy)) : (0, _instanceOfJs.isElement)(clippingParent) ? getInnerBoundingClientRect(clippingParent, strategy) : (0, _rectToClientRectJsDefault.default)((0, _getDocumentRectJsDefault.default)((0, _getDocumentElementJsDefault.default)(element)));
-} // A "clipping parent" is an overflowable container with the characteristic of
-// clipping (or hiding) overflowing elements with a position different from
-// `initial`
-function getClippingParents(element) {
-    var clippingParents = (0, _listScrollParentsJsDefault.default)((0, _getParentNodeJsDefault.default)(element));
-    var canEscapeClipping = [
-        'absolute',
-        'fixed'
-    ].indexOf((0, _getComputedStyleJsDefault.default)(element).position) >= 0;
-    var clipperElement = canEscapeClipping && (0, _instanceOfJs.isHTMLElement)(element) ? (0, _getOffsetParentJsDefault.default)(element) : element;
-    if (!(0, _instanceOfJs.isElement)(clipperElement)) return [];
-     // $FlowFixMe[incompatible-return]: https://github.com/facebook/flow/issues/1414
-    return clippingParents.filter(function(clippingParent) {
-        return (0, _instanceOfJs.isElement)(clippingParent) && (0, _containsJsDefault.default)(clippingParent, clipperElement) && (0, _getNodeNameJsDefault.default)(clippingParent) !== 'body';
-    });
-} // Gets the maximum area that the element is visible in due to any number of
-function getClippingRect(element, boundary, rootBoundary, strategy) {
-    var mainClippingParents = boundary === 'clippingParents' ? getClippingParents(element) : [].concat(boundary);
-    var clippingParents = [].concat(mainClippingParents, [
-        rootBoundary
-    ]);
-    var firstClippingParent = clippingParents[0];
-    var clippingRect = clippingParents.reduce(function(accRect, clippingParent) {
-        var rect = getClientRectFromMixedType(element, clippingParent, strategy);
-        accRect.top = (0, _mathJs.max)(rect.top, accRect.top);
-        accRect.right = (0, _mathJs.min)(rect.right, accRect.right);
-        accRect.bottom = (0, _mathJs.min)(rect.bottom, accRect.bottom);
-        accRect.left = (0, _mathJs.max)(rect.left, accRect.left);
-        return accRect;
-    }, getClientRectFromMixedType(element, firstClippingParent, strategy));
-    clippingRect.width = clippingRect.right - clippingRect.left;
-    clippingRect.height = clippingRect.bottom - clippingRect.top;
-    clippingRect.x = clippingRect.left;
-    clippingRect.y = clippingRect.top;
-    return clippingRect;
-}
-
-},{"../enums.js":"lCAq5","./getViewportRect.js":"cnH2G","./getDocumentRect.js":"d94SC","./listScrollParents.js":"2di3T","./getOffsetParent.js":"laoYw","./getDocumentElement.js":"eJ9Y1","./getComputedStyle.js":"3mZjB","./instanceOf.js":"gYFUC","./getBoundingClientRect.js":"9CFSQ","./getParentNode.js":"bIHpd","./contains.js":"4QxRR","./getNodeName.js":"a2Qom","../utils/rectToClientRect.js":"cQ3tg","../utils/math.js":"gQqVe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cnH2G":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getViewportRect);
-var _getWindowJs = require("./getWindow.js");
-var _getWindowJsDefault = parcelHelpers.interopDefault(_getWindowJs);
-var _getDocumentElementJs = require("./getDocumentElement.js");
-var _getDocumentElementJsDefault = parcelHelpers.interopDefault(_getDocumentElementJs);
-var _getWindowScrollBarXJs = require("./getWindowScrollBarX.js");
-var _getWindowScrollBarXJsDefault = parcelHelpers.interopDefault(_getWindowScrollBarXJs);
-var _isLayoutViewportJs = require("./isLayoutViewport.js");
-var _isLayoutViewportJsDefault = parcelHelpers.interopDefault(_isLayoutViewportJs);
-function getViewportRect(element, strategy) {
-    var win = (0, _getWindowJsDefault.default)(element);
-    var html = (0, _getDocumentElementJsDefault.default)(element);
-    var visualViewport = win.visualViewport;
-    var width = html.clientWidth;
-    var height = html.clientHeight;
-    var x = 0;
-    var y = 0;
-    if (visualViewport) {
-        width = visualViewport.width;
-        height = visualViewport.height;
-        var layoutViewport = (0, _isLayoutViewportJsDefault.default)();
-        if (layoutViewport || !layoutViewport && strategy === 'fixed') {
-            x = visualViewport.offsetLeft;
-            y = visualViewport.offsetTop;
-        }
-    }
-    return {
-        width: width,
-        height: height,
-        x: x + (0, _getWindowScrollBarXJsDefault.default)(element),
-        y: y
-    };
-}
-
-},{"./getWindow.js":"2SkOo","./getDocumentElement.js":"eJ9Y1","./getWindowScrollBarX.js":"sz4Ld","./isLayoutViewport.js":"3ipHv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"sz4Ld":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getWindowScrollBarX);
-var _getBoundingClientRectJs = require("./getBoundingClientRect.js");
-var _getBoundingClientRectJsDefault = parcelHelpers.interopDefault(_getBoundingClientRectJs);
-var _getDocumentElementJs = require("./getDocumentElement.js");
-var _getDocumentElementJsDefault = parcelHelpers.interopDefault(_getDocumentElementJs);
-var _getWindowScrollJs = require("./getWindowScroll.js");
-var _getWindowScrollJsDefault = parcelHelpers.interopDefault(_getWindowScrollJs);
-function getWindowScrollBarX(element) {
-    // If <html> has a CSS width greater than the viewport, then this will be
-    // incorrect for RTL.
-    // Popper 1 is broken in this case and never had a bug report so let's assume
-    // it's not an issue. I don't think anyone ever specifies width on <html>
-    // anyway.
-    // Browsers where the left scrollbar doesn't cause an issue report `0` for
-    // this (e.g. Edge 2019, IE11, Safari)
-    return (0, _getBoundingClientRectJsDefault.default)((0, _getDocumentElementJsDefault.default)(element)).left + (0, _getWindowScrollJsDefault.default)(element).scrollLeft;
-}
-
-},{"./getBoundingClientRect.js":"9CFSQ","./getDocumentElement.js":"eJ9Y1","./getWindowScroll.js":"1XUtN","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1XUtN":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getWindowScroll);
-var _getWindowJs = require("./getWindow.js");
-var _getWindowJsDefault = parcelHelpers.interopDefault(_getWindowJs);
-function getWindowScroll(node) {
-    var win = (0, _getWindowJsDefault.default)(node);
-    var scrollLeft = win.pageXOffset;
-    var scrollTop = win.pageYOffset;
-    return {
-        scrollLeft: scrollLeft,
-        scrollTop: scrollTop
-    };
-}
-
-},{"./getWindow.js":"2SkOo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d94SC":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getDocumentRect);
-var _getDocumentElementJs = require("./getDocumentElement.js");
-var _getDocumentElementJsDefault = parcelHelpers.interopDefault(_getDocumentElementJs);
-var _getComputedStyleJs = require("./getComputedStyle.js");
-var _getComputedStyleJsDefault = parcelHelpers.interopDefault(_getComputedStyleJs);
-var _getWindowScrollBarXJs = require("./getWindowScrollBarX.js");
-var _getWindowScrollBarXJsDefault = parcelHelpers.interopDefault(_getWindowScrollBarXJs);
-var _getWindowScrollJs = require("./getWindowScroll.js");
-var _getWindowScrollJsDefault = parcelHelpers.interopDefault(_getWindowScrollJs);
-var _mathJs = require("../utils/math.js"); // Gets the entire size of the scrollable document area, even extending outside
-function getDocumentRect(element) {
-    var _element$ownerDocumen;
-    var html = (0, _getDocumentElementJsDefault.default)(element);
-    var winScroll = (0, _getWindowScrollJsDefault.default)(element);
-    var body = (_element$ownerDocumen = element.ownerDocument) == null ? void 0 : _element$ownerDocumen.body;
-    var width = (0, _mathJs.max)(html.scrollWidth, html.clientWidth, body ? body.scrollWidth : 0, body ? body.clientWidth : 0);
-    var height = (0, _mathJs.max)(html.scrollHeight, html.clientHeight, body ? body.scrollHeight : 0, body ? body.clientHeight : 0);
-    var x = -winScroll.scrollLeft + (0, _getWindowScrollBarXJsDefault.default)(element);
-    var y = -winScroll.scrollTop;
-    if ((0, _getComputedStyleJsDefault.default)(body || html).direction === 'rtl') x += (0, _mathJs.max)(html.clientWidth, body ? body.clientWidth : 0) - width;
-    return {
-        width: width,
-        height: height,
-        x: x,
-        y: y
-    };
-}
-
-},{"./getDocumentElement.js":"eJ9Y1","./getComputedStyle.js":"3mZjB","./getWindowScrollBarX.js":"sz4Ld","./getWindowScroll.js":"1XUtN","../utils/math.js":"gQqVe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2di3T":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>listScrollParents);
-var _getScrollParentJs = require("./getScrollParent.js");
-var _getScrollParentJsDefault = parcelHelpers.interopDefault(_getScrollParentJs);
-var _getParentNodeJs = require("./getParentNode.js");
-var _getParentNodeJsDefault = parcelHelpers.interopDefault(_getParentNodeJs);
-var _getWindowJs = require("./getWindow.js");
-var _getWindowJsDefault = parcelHelpers.interopDefault(_getWindowJs);
-var _isScrollParentJs = require("./isScrollParent.js");
-var _isScrollParentJsDefault = parcelHelpers.interopDefault(_isScrollParentJs);
-function listScrollParents(element, list) {
-    var _element$ownerDocumen;
-    if (list === void 0) list = [];
-    var scrollParent = (0, _getScrollParentJsDefault.default)(element);
-    var isBody = scrollParent === ((_element$ownerDocumen = element.ownerDocument) == null ? void 0 : _element$ownerDocumen.body);
-    var win = (0, _getWindowJsDefault.default)(scrollParent);
-    var target = isBody ? [
-        win
-    ].concat(win.visualViewport || [], (0, _isScrollParentJsDefault.default)(scrollParent) ? scrollParent : []) : scrollParent;
-    var updatedList = list.concat(target);
-    return isBody ? updatedList : updatedList.concat(listScrollParents((0, _getParentNodeJsDefault.default)(target)));
-}
-
-},{"./getScrollParent.js":"jy4ZS","./getParentNode.js":"bIHpd","./getWindow.js":"2SkOo","./isScrollParent.js":"9rLGO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jy4ZS":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getScrollParent);
-var _getParentNodeJs = require("./getParentNode.js");
-var _getParentNodeJsDefault = parcelHelpers.interopDefault(_getParentNodeJs);
-var _isScrollParentJs = require("./isScrollParent.js");
-var _isScrollParentJsDefault = parcelHelpers.interopDefault(_isScrollParentJs);
-var _getNodeNameJs = require("./getNodeName.js");
-var _getNodeNameJsDefault = parcelHelpers.interopDefault(_getNodeNameJs);
-var _instanceOfJs = require("./instanceOf.js");
-function getScrollParent(node) {
-    if ([
-        'html',
-        'body',
-        '#document'
-    ].indexOf((0, _getNodeNameJsDefault.default)(node)) >= 0) // $FlowFixMe[incompatible-return]: assume body is always available
-    return node.ownerDocument.body;
-    if ((0, _instanceOfJs.isHTMLElement)(node) && (0, _isScrollParentJsDefault.default)(node)) return node;
-    return getScrollParent((0, _getParentNodeJsDefault.default)(node));
-}
-
-},{"./getParentNode.js":"bIHpd","./isScrollParent.js":"9rLGO","./getNodeName.js":"a2Qom","./instanceOf.js":"gYFUC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9rLGO":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>isScrollParent);
-var _getComputedStyleJs = require("./getComputedStyle.js");
-var _getComputedStyleJsDefault = parcelHelpers.interopDefault(_getComputedStyleJs);
-function isScrollParent(element) {
-    // Firefox wants us to check `-x` and `-y` variations as well
-    var _getComputedStyle = (0, _getComputedStyleJsDefault.default)(element), overflow = _getComputedStyle.overflow, overflowX = _getComputedStyle.overflowX, overflowY = _getComputedStyle.overflowY;
-    return /auto|scroll|overlay|hidden/.test(overflow + overflowY + overflowX);
-}
-
-},{"./getComputedStyle.js":"3mZjB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cQ3tg":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>rectToClientRect);
-function rectToClientRect(rect) {
-    return Object.assign({}, rect, {
-        left: rect.x,
-        top: rect.y,
-        right: rect.x + rect.width,
-        bottom: rect.y + rect.height
-    });
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7jtXk":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>computeOffsets);
-var _getBasePlacementJs = require("./getBasePlacement.js");
-var _getBasePlacementJsDefault = parcelHelpers.interopDefault(_getBasePlacementJs);
-var _getVariationJs = require("./getVariation.js");
-var _getVariationJsDefault = parcelHelpers.interopDefault(_getVariationJs);
-var _getMainAxisFromPlacementJs = require("./getMainAxisFromPlacement.js");
-var _getMainAxisFromPlacementJsDefault = parcelHelpers.interopDefault(_getMainAxisFromPlacementJs);
-var _enumsJs = require("../enums.js");
-function computeOffsets(_ref) {
-    var reference = _ref.reference, element = _ref.element, placement = _ref.placement;
-    var basePlacement = placement ? (0, _getBasePlacementJsDefault.default)(placement) : null;
-    var variation = placement ? (0, _getVariationJsDefault.default)(placement) : null;
-    var commonX = reference.x + reference.width / 2 - element.width / 2;
-    var commonY = reference.y + reference.height / 2 - element.height / 2;
-    var offsets;
-    switch(basePlacement){
-        case 0, _enumsJs.top:
-            offsets = {
-                x: commonX,
-                y: reference.y - element.height
-            };
-            break;
-        case 0, _enumsJs.bottom:
-            offsets = {
-                x: commonX,
-                y: reference.y + reference.height
-            };
-            break;
-        case 0, _enumsJs.right:
-            offsets = {
-                x: reference.x + reference.width,
-                y: commonY
-            };
-            break;
-        case 0, _enumsJs.left:
-            offsets = {
-                x: reference.x - element.width,
-                y: commonY
-            };
-            break;
-        default:
-            offsets = {
-                x: reference.x,
-                y: reference.y
-            };
-    }
-    var mainAxis = basePlacement ? (0, _getMainAxisFromPlacementJsDefault.default)(basePlacement) : null;
-    if (mainAxis != null) {
-        var len = mainAxis === 'y' ? 'height' : 'width';
-        switch(variation){
-            case 0, _enumsJs.start:
-                offsets[mainAxis] = offsets[mainAxis] - (reference[len] / 2 - element[len] / 2);
-                break;
-            case 0, _enumsJs.end:
-                offsets[mainAxis] = offsets[mainAxis] + (reference[len] / 2 - element[len] / 2);
-                break;
-            default:
-        }
-    }
-    return offsets;
-}
-
-},{"./getBasePlacement.js":"59Wp3","./getVariation.js":"hIo7Y","./getMainAxisFromPlacement.js":"1Xlom","../enums.js":"lCAq5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gytMj":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>computeAutoPlacement);
-var _getVariationJs = require("./getVariation.js");
-var _getVariationJsDefault = parcelHelpers.interopDefault(_getVariationJs);
-var _enumsJs = require("../enums.js");
-var _detectOverflowJs = require("./detectOverflow.js");
-var _detectOverflowJsDefault = parcelHelpers.interopDefault(_detectOverflowJs);
-var _getBasePlacementJs = require("./getBasePlacement.js");
-var _getBasePlacementJsDefault = parcelHelpers.interopDefault(_getBasePlacementJs);
-function computeAutoPlacement(state, options) {
-    if (options === void 0) options = {};
-    var _options = options, placement = _options.placement, boundary = _options.boundary, rootBoundary = _options.rootBoundary, padding = _options.padding, flipVariations = _options.flipVariations, _options$allowedAutoP = _options.allowedAutoPlacements, allowedAutoPlacements = _options$allowedAutoP === void 0 ? (0, _enumsJs.placements) : _options$allowedAutoP;
-    var variation = (0, _getVariationJsDefault.default)(placement);
-    var placements = variation ? flipVariations ? (0, _enumsJs.variationPlacements) : (0, _enumsJs.variationPlacements).filter(function(placement) {
-        return (0, _getVariationJsDefault.default)(placement) === variation;
-    }) : (0, _enumsJs.basePlacements);
-    var allowedPlacements = placements.filter(function(placement) {
-        return allowedAutoPlacements.indexOf(placement) >= 0;
-    });
-    if (allowedPlacements.length === 0) allowedPlacements = placements;
-     // $FlowFixMe[incompatible-type]: Flow seems to have problems with two array unions...
-    var overflows = allowedPlacements.reduce(function(acc, placement) {
-        acc[placement] = (0, _detectOverflowJsDefault.default)(state, {
-            placement: placement,
-            boundary: boundary,
-            rootBoundary: rootBoundary,
-            padding: padding
-        })[(0, _getBasePlacementJsDefault.default)(placement)];
-        return acc;
-    }, {});
-    return Object.keys(overflows).sort(function(a, b) {
-        return overflows[a] - overflows[b];
-    });
-}
-
-},{"./getVariation.js":"hIo7Y","../enums.js":"lCAq5","./detectOverflow.js":"ltCuw","./getBasePlacement.js":"59Wp3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2g4OF":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _enumsJs = require("../enums.js");
-var _detectOverflowJs = require("../utils/detectOverflow.js");
-var _detectOverflowJsDefault = parcelHelpers.interopDefault(_detectOverflowJs);
-function getSideOffsets(overflow, rect, preventedOffsets) {
-    if (preventedOffsets === void 0) preventedOffsets = {
-        x: 0,
-        y: 0
-    };
-    return {
-        top: overflow.top - rect.height - preventedOffsets.y,
-        right: overflow.right - rect.width + preventedOffsets.x,
-        bottom: overflow.bottom - rect.height + preventedOffsets.y,
-        left: overflow.left - rect.width - preventedOffsets.x
-    };
-}
-function isAnySideFullyClipped(overflow) {
-    return [
-        (0, _enumsJs.top),
-        (0, _enumsJs.right),
-        (0, _enumsJs.bottom),
-        (0, _enumsJs.left)
-    ].some(function(side) {
-        return overflow[side] >= 0;
-    });
-}
-function hide(_ref) {
-    var state = _ref.state, name = _ref.name;
-    var referenceRect = state.rects.reference;
-    var popperRect = state.rects.popper;
-    var preventedOffsets = state.modifiersData.preventOverflow;
-    var referenceOverflow = (0, _detectOverflowJsDefault.default)(state, {
-        elementContext: 'reference'
-    });
-    var popperAltOverflow = (0, _detectOverflowJsDefault.default)(state, {
-        altBoundary: true
-    });
-    var referenceClippingOffsets = getSideOffsets(referenceOverflow, referenceRect);
-    var popperEscapeOffsets = getSideOffsets(popperAltOverflow, popperRect, preventedOffsets);
-    var isReferenceHidden = isAnySideFullyClipped(referenceClippingOffsets);
-    var hasPopperEscaped = isAnySideFullyClipped(popperEscapeOffsets);
-    state.modifiersData[name] = {
-        referenceClippingOffsets: referenceClippingOffsets,
-        popperEscapeOffsets: popperEscapeOffsets,
-        isReferenceHidden: isReferenceHidden,
-        hasPopperEscaped: hasPopperEscaped
-    };
-    state.attributes.popper = Object.assign({}, state.attributes.popper, {
-        'data-popper-reference-hidden': isReferenceHidden,
-        'data-popper-escaped': hasPopperEscaped
-    });
-} // eslint-disable-next-line import/no-unused-modules
-exports.default = {
-    name: 'hide',
-    enabled: true,
-    phase: 'main',
-    requiresIfExists: [
-        'preventOverflow'
-    ],
-    fn: hide
-};
-
-},{"../enums.js":"lCAq5","../utils/detectOverflow.js":"ltCuw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3GKVY":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "distanceAndSkiddingToXY", ()=>distanceAndSkiddingToXY);
-var _getBasePlacementJs = require("../utils/getBasePlacement.js");
-var _getBasePlacementJsDefault = parcelHelpers.interopDefault(_getBasePlacementJs);
-var _enumsJs = require("../enums.js"); // eslint-disable-next-line import/no-unused-modules
-function distanceAndSkiddingToXY(placement, rects, offset) {
-    var basePlacement = (0, _getBasePlacementJsDefault.default)(placement);
-    var invertDistance = [
-        (0, _enumsJs.left),
-        (0, _enumsJs.top)
-    ].indexOf(basePlacement) >= 0 ? -1 : 1;
-    var _ref = typeof offset === 'function' ? offset(Object.assign({}, rects, {
-        placement: placement
-    })) : offset, skidding = _ref[0], distance = _ref[1];
-    skidding = skidding || 0;
-    distance = (distance || 0) * invertDistance;
-    return [
-        (0, _enumsJs.left),
-        (0, _enumsJs.right)
-    ].indexOf(basePlacement) >= 0 ? {
-        x: distance,
-        y: skidding
-    } : {
-        x: skidding,
-        y: distance
-    };
-}
-function offset(_ref2) {
-    var state = _ref2.state, options = _ref2.options, name = _ref2.name;
-    var _options$offset = options.offset, offset = _options$offset === void 0 ? [
-        0,
-        0
-    ] : _options$offset;
-    var data = (0, _enumsJs.placements).reduce(function(acc, placement) {
-        acc[placement] = distanceAndSkiddingToXY(placement, state.rects, offset);
-        return acc;
-    }, {});
-    var _data$state$placement = data[state.placement], x = _data$state$placement.x, y = _data$state$placement.y;
-    if (state.modifiersData.popperOffsets != null) {
-        state.modifiersData.popperOffsets.x += x;
-        state.modifiersData.popperOffsets.y += y;
-    }
-    state.modifiersData[name] = data;
-} // eslint-disable-next-line import/no-unused-modules
-exports.default = {
-    name: 'offset',
-    enabled: true,
-    phase: 'main',
-    requires: [
-        'popperOffsets'
-    ],
-    fn: offset
-};
-
-},{"../utils/getBasePlacement.js":"59Wp3","../enums.js":"lCAq5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6I679":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _computeOffsetsJs = require("../utils/computeOffsets.js");
-var _computeOffsetsJsDefault = parcelHelpers.interopDefault(_computeOffsetsJs);
-function popperOffsets(_ref) {
-    var state = _ref.state, name = _ref.name;
-    // Offsets are the actual position the popper needs to have to be
-    // properly positioned near its reference element
-    // This is the most basic placement, and will be adjusted by
-    // the modifiers in the next step
-    state.modifiersData[name] = (0, _computeOffsetsJsDefault.default)({
-        reference: state.rects.reference,
-        element: state.rects.popper,
-        strategy: 'absolute',
-        placement: state.placement
-    });
-} // eslint-disable-next-line import/no-unused-modules
-exports.default = {
-    name: 'popperOffsets',
-    enabled: true,
-    phase: 'read',
-    fn: popperOffsets,
-    data: {}
-};
-
-},{"../utils/computeOffsets.js":"7jtXk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1AMhb":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _enumsJs = require("../enums.js");
-var _getBasePlacementJs = require("../utils/getBasePlacement.js");
-var _getBasePlacementJsDefault = parcelHelpers.interopDefault(_getBasePlacementJs);
-var _getMainAxisFromPlacementJs = require("../utils/getMainAxisFromPlacement.js");
-var _getMainAxisFromPlacementJsDefault = parcelHelpers.interopDefault(_getMainAxisFromPlacementJs);
-var _getAltAxisJs = require("../utils/getAltAxis.js");
-var _getAltAxisJsDefault = parcelHelpers.interopDefault(_getAltAxisJs);
-var _withinJs = require("../utils/within.js");
-var _getLayoutRectJs = require("../dom-utils/getLayoutRect.js");
-var _getLayoutRectJsDefault = parcelHelpers.interopDefault(_getLayoutRectJs);
-var _getOffsetParentJs = require("../dom-utils/getOffsetParent.js");
-var _getOffsetParentJsDefault = parcelHelpers.interopDefault(_getOffsetParentJs);
-var _detectOverflowJs = require("../utils/detectOverflow.js");
-var _detectOverflowJsDefault = parcelHelpers.interopDefault(_detectOverflowJs);
-var _getVariationJs = require("../utils/getVariation.js");
-var _getVariationJsDefault = parcelHelpers.interopDefault(_getVariationJs);
-var _getFreshSideObjectJs = require("../utils/getFreshSideObject.js");
-var _getFreshSideObjectJsDefault = parcelHelpers.interopDefault(_getFreshSideObjectJs);
-var _mathJs = require("../utils/math.js");
-function preventOverflow(_ref) {
-    var state = _ref.state, options = _ref.options, name = _ref.name;
-    var _options$mainAxis = options.mainAxis, checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis, _options$altAxis = options.altAxis, checkAltAxis = _options$altAxis === void 0 ? false : _options$altAxis, boundary = options.boundary, rootBoundary = options.rootBoundary, altBoundary = options.altBoundary, padding = options.padding, _options$tether = options.tether, tether = _options$tether === void 0 ? true : _options$tether, _options$tetherOffset = options.tetherOffset, tetherOffset = _options$tetherOffset === void 0 ? 0 : _options$tetherOffset;
-    var overflow = (0, _detectOverflowJsDefault.default)(state, {
-        boundary: boundary,
-        rootBoundary: rootBoundary,
-        padding: padding,
-        altBoundary: altBoundary
-    });
-    var basePlacement = (0, _getBasePlacementJsDefault.default)(state.placement);
-    var variation = (0, _getVariationJsDefault.default)(state.placement);
-    var isBasePlacement = !variation;
-    var mainAxis = (0, _getMainAxisFromPlacementJsDefault.default)(basePlacement);
-    var altAxis = (0, _getAltAxisJsDefault.default)(mainAxis);
-    var popperOffsets = state.modifiersData.popperOffsets;
-    var referenceRect = state.rects.reference;
-    var popperRect = state.rects.popper;
-    var tetherOffsetValue = typeof tetherOffset === 'function' ? tetherOffset(Object.assign({}, state.rects, {
-        placement: state.placement
-    })) : tetherOffset;
-    var normalizedTetherOffsetValue = typeof tetherOffsetValue === 'number' ? {
-        mainAxis: tetherOffsetValue,
-        altAxis: tetherOffsetValue
-    } : Object.assign({
-        mainAxis: 0,
-        altAxis: 0
-    }, tetherOffsetValue);
-    var offsetModifierState = state.modifiersData.offset ? state.modifiersData.offset[state.placement] : null;
-    var data = {
-        x: 0,
-        y: 0
-    };
-    if (!popperOffsets) return;
-    if (checkMainAxis) {
-        var _offsetModifierState$;
-        var mainSide = mainAxis === 'y' ? (0, _enumsJs.top) : (0, _enumsJs.left);
-        var altSide = mainAxis === 'y' ? (0, _enumsJs.bottom) : (0, _enumsJs.right);
-        var len = mainAxis === 'y' ? 'height' : 'width';
-        var offset = popperOffsets[mainAxis];
-        var min = offset + overflow[mainSide];
-        var max = offset - overflow[altSide];
-        var additive = tether ? -popperRect[len] / 2 : 0;
-        var minLen = variation === (0, _enumsJs.start) ? referenceRect[len] : popperRect[len];
-        var maxLen = variation === (0, _enumsJs.start) ? -popperRect[len] : -referenceRect[len]; // We need to include the arrow in the calculation so the arrow doesn't go
-        // outside the reference bounds
-        var arrowElement = state.elements.arrow;
-        var arrowRect = tether && arrowElement ? (0, _getLayoutRectJsDefault.default)(arrowElement) : {
-            width: 0,
-            height: 0
-        };
-        var arrowPaddingObject = state.modifiersData['arrow#persistent'] ? state.modifiersData['arrow#persistent'].padding : (0, _getFreshSideObjectJsDefault.default)();
-        var arrowPaddingMin = arrowPaddingObject[mainSide];
-        var arrowPaddingMax = arrowPaddingObject[altSide]; // If the reference length is smaller than the arrow length, we don't want
-        // to include its full size in the calculation. If the reference is small
-        // and near the edge of a boundary, the popper can overflow even if the
-        // reference is not overflowing as well (e.g. virtual elements with no
-        // width or height)
-        var arrowLen = (0, _withinJs.within)(0, referenceRect[len], arrowRect[len]);
-        var minOffset = isBasePlacement ? referenceRect[len] / 2 - additive - arrowLen - arrowPaddingMin - normalizedTetherOffsetValue.mainAxis : minLen - arrowLen - arrowPaddingMin - normalizedTetherOffsetValue.mainAxis;
-        var maxOffset = isBasePlacement ? -referenceRect[len] / 2 + additive + arrowLen + arrowPaddingMax + normalizedTetherOffsetValue.mainAxis : maxLen + arrowLen + arrowPaddingMax + normalizedTetherOffsetValue.mainAxis;
-        var arrowOffsetParent = state.elements.arrow && (0, _getOffsetParentJsDefault.default)(state.elements.arrow);
-        var clientOffset = arrowOffsetParent ? mainAxis === 'y' ? arrowOffsetParent.clientTop || 0 : arrowOffsetParent.clientLeft || 0 : 0;
-        var offsetModifierValue = (_offsetModifierState$ = offsetModifierState == null ? void 0 : offsetModifierState[mainAxis]) != null ? _offsetModifierState$ : 0;
-        var tetherMin = offset + minOffset - offsetModifierValue - clientOffset;
-        var tetherMax = offset + maxOffset - offsetModifierValue;
-        var preventedOffset = (0, _withinJs.within)(tether ? (0, _mathJs.min)(min, tetherMin) : min, offset, tether ? (0, _mathJs.max)(max, tetherMax) : max);
-        popperOffsets[mainAxis] = preventedOffset;
-        data[mainAxis] = preventedOffset - offset;
-    }
-    if (checkAltAxis) {
-        var _offsetModifierState$2;
-        var _mainSide = mainAxis === 'x' ? (0, _enumsJs.top) : (0, _enumsJs.left);
-        var _altSide = mainAxis === 'x' ? (0, _enumsJs.bottom) : (0, _enumsJs.right);
-        var _offset = popperOffsets[altAxis];
-        var _len = altAxis === 'y' ? 'height' : 'width';
-        var _min = _offset + overflow[_mainSide];
-        var _max = _offset - overflow[_altSide];
-        var isOriginSide = [
-            (0, _enumsJs.top),
-            (0, _enumsJs.left)
-        ].indexOf(basePlacement) !== -1;
-        var _offsetModifierValue = (_offsetModifierState$2 = offsetModifierState == null ? void 0 : offsetModifierState[altAxis]) != null ? _offsetModifierState$2 : 0;
-        var _tetherMin = isOriginSide ? _min : _offset - referenceRect[_len] - popperRect[_len] - _offsetModifierValue + normalizedTetherOffsetValue.altAxis;
-        var _tetherMax = isOriginSide ? _offset + referenceRect[_len] + popperRect[_len] - _offsetModifierValue - normalizedTetherOffsetValue.altAxis : _max;
-        var _preventedOffset = tether && isOriginSide ? (0, _withinJs.withinMaxClamp)(_tetherMin, _offset, _tetherMax) : (0, _withinJs.within)(tether ? _tetherMin : _min, _offset, tether ? _tetherMax : _max);
-        popperOffsets[altAxis] = _preventedOffset;
-        data[altAxis] = _preventedOffset - _offset;
-    }
-    state.modifiersData[name] = data;
-} // eslint-disable-next-line import/no-unused-modules
-exports.default = {
-    name: 'preventOverflow',
-    enabled: true,
-    phase: 'main',
-    fn: preventOverflow,
-    requiresIfExists: [
-        'offset'
-    ]
-};
-
-},{"../enums.js":"lCAq5","../utils/getBasePlacement.js":"59Wp3","../utils/getMainAxisFromPlacement.js":"1Xlom","../utils/getAltAxis.js":"59FWE","../utils/within.js":"3glSz","../dom-utils/getLayoutRect.js":"jvjuf","../dom-utils/getOffsetParent.js":"laoYw","../utils/detectOverflow.js":"ltCuw","../utils/getVariation.js":"hIo7Y","../utils/getFreshSideObject.js":"g4xOt","../utils/math.js":"gQqVe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"59FWE":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getAltAxis);
-function getAltAxis(axis) {
-    return axis === 'x' ? 'y' : 'x';
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cHuNp":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "popperGenerator", ()=>popperGenerator);
-parcelHelpers.export(exports, "createPopper", ()=>createPopper);
-parcelHelpers.export(exports, "detectOverflow", ()=>(0, _detectOverflowJsDefault.default));
-var _getCompositeRectJs = require("./dom-utils/getCompositeRect.js");
-var _getCompositeRectJsDefault = parcelHelpers.interopDefault(_getCompositeRectJs);
-var _getLayoutRectJs = require("./dom-utils/getLayoutRect.js");
-var _getLayoutRectJsDefault = parcelHelpers.interopDefault(_getLayoutRectJs);
-var _listScrollParentsJs = require("./dom-utils/listScrollParents.js");
-var _listScrollParentsJsDefault = parcelHelpers.interopDefault(_listScrollParentsJs);
-var _getOffsetParentJs = require("./dom-utils/getOffsetParent.js");
-var _getOffsetParentJsDefault = parcelHelpers.interopDefault(_getOffsetParentJs);
-var _orderModifiersJs = require("./utils/orderModifiers.js");
-var _orderModifiersJsDefault = parcelHelpers.interopDefault(_orderModifiersJs);
-var _debounceJs = require("./utils/debounce.js");
-var _debounceJsDefault = parcelHelpers.interopDefault(_debounceJs);
-var _mergeByNameJs = require("./utils/mergeByName.js");
-var _mergeByNameJsDefault = parcelHelpers.interopDefault(_mergeByNameJs);
-var _detectOverflowJs = require("./utils/detectOverflow.js");
-var _detectOverflowJsDefault = parcelHelpers.interopDefault(_detectOverflowJs);
-var _instanceOfJs = require("./dom-utils/instanceOf.js");
-var DEFAULT_OPTIONS = {
-    placement: 'bottom',
-    modifiers: [],
-    strategy: 'absolute'
-};
-function areValidElements() {
-    for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++)args[_key] = arguments[_key];
-    return !args.some(function(element) {
-        return !(element && typeof element.getBoundingClientRect === 'function');
-    });
-}
-function popperGenerator(generatorOptions) {
-    if (generatorOptions === void 0) generatorOptions = {};
-    var _generatorOptions = generatorOptions, _generatorOptions$def = _generatorOptions.defaultModifiers, defaultModifiers = _generatorOptions$def === void 0 ? [] : _generatorOptions$def, _generatorOptions$def2 = _generatorOptions.defaultOptions, defaultOptions = _generatorOptions$def2 === void 0 ? DEFAULT_OPTIONS : _generatorOptions$def2;
-    return function createPopper(reference, popper, options) {
-        if (options === void 0) options = defaultOptions;
-        var state = {
-            placement: 'bottom',
-            orderedModifiers: [],
-            options: Object.assign({}, DEFAULT_OPTIONS, defaultOptions),
-            modifiersData: {},
-            elements: {
-                reference: reference,
-                popper: popper
-            },
-            attributes: {},
-            styles: {}
-        };
-        var effectCleanupFns = [];
-        var isDestroyed = false;
-        var instance = {
-            state: state,
-            setOptions: function setOptions(setOptionsAction) {
-                var options = typeof setOptionsAction === 'function' ? setOptionsAction(state.options) : setOptionsAction;
-                cleanupModifierEffects();
-                state.options = Object.assign({}, defaultOptions, state.options, options);
-                state.scrollParents = {
-                    reference: (0, _instanceOfJs.isElement)(reference) ? (0, _listScrollParentsJsDefault.default)(reference) : reference.contextElement ? (0, _listScrollParentsJsDefault.default)(reference.contextElement) : [],
-                    popper: (0, _listScrollParentsJsDefault.default)(popper)
-                }; // Orders the modifiers based on their dependencies and `phase`
-                // properties
-                var orderedModifiers = (0, _orderModifiersJsDefault.default)((0, _mergeByNameJsDefault.default)([].concat(defaultModifiers, state.options.modifiers))); // Strip out disabled modifiers
-                state.orderedModifiers = orderedModifiers.filter(function(m) {
-                    return m.enabled;
-                });
-                runModifierEffects();
-                return instance.update();
-            },
-            // Sync update – it will always be executed, even if not necessary. This
-            // is useful for low frequency updates where sync behavior simplifies the
-            // logic.
-            // For high frequency updates (e.g. `resize` and `scroll` events), always
-            // prefer the async Popper#update method
-            forceUpdate: function forceUpdate() {
-                if (isDestroyed) return;
-                var _state$elements = state.elements, reference = _state$elements.reference, popper = _state$elements.popper; // Don't proceed if `reference` or `popper` are not valid elements
-                // anymore
-                if (!areValidElements(reference, popper)) return;
-                 // Store the reference and popper rects to be read by modifiers
-                state.rects = {
-                    reference: (0, _getCompositeRectJsDefault.default)(reference, (0, _getOffsetParentJsDefault.default)(popper), state.options.strategy === 'fixed'),
-                    popper: (0, _getLayoutRectJsDefault.default)(popper)
-                }; // Modifiers have the ability to reset the current update cycle. The
-                // most common use case for this is the `flip` modifier changing the
-                // placement, which then needs to re-run all the modifiers, because the
-                // logic was previously ran for the previous placement and is therefore
-                // stale/incorrect
-                state.reset = false;
-                state.placement = state.options.placement; // On each update cycle, the `modifiersData` property for each modifier
-                // is filled with the initial data specified by the modifier. This means
-                // it doesn't persist and is fresh on each update.
-                // To ensure persistent data, use `${name}#persistent`
-                state.orderedModifiers.forEach(function(modifier) {
-                    return state.modifiersData[modifier.name] = Object.assign({}, modifier.data);
-                });
-                for(var index = 0; index < state.orderedModifiers.length; index++){
-                    if (state.reset === true) {
-                        state.reset = false;
-                        index = -1;
-                        continue;
-                    }
-                    var _state$orderedModifie = state.orderedModifiers[index], fn = _state$orderedModifie.fn, _state$orderedModifie2 = _state$orderedModifie.options, _options = _state$orderedModifie2 === void 0 ? {} : _state$orderedModifie2, name = _state$orderedModifie.name;
-                    if (typeof fn === 'function') state = fn({
-                        state: state,
-                        options: _options,
-                        name: name,
-                        instance: instance
-                    }) || state;
-                }
-            },
-            // Async and optimistically optimized update – it will not be executed if
-            // not necessary (debounced to run at most once-per-tick)
-            update: (0, _debounceJsDefault.default)(function() {
-                return new Promise(function(resolve) {
-                    instance.forceUpdate();
-                    resolve(state);
-                });
-            }),
-            destroy: function destroy() {
-                cleanupModifierEffects();
-                isDestroyed = true;
-            }
-        };
-        if (!areValidElements(reference, popper)) return instance;
-        instance.setOptions(options).then(function(state) {
-            if (!isDestroyed && options.onFirstUpdate) options.onFirstUpdate(state);
-        }); // Modifiers have the ability to execute arbitrary code before the first
-        // update cycle runs. They will be executed in the same order as the update
-        // cycle. This is useful when a modifier adds some persistent data that
-        // other modifiers need to use, but the modifier is run after the dependent
-        // one.
-        function runModifierEffects() {
-            state.orderedModifiers.forEach(function(_ref) {
-                var name = _ref.name, _ref$options = _ref.options, options = _ref$options === void 0 ? {} : _ref$options, effect = _ref.effect;
-                if (typeof effect === 'function') {
-                    var cleanupFn = effect({
-                        state: state,
-                        name: name,
-                        instance: instance,
-                        options: options
-                    });
-                    var noopFn = function noopFn() {};
-                    effectCleanupFns.push(cleanupFn || noopFn);
-                }
-            });
-        }
-        function cleanupModifierEffects() {
-            effectCleanupFns.forEach(function(fn) {
-                return fn();
-            });
-            effectCleanupFns = [];
-        }
-        return instance;
-    };
-}
-var createPopper = /*#__PURE__*/ popperGenerator(); // eslint-disable-next-line import/no-unused-modules
-
-},{"./dom-utils/getCompositeRect.js":"ijPls","./dom-utils/getLayoutRect.js":"jvjuf","./dom-utils/listScrollParents.js":"2di3T","./dom-utils/getOffsetParent.js":"laoYw","./utils/orderModifiers.js":"N0VO0","./utils/debounce.js":"g6Chr","./utils/mergeByName.js":"2zTVN","./utils/detectOverflow.js":false,"./dom-utils/instanceOf.js":"gYFUC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ijPls":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getCompositeRect);
-var _getBoundingClientRectJs = require("./getBoundingClientRect.js");
-var _getBoundingClientRectJsDefault = parcelHelpers.interopDefault(_getBoundingClientRectJs);
-var _getNodeScrollJs = require("./getNodeScroll.js");
-var _getNodeScrollJsDefault = parcelHelpers.interopDefault(_getNodeScrollJs);
-var _getNodeNameJs = require("./getNodeName.js");
-var _getNodeNameJsDefault = parcelHelpers.interopDefault(_getNodeNameJs);
-var _instanceOfJs = require("./instanceOf.js");
-var _getWindowScrollBarXJs = require("./getWindowScrollBarX.js");
-var _getWindowScrollBarXJsDefault = parcelHelpers.interopDefault(_getWindowScrollBarXJs);
-var _getDocumentElementJs = require("./getDocumentElement.js");
-var _getDocumentElementJsDefault = parcelHelpers.interopDefault(_getDocumentElementJs);
-var _isScrollParentJs = require("./isScrollParent.js");
-var _isScrollParentJsDefault = parcelHelpers.interopDefault(_isScrollParentJs);
-var _mathJs = require("../utils/math.js");
-function isElementScaled(element) {
-    var rect = element.getBoundingClientRect();
-    var scaleX = (0, _mathJs.round)(rect.width) / element.offsetWidth || 1;
-    var scaleY = (0, _mathJs.round)(rect.height) / element.offsetHeight || 1;
-    return scaleX !== 1 || scaleY !== 1;
-} // Returns the composite rect of an element relative to its offsetParent.
-function getCompositeRect(elementOrVirtualElement, offsetParent, isFixed) {
-    if (isFixed === void 0) isFixed = false;
-    var isOffsetParentAnElement = (0, _instanceOfJs.isHTMLElement)(offsetParent);
-    var offsetParentIsScaled = (0, _instanceOfJs.isHTMLElement)(offsetParent) && isElementScaled(offsetParent);
-    var documentElement = (0, _getDocumentElementJsDefault.default)(offsetParent);
-    var rect = (0, _getBoundingClientRectJsDefault.default)(elementOrVirtualElement, offsetParentIsScaled, isFixed);
-    var scroll = {
-        scrollLeft: 0,
-        scrollTop: 0
-    };
-    var offsets = {
-        x: 0,
-        y: 0
-    };
-    if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
-        if ((0, _getNodeNameJsDefault.default)(offsetParent) !== 'body' || // https://github.com/popperjs/popper-core/issues/1078
-        (0, _isScrollParentJsDefault.default)(documentElement)) scroll = (0, _getNodeScrollJsDefault.default)(offsetParent);
-        if ((0, _instanceOfJs.isHTMLElement)(offsetParent)) {
-            offsets = (0, _getBoundingClientRectJsDefault.default)(offsetParent, true);
-            offsets.x += offsetParent.clientLeft;
-            offsets.y += offsetParent.clientTop;
-        } else if (documentElement) offsets.x = (0, _getWindowScrollBarXJsDefault.default)(documentElement);
-    }
-    return {
-        x: rect.left + scroll.scrollLeft - offsets.x,
-        y: rect.top + scroll.scrollTop - offsets.y,
-        width: rect.width,
-        height: rect.height
-    };
-}
-
-},{"./getBoundingClientRect.js":"9CFSQ","./getNodeScroll.js":"bBjCr","./getNodeName.js":"a2Qom","./instanceOf.js":"gYFUC","./getWindowScrollBarX.js":"sz4Ld","./getDocumentElement.js":"eJ9Y1","./isScrollParent.js":"9rLGO","../utils/math.js":"gQqVe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bBjCr":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getNodeScroll);
-var _getWindowScrollJs = require("./getWindowScroll.js");
-var _getWindowScrollJsDefault = parcelHelpers.interopDefault(_getWindowScrollJs);
-var _getWindowJs = require("./getWindow.js");
-var _getWindowJsDefault = parcelHelpers.interopDefault(_getWindowJs);
-var _instanceOfJs = require("./instanceOf.js");
-var _getHTMLElementScrollJs = require("./getHTMLElementScroll.js");
-var _getHTMLElementScrollJsDefault = parcelHelpers.interopDefault(_getHTMLElementScrollJs);
-function getNodeScroll(node) {
-    if (node === (0, _getWindowJsDefault.default)(node) || !(0, _instanceOfJs.isHTMLElement)(node)) return (0, _getWindowScrollJsDefault.default)(node);
-    else return (0, _getHTMLElementScrollJsDefault.default)(node);
-}
-
-},{"./getWindowScroll.js":"1XUtN","./getWindow.js":"2SkOo","./instanceOf.js":"gYFUC","./getHTMLElementScroll.js":"6pwY2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6pwY2":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>getHTMLElementScroll);
-function getHTMLElementScroll(element) {
-    return {
-        scrollLeft: element.scrollLeft,
-        scrollTop: element.scrollTop
-    };
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"N0VO0":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>orderModifiers);
-var _enumsJs = require("../enums.js"); // source: https://stackoverflow.com/questions/49875255
-function order(modifiers) {
-    var map = new Map();
-    var visited = new Set();
-    var result = [];
-    modifiers.forEach(function(modifier) {
-        map.set(modifier.name, modifier);
-    }); // On visiting object, check for its dependencies and visit them recursively
-    function sort(modifier) {
-        visited.add(modifier.name);
-        var requires = [].concat(modifier.requires || [], modifier.requiresIfExists || []);
-        requires.forEach(function(dep) {
-            if (!visited.has(dep)) {
-                var depModifier = map.get(dep);
-                if (depModifier) sort(depModifier);
-            }
-        });
-        result.push(modifier);
-    }
-    modifiers.forEach(function(modifier) {
-        if (!visited.has(modifier.name)) // check for visited object
-        sort(modifier);
-    });
-    return result;
-}
-function orderModifiers(modifiers) {
-    // order based on dependencies
-    var orderedModifiers = order(modifiers); // order based on phase
-    return (0, _enumsJs.modifierPhases).reduce(function(acc, phase) {
-        return acc.concat(orderedModifiers.filter(function(modifier) {
-            return modifier.phase === phase;
-        }));
-    }, []);
-}
-
-},{"../enums.js":"lCAq5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g6Chr":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>debounce);
-function debounce(fn) {
-    var pending;
-    return function() {
-        if (!pending) pending = new Promise(function(resolve) {
-            Promise.resolve().then(function() {
-                pending = undefined;
-                resolve(fn());
-            });
-        });
-        return pending;
-    };
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2zTVN":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>mergeByName);
-function mergeByName(modifiers) {
-    var merged = modifiers.reduce(function(merged, current) {
-        var existing = merged[current.name];
-        merged[current.name] = existing ? Object.assign({}, existing, current, {
-            options: Object.assign({}, existing.options, current.options),
-            data: Object.assign({}, existing.data, current.data)
-        }) : current;
-        return merged;
-    }, {}); // IE11 does not support Object.values
-    return Object.keys(merged).map(function(key) {
-        return merged[key];
-    });
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1PuRF":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "createPopperLite", ()=>(0, _popperLiteJs.createPopper)) // eslint-disable-next-line import/no-unused-modules
-;
-parcelHelpers.export(exports, "createPopper", ()=>createPopper) // eslint-disable-next-line import/no-unused-modules
-;
-parcelHelpers.export(exports, "popperGenerator", ()=>(0, _createPopperJs.popperGenerator));
-parcelHelpers.export(exports, "defaultModifiers", ()=>defaultModifiers);
-parcelHelpers.export(exports, "detectOverflow", ()=>(0, _createPopperJs.detectOverflow));
-var _createPopperJs = require("./createPopper.js");
-var _eventListenersJs = require("./modifiers/eventListeners.js");
-var _eventListenersJsDefault = parcelHelpers.interopDefault(_eventListenersJs);
-var _popperOffsetsJs = require("./modifiers/popperOffsets.js");
-var _popperOffsetsJsDefault = parcelHelpers.interopDefault(_popperOffsetsJs);
-var _computeStylesJs = require("./modifiers/computeStyles.js");
-var _computeStylesJsDefault = parcelHelpers.interopDefault(_computeStylesJs);
-var _applyStylesJs = require("./modifiers/applyStyles.js");
-var _applyStylesJsDefault = parcelHelpers.interopDefault(_applyStylesJs);
-var _offsetJs = require("./modifiers/offset.js");
-var _offsetJsDefault = parcelHelpers.interopDefault(_offsetJs);
-var _flipJs = require("./modifiers/flip.js");
-var _flipJsDefault = parcelHelpers.interopDefault(_flipJs);
-var _preventOverflowJs = require("./modifiers/preventOverflow.js");
-var _preventOverflowJsDefault = parcelHelpers.interopDefault(_preventOverflowJs);
-var _arrowJs = require("./modifiers/arrow.js");
-var _arrowJsDefault = parcelHelpers.interopDefault(_arrowJs);
-var _hideJs = require("./modifiers/hide.js");
-var _hideJsDefault = parcelHelpers.interopDefault(_hideJs);
-var _popperLiteJs = require("./popper-lite.js");
-var _indexJs = require("./modifiers/index.js");
-parcelHelpers.exportAll(_indexJs, exports);
-var defaultModifiers = [
-    (0, _eventListenersJsDefault.default),
-    (0, _popperOffsetsJsDefault.default),
-    (0, _computeStylesJsDefault.default),
-    (0, _applyStylesJsDefault.default),
-    (0, _offsetJsDefault.default),
-    (0, _flipJsDefault.default),
-    (0, _preventOverflowJsDefault.default),
-    (0, _arrowJsDefault.default),
-    (0, _hideJsDefault.default)
-];
-var createPopper = /*#__PURE__*/ (0, _createPopperJs.popperGenerator)({
-    defaultModifiers: defaultModifiers
-}); // eslint-disable-next-line import/no-unused-modules
-
-},{"./createPopper.js":"cHuNp","./modifiers/eventListeners.js":"hBKsL","./modifiers/popperOffsets.js":"6I679","./modifiers/computeStyles.js":"gDlm2","./modifiers/applyStyles.js":"4iMn4","./modifiers/offset.js":"3GKVY","./modifiers/flip.js":"fv5wq","./modifiers/preventOverflow.js":"1AMhb","./modifiers/arrow.js":"31HFW","./modifiers/hide.js":"2g4OF","./popper-lite.js":false,"./modifiers/index.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8ZeYL":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>tooltipComponent);
-parcelHelpers.export(exports, "initTooltip", ()=>initTooltip);
-var _tippy = require("../lib/tippy");
-var _tippyDefault = parcelHelpers.interopDefault(_tippy);
-function tooltipCreator({ target }) {
+function $7a759511c361f2bd$var$tooltipCreator({ target: target }) {
     const content = this.$el.dataset.tooltipText || (this.$refs.tooltip ? this.$refs.tooltip.innerHTML : null);
-    if (content) return (0, _tippyDefault.default)(target || this.$refs.tooltipTarget || this.$el, {
+    if (content) return (0, $789b7d27a7c715a6$export$2e2bcd8739ae039)(target || this.$refs.tooltipTarget || this.$el, {
         delay: [
             200,
             0
         ],
-        content,
+        content: content,
         theme: "tooltip",
         triggerTarget: this.$el,
         onShow: ()=>this.$store.settings.showTooltips
     });
 }
-function initTooltip(context, opts) {
-    return tooltipCreator.bind(context)(opts || {});
+function $7a759511c361f2bd$export$353372104066311a(context, opts) {
+    return $7a759511c361f2bd$var$tooltipCreator.bind(context)(opts || {});
 }
-function tooltipComponent() {
+function $7a759511c361f2bd$export$2e2bcd8739ae039() {
     return {
         init () {
-            initTooltip(this);
+            $7a759511c361f2bd$export$353372104066311a(this);
         }
     };
 }
 
-},{"../lib/tippy":"hK1T5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1HiHq":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>copyButtonComponent);
-var _clipboard = require("~/assets/js/components/clipboard");
-var _component = require("@components/button/component");
-var _componentDefault = parcelHelpers.interopDefault(_component);
-function copyButtonComponent() {
-    const button = (0, _componentDefault.default)();
-    return {
-        ...button,
-        copied: false,
-        init () {
-            button.init.bind(this)();
-            (0, _clipboard.initClipboard)(this);
-        }
-    };
-}
 
-},{"~/assets/js/components/clipboard":"aOeJs","@components/button/component":"lQApy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aOeJs":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>clipboardComponent);
-parcelHelpers.export(exports, "initClipboard", ()=>initClipboard);
-var _string = require("../helpers/string");
-function initClipboard(context = {}) {
-    let copyTimeout = null;
-    return Object.assign(context, {
-        copied: false,
-        async copyToClipboard (target = null) {
-            let targetEl;
-            if (this.$refs.copyTarget) targetEl = this.$refs.copyTarget;
-            else if (typeof target === "string") targetEl = document.querySelector(target);
-            if (!targetEl) {
-                this.warn("Could not find copy target");
-                return false;
-            }
-            const content = (0, _string.decodeEntities)(targetEl.innerHTML.trim());
-            await window.navigator.clipboard.writeText(content);
-            this.copied = true;
-            if (copyTimeout) clearTimeout(copyTimeout);
-            copyTimeout = setTimeout(()=>{
-                this.copied = false;
-                this.onCopyComplete();
-            }, 1000);
-            return content;
+function $cbd28b10fa9798c7$export$2e2bcd8739ae039() {
+    let tooltip = null;
+    let dropdown = null;
+    return {
+        init () {
+            if (this.$refs.tooltip) tooltip = (0, $7a759511c361f2bd$export$353372104066311a)(this, {
+                target: this.$refs.icon
+            });
+            if (this.dropdownContent) this.initDropdown();
         },
-        onCopyComplete () {}
-    });
-}
-function clipboardComponent() {
-    return initClipboard({});
+        initDropdown () {
+            dropdown = (0, $789b7d27a7c715a6$export$2e2bcd8739ae039)(this.$el, {
+                content: this.dropdownContent,
+                trigger: "click",
+                theme: "menu",
+                triggerTarget: this.$el,
+                interactive: true,
+                zIndex: 99999,
+                onShow: ()=>{
+                    if (!this.$store.settings.showTooltips) return false;
+                    this.$dispatch("dropdown:show", {
+                        dropdown: this
+                    });
+                },
+                onHide: ()=>this.$dispatch("dropdown:hide", {
+                        dropdown: this
+                    })
+            });
+        },
+        get dropdownContent () {
+            if (this.$root && this.$root.id) {
+                const dropdown = document.querySelector(`[data-dropdown-id="${this.$root.id}"]`);
+                return dropdown ? dropdown.innerHTML : null;
+            }
+            return null;
+        },
+        hideDropdown () {
+            if (dropdown) dropdown.hide();
+        },
+        startSpin () {
+            this._spinning = true;
+        },
+        stopSpin (delay = 0) {
+            setTimeout(()=>this._spinning = false, delay);
+        },
+        get _tooltip () {
+            return tooltip;
+        },
+        _spinning: false
+    };
 }
 
-},{"../helpers/string":"gpMOS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2jedY":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>codeComponent);
-function codeComponent() {
+
+var $99486586f6691564$exports = {};
+
+$parcel$defineInteropFlag($99486586f6691564$exports);
+
+$parcel$export($99486586f6691564$exports, "default", () => $99486586f6691564$export$2e2bcd8739ae039);
+function $99486586f6691564$export$2e2bcd8739ae039() {
     return {};
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kFxrd":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>dimensionsDisplayComponent);
-var _layout = require("@helpers/layout");
-function dimensionsDisplayComponent(targetSelector) {
+
+var $e398acaded942bbe$exports = {};
+
+$parcel$defineInteropFlag($e398acaded942bbe$exports);
+
+$parcel$export($e398acaded942bbe$exports, "default", () => $e398acaded942bbe$export$2e2bcd8739ae039);
+
+function $e398acaded942bbe$export$2e2bcd8739ae039(targetSelector) {
     return {
         width: 0,
         height: 0,
@@ -13136,7 +11735,7 @@ function dimensionsDisplayComponent(targetSelector) {
             }
         },
         createObserver () {
-            if (this.target) this.observer = (0, _layout.observeSize)(this.target, ({ width, height })=>{
+            if (this.target) this.observer = (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.target, ({ width: width, height: height })=>{
                 this.width = width;
                 this.height = height;
             });
@@ -13147,19 +11746,79 @@ function dimensionsDisplayComponent(targetSelector) {
     };
 }
 
-},{"@helpers/layout":"cQnTi","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"30Q4x":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>embedCodeDropdownComponent);
-function embedCodeDropdownComponent() {
+
+var $47a1c62621be0c54$exports = {};
+
+$parcel$defineInteropFlag($47a1c62621be0c54$exports);
+
+$parcel$export($47a1c62621be0c54$exports, "default", () => $47a1c62621be0c54$export$2e2bcd8739ae039);
+var $4e31c85e11272811$exports = {};
+
+$parcel$defineInteropFlag($4e31c85e11272811$exports);
+
+$parcel$export($4e31c85e11272811$exports, "initClipboard", () => $4e31c85e11272811$export$c6684e6159b21de3);
+$parcel$export($4e31c85e11272811$exports, "default", () => $4e31c85e11272811$export$2e2bcd8739ae039);
+
+function $4e31c85e11272811$export$c6684e6159b21de3(context = {}) {
+    let copyTimeout = null;
+    return Object.assign(context, {
+        copied: false,
+        async copyToClipboard (target = null) {
+            let targetEl;
+            if (this.$refs.copyTarget) targetEl = this.$refs.copyTarget;
+            else if (typeof target === "string") targetEl = document.querySelector(target);
+            if (!targetEl) {
+                this.warn("Could not find copy target");
+                return false;
+            }
+            const content = (0, $fb8f79f7dd40b68f$export$6cb344a21ca18aec)(targetEl.innerHTML.trim());
+            await window.navigator.clipboard.writeText(content);
+            this.copied = true;
+            if (copyTimeout) clearTimeout(copyTimeout);
+            copyTimeout = setTimeout(()=>{
+                this.copied = false;
+                this.onCopyComplete();
+            }, 1000);
+            return content;
+        },
+        onCopyComplete () {}
+    });
+}
+function $4e31c85e11272811$export$2e2bcd8739ae039() {
+    return $4e31c85e11272811$export$c6684e6159b21de3({});
+}
+
+
+
+function $47a1c62621be0c54$export$2e2bcd8739ae039() {
+    const button = (0, $cbd28b10fa9798c7$export$2e2bcd8739ae039)();
+    return {
+        ...button,
+        copied: false,
+        init () {
+            button.init.bind(this)();
+            (0, $4e31c85e11272811$export$c6684e6159b21de3)(this);
+        }
+    };
+}
+
+
+var $216ef7001f59f21d$exports = {};
+
+$parcel$defineInteropFlag($216ef7001f59f21d$exports);
+
+$parcel$export($216ef7001f59f21d$exports, "default", () => $216ef7001f59f21d$export$2e2bcd8739ae039);
+function $216ef7001f59f21d$export$2e2bcd8739ae039() {
     return {};
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c1bw6":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>filterComponent);
-function filterComponent(store) {
+
+var $e9904a14dabf652d$exports = {};
+
+$parcel$defineInteropFlag($e9904a14dabf652d$exports);
+
+$parcel$export($e9904a14dabf652d$exports, "default", () => $e9904a14dabf652d$export$2e2bcd8739ae039);
+function $e9904a14dabf652d$export$2e2bcd8739ae039(store) {
     return {
         focussed: false,
         get active () {
@@ -13178,11 +11837,13 @@ function filterComponent(store) {
     };
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bGQJL":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>navComponent);
-function navComponent(store) {
+
+var $d92d9d5253f84566$exports = {};
+
+$parcel$defineInteropFlag($d92d9d5253f84566$exports);
+
+$parcel$export($d92d9d5253f84566$exports, "default", () => $d92d9d5253f84566$export$2e2bcd8739ae039);
+function $d92d9d5253f84566$export$2e2bcd8739ae039(store) {
     return {
         empty: false,
         children: [],
@@ -13220,145 +11881,30 @@ function navComponent(store) {
     };
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dX3DZ":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>splitLayoutComponent);
-var _splitGrid = require("split-grid");
-var _splitGridDefault = parcelHelpers.interopDefault(_splitGrid);
-var _layout = require("@helpers/layout");
-function splitLayoutComponent({ split, opts = {} }) {
-    let splitter = null;
-    const shouldSplit = split.sizes !== null;
-    return {
-        layoutResizing: false,
-        layoutWidth: null,
-        layoutHeight: null,
-        forceOrientation: null,
-        get vertical () {
-            if (this.forceOrientation) return this.forceOrientation === "vertical";
-            return split.direction === "vertical";
-        },
-        get horizontal () {
-            if (this.forceOrientation) return this.forceOrientation === "horizontal";
-            return split.direction === "horizontal";
-        },
-        get splits () {
-            if (this.horizontal && split.horizontalSizes) return split.horizontalSizes;
-            else if (this.vertical && split.verticalSizes) return split.verticalSizes;
-            else return split.sizes || [];
-        },
-        get minSizes () {
-            if (this.horizontal && opts.minHorizontalSizes) return opts.minHorizontalSizes;
-            else if (this.vertical && opts.minVerticalSizes) return opts.minVerticalSizes;
-            else return opts.minSizes || [];
-        },
-        init () {
-            (0, _layout.observeSize)(this.$el, ({ width, height })=>{
-                this.layoutWidth = width;
-                this.layoutHeight = height;
-            });
-        },
-        switchOrientation () {
-            split.direction = this.vertical ? "horizontal" : "vertical";
-        },
-        registerGutter () {
-            this._gutters.push(this.$el);
-        },
-        initSplit () {
-            if (shouldSplit && this._gutters.length) {
-                this._destroySplit();
-                const dir = this.horizontal ? "row" : "column";
-                splitter = (0, _splitGridDefault.default)({
-                    [`${dir}Gutters`]: gutterSplits(this._gutters),
-                    [`${dir}MinSizes`]: sizeSplits(this.minSizes),
-                    snapOffset: 0,
-                    dragInterval: 1,
-                    writeStyle () {},
-                    onDrag: (dir, gutterTrack, style)=>{
-                        const splits = style.split(" ").map((value, i)=>i % 2 == 0 ? value : null).filter((v)=>v);
-                        this._setSplits(splits);
-                    },
-                    onDragStart: ()=>{
-                        this.layoutResizing = true;
-                        this.$dispatch("layout:resize-start", {
-                            layout: this
-                        });
-                    },
-                    onDragEnd: ()=>{
-                        this.layoutResizing = false;
-                        this.$dispatch("layout:resize-end", {
-                            layout: this
-                        });
-                    }
-                });
-            }
-        },
-        bindings: {
-            root: {
-                [":style"] () {
-                    return {
-                        "grid-template-columns": shouldSplit && this.vertical && sizeStr(this.splits),
-                        "grid-template-rows": shouldSplit && this.horizontal && sizeStr(this.splits)
-                    };
-                }
-            }
-        },
-        // protected
-        _gutters: [],
-        _destroySplit () {
-            if (splitter) splitter.destroy();
-        },
-        _setSplits (splits) {
-            if (this.horizontal && split.horizontalSizes) split.horizontalSizes = splits;
-            else if (this.vertical && split.verticalSizes) split.verticalSizes = splits;
-            else split.sizes = splits;
-        }
-    };
-}
-// utils
-function sizeStr(sizes) {
-    const values = [];
-    sizes.forEach((size)=>values.push(size, "1px"));
-    return values.slice(0, -1).join(" ");
-}
-function gutterSplits(gutters) {
-    return gutters.map((element, i)=>{
-        return {
-            track: i * 2 + 1,
-            element
-        };
-    });
-}
-function sizeSplits(sizes) {
-    const splits = {};
-    sizes.forEach((value, i)=>{
-        if (value !== null) splits[i * 2] = value;
-    });
-    return splits;
-}
 
-},{"split-grid":"c7zSd","@helpers/layout":"cQnTi","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c7zSd":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var numeric = function(value, unit) {
+var $506dabb2bf255b38$exports = {};
+
+$parcel$defineInteropFlag($506dabb2bf255b38$exports);
+
+$parcel$export($506dabb2bf255b38$exports, "default", () => $506dabb2bf255b38$export$2e2bcd8739ae039);
+var $7cac9a0d4b75bf4e$var$numeric = function(value, unit) {
     return Number(value.slice(0, -1 * unit.length));
 };
-var parseValue = function(value) {
+var $7cac9a0d4b75bf4e$var$parseValue = function(value) {
     if (value.endsWith('px')) return {
         value: value,
         type: 'px',
-        numeric: numeric(value, 'px')
+        numeric: $7cac9a0d4b75bf4e$var$numeric(value, 'px')
     };
     if (value.endsWith('fr')) return {
         value: value,
         type: 'fr',
-        numeric: numeric(value, 'fr')
+        numeric: $7cac9a0d4b75bf4e$var$numeric(value, 'fr')
     };
     if (value.endsWith('%')) return {
         value: value,
         type: '%',
-        numeric: numeric(value, '%')
+        numeric: $7cac9a0d4b75bf4e$var$numeric(value, '%')
     };
     if (value === 'auto') return {
         value: value,
@@ -13366,10 +11912,10 @@ var parseValue = function(value) {
     };
     return null;
 };
-var parse = function(rule) {
-    return rule.split(' ').map(parseValue);
+var $7cac9a0d4b75bf4e$var$parse = function(rule) {
+    return rule.split(' ').map($7cac9a0d4b75bf4e$var$parseValue);
 };
-var getSizeAtTrack = function(index, tracks, gap, end) {
+var $7cac9a0d4b75bf4e$var$getSizeAtTrack = function(index, tracks, gap, end) {
     if (gap === void 0) gap = 0;
     if (end === void 0) end = false;
     var newIndex = end ? index + 1 : index;
@@ -13379,37 +11925,37 @@ var getSizeAtTrack = function(index, tracks, gap, end) {
     var gapSum = gap ? index * gap : 0;
     return trackSum + gapSum;
 };
-var getStyles = function(rule, ownRules, matchedRules) {
+var $7cac9a0d4b75bf4e$var$getStyles = function(rule, ownRules, matchedRules) {
     return ownRules.concat(matchedRules).map(function(r) {
         return r.style[rule];
     }).filter(function(style) {
         return style !== undefined && style !== '';
     });
 };
-var getGapValue = function(unit, size) {
+var $7cac9a0d4b75bf4e$var$getGapValue = function(unit, size) {
     if (size.endsWith(unit)) return Number(size.slice(0, -1 * unit.length));
     return null;
 };
-var firstNonZero = function(tracks) {
+var $7cac9a0d4b75bf4e$var$firstNonZero = function(tracks) {
     // eslint-disable-next-line no-plusplus
     for(var i = 0; i < tracks.length; i++){
         if (tracks[i].numeric > 0) return i;
     }
     return null;
 };
-var NOOP = function() {
+var $7cac9a0d4b75bf4e$var$NOOP = function() {
     return false;
 };
-var defaultWriteStyle = function(element, gridTemplateProp, style) {
+var $7cac9a0d4b75bf4e$var$defaultWriteStyle = function(element, gridTemplateProp, style) {
     // eslint-disable-next-line no-param-reassign
     element.style[gridTemplateProp] = style;
 };
-var getOption = function(options, propName, def) {
+var $7cac9a0d4b75bf4e$var$getOption = function(options, propName, def) {
     var value = options[propName];
     if (value !== undefined) return value;
     return def;
 };
-function getMatchedCSSRules(el) {
+function $7cac9a0d4b75bf4e$var$getMatchedCSSRules(el) {
     var ref;
     return (ref = []).concat.apply(ref, Array.from(el.ownerDocument.styleSheets).map(function(s) {
         var rules = [];
@@ -13429,33 +11975,33 @@ function getMatchedCSSRules(el) {
         return matches;
     });
 }
-var gridTemplatePropColumns = 'grid-template-columns';
-var gridTemplatePropRows = 'grid-template-rows';
-var Gutter = function Gutter(direction, options, parentOptions) {
+var $7cac9a0d4b75bf4e$var$gridTemplatePropColumns = 'grid-template-columns';
+var $7cac9a0d4b75bf4e$var$gridTemplatePropRows = 'grid-template-rows';
+var $7cac9a0d4b75bf4e$var$Gutter = function Gutter(direction, options, parentOptions) {
     this.direction = direction;
     this.element = options.element;
     this.track = options.track;
     if (direction === 'column') {
-        this.gridTemplateProp = gridTemplatePropColumns;
+        this.gridTemplateProp = $7cac9a0d4b75bf4e$var$gridTemplatePropColumns;
         this.gridGapProp = 'grid-column-gap';
-        this.cursor = getOption(parentOptions, 'columnCursor', getOption(parentOptions, 'cursor', 'col-resize'));
-        this.snapOffset = getOption(parentOptions, 'columnSnapOffset', getOption(parentOptions, 'snapOffset', 30));
-        this.dragInterval = getOption(parentOptions, 'columnDragInterval', getOption(parentOptions, 'dragInterval', 1));
+        this.cursor = $7cac9a0d4b75bf4e$var$getOption(parentOptions, 'columnCursor', $7cac9a0d4b75bf4e$var$getOption(parentOptions, 'cursor', 'col-resize'));
+        this.snapOffset = $7cac9a0d4b75bf4e$var$getOption(parentOptions, 'columnSnapOffset', $7cac9a0d4b75bf4e$var$getOption(parentOptions, 'snapOffset', 30));
+        this.dragInterval = $7cac9a0d4b75bf4e$var$getOption(parentOptions, 'columnDragInterval', $7cac9a0d4b75bf4e$var$getOption(parentOptions, 'dragInterval', 1));
         this.clientAxis = 'clientX';
-        this.optionStyle = getOption(parentOptions, 'gridTemplateColumns');
+        this.optionStyle = $7cac9a0d4b75bf4e$var$getOption(parentOptions, 'gridTemplateColumns');
     } else if (direction === 'row') {
-        this.gridTemplateProp = gridTemplatePropRows;
+        this.gridTemplateProp = $7cac9a0d4b75bf4e$var$gridTemplatePropRows;
         this.gridGapProp = 'grid-row-gap';
-        this.cursor = getOption(parentOptions, 'rowCursor', getOption(parentOptions, 'cursor', 'row-resize'));
-        this.snapOffset = getOption(parentOptions, 'rowSnapOffset', getOption(parentOptions, 'snapOffset', 30));
-        this.dragInterval = getOption(parentOptions, 'rowDragInterval', getOption(parentOptions, 'dragInterval', 1));
+        this.cursor = $7cac9a0d4b75bf4e$var$getOption(parentOptions, 'rowCursor', $7cac9a0d4b75bf4e$var$getOption(parentOptions, 'cursor', 'row-resize'));
+        this.snapOffset = $7cac9a0d4b75bf4e$var$getOption(parentOptions, 'rowSnapOffset', $7cac9a0d4b75bf4e$var$getOption(parentOptions, 'snapOffset', 30));
+        this.dragInterval = $7cac9a0d4b75bf4e$var$getOption(parentOptions, 'rowDragInterval', $7cac9a0d4b75bf4e$var$getOption(parentOptions, 'dragInterval', 1));
         this.clientAxis = 'clientY';
-        this.optionStyle = getOption(parentOptions, 'gridTemplateRows');
+        this.optionStyle = $7cac9a0d4b75bf4e$var$getOption(parentOptions, 'gridTemplateRows');
     }
-    this.onDragStart = getOption(parentOptions, 'onDragStart', NOOP);
-    this.onDragEnd = getOption(parentOptions, 'onDragEnd', NOOP);
-    this.onDrag = getOption(parentOptions, 'onDrag', NOOP);
-    this.writeStyle = getOption(parentOptions, 'writeStyle', defaultWriteStyle);
+    this.onDragStart = $7cac9a0d4b75bf4e$var$getOption(parentOptions, 'onDragStart', $7cac9a0d4b75bf4e$var$NOOP);
+    this.onDragEnd = $7cac9a0d4b75bf4e$var$getOption(parentOptions, 'onDragEnd', $7cac9a0d4b75bf4e$var$NOOP);
+    this.onDrag = $7cac9a0d4b75bf4e$var$getOption(parentOptions, 'onDrag', $7cac9a0d4b75bf4e$var$NOOP);
+    this.writeStyle = $7cac9a0d4b75bf4e$var$getOption(parentOptions, 'writeStyle', $7cac9a0d4b75bf4e$var$defaultWriteStyle);
     this.startDragging = this.startDragging.bind(this);
     this.stopDragging = this.stopDragging.bind(this);
     this.drag = this.drag.bind(this);
@@ -13466,7 +12012,7 @@ var Gutter = function Gutter(direction, options, parentOptions) {
         this.element.addEventListener('touchstart', this.startDragging);
     }
 };
-Gutter.prototype.getDimensions = function getDimensions() {
+$7cac9a0d4b75bf4e$var$Gutter.prototype.getDimensions = function getDimensions() {
     var ref = this.grid.getBoundingClientRect();
     var width = ref.width;
     var height = ref.height;
@@ -13484,55 +12030,55 @@ Gutter.prototype.getDimensions = function getDimensions() {
         this.size = width;
     }
 };
-Gutter.prototype.getSizeAtTrack = function getSizeAtTrack$1(track, end) {
-    return getSizeAtTrack(track, this.computedPixels, this.computedGapPixels, end);
+$7cac9a0d4b75bf4e$var$Gutter.prototype.getSizeAtTrack = function getSizeAtTrack$1(track, end) {
+    return $7cac9a0d4b75bf4e$var$getSizeAtTrack(track, this.computedPixels, this.computedGapPixels, end);
 };
-Gutter.prototype.getSizeOfTrack = function getSizeOfTrack(track) {
+$7cac9a0d4b75bf4e$var$Gutter.prototype.getSizeOfTrack = function getSizeOfTrack(track) {
     return this.computedPixels[track].numeric;
 };
-Gutter.prototype.getRawTracks = function getRawTracks() {
-    var tracks = getStyles(this.gridTemplateProp, [
+$7cac9a0d4b75bf4e$var$Gutter.prototype.getRawTracks = function getRawTracks() {
+    var tracks = $7cac9a0d4b75bf4e$var$getStyles(this.gridTemplateProp, [
         this.grid
-    ], getMatchedCSSRules(this.grid));
+    ], $7cac9a0d4b75bf4e$var$getMatchedCSSRules(this.grid));
     if (!tracks.length) {
         if (this.optionStyle) return this.optionStyle;
         throw Error('Unable to determine grid template tracks from styles.');
     }
     return tracks[0];
 };
-Gutter.prototype.getGap = function getGap() {
-    var gap = getStyles(this.gridGapProp, [
+$7cac9a0d4b75bf4e$var$Gutter.prototype.getGap = function getGap() {
+    var gap = $7cac9a0d4b75bf4e$var$getStyles(this.gridGapProp, [
         this.grid
-    ], getMatchedCSSRules(this.grid));
+    ], $7cac9a0d4b75bf4e$var$getMatchedCSSRules(this.grid));
     if (!gap.length) return null;
     return gap[0];
 };
-Gutter.prototype.getRawComputedTracks = function getRawComputedTracks() {
+$7cac9a0d4b75bf4e$var$Gutter.prototype.getRawComputedTracks = function getRawComputedTracks() {
     return window.getComputedStyle(this.grid)[this.gridTemplateProp];
 };
-Gutter.prototype.getRawComputedGap = function getRawComputedGap() {
+$7cac9a0d4b75bf4e$var$Gutter.prototype.getRawComputedGap = function getRawComputedGap() {
     return window.getComputedStyle(this.grid)[this.gridGapProp];
 };
-Gutter.prototype.setTracks = function setTracks(raw) {
+$7cac9a0d4b75bf4e$var$Gutter.prototype.setTracks = function setTracks(raw) {
     this.tracks = raw.split(' ');
-    this.trackValues = parse(raw);
+    this.trackValues = $7cac9a0d4b75bf4e$var$parse(raw);
 };
-Gutter.prototype.setComputedTracks = function setComputedTracks(raw) {
+$7cac9a0d4b75bf4e$var$Gutter.prototype.setComputedTracks = function setComputedTracks(raw) {
     this.computedTracks = raw.split(' ');
-    this.computedPixels = parse(raw);
+    this.computedPixels = $7cac9a0d4b75bf4e$var$parse(raw);
 };
-Gutter.prototype.setGap = function setGap(raw) {
+$7cac9a0d4b75bf4e$var$Gutter.prototype.setGap = function setGap(raw) {
     this.gap = raw;
 };
-Gutter.prototype.setComputedGap = function setComputedGap(raw) {
+$7cac9a0d4b75bf4e$var$Gutter.prototype.setComputedGap = function setComputedGap(raw) {
     this.computedGap = raw;
-    this.computedGapPixels = getGapValue('px', this.computedGap) || 0;
+    this.computedGapPixels = $7cac9a0d4b75bf4e$var$getGapValue('px', this.computedGap) || 0;
 };
-Gutter.prototype.getMousePosition = function getMousePosition(e) {
+$7cac9a0d4b75bf4e$var$Gutter.prototype.getMousePosition = function getMousePosition(e) {
     if ('touches' in e) return e.touches[0][this.clientAxis];
     return e[this.clientAxis];
 };
-Gutter.prototype.startDragging = function startDragging(e) {
+$7cac9a0d4b75bf4e$var$Gutter.prototype.startDragging = function startDragging(e) {
     if ('button' in e && e.button !== 0) return;
     // Don't actually drag the element. We emulate that in the drag function.
     e.preventDefault();
@@ -13551,11 +12097,11 @@ Gutter.prototype.startDragging = function startDragging(e) {
     });
     this.totalFrs = trackFr.length;
     if (this.totalFrs) {
-        var track = firstNonZero(trackFr);
+        var track = $7cac9a0d4b75bf4e$var$firstNonZero(trackFr);
         if (track !== null) this.frToPixels = this.computedPixels[track].numeric / trackFr[track].numeric;
     }
     if (trackPercentage.length) {
-        var track$1 = firstNonZero(trackPercentage);
+        var track$1 = $7cac9a0d4b75bf4e$var$firstNonZero(trackPercentage);
         if (track$1 !== null) this.percentageToPixels = this.computedPixels[track$1].numeric / trackPercentage[track$1].numeric;
     }
     // get start of gutter track
@@ -13575,8 +12121,8 @@ Gutter.prototype.startDragging = function startDragging(e) {
     window.addEventListener('mousemove', this.drag);
     window.addEventListener('touchmove', this.drag);
     // Disable selection. Disable!
-    this.grid.addEventListener('selectstart', NOOP);
-    this.grid.addEventListener('dragstart', NOOP);
+    this.grid.addEventListener('selectstart', $7cac9a0d4b75bf4e$var$NOOP);
+    this.grid.addEventListener('dragstart', $7cac9a0d4b75bf4e$var$NOOP);
     this.grid.style.userSelect = 'none';
     this.grid.style.webkitUserSelect = 'none';
     this.grid.style.MozUserSelect = 'none';
@@ -13586,7 +12132,7 @@ Gutter.prototype.startDragging = function startDragging(e) {
     window.document.body.style.cursor = this.cursor;
     this.onDragStart(this.direction, this.track);
 };
-Gutter.prototype.stopDragging = function stopDragging() {
+$7cac9a0d4b75bf4e$var$Gutter.prototype.stopDragging = function stopDragging() {
     this.dragging = false;
     // Remove the stored event listeners. This is why we store them.
     this.cleanup();
@@ -13601,7 +12147,7 @@ Gutter.prototype.stopDragging = function stopDragging() {
         this.destroyCb = null;
     }
 };
-Gutter.prototype.drag = function drag(e) {
+$7cac9a0d4b75bf4e$var$Gutter.prototype.drag = function drag(e) {
     var mousePosition = this.getMousePosition(e);
     var gutterSize = this.getSizeOfTrack(this.track);
     var minMousePosition = this.aTrackStart + this.minSizeStart + this.dragStartOffset + this.computedGapPixels;
@@ -13647,15 +12193,15 @@ Gutter.prototype.drag = function drag(e) {
     this.writeStyle(this.grid, this.gridTemplateProp, style);
     this.onDrag(this.direction, this.track, style);
 };
-Gutter.prototype.cleanup = function cleanup() {
+$7cac9a0d4b75bf4e$var$Gutter.prototype.cleanup = function cleanup() {
     window.removeEventListener('mouseup', this.stopDragging);
     window.removeEventListener('touchend', this.stopDragging);
     window.removeEventListener('touchcancel', this.stopDragging);
     window.removeEventListener('mousemove', this.drag);
     window.removeEventListener('touchmove', this.drag);
     if (this.grid) {
-        this.grid.removeEventListener('selectstart', NOOP);
-        this.grid.removeEventListener('dragstart', NOOP);
+        this.grid.removeEventListener('selectstart', $7cac9a0d4b75bf4e$var$NOOP);
+        this.grid.removeEventListener('dragstart', $7cac9a0d4b75bf4e$var$NOOP);
         this.grid.style.userSelect = '';
         this.grid.style.webkitUserSelect = '';
         this.grid.style.MozUserSelect = '';
@@ -13664,7 +12210,7 @@ Gutter.prototype.cleanup = function cleanup() {
     }
     window.document.body.style.cursor = '';
 };
-Gutter.prototype.destroy = function destroy(immediate, cb) {
+$7cac9a0d4b75bf4e$var$Gutter.prototype.destroy = function destroy(immediate, cb) {
     if (immediate === void 0) immediate = true;
     if (immediate || this.dragging === false) {
         this.cleanup();
@@ -13678,22 +12224,22 @@ Gutter.prototype.destroy = function destroy(immediate, cb) {
         if (cb) this.destroyCb = cb;
     }
 };
-var getTrackOption = function(options, track, defaultValue) {
+var $7cac9a0d4b75bf4e$var$getTrackOption = function(options, track, defaultValue) {
     if (track in options) return options[track];
     return defaultValue;
 };
-var createGutter = function(direction, options) {
+var $7cac9a0d4b75bf4e$var$createGutter = function(direction, options) {
     return function(gutterOptions) {
         if (gutterOptions.track < 1) throw Error("Invalid track index: " + gutterOptions.track + ". Track must be between two other tracks.");
         var trackMinSizes = direction === 'column' ? options.columnMinSizes || {} : options.rowMinSizes || {};
         var trackMinSize = direction === 'column' ? 'columnMinSize' : 'rowMinSize';
-        return new Gutter(direction, Object.assign({}, {
-            minSizeStart: getTrackOption(trackMinSizes, gutterOptions.track - 1, getOption(options, trackMinSize, getOption(options, 'minSize', 0))),
-            minSizeEnd: getTrackOption(trackMinSizes, gutterOptions.track + 1, getOption(options, trackMinSize, getOption(options, 'minSize', 0)))
+        return new $7cac9a0d4b75bf4e$var$Gutter(direction, Object.assign({}, {
+            minSizeStart: $7cac9a0d4b75bf4e$var$getTrackOption(trackMinSizes, gutterOptions.track - 1, $7cac9a0d4b75bf4e$var$getOption(options, trackMinSize, $7cac9a0d4b75bf4e$var$getOption(options, 'minSize', 0))),
+            minSizeEnd: $7cac9a0d4b75bf4e$var$getTrackOption(trackMinSizes, gutterOptions.track + 1, $7cac9a0d4b75bf4e$var$getOption(options, trackMinSize, $7cac9a0d4b75bf4e$var$getOption(options, 'minSize', 0)))
         }, gutterOptions), options);
     };
 };
-var Grid = function Grid(options) {
+var $7cac9a0d4b75bf4e$var$Grid = function Grid(options) {
     var this$1 = this;
     this.columnGutters = {};
     this.rowGutters = {};
@@ -13704,56 +12250,56 @@ var Grid = function Grid(options) {
         rowMinSizes: options.rowMinSizes || {}
     }, options);
     this.options.columnGutters.forEach(function(gutterOptions) {
-        this$1.columnGutters[gutterOptions.track] = createGutter('column', this$1.options)(gutterOptions);
+        this$1.columnGutters[gutterOptions.track] = $7cac9a0d4b75bf4e$var$createGutter('column', this$1.options)(gutterOptions);
     });
     this.options.rowGutters.forEach(function(gutterOptions) {
-        this$1.rowGutters[gutterOptions.track] = createGutter('row', this$1.options)(gutterOptions);
+        this$1.rowGutters[gutterOptions.track] = $7cac9a0d4b75bf4e$var$createGutter('row', this$1.options)(gutterOptions);
     });
 };
-Grid.prototype.addColumnGutter = function addColumnGutter(element, track) {
+$7cac9a0d4b75bf4e$var$Grid.prototype.addColumnGutter = function addColumnGutter(element, track) {
     if (this.columnGutters[track]) this.columnGutters[track].destroy();
-    this.columnGutters[track] = createGutter('column', this.options)({
+    this.columnGutters[track] = $7cac9a0d4b75bf4e$var$createGutter('column', this.options)({
         element: element,
         track: track
     });
 };
-Grid.prototype.addRowGutter = function addRowGutter(element, track) {
+$7cac9a0d4b75bf4e$var$Grid.prototype.addRowGutter = function addRowGutter(element, track) {
     if (this.rowGutters[track]) this.rowGutters[track].destroy();
-    this.rowGutters[track] = createGutter('row', this.options)({
+    this.rowGutters[track] = $7cac9a0d4b75bf4e$var$createGutter('row', this.options)({
         element: element,
         track: track
     });
 };
-Grid.prototype.removeColumnGutter = function removeColumnGutter(track, immediate) {
+$7cac9a0d4b75bf4e$var$Grid.prototype.removeColumnGutter = function removeColumnGutter(track, immediate) {
     var this$1 = this;
     if (immediate === void 0) immediate = true;
     if (this.columnGutters[track]) this.columnGutters[track].destroy(immediate, function() {
         delete this$1.columnGutters[track];
     });
 };
-Grid.prototype.removeRowGutter = function removeRowGutter(track, immediate) {
+$7cac9a0d4b75bf4e$var$Grid.prototype.removeRowGutter = function removeRowGutter(track, immediate) {
     var this$1 = this;
     if (immediate === void 0) immediate = true;
     if (this.rowGutters[track]) this.rowGutters[track].destroy(immediate, function() {
         delete this$1.rowGutters[track];
     });
 };
-Grid.prototype.handleDragStart = function handleDragStart(e, direction, track) {
+$7cac9a0d4b75bf4e$var$Grid.prototype.handleDragStart = function handleDragStart(e, direction, track) {
     if (direction === 'column') {
         if (this.columnGutters[track]) this.columnGutters[track].destroy();
-        this.columnGutters[track] = createGutter('column', this.options)({
+        this.columnGutters[track] = $7cac9a0d4b75bf4e$var$createGutter('column', this.options)({
             track: track
         });
         this.columnGutters[track].startDragging(e);
     } else if (direction === 'row') {
         if (this.rowGutters[track]) this.rowGutters[track].destroy();
-        this.rowGutters[track] = createGutter('row', this.options)({
+        this.rowGutters[track] = $7cac9a0d4b75bf4e$var$createGutter('row', this.options)({
             track: track
         });
         this.rowGutters[track].startDragging(e);
     }
 };
-Grid.prototype.destroy = function destroy(immediate) {
+$7cac9a0d4b75bf4e$var$Grid.prototype.destroy = function destroy(immediate) {
     var this$1 = this;
     if (immediate === void 0) immediate = true;
     Object.keys(this.columnGutters).forEach(function(track) {
@@ -13767,16 +12313,131 @@ Grid.prototype.destroy = function destroy(immediate) {
         });
     });
 };
-function index(options) {
-    return new Grid(options);
+function $7cac9a0d4b75bf4e$var$index(options) {
+    return new $7cac9a0d4b75bf4e$var$Grid(options);
 }
-exports.default = index;
+var $7cac9a0d4b75bf4e$export$2e2bcd8739ae039 = $7cac9a0d4b75bf4e$var$index;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jPEON":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>tabPanelsComponent);
-function tabPanelsComponent(store) {
+
+
+function $506dabb2bf255b38$export$2e2bcd8739ae039({ split: split, opts: opts = {} }) {
+    let splitter = null;
+    const shouldSplit = split.sizes !== null;
+    return {
+        layoutResizing: false,
+        layoutWidth: null,
+        layoutHeight: null,
+        forceOrientation: null,
+        get vertical () {
+            if (this.forceOrientation) return this.forceOrientation === "vertical";
+            return split.direction === "vertical";
+        },
+        get horizontal () {
+            if (this.forceOrientation) return this.forceOrientation === "horizontal";
+            return split.direction === "horizontal";
+        },
+        get splits () {
+            if (this.horizontal && split.horizontalSizes) return split.horizontalSizes;
+            else if (this.vertical && split.verticalSizes) return split.verticalSizes;
+            else return split.sizes || [];
+        },
+        get minSizes () {
+            if (this.horizontal && opts.minHorizontalSizes) return opts.minHorizontalSizes;
+            else if (this.vertical && opts.minVerticalSizes) return opts.minVerticalSizes;
+            else return opts.minSizes || [];
+        },
+        init () {
+            (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$el, ({ width: width, height: height })=>{
+                this.layoutWidth = width;
+                this.layoutHeight = height;
+            });
+        },
+        switchOrientation () {
+            split.direction = this.vertical ? "horizontal" : "vertical";
+        },
+        registerGutter () {
+            this._gutters.push(this.$el);
+        },
+        initSplit () {
+            if (shouldSplit && this._gutters.length) {
+                this._destroySplit();
+                const dir = this.horizontal ? "row" : "column";
+                splitter = (0, $7cac9a0d4b75bf4e$export$2e2bcd8739ae039)({
+                    [`${dir}Gutters`]: $506dabb2bf255b38$var$gutterSplits(this._gutters),
+                    [`${dir}MinSizes`]: $506dabb2bf255b38$var$sizeSplits(this.minSizes),
+                    snapOffset: 0,
+                    dragInterval: 1,
+                    writeStyle () {},
+                    onDrag: (dir, gutterTrack, style)=>{
+                        const splits = style.split(" ").map((value, i)=>i % 2 == 0 ? value : null).filter((v)=>v);
+                        this._setSplits(splits);
+                    },
+                    onDragStart: ()=>{
+                        this.layoutResizing = true;
+                        this.$dispatch("layout:resize-start", {
+                            layout: this
+                        });
+                    },
+                    onDragEnd: ()=>{
+                        this.layoutResizing = false;
+                        this.$dispatch("layout:resize-end", {
+                            layout: this
+                        });
+                    }
+                });
+            }
+        },
+        bindings: {
+            root: {
+                [":style"] () {
+                    return {
+                        "grid-template-columns": shouldSplit && this.vertical && $506dabb2bf255b38$var$sizeStr(this.splits),
+                        "grid-template-rows": shouldSplit && this.horizontal && $506dabb2bf255b38$var$sizeStr(this.splits)
+                    };
+                }
+            }
+        },
+        // protected
+        _gutters: [],
+        _destroySplit () {
+            if (splitter) splitter.destroy();
+        },
+        _setSplits (splits) {
+            if (this.horizontal && split.horizontalSizes) split.horizontalSizes = splits;
+            else if (this.vertical && split.verticalSizes) split.verticalSizes = splits;
+            else split.sizes = splits;
+        }
+    };
+}
+// utils
+function $506dabb2bf255b38$var$sizeStr(sizes) {
+    const values = [];
+    sizes.forEach((size)=>values.push(size, "1px"));
+    return values.slice(0, -1).join(" ");
+}
+function $506dabb2bf255b38$var$gutterSplits(gutters) {
+    return gutters.map((element, i)=>{
+        return {
+            track: i * 2 + 1,
+            element: element
+        };
+    });
+}
+function $506dabb2bf255b38$var$sizeSplits(sizes) {
+    const splits = {};
+    sizes.forEach((value, i)=>{
+        if (value !== null) splits[i * 2] = value;
+    });
+    return splits;
+}
+
+
+var $a87dacf5139b5e2f$exports = {};
+
+$parcel$defineInteropFlag($a87dacf5139b5e2f$exports);
+
+$parcel$export($a87dacf5139b5e2f$exports, "default", () => $a87dacf5139b5e2f$export$2e2bcd8739ae039);
+function $a87dacf5139b5e2f$export$2e2bcd8739ae039(store) {
     return {
         get store () {
             return store || this;
@@ -13797,16 +12458,17 @@ function tabPanelsComponent(store) {
     };
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dvr8m":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>tabsComponent);
-var _throttleDebounce = require("throttle-debounce");
-var _tippy = require("~/assets/js/lib/tippy");
-var _tippyDefault = parcelHelpers.interopDefault(_tippy);
-var _layout = require("@helpers/layout");
-var _dom = require("@helpers/dom");
-function tabsComponent(store) {
+
+var $0db07828cadc68e0$exports = {};
+
+$parcel$defineInteropFlag($0db07828cadc68e0$exports);
+
+$parcel$export($0db07828cadc68e0$exports, "default", () => $0db07828cadc68e0$export$2e2bcd8739ae039);
+
+
+
+
+function $0db07828cadc68e0$export$2e2bcd8739ae039(store) {
     const initial = store ? store.activeTab : null;
     let dropdown = null;
     return {
@@ -13822,14 +12484,14 @@ function tabsComponent(store) {
             return Array.from(this.$refs.tabsDropdown ? this.$refs.tabsDropdown.children : []);
         },
         get tabWidths () {
-            return this.tabs.map((tab)=>(0, _dom.getElementSize)(tab, {
+            return this.tabs.map((tab)=>(0, $490552754c23ef6f$export$bdf7e699b242f476)(tab, {
                     includeMargins: true
                 }).width);
         },
         init () {
             this.$nextTick(()=>{
                 if (this.$root.parentElement.offsetWidth === this.$root.offsetWidth) this.visibleTabsCount = this.tabs.length;
-                dropdown = (0, _tippyDefault.default)(this.$refs.dropdownTrigger, {
+                dropdown = (0, $789b7d27a7c715a6$export$2e2bcd8739ae039)(this.$refs.dropdownTrigger, {
                     content: this.$refs.tabsDropdown,
                     theme: "menu",
                     interactive: true,
@@ -13839,13 +12501,13 @@ function tabsComponent(store) {
                 });
                 const initialTab = initial ? this.tabs.find((t)=>this._getRef(t) === initial) : this.tabs[0];
                 this.selectTab(initialTab || this.tabs[0], true);
-                this.parentObserver = (0, _layout.observeSize)(this.$root.parentElement, (0, _throttleDebounce.debounce)(10, this.handleResize.bind(this)));
+                this.parentObserver = (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$root.parentElement, (0, $c5d017602d25d050$export$61fc7d43ac8f84b0)(10, this.handleResize.bind(this)));
                 this.$watch("visibleTabsCount", (value)=>{
                     this.debug(`'#${this.$root.id}' visible tabs count:`, value);
                 });
             });
         },
-        handleResize ({ width }) {
+        handleResize ({ width: width }) {
             if (width === this._lastMeasuredWidth) return;
             if (width === this.$root.offsetWidth) {
                 this.visibleTabsCount = this.tabs.length;
@@ -13889,18 +12551,20 @@ function tabsComponent(store) {
     };
 }
 
-},{"throttle-debounce":"81w4t","~/assets/js/lib/tippy":"hK1T5","@helpers/layout":"cQnTi","@helpers/dom":"j7Svb","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6kmWp":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>viewportComponent);
-function viewportComponent(store) {
+
+var $6d64716f0b34fdf4$exports = {};
+
+$parcel$defineInteropFlag($6d64716f0b34fdf4$exports);
+
+$parcel$export($6d64716f0b34fdf4$exports, "default", () => $6d64716f0b34fdf4$export$2e2bcd8739ae039);
+function $6d64716f0b34fdf4$export$2e2bcd8739ae039(store) {
     store = store || {
         width: "100%",
         height: "100%"
     };
     store.resizing = false;
     return {
-        store,
+        store: store,
         get maxWidth () {
             return this.store.width === "100%" ? "100%" : `${store.width}px`;
         },
@@ -13934,7 +12598,7 @@ function viewportComponent(store) {
             this.onResizeHeightStart(e);
         },
         toggleFullSize () {
-            const { height, width } = store;
+            const { height: height, width: width } = store;
             if (height === "100%" && width === "100%") {
                 this.toggleFullHeight();
                 this.toggleFullWidth();
@@ -13965,7 +12629,7 @@ function viewportComponent(store) {
         },
         toggleFullWidth () {
             this.$dispatch("viewport:resize-start", this._resizeData);
-            const { width, lastWidth } = store;
+            const { width: width, lastWidth: lastWidth } = store;
             if (width === "100%" && lastWidth) this.store.width = lastWidth;
             else {
                 this.store.lastWidth = width;
@@ -13995,7 +12659,7 @@ function viewportComponent(store) {
         },
         toggleFullHeight () {
             this.$dispatch("viewport:resize-start", this._resizeData);
-            const { height, lastHeight } = store;
+            const { height: height, lastHeight: lastHeight } = store;
             if (height === "100%" && lastHeight) this.store.height = lastHeight;
             else {
                 this.store.lastHeight = height;
@@ -14014,59 +12678,32 @@ function viewportComponent(store) {
     };
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hDlVs":[function(require,module,exports,__globalThis) {
-const _temp0 = require("da2e7cb8573327f7");
-const _temp1 = require("d5ade23f14494adf");
-const _temp2 = require("60990d53b8ae1214");
-const _temp3 = require("128a13e1651cca17");
-const _temp4 = require("3318bba536cf21c9");
-module.exports = {
-    "display_options": {
-        "field": _temp0
-    },
-    "embed": {
-        "inspector": _temp1
-    },
-    "params": {
-        "editor": _temp2,
-        "field": _temp3
-    },
-    "nav": {
-        "item": _temp4
-    }
+
+$fc302d8526a036f0$exports = {
+    "button": $cbd28b10fa9798c7$exports,
+    "code": $99486586f6691564$exports,
+    "dimensions_display": $e398acaded942bbe$exports,
+    "copy_button": $47a1c62621be0c54$exports,
+    "embed_code_dropdown": $216ef7001f59f21d$exports,
+    "filter": $e9904a14dabf652d$exports,
+    "nav": $d92d9d5253f84566$exports,
+    "split_layout": $506dabb2bf255b38$exports,
+    "tab_panels": $a87dacf5139b5e2f$exports,
+    "tabs": $0db07828cadc68e0$exports,
+    "viewport": $6d64716f0b34fdf4$exports
 };
 
-},{"da2e7cb8573327f7":"26GPs","d5ade23f14494adf":"eVsy5","60990d53b8ae1214":"f24CV","128a13e1651cca17":"icksq","3318bba536cf21c9":"3BO4E"}],"26GPs":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>displayOptionsFieldComponent);
-var _jsCookie = require("js-cookie");
-var _jsCookieDefault = parcelHelpers.interopDefault(_jsCookie);
-var _string = require("~/assets/js/helpers/string");
-function displayOptionsFieldComponent({ name, value }) {
-    return {
-        name,
-        value,
-        init () {
-            this.$watch("value", ()=>this.update());
-        },
-        update () {
-            (0, _jsCookieDefault.default).set(`lookbook-display-${name}`, this.value);
-            const searchParams = new URLSearchParams(window.location.search);
-            const display = searchParams.get("_display");
-            const displayParams = display ? (0, _string.parseSearchParamValue)(display) : {};
-            displayParams[this.name] = this.value;
-            searchParams.set("_display", (0, _string.buildSearchParamValue)(displayParams));
-            const path = location.href.replace(location.search, "");
-            this.navigateTo(`${path}?${searchParams.toString()}`);
-        }
-    };
-}
 
-},{"js-cookie":"c8bBu","~/assets/js/helpers/string":"gpMOS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c8bBu":[function(require,module,exports,__globalThis) {
+var $5d1c9207cb730903$exports = {};
+var $6a9b69d9cc7f810f$exports = {};
+
+$parcel$defineInteropFlag($6a9b69d9cc7f810f$exports);
+
+$parcel$export($6a9b69d9cc7f810f$exports, "default", () => $6a9b69d9cc7f810f$export$2e2bcd8739ae039);
+var $cdfeaa1e0e8d642c$exports = {};
 /*! js-cookie v3.0.5 | MIT */ (function(global, factory) {
-    module.exports = factory();
-})(this, function() {
+    $cdfeaa1e0e8d642c$exports = factory();
+})($cdfeaa1e0e8d642c$exports, function() {
     'use strict';
     /* eslint-disable no-var */ function assign(target) {
         for(var i = 1; i < arguments.length; i++){
@@ -14125,8 +12762,8 @@ function displayOptionsFieldComponent({ name, value }) {
             return name ? jar[name] : jar;
         }
         return Object.create({
-            set,
-            get,
+            set: set,
+            get: get,
             remove: function(name, attributes) {
                 set(name, '', assign({}, attributes, {
                     expires: -1
@@ -14153,58 +12790,35 @@ function displayOptionsFieldComponent({ name, value }) {
     /* eslint-enable no-var */ return api;
 });
 
-},{}],"eVsy5":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>embedInspectorComponent);
-var _iframeResizer = require("iframe-resizer/js/iframeResizer");
-function embedInspectorComponent(id, embedStore) {
-    if (!embedStore[id]) embedStore[id] = {
-        width: "100%",
-        height: "100%"
-    };
+
+
+function $6a9b69d9cc7f810f$export$2e2bcd8739ae039({ name: name, value: value }) {
     return {
-        iframe: null,
-        viewportHeight: 0,
-        targetPath: window.location.pathname,
-        get viewportCssHeight () {
-            return this.viewportHeight ? `${this.viewportHeight}px` : "100%";
-        },
-        get store () {
-            return embedStore[id];
-        },
+        name: name,
+        value: value,
         init () {
-            const onResized = this.onResized.bind(this);
-            this.iframe = this.$el.querySelector("iframe");
-            window.iFrameResize({
-                onResized,
-                checkOrigin: false
-            }, this.iframe);
-            this.$watch("targetPath", (value)=>this.switchTarget(value));
+            this.$watch("value", ()=>this.update());
         },
-        switchTarget (newTargetPath) {
-            this.navigateTo(`${newTargetPath}${window.location.search}`);
-        },
-        onResized ({ height }) {
-            if (height) {
-                this.viewportHeight = height;
-                // Notify parent window of height resize so the parent window can implement
-                // its own iframe resize strategy if not using the Lookbook JS script.
-                // Uses Embedly-compatible postMessage format: https://docs.embed.ly/reference/provider-height-resizing
-                window.parent.postMessage(JSON.stringify({
-                    src: window.location.toString(),
-                    context: "iframe.resize",
-                    height
-                }), "*");
-            }
-        },
-        resizeIframe () {
-            this.iframe.iFrameResizer.resize();
+        update () {
+            (0, (/*@__PURE__*/$parcel$interopDefault($cdfeaa1e0e8d642c$exports))).set(`lookbook-display-${name}`, this.value);
+            const searchParams = new URLSearchParams(window.location.search);
+            const display = searchParams.get("_display");
+            const displayParams = display ? (0, $fb8f79f7dd40b68f$export$f720fd0ddbeb53d9)(display) : {};
+            displayParams[this.name] = this.value;
+            searchParams.set("_display", (0, $fb8f79f7dd40b68f$export$c788aab010beeaec)(displayParams));
+            const path = location.href.replace(location.search, "");
+            this.navigateTo(`${path}?${searchParams.toString()}`);
         }
     };
 }
 
-},{"iframe-resizer/js/iframeResizer":"l3td4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"l3td4":[function(require,module,exports,__globalThis) {
+
+var $c299e36fa9e271bc$exports = {};
+
+$parcel$defineInteropFlag($c299e36fa9e271bc$exports);
+
+$parcel$export($c299e36fa9e271bc$exports, "default", () => $c299e36fa9e271bc$export$2e2bcd8739ae039);
+var $ef5e88eaa61efd95$exports = {};
 /*
  * File: iframeResizer.js
  * Desc: Force iframes to size to content.
@@ -15056,32 +13670,83 @@ Please see https://iframe-resizer.com/upgrade for more details.
     }
     if (window.jQuery !== undefined) createJQueryPublicMethod(window.jQuery);
     if (typeof define === 'function' && define.amd) define([], factory);
-    else if (typeof module.exports === 'object') // Node for browserfy
-    module.exports = factory();
+    else if (typeof $ef5e88eaa61efd95$exports === 'object') // Node for browserfy
+    $ef5e88eaa61efd95$exports = factory();
     window.iFrameResize = window.iFrameResize || factory();
 })();
 
-},{}],"f24CV":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>paramsEditorComponent);
-var _layout = require("@helpers/layout");
-function paramsEditorComponent() {
+
+function $c299e36fa9e271bc$export$2e2bcd8739ae039(id, embedStore) {
+    if (!embedStore[id]) embedStore[id] = {
+        width: "100%",
+        height: "100%"
+    };
+    return {
+        iframe: null,
+        viewportHeight: 0,
+        targetPath: window.location.pathname,
+        get viewportCssHeight () {
+            return this.viewportHeight ? `${this.viewportHeight}px` : "100%";
+        },
+        get store () {
+            return embedStore[id];
+        },
+        init () {
+            const onResized = this.onResized.bind(this);
+            this.iframe = this.$el.querySelector("iframe");
+            window.iFrameResize({
+                onResized: onResized,
+                checkOrigin: false
+            }, this.iframe);
+            this.$watch("targetPath", (value)=>this.switchTarget(value));
+        },
+        switchTarget (newTargetPath) {
+            this.navigateTo(`${newTargetPath}${window.location.search}`);
+        },
+        onResized ({ height: height }) {
+            if (height) {
+                this.viewportHeight = height;
+                // Notify parent window of height resize so the parent window can implement
+                // its own iframe resize strategy if not using the Lookbook JS script.
+                // Uses Embedly-compatible postMessage format: https://docs.embed.ly/reference/provider-height-resizing
+                window.parent.postMessage(JSON.stringify({
+                    src: window.location.toString(),
+                    context: "iframe.resize",
+                    height: height
+                }), "*");
+            }
+        },
+        resizeIframe () {
+            this.iframe.iFrameResizer.resize();
+        }
+    };
+}
+
+
+var $1a7a7298eec5b755$exports = {};
+
+$parcel$defineInteropFlag($1a7a7298eec5b755$exports);
+
+$parcel$export($1a7a7298eec5b755$exports, "default", () => $1a7a7298eec5b755$export$2e2bcd8739ae039);
+
+function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
     return {
         narrow: false,
         init () {
-            (0, _layout.observeSize)(this.$el, ({ width })=>{
+            (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$el, ({ width: width })=>{
                 this.narrow = width < 500;
             });
         }
     };
 }
 
-},{"@helpers/layout":"cQnTi","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"icksq":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>paramsFieldComponent);
-function paramsFieldComponent() {
+
+var $e773f8ef556b41ff$exports = {};
+
+$parcel$defineInteropFlag($e773f8ef556b41ff$exports);
+
+$parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
+function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
     return {
         get isNarrowLayout () {
             return this.narrow || false;
@@ -15089,11 +13754,13 @@ function paramsFieldComponent() {
     };
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3BO4E":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>navItemComponent);
-function navItemComponent({ id, matchers }) {
+
+var $9b24cbeb3a465447$exports = {};
+
+$parcel$defineInteropFlag($9b24cbeb3a465447$exports);
+
+$parcel$export($9b24cbeb3a465447$exports, "default", () => $9b24cbeb3a465447$export$2e2bcd8739ae039);
+function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id, matchers: matchers }) {
     matchers = matchers.map((matcher)=>matcher.replace(/\s/g, "").toLowerCase());
     return {
         filteredOut: false,
@@ -15144,24 +13811,35 @@ function navItemComponent({ id, matchers }) {
     };
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kyiar":[function(require,module,exports,__globalThis) {
-const _temp0 = require("9eea9e21cbcb98db");
-const _temp1 = require("be9e35b479c8caf0");
-const _temp2 = require("2c08c5cd78199259");
-module.exports = {
-    "clipboard": _temp0,
-    "params_input": _temp1,
-    "tooltip": _temp2
+
+$5d1c9207cb730903$exports = {
+    "display_options": {
+        "field": $6a9b69d9cc7f810f$exports
+    },
+    "embed": {
+        "inspector": $c299e36fa9e271bc$exports
+    },
+    "params": {
+        "editor": $1a7a7298eec5b755$exports,
+        "field": $e773f8ef556b41ff$exports
+    },
+    "nav": {
+        "item": $9b24cbeb3a465447$exports
+    }
 };
 
-},{"9eea9e21cbcb98db":"aOeJs","be9e35b479c8caf0":"lI8om","2c08c5cd78199259":"8ZeYL"}],"lI8om":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>paramsInputComponent);
-function paramsInputComponent({ name, value }) {
+
+var $d56e5cced44001d2$exports = {};
+
+var $f13f118be065081c$exports = {};
+
+$parcel$defineInteropFlag($f13f118be065081c$exports);
+
+$parcel$export($f13f118be065081c$exports, "default", () => $f13f118be065081c$export$2e2bcd8739ae039);
+function $f13f118be065081c$export$2e2bcd8739ae039({ name: name, value: value }) {
     return {
-        name,
-        value,
+        name: name,
+        value: value,
         init () {
             this.$watch("value", ()=>this.update());
         },
@@ -15179,6 +13857,54 @@ function paramsInputComponent({ name, value }) {
     };
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["eDn0s","1E7ZB"], "1E7ZB", "parcelRequirea49c", {})
 
+
+$d56e5cced44001d2$exports = {
+    "clipboard": $4e31c85e11272811$exports,
+    "params_input": $f13f118be065081c$exports,
+    "tooltip": $7a759511c361f2bd$exports
+};
+
+
+// Plugins
+(0, $caa9439642c6336c$export$2e2bcd8739ae039).plugin((0, $512e3a9270ec7803$export$2e2bcd8739ae039));
+(0, $caa9439642c6336c$export$2e2bcd8739ae039).plugin((0, $a5acee56471cec18$export$2e2bcd8739ae039));
+(0, $caa9439642c6336c$export$2e2bcd8739ae039).plugin((0, $512e3a9270ec7803$export$2e2bcd8739ae039));
+(0, $caa9439642c6336c$export$2e2bcd8739ae039).plugin((0, $69a8ec8dbeef3157$export$2e2bcd8739ae039));
+(0, $caa9439642c6336c$export$2e2bcd8739ae039).plugin((0, $227a3c1b2ea887ad$export$2e2bcd8739ae039));
+// Stores
+const $22969b543678f572$var$prefix = window.APP_NAME;
+(0, $caa9439642c6336c$export$2e2bcd8739ae039).store("layout", (0, $b8cbee737d5fb22b$export$2e2bcd8739ae039)((0, $caa9439642c6336c$export$2e2bcd8739ae039), {
+    prefix: $22969b543678f572$var$prefix
+}));
+(0, $caa9439642c6336c$export$2e2bcd8739ae039).store("nav", (0, $44e1c947423754b0$export$2e2bcd8739ae039)((0, $caa9439642c6336c$export$2e2bcd8739ae039), {
+    prefix: $22969b543678f572$var$prefix
+}));
+(0, $caa9439642c6336c$export$2e2bcd8739ae039).store("inspector", (0, $9c7d83377882e3b9$export$2e2bcd8739ae039)((0, $caa9439642c6336c$export$2e2bcd8739ae039), {
+    prefix: $22969b543678f572$var$prefix
+}));
+(0, $caa9439642c6336c$export$2e2bcd8739ae039).store("pages", (0, $1fa236e81ee747be$export$2e2bcd8739ae039)((0, $caa9439642c6336c$export$2e2bcd8739ae039), {
+    prefix: $22969b543678f572$var$prefix
+}));
+(0, $caa9439642c6336c$export$2e2bcd8739ae039).store("settings", (0, $d56ec5b1270324e7$export$2e2bcd8739ae039)((0, $caa9439642c6336c$export$2e2bcd8739ae039), {
+    prefix: $22969b543678f572$var$prefix
+}));
+// Components
+(0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $5792afa4170ed552$export$2e2bcd8739ae039));
+[
+    $fc302d8526a036f0$exports,
+    $5d1c9207cb730903$exports,
+    $d56e5cced44001d2$exports
+].forEach((scripts)=>{
+    const components = (0, $12b7aa006b8a97e1$export$4e811121b221213b)(scripts);
+    Object.keys(components).forEach((name)=>{
+        (0, $caa9439642c6336c$export$2e2bcd8739ae039).data(`${name}Component`, components[name]);
+    });
+});
+// Init
+window.log = (0, (/*@__PURE__*/$parcel$interopDefault($5267f0d63de538ba$exports)));
+window.Alpine = (0, $caa9439642c6336c$export$2e2bcd8739ae039);
+(0, $caa9439642c6336c$export$2e2bcd8739ae039).start();
+
+})();
 //# sourceMappingURL=index.js.map
