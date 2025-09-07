@@ -1,7 +1,7 @@
-require "test_helper"
+require "lookbook_integration_test"
 
-class WhitespaceTest < ActionDispatch::IntegrationTest
-  test "the rendered output HTML is not reformatted for the preview" do
+class WhitespaceTest < LookbookIntegrationTest
+  test "the preview HTML is not reformatted" do
     get lookbook_preview_path("whitespace_significant/default")
 
     assert_element "div"

@@ -1,6 +1,6 @@
-require "test_helper"
+require "lookbook_integration_test"
 
-class PhlexTest < ActionDispatch::IntegrationTest
+class PhlexTest < LookbookIntegrationTest
   test "Phlex components can be rendered" do
     get lookbook_preview_path("phlex_components/default")
 

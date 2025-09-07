@@ -18,6 +18,7 @@ group :test do
   gem "cuprite"
   gem "minitest-hooks"
   gem "minitest-reporters"
+  gem "sqlite3"
 end
 
 # ----- Gems for current RSpec-based test setup (will be removed) ----- #

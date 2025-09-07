@@ -1,4 +1,5 @@
 require "yard"
+require "rails"
 
 module Lookbook
   class Engine < Rails::Engine

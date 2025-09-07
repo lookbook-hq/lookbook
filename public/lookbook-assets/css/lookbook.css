@@ -4,7 +4,7 @@
   font-display: swap;
   font-style: normal;
   font-named-instance: "Regular";
-  src: url("../Inter-roman.var.b695afbe.woff2") format("woff2");
+  src: url("../Inter-roman.var.d4f9805a.woff2") format("woff2");
 }
 
 @font-face {
@@ -13,7 +13,7 @@
   font-display: swap;
   font-style: italic;
   font-named-instance: "Italic";
-  src: url("../Inter-italic.var.69eb0fe1.woff2") format("woff2");
+  src: url("../Inter-italic.var.53a0de5f.woff2") format("woff2");
 }
 
 @font-face {
@@ -21,7 +21,7 @@
   font-weight: 200 900;
   font-style: normal;
   font-stretch: normal;
-  src: url("../SourceCodeVariable-Roman.ttf.118e9f22.woff2") format("woff2");
+  src: url("../SourceCodeVariable-Roman.ttf.f1c8fcce.woff2") format("woff2");
 }
 
 @font-face {
@@ -29,7 +29,7 @@
   font-weight: 200 900;
   font-style: italic;
   font-stretch: normal;
-  src: url("../SourceCodeVariable-Italic.ttf.09b4354a.woff2") format("woff2");
+  src: url("../SourceCodeVariable-Italic.ttf.a93fa22f.woff2") format("woff2");
 }
 
 *, :before, :after, ::backdrop {

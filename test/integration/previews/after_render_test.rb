@@ -1,6 +1,6 @@
-require "test_helper"
+require "lookbook_integration_test"
 
-class AfterRenderTest < ActionDispatch::IntegrationTest
+class AfterRenderTest < LookbookIntegrationTest
   test "preview class @after_render" do
     get lookbook_preview_path("after_render_components/default")
 
@@ -22,15 +22,15 @@ class AfterRenderTest < ActionDispatch::IntegrationTest
     assert_content "after render using context info"
   end
 
-  describe "in ViewComponent::Preview" do
-    it "supports preview class after_render" do
+  describe "ViewComponent::Preview base class" do
+    test "supports preview class after_render" do
       get lookbook_preview_path("after_render_view_components/default")
 
       assert_element "em", text: "preview"
       assert_content "default after render content"
     end
 
-    it "supports scenario after_render" do
+    test "supports scenario after_render" do
       get lookbook_preview_path("after_render_view_components/custom")
 
       assert_element "strong", text: "scenario"

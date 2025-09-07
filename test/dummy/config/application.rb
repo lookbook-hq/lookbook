@@ -1,7 +1,7 @@
 require_relative "boot"
 
+require "yard"
 require "rails"
-require "propshaft"
 require "action_view/railtie"
 require "rails/test_unit/railtie"
 require "action_controller/railtie"
@@ -12,16 +12,19 @@ require "phlex-rails"
 
 module Dummy
   class Application < Rails::Application
+    YARD::Logger.instance.level = YARD::Logger::ERROR
+
+    Lookbook.add_tag(:customtag)
+
     config.load_defaults Rails::VERSION::STRING.to_f
     config.action_controller.default_url_options = {host: "localhost"}
-
-    previews_path = "#{root}/previews/#{Rails.env.test? ? "test" : "dev"}"
 
     config.lookbook.project_name = "Lookbook dummy app"
 
     config.lookbook.listen = Rails.env.development?
     config.lookbook.using_view_component = true
 
+    previews_path = "#{root}/previews/#{Rails.env.test? ? "test" : "dev"}"
     if config.view_component.key?(:previews)
       # ViewComponent >= v4.0 config style
       config.view_component.previews.paths << previews_path
@@ -29,8 +32,6 @@ module Dummy
       # ViewComponent < v4.0 config style
       config.view_component.preview_paths << previews_path
     end
-
-    Lookbook.add_tag(:customtag)
 
     # Regression case with exception:
     #

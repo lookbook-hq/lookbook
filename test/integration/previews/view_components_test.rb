@@ -1,6 +1,6 @@
-require "test_helper"
+require "lookbook_integration_test"
 
-class ViewComponentsTest < ActionDispatch::IntegrationTest
+class ViewComponentsTest < LookbookIntegrationTest
   test "ViewComponents can be rendered" do
     get lookbook_preview_path("view_components/paragraph")
 
