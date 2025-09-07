@@ -1,0 +1,57 @@
+body,
+html {
+  height: 100vh;
+  height: 100dvh;
+  width: 100vw;
+  width: 100dvw;
+  position: relative;
+}
+
+#welcome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.logo-bg {
+  background-image: url("/assets/images/bg_tile.svg");
+  background-size: 4rem 4rem;
+  background-repeat: repeat;
+  background-position: center center;
+  opacity: 0.1;
+  inset: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.panel {
+  font-family: var(--pico-font-family-monospace);
+  position: relative;
+  max-width: 32rem;
+  padding: calc(1.6 * var(--pico-spacing));
+  margin: auto auto;
+  background: var(--pico-background-color);
+  font-size: 0.9em;
+}
+
+.panel h1 {
+  font-family: var(--pico-font-family-monospace);
+  font-size: 1.4rem;
+  font-weight: 600;
+  opacity: 0.9;
+  margin-bottom: 1.5rem;
+}
+
+.panel p {
+  opacity: 0.8;
+}
+
+.panel :last-child {
+  margin-bottom: 0;
+}
+

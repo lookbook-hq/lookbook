@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title><%= app_title %></title>
+  <title><%= content_for?(:title) ? yield(:title) : app_title %></title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light dark">
 
@@ -13,6 +13,5 @@
 </head>
 <body>
   <%= yield %>
-  <div class="logo-bg"></div>
 </body>
 </html>
