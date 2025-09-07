@@ -1,0 +1,25 @@
+[tools]
+ruby = "3.4.5"
+node = "22.19.0"
+"gem:rubocop" = "latest"
+
+[tasks."bundle:install"]
+description = "Install gem dependencies"
+run = "bundle install"
+alias = "bun"
+
+[tasks.test]
+description = "Run the tests"
+run = "bin/test"
+alias = "t"
+
+[tasks.dev]
+description = "Serve the dummy app in dev mode"
+run = "bin/dev"
+alias = "d"
+
+[tasks.build]
+description = "Build the assets for production"
+run = "npm run build"
+alias = "b"
+
