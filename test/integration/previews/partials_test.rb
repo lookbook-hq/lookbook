@@ -1,6 +1,6 @@
-require "test_helper"
+require "lookbook_integration_test"
 
-class PartialsTest < ActionDispatch::IntegrationTest
+class PartialsTest < LookbookIntegrationTest
   test "renders view partial previews" do
     get lookbook_preview_path("partial_rendering/default")
 

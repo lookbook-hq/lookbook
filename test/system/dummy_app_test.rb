@@ -1,6 +1,6 @@
-require "test_helper"
+require "lookbook_system_test"
 
-class DummyAppTest < ActionDispatch::SystemTestCase
+class DummyAppTest < LookbookSystemTest
   test "landing on the home page and navigating to the Lookbook UI" do
     visit "/"
 
