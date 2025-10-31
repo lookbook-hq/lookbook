@@ -10,8 +10,8 @@ const $5000cc5d1e9e824a$var$whiteListedAttributes = [
     "param-*"
 ];
 function $5000cc5d1e9e824a$var$initEmbeds(root = document) {
-    if (typeof window.iFrameResize !== "function") {
-        console.error("Lookbook embeds require the 'iframe-resizer' library to be available. Skipping embed instantiation.");
+    if (typeof window.iframeResize !== "function") {
+        console.error("Lookbook embeds require the '@iframe-resizer/parent' library to be available. Skipping embed instantiation.");
         return;
     }
     if (typeof root === "string") root = document.querySelector(root);
@@ -24,7 +24,8 @@ function $5000cc5d1e9e824a$var$initEmbeds(root = document) {
         wrapper.appendChild(iframe);
         embed.replaceWith(wrapper);
     });
-    window.iFrameResize({
+    window.iframeResize({
+        license: "GPLv3",
         checkOrigin: false
     }, "[data-lookbook-embed-iframe]");
 }
