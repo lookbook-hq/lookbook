@@ -76,7 +76,7 @@
   "devDependencies": {
     "@parcel/resolver-glob": "^2.16.0",
     "commitizen": "^4.3.1",
-    "concurrently": "^9.2.0",
+    "concurrently": "^9.2.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
