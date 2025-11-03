@@ -1,4 +1,4 @@
-import "iframe-resizer/js/iframeResizer";
+import iframeResize from "@iframe-resizer/parent";
 
 export default function embedInspectorComponent(id, embedStore) {
   if (!embedStore[id]) {
@@ -24,7 +24,10 @@ export default function embedInspectorComponent(id, embedStore) {
       const onResized = this.onResized.bind(this);
 
       this.iframe = this.$el.querySelector("iframe");
-      window.iFrameResize({ onResized, checkOrigin: false }, this.iframe);
+      iframeResize(
+        { license: "GPLv3", onResized, checkOrigin: false },
+        this.iframe
+      );
 
       this.$watch("targetPath", (value) => this.switchTarget(value));
     },
@@ -52,7 +55,7 @@ export default function embedInspectorComponent(id, embedStore) {
     },
 
     resizeIframe() {
-      this.iframe.iFrameResizer.resize();
+      this.iframe.iframeResizer.resize();
     },
   };
 }

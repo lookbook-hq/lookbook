@@ -11,9 +11,9 @@ const whiteListedAttributes = [
 ];
 
 function initEmbeds(root = document) {
-  if (typeof window.iFrameResize !== "function") {
+  if (typeof window.iframeResize !== "function") {
     console.error(
-      "Lookbook embeds require the 'iframe-resizer' library to be available. Skipping embed instantiation."
+      "Lookbook embeds require the '@iframe-resizer/parent' library to be available. Skipping embed instantiation."
     );
     return;
   }
@@ -39,7 +39,10 @@ function initEmbeds(root = document) {
     embed.replaceWith(wrapper);
   });
 
-  window.iFrameResize({ checkOrigin: false }, "[data-lookbook-embed-iframe]");
+  window.iframeResize(
+    { license: "GPLv3", checkOrigin: false },
+    "[data-lookbook-embed-iframe]"
+  );
 }
 
 function createWrapper() {
