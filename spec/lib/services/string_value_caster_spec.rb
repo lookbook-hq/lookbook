@@ -70,6 +70,20 @@ RSpec.describe Lookbook::StringValueCaster do
     end
   end
 
+  context "cast to date" do
+    it "casts the value to a date" do
+      expect(described_class.call("1981-04-15", :date)).to be_a Date
+    end
+
+    it "casts empty values to nil" do
+      expect(described_class.call("", :date)).to be nil
+    end
+
+    it "raises an exception if the cast fails" do
+      expect { described_class.call("#fail", :date) }.to raise_error Date::Error
+    end
+  end
+
   context "cast to datetime" do
     it "casts the value to a datetime" do
       expect(described_class.call("1981-04-15", :datetime)).to be_a DateTime
