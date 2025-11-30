@@ -145,10 +145,6 @@ module Lookbook
         opts.preview_embeds.enabled == true && opts.preview_embeds.policy != "DENY"
       end
 
-      def websocket
-        @_websocket ||= auto_refresh? ? Websocket.new(mount_path, logger: Lookbook.logger) : NullWebsocket.new
-      end
-
       def runtime_context
         @_runtime_context ||= RuntimeContext.new(env: Rails.env)
       end
@@ -273,13 +269,6 @@ module Lookbook
       rescue => e
         Lookbook.logger.error(e)
         raise e
-      end
-
-      def notify_clients(changes = nil)
-        return unless changes.present?
-
-        websocket.broadcast(:reload)
-        run_hooks(:after_change, changes.to_h)
       end
 
       def files_changed(modified, added, removed)
