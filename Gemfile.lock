@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lookbook (2.3.13)
+    lookbook (4.0.0.pre.0)
       activemodel
       marcel (~> 1.0)
       railties (>= 5.0)

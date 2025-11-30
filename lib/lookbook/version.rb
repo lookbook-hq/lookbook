@@ -1,3 +1,3 @@
 module Lookbook
-  VERSION = "2.3.13"
+  VERSION = "4.0.0.pre.0"
 end
