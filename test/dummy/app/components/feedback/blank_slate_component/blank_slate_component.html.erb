@@ -1,0 +1,17 @@
+<div class="text-center border-2 border-dashed border-gray-300 p-8 rounded-lg">
+  <% if @with_icon %>
+    <svg class="mx-auto h-12 w-12 text-gray-300 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+  </svg>  
+  <% end %>
+  <% if title %><h3 class="text-lg font-bold text-gray-900 mb-2"><%= title %></h3> <% end %>
+  <div class="text-sm text-gray-500">
+    <%= content %>
+  </div>
+  <% if action %>
+    <div class="mt-6">
+      <%= action %>
+    </div>
+  <% end %>
+</div>
+

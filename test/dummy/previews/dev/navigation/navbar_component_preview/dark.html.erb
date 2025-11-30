@@ -1,0 +1,18 @@
+<%= render Navigation::NavbarComponent.new(links: [
+  {
+    text: "Dashboard",
+    href: "#",
+    current: true
+  },
+  {
+    text: "Users",
+    href: "#"
+  },
+  {
+    text: "Articles",
+    href: "#"
+  }
+]) do |nav| %>
+  <%= nav.with_avatar src: "https://loremflickr.com/200/200" %>
+<% end %>
+<p class='asda'>linter should warn about this</p>

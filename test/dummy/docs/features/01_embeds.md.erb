@@ -1,0 +1,30 @@
+---
+id: embeds
+label: Embedding Previews
+---
+
+You can embed previews from your project directly into documentation pages to help create living documents that always feature the latest changes to your component previews.
+
+And preview embeds can also be used outside of Lookbook if you want to pull them into external docs or showcases.
+
+Preview embeds are added to pages using the `<lookbook-embed>` element:
+
+```html
+<lookbook-embed
+  app="/lookbook"
+  preview="Feedback::BlankSlateComponentPreview"
+  scenario="default"
+  panels="params,source,output">
+</lookbook-embed>
+```
+
+
+<lb-embed spec="elements/button" scenario="themes"></lb-embed>
+
+
+Configuration options are set using attribute key/value pairs on the element.
+
+### Read more:
+
+* [Add previews to documentation pages](https://lookbook.build/guide/pages/embedding)
+* [Embedding previews externally](https://lookbook.build/guide/sharing/embeds)

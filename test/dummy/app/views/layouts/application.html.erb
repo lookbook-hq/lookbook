@@ -1,18 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <title><%= app_title %></title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="color-scheme" content="light dark">
 
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-  
-  <%= stylesheet_link_tag "pico" %>
-  <%= stylesheet_link_tag "app" %>
-</head>
-<body>
-  <%= yield %>
-  <div class="logo-bg"></div>
-</body>
+<html lang="en">
+  <head>
+    <title><%= app_title %></title>
+
+    <meta name="preview" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+
+    <%# = stylesheet_link_tag "pico" %>
+    <%= stylesheet_link_tag "app" %>
+  </head>
+
+  <body>
+    <%= yield %>
+    <div class="logo-bg"></div>
+  </body>
 </html>

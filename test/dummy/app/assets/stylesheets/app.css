@@ -1,10 +1,15 @@
 body,
 html {
-  height: 100vh;
-  height: 100dvh;
-  width: 100vw;
-  width: 100dvw;
+
   position: relative;
+}
+
+
+
+body {
+  padding: 1.5rem;
+
+
 }
 
 #welcome {
@@ -54,4 +59,3 @@ html {
 .panel :last-child {
   margin-bottom: 0;
 }
-

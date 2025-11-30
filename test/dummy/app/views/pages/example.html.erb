@@ -1,0 +1,14 @@
+<article class="prose">
+  <h2><%= @title %></h2>
+  <p><a href="https://github.com/lookbook-hq/lookbook-demo/blob/main/app/views/pages/example.html.erb">The template for this page</a> relies on instance variables.</p>
+  <p>
+    You can use the `assign` option to set instance variable values when rendering templates in Lookbook previews:
+  </p>
+  <pre><code>class PageExamplePreview < Lookbook::Preview
+  def page_preview
+    render template: "pages/example", assigns: {
+      title: "Full page preview"
+    }
+  end
+end</code></pre>
+</article>

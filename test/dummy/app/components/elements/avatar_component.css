@@ -1,0 +1,13 @@
+@layer components {
+  .avatar-sm {
+    @apply h-10 w-10;
+  }
+  
+  .avatar-md {
+    @apply h-20 w-20;
+  }
+  
+  .avatar-lg {
+    @apply h-32 w-32;
+  }
+}  

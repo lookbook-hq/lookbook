@@ -20,4 +20,19 @@ Rails.application.configure do
   config.action_view.annotate_rendered_view_with_filenames = true
 
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # Lookbook reload in dev
+
+  # lookbook_loader = nil
+  # Zeitwerk::Registry.loaders.each do |loader|
+  #   if loader.tag == "lookbook"
+  #     lookbook_loader = loader
+  #     Zeitwerk::Registry.loaders.unregister(loader)
+  #   end
+  # end
+
+  # gem_root_path = Pathname.new(Gem.loaded_specs["lookbook"].full_gem_path)
+  # Listen.to gem_root_path.join("lib"), only: /\.rb$/ do
+  #   lookbook_loader.reload
+  # end.start
 end
