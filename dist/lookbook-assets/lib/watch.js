@@ -1,0 +1,1 @@
+function p(e,l){let d={waitUntilFirstUpdate:!1,...l};return(s,o)=>{let{update:r}=s,c=Array.isArray(e)?e:[e];s.update=function(t){c.forEach(f=>{let n=f;if(t.has(n)){let a=t.get(n),i=this[n];a!==i&&(!d.waitUntilFirstUpdate||this.hasUpdated)&&this[o](a,i)}}),r.call(this,t)}}}export{p as watch};

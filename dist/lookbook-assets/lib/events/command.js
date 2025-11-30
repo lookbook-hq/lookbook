@@ -1,0 +1,1 @@
+var e=class extends Event{constructor(o,t){super(o,{bubbles:!0,cancelable:!1,composed:!0}),this.detail=t}};var a=class extends e{constructor(o,t={}){super("lb-command",{bubbles:!0,cancelable:!1,composed:!0}),this.command=o,this.detail=t}};export{a as LookbookCommandEvent};

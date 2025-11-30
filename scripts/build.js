@@ -13,7 +13,7 @@ import { fileURLToPath } from "url";
 import { buildConfig, highlighterConfig } from "../config/frontend.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const isDeveloping = process.argv.includes("--develop") || process.env.NODE_ENV === "development";
+const isDeveloping = process.argv.includes("--develop");
 
 const spinner = ora({ text: "Lookbook", color: "cyan", stream: process.stdout }).start();
 
@@ -80,7 +80,7 @@ export async function build() {
       outdir: getDistDir(),
       bundle: true,
       metafile: !!buildConfig.metafile,
-      splitting: true,
+      splitting: false,
       chunkNames: "chunks/[name].[hash]",
       minify: !isDeveloping,
       plugins: [ImportStylesheetAsText],
