@@ -25,22 +25,22 @@ module Lookbook
 
     config.before_configuration do
       config.lookbook = Lookbook.config
-
-      if defined?(ViewComponent)
-        config.lookbook.using_view_component ||= true
-      else
-        require "view_component"
-        config.lookbook.using_view_component ||= false
-      end
     end
 
     config.after_initialize do
-      if opts.using_view_component
+      if opts.reload_on_change.nil?
+        opts.reload_on_change = !host_config.cache_classes && host_config.reload_classes_only_on_change
+      end
+
+      if Engine.host_config.view_component
         vc_config = Engine.host_config.view_component
+
+        return unless vc_config.present?
 
         if vc_config.key?(:previews)
           # New config style (ViewComponent >= 4.0)
-          opts.preview_paths += vc_config.previews.paths
+          opts.preview_paths.push(*vc_config.previews.paths)
+          vc_config.previews.paths = opts.preview_paths
 
           if opts.preview_controller == "Lookbook::PreviewController" ||
               vc_config.previews.controller != "ViewComponentsController"

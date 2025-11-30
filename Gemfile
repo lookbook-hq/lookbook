@@ -1,17 +1,19 @@
-source "https://rubygems.org"
+source "https://gem.coop"
 gemspec
 
 rails_version = (ENV["RAILS_VERSION"] || "~> 8.0.0").to_s
 gem "rails", (rails_version == "main") ? {git: "https://github.com/rails/rails", ref: "main"} : rails_version
 
-gem "actioncable"
 gem "debug", platforms: %i[mri windows], require: "debug/prelude"
-gem "listen"
-gem "phlex-rails"
 gem "propshaft"
 gem "puma"
 gem "standard"
+gem "rubocop"
 gem "yard-activesupport-concern"
+
+gem "listen"
+gem "view_component"
+gem "phlex-rails"
 
 group :test do
   gem "appraisal"

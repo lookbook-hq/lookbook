@@ -19,7 +19,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "activemodel"
   spec.add_dependency "zeitwerk", "~> 2.5"
   spec.add_dependency "railties", ">= 5.0"
-  spec.add_dependency "view_component", ">= 2.0"
   spec.add_dependency "yard", "~> 0.9"
   spec.add_dependency "marcel", "~> 1.0"
 end
