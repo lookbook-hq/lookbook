@@ -1,25 +1,47 @@
 [tools]
-ruby = "3.4.5"
-node = "22.19.0"
-"gem:rubocop" = "latest"
+ruby = "3.2.0"
+node = "25.1.0"
 
-[tasks."bundle:install"]
-description = "Install gem dependencies"
-run = "bundle install"
-alias = "bun"
+[env]
+NODE_ENV = "development"
+RACK_ENV = "development"
+LOOKBOOK_ENV = "development"
+
+[tasks.setup]
+description = "Install dependencies"
+run = ["npm install", "bundle install"]
+
+[tasks."assets:dev"]
+description = "Build the assets and watch for changes"
+run = "npm run assets:dev"
+
+[tasks."assets:build"]
+env = { "NODE_ENV" = "production", "LOOKBOOK_ENV" = "production" }
+description = "Build the assets for production"
+run = "npm run assets:build"
+alias = "build"
+
+[tasks."app:start"]
+description = "Start the local dev app"
+dir = "test/dummy"
+run = "bundle exec puma -t 5:5 -w 0 -p ${PORT:-3000} -e ${RACK_ENV:-development}"
+
+[tasks.dev]
+description = "Start the dev app and rebuild assets on change"
+run = '''
+if ! foreman version &> /dev/null
+then
+  echo "Installing foreman..."
+  gem install foreman
+fi
+
+foreman start -f Procfile.dev -p ${1:-4242}
+'''
+alias = "default"
 
 [tasks.test]
 description = "Run the tests"
+depends = "assets:build"
 run = "bin/test"
 alias = "t"
-
-[tasks.dev]
-description = "Serve the dummy app in dev mode"
-run = "bin/dev"
-alias = "d"
-
-[tasks.build]
-description = "Build the assets for production"
-run = "npm run build"
-alias = "b"
 

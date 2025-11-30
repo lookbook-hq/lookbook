@@ -1,4 +1,3 @@
-public/
 test/
 node_modules/
 *.rb
@@ -10,3 +9,5 @@ docs/output/
 pkg/
 spec/fixtures
 .ruby-lsp/
+dist/
+theme.css

@@ -18,3 +18,6 @@ _docs
 
 gemfiles/*.lock
 .ruby-lsp/
+.archive
+test/dummy/log/*
+dist/lookbook-assets-dev/*

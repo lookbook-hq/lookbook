@@ -1,0 +1,9 @@
+version: 0.8.1
+
+linter:
+  enabled: true
+
+formatter:
+  enabled: true
+  indentWidth: 2
+  maxLineLength: 100
