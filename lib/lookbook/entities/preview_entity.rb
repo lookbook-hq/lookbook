@@ -38,9 +38,6 @@ module Lookbook
       @_scenarios ||= ScenarioCollection.new(load_scenarios)
     end
 
-    alias_method :examples, :scenarios
-    deprecate examples: :scenarios, deprecator: Deprecation
-
     # Find a specific scenario by (i.e. method) name
     #
     # @example :ruby
@@ -173,15 +170,6 @@ module Lookbook
       [preview_class.name.chomp("Preview").constantize&.name]
     rescue
       []
-    end
-
-    def metadata(include_scenarios = false)
-      {
-        id:,
-        label:,
-        url_path:,
-        scenarios: (scenarios.map(&:metadata) if include_scenarios)
-      }.deep_transform_keys { _1.to_s.camelize(:lower) }
     end
 
     protected

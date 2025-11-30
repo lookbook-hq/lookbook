@@ -17,8 +17,7 @@ module Lookbook
     # The preview that this scenario belongs to.
     #
     # @return [PreviewEntity] The parent preview entity
-    attr_reader :preview # TODO: deprecate #preview method
-
+    attr_reader :preview
     alias_method :spec, :preview
 
     # @api private
@@ -144,14 +143,6 @@ module Lookbook
 
     def to_param
       name
-    end
-
-    def metadata
-      {
-        id:,
-        label:,
-        url_path:
-      }.deep_transform_keys { _1.to_s.camelize(:lower) }
     end
   end
 end

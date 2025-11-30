@@ -14,5 +14,17 @@ module Lookbook
     def request_path_hash
       Digest::SHA256.hexdigest(request.path)[0..7]
     end
+
+    def current_section?(name)
+      current_section = if controller.is_a?(Lookbook::SpecsController) || controller.is_a?(Lookbook::ScenariosController)
+        :specs
+      elsif controller.is_a?(Lookbook::PagesController)
+        :pages
+      else
+        :other
+      end
+
+      current_section == name
+    end
   end
 end

@@ -12,8 +12,7 @@ module Lookbook
     # The preview that this scenario belongs to.
     #
     # @return [PreviewEntity] The parent preview entity
-    attr_reader :preview # TODO: deprecate #preview method
-
+    attr_reader :preview
     alias_method :spec, :preview
 
     # @api private
@@ -139,20 +138,7 @@ module Lookbook
       [parent.search_terms, parent.label, label]
     end
 
-    alias_method :lang, :source_lang
-    alias_method :examples, :scenarios
     alias_method :url_path, :inspect_path
-
-    deprecate lang: :source_lang, deprecator: Deprecation
-    deprecate examples: :scenarios, deprecator: Deprecation
-
-    def metadata
-      {
-        id:,
-        label:,
-        url_path:
-      }.deep_transform_keys { _1.to_s.camelize(:lower) }
-    end
 
     def to_param
       name

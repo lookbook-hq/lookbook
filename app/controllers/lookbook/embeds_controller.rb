@@ -20,12 +20,8 @@ module Lookbook
 
     protected
 
-    def embed_options
-      Lookbook.config.preview_embeds
-    end
-
     def permit_embeds
-      headers["X-Frame-Options"] = embed_options.policy
+      headers["X-Frame-Options"] = Lookbook.config.preview_embeds.policy
     end
 
     def set_params

@@ -135,8 +135,7 @@ module Lookbook
       end
 
       def auto_refresh?
-        opts.live_updates == true &&
-          reloading? &&
+        reloading? &&
           runtime_context.web? &&
           FileWatcher.evented?
       end
@@ -149,16 +148,12 @@ module Lookbook
         @_runtime_context ||= RuntimeContext.new(env: Rails.env)
       end
 
-      def theme
-        @_theme ||= Lookbook::Theme.new(opts.ui_theme, opts.ui_theme_overrides)
-      end
-
       def panels
-        @_panels ||= PanelStore.init_from_config
+        @_panels ||= [] # TODO: Implement new panels model
       end
 
       def inputs
-        @_inputs ||= InputStore.init_from_config
+        @_inputs ||= [] # TODO: Implement new panels model
       end
 
       def tags

@@ -22,10 +22,6 @@ module Lookbook
       Gem::Version.new(Rails.version) >= Gem::Version.new(version)
     end
 
-    def actioncable_installed?
-      gem_installed?("actioncable")
-    end
-
     def listen_installed?
       gem_installed?("listen")
     end

@@ -15,6 +15,8 @@ module Lookbook
 
       def assign_spec
         @spec = @specs.find_by_path(params[:spec].tr(".", "/"))
+
+        raise_not_found("Preview not found - #{params[:spec]}") unless @spec
       end
 
       def record_last_spec_visited

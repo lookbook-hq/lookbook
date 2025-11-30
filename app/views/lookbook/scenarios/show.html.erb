@@ -4,12 +4,7 @@
   breadcrumb_items.pop
 %>
 
-<lb-inspector
-  id="inspector"
-  persist-as="inspector.preview"
-  preview="<%= @spec.metadata.to_json %>"
-  scenario="<%= @scenario.metadata.to_json %>"
->
+<lb-inspector id="inspector" persist-as="inspector.preview">
   <lb-breadcrumb-nav slot="breadcrumb">
     <%= link_to lookbook_specs_path do %>
       <lb-icon name="layers-2"></lb-icon>

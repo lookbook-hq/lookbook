@@ -2,7 +2,6 @@ module Lookbook
   module Lang
     class << self
       CONFIG_FILE = "config/languages.yml"
-      LANGUAGES = [] # retained for backwards compatability
 
       def find(name)
         languages.find { |l| l[:name] == name.to_s }
@@ -17,7 +16,7 @@ module Lookbook
       protected
 
       def languages
-        @_languages ||= [*ConfigLoader.call(CONFIG_FILE).definitions, *LANGUAGES]
+        @_languages ||= ConfigLoader.call(CONFIG_FILE).definitions
       end
     end
   end

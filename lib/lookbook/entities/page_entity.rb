@@ -124,6 +124,10 @@ module Lookbook
       frontmatter.key?(method_name) || super
     end
 
+    def to_param
+      lookup_path
+    end
+
     protected
 
     def fetch_config(key, fallback = nil, &block)

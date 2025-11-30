@@ -198,25 +198,6 @@ module Lookbook
         logger
       end
     end
-
-    # @api private
-    def debug_data
-      {
-        version: version,
-        env: Rails.env.to_s,
-        config: [
-          config.to_h,
-          {
-            dependencies: {
-              actioncable: Engine.runtime_context.actioncable_installed?,
-              listen: Engine.runtime_context.listen_installed?,
-              view_component: config.using_view_component
-            }
-          },
-          {tags: Engine.tags.to_h.reject { |k, v| v[:system] }}
-        ].inject(:merge)
-      }
-    end
   end
 end
 

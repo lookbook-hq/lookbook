@@ -63,9 +63,6 @@ module Lookbook
       @_lookup_path ||= PathUtils.strip_slashes(PathUtils.to_path(directory, name))
     end
 
-    alias_method :path, :lookup_path
-    deprecate path: :lookup_path, deprecator: Deprecation
-
     def lookup_hash
       Digest::SHA256.hexdigest(lookup_path)[0..7]
     end

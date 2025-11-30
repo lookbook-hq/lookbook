@@ -1,7 +1,7 @@
 constraints = {spec: /[^\/]+/}
 
 Lookbook::Engine.routes.draw do
-  root to: "application#index", as: :lookbook_home
+  root to: "application#index", as: :lookbook
 
   get "/#{Lookbook.config.page_route}", to: "pages#index", as: :lookbook_pages
   get "/#{Lookbook.config.page_route}/*path", to: "pages#show", as: :lookbook_page

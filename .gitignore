@@ -4,7 +4,7 @@ log/*.log
 pkg/
 node_modules/
 .DS_Store
-tmp/
+tmp/*
 .parcel-cache
 .yardoc
 
@@ -23,3 +23,5 @@ test/dummy/log/*
 dist/lookbook-assets-dev/*
 
 app/frontend/components/_/*
+
+!.gitkeep

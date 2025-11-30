@@ -280,15 +280,6 @@ system:
       on the value of `config.lookbook.reload_on_change`. If set to `true`, Lookbook will defer the initial loading of
       preview and page data until it is first requested.
 
-  - name: live_updates
-    types: Boolean
-    default: "true"
-    example: config.lookbook.live_updates = false
-    description: |
-      Apps that include the `listen` and `actioncable` gems will automatically have live UI updates enabled (in development).
-      Setting `live_updates` to `false` will prevent this behaviour and ensure no websocket connections are created.
-      This is automatically handled in production.
-
   - name: listen_paths
     types: Array
     default: "[]"

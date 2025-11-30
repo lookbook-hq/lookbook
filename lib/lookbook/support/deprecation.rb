@@ -1,5 +1,5 @@
 require "active_support"
 
 module Lookbook
-  Deprecation = ::ActiveSupport::Deprecation.new("3.0", "Lookbook")
+  Deprecation = ::ActiveSupport::Deprecation.new("5.0", "Lookbook")
 end

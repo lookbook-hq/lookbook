@@ -13,7 +13,7 @@ module Lookbook
       def assign_scenario
         scenario = @spec.scenario(params[:scenario])
 
-        raise_not_found("Could not find scenario `#{params[:scenario]}`") unless scenario
+        raise_not_found("Scenario not found - #{@spec.lookup_path}/#{params[:scenario]}") unless scenario
 
         @scenario = scenario.is_a?(ScenarioGroupEntity) ? scenario : render_scenario(scenario)
       end

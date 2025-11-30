@@ -5,17 +5,19 @@ module Lookbook
     layout "lookbook/pages"
 
     def index
-      landing = Engine.pages.find(&:landing?) || Engine.pages.first
-      raise_not_found("Page not found") unless landing.present?
-
-      redirect_to lookbook_page_path(landing.path)
+      if Engine.pages.any?
+        landing_page = Engine.pages.find(&:landing?) || Engine.pages.first
+        redirect_to lookbook_page_path(landing_page)
+      else
+        redirect_to lookbook_path
+      end
     end
 
     def show
       @pages = Engine.pages
-
       @page = @pages.find_by_path(params[:path])
-      raise_not_found("Page not found") unless @page
+
+      raise_not_found("Page not found - #{params[:path]}") unless @page
 
       @next_page = @pages.next(@page)
       @previous_page = @pages.previous(@page)

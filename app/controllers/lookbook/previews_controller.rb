@@ -14,6 +14,7 @@ module Lookbook
 
     before_action :permit_framing, only: [:show]
 
+    # TODO: move into specific API controller
     def index
       respond_to do |format|
         format.json do
@@ -40,10 +41,7 @@ module Lookbook
     end
 
     def show
-      raise_not_found("Preview not found") unless @spec
-
       @preview_html = if Lookbook.config.preview_single_pass_rendering && !@scenarios.many?
-        # @inspector_data.scenarios.first.output + (iframe_content_scripts if embedded?)
         @scenarios.first.output
       else
         preview_controller.process(

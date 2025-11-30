@@ -28,9 +28,6 @@ export class LookbookInspector extends Hotkeyable(Persistable(LookbookElement)) 
   static css = styles;
   static persist = ["drawerSplit", "sidebarSplit", "panes"];
 
-  @property({ type: Object }) preview: string;
-  @property({ type: Object }) scenario: string;
-
   @property({ attribute: false, type: Array, converter: arrayConverter })
   panes: string[] = ["sidebar", "drawer"];
 

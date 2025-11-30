@@ -24,7 +24,9 @@ module Lookbook
     #
     # @return [String] Rendered output
     attr_reader :output
-    alias_method :beautified_output, :output # TODO: deprecate #beautified_output
+
+    alias_method :beautified_output, :output
+    deprecate beautified_output: :output, deprecator: Deprecation
 
     # @api private
     def source

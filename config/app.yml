@@ -33,34 +33,21 @@ shared:
   page_options: {}
 
   markdown_options:
-    tables: true
-    fenced_code_blocks: true
-    disable_indented_code_blocks: true
-    strikethrough: true
-    highlight: true
-    lax_spacing: true
+    # TODO: specify new markdown options
 
-  highlighter_options:
-    theme: github
-    dark: false
+  snippet_options:
+    # TODO: specify new snippet highlighting options
 
   component_paths: [app/views, app/components]
 
   reload_on_change: ~
   lazy_load_previews_and_pages: false
-  live_updates: false
   listen_paths: []
   listen_extensions: [rb, html.*]
   autoload_previews: true
 
-  ui_theme: indigo
-  ui_theme_overrides: {}
-  ui_favicon: true
-
   log_level: 2
   log_use_rails_logger: true
-
-  debug_menu: false
 
   experimental_features: []
 
@@ -68,11 +55,3 @@ shared:
     docs: https://v2.lookbook.build
     demo: https://v2-demo.lookbook.build
     repo: https://github.com/lookbook-hq/lookbook/tree/v2
-
-development:
-  debug_menu: true
-  live_updates: true
-
-test:
-  debug_menu: true
-  live_updates: false

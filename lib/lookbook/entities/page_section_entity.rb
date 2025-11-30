@@ -35,6 +35,10 @@ module Lookbook
 
     alias_method :page, :parent
 
+    def to_param
+      lookup_path
+    end
+
     protected
 
     def name_parts
