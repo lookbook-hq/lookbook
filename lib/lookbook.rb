@@ -8,7 +8,7 @@ loader.collapse("#{__dir__}/lookbook/*")
 loader.collapse("#{__dir__}/lookbook/*/*")
 loader.collapse("#{__dir__}/lookbook/*/*/*")
 loader.ignore("#{__dir__}/lookbook/support/evented_file_update_checker.rb")
-loader.ignore("#{__dir__}/lookbook/cable")
+loader.enable_reloading if ENV["LOOKBOOK_ENV"] == "development"
 loader.setup
 
 # The Lookbook application entry point.
@@ -73,7 +73,7 @@ module Lookbook
     # @param partial_path [String] Path to the partial template used to render the input
     # @param opts [Hash] Set of default options to be passed to the input. Any supplied param options will override these values
     def add_input_type(name, partial_path, opts = {})
-      Engine.inputs.add_input(name, partial_path, opts)
+      warn "[TEMPORARILY REMOVED] Lookbook#add_input_type"
     end
 
     # @!endgroup
@@ -96,7 +96,7 @@ module Lookbook
     # @option opts [String] :copy If present, the panel will display a copy button that copies the value of this property to the clipboard when clicked
     # @option opts [Hash] :locals A hash of local variables that will be passed to the panel when it is rendered
     def add_panel(name, partial_path, opts = {})
-      Engine.panels.add_panel(name, partial_path, opts)
+      warn "[TEMPORARILY REMOVED] Lookbook#add_panel"
     end
 
     # Edit the properties of an existing inspector panel
@@ -115,7 +115,7 @@ module Lookbook
     # @option opts [String] :copy If present, the panel will display a copy button that copies the value of this property to the clipboard when clicked
     # @option opts [Hash] :locals A hash of local variables that will be passed to the panel when it is rendered
     def update_panel(name, opts)
-      Engine.panels.update_panel(name, opts)
+      warn "[TEMPORARILY REMOVED] Lookbook#update_panel"
     end
 
     # Remove a panel from the inspector
@@ -125,7 +125,7 @@ module Lookbook
     #
     # @param name [Symbol, String] Name of target panel
     def remove_panel(name)
-      Engine.panels.remove_panel(name)
+      warn "[TEMPORARILY REMOVED] Lookbook#remove_panel"
     end
 
     # @!endgroup
@@ -179,11 +179,6 @@ module Lookbook
     # @!endgroup
 
     # @api private
-    def broadcast(event_name, data = {})
-      Engine.websocket&.broadcast(event_name.to_s, data)
-    end
-
-    # @api private
     def engine
       Engine
     end
@@ -218,22 +213,10 @@ module Lookbook
               view_component: config.using_view_component
             }
           },
-          {panels: Engine.panels.to_h.reject { |k, v| v[:system] }},
-          {inputs: Engine.inputs.to_h.reject { |k, v| v[:system] }},
           {tags: Engine.tags.to_h.reject { |k, v| v[:system] }}
         ].inject(:merge)
       }
     end
-
-    alias_method :define_param_input, :add_input_type
-    alias_method :define_panel, :add_panel
-    alias_method :amend_panel, :update_panel
-    alias_method :define_tag, :add_tag
-
-    deprecate define_param_input: :add_input_type, deprecator: Deprecation
-    deprecate define_panel: :add_panel, deprecator: Deprecation
-    deprecate amend_panel: :update_panel, deprecator: Deprecation
-    deprecate define_tag: :add_tag, deprecator: Deprecation
   end
 end
 

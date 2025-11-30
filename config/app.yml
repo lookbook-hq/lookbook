@@ -9,9 +9,6 @@ shared:
   preview_controller: "Lookbook::PreviewController"
   preview_template: lookbook/previews/preview
   preview_inspector:
-    main_panels: [preview, output]
-    drawer_panels: [source, notes, params, "*"]
-    sidebar_panels: [previews, pages]
   preview_embeds:
     enabled: true
     policy: SAMEORIGIN
@@ -24,7 +21,7 @@ shared:
   preview_disable_action_view_partial_prefixes: true
   preview_type_default: view_component
   preview_sort_scenarios: false
-  preview_disable_error_handling: false
+  preview_disable_error_handling: true
   preview_single_pass_rendering: false
 
   page_collection_label: "Pages"
