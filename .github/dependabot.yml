@@ -4,13 +4,6 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-    ignore:
-      - dependency-name: "@rails/actioncable" # we want to stay pinned to the 6.x branch for greater comaptability
-        versions: [">=7.0"]
-      - dependency-name: "iframe-resizer" # See https://github.com/lookbook-hq/lookbook/pull/753
-        versions: [">=5.0"]
-      - dependency-name: "tailwindcss"
-        versions: [">=4.0"]
 
   - package-ecosystem: "bundler"
     directory: "/"

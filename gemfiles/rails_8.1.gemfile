@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "rails", "~> 8.0"
+gem "rails", "~> 8.1"
 gem "debug", platforms: [:mri, :windows], require: "debug/prelude"
 gem "propshaft"
 gem "puma"
