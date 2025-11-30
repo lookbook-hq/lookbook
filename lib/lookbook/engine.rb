@@ -32,7 +32,7 @@ module Lookbook
         opts.reload_on_change = !host_config.cache_classes && host_config.reload_classes_only_on_change
       end
 
-      if Engine.host_config.view_component
+      if Engine.host_config.respond_to?(:view_component)
         vc_config = Engine.host_config.view_component
 
         return unless vc_config.present?
