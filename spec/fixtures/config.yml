@@ -1,8 +1,0 @@
-shared:
-  is_shared: true
-
-development:
-  is_development: true
-
-test:
-  is_test: true

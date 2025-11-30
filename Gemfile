@@ -20,12 +20,3 @@ group :test do
   gem "minitest-reporters"
   gem "sqlite3"
 end
-
-# ----- Gems for current RSpec-based test setup (will be removed) ----- #
-
-group :test do
-  gem "factory_bot", require: false
-  gem "capybara"
-  gem "selenium-webdriver"
-  gem "rspec-rails", "~> 6"
-end
