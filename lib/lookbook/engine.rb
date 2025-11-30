@@ -11,7 +11,7 @@ module Lookbook
       config.app_middleware.use(
         Rack::Static,
         urls: ["/lookbook-assets"],
-        root: root.join("public").to_s
+        root: root.join("dist").to_s
       )
     end
 
@@ -274,7 +274,14 @@ module Lookbook
       def files_changed(modified, added, removed)
         changes = {modified: modified, added: added, removed: removed}
         reloaders.register_changes(changes)
-        notify_clients(changes)
+        return unless changes.present?
+
+        @updated_at = DateTime.now
+        run_hooks(:after_change, changes.to_h)
+      end
+
+      def updated_at
+        @updated_at ||= DateTime.now
       end
     end
 

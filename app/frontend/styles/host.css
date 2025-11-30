@@ -1,0 +1,137 @@
+:host {
+  box-sizing: border-box;
+  color: var(--lookbook-text-base);
+  font-weight: var(--lookbook-font-weight-normal);
+  font-size: var(--lookbook-font-size-md);
+  font-family: var(--lookbook-font-family);
+  line-height: 1.1;
+  display: block;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  scrollbar-color: var(--lookbook-neutral-fill-quiet) transparent;
+  scrollbar-width: thin;
+}
+
+:host *,
+:host *::before,
+:host *::after {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+button {
+  all: unset;
+  display: revert;
+}
+
+ol,
+ul,
+menu {
+  all: unset;
+  display: revert;
+  list-style: none;
+}
+
+input,
+button,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: currentColor;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+::selection {
+  background-color: var(--lookbook-selection-background-color);
+  color: var(--lookbook-selection-color);
+  text-shadow: none !important;
+}
+
+/* Utilities */
+
+.vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+:host([divider]) {
+  border-width: 0;
+  border-style: solid;
+  border-color: var(--lookbook-divider-color);
+}
+
+:host([divider="block-start"]) {
+  border-block-start-width: var(--lookbook-divider-width);
+}
+
+:host([divider="block-end"]) {
+  border-block-end-width: var(--lookbook-divider-width);
+}
+
+:host([divider="inline-start"]) {
+  border-inline-start-width: var(--lookbook-divider-width);
+}
+
+:host([divider="inline-end"]) {
+  border-inline-end-width: var(--lookbook-divider-width);
+}
+
+:host([surface="1"]) {
+  background-color: var(--lookbook-surface-1);
+}
+
+:host([surface="2"]) {
+  background-color: var(--lookbook-surface-2);
+}
+
+:host([surface="3"]) {
+  background-color: var(--lookbook-surface-3);
+}
+
+/* Components */
+
+wa-split-panel {
+  --divider-width: var(--lookbook-divider-width);
+
+  &::part(divider) {
+    background-color: var(--lookbook-divider-color);
+  }
+}
+
+wa-popover {
+  --wa-color-text-normal: var(--lookbook-neutral-text-on-quiet);
+  --wa-font-size-m: var(--lookbook-font-size-md);
+  --wa-panel-border-width: 1px;
+  --wa-color-surface-border: var(--lookbook-divider-color);
+  --wa-panel-border-radius: var(--lookbook-size-xs);
+  --wa-panel-border-style: solid;
+  --wa-shadow-l: var(--lookbook-shadow-quiet);
+  --wa-color-surface-default: var(--lookbook-surface-1);
+  --wa-line-height-normal: var(--lookbook-line-height);
+
+  --arrow-size: 0;
+  --max-width: 15rem;
+
+  --hide-duration: 30ms;
+  --show-duration: 30ms;
+}

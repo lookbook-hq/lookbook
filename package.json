@@ -1,108 +1,67 @@
 {
   "name": "lookbook",
   "version": "2.3.13",
-  "description": "A native development UI for ViewComponent",
-  "targets": {
-    "app": {
-      "source": [
-        "./assets/js/iframe.js",
-        "./assets/js/index.js",
-        "./assets/css/lookbook.css",
-        "./assets/css/themes/indigo.css",
-        "./assets/css/themes/blue.css",
-        "./assets/css/themes/zinc.css",
-        "./assets/css/themes/green.css",
-        "./assets/css/themes/rose.css"
-      ],
-      "distDir": "./public/lookbook-assets"
-    },
-    "embed": {
-      "source": "./assets/js/lookbook.js",
-      "distDir": "./public/lookbook-assets",
-      "outputFormat": "global",
-      "context": "browser",
-      "sourceMap": false
-    },
-    "embed-core": {
-      "source": "./assets/js/lookbook-core.js",
-      "distDir": "./public/lookbook-assets",
-      "outputFormat": "global",
-      "context": "browser",
-      "sourceMap": false
-    }
-  },
-  "alias": {
-    "@helpers/*": "./assets/js/helpers/$1",
-    "@lib/*": "./assets/js/lib/$1",
-    "@components/*": "./app/components/lookbook/$1"
-  },
+  "description": "A UI development environment for Ruby on Rails applications",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "npm run watch",
-    "watch": "npm run parcel:clean && concurrently npm:parcel:watch",
-    "build": "npm run parcel:clean && npm run themes:generate && npm run parcel:build",
-    "parcel:clean": "rm -rf .parcel-cache",
-    "parcel:watch": "parcel watch -p 5111",
-    "parcel:build": "parcel build --no-cache --no-optimize",
-    "themes:generate": "bin/generate-themes",
-    "themes:watch": "watch 'npm run themes:generate' ./theme --filter=./theme/watch.js",
+    "assets:dev": "node scripts/build.js --develop",
+    "assets:build": "node scripts/build.js",
     "lint:fix": "bundle exec standardrb --fix && prettier --write .",
     "release": "release-it --verbose",
-    "release:dry-run": "release-it --dry-run --verbose"
+    "release:dry-run": "release-it --dry-run --verbose",
+    "prepare": "husky"
   },
   "author": "Mark Perkins",
   "license": "MIT",
+  "browserslist": [
+    "baseline widely available"
+  ],
   "dependencies": {
-    "@alpinejs/collapse": "^3.14.9",
-    "@alpinejs/morph": "^3.15.1",
-    "@alpinejs/persist": "^3.14.9",
-    "@rails/actioncable": "^6.1.4",
-    "@ryangjchandler/alpine-tooltip": "^2.0.0",
-    "@tailwindcss/forms": "^0.5.10",
-    "@tailwindcss/typography": "^0.5.19",
-    "alpinejs": "^3.14.9",
-    "autoprefixer": "^10.4.21",
-    "iframe-resizer": "^4.3.2",
-    "js-cookie": "^3.0.5",
-    "loglevel": "^1.9.2",
-    "loglevel-plugin-prefix": "^0.8.4",
-    "lucide-static": "^0.274.0",
-    "split-grid": "^1.0.11",
-    "svgo": "^3.2.0",
-    "tailwindcss": "^3.4.3",
-    "throttle-debounce": "^5.0.2",
-    "tippy.js": "^6.3.2"
+    "@awesome.me/webawesome": "^3.0.0",
+    "@fontsource-variable/noto-sans": "^5.2.10",
+    "@fontsource-variable/noto-sans-mono": "^5.2.10",
+    "@herb-tools/browser": "^0.8.2",
+    "@herb-tools/linter": "^0.8.2",
+    "@mdit-vue/plugin-component": "^3.0.2",
+    "@olets/markdown-it-wrapperless-fence-rule": "^1.2.1",
+    "@shikijs/markdown-it": "^3.14.0",
+    "@shikijs/transformers": "^3.15.0",
+    "element-internals-polyfill": "^3.0.2",
+    "es-toolkit": "^1.41.0",
+    "hotkeys-js": "^4.0.0-beta.7",
+    "idiomorph": "^0.7.4",
+    "invokers-polyfill": "^0.5.7",
+    "lucide": "^0.553.0",
+    "markdown-it": "^14.1.0",
+    "strip-indent": "^4.1.1"
   },
   "devDependencies": {
-    "@parcel/resolver-glob": "^2.10.3",
-    "concurrently": "^9.2.1",
-    "eslint": "^8.2.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.29.1",
+    "chalk": "^5.6.2",
+    "chokidar": "^4.0.3",
+    "del": "^8.0.1",
+    "esbuild": "^0.25.12",
+    "globby": "^15.0.0",
     "husky": "^9.1.7",
-    "lint-staged": "^16.2.6",
-    "parcel": "^2.13.3",
-    "postcss": "^8.4.23",
-    "postcss-import": "^16.1.0",
-    "postcss-import-ext-glob": "^2.0.1",
-    "prettier": "3.6.2",
-    "release-it": "^17.2.1",
-    "watch": "^0.13.0"
+    "lint-staged": "^16.1.5",
+    "ora": "^9.0.0",
+    "prettier": "^3.6.2",
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "recursive-copy": "^2.0.14",
+    "release-it": "^19.0.6",
+    "shiki-codegen": "^3.14.0"
   },
-  "prettier": {
-    "tabWidth": 2,
-    "semi": true,
-    "singleQuote": false,
-    "trailingComma": "es5"
+  "peerDependencies": {
+    "lit": "^3.3.1"
   },
-  "lint-staged": {
-    "!(docs/**/*)": [
-      "prettier --write --ignore-unknown",
-      "npm run build"
-    ],
-    "**/*.rb": [
-      "bundle exec standardrb --fix"
-    ]
+  "exports": {
+    ".": {
+      "types": "./dist/app.d.ts",
+      "import": "./dist/app.js"
+    },
+    "./app.js": "./dist/app.js",
+    "./components/*": "./dist/components/*",
+    "./events/*": "./dist/events/*"
   },
   "release-it": {
     "git": {

@@ -12,7 +12,9 @@ module Lookbook
     # The preview that this scenario belongs to.
     #
     # @return [PreviewEntity] The parent preview entity
-    attr_reader :preview
+    attr_reader :preview # TODO: deprecate #preview method
+
+    alias_method :spec, :preview
 
     # @api private
     alias_method :parent, :preview
@@ -97,15 +99,15 @@ module Lookbook
     # The inspector URL path for this preview
     #
     # @return [String] URL path
-    def inspect_path
-      lookbook_inspect_path(lookup_path)
+    def inspect_path(params = {})
+      lookbook_scenario_path(preview, name, params)
     end
 
     # The standalone preview URL path for this preview
     #
     # @return [String] URL path
-    def preview_path
-      lookbook_preview_path(lookup_path)
+    def preview_path(params = {})
+      lookbook_scenario_preview_path(preview, name, params)
     end
 
     # @!endgroup
@@ -143,6 +145,18 @@ module Lookbook
 
     deprecate lang: :source_lang, deprecator: Deprecation
     deprecate examples: :scenarios, deprecator: Deprecation
+
+    def metadata
+      {
+        id:,
+        label:,
+        url_path:
+      }.deep_transform_keys { _1.to_s.camelize(:lower) }
+    end
+
+    def to_param
+      name
+    end
 
     protected
 

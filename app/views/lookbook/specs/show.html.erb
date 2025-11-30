@@ -1,0 +1,50 @@
+<%
+  # TODO - clean up breadcrumb generation
+  spec_note_parts = @spec.notes.present? ? @spec.note_parts : {}
+  breadcrumb_items = @spec.lookup_path.split("/")
+  breadcrumb_items.pop
+%>
+
+<lb-spec heading="<%= spec_note_parts[:heading] || @spec.label %>" id="<%= @spec.lookup_hash %>">
+  <lb-breadcrumb-nav slot="breadcrumb">
+    <%= link_to lookbook_specs_path do %>
+      <lb-icon name="layers-2"></lb-icon>
+    <% end %>
+
+    <% breadcrumb_items.each do |item| %>
+      <span><%= item.titleize %></span>
+    <% end %>
+
+    <span><%= @spec.label %></span>
+  </lb-breadcrumb-nav>
+
+  <% if spec_note_parts[:body].present? %>
+    <lb-spec-section>
+      <lb-prose markdown slot="notes"><%= spec_note_parts[:body] %></lb-prose>
+    </lb-spec-section>
+  <% end %>
+
+  <% @spec.scenarios.each do |scenario| %>
+    <% note_parts = scenario.note_parts %>
+
+    <lb-spec-section
+      heading="<%= note_parts[:heading] || scenario.label %>"
+      link="<%= lookbook_scenario_path(@spec, scenario) %>"
+    >
+      <% if note_parts[:body].present? %>
+        <lb-prose markdown slot="notes"><%= note_parts[:body] %></lb-prose>
+      <% end %>
+
+      <lb-snippet id="source-snippet" numbered lint>
+        some code <%# = collate_source(@scenarios) %>
+      </lb-snippet>
+
+      <lb-viewport
+        src="<%= scenario.preview_path %>"
+        slot="preview"
+        resize="horizontal"
+        persist-as="spec.scenario.viewport.<%= @spec.id %>"
+      ></lb-viewport>
+    </lb-spec-section>
+  <% end %>
+</lb-spec>

@@ -4,6 +4,7 @@ module Lookbook
   # @api public
   class Entity
     include Comparable
+
     send(:include, Lookbook::Engine.routes.url_helpers) # YARD parsing workaround: https://github.com/lsegal/yard/issues/546
 
     # @api private
@@ -65,14 +66,26 @@ module Lookbook
     alias_method :path, :lookup_path
     deprecate path: :lookup_path, deprecator: Deprecation
 
+    def lookup_hash
+      Digest::SHA256.hexdigest(lookup_path)[0..7]
+    end
+
     def search_terms
       @_search_terms ||= lookup_path.split("/").map(&:titleize)
+    end
+
+    def to_s
+      lookup_hash
     end
 
     # @!endgroup
 
     def <=>(other)
       label <=> other.label
+    end
+
+    def to_param
+      lookup_path.tr("/", ".")
     end
 
     protected

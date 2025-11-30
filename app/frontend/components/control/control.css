@@ -1,0 +1,34 @@
+:host {
+  max-width: 40rem;
+}
+
+label {
+  display: block;
+  margin-block-end: var(--lookbook-size-xs);
+  font-size: var(--lookbook-form-control-font-size-sm);
+  font-weight: var(--lookbook-font-weight-semibold);
+  cursor: pointer;
+}
+
+textarea {
+  min-height: 4.3rem;
+}
+
+:host([field="toggle"]),
+:host([field="checkbox"]) {
+  #container {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: start;
+    column-gap: var(--lookbook-size-sm);
+  }
+
+  label {
+    margin-block-end: 0;
+  }
+
+  #input-field {
+    margin: 0;
+  }
+}

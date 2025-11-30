@@ -1,0 +1,1 @@
+import{a as s}from"./chunk.RDODN32U.js";import{a as m}from"./chunk.J33USGNF.js";import{a as l}from"./chunk.DJWHC2VF.js";import{a as r}from"./chunk.KPKYWVQS.js";import{e as t}from"./chunk.XPFMMO3L.js";var e=class extends m{render(){return r` <div>viewport</div> `}};e.css=s,e.slotAttributeDefault="preview",e=t([l("lb-viewport")],e);export{e as a};

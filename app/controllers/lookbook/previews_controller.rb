@@ -1,15 +1,18 @@
 module Lookbook
   class PreviewsController < Lookbook::ApplicationController
-    include TargetableConcern
-    include WithPreviewControllerConcern
+    include WithSpecs
+    include WithScenarios
+    include WithDisplayOptions
+
+    before_action :assign_spec, only: :show
+    before_action :assign_scenario, only: :show
+    before_action :assign_scenarios, only: :show
+    before_action :assign_display_options, only: :show
+    before_action :assign_params, only: :show
 
     layout false
 
     before_action :permit_framing, only: [:show]
-
-    def self.controller_path
-      "lookbook/previews"
-    end
 
     def index
       respond_to do |format|
@@ -37,17 +40,22 @@ module Lookbook
     end
 
     def show
-      raise_not_found("Preview not found") unless @target
+      raise_not_found("Preview not found") unless @spec
 
-      @preview_html = if Lookbook.config.preview_single_pass_rendering && !inspector_data.scenarios.many?
-        inspector_data.scenarios.first.output + (iframe_content_scripts if embedded?)
+      @preview_html = if Lookbook.config.preview_single_pass_rendering && !@scenarios.many?
+        # @inspector_data.scenarios.first.output + (iframe_content_scripts if embedded?)
+        @scenarios.first.output
       else
         preview_controller.process(
           :render_in_layout_to_string,
           "lookbook/previews/group",
-          inspector_data,
-          layout: @preview.layout,
-          append_html: (iframe_content_scripts if embedded?)
+          Store.new({
+            context: Store.new({params: @params, path: params[:path]}),
+            spec: @spec,
+            scenarios: @scenarios
+          }),
+          layout: @spec.layout
+          # append_html: (iframe_content_scripts if embedded?)
         )
       end
     end
@@ -58,9 +66,10 @@ module Lookbook
       params[:lookbook_embed] == "true"
     end
 
-    def iframe_content_scripts
-      render_to_string("lookbook/partials/_iframe_content_scripts", layout: nil)
-    end
+    # TODO: inject preview styles and JS into preview
+    # def iframe_content_scripts
+    #   render_to_string("lookbook/partials/_iframe_content_scripts", layout: nil)
+    # end
 
     def scenario_json(scenario)
       {

@@ -1,0 +1,8 @@
+@view-transition {
+  navigation: auto;
+}
+
+html,
+body {
+  /*overflow: hidden !important;*/
+}

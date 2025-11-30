@@ -4,34 +4,20 @@ module Lookbook
 
     protect_from_forgery with: :exception
 
-    layout "lookbook/application"
-
-    helper Lookbook::ClassNamesHelper if Engine.runtime_context.rails_older_than?("6.1.0")
-    helper Lookbook::ApplicationHelper
-    helper Lookbook::UiElementsHelper
-
     before_action :disable_annotations
     after_action :restore_annotations
 
     before_action :assign_theme_overrides
-    before_action :assign_instance_vars
+
+    helper_method :fetch_request?
 
     rescue_from ActionController::RoutingError do |err|
       raise Lookbook::RoutingError, err.message, original: err
     end
     rescue_from StandardError, with: :handle_error
 
-    def self.controller_path
-      "lookbook"
-    end
-
     def index
-      landing = Engine.pages.find(&:landing?) || Engine.pages.first
-      if landing.present?
-        redirect_to lookbook_page_path(landing.lookup_path)
-      else
-        render "lookbook/index"
-      end
+      redirect_to lookbook_specs_path
     end
 
     def not_found
@@ -58,17 +44,6 @@ module Lookbook
       @theme_overrides ||= Engine.theme.to_css
     end
 
-    def assign_instance_vars
-      @previews = Engine.previews
-      @pages = Engine.pages
-      @theme = Engine.theme
-      @config = Lookbook.config
-      @engine = Lookbook.engine
-      @embed = !!params[:lookbook_embed]
-      @sidebar_panels = sidebar_panels
-      @blank_slate = @sidebar_panels.none?
-    end
-
     def raise_not_found(message = "Page not found")
       raise Lookbook::RoutingError, message
     end
@@ -89,7 +64,16 @@ module Lookbook
       self.class.send(:_layout)
     end
 
-    private
+    def requested_layout
+      layout_header_value = request.headers["HTTP_X_LOOKBOOK_LAYOUT"]
+      if layout_header_value.present?
+        (layout_header_value == "none") ? false : layout_header_value
+      end
+    end
+
+    def fetch_request?
+      request.headers["HTTP_X_LOOKBOOK_REQUEST"]
+    end
 
     def sidebar_panels
       panels_config = Lookbook.config.preview_inspector.sidebar_panels.map(&:to_sym)

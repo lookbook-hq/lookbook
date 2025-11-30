@@ -21,3 +21,5 @@ gemfiles/*.lock
 .archive
 test/dummy/log/*
 dist/lookbook-assets-dev/*
+
+app/frontend/components/_/*

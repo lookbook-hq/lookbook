@@ -1,0 +1,170 @@
+#input-field {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  width: 100%;
+  margin: auto 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: inherit;
+
+  &:not([type="checkbox"]) {
+    border-radius: var(--lookbook-border-radius-md);
+    border: 1px solid var(--lookbook-neutral-stroke-quiet);
+    width: 100%;
+    height: var(--lookbook-form-control-height-md);
+    padding-inline: var(--lookbook-size-sm);
+    font-size: var(--lookbook-form-control-font-size-sm);
+    background-color: var(--lookbook-surface-1);
+    font-family: var(--lookbook-font-family-code);
+    color: var(--lookbook-text-base);
+    line-height: 1.5;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: var(--lookbook-border-style) calc(var(--lookbook-border-width) + 1px) var(--lookbook-focus-color);
+    outline-offset: calc(-1 * var(--lookbook-border-width));
+  }
+
+  &::placeholder {
+    color: var(--lookbook-form-control-placeholder-color);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    background-color: transparent;
+    -webkit-text-fill-color: inherit;
+  }
+
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+  }
+
+  &::-webkit-calendar-picker-indicator {
+    display: none !important;
+  }
+
+  &[type="number"]::-webkit-inner-spin-button {
+    width: 1em;
+    height: 2em;
+  }
+
+  &::-webkit-datetime-edit-year-field:focus,
+  &::-webkit-datetime-edit-month-field:focus,
+  &::-webkit-datetime-edit-week-field:focus,
+  &::-webkit-datetime-edit-day-field:focus,
+  &::-webkit-datetime-edit-ampm-field:focus,
+  &::-webkit-datetime-edit-meridiem-field:focus,
+  &::-webkit-datetime-edit-hour-field:focus,
+  &::-webkit-datetime-edit-millisecond-field:focus,
+  &::-webkit-datetime-edit-minute-field:focus,
+  &::-webkit-datetime-edit-second-field:focus {
+    outline: none;
+    background-color: var(--lookbook-selection-background-color);
+    color: var(--lookbook-selection-color);
+  }
+
+  &:is(textarea) {
+    height: auto;
+    padding: 10px var(--lookbook-size-sm);
+
+    &[resize="auto"] {
+      field-sizing: content;
+    }
+  }
+
+  /* selects */
+
+  &:is(select) {
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 18px;
+  }
+
+  /* checkbox toggle switches */
+
+  &:where([type="checkbox"][role="switch"]) {
+    position: relative;
+    background-color: var(--lookbook-surface-1);
+    font-size: inherit;
+    width: calc(var(--lookbook-form-control-height-xs) * 1.8);
+    height: var(--lookbook-form-control-height-xs);
+    box-sizing: content-box;
+    border: 1px solid var(--lookbook-neutral-stroke-quiet);
+    border-radius: var(--lookbook-form-control-height-sm);
+    vertical-align: text-bottom;
+    margin: auto;
+    cursor: pointer;
+    transition: all 150ms ease-in-out;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      box-sizing: border-box;
+      width: calc(var(--lookbook-form-control-height-xs) - 6px);
+      height: calc(var(--lookbook-form-control-height-xs) - 6px);
+      margin: 0 3px;
+      border-radius: var(--lookbook-form-control-height-sm);
+      background-color: var(--lookbook-neutral-fill-quiet);
+      transition: all 150ms ease-in-out;
+    }
+
+    &:checked {
+      background-color: var(--lookbook-positive-fill-mid);
+
+      &::before {
+        background-color: var(--lookbook-surface-1);
+        left: calc(var(--lookbook-form-control-height-xs) - 6px);
+      }
+    }
+
+    &:disabled {
+      opacity: 0.4;
+    }
+  }
+
+  &[type="date"],
+  &[type="datetime-local"],
+  &[type="month"],
+  &[type="time"],
+  &[type="week"] {
+    display: inline-flex;
+    appearance: none;
+    align-items: center;
+    width: 100%;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: %2382848d;"%3E%3Cpath stroke="none" d="M0 0h24v24H0z" fill="none"/%3E%3Cpath d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /%3E%3Cpath d="M16 3v4" /%3E%3Cpath d="M8 3v4" /%3E%3Cpath d="M4 11h16" /%3E%3Cpath d="M11 15h1" /%3E%3Cpath d="M12 15v3" /%3E%3C/svg%3E');
+    background-position: 100% center;
+    background-size: 1.25em;
+    background-repeat: no-repeat;
+
+    &::-webkit-calendar-picker-indicator {
+      display: none;
+    }
+
+    &::-webkit-date-and-time-value {
+      text-align: start;
+    }
+  }
+
+  &[type="time"] {
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: %2382848d;"%3E%3Cpath stroke="none" d="M0 0h24v24H0z" fill="none"/%3E%3Cpath d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /%3E%3Cpath d="M12 12l3 2" /%3E%3Cpath d="M12 7v5" /%3E%3C/svg%3E');
+  }
+}

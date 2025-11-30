@@ -1,0 +1,48 @@
+:host {
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--lookbook-surface-2);
+}
+
+#toolbar {
+  background-color: var(--lookbook-surface-1);
+  &::part(container) {
+    padding-inline: var(--lookbook-size-md);
+  }
+}
+
+#label {
+  font-size: var(--lookbook-font-size-sm);
+  color: var(--lookbook-text-quiet);
+  font-weight: var(--lookbook-font-weight-semibold);
+  color: var(--lookbook-text-base);
+  display: flex;
+
+  align-items: center;
+  column-gap: 0.7em;
+  white-space: no-wrap;
+
+  lb-icon {
+    display: none;
+    color: var(--lookbook-accent-400);
+    width: 1em;
+    transform: translateY(-1px);
+
+    &::part(svg) {
+      stroke-width: 1.5;
+    }
+  }
+}
+
+#container {
+  height: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+}
+
+#nav {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+}

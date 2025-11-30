@@ -1,0 +1,77 @@
+:host {
+  box-sizing: border-box;
+  height: 44px;
+  color: var(--lookbook-neutral-text-on-mid);
+  background-color: var(--lookbook-accent-fill-mid);
+}
+
+#container {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  padding-inline: var(--lookbook-size-md) var(--lookbook-size-2xs);
+}
+
+#logo {
+  display: flex;
+  align-items: center;
+}
+
+#logo ::slotted(*) {
+  display: block;
+  height: var(--lookbook-size-lg);
+  transform: scale(97%) rotate(-3deg);
+}
+
+#logo,
+#links,
+#actions {
+  position: relative;
+  top: -1px;
+}
+
+#links {
+  margin-left: auto;
+  margin-right: var(--lookbook-size-xs);
+  display: flex;
+  align-items: center;
+  column-gap: var(--lookbook-size-2xs);
+
+  ::slotted(lb-button) {
+    padding-block: var(--lookbook-size-2xs);
+    opacity: 0.9;
+  }
+
+  ::slotted(lb-button:hover) {
+    opacity: 1;
+    /*text-decoration: underline;
+    text-underline-offset: 2px;*/
+    background-color: color-mix(in oklab, var(--lookbook-accent-fill-mid), black 10%);
+  }
+
+  ::slotted(lb-button[active]) {
+    pointer-events: none;
+    cursor: default;
+    opacity: 1;
+    /*text-decoration: none;*/
+    background-color: color-mix(in oklab, var(--lookbook-accent-fill-mid), black 20%);
+  }
+}
+
+#actions {
+  display: flex;
+  align-items: center;
+  border-color: color-mix(in oklab, var(--lookbook-accent-fill-mid), white 20%);
+
+  ::slotted(lb-button) {
+    color: var(--lookbook-neutral-text-on-mid);
+  }
+
+  ::slotted(lb-button:hover) {
+    background-color: color-mix(in oklab, var(--lookbook-accent-fill-mid), black 8%);
+  }
+
+  ::slotted(lb-button:active) {
+    background-color: color-mix(in oklab, var(--lookbook-accent-fill-mid), black 14%);
+  }
+}

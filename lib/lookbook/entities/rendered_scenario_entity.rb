@@ -24,13 +24,7 @@ module Lookbook
     #
     # @return [String] Rendered output
     attr_reader :output
-
-    # 'Beautified' HTML output of the rendered scenario.
-    #
-    # @return [String] Rendered output
-    def beautified_output
-      @_beautified_output ||= CodeBeautifier.call(output)
-    end
+    alias_method :beautified_output, :output # TODO: deprecate #beautified_output
 
     # @api private
     def source
@@ -42,12 +36,16 @@ module Lookbook
       has_custom_template? ? template_lang(template) : scenario.source_lang
     end
 
+    def to_s
+      scenario.to_s
+    end
+
     protected
 
     attr_reader :params
 
     def render_args
-      @_render_args ||= preview.render_args(scenario.name, params: params)
+      @_render_args ||= spec.render_args(scenario.name, params: params)
     end
 
     def template

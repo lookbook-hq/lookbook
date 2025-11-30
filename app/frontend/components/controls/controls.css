@@ -1,0 +1,23 @@
+:host {
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--lookbook-surface-2);
+}
+
+#scroller,
+#blankslate {
+  height: 100%;
+  overflow: auto;
+}
+
+#scroller {
+}
+
+::slotted(lb-control:first-child) {
+  padding-block-start: var(--lookbook-size-lg);
+}
+
+::slotted(lb-control) {
+  padding-inline: var(--lookbook-size-sm);
+  margin-block-end: var(--lookbook-size-xl);
+}

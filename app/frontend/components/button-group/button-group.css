@@ -1,0 +1,14 @@
+:host {
+  display: flex !important;
+  align-items: center;
+}
+
+:host([divider="inline-start"]) {
+  margin-inline-start: var(--lookbook-size-xs);
+  padding-inline-start: var(--lookbook-size-xs);
+}
+
+:host([divider="inline-end"]) {
+  margin-inline-end: var(--lookbook-size-xs);
+  padding-inline-end: var(--lookbook-size-xs);
+}

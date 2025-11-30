@@ -1,0 +1,1 @@
+import{a as n}from"./chunk.JLVMQUYM.js";function e(o=null){return[o,n()].filter(t=>t).join("-")}function a(o){return!!(o&&o.tagName==="A"&&!o.hasAttribute("target")&&o.host&&o.host===location.host)}async function i(o){return await Promise.all(o.map(t=>t.updateComplete)),o}export{e as a,a as b,i as c};

@@ -30,7 +30,7 @@ module Lookbook
       if default_value_parts
         # fix issue with YARD argument parser not splitting args correctly (leaving a trailing comma or bracket)
         # when one or more of the argument values is a negative number.
-        cleaned_value = default_value_parts[1].start_with?("-") ? default_value_parts[1].sub(/[,\)]$/, "") : default_value_parts[1]
+        cleaned_value = default_value_parts[1].start_with?("-") ? default_value_parts[1].sub(/[,)]$/, "") : default_value_parts[1]
         host_class_instance.instance_eval(cleaned_value)
       else
         raise ParserError.new "Unknown method parameter '#{name}'"

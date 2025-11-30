@@ -1,0 +1,26 @@
+:host {
+  height: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+}
+
+#tabs {
+  user-select: none;
+  display: flex;
+  align-items: stretch;
+  column-gap: var(--lookbook-size-xs);
+}
+
+#panels {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+
+  > lb-panel {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

@@ -126,7 +126,7 @@ module Lookbook
     #
     # @return [String] URL path
     def inspect_path
-      lookbook_inspect_path(lookup_path)
+      lookbook_spec_path(self)
     end
 
     alias_method :url_path, :inspect_path
@@ -134,8 +134,8 @@ module Lookbook
     # The standalone preview URL path for this preview
     #
     # @return [String] URL path
-    def preview_path
-      lookbook_preview_path(lookup_path)
+    def preview_path(params = {})
+      lookbook_scenario_preview_path(parent, name, params)
     end
 
     # @!endgroup
@@ -173,6 +173,15 @@ module Lookbook
       [preview_class.name.chomp("Preview").constantize&.name]
     rescue
       []
+    end
+
+    def metadata(include_scenarios = false)
+      {
+        id:,
+        label:,
+        url_path:,
+        scenarios: (scenarios.map(&:metadata) if include_scenarios)
+      }.deep_transform_keys { _1.to_s.camelize(:lower) }
     end
 
     protected

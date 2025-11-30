@@ -1,0 +1,84 @@
+:host {
+  display: grid;
+  height: 100%;
+  overflow: auto;
+}
+
+#container,
+#editor {
+  height: 100%;
+}
+
+.shiki {
+  margin: 0;
+  line-height: 1.5;
+  padding-block: var(--lookbook-size-xs);
+  padding-inline: var(--lookbook-size-xs);
+
+  code {
+    font-family: var(--lookbook-font-family-code);
+    font-size: var(--lookbook-font-size-sm);
+    white-space: normal;
+    padding-block: 0;
+  }
+
+  .line {
+    display: flex;
+    align-items: baseline;
+    white-space: pre-wrap;
+    min-height: calc(1em * 1.5);
+  }
+}
+
+/* TODO: improve line numbers implementation, prepend numbers to lines via JS */
+:host([numbered]) {
+  .shiki {
+    padding-inline: 0;
+
+    code {
+      counter-reset: step;
+      counter-increment: step 0;
+    }
+
+    .line {
+      padding-inline-start: 0;
+
+      > * {
+        flex: none;
+      }
+
+      &::before {
+        flex: none;
+        display: block;
+        content: counter(step);
+        counter-increment: step;
+        width: 3ch;
+        box-sizing: content-box;
+        margin-inline-end: 0.5em;
+        position: relative;
+        padding-inline: 0.5em;
+        border-inline-end: 1px solid color-mix(in oklab, var(--lookbook-text-quieter), transparent 70%);
+        text-align: end;
+        color: var(--lookbook-text-quietest);
+      }
+    }
+  }
+}
+
+:host([surface="1"]) {
+  .shiki {
+    background-color: var(--lookbook-surface-1) !important;
+  }
+}
+
+:host([surface="2"]) {
+  .shiki {
+    background-color: var(--lookbook-surface-2) !important;
+  }
+}
+
+:host([surface="3"]) {
+  .shiki {
+    background-color: var(--lookbook-surface-3) !important;
+  }
+}

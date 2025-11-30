@@ -1,0 +1,45 @@
+:host {
+  height: 100%;
+  overflow: hidden;
+}
+
+#backdrop {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  background-color: var(--lookbook-surface-3);
+  padding: 7%;
+}
+
+#content {
+  border: 1px dashed var(--lookbook-neutral-300);
+  background-color: var(--lookbook-surface-1);
+  border-radius: 0.5rem;
+  padding: clamp(20px, 7%, 70px);
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+#icon {
+  width: 32px;
+  margin: 0 auto;
+  transform: scale(97%) rotate(-3deg);
+  color: var(--lookbook-accent-300);
+}
+
+#title {
+  margin-top: 0.6rem;
+}
+
+#message {
+  font-family: var(--lookbook-font-family-code);
+  line-height: 1.4;
+  opacity: 0.6;
+  font-size: 13px;
+  margin: 0.6rem auto 0 auto;
+  /*font-style: italic;*/
+  max-width: 280px;
+}

@@ -1,0 +1,58 @@
+:host {
+}
+
+#header {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--lookbook-size-xl);
+}
+
+#header-container {
+  display: contents;
+}
+
+#title {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5em;
+  margin: 0;
+
+  a {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--lookbook-text-base);
+    font-weight: var(--lookbook-font-weight-semibold);
+    line-height: 1;
+    padding: var(--lookbook-size-2xs);
+    background-color: var(--lookbook-accent-fill-quiet);
+    border-radius: var(--lookbook-size-3xs);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+#toolbar {
+  margin-inline-start: auto;
+  opacity: 0;
+  transition: opacity 250ms ease;
+
+  &::part(container) {
+    padding: 0;
+  }
+}
+
+#container:hover {
+  #toolbar {
+    opacity: 1;
+  }
+}
+
+::slotted(*) {
+  margin-block-end: calc(var(--lookbook-prose-spacing) * 1.2);
+}
+
+::slotted(*:last-child) {
+  margin-block-end: 0;
+}

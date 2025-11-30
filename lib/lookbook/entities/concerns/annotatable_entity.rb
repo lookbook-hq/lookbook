@@ -15,6 +15,30 @@ module Lookbook
         code_object.docstring.to_s.strip
       end
 
+      def notes?
+        lines = notes.strip.split("\n")
+        lines[0]&.strip&.start_with?("#")
+      end
+
+      # TODO: extract note handling/parsing logic into notes object
+      def note_parts
+        note_lines = notes.split("\n")
+        heading = nil
+        if note_lines[0]&.strip&.start_with?("#")
+          heading = note_lines.shift
+        elsif note_lines[1]&.start_with?("---", "===")
+          heading = note_lines.shift
+          note_lines.shift
+        end
+
+        heading = heading&.gsub(/^(#+\s*)/, "")
+
+        {
+          heading:,
+          body: note_lines.join("\n").strip
+        }
+      end
+
       # All tags that have been added to the entity.
       # Can be filtered by tag name by providing the name as an argument.
       #

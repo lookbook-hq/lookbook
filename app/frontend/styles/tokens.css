@@ -1,0 +1,358 @@
+@layer lookbook.tokens {
+  :root,
+  [display-mode="light"],
+  [display-mode="dark"] {
+    /* Typography */
+
+    --lookbook-font-size-base: 16px;
+    --lookbook-line-height: 1.4;
+
+    --lookbook-font-family: "Noto Sans Variable", system-ui, sans-serif;
+    --lookbook-font-family-heading: var(--lookbook-font-family);
+    --lookbook-font-family-prose: var(--lookbook-font-family);
+    --lookbook-font-family-code: "Noto Sans Mono Variable", ui-monospace, monospace;
+
+    --lookbook-font-size-2xs: 0.75rem; /* 12px */
+    --lookbook-font-size-xs: 0.8125rem; /* 13px */
+    --lookbook-font-size-sm: 0.875rem; /* 14px */
+    --lookbook-font-size-md: 1rem; /* 16px */
+    --lookbook-font-size-lg: 1.125rem; /* 18px */
+    --lookbook-font-size-xl: 1.5rem; /* 24px */
+
+    --lookbook-font-weight-light: 300;
+    --lookbook-font-weight-normal: 400;
+    --lookbook-font-weight-medium: 500;
+    --lookbook-font-weight-semibold: 600;
+    --lookbook-font-weight-bold: 700;
+
+    /* Sizing */
+
+    --lookbook-size-3xs: 0.25rem; /* 4px */
+    --lookbook-size-2xs: 0.375rem; /* 6px */
+    --lookbook-size-xs: 0.5rem; /* 8px */
+    --lookbook-size-sm: 0.75rem; /* 12px */
+    --lookbook-size-md: 1rem; /* 16px */
+    --lookbook-size-lg: 1.25rem; /* 20px */
+    --lookbook-size-xl: 1.5rem; /* 24px */
+    --lookbook-size-2xl: 1.75rem; /* 28px */
+    --lookbook-size-3xl: 2rem; /* 36px */
+    --lookbook-size-4xl: 2.5rem; /* 40px */
+
+    /* Borders */
+
+    --lookbook-border-width: 1px;
+    --lookbook-border-style: solid;
+
+    --lookbook-border-radius-sm: 0.1875rem;
+    --lookbook-border-radius-md: 0.25rem;
+
+    --lookbook-divider-width: var(--lookbook-border-width);
+
+    /* Form controls */
+
+    --lookbook-form-control-height-xs: 1.75rem;
+    --lookbook-form-control-height-sm: 2rem;
+    --lookbook-form-control-height-md: 2.5rem;
+
+    --lookbook-form-control-font-size-xs: 0.75rem;
+    --lookbook-form-control-font-size-sm: 0.875rem;
+    --lookbook-form-control-font-size-md: 1rem;
+
+    --lookbook-form-control-required-content: "*";
+    --lookbook-form-control-placeholder-color: color-mix(in oklab, var(--lookbook-text-quiet), transparent 25%);
+
+    /* Tooltips */
+
+    --lookbook-tooltip-font-size: var(--lookbook-font-size-2xs);
+    --lookbook-tooltip-arrow-size: var(--lookbook-size-2xs);
+    --lookbook-tooltip-border-radius: var(--lookbook-border-radius-md);
+    --lookbook-tooltip-padding: var(--lookbook-size-2xs) var(--lookbook-size-xs);
+
+    /* Pages & Prose */
+
+    --lookbook-page-max-width: 980px;
+    --lookbook-page-padding: clamp(var(--lookbook-size-sm), 2.5vw, var(--lookbook-size-4xl));
+    --lookbook-prose-spacing: 1.4rem;
+
+    /* Other */
+
+    --lookbook-focus-width: 3px;
+    --lookbook-focus-offset: 1px;
+
+    --lookbook-backdrop-filter: blur(var(--lookbook-size-3xs));
+
+    /* Colors */
+
+    --lookbook-accent-seed: #6366f1;
+    --lookbook-neutral-seed: #71717a;
+    --lookbook-positive-seed: #22c55e;
+    --lookbook-negative-seed: #ef4444;
+    --lookbook-warning-seed: #f59e0b;
+
+    --lookbook-accent-50: color-mix(in oklab, var(--lookbook-accent-seed), white 94%);
+    --lookbook-accent-100: color-mix(in oklab, var(--lookbook-accent-seed), white 90%);
+    --lookbook-accent-200: color-mix(in oklab, var(--lookbook-accent-seed), white 70%);
+    --lookbook-accent-300: color-mix(in oklab, var(--lookbook-accent-seed), white 47%);
+    --lookbook-accent-400: color-mix(in oklab, var(--lookbook-accent-seed), white 23%);
+    --lookbook-accent-500: var(--lookbook-accent-seed);
+    --lookbook-accent-600: color-mix(in oklab, var(--lookbook-accent-seed), black 15.5%);
+    --lookbook-accent-700: color-mix(in oklab, var(--lookbook-accent-seed), black 28.25%);
+    --lookbook-accent-800: color-mix(in oklab, var(--lookbook-accent-seed), black 43.5%);
+    --lookbook-accent-900: color-mix(in oklab, var(--lookbook-accent-seed), black 58.5%);
+    --lookbook-accent-950: color-mix(in oklab, var(--lookbook-accent-seed), black 73.75%);
+
+    --lookbook-neutral-50: color-mix(in oklab, var(--lookbook-neutral-seed), white 94%);
+    --lookbook-neutral-100: color-mix(in oklab, var(--lookbook-neutral-seed), white 90%);
+    --lookbook-neutral-200: color-mix(in oklab, var(--lookbook-neutral-seed), white 70%);
+    --lookbook-neutral-300: color-mix(in oklab, var(--lookbook-neutral-seed), white 47%);
+    --lookbook-neutral-400: color-mix(in oklab, var(--lookbook-neutral-seed), white 23%);
+    --lookbook-neutral-500: var(--lookbook-neutral-seed);
+    --lookbook-neutral-600: color-mix(in oklab, var(--lookbook-neutral-seed), black 15.5%);
+    --lookbook-neutral-700: color-mix(in oklab, var(--lookbook-neutral-seed), black 28.25%);
+    --lookbook-neutral-800: color-mix(in oklab, var(--lookbook-neutral-seed), black 43.5%);
+    --lookbook-neutral-900: color-mix(in oklab, var(--lookbook-neutral-seed), black 58.5%);
+    --lookbook-neutral-950: color-mix(in oklab, var(--lookbook-neutral-seed), black 73.75%);
+
+    --lookbook-positive-50: color-mix(in oklab, var(--lookbook-positive-seed), white 94%);
+    --lookbook-positive-100: color-mix(in oklab, var(--lookbook-positive-seed), white 90%);
+    --lookbook-positive-200: color-mix(in oklab, var(--lookbook-positive-seed), white 70%);
+    --lookbook-positive-300: color-mix(in oklab, var(--lookbook-positive-seed), white 47%);
+    --lookbook-positive-400: color-mix(in oklab, var(--lookbook-positive-seed), white 23%);
+    --lookbook-positive-500: var(--lookbook-positive-seed);
+    --lookbook-positive-600: color-mix(in oklab, var(--lookbook-positive-seed), black 15.5%);
+    --lookbook-positive-700: color-mix(in oklab, var(--lookbook-positive-seed), black 28.25%);
+    --lookbook-positive-800: color-mix(in oklab, var(--lookbook-positive-seed), black 43.5%);
+    --lookbook-positive-900: color-mix(in oklab, var(--lookbook-positive-seed), black 58.5%);
+    --lookbook-positive-950: color-mix(in oklab, var(--lookbook-positive-seed), black 73.75%);
+
+    --lookbook-negative-50: color-mix(in oklab, var(--lookbook-negative-seed), white 94%);
+    --lookbook-negative-100: color-mix(in oklab, var(--lookbook-negative-seed), white 90%);
+    --lookbook-negative-200: color-mix(in oklab, var(--lookbook-negative-seed), white 70%);
+    --lookbook-negative-300: color-mix(in oklab, var(--lookbook-negative-seed), white 47%);
+    --lookbook-negative-400: color-mix(in oklab, var(--lookbook-negative-seed), white 23%);
+    --lookbook-negative-500: var(--lookbook-negative-seed);
+    --lookbook-negative-600: color-mix(in oklab, var(--lookbook-negative-seed), black 15.5%);
+    --lookbook-negative-700: color-mix(in oklab, var(--lookbook-negative-seed), black 28.25%);
+    --lookbook-negative-800: color-mix(in oklab, var(--lookbook-negative-seed), black 43.5%);
+    --lookbook-negative-900: color-mix(in oklab, var(--lookbook-negative-seed), black 58.5%);
+    --lookbook-negative-950: color-mix(in oklab, var(--lookbook-negative-seed), black 73.75%);
+
+    --lookbook-warning-50: color-mix(in oklab, var(--lookbook-warning-seed), white 94%);
+    --lookbook-warning-100: color-mix(in oklab, var(--lookbook-warning-seed), white 90%);
+    --lookbook-warning-200: color-mix(in oklab, var(--lookbook-warning-seed), white 70%);
+    --lookbook-warning-300: color-mix(in oklab, var(--lookbook-warning-seed), white 47%);
+    --lookbook-warning-400: color-mix(in oklab, var(--lookbook-warning-seed), white 23%);
+    --lookbook-warning-500: var(--lookbook-warning-seed);
+    --lookbook-warning-600: color-mix(in oklab, var(--lookbook-warning-seed), black 15.5%);
+    --lookbook-warning-700: color-mix(in oklab, var(--lookbook-warning-seed), black 28.25%);
+    --lookbook-warning-800: color-mix(in oklab, var(--lookbook-warning-seed), black 43.5%);
+    --lookbook-warning-900: color-mix(in oklab, var(--lookbook-warning-seed), black 58.5%);
+    --lookbook-warning-950: color-mix(in oklab, var(--lookbook-warning-seed), black 73.75%);
+  }
+
+  /* Light theme (default) */
+
+  :root,
+  [display-mode="light"] {
+    color-scheme: light;
+
+    --lookbook-min-color: white;
+    --lookbook-max-color: black;
+
+    --lookbook-surface-1: white;
+    --lookbook-surface-2: color-mix(in oklab, white, black 1%);
+    --lookbook-surface-3: color-mix(in oklab, white, black 2%);
+
+    --lookbook-text-base: var(--lookbook-neutral-800);
+    --lookbook-text-quiet: var(--lookbook-neutral-700);
+    --lookbook-text-quieter: var(--lookbook-neutral-500);
+    --lookbook-text-quietest: var(--lookbook-neutral-300);
+
+    --lookbook-accent-text: var(--lookbook-accent-600);
+    --lookbook-positive-text: var(--lookbook-accent-600);
+
+    --lookbook-divider-color: var(--lookbook-neutral-stroke-quiet);
+    --lookbook-divider-quiet: color-mix(in oklab, var(--lookbook-neutral-stroke-quiet), white 0.5%);
+
+    --lookbook-tooltip-background-color: var(--lookbook-neutral-fill-loud);
+    --lookbook-tooltip-text-color: var(--lookbook-neutral-text-on-loud);
+    --lookbook-tooltip-border-color: var(--lookbook-neutral-stroke-loud);
+
+    --lookbook-focus-color: var(--lookbook-accent-fill-mid);
+    --lookbook-focus-ring: var(--lookbook-border-style) varer(--lookbook-focus-width) var(--lookbook-focus-color);
+    --lookbook-backdrop-color: rgb(0 0 0 / 0.25) er;
+    --lookbook-selection-background-color: var(--lookbook-accent-200);
+    --lookbook-selection-color: var(--lookbook-text-base);
+
+    --lookbook-shadow-color: black;
+    --lookbook-shadow-quieter: 0 0.0625rem 0.0625rem color-mix(in oklab, transparent, var(--lookbook-shadow-color) 4%);
+    --lookbook-shadow-quiet: 0 0.125rem 0.1875rem color-mix(in oklab, transparent, var(--lookbook-shadow-color) 8%);
+    --lookbook-shadow-mid: 0 0.1875rem 0.375rem color-mix(in oklab, transparent, var(--lookbook-shadow-color) 10%);
+    --lookbook-shadow-loud: 0 0.375rem 0.75rem color-mix(in oklab, transparent, var(--lookbook-shadow-color) 12%);
+    --lookbook-shadow-louder: 0 0.5rem 1rem color-mix(in oklab, transparent, var(--lookbook-shadow-color) 14%);
+
+    --lookbook-accent-fill-quietest: var(--lookbook-accent-50);
+    --lookbook-accent-fill-quieter: var(--lookbook-accent-100);
+    --lookbook-accent-fill-quiet: var(--lookbook-accent-200);
+    --lookbook-accent-fill-mid: color-mix(in oklab, var(--lookbook-accent-600), black 2.5%);
+    --lookbook-accent-fill-loud: var(--lookbook-accent-700);
+    --lookbook-accent-fill-louder: var(--lookbook-accent-800);
+    --lookbook-accent-text-on-quiet: var(--lookbook-accent-600);
+    --lookbook-accent-text-on-mid: var(--lookbook-accent-300);
+    --lookbook-accent-text-on-loud: var(--lookbook-accent-100);
+    --lookbook-accent-stroke-quieter: color-mix(in oklab, var(--lookbook-accent-100), black 3%);
+    --lookbook-accent-stroke-quiet: var(--lookbook-accent-300);
+    --lookbook-accent-stroke-mid: var(--lookbook-accent-500);
+    --lookbook-accent-stroke-loud: var(--lookbook-accent-600);
+    --lookbook-accent-stroke-louder: var(--lookbook-accent-800);
+
+    --lookbook-neutral-fill-quietest: var(--lookbook-neutral-100);
+    --lookbook-neutral-fill-quieter: var(--lookbook-neutral-200);
+    --lookbook-neutral-fill-quiet: var(--lookbook-neutral-300);
+    --lookbook-neutral-fill-mid: color-mix(in oklab, var(--lookbook-neutral-600), black 2.5%);
+    --lookbook-neutral-fill-loud: var(--lookbook-neutral-800);
+    --lookbook-neutral-fill-louder: var(--lookbook-neutral-900);
+    --lookbook-neutral-text-on-quiet: var(--lookbook-neutral-900);
+    --lookbook-neutral-text-on-mid: white;
+    --lookbook-neutral-text-on-loud: white;
+    --lookbook-neutral-text-colorful: color-mix(in oklab, var(--lookbook-neutral-600), black 12.5%);
+    --lookbook-neutral-stroke-quieter: color-mix(in oklab, var(--lookbook-neutral-100), black 3%);
+    --lookbook-neutral-stroke-quiet: var(--lookbook-neutral-200);
+    --lookbook-neutral-stroke-mid: var(--lookbook-neutral-400);
+
+    --lookbook-positive-fill-quieter: var(--lookbook-positive-100);
+    --lookbook-positive-fill-quiet: var(--lookbook-positive-200);
+    --lookbook-positive-fill-mid: color-mix(in oklab, var(--lookbook-positive-600), black 2.5%);
+    --lookbook-positive-fill-loud: var(--lookbook-positive-800);
+    --lookbook-positive-fill-louder: var(--lookbook-positive-900);
+    --lookbook-positive-text-on-quiet: var(--lookbook-positive-700);
+    --lookbook-positive-text-on-mid: white;
+    --lookbook-positive-text-on-loud: white;
+    --lookbook-positive-text-colorful: color-mix(in oklab, var(--lookbook-positive-600), black 12.5%);
+    --lookbook-positive-stroke-quieter: color-mix(in oklab, var(--lookbook-positive-100), black 3%);
+    --lookbook-positive-stroke-quiet: var(--lookbook-positive-300);
+    --lookbook-positive-stroke-mid: var(--lookbook-positive-500);
+
+    --lookbook-negative-fill-quieter: var(--lookbook-negative-100);
+    --lookbook-negative-fill-quiet: var(--lookbook-negative-200);
+    --lookbook-negative-fill-mid: color-mix(in oklab, var(--lookbook-negative-600), black 2.5%);
+    --lookbook-negative-fill-loud: var(--lookbook-negative-800);
+    --lookbook-negative-fill-louder: var(--lookbook-negative-900);
+    --lookbook-negative-text-on-quiet: var(--lookbook-negative-700);
+    --lookbook-negative-text-on-mid: white;
+    --lookbook-negative-text-on-loud: white;
+    --lookbook-negative-text-colorful: color-mix(in oklab, var(--lookbook-negative-600), black 12.5%);
+    --lookbook-negative-stroke-quieter: color-mix(in oklab, var(--lookbook-negative-100), black 3%);
+    --lookbook-negative-stroke-quiet: var(--lookbook-negative-300);
+    --lookbook-negative-stroke-mid: var(--lookbook-negative-500);
+
+    --lookbook-warning-fill-quieter: var(--lookbook-warning-100);
+    --lookbook-warning-fill-quiet: var(--lookbook-warning-200);
+    --lookbook-warning-fill-mid: color-mix(in oklab, var(--lookbook-warning-600), black 2.5%);
+    --lookbook-warning-fill-loud: var(--lookbook-warning-800);
+    --lookbook-warning-fill-louder: var(--lookbook-warning-900);
+    --lookbook-warning-text-on-quiet: var(--lookbook-warning-900);
+    --lookbook-warning-text-on-mid: white;
+    --lookbook-warning-text-on-loud: white;
+    --lookbook-warning-text-colorful: color-mix(in oklab, var(--lookbook-warning-600), black 12.5%);
+    --lookbook-warning-stroke-quieter: color-mix(in oklab, var(--lookbook-warning-100), black 3%);
+    --lookbook-warning-stroke-quiet: var(--lookbook-warning-300);
+    --lookbook-warning-stroke-mid: var(--lookbook-warning-500);
+  }
+
+  /* Dark theme */
+
+  [display-mode="dark"] {
+    color-scheme: dark;
+
+    --lookbook-color-min: black;
+    --lookbook-color-max: white;
+
+    --lookbook-surface-1: color-mix(in oklab, var(--lookbook-neutral-900), white 4%);
+    --lookbook-surface-2: color-mix(in oklab, var(--lookbook-neutral-900), white 2%);
+    --lookbook-surface-3: var(--lookbook-neutral-900);
+
+    --lookbook-text-base: var(--lookbook-neutral-200);
+    --lookbook-text-quiet: var(--lookbook-neutral-300);
+    --lookbook-text-quieter: var(--lookbook-neutral-400);
+    --lookbook-text-quietest: var(--lookbook-neutral-700);
+
+    --lookbook-accent-text: var(--lookbook-accent-300);
+    --lookbook-positive-text: var(--lookbook-accent-300);
+
+    --lookbook-divider-color: var(--lookbook-neutral-stroke-quiet);
+    --lookbook-divider-quiet: color-mix(in oklab, var(--lookbook-neutral-stroke-quiet), white 0.5%);
+
+    --lookbook-tooltip-background-color: var(--lookbook-neutral-fill-louder);
+    --lookbook-tooltip-text-color: var(--lookbook-neutral-text-on-loud);
+    --lookbook-tooltip-border-color: var(--lookbook-neutral-stroke-loud);
+
+    --lookbook-focus-color: var(--lookbook-accent-fill-mid);
+    --lookbook-focus-ring: var(--lookbook-border-style) var(--lookbook-focus-width) var(--lookbook-focus-color);
+    --lookbook-backdrop-color: rgb(0 0 0 / 0.5);
+    --lookbook-selection-background-color: var(--lookbook-accent-700);
+    --lookbook-selection-color: var(--lookbook-text-base);
+
+    --lookbook-shadow-color: black;
+    --lookbook-shadow-quieter: 0 1px 2px color-mix(in oklab, transparent, var(--lookbook-shadow-color) 8%);
+    --lookbook-shadow-quiet: 0 2px 4px color-mix(in oklab, transparent, var(--lookbook-shadow-color) 12%);
+    --lookbook-shadow-mid: 0 4px 8px color-mix(in oklab, transparent, var(--lookbook-shadow-color) 16%);
+    --lookbook-shadow-loud: 0 8px 16px color-mix(in oklab, transparent, var(--lookbook-shadow-color) 20%);
+    --lookbook-shadow-louder: 0 12px 20px color-mix(in oklab, transparent, var(--lookbook-shadow-color) 24%);
+
+    --lookbook-accent-fill-quietest: color-mix(in oklab, var(--lookbook-accent-900), white 0.5%);
+    --lookbook-accent-fill-quieter: color-mix(in oklab, var(--lookbook-accent-900), white 1%);
+    --lookbook-accent-fill-quiet: var(--lookbook-accent-800);
+    --lookbook-accent-fill-mid: color-mix(in oklab, var(--lookbook-accent-600), black 7.5%);
+    --lookbook-accent-fill-loud: var(--lookbook-accent-200);
+    --lookbook-accent-fill-louder: var(--lookbook-accent-100);
+    --lookbook-accent-text-on-quiet: var(--lookbook-accent-400);
+    --lookbook-accent-text-on-mid: var(--lookbook-accent-500);
+    --lookbook-accent-text-on-loud: var(--lookbook-accent-700);
+    --lookbook-accent-stroke-quieter: color-mix(in oklab, var(--lookbook-accent-900), white 7.5%);
+    --lookbook-accent-stroke-quiet: var(--lookbook-accent-800);
+    --lookbook-accent-stroke-mid: var(--lookbook-accent-600);
+    --lookbook-accent-stroke-loud: var(--lookbook-accent-400);
+    --lookbook-accent-stroke-louder: var(--lookbook-accent-200);
+
+    --lookbook-neutral-fill-quietest: color-mix(in oklab, var(--lookbook-neutral-900), white 0.5%);
+    --lookbook-neutral-fill-quieter: color-mix(in oklab, var(--lookbook-neutral-900), white 1%);
+    --lookbook-neutral-fill-quiet: var(--lookbook-neutral-700);
+    --lookbook-neutral-fill-mid: color-mix(in oklab, var(--lookbook-neutral-600), black 7.5%);
+    --lookbook-neutral-fill-loud: var(--lookbook-neutral-200);
+    --lookbook-neutral-fill-louder: var(--lookbook-neutral-100);
+    --lookbook-neutral-text-on-quiet: var(--lookbook-neutral-100);
+    --lookbook-neutral-text-on-mid: white;
+    --lookbook-neutral-text-on-loud: black;
+    --lookbook-neutral-text-colorful: var(--lookbook-neutral-500);
+    --lookbook-neutral-stroke-quieter: color-mix(in oklab, var(--lookbook-neutral-900), white 7.5%);
+    --lookbook-neutral-stroke-quiet: var(--lookbook-neutral-700);
+    --lookbook-neutral-stroke-mid: var(--lookbook-neutral-600);
+
+    --lookbook-positive-fill-quieter: color-mix(in oklab, var(--lookbook-positive-900), white 1%);
+    --lookbook-positive-fill-quiet: var(--lookbook-positive-800);
+    --lookbook-positive-fill-mid: color-mix(in oklab, var(--lookbook-positive-600), black 8%);
+    --lookbook-positive-fill-loud: var(--lookbook-positive-200);
+    --lookbook-positive-fill-louder: var(--lookbook-positive-100);
+    --lookbook-positive-text-on-quiet: var(--lookbook-positive-100);
+    --lookbook-positive-text-on-mid: white;
+    --lookbook-positive-text-on-loud: black;
+    --lookbook-positive-text-colorful: var(--lookbook-positive-500);
+    --lookbook-positive-stroke-quieter: color-mix(in oklab, var(--lookbook-positive-900), white 7.5%);
+    --lookbook-positive-stroke-quiet: var(--lookbook-positive-800);
+    --lookbook-positive-stroke-mid: var(--lookbook-positive-600);
+
+    --lookbook-negative-fill-quieter: color-mix(in oklab, var(--lookbook-negative-900), white 1%);
+    --lookbook-negative-fill-quiet: var(--lookbook-negative-800);
+    --lookbook-negative-fill-mid: color-mix(in oklab, var(--lookbook-negative-600), black 7.5%);
+    --lookbook-negative-fill-loud: var(--lookbook-negative-200);
+    --lookbook-negative-fill-louder: var(--lookbook-negative-100);
+    --lookbook-negative-text-on-quiet: var(--lookbook-negative-100);
+    --lookbook-negative-text-on-mid: white;
+    --lookbook-negative-text-on-loud: black;
+    --lookbook-negative-text-colorful: var(--lookbook-negative-500);
+    --lookbook-negative-stroke-quieter: color-mix(in oklab, var(--lookbook-negative-900), white 7.5%);
+    --lookbook-negative-stroke-quiet: var(--lookbook-negative-800);
+    --lookbook-negative-stroke-mid: var(--lookbook-negative-600);
+  }
+}

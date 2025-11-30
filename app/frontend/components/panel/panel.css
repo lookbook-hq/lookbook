@@ -1,0 +1,23 @@
+:host {
+  height: 100%;
+  overflow: hidden;
+  display: none;
+  background-color: var(--lookbook-surface-1);
+}
+
+:host([visible]) {
+  display: block;
+}
+
+#container {
+  display: contents;
+}
+
+#scroller {
+  height: 100%;
+  overflow: auto;
+}
+
+lb-toolbar {
+  background-color: var(--lookbook-surface-1);
+}

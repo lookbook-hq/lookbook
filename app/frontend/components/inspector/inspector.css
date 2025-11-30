@@ -1,0 +1,58 @@
+:host {
+  display: block;
+  background-color: var(--lookbook-surface-3);
+  padding-block-end: var(--lookbook-size-sm);
+}
+
+:host,
+#container,
+#preview,
+#sidebar-splitter,
+#drawer-splitter {
+  height: 100%;
+  overflow: hidden;
+}
+
+.pane {
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--lookbook-divider-color);
+  background-color: var(--lookbook-surface-1);
+  border-radius: var(--lookbook-size-3xs);
+}
+
+#container {
+  display: grid;
+  grid-template-rows: min-content 1fr;
+}
+
+#toolbar {
+  background-color: transparent;
+  /*border-inline: 1px solid transparent;*/
+
+  &::part(container) {
+    padding-inline: var(--lookbook-size-md);
+  }
+}
+
+#panes {
+  padding-inline: var(--lookbook-size-md);
+}
+
+wa-split-panel {
+  --divider-width: var(--lookbook-size-sm);
+
+  &::part(divider) {
+    background-color: transparent;
+    color: transparent;
+    transition: color 150ms ease-in;
+  }
+
+  &::part(divider):hover {
+    color: var(--lookbook-text-quieter);
+  }
+}
+
+lb-icon[slot="divider"] {
+  width: var(--lookbook-size-sm);
+}

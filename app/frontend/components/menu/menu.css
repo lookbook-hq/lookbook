@@ -1,0 +1,19 @@
+:host {
+  width: min-content;
+  font-size: var(--lookbook-font-size-sm);
+}
+
+#label {
+  padding: var(--lookbook-size-xs) var(--lookbook-size-md);
+  font-size: var(--lookbook-font-size-2xs);
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--lookbook-text-quieter);
+  border-bottom: 1px solid var(--lookbook-divider-quiet);
+  text-align: center;
+}
+
+#items {
+  padding-block-start: var(--lookbook-size-3xs);
+  padding-block-end: var(--lookbook-size-xs);
+}

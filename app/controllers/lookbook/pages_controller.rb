@@ -1,10 +1,8 @@
 module Lookbook
   class PagesController < Lookbook::ApplicationController
-    helper_method :page_controller
+    before_action :record_last_page_visited, only: %i[show]
 
-    def self.controller_path
-      "lookbook/pages"
-    end
+    layout "lookbook/pages"
 
     def index
       landing = Engine.pages.find(&:landing?) || Engine.pages.first
@@ -14,28 +12,32 @@ module Lookbook
     end
 
     def show
+      @pages = Engine.pages
+
       @page = @pages.find_by_path(params[:path])
       raise_not_found("Page not found") unless @page
 
-      @page_content = page_controller.render_page(@page)
-      @title = @page.title
       @next_page = @pages.next(@page)
       @previous_page = @pages.previous(@page)
-    rescue ActionView::Template::Error => err
-      raise Lookbook::TemplateError.new(
-        original: err,
-        file_path: @page.file_path,
-        source: @page.content
-      )
+
+      @page_content = ActionViewConfigHandler.call do
+        content = render_to_string inline: @page.content, locals: {
+          page: @page,
+          next_page: @next_page,
+          previous_page: @previous_page,
+          pages: @pages
+        }
+        CGI.escapeHTML content
+      end
     end
 
     protected
 
-    def page_controller
-      controller_class = Lookbook.config.page_controller.constantize
-      controller = controller_class.new
-      controller.request = request
-      controller
+    def record_last_page_visited
+      cookies[:lookbook_last_page_visited] = {
+        value: request.path,
+        expires: 1.hour.from_now
+      }
     end
   end
 end

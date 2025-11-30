@@ -1,0 +1,19 @@
+<% content_for :sidebar do %>
+  <lb-sidebar label="Documentation" icon="notebook-text" slot="sidebar">
+    <lb-nav activepath="<%= url_for %>" slot="nav" persist-as="nav.pages">
+      <lb-data slot="items" format="json" id="pages-data">
+        <%= @pages.to_tree.children.sort.to_json %>
+      </lb-data>
+
+      <div slot="no-results">
+        No pages match your filter.
+      </div>
+
+      <div slot="placeholder">
+        It looks like you haven't created any pages yet.
+      </div>
+    </lb-nav>
+  </lb-sidebar>
+<% end %>
+
+<%= render template: "layouts/lookbook/application" %>

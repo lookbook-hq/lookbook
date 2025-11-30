@@ -6,5 +6,7 @@ then
   gem install foreman
 fi
 
+export LOOKBOOK_ENV="development"
+
 foreman start -f Procfile.dev -p ${1:-4242}
 

@@ -1,0 +1,28 @@
+:host {
+  --color: currentColor;
+
+  color: var(--color);
+  display: inline-flex;
+  flex: none;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+  flex: none;
+}
+
+:host([size="sm"]) {
+  width: var(--lookbook-size-md);
+  height: var(--lookbook-size-md);
+}
+
+:host([size="md"]) {
+  width: var(--lookbook-size-lg);
+  height: var(--lookbook-size-lg);
+}
+
+:host([size="lg"]) {
+  width: var(--lookbook-size-xl);
+  height: var(--lookbook-size-xl);
+}

@@ -1,0 +1,17 @@
+:host {
+  --wa-tooltip-background-color: var(--lookbook-tooltip-background-color);
+  --wa-tooltip-content-color: color-mix(in oklab, var(--lookbook-tooltip-text-color), transparent 5%);
+  --wa-tooltip-font-size: var(--lookbook-tooltip-font-size);
+  --wa-tooltip-line-height: 1.1;
+  --wa-tooltip-arrow-size: var(--lookbook-tooltip-arrow-size);
+  --wa-tooltip-border-radius: var(--lookbook-tooltip-border-radius);
+  --wa-tooltip-border-style: solid;
+  --wa-tooltip-border-width: 1px;
+  --wa-tooltip-border-color: var(--lookbook-tooltip-border-color);
+  font-family: var(--lookbook-font-family-code);
+  visibility: var(--lookbook--tooltip-visibility);
+
+  &::part(body) {
+    padding: var(--lookbook-tooltip-padding);
+  }
+}

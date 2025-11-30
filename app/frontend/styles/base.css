@@ -1,0 +1,99 @@
+@layer lookbook.base {
+  :root {
+    --lookbook--iframe-pointer-events: all;
+    --lookbook--tooltip-visibility: visible;
+
+    overscroll-behavior: none;
+  }
+
+  :has(dialog[open]) {
+    color: red !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100dvh;
+    background-color: var(--lookbook-surface-1);
+    color: var(--lookbook-text-base);
+    font-weight: var(--lookbook-font-weight-normal);
+    font-size: var(--lookbook-font-size-md);
+    font-family: var(--lookbook-font-family);
+    line-height: 1.1;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    tab-size: 2;
+
+    scrollbar-color: var(--lookbook-neutral-fill-quiet) transparent;
+    scrollbar-width: thin;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  ul,
+  ol {
+    all: unset;
+    display: revert;
+  }
+
+  ol,
+  ul,
+  menu {
+    all: unset;
+    display: revert;
+    list-style: none;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    appearance: none;
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  a {
+    text-decoration: none;
+    color: currentColor;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  @keyframes hideBriefly {
+    0%,
+    100% {
+      visibility: hidden;
+    }
+  }
+
+  :not(:defined) {
+    animation: hideBriefly 2s;
+  }
+
+  ::selection {
+    background-color: var(--lookbook-selection-background-color);
+    color: var(--lookbook-selection-color);
+    text-shadow: none !important;
+  }
+}

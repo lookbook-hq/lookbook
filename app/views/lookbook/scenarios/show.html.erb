@@ -1,0 +1,102 @@
+<%
+  # TODO - clean up breadcrumb generation
+  breadcrumb_items = @spec.lookup_path.split("/")
+  breadcrumb_items.pop
+%>
+
+<lb-inspector
+  id="inspector"
+  persist-as="inspector.preview"
+  preview="<%= @spec.metadata.to_json %>"
+  scenario="<%= @scenario.metadata.to_json %>"
+>
+  <lb-breadcrumb-nav slot="breadcrumb">
+    <%= link_to lookbook_specs_path do %>
+      <lb-icon name="layers-2"></lb-icon>
+    <% end %>
+
+    <% breadcrumb_items.each do |item| %>
+      <span><%= item.titleize %></span>
+    <% end %>
+
+    <%= link_to @spec.label, @spec.inspect_path %>
+    <span><%= @scenario.label %></span>
+  </lb-breadcrumb-nav>
+
+  <lb-viewport
+    id="preview"
+    persist-as="inspector.viewport"
+    src="<%= @scenario.preview_path(request.query_parameters) %>"
+    resize="both"
+    mode="toggle"
+    toolbar
+  ></lb-viewport>
+
+  <lb-panel
+    id="params-panel"
+    name="params"
+    label="Params"
+    slot="sidebar"
+  >
+    <lb-controls>
+      <% @params&.each do |param| %>
+        <lb-control
+          <%=
+            # TODO: replace with params implementation from v3 branch
+            tag.attributes(
+              id: "#{@scenario.lookup_hash}-#{param.name}",
+              name: param.name,
+              value: param.value || param.value_default,
+              field: param.input,
+              choices: (param.options&.choices || []).map { option_text_and_value(_1) }.to_json,
+              label: param.options&.label || param.name.titleize,
+              description: param.options&.description,
+              hint: param.options&.hint,
+              options: (param.options&.except(:choices, :label, :description, :hint) || {}).to_json,
+            )
+          %>
+        ></lb-control>
+      <% end %>
+
+      <lb-blankslate icon="braces" slot="blankslate">
+        <p>This scenario does not have any params defined.</p>
+      </lb-blankslate>
+    </lb-controls>
+  </lb-panel>
+
+  <lb-panel
+    id="snippet-panel"
+    name="snippet-panel"
+    label="Snippet"
+    slot="drawer"
+  >
+    <lb-snippet id="source-snippet" numbered lint><%= collate_source(@scenarios) %></lb-snippet>
+  </lb-panel>
+
+  <lb-panel
+    id="result-panel"
+    name="result"
+    label="Result"
+    slot="drawer"
+  >
+    <lb-snippet
+      id="result-snippet"
+      lang="html"
+      numbered
+      lint
+    >
+      <%= collate_output(@scenarios) %>
+    </lb-snippet>
+  </lb-panel>
+
+  <% if false %>
+    <lb-panel
+      name="display-options"
+      label="Options"
+      slot="sidebar"
+      id="display-options-panel"
+    >
+      <em>Display options here</em>
+    </lb-panel>
+  <% end %>
+</lb-inspector>

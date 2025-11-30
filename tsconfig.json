@@ -1,0 +1,41 @@
+{
+  "moduleResolution": "nodenext",
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["dom", "dom.Iterable", "es2022"],
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "rootDir": ".",
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "strictFunctionTypes": false,
+    "noImplicitThis": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    "removeComments": false,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@events": ["app/frontend/lib/events/events.js"],
+      "@events/*": ["app/frontend/lib/events/*"],
+      "@mixins": ["app/frontend/lib/mixins/mixins.js"],
+      "@mixins/*": ["app/frontend/lib/mixins/*"],
+      "@utils/*": ["app/frontend/lib/utils/*"],
+      "@components": ["app/frontend/components/components.js"],
+      "@components/*": ["app/frontend/components/*"],
+      "@styles/*": ["app/frontend/styles/*"],
+      "@lib/*": ["app/frontend/lib/*"],
+      "@images/*": ["app/frontend/images/*"],
+      "@assets/*": ["app/frontend/*"],
+      "@config/*": ["config/*"],
+      "@root/*": ["./*"]
+    }
+  }
+}

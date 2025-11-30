@@ -17,7 +17,9 @@ module Lookbook
     # The preview that this scenario belongs to.
     #
     # @return [PreviewEntity] The parent preview entity
-    attr_reader :preview
+    attr_reader :preview # TODO: deprecate #preview method
+
+    alias_method :spec, :preview
 
     # @api private
     alias_method :parent, :preview
@@ -44,6 +46,14 @@ module Lookbook
         merged.merge!(scenario.display_options)
       end
       merged
+    end
+
+    def notes
+      # TODO: group-level notes combining notes for all child scenarios
+    end
+
+    def note_parts
+      {heading: nil, content: nil}
     end
 
     # @!endgroup
@@ -92,18 +102,18 @@ module Lookbook
 
     # @!group URLs
 
-    # The inspector URL path for this scenario group
+    # The inspector URL path for this preview
     #
     # @return [String] URL path
-    def inspect_path
-      lookbook_inspect_path(lookup_path)
+    def inspect_path(params = {})
+      lookbook_scenario_path(preview, name, params)
     end
 
-    # The standalone preview URL path for this scenario group
+    # The standalone preview URL path for this preview
     #
     # @return [String] URL path
-    def preview_path
-      lookbook_preview_path(lookup_path)
+    def preview_path(params = {})
+      lookbook_scenario_preview_path(preview, name, params)
     end
 
     alias_method :url_path, :inspect_path
@@ -130,6 +140,18 @@ module Lookbook
     # @api private
     def add_scenario(scenario)
       @scenarios.add(scenario)
+    end
+
+    def to_param
+      name
+    end
+
+    def metadata
+      {
+        id:,
+        label:,
+        url_path:
+      }.deep_transform_keys { _1.to_s.camelize(:lower) }
     end
   end
 end

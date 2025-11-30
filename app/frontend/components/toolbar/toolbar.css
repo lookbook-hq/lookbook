@@ -1,0 +1,21 @@
+#container {
+  box-sizing: content-box !important;
+  height: var(--lookbook-form-control-height-sm);
+  padding-block: var(--lookbook-size-2xs);
+  padding-inline: var(--lookbook-size-2xs);
+  display: flex;
+  align-items: center;
+}
+
+#start {
+  margin-inline-end: auto;
+  display: flex;
+  align-items: center;
+  column-gap: var(--lookbook-size-3xs);
+}
+
+#end {
+  margin-inline-start: auto;
+  display: flex;
+  align-items: center;
+}

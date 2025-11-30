@@ -1,0 +1,10 @@
+:host {
+  border: 1px solid var(--lookbook-divider-color);
+  background-color: var(--lookbook-surface-1);
+  border-radius: var(--lookbook-size-3xs);
+}
+
+#viewport {
+  border: 0;
+  width: 100%;
+}

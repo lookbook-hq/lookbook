@@ -1,0 +1,6 @@
+:host {
+}
+
+::slotted(lb-viewport) {
+  border: 0;
+}
