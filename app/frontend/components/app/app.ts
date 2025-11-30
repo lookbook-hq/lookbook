@@ -3,7 +3,7 @@ import type WaSplitPanel from "@awesome.me/webawesome/dist/components/split-pane
 import { uiDefaults } from "@config/frontend.js";
 import { LookbookElement } from "@lib/element.js";
 import { customElement, html, property, PropertyValues, query, state } from "@lib/lit.js";
-import { Persistable } from "@mixins";
+import { Persistable, WithObservableSlots } from "@mixins";
 
 import styles from "./app.css?text";
 
@@ -13,7 +13,7 @@ import styles from "./app.css?text";
  * @summary Lookbook application UI shell.
  */
 @customElement("lb-app")
-export class LookbookApp extends Persistable(LookbookElement) {
+export class LookbookApp extends WithObservableSlots(Persistable(LookbookElement)) {
   static css = styles;
   static persist = ["version", "splitPosition", "displayMode"];
 
@@ -89,31 +89,41 @@ export class LookbookApp extends Persistable(LookbookElement) {
           </lb-button>
         </lb-header>
       </div>
-      <wa-split-panel
-        id="splitter"
-        primary="start"
-        position-in-pixels="${this.splitPosition}"
-        @wa-reposition="${this.handleSplitChange}"
-        @pointerdown=${this.handlePointerDown}
-        @pointermove=${this.handlePointerMove}
-        @pointerup=${this.handlePointerUp}
-        @lb-popover-open="${() => (this.hasActivePopover = true)}"
-        @lb-popover-close="${() => (this.hasActivePopover = false)}"
-      >
-        <div
-          id="sidebar"
-          slot="start"
-        >
-          <slot name="sidebar"></slot>
-        </div>
+      ${this.whenSlotted(
+        "sidebar",
+        html`
+          <wa-split-panel
+            id="splitter"
+            primary="start"
+            position-in-pixels="${this.splitPosition}"
+            @wa-reposition="${this.handleSplitChange}"
+            @pointerdown=${this.handlePointerDown}
+            @pointermove=${this.handlePointerMove}
+            @pointerup=${this.handlePointerUp}
+            @lb-popover-open="${() => (this.hasActivePopover = true)}"
+            @lb-popover-close="${() => (this.hasActivePopover = false)}"
+          >
+            <div
+              id="sidebar"
+              slot="start"
+            >
+              <slot name="sidebar"></slot>
+            </div>
 
-        <div
-          id="main"
-          slot="end"
-        >
-          <slot></slot>
-        </div>
-      </wa-split-panel>
+            <div
+              id="main"
+              slot="end"
+            >
+              <slot></slot>
+            </div>
+          </wa-split-panel>
+        `,
+        html`
+          <div id="full">
+            <slot></slot>
+          </div>
+        `
+      )}
     `;
   }
 }

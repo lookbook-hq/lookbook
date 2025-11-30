@@ -23,6 +23,10 @@
   overflow: hidden;
 }
 
+#full {
+  display: contents;
+}
+
 #sidebar {
   /*border-inline-end: 1px  solid var(--lookbook-divider-color);*/
 }

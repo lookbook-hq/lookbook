@@ -37,11 +37,13 @@ export const WithObservableSlots = <T extends Constructor<LitElement>>(superClas
 
       return this.slotsWithContent.has(name) || opts.force
         ? content
-        : html`<slot
-            name="${name}"
-            hidden
-            >${fallback || nothing}</slot
-          >`;
+        : html`
+            ${fallback || nothing}
+            <slot
+              name="${name}"
+              hidden
+            ></slot>
+          `;
     }
   }
 
