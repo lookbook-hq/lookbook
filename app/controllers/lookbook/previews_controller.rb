@@ -52,8 +52,8 @@ module Lookbook
             spec: @spec,
             scenarios: @scenarios
           }),
-          layout: @spec.layout
-          # append_html: (iframe_content_scripts if embedded?)
+          layout: @spec.layout,
+          append_html: (assets_for_embed if embedded?)
         )
       end
     end
@@ -64,10 +64,9 @@ module Lookbook
       params[:lookbook_embed] == "true"
     end
 
-    # TODO: inject preview styles and JS into preview
-    # def iframe_content_scripts
-    #   render_to_string("lookbook/partials/_iframe_content_scripts", layout: nil)
-    # end
+    def assets_for_embed
+      render_to_string("lookbook/previews/_assets_for_embed", layout: nil)
+    end
 
     def scenario_json(scenario)
       {
