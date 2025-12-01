@@ -53,19 +53,15 @@ module Lookbook
             scenarios: @scenarios
           }),
           layout: @spec.layout,
-          append_html: (assets_for_embed if embedded?)
+          append_html: preview_assets
         )
       end
     end
 
     private
 
-    def embedded?
-      params[:lookbook_embed] == "true"
-    end
-
-    def assets_for_embed
-      render_to_string("lookbook/previews/_assets_for_embed", layout: nil)
+    def preview_assets
+      render_to_string("lookbook/previews/_assets", layout: nil)
     end
 
     def scenario_json(scenario)
@@ -77,7 +73,7 @@ module Lookbook
     end
 
     def permit_framing
-      headers["X-Frame-Options"] = Lookbook.config.preview_embeds.policy if embedded?
+      headers["X-Frame-Options"] = Lookbook.config.preview_embeds.policy
       headers["X-Frame-Options"] = "SAMEORIGIN" if headers["X-Frame-Options"]&.upcase == "DENY"
     end
   end

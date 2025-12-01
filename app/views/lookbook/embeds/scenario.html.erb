@@ -3,7 +3,7 @@
 <lb-embed-inspector persist-as="embed-inspector.<%= embed_inspector_id %>">
   <lb-viewport
     persist-as="embed-inspector.<%= embed_inspector_id %>.viewport"
-    src="<%= @scenario.preview_path(request.query_parameters.merge(lookbook_embed: true)) %>"
+    src="<%= @scenario.preview_path(request.query_parameters) %>"
     resize="horizontal"
     mode="responsive"
     toolbar
