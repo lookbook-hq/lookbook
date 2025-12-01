@@ -10,7 +10,7 @@ module Lookbook
       def preview_controller
         @_preview_controller ||= begin
           controller = Engine.preview_controller.new
-          controller.request = request
+          controller.request = request.clone
           controller.response = response
           controller
         end

@@ -46,7 +46,7 @@ previews:
 
   - name: preview_controller
     types: String
-    default: '"Lookbook::PreviewController"'
+    default: '"LookbookPreviewController"'
     example: config.lookbook.preview_controller = "MyCustomController"
     description: The controller used when rendering previews.
 

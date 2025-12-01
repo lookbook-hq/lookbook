@@ -42,7 +42,7 @@ module Lookbook
           opts.preview_paths.push(*vc_config.previews.paths)
           vc_config.previews.paths = opts.preview_paths
 
-          if opts.preview_controller == "Lookbook::PreviewController" ||
+          if opts.preview_controller == "LookbookPreviewController" ||
               vc_config.previews.controller != "ViewComponentsController"
             opts.preview_controller = vc_config.previews.controller
           else
@@ -64,7 +64,7 @@ module Lookbook
           # Legacy config style (ViewComponent < 4.0)
           opts.preview_paths += vc_config.preview_paths
 
-          if opts.preview_controller == "Lookbook::PreviewController" ||
+          if opts.preview_controller == "LookbookPreviewController" ||
               vc_config.preview_controller != ViewComponent::Config.defaults.preview_controller
             opts.preview_controller = vc_config.preview_controller
           else

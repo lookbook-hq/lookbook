@@ -6,7 +6,7 @@ shared:
   preview_nav_filter: true
   preview_paths: [lookbook/previews, lookbook/specs, test/components/previews]
   preview_display_options: {}
-  preview_controller: "Lookbook::PreviewController"
+  preview_controller: "LookbookPreviewController"
   preview_template: lookbook/previews/preview
   preview_inspector:
   preview_embeds:
