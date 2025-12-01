@@ -20,7 +20,9 @@ export class LookbookBlankslate extends WithObservableSlots(LookbookElement) {
       <div id="backdrop">
         <div id="content">
           <div id="icon">
-            <slot name="icon"><lb-icon name="${this.icon}"></lb-icon</slot>
+            <slot name="icon">
+              <lb-icon name="${this.icon}"></lb-icon>
+            </slot>
           </div>
           ${this.whenSlotted(
             "title",

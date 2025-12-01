@@ -1,9 +1,11 @@
-<% content_for :title do %>
-  <%= "#{@spec&.label} :: Specs" %>
+<% if @spec %>
+  <% content_for :title do %>
+    <%= "#{@spec.label} :: Specs" %>
+  <% end %>
 <% end %>
 
 <% content_for :sidebar do %>
-  <lb-sidebar label="UI Library" icon="blocks" slot="sidebar">
+  <lb-sidebar label="<%= Lookbook.config.preview_collection_label %>" icon="blocks" slot="sidebar">
     <lb-nav activepath="<%= url_for %>" slot="nav" persist-as="nav.previews">
       <lb-data slot="items" format="json" id="previews-data">
         <%= @specs.to_tree.children.sort.to_json %>
@@ -13,9 +15,9 @@
         No previews match your filter.
       </div>
 
-      <div slot="blank-slate">
-        It looks like you haven't created any previews yet.
-      </div>
+      <lb-blankslate icon="layers-2" slot="blank-slate">
+        <p>It looks like you haven't created any previews yet.</p>
+      </lb-blankslate>
     </lb-nav>
   </lb-sidebar>
 <% end %>

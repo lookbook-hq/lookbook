@@ -12,6 +12,8 @@ module Lookbook
     def index
       if Lookbook.previews.any?
         redirect_to lookbook_specs_path
+      elsif Lookbook.pages.any?
+        redirect_to lookbook_pages_path
       else
         render "lookbook/start"
       end

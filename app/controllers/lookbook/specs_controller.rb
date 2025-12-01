@@ -6,6 +6,7 @@ module Lookbook
     before_action :record_last_spec_visited, only: %i[show]
 
     def index
+      redirect_to lookbook_path unless @specs.any?
     end
 
     def show

@@ -2,9 +2,9 @@ shared:
   project_name: ~
   project_logo: ~
 
-  preview_collection_label: "Previews"
+  preview_collection_label: "UI Library"
   preview_nav_filter: true
-  preview_paths: [test/components/previews]
+  preview_paths: [lookbook/previews, lookbook/specs, test/components/previews]
   preview_display_options: {}
   preview_controller: "Lookbook::PreviewController"
   preview_template: lookbook/previews/preview
@@ -24,12 +24,12 @@ shared:
   preview_disable_error_handling: true
   preview_single_pass_rendering: false
 
-  page_collection_label: "Pages"
+  page_collection_label: "Documentation"
   page_nav_filter: false
   page_controller: "Lookbook::PageController"
   page_route: pages
-  page_paths: [test/components/docs]
-  page_extensions: [html.*, md.*]
+  page_paths: [lookbook/docs, test/components/docs]
+  page_extensions: [html.*, md.*, md]
   page_options: {}
 
   markdown_options:
@@ -39,6 +39,15 @@ shared:
     # TODO: specify new snippet highlighting options
 
   component_paths: [app/views, app/components]
+
+  header:
+    links:
+      - label: Documentation
+        icon: notebook-text
+        href: lookbook_pages_path
+      - label: UI Library
+        icon: layers-2
+        href: lookbook_specs_path
 
   reload_on_change: ~
   lazy_load_previews_and_pages: false

@@ -4,7 +4,7 @@
       id="app"
       version="<%= Lookbook::VERSION %>"
       persist-as="app"
-      homepath="<%= lookbook_specs_path %>"
+      homepath="<%= lookbook_path %>"
     >
       <svg viewBox="0 0 18 22" slot="logo">
         <g
@@ -23,25 +23,29 @@
         </g>
       </svg>
 
-      <lb-button
-        href="<%= lookbook_latest_page_path %>"
-        appearance="text"
-        slot="header-link"
-        <%= "active" if current_section?(:pages) %>
-      >
-        <lb-icon name="notebook-text"></lb-icon>
-        Documentation
-      </lb-button>
+      <% if Lookbook.pages.any? %>
+        <lb-button
+          href="<%= lookbook_latest_page_path %>"
+          appearance="text"
+          slot="header-link"
+          <%= "active" if current_section?(:pages) %>
+        >
+          <lb-icon name="notebook-text"></lb-icon>
+          <%= Lookbook.config.page_collection_label %>
+        </lb-button>
+      <% end %>
 
-      <lb-button
-        href="<%= lookbook_latest_spec_path %>"
-        appearance="text"
-        slot="header-link"
-        <%= "active" if current_section?(:specs) %>
-      >
-        <lb-icon name="layers-2"></lb-icon>
-        UI Library
-      </lb-button>
+      <% if Lookbook.previews.any? %>
+        <lb-button
+          href="<%= lookbook_latest_spec_path %>"
+          appearance="text"
+          slot="header-link"
+          <%= "active" if current_section?(:specs) %>
+        >
+          <lb-icon name="layers-2"></lb-icon>
+          <%= Lookbook.config.preview_collection_label %>
+        </lb-button>
+      <% end %>
 
       <%= yield :sidebar %>
       <%= yield %>

@@ -18,6 +18,7 @@ export class LookbookApp extends WithObservableSlots(Persistable(LookbookElement
   static persist = ["version", "splitPosition", "displayMode"];
 
   @property() version: string;
+  @property({ attribute: "homepath" }) homePath: string;
   @property({ type: Boolean, reflect: true }) dragging: boolean;
   @property({ type: Boolean, reflect: true, attribute: "has-active-popover" }) hasActivePopover: boolean;
   @property({ reflect: true, attribute: "display-mode" }) displayMode: "light" | "dark" = "light";
@@ -69,7 +70,10 @@ export class LookbookApp extends WithObservableSlots(Persistable(LookbookElement
   render() {
     return html`
       <div id="header">
-        <lb-header id="app-header">
+        <lb-header
+          id="app-header"
+          homepath="${this.homePath}"
+        >
           <slot
             name="logo"
             slot="logo"

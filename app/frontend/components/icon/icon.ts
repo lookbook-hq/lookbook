@@ -7,6 +7,25 @@ const { createElement } = IconSet;
 
 import styles from "./icon.css?text";
 
+const LOOKBOOK_ICON_SVG = `
+  <svg viewBox="0 0 18 22">
+    <g
+      stroke="currentColor"
+      stroke-width="1.5"
+      fill="none"
+      fill-rule="evenodd"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M3.5 1H17v20H3.5A2.5 2.5 0 0 1 1 18.5v-15A2.5 2.5 0 0 1 3.5 1Z"></path>
+
+      <path
+        d="M1.153 19.36c0-.737.261-1.188.596-1.57.417-.475.985-.79 1.751-.79H17M6.801 5.1v7.554L6.8 12.7h5.57"
+      ></path>
+    </g>
+  </svg>
+`;
+
 /**
  * <lb-icon>
  *
@@ -40,17 +59,21 @@ export class LookbookIcon extends LookbookElement {
       }
     }
     if (changedProperties.has("name")) {
-      const iconKlass = IconSet[pascalCase(this.name)];
-      const icon = createElement(iconKlass, {
-        part: "svg",
-        "stroke-width": this.strokeWidth,
-      });
-
-      if (icon) {
-        this.iconWrapper.innerHTML = "";
-        this.iconWrapper.appendChild(icon);
+      if (this.name === "lookbook") {
+        this.iconWrapper.innerHTML = LOOKBOOK_ICON_SVG;
       } else {
-        console.error(`Missing icon '${this.name}'`);
+        const iconKlass = IconSet[pascalCase(this.name)];
+        const icon = createElement(iconKlass, {
+          part: "svg",
+          "stroke-width": this.strokeWidth,
+        });
+
+        if (icon) {
+          this.iconWrapper.innerHTML = "";
+          this.iconWrapper.appendChild(icon);
+        } else {
+          console.error(`Missing icon '${this.name}'`);
+        }
       }
     }
   }

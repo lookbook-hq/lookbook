@@ -78,7 +78,7 @@ export class LookbookControl extends WithInternals(LookbookElement) {
         id="input-field"
         type="${inputType}"
         name="${this.name}"
-        .value="${live(this.value)}"
+        value="${this.value}"
         @input="${this.updateValue}"
       />
     `;
