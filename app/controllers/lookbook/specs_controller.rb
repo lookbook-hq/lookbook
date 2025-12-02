@@ -1,6 +1,7 @@
 module Lookbook
   class SpecsController < Lookbook::ApplicationController
     include WithSpecs
+    include WithScenarios
 
     before_action :assign_spec, only: [:show]
     before_action :record_last_spec_visited, only: %i[show]
