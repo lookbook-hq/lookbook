@@ -3,10 +3,10 @@ module Lookbook
     include WithSpecs
     include WithScenarios
     include WithDisplayOptions
+    include ScenarioHelper
 
     before_action :assign_spec, only: :show
     before_action :assign_scenario, only: :show
-    before_action :assign_scenarios, only: :show
     before_action :assign_display_options, only: :show
     before_action :assign_params, only: :show
 
@@ -14,35 +14,10 @@ module Lookbook
 
     before_action :permit_framing, only: [:show]
 
-    # TODO: move into specific API controller
-    def index
-      respond_to do |format|
-        format.json do
-          render(
-            json: Lookbook.previews.map do |preview|
-              {
-                name: preview.name,
-                scenarios: preview.scenarios.map { |scenario|
-                  case scenario
-                  when Lookbook::ScenarioEntity
-                    scenario_json(scenario)
-                  when Lookbook::ScenarioGroupEntity
-                    {
-                      name: scenario.name,
-                      examples: scenario.scenarios.map { |s| scenario_json(s) }
-                    }
-                  end
-                }
-              }
-            end
-          )
-        end
-      end
-    end
-
     def show
-      @preview_html = if Lookbook.config.preview_single_pass_rendering && !@scenarios.many?
-        @scenarios.first.output
+      scenarios = flatten_and_render(@scenario)
+      @preview_html = if Lookbook.config.preview_single_pass_rendering && !scenarios.many?
+        scenarios.first.output
       else
         preview_controller.process(
           :render_in_layout_to_string,
@@ -50,7 +25,7 @@ module Lookbook
           Store.new({
             context: Store.new({params: @params, path: params[:path]}),
             spec: @spec,
-            scenarios: @scenarios
+            scenarios: scenarios
           }),
           layout: @spec.layout,
           append_html: preview_assets
@@ -58,7 +33,7 @@ module Lookbook
       end
     end
 
-    private
+    protected
 
     def preview_assets
       render_to_string("lookbook/previews/_assets", layout: nil)

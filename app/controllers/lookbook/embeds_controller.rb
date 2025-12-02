@@ -6,7 +6,6 @@ module Lookbook
 
     before_action :assign_spec, only: :scenario
     before_action :assign_scenario, only: :scenario
-    before_action :assign_scenarios, only: :scenario
 
     layout "lookbook/skeleton"
 

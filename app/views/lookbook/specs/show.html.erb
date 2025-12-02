@@ -1,8 +1,9 @@
 <%
   # TODO - clean up breadcrumb generation
-  spec_notes = collate_notes(@spec)
   breadcrumb_items = @spec.lookup_path.split("/")
   breadcrumb_items.pop
+
+  spec_notes = collate_notes(@spec)
 %>
 
 <lb-spec heading="<%= spec_notes.heading || @spec.label %>" id="<%= @spec.lookup_hash %>">
@@ -25,7 +26,8 @@
   <% end %>
 
   <% @spec.scenarios.each do |scenario| %>
-    <% scenario_notes = collate_notes(scenario) %>
+    <% scenarios = flatten_and_render(scenario)
+      scenario_notes = collate_notes(scenarios) %>
 
     <lb-spec-section
       heading="<%= scenario_notes.heading || scenario.label %>"
@@ -42,9 +44,7 @@
         persist-as="spec.scenario.viewport.<%= @spec.id %>"
       ></lb-viewport>
 
-      <lb-snippet id="source-snippet" numbered lint>
-        some code <%# = collate_source(@scenarios) %>
-      </lb-snippet>
+      <lb-snippet id="source-snippet" numbered lint><%= collate_source(scenarios) %></lb-snippet>
     </lb-spec-section>
   <% end %>
 </lb-spec>

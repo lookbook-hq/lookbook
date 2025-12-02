@@ -6,7 +6,6 @@ module Lookbook
 
     included do
       helper_method :render_scenario
-      helper_method :render_scenarios
 
       protected
 
@@ -18,10 +17,6 @@ module Lookbook
         @scenario = scenario.is_a?(ScenarioGroupEntity) ? scenario : render_scenario(scenario)
       end
 
-      def assign_scenarios
-        @scenarios = @scenario.is_a?(ScenarioGroupEntity) ? render_scenarios(@scenario.scenarios) : [@scenario]
-      end
-
       def render_scenario(scenario)
         output = begin
           preview_controller.process(:render_scenario_to_string, @spec, scenario)
@@ -30,13 +25,6 @@ module Lookbook
         end
 
         RenderedScenarioEntity.new(scenario, output, preview_controller.params)
-      end
-
-      def render_scenarios(scenarios)
-        scenarios.map do |scenario|
-          return scenario if scenario.is_a?(RenderedScenarioEntity)
-          render_scenario(scenario)
-        end
       end
 
       # TODO: replace this with param handing code from v3 branch

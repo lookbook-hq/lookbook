@@ -2,6 +2,8 @@
   # TODO - clean up breadcrumb generation
   breadcrumb_items = @spec.lookup_path.split("/")
   breadcrumb_items.pop
+
+  scenarios = flatten_and_render(@scenario)
 %>
 
 <lb-inspector id="inspector" persist-as="inspector.preview">
@@ -65,7 +67,7 @@
     label="Snippet"
     slot="drawer"
   >
-    <lb-snippet id="source-snippet" numbered lint><%= collate_source(@scenarios) %></lb-snippet>
+    <lb-snippet id="source-snippet" numbered lint><%= collate_source(scenarios) %></lb-snippet>
   </lb-panel>
 
   <lb-panel
@@ -80,7 +82,7 @@
       numbered
       lint
     >
-      <%= collate_output(@scenarios) %>
+      <%= collate_output(scenarios) %>
     </lb-snippet>
   </lb-panel>
 
