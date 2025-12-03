@@ -18,10 +18,20 @@ export class LookbookBreadcrumbNav extends LookbookElement {
     this.items = Array.from(target.assignedElements());
   }
 
+  protected handleClick(event) {
+    if (event.target.hasAttribute("href")) {
+      this.dispatch("lb-command", "visit", { url: event.target.href });
+      event.preventDefault();
+    }
+  }
+
   render() {
     return html`
       <nav id="container">
-        <ol id="items">
+        <ol
+          id="items"
+          @click="${this.handleClick}"
+        >
           ${this.items.map(
             (item) => html`
               <li class="item">${unsafeHTML(item.outerHTML)}</li>

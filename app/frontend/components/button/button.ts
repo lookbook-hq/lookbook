@@ -83,6 +83,13 @@ export class LookbookButton extends WithObservableSlots(LookbookElement) {
     }
   }
 
+  protected handleClick(event: PointerEvent) {
+    if (!this.isLink) return;
+
+    this.dispatch("lb-command", "visit", { url: this.href });
+    event.preventDefault();
+  }
+
   render() {
     const tag = this.isLink ? literal`a` : literal`button`;
 
@@ -95,6 +102,7 @@ export class LookbookButton extends WithObservableSlots(LookbookElement) {
         target="${this.isLink ? this.target : nothing}"
         aria-label="${this.label || this.tooltip || nothing}"
         ?disabled="${this.isLink ? nothing : this.disabled}"
+        @click="${this.handleClick}"
       >
         <slot id="start" name="start"></slot>
         <slot id="label" part="label"></slot>
