@@ -4,8 +4,10 @@
 # The avatar component is great for tiny faces.
 #
 # Also good for:
-#   * Tiny **logos**
-#   * Favicons
+#
+# 1. **Tiny logos**
+# 1. Other tiny things
+#
 class Elements::AvatarComponentPreview < ViewComponent::Preview
   # Default avatar
   # ----------------

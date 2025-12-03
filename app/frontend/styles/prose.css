@@ -290,10 +290,18 @@
   ol {
     margin-inline-start: 1.1em;
     padding: 0;
+
+    li {
+      margin-block-end: calc(var(--lookbook-prose-spacing) * 0.3);
+    }
   }
 
   ul li {
     list-style-type: disc;
+  }
+
+  ol li {
+    list-style-type: decimal;
   }
 
   li > ol,

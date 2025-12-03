@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   column-gap: var(--lookbook-size-3xs);
+  list-style: none;
 }
 
 .item {
