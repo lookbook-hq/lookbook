@@ -14,6 +14,7 @@ import { buildConfig, highlighterConfig } from "../config/frontend.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const isDeveloping = process.argv.includes("--develop");
+const isWatching = isDeveloping || process.argv.includes("--watch");
 
 const spinner = ora({ text: "Lookbook", color: "cyan", stream: process.stdout }).start();
 
@@ -49,7 +50,7 @@ export async function build() {
 
     try {
       await cleanup();
-      await copyImages();
+      await copyStatic();
       await generateShikiBundle();
       await generateBundle();
 
@@ -86,11 +87,12 @@ export async function build() {
       plugins: [ImportStylesheetAsText],
       loader: {
         ".woff2": "file",
+        ".webp": "copy",
       },
     };
 
     try {
-      if (isDeveloping) {
+      if (isWatching) {
         buildContext = await esbuild.context(config);
 
         await buildContext.rebuild();
@@ -101,7 +103,7 @@ export async function build() {
     } catch (error) {
       spinner.fail();
       console.log(chalk.red(`\n${error}`));
-      if (!isDeveloping) {
+      if (!isWatching) {
         process.exit(1);
       }
     }
@@ -117,7 +119,7 @@ export async function build() {
       spinner.fail();
       console.log(chalk.red(`\n${error}`));
 
-      if (!isDeveloping) {
+      if (!isWatching) {
         process.exit(1);
       }
     }
@@ -127,7 +129,7 @@ export async function build() {
 
   await buildAll();
 
-  if (isDeveloping) {
+  if (isWatching) {
     spinner.start("Watching files...");
 
     const watchEvents = ["change", "unlink", "add"];
@@ -158,7 +160,7 @@ export async function build() {
         } catch (err) {
           console.error(chalk.red(err));
 
-          if (!isDeveloping) {
+          if (!isWatching) {
             process.exit(1);
           }
         }
@@ -209,44 +211,12 @@ if (isRunAsMain()) {
   await build();
 }
 
-export async function copyImages() {
-  spinner.start("Copy image assets");
+export async function copyStatic() {
+  spinner.start("Copy static assets");
 
-  await copy(getSrcPath("images"), getDistDir(), {
+  await copy(getSrcPath("static"), getDistDir(), {
     overwrite: true,
   });
 
   spinner.succeed();
 }
-
-// export async function copyIcons() {
-//   spinner.start("Copy icons");
-
-//   await copy(getIconsSrc(), getDistDir("icons"), {
-//     filter: ["*/*.svg"],
-//     overwrite: true,
-//     rename: (filePath) => {
-//       return filePath.replace("icons-solid", "filled").replace("icons", "line");
-//     },
-//   });
-
-//   spinner.succeed();
-// }
-
-// async function generateIcons() {
-//   const dirToCopy = join(rootDir, "node_modules/@tabler/icons/icons");
-//   const licenseToCopy = join(rootDir, "node_modules/@tabler/icons/LICENSE");
-//   const iconsJson = join(rootDir, "node_modules/@tabler/icons/icons.json");
-
-//   spinner.start("Packaging icons");
-
-//   await rm(iconDir, { recursive: true, force: true });
-//   await mkdir(iconDir, { recursive: true });
-//   await copy(dirToCopy, iconDir);
-//   await copy(licenseToCopy, join(iconDir, "LICENSE"));
-//   await copy(iconsJson, join(distDir, "icons.json"));
-
-//   spinner.succeed();
-
-//   return Promise.resolve();
-// }

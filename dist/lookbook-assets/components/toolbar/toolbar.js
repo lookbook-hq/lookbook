@@ -237,6 +237,7 @@ var tn=Object.defineProperty;var en=Object.getOwnPropertyDescriptor;var et=(e,t,
   display: block;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   scrollbar-color: var(--lookbook-neutral-fill-quiet) transparent;
   scrollbar-width: thin;
 }
@@ -245,13 +246,6 @@ var tn=Object.defineProperty;var en=Object.getOwnPropertyDescriptor;var et=(e,t,
 :host *::after {
   box-sizing: border-box;
 }
-h1,
-h2,
-h3,
-h4,
-p,
-ul,
-ol,
 button {
   all: unset;
   display: revert;
@@ -261,7 +255,6 @@ ul,
 menu {
   all: unset;
   display: revert;
-  list-style: none;
 }
 input,
 button,

@@ -7,6 +7,7 @@
   "scripts": {
     "assets:dev": "node scripts/build.js --develop",
     "assets:build": "node scripts/build.js",
+    "assets:build...": "node scripts/build.js --watch",
     "lint:fix": "bundle exec standardrb --fix && prettier --write .",
     "release": "release-it --verbose",
     "release:dry-run": "release-it --dry-run --verbose",

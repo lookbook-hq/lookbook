@@ -1,8 +1,8 @@
 .lb-prose {
-  --prose-max-line-length: 70ch;
-  --element-max-width: 100%;
+  --max-line-length: 80ch;
+  --element-max-width: --max-line-length;
 
-  line-height: 1.5;
+  line-height: 1.65;
   color: var(--lookbook-text-base);
   font-family: var(--lookbook-font-family-prose);
   font-size: var(--lookbook-font-size-lg);
@@ -22,10 +22,10 @@
   ul,
   video {
     margin: 0;
-    max-width: var(--prose-max-line-length);
+    max-width: var(--max-line-length);
 
     &:not(:last-child) {
-      margin-block-end: var(--lookbook-prose-spacing);
+      margin-block-end: calc(var(--lookbook-prose-spacing) * 1.5);
     }
 
     /* No end margin on the last child */
@@ -53,11 +53,11 @@
     overflow-wrap: break-word;
 
     &:not(:first-child) {
-      margin-block-start: var(--lookbook-prose-spacing);
+      margin-block-start: 1.9em;
     }
 
     &:not(:last-child) {
-      margin-block-end: calc(var(--lookbook-prose-spacing));
+      margin-block-end: 1em;
     }
   }
 
@@ -70,7 +70,7 @@
 
   h3,
   .lookbook-h3 {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
   }
 
   h4,
@@ -82,17 +82,17 @@
     margin-block: 0;
     text-wrap: pretty;
     overflow-wrap: break-word;
-    max-width: var(--prose-max-line-length);
+    max-width: var(--max-line-length);
 
     &:not(:last-child) {
-      margin-block: 0 var(--lookbook-prose-spacing);
+      margin-block-end: var(--lookbook-prose-spacing);
     }
   }
 
   /* Lookbook elements */
 
   lb-prose {
-    max-width: var(--prose-max-line-length);
+    max-width: var(--max-line-length);
 
     &:not(:last-child) {
       margin-block-end: calc(var(--lookbook-prose-spacing) * 1.5);
@@ -111,7 +111,7 @@
 
   /* Block quotes */
   blockquote {
-    max-width: var(--prose-max-line-length);
+    max-width: var(--max-line-length);
     position: relative;
     padding: calc(var(--lookbook-prose-spacing) / 1.5) var(--lookbook-prose-spacing);
     border-left: solid calc(var(--lookbook-divider-width) * 4) var(--lookbook-divider-color);
@@ -135,7 +135,7 @@
 
   /* Dividers */
   hr {
-    max-width: var(--prose-max-line-length);
+    max-width: var(--max-line-length);
     margin: calc(var(--lookbook-prose-spacing) * 1.5) 0;
     border: none;
     border-top: 1px solid var(--lookbook-neutral-stroke-quiet);
@@ -148,9 +148,12 @@
   video,
   canvas {
     display: block;
-    width: 100%;
-    max-width: var(--prose-max-line-length);
-    border-radius: var(--lookbook-divider-radius-md);
+    margin-block: calc(var(--lookbook-prose-spacing) * 1.5);
+
+    &.float-right {
+      float: right;
+      margin: 0 0 1rem 1rem;
+    }
   }
 
   iframe {
@@ -239,7 +242,7 @@
   }
 
   strong {
-    font-weight: var(--lookbook-font-weight-bold);
+    font-weight: var(--lookbook-font-weight-semibold);
   }
 
   u {

@@ -28,11 +28,11 @@
       "@mixins": ["app/frontend/lib/mixins/mixins.js"],
       "@mixins/*": ["app/frontend/lib/mixins/*"],
       "@utils/*": ["app/frontend/lib/utils/*"],
+      "@lib/*": ["app/frontend/lib/*"],
       "@components": ["app/frontend/components/components.js"],
       "@components/*": ["app/frontend/components/*"],
+      "@static/*": ["app/frontend/static/*"],
       "@styles/*": ["app/frontend/styles/*"],
-      "@lib/*": ["app/frontend/lib/*"],
-      "@images/*": ["app/frontend/images/*"],
       "@assets/*": ["app/frontend/*"],
       "@config/*": ["config/*"],
       "@root/*": ["./*"]

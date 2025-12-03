@@ -7,15 +7,36 @@
 
     <link
       rel="icon"
-      href="<%= lookbook_asset_path("favicons/on-dark.svg") %>"
-      media="(prefers-color-scheme: dark)"
+      type="image/png"
+      href="<%= lookbook_asset_path("favicon-96x96.png") %>"
+      sizes="96x96"
     >
 
+    <link rel="icon" type="image/svg+xml" href="<%= lookbook_asset_path("favicon.svg") %>">
+    <link rel="shortcut icon" href="<%= lookbook_asset_path("favicon.ico") %>">
+
     <link
-      rel="icon"
-      href="<%= lookbook_asset_path("favicons/on-light.svg") %>"
-      media="(prefers-color-scheme: light)"
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="<%= lookbook_asset_path("apple-touch-icon.png") %>"
     >
+
+    <meta name="apple-mobile-web-app-title" content="Lookbook">
+
+    <link rel="manifest" href="<%= lookbook_asset_path("site.webmanifest") %>">
+
+    <% if false %>
+      <link
+        rel="icon"
+        href="<%= lookbook_asset_path("favicons/on-dark.svg") %>"
+        media="(prefers-color-scheme: dark)"
+      >
+      <link
+        rel="icon"
+        href="<%= lookbook_asset_path("favicons/on-light.svg") %>"
+        media="(prefers-color-scheme: light)"
+      >
+    <% end %>
 
     <%= csrf_meta_tags %>
 
