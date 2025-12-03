@@ -84,7 +84,7 @@ export class LookbookButton extends WithObservableSlots(LookbookElement) {
   }
 
   protected handleClick(event: PointerEvent) {
-    if (!this.isLink) return;
+    if (!this.isLink || this.target) return;
 
     this.dispatch("lb-command", "visit", { url: this.href });
     event.preventDefault();
