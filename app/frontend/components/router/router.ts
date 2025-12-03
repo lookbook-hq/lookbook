@@ -25,7 +25,7 @@ export class LookbookRouter extends LookbookElement {
   constructor() {
     super();
     this.logger = new Logger("router");
-    window.addEventListener("popstate", this.handlePopstate);
+    window.addEventListener("popstate", this.handlePopstate.bind(this));
   }
 
   connectedCallback(): void {
@@ -60,7 +60,7 @@ export class LookbookRouter extends LookbookElement {
   }
 
   reload() {
-    this.visit(location);
+    this.visit(document.location);
   }
 
   async reset() {
@@ -106,20 +106,20 @@ export class LookbookRouter extends LookbookElement {
   }
 
   private handlePopstate() {
-    location.href = location; // TODO: morph here?
+    this.updatePage(document.location);
   }
 
   // TODO: move into own thing
   private updateQueryParam(name, value) {
-    const searchParams = new URLSearchParams(location.search);
+    const searchParams = new URLSearchParams(document.location.search);
     searchParams.set(name, value);
 
-    this.visit(`${location.pathname}?${searchParams.toString()}`, {
+    this.visit(`${document.location.pathname}?${searchParams.toString()}`, {
       history: true,
     });
   }
 
-  async updatePage(url: string | Location = location, selector: string | null = null) {
+  async updatePage(url: string | Location = document.location, selector: string | null = null) {
     this.logger.debug(`Updating page`, {
       url,
       selector: selector || "lb-router",
@@ -146,7 +146,7 @@ export class LookbookRouter extends LookbookElement {
         }
       } else {
         // TODO: surface errors in UI
-        location.href = url.toString();
+        document.location.href = url.toString();
       }
     } catch (error) {
       // TODO: surface errors in UI
