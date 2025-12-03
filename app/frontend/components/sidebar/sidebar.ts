@@ -31,6 +31,16 @@ export class LookbookSidebar extends LookbookElement {
                 `
               : nothing}
           </div>
+          <lb-button-group slot="end">
+            <lb-button id="filter-nav-items">
+              <lb-icon name="search"></lb-icon>
+              <lb-tooltip>Filter by keyword</lb-tooltip>
+            </lb-button>
+            <lb-button id="collapse-all-nav-items">
+              <lb-icon name="list-chevrons-down-up"></lb-icon>
+              <lb-tooltip>Collapse all folders</lb-tooltip>
+            </lb-button>
+          </lb-button-group>
         </lb-toolbar>
         <div id="nav">
           <slot name="nav"></slot>

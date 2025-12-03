@@ -6,9 +6,9 @@
 
 #toolbar {
   background-color: var(--lookbook-surface-1);
-  &::part(container) {
+  /*&::part(container) {
     padding-inline: var(--lookbook-size-md);
-  }
+  }*/
 }
 
 #label {
