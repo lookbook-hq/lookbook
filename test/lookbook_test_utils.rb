@@ -7,16 +7,5 @@ module LookbookTestUtils
   end
 
   class_methods do
-    def rails_older_than?(version)
-      Gem::Version.new(Rails.version) < Gem::Version.new(version)
-    end
-
-    def rails_newer_than?(version)
-      Gem::Version.new(Rails.version) >= Gem::Version.new(version)
-    end
-
-    def phlexible?
-      rails_newer_than?(6.1)
-    end
   end
 end

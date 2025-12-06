@@ -20,16 +20,16 @@ module Dummy
 
     # Lookbook configuration
 
-    config.lookbook.project_name = "Lookbook dev app"
+    # config.lookbook.project_name = "Lookbook dev app"
 
-    config.lookbook.preview_paths << "previews/#{Rails.env.test? ? "test" : "dev"}"
+    # config.lookbook.preview_paths << "previews/#{Rails.env.test? ? "test" : "dev"}"
 
-    config.lookbook.page_paths << "docs"
+    # config.lookbook.page_paths << "docs"
 
-    config.lookbook.listen = Rails.env.development?
+    # config.lookbook.listen = Rails.env.development?
 
-    config.lookbook.preview_layout = "preview"
+    # config.lookbook.preview_layout = "preview"
 
-    Lookbook.add_tag(:customtag)
+    # Lookbook.add_tag(:customtag)
   end
 end

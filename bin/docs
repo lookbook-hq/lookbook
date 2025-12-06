@@ -1,6 +1,0 @@
-#!/usr/bin/env zsh
-
-cd docs
-bundle
-npm install
-bin/bridgetown start

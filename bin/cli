@@ -1,0 +1,65 @@
+#!/usr/bin/env ruby
+
+# Set up gems listed in the Gemfile.
+ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../Gemfile", __dir__)
+require "bundler/setup" if File.exist?(ENV["BUNDLE_GEMFILE"])
+
+ENV["LOOKBOOK_ENV"] = "development"
+
+# require "amazing_print"
+require "pretty_please"
+require "pd"
+
+PutsDebuggerer.header = "-"*80
+PutsDebuggerer.print_engine = lambda do |object|
+  output = case object
+  when String
+    object
+  else
+    PrettyPlease.prettify(object, max_depth: 20, max_items: 100)
+  end
+  puts output
+end
+
+require "rails/all"
+require "lookbook"
+
+
+# Lookbook.loader.eager_load
+# puts FileData(".")
+
+module Lookbook
+  # Collection.all
+  Collection.root_path = Pathname("test/dummy").expand_path(Dir.pwd)
+
+  collection = Collection.find(:previews)
+
+  # artifacts = collection.artifacts
+  # artifacts.filter { _1.type == :spec }.each do |spec|
+  #   puts "------- #{spec.children.size}"
+  # end
+  collection.specs.each do |spec|
+    spec.scenarios.each do |scenario|
+      puts "-------------------------------------"
+      puts scenario.source
+      puts scenario.source.location
+    end
+  end
+
+
+
+  # pd collection.files.map(&:path)
+  # puts collection.artifacts.map(&:relpath)
+
+
+  # result = {}
+
+  # file_tree = FileTree.new(Pathname("test/fixtures/trees/artifacts").expand_path(Dir.pwd))
+  # artifact_tree = ArtifactTree.new(file_tree)
+
+  # # result = artifact_tree.load.to_h
+  # result = artifact_tree.to_h
+
+  # pd result
+
+end

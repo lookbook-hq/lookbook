@@ -6,6 +6,7 @@ node = "25.1.0"
 NODE_ENV = "development"
 RACK_ENV = "development"
 LOOKBOOK_ENV = "development"
+LOOKBOOK_LOG_LEVEL = "DEBUG"
 
 [tasks.setup]
 description = "Install dependencies"
@@ -44,4 +45,3 @@ description = "Run the tests"
 depends = "assets:build"
 run = "bin/test"
 alias = "t"
-

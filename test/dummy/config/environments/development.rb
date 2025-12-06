@@ -21,18 +21,21 @@ Rails.application.configure do
 
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  # Lookbook reload in dev
+  # Reload Lookbook source files when developing/testing with the dummy app
 
-  # lookbook_loader = nil
-  # Zeitwerk::Registry.loaders.each do |loader|
-  #   if loader.tag == "lookbook"
-  #     lookbook_loader = loader
-  #     Zeitwerk::Registry.loaders.unregister(loader)
-  #   end
-  # end
+  gem_path = Pathname.new(Gem.loaded_specs["lookbook"].full_gem_path).join("lib")
 
-  # gem_root_path = Pathname.new(Gem.loaded_specs["lookbook"].full_gem_path)
-  # Listen.to gem_root_path.join("lib"), only: /\.rb$/ do
-  #   lookbook_loader.reload
-  # end.start
+  file_watcher = ActiveSupport::FileUpdateChecker.new(gem_path.glob("**/*")) do
+    Lookbook.loader.reload
+  end
+
+  Rails.application.reloaders << Class.new do
+    def initialize(file_watcher)
+      @file_watcher = file_watcher
+    end
+
+    def updated?
+      @file_watcher.execute_if_updated
+    end
+  end.new(file_watcher)
 end

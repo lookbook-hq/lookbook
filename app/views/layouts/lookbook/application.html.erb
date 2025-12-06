@@ -6,27 +6,14 @@
       persist-as="app"
       homepath="<%= lookbook_path %>"
     >
-      <% if Lookbook.pages.any? %>
+      <% @collections.each do |collection| %>
         <lb-button
-          href="<%= lookbook_latest_page_path %>"
+          href="<%= lookbook_collection_path(collection) %>"
           appearance="text"
           slot="header-link"
-          <%= "active" if current_section?(:pages) %>
         >
-          <lb-icon name="notebook-text"></lb-icon>
-          <%= Lookbook.config.page_collection_label %>
-        </lb-button>
-      <% end %>
-
-      <% if Lookbook.previews.any? %>
-        <lb-button
-          href="<%= lookbook_latest_spec_path %>"
-          appearance="text"
-          slot="header-link"
-          <%= "active" if current_section?(:specs) %>
-        >
-          <lb-icon name="layers-2"></lb-icon>
-          <%= Lookbook.config.preview_collection_label %>
+          <!-- lb-icon name="notebook-text"></lb-icon -->
+          <%= collection.label %>
         </lb-button>
       <% end %>
 

@@ -13,18 +13,18 @@ module Lookbook
         @specs = Engine.previews
       end
 
-      def assign_spec
-        @spec = @specs.find_by_path(params[:spec].tr(".", "/"))
+      # def assign_spec
+      #   @spec = @specs.find_by_path(params[:spec].tr(".", "/"))
 
-        raise_not_found("Preview not found - #{params[:spec]}") unless @spec
-      end
+      #   raise_not_found("Preview not found - #{params[:spec]}") unless @spec
+      # end
 
-      def record_last_spec_visited
-        cookies[:lookbook_last_spec_visited] = {
-          value: request.path,
-          expires: 1.hour.from_now
-        }
-      end
+      # def record_last_spec_visited
+      #   cookies[:lookbook_last_spec_visited] = {
+      #     value: request.path,
+      #     expires: 1.hour.from_now
+      #   }
+      # end
     end
   end
 end

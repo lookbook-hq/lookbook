@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if echo $* | grep -e "--watch" -q
+then
+  find ./test -name "*_test.rb" | entr -s "bin/rails test"
+else
+  bin/rails test
+fi

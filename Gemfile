@@ -14,7 +14,11 @@ gem "yard-activesupport-concern"
 
 gem "listen"
 gem "view_component"
-gem "phlex-rails"
+
+gem "pretty_please"
+gem "puts_debuggerer"
+
+gem "lookbooklet", path: "../booklet"
 
 group :test do
   gem "appraisal"
