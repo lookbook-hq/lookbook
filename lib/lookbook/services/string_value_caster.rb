@@ -47,7 +47,7 @@ module Lookbook
     def cast_to_date
       Date.parse(@value)
     end
-    
+
     def cast_to_datetime
       DateTime.parse(@value)
     end
