@@ -89,7 +89,7 @@
     "postcss-import": "^16.1.0",
     "postcss-import-ext-glob": "^2.0.1",
     "prettier": "3.6.2",
-    "release-it": "^17.2.1",
+    "release-it": "^19.2.2",
     "watch": "^0.13.0"
   },
   "prettier": {
