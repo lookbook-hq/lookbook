@@ -15,6 +15,11 @@ module Lookbook
           block: block
         }
       else
+        if block && defined?(Phlex::SGML) && component.is_a?(Phlex::SGML)
+          component = Class.new(Phlex::HTML)
+          component.define_method(:view_template, &block)
+        end
+
         {
           type: component.is_a?(String) ? :view : :component,
           args: args,
