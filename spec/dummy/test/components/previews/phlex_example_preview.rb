@@ -8,9 +8,9 @@ class PhlexExamplePreview < Lookbook::Preview
   end
 
   def builder
-    render Views::ListExample do |list|
-      list.item { 'Hello' }
-      list.item { 'World' }
+    render Views::ListExample.new do |list|
+      list.item { "Hello" }
+      list.item { "World" }
     end
   end
 
@@ -18,7 +18,15 @@ class PhlexExamplePreview < Lookbook::Preview
     render Components::SimpleButton.new do
       render Components::SimpleIcon.new
 
-      plain 'A simple button'
+      plain "A simple button"
+    end
+  end
+
+  def nested_render_class
+    render Components::SimpleButton do
+      render Components::SimpleIcon
+
+      plain "A simple button"
     end
   end
 end

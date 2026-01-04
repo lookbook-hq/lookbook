@@ -1,7 +1,5 @@
 module Views
   class ListExample < Phlex::HTML
-    def initialize(foo = nil)
-    end
     def view_template(&block)
       ul(&block)
     end
