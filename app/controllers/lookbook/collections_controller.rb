@@ -1,11 +1,12 @@
 module Lookbook
   class CollectionsController < Lookbook::ApplicationController
-    include WithCollections
-
-    before_action :assign_collection, only: :show
+    include CollectionScoped
 
     def show
-      @json = JSON.pretty_generate(@collection.entities.accept(HashConverter.new))
+      converter = Booklet::HashConverter.new(props: {
+        # path: lambda { |node| node.file.relative_path(@collection.path) }
+      })
+      @json = JSON.pretty_generate(@collection.entities.accept(converter))
     end
   end
 end

@@ -1,9 +1,10 @@
 module Lookbook
-  module WithCollections
+  module CollectionScoped
     extend ActiveSupport::Concern
 
     included do
       before_action :assign_collections
+      before_action :assign_collection
 
       protected
 
@@ -12,7 +13,7 @@ module Lookbook
       end
 
       def assign_collection
-        @collection = Collection.find(params[:collection])
+        @collection = Collection.find(params[:collection_id]) if params[:collection_id]
       end
     end
   end

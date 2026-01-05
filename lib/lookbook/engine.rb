@@ -31,11 +31,9 @@ module Lookbook
       def start
         raise "Lookbook has already been started" if @started
 
-        info("Starting Lookbook in #{Lookbook.env} mode...")
-
         @started = true
 
-        info("Lookbook started")
+        info("Lookbook started in #{Lookbook.env} mode...")
       end
 
       def collections

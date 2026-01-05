@@ -1,7 +1,7 @@
 Lookbook::Engine.routes.draw do
   root to: "start#index", as: :lookbook
 
-  get "/:collection", to: "collections#show", as: :lookbook_collection
+  get "/:collection_id", to: "collections#show", as: :lookbook_collection
 
   # get "/#{Lookbook.config.page_route}", to: "pages#index", as: :lookbook_pages
   # get "/#{Lookbook.config.page_route}/*path", to: "pages#show", as: :lookbook_page

@@ -4,7 +4,6 @@ PATH
     lookbooklet (0.0.1)
       activesupport (>= 7.2)
       dry-cli (~> 1.1)
-      gum
       literal (~> 1.8)
       marcel (>= 1.0)
       paint (~> 2.3)
@@ -142,7 +141,6 @@ GEM
     ffi (1.17.2-arm64-darwin)
     globalid (1.3.0)
       activesupport (>= 6.1)
-    gum (0.3.0-arm64-darwin)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     io-console (0.8.1)
