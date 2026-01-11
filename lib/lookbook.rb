@@ -1,8 +1,9 @@
+require "active_support"
+require "active_support/core_ext"
 require "zeitwerk"
-require "literal"
+
 require "lookbook/logger"
 require "lookbook/errors"
-require "active_support/environment_inquirer"
 
 # Lookbook application entry point.
 #
@@ -25,7 +26,7 @@ module Lookbook
 
     # Returns the shared config object instance
     #
-    # @return [DotHash] Config data object
+    # @return [Options] Config data object
     def config
       Config.current
     end

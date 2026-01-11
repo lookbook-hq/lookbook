@@ -1,14 +1,11 @@
 module Lookbook
-  module Rescuable
+  module FourOhFourable
     extend ActiveSupport::Concern
 
     included do
       rescue_from ActionController::RoutingError, with: :not_found
 
-      protected
-
-      def not_found(error = nil)
-        @error = error
+      def not_found
         render "lookbook/errors/not_found", status: :not_found
       end
     end

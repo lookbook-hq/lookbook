@@ -1,6 +1,6 @@
 module Lookbook
   class Collection < Lookbook::Object
-    include Loggable
+    include Configurable
 
     prop :id, Symbol, :positional, reader: :public, writer: false
 
@@ -10,7 +10,6 @@ module Lookbook
 
     prop :label, _Nilable(String), writer: false, reader: false
     prop :as, _Nilable(String), writer: false, reader: false
-    prop :options, Hash, writer: false, reader: :protected
 
     def path
       @path.absolute? ? @path : @path.expand_path(Collection.root_path)
@@ -20,37 +19,44 @@ module Lookbook
       @label ||= id.to_s.titleize
     end
 
-    def entities
-      Booklet.analyze(path).entities
-    end
-
     def to_param
       @as ||= id.to_s.parameterize
     end
 
-    # protected def root_node
-    #   @root_node = begin
-    #     dir = Directory.new(path:)
-    #     raise "Collection path #{path} is not a directory" unless @root_node.directory?
-    #     dir
-    #   end
-    # end
+    def resources
+      entities.accept(ResourcesBuilder.new)
+    end
+
+    delegate :entities, :warnings, :errors, :warnings?, :errors?, to: :data
+
+    protected def data
+      Booklet.analyze(path)
+    end
 
     class << self
-      def find(param_value)
-        all.find { _1.to_param == param_value.to_s }
-      end
-
-      def all
-        @collections ||= Lookbook.config.collections.map do |key, config|
-          from_config(key, config)
+      def load_from_config
+        @collections = config.collections.map do |id, config_opts|
+          options = config_opts.to_h.slice(*literal_properties.map(&:name))
+          new(id, **options)
         end
       end
 
-      def from_config(id, config)
-        prop_names = literal_properties.map(&:name)
-        new(id, options: config.except(*prop_names).freeze, **config.slice(*prop_names))
+      def all
+        @collections ||= load_from_config
       end
+
+      def find(id)
+        all.find { _1.to_param.to_s == id.to_s }
+      end
+
+      # def all
+      #   @collections ||= Lookbook.config.collections.map { from_config(_1, _2.to_h) }
+      # end
+
+      # def from_config(id, config)
+      #   prop_names = literal_properties.map(&:name)
+      #   new(id, options: config.except(*prop_names).freeze, **config.slice(*prop_names))
+      # end
 
       def root_path
         return @root_path if @root_path

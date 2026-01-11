@@ -21,8 +21,8 @@ module Lookbook
       super
       self.formatter = proc do |severity, datetime, progname, msg|
         level_color = COLORS[severity] || COLORS[unknown]
-        msg = "#{level_color}#{msg[0]}:#{RESET_COLOR} #{COLORS[:value]}#{msg[1]}#{RESET_COLOR}" if msg.is_a?(Array)
-        "lookbook #{level_color}[#{severity}] #{msg}#{RESET_COLOR}\n"
+        msg = "#{msg[0]}: #{COLORS[:value]}#{msg[1]}#{RESET_COLOR}" if msg.is_a?(Array)
+        "#{level_color}[#{severity}]#{RESET_COLOR} #{msg}\n"
       end
     end
 

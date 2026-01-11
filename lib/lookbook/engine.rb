@@ -1,4 +1,4 @@
-require "rails"
+require "literal"
 require "lookbook/concerns/loggable"
 
 module Lookbook
@@ -20,28 +20,20 @@ module Lookbook
     end
 
     config.after_initialize do
-      if Engine.enabled?
-        start
+      if config.lookbook.enabled
+        boot
       else
-        info("Lookbook is loaded but not enabled in this environment (#{Rails.env}).")
+        debug("Lookbook is loaded but not enabled in this environment (#{Rails.env}).")
       end
     end
 
     class << self
-      def start
-        raise "Lookbook has already been started" if @started
+      def boot
+        raise "Lookbook has already been booted" if @booted
 
-        @started = true
+        @booted = true
 
-        info("Lookbook started in #{Lookbook.env} mode...")
-      end
-
-      def collections
-        Collection.all
-      end
-
-      def enabled?
-        config.lookbook.enabled
+        info("Lookbook is ready ✓")
       end
     end
   end

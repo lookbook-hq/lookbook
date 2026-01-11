@@ -1,8 +1,8 @@
 <% content_for :sidebar do %>
   <lb-sidebar label="<%= @collection.label %>" icon="blocks" slot="sidebar">
-    <lb-nav activepath="<%= url_for %>" slot="nav" persist-as="nav.previews">
-      <lb-data slot="items" format="json" id="previews-data">
-        {}
+    <lb-nav activepath="<%= url_for %>" slot="nav" persist-as="nav.<%= @collection.id %>">
+      <lb-data slot="items" format="json" id="<%= @collection.id %>-data">
+        <%== nav_data_json(@collection.entities) %>
       </lb-data>
 
       <div slot="no-results">

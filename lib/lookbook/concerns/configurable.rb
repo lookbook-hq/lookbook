@@ -2,8 +2,16 @@ module Lookbook
   module Configurable
     extend ActiveSupport::Concern
 
-    def config
-      Lookbook.config
+    included do
+      def config
+        Lookbook.config
+      end
+    end
+
+    class_methods do
+      def config
+        Lookbook.config
+      end
     end
   end
 end

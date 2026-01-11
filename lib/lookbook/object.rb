@@ -1,5 +1,7 @@
 module Lookbook
   class Object < Literal::Object
+    include Loggable
+
     class_attribute :after_initialize_callbacks,
       instance_writer: false,
       instance_predicate: false,

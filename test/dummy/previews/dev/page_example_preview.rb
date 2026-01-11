@@ -4,5 +4,5 @@ class PageExamplePreview < Lookbook::Preview
   # @param title text
   def default(title: "Full page preview")
     render template: "pages/example", assigns: {title: title}
-  end
+  ends
 end

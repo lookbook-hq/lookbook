@@ -1,4 +1,15 @@
 <h2><%= @collection.label %></h2>
-<%= @collection.entities.count %>
 
-<pre><%== @json %></pre>
+<ul>
+  <li>Errors: <%= @collection.errors.count %></li>
+  <li>Warnings: <%= @collection.warnings.count %></li>
+</ul>
+
+<%= @collection.errors.map(&:message).join("<br>").html_safe %>
+
+<div>
+  <% @collection.resources.each do |resource| %>
+    <%= resource.to_param %>
+    <br>
+  <% end %>
+</div>
