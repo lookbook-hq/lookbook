@@ -1,15 +1,9 @@
 <h2><%= @collection.label %></h2>
 
-<ul>
-  <li>Errors: <%= @collection.errors.count %></li>
-  <li>Warnings: <%= @collection.warnings.count %></li>
-</ul>
+<h2>Errors: <%= @collection.errors.count %></h2>
 
 <%= @collection.errors.map(&:message).join("<br>").html_safe %>
 
-<div>
-  <% @collection.resources.each do |resource| %>
-    <%= resource.to_param %>
-    <br>
-  <% end %>
-</div>
+<h2>Warnings: <%= @collection.warnings.count %></h2>
+
+<%= @collection.warnings.map(&:message).join("<br>").html_safe %>

@@ -16,6 +16,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = ">= 3.2"
 
+  # spec.add_dependency "lookbooklet"
   spec.add_dependency "literal", "~> 1.8"
   spec.add_dependency "railties", ">= 7.2"
   spec.add_dependency "zeitwerk", "~> 2.7"

@@ -1,12 +1,13 @@
 module Lookbook
+  class NotFoundError < StandardError; end
+
   class ApplicationController < ActionController::Base
     include Configurable
-    include FourOhFourable
 
     content_security_policy(false) if respond_to?(:content_security_policy)
     protect_from_forgery with: :exception
 
-    before_action :assign_collections
+    rescue_from NotFoundError, ActionController::RoutingError, with: :not_found
 
     helper_method :fetch_request?
 
@@ -14,8 +15,8 @@ module Lookbook
       render "lookbook/start"
     end
 
-    protected def assign_collections
-      @collections = Collection.all
+    def not_found
+      render "lookbook/errors/not_found", status: :not_found, layout: "lookbook/application"
     end
 
     protected def fetch_request?

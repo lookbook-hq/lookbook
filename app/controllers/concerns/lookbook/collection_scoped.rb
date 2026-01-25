@@ -3,12 +3,25 @@ module Lookbook
     extend ActiveSupport::Concern
 
     included do
+      layout "lookbook/collections"
+
+      before_action :assign_collections
       before_action :assign_collection
+      before_action :assign_resources
 
-      protected
+      protected def assign_collections
+        @collections = Collection.all
+      end
 
-      def assign_collection
-        @collection = Collection.find(params[:collection_id]) if params[:collection_id]
+      protected def assign_collection
+        if params[:collection]
+          @collection = Collection.find(params[:collection])
+          raise NotFoundError, "Collection not found" unless @collection
+        end
+      end
+
+      protected def assign_resources
+        @resources = @collection&.resources
       end
     end
   end

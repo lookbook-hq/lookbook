@@ -5,6 +5,8 @@ require "zeitwerk"
 require "lookbook/logger"
 require "lookbook/errors"
 
+# require "booklet"
+
 # Lookbook application entry point.
 #
 # @api public

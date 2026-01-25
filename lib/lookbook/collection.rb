@@ -24,13 +24,13 @@ module Lookbook
     end
 
     def resources
-      entities.accept(ResourcesBuilder.new)
+      entities.accept(ResourceTreeBuilder.new)
     end
 
-    delegate :entities, :warnings, :errors, :warnings?, :errors?, to: :data
+    delegate :warnings, :errors, :warnings?, :errors?, to: :entities
 
-    protected def data
-      Booklet.analyze(path)
+    def entities
+      @entities ||= Booklet.analyze(path)
     end
 
     class << self

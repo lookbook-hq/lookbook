@@ -1,10 +1,35 @@
+class ResourceTypeConstraint
+  def initialize(type)
+    @type = type
+  end
+
+  def matches?(request)
+    resources(request.params[:collection]).include?(request.params[@type].to_param)
+  end
+
+  protected def resources(collection_id)
+    collection = Lookbook::Collection.find(collection_id)
+    collection ? collection.resources.map do |resource|
+      resource.to_param if resource.resource_type == @type
+    end.compact : []
+  end
+end
+
 Lookbook::Engine.routes.draw do
   root to: "start#index", as: :lookbook
+  scope as: :lookbook do
+    get ":collection", to: "collections#show", as: :collection
 
-  get ":collection_id", to: "collections#show", as: :lookbook_collection
+    scope ":collection" do
+      constraints(ResourceTypeConstraint.new(:spec)) do
+        get ":spec", to: "specs#show", as: :spec
+        get ":spec/scenarios/:scenario", to: "scenarios#show", as: :scenario
+      end
 
-  scope ":collection_id" do
-    get ":entity_path", to: "entities#show", as: :lookbook_entity
+      constraints(ResourceTypeConstraint.new(:page)) do
+        get ":page", to: "pages#show", as: :page
+      end
+    end
   end
 
   # resources :collections, path: "", only: [:show], as: :lookbook_collections, param: :collection_id
