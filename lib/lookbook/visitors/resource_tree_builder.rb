@@ -2,27 +2,36 @@
 
 module Lookbook
   class ResourceTreeBuilder < Booklet::Visitor
-    RESOURCE_NODES = [
-      Booklet::FolderNode,
-      Booklet::SpecNode,
-      Booklet::PageNode,
-      Booklet::ScenarioNode
-    ]
+    visit Booklet::FolderNode do |node|
+      child_resources = node.children.map { visit(_1) }.compact
 
-    visit do |node|
-      case node
+      return nil if child_resources.none?
 
-      when Booklet::FolderNode, Booklet::SpecNode
-        return nil if is_empty?(node)
-
-        ResourceNode.from(node, children: node.children.map { visit(_1) })
-      when Booklet::ScenarioNode, Booklet::PageNode
-        ResourceNode.from(node)
-      end
+      folder = Folder.new(node.ref.raw, entity: node)
+      folder.children = child_resources
+      folder
     end
 
-    protected def is_empty?(node)
-      node.children.filter { _1.class.in?(RESOURCE_NODES) }.empty?
+    visit Booklet::SpecNode do |node|
+      child_resources = node.children.map { visit(_1) }.compact
+
+      return nil if child_resources.none?
+
+      spec = Spec.new(node.ref.raw, entity: node)
+      spec.children = child_resources
+      spec
+    end
+
+    visit Booklet::PageNode do |node|
+      Page.new(node.ref.raw, entity: node)
+    end
+
+    visit Booklet::ScenarioNode do |node|
+      Scenario.new(node.ref.raw, entity: node)
+    end
+
+    visit do |node|
+      nil
     end
   end
 end

@@ -7,11 +7,11 @@ module Lookbook
       before_action :assign_specs
       before_action :assign_spec
 
-      protected def assign_specs
-        @specs = @resources.filter { _1.resource_type == :spec }
+      private def assign_specs
+        @specs = @resources.filter { _1.is_a?(Spec) }
       end
 
-      protected def assign_spec
+      private def assign_spec
         if params[:spec]
           @spec = @specs.find { _1.to_param == params[:spec] }
           raise NotFoundError, "Spec not found" unless @spec

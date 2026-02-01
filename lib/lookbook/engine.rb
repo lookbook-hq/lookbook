@@ -7,6 +7,10 @@ module Lookbook
 
     include Loggable
 
+    Lookbook::Collection.all.each do |collection|
+      config.autoload_paths << collection.path
+    end
+
     initializer "lookbook.assets.serve" do
       config.app_middleware.use(
         Rack::Static,

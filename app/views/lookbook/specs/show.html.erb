@@ -1,2 +1,19 @@
-<p>Collection: <%= @collection.label %></p>
-<p>Spec: <%= @spec.label %></p>
+<% breadcrumb_items = @spec.ancestors.reverse %>
+
+<lb-spec heading="<%= @spec.label %>" id="<%= @spec.id %>">
+  <lb-breadcrumb-nav slot="breadcrumb" id="<%= @spec.id %>-breadcrumbs">
+    <%= link_to lookbook_path do %>
+      <lb-icon name="home"></lb-icon>
+    <% end %>
+
+    <% breadcrumb_items.each do |node| %>
+      <% if node.url_path %>
+        <%= link_to node.label, node.url_path %>
+      <% else %>
+        <span><%= node.label %></span>
+      <% end %>
+    <% end %>
+
+    <span><%= @spec.label %></span>
+  </lb-breadcrumb-nav>
+</lb-spec>

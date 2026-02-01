@@ -8,7 +8,7 @@ module Lookbook
       before_action :assign_page
 
       protected def assign_pages
-        @pages = @resources.filter { _1.resource_type == :page }
+        @pages = @resources.filter { _1.is_a?(Page) }
       end
 
       protected def assign_page

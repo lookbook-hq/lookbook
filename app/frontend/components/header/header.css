@@ -19,8 +19,8 @@
 
 #logo ::slotted(*) {
   display: block;
-  /*height: var(--lookbook-size-lg);*/
-  /*transform: scale(97%) rotate(-3deg);*/
+  height: var(--lookbook-size-lg);
+  transform: scale(97%) rotate(-3deg);
 }
 
 #logo,

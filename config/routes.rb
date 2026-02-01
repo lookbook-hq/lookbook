@@ -1,16 +1,18 @@
 class ResourceTypeConstraint
   def initialize(type)
     @type = type
+    @param_key = @type.name.demodulize.downcase.to_sym
   end
 
   def matches?(request)
-    resources(request.params[:collection]).include?(request.params[@type].to_param)
+    resources(request.params[:collection]).include?(request.params[@param_key].to_param)
   end
 
   protected def resources(collection_id)
+    # TODO: optimise/cache resources lookup
     collection = Lookbook::Collection.find(collection_id)
     collection ? collection.resources.map do |resource|
-      resource.to_param if resource.resource_type == @type
+      resource.to_param if resource.is_a?(@type)
     end.compact : []
   end
 end
@@ -21,31 +23,16 @@ Lookbook::Engine.routes.draw do
     get ":collection", to: "collections#show", as: :collection
 
     scope ":collection" do
-      constraints(ResourceTypeConstraint.new(:spec)) do
+      constraints(ResourceTypeConstraint.new(Lookbook::Spec)) do
         get ":spec", to: "specs#show", as: :spec
         get ":spec/scenarios/:scenario", to: "scenarios#show", as: :scenario
       end
 
-      constraints(ResourceTypeConstraint.new(:page)) do
+      constraints(ResourceTypeConstraint.new(Lookbook::Page)) do
         get ":page", to: "pages#show", as: :page
       end
     end
   end
-
-  # resources :collections, path: "", only: [:show], as: :lookbook_collections, param: :collection_id
-
-  # resources ":collection_id", to: "collections#show", only: :show, param: :collection_id do
-  #   resources :specs, only: :show
-  # end
-
-  # get "/#{Lookbook.config.page_route}", to: "pages#index", as: :lookbook_pages
-  # get "/#{Lookbook.config.page_route}/*path", to: "pages#show", as: :lookbook_page
-
-  # get "/specs", to: "specs#index", as: :lookbook_specs
-  # get "/specs/:spec/:scenario", to: "scenarios#show", constraints:, as: :lookbook_scenario
-  # get "/specs/:spec", to: "specs#show", constraints:, as: :lookbook_spec
-
-  # get "/previews/:spec/:scenario", to: "previews#show", constraints:, as: :lookbook_scenario_preview
 
   # if Lookbook::Engine.preview_embeds_allowed?
   #   # get "/embeds", to: "embeds#lookup", as: :lookbook_embed_lookup
@@ -54,6 +41,4 @@ Lookbook::Engine.routes.draw do
   # end
 
   # get "/events", to: "sse#index", as: :sse
-
-  # get "/*path", to: "application#not_found", via: :all
 end

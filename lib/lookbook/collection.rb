@@ -1,5 +1,6 @@
 module Lookbook
   class Collection < Lookbook::Object
+    include Lookbook::Engine.routes.url_helpers
     include Configurable
 
     prop :id, Symbol, :positional, reader: :public, writer: false
@@ -18,6 +19,8 @@ module Lookbook
     def label
       @label ||= id.to_s.titleize
     end
+
+    def url_path = lookbook_collection_path(self)
 
     def to_param
       @as ||= id.to_s.parameterize
@@ -49,14 +52,9 @@ module Lookbook
         all.find { _1.to_param.to_s == id.to_s }
       end
 
-      # def all
-      #   @collections ||= Lookbook.config.collections.map { from_config(_1, _2.to_h) }
-      # end
-
-      # def from_config(id, config)
-      #   prop_names = literal_properties.map(&:name)
-      #   new(id, options: config.except(*prop_names).freeze, **config.slice(*prop_names))
-      # end
+      def resources?
+        all.any? { _1.resources.any? }
+      end
 
       def root_path
         return @root_path if @root_path

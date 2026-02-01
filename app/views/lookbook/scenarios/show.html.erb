@@ -1,3 +1,28 @@
-<p>Collection: <%= @collection.label %></p>
-<p>Spec: <%= @spec.label %></p>
-<p>Scenario: <%= @scenario.label %></p>
+<% breadcrumb_items = @scenario.ancestors.reverse %>
+
+<lb-inspector id="inspector" persist-as="inspector.preview">
+  <lb-breadcrumb-nav slot="breadcrumb" id="<%= @scenario.id %>-breadcrumbs">
+    <%= link_to lookbook_path do %>
+      <lb-icon name="home"></lb-icon>
+    <% end %>
+
+    <% breadcrumb_items.each do |node| %>
+      <% if node.url_path %>
+        <%= link_to node.label, node.url_path %>
+      <% else %>
+        <span><%= node.label %></span>
+      <% end %>
+    <% end %>
+
+    <span><%= @scenario.label %></span>
+  </lb-breadcrumb-nav>
+
+  <lb-panel
+    id="snippet-panel"
+    name="snippet-panel"
+    label="Snippet"
+    slot="drawer"
+  >
+    <lb-snippet id="source-snippet" numbered lint><%= @scenario.source %></lb-snippet>
+  </lb-panel>
+</lb-inspector>
