@@ -15,6 +15,7 @@ interface LookbookNavItem {
   children: Array<LookbookNavItem>;
   type: string;
   leaf: boolean;
+  hidden: boolean;
   id?: string;
   label?: string;
   href?: string;
@@ -101,6 +102,8 @@ export class LookbookNav extends Persistable(LookbookElement) {
   }
 
   protected renderItem(item: LookbookNavItem) {
+    if (item.hidden) return html``;
+
     const expanded = !this.collapsed.includes(item.id);
     const isLink = !isEmpty(item.href);
 
