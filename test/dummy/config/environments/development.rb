@@ -19,13 +19,11 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   config.action_view.annotate_rendered_view_with_filenames = true
 
-  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-
   # Reload Lookbook source files when developing/testing with the dummy app
 
-  gem_path = Pathname.new(Gem.loaded_specs["lookbook"].full_gem_path).join("lib")
+  lookbook_root_path = Pathname.new(File.expand_path(Rails.root.join("../..")))
 
-  file_watcher = ActiveSupport::FileUpdateChecker.new(gem_path.glob("**/*")) do
+  file_watcher = ActiveSupport::FileUpdateChecker.new(lookbook_root_path.glob("**/*.rb")) do
     Lookbook::Loader.reload
   end
 
@@ -34,8 +32,6 @@ Rails.application.configure do
       @file_watcher = file_watcher
     end
 
-    def updated?
-      @file_watcher.execute_if_updated
-    end
+    def updated? = @file_watcher.execute_if_updated
   end.new(file_watcher)
 end
