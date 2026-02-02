@@ -26,7 +26,7 @@ Rails.application.configure do
   gem_path = Pathname.new(Gem.loaded_specs["lookbook"].full_gem_path).join("lib")
 
   file_watcher = ActiveSupport::FileUpdateChecker.new(gem_path.glob("**/*")) do
-    Lookbook.loader.reload
+    Lookbook::Loader.reload
   end
 
   Rails.application.reloaders << Class.new do

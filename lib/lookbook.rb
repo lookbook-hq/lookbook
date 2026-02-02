@@ -9,6 +9,13 @@ require "lookbook/errors"
 #
 # @api public
 module Lookbook
+  Loader = Zeitwerk::Loader.for_gem
+  Loader.push_dir("#{__dir__}/lookbook", namespace: Lookbook)
+  Loader.collapse("#{__dir__}/lookbook/**/*")
+  Loader.ignore("#{__dir__}/lookbook/{version,logger,engine,errors}.rb")
+  Loader.enable_reloading if ENV["LOOKBOOK_ENV"] == "development"
+  Loader.setup
+
   class << self
     # Returns the installed Lookbook version
     #
@@ -41,24 +48,11 @@ module Lookbook
     def engine
       Engine
     end
-
-    def loader
-      @loader ||= begin
-        loader = Zeitwerk::Loader.for_gem
-        loader.push_dir("#{__dir__}/lookbook", namespace: Lookbook)
-        loader.collapse("#{__dir__}/lookbook/**/*")
-        loader.ignore("#{__dir__}/lookbook/{version,logger,engine,errors}.rb")
-        loader.enable_reloading if env.development?
-        loader
-      end
-    end
   end
 
   logger.info(["Lookbook version", VERSION])
   logger.info(["Lookbook log level", Logger.level_as_string(logger.level)])
   logger.info(["Lookbook environment", env])
 end
-
-Lookbook.loader.setup
 
 require "lookbook/engine" if defined?(Rails::Engine)

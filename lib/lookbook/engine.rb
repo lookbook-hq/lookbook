@@ -7,7 +7,9 @@ module Lookbook
 
     include Loggable
 
-    Lookbook::Collection.all.each do |collection|
+    config.lookbook = Config.current
+
+    Collection.all.each do |collection|
       config.autoload_paths << collection.path
     end
 
@@ -17,10 +19,6 @@ module Lookbook
         urls: ["/lookbook-assets"],
         root: root.join("dist").to_s
       )
-    end
-
-    config.before_configuration do |app|
-      app.config.lookbook = Config.current
     end
 
     config.after_initialize do
