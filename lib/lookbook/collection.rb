@@ -30,6 +30,22 @@ module Lookbook
       entities.accept(ResourceTreeBuilder.new)
     end
 
+    def nav_json
+      nav_data = resources.accept(
+        Booklet::HashConverter.new(props: {
+          id: true,
+          ref: false,
+          label: true,
+          icon: true,
+          href: ->(node) { node.url_path },
+          leaf: ->(node) { node.leaf? },
+          hidden: ->(node) { node.hidden? },
+          branch: ->(node) { node.branch? }
+        })
+      )
+      JSON.generate(nav_data[:children])
+    end
+
     delegate :warnings, :errors, :warnings?, :errors?, to: :entities
 
     def entities
