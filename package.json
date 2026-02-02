@@ -61,7 +61,7 @@
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/typography": "^0.5.19",
     "alpinejs": "^3.15.3",
-    "autoprefixer": "^10.4.21",
+    "autoprefixer": "^10.4.24",
     "iframe-resizer": "^4.3.2",
     "js-cookie": "^3.0.5",
     "loglevel": "^1.9.2",
