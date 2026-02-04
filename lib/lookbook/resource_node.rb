@@ -12,12 +12,12 @@ module Lookbook
 
     def url_path = nil
 
+    def to_param = @entity.id
+
     delegate_missing_to :@entity
 
-    def to_param
-      @lookup_path ||= @entity.lookup_path(separator: ":") do |node|
-        node.lookup_value unless node.root?
-      end
+    protected def hexid(str)
+      Digest::MD5.hexdigest(str.to_s)[0..6]
     end
   end
 end

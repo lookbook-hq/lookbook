@@ -34,7 +34,26 @@
         </lb-button>
       <% end %>
 
-      <%= yield :sidebar %>
+      <% if @collection %>
+        <lb-sidebar label="<%= @collection.label %>" icon="blocks" slot="sidebar">
+          <lb-nav activepath="<%= url_for %>" slot="nav" persist-as="nav.<%= @collection.id %>">
+            <lb-data slot="items" format="json" id="<%= @collection.id %>-data">
+              <%== resources_nav_json(@collection.resources) %>
+            </lb-data>
+
+            <div slot="no-results">
+              No previews match your filter.
+            </div>
+
+            <lb-blankslate icon="layers-2" slot="blank-slate">
+              <p>It looks like you haven't created any items yet.</p>
+            </lb-blankslate>
+          </lb-nav>
+        </lb-sidebar>
+      <% else %>
+        <lb-sidebar slot="sidebar"></lb-sidebar>
+      <% end %>
+
       <%= yield %>
     </lb-app>
   </lb-router>

@@ -11,6 +11,8 @@ module Lookbook
 
     helper_method :fetch_request?
 
+    before_action :assign_collections
+
     def index
       render "lookbook/start"
     end
@@ -21,6 +23,10 @@ module Lookbook
 
     protected def fetch_request?
       request.headers["HTTP_X_LOOKBOOK_REQUEST"]
+    end
+
+    private def assign_collections
+      @collections = Collection.all
     end
   end
 end

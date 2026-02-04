@@ -34,6 +34,10 @@ module Lookbook
       @dirty ? load! : @entities ||= load!
     end
 
+    def specs = resources.grep(Spec)
+
+    def pages = resources.grep(Page)
+
     delegate :warnings, :errors, :warnings?, :errors?, to: :entities
 
     def resources
@@ -78,6 +82,12 @@ module Lookbook
       def find(id) = all.find { _1.to_param.to_s == id.to_s }
 
       def watch_dirs = map { [_1.path.to_s, _1.watch_extensions] }.to_h
+
+      def resources = map { _1.resources.to_a }.flatten
+
+      def specs = resources.grep(Spec)
+
+      def pages = resources.grep(Page)
 
       def resources? = any? { _1.resources.any? }
 

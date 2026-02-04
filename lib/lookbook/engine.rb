@@ -16,7 +16,7 @@ module Lookbook
     end
 
     config.before_initialize do |app|
-      if Engine.listening?
+      if Engine.listen_gem_available?
         # Patch EventedFileUpdateChecker to get real-time update notifications
         ActiveSupport::EventedFileUpdateChecker::Core.prepend(UpdateCheckerPatch)
       end
@@ -37,7 +37,8 @@ module Lookbook
 
         Rails.application.reloaders << reloader
 
-        if !Engine.listening? || !Engine.file_watcher.is_a?(ActiveSupport::EventedFileUpdateChecker)
+        unless Engine.listen_gem_available? &&
+            Engine.file_watcher == ActiveSupport::EventedFileUpdateChecker
           # Using non-evented FileUpdateChecker
           Rails.application.config.to_prepare do
             Collection.each { _1.load! }
@@ -75,8 +76,8 @@ module Lookbook
 
       def updated_at = @updated_at ||= touch!
 
-      def listening?
-        Gem.loaded_specs.has_key?("listen") && defined?(::Listen)
+      def listen_gem_available?
+        Gem.loaded_specs.has_key?("listen")
       end
 
       def reloading?
