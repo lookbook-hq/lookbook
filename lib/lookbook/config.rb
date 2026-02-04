@@ -9,14 +9,17 @@ module Lookbook
         Options.new(
           collections: {
             previews: {
-              path: "previews"
+              path: "previews",
+              watch_extensions: [".md"]
             },
             pages: {
-              path: "docs"
+              path: "docs",
+              watch_extensions: []
             }
           },
 
           enabled: true,
+          reload_on_change: true,
           experimental_features: []
         )
       end

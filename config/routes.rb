@@ -20,6 +20,8 @@ end
 Lookbook::Engine.routes.draw do
   root to: "start#index", as: :lookbook
   scope as: :lookbook do
+    get "/events", to: "sse#index", as: :events
+
     get ":collection", to: "collections#show", as: :collection
 
     scope ":collection" do
@@ -39,6 +41,4 @@ Lookbook::Engine.routes.draw do
   #   get "/embeds/:spec/:scenario", to: "embeds#scenario", constraints:, as: :lookbook_scenario_embed
   #   get "/embeds/:spec", to: "embeds#spec", constraints:, as: :lookbook_spec_embed
   # end
-
-  # get "/events", to: "sse#index", as: :sse
 end

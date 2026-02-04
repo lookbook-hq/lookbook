@@ -3,56 +3,69 @@ module Lookbook
     include Lookbook::Engine.routes.url_helpers
     include Configurable
 
-    prop :id, Symbol, :positional, reader: :public, writer: false
+    ALWAYS_WATCH_EXTENSIONS = [".rb", ".html.erb", ".erb", ".md"]
 
-    prop :path, Pathname, writer: false, reader: false do |value|
+    prop :id, Symbol, :positional, reader: :public
+
+    prop :path, Pathname do |value|
       Pathname(value.to_s) unless value.nil?
     end
 
-    prop :label, _Nilable(String), writer: false, reader: false
-    prop :as, _Nilable(String), writer: false, reader: false
+    prop :watch_extensions, _Array(String), default: -> { [] }
+
+    prop :label, _Nilable(String)
+    prop :as, _Nilable(String)
 
     def path
       @path.absolute? ? @path : @path.expand_path(Collection.root_path)
     end
 
     def label
-      @label ||= id.to_s.titleize
+      @label || id.to_s.titleize
     end
 
     def url_path = lookbook_collection_path(self)
 
     def to_param
-      @as ||= id.to_s.parameterize
+      @as || id.to_s.parameterize
     end
 
-    def resources
-      entities.accept(ResourceTreeBuilder.new)
-    end
-
-    def nav_json
-      nav_data = resources.accept(
-        Booklet::HashConverter.new(props: {
-          id: true,
-          ref: false,
-          label: true,
-          icon: true,
-          href: ->(node) { node.url_path },
-          leaf: ->(node) { node.leaf? },
-          hidden: ->(node) { node.hidden? },
-          branch: ->(node) { node.branch? }
-        })
-      )
-      JSON.generate(nav_data[:children])
+    def entities
+      @dirty ? load! : @entities ||= load!
     end
 
     delegate :warnings, :errors, :warnings?, :errors?, to: :entities
 
-    def entities
-      @entities ||= Booklet.analyze(path)
+    def resources
+      @resources ||= entities.accept(ResourceTreeBuilder.new)
+    end
+
+    def load!
+      @resources = nil
+      @entities = if @entities
+        Booklet.update(@entities)
+      else
+        Booklet.analyze(path)
+      end
+    end
+
+    def dirty! = @dirty = true
+
+    def watch_extensions
+      (ALWAYS_WATCH_EXTENSIONS + @watch_extensions).uniq
+    end
+
+    def contains?(file)
+      filepath = Pathname(file)
+      filepath = filepath.absolute? ? filepath : filepath.expand_path(Collection.root_path)
+      filepath.to_s.start_with?("#{path}/")
     end
 
     class << self
+      include Enumerable
+
+      delegate :each, to: :all
+
       def load_from_config
         @collections = config.collections.map do |id, config_opts|
           options = config_opts.to_h.slice(*literal_properties.map(&:name))
@@ -60,17 +73,13 @@ module Lookbook
         end
       end
 
-      def all
-        @collections ||= load_from_config
-      end
+      def all = @collections ||= load_from_config
 
-      def find(id)
-        all.find { _1.to_param.to_s == id.to_s }
-      end
+      def find(id) = all.find { _1.to_param.to_s == id.to_s }
 
-      def resources?
-        all.any? { _1.resources.any? }
-      end
+      def watch_dirs = map { [_1.path.to_s, _1.watch_extensions] }.to_h
+
+      def resources? = any? { _1.resources.any? }
 
       def root_path
         return @root_path if @root_path

@@ -19,6 +19,10 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   config.action_view.annotate_rendered_view_with_filenames = true
 
+  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+
+
   # Reload Lookbook source files when developing/testing with the dummy app
 
   lookbook_root_path = Pathname.new(File.expand_path(Rails.root.join("../..")))

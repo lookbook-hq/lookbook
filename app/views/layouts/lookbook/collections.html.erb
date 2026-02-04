@@ -2,7 +2,7 @@
   <lb-sidebar label="<%= @collection.label %>" icon="blocks" slot="sidebar">
     <lb-nav activepath="<%= url_for %>" slot="nav" persist-as="nav.<%= @collection.id %>">
       <lb-data slot="items" format="json" id="<%= @collection.id %>-data">
-        <%== @collection.nav_json %>
+        <%== resources_nav_json(@resources) %>
       </lb-data>
 
       <div slot="no-results">
