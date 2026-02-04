@@ -15,9 +15,5 @@ module Lookbook
     def to_param = @entity.id
 
     delegate_missing_to :@entity
-
-    protected def hexid(str)
-      Digest::MD5.hexdigest(str.to_s)[0..6]
-    end
   end
 end

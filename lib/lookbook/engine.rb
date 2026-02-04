@@ -16,7 +16,7 @@ module Lookbook
     end
 
     config.before_initialize do |app|
-      if Engine.listen_gem_available?
+      if Engine.evented_file_watcher?
         # Patch EventedFileUpdateChecker to get real-time update notifications
         ActiveSupport::EventedFileUpdateChecker::Core.prepend(UpdateCheckerPatch)
       end
@@ -37,8 +37,7 @@ module Lookbook
 
         Rails.application.reloaders << reloader
 
-        unless Engine.listen_gem_available? &&
-            Engine.file_watcher == ActiveSupport::EventedFileUpdateChecker
+        unless Engine.evented_file_watcher?
           # Using non-evented FileUpdateChecker
           Rails.application.config.to_prepare do
             Collection.each { _1.load! }
@@ -56,8 +55,6 @@ module Lookbook
     end
 
     class << self
-      def collections = Collection.all
-
       def files_changed(**changeset)
         changes = changeset.transform_values { |paths| paths.map { "\n→ #{_1}" } }
 
@@ -66,7 +63,7 @@ module Lookbook
         debug("files: removed #{changes[:removed].join}") if changes[:removed].any?
 
         changeset.values.inject(:+).each do |path|
-          collections.find { _1.contains?(path) }&.load!
+          Collection.find { _1.contains?(path) }&.load!
         end
 
         touch!
@@ -76,8 +73,9 @@ module Lookbook
 
       def updated_at = @updated_at ||= touch!
 
-      def listen_gem_available?
-        Gem.loaded_specs.has_key?("listen")
+      def evented_file_watcher?
+        Gem.loaded_specs.has_key?("listen") &&
+          Engine.file_watcher == ActiveSupport::EventedFileUpdateChecker
       end
 
       def reloading?

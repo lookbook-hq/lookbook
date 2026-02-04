@@ -1,0 +1,17 @@
+<%# locals: (collection: nil) %>
+
+<% if collection %>
+  <lb-sidebar label="<%= collection.label %>" icon="blocks" slot="sidebar">
+    <lb-nav activepath="<%= url_for %>" slot="nav" persist-as="nav.<%= collection.id %>">
+      <lb-data slot="items" format="json" id="<%= collection.id %>-data"><%== collection.resources.to_json %></lb-data>
+
+      <div slot="no-results">
+        There are no matches for your filter.
+      </div>
+
+      <lb-blankslate icon="layers-2" slot="blank-slate">
+        <p>It looks like you haven't created any items yet.</p>
+      </lb-blankslate>
+    </lb-nav>
+  </lb-sidebar>
+<% end %>

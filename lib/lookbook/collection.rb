@@ -79,7 +79,10 @@ module Lookbook
 
       def all = @collections ||= load_from_config
 
-      def find(id) = all.find { _1.to_param.to_s == id.to_s }
+      def find(id = nil, &block)
+        return super if block
+        all.find { _1.to_param.to_s == id.to_s }
+      end
 
       def watch_dirs = map { [_1.path.to_s, _1.watch_extensions] }.to_h
 

@@ -17,6 +17,15 @@
     <span><%= @scenario.label %></span>
   </lb-breadcrumb-nav>
 
+  <lb-viewport
+    id="preview"
+    persist-as="inspector.viewport"
+    src="<%= @scenario.preview_path(request.query_parameters) %>"
+    resize="both"
+    mode="toggle"
+    toolbar
+  ></lb-viewport>
+
   <lb-panel
     id="snippet-panel"
     name="snippet-panel"

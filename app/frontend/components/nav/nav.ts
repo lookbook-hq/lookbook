@@ -49,12 +49,8 @@ export class LookbookNav extends Persistable(LookbookElement) {
   }
 
   protected handleData(event: LookbookDataEvent) {
-    const items = event.detail.value || [];
-    if (Array.isArray(items)) {
-      this.allItems = items;
-    } else {
-      this.warn("Data provided to the `lb-nav` component must be an array");
-    }
+    const data = event.detail.value || [];
+    this.allItems = data.children || [];
   }
 
   protected handleCollapse(event: Event) {
