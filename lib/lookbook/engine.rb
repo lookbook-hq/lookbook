@@ -32,23 +32,13 @@ module Lookbook
 
     initializer "lookbook.file_watchers" do |app|
       if Engine.reloading?
-        dirs = Collection.watch_dirs
-        reloader = Engine.file_watcher.new([], dirs) {}
-
-        Rails.application.reloaders << reloader
-
-        unless Engine.evented_file_watcher?
-          # Using non-evented FileUpdateChecker
-          Rails.application.config.to_prepare do
-            Collection.each { _1.load! }
-          end
-        end
+        Rails.application.reloaders << Engine.reloader
       end
     end
 
     config.after_initialize do
       if Engine.enabled?
-        info("Lookbook is ready ✓")
+        info("Lookbook is running ✓")
       else
         debug("Lookbook is loaded but not enabled in this environment (#{Rails.env}).")
       end
@@ -62,20 +52,18 @@ module Lookbook
         debug("files: added #{changes[:added].join}") if changes[:added].any?
         debug("files: removed #{changes[:removed].join}") if changes[:removed].any?
 
-        changeset.values.inject(:+).each do |path|
-          Collection.find { _1.contains?(path) }&.load!
-        end
-
-        touch!
+        reloader.execute_if_updated
+        @updated_at = DateTime.now
       end
 
-      def touch! = @updated_at = DateTime.now
+      def updated_at = @updated_at ||= DateTime.now
 
-      def updated_at = @updated_at ||= touch!
+      def reloader
+        @reloader ||= Reloader.new(Collection.watch_dirs) { Collection.each(&:load!) }
+      end
 
       def evented_file_watcher?
-        Gem.loaded_specs.has_key?("listen") &&
-          Engine.file_watcher == ActiveSupport::EventedFileUpdateChecker
+        Gem.loaded_specs.has_key?("listen") && file_watcher == ActiveSupport::EventedFileUpdateChecker
       end
 
       def reloading?

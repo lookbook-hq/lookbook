@@ -1,4 +1,4 @@
-class Elements::ButtonComponentPreview < ViewComponent::Preview
+class Elements::ButtonComponentPreview < Lookbook::Preview
   # Button playground
   # -----------------------
   # You can use the controls in the 'Params' section

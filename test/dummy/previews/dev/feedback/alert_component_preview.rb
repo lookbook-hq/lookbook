@@ -1,4 +1,4 @@
-class Feedback::AlertComponentPreview < ViewComponent::Preview
+class Feedback::AlertComponentPreview < Lookbook::Preview
   # Warning alert
   # --------------
   # Used to notify users about some potentially hard-to-undo consequences to an action.

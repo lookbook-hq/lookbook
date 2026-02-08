@@ -1,4 +1,4 @@
-class SingleUnannotatedScenarioPreview < ViewComponent::Preview
+class SingleUnannotatedScenarioPreview < Lookbook::Preview
   def default
     render ViewComponents::ParagraphComponent.new do
       "standard component content"

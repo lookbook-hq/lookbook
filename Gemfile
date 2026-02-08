@@ -15,6 +15,8 @@ gem "yard-activesupport-concern"
 gem "listen"
 gem "view_component"
 
+gem "overmind"
+
 gem "pretty_please"
 gem "puts_debuggerer"
 

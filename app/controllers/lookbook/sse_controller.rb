@@ -40,14 +40,14 @@ module Lookbook
     private
 
     def trigger_background_loop(message_queue)
+      last_update_event_sent = Engine.updated_at
       Thread.new do
-        last_update_event_sent = Engine.updated_at
         loop do
           if last_update_event_sent.before?(Engine.updated_at)
             message_queue.push({type: "update", updated_at: Engine.updated_at})
             last_update_event_sent = Engine.updated_at
           end
-          sleep 0.1
+          sleep 0.2
         end
       end
     end

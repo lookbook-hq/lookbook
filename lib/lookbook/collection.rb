@@ -31,7 +31,13 @@ module Lookbook
     end
 
     def entities
-      @dirty ? load! : @entities ||= load!
+      load!
+      # @entities = if @entities
+      #   Booklet.update(@entities)
+      # else
+      #   Booklet.analyze(path)
+      # end
+      # @dirty ? load! : @entities ||= load!
     end
 
     def specs = resources.grep(Spec)
@@ -53,7 +59,7 @@ module Lookbook
       end
     end
 
-    def dirty! = @dirty = true
+    # def dirty! = @dirty = true
 
     def watch_extensions
       (ALWAYS_WATCH_EXTENSIONS + @watch_extensions).uniq
@@ -64,6 +70,13 @@ module Lookbook
       filepath = filepath.absolute? ? filepath : filepath.expand_path(Collection.root_path)
       filepath.to_s.start_with?("#{path}/")
     end
+
+    # def reloader
+    #   @reloader ||= begin
+    #     dirs = Hash[path.to_s, watch_extensions]
+    #     Engine.file_watcher.new([], dirs) { load! }
+    #   end
+    # end
 
     class << self
       include Enumerable

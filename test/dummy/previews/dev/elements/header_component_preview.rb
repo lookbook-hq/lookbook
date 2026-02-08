@@ -1,4 +1,4 @@
-class Elements::HeaderComponentPreview < ViewComponent::Preview
+class Elements::HeaderComponentPreview < Lookbook::Preview
   # You can edit the text for this example using
   # the field in the Params section.
   #

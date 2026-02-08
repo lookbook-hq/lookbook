@@ -1,4 +1,4 @@
-class WhitespaceSignificantComponentPreview < ViewComponent::Preview
+class WhitespaceSignificantComponentPreview < Lookbook::Preview
   def default
     render ViewComponents::WhitespaceSignificantComponent.new
   end

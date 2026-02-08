@@ -1,5 +1,5 @@
 # @id blankslate
-class Feedback::BlankSlateComponentPreview < ViewComponent::Preview
+class Feedback::BlankSlateComponentPreview < Lookbook::Preview
   # Another example with multiple editable preview params
   #
   # This example also sets uses a `@display` tag to

@@ -34,4 +34,20 @@
   >
     <lb-snippet id="source-snippet" numbered lint><%= @scenario.source %></lb-snippet>
   </lb-panel>
+
+  <lb-panel
+    id="result-panel"
+    name="result"
+    label="Result"
+    slot="drawer"
+  >
+    <lb-snippet
+      id="result-snippet"
+      lang="html"
+      numbered
+      lint
+    >
+      <%= raw_html(render @scenario) %>
+    </lb-snippet>
+  </lb-panel>
 </lb-inspector>

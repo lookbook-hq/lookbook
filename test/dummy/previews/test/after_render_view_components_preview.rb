@@ -1,5 +1,5 @@
 # @after_render :preview_after_render
-class AfterRenderViewComponentsPreview < ViewComponent::Preview
+class AfterRenderViewComponentsPreview < Lookbook::Preview
   def default
     render ViewComponents::ParagraphComponent.new do
       "default after render content"

@@ -1,6 +1,7 @@
 module Lookbook
   class ResourceNode < Booklet::Node
     include Lookbook::Engine.routes.url_helpers
+    include Lookbook::Engine.helpers
 
     prop :entity, Booklet::Node
 

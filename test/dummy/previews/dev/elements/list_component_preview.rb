@@ -1,5 +1,5 @@
 # @label Simple list
-class Elements::ListComponentPreview < ViewComponent::Preview
+class Elements::ListComponentPreview < Lookbook::Preview
   # This example uses the `with_content` helper to set inline content.
   #
   # You can read more about it in the ViewComponent [slots documentation](https://viewcomponent.org/guide/slots.html#with_content).

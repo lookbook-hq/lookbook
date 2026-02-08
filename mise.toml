@@ -1,6 +1,7 @@
 [tools]
 ruby = "3.2.0"
 node = "25.1.0"
+hivemind = "latest"
 
 [env]
 NODE_ENV = "development"
@@ -29,15 +30,7 @@ run = "bundle exec puma -t 5:5 -w 0 -p ${PORT:-3000} -e ${RACK_ENV:-development}
 
 [tasks.dev]
 description = "Start the dev app and rebuild assets on change"
-run = '''
-if ! foreman version &> /dev/null
-then
-  echo "Installing foreman..."
-  gem install foreman
-fi
-
-foreman start -f Procfile.dev -p ${1:-4242}
-'''
+run = "bin/overmind start -f Procfile.dev -p ${1:-4242}"
 alias = "default"
 
 [tasks.test]

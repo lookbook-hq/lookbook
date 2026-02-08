@@ -7,7 +7,7 @@
 # @renders ViewComponents::ParagraphComponent
 # @renders InlineComponent
 # @renders MadeUpComponent
-class AnnotatedPreviewPreview < ViewComponent::Preview
+class AnnotatedPreviewPreview < Lookbook::Preview
   # @id annotated-default
   # @label Annotated Example
   # @hidden

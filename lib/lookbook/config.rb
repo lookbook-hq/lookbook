@@ -9,7 +9,7 @@ module Lookbook
         Options.new(
           collections: {
             previews: {
-              path: "previews",
+              path: "previews/dev",
               watch_extensions: [".md"]
             },
             pages: {

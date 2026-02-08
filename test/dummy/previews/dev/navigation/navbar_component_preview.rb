@@ -1,4 +1,4 @@
-class Navigation::NavbarComponentPreview < ViewComponent::Preview
+class Navigation::NavbarComponentPreview < Lookbook::Preview
   # This example uses a [preview template](https://viewcomponent.org/guide/previews.html#preview-templates),
   # so the 'Source' tab will display the contents of the template file instead of the contents of the preview method.
   #

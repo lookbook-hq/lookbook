@@ -229,6 +229,11 @@ GEM
       racc (~> 1.4)
     nokogiri (1.19.0-x86_64-linux-musl)
       racc (~> 1.4)
+    overmind (2.5.1)
+    overmind (2.5.1-aarch64-linux)
+    overmind (2.5.1-arm-linux)
+    overmind (2.5.1-arm64-darwin)
+    overmind (2.5.1-x86_64-darwin)
     parallel (1.27.0)
     parser (3.3.10.1)
       ast (~> 2.4.1)
@@ -388,6 +393,7 @@ DEPENDENCIES
   lookbooklet!
   minitest-hooks
   minitest-reporters
+  overmind
   pretty_please
   propshaft
   puma
