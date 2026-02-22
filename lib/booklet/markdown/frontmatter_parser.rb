@@ -1,24 +1,26 @@
 # frozen_string_literal: true
 
 module Booklet
-  class FrontmatterParser < Booklet::Object
-    FRONTMATTER_REGEX = /\A---(.|\n)*?---/
+  module Markdown
+    class FrontmatterParser < Booklet::Object
+      FRONTMATTER_REGEX = /\A---(.|\n)*?---/
 
-    def parse(str)
-      [
-        FrontmatterParser.extract_frontmatter(str.to_s),
-        FrontmatterParser.strip_frontmatter(str.to_s)
-      ]
-    end
-
-    class << self
-      def extract_frontmatter(text)
-        matches = text.match(FRONTMATTER_REGEX)
-        matches ? YAML.safe_load(matches[0]).deep_symbolize_keys : {}
+      def parse(str)
+        [
+          FrontmatterParser.extract_frontmatter(str.to_s),
+          FrontmatterParser.strip_frontmatter(str.to_s)
+        ]
       end
 
-      def strip_frontmatter(text)
-        text.gsub(FRONTMATTER_REGEX, "").strip
+      class << self
+        def extract_frontmatter(text)
+          matches = text.match(FRONTMATTER_REGEX)
+          matches ? YAML.safe_load(matches[0]).deep_symbolize_keys : {}
+        end
+
+        def strip_frontmatter(text)
+          text.gsub(FRONTMATTER_REGEX, "").strip
+        end
       end
     end
   end

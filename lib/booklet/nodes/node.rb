@@ -17,8 +17,8 @@ module Booklet
     end
 
     def ref
-      @ref ||= object_id
-      # raise "Node#ref must be defined by subclasses"
+      # @ref ||= object_id
+      raise "Node#ref must be defined by subclasses"
     end
 
     def id = Helpers.hexdigest(tree_path { _1.ref })

@@ -3,7 +3,7 @@
 module Booklet
   class FrontmatterExtractor < Visitor
     after_initialize do
-      @parser = FrontmatterParser.new
+      @parser = Markdown::FrontmatterParser.new
     end
 
     visit PageNode do |page|

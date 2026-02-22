@@ -53,6 +53,14 @@ module Booklet
 
     delegate :to_html, to: :content_node
 
+    def display_options = Options.new(@display_options)
+
+    alias_method :spec, :parent
+
+    def render_in(view_context)
+      view_context.render(inline: to_html, page: {data:})
+    end
+
     protected def content_node
       children.grep(TextNode).first
     end

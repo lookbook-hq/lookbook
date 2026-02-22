@@ -9,8 +9,8 @@ module Booklet
   Loader = Zeitwerk::Loader.new
 
   Loader.push_dir("#{__dir__}/booklet", namespace: Booklet)
-  Loader.collapse("#{__dir__}/booklet/{content,issues,nodes,visitors,parsers}")
-  Loader.collapse("#{__dir__}/booklet/{content,issues,nodes,visitors,parsers}/*")
+  Loader.collapse("#{__dir__}/booklet/{content,issues,nodes,visitors}")
+  Loader.collapse("#{__dir__}/booklet/{content,issues,nodes,visitors}/*")
   Loader.collapse("#{__dir__}/booklet/yard/concerns")
   Loader.ignore("#{__dir__}/booklet/version.rb")
   Loader.inflector.inflect("yard" => "YARD")
@@ -54,7 +54,7 @@ module Booklet
     end
 
     def markdown
-      @markdown ||= Markdown.new
+      @markdown ||= Markdown::Processor.new
     end
 
     attr_writer :loader, :visitors, :validator_visitors, :spec_visitors, :page_visitors
