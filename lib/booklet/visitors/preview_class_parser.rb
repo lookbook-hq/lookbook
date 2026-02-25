@@ -54,17 +54,13 @@ module Booklet
       name = method_object.name
       preview_class_name = method_object.parent.path
 
-      scenario = ScenarioNode.new(name:) do |**params|
-        preview_class = preview_class_name.constantize
-        preview_class.new(self).public_send(name, **params)
-      end
-
-      scenario.tap do |scenario|
+      ScenarioNode.new(name:).tap do |scenario|
         scenario.group = method_object.group
 
         notes = method_object.docstring.strip_heredoc
         scenario << TextNode.new(notes) if notes.present?
 
+        # TODO: handle sidecar-style ERB template way of defining previews
         scenario << CodeNode.new(
           CodeNode.extract_method_body(method_object.source),
           lang: method_object.source_type,

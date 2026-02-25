@@ -10,7 +10,7 @@ module Booklet
     end
 
     visit do |node|
-      return node unless [".erb", ".herb"].include?(node.path.extname) && !visited?(node)
+      return node unless /.*\.(html\.erb|herb)$/.match?(node.path.extname) && !visited?(node)
 
       parse_result = Herb.parse_file(node.path.to_s)
       parse_result.warnings.each { node.add_warning(_1) }

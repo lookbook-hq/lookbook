@@ -13,7 +13,7 @@ module Booklet
 
       context "PageNode#contents" do
         should "return the page file contents as a string" do
-          assert_equal @file_contents, @page.contents
+          assert_equal @file_contents, @page.content
         end
       end
 

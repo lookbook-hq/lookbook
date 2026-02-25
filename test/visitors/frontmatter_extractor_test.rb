@@ -10,7 +10,7 @@ module Booklet
 
       context "PageNode#contents" do
         should "return the entire contents of the file" do
-          assert_equal File.read(@page_path).strip, @page.contents.strip
+          assert_equal File.read(@page_path).strip, @page.content.strip
         end
       end
     end
@@ -48,7 +48,7 @@ module Booklet
 
         context "PageNode#contents" do
           should "return the file contents without the frontmatter section" do
-            assert_equal "Page contents", @page.contents
+            assert_equal "Page contents", @page.content
           end
         end
       end

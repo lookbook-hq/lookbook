@@ -33,9 +33,9 @@ module Booklet
 
     def landing? = @landing
 
-    def contents = content_node&.to_s || ""
+    def content = content_node
 
-    def contents=(str)
+    def content=(str)
       if content_node.present?
         content_node.raw = str.to_s
       else
@@ -51,15 +51,23 @@ module Booklet
       end
     end
 
-    delegate :to_html, to: :content_node
-
     def display_options = Options.new(@display_options)
 
-    alias_method :spec, :parent
+    def call(view_context, **locals)
+      locals = {page: to_h}.deep_merge(locals)
 
-    def render_in(view_context)
-      view_context.render(inline: to_html, page: {data:})
+      markdown = content.transform do |content|
+        view_context.render(inline: content, locals:)
+      end
+
+      markdown.to_html
     end
+
+    def to_h
+      {name:, label:, data:}
+    end
+
+    alias_method :spec, :parent
 
     protected def content_node
       children.grep(TextNode).first
@@ -76,7 +84,7 @@ module Booklet
         contents = File.read(path)
 
         page = new(path:, name:, **props)
-        page.contents = contents
+        page.content = contents
         page
       end
     end

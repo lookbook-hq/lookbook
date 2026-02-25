@@ -6,7 +6,8 @@ module Booklet
 
     prop :params, _Array(Param), :positional, reader: :protected, default: -> { [] }
 
-    def to_values_hash(values)
+    def to_values_hash(values = {})
+      values = values.to_h.symbolize_keys
       @params.map do |param|
         key = param.name
         value = if values.key?(key)
@@ -19,10 +20,12 @@ module Booklet
       end.to_h
     end
 
-    def with_values(values_hash)
-      @params.map do |param|
-        values_hash.key?(param.name) ? param.with_value(values_hash[:key]) : param.deep_dup
+    def with_values(values = {})
+      values = values.to_h.symbolize_keys
+      params_with_values = @params.map do |param|
+        values.key?(param.name) ? param.with_value(values[:key]) : param.deep_dup
       end
+      self.class.new(params_with_values)
     end
 
     def update(name, props)

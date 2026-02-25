@@ -15,9 +15,9 @@ module Booklet
 
             group << CodeNode.new(combined_source, lang: :ruby) # TODO: handle mixed languages
 
-            group.renderer = lambda do |**params|
-              rendered_scenarios = scenarios.map { render(_1, **params).to_s.strip.html_safe }
-              safe_join(rendered_scenarios, "\n\n")
+            group.define_singleton_method(:call) do |view_context, **kwargs|
+              rendered_scenarios = scenarios.map { _1.call(view_context, **kwargs).to_s.strip.html_safe }
+              rendered_scenarios.join("\n\n")
             end
           end
 

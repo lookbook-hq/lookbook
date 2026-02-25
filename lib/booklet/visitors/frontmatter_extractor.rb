@@ -10,7 +10,7 @@ module Booklet
       return page if page.errors? || visited?(page)
 
       begin
-        frontmatter, contents = @parser.parse(page.contents)
+        frontmatter, contents = @parser.parse(page.content)
         frontmatter.each do |k, v|
           page.public_send("#{k}=", v)
         end
@@ -20,7 +20,7 @@ module Booklet
         page.add_error(error)
       end
 
-      page.contents = contents
+      page.content = contents
       page
     end
   end
