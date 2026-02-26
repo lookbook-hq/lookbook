@@ -15,6 +15,7 @@ module Booklet
     prop :value, _Nilable(_Any), writer: :protected
     prop :required, _Boolean, writer: :public, reader: :public, default: false
     prop :options, _Union(Hash, Proc), default: -> { {} }
+    prop :explicit, _Boolean, default: false, writer: :public
 
     def label
       @label ||= options.label || name.to_s.titleize
@@ -73,6 +74,10 @@ module Booklet
     end
 
     def required? = !!@required
+
+    def explicit?
+      @explicit
+    end
 
     private def guess_control_type
       if @value_type == :boolean || (@value_type.nil? && Helpers.boolean?(value))

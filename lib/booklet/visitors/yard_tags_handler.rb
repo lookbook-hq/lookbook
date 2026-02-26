@@ -30,6 +30,7 @@ module Booklet
 
         tags.param_tags.each do |tag|
           param_data = tag.value
+          param_data[:explicit] = true
           if tag.options?
             param_data[:options] = proc do
               preview_class = preview_class_name.constantize.new
