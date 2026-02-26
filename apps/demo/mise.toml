@@ -1,0 +1,31 @@
+[tasks.dev]
+description = "Start the development server"
+run = "bin/dev"
+
+[tasks."restart"]
+description = "Restart all processes"
+run = "bundle exec overmind restart"
+
+[tasks."restart:web"]
+description = "Restart the Rails server"
+run = "bundle exec overmind restart web"
+
+[tasks."restart:js"]
+description = "Restart the JS build watcher"
+run = "bundle exec overmind restart js"
+
+[tasks."restart:css"]
+description = "Restart the CSS build watcher"
+run = "bundle exec overmind restart css"
+
+[tasks.server]
+description = "Start the Rails server (without JS/CSS watchers)"
+run = "bin/rails server"
+
+[tasks.console]
+description = "Start the Rails console"
+run = "bin/rails console"
+
+[tasks.setup]
+description = "Set up the application"
+run = "bin/setup --skip-server"
