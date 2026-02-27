@@ -6,10 +6,9 @@ ruby = "3.2"
 
 "npm:@herb-tools/formatter" = "latest"
 "npm:@herb-tools/linter" = "latest"
-pnpm = "latest"
 
 [monorepo]
-config_roots = ["apps/demo"]
+config_roots = ["apps/demo", "apps/dev"]
 
 [env]
 MISE_EXPERIMENTAL = 1
@@ -21,4 +20,8 @@ run = "mise //apps/demo:setup"
 
 [tasks.demo]
 description = "Start the demo app"
-run = "mise //apps/demo:dev"
+run = "mise //apps/demo:start"
+
+[tasks.dev]
+description = "Start the dev app"
+run = "mise //apps/dev:start"
