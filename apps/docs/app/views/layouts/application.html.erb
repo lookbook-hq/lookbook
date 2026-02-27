@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="application-name" content="Lookbook Dev">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <title><%= content_for(:title) || "Lookbook Docs" %></title>
+
+    <%= yield :head %>
+
+    <%= vite_client_tag %>
+    <%= vite_javascript_tag "application" %>
+  </head>
+
+  <body><%= yield %></body>
+</html>

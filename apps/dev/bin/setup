@@ -16,7 +16,7 @@ FileUtils.chdir APP_ROOT do
   system("bundle check") || system!("bundle install")
 
   # Install JavaScript dependencies
-  system("yarn install --check-files")
+  system!("npm install")
 
   puts "\n== Removing old logs and tempfiles =="
   system! "bin/rails log:clear tmp:clear"

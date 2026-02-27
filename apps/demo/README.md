@@ -1,3 +1,0 @@
-# Lookbook demo app
-
-WIP

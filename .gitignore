@@ -3,13 +3,17 @@
 /_yardoc/
 /tmp/
 /.ruby-lsp/
+/.zed/
+
+.overmind.sock
 
 /gems/**/*/pkg
+/gems/**/*/coverage
 
-# Rails apps
 /apps/**/node_modules/
 /apps/**/tmp/
 /apps/**/log/
 /apps/**/config/master.key
 /apps/**/app/assets/builds/
+/apps/**/public/vite/
 /apps/**/.bundle/

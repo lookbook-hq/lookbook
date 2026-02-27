@@ -1,0 +1,10 @@
+source "https://gem.coop"
+
+gemspec
+
+gem "puma"
+
+group :test do
+  gem "shoulda-context"
+  gem "simplecov", require: false
+end

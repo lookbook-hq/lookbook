@@ -8,7 +8,7 @@ ruby = "3.2"
 "npm:@herb-tools/linter" = "latest"
 
 [monorepo]
-config_roots = ["apps/demo", "apps/dev"]
+config_roots = ["apps/docs", "apps/dev", "gems/lookbook"]
 
 [env]
 MISE_EXPERIMENTAL = 1
@@ -16,12 +16,20 @@ _.path = ['{{config_root}}/node_modules/.bin'] # add node modules binaries to th
 
 [tasks.setup]
 description = "Run setup scripts for all packages"
-run = "mise //apps/demo:setup"
+run = ["bundle install", "mise //apps/...:setup"]
 
-[tasks.demo]
-description = "Start the demo app"
-run = "mise //apps/demo:start"
+[tasks.docs]
+description = "Start the docs/demo app"
+run = "mise //apps/docs:start"
 
 [tasks.dev]
 description = "Start the dev app"
 run = "mise //apps/dev:start"
+
+[tasks."lint:herb"]
+description = "Lint all ERB files in the monorepo"
+run = "herb-lint"
+
+[tasks.lint]
+description = "Lint all files in the monorepo"
+run = "mise lint:herb"

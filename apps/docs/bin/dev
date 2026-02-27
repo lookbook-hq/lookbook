@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+# Default to port 4444 if not specified
+export PORT="${PORT:-4444}"
+
+exec bundle exec overmind start -f Procfile.dev "$@"
