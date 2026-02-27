@@ -1,0 +1,9 @@
+{
+  "name": "lookbook-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Monorepo for Lookbook development",
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@10.30.3"
+}

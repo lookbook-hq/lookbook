@@ -5,3 +5,11 @@
 /.ruby-lsp/
 
 /gems/**/*/pkg
+
+# Rails apps
+/apps/**/node_modules/
+/apps/**/tmp/
+/apps/**/log/
+/apps/**/config/master.key
+/apps/**/app/assets/builds/
+/apps/**/.bundle/

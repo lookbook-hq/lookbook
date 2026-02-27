@@ -1,3 +1,7 @@
+[tasks.setup]
+description = "Install dependencies and initial setup tasks"
+run = "bin/setup --skip-server"
+
 [tasks.dev]
 description = "Start the development server"
 run = "bin/dev"
@@ -25,7 +29,3 @@ run = "bin/rails server"
 [tasks.console]
 description = "Start the Rails console"
 run = "bin/rails console"
-
-[tasks.setup]
-description = "Set up the application"
-run = "bin/setup --skip-server"

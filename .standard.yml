@@ -1,0 +1,4 @@
+ruby_version: 3.2
+
+Style/HashConversion:
+  Enabled: false
