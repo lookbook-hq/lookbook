@@ -7,13 +7,15 @@
 
 .overmind.sock
 
-/gems/**/*/pkg
-/gems/**/*/coverage
-
 /apps/**/node_modules/
 /apps/**/tmp/
 /apps/**/log/
 /apps/**/config/master.key
 /apps/**/app/assets/builds/
 /apps/**/public/vite/
-/apps/**/.bundle/
+
+/gems/**/node_modules/
+/gems/**/tmp/
+/gems/**/log/
+/gems/**/pkg/
+/gems/**/coverage/

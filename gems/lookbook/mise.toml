@@ -1,0 +1,23 @@
+[tasks.install]
+description = "Install dependencies"
+run = "bundle install && npm install"
+
+[tasks."assets:watch"]
+description = "Rebuild assets when changed"
+run = "./node_modules/.bin/vite build --watch"
+
+[tasks."assets:build"]
+description = "Build assets for production"
+run = "./node_modules/.bin/vite build"
+
+
+
+
+
+# "assets:shiki": "node ./scripts/generate-shiki-bundle.js",
+# "assets:dev": "vite build --watch",
+# "assets:build": "vite build",
+# "lint:fix": "bundle exec standardrb --fix && prettier --write .",
+# "release": "release-it --verbose",
+# "release:dry-run": "release-it --dry-run --verbose",
+# "prepare": "husky"

@@ -16,7 +16,7 @@ _.path = ['{{config_root}}/node_modules/.bin'] # add node modules binaries to th
 
 [tasks.setup]
 description = "Run setup scripts for all packages"
-run = ["bundle install", "mise //apps/...:setup"]
+run = ["bundle install", "mise //apps/...:setup", "mise //gems/...:setup"]
 
 [tasks.docs]
 description = "Start the docs/demo app"

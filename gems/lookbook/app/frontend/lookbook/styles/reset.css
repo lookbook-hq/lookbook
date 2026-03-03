@@ -1,0 +1,160 @@
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+:root {
+  overscroll-behavior: none;
+  interpolate-size: allow-keywords;
+}
+
+html {
+  tab-size: 2;
+
+  user-select: none;
+  box-sizing: border-box;
+
+  font-family: var(--lookbook-font-family-ui);
+  line-height: 1.1;
+  font-size: var(--lookbook-font-size-base);
+
+  background-color: var(--lookbook-bg);
+  color: var(--lookbook-fg);
+
+  scrollbar-color: var(--lookbook-scrollbar-fg) var(--lookbook-scrollbar-bg);
+  scrollbar-width: thin;
+
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  font-size: var(--lookbook-font-size-base);
+  font-stretch: 110%;
+  font-weight: 400;
+}
+
+a {
+  text-decoration: none;
+  color: currentColor;
+}
+
+b {
+  font-weight: 400;
+}
+
+em,
+i {
+  font-style: normal;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: var(--lookbook-focus-ring-size) solid var(--lookbook-focus-ring-color);
+  outline-offset: -2px;
+  /*box-shadow: inset 0 0 0 var(--lookbook-focus-ring-size) var(--lookbook-focus-ring-color);*/
+}
+
+button {
+  appearance: none;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  text-align: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  margin: 0;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+input,
+textarea,
+fieldset {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+input:focus-visible {
+  outline: none;
+  /*outline: var(--lookbook-focus-ring-size) solid var(--lookbook-focus-ring-color);*/
+  box-shadow: 0 0 0 var(--lookbook-focus-ring-size) var(--lookbook-focus-ring-color);
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  appearance: none;
+}
+
+svg {
+  display: block;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+pre {
+  padding: 0;
+  margin: 0;
+}
+
+output {
+  display: block;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+::selection {
+  background-color: var(--lookbook-selection-bg);
+  color: var(--lookbook-selection-fg);
+  text-shadow: none !important;
+}
+
+body {
+  box-sizing: border-box;
+  height: 100vh;
+  height: 100dvh;
+}
+
+#root {
+  display: contents;
+}
+
+.light,
+.light-theme,
+.dark,
+.dark-theme {
+  background-color: var(--lookbook-bg);
+  color: var(--lookbook-fg);
+}

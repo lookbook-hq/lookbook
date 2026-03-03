@@ -1,0 +1,9 @@
+test/
+node_modules/
+*.rb
+*.md
+*.html
+*.html.erb
+pkg/
+.ruby-lsp/
+dist/

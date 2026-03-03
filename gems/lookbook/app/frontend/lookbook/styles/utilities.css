@@ -1,0 +1,48 @@
+.surface {
+  background-color: var(--lookbook-surface-bg);
+  color: var(--lookbook-surface-fg);
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0px;
+    pointer-events: none;
+    border: 1px solid var(--lookbook-surface-border);
+  }
+}
+
+.highlight {
+  position: relative;
+
+  span {
+    position: relative;
+    display: inline-flex;
+    z-index: 2;
+  }
+
+  &::before {
+    content: "";
+    display: block;
+    background-color: var(--lookbook-marker-bg);
+    position: absolute;
+    z-index: 1;
+    inset: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+  }
+}
+
+.caps {
+  text-transform: uppercase;
+  letter-spacing: 0.075em;
+}
+
+.vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}

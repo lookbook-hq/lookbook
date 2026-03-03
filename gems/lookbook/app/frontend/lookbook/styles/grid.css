@@ -1,0 +1,43 @@
+:root {
+  --grid-size: 18px;
+  --grid-marker-spacing: 18px;
+  --grid-offset: 0;
+
+  --grid-cell-size-1: calc((var(--grid-size) * 1));
+  --grid-cell-size-2: calc((var(--grid-size) * 2));
+  --grid-cell-size-3: calc((var(--grid-size) * 3));
+  --grid-cell-size-4: calc((var(--grid-size) * 4));
+  --grid-cell-size-5: calc((var(--grid-size) * 5));
+  --grid-cell-size-6: calc((var(--grid-size) * 6));
+  --grid-cell-size-7: calc((var(--grid-size) * 7));
+  --grid-cell-size-8: calc((var(--grid-size) * 8));
+  --grid-cell-size-9: calc((var(--grid-size) * 9));
+  --grid-cell-size-10: calc((var(--grid-size) * 10));
+  --grid-cell-size-11: calc((var(--grid-size) * 11));
+  --grid-cell-size-12: calc((var(--grid-size) * 12));
+  --grid-cell-size-13: calc((var(--grid-size) * 13));
+  --grid-cell-size-14: calc((var(--grid-size) * 14));
+  --grid-cell-size-15: calc((var(--grid-size) * 15));
+  --grid-cell-size-16: calc((var(--grid-size) * 16));
+
+  --grid-space-xs: calc(var(--grid-cell-size-1) / 3);
+  --grid-space-sm: calc(var(--grid-cell-size-1) / 2);
+  --grid-space: var(--grid-cell-size-1);
+}
+
+body {
+  background-size: calc(var(--grid-marker-spacing))
+    calc(var(--grid-marker-spacing));
+}
+
+body {
+  --bg-pos: calc(
+    ((var(--grid-marker-spacing) / 2) * -1) + (var(--grid-marker-spacing) / 2)
+  );
+  background-image: radial-gradient(
+    var(--lookbook-grid-dots) 1px,
+    transparent 1px
+  );
+  background-position: center center;
+  background-position: var(--bg-pos) var(--bg-pos);
+}

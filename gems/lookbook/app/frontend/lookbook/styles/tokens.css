@@ -1,0 +1,188 @@
+@import "@radix-ui/colors/teal.css";
+@import "@radix-ui/colors/teal-dark.css";
+@import "@radix-ui/colors/sage.css";
+@import "@radix-ui/colors/sage-dark.css";
+@import "@radix-ui/colors/orange.css";
+@import "@radix-ui/colors/orange-dark.css";
+@import "@radix-ui/colors/red.css";
+@import "@radix-ui/colors/red-dark.css";
+
+/* Base tokens */
+
+:root,
+.light,
+.light-theme,
+.dark,
+.dark-theme {
+  /* Colors */
+
+  --lookbook-fluro-yellow: #dcff00;
+  --lookbook-fluro-green: #9eed47;
+  --lookbook-fluro-pink: #fa3bf0;
+
+  --lookbook-brand-1: var(--teal-1);
+  --lookbook-brand-2: var(--teal-2);
+  --lookbook-brand-3: var(--teal-3);
+  --lookbook-brand-4: var(--teal-4);
+  --lookbook-brand-5: var(--teal-5);
+  --lookbook-brand-6: var(--teal-6);
+  --lookbook-brand-7: var(--teal-7);
+  --lookbook-brand-8: var(--teal-8);
+  --lookbook-brand-9: var(--teal-9);
+  --lookbook-brand-10: var(--teal-10);
+  --lookbook-brand-11: var(--teal-11);
+  --lookbook-brand-12: var(--teal-12);
+
+  --lookbook-neutral-1: var(--sage-1);
+  --lookbook-neutral-2: var(--sage-2);
+  --lookbook-neutral-3: var(--sage-3);
+  --lookbook-neutral-4: var(--sage-4);
+  --lookbook-neutral-5: var(--sage-5);
+  --lookbook-neutral-6: var(--sage-6);
+  --lookbook-neutral-7: var(--sage-7);
+  --lookbook-neutral-8: var(--sage-8);
+  --lookbook-neutral-9: var(--sage-9);
+  --lookbook-neutral-10: var(--sage-10);
+  --lookbook-neutral-11: var(--sage-11);
+  --lookbook-neutral-12: var(--sage-12);
+
+  --lookbook-warning-1: var(--orange-1);
+  --lookbook-warning-2: var(--orange-2);
+  --lookbook-warning-3: var(--orange-3);
+  --lookbook-warning-4: var(--orange-4);
+  --lookbook-warning-5: var(--orange-5);
+  --lookbook-warning-6: var(--orange-6);
+  --lookbook-warning-7: var(--orange-7);
+  --lookbook-warning-8: var(--orange-8);
+  --lookbook-warning-9: var(--orange-9);
+  --lookbook-warning-10: var(--orange-10);
+  --lookbook-warning-11: var(--orange-11);
+  --lookbook-warning-12: var(--orange-12);
+
+  --lookbook-error-1: var(--red-1);
+  --lookbook-error-2: var(--red-2);
+  --lookbook-error-3: var(--red-3);
+  --lookbook-error-4: var(--red-4);
+  --lookbook-error-5: var(--red-5);
+  --lookbook-error-6: var(--red-6);
+  --lookbook-error-7: var(--red-7);
+  --lookbook-error-8: var(--red-8);
+  --lookbook-error-9: var(--red-9);
+  --lookbook-error-10: var(--red-10);
+  --lookbook-error-11: var(--red-11);
+  --lookbook-error-12: var(--red-12);
+
+  --lookbook-brand-base: var(--lookbook-brand-1);
+  --lookbook-brand-bg-subtle: var(--lookbook-brand-2);
+  --lookbook-brand-bg: var(--lookbook-brand-3);
+  --lookbook-brand-bg-hover: var(--lookbook-brand-4);
+  --lookbook-brand-bg-active: var(--lookbook-brand-5);
+  --lookbook-brand-border-subtle: var(--lookbook-brand-6);
+  --lookbook-brand-border: var(--lookbook-brand-7);
+  --lookbook-brand-border-hover: var(--lookbook-brand-8);
+  --lookbook-brand-solid: var(--lookbook-brand-9);
+  --lookbook-brand-solid-hover: var(--lookbook-brand-10);
+  --lookbook-brand-text-muted: var(--lookbook-neutral-10);
+  --lookbook-brand-text: var(--lookbook-brand-11);
+  --lookbook-brand-text-contrast: var(--lookbook-brand-12);
+
+  --lookbook-neutral-base: var(--lookbook-neutral-1);
+  --lookbook-neutral-bg-subtle: var(--lookbook-neutral-2);
+  --lookbook-neutral-bg: var(--lookbook-neutral-3);
+  --lookbook-neutral-bg-hover: var(--lookbook-neutral-4);
+  --lookbook-neutral-bg-active: var(--lookbook-neutral-5);
+  --lookbook-neutral-border-subtle: var(--lookbook-neutral-6);
+  --lookbook-neutral-border: var(--lookbook-neutral-7);
+  --lookbook-neutral-border-hover: var(--lookbook-neutral-8);
+  --lookbook-neutral-solid: var(--lookbook-neutral-9);
+  --lookbook-neutral-solid-hover: var(--lookbook-neutral-10);
+  --lookbook-neutral-text-muted: var(--lookbook-neutral-10);
+  --lookbook-neutral-text: var(--lookbook-neutral-11);
+  --lookbook-neutral-text-contrast: var(--lookbook-neutral-12);
+
+  /* Size and space */
+
+  --lookbook-size-base-unit: 0.25rem;
+
+  --lookbook-size-1: calc(var(--lookbook-size-base-unit) * 1); /* 4px */
+  --lookbook-size-2: calc(var(--lookbook-size-base-unit) * 2); /* 8px */
+  --lookbook-size-3: calc(var(--lookbook-size-base-unit) * 3); /* 12px */
+  --lookbook-size-4: calc(var(--lookbook-size-base-unit) * 4); /* 16px */
+  --lookbook-size-5: calc(var(--lookbook-size-base-unit) * 5); /* 20px */
+  --lookbook-size-6: calc(var(--lookbook-size-base-unit) * 6); /* 24px */
+  --lookbook-size-7: calc(var(--lookbook-size-base-unit) * 7); /* 28px */
+  --lookbook-size-8: calc(var(--lookbook-size-base-unit) * 8); /* 32px */
+  --lookbook-size-9: calc(var(--lookbook-size-base-unit) * 9); /* 36px */
+  --lookbook-size-10: calc(var(--lookbook-size-base-unit) * 10); /* 40px */
+  --lookbook-size-11: calc(var(--lookbook-size-base-unit) * 11); /* 44px */
+  --lookbook-size-12: calc(var(--lookbook-size-base-unit) * 12); /* 48px */
+
+  --lookbook-size-xs: var(--lookbook-size-4); /* 16px */
+  --lookbook-size-sm: var(--lookbook-size-6); /* 24px */
+  --lookbook-size-md: var(--lookbook-size-8); /* 32px */
+  --lookbook-size-lg: var(--lookbook-size-10); /* 40px */
+  --lookbook-size-xl: var(--lookbook-size-12); /* 48px */
+
+  --lookbook-space-xs: var(--lookbook-size-1); /* 4px */
+  --lookbook-space-sm: var(--lookbook-size-2); /* 8px */
+  --lookbook-space-base: var(--lookbook-size-3); /* 12px */
+  --lookbook-space-md: var(--lookbook-size-4); /* 16px */
+  --lookbook-space-lg: var(--lookbook-size-5); /* 20px */
+
+  /* Typography */
+
+  --lookbook-font-family-sans: "Noto Sans Variable", system-ui, sans-serif;
+  --lookbook-font-family-mono: "Inconsolata Variable", ui-monospace, monospace;
+
+  --lookbook-font-size-2xs: calc(var(--lookbook-size-base-unit) * 2.75); /* 11px */
+  --lookbook-font-size-xs: calc(var(--lookbook-size-base-unit) * 3); /* 12px */
+  --lookbook-font-size-sm: calc(var(--lookbook-size-base-unit) * 3.5); /* 14px */
+  --lookbook-font-size-base: calc(var(--lookbook-size-base-unit) * 4); /* 16px */
+  --lookbook-font-size-md: calc(var(--lookbook-size-base-unit) * 4.5); /* 18px */
+  --lookbook-font-size-lg: calc(var(--lookbook-size-base-unit) * 5); /* 20px */
+
+  /* Icons */
+}
+
+/* Semantic tokens */
+
+:root {
+  --lookbook-font-family-ui: var(--lookbook-font-family-mono);
+  --lookbook-font-family-prose: var(--lookbook-font-family-sans);
+  --lookbook-font-family-code: var(--lookbook-font-family-mono);
+
+  --lookbook-grid-spacing: var(--lookbook-size-6); /* 24px */
+  --lookbook-grid-gap: calc(var(--lookbook-grid-spacing) / 3); /* 8px */
+}
+
+:root,
+.light,
+.light-theme {
+  --lookbook-bg: var(--lookbook-neutral-bg-subtle);
+  --lookbook-fg: var(--lookbook-neutral-text-contrast);
+
+  --lookbook-divider-color: var(--lookbook-neutral-border-subtle);
+
+  --lookbook-surface-bg: var(--lookbook-neutral-base);
+  --lookbook-surface-fg: var(--lookbook-fg);
+  --lookbook-surface-border: var(--lookbook-divider-color);
+
+  --lookbook-splitter-handle-bg: transparent;
+  --lookbook-splitter-handle-bg-hover: transparent;
+
+  --lookbook-selection-bg: var(--accent);
+  --lookbook-selection-fg: var(--lookbook-fg);
+
+  --lookbook-scrollbar-bg: transparent;
+  --lookbook-scrollbar-fg: var(--lookbook-neutral-solid);
+
+  --lookbook-marker-bg: var(--lookbook-fluro-yellow);
+  --lookbook-marker-bg-alt: var(--lookbook-fluro-green);
+
+  --lookbook-focus-ring-size: 2px;
+  --lookbook-focus-ring-color: var(--lookbook-fluro-green);
+}
+
+.dark,
+.dark-theme {
+}
