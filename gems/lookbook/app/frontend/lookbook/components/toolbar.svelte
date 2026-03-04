@@ -16,19 +16,25 @@
 </div>
 
 <style>
-  [data-component="toolbar"] {
-    --toolbar-padding: var(--lookbook-space-base);
+  :global [data-component="toolbar"] {
+    --toolbar-height: var(--lookbook-size-lg);
+    --toolbar-padding: var(--lookbook-space-sm);
+    --toolbar-border-color: var(--lookbook-divider-color);
 
+    height: var(--toolbar-height);
     display: flex;
     align-items: center;
-    /*padding-inline: var(--toolbar-padding);*/
-    height: var(--lookbook-size-lg);
+
+    .label {
+      font-size: var(--lookbook-font-size-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
 
     [data-role="toolbar:start"],
     [data-role="toolbar:end"] {
       display: flex;
       align-items: center;
-      /*column-gap: var(--lookbook-space-xs);*/
     }
 
     [data-role="toolbar:start"] {
@@ -37,11 +43,12 @@
 
     [data-role="toolbar:end"] {
       margin-left: auto;
+    }
 
-      /*:global .button {
-        position: relative;
-        left: var(--lookbook-space-xs);
-      }*/
+    [data-component="button-group"] + [data-component="button-group"] {
+      border-inline-start: 1px solid var(--toolbar-border-color);
+      padding-inline-start: var(--toolbar-padding);
+      margin-inline-start: var(--toolbar-padding);
     }
   }
 </style>

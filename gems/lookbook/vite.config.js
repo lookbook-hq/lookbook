@@ -7,33 +7,33 @@ export default defineConfig({
     alias: [
       {
         find: /^\@components\/(.*)$/,
-        replacement: resolve(
-          __dirname,
-          "app/frontend/lookbook/components/$1.svelte",
-        ),
+        replacement: resolve(__dirname, "app/frontend/lookbook/components/$1.svelte"),
       },
       {
         find: /^\@lib\/(.*)$/,
-        replacement: resolve(
-          __dirname,
-          "app/frontend/lookbook/lib/$1.svelte.js",
-        ),
+        replacement: resolve(__dirname, "app/frontend/lookbook/lib/$1.svelte.js"),
       },
     ],
   },
   build: {
-    lib: {
-      entry: [
-        resolve(__dirname, "app/frontend/lookbook/entrypoints/ui.js"),
-        resolve(__dirname, "app/frontend/lookbook/entrypoints/ui-base.css"),
-      ],
-      formats: ["es"],
+    root: "app/frontend/lookbook/entrypoints/",
+    rollupOptions: {
+      input: {
+        ui: "app/frontend/lookbook/entrypoints/ui.html",
+      },
+      output: {
+        entryFileNames: "lookbook-assets/[name]-[hash].js",
+        chunkFileNames: "lookbook-assets/[name]-[hash].js",
+        assetFileNames: "lookbook-assets/[name]-[hash].[ext]",
+      },
     },
+    outDir: "dist",
+    assetsDir: "lookbook-assets",
+    manifest: "manifest.json",
     cssCodeSplit: true,
     sourcemap: false,
     minify: false,
     cssMinify: true,
-    outDir: "dist/lookbook-assets",
   },
   plugins: [
     svelte({

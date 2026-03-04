@@ -2,7 +2,7 @@
   import { inertia } from "@inertiajs/svelte";
   import Icon from "@components/icon";
 
-  let { icon, children, href, size = "md" } = $props();
+  let { icon, children, href, size } = $props();
 </script>
 
 <svelte:element
@@ -21,7 +21,7 @@
 </svelte:element>
 
 <style>
-  [data-component="button"] {
+  :global [data-component="button"] {
     /*--button-border: var(--lookbook-neutral-5);
     --button-border-hover: var(--lookbook-brand-5);*/
     --button-padding: var(--lookbook-size-2);
@@ -40,7 +40,6 @@
     height: var(--button-height);
     background-color: var(--button-bg);
     color: var(--button-fg);
-    /*border: 1px solid var(--button-border);*/
     border-radius: 4px;
 
     transition:
@@ -51,19 +50,26 @@
       display: inline-flex;
       align-items: center;
       column-gap: var(--button-spacing);
-    }
-
-    &[data-size="md"] [data-role="button:content"] {
       margin: 0 -2px;
     }
 
-    &[data-size="lg"] [data-role="button:content"] {
-      margin: 0 -3px;
+    &[data-size="md"],
+    [data-component="button-group"][data-size="md"] & {
+      [data-role="button:content"] {
+        margin: 0 -2px;
+      }
+    }
+
+    &[data-size="lg"],
+    [data-component="button-group"][data-size="lg"] & {
+      [data-role="button:content"] {
+        margin: 0 -3px;
+      }
     }
 
     &:hover {
       background-color: var(--button-bg-hover);
-      color: var(--button-fg-hover);
+      color: color-mix(in oklab, var(--icon-stroke), black 50%);
     }
   }
 </style>

@@ -3,8 +3,8 @@
 
   const defaultProps = {
     size: 16,
-    strokeWidth: 1.5,
-    // absoluteStrokeWidth: true,
+    strokeWidth: 1,
+    absoluteStrokeWidth: true,
   };
 </script>
 
@@ -16,12 +16,13 @@
 
 <style>
   :global [data-component="icon"] {
-    --icon-size-sm: var(--lookbook-size-3);
-    --icon-size-md: var(--lookbook-size-4);
-    --icon-size-lg: calc((var(--lookbook-size-5) + var(--lookbook-size-4)) / 2);
+    --icon-size-sm: var(--lookbook-icon-size-sm);
+    --icon-size-md: var(--lookbook-icon-size-md);
+    --icon-size-lg: var(--lookbook-icon-size-lg);
 
     display: block;
     color: currentColor;
+    aspect-ratio: 1 / 1;
 
     svg {
       display: block;
@@ -31,18 +32,15 @@
     }
 
     &[data-size="sm"] {
-      width: var(--icon-size-sm);
-      height: var(--icon-size-sm);
+      width: var(--icon-size, var(--icon-size-sm));
     }
 
     &[data-size="md"] {
-      width: var(--icon-size-md);
-      height: var(--icon-size-md);
+      width: var(--icon-size, var(--icon-size-md));
     }
 
     &[data-size="lg"] {
-      width: var(--icon-size-lg);
-      height: var(--icon-size-lg);
+      width: var(--icon-size, var(--icon-size-lg));
     }
   }
 </style>

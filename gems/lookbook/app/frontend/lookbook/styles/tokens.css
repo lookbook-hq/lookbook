@@ -18,7 +18,7 @@
 
   --lookbook-fluro-yellow: #dcff00;
   --lookbook-fluro-green: #9eed47;
-  --lookbook-fluro-pink: #fa3bf0;
+  --lookbook-fluro-pink: color-mix(in oklab, #ff13f0 60%, transparent);
 
   --lookbook-brand-1: var(--teal-1);
   --lookbook-brand-2: var(--teal-2);
@@ -132,7 +132,7 @@
   /* Typography */
 
   --lookbook-font-family-sans: "Noto Sans Variable", system-ui, sans-serif;
-  --lookbook-font-family-mono: "Inconsolata Variable", ui-monospace, monospace;
+  --lookbook-font-family-mono: "Ioskeley Mono", ui-monospace, monospace;
 
   --lookbook-font-size-2xs: calc(var(--lookbook-size-base-unit) * 2.75); /* 11px */
   --lookbook-font-size-xs: calc(var(--lookbook-size-base-unit) * 3); /* 12px */
@@ -142,13 +142,17 @@
   --lookbook-font-size-lg: calc(var(--lookbook-size-base-unit) * 5); /* 20px */
 
   /* Icons */
+
+  --lookbook-icon-size-sm: var(--lookbook-size-3);
+  --lookbook-icon-size-md: var(--lookbook-size-4);
+  --lookbook-icon-size-lg: calc((var(--lookbook-size-5) + var(--lookbook-size-4)) / 2);
 }
 
 /* Semantic tokens */
 
 :root {
   --lookbook-font-family-ui: var(--lookbook-font-family-mono);
-  --lookbook-font-family-prose: var(--lookbook-font-family-sans);
+  --lookbook-font-family-prose: var(--lookbook-font-family-mono);
   --lookbook-font-family-code: var(--lookbook-font-family-mono);
 
   --lookbook-grid-spacing: var(--lookbook-size-6); /* 24px */
@@ -176,8 +180,9 @@
   --lookbook-scrollbar-bg: transparent;
   --lookbook-scrollbar-fg: var(--lookbook-neutral-solid);
 
-  --lookbook-marker-bg: var(--lookbook-fluro-yellow);
-  --lookbook-marker-bg-alt: var(--lookbook-fluro-green);
+  --lookbook-marker-bg-yellow: var(--lookbook-fluro-yellow);
+  --lookbook-marker-bg-green: var(--lookbook-fluro-green);
+  --lookbook-marker-bg-pink: var(--lookbook-fluro-pink);
 
   --lookbook-focus-ring-size: 2px;
   --lookbook-focus-ring-color: var(--lookbook-fluro-green);

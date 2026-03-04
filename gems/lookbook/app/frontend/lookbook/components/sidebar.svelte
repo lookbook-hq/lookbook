@@ -1,7 +1,7 @@
 <script>
   import { PersistedState } from "runed";
   import { Link } from "@inertiajs/svelte";
-  import { FunnelIcon } from "lucide-svelte";
+  import { ListFilterIcon } from "lucide-svelte";
   import Toolbar from "@components/toolbar";
   import Button from "@components/button";
   import Splitter from "@components/splitter";
@@ -36,12 +36,12 @@
         <header data-role="sidebar:section-header">
           <Toolbar>
             {#snippet start()}
-              <h3 data-role="sidebar:section-label">
+              <h3 data-role="sidebar:section-label" class="label">
                 <Link href={collection.href}>{collection.label}</Link>
               </h3>
             {/snippet}
             {#snippet end()}
-              <Button icon={FunnelIcon}></Button>
+              <Button icon={ListFilterIcon}></Button>
             {/snippet}
           </Toolbar>
         </header>
@@ -88,7 +88,7 @@
     }
 
     [data-role="sidebar:section-label"] {
-      font-size: var(--lookbook-font-size-sm);
+      font-size: 13px;
     }
 
     [data-role="sidebar:section-content"] {

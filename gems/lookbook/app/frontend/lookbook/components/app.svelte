@@ -56,7 +56,7 @@
   <Header {lookbook} {project}></Header>
 
   <div data-role="app:body">
-    <Splitter id="app-layout" panels={[{ id: "sidebar" }, { id: "main" }]} defaultSize={[20, 80]}>
+    <Splitter id="app-layout" panels={[{ id: "sidebar" }, { id: "main" }]} defaultSize={[30, 70]}>
       {#snippet sidebar()}
         <div data-role="app:sidebar">
           <Sidebar {collections} />
@@ -84,11 +84,9 @@
 
     position: relative;
     height: calc(100dvh);
-    /*padding: var(--lookbook-grid-gap) var(--lookbook-grid-gap) 0 var(--lookbook-grid-gap);*/
 
     display: grid;
     grid-template-rows: min-content 1fr min-content;
-    /*row-gap: var(--lookbook-grid-gap);*/
     overflow: hidden;
 
     background-image: radial-gradient(var(--app-grid-marker-fill) 1px, transparent 1px);
@@ -100,6 +98,11 @@
     [data-role="app:sidebar"] {
       height: 100%;
       overflow: hidden;
+    }
+
+    [data-role="app:main"] {
+      padding-inline-end: var(--lookbook-grid-gap);
+      padding-block-end: var(--lookbook-grid-gap);
     }
 
     [data-role="app:footer"] {

@@ -73,7 +73,6 @@
 
     [data-role="statusbar:label"] {
       color: var(--statusbar-fg);
-      letter-spacing: 0.075em;
       transition: color 150ms ease-in;
 
       &:hover {
@@ -82,7 +81,6 @@
     }
 
     [data-role="statusbar:version"] {
-      letter-spacing: 0;
       font-style: regular;
     }
   }

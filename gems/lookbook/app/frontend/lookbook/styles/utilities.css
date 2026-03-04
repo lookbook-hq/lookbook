@@ -13,6 +13,37 @@
   }*/
 }
 
+mark,
+.mark {
+  --marker-bg: var(--lookbook-marker-bg-yellow);
+  --marker-fg: color-mix(in oklab, var(--marker-bg), black 60%);
+
+  margin: 0 -0.5em 0 -0.4em;
+  padding: 0.1em 0.5em 0.1em 0.4em;
+  border-radius: 0.6em 0.3em;
+  color: var(--marker-fg);
+
+  background-color: transparent;
+  background-image: linear-gradient(
+    to right,
+    var(--marker-bg) 50%,
+    color-mix(in oklab, var(--marker-bg) 40%, transparent) 100%
+  );
+
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.mark.green,
+mark.green {
+  --marker-bg: var(--lookbook-marker-bg-green);
+}
+
+.mark.pink,
+mark.pink {
+  --marker-bg: var(--lookbook-marker-bg-pink);
+}
+
 .highlight {
   position: relative;
 
@@ -32,11 +63,6 @@
     width: calc(100% + 2px);
     height: calc(100% + 2px);
   }
-}
-
-.caps {
-  text-transform: uppercase;
-  letter-spacing: 0.075em;
 }
 
 .vh {

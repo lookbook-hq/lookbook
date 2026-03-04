@@ -1,6 +1,7 @@
 <script>
   import Toolbar from "@components/toolbar";
   import Button from "@components/button";
+  import ButtonGroup from "@components/button-group";
   import Splitter from "@components/splitter";
   import { PanelBottomCloseIcon, PanelRightCloseIcon } from "lucide-svelte";
 
@@ -11,18 +12,28 @@
   <div data-role="inspector:toolbar">
     <Toolbar>
       {#snippet start()}
-        <h4 data-role="inspector:breadcrumb">Elements / Button / Themes</h4>
+        <h4 data-role="inspector:breadcrumb" class="label">Elements / Button / Themes</h4>
       {/snippet}
       {#snippet end()}
-        <Button icon={PanelBottomCloseIcon} size="lg"></Button>
-        <Button icon={PanelRightCloseIcon} size="lg"></Button>
+        <ButtonGroup size="lg">
+          <Button icon={PanelBottomCloseIcon}></Button>
+          <Button icon={PanelRightCloseIcon}></Button>
+        </ButtonGroup>
       {/snippet}
     </Toolbar>
   </div>
   <div data-role="inspector:panels">
-    <Splitter panels={[{ id: "top" }, { id: "bottom" }]} orientation="vertical">
+    <Splitter
+      panels={[{ id: "top" }, { id: "bottom" }]}
+      orientation="vertical"
+      defaultSize={[65, 35]}
+    >
       {#snippet top()}
-        <Splitter panels={[{ id: "start" }, { id: "end" }]} orientation="horizontal">
+        <Splitter
+          panels={[{ id: "start" }, { id: "end" }]}
+          orientation="horizontal"
+          defaultSize={[70, 30]}
+        >
           {#snippet start()}
             <div data-role="inspector:panel">start</div>
           {/snippet}
@@ -32,7 +43,7 @@
         </Splitter>
       {/snippet}
       {#snippet bottom()}
-        <div data-role="inspector:panel" style:border-bottom="0">bottom</div>
+        <div data-role="inspector:panel">bottom</div>
       {/snippet}
     </Splitter>
   </div>
@@ -40,38 +51,39 @@
 
 <style>
   :global [data-component="inspector"] {
-    --inspector-padding: var(--lookbook-space-base);
-    --inspector-bg: var(--lookbook-surface-bg);
-    --inspector-fg: var(--lookbook-surface-fg);
-    --inspector-border-color: var(--lookbook-divider-color);
+    --inspector-panel-padding: var(--lookbook-space-base);
+    --inspector-panel-bg: var(--lookbook-surface-bg);
+    --inspector-panel-fg: var(--lookbook-surface-fg);
+    --inspector-panel-font-size: var(--lookbook-font-size-sm);
+    --inspector-panel-border-color: var(--lookbook-divider-color);
 
     display: grid;
     grid-template-rows: min-content 1fr;
     height: 100%;
     overflow: hidden;
+    font-size: var(--inspector-panel-font-size);
 
     [data-role="inspector:toolbar"] {
-      /*background-color: var(--lookbook-neutral-base);
-      padding-inline: var(--lookbook-space-sm) var(--lookbook-space-xs);*/
+      padding-inline-start: var(--lookbook-space-sm);
+      font-size: var(--lookbook-font-size-xs);
 
-      /*&::before {
-        border: none !important;
-      }*/
+      [data-role="toolbar:end"] {
+        background-color: var(--lookbook-neutral-bg-subtle);
+        box-shadow: 0px 0px 4px 6px var(--lookbook-neutral-bg-subtle);
+      }
     }
 
     [data-role="inspector:breadcrumb"] {
       display: inline-block;
-      padding-block: var(--lookbook-space-xs);
-      padding-inline: var(--lookbook-space-sm);
       background-color: var(--lookbook-neutral-bg-subtle);
-      font-size: var(--lookbook-font-size-sm);
+      box-shadow: 0px 0px 4px 12px var(--lookbook-neutral-bg-subtle);
     }
 
     [data-role="inspector:panel"] {
-      padding: var(--inspector-padding);
-      background-color: var(--inspector-bg);
-      color: var(--inspector-fg);
-      border: 1px solid var(--inspector-border-color);
+      padding: var(--inspector-panel-padding);
+      background-color: var(--inspector-panel-bg);
+      color: var(--inspector-panel-fg);
+      border: 1px solid var(--inspector-panel-border-color);
       height: 100%;
     }
   }

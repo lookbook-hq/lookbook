@@ -1,0 +1,38 @@
+{
+  "app/frontend/lookbook/entrypoints/ui.html": {
+    "file": "lookbook-assets/ui-dlsD6XBf.js",
+    "name": "ui",
+    "src": "app/frontend/lookbook/entrypoints/ui.html",
+    "isEntry": true,
+    "css": [
+      "lookbook-assets/ui-DBUQDwU5.css"
+    ],
+    "assets": [
+      "lookbook-assets/IoskeleyMono-Light-Dg6YjsQm.woff2",
+      "lookbook-assets/IoskeleyMono-Regular-JA3dZcqS.woff2",
+      "lookbook-assets/IoskeleyMono-Italic-i-aO1vxV.woff2",
+      "lookbook-assets/IoskeleyMono-SemiBold-Dr3G0F4x.woff2",
+      "lookbook-assets/IoskeleyMono-Bold-CK_jJbP9.woff2"
+    ]
+  },
+  "app/frontend/lookbook/fonts/IoskeleyMono-Bold.woff2": {
+    "file": "lookbook-assets/IoskeleyMono-Bold-CK_jJbP9.woff2",
+    "src": "app/frontend/lookbook/fonts/IoskeleyMono-Bold.woff2"
+  },
+  "app/frontend/lookbook/fonts/IoskeleyMono-Italic.woff2": {
+    "file": "lookbook-assets/IoskeleyMono-Italic-i-aO1vxV.woff2",
+    "src": "app/frontend/lookbook/fonts/IoskeleyMono-Italic.woff2"
+  },
+  "app/frontend/lookbook/fonts/IoskeleyMono-Light.woff2": {
+    "file": "lookbook-assets/IoskeleyMono-Light-Dg6YjsQm.woff2",
+    "src": "app/frontend/lookbook/fonts/IoskeleyMono-Light.woff2"
+  },
+  "app/frontend/lookbook/fonts/IoskeleyMono-Regular.woff2": {
+    "file": "lookbook-assets/IoskeleyMono-Regular-JA3dZcqS.woff2",
+    "src": "app/frontend/lookbook/fonts/IoskeleyMono-Regular.woff2"
+  },
+  "app/frontend/lookbook/fonts/IoskeleyMono-SemiBold.woff2": {
+    "file": "lookbook-assets/IoskeleyMono-SemiBold-Dr3G0F4x.woff2",
+    "src": "app/frontend/lookbook/fonts/IoskeleyMono-SemiBold.woff2"
+  }
+}

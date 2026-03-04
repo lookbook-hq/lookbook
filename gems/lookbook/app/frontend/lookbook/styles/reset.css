@@ -16,8 +16,8 @@ html {
   box-sizing: border-box;
 
   font-family: var(--lookbook-font-family-ui);
-  line-height: 1.1;
   font-size: var(--lookbook-font-size-base);
+  line-height: 1.1;
 
   background-color: var(--lookbook-bg);
   color: var(--lookbook-fg);
@@ -49,7 +49,6 @@ h6,
 p {
   margin: 0;
   font-size: var(--lookbook-font-size-base);
-  font-stretch: 110%;
   font-weight: 400;
 }
 

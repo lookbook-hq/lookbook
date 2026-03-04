@@ -5,8 +5,8 @@
 </script>
 
 <header data-component="header">
-  <Link href={lookbook.urlPath} class="highlight branding caps">
-    <span data-role="header:branding">{project.name}</span>
+  <Link href={lookbook.urlPath} class="mark green" data-role="header:branding">
+    <span>{project.name}</span>
   </Link>
 </header>
 
@@ -36,6 +36,8 @@
       font-size: var(--header-branding-font-size);
       font-weight: 500;
       display: inline-flex;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
   }
 </style>
