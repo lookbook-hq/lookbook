@@ -7,7 +7,15 @@
   import Splitter from "@components/splitter";
   import { ServerEventsListener } from "@lib/sse-listener";
 
-  let { request, project, lookbook, collections, children, collectionId = null, resourceId = null } = $props();
+  let {
+    request,
+    project,
+    lookbook,
+    collections,
+    children,
+    collectionId = null,
+    resourceId = null,
+  } = $props();
 
   const current = $derived.by(() => {
     return {
@@ -72,18 +80,15 @@
   #app {
     --app-grid-marker-fill: var(--lookbook-neutral-8);
     --app-grid-marker-spacing: var(--lookbook-grid-spacing);
-    --app-grid-marker-offset: calc(
-      (((var(--app-grid-marker-spacing) / 2) * -1)) /* offset back to edge of window */ + var(--lookbook-grid-gap)
-        /* push in align with padded box */
-    );
+    --app-grid-marker-offset: calc((var(--app-grid-marker-spacing) / 2) * -1);
 
     position: relative;
     height: calc(100dvh);
-    padding: var(--lookbook-grid-gap) var(--lookbook-grid-gap) 0 var(--lookbook-grid-gap);
+    /*padding: var(--lookbook-grid-gap) var(--lookbook-grid-gap) 0 var(--lookbook-grid-gap);*/
 
     display: grid;
     grid-template-rows: min-content 1fr min-content;
-    row-gap: var(--lookbook-grid-gap);
+    /*row-gap: var(--lookbook-grid-gap);*/
     overflow: hidden;
 
     background-image: radial-gradient(var(--app-grid-marker-fill) 1px, transparent 1px);

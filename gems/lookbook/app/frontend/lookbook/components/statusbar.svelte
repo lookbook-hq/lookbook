@@ -27,19 +27,33 @@
     </Popover> -->
   </div>
   <div data-role="statusbar:section statusbar:section-end">
-    <span data-role="statusbar:label">LOOKBOOK_v<em data-role="statusbar:version">{lookbook.version}</em></span>
+    <span data-role="statusbar:label"
+      >LOOKBOOK_v<em data-role="statusbar:version">{lookbook.version}</em></span
+    >
   </div>
 </footer>
 
 <style>
   [data-component="statusbar"] {
-    --lookbook-statusbar-fg: var(--lookbook-neutral-text-muted);
-    --lookbook-statusbar-fg-hover: var(--lookbook-brand-text-contrast);
+    --statusbar-height: var(--lookbook-size-xl);
+    --statusbar-branding-font-size: var(--lookbook-font-size-base);
+    --statusbar-padding: var(--lookbook-space-base);
+    --statusbar-bg: var(--lookbook-surface-bg);
+    --statusbar-fg: var(--lookbook-neutral-text-muted);
+    --statusbar-fg-hover: var(--lookbook-neutral-text-contrast);
+    --statusbar-border-color: var(--lookbook-divider-color);
+
+    background-color: var(--statusbar-bg);
+    color: var(--statusbar-fg);
+    border-block-start: 1px solid var(--statusbar-border-color);
+    height: var(--statusbar-height);
+    padding: 0 var(--statusbar-padding);
 
     display: flex;
     align-items: center;
     column-gap: var(--lookbook-space-sm);
     height: var(--lookbook-size-md);
+    padding-inline: var(--statusbar-padding);
 
     font-size: var(--lookbook-font-size-xs);
 
@@ -58,12 +72,12 @@
     }
 
     [data-role="statusbar:label"] {
-      color: var(--lookbook-statusbar-fg);
+      color: var(--statusbar-fg);
       letter-spacing: 0.075em;
       transition: color 150ms ease-in;
 
       &:hover {
-        color: var(--lookbook-statusbar-fg-hover);
+        color: var(--statusbar-fg-hover);
       }
     }
 

@@ -1,63 +1,98 @@
 <script>
   import { PersistedState } from "runed";
   import { Link } from "@inertiajs/svelte";
-  import Accordion from "@components/accordion";
+  import { FunnelIcon } from "lucide-svelte";
+  import Toolbar from "@components/toolbar";
+  import Button from "@components/button";
+  import Splitter from "@components/splitter";
+  // import Icon from "@components/icon";
+
   // import { ChevronDownIcon } from "lucide-svelte";
   // import NavTree from "@components/nav-tree";
-
-  import Icon from "@components/icon";
 
   let { collections } = $props();
 
   // const sidebarState = new PersistedState(`sidebar`, {
   //   expandedSections: [],
   // });
+
+  // let panels = $derived.by(() =>
+  //   collections.map((collection) => ({ id: `collection-${collection.id}` }))
+  // );
 </script>
 
-<div data-component="sidebar" class="surface">
-  <Accordion items={collections}>
-    {#snippet itemLabel(collection)}
-      <div data-role="sidebar:section-label">{collection.label}</div>
-    {/snippet}
-    {#snippet itemContent(collection)}
-      <div>{collection.label} nav</div>
-    {/snippet}
-  </Accordion>
-</div>
-
-<!-- <Accordion.Root multiple bind:value={sidebarState.current.expandedSections}>
-    {#each collections as collection (collection.id)}
-      <Accordion.Item value={collection.id}>
-        <Accordion.ItemTrigger>
-          <Accordion.ItemIndicator>
-            <ChevronDownIcon />
-          </Accordion.ItemIndicator>
-          <span>{collection.label}</span>
-        </Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <section data-role="sidebar:section">
-            <h3 data-role="sidebar:section-title">
-              {collection.label}
-              <Link href={collection.href}>(link)</Link>
-            </h3>
-            <NavTree
+<div data-component="sidebar">
+  <Splitter
+    id="app-layout"
+    orientation="vertical"
+    defaultSize={collections.map((c) => 100 / collections.length)}
+    panels={collections}
+  >
+    {#snippet panel(collection)}
+      <section
+        data-role="sidebar:section"
+        style:border-top-width={collection === collections[0] ? "0" : "1px"}
+      >
+        <header data-role="sidebar:section-header">
+          <Toolbar>
+            {#snippet start()}
+              <h3 data-role="sidebar:section-label">
+                <Link href={collection.href}>{collection.label}</Link>
+              </h3>
+            {/snippet}
+            {#snippet end()}
+              <Button icon={FunnelIcon}></Button>
+            {/snippet}
+          </Toolbar>
+        </header>
+        <div data-role="sidebar:section-content">
+          tree nav
+          <!-- <NavTree
               id={collection.id}
               tree={collection.nav}
               data-scope="sidebar"
               data-part="nav-tree"
-            ></NavTree>
-          </section>
-        </Accordion.ItemContent>
-      </Accordion.Item>
-    {/each}
-  </Accordion.Root> -->
+            ></NavTree> -->
+        </div>
+      </section>
+    {/snippet}
+  </Splitter>
+</div>
 
 <style>
   :global [data-component="sidebar"] {
+    --sidebar-padding: var(--lookbook-space-base);
+    --sidebar-bg: var(--lookbook-surface-bg);
+    --sidebar-fg: var(--lookbook-surface-fg);
+    --sidebar-border-color: var(--lookbook-divider-color);
+
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-fg);
+    border-inline-end: 1px solid var(--sidebar-border-color);
+
     height: 100%;
     font-size: var(--lookbook-font-size-sm);
+    display: grid;
+    height: 100%;
+    grid-template-rows: auto;
+    row-gap: var(--lookbook-grid-gap);
 
     [data-role="sidebar:section"] {
+      height: 100%;
+      border-block-start: 0 solid var(--sidebar-border-color);
+    }
+
+    [data-role="sidebar:section-header"] {
+      border-block-end: 1px solid var(--lookbook-divider-color);
+      padding-inline: var(--lookbook-space-base) var(--lookbook-space-xs);
+    }
+
+    [data-role="sidebar:section-label"] {
+      font-size: var(--lookbook-font-size-sm);
+    }
+
+    [data-role="sidebar:section-content"] {
+      padding: var(--lookbook-space-base);
     }
   }
 </style>

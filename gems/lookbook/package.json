@@ -10,6 +10,7 @@
     "@ark-ui/svelte": "^5.16.0",
     "@fontsource-variable/inconsolata": "^5.2.8",
     "@fontsource-variable/noto-sans": "^5.2.10",
+    "@poppanator/sveltekit-svg": "^6.0.1",
     "@inertiajs/svelte": "^2.3.13",
     "@radix-ui/colors": "^3.0.0",
     "dompurify": "^3.3.1",

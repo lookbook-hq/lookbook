@@ -2,7 +2,14 @@
   import { Splitter } from "@ark-ui/svelte/splitter";
   import { PersistedState } from "runed";
 
-  let { id, defaultSize, panels, orientation = "horizontal", ...panelSnippets } = $props();
+  let {
+    id,
+    defaultSize,
+    panels,
+    panel = null,
+    orientation = "horizontal",
+    ...panelSnippets
+  } = $props();
 
   const createSplitterState = () =>
     new PersistedState(`splitter:${id}`, {
@@ -14,23 +21,24 @@
 </script>
 
 <div data-component="splitter">
-  <Splitter.Root
-    {defaultSize}
-    {panels}
-    bind:orientation={splitterState.current.orientation}
-    bind:size={splitterState.current.size}
-    data-role="splitter:root"
-  >
-    {#each panels as panel, index (panel)}
+  <Splitter.Root {defaultSize} {panels} {orientation} data-role="splitter:root">
+    <!-- bind:orientation={splitterState.current.orientation}
+    bind:size={splitterState.current.size} -->
+    {#each panels as panelData, index (panelData.id)}
       {#if index > 0}
         <Splitter.ResizeTrigger
-          id={`${panels[index - 1].id}:${panel.id}`}
+          id={`${panels[index - 1].id}:${panelData.id}`}
           aria-label="Resize"
           data-role="splitter:resize-trigger"
         ></Splitter.ResizeTrigger>
       {/if}
-      <Splitter.Panel id={panel.id} data-role="splitter:panel">
-        {@render panelSnippets[panel.id]?.()}
+      <Splitter.Panel id={panelData.id} data-role="splitter:panel">
+        {@const panelSnippet = panelSnippets[panelData.id]}
+        {#if panelSnippet}
+          {@render panelSnippet(panelData)}
+        {:else}
+          {@render panel(panelData)}
+        {/if}
       </Splitter.Panel>
     {/each}
   </Splitter.Root>
@@ -73,7 +81,7 @@
 
       &[data-orientation="vertical"] {
         width: 100%;
-        width: var(--lookbook-grid-gap);
+        height: var(--lookbook-grid-gap);
         cursor: row-resize;
       }
     }

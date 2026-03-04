@@ -40,7 +40,7 @@ var require_ui = __commonJS({
     function is_function(thing) {
       return typeof thing === "function";
     }
-    const noop$2 = () => {
+    const noop$1 = () => {
     };
     function run(fn) {
       return fn();
@@ -1511,7 +1511,7 @@ var require_ui = __commonJS({
         if (e.teardown || e.ac) {
           e.teardown?.();
           e.ac?.abort(STALE_REACTION);
-          e.teardown = noop$2;
+          e.teardown = noop$1;
           e.ac = null;
           remove_reactions(e, 0);
           destroy_effect_children(e);
@@ -1915,9 +1915,9 @@ var require_ui = __commonJS({
     }
     function first_child(node, is_text = false) {
       {
-        var first2 = /* @__PURE__ */ get_first_child(node);
-        if (first2 instanceof Comment && first2.data === "") return /* @__PURE__ */ get_next_sibling(first2);
-        return first2;
+        var first = /* @__PURE__ */ get_first_child(node);
+        if (first instanceof Comment && first.data === "") return /* @__PURE__ */ get_next_sibling(first);
+        return first;
       }
     }
     function sibling(node, count = 1, is_text = false) {
@@ -3940,6 +3940,9 @@ var require_ui = __commonJS({
     const whitespace = [..." 	\n\r\f \v\uFEFF"];
     function to_class(value, hash, directives) {
       var classname = value == null ? "" : "" + value;
+      if (hash) {
+        classname = classname ? classname + " " + hash : hash;
+      }
       if (directives) {
         for (var key2 of Object.keys(directives)) {
           if (directives[key2]) {
@@ -4203,7 +4206,7 @@ var require_ui = __commonJS({
       }
       if (next2.class) {
         next2.class = clsx$1(next2.class);
-      } else if (next2[CLASS]) {
+      } else if (css_hash || next2[CLASS]) {
         next2.class = null;
       }
       if (next2[STYLE]) {
@@ -4498,7 +4501,7 @@ var require_ui = __commonJS({
     function subscribe_to_store(store, run2, invalidate) {
       if (store == null) {
         run2(void 0);
-        return noop$2;
+        return noop$1;
       }
       const unsub = untrack(
         () => store.subscribe(
@@ -4510,7 +4513,7 @@ var require_ui = __commonJS({
       return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub;
     }
     const subscriber_queue = [];
-    function writable(value, start2 = noop$2) {
+    function writable(value, start2 = noop$1) {
       let stop = null;
       const subscribers = /* @__PURE__ */ new Set();
       function set2(new_value) {
@@ -4537,11 +4540,11 @@ var require_ui = __commonJS({
           value
         ));
       }
-      function subscribe2(run2, invalidate = noop$2) {
+      function subscribe2(run2, invalidate = noop$1) {
         const subscriber = [run2, invalidate];
         subscribers.add(subscriber);
         if (subscribers.size === 1) {
-          stop = start2(set2, update2) || noop$2;
+          stop = start2(set2, update2) || noop$1;
         }
         run2(
           /** @type {T} */
@@ -4568,14 +4571,14 @@ var require_ui = __commonJS({
       const entry = stores[store_name] ??= {
         store: null,
         source: /* @__PURE__ */ mutable_source(void 0),
-        unsubscribe: noop$2
+        unsubscribe: noop$1
       };
       if (entry.store !== store && !(IS_UNMOUNTED in stores)) {
         entry.unsubscribe();
         entry.store = store ?? null;
         if (store == null) {
           entry.source.v = void 0;
-          entry.unsubscribe = noop$2;
+          entry.unsubscribe = noop$1;
         } else {
           var is_synchronous_callback = true;
           entry.unsubscribe = subscribe_to_store(store, (v) => {
@@ -6236,7 +6239,7 @@ var require_ui = __commonJS({
     function has(object, path) {
       return object != null && hasPath(object, path, baseHas);
     }
-    function isEqual$2(value, other) {
+    function isEqual$1(value, other) {
       return baseIsEqual(value, other);
     }
     function baseSet(object, path, value, customizer) {
@@ -7630,11 +7633,11 @@ var require_ui = __commonJS({
       var rePropName2 = /[^%.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|%$))/g;
       var reEscapeChar2 = /\\(\\)?/g;
       var stringToPath2 = function stringToPath3(string) {
-        var first2 = $strSlice(string, 0, 1);
-        var last2 = $strSlice(string, -1);
-        if (first2 === "%" && last2 !== "%") {
+        var first = $strSlice(string, 0, 1);
+        var last = $strSlice(string, -1);
+        if (first === "%" && last !== "%") {
           throw new $SyntaxError("invalid intrinsic syntax, expected closing `%`");
-        } else if (last2 === "%" && first2 !== "%") {
+        } else if (last === "%" && first !== "%") {
           throw new $SyntaxError("invalid intrinsic syntax, expected opening `%`");
         }
         var result = [];
@@ -7689,9 +7692,9 @@ var require_ui = __commonJS({
         }
         for (var i = 1, isOwn = true; i < parts2.length; i += 1) {
           var part = parts2[i];
-          var first2 = $strSlice(part, 0, 1);
-          var last2 = $strSlice(part, -1);
-          if ((first2 === '"' || first2 === "'" || first2 === "`" || (last2 === '"' || last2 === "'" || last2 === "`")) && first2 !== last2) {
+          var first = $strSlice(part, 0, 1);
+          var last = $strSlice(part, -1);
+          if ((first === '"' || first === "'" || first === "`" || (last === '"' || last === "'" || last === "`")) && first !== last) {
             throw new $SyntaxError("property names with quotes must have matching quotes");
           }
           if (part === "constructor" || !isOwn) {
@@ -9119,7 +9122,7 @@ var require_ui = __commonJS({
       isArray(arrayOrString) ? define(arrayOrString) : define(String(arrayOrString).split(delimiter));
       return obj;
     };
-    const noop$1 = () => {
+    const noop = () => {
     };
     const toFiniteNumber = (value, defaultValue) => {
       return value != null && Number.isFinite(value = +value) ? value : defaultValue;
@@ -9225,7 +9228,7 @@ var require_ui = __commonJS({
       freezeMethods,
       toObjectSet,
       toCamelCase,
-      noop: noop$1,
+      noop,
       toFiniteNumber,
       findKey,
       global: _global,
@@ -9991,8 +9994,8 @@ var require_ui = __commonJS({
       static from(thing) {
         return thing instanceof this ? thing : new this(thing);
       }
-      static concat(first2, ...targets) {
-        const computed = new this(first2);
+      static concat(first, ...targets) {
+        const computed = new this(first);
         targets.forEach((target) => computed.set(target));
         return computed;
       }
@@ -12499,7 +12502,7 @@ var require_ui = __commonJS({
             if (!window.history.state?.page) {
               return;
             }
-            if (isEqual$2(this.getScrollRegions(), scrollRegions)) {
+            if (isEqual$1(this.getScrollRegions(), scrollRegions)) {
               return;
             }
             return this.doReplaceState({
@@ -12515,7 +12518,7 @@ var require_ui = __commonJS({
             if (!window.history.state?.page) {
               return;
             }
-            if (isEqual$2(this.getDocumentScrollPosition(), scrollRegion)) {
+            if (isEqual$1(this.getDocumentScrollPosition(), scrollRegion)) {
               return;
             }
             return this.doReplaceState({
@@ -12532,7 +12535,7 @@ var require_ui = __commonJS({
         return window.history.state?.documentScrollPosition || { top: 0, left: 0 };
       }
       replaceState(page2, cb = null) {
-        if (isEqual$2(this.current, page2)) {
+        if (isEqual$1(this.current, page2)) {
           cb && cb();
           return;
         }
@@ -13185,7 +13188,7 @@ var require_ui = __commonJS({
           router.flush(page$1.get().url);
         }
         const { flash } = page$1.get();
-        if (Object.keys(flash).length > 0 && (!this.requestParams.isPartial() || !isEqual$2(flash, previousFlash))) {
+        if (Object.keys(flash).length > 0 && (!this.requestParams.isPartial() || !isEqual$1(flash, previousFlash))) {
           fireFlashEvent(flash);
           this.requestParams.all().onFlash(flash);
         }
@@ -13307,7 +13310,7 @@ var require_ui = __commonJS({
         }
         const currentPageProps = page$1.get().props;
         Object.entries(pageResponse.props).forEach(([key2, value]) => {
-          if (isEqual$2(value, currentPageProps[key2])) {
+          if (isEqual$1(value, currentPageProps[key2])) {
             pageResponse.props[key2] = currentPageProps[key2];
           }
         });
@@ -14089,7 +14092,7 @@ var require_ui = __commonJS({
           progress3.style.transition = `all ${speed}ms linear`;
           progress3.style.opacity = "0";
           setTimeout(() => {
-            remove$1();
+            remove();
             progress3.style.transition = "";
             progress3.style.opacity = "";
             next2();
@@ -14168,7 +14171,7 @@ var require_ui = __commonJS({
     var getParent = () => {
       return isDOM(settings.parent) ? settings.parent : document.querySelector(settings.parent);
     };
-    var remove$1 = () => {
+    var remove = () => {
       document.documentElement.classList.remove(`${baseComponentSelector}-busy`);
       getParent().classList.remove(`${baseComponentSelector}-custom-parent`);
       progress2?.remove();
@@ -14291,7 +14294,7 @@ var require_ui = __commonJS({
       isStarted,
       done,
       set: set5,
-      remove: remove$1,
+      remove,
       start,
       status,
       show,
@@ -14868,554 +14871,141 @@ var require_ui = __commonJS({
       __proto__: null,
       default: Show$1
     }, Symbol.toStringTag, { value: "Module" }));
-    var root$7 = /* @__PURE__ */ from_html(`<div></div>`);
-    function Show($$anchor) {
+    var root_1$6 = /* @__PURE__ */ from_html(`<div data-role="toolbar:start" class="svelte-t3exg0"><!></div>`);
+    var root_2$4 = /* @__PURE__ */ from_html(`<div data-role="toolbar:end" class="svelte-t3exg0"><!></div>`);
+    var root$7 = /* @__PURE__ */ from_html(`<div data-component="toolbar" class="svelte-t3exg0"><!> <!></div>`);
+    function Toolbar($$anchor, $$props) {
       var div = root$7();
+      var node = child(div);
+      {
+        var consequent = ($$anchor2) => {
+          var div_1 = root_1$6();
+          var node_1 = child(div_1);
+          snippet(node_1, () => $$props.start);
+          append$1($$anchor2, div_1);
+        };
+        if_block(node, ($$render) => {
+          if ($$props.start) $$render(consequent);
+        });
+      }
+      var node_2 = sibling(node, 2);
+      {
+        var consequent_1 = ($$anchor2) => {
+          var div_2 = root_2$4();
+          var node_3 = child(div_2);
+          snippet(node_3, () => $$props.end);
+          append$1($$anchor2, div_2);
+        };
+        if_block(node_2, ($$render) => {
+          if ($$props.end) $$render(consequent_1);
+        });
+      }
       append$1($$anchor, div);
     }
-    const __vite_glob_0_6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-      __proto__: null,
-      default: Show
-    }, Symbol.toStringTag, { value: "Module" }));
-    var root_1$3 = /* @__PURE__ */ from_html(`<span data-role="header:branding"> </span>`);
-    var root$6 = /* @__PURE__ */ from_html(`<header data-component="header" class="surface"><!></header>`);
-    function Header($$anchor, $$props) {
-      push($$props, true);
-      var header = root$6();
-      var node = child(header);
-      Link(node, {
-        get href() {
-          return $$props.lookbook.urlPath;
-        },
-        class: "highlight branding caps",
-        children: ($$anchor2, $$slotProps) => {
-          var span = root_1$3();
-          var text2 = child(span);
-          template_effect(() => set_text(text2, $$props.project.name));
-          append$1($$anchor2, span);
-        },
-        $$slots: { default: true }
-      });
-      append$1($$anchor, header);
-      pop();
-    }
-    var root$5 = /* @__PURE__ */ from_html(`<footer data-component="statusbar" class="surface svelte-f294i8"><div data-role="statusbar:section statusbar:section-start" class="svelte-f294i8"></div> <div data-role="statusbar:section statusbar:section-end" class="svelte-f294i8"><span data-role="statusbar:label" class="svelte-f294i8">LOOKBOOK_v<em data-role="statusbar:version" class="svelte-f294i8"> </em></span></div></footer>`);
-    function Statusbar($$anchor, $$props) {
-      push($$props, true);
-      var footer = root$5();
-      var div = sibling(child(footer), 2);
-      var span = child(div);
-      var em = sibling(child(span));
-      var text2 = child(em);
-      template_effect(() => set_text(text2, $$props.lookbook.version));
-      append$1($$anchor, footer);
-      pop();
-    }
-    function getErrorMessage(hook, provider) {
-      return `${hook} returned \`undefined\`. Seems you forgot to wrap component within ${provider}`;
-    }
-    const createContext = (options) => {
-      const { name, strict = true, hookName = "useContext", providerName = "Provider", errorMessage, defaultValue } = options;
-      const contextId = Symbol(name);
-      const provider = (value) => setContext(contextId, value);
-      const consumer = () => {
-        const exists = hasContext(contextId);
-        if (strict && !exists)
-          throw new Error(errorMessage ?? getErrorMessage(hookName, providerName));
-        return exists ? getContext(contextId) : defaultValue;
+    var root_1$5 = /* @__PURE__ */ from_html(`<i data-component="icon" class="icon"><!></i>`);
+    function Icon$1($$anchor, $$props) {
+      const IconSvg = prop($$props, "svg", 3, null), size = prop($$props, "size", 3, "md"), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "svg", "size"]);
+      const defaultProps = {
+        size: 16,
+        strokeWidth: 1.5
+        // absoluteStrokeWidth: true,
       };
-      return [provider, consumer, contextId];
-    };
-    const [AccordionProvider, useAccordionContext] = createContext({
-      name: "AccordionContext",
-      hookName: "useAccordionContext",
-      providerName: "<AccordionProvider />"
-    });
-    const createSplitProps$1 = () => (props, keys2) => keys2.reduce((previousValue, currentValue) => {
-      const [target, source2] = previousValue;
-      const key2 = currentValue;
-      if (source2[key2] !== void 0) {
-        target[key2] = source2[key2];
+      var fragment = comment();
+      var node = first_child(fragment);
+      {
+        var consequent = ($$anchor2) => {
+          var i = root_1$5();
+          var node_1 = child(i);
+          component(node_1, IconSvg, ($$anchor3, IconSvg_1) => {
+            IconSvg_1($$anchor3, spread_props(() => defaultProps, () => props));
+          });
+          template_effect(() => set_attribute(i, "data-size", size()));
+          append$1($$anchor2, i);
+        };
+        if_block(node, ($$render) => {
+          if (IconSvg()) $$render(consequent);
+        });
       }
-      delete source2[key2];
-      return [target, source2];
-    }, [{}, { ...props }]);
-    const [RenderStrategyPropsProvider, useRenderStrategyPropsContext] = createContext({
-      name: "RenderStrategyContext",
-      hookName: "useRenderStrategyContext",
-      providerName: "<RenderStrategyPropsProvider />"
+      append$1($$anchor, fragment);
+    }
+    var root_1$4 = /* @__PURE__ */ from_html(`<span data-role="button:content" class="svelte-8ekmrj"><!> <!></span>`);
+    function Button($$anchor, $$props) {
+      let size = prop($$props, "size", 3, "md");
+      var fragment = comment();
+      var node = first_child(fragment);
+      element(node, () => $$props.href ? "a" : "button", false, ($$element, $$anchor2) => {
+        action($$element, ($$node) => link?.($$node));
+        attribute_effect(
+          $$element,
+          () => ({
+            "data-component": "button",
+            class: "button",
+            "data-size": size()
+          }),
+          void 0,
+          void 0,
+          void 0,
+          "svelte-8ekmrj"
+        );
+        var span = root_1$4();
+        var node_1 = child(span);
+        {
+          var consequent = ($$anchor3) => {
+            Icon$1($$anchor3, {
+              get svg() {
+                return $$props.icon;
+              },
+              get size() {
+                return size();
+              }
+            });
+          };
+          if_block(node_1, ($$render) => {
+            if ($$props.icon) $$render(consequent);
+          });
+        }
+        var node_2 = sibling(node_1, 2);
+        snippet(node_2, () => $$props.children);
+        append$1($$anchor2, span);
+      });
+      append$1($$anchor, fragment);
+    }
+    var createAnatomy = (name, parts2 = []) => ({
+      parts: (...values) => {
+        if (isEmpty(parts2)) {
+          return createAnatomy(name, values);
+        }
+        throw new Error("createAnatomy().parts(...) should only be called once. Did you mean to use .extendWith(...) ?");
+      },
+      extendWith: (...values) => createAnatomy(name, [...parts2, ...values]),
+      omit: (...values) => createAnatomy(name, parts2.filter((part) => !values.includes(part))),
+      rename: (newName) => createAnatomy(newName, parts2),
+      keys: () => parts2,
+      build: () => [...new Set(parts2)].reduce(
+        (prev2, part) => Object.assign(prev2, {
+          [part]: {
+            selector: [
+              `&[data-scope="${toKebabCase(name)}"][data-part="${toKebabCase(part)}"]`,
+              `& [data-scope="${toKebabCase(name)}"][data-part="${toKebabCase(part)}"]`
+            ].join(", "),
+            attrs: { "data-scope": toKebabCase(name), "data-part": toKebabCase(part) }
+          }
+        }),
+        {}
+      )
     });
-    const splitFn$1 = createSplitProps$1();
-    const splitRenderStrategyProps = (props) => splitFn$1(props, ["lazyMount", "unmountOnExit"]);
+    var toKebabCase = (value) => value.replace(/([A-Z])([A-Z])/g, "$1-$2").replace(/([a-z])([A-Z])/g, "$1-$2").replace(/[\s_]+/g, "-").toLowerCase();
+    var isEmpty = (v) => v.length === 0;
+    var anatomy = createAnatomy("splitter").parts("root", "panel", "resizeTrigger", "resizeTriggerIndicator");
+    var parts = anatomy.build();
     var __defProp$1 = Object.defineProperty;
-    var __typeError = (msg) => {
-      throw TypeError(msg);
-    };
     var __defNormalProp$1 = (obj, key2, value) => key2 in obj ? __defProp$1(obj, key2, { enumerable: true, configurable: true, writable: true, value }) : obj[key2] = value;
     var __publicField$1 = (obj, key2, value) => __defNormalProp$1(obj, typeof key2 !== "symbol" ? key2 + "" : key2, value);
-    var __accessCheck = (obj, member, msg) => member.has(obj) || __typeError("Cannot " + msg);
-    var __privateGet = (obj, member, getter) => (__accessCheck(obj, member, "read from private field"), member.get(obj));
-    var __privateAdd = (obj, member, value) => member.has(obj) ? __typeError("Cannot add the same private member more than once") : member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
-    function toArray(v) {
-      if (v == null) return [];
-      return Array.isArray(v) ? v : [v];
-    }
-    var first = (v) => v[0];
-    var last = (v) => v[v.length - 1];
-    var add = (v, ...items) => v.concat(items);
-    var remove = (v, ...items) => v.filter((t) => !items.includes(t));
-    function nextIndex(v, idx, opts = {}) {
-      const { step = 1, loop = true } = opts;
-      const next2 = idx + step;
-      const len = v.length;
-      const last2 = len - 1;
-      if (idx === -1) return step > 0 ? 0 : last2;
-      if (next2 < 0) return loop ? last2 : 0;
-      if (next2 >= len) return loop ? 0 : idx > len ? len : idx;
-      return next2;
-    }
-    function next(v, idx, opts = {}) {
-      return v[nextIndex(v, idx, opts)];
-    }
-    function prevIndex(v, idx, opts = {}) {
-      const { step = 1, loop = true } = opts;
-      return nextIndex(v, idx, { step: -step, loop });
-    }
-    function prev(v, index2, opts = {}) {
-      return v[prevIndex(v, index2, opts)];
-    }
-    var isArrayLike = (value) => value?.constructor.name === "Array";
-    var isArrayEqual = (a, b) => {
-      if (a.length !== b.length) return false;
-      for (let i = 0; i < a.length; i++) {
-        if (!isEqual$1(a[i], b[i])) return false;
-      }
-      return true;
-    };
-    var isEqual$1 = (a, b) => {
-      if (Object.is(a, b)) return true;
-      if (a == null && b != null || a != null && b == null) return false;
-      if (typeof a?.isEqual === "function" && typeof b?.isEqual === "function") {
-        return a.isEqual(b);
-      }
-      if (typeof a === "function" && typeof b === "function") {
-        return a.toString() === b.toString();
-      }
-      if (isArrayLike(a) && isArrayLike(b)) {
-        return isArrayEqual(Array.from(a), Array.from(b));
-      }
-      if (!(typeof a === "object") || !(typeof b === "object")) return false;
-      const keys2 = Object.keys(b ?? /* @__PURE__ */ Object.create(null));
-      const length = keys2.length;
-      for (let i = 0; i < length; i++) {
-        const hasKey = Reflect.has(a, keys2[i]);
-        if (!hasKey) return false;
-      }
-      for (let i = 0; i < length; i++) {
-        const key2 = keys2[i];
-        if (!isEqual$1(a[key2], b[key2])) return false;
-      }
-      return true;
-    };
-    var isObjectLike = (v) => v != null && typeof v === "object";
-    var isString = (v) => typeof v === "string";
-    var isFunction = (v) => typeof v === "function";
-    var hasProp = (obj, prop2) => Object.prototype.hasOwnProperty.call(obj, prop2);
-    var baseGetTag = (v) => Object.prototype.toString.call(v);
-    var fnToString = Function.prototype.toString;
-    var objectCtorString = fnToString.call(Object);
-    var isPlainObject = (v) => {
-      if (!isObjectLike(v) || baseGetTag(v) != "[object Object]" || isFrameworkElement(v)) return false;
-      const proto = Object.getPrototypeOf(v);
-      if (proto === null) return true;
-      const Ctor = hasProp(proto, "constructor") && proto.constructor;
-      return typeof Ctor == "function" && Ctor instanceof Ctor && fnToString.call(Ctor) == objectCtorString;
-    };
-    var isReactElement = (x) => typeof x === "object" && x !== null && "$$typeof" in x && "props" in x;
-    var isVueElement = (x) => typeof x === "object" && x !== null && "__v_isVNode" in x;
-    var isFrameworkElement = (x) => isReactElement(x) || isVueElement(x);
-    var runIfFn = (v, ...a) => {
-      const res = typeof v === "function" ? v(...a) : v;
-      return res ?? void 0;
-    };
-    var identity = (v) => v();
-    var callAll = (...fns) => (...a) => {
-      fns.forEach(function(fn) {
-        fn?.(...a);
-      });
-    };
-    var toPx = (v) => typeof v === "number" ? `${v}px` : v;
-    function compact(obj) {
-      if (!isPlainObject(obj) || obj === void 0) return obj;
-      const keys2 = Reflect.ownKeys(obj).filter((key2) => typeof key2 === "string");
-      const filtered = {};
-      for (const key2 of keys2) {
-        const value = obj[key2];
-        if (value !== void 0) {
-          filtered[key2] = compact(value);
-        }
-      }
-      return filtered;
-    }
-    function splitProps(props, keys2) {
-      const rest = {};
-      const result = {};
-      const keySet = new Set(keys2);
-      const ownKeys = Reflect.ownKeys(props);
-      for (const key2 of ownKeys) {
-        if (keySet.has(key2)) {
-          result[key2] = props[key2];
-        } else {
-          rest[key2] = props[key2];
-        }
-      }
-      return [result, rest];
-    }
-    var createSplitProps = (keys2) => {
-      return function split(props) {
-        return splitProps(props, keys2);
-      };
-    };
-    function omit(obj, keys2) {
-      return createSplitProps(keys2)(obj)[1];
-    }
-    var currentTime = () => performance.now();
-    var _tick;
-    var Timer = class {
-      constructor(onTick) {
-        this.onTick = onTick;
-        __publicField$1(this, "frameId", null);
-        __publicField$1(this, "pausedAtMs", null);
-        __publicField$1(this, "context");
-        __publicField$1(this, "cancelFrame", () => {
-          if (this.frameId === null) return;
-          cancelAnimationFrame(this.frameId);
-          this.frameId = null;
-        });
-        __publicField$1(this, "setStartMs", (startMs) => {
-          this.context.startMs = startMs;
-        });
-        __publicField$1(this, "start", () => {
-          if (this.frameId !== null) return;
-          const now = currentTime();
-          if (this.pausedAtMs !== null) {
-            this.context.startMs += now - this.pausedAtMs;
-            this.pausedAtMs = null;
-          } else {
-            this.context.startMs = now;
-          }
-          this.frameId = requestAnimationFrame(__privateGet(this, _tick));
-        });
-        __publicField$1(this, "pause", () => {
-          if (this.frameId === null) return;
-          this.cancelFrame();
-          this.pausedAtMs = currentTime();
-        });
-        __publicField$1(this, "stop", () => {
-          if (this.frameId === null) return;
-          this.cancelFrame();
-          this.pausedAtMs = null;
-        });
-        __privateAdd(this, _tick, (now) => {
-          this.context.now = now;
-          this.context.deltaMs = now - this.context.startMs;
-          const shouldContinue = this.onTick(this.context);
-          if (shouldContinue === false) {
-            this.stop();
-            return;
-          }
-          this.frameId = requestAnimationFrame(__privateGet(this, _tick));
-        });
-        this.context = { now: 0, startMs: currentTime(), deltaMs: 0 };
-      }
-      get elapsedMs() {
-        if (this.pausedAtMs !== null) {
-          return this.pausedAtMs - this.context.startMs;
-        }
-        return currentTime() - this.context.startMs;
-      }
-    };
-    _tick = /* @__PURE__ */ new WeakMap();
-    function setRafTimeout(fn, delayMs) {
-      const timer = new Timer(({ deltaMs }) => {
-        if (deltaMs >= delayMs) {
-          fn();
-          return false;
-        }
-      });
-      timer.start();
-      return () => timer.stop();
-    }
-    function warn(...a) {
-      const m = a.length === 1 ? a[0] : a[1];
-      const c = a.length === 2 ? a[0] : true;
-      if (c && process.env.NODE_ENV !== "production") {
-        console.warn(m);
-      }
-    }
-    function ensure(c, m) {
-      if (c == null) throw new Error(m());
-    }
-    function ensureProps(props, keys2, scope) {
-      let missingKeys = [];
-      for (const key2 of keys2) {
-        if (props[key2] == null) missingKeys.push(key2);
-      }
-      if (missingKeys.length > 0)
-        throw new Error(`[zag-js${""}] missing required props: ${missingKeys.join(", ")}`);
-    }
-    var clsx = (...args) => args.map((str) => str?.trim?.()).filter(Boolean).join(" ");
-    var CSS_REGEX$1 = /((?:--)?(?:\w+-?)+)\s*:\s*([^;]*)/g;
-    var serialize$1 = (style) => {
-      const res = {};
-      let match;
-      while (match = CSS_REGEX$1.exec(style)) {
-        res[match[1]] = match[2];
-      }
-      return res;
-    };
-    var css = (a, b) => {
-      if (isString(a)) {
-        if (isString(b)) return `${a};${b}`;
-        a = serialize$1(a);
-      } else if (isString(b)) {
-        b = serialize$1(b);
-      }
-      return Object.assign({}, a ?? {}, b ?? {});
-    };
-    function mergeProps$1(...args) {
-      let result = {};
-      for (let props of args) {
-        if (!props) continue;
-        for (let key2 in result) {
-          if (key2.startsWith("on") && typeof result[key2] === "function" && typeof props[key2] === "function") {
-            result[key2] = callAll(props[key2], result[key2]);
-            continue;
-          }
-          if (key2 === "className" || key2 === "class") {
-            result[key2] = clsx(result[key2], props[key2]);
-            continue;
-          }
-          if (key2 === "style") {
-            result[key2] = css(result[key2], props[key2]);
-            continue;
-          }
-          result[key2] = props[key2] !== void 0 ? props[key2] : result[key2];
-        }
-        for (let key2 in props) {
-          if (result[key2] === void 0) {
-            result[key2] = props[key2];
-          }
-        }
-        const symbols = Object.getOwnPropertySymbols(props);
-        for (let symbol of symbols) {
-          result[symbol] = props[symbol];
-        }
-      }
-      return result;
-    }
-    var STATE_DELIMITER = ".";
-    var ABSOLUTE_PREFIX = "#";
-    var stateIndexCache = /* @__PURE__ */ new WeakMap();
-    var stateIdIndexCache = /* @__PURE__ */ new WeakMap();
-    function joinStatePath(parts2) {
-      return parts2.join(STATE_DELIMITER);
-    }
-    function isAbsoluteStatePath(value) {
-      return value.includes(STATE_DELIMITER);
-    }
-    function isExplicitAbsoluteStatePath(value) {
-      return value.startsWith(ABSOLUTE_PREFIX);
-    }
-    function stripAbsolutePrefix(value) {
-      return isExplicitAbsoluteStatePath(value) ? value.slice(ABSOLUTE_PREFIX.length) : value;
-    }
-    function appendStatePath(base, segment) {
-      return base ? `${base}${STATE_DELIMITER}${segment}` : segment;
-    }
-    function buildStateIndex(machine2) {
-      const index2 = /* @__PURE__ */ new Map();
-      const idIndex = /* @__PURE__ */ new Map();
-      const visit = (basePath, state2) => {
-        index2.set(basePath, state2);
-        const stateId = state2.id;
-        if (stateId) {
-          if (idIndex.has(stateId)) {
-            throw new Error(`Duplicate state id: ${stateId}`);
-          }
-          idIndex.set(stateId, basePath);
-        }
-        const childStates = state2.states;
-        if (!childStates) return;
-        for (const [childKey, childState] of Object.entries(childStates)) {
-          if (!childState) continue;
-          const childPath = appendStatePath(basePath, childKey);
-          visit(childPath, childState);
-        }
-      };
-      for (const [topKey, topState] of Object.entries(machine2.states)) {
-        if (!topState) continue;
-        visit(topKey, topState);
-      }
-      return { index: index2, idIndex };
-    }
-    function ensureStateIndex(machine2) {
-      const cached = stateIndexCache.get(machine2);
-      if (cached) return cached;
-      const { index: index2, idIndex } = buildStateIndex(machine2);
-      stateIndexCache.set(machine2, index2);
-      stateIdIndexCache.set(machine2, idIndex);
-      return index2;
-    }
-    function getStatePathById(machine2, stateId) {
-      ensureStateIndex(machine2);
-      return stateIdIndexCache.get(machine2)?.get(stateId);
-    }
-    function toSegments(value) {
-      if (!value) return [];
-      return String(value).split(STATE_DELIMITER).filter(Boolean);
-    }
-    function getStateChain(machine2, state2) {
-      if (!state2) return [];
-      const stateIndex = ensureStateIndex(machine2);
-      const segments = toSegments(state2);
-      const chain = [];
-      const statePath = [];
-      for (const segment of segments) {
-        statePath.push(segment);
-        const path = joinStatePath(statePath);
-        const current = stateIndex.get(path);
-        if (!current) break;
-        chain.push({ path, state: current });
-      }
-      return chain;
-    }
-    function resolveAbsoluteStateValue(machine2, value) {
-      const stateIndex = ensureStateIndex(machine2);
-      const segments = toSegments(value);
-      if (!segments.length) return value;
-      const resolved = [];
-      for (const segment of segments) {
-        resolved.push(segment);
-        const path = joinStatePath(resolved);
-        if (!stateIndex.has(path)) return value;
-      }
-      let resolvedPath = joinStatePath(resolved);
-      let current = stateIndex.get(resolvedPath);
-      while (current?.initial) {
-        const nextPath = `${resolvedPath}${STATE_DELIMITER}${current.initial}`;
-        const nextState = stateIndex.get(nextPath);
-        if (!nextState) break;
-        resolvedPath = nextPath;
-        current = nextState;
-      }
-      return resolvedPath;
-    }
-    function hasStatePath(machine2, value) {
-      const stateIndex = ensureStateIndex(machine2);
-      return stateIndex.has(value);
-    }
-    function resolveStateValue(machine2, value, source2) {
-      const stateValue = String(value);
-      if (isExplicitAbsoluteStatePath(stateValue)) {
-        const stateId = stripAbsolutePrefix(stateValue);
-        const statePath = getStatePathById(machine2, stateId);
-        if (!statePath) {
-          throw new Error(`Unknown state id: ${stateId}`);
-        }
-        return resolveAbsoluteStateValue(machine2, statePath);
-      }
-      if (!isAbsoluteStatePath(stateValue) && source2) {
-        const sourceSegments = toSegments(source2);
-        for (let index2 = sourceSegments.length; index2 >= 1; index2--) {
-          const base = sourceSegments.slice(0, index2).join(STATE_DELIMITER);
-          const candidate = appendStatePath(base, stateValue);
-          if (hasStatePath(machine2, candidate)) return resolveAbsoluteStateValue(machine2, candidate);
-        }
-      }
-      return resolveAbsoluteStateValue(machine2, stateValue);
-    }
-    function findTransition(machine2, state2, eventType) {
-      const chain = getStateChain(machine2, state2);
-      for (let index2 = chain.length - 1; index2 >= 0; index2--) {
-        const transitionMap = chain[index2]?.state.on;
-        const transition = transitionMap?.[eventType];
-        if (transition) return { transitions: transition, source: chain[index2]?.path };
-      }
-      const rootTransitionMap = machine2.on;
-      return { transitions: rootTransitionMap?.[eventType], source: void 0 };
-    }
-    function getExitEnterStates(machine2, prevState, nextState, reenter) {
-      const prevChain = prevState ? getStateChain(machine2, prevState) : [];
-      const nextChain = getStateChain(machine2, nextState);
-      let commonIndex = 0;
-      while (commonIndex < prevChain.length && commonIndex < nextChain.length && prevChain[commonIndex]?.path === nextChain[commonIndex]?.path) {
-        commonIndex += 1;
-      }
-      let exiting = prevChain.slice(commonIndex).reverse();
-      let entering = nextChain.slice(commonIndex);
-      const sameLeaf = prevChain.at(-1)?.path === nextChain.at(-1)?.path;
-      if (reenter && sameLeaf) {
-        exiting = prevChain.slice().reverse();
-        entering = nextChain;
-      }
-      return { exiting, entering };
-    }
-    function matchesState(current, value) {
-      if (!current) return false;
-      return current === value || current.startsWith(`${value}${STATE_DELIMITER}`);
-    }
-    function hasTag(machine2, state2, tag) {
-      return getStateChain(machine2, state2).some((item) => item.state.tags?.includes(tag));
-    }
-    function createGuards() {
-      return {
-        and: (...guards) => {
-          return function andGuard(params) {
-            return guards.every((str) => params.guard(str));
-          };
-        },
-        or: (...guards) => {
-          return function orGuard(params) {
-            return guards.some((str) => params.guard(str));
-          };
-        },
-        not: (guard) => {
-          return function notGuard(params) {
-            return !params.guard(guard);
-          };
-        }
-      };
-    }
-    function createMachine(config2) {
-      ensureStateIndex(config2);
-      return config2;
-    }
-    var MachineStatus = /* @__PURE__ */ ((MachineStatus2) => {
-      MachineStatus2["NotStarted"] = "Not Started";
-      MachineStatus2["Started"] = "Started";
-      MachineStatus2["Stopped"] = "Stopped";
-      return MachineStatus2;
-    })(MachineStatus || {});
-    var INIT_STATE = "__init__";
-    var __defProp = Object.defineProperty;
-    var __defNormalProp = (obj, key2, value) => key2 in obj ? __defProp(obj, key2, { enumerable: true, configurable: true, writable: true, value }) : obj[key2] = value;
-    var __publicField = (obj, key2, value) => __defNormalProp(obj, typeof key2 !== "symbol" ? key2 + "" : key2, value);
-    var noop = () => void 0;
     var isObject = (v) => typeof v === "object" && v !== null;
     var dataAttr = (guard) => guard ? "" : void 0;
-    var ELEMENT_NODE = 1;
     var DOCUMENT_NODE = 9;
-    var DOCUMENT_FRAGMENT_NODE = 11;
-    var isHTMLElement = (el) => isObject(el) && el.nodeType === ELEMENT_NODE && typeof el.nodeName === "string";
     var isDocument = (el) => isObject(el) && el.nodeType === DOCUMENT_NODE;
     var isWindow = (el) => isObject(el) && el === el.window;
-    var isNode = (el) => isObject(el) && el.nodeType !== void 0;
-    var isShadowRoot = (el) => isNode(el) && el.nodeType === DOCUMENT_FRAGMENT_NODE && "host" in el;
-    var isElementVisible = (el) => {
-      if (!isHTMLElement(el)) return false;
-      return el.offsetWidth > 0 || el.offsetHeight > 0 || el.getClientRects().length > 0;
-    };
     function isActiveElement(element2) {
       if (!element2) return false;
       const rootNode = element2.getRootNode();
@@ -15426,12 +15016,6 @@ var require_ui = __commonJS({
       if (isWindow(el)) return el.document;
       return el?.ownerDocument ?? document;
     }
-    function getWindow(el) {
-      if (isShadowRoot(el)) return getWindow(el.host);
-      if (isDocument(el)) return el.defaultView ?? window;
-      if (isHTMLElement(el)) return el.ownerDocument?.defaultView ?? window;
-      return window;
-    }
     function getActiveElement(rootNode) {
       let activeElement = rootNode.activeElement;
       while (activeElement?.shadowRoot) {
@@ -15441,33 +15025,16 @@ var require_ui = __commonJS({
       }
       return activeElement;
     }
-    var styleCache = /* @__PURE__ */ new WeakMap();
-    function getComputedStyle$1(el) {
-      if (!styleCache.has(el)) {
-        styleCache.set(el, getWindow(el).getComputedStyle(el));
-      }
-      return styleCache.get(el);
-    }
     var isDom = () => typeof document !== "undefined";
     function getPlatform() {
       const agent = navigator.userAgentData;
       return agent?.platform ?? navigator.platform;
     }
     var pt = (v) => isDom() && v.test(getPlatform());
-    var vn = (v) => isDom() && v.test(navigator.vendor);
     var isIPhone = () => pt(/^iPhone/i);
     var isIPad = () => pt(/^iPad/i) || isMac() && navigator.maxTouchPoints > 1;
     var isIos = () => isIPhone() || isIPad();
-    var isApple = () => isMac() || isIos();
     var isMac = () => pt(/^Mac/i);
-    var isSafari = () => isApple() && vn(/apple/i);
-    function getComposedPath(event2) {
-      return event2.composedPath?.() ?? event2.nativeEvent?.composedPath?.();
-    }
-    function getEventTarget(event2) {
-      const composedPath = getComposedPath(event2);
-      return composedPath?.[0] ?? event2.target;
-    }
     var isLeftClick = (e) => e.button === 0;
     var isTouchEvent = (event2) => "touches" in event2 && event2.touches.length > 0;
     var keyMap = {
@@ -15502,100 +15069,11 @@ var require_ui = __commonJS({
         node?.removeEventListener(eventName, handler, options);
       };
     };
-    var isFrame = (el) => isHTMLElement(el) && el.tagName === "IFRAME";
-    function parseTabIndex(el) {
-      const attr = el.getAttribute("tabindex");
-      if (!attr) return NaN;
-      return parseInt(attr, 10);
-    }
-    var hasNegativeTabIndex = (el) => parseTabIndex(el) < 0;
-    function getShadowRootForNode(element2, getShadowRoot) {
-      if (!getShadowRoot) return null;
-      if (getShadowRoot === true) {
-        return element2.shadowRoot || null;
-      }
-      const result = getShadowRoot(element2);
-      return (result === true ? element2.shadowRoot : result) || null;
-    }
-    function collectElementsWithShadowDOM(elements, getShadowRoot, filterFn) {
-      const allElements = [...elements];
-      const toProcess = [...elements];
-      const processed = /* @__PURE__ */ new Set();
-      const positionMap = /* @__PURE__ */ new Map();
-      elements.forEach((el, i) => positionMap.set(el, i));
-      let processIndex = 0;
-      while (processIndex < toProcess.length) {
-        const element2 = toProcess[processIndex++];
-        if (!element2 || processed.has(element2)) continue;
-        processed.add(element2);
-        const shadowRoot = getShadowRootForNode(element2, getShadowRoot);
-        if (shadowRoot) {
-          const shadowElements = Array.from(shadowRoot.querySelectorAll(focusableSelector)).filter(filterFn);
-          const hostIndex = positionMap.get(element2);
-          if (hostIndex !== void 0) {
-            const insertPosition = hostIndex + 1;
-            allElements.splice(insertPosition, 0, ...shadowElements);
-            shadowElements.forEach((el, i) => {
-              positionMap.set(el, insertPosition + i);
-            });
-            for (let i = insertPosition + shadowElements.length; i < allElements.length; i++) {
-              positionMap.set(allElements[i], i);
-            }
-          } else {
-            const insertPosition = allElements.length;
-            allElements.push(...shadowElements);
-            shadowElements.forEach((el, i) => {
-              positionMap.set(el, insertPosition + i);
-            });
-          }
-          toProcess.push(...shadowElements);
-        }
-      }
-      return allElements;
-    }
-    var focusableSelector = "input:not([type='hidden']):not([disabled]), select:not([disabled]), textarea:not([disabled]), a[href], button:not([disabled]), [tabindex], iframe, object, embed, area[href], audio[controls], video[controls], [contenteditable]:not([contenteditable='false']), details > summary:first-of-type";
-    function isFocusable(element2) {
-      if (!isHTMLElement(element2) || element2.closest("[inert]")) return false;
-      return element2.matches(focusableSelector) && isElementVisible(element2);
-    }
-    function getTabbables(container, options = {}) {
-      if (!container) return [];
-      const { includeContainer, getShadowRoot } = options;
-      const elements = Array.from(container.querySelectorAll(focusableSelector));
-      if (includeContainer && isTabbable(container)) {
-        elements.unshift(container);
-      }
-      const tabbableElements = [];
-      for (const element2 of elements) {
-        if (!isTabbable(element2)) continue;
-        if (isFrame(element2) && element2.contentDocument) {
-          const frameBody = element2.contentDocument.body;
-          tabbableElements.push(...getTabbables(frameBody, { getShadowRoot }));
-          continue;
-        }
-        tabbableElements.push(element2);
-      }
-      if (getShadowRoot) {
-        const allElements = collectElementsWithShadowDOM(tabbableElements, getShadowRoot, isTabbable);
-        if (!allElements.length && includeContainer) {
-          return elements;
-        }
-        return allElements;
-      }
-      if (!tabbableElements.length && includeContainer) {
-        return elements;
-      }
-      return tabbableElements;
-    }
-    function isTabbable(el) {
-      if (isHTMLElement(el) && el.tabIndex > 0) return true;
-      return isFocusable(el) && !hasNegativeTabIndex(el);
-    }
     var AnimationFrame = class _AnimationFrame {
       constructor() {
-        __publicField(this, "id", null);
-        __publicField(this, "fn_cleanup");
-        __publicField(this, "cleanup", () => {
+        __publicField$1(this, "id", null);
+        __publicField$1(this, "fn_cleanup");
+        __publicField$1(this, "cleanup", () => {
           this.cancel();
         });
       }
@@ -15635,28 +15113,6 @@ var require_ui = __commonJS({
       raf2(() => raf2(fn));
       return function cleanup() {
         set2.forEach((fn2) => fn2());
-      };
-    }
-    function observeChildrenImpl(node, options) {
-      const { callback: fn } = options;
-      if (!node) return;
-      const win = node.ownerDocument.defaultView || window;
-      const obs = new win.MutationObserver(fn);
-      obs.observe(node, { childList: true, subtree: true });
-      return () => obs.disconnect();
-    }
-    function observeChildren(nodeOrFn, options) {
-      const { defer } = options;
-      const func = defer ? raf : (v) => v();
-      const cleanups = [];
-      cleanups.push(
-        func(() => {
-          const node = typeof nodeOrFn === "function" ? nodeOrFn() : nodeOrFn;
-          cleanups.push(observeChildrenImpl(node, options));
-        })
-      );
-      return () => {
-        cleanups.forEach((fn) => fn?.());
       };
     }
     var state = "default";
@@ -15754,1764 +15210,196 @@ var require_ui = __commonJS({
     function queryAll(root2, selector) {
       return Array.from(root2?.querySelectorAll(selector) ?? []);
     }
-    var defaultItemToId = (v) => v.id;
-    function itemById(v, id, itemToId = defaultItemToId) {
-      return v.find((item) => itemToId(item) === id);
-    }
-    function indexOfId(v, id, itemToId = defaultItemToId) {
-      const item = itemById(v, id, itemToId);
-      return item ? v.indexOf(item) : -1;
-    }
-    function nextById(v, id, loop = true) {
-      let idx = indexOfId(v, id);
-      idx = loop ? (idx + 1) % v.length : Math.min(idx + 1, v.length - 1);
-      return v[idx];
-    }
-    function prevById(v, id, loop = true) {
-      let idx = indexOfId(v, id);
-      if (idx === -1) return loop ? v[v.length - 1] : null;
-      idx = loop ? (idx - 1 + v.length) % v.length : Math.max(0, idx - 1);
-      return v[idx];
-    }
-    function setAttribute(el, attr, v) {
-      const prev2 = el.getAttribute(attr);
-      const exists = prev2 != null;
-      if (prev2 === v) return noop;
-      el.setAttribute(attr, v);
-      return () => {
-        if (!exists) {
-          el.removeAttribute(attr);
-        } else {
-          el.setAttribute(attr, prev2);
-        }
-      };
-    }
-    function setStyle(el, style) {
-      if (!el) return noop;
-      const prev2 = Object.keys(style).reduce((acc, key2) => {
-        acc[key2] = el.style.getPropertyValue(key2);
-        return acc;
-      }, {});
-      if (isEqual(prev2, style)) return noop;
-      Object.assign(el.style, style);
-      return () => {
-        Object.assign(el.style, prev2);
-        if (el.style.length === 0) {
-          el.removeAttribute("style");
-        }
-      };
-    }
-    function isEqual(a, b) {
-      return Object.keys(a).every((key2) => a[key2] === b[key2]);
-    }
-    function createScope(props) {
-      const getRootNode = () => props.getRootNode?.() ?? document;
-      const getDoc = () => getDocument(getRootNode());
-      const getWin = () => getDoc().defaultView ?? window;
-      const getActiveElementFn = () => getActiveElement(getRootNode());
-      const getById = (id) => getRootNode().getElementById(id);
-      return {
-        ...props,
-        getRootNode,
-        getDoc,
-        getWin,
-        getActiveElement: getActiveElementFn,
-        isActiveElement,
-        getById
-      };
-    }
-    function createNormalizer(fn) {
-      return new Proxy({}, {
-        get(_target, key2) {
-          if (key2 === "style")
-            return (props) => {
-              return fn({ style: props }).style;
-            };
-          return fn;
-        }
-      });
-    }
-    const propMap = {
-      className: "class",
-      defaultChecked: "checked",
-      defaultValue: "value",
-      htmlFor: "for",
-      onBlur: "onfocusout",
-      onChange: "oninput",
-      onFocus: "onfocusin",
-      onDoubleClick: "ondblclick"
+    var __defProp = Object.defineProperty;
+    var __typeError = (msg) => {
+      throw TypeError(msg);
     };
-    function toStyleString(style) {
-      let string = "";
-      for (let key2 in style) {
-        const value = style[key2];
-        if (value === null || value === void 0)
-          continue;
-        if (!key2.startsWith("--"))
-          key2 = key2.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
-        string += `${key2}:${value};`;
-      }
-      return string;
+    var __defNormalProp = (obj, key2, value) => key2 in obj ? __defProp(obj, key2, { enumerable: true, configurable: true, writable: true, value }) : obj[key2] = value;
+    var __publicField = (obj, key2, value) => __defNormalProp(obj, typeof key2 !== "symbol" ? key2 + "" : key2, value);
+    var __accessCheck = (obj, member, msg) => member.has(obj) || __typeError("Cannot " + msg);
+    var __privateGet = (obj, member, getter) => (__accessCheck(obj, member, "read from private field"), member.get(obj));
+    var __privateAdd = (obj, member, value) => member.has(obj) ? __typeError("Cannot add the same private member more than once") : member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
+    function toArray(v) {
+      if (v == null) return [];
+      return Array.isArray(v) ? v : [v];
     }
-    const preserveKeys = new Set("viewBox,className,preserveAspectRatio,fillRule,clipPath,clipRule,strokeWidth,strokeLinecap,strokeLinejoin,strokeDasharray,strokeDashoffset,strokeMiterlimit".split(","));
-    function toSvelteProp(key2) {
-      if (key2 in propMap)
-        return propMap[key2];
-      if (preserveKeys.has(key2))
-        return key2;
-      return key2.toLowerCase();
+    function nextIndex(v, idx, opts = {}) {
+      const { step = 1, loop = true } = opts;
+      const next2 = idx + step;
+      const len = v.length;
+      const last2 = len - 1;
+      if (idx === -1) return step > 0 ? 0 : last2;
+      if (next2 < 0) return loop ? last2 : 0;
+      if (next2 >= len) return loop ? 0 : idx > len ? len : idx;
+      return next2;
     }
-    function toSveltePropValue(key2, value) {
-      if (key2 === "style" && typeof value === "object")
-        return toStyleString(value);
-      return value;
+    function next(v, idx, opts = {}) {
+      return v[nextIndex(v, idx, opts)];
     }
-    const normalizeProps = createNormalizer((props) => {
-      const normalized = {};
-      for (const key2 in props) {
-        normalized[toSvelteProp(key2)] = toSveltePropValue(key2, props[key2]);
+    function prevIndex(v, idx, opts = {}) {
+      const { step = 1, loop = true } = opts;
+      return nextIndex(v, idx, { step: -step, loop });
+    }
+    function prev(v, index2, opts = {}) {
+      return v[prevIndex(v, index2, opts)];
+    }
+    var isArrayLike = (value) => value?.constructor.name === "Array";
+    var isArrayEqual = (a, b) => {
+      if (a.length !== b.length) return false;
+      for (let i = 0; i < a.length; i++) {
+        if (!isEqual(a[i], b[i])) return false;
       }
-      return normalized;
-    });
-    const CSS_REGEX = /((?:--)?(?:\w+-?)+)\s*:\s*([^;]*)/g;
-    const serialize = (style) => {
-      const res = {};
-      let match;
-      while (match = CSS_REGEX.exec(style)) {
-        res[match[1]] = match[2];
-      }
-      return res;
+      return true;
     };
-    function mergeProps(...args) {
-      const classNames = [];
-      for (const props of args) {
-        if (!props)
-          continue;
-        if ("class" in props && props.class != null) {
-          classNames.push(props.class);
-        }
+    var isEqual = (a, b) => {
+      if (Object.is(a, b)) return true;
+      if (a == null && b != null || a != null && b == null) return false;
+      if (typeof a?.isEqual === "function" && typeof b?.isEqual === "function") {
+        return a.isEqual(b);
       }
-      const merged = mergeProps$1(...args);
-      if (classNames.length > 0) {
-        merged.class = classNames.length === 1 ? classNames[0] : classNames;
+      if (typeof a === "function" && typeof b === "function") {
+        return a.toString() === b.toString();
       }
-      if ("style" in merged) {
-        if (typeof merged.style === "string") {
-          merged.style = serialize(merged.style);
-        }
-        merged.style = toStyleString(merged.style);
+      if (isArrayLike(a) && isArrayLike(b)) {
+        return isArrayEqual(Array.from(a), Array.from(b));
       }
-      return merged;
-    }
-    function bindable(props) {
-      const initial = props().defaultValue ?? props().value;
-      const eq2 = props().isEqual ?? Object.is;
-      let value = /* @__PURE__ */ state$1(proxy$1(initial));
-      const controlled = /* @__PURE__ */ user_derived(() => props().value !== void 0);
-      let valueRef = { current: untrack(() => get$3(value)) };
-      let prevValue = { current: void 0 };
-      user_pre_effect(() => {
-        const v = get$3(controlled) ? props().value : get$3(value);
-        valueRef = { current: v };
-        prevValue = { current: v };
-      });
-      const setValueFn = (v) => {
-        const next2 = isFunction(v) ? v(valueRef.current) : v;
-        const prev2 = prevValue.current;
-        if (props().debug) {
-          console.log(`[bindable > ${props().debug}] setValue`, { next: next2, prev: prev2 });
-        }
-        if (!get$3(controlled)) set$2(value, next2, true);
-        if (!eq2(next2, prev2)) {
-          props().onChange?.(next2, prev2);
-        }
-      };
-      function get2() {
-        return get$3(controlled) ? props().value : get$3(value);
+      if (!(typeof a === "object") || !(typeof b === "object")) return false;
+      const keys2 = Object.keys(b ?? /* @__PURE__ */ Object.create(null));
+      const length = keys2.length;
+      for (let i = 0; i < length; i++) {
+        const hasKey = Reflect.has(a, keys2[i]);
+        if (!hasKey) return false;
       }
-      return {
-        initial,
-        ref: valueRef,
-        get: get2,
-        set(val) {
-          const exec = props().sync ? flushSync : identity;
-          untrack(() => exec(() => setValueFn(val)));
-        },
-        invoke(nextValue, prevValue2) {
-          props().onChange?.(nextValue, prevValue2);
-        },
-        hash(value2) {
-          return props().hash?.(value2) ?? String(value2);
-        }
-      };
-    }
-    bindable.cleanup = (fn) => {
-      onDestroy(() => fn());
+      for (let i = 0; i < length; i++) {
+        const key2 = keys2[i];
+        if (!isEqual(a[key2], b[key2])) return false;
+      }
+      return true;
     };
-    bindable.ref = (defaultValue) => {
-      let value = defaultValue;
-      return {
-        get: () => value,
-        set: (next2) => {
-          value = next2;
-        }
-      };
+    var isObjectLike = (v) => v != null && typeof v === "object";
+    var isString = (v) => typeof v === "string";
+    var isFunction = (v) => typeof v === "function";
+    var hasProp = (obj, prop2) => Object.prototype.hasOwnProperty.call(obj, prop2);
+    var baseGetTag = (v) => Object.prototype.toString.call(v);
+    var fnToString = Function.prototype.toString;
+    var objectCtorString = fnToString.call(Object);
+    var isPlainObject = (v) => {
+      if (!isObjectLike(v) || baseGetTag(v) != "[object Object]" || isFrameworkElement(v)) return false;
+      const proto = Object.getPrototypeOf(v);
+      if (proto === null) return true;
+      const Ctor = hasProp(proto, "constructor") && proto.constructor;
+      return typeof Ctor == "function" && Ctor instanceof Ctor && fnToString.call(Ctor) == objectCtorString;
     };
-    function useRefs(refs) {
-      const ref2 = { current: refs };
-      return {
-        get(key2) {
-          return ref2.current[key2];
-        },
-        set(key2, value) {
-          ref2.current[key2] = value;
-        }
-      };
-    }
-    const access$1 = (value) => {
-      if (typeof value === "function") return value();
-      return value;
+    var isReactElement = (x) => typeof x === "object" && x !== null && "$$typeof" in x && "props" in x;
+    var isVueElement = (x) => typeof x === "object" && x !== null && "__v_isVNode" in x;
+    var isFrameworkElement = (x) => isReactElement(x) || isVueElement(x);
+    var runIfFn = (v, ...a) => {
+      const res = typeof v === "function" ? v(...a) : v;
+      return res ?? void 0;
     };
-    const track = (deps, effect2) => {
-      let prevDeps = [];
-      let isFirstRun = true;
-      user_effect(() => {
-        if (isFirstRun) {
-          prevDeps = deps.map((d) => access$1(d));
-          isFirstRun = false;
-          return;
-        }
-        let changed = false;
-        for (let i = 0; i < deps.length; i++) {
-          if (!isEqual$1(prevDeps[i], access$1(deps[i]))) {
-            changed = true;
-            break;
-          }
-        }
-        if (changed) {
-          prevDeps = deps.map((d) => access$1(d));
-          effect2();
-        }
+    var identity = (v) => v();
+    var callAll = (...fns) => (...a) => {
+      fns.forEach(function(fn) {
+        fn?.(...a);
       });
     };
-    function access(userProps) {
-      if (isFunction(userProps)) return userProps();
-      return userProps;
-    }
-    function useMachine(machine2, userProps) {
-      const scope = /* @__PURE__ */ user_derived(() => {
-        const { id, ids, getRootNode } = access(userProps);
-        return createScope({ id, ids, getRootNode });
-      });
-      const debug = (...args) => {
-        if (machine2.debug) console.log(...args);
-      };
-      const props = /* @__PURE__ */ user_derived(() => machine2.props?.({ props: compact(access(userProps)), scope: get$3(scope) }) ?? access(userProps));
-      const prop2 = useProp(() => get$3(props));
-      const context = machine2.context?.({
-        prop: prop2,
-        bindable,
-        get scope() {
-          return get$3(scope);
-        },
-        flush,
-        getContext() {
-          return ctx;
-        },
-        getComputed() {
-          return computed;
-        },
-        getRefs() {
-          return refs;
-        },
-        getEvent() {
-          return getEvent();
-        }
-      });
-      const ctx = {
-        get(key2) {
-          return context?.[key2].get();
-        },
-        set(key2, value) {
-          context?.[key2].set(value);
-        },
-        initial(key2) {
-          return context?.[key2].initial;
-        },
-        hash(key2) {
-          const current = context?.[key2].get();
-          return context?.[key2].hash(current);
-        }
-      };
-      let effects = /* @__PURE__ */ new Map();
-      let transitionRef = { current: null };
-      let previousEventRef = { current: null };
-      let eventRef = { current: { type: "" } };
-      const getEvent = () => ({
-        ...eventRef.current,
-        current() {
-          return eventRef.current;
-        },
-        previous() {
-          return previousEventRef.current;
-        }
-      });
-      const getState = () => ({
-        ...state2,
-        hasTag(tag) {
-          const currentState = state2.get();
-          return hasTag(machine2, currentState, tag);
-        },
-        matches(...values) {
-          const currentState = state2.get();
-          return values.some((value) => matchesState(currentState, value));
-        }
-      });
-      const refs = useRefs(machine2.refs?.({ prop: prop2, context: ctx }) ?? {});
-      const getParams = () => ({
-        state: getState(),
-        context: ctx,
-        event: getEvent(),
-        prop: prop2,
-        send,
-        action: action2,
-        guard,
-        track,
-        refs,
-        computed,
-        flush,
-        scope: get$3(scope),
-        choose
-      });
-      const action2 = (keys2) => {
-        const strs = isFunction(keys2) ? keys2(getParams()) : keys2;
-        if (!strs) return;
-        const fns = strs.map((s) => {
-          const fn = machine2.implementations?.actions?.[s];
-          if (!fn) warn(`[zag-js] No implementation found for action "${JSON.stringify(s)}"`);
-          return fn;
-        });
-        for (const fn of fns) {
-          fn?.(getParams());
-        }
-      };
-      const guard = (str) => {
-        if (isFunction(str)) return str(getParams());
-        return machine2.implementations?.guards?.[str](getParams());
-      };
-      const effect2 = (keys2) => {
-        const strs = isFunction(keys2) ? keys2(getParams()) : keys2;
-        if (!strs) return;
-        const fns = strs.map((s) => {
-          const fn = machine2.implementations?.effects?.[s];
-          if (!fn) warn(`[zag-js] No implementation found for effect "${JSON.stringify(s)}"`);
-          return fn;
-        });
-        const cleanups = [];
-        for (const fn of fns) {
-          const cleanup = fn?.(getParams());
-          if (cleanup) cleanups.push(cleanup);
-        }
-        return () => cleanups.forEach((fn) => fn?.());
-      };
-      const choose = (transitions) => {
-        return toArray(transitions).find((t) => {
-          let result = !t.guard;
-          if (isString(t.guard)) result = !!guard(t.guard);
-          else if (isFunction(t.guard)) result = t.guard(getParams());
-          return result;
-        });
-      };
-      const computed = (key2) => {
-        ensure(machine2.computed, () => `[zag-js] No computed object found on machine`);
-        const fn = machine2.computed[key2];
-        return fn({
-          context: ctx,
-          event: getEvent(),
-          prop: prop2,
-          refs,
-          scope: get$3(scope),
-          computed
-        });
-      };
-      const state2 = bindable(() => ({
-        defaultValue: resolveStateValue(machine2, machine2.initialState({ prop: prop2 })),
-        onChange(nextState, prevState) {
-          const { exiting, entering } = getExitEnterStates(machine2, prevState, nextState, transitionRef.current?.reenter);
-          exiting.forEach((item) => {
-            const exitEffects = effects.get(item.path);
-            exitEffects?.();
-            effects.delete(item.path);
-          });
-          exiting.forEach((item) => {
-            action2(item.state?.exit);
-          });
-          action2(transitionRef.current?.actions);
-          entering.forEach((item) => {
-            const cleanup = effect2(item.state?.effects);
-            if (cleanup) effects.set(item.path, cleanup);
-          });
-          if (prevState === INIT_STATE) {
-            action2(machine2.entry);
-            const cleanup = effect2(machine2.effects);
-            if (cleanup) effects.set(INIT_STATE, cleanup);
-          }
-          entering.forEach((item) => {
-            action2(item.state?.entry);
-          });
-        }
-      }));
-      let status2 = MachineStatus.NotStarted;
-      onMount(() => {
-        const started = status2 === MachineStatus.Started;
-        status2 = MachineStatus.Started;
-        debug(started ? "rehydrating..." : "initializing...");
-        state2.invoke(state2.initial, INIT_STATE);
-      });
-      onDestroy(() => {
-        debug("unmounting...");
-        status2 = MachineStatus.Stopped;
-        effects.forEach((fn) => fn?.());
-        effects = /* @__PURE__ */ new Map();
-        transitionRef.current = null;
-        action2(machine2.exit);
-      });
-      const send = (event2) => {
-        if (status2 !== MachineStatus.Started) return;
-        previousEventRef.current = eventRef.current;
-        eventRef.current = event2;
-        let currentState = state2.get();
-        const { transitions, source: source2 } = findTransition(machine2, currentState, event2.type);
-        const transition = choose(transitions);
-        if (!transition) return;
-        transitionRef.current = transition;
-        const target = resolveStateValue(machine2, transition.target ?? currentState, source2);
-        debug("transition", event2.type, transition.target || currentState, `(${transition.actions})`);
-        const changed = target !== currentState;
-        if (changed) {
-          state2.set(target);
-        } else if (transition.reenter) {
-          state2.invoke(currentState, currentState);
-        } else {
-          action2(transition.actions);
-        }
-      };
-      machine2.watch?.(getParams());
-      return {
-        get state() {
-          return getState();
-        },
-        send,
-        context: ctx,
-        prop: prop2,
-        get scope() {
-          return get$3(scope);
-        },
-        refs,
-        computed,
-        get event() {
-          return getEvent();
-        },
-        getStatus: () => status2
-      };
-    }
-    function useProp(value) {
-      return function get2(key2) {
-        return value()[key2];
-      };
-    }
-    function flush(fn) {
-      flushSync(() => {
-        queueMicrotask(() => fn());
-      });
-    }
-    const voidSVGTags = ["path", "rect", "circle", "ellipse", "line", "polygon", "polyline"];
-    const isVoidSVGTag = (tag) => typeof tag === "string" && voidSVGTags.includes(tag);
-    const voidHTMLTags = ["area", "base", "br", "col", "embed", "hr", "img", "input", "link"];
-    const isVoidHTMLTag = (tag) => typeof tag === "string" && voidHTMLTags.includes(tag);
-    function Svg_factory($$anchor, $$props) {
-      push($$props, true);
-      let ref2 = prop($$props, "ref", 15, null), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "as", "ref"]);
-      var fragment = comment();
-      var node = first_child(fragment);
-      element(node, () => $$props.as, true, ($$element, $$anchor2) => {
-        bind_this($$element, ($$value) => ref2($$value), () => ref2());
-        attribute_effect($$element, () => ({ ...props }));
-      });
-      append$1($$anchor, fragment);
-      pop();
-    }
-    var root_4$1 = /* @__PURE__ */ from_html(`<textarea></textarea>`);
-    function Factory($$anchor, $$props) {
-      push($$props, true);
-      let ref2 = prop($$props, "ref", 15, null), rest = /* @__PURE__ */ rest_props($$props, [
-        "$$slots",
-        "$$events",
-        "$$legacy",
-        "asChild",
-        "children",
-        "as",
-        "ref"
-      ]);
-      const propsFn = (props) => mergeProps(rest, props ?? {});
-      var fragment = comment();
-      var node = first_child(fragment);
-      {
-        var consequent = ($$anchor2) => {
-          var fragment_1 = comment();
-          var node_1 = first_child(fragment_1);
-          snippet(node_1, () => $$props.asChild ?? noop$2, () => propsFn);
-          append$1($$anchor2, fragment_1);
-        };
-        var consequent_1 = ($$anchor2) => {
-          Svg_factory($$anchor2, spread_props(
-            {
-              get as() {
-                return $$props.as;
-              }
-            },
-            () => rest,
-            {
-              get ref() {
-                return ref2();
-              },
-              set ref($$value) {
-                ref2($$value);
-              }
-            }
-          ));
-        };
-        var d = /* @__PURE__ */ user_derived(() => isVoidSVGTag($$props.as));
-        var consequent_2 = ($$anchor2) => {
-          var fragment_3 = comment();
-          var node_2 = first_child(fragment_3);
-          element(node_2, () => $$props.as, false, ($$element, $$anchor3) => {
-            bind_this($$element, ($$value) => ref2($$value), () => ref2());
-            attribute_effect($$element, () => ({ ...rest }));
-          });
-          append$1($$anchor2, fragment_3);
-        };
-        var d_1 = /* @__PURE__ */ user_derived(() => isVoidHTMLTag($$props.as));
-        var consequent_3 = ($$anchor2) => {
-          var textarea = root_4$1();
-          attribute_effect(textarea, () => ({ ...rest }));
-          bind_this(textarea, ($$value) => ref2($$value), () => ref2());
-          append$1($$anchor2, textarea);
-        };
-        var alternate = ($$anchor2) => {
-          var fragment_4 = comment();
-          var node_3 = first_child(fragment_4);
-          element(node_3, () => $$props.as, false, ($$element_1, $$anchor3) => {
-            bind_this($$element_1, ($$value) => ref2($$value), () => ref2());
-            attribute_effect($$element_1, () => ({ ...rest }));
-            var fragment_5 = comment();
-            var node_4 = first_child(fragment_5);
-            snippet(node_4, () => $$props.children ?? noop$2);
-            append$1($$anchor3, fragment_5);
-          });
-          append$1($$anchor2, fragment_4);
-        };
-        if_block(node, ($$render) => {
-          if ($$props.asChild) $$render(consequent);
-          else if (get$3(d)) $$render(consequent_1, 1);
-          else if (get$3(d_1)) $$render(consequent_2, 2);
-          else if ($$props.as === "textarea") $$render(consequent_3, 3);
-          else $$render(alternate, false);
-        });
-      }
-      append$1($$anchor, fragment);
-      pop();
-    }
-    const [CollapsibleProvider, useCollapsibleContext] = createContext({
-      name: "CollapsibleContext"
-    });
-    function Collapsible_content($$anchor, $$props) {
-      push($$props, true);
-      let ref2 = prop($$props, "ref", 15, null), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "ref"]);
-      const collapsible = useCollapsibleContext();
-      const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(collapsible().getContentProps(), props));
-      var fragment = comment();
-      var node = first_child(fragment);
-      {
-        var consequent = ($$anchor2) => {
-          Factory($$anchor2, spread_props({ as: "div" }, () => get$3(mergedProps), {
-            get ref() {
-              return ref2();
-            },
-            set ref($$value) {
-              ref2($$value);
-            }
-          }));
-        };
-        var d = /* @__PURE__ */ user_derived(() => !collapsible().isUnmounted);
-        if_block(node, ($$render) => {
-          if (get$3(d)) $$render(consequent);
-        });
-      }
-      append$1($$anchor, fragment);
-      pop();
-    }
-    const splitFn = createSplitProps$1();
-    const splitCollapsibleProps = (props) => splitFn(props, [
-      "collapsedHeight",
-      "collapsedWidth",
-      "defaultOpen",
-      "disabled",
-      "id",
-      "ids",
-      "lazyMount",
-      "onExitComplete",
-      "onOpenChange",
-      "open",
-      "unmountOnExit"
-    ]);
-    const [EnvironmentContextProvider, useEnvironmentContext] = createContext({
-      name: "EnvironmentContext",
-      strict: false,
-      defaultValue: () => ({
-        getRootNode: () => document,
-        getDocument: () => document,
-        getWindow: () => window
-      })
-    });
-    const [LocaleContextProvider, useLocaleContext] = createContext({
-      name: "LocaleContext",
-      strict: false,
-      defaultValue: () => ({
-        dir: "ltr",
-        locale: "en-US"
-      })
-    });
-    var createAnatomy = (name, parts2 = []) => ({
-      parts: (...values) => {
-        if (isEmpty(parts2)) {
-          return createAnatomy(name, values);
-        }
-        throw new Error("createAnatomy().parts(...) should only be called once. Did you mean to use .extendWith(...) ?");
-      },
-      extendWith: (...values) => createAnatomy(name, [...parts2, ...values]),
-      omit: (...values) => createAnatomy(name, parts2.filter((part) => !values.includes(part))),
-      rename: (newName) => createAnatomy(newName, parts2),
-      keys: () => parts2,
-      build: () => [...new Set(parts2)].reduce(
-        (prev2, part) => Object.assign(prev2, {
-          [part]: {
-            selector: [
-              `&[data-scope="${toKebabCase(name)}"][data-part="${toKebabCase(part)}"]`,
-              `& [data-scope="${toKebabCase(name)}"][data-part="${toKebabCase(part)}"]`
-            ].join(", "),
-            attrs: { "data-scope": toKebabCase(name), "data-part": toKebabCase(part) }
-          }
-        }),
-        {}
-      )
-    });
-    var toKebabCase = (value) => value.replace(/([A-Z])([A-Z])/g, "$1-$2").replace(/([a-z])([A-Z])/g, "$1-$2").replace(/[\s_]+/g, "-").toLowerCase();
-    var isEmpty = (v) => v.length === 0;
-    var anatomy$2 = createAnatomy("collapsible").parts("root", "trigger", "content", "indicator");
-    var parts$2 = anatomy$2.build();
-    var getRootId$2 = (ctx) => ctx.ids?.root ?? `collapsible:${ctx.id}`;
-    var getContentId = (ctx) => ctx.ids?.content ?? `collapsible:${ctx.id}:content`;
-    var getTriggerId = (ctx) => ctx.ids?.trigger ?? `collapsible:${ctx.id}:trigger`;
-    var getContentEl = (ctx) => ctx.getById(getContentId(ctx));
-    function connect$2(service, normalize) {
-      const { state: state2, send, context, scope, prop: prop2 } = service;
-      const visible = state2.matches("open") || state2.matches("closing");
-      const open = state2.matches("open");
-      const closed = state2.matches("closed");
-      const { width, height } = context.get("size");
-      const disabled = !!prop2("disabled");
-      const collapsedHeight = prop2("collapsedHeight");
-      const collapsedWidth = prop2("collapsedWidth");
-      const hasCollapsedHeight = collapsedHeight != null;
-      const hasCollapsedWidth = collapsedWidth != null;
-      const hasCollapsedSize = hasCollapsedHeight || hasCollapsedWidth;
-      const skip = !context.get("initial") && open;
-      return {
-        disabled,
-        visible,
-        open,
-        measureSize() {
-          send({ type: "size.measure" });
-        },
-        setOpen(nextOpen) {
-          const open2 = state2.matches("open");
-          if (open2 === nextOpen) return;
-          send({ type: nextOpen ? "open" : "close" });
-        },
-        getRootProps() {
-          return normalize.element({
-            ...parts$2.root.attrs,
-            "data-state": open ? "open" : "closed",
-            dir: prop2("dir"),
-            id: getRootId$2(scope)
-          });
-        },
-        getContentProps() {
-          return normalize.element({
-            ...parts$2.content.attrs,
-            id: getContentId(scope),
-            "data-collapsible": "",
-            "data-state": skip ? void 0 : open ? "open" : "closed",
-            "data-disabled": dataAttr(disabled),
-            "data-has-collapsed-size": dataAttr(hasCollapsedSize),
-            hidden: !visible && !hasCollapsedSize,
-            dir: prop2("dir"),
-            style: {
-              "--height": toPx(height),
-              "--width": toPx(width),
-              "--collapsed-height": toPx(collapsedHeight),
-              "--collapsed-width": toPx(collapsedWidth),
-              ...closed && hasCollapsedHeight && {
-                overflow: "hidden",
-                minHeight: toPx(collapsedHeight),
-                maxHeight: toPx(collapsedHeight)
-              },
-              ...closed && hasCollapsedWidth && {
-                overflow: "hidden",
-                minWidth: toPx(collapsedWidth),
-                maxWidth: toPx(collapsedWidth)
-              }
-            }
-          });
-        },
-        getTriggerProps() {
-          return normalize.element({
-            ...parts$2.trigger.attrs,
-            id: getTriggerId(scope),
-            dir: prop2("dir"),
-            type: "button",
-            "data-state": open ? "open" : "closed",
-            "data-disabled": dataAttr(disabled),
-            "aria-controls": getContentId(scope),
-            "aria-expanded": visible || false,
-            onClick(event2) {
-              if (event2.defaultPrevented) return;
-              if (disabled) return;
-              send({ type: open ? "close" : "open" });
-            }
-          });
-        },
-        getIndicatorProps() {
-          return normalize.element({
-            ...parts$2.indicator.attrs,
-            dir: prop2("dir"),
-            "data-state": open ? "open" : "closed",
-            "data-disabled": dataAttr(disabled)
-          });
-        }
-      };
-    }
-    var machine$2 = createMachine({
-      initialState({ prop: prop2 }) {
-        const open = prop2("open") || prop2("defaultOpen");
-        return open ? "open" : "closed";
-      },
-      context({ bindable: bindable2 }) {
-        return {
-          size: bindable2(() => ({
-            defaultValue: { height: 0, width: 0 },
-            sync: true
-          })),
-          initial: bindable2(() => ({
-            defaultValue: false
-          }))
-        };
-      },
-      refs() {
-        return {
-          cleanup: void 0,
-          stylesRef: void 0
-        };
-      },
-      watch({ track: track2, prop: prop2, action: action2 }) {
-        track2([() => prop2("open")], () => {
-          action2(["setInitial", "computeSize", "toggleVisibility"]);
-        });
-      },
-      exit: ["cleanupNode"],
-      states: {
-        closed: {
-          effects: ["trackTabbableElements"],
-          on: {
-            "controlled.open": {
-              target: "open"
-            },
-            open: [
-              {
-                guard: "isOpenControlled",
-                actions: ["invokeOnOpen"]
-              },
-              {
-                target: "open",
-                actions: ["setInitial", "computeSize", "invokeOnOpen"]
-              }
-            ]
-          }
-        },
-        closing: {
-          effects: ["trackExitAnimation"],
-          on: {
-            "controlled.close": {
-              target: "closed"
-            },
-            "controlled.open": {
-              target: "open"
-            },
-            open: [
-              {
-                guard: "isOpenControlled",
-                actions: ["invokeOnOpen"]
-              },
-              {
-                target: "open",
-                actions: ["setInitial", "invokeOnOpen"]
-              }
-            ],
-            close: [
-              {
-                guard: "isOpenControlled",
-                actions: ["invokeOnExitComplete"]
-              },
-              {
-                target: "closed",
-                actions: ["setInitial", "computeSize", "invokeOnExitComplete"]
-              }
-            ],
-            "animation.end": {
-              target: "closed",
-              actions: ["invokeOnExitComplete", "clearInitial"]
-            }
-          }
-        },
-        open: {
-          effects: ["trackEnterAnimation"],
-          on: {
-            "controlled.close": {
-              target: "closing"
-            },
-            close: [
-              {
-                guard: "isOpenControlled",
-                actions: ["invokeOnClose"]
-              },
-              {
-                target: "closing",
-                actions: ["setInitial", "computeSize", "invokeOnClose"]
-              }
-            ],
-            "size.measure": {
-              actions: ["measureSize"]
-            },
-            "animation.end": {
-              actions: ["clearInitial"]
-            }
-          }
-        }
-      },
-      implementations: {
-        guards: {
-          isOpenControlled: ({ prop: prop2 }) => prop2("open") != void 0
-        },
-        effects: {
-          trackEnterAnimation: ({ send, scope }) => {
-            let cleanup;
-            const rafCleanup = raf(() => {
-              const contentEl = getContentEl(scope);
-              if (!contentEl) return;
-              const animationName = getComputedStyle$1(contentEl).animationName;
-              const hasNoAnimation = !animationName || animationName === "none";
-              if (hasNoAnimation) {
-                send({ type: "animation.end" });
-                return;
-              }
-              const onEnd = (event2) => {
-                const target = getEventTarget(event2);
-                if (target === contentEl) {
-                  send({ type: "animation.end" });
-                }
-              };
-              contentEl.addEventListener("animationend", onEnd);
-              cleanup = () => {
-                contentEl.removeEventListener("animationend", onEnd);
-              };
-            });
-            return () => {
-              rafCleanup();
-              cleanup?.();
-            };
-          },
-          trackExitAnimation: ({ send, scope }) => {
-            let cleanup;
-            const rafCleanup = raf(() => {
-              const contentEl = getContentEl(scope);
-              if (!contentEl) return;
-              const animationName = getComputedStyle$1(contentEl).animationName;
-              const hasNoAnimation = !animationName || animationName === "none";
-              if (hasNoAnimation) {
-                send({ type: "animation.end" });
-                return;
-              }
-              const onEnd = (event2) => {
-                const target = getEventTarget(event2);
-                if (target === contentEl) {
-                  send({ type: "animation.end" });
-                }
-              };
-              contentEl.addEventListener("animationend", onEnd);
-              const restoreStyles = setStyle(contentEl, {
-                animationFillMode: "forwards"
-              });
-              cleanup = () => {
-                contentEl.removeEventListener("animationend", onEnd);
-                nextTick(() => restoreStyles());
-              };
-            });
-            return () => {
-              rafCleanup();
-              cleanup?.();
-            };
-          },
-          trackTabbableElements: ({ scope, prop: prop2 }) => {
-            if (!prop2("collapsedHeight") && !prop2("collapsedWidth")) return;
-            const contentEl = getContentEl(scope);
-            if (!contentEl) return;
-            const applyInertToTabbables = () => {
-              const tabbables = getTabbables(contentEl);
-              const restoreAttrs = tabbables.map((tabbable) => setAttribute(tabbable, "inert", ""));
-              return () => {
-                restoreAttrs.forEach((attr) => attr());
-              };
-            };
-            let restoreInert = applyInertToTabbables();
-            const observerCleanup = observeChildren(contentEl, {
-              callback() {
-                restoreInert();
-                restoreInert = applyInertToTabbables();
-              }
-            });
-            return () => {
-              restoreInert();
-              observerCleanup();
-            };
-          }
-        },
-        actions: {
-          setInitial: ({ context, flush: flush2 }) => {
-            flush2(() => {
-              context.set("initial", true);
-            });
-          },
-          clearInitial: ({ context }) => {
-            context.set("initial", false);
-          },
-          cleanupNode: ({ refs }) => {
-            refs.set("stylesRef", null);
-          },
-          measureSize: ({ context, scope }) => {
-            const contentEl = getContentEl(scope);
-            if (!contentEl) return;
-            const { height, width } = contentEl.getBoundingClientRect();
-            context.set("size", { height, width });
-          },
-          computeSize: ({ refs, scope, context }) => {
-            refs.get("cleanup")?.();
-            const rafCleanup = raf(() => {
-              const contentEl = getContentEl(scope);
-              if (!contentEl) return;
-              const hidden = contentEl.hidden;
-              contentEl.style.animationName = "none";
-              contentEl.style.animationDuration = "0s";
-              contentEl.hidden = false;
-              const rect = contentEl.getBoundingClientRect();
-              context.set("size", { height: rect.height, width: rect.width });
-              if (context.get("initial")) {
-                contentEl.style.animationName = "";
-                contentEl.style.animationDuration = "";
-              }
-              contentEl.hidden = hidden;
-            });
-            refs.set("cleanup", rafCleanup);
-          },
-          invokeOnOpen: ({ prop: prop2 }) => {
-            prop2("onOpenChange")?.({ open: true });
-          },
-          invokeOnClose: ({ prop: prop2 }) => {
-            prop2("onOpenChange")?.({ open: false });
-          },
-          invokeOnExitComplete: ({ prop: prop2 }) => {
-            prop2("onExitComplete")?.();
-          },
-          toggleVisibility: ({ prop: prop2, send }) => {
-            send({ type: prop2("open") ? "controlled.open" : "controlled.close" });
-          }
+    function compact(obj) {
+      if (!isPlainObject(obj) || obj === void 0) return obj;
+      const keys2 = Reflect.ownKeys(obj).filter((key2) => typeof key2 === "string");
+      const filtered = {};
+      for (const key2 of keys2) {
+        const value = obj[key2];
+        if (value !== void 0) {
+          filtered[key2] = compact(value);
         }
       }
-    });
-    const useCollapsible = (props) => {
-      const env = useEnvironmentContext();
-      const locale = useLocaleContext();
-      let wasVisible = /* @__PURE__ */ state$1(false);
-      const machineProps = /* @__PURE__ */ user_derived(() => {
-        const resolvedProps2 = runIfFn(props);
-        const {
-          lazyMount,
-          unmountOnExit,
-          onExitComplete,
-          ...collapsibleProps
-        } = resolvedProps2 || {};
-        return {
-          dir: locale().dir,
-          getRootNode: env().getRootNode,
-          ...collapsibleProps
-        };
-      });
-      const service = useMachine(machine$2, () => get$3(machineProps));
-      const api = /* @__PURE__ */ user_derived(() => connect$2(service, normalizeProps));
-      const resolvedProps = /* @__PURE__ */ user_derived(() => runIfFn(props));
-      user_effect(() => {
-        if (get$3(api).visible) {
-          set$2(wasVisible, true);
+      return filtered;
+    }
+    var currentTime = () => performance.now();
+    var _tick;
+    var Timer = class {
+      constructor(onTick) {
+        this.onTick = onTick;
+        __publicField(this, "frameId", null);
+        __publicField(this, "pausedAtMs", null);
+        __publicField(this, "context");
+        __publicField(this, "cancelFrame", () => {
+          if (this.frameId === null) return;
+          cancelAnimationFrame(this.frameId);
+          this.frameId = null;
+        });
+        __publicField(this, "setStartMs", (startMs) => {
+          this.context.startMs = startMs;
+        });
+        __publicField(this, "start", () => {
+          if (this.frameId !== null) return;
+          const now = currentTime();
+          if (this.pausedAtMs !== null) {
+            this.context.startMs += now - this.pausedAtMs;
+            this.pausedAtMs = null;
+          } else {
+            this.context.startMs = now;
+          }
+          this.frameId = requestAnimationFrame(__privateGet(this, _tick));
+        });
+        __publicField(this, "pause", () => {
+          if (this.frameId === null) return;
+          this.cancelFrame();
+          this.pausedAtMs = currentTime();
+        });
+        __publicField(this, "stop", () => {
+          if (this.frameId === null) return;
+          this.cancelFrame();
+          this.pausedAtMs = null;
+        });
+        __privateAdd(this, _tick, (now) => {
+          this.context.now = now;
+          this.context.deltaMs = now - this.context.startMs;
+          const shouldContinue = this.onTick(this.context);
+          if (shouldContinue === false) {
+            this.stop();
+            return;
+          }
+          this.frameId = requestAnimationFrame(__privateGet(this, _tick));
+        });
+        this.context = { now: 0, startMs: currentTime(), deltaMs: 0 };
+      }
+      get elapsedMs() {
+        if (this.pausedAtMs !== null) {
+          return this.pausedAtMs - this.context.startMs;
         }
-      });
-      const isUnmounted = /* @__PURE__ */ user_derived(() => {
-        const { lazyMount, unmountOnExit } = get$3(resolvedProps) || {};
-        return !get$3(api).visible && !get$3(wasVisible) && lazyMount || unmountOnExit && !get$3(api).visible && get$3(wasVisible);
-      });
-      return () => ({ ...get$3(api), isUnmounted: Boolean(get$3(isUnmounted)) });
+        return currentTime() - this.context.startMs;
+      }
     };
-    function Collapsible_root($$anchor, $$props) {
-      const providedId = props_id();
-      push($$props, true);
-      let ref2 = prop($$props, "ref", 15, null), open = prop($$props, "open", 15), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "ref", "open"]);
-      const $$d = /* @__PURE__ */ user_derived(() => splitCollapsibleProps(props)), $$array = /* @__PURE__ */ user_derived(() => to_array(get$3($$d), 2)), useCollapsibleProps = /* @__PURE__ */ user_derived(() => get$3($$array)[0]), localProps = /* @__PURE__ */ user_derived(() => get$3($$array)[1]);
-      const resolvedProps = /* @__PURE__ */ user_derived(() => ({
-        ...get$3(useCollapsibleProps),
-        id: get$3(useCollapsibleProps).id ?? providedId,
-        open: open(),
-        onOpenChange(details) {
-          get$3(useCollapsibleProps).onOpenChange?.(details);
-          if (open() !== void 0) open(details.open);
+    _tick = /* @__PURE__ */ new WeakMap();
+    function setRafTimeout(fn, delayMs) {
+      const timer = new Timer(({ deltaMs }) => {
+        if (deltaMs >= delayMs) {
+          fn();
+          return false;
         }
-      }));
-      const collapsible = useCollapsible(() => get$3(resolvedProps));
-      const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(collapsible().getRootProps(), get$3(localProps)));
-      CollapsibleProvider(collapsible);
-      Factory($$anchor, spread_props({ as: "div" }, () => get$3(mergedProps), {
-        get ref() {
-          return ref2();
-        },
-        set ref($$value) {
-          ref2($$value);
-        }
-      }));
-      pop();
-    }
-    const [AccordionItemProvider] = createContext({
-      name: "AccordionItemContext",
-      hookName: "useAccordionItemContext",
-      providerName: "<AccordionItemProvider />"
-    });
-    const [AccordionItemPropsProvider, useAccordionItemPropsContext] = createContext({
-      name: "AccordionItemPropsContext",
-      hookName: "useAccordionItemPropsContext",
-      providerName: "<AccordionItemPropsProvider />"
-    });
-    function Accordion_item($$anchor, $$props) {
-      push($$props, true);
-      let ref2 = prop($$props, "ref", 15, null), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "ref"]);
-      const $$d = /* @__PURE__ */ user_derived(() => createSplitProps$1()(props, ["value", "disabled"])), $$array = /* @__PURE__ */ user_derived(() => to_array(get$3($$d), 2)), itemProps = /* @__PURE__ */ user_derived(() => get$3($$array)[0]), localProps = /* @__PURE__ */ user_derived(() => get$3($$array)[1]);
-      const accordion = useAccordionContext();
-      const renderStrategy = useRenderStrategyPropsContext();
-      const itemState = /* @__PURE__ */ user_derived(() => accordion().getItemState(get$3(itemProps)));
-      const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(accordion().getItemProps(get$3(itemProps)), get$3(localProps)));
-      const itemContentProps = /* @__PURE__ */ user_derived(() => accordion().getItemContentProps(get$3(itemProps)));
-      AccordionItemPropsProvider(() => get$3(itemProps));
-      AccordionItemProvider(() => get$3(itemState));
-      {
-        let $0 = /* @__PURE__ */ user_derived(() => ({ content: get$3(itemContentProps).id ?? void 0 }));
-        let $1 = /* @__PURE__ */ user_derived(renderStrategy);
-        Collapsible_root($$anchor, spread_props(
-          {
-            get open() {
-              return get$3(itemState).expanded;
-            },
-            get ids() {
-              return get$3($0);
-            }
-          },
-          () => get$3($1),
-          () => get$3(mergedProps),
-          {
-            get ref() {
-              return ref2();
-            },
-            set ref($$value) {
-              ref2($$value);
-            }
-          }
-        ));
-      }
-      pop();
-    }
-    function Accordion_item_content($$anchor, $$props) {
-      push($$props, true);
-      let ref2 = prop($$props, "ref", 15, null), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "ref"]);
-      const accordion = useAccordionContext();
-      const itemProps = useAccordionItemPropsContext();
-      const contentProps = /* @__PURE__ */ user_derived(() => accordion().getItemContentProps(itemProps()));
-      const itemContentProps = /* @__PURE__ */ user_derived(() => omit(get$3(contentProps), ["hidden", "data-state"]));
-      const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(get$3(itemContentProps), props));
-      Collapsible_content($$anchor, spread_props(() => get$3(mergedProps), {
-        get ref() {
-          return ref2();
-        },
-        set ref($$value) {
-          ref2($$value);
-        }
-      }));
-      pop();
-    }
-    function Accordion_item_indicator($$anchor, $$props) {
-      push($$props, true);
-      let ref2 = prop($$props, "ref", 15, null), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "ref"]);
-      const accordion = useAccordionContext();
-      const itemProps = useAccordionItemPropsContext();
-      const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(accordion().getItemIndicatorProps(itemProps()), props));
-      Factory($$anchor, spread_props({ as: "div" }, () => get$3(mergedProps), {
-        get ref() {
-          return ref2();
-        },
-        set ref($$value) {
-          ref2($$value);
-        }
-      }));
-      pop();
-    }
-    function Accordion_item_trigger($$anchor, $$props) {
-      push($$props, true);
-      let ref2 = prop($$props, "ref", 15, null), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "ref"]);
-      const accordion = useAccordionContext();
-      const itemProps = useAccordionItemPropsContext();
-      const collapsible = useCollapsibleContext();
-      const triggerProps = /* @__PURE__ */ user_derived(() => accordion().getItemTriggerProps(itemProps()));
-      const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(
-        {
-          ...get$3(triggerProps),
-          "aria-controls": collapsible().isUnmounted ? void 0 : get$3(triggerProps)["aria-controls"]
-        },
-        props
-      ));
-      Factory($$anchor, spread_props({ as: "button" }, () => get$3(mergedProps), {
-        get ref() {
-          return ref2();
-        },
-        set ref($$value) {
-          ref2($$value);
-        }
-      }));
-      pop();
-    }
-    var anatomy$1 = createAnatomy("accordion").parts("root", "item", "itemTrigger", "itemContent", "itemIndicator");
-    var parts$1 = anatomy$1.build();
-    var getRootId$1 = (ctx) => ctx.ids?.root ?? `accordion:${ctx.id}`;
-    var getItemId = (ctx, value) => ctx.ids?.item?.(value) ?? `accordion:${ctx.id}:item:${value}`;
-    var getItemContentId = (ctx, value) => ctx.ids?.itemContent?.(value) ?? `accordion:${ctx.id}:content:${value}`;
-    var getItemTriggerId = (ctx, value) => ctx.ids?.itemTrigger?.(value) ?? `accordion:${ctx.id}:trigger:${value}`;
-    var getRootEl$1 = (ctx) => ctx.getById(getRootId$1(ctx));
-    var getTriggerEls = (ctx) => {
-      const ownerId = CSS.escape(getRootId$1(ctx));
-      const selector = `[data-controls][data-ownedby='${ownerId}']:not([disabled])`;
-      return queryAll(getRootEl$1(ctx), selector);
-    };
-    var getFirstTriggerEl = (ctx) => first(getTriggerEls(ctx));
-    var getLastTriggerEl = (ctx) => last(getTriggerEls(ctx));
-    var getNextTriggerEl = (ctx, id) => nextById(getTriggerEls(ctx), getItemTriggerId(ctx, id));
-    var getPrevTriggerEl = (ctx, id) => prevById(getTriggerEls(ctx), getItemTriggerId(ctx, id));
-    function connect$1(service, normalize) {
-      const { send, context, prop: prop2, scope, computed } = service;
-      const focusedValue = context.get("focusedValue");
-      const value = context.get("value");
-      const multiple = prop2("multiple");
-      function setValue(value2) {
-        let nextValue = value2;
-        if (!multiple && nextValue.length > 1) {
-          nextValue = [nextValue[0]];
-        }
-        send({ type: "VALUE.SET", value: nextValue });
-      }
-      function getItemState(props) {
-        return {
-          expanded: value.includes(props.value),
-          focused: focusedValue === props.value,
-          disabled: Boolean(props.disabled ?? prop2("disabled"))
-        };
-      }
-      return {
-        focusedValue,
-        value,
-        setValue,
-        getItemState,
-        getRootProps() {
-          return normalize.element({
-            ...parts$1.root.attrs,
-            dir: prop2("dir"),
-            id: getRootId$1(scope),
-            "data-orientation": prop2("orientation")
-          });
-        },
-        getItemProps(props) {
-          const itemState = getItemState(props);
-          return normalize.element({
-            ...parts$1.item.attrs,
-            dir: prop2("dir"),
-            id: getItemId(scope, props.value),
-            "data-state": itemState.expanded ? "open" : "closed",
-            "data-focus": dataAttr(itemState.focused),
-            "data-disabled": dataAttr(itemState.disabled),
-            "data-orientation": prop2("orientation")
-          });
-        },
-        getItemContentProps(props) {
-          const itemState = getItemState(props);
-          return normalize.element({
-            ...parts$1.itemContent.attrs,
-            dir: prop2("dir"),
-            role: "region",
-            id: getItemContentId(scope, props.value),
-            "aria-labelledby": getItemTriggerId(scope, props.value),
-            hidden: !itemState.expanded,
-            "data-state": itemState.expanded ? "open" : "closed",
-            "data-disabled": dataAttr(itemState.disabled),
-            "data-focus": dataAttr(itemState.focused),
-            "data-orientation": prop2("orientation")
-          });
-        },
-        getItemIndicatorProps(props) {
-          const itemState = getItemState(props);
-          return normalize.element({
-            ...parts$1.itemIndicator.attrs,
-            dir: prop2("dir"),
-            "aria-hidden": true,
-            "data-state": itemState.expanded ? "open" : "closed",
-            "data-disabled": dataAttr(itemState.disabled),
-            "data-focus": dataAttr(itemState.focused),
-            "data-orientation": prop2("orientation")
-          });
-        },
-        getItemTriggerProps(props) {
-          const { value: value2 } = props;
-          const itemState = getItemState(props);
-          return normalize.button({
-            ...parts$1.itemTrigger.attrs,
-            type: "button",
-            dir: prop2("dir"),
-            id: getItemTriggerId(scope, value2),
-            "aria-controls": getItemContentId(scope, value2),
-            "data-controls": getItemContentId(scope, value2),
-            "aria-expanded": itemState.expanded,
-            disabled: itemState.disabled,
-            "data-orientation": prop2("orientation"),
-            "aria-disabled": itemState.disabled,
-            "data-state": itemState.expanded ? "open" : "closed",
-            "data-ownedby": getRootId$1(scope),
-            onFocus() {
-              if (itemState.disabled) return;
-              send({ type: "TRIGGER.FOCUS", value: value2 });
-            },
-            onBlur() {
-              if (itemState.disabled) return;
-              send({ type: "TRIGGER.BLUR" });
-            },
-            onClick(event2) {
-              if (itemState.disabled) return;
-              if (isSafari()) {
-                event2.currentTarget.focus();
-              }
-              send({ type: "TRIGGER.CLICK", value: value2 });
-            },
-            onKeyDown(event2) {
-              if (event2.defaultPrevented) return;
-              if (itemState.disabled) return;
-              const keyMap2 = {
-                ArrowDown() {
-                  if (computed("isHorizontal")) return;
-                  send({ type: "GOTO.NEXT", value: value2 });
-                },
-                ArrowUp() {
-                  if (computed("isHorizontal")) return;
-                  send({ type: "GOTO.PREV", value: value2 });
-                },
-                ArrowRight() {
-                  if (!computed("isHorizontal")) return;
-                  send({ type: "GOTO.NEXT", value: value2 });
-                },
-                ArrowLeft() {
-                  if (!computed("isHorizontal")) return;
-                  send({ type: "GOTO.PREV", value: value2 });
-                },
-                Home() {
-                  send({ type: "GOTO.FIRST", value: value2 });
-                },
-                End() {
-                  send({ type: "GOTO.LAST", value: value2 });
-                }
-              };
-              const key2 = getEventKey(event2, {
-                dir: prop2("dir"),
-                orientation: prop2("orientation")
-              });
-              const exec = keyMap2[key2];
-              if (exec) {
-                exec(event2);
-                event2.preventDefault();
-              }
-            }
-          });
-        }
-      };
-    }
-    var { and, not } = createGuards();
-    var machine$1 = createMachine({
-      props({ props }) {
-        return {
-          collapsible: false,
-          multiple: false,
-          orientation: "vertical",
-          defaultValue: [],
-          ...props
-        };
-      },
-      initialState() {
-        return "idle";
-      },
-      context({ prop: prop2, bindable: bindable2 }) {
-        return {
-          focusedValue: bindable2(() => ({
-            defaultValue: null,
-            sync: true,
-            onChange(value) {
-              prop2("onFocusChange")?.({ value });
-            }
-          })),
-          value: bindable2(() => ({
-            defaultValue: prop2("defaultValue"),
-            value: prop2("value"),
-            onChange(value) {
-              prop2("onValueChange")?.({ value });
-            }
-          }))
-        };
-      },
-      computed: {
-        isHorizontal: ({ prop: prop2 }) => prop2("orientation") === "horizontal"
-      },
-      on: {
-        "VALUE.SET": {
-          actions: ["setValue"]
-        }
-      },
-      states: {
-        idle: {
-          on: {
-            "TRIGGER.FOCUS": {
-              target: "focused",
-              actions: ["setFocusedValue"]
-            }
-          }
-        },
-        focused: {
-          on: {
-            "GOTO.NEXT": {
-              actions: ["focusNextTrigger"]
-            },
-            "GOTO.PREV": {
-              actions: ["focusPrevTrigger"]
-            },
-            "TRIGGER.CLICK": [
-              {
-                guard: and("isExpanded", "canToggle"),
-                actions: ["collapse"]
-              },
-              {
-                guard: not("isExpanded"),
-                actions: ["expand"]
-              }
-            ],
-            "GOTO.FIRST": {
-              actions: ["focusFirstTrigger"]
-            },
-            "GOTO.LAST": {
-              actions: ["focusLastTrigger"]
-            },
-            "TRIGGER.BLUR": {
-              target: "idle",
-              actions: ["clearFocusedValue"]
-            }
-          }
-        }
-      },
-      implementations: {
-        guards: {
-          canToggle: ({ prop: prop2 }) => !!prop2("collapsible") || !!prop2("multiple"),
-          isExpanded: ({ context, event: event2 }) => context.get("value").includes(event2.value)
-        },
-        actions: {
-          collapse({ context, prop: prop2, event: event2 }) {
-            const next2 = prop2("multiple") ? remove(context.get("value"), event2.value) : [];
-            context.set("value", next2);
-          },
-          expand({ context, prop: prop2, event: event2 }) {
-            const next2 = prop2("multiple") ? add(context.get("value"), event2.value) : [event2.value];
-            context.set("value", next2);
-          },
-          focusFirstTrigger({ scope }) {
-            getFirstTriggerEl(scope)?.focus();
-          },
-          focusLastTrigger({ scope }) {
-            getLastTriggerEl(scope)?.focus();
-          },
-          focusNextTrigger({ context, scope }) {
-            const focusedValue = context.get("focusedValue");
-            if (!focusedValue) return;
-            const triggerEl = getNextTriggerEl(scope, focusedValue);
-            triggerEl?.focus();
-          },
-          focusPrevTrigger({ context, scope }) {
-            const focusedValue = context.get("focusedValue");
-            if (!focusedValue) return;
-            const triggerEl = getPrevTriggerEl(scope, focusedValue);
-            triggerEl?.focus();
-          },
-          setFocusedValue({ context, event: event2 }) {
-            context.set("focusedValue", event2.value);
-          },
-          clearFocusedValue({ context }) {
-            context.set("focusedValue", null);
-          },
-          setValue({ context, event: event2 }) {
-            context.set("value", event2.value);
-          },
-          coarseValue({ context, prop: prop2 }) {
-            if (!prop2("multiple") && context.get("value").length > 1) {
-              warn(`The value of accordion should be a single value when multiple is false.`);
-              context.set("value", [context.get("value")[0]]);
-            }
-          }
-        }
-      }
-    });
-    const useAccordion = (props) => {
-      const env = useEnvironmentContext();
-      const locale = useLocaleContext();
-      const machineProps = /* @__PURE__ */ user_derived(() => {
-        const resolvedProps = runIfFn(props);
-        return {
-          dir: locale().dir,
-          getRootNode: env().getRootNode,
-          ...resolvedProps
-        };
       });
-      const service = useMachine(machine$1, () => get$3(machineProps));
-      const api = /* @__PURE__ */ user_derived(() => connect$1(service, normalizeProps));
-      return () => get$3(api);
-    };
-    function Accordion_root($$anchor, $$props) {
-      const providedId = props_id();
-      push($$props, true);
-      let ref2 = prop($$props, "ref", 15, null), value = prop($$props, "value", 15), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "ref", "value"]);
-      const $$d = /* @__PURE__ */ user_derived(() => splitRenderStrategyProps(props)), $$array = /* @__PURE__ */ user_derived(() => to_array(get$3($$d), 2)), renderStrategyProps = /* @__PURE__ */ user_derived(() => get$3($$array)[0]), accordionProps = /* @__PURE__ */ user_derived(() => get$3($$array)[1]);
-      const $$d_1 = /* @__PURE__ */ user_derived(() => createSplitProps$1()(get$3(accordionProps), [
-        "collapsible",
-        "defaultValue",
-        "disabled",
-        "id",
-        "ids",
-        "multiple",
-        "onFocusChange",
-        "onValueChange",
-        "orientation",
-        "value"
-      ])), $$array_1 = /* @__PURE__ */ user_derived(() => to_array(get$3($$d_1), 2)), useAccordionProps = /* @__PURE__ */ user_derived(() => get$3($$array_1)[0]), localProps = /* @__PURE__ */ user_derived(() => get$3($$array_1)[1]);
-      const resolvedProps = /* @__PURE__ */ user_derived(() => ({
-        ...get$3(useAccordionProps),
-        id: get$3(useAccordionProps).id ?? providedId,
-        value: value(),
-        onValueChange(details) {
-          get$3(useAccordionProps).onValueChange?.(details);
-          if (value() !== void 0) value(details.value);
-        }
-      }));
-      const accordion = useAccordion(() => get$3(resolvedProps));
-      const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(accordion().getRootProps(), get$3(localProps)));
-      RenderStrategyPropsProvider(() => get$3(renderStrategyProps));
-      AccordionProvider(accordion);
-      Factory($$anchor, spread_props({ as: "div" }, () => get$3(mergedProps), {
-        get ref() {
-          return ref2();
-        },
-        set ref($$value) {
-          ref2($$value);
-        }
-      }));
-      pop();
+      timer.start();
+      return () => timer.stop();
     }
-    const defaultAttributes = {
-      xmlns: "http://www.w3.org/2000/svg",
-      width: 24,
-      height: 24,
-      viewBox: "0 0 24 24",
-      fill: "none",
-      stroke: "currentColor",
-      "stroke-width": 2,
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round"
-    };
-    const hasA11yProp = (props) => {
-      for (const prop2 in props) {
-        if (prop2.startsWith("aria-") || prop2 === "role" || prop2 === "title") {
-          return true;
-        }
+    function warn(...a) {
+      const m = a.length === 1 ? a[0] : a[1];
+      const c = a.length === 2 ? a[0] : true;
+      if (c && process.env.NODE_ENV !== "production") {
+        console.warn(m);
       }
-      return false;
-    };
-    const mergeClasses = (...classes) => classes.filter((className, index2, array) => {
-      return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index2;
-    }).join(" ").trim();
-    var root$4 = /* @__PURE__ */ from_svg(`<svg><!><!></svg>`);
-    function Icon$1($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const $$restProps = legacy_rest_props($$sanitized_props, [
-        "name",
-        "color",
-        "size",
-        "strokeWidth",
-        "absoluteStrokeWidth",
-        "iconNode"
-      ]);
-      push($$props, false);
-      let name = prop($$props, "name", 8, void 0);
-      let color = prop($$props, "color", 8, "currentColor");
-      let size = prop($$props, "size", 8, 24);
-      let strokeWidth = prop($$props, "strokeWidth", 8, 2);
-      let absoluteStrokeWidth = prop($$props, "absoluteStrokeWidth", 8, false);
-      let iconNode = prop($$props, "iconNode", 24, () => []);
-      init();
-      var svg = root$4();
-      attribute_effect(
-        svg,
-        ($0, $1, $2) => ({
-          ...defaultAttributes,
-          ...$0,
-          ...$$restProps,
-          width: size(),
-          height: size(),
-          stroke: color(),
-          "stroke-width": $1,
-          class: $2
-        }),
-        [
-          () => !hasA11yProp($$restProps) ? { "aria-hidden": "true" } : void 0,
-          () => (deep_read_state(absoluteStrokeWidth()), deep_read_state(strokeWidth()), deep_read_state(size()), untrack(() => absoluteStrokeWidth() ? Number(strokeWidth()) * 24 / Number(size()) : strokeWidth())),
-          () => (deep_read_state(mergeClasses), deep_read_state(name()), deep_read_state($$sanitized_props), untrack(() => mergeClasses("lucide-icon", "lucide", name() ? `lucide-${name()}` : "", $$sanitized_props.class)))
-        ]
-      );
-      var node = child(svg);
-      each(node, 1, iconNode, index, ($$anchor2, $$item) => {
-        var $$array = /* @__PURE__ */ user_derived(() => to_array(get$3($$item), 2));
-        let tag = () => get$3($$array)[0];
-        let attrs = () => get$3($$array)[1];
-        var fragment = comment();
-        var node_1 = first_child(fragment);
-        element(node_1, tag, true, ($$element, $$anchor3) => {
-          attribute_effect($$element, () => ({ ...attrs() }));
-        });
-        append$1($$anchor2, fragment);
-      });
-      var node_2 = sibling(node);
-      slot(node_2, $$props, "default", {});
-      append$1($$anchor, svg);
-      pop();
     }
-    function Chevron_down($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [["path", { "d": "m6 9 6 6 6-6" }]];
-      Icon$1($$anchor, spread_props({ name: "chevron-down" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
+    function ensure(c, m) {
+      if (c == null) throw new Error(m());
     }
-    var root_1$2 = /* @__PURE__ */ from_html(`<i data-component="icon" class="icon"><!></i>`);
-    function Icon($$anchor, $$props) {
-      const IconSvg = prop($$props, "svg", 3, null), size = prop($$props, "size", 3, "md"), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "svg", "size"]);
-      const defaultProps = { size: 16, strokeWidth: 1, absoluteStrokeWidth: true };
-      var fragment = comment();
-      var node = first_child(fragment);
-      {
-        var consequent = ($$anchor2) => {
-          var i = root_1$2();
-          var node_1 = child(i);
-          component(node_1, IconSvg, ($$anchor3, IconSvg_1) => {
-            IconSvg_1($$anchor3, spread_props(() => defaultProps, () => props));
-          });
-          template_effect(() => set_attribute(i, "data-size", size()));
-          append$1($$anchor2, i);
-        };
-        if_block(node, ($$render) => {
-          if (IconSvg()) $$render(consequent);
-        });
+    function ensureProps(props, keys2, scope) {
+      let missingKeys = [];
+      for (const key2 of keys2) {
+        if (props[key2] == null) missingKeys.push(key2);
       }
-      append$1($$anchor, fragment);
+      if (missingKeys.length > 0)
+        throw new Error(`[zag-js${""}] missing required props: ${missingKeys.join(", ")}`);
     }
-    var root_4 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
-    var root_3 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
-    var root$3 = /* @__PURE__ */ from_html(`<div data-component="accordion"><!></div>`);
-    function Accordion_1($$anchor, $$props) {
-      push($$props, true);
-      new PersistedState(`sidebar`, { expandedSections: [] });
-      var div = root$3();
-      var node = child(div);
-      component(node, () => Accordion_root, ($$anchor2, Accordion_Root) => {
-        Accordion_Root($$anchor2, {
-          multiple: true,
-          children: ($$anchor3, $$slotProps) => {
-            var fragment = comment();
-            var node_1 = first_child(fragment);
-            each(node_1, 17, () => $$props.items, (item) => item.id, ($$anchor4, item) => {
-              var fragment_1 = comment();
-              var node_2 = first_child(fragment_1);
-              component(node_2, () => Accordion_item, ($$anchor5, Accordion_Item) => {
-                Accordion_Item($$anchor5, {
-                  get value() {
-                    return get$3(item).id;
-                  },
-                  children: ($$anchor6, $$slotProps2) => {
-                    var fragment_2 = root_3();
-                    var node_3 = first_child(fragment_2);
-                    component(node_3, () => Accordion_item_trigger, ($$anchor7, Accordion_ItemTrigger) => {
-                      Accordion_ItemTrigger($$anchor7, {
-                        children: ($$anchor8, $$slotProps3) => {
-                          var fragment_3 = root_4();
-                          var node_4 = first_child(fragment_3);
-                          {
-                            var consequent = ($$anchor9) => {
-                              var fragment_4 = comment();
-                              var node_5 = first_child(fragment_4);
-                              snippet(node_5, () => $$props.itemLabel, () => get$3(item));
-                              append$1($$anchor9, fragment_4);
-                            };
-                            var alternate = ($$anchor9) => {
-                              var text$1 = text();
-                              template_effect(() => set_text(text$1, get$3(item).label));
-                              append$1($$anchor9, text$1);
-                            };
-                            if_block(node_4, ($$render) => {
-                              if ($$props.itemLabel) $$render(consequent);
-                              else $$render(alternate, false);
-                            });
-                          }
-                          var node_6 = sibling(node_4, 2);
-                          component(node_6, () => Accordion_item_indicator, ($$anchor9, Accordion_ItemIndicator) => {
-                            Accordion_ItemIndicator($$anchor9, {
-                              children: ($$anchor10, $$slotProps4) => {
-                                var fragment_6 = comment();
-                                var node_7 = first_child(fragment_6);
-                                {
-                                  var consequent_1 = ($$anchor11) => {
-                                    var fragment_7 = comment();
-                                    var node_8 = first_child(fragment_7);
-                                    snippet(node_8, () => $$props.itemIndicator, () => get$3(item));
-                                    append$1($$anchor11, fragment_7);
-                                  };
-                                  var alternate_1 = ($$anchor11) => {
-                                    Icon($$anchor11, {
-                                      get svg() {
-                                        return Chevron_down;
-                                      }
-                                    });
-                                  };
-                                  if_block(node_7, ($$render) => {
-                                    if ($$props.itemIndicator) $$render(consequent_1);
-                                    else $$render(alternate_1, false);
-                                  });
-                                }
-                                append$1($$anchor10, fragment_6);
-                              },
-                              $$slots: { default: true }
-                            });
-                          });
-                          append$1($$anchor8, fragment_3);
-                        },
-                        $$slots: { default: true }
-                      });
-                    });
-                    var node_9 = sibling(node_3, 2);
-                    component(node_9, () => Accordion_item_content, ($$anchor7, Accordion_ItemContent) => {
-                      Accordion_ItemContent($$anchor7, {
-                        children: ($$anchor8, $$slotProps3) => {
-                          var fragment_9 = comment();
-                          var node_10 = first_child(fragment_9);
-                          snippet(node_10, () => $$props.itemContent, () => get$3(item));
-                          append$1($$anchor8, fragment_9);
-                        },
-                        $$slots: { default: true }
-                      });
-                    });
-                    append$1($$anchor6, fragment_2);
-                  },
-                  $$slots: { default: true }
-                });
-              });
-              append$1($$anchor4, fragment_1);
-            });
-            append$1($$anchor3, fragment);
-          },
-          $$slots: { default: true }
-        });
-      });
-      append$1($$anchor, div);
-      pop();
-    }
-    var root_1$1 = /* @__PURE__ */ from_html(`<div data-role="sidebar:section-label"> </div>`);
-    var root_2$2 = /* @__PURE__ */ from_html(`<div> </div>`);
-    var root$2 = /* @__PURE__ */ from_html(`<div data-component="sidebar" class="surface"><!></div>`);
-    function Sidebar($$anchor, $$props) {
-      var div = root$2();
-      var node = child(div);
-      {
-        const itemLabel = ($$anchor2, collection = noop$2) => {
-          var div_1 = root_1$1();
-          var text2 = child(div_1);
-          template_effect(() => set_text(text2, collection().label));
-          append$1($$anchor2, div_1);
-        };
-        const itemContent = ($$anchor2, collection = noop$2) => {
-          var div_2 = root_2$2();
-          var text_1 = child(div_2);
-          template_effect(() => set_text(text_1, `${collection().label ?? ""} nav`));
-          append$1($$anchor2, div_2);
-        };
-        Accordion_1(node, {
-          get items() {
-            return $$props.collections;
-          },
-          itemLabel,
-          itemContent,
-          $$slots: { itemLabel: true, itemContent: true }
-        });
-      }
-      append$1($$anchor, div);
-    }
-    var anatomy = createAnatomy("splitter").parts("root", "panel", "resizeTrigger", "resizeTriggerIndicator");
-    var parts = anatomy.build();
     var getRootId = (ctx) => ctx.ids?.root ?? `splitter:${ctx.id}`;
     var getResizeTriggerId = (ctx, id) => ctx.ids?.resizeTrigger?.(id) ?? `splitter:${ctx.id}:splitter:${id}`;
     var getPanelId = (ctx, id) => ctx.ids?.panel?.(id) ?? `splitter:${ctx.id}:panel:${id}`;
@@ -17969,6 +15857,237 @@ var require_ui = __commonJS({
         }
       };
     }
+    var clsx = (...args) => args.map((str) => str?.trim?.()).filter(Boolean).join(" ");
+    var CSS_REGEX$1 = /((?:--)?(?:\w+-?)+)\s*:\s*([^;]*)/g;
+    var serialize$1 = (style) => {
+      const res = {};
+      let match;
+      while (match = CSS_REGEX$1.exec(style)) {
+        res[match[1]] = match[2];
+      }
+      return res;
+    };
+    var css = (a, b) => {
+      if (isString(a)) {
+        if (isString(b)) return `${a};${b}`;
+        a = serialize$1(a);
+      } else if (isString(b)) {
+        b = serialize$1(b);
+      }
+      return Object.assign({}, a ?? {}, b ?? {});
+    };
+    function mergeProps$1(...args) {
+      let result = {};
+      for (let props of args) {
+        if (!props) continue;
+        for (let key2 in result) {
+          if (key2.startsWith("on") && typeof result[key2] === "function" && typeof props[key2] === "function") {
+            result[key2] = callAll(props[key2], result[key2]);
+            continue;
+          }
+          if (key2 === "className" || key2 === "class") {
+            result[key2] = clsx(result[key2], props[key2]);
+            continue;
+          }
+          if (key2 === "style") {
+            result[key2] = css(result[key2], props[key2]);
+            continue;
+          }
+          result[key2] = props[key2] !== void 0 ? props[key2] : result[key2];
+        }
+        for (let key2 in props) {
+          if (result[key2] === void 0) {
+            result[key2] = props[key2];
+          }
+        }
+        const symbols = Object.getOwnPropertySymbols(props);
+        for (let symbol of symbols) {
+          result[symbol] = props[symbol];
+        }
+      }
+      return result;
+    }
+    var STATE_DELIMITER = ".";
+    var ABSOLUTE_PREFIX = "#";
+    var stateIndexCache = /* @__PURE__ */ new WeakMap();
+    var stateIdIndexCache = /* @__PURE__ */ new WeakMap();
+    function joinStatePath(parts2) {
+      return parts2.join(STATE_DELIMITER);
+    }
+    function isAbsoluteStatePath(value) {
+      return value.includes(STATE_DELIMITER);
+    }
+    function isExplicitAbsoluteStatePath(value) {
+      return value.startsWith(ABSOLUTE_PREFIX);
+    }
+    function stripAbsolutePrefix(value) {
+      return isExplicitAbsoluteStatePath(value) ? value.slice(ABSOLUTE_PREFIX.length) : value;
+    }
+    function appendStatePath(base, segment) {
+      return base ? `${base}${STATE_DELIMITER}${segment}` : segment;
+    }
+    function buildStateIndex(machine2) {
+      const index2 = /* @__PURE__ */ new Map();
+      const idIndex = /* @__PURE__ */ new Map();
+      const visit = (basePath, state2) => {
+        index2.set(basePath, state2);
+        const stateId = state2.id;
+        if (stateId) {
+          if (idIndex.has(stateId)) {
+            throw new Error(`Duplicate state id: ${stateId}`);
+          }
+          idIndex.set(stateId, basePath);
+        }
+        const childStates = state2.states;
+        if (!childStates) return;
+        for (const [childKey, childState] of Object.entries(childStates)) {
+          if (!childState) continue;
+          const childPath = appendStatePath(basePath, childKey);
+          visit(childPath, childState);
+        }
+      };
+      for (const [topKey, topState] of Object.entries(machine2.states)) {
+        if (!topState) continue;
+        visit(topKey, topState);
+      }
+      return { index: index2, idIndex };
+    }
+    function ensureStateIndex(machine2) {
+      const cached = stateIndexCache.get(machine2);
+      if (cached) return cached;
+      const { index: index2, idIndex } = buildStateIndex(machine2);
+      stateIndexCache.set(machine2, index2);
+      stateIdIndexCache.set(machine2, idIndex);
+      return index2;
+    }
+    function getStatePathById(machine2, stateId) {
+      ensureStateIndex(machine2);
+      return stateIdIndexCache.get(machine2)?.get(stateId);
+    }
+    function toSegments(value) {
+      if (!value) return [];
+      return String(value).split(STATE_DELIMITER).filter(Boolean);
+    }
+    function getStateChain(machine2, state2) {
+      if (!state2) return [];
+      const stateIndex = ensureStateIndex(machine2);
+      const segments = toSegments(state2);
+      const chain = [];
+      const statePath = [];
+      for (const segment of segments) {
+        statePath.push(segment);
+        const path = joinStatePath(statePath);
+        const current = stateIndex.get(path);
+        if (!current) break;
+        chain.push({ path, state: current });
+      }
+      return chain;
+    }
+    function resolveAbsoluteStateValue(machine2, value) {
+      const stateIndex = ensureStateIndex(machine2);
+      const segments = toSegments(value);
+      if (!segments.length) return value;
+      const resolved = [];
+      for (const segment of segments) {
+        resolved.push(segment);
+        const path = joinStatePath(resolved);
+        if (!stateIndex.has(path)) return value;
+      }
+      let resolvedPath = joinStatePath(resolved);
+      let current = stateIndex.get(resolvedPath);
+      while (current?.initial) {
+        const nextPath = `${resolvedPath}${STATE_DELIMITER}${current.initial}`;
+        const nextState = stateIndex.get(nextPath);
+        if (!nextState) break;
+        resolvedPath = nextPath;
+        current = nextState;
+      }
+      return resolvedPath;
+    }
+    function hasStatePath(machine2, value) {
+      const stateIndex = ensureStateIndex(machine2);
+      return stateIndex.has(value);
+    }
+    function resolveStateValue(machine2, value, source2) {
+      const stateValue = String(value);
+      if (isExplicitAbsoluteStatePath(stateValue)) {
+        const stateId = stripAbsolutePrefix(stateValue);
+        const statePath = getStatePathById(machine2, stateId);
+        if (!statePath) {
+          throw new Error(`Unknown state id: ${stateId}`);
+        }
+        return resolveAbsoluteStateValue(machine2, statePath);
+      }
+      if (!isAbsoluteStatePath(stateValue) && source2) {
+        const sourceSegments = toSegments(source2);
+        for (let index2 = sourceSegments.length; index2 >= 1; index2--) {
+          const base = sourceSegments.slice(0, index2).join(STATE_DELIMITER);
+          const candidate = appendStatePath(base, stateValue);
+          if (hasStatePath(machine2, candidate)) return resolveAbsoluteStateValue(machine2, candidate);
+        }
+      }
+      return resolveAbsoluteStateValue(machine2, stateValue);
+    }
+    function findTransition(machine2, state2, eventType) {
+      const chain = getStateChain(machine2, state2);
+      for (let index2 = chain.length - 1; index2 >= 0; index2--) {
+        const transitionMap = chain[index2]?.state.on;
+        const transition = transitionMap?.[eventType];
+        if (transition) return { transitions: transition, source: chain[index2]?.path };
+      }
+      const rootTransitionMap = machine2.on;
+      return { transitions: rootTransitionMap?.[eventType], source: void 0 };
+    }
+    function getExitEnterStates(machine2, prevState, nextState, reenter) {
+      const prevChain = prevState ? getStateChain(machine2, prevState) : [];
+      const nextChain = getStateChain(machine2, nextState);
+      let commonIndex = 0;
+      while (commonIndex < prevChain.length && commonIndex < nextChain.length && prevChain[commonIndex]?.path === nextChain[commonIndex]?.path) {
+        commonIndex += 1;
+      }
+      let exiting = prevChain.slice(commonIndex).reverse();
+      let entering = nextChain.slice(commonIndex);
+      const sameLeaf = prevChain.at(-1)?.path === nextChain.at(-1)?.path;
+      if (reenter && sameLeaf) {
+        exiting = prevChain.slice().reverse();
+        entering = nextChain;
+      }
+      return { exiting, entering };
+    }
+    function matchesState(current, value) {
+      if (!current) return false;
+      return current === value || current.startsWith(`${value}${STATE_DELIMITER}`);
+    }
+    function hasTag(machine2, state2, tag) {
+      return getStateChain(machine2, state2).some((item) => item.state.tags?.includes(tag));
+    }
+    function createMachine(config2) {
+      ensureStateIndex(config2);
+      return config2;
+    }
+    var MachineStatus = /* @__PURE__ */ ((MachineStatus2) => {
+      MachineStatus2["NotStarted"] = "Not Started";
+      MachineStatus2["Started"] = "Started";
+      MachineStatus2["Stopped"] = "Stopped";
+      return MachineStatus2;
+    })(MachineStatus || {});
+    var INIT_STATE = "__init__";
+    function createScope(props) {
+      const getRootNode = () => props.getRootNode?.() ?? document;
+      const getDoc = () => getDocument(getRootNode());
+      const getWin = () => getDoc().defaultView ?? window;
+      const getActiveElementFn = () => getActiveElement(getRootNode());
+      const getById = (id) => getRootNode().getElementById(id);
+      return {
+        ...props,
+        getRootNode,
+        getDoc,
+        getWin,
+        getActiveElement: getActiveElementFn,
+        isActiveElement,
+        getById
+      };
+    }
     function resizePanel({ panels, index: index2, size }) {
       const panel = panels[index2];
       ensure(panel, () => `Panel data not found for index ${index2}`);
@@ -18350,7 +16469,7 @@ var require_ui = __commonJS({
               size: unsafeSize,
               panels
             });
-            if (!isEqual$1(prevSize, safeSize)) {
+            if (!isEqual(prevSize, safeSize)) {
               setSize(params, safeSize);
             }
           },
@@ -18368,7 +16487,7 @@ var require_ui = __commonJS({
               size: unsafeSize ?? prevSize,
               panels
             });
-            if (!isEqual$1(prevSize, nextSize)) {
+            if (!isEqual(prevSize, nextSize)) {
               context.set("size", nextSize);
             }
           },
@@ -18420,7 +16539,7 @@ var require_ui = __commonJS({
                   prevSize,
                   trigger: "imperative-api"
                 });
-                if (!isEqual$1(prevSize, nextSize)) {
+                if (!isEqual(prevSize, nextSize)) {
                   setSize(params, nextSize);
                 }
               }
@@ -18453,7 +16572,7 @@ var require_ui = __commonJS({
                   prevSize,
                   trigger: "imperative-api"
                 });
-                if (!isEqual$1(prevSize, nextSize)) {
+                if (!isEqual(prevSize, nextSize)) {
                   setSize(params, nextSize);
                 }
               }
@@ -18477,7 +16596,7 @@ var require_ui = __commonJS({
               prevSize,
               trigger: "imperative-api"
             });
-            if (!isEqual$1(prevSize, nextSize)) {
+            if (!isEqual(prevSize, nextSize)) {
               setSize(params, nextSize);
             }
           },
@@ -18505,7 +16624,7 @@ var require_ui = __commonJS({
               prevSize,
               trigger: "mouse-or-touch"
             });
-            if (!isEqual$1(prevSize, nextSize)) {
+            if (!isEqual(prevSize, nextSize)) {
               setSize(params, nextSize);
             }
           },
@@ -18524,7 +16643,7 @@ var require_ui = __commonJS({
               prevSize,
               trigger: "keyboard"
             });
-            if (!isEqual$1(prevSize, nextSize)) {
+            if (!isEqual(prevSize, nextSize)) {
               setSize(params, nextSize);
             }
           },
@@ -18566,7 +16685,7 @@ var require_ui = __commonJS({
                 prevSize: sizes,
                 trigger: "keyboard"
               });
-              if (!isEqual$1(sizes, nextSize)) {
+              if (!isEqual(sizes, nextSize)) {
                 setSize(params, nextSize);
               }
             }
@@ -18623,15 +16742,541 @@ var require_ui = __commonJS({
         }
       });
     }
+    function createNormalizer(fn) {
+      return new Proxy({}, {
+        get(_target, key2) {
+          if (key2 === "style")
+            return (props) => {
+              return fn({ style: props }).style;
+            };
+          return fn;
+        }
+      });
+    }
+    function getErrorMessage(hook, provider) {
+      return `${hook} returned \`undefined\`. Seems you forgot to wrap component within ${provider}`;
+    }
+    const createContext = (options) => {
+      const { name, strict = true, hookName = "useContext", providerName = "Provider", errorMessage, defaultValue } = options;
+      const contextId = Symbol(name);
+      const provider = (value) => setContext(contextId, value);
+      const consumer = () => {
+        const exists = hasContext(contextId);
+        if (strict && !exists)
+          throw new Error(errorMessage ?? getErrorMessage(hookName, providerName));
+        return exists ? getContext(contextId) : defaultValue;
+      };
+      return [provider, consumer, contextId];
+    };
     const [SplitterProvider, useSplitterContext] = createContext({
       name: "SplitterContext",
       hookName: "useSplitterContext",
       providerName: "<SplitterProvider />"
     });
+    const createSplitProps = () => (props, keys2) => keys2.reduce((previousValue, currentValue) => {
+      const [target, source2] = previousValue;
+      const key2 = currentValue;
+      if (source2[key2] !== void 0) {
+        target[key2] = source2[key2];
+      }
+      delete source2[key2];
+      return [target, source2];
+    }, [{}, { ...props }]);
+    const propMap = {
+      className: "class",
+      defaultChecked: "checked",
+      defaultValue: "value",
+      htmlFor: "for",
+      onBlur: "onfocusout",
+      onChange: "oninput",
+      onFocus: "onfocusin",
+      onDoubleClick: "ondblclick"
+    };
+    function toStyleString(style) {
+      let string = "";
+      for (let key2 in style) {
+        const value = style[key2];
+        if (value === null || value === void 0)
+          continue;
+        if (!key2.startsWith("--"))
+          key2 = key2.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
+        string += `${key2}:${value};`;
+      }
+      return string;
+    }
+    const preserveKeys = new Set("viewBox,className,preserveAspectRatio,fillRule,clipPath,clipRule,strokeWidth,strokeLinecap,strokeLinejoin,strokeDasharray,strokeDashoffset,strokeMiterlimit".split(","));
+    function toSvelteProp(key2) {
+      if (key2 in propMap)
+        return propMap[key2];
+      if (preserveKeys.has(key2))
+        return key2;
+      return key2.toLowerCase();
+    }
+    function toSveltePropValue(key2, value) {
+      if (key2 === "style" && typeof value === "object")
+        return toStyleString(value);
+      return value;
+    }
+    const normalizeProps = createNormalizer((props) => {
+      const normalized = {};
+      for (const key2 in props) {
+        normalized[toSvelteProp(key2)] = toSveltePropValue(key2, props[key2]);
+      }
+      return normalized;
+    });
+    const CSS_REGEX = /((?:--)?(?:\w+-?)+)\s*:\s*([^;]*)/g;
+    const serialize = (style) => {
+      const res = {};
+      let match;
+      while (match = CSS_REGEX.exec(style)) {
+        res[match[1]] = match[2];
+      }
+      return res;
+    };
+    function mergeProps(...args) {
+      const classNames = [];
+      for (const props of args) {
+        if (!props)
+          continue;
+        if ("class" in props && props.class != null) {
+          classNames.push(props.class);
+        }
+      }
+      const merged = mergeProps$1(...args);
+      if (classNames.length > 0) {
+        merged.class = classNames.length === 1 ? classNames[0] : classNames;
+      }
+      if ("style" in merged) {
+        if (typeof merged.style === "string") {
+          merged.style = serialize(merged.style);
+        }
+        merged.style = toStyleString(merged.style);
+      }
+      return merged;
+    }
+    function bindable(props) {
+      const initial = props().defaultValue ?? props().value;
+      const eq2 = props().isEqual ?? Object.is;
+      let value = /* @__PURE__ */ state$1(proxy$1(initial));
+      const controlled = /* @__PURE__ */ user_derived(() => props().value !== void 0);
+      let valueRef = { current: untrack(() => get$3(value)) };
+      let prevValue = { current: void 0 };
+      user_pre_effect(() => {
+        const v = get$3(controlled) ? props().value : get$3(value);
+        valueRef = { current: v };
+        prevValue = { current: v };
+      });
+      const setValueFn = (v) => {
+        const next2 = isFunction(v) ? v(valueRef.current) : v;
+        const prev2 = prevValue.current;
+        if (props().debug) {
+          console.log(`[bindable > ${props().debug}] setValue`, { next: next2, prev: prev2 });
+        }
+        if (!get$3(controlled)) set$2(value, next2, true);
+        if (!eq2(next2, prev2)) {
+          props().onChange?.(next2, prev2);
+        }
+      };
+      function get2() {
+        return get$3(controlled) ? props().value : get$3(value);
+      }
+      return {
+        initial,
+        ref: valueRef,
+        get: get2,
+        set(val) {
+          const exec = props().sync ? flushSync : identity;
+          untrack(() => exec(() => setValueFn(val)));
+        },
+        invoke(nextValue, prevValue2) {
+          props().onChange?.(nextValue, prevValue2);
+        },
+        hash(value2) {
+          return props().hash?.(value2) ?? String(value2);
+        }
+      };
+    }
+    bindable.cleanup = (fn) => {
+      onDestroy(() => fn());
+    };
+    bindable.ref = (defaultValue) => {
+      let value = defaultValue;
+      return {
+        get: () => value,
+        set: (next2) => {
+          value = next2;
+        }
+      };
+    };
+    function useRefs(refs) {
+      const ref2 = { current: refs };
+      return {
+        get(key2) {
+          return ref2.current[key2];
+        },
+        set(key2, value) {
+          ref2.current[key2] = value;
+        }
+      };
+    }
+    const access$1 = (value) => {
+      if (typeof value === "function") return value();
+      return value;
+    };
+    const track = (deps, effect2) => {
+      let prevDeps = [];
+      let isFirstRun = true;
+      user_effect(() => {
+        if (isFirstRun) {
+          prevDeps = deps.map((d) => access$1(d));
+          isFirstRun = false;
+          return;
+        }
+        let changed = false;
+        for (let i = 0; i < deps.length; i++) {
+          if (!isEqual(prevDeps[i], access$1(deps[i]))) {
+            changed = true;
+            break;
+          }
+        }
+        if (changed) {
+          prevDeps = deps.map((d) => access$1(d));
+          effect2();
+        }
+      });
+    };
+    function access(userProps) {
+      if (isFunction(userProps)) return userProps();
+      return userProps;
+    }
+    function useMachine(machine2, userProps) {
+      const scope = /* @__PURE__ */ user_derived(() => {
+        const { id, ids, getRootNode } = access(userProps);
+        return createScope({ id, ids, getRootNode });
+      });
+      const debug = (...args) => {
+        if (machine2.debug) console.log(...args);
+      };
+      const props = /* @__PURE__ */ user_derived(() => machine2.props?.({ props: compact(access(userProps)), scope: get$3(scope) }) ?? access(userProps));
+      const prop2 = useProp(() => get$3(props));
+      const context = machine2.context?.({
+        prop: prop2,
+        bindable,
+        get scope() {
+          return get$3(scope);
+        },
+        flush,
+        getContext() {
+          return ctx;
+        },
+        getComputed() {
+          return computed;
+        },
+        getRefs() {
+          return refs;
+        },
+        getEvent() {
+          return getEvent();
+        }
+      });
+      const ctx = {
+        get(key2) {
+          return context?.[key2].get();
+        },
+        set(key2, value) {
+          context?.[key2].set(value);
+        },
+        initial(key2) {
+          return context?.[key2].initial;
+        },
+        hash(key2) {
+          const current = context?.[key2].get();
+          return context?.[key2].hash(current);
+        }
+      };
+      let effects = /* @__PURE__ */ new Map();
+      let transitionRef = { current: null };
+      let previousEventRef = { current: null };
+      let eventRef = { current: { type: "" } };
+      const getEvent = () => ({
+        ...eventRef.current,
+        current() {
+          return eventRef.current;
+        },
+        previous() {
+          return previousEventRef.current;
+        }
+      });
+      const getState = () => ({
+        ...state2,
+        hasTag(tag) {
+          const currentState = state2.get();
+          return hasTag(machine2, currentState, tag);
+        },
+        matches(...values) {
+          const currentState = state2.get();
+          return values.some((value) => matchesState(currentState, value));
+        }
+      });
+      const refs = useRefs(machine2.refs?.({ prop: prop2, context: ctx }) ?? {});
+      const getParams = () => ({
+        state: getState(),
+        context: ctx,
+        event: getEvent(),
+        prop: prop2,
+        send,
+        action: action2,
+        guard,
+        track,
+        refs,
+        computed,
+        flush,
+        scope: get$3(scope),
+        choose
+      });
+      const action2 = (keys2) => {
+        const strs = isFunction(keys2) ? keys2(getParams()) : keys2;
+        if (!strs) return;
+        const fns = strs.map((s) => {
+          const fn = machine2.implementations?.actions?.[s];
+          if (!fn) warn(`[zag-js] No implementation found for action "${JSON.stringify(s)}"`);
+          return fn;
+        });
+        for (const fn of fns) {
+          fn?.(getParams());
+        }
+      };
+      const guard = (str) => {
+        if (isFunction(str)) return str(getParams());
+        return machine2.implementations?.guards?.[str](getParams());
+      };
+      const effect2 = (keys2) => {
+        const strs = isFunction(keys2) ? keys2(getParams()) : keys2;
+        if (!strs) return;
+        const fns = strs.map((s) => {
+          const fn = machine2.implementations?.effects?.[s];
+          if (!fn) warn(`[zag-js] No implementation found for effect "${JSON.stringify(s)}"`);
+          return fn;
+        });
+        const cleanups = [];
+        for (const fn of fns) {
+          const cleanup = fn?.(getParams());
+          if (cleanup) cleanups.push(cleanup);
+        }
+        return () => cleanups.forEach((fn) => fn?.());
+      };
+      const choose = (transitions) => {
+        return toArray(transitions).find((t) => {
+          let result = !t.guard;
+          if (isString(t.guard)) result = !!guard(t.guard);
+          else if (isFunction(t.guard)) result = t.guard(getParams());
+          return result;
+        });
+      };
+      const computed = (key2) => {
+        ensure(machine2.computed, () => `[zag-js] No computed object found on machine`);
+        const fn = machine2.computed[key2];
+        return fn({
+          context: ctx,
+          event: getEvent(),
+          prop: prop2,
+          refs,
+          scope: get$3(scope),
+          computed
+        });
+      };
+      const state2 = bindable(() => ({
+        defaultValue: resolveStateValue(machine2, machine2.initialState({ prop: prop2 })),
+        onChange(nextState, prevState) {
+          const { exiting, entering } = getExitEnterStates(machine2, prevState, nextState, transitionRef.current?.reenter);
+          exiting.forEach((item) => {
+            const exitEffects = effects.get(item.path);
+            exitEffects?.();
+            effects.delete(item.path);
+          });
+          exiting.forEach((item) => {
+            action2(item.state?.exit);
+          });
+          action2(transitionRef.current?.actions);
+          entering.forEach((item) => {
+            const cleanup = effect2(item.state?.effects);
+            if (cleanup) effects.set(item.path, cleanup);
+          });
+          if (prevState === INIT_STATE) {
+            action2(machine2.entry);
+            const cleanup = effect2(machine2.effects);
+            if (cleanup) effects.set(INIT_STATE, cleanup);
+          }
+          entering.forEach((item) => {
+            action2(item.state?.entry);
+          });
+        }
+      }));
+      let status2 = MachineStatus.NotStarted;
+      onMount(() => {
+        const started = status2 === MachineStatus.Started;
+        status2 = MachineStatus.Started;
+        debug(started ? "rehydrating..." : "initializing...");
+        state2.invoke(state2.initial, INIT_STATE);
+      });
+      onDestroy(() => {
+        debug("unmounting...");
+        status2 = MachineStatus.Stopped;
+        effects.forEach((fn) => fn?.());
+        effects = /* @__PURE__ */ new Map();
+        transitionRef.current = null;
+        action2(machine2.exit);
+      });
+      const send = (event2) => {
+        if (status2 !== MachineStatus.Started) return;
+        previousEventRef.current = eventRef.current;
+        eventRef.current = event2;
+        let currentState = state2.get();
+        const { transitions, source: source2 } = findTransition(machine2, currentState, event2.type);
+        const transition = choose(transitions);
+        if (!transition) return;
+        transitionRef.current = transition;
+        const target = resolveStateValue(machine2, transition.target ?? currentState, source2);
+        debug("transition", event2.type, transition.target || currentState, `(${transition.actions})`);
+        const changed = target !== currentState;
+        if (changed) {
+          state2.set(target);
+        } else if (transition.reenter) {
+          state2.invoke(currentState, currentState);
+        } else {
+          action2(transition.actions);
+        }
+      };
+      machine2.watch?.(getParams());
+      return {
+        get state() {
+          return getState();
+        },
+        send,
+        context: ctx,
+        prop: prop2,
+        get scope() {
+          return get$3(scope);
+        },
+        refs,
+        computed,
+        get event() {
+          return getEvent();
+        },
+        getStatus: () => status2
+      };
+    }
+    function useProp(value) {
+      return function get2(key2) {
+        return value()[key2];
+      };
+    }
+    function flush(fn) {
+      flushSync(() => {
+        queueMicrotask(() => fn());
+      });
+    }
+    const voidSVGTags = ["path", "rect", "circle", "ellipse", "line", "polygon", "polyline"];
+    const isVoidSVGTag = (tag) => typeof tag === "string" && voidSVGTags.includes(tag);
+    const voidHTMLTags = ["area", "base", "br", "col", "embed", "hr", "img", "input", "link"];
+    const isVoidHTMLTag = (tag) => typeof tag === "string" && voidHTMLTags.includes(tag);
+    function Svg_factory($$anchor, $$props) {
+      push($$props, true);
+      let ref2 = prop($$props, "ref", 15, null), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "as", "ref"]);
+      var fragment = comment();
+      var node = first_child(fragment);
+      element(node, () => $$props.as, true, ($$element, $$anchor2) => {
+        bind_this($$element, ($$value) => ref2($$value), () => ref2());
+        attribute_effect($$element, () => ({ ...props }));
+      });
+      append$1($$anchor, fragment);
+      pop();
+    }
+    var root_4$1 = /* @__PURE__ */ from_html(`<textarea></textarea>`);
+    function Factory($$anchor, $$props) {
+      push($$props, true);
+      let ref2 = prop($$props, "ref", 15, null), rest = /* @__PURE__ */ rest_props($$props, [
+        "$$slots",
+        "$$events",
+        "$$legacy",
+        "asChild",
+        "children",
+        "as",
+        "ref"
+      ]);
+      const propsFn = (props) => mergeProps(rest, props ?? {});
+      var fragment = comment();
+      var node = first_child(fragment);
+      {
+        var consequent = ($$anchor2) => {
+          var fragment_1 = comment();
+          var node_1 = first_child(fragment_1);
+          snippet(node_1, () => $$props.asChild ?? noop$1, () => propsFn);
+          append$1($$anchor2, fragment_1);
+        };
+        var consequent_1 = ($$anchor2) => {
+          Svg_factory($$anchor2, spread_props(
+            {
+              get as() {
+                return $$props.as;
+              }
+            },
+            () => rest,
+            {
+              get ref() {
+                return ref2();
+              },
+              set ref($$value) {
+                ref2($$value);
+              }
+            }
+          ));
+        };
+        var d = /* @__PURE__ */ user_derived(() => isVoidSVGTag($$props.as));
+        var consequent_2 = ($$anchor2) => {
+          var fragment_3 = comment();
+          var node_2 = first_child(fragment_3);
+          element(node_2, () => $$props.as, false, ($$element, $$anchor3) => {
+            bind_this($$element, ($$value) => ref2($$value), () => ref2());
+            attribute_effect($$element, () => ({ ...rest }));
+          });
+          append$1($$anchor2, fragment_3);
+        };
+        var d_1 = /* @__PURE__ */ user_derived(() => isVoidHTMLTag($$props.as));
+        var consequent_3 = ($$anchor2) => {
+          var textarea = root_4$1();
+          attribute_effect(textarea, () => ({ ...rest }));
+          bind_this(textarea, ($$value) => ref2($$value), () => ref2());
+          append$1($$anchor2, textarea);
+        };
+        var alternate = ($$anchor2) => {
+          var fragment_4 = comment();
+          var node_3 = first_child(fragment_4);
+          element(node_3, () => $$props.as, false, ($$element_1, $$anchor3) => {
+            bind_this($$element_1, ($$value) => ref2($$value), () => ref2());
+            attribute_effect($$element_1, () => ({ ...rest }));
+            var fragment_5 = comment();
+            var node_4 = first_child(fragment_5);
+            snippet(node_4, () => $$props.children ?? noop$1);
+            append$1($$anchor3, fragment_5);
+          });
+          append$1($$anchor2, fragment_4);
+        };
+        if_block(node, ($$render) => {
+          if ($$props.asChild) $$render(consequent);
+          else if (get$3(d)) $$render(consequent_1, 1);
+          else if (get$3(d_1)) $$render(consequent_2, 2);
+          else if ($$props.as === "textarea") $$render(consequent_3, 3);
+          else $$render(alternate, false);
+        });
+      }
+      append$1($$anchor, fragment);
+      pop();
+    }
     function Splitter_panel($$anchor, $$props) {
       push($$props, true);
       let ref2 = prop($$props, "ref", 15, null), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "ref"]);
-      const $$d = /* @__PURE__ */ user_derived(() => createSplitProps$1()(props, ["id"])), $$array = /* @__PURE__ */ user_derived(() => to_array(get$3($$d), 2)), splitterPanelProps = /* @__PURE__ */ user_derived(() => get$3($$array)[0]), localProps = /* @__PURE__ */ user_derived(() => get$3($$array)[1]);
+      const $$d = /* @__PURE__ */ user_derived(() => createSplitProps()(props, ["id"])), $$array = /* @__PURE__ */ user_derived(() => to_array(get$3($$d), 2)), splitterPanelProps = /* @__PURE__ */ user_derived(() => get$3($$array)[0]), localProps = /* @__PURE__ */ user_derived(() => get$3($$array)[1]);
       const splitter = useSplitterContext();
       const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(splitter().getPanelProps(get$3(splitterPanelProps)), get$3(localProps)));
       Factory($$anchor, spread_props({ as: "div" }, () => get$3(mergedProps), {
@@ -18652,7 +17297,7 @@ var require_ui = __commonJS({
     function Splitter_resize_trigger($$anchor, $$props) {
       push($$props, true);
       let ref2 = prop($$props, "ref", 15, null), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "ref"]);
-      const $$d = /* @__PURE__ */ user_derived(() => createSplitProps$1()(props, ["disabled", "id"])), $$array = /* @__PURE__ */ user_derived(() => to_array(get$3($$d), 2)), triggerProps = /* @__PURE__ */ user_derived(() => get$3($$array)[0]), localProps = /* @__PURE__ */ user_derived(() => get$3($$array)[1]);
+      const $$d = /* @__PURE__ */ user_derived(() => createSplitProps()(props, ["disabled", "id"])), $$array = /* @__PURE__ */ user_derived(() => to_array(get$3($$d), 2)), triggerProps = /* @__PURE__ */ user_derived(() => get$3($$array)[0]), localProps = /* @__PURE__ */ user_derived(() => get$3($$array)[1]);
       const splitter = useSplitterContext();
       const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(splitter().getResizeTriggerProps(get$3(triggerProps)), get$3(localProps)));
       SplitterResizeTriggerPropsProvider(() => get$3(triggerProps));
@@ -18667,7 +17312,7 @@ var require_ui = __commonJS({
       pop();
     }
     function splitSplitterProps(props) {
-      return createSplitProps$1()(props, [
+      return createSplitProps()(props, [
         "defaultSize",
         "id",
         "ids",
@@ -18683,6 +17328,23 @@ var require_ui = __commonJS({
         "size"
       ]);
     }
+    const [EnvironmentContextProvider, useEnvironmentContext] = createContext({
+      name: "EnvironmentContext",
+      strict: false,
+      defaultValue: () => ({
+        getRootNode: () => document,
+        getDocument: () => document,
+        getWindow: () => window
+      })
+    });
+    const [LocaleContextProvider, useLocaleContext] = createContext({
+      name: "LocaleContext",
+      strict: false,
+      defaultValue: () => ({
+        dir: "ltr",
+        locale: "en-US"
+      })
+    });
     const useSplitter = (props) => {
       const env = useEnvironmentContext();
       const locale = useLocaleContext();
@@ -18726,22 +17388,23 @@ var require_ui = __commonJS({
       }));
       pop();
     }
-    var root_2$1 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
-    var root$1 = /* @__PURE__ */ from_html(`<div data-component="splitter"><!></div>`);
+    var root_2$3 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
+    var root$6 = /* @__PURE__ */ from_html(`<div data-component="splitter"><!></div>`);
     function Splitter_1($$anchor, $$props) {
       push($$props, true);
-      let orientation = prop($$props, "orientation", 3, "horizontal"), panelSnippets = /* @__PURE__ */ rest_props($$props, [
+      let panel = prop($$props, "panel", 3, null), orientation = prop($$props, "orientation", 3, "horizontal"), panelSnippets = /* @__PURE__ */ rest_props($$props, [
         "$$slots",
         "$$events",
         "$$legacy",
         "id",
         "defaultSize",
         "panels",
+        "panel",
         "orientation"
       ]);
       const createSplitterState = () => new PersistedState(`splitter:${$$props.id}`, { orientation: orientation(), size: [] });
-      let splitterState = createSplitterState();
-      var div = root$1();
+      createSplitterState();
+      var div = root$6();
       var node = child(div);
       component(node, () => Splitter_root, ($$anchor2, Splitter_Root) => {
         Splitter_Root($$anchor2, {
@@ -18751,31 +17414,22 @@ var require_ui = __commonJS({
           get panels() {
             return $$props.panels;
           },
-          "data-role": "splitter:root",
           get orientation() {
-            return splitterState.current.orientation;
+            return orientation();
           },
-          set orientation($$value) {
-            splitterState.current.orientation = $$value;
-          },
-          get size() {
-            return splitterState.current.size;
-          },
-          set size($$value) {
-            splitterState.current.size = $$value;
-          },
+          "data-role": "splitter:root",
           children: ($$anchor3, $$slotProps) => {
             var fragment = comment();
             var node_1 = first_child(fragment);
-            each(node_1, 18, () => $$props.panels, (panel) => panel, ($$anchor4, panel, index2) => {
-              var fragment_1 = root_2$1();
+            each(node_1, 19, () => $$props.panels, (panelData) => panelData.id, ($$anchor4, panelData, index2) => {
+              var fragment_1 = root_2$3();
               var node_2 = first_child(fragment_1);
               {
                 var consequent = ($$anchor5) => {
                   var fragment_2 = comment();
                   var node_3 = first_child(fragment_2);
                   {
-                    let $0 = /* @__PURE__ */ user_derived(() => `${$$props.panels[get$3(index2) - 1].id}:${panel.id}`);
+                    let $0 = /* @__PURE__ */ user_derived(() => `${$$props.panels[get$3(index2) - 1].id}:${get$3(panelData).id}`);
                     component(node_3, () => Splitter_resize_trigger, ($$anchor6, Splitter_ResizeTrigger) => {
                       Splitter_ResizeTrigger($$anchor6, {
                         get id() {
@@ -18796,13 +17450,31 @@ var require_ui = __commonJS({
               component(node_4, () => Splitter_panel, ($$anchor5, Splitter_Panel) => {
                 Splitter_Panel($$anchor5, {
                   get id() {
-                    return panel.id;
+                    return get$3(panelData).id;
                   },
                   "data-role": "splitter:panel",
                   children: ($$anchor6, $$slotProps2) => {
+                    const panelSnippet = /* @__PURE__ */ user_derived(() => panelSnippets[get$3(panelData).id]);
                     var fragment_3 = comment();
                     var node_5 = first_child(fragment_3);
-                    snippet(node_5, () => panelSnippets[panel.id] ?? noop$2);
+                    {
+                      var consequent_1 = ($$anchor7) => {
+                        var fragment_4 = comment();
+                        var node_6 = first_child(fragment_4);
+                        snippet(node_6, () => get$3(panelSnippet), () => get$3(panelData));
+                        append$1($$anchor7, fragment_4);
+                      };
+                      var alternate = ($$anchor7) => {
+                        var fragment_5 = comment();
+                        var node_7 = first_child(fragment_5);
+                        snippet(node_7, panel, () => get$3(panelData));
+                        append$1($$anchor7, fragment_5);
+                      };
+                      if_block(node_5, ($$render) => {
+                        if (get$3(panelSnippet)) $$render(consequent_1);
+                        else $$render(alternate, false);
+                      });
+                    }
                     append$1($$anchor6, fragment_3);
                   },
                   $$slots: { default: true }
@@ -18815,6 +17487,326 @@ var require_ui = __commonJS({
           $$slots: { default: true }
         });
       });
+      append$1($$anchor, div);
+      pop();
+    }
+    const defaultAttributes = {
+      xmlns: "http://www.w3.org/2000/svg",
+      width: 24,
+      height: 24,
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": 2,
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round"
+    };
+    const hasA11yProp = (props) => {
+      for (const prop2 in props) {
+        if (prop2.startsWith("aria-") || prop2 === "role" || prop2 === "title") {
+          return true;
+        }
+      }
+      return false;
+    };
+    const mergeClasses = (...classes) => classes.filter((className, index2, array) => {
+      return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index2;
+    }).join(" ").trim();
+    var root$5 = /* @__PURE__ */ from_svg(`<svg><!><!></svg>`);
+    function Icon($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const $$restProps = legacy_rest_props($$sanitized_props, [
+        "name",
+        "color",
+        "size",
+        "strokeWidth",
+        "absoluteStrokeWidth",
+        "iconNode"
+      ]);
+      push($$props, false);
+      let name = prop($$props, "name", 8, void 0);
+      let color = prop($$props, "color", 8, "currentColor");
+      let size = prop($$props, "size", 8, 24);
+      let strokeWidth = prop($$props, "strokeWidth", 8, 2);
+      let absoluteStrokeWidth = prop($$props, "absoluteStrokeWidth", 8, false);
+      let iconNode = prop($$props, "iconNode", 24, () => []);
+      init();
+      var svg = root$5();
+      attribute_effect(
+        svg,
+        ($0, $1, $2) => ({
+          ...defaultAttributes,
+          ...$0,
+          ...$$restProps,
+          width: size(),
+          height: size(),
+          stroke: color(),
+          "stroke-width": $1,
+          class: $2
+        }),
+        [
+          () => !hasA11yProp($$restProps) ? { "aria-hidden": "true" } : void 0,
+          () => (deep_read_state(absoluteStrokeWidth()), deep_read_state(strokeWidth()), deep_read_state(size()), untrack(() => absoluteStrokeWidth() ? Number(strokeWidth()) * 24 / Number(size()) : strokeWidth())),
+          () => (deep_read_state(mergeClasses), deep_read_state(name()), deep_read_state($$sanitized_props), untrack(() => mergeClasses("lucide-icon", "lucide", name() ? `lucide-${name()}` : "", $$sanitized_props.class)))
+        ]
+      );
+      var node = child(svg);
+      each(node, 1, iconNode, index, ($$anchor2, $$item) => {
+        var $$array = /* @__PURE__ */ user_derived(() => to_array(get$3($$item), 2));
+        let tag = () => get$3($$array)[0];
+        let attrs = () => get$3($$array)[1];
+        var fragment = comment();
+        var node_1 = first_child(fragment);
+        element(node_1, tag, true, ($$element, $$anchor3) => {
+          attribute_effect($$element, () => ({ ...attrs() }));
+        });
+        append$1($$anchor2, fragment);
+      });
+      var node_2 = sibling(node);
+      slot(node_2, $$props, "default", {});
+      append$1($$anchor, svg);
+      pop();
+    }
+    function Funnel($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        [
+          "path",
+          {
+            "d": "M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"
+          }
+        ]
+      ];
+      Icon($$anchor, spread_props({ name: "funnel" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function Panel_bottom_close($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        [
+          "rect",
+          { "width": "18", "height": "18", "x": "3", "y": "3", "rx": "2" }
+        ],
+        ["path", { "d": "M3 15h18" }],
+        ["path", { "d": "m15 8-3 3-3-3" }]
+      ];
+      Icon($$anchor, spread_props({ name: "panel-bottom-close" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function Panel_right_close($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        [
+          "rect",
+          { "width": "18", "height": "18", "x": "3", "y": "3", "rx": "2" }
+        ],
+        ["path", { "d": "M15 3v18" }],
+        ["path", { "d": "m8 9 3 3-3 3" }]
+      ];
+      Icon($$anchor, spread_props({ name: "panel-right-close" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    var root_1$3 = /* @__PURE__ */ from_html(`<h4 data-role="inspector:breadcrumb">Elements / Button / Themes</h4>`);
+    var root_2$2 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
+    var root_4 = /* @__PURE__ */ from_html(`<div data-role="inspector:panel">start</div>`);
+    var root_5 = /* @__PURE__ */ from_html(`<div data-role="inspector:panel">end</div>`);
+    var root_6 = /* @__PURE__ */ from_html(`<div data-role="inspector:panel">bottom</div>`);
+    var root$4 = /* @__PURE__ */ from_html(`<div data-component="inspector"><div data-role="inspector:toolbar"><!></div> <div data-role="inspector:panels"><!></div></div>`);
+    function Inspector($$anchor, $$props) {
+      var div = root$4();
+      var div_1 = child(div);
+      var node = child(div_1);
+      {
+        const start2 = ($$anchor2) => {
+          var h4 = root_1$3();
+          append$1($$anchor2, h4);
+        };
+        const end = ($$anchor2) => {
+          var fragment = root_2$2();
+          var node_1 = first_child(fragment);
+          Button(node_1, {
+            get icon() {
+              return Panel_bottom_close;
+            },
+            size: "lg"
+          });
+          var node_2 = sibling(node_1, 2);
+          Button(node_2, {
+            get icon() {
+              return Panel_right_close;
+            },
+            size: "lg"
+          });
+          append$1($$anchor2, fragment);
+        };
+        Toolbar(node, { start: start2, end });
+      }
+      var div_2 = sibling(div_1, 2);
+      var node_3 = child(div_2);
+      {
+        const top = ($$anchor2) => {
+          {
+            const start2 = ($$anchor3) => {
+              var div_3 = root_4();
+              append$1($$anchor3, div_3);
+            };
+            const end = ($$anchor3) => {
+              var div_4 = root_5();
+              append$1($$anchor3, div_4);
+            };
+            Splitter_1($$anchor2, {
+              panels: [{ id: "start" }, { id: "end" }],
+              orientation: "horizontal",
+              start: start2,
+              end,
+              $$slots: { start: true, end: true }
+            });
+          }
+        };
+        const bottom = ($$anchor2) => {
+          var div_5 = root_6();
+          set_style(div_5, "", {}, { "border-bottom": "0" });
+          append$1($$anchor2, div_5);
+        };
+        Splitter_1(node_3, {
+          panels: [{ id: "top" }, { id: "bottom" }],
+          orientation: "vertical",
+          top,
+          bottom,
+          $$slots: { top: true, bottom: true }
+        });
+      }
+      append$1($$anchor, div);
+    }
+    function Show($$anchor) {
+      Inspector($$anchor);
+    }
+    const __vite_glob_0_6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+      __proto__: null,
+      default: Show
+    }, Symbol.toStringTag, { value: "Module" }));
+    var root_1$2 = /* @__PURE__ */ from_html(`<span data-role="header:branding"> </span>`);
+    var root$3 = /* @__PURE__ */ from_html(`<header data-component="header"><!></header>`);
+    function Header($$anchor, $$props) {
+      push($$props, true);
+      var header = root$3();
+      var node = child(header);
+      Link(node, {
+        get href() {
+          return $$props.lookbook.urlPath;
+        },
+        class: "highlight branding caps",
+        children: ($$anchor2, $$slotProps) => {
+          var span = root_1$2();
+          var text2 = child(span);
+          template_effect(() => set_text(text2, $$props.project.name));
+          append$1($$anchor2, span);
+        },
+        $$slots: { default: true }
+      });
+      append$1($$anchor, header);
+      pop();
+    }
+    var root$2 = /* @__PURE__ */ from_html(`<footer data-component="statusbar" class="surface svelte-f294i8"><div data-role="statusbar:section statusbar:section-start" class="svelte-f294i8"></div> <div data-role="statusbar:section statusbar:section-end" class="svelte-f294i8"><span data-role="statusbar:label" class="svelte-f294i8">LOOKBOOK_v<em data-role="statusbar:version" class="svelte-f294i8"> </em></span></div></footer>`);
+    function Statusbar($$anchor, $$props) {
+      push($$props, true);
+      var footer = root$2();
+      var div = sibling(child(footer), 2);
+      var span = child(div);
+      var em = sibling(child(span));
+      var text2 = child(em);
+      template_effect(() => set_text(text2, $$props.lookbook.version));
+      append$1($$anchor, footer);
+      pop();
+    }
+    var root_2$1 = /* @__PURE__ */ from_html(`<h3 data-role="sidebar:section-label"><!></h3>`);
+    var root_1$1 = /* @__PURE__ */ from_html(`<section data-role="sidebar:section"><header data-role="sidebar:section-header"><!></header> <div data-role="sidebar:section-content">tree nav</div></section>`);
+    var root$1 = /* @__PURE__ */ from_html(`<div data-component="sidebar"><!></div>`);
+    function Sidebar($$anchor, $$props) {
+      push($$props, true);
+      var div = root$1();
+      var node = child(div);
+      {
+        const panel = ($$anchor2, collection = noop$1) => {
+          var section = root_1$1();
+          let styles;
+          var header = child(section);
+          var node_1 = child(header);
+          {
+            const start2 = ($$anchor3) => {
+              var h3 = root_2$1();
+              var node_2 = child(h3);
+              Link(node_2, {
+                get href() {
+                  return collection().href;
+                },
+                children: ($$anchor4, $$slotProps) => {
+                  var text$1 = text();
+                  template_effect(() => set_text(text$1, collection().label));
+                  append$1($$anchor4, text$1);
+                },
+                $$slots: { default: true }
+              });
+              append$1($$anchor3, h3);
+            };
+            const end = ($$anchor3) => {
+              Button($$anchor3, {
+                get icon() {
+                  return Funnel;
+                }
+              });
+            };
+            Toolbar(node_1, { start: start2, end });
+          }
+          template_effect(() => styles = set_style(section, "", styles, {
+            "border-top-width": collection() === $$props.collections[0] ? "0" : "1px"
+          }));
+          append$1($$anchor2, section);
+        };
+        let $0 = /* @__PURE__ */ user_derived(() => $$props.collections.map((c) => 100 / $$props.collections.length));
+        Splitter_1(node, {
+          id: "app-layout",
+          orientation: "vertical",
+          get defaultSize() {
+            return get$3($0);
+          },
+          get panels() {
+            return $$props.collections;
+          },
+          panel,
+          $$slots: { panel: true }
+        });
+      }
       append$1($$anchor, div);
       pop();
     }

@@ -1,15 +1,16 @@
 .surface {
-  background-color: var(--lookbook-surface-bg);
+  /*background-color: var(--lookbook-surface-bg);
   color: var(--lookbook-surface-fg);
   position: relative;
+  border: 1px solid var(--lookbook-surface-border);*/
 
-  &::before {
+  /*&::before {
     content: "";
     position: absolute;
     inset: 0px;
     pointer-events: none;
     border: 1px solid var(--lookbook-surface-border);
-  }
+  }*/
 }
 
 .highlight {

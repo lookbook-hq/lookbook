@@ -9,11 +9,12 @@
   const sidebarState = new PersistedState(`sidebar`, {
     expandedSections: [],
   });
+
+  let expandedItems = $derived.by(() => items.map((i) => i.id));
 </script>
 
 <div data-component="accordion">
-  <!-- <Accordion.Root multiple bind:value={sidebarState.current.expandedSections}> -->
-  <Accordion.Root multiple>
+  <Accordion.Root multiple bind:value={expandedItems}>
     {#each items as item (item.id)}
       <Accordion.Item value={item.id}>
         <Accordion.ItemTrigger>
@@ -40,8 +41,6 @@
 
 <style>
   :global [data-scope="accordion"] {
-    --accordion-divider-color: var(--lookbook-divider-color);
-
     &[data-part="item"] {
       overflow-anchor: none;
       display: block;
@@ -60,7 +59,7 @@
       font-size: var(--lookbook-font-size-sm);
       cursor: pointer;
 
-      border-block-end: 1px solid var(--accordion-divider-color);
+      border-block-end: 1px solid var(--lookbook-divider-color);
     }
 
     &[data-part="item-indicator"] {
@@ -77,7 +76,6 @@
 
     &[data-part="item-content"] {
       overflow: hidden;
-      padding: var(--lookbook-space-base);
 
       &[data-state="open"] {
         animation-duration: 100ms;

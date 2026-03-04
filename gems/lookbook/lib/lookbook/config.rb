@@ -15,6 +15,10 @@ module Lookbook
             previews: {
               path: "lookbook",
               watch_extensions: []
+            },
+            pages: {
+              path: "docs",
+              watch_extensions: []
             }
           },
 

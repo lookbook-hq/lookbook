@@ -3,8 +3,8 @@
 
   const defaultProps = {
     size: 16,
-    strokeWidth: 1,
-    absoluteStrokeWidth: true,
+    strokeWidth: 1.5,
+    // absoluteStrokeWidth: true,
   };
 </script>
 
@@ -18,7 +18,7 @@
   :global [data-component="icon"] {
     --icon-size-sm: var(--lookbook-size-3);
     --icon-size-md: var(--lookbook-size-4);
-    --icon-size-lg: var(--lookbook-size-5);
+    --icon-size-lg: calc((var(--lookbook-size-5) + var(--lookbook-size-4)) / 2);
 
     display: block;
     color: currentColor;
