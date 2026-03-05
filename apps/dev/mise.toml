@@ -2,8 +2,13 @@
 description = "Install dependencies and initial setup tasks"
 run = "bin/setup --skip-server"
 
+[tasks."clean:socket"]
+description = "Remove overmind socket file (if it exists)"
+run = "rm -f ./.overmind.sock"
+
 [tasks.start]
 description = "Start the development server"
+depends = ["clean:socket"]
 run = "bin/dev"
 
 [tasks."restart"]

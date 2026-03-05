@@ -278,6 +278,10 @@ GEM
       concurrent-ruby (~> 1.0)
     uri (1.1.1)
     useragent (0.16.11)
+    view_component (4.5.0)
+      actionview (>= 7.1.0)
+      activesupport (>= 7.1.0)
+      concurrent-ruby (~> 1)
     vite_rails (3.0.20)
       railties (>= 5.1, < 9)
       vite_ruby (~> 3.0, >= 3.2.2)
@@ -320,6 +324,7 @@ DEPENDENCIES
   puma (>= 5.0)
   puts_debuggerer
   rails (~> 8.1.2)
+  view_component
   vite_rails
   web-console
 
@@ -440,6 +445,7 @@ CHECKSUMS
   tzinfo (2.0.6) sha256=8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b
   uri (1.1.1) sha256=379fa58d27ffb1387eaada68c749d1426738bd0f654d812fcc07e7568f5c57c6
   useragent (0.16.11) sha256=700e6413ad4bb954bb63547fa098dddf7b0ebe75b40cc6f93b8d54255b173844
+  view_component (4.5.0) sha256=0d951360d830752da4d1daa5f6cb643f17c30f295fb779fd4de90a051537d9c1
   vite_rails (3.0.20) sha256=582bf9aa3bc3b4d9b0a48c17862b4fa9bd17384ac597a57b7a38d2f95d96e682
   vite_ruby (3.9.3) sha256=560afb7dc01eb1fb2349c21b02e206f016ef7d59075daf00510caaf459b04a13
   web-console (4.3.0) sha256=e13b71301cdfc2093f155b5aa3a622db80b4672d1f2f713119cc7ec7ac6a6da4

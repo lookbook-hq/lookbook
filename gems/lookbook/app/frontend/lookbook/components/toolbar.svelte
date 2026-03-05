@@ -1,8 +1,8 @@
 <script>
-  let { start, end } = $props();
+  let { start, end, ...attrs } = $props();
 </script>
 
-<div data-component="toolbar">
+<div data-component="toolbar" {...attrs}>
   {#if start}
     <div data-role="toolbar:start">
       {@render start()}

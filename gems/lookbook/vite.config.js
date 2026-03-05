@@ -1,3 +1,4 @@
+import svg from "@poppanator/sveltekit-svg";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { resolve } from "node:path";
 import { defineConfig } from "vite";
@@ -38,6 +39,9 @@ export default defineConfig({
   plugins: [
     svelte({
       configFile: "./svelte.config.js",
+    }),
+    svg({
+      includePaths: ["./app/frontend/lookbook/images/"],
     }),
   ],
 });

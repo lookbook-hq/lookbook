@@ -5,20 +5,20 @@
   import Toolbar from "@components/toolbar";
   import Button from "@components/button";
   import Splitter from "@components/splitter";
-  // import Icon from "@components/icon";
+  import NavTree from "@components/nav-tree";
 
+  // import Icon from "@components/icon";
   // import { ChevronDownIcon } from "lucide-svelte";
-  // import NavTree from "@components/nav-tree";
 
   let { collections } = $props();
 
-  // const sidebarState = new PersistedState(`sidebar`, {
-  //   expandedSections: [],
-  // });
+  const sidebarState = new PersistedState(`sidebar`, {
+    expandedSections: [],
+  });
 
-  // let panels = $derived.by(() =>
-  //   collections.map((collection) => ({ id: `collection-${collection.id}` }))
-  // );
+  let panels = $derived.by(() =>
+    collections.map((collection) => ({ id: `collection-${collection.id}` }))
+  );
 </script>
 
 <div data-component="sidebar">
@@ -46,13 +46,7 @@
           </Toolbar>
         </header>
         <div data-role="sidebar:section-content">
-          tree nav
-          <!-- <NavTree
-              id={collection.id}
-              tree={collection.nav}
-              data-scope="sidebar"
-              data-part="nav-tree"
-            ></NavTree> -->
+          <NavTree id={collection.id} tree={collection.nav}></NavTree>
         </div>
       </section>
     {/snippet}
@@ -92,7 +86,7 @@
     }
 
     [data-role="sidebar:section-content"] {
-      padding: var(--lookbook-space-base);
+      /*padding: var(--lookbook-space-base);*/
     }
   }
 </style>

@@ -1,11 +1,27 @@
 <script>
+  import { Frame } from "@ark-ui/svelte";
+  import Tabs from "@components/tabs";
   import Toolbar from "@components/toolbar";
   import Button from "@components/button";
   import ButtonGroup from "@components/button-group";
   import Splitter from "@components/splitter";
+  import InspectorPanel from "@components/inspector-panel";
+
   import { PanelBottomCloseIcon, PanelRightCloseIcon } from "lucide-svelte";
 
-  let { spec, scenario } = $props();
+  let { scenario, panels, preview } = $props();
+
+  let panelGroups = $derived.by(() =>
+    panels.reduce((grouped, panel) => {
+      const slot = panel.defaultSlot;
+      grouped[slot] = grouped[slot] || [];
+      grouped[slot].push(panel);
+      return grouped;
+    }, {})
+  );
+
+  let sidebarPanels = $derived.by(() => panelGroups["sidebar"] || []);
+  let drawerPanels = $derived.by(() => panelGroups["drawer"] || []);
 </script>
 
 <div data-component="inspector">
@@ -28,6 +44,10 @@
       orientation="vertical"
       defaultSize={[65, 35]}
     >
+      {#snippet panel(panel)}
+        <InspectorPanel {...panel}></InspectorPanel>
+      {/snippet}
+
       {#snippet top()}
         <Splitter
           panels={[{ id: "start" }, { id: "end" }]}
@@ -35,7 +55,9 @@
           defaultSize={[70, 30]}
         >
           {#snippet start()}
-            <div data-role="inspector:panel">start</div>
+            <div data-role="inspector:panel">
+              <Frame srcdoc={preview.srcdoc}></Frame>
+            </div>
           {/snippet}
           {#snippet end()}
             <div data-role="inspector:panel">end</div>
@@ -43,7 +65,9 @@
         </Splitter>
       {/snippet}
       {#snippet bottom()}
-        <div data-role="inspector:panel">bottom</div>
+        <div data-role="inspector:panel">
+          <Tabs id="inspector-drawer-tabs" panels={drawerPanels} {panel}></Tabs>
+        </div>
       {/snippet}
     </Splitter>
   </div>
@@ -80,7 +104,6 @@
     }
 
     [data-role="inspector:panel"] {
-      padding: var(--inspector-panel-padding);
       background-color: var(--inspector-panel-bg);
       color: var(--inspector-panel-fg);
       border: 1px solid var(--inspector-panel-border-color);

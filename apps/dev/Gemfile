@@ -10,6 +10,8 @@ gem "vite_rails"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+gem "view_component"
+
 group :development, :test do
   gem "pretty_please"
   gem "puts_debuggerer"

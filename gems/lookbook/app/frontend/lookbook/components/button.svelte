@@ -22,12 +22,10 @@
 
 <style>
   :global [data-component="button"] {
-    /*--button-border: var(--lookbook-neutral-5);
-    --button-border-hover: var(--lookbook-brand-5);*/
     --button-padding: var(--lookbook-size-2);
     --button-spacing: var(--lookbook-space-xs);
     --button-height: var(--lookbook-size-7);
-    /*--button-bg: var(--lookbook-neutral-base);*/
+
     --button-bg: transparent;
     --button-bg-hover: var(--lookbook-neutral-bg);
     --button-fg: var(--lookbook-neutral-text);

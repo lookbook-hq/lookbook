@@ -8,7 +8,7 @@ module Lookbook
 
     delegate :ref, :id, to: :@entity
 
-    inertia_props :id, :label, :children, :href, [:leaf, :leaf?]
+    inertia_props :id, :label, :children, :href, :type, [:leaf, :leaf?]
 
     def collection
       @collection ||= Collection.all.find do |collection|
@@ -22,6 +22,10 @@ module Lookbook
     alias_method :href, :url_path
 
     def to_param = @entity.id
+
+    def type
+      @entity.class.name.demodulize.delete_suffix("Node").dasherize.downcase
+    end
 
     delegate_missing_to :@entity
   end

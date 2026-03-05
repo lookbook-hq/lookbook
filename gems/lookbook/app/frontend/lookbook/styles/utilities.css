@@ -1,21 +1,6 @@
-.surface {
-  /*background-color: var(--lookbook-surface-bg);
-  color: var(--lookbook-surface-fg);
-  position: relative;
-  border: 1px solid var(--lookbook-surface-border);*/
-
-  /*&::before {
-    content: "";
-    position: absolute;
-    inset: 0px;
-    pointer-events: none;
-    border: 1px solid var(--lookbook-surface-border);
-  }*/
-}
-
 mark,
 .mark {
-  --marker-bg: var(--lookbook-marker-bg-yellow);
+  --marker-bg: var(--lookbook-accent);
   --marker-fg: color-mix(in oklab, var(--marker-bg), black 60%);
 
   margin: 0 -0.5em 0 -0.4em;
@@ -32,16 +17,6 @@ mark,
 
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
-}
-
-.mark.green,
-mark.green {
-  --marker-bg: var(--lookbook-marker-bg-green);
-}
-
-.mark.pink,
-mark.pink {
-  --marker-bg: var(--lookbook-marker-bg-pink);
 }
 
 .highlight {

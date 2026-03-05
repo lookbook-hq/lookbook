@@ -8,7 +8,8 @@ module Lookbook
         resource_id: @scenario.id,
         collection_id: collection.id,
         preview: {
-          src: @scenario.preview_path(**param_values)
+          src: @scenario.preview_path(**param_values),
+          srcdoc: @scenario.call(param_values)
         },
         spec:,
         panels:

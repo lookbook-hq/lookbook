@@ -1,9 +1,8 @@
 <script>
-  import Inspector from "@components/inspector";
   // let { } = $props()
 </script>
 
-<Inspector></Inspector>
+<div>Welcome!</div>
 
 <style>
 </style>

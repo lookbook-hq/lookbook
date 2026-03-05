@@ -167,6 +167,8 @@
 
   --lookbook-divider-color: var(--lookbook-neutral-border-subtle);
 
+  --lookbook-accent: var(--lookbook-fluro-green);
+
   --lookbook-surface-bg: var(--lookbook-neutral-base);
   --lookbook-surface-fg: var(--lookbook-fg);
   --lookbook-surface-border: var(--lookbook-divider-color);
@@ -180,9 +182,9 @@
   --lookbook-scrollbar-bg: transparent;
   --lookbook-scrollbar-fg: var(--lookbook-neutral-solid);
 
-  --lookbook-marker-bg-yellow: var(--lookbook-fluro-yellow);
+  /*--lookbook-marker-bg-yellow: var(--lookbook-fluro-yellow);
   --lookbook-marker-bg-green: var(--lookbook-fluro-green);
-  --lookbook-marker-bg-pink: var(--lookbook-fluro-pink);
+  --lookbook-marker-bg-pink: var(--lookbook-fluro-pink);*/
 
   --lookbook-focus-ring-size: 2px;
   --lookbook-focus-ring-color: var(--lookbook-fluro-green);
