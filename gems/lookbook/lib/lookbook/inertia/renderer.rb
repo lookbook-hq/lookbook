@@ -7,24 +7,14 @@ module Lookbook
   module Inertia
     class Renderer
       def initialize(component, controller, request, response, render_method, **options)
-        if component.is_a?(Hash) && options.key?(:props)
-          raise ArgumentError,
-            "Parameter `props` is not allowed when passing a Hash as the first argument"
-        end
-
         @controller = controller
         @configuration = controller.__send__(:inertia_configuration)
         @request = request
         @response = response
         @render_method = render_method
-        @view_data = options.fetch(:view_data, {})
-        @encrypt_history = options.fetch(:encrypt_history, @configuration.encrypt_history)
-        @clear_history = options.fetch(:clear_history, controller.session[:inertia_clear_history] || false)
 
-        deep_merge = options.fetch(:deep_merge, @configuration.deep_merge_shared_data)
-        passed_props = options.fetch(:props,
-          component.is_a?(Hash) ? component : @controller.__send__(:inertia_view_assigns))
-        @props = merge_props(shared_data, passed_props, deep_merge)
+        passed_props = options.fetch(:props, component.is_a?(Hash) ? component : {})
+        @props = shared_data.symbolize_keys.merge(passed_props.symbolize_keys)
 
         @component = resolve_component(component)
 
@@ -42,7 +32,7 @@ module Lookbook
           @render_method.call json: page.to_json, status: @response.status, content_type: Mime[:json]
         else
           @controller.instance_variable_set(:@_inertia_page, page)
-          @render_method.call template: "lookbook/inertia", locals: @view_data.merge(page: page)
+          @render_method.call template: "lookbook/inertia", locals: {page: page}
         end
       end
 
@@ -52,21 +42,7 @@ module Lookbook
         @controller.__send__(:inertia_shared_data)
       end
 
-      # Cast props to symbol keyed hash before merging so that we have a consistent data structure and
-      # avoid duplicate keys after merging.
-      #
-      # Functionally, this permits using either string or symbol keys in the controller. Since the results
-      # is cast to json, we should treat string/symbol keys as identical.
-      def merge_props(shared_props, props, deep_merge)
-        if deep_merge
-          shared_props.deep_symbolize_keys.deep_merge!(props.deep_symbolize_keys)
-        else
-          shared_props.symbolize_keys.merge(props.symbolize_keys)
-        end
-      end
-
       def computed_props
-        # rubocop:disable Style/MultilineBlockChain
         @props
           .tap do |merged_props|
             # Always keep errors in the props
@@ -74,10 +50,9 @@ module Lookbook
               errors = merged_props[:errors]
               merged_props[:errors] = Inertia.always { errors }
             end
-        end
-          .then { |props| deep_transform_props(props) } # Internal hydration/filtering
-          .then { |props| @configuration.prop_transformer(props: props) } # Apply user-defined prop transformer
-        # rubocop:enable Style/MultilineBlockChain
+          end
+          .then { |props| deep_transform_props(props) }
+          .then { |props| @configuration.prop_transformer(props: props) }
       end
 
       def page
@@ -87,14 +62,8 @@ module Lookbook
           component: @component,
           props: computed_props,
           url: @request.original_fullpath,
-          version: @configuration.version,
-          encryptHistory: @encrypt_history,
-          clearHistory: @clear_history
+          version: @configuration.version
         }
-
-        deferred_props = deferred_props_keys
-        @page[:deferredProps] = deferred_props if deferred_props.present?
-        @page.merge!(resolve_merge_props)
 
         once_props = resolve_once_props
         @page[:onceProps] = once_props if once_props.present?
@@ -123,27 +92,6 @@ module Lookbook
         end
       end
 
-      def deferred_props_keys
-        return if rendering_partial_component?
-
-        @props.each_with_object({}) do |(key, prop), result|
-          (result[prop.group] ||= []) << key if prop.is_a?(DeferProp)
-        end
-      end
-
-      def resolve_merge_props
-        deep_merge_props, merge_props = all_merge_props.partition do |_key, prop|
-          prop.deep_merge?
-        end
-
-        {
-          mergeProps: append_merge_props(merge_props),
-          prependProps: prepend_merge_props(merge_props),
-          deepMergeProps: deep_merge_props.map!(&:first),
-          matchPropsOn: resolve_match_on_props
-        }.delete_if { |_, v| v.blank? }
-      end
-
       def resolve_once_props
         @props.each_with_object({}) do |(key, prop), result|
           next unless prop.try(:once?)
@@ -155,66 +103,8 @@ module Lookbook
         end
       end
 
-      def resolve_match_on_props
-        all_merge_props.filter_map do |key, prop|
-          prop.match_on.map! { |ms| "#{key}.#{ms}" } if prop.match_on.present?
-        end.flatten
-      end
-
-      def requested_merge_props
-        @requested_merge_props ||= @props.select do |key, prop|
-          next unless prop.try(:merge?)
-          next if rendering_partial_component? && (
-            (partial_keys.present? && partial_keys.exclude?(key.name)) ||
-              (partial_except_keys.present? && partial_except_keys.include?(key.name))
-          )
-
-          true
-        end
-      end
-
-      def append_merge_props(props)
-        return props if props.empty?
-
-        root_append_props, nested_append_props = props.partition { |_key, prop| prop.appends_at_root? }
-
-        result = Set.new(root_append_props.map!(&:first))
-
-        nested_append_props.each do |key, prop|
-          prop.appends_at_paths.each do |path|
-            result.add("#{key}.#{path}")
-          end
-        end
-
-        result.to_a
-      end
-
-      def prepend_merge_props(props)
-        return props if props.empty?
-
-        root_prepend_props, nested_prepend_props = props.partition { |_key, prop| prop.prepends_at_root? }
-
-        result = Set.new(root_prepend_props.map!(&:first))
-
-        nested_prepend_props.each do |key, prop|
-          prop.prepends_at_paths.each do |path|
-            result.add("#{key}.#{path}")
-          end
-        end
-
-        result.to_a
-      end
-
-      def all_merge_props
-        @all_merge_props ||= requested_merge_props.reject { |key,| reset_keys.include?(key) }
-      end
-
       def partial_keys
         @partial_keys ||= (@request.headers["X-Inertia-Partial-Data"] || "").split(",").compact_blank!
-      end
-
-      def reset_keys
-        @reset_keys ||= (@request.headers["X-Inertia-Reset"] || "").split(",").compact_blank!.map!(&:to_sym)
       end
 
       def partial_except_keys
@@ -240,9 +130,6 @@ module Lookbook
       def keep_prop?(prop, path)
         return false if excluded_by_once_cache?(prop, path)
         return false if excluded_by_partial_request?(path)
-
-        # Precedence: Evaluate IgnoreOnFirstLoadProp only after partial keys have been checked
-        return false if prop.is_a?(IgnoreOnFirstLoadProp) && !rendering_partial_component?
 
         true
       end

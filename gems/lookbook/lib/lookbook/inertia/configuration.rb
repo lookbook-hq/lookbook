@@ -4,16 +4,12 @@ module Lookbook
   module Inertia
     class Configuration
       DEFAULTS = {
-        deep_merge_shared_data: false,
-
         component_path_resolver: ->(path:, action:) { "#{path.gsub("lookbook/", "")}/#{action}" },
 
         prop_transformer: lambda do |props:|
           props = props.deep_transform_keys { _1.to_s.camelize(:lower) }
           props.deep_transform_values! { _1.try(:to_inertia) || _1 }
         end,
-
-        encrypt_history: false,
 
         version: Lookbook::VERSION
       }.freeze

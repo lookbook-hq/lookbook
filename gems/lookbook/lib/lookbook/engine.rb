@@ -23,7 +23,6 @@ module Lookbook
 
       # Inertia patches
       ActionDispatch::Request.include InertiaRequestPatch
-      ActionDispatch::Routing::Mapper.include InertiaMapperPatch
     end
 
     initializer "lookbook.inertia.renderer" do |app|
