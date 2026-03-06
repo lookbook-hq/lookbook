@@ -1,5 +1,5 @@
 PATH
-  remote: ../../../booklet
+  remote: ../../gems/booklet
   specs:
     lookbooklet (0.0.2)
       activemodel (>= 7.2)
