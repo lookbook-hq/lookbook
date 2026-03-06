@@ -11,7 +11,7 @@ group :development, :test do
   gem "pretty_please"
   gem "puts_debuggerer"
 
-  gem "lookbooklet", path: "../../../booklet"
+  gem "lookbooklet", path: "../../gems/booklet"
   gem "lookbook", path: "../../gems/lookbook"
 end
 
