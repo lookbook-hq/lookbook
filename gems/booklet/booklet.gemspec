@@ -3,7 +3,7 @@
 require_relative "lib/booklet/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "lookbooklet"
+  spec.name = "booklet"
   spec.version = Lookbook::VERSION
   spec.authors = ["Mark Perkins"]
   spec.homepage = "https://github.com/lookbook-hq/booklet"
