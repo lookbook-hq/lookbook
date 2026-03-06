@@ -17,6 +17,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "activesupport", ">= 7.2"
   spec.add_dependency "activemodel", ">= 7.2"
+  spec.add_dependency "rouge", ">= 4.5"
   spec.add_dependency "commonmarker", "~> 2.2"
   spec.add_dependency "fast_ignore", "~> 0.17"
   spec.add_dependency "herb", "~> 0.8"

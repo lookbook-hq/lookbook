@@ -183,6 +183,7 @@ GEM
     zeitwerk (2.7.4)
 
 PLATFORMS
+  arm64-darwin-23
   arm64-darwin-24
   arm64-darwin-25
   x86_64-linux
@@ -203,4 +204,4 @@ DEPENDENCIES
   view_component
 
 BUNDLED WITH
-   2.4.19
+  4.0.3

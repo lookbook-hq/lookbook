@@ -15,7 +15,7 @@ module Booklet
     def ref = Helpers.hexdigest(raw)
 
     def to_snippet
-      Booklet.highlight(raw, lang)
+      Booklet.highlight(raw, lang:)
     end
 
     public alias_method :to_s, :raw

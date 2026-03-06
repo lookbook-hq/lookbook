@@ -57,6 +57,12 @@ module Booklet
       @markdown ||= Markdown::Processor.new
     end
 
+    def highlighter
+      @highlighter ||= Syntax::Highlighter.new
+    end
+
+    delegate :highlight, to: :highlighter
+
     attr_writer :loader, :visitors, :validator_visitors, :spec_visitors, :page_visitors
   end
 end
