@@ -3,7 +3,7 @@ var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var require_ui_001 = __commonJS({
-  "lookbook-assets/ui-CPRH8x6Z.js"(exports, module) {
+  "lookbook-assets/ui-TWWza2Rj.js"(exports, module) {
     (function polyfill() {
       const relList = document.createElement("link").relList;
       if (relList && relList.supports && relList.supports("modulepreload")) return;
@@ -4954,10 +4954,10 @@ var require_ui_001 = __commonJS({
         })
       );
     }
-    var root$j = /* @__PURE__ */ from_html(`<div><h1><strong> </strong> collection</h1></div>`);
+    var root$k = /* @__PURE__ */ from_html(`<div><h1><strong> </strong> collection</h1></div>`);
     function Show$4($$anchor, $$props) {
       push($$props, true);
-      var div = root$j();
+      var div = root$k();
       var h1 = child(div);
       var strong = child(h1);
       var text2 = child(strong);
@@ -4969,7 +4969,7 @@ var require_ui_001 = __commonJS({
       __proto__: null,
       default: Show$4
     }, Symbol.toStringTag, { value: "Module" }));
-    var root$i = /* @__PURE__ */ from_html(`<div><h1> </h1></div>`);
+    var root$j = /* @__PURE__ */ from_html(`<div><h1> </h1></div>`);
     function Error$1($$anchor, $$props) {
       const title = {
         503: "503: Service Unavailable",
@@ -4977,7 +4977,7 @@ var require_ui_001 = __commonJS({
         404: "404: Page Not Found",
         403: "403: Forbidden"
       };
-      var div = root$i();
+      var div = root$j();
       var h1 = child(div);
       var text2 = child(h1);
       template_effect(() => set_text(text2, title[$$props.status]));
@@ -4988,19 +4988,19 @@ var require_ui_001 = __commonJS({
       default: Error$1
     }, Symbol.toStringTag, { value: "Module" }));
     enable_legacy_mode_flag();
-    var root$h = /* @__PURE__ */ from_html(`<div><h1>Not found</h1></div>`);
+    var root$i = /* @__PURE__ */ from_html(`<div><h1>Not found</h1></div>`);
     function Not_found($$anchor) {
-      var div = root$h();
+      var div = root$i();
       append$1($$anchor, div);
     }
     const __vite_glob_0_2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
       __proto__: null,
       default: Not_found
     }, Symbol.toStringTag, { value: "Module" }));
-    var root$g = /* @__PURE__ */ from_html(`<h1> </h1> <!>`, 1);
+    var root$h = /* @__PURE__ */ from_html(`<h1> </h1> <!>`, 1);
     function Show$3($$anchor, $$props) {
       push($$props, true);
-      var fragment = root$g();
+      var fragment = root$h();
       var h1 = first_child(fragment);
       var text2 = child(h1);
       var node = sibling(h1, 2);
@@ -5529,7 +5529,7 @@ var require_ui_001 = __commonJS({
     function isActiveElement(element2) {
       if (!element2) return false;
       const rootNode = element2.getRootNode();
-      return getActiveElement$1(rootNode) === element2;
+      return getActiveElement(rootNode) === element2;
     }
     var TEXTAREA_SELECT_REGEX = /(textarea|select)/;
     function isEditableElement(el) {
@@ -5566,7 +5566,7 @@ var require_ui_001 = __commonJS({
       if (isHTMLElement(el)) return el.ownerDocument?.defaultView ?? window;
       return window;
     }
-    function getActiveElement$1(rootNode) {
+    function getActiveElement(rootNode) {
       let activeElement = rootNode.activeElement;
       while (activeElement?.shadowRoot) {
         const el = activeElement.shadowRoot.activeElement;
@@ -6135,7 +6135,7 @@ var require_ui_001 = __commonJS({
       const getRootNode = () => props.getRootNode?.() ?? document;
       const getDoc = () => getDocument(getRootNode());
       const getWin = () => getDoc().defaultView ?? window;
-      const getActiveElementFn = () => getActiveElement$1(getRootNode());
+      const getActiveElementFn = () => getActiveElement(getRootNode());
       const getById = (id) => getRootNode().getElementById(id);
       return {
         ...props,
@@ -6703,8 +6703,8 @@ var require_ui_001 = __commonJS({
         getWindow: () => window
       })
     });
-    var root_1$a = /* @__PURE__ */ from_html(`<span hidden=""></span>`);
-    var root$f = /* @__PURE__ */ from_html(`<!> <!>`, 1);
+    var root_1$b = /* @__PURE__ */ from_html(`<span hidden=""></span>`);
+    var root$g = /* @__PURE__ */ from_html(`<!> <!>`, 1);
     function Environment_provider($$anchor, $$props) {
       push($$props, true);
       let spanRef = /* @__PURE__ */ state$1(null);
@@ -6715,13 +6715,13 @@ var require_ui_001 = __commonJS({
         getWindow: () => getWindow(getRootNode())
       }));
       EnvironmentContextProvider(() => get$3(environment));
-      var fragment = root$f();
+      var fragment = root$g();
       var node = first_child(fragment);
       snippet(node, () => $$props.children ?? noop$2);
       var node_1 = sibling(node, 2);
       {
         var consequent = ($$anchor2) => {
-          var span = root_1$a();
+          var span = root_1$b();
           bind_this(span, ($$value) => set$2(spanRef, $$value), () => get$3(spanRef));
           append$1($$anchor2, span);
         };
@@ -8209,8 +8209,8 @@ var require_ui_001 = __commonJS({
       if (!doc) return null;
       return doc.body.querySelector(`.${CUSTOM_ROOT_CLASS}`) || doc.body;
     }
-    var root_1$9 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
-    var root$e = /* @__PURE__ */ from_html(`<iframe><!></iframe>`);
+    var root_1$a = /* @__PURE__ */ from_html(`<!> <!>`, 1);
+    var root$f = /* @__PURE__ */ from_html(`<iframe><!></iframe>`);
     function Frame($$anchor, $$props) {
       push($$props, true);
       let ref2 = prop($$props, "ref", 15, null), localProps = /* @__PURE__ */ rest_props($$props, [
@@ -8258,13 +8258,13 @@ var require_ui_001 = __commonJS({
       function setFrameNode(node) {
         set$2(frameRef, node, true);
       }
-      var iframe = root$e();
+      var iframe = root$f();
       attribute_effect(iframe, () => ({ ...localProps }));
       var node_1 = child(iframe);
       Environment_provider(node_1, {
         value: () => get$3(frameRef)?.contentDocument ?? document,
         children: ($$anchor2, $$slotProps) => {
-          var fragment = root_1$9();
+          var fragment = root_1$a();
           var node_2 = first_child(fragment);
           {
             var consequent_1 = ($$anchor3) => {
@@ -11685,7 +11685,7 @@ var require_ui_001 = __commonJS({
       pop();
     }
     const defaultWindow = typeof window !== "undefined" ? window : void 0;
-    function getActiveElement(document2) {
+    function getActiveElement$1(document2) {
       let activeElement = document2.activeElement;
       while (activeElement?.shadowRoot) {
         const node = activeElement.shadowRoot.activeElement;
@@ -11715,7 +11715,7 @@ var require_ui_001 = __commonJS({
       get current() {
         this.#subscribe?.();
         if (!this.#document) return null;
-        return getActiveElement(this.#document);
+        return getActiveElement$1(this.#document);
       }
     }
     new ActiveElement();
@@ -11891,6 +11891,500 @@ var require_ui_001 = __commonJS({
         this.#setupStorageListener();
       }
     }
+    var root_1$9 = /* @__PURE__ */ from_html(`<i data-component="icon" class="icon"><!></i>`);
+    function Icon$1($$anchor, $$props) {
+      const IconSvg = prop($$props, "svg", 3, null), size = prop($$props, "size", 3, "md"), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "svg", "size"]);
+      const defaultProps = { size: 16, strokeWidth: 1, absoluteStrokeWidth: true };
+      var fragment = comment();
+      var node = first_child(fragment);
+      {
+        var consequent = ($$anchor2) => {
+          var i = root_1$9();
+          var node_1 = child(i);
+          component(node_1, IconSvg, ($$anchor3, IconSvg_1) => {
+            IconSvg_1($$anchor3, spread_props(() => defaultProps, () => props));
+          });
+          template_effect(() => set_attribute(i, "data-size", size()));
+          append$1($$anchor2, i);
+        };
+        if_block(node, ($$render) => {
+          if (IconSvg()) $$render(consequent);
+        });
+      }
+      append$1($$anchor, fragment);
+    }
+    const defaultAttributes = {
+      xmlns: "http://www.w3.org/2000/svg",
+      width: 24,
+      height: 24,
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": 2,
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round"
+    };
+    const hasA11yProp = (props) => {
+      for (const prop2 in props) {
+        if (prop2.startsWith("aria-") || prop2 === "role" || prop2 === "title") {
+          return true;
+        }
+      }
+      return false;
+    };
+    const mergeClasses = (...classes) => classes.filter((className, index2, array) => {
+      return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index2;
+    }).join(" ").trim();
+    var root$e = /* @__PURE__ */ from_svg(`<svg><!><!></svg>`);
+    function Icon($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const $$restProps = legacy_rest_props($$sanitized_props, [
+        "name",
+        "color",
+        "size",
+        "strokeWidth",
+        "absoluteStrokeWidth",
+        "iconNode"
+      ]);
+      push($$props, false);
+      let name = prop($$props, "name", 8, void 0);
+      let color = prop($$props, "color", 8, "currentColor");
+      let size = prop($$props, "size", 8, 24);
+      let strokeWidth = prop($$props, "strokeWidth", 8, 2);
+      let absoluteStrokeWidth = prop($$props, "absoluteStrokeWidth", 8, false);
+      let iconNode = prop($$props, "iconNode", 24, () => []);
+      init();
+      var svg = root$e();
+      attribute_effect(
+        svg,
+        ($0, $1, $2) => ({
+          ...defaultAttributes,
+          ...$0,
+          ...$$restProps,
+          width: size(),
+          height: size(),
+          stroke: color(),
+          "stroke-width": $1,
+          class: $2
+        }),
+        [
+          () => !hasA11yProp($$restProps) ? { "aria-hidden": "true" } : void 0,
+          () => (deep_read_state(absoluteStrokeWidth()), deep_read_state(strokeWidth()), deep_read_state(size()), untrack(() => absoluteStrokeWidth() ? Number(strokeWidth()) * 24 / Number(size()) : strokeWidth())),
+          () => (deep_read_state(mergeClasses), deep_read_state(name()), deep_read_state($$sanitized_props), untrack(() => mergeClasses("lucide-icon", "lucide", name() ? `lucide-${name()}` : "", $$sanitized_props.class)))
+        ]
+      );
+      var node = child(svg);
+      each(node, 1, iconNode, index, ($$anchor2, $$item) => {
+        var $$array = /* @__PURE__ */ user_derived(() => to_array(get$3($$item), 2));
+        let tag = () => get$3($$array)[0];
+        let attrs = () => get$3($$array)[1];
+        var fragment = comment();
+        var node_1 = first_child(fragment);
+        element(node_1, tag, true, ($$element, $$anchor3) => {
+          attribute_effect($$element, () => ({ ...attrs() }));
+        });
+        append$1($$anchor2, fragment);
+      });
+      var node_2 = sibling(node);
+      slot(node_2, $$props, "default", {});
+      append$1($$anchor, svg);
+      pop();
+    }
+    function File$1($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        [
+          "path",
+          {
+            "d": "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
+          }
+        ],
+        ["path", { "d": "M14 2v5a1 1 0 0 0 1 1h5" }]
+      ];
+      Icon($$anchor, spread_props({ name: "file" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function Folder_open($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        [
+          "path",
+          {
+            "d": "m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"
+          }
+        ]
+      ];
+      Icon($$anchor, spread_props({ name: "folder-open" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function Folder($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        [
+          "path",
+          {
+            "d": "M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"
+          }
+        ]
+      ];
+      Icon($$anchor, spread_props({ name: "folder" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function Layers_2($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        [
+          "path",
+          {
+            "d": "M13 13.74a2 2 0 0 1-2 0L2.5 8.87a1 1 0 0 1 0-1.74L11 2.26a2 2 0 0 1 2 0l8.5 4.87a1 1 0 0 1 0 1.74z"
+          }
+        ],
+        [
+          "path",
+          {
+            "d": "m20 14.285 1.5.845a1 1 0 0 1 0 1.74L13 21.74a2 2 0 0 1-2 0l-8.5-4.87a1 1 0 0 1 0-1.74l1.5-.845"
+          }
+        ]
+      ];
+      Icon($$anchor, spread_props({ name: "layers-2" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function List_filter($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        ["path", { "d": "M2 5h20" }],
+        ["path", { "d": "M6 12h12" }],
+        ["path", { "d": "M9 19h6" }]
+      ];
+      Icon($$anchor, spread_props({ name: "list-filter" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function Move_diagonal_2($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        ["path", { "d": "M19 13v6h-6" }],
+        ["path", { "d": "M5 11V5h6" }],
+        ["path", { "d": "m5 5 14 14" }]
+      ];
+      Icon($$anchor, spread_props({ name: "move-diagonal-2" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function Move_diagonal($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        ["path", { "d": "M11 19H5v-6" }],
+        ["path", { "d": "M13 5h6v6" }],
+        ["path", { "d": "M19 5 5 19" }]
+      ];
+      Icon($$anchor, spread_props({ name: "move-diagonal" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function Panel_bottom_close($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        [
+          "rect",
+          { "width": "18", "height": "18", "x": "3", "y": "3", "rx": "2" }
+        ],
+        ["path", { "d": "M3 15h18" }],
+        ["path", { "d": "m15 8-3 3-3-3" }]
+      ];
+      Icon($$anchor, spread_props({ name: "panel-bottom-close" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function Panel_right_close($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        [
+          "rect",
+          { "width": "18", "height": "18", "x": "3", "y": "3", "rx": "2" }
+        ],
+        ["path", { "d": "M15 3v18" }],
+        ["path", { "d": "m8 9 3 3-3 3" }]
+      ];
+      Icon($$anchor, spread_props({ name: "panel-right-close" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function Square_dashed_mouse_pointer($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        [
+          "path",
+          {
+            "d": "M12.034 12.681a.498.498 0 0 1 .647-.647l9 3.5a.5.5 0 0 1-.033.943l-3.444 1.068a1 1 0 0 0-.66.66l-1.067 3.443a.5.5 0 0 1-.943.033z"
+          }
+        ],
+        ["path", { "d": "M5 3a2 2 0 0 0-2 2" }],
+        ["path", { "d": "M19 3a2 2 0 0 1 2 2" }],
+        ["path", { "d": "M5 21a2 2 0 0 1-2-2" }],
+        ["path", { "d": "M9 3h1" }],
+        ["path", { "d": "M9 21h2" }],
+        ["path", { "d": "M14 3h1" }],
+        ["path", { "d": "M3 9v1" }],
+        ["path", { "d": "M21 9v2" }],
+        ["path", { "d": "M3 14v1" }]
+      ];
+      Icon($$anchor, spread_props({ name: "square-dashed-mouse-pointer" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    var root_1$6 = /* @__PURE__ */ from_html(`<button data-role="viewport:grabber"><!></button>`);
+    var root$7 = /* @__PURE__ */ from_html(`<div data-component="viewport"><div data-role="viewport:background" class="checkerboard-bg"></div> <div data-role="viewport:window"><!> <!></div></div>`);
+    function Viewport($$anchor, $$props) {
+      push($$props, true);
+      const sandbox = [
+        "allow-forms",
+        "allow-modals",
+        "allow-popups",
+        "allow-pointer-lock",
+        "allow-same-origin",
+        "allow-popups-to-escape-sandbox",
+        "allow-scripts",
+        "allow-top-navigation-by-user-activation"
+      ].join(" ");
+      const grabbers = ["east", "west", "southeast", "south", "southwest"];
+      const FULLSIZE = 1e5;
+      const createViewportState = () => {
+        const state2 = new PersistedState(`viewport:${$$props.id}`, { width: FULLSIZE, height: FULLSIZE });
+        return {
+          get width() {
+            return state2.current.width;
+          },
+          set width(value) {
+            state2.current.width = value;
+          },
+          get height() {
+            return state2.current.height;
+          },
+          set height(value) {
+            state2.current.height = value;
+          }
+        };
+      };
+      let viewportState = createViewportState();
+      let initial = /* @__PURE__ */ state$1(null);
+      let activeGrabber = /* @__PURE__ */ state$1(null);
+      let resizer;
+      let container;
+      function startResize(event2) {
+        const rect = resizer.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        set$2(activeGrabber, event2.target, true);
+        set$2(
+          initial,
+          {
+            maxWidth: containerRect.width,
+            maxHeight: containerRect.height,
+            width: rect.width,
+            height: rect.height,
+            x: event2.pageX,
+            y: event2.pageY
+          },
+          true
+        );
+      }
+      function resizing(event2) {
+        if (!get$3(activeGrabber)) return;
+        let delta;
+        const direction = get$3(activeGrabber).dataset.direction;
+        if (direction.match(/east|west/)) {
+          delta = direction.match("east") ? event2.pageX - get$3(initial).x : get$3(initial).x - event2.pageX;
+          viewportState.width = Math.min(get$3(initial).width + delta * 2, get$3(initial).maxWidth);
+          if (viewportState.width === get$3(initial).maxWidth) {
+            viewportState.width = FULLSIZE;
+          }
+        }
+        if (direction.match("south")) {
+          delta = event2.pageY - get$3(initial).y;
+          viewportState.height = Math.min(get$3(initial).height + delta, get$3(initial).maxHeight);
+          if (viewportState.height === get$3(initial).maxHeight) {
+            viewportState.height = FULLSIZE;
+          }
+        }
+      }
+      function endResize() {
+        set$2(activeGrabber, null);
+        set$2(initial, null);
+      }
+      function maximize(event2) {
+        const direction = event2.target.dataset.direction;
+        if (direction.match(/east|west/)) {
+          viewportState.width = FULLSIZE;
+        }
+        if (direction.match("south")) {
+          viewportState.height = FULLSIZE;
+        }
+      }
+      var div = root$7();
+      event("mousemove", $window, resizing);
+      event("mouseup", $window, endResize);
+      let styles;
+      var div_1 = sibling(child(div), 2);
+      var node = child(div_1);
+      {
+        let $0 = /* @__PURE__ */ user_derived(() => get$3(activeGrabber) !== null);
+        Frame(node, {
+          "data-role": "viewport:iframe",
+          get srcdoc() {
+            return $$props.srcdoc;
+          },
+          get title() {
+            return $$props.title;
+          },
+          get sandbox() {
+            return sandbox;
+          },
+          get inert() {
+            return get$3($0);
+          }
+        });
+      }
+      var node_1 = sibling(node, 2);
+      each(node_1, 17, () => grabbers, index, ($$anchor2, direction) => {
+        var button = root_1$6();
+        var node_2 = child(button);
+        {
+          var consequent = ($$anchor3) => {
+            Icon$1($$anchor3, {
+              get svg() {
+                return Move_diagonal;
+              },
+              size: "sm"
+            });
+          };
+          var consequent_1 = ($$anchor3) => {
+            Icon$1($$anchor3, {
+              get svg() {
+                return Move_diagonal_2;
+              },
+              size: "sm"
+            });
+          };
+          var alternate = ($$anchor3) => {
+          };
+          if_block(node_2, ($$render) => {
+            if (get$3(direction) === "southwest") $$render(consequent);
+            else if (get$3(direction) === "southeast") $$render(consequent_1, 1);
+            else $$render(alternate, false);
+          });
+        }
+        template_effect(() => {
+          set_attribute(button, "data-direction", get$3(direction));
+          set_attribute(button, "aria-label", `drag-${get$3(direction)}`);
+        });
+        delegated("mousedown", button, (e) => startResize(e));
+        delegated("dblclick", button, (e) => maximize(e));
+        append$1($$anchor2, button);
+      });
+      bind_this(div_1, ($$value) => resizer = $$value, () => resizer);
+      bind_this(div, ($$value) => container = $$value, () => container);
+      template_effect(() => styles = set_style(div, "", styles, {
+        "--viewport-window-width": viewportState.width,
+        "--viewport-window-height": viewportState.height
+      }));
+      append$1($$anchor, div);
+      pop();
+    }
+    delegate(["mousedown", "dblclick"]);
     var root_1$8 = /* @__PURE__ */ from_html(`<div data-role="toolbar:start"><!></div>`);
     var root_2$3 = /* @__PURE__ */ from_html(`<div data-role="toolbar:end"><!></div>`);
     var root$d = /* @__PURE__ */ from_html(`<div><!> <!></div>`);
@@ -11924,6 +12418,7 @@ var require_ui_001 = __commonJS({
       }
       append$1($$anchor, div);
     }
+    var root_5 = /* @__PURE__ */ from_html(`<span data-role="tabs:label" class="label mark"><span><!></span></span>`);
     var root_1$7 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
     function Tabs_1($$anchor, $$props) {
       push($$props, true);
@@ -11964,14 +12459,15 @@ var require_ui_001 = __commonJS({
                             },
                             "data-role": "tabs:trigger",
                             children: ($$anchor9, $$slotProps3) => {
-                              var fragment_5 = comment();
-                              var node_5 = first_child(fragment_5);
+                              var span = root_5();
+                              var span_1 = child(span);
+                              var node_5 = child(span_1);
                               {
                                 var consequent = ($$anchor10) => {
-                                  var fragment_6 = comment();
-                                  var node_6 = first_child(fragment_6);
+                                  var fragment_5 = comment();
+                                  var node_6 = first_child(fragment_5);
                                   snippet(node_6, () => $$props.label, () => get$3(p));
-                                  append$1($$anchor10, fragment_6);
+                                  append$1($$anchor10, fragment_5);
                                 };
                                 var alternate = ($$anchor10) => {
                                   var text$1 = text();
@@ -11983,7 +12479,7 @@ var require_ui_001 = __commonJS({
                                   else $$render(alternate, false);
                                 });
                               }
-                              append$1($$anchor9, fragment_5);
+                              append$1($$anchor9, span);
                             },
                             $$slots: { default: true }
                           });
@@ -12001,8 +12497,8 @@ var require_ui_001 = __commonJS({
             }
             var node_7 = sibling(node_1, 2);
             each(node_7, 17, panels, (p) => p.id, ($$anchor4, p) => {
-              var fragment_8 = comment();
-              var node_8 = first_child(fragment_8);
+              var fragment_7 = comment();
+              var node_8 = first_child(fragment_7);
               component(node_8, () => Tabs_content, ($$anchor5, Tabs_Content) => {
                 Tabs_Content($$anchor5, {
                   get value() {
@@ -12010,15 +12506,15 @@ var require_ui_001 = __commonJS({
                   },
                   "data-role": "tabs:panel",
                   children: ($$anchor6, $$slotProps2) => {
-                    var fragment_9 = comment();
-                    var node_9 = first_child(fragment_9);
+                    var fragment_8 = comment();
+                    var node_9 = first_child(fragment_8);
                     snippet(node_9, () => $$props.panel, () => get$3(p));
-                    append$1($$anchor6, fragment_9);
+                    append$1($$anchor6, fragment_8);
                   },
                   $$slots: { default: true }
                 });
               });
-              append$1($$anchor4, fragment_8);
+              append$1($$anchor4, fragment_7);
             });
             append$1($$anchor3, fragment_1);
           },
@@ -21700,28 +22196,6 @@ var require_ui_001 = __commonJS({
       return { update: update2, destroy };
     }
     const config = config$1.extend({});
-    var root_1$6 = /* @__PURE__ */ from_html(`<i data-component="icon" class="icon"><!></i>`);
-    function Icon$1($$anchor, $$props) {
-      const IconSvg = prop($$props, "svg", 3, null), size = prop($$props, "size", 3, "md"), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "svg", "size"]);
-      const defaultProps = { size: 16, strokeWidth: 1, absoluteStrokeWidth: true };
-      var fragment = comment();
-      var node = first_child(fragment);
-      {
-        var consequent = ($$anchor2) => {
-          var i = root_1$6();
-          var node_1 = child(i);
-          component(node_1, IconSvg, ($$anchor3, IconSvg_1) => {
-            IconSvg_1($$anchor3, spread_props(() => defaultProps, () => props));
-          });
-          template_effect(() => set_attribute(i, "data-size", size()));
-          append$1($$anchor2, i);
-        };
-        if_block(node, ($$render) => {
-          if (IconSvg()) $$render(consequent);
-        });
-      }
-      append$1($$anchor, fragment);
-    }
     var root_1$5 = /* @__PURE__ */ from_html(`<span data-role="button:content"><!> <!></span>`);
     function Button($$anchor, $$props) {
       var fragment = comment();
@@ -21766,7 +22240,7 @@ var require_ui_001 = __commonJS({
       append$1($$anchor, div);
     }
     var root_2$2 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
-    var root$a = /* @__PURE__ */ from_html(`<div data-component="splitter"><!></div>`);
+    var root$9 = /* @__PURE__ */ from_html(`<div data-component="splitter"><!></div>`);
     function Splitter_1($$anchor, $$props) {
       push($$props, true);
       let panel = prop($$props, "panel", 3, null), orientation = prop($$props, "orientation", 3, "horizontal"), panelSnippets = /* @__PURE__ */ rest_props($$props, [
@@ -21781,7 +22255,7 @@ var require_ui_001 = __commonJS({
       ]);
       const createSplitterState = () => new PersistedState(`splitter:${$$props.id}`, { orientation: orientation(), size: [] });
       createSplitterState();
-      var div = root$a();
+      var div = root$9();
       var node = child(div);
       component(node, () => Splitter_root, ($$anchor2, Splitter_Root) => {
         Splitter_Root($$anchor2, {
@@ -21897,7 +22371,7 @@ var require_ui_001 = __commonJS({
       append$1($$anchor, fragment);
     }
     var root_3$1 = /* @__PURE__ */ from_html(`<div data-role="inspector-panel:content"> </div>`);
-    var root$9 = /* @__PURE__ */ from_html(`<div data-component="inspector-panel" class="svelte-1kkjpr5"><!></div>`);
+    var root$8 = /* @__PURE__ */ from_html(`<div data-component="inspector-panel" class="svelte-1kkjpr5"><!></div>`);
     function Inspector_panel($$anchor, $$props) {
       push($$props, true);
       const decodeHTML = (html2) => {
@@ -21905,7 +22379,7 @@ var require_ui_001 = __commonJS({
         txt.innerHTML = html2;
         return txt.value;
       };
-      var div = root$9();
+      var div = root$8();
       var node = child(div);
       {
         var consequent = ($$anchor2) => {
@@ -21937,299 +22411,16 @@ var require_ui_001 = __commonJS({
       append$1($$anchor, div);
       pop();
     }
-    const defaultAttributes = {
-      xmlns: "http://www.w3.org/2000/svg",
-      width: 24,
-      height: 24,
-      viewBox: "0 0 24 24",
-      fill: "none",
-      stroke: "currentColor",
-      "stroke-width": 2,
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round"
-    };
-    const hasA11yProp = (props) => {
-      for (const prop2 in props) {
-        if (prop2.startsWith("aria-") || prop2 === "role" || prop2 === "title") {
-          return true;
-        }
-      }
-      return false;
-    };
-    const mergeClasses = (...classes) => classes.filter((className, index2, array) => {
-      return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index2;
-    }).join(" ").trim();
-    var root$8 = /* @__PURE__ */ from_svg(`<svg><!><!></svg>`);
-    function Icon($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const $$restProps = legacy_rest_props($$sanitized_props, [
-        "name",
-        "color",
-        "size",
-        "strokeWidth",
-        "absoluteStrokeWidth",
-        "iconNode"
-      ]);
-      push($$props, false);
-      let name = prop($$props, "name", 8, void 0);
-      let color = prop($$props, "color", 8, "currentColor");
-      let size = prop($$props, "size", 8, 24);
-      let strokeWidth = prop($$props, "strokeWidth", 8, 2);
-      let absoluteStrokeWidth = prop($$props, "absoluteStrokeWidth", 8, false);
-      let iconNode = prop($$props, "iconNode", 24, () => []);
-      init();
-      var svg = root$8();
-      attribute_effect(
-        svg,
-        ($0, $1, $2) => ({
-          ...defaultAttributes,
-          ...$0,
-          ...$$restProps,
-          width: size(),
-          height: size(),
-          stroke: color(),
-          "stroke-width": $1,
-          class: $2
-        }),
-        [
-          () => !hasA11yProp($$restProps) ? { "aria-hidden": "true" } : void 0,
-          () => (deep_read_state(absoluteStrokeWidth()), deep_read_state(strokeWidth()), deep_read_state(size()), untrack(() => absoluteStrokeWidth() ? Number(strokeWidth()) * 24 / Number(size()) : strokeWidth())),
-          () => (deep_read_state(mergeClasses), deep_read_state(name()), deep_read_state($$sanitized_props), untrack(() => mergeClasses("lucide-icon", "lucide", name() ? `lucide-${name()}` : "", $$sanitized_props.class)))
-        ]
-      );
-      var node = child(svg);
-      each(node, 1, iconNode, index, ($$anchor2, $$item) => {
-        var $$array = /* @__PURE__ */ user_derived(() => to_array(get$3($$item), 2));
-        let tag = () => get$3($$array)[0];
-        let attrs = () => get$3($$array)[1];
-        var fragment = comment();
-        var node_1 = first_child(fragment);
-        element(node_1, tag, true, ($$element, $$anchor3) => {
-          attribute_effect($$element, () => ({ ...attrs() }));
-        });
-        append$1($$anchor2, fragment);
-      });
-      var node_2 = sibling(node);
-      slot(node_2, $$props, "default", {});
-      append$1($$anchor, svg);
-      pop();
-    }
-    function File$1($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [
-        [
-          "path",
-          {
-            "d": "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
-          }
-        ],
-        ["path", { "d": "M14 2v5a1 1 0 0 0 1 1h5" }]
-      ];
-      Icon($$anchor, spread_props({ name: "file" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
-    }
-    function Folder_open($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [
-        [
-          "path",
-          {
-            "d": "m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"
-          }
-        ]
-      ];
-      Icon($$anchor, spread_props({ name: "folder-open" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
-    }
-    function Folder($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [
-        [
-          "path",
-          {
-            "d": "M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"
-          }
-        ]
-      ];
-      Icon($$anchor, spread_props({ name: "folder" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
-    }
-    function Layers_2($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [
-        [
-          "path",
-          {
-            "d": "M13 13.74a2 2 0 0 1-2 0L2.5 8.87a1 1 0 0 1 0-1.74L11 2.26a2 2 0 0 1 2 0l8.5 4.87a1 1 0 0 1 0 1.74z"
-          }
-        ],
-        [
-          "path",
-          {
-            "d": "m20 14.285 1.5.845a1 1 0 0 1 0 1.74L13 21.74a2 2 0 0 1-2 0l-8.5-4.87a1 1 0 0 1 0-1.74l1.5-.845"
-          }
-        ]
-      ];
-      Icon($$anchor, spread_props({ name: "layers-2" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
-    }
-    function List_filter($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [
-        ["path", { "d": "M2 5h20" }],
-        ["path", { "d": "M6 12h12" }],
-        ["path", { "d": "M9 19h6" }]
-      ];
-      Icon($$anchor, spread_props({ name: "list-filter" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
-    }
-    function Panel_bottom_close($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [
-        [
-          "rect",
-          { "width": "18", "height": "18", "x": "3", "y": "3", "rx": "2" }
-        ],
-        ["path", { "d": "M3 15h18" }],
-        ["path", { "d": "m15 8-3 3-3-3" }]
-      ];
-      Icon($$anchor, spread_props({ name: "panel-bottom-close" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
-    }
-    function Panel_right_close($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [
-        [
-          "rect",
-          { "width": "18", "height": "18", "x": "3", "y": "3", "rx": "2" }
-        ],
-        ["path", { "d": "M15 3v18" }],
-        ["path", { "d": "m8 9 3 3-3 3" }]
-      ];
-      Icon($$anchor, spread_props({ name: "panel-right-close" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
-    }
-    function Square_dashed_mouse_pointer($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [
-        [
-          "path",
-          {
-            "d": "M12.034 12.681a.498.498 0 0 1 .647-.647l9 3.5a.5.5 0 0 1-.033.943l-3.444 1.068a1 1 0 0 0-.66.66l-1.067 3.443a.5.5 0 0 1-.943.033z"
-          }
-        ],
-        ["path", { "d": "M5 3a2 2 0 0 0-2 2" }],
-        ["path", { "d": "M19 3a2 2 0 0 1 2 2" }],
-        ["path", { "d": "M5 21a2 2 0 0 1-2-2" }],
-        ["path", { "d": "M9 3h1" }],
-        ["path", { "d": "M9 21h2" }],
-        ["path", { "d": "M14 3h1" }],
-        ["path", { "d": "M3 9v1" }],
-        ["path", { "d": "M21 9v2" }],
-        ["path", { "d": "M3 14v1" }]
-      ];
-      Icon($$anchor, spread_props({ name: "square-dashed-mouse-pointer" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
-    }
     var root_1$3 = /* @__PURE__ */ from_html(`<h4 data-role="inspector:breadcrumb" class="label">Elements / Button / Themes</h4>`);
     var root_3 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
     var root_6 = /* @__PURE__ */ from_html(`<div data-role="inspector:panel"><!></div>`);
     var root_7$1 = /* @__PURE__ */ from_html(`<div data-role="inspector:panel">end</div>`);
     var root_8 = /* @__PURE__ */ from_html(`<div data-role="inspector:panel"><!></div>`);
-    var root$7 = /* @__PURE__ */ from_html(`<div data-component="inspector"><div data-role="inspector:toolbar"><!></div> <div data-role="inspector:panels"><!></div></div>`);
+    var root$6 = /* @__PURE__ */ from_html(`<div data-component="inspector"><div data-role="inspector:toolbar"><!></div> <div data-role="inspector:panels"><!></div></div>`);
     function Inspector($$anchor, $$props) {
       push($$props, true);
-      let panelGroups = /* @__PURE__ */ user_derived(() => $$props.panels.reduce(
-        (grouped, panel) => {
-          const slot2 = panel.defaultSlot;
-          grouped[slot2] = grouped[slot2] || [];
-          grouped[slot2].push(panel);
-          return grouped;
-        },
-        {}
-      ));
-      let drawerPanels = /* @__PURE__ */ user_derived(() => get$3(panelGroups)["drawer"] || []);
-      var div = root$7();
+      let drawerPanels = /* @__PURE__ */ user_derived(() => $$props.panels?.drawer || []);
+      var div = root$6();
       var div_1 = child(div);
       var node = child(div_1);
       {
@@ -22272,11 +22463,7 @@ var require_ui_001 = __commonJS({
             const start2 = ($$anchor3) => {
               var div_3 = root_6();
               var node_4 = child(div_3);
-              Frame(node_4, {
-                get srcdoc() {
-                  return $$props.preview.srcdoc;
-                }
-              });
+              Viewport(node_4, spread_props(() => $$props.preview));
               append$1($$anchor3, div_3);
             };
             const end = ($$anchor3) => {
@@ -22349,13 +22536,13 @@ var require_ui_001 = __commonJS({
       __proto__: null,
       default: Show$2
     }, Symbol.toStringTag, { value: "Module" }));
-    var root$6 = /* @__PURE__ */ from_html(`<p> </p> <div>spec</div>`, 1);
+    var root$a = /* @__PURE__ */ from_html(`<p> </p> <div>spec</div>`, 1);
     function Show$1($$anchor, $$props) {
       push($$props, true);
       const $page = () => store_get(page, "$page", $$stores);
       const [$$stores, $$cleanup] = setup_stores();
       let collection2 = /* @__PURE__ */ user_derived(() => $page().props.collections.find((c) => c.id === $$props.collectionId));
-      var fragment = root$6();
+      var fragment = root$a();
       var p = first_child(fragment);
       var text2 = child(p);
       template_effect(() => set_text(text2, get$3(collection2).label));

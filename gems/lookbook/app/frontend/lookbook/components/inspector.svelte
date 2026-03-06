@@ -1,5 +1,5 @@
 <script>
-  import { Frame } from "@ark-ui/svelte";
+  import Viewport from "@components/viewport";
   import Tabs from "@components/tabs";
   import Toolbar from "@components/toolbar";
   import Button from "@components/button";
@@ -11,17 +11,8 @@
 
   let { scenario, panels, preview } = $props();
 
-  let panelGroups = $derived.by(() =>
-    panels.reduce((grouped, panel) => {
-      const slot = panel.defaultSlot;
-      grouped[slot] = grouped[slot] || [];
-      grouped[slot].push(panel);
-      return grouped;
-    }, {})
-  );
-
-  let sidebarPanels = $derived.by(() => panelGroups["sidebar"] || []);
-  let drawerPanels = $derived.by(() => panelGroups["drawer"] || []);
+  let sidebarPanels = $derived.by(() => panels?.sidebar || []);
+  let drawerPanels = $derived.by(() => panels?.drawer || []);
 </script>
 
 <div data-component="inspector">
@@ -56,7 +47,7 @@
         >
           {#snippet start()}
             <div data-role="inspector:panel">
-              <Frame srcdoc={preview.srcdoc}></Frame>
+              <Viewport {...preview}></Viewport>
             </div>
           {/snippet}
           {#snippet end()}

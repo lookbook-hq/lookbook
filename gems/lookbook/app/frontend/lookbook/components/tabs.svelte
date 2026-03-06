@@ -16,11 +16,15 @@
       <Tabs.List data-role="tabs:list">
         {#each panels as p (p.id)}
           <Tabs.Trigger value={p.id} data-role="tabs:trigger">
-            {#if label}
-              {@render label(p)}
-            {:else}
-              {p.label}
-            {/if}
+            <span data-role="tabs:label" class="label mark">
+              <span>
+                {#if label}
+                  {@render label(p)}
+                {:else}
+                  {p.label}
+                {/if}
+              </span>
+            </span>
           </Tabs.Trigger>
         {/each}
       </Tabs.List>
@@ -38,8 +42,8 @@
   :global [data-component="tabs"] {
     --tab-border: transparent;
     --tab-fg: var(--lookbook-fg);
-    --tab-border-active: var(--lookbook-accent);
-    --tab-fg-active: var(--tab-fg);
+    /*--tab-border-active: var(--lookbook-accent-bg);*/
+    /*--tab-fg-active: var(--tab-fg);*/
 
     display: grid;
     grid-template-rows: min-content 1fr;
@@ -65,19 +69,20 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0 var(--lookbook-space-lg);
+      padding: 0 var(--lookbook-space-md);
       white-space: nowrap;
       user-select: none;
       border-block-end: 2px solid transparent;
       height: 100%;
 
-      &:is(a) {
-        color: inherit;
-      }
+      &:not([data-selected]) {
+        .mark {
+          --lookbook-accent: transparent;
+        }
 
-      &[data-selected] {
-        border-block-end-color: var(--tab-border-active);
-        color: var(--tab-fg-active);
+        &:hover .mark {
+          --lookbook-accent: #eee;
+        }
       }
 
       &[data-disabled] {
@@ -85,6 +90,12 @@
         cursor: not-allowed;
         filter: grayscale(100%);
       }
+    }
+
+    [data-role="tabs:label"] {
+      font-size: var(--lookbook-font-size-sm);
+      letter-spacing: 0.06em;
+      font-weight: 500;
     }
 
     [data-role="tabs:panel"] {

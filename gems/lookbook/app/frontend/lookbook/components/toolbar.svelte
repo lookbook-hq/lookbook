@@ -28,7 +28,8 @@
     .label {
       font-size: var(--lookbook-font-size-xs);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
+      font-weight: 500;
     }
 
     [data-role="toolbar:start"],

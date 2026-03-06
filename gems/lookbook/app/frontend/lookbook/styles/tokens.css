@@ -16,9 +16,9 @@
 .dark-theme {
   /* Colors */
 
-  --lookbook-fluro-yellow: #dcff00;
-  --lookbook-fluro-green: #9eed47;
-  --lookbook-fluro-pink: color-mix(in oklab, #ff13f0 60%, transparent);
+  --lookbook-accent-yellow: #dcff00;
+  --lookbook-accent-green: #9eed47;
+  --lookbook-accent-pink: color-mix(in oklab, #ff13f0 60%, transparent);
 
   --lookbook-brand-1: var(--teal-1);
   --lookbook-brand-2: var(--teal-2);
@@ -117,6 +117,8 @@
   --lookbook-size-11: calc(var(--lookbook-size-base-unit) * 11); /* 44px */
   --lookbook-size-12: calc(var(--lookbook-size-base-unit) * 12); /* 48px */
 
+  --lookbook-size-3xs: var(--lookbook-size-2); /* 8px */
+  --lookbook-size-2xs: var(--lookbook-size-3); /* 12px */
   --lookbook-size-xs: var(--lookbook-size-4); /* 16px */
   --lookbook-size-sm: var(--lookbook-size-6); /* 24px */
   --lookbook-size-md: var(--lookbook-size-8); /* 32px */
@@ -162,12 +164,12 @@
 :root,
 .light,
 .light-theme {
+  --lookbook-accent: var(--lookbook-accent-green);
+
   --lookbook-bg: var(--lookbook-neutral-bg-subtle);
   --lookbook-fg: var(--lookbook-neutral-text-contrast);
 
   --lookbook-divider-color: var(--lookbook-neutral-border-subtle);
-
-  --lookbook-accent: var(--lookbook-fluro-green);
 
   --lookbook-surface-bg: var(--lookbook-neutral-base);
   --lookbook-surface-fg: var(--lookbook-fg);
@@ -182,12 +184,8 @@
   --lookbook-scrollbar-bg: transparent;
   --lookbook-scrollbar-fg: var(--lookbook-neutral-solid);
 
-  /*--lookbook-marker-bg-yellow: var(--lookbook-fluro-yellow);
-  --lookbook-marker-bg-green: var(--lookbook-fluro-green);
-  --lookbook-marker-bg-pink: var(--lookbook-fluro-pink);*/
-
   --lookbook-focus-ring-size: 2px;
-  --lookbook-focus-ring-color: var(--lookbook-fluro-green);
+  --lookbook-focus-ring-color: var(--lookbook-accent-green);
 }
 
 .dark,

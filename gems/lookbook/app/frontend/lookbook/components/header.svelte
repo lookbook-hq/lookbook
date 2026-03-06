@@ -28,16 +28,12 @@
     display: flex;
     align-items: center;
 
-    .highlight {
-      outline-offset: 1px;
-    }
-
     [data-role="header:branding"] {
       font-size: var(--header-branding-font-size);
       font-weight: 500;
       display: inline-flex;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.03em;
     }
   }
 </style>

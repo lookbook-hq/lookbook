@@ -3,7 +3,7 @@ var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var require_ui_001 = __commonJS({
-  "lookbook-assets/ui-CdufLavj.js"(exports, module) {
+  "lookbook-assets/ui-DBl26Hzy.js"(exports, module) {
     (function polyfill() {
       const relList = document.createElement("link").relList;
       if (relList && relList.supports && relList.supports("modulepreload")) return;
@@ -4954,10 +4954,10 @@ var require_ui_001 = __commonJS({
         })
       );
     }
-    var root$j = /* @__PURE__ */ from_html(`<div><h1><strong> </strong> collection</h1></div>`);
+    var root$k = /* @__PURE__ */ from_html(`<div><h1><strong> </strong> collection</h1></div>`);
     function Show$4($$anchor, $$props) {
       push($$props, true);
-      var div = root$j();
+      var div = root$k();
       var h1 = child(div);
       var strong = child(h1);
       var text2 = child(strong);
@@ -4969,7 +4969,7 @@ var require_ui_001 = __commonJS({
       __proto__: null,
       default: Show$4
     }, Symbol.toStringTag, { value: "Module" }));
-    var root$i = /* @__PURE__ */ from_html(`<div><h1> </h1></div>`);
+    var root$j = /* @__PURE__ */ from_html(`<div><h1> </h1></div>`);
     function Error$1($$anchor, $$props) {
       const title = {
         503: "503: Service Unavailable",
@@ -4977,7 +4977,7 @@ var require_ui_001 = __commonJS({
         404: "404: Page Not Found",
         403: "403: Forbidden"
       };
-      var div = root$i();
+      var div = root$j();
       var h1 = child(div);
       var text2 = child(h1);
       template_effect(() => set_text(text2, title[$$props.status]));
@@ -4988,19 +4988,19 @@ var require_ui_001 = __commonJS({
       default: Error$1
     }, Symbol.toStringTag, { value: "Module" }));
     enable_legacy_mode_flag();
-    var root$h = /* @__PURE__ */ from_html(`<div><h1>Not found</h1></div>`);
+    var root$i = /* @__PURE__ */ from_html(`<div><h1>Not found</h1></div>`);
     function Not_found($$anchor) {
-      var div = root$h();
+      var div = root$i();
       append$1($$anchor, div);
     }
     const __vite_glob_0_2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
       __proto__: null,
       default: Not_found
     }, Symbol.toStringTag, { value: "Module" }));
-    var root$g = /* @__PURE__ */ from_html(`<h1> </h1> <!>`, 1);
+    var root$h = /* @__PURE__ */ from_html(`<h1> </h1> <!>`, 1);
     function Show$3($$anchor, $$props) {
       push($$props, true);
-      var fragment = root$g();
+      var fragment = root$h();
       var h1 = first_child(fragment);
       var text2 = child(h1);
       var node = sibling(h1, 2);
@@ -5044,30 +5044,30 @@ var require_ui_001 = __commonJS({
     });
     const splitFn$2 = createSplitProps();
     const splitRenderStrategyProps = (props) => splitFn$2(props, ["lazyMount", "unmountOnExit"]);
-    var __defProp$1 = Object.defineProperty;
+    var __defProp$2 = Object.defineProperty;
     var __typeError = (msg) => {
       throw TypeError(msg);
     };
-    var __defNormalProp$1 = (obj, key2, value) => key2 in obj ? __defProp$1(obj, key2, { enumerable: true, configurable: true, writable: true, value }) : obj[key2] = value;
-    var __publicField$1 = (obj, key2, value) => __defNormalProp$1(obj, typeof key2 !== "symbol" ? key2 + "" : key2, value);
+    var __defNormalProp$2 = (obj, key2, value) => key2 in obj ? __defProp$2(obj, key2, { enumerable: true, configurable: true, writable: true, value }) : obj[key2] = value;
+    var __publicField$2 = (obj, key2, value) => __defNormalProp$2(obj, typeof key2 !== "symbol" ? key2 + "" : key2, value);
     var __accessCheck = (obj, member, msg) => member.has(obj) || __typeError("Cannot " + msg);
     var __privateGet = (obj, member, getter) => (__accessCheck(obj, member, "read from private field"), member.get(obj));
     var __privateAdd = (obj, member, value) => member.has(obj) ? __typeError("Cannot add the same private member more than once") : member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
-    function toArray(v) {
+    function toArray$1(v) {
       if (v == null) return [];
       return Array.isArray(v) ? v : [v];
     }
     var first = (v) => v[0];
     var last = (v) => v[v.length - 1];
-    var has = (v, t) => v.indexOf(t) !== -1;
+    var has$1 = (v, t) => v.indexOf(t) !== -1;
     var add = (v, ...items) => v.concat(items);
-    var remove$1 = (v, ...items) => v.filter((t) => !items.includes(t));
+    var remove$2 = (v, ...items) => v.filter((t) => !items.includes(t));
     var uniq = (v) => Array.from(new Set(v));
     var diff = (a, b) => {
       const set2 = new Set(b);
       return a.filter((t) => !set2.has(t));
     };
-    var addOrRemove = (v, item) => has(v, item) ? remove$1(v, item) : add(v, item);
+    var addOrRemove = (v, item) => has$1(v, item) ? remove$2(v, item) : add(v, item);
     function nextIndex(v, idx, opts = {}) {
       const { step = 1, loop = true } = opts;
       const next2 = idx + step;
@@ -5098,15 +5098,15 @@ var require_ui_001 = __commonJS({
         [[], []]
       );
     }
-    var isArrayLike = (value) => value?.constructor.name === "Array";
+    var isArrayLike$1 = (value) => value?.constructor.name === "Array";
     var isArrayEqual = (a, b) => {
       if (a.length !== b.length) return false;
       for (let i = 0; i < a.length; i++) {
-        if (!isEqual(a[i], b[i])) return false;
+        if (!isEqual$2(a[i], b[i])) return false;
       }
       return true;
     };
-    var isEqual = (a, b) => {
+    var isEqual$2 = (a, b) => {
       if (Object.is(a, b)) return true;
       if (a == null && b != null || a != null && b == null) return false;
       if (typeof a?.isEqual === "function" && typeof b?.isEqual === "function") {
@@ -5115,7 +5115,7 @@ var require_ui_001 = __commonJS({
       if (typeof a === "function" && typeof b === "function") {
         return a.toString() === b.toString();
       }
-      if (isArrayLike(a) && isArrayLike(b)) {
+      if (isArrayLike$1(a) && isArrayLike$1(b)) {
         return isArrayEqual(Array.from(a), Array.from(b));
       }
       if (!(typeof a === "object") || !(typeof b === "object")) return false;
@@ -5127,21 +5127,21 @@ var require_ui_001 = __commonJS({
       }
       for (let i = 0; i < length; i++) {
         const key2 = keys2[i];
-        if (!isEqual(a[key2], b[key2])) return false;
+        if (!isEqual$2(a[key2], b[key2])) return false;
       }
       return true;
     };
-    var isArray = (v) => Array.isArray(v);
-    var isObjectLike = (v) => v != null && typeof v === "object";
-    var isObject = (v) => isObjectLike(v) && !isArray(v);
-    var isString = (v) => typeof v === "string";
+    var isArray$2 = (v) => Array.isArray(v);
+    var isObjectLike$1 = (v) => v != null && typeof v === "object";
+    var isObject$3 = (v) => isObjectLike$1(v) && !isArray$2(v);
+    var isString$1 = (v) => typeof v === "string";
     var isFunction$4 = (v) => typeof v === "function";
     var hasProp = (obj, prop2) => Object.prototype.hasOwnProperty.call(obj, prop2);
-    var baseGetTag = (v) => Object.prototype.toString.call(v);
+    var baseGetTag$1 = (v) => Object.prototype.toString.call(v);
     var fnToString = Function.prototype.toString;
     var objectCtorString = fnToString.call(Object);
-    var isPlainObject = (v) => {
-      if (!isObjectLike(v) || baseGetTag(v) != "[object Object]" || isFrameworkElement(v)) return false;
+    var isPlainObject$1 = (v) => {
+      if (!isObjectLike$1(v) || baseGetTag$1(v) != "[object Object]" || isFrameworkElement(v)) return false;
       const proto = Object.getPrototypeOf(v);
       if (proto === null) return true;
       const Ctor = hasProp(proto, "constructor") && proto.constructor;
@@ -5162,7 +5162,7 @@ var require_ui_001 = __commonJS({
     };
     var toPx = (v) => typeof v === "number" ? `${v}px` : v;
     function compact(obj) {
-      if (!isPlainObject(obj) || obj === void 0) return obj;
+      if (!isPlainObject$1(obj) || obj === void 0) return obj;
       const keys2 = Reflect.ownKeys(obj).filter((key2) => typeof key2 === "string");
       const filtered = {};
       for (const key2 of keys2) {
@@ -5178,18 +5178,18 @@ var require_ui_001 = __commonJS({
     var Timer = class {
       constructor(onTick) {
         this.onTick = onTick;
-        __publicField$1(this, "frameId", null);
-        __publicField$1(this, "pausedAtMs", null);
-        __publicField$1(this, "context");
-        __publicField$1(this, "cancelFrame", () => {
+        __publicField$2(this, "frameId", null);
+        __publicField$2(this, "pausedAtMs", null);
+        __publicField$2(this, "context");
+        __publicField$2(this, "cancelFrame", () => {
           if (this.frameId === null) return;
           cancelAnimationFrame(this.frameId);
           this.frameId = null;
         });
-        __publicField$1(this, "setStartMs", (startMs) => {
+        __publicField$2(this, "setStartMs", (startMs) => {
           this.context.startMs = startMs;
         });
-        __publicField$1(this, "start", () => {
+        __publicField$2(this, "start", () => {
           if (this.frameId !== null) return;
           const now = currentTime();
           if (this.pausedAtMs !== null) {
@@ -5200,12 +5200,12 @@ var require_ui_001 = __commonJS({
           }
           this.frameId = requestAnimationFrame(__privateGet(this, _tick));
         });
-        __publicField$1(this, "pause", () => {
+        __publicField$2(this, "pause", () => {
           if (this.frameId === null) return;
           this.cancelFrame();
           this.pausedAtMs = currentTime();
         });
-        __publicField$1(this, "stop", () => {
+        __publicField$2(this, "stop", () => {
           if (this.frameId === null) return;
           this.cancelFrame();
           this.pausedAtMs = null;
@@ -5266,10 +5266,10 @@ var require_ui_001 = __commonJS({
       return res;
     };
     var css = (a, b) => {
-      if (isString(a)) {
-        if (isString(b)) return `${a};${b}`;
+      if (isString$1(a)) {
+        if (isString$1(b)) return `${a};${b}`;
         a = serialize$1(a);
-      } else if (isString(b)) {
+      } else if (isString$1(b)) {
         b = serialize$1(b);
       }
       return Object.assign({}, a ?? {}, b ?? {});
@@ -5502,23 +5502,23 @@ var require_ui_001 = __commonJS({
       return MachineStatus2;
     })(MachineStatus || {});
     var INIT_STATE = "__init__";
-    var __defProp$2 = Object.defineProperty;
-    var __defNormalProp$2 = (obj, key2, value) => key2 in obj ? __defProp$2(obj, key2, { enumerable: true, configurable: true, writable: true, value }) : obj[key2] = value;
-    var __publicField$2 = (obj, key2, value) => __defNormalProp$2(obj, typeof key2 !== "symbol" ? key2 + "" : key2, value);
+    var __defProp$1 = Object.defineProperty;
+    var __defNormalProp$1 = (obj, key2, value) => key2 in obj ? __defProp$1(obj, key2, { enumerable: true, configurable: true, writable: true, value }) : obj[key2] = value;
+    var __publicField$1 = (obj, key2, value) => __defNormalProp$1(obj, typeof key2 !== "symbol" ? key2 + "" : key2, value);
     var wrap = (v, idx) => {
       return v.map((_, index2) => v[(Math.max(idx, 0) + index2) % v.length]);
     };
-    var noop = () => void 0;
-    var isObject$1 = (v) => typeof v === "object" && v !== null;
+    var noop$1 = () => void 0;
+    var isObject$2 = (v) => typeof v === "object" && v !== null;
     var dataAttr = (guard) => guard ? "" : void 0;
     var ariaAttr = (guard) => guard ? "true" : void 0;
     var ELEMENT_NODE = 1;
     var DOCUMENT_NODE = 9;
     var DOCUMENT_FRAGMENT_NODE = 11;
-    var isHTMLElement = (el) => isObject$1(el) && el.nodeType === ELEMENT_NODE && typeof el.nodeName === "string";
-    var isDocument = (el) => isObject$1(el) && el.nodeType === DOCUMENT_NODE;
-    var isWindow = (el) => isObject$1(el) && el === el.window;
-    var isNode = (el) => isObject$1(el) && el.nodeType !== void 0;
+    var isHTMLElement = (el) => isObject$2(el) && el.nodeType === ELEMENT_NODE && typeof el.nodeName === "string";
+    var isDocument = (el) => isObject$2(el) && el.nodeType === DOCUMENT_NODE;
+    var isWindow = (el) => isObject$2(el) && el === el.window;
+    var isNode = (el) => isObject$2(el) && el.nodeType !== void 0;
     var isShadowRoot = (el) => isNode(el) && el.nodeType === DOCUMENT_FRAGMENT_NODE && "host" in el;
     var isInputElement = (el) => isHTMLElement(el) && el.localName === "input";
     var isAnchorElement = (el) => !!el?.matches("a[href]");
@@ -5529,7 +5529,7 @@ var require_ui_001 = __commonJS({
     function isActiveElement(element2) {
       if (!element2) return false;
       const rootNode = element2.getRootNode();
-      return getActiveElement(rootNode) === element2;
+      return getActiveElement$1(rootNode) === element2;
     }
     var TEXTAREA_SELECT_REGEX = /(textarea|select)/;
     function isEditableElement(el) {
@@ -5566,7 +5566,7 @@ var require_ui_001 = __commonJS({
       if (isHTMLElement(el)) return el.ownerDocument?.defaultView ?? window;
       return window;
     }
-    function getActiveElement(rootNode) {
+    function getActiveElement$1(rootNode) {
       let activeElement = rootNode.activeElement;
       while (activeElement?.shadowRoot) {
         const el = activeElement.shadowRoot.activeElement;
@@ -5798,9 +5798,9 @@ var require_ui_001 = __commonJS({
     }
     var AnimationFrame = class _AnimationFrame {
       constructor() {
-        __publicField$2(this, "id", null);
-        __publicField$2(this, "fn_cleanup");
-        __publicField$2(this, "cleanup", () => {
+        __publicField$1(this, "id", null);
+        __publicField$1(this, "fn_cleanup");
+        __publicField$1(this, "cleanup", () => {
           this.cancel();
         });
       }
@@ -6072,7 +6072,7 @@ var require_ui_001 = __commonJS({
     function setAttribute(el, attr, v) {
       const prev2 = el.getAttribute(attr);
       const exists = prev2 != null;
-      if (prev2 === v) return noop;
+      if (prev2 === v) return noop$1;
       el.setAttribute(attr, v);
       return () => {
         if (!exists) {
@@ -6083,12 +6083,12 @@ var require_ui_001 = __commonJS({
       };
     }
     function setStyle(el, style) {
-      if (!el) return noop;
+      if (!el) return noop$1;
       const prev2 = Object.keys(style).reduce((acc, key2) => {
         acc[key2] = el.style.getPropertyValue(key2);
         return acc;
       }, {});
-      if (isEqual$1(prev2, style)) return noop;
+      if (isEqual$1(prev2, style)) return noop$1;
       Object.assign(el.style, style);
       return () => {
         Object.assign(el.style, prev2);
@@ -6135,7 +6135,7 @@ var require_ui_001 = __commonJS({
       const getRootNode = () => props.getRootNode?.() ?? document;
       const getDoc = () => getDocument(getRootNode());
       const getWin = () => getDoc().defaultView ?? window;
-      const getActiveElementFn = () => getActiveElement(getRootNode());
+      const getActiveElementFn = () => getActiveElement$1(getRootNode());
       const getById = (id) => getRootNode().getElementById(id);
       return {
         ...props,
@@ -6310,7 +6310,7 @@ var require_ui_001 = __commonJS({
         }
         let changed = false;
         for (let i = 0; i < deps.length; i++) {
-          if (!isEqual(prevDeps[i], access$2(deps[i]))) {
+          if (!isEqual$2(prevDeps[i], access$2(deps[i]))) {
             changed = true;
             break;
           }
@@ -6442,9 +6442,9 @@ var require_ui_001 = __commonJS({
         return () => cleanups.forEach((fn) => fn?.());
       };
       const choose = (transitions) => {
-        return toArray(transitions).find((t) => {
+        return toArray$1(transitions).find((t) => {
           let result = !t.guard;
-          if (isString(t.guard)) result = !!guard(t.guard);
+          if (isString$1(t.guard)) result = !!guard(t.guard);
           else if (isFunction$4(t.guard)) result = t.guard(getParams());
           return result;
         });
@@ -6568,7 +6568,7 @@ var require_ui_001 = __commonJS({
       append$1($$anchor, fragment);
       pop();
     }
-    var root_4$1 = /* @__PURE__ */ from_html(`<textarea></textarea>`);
+    var root_4 = /* @__PURE__ */ from_html(`<textarea></textarea>`);
     function Factory($$anchor, $$props) {
       push($$props, true);
       let ref2 = prop($$props, "ref", 15, null), rest = /* @__PURE__ */ rest_props($$props, [
@@ -6620,7 +6620,7 @@ var require_ui_001 = __commonJS({
         };
         var d_1 = /* @__PURE__ */ user_derived(() => isVoidHTMLTag($$props.as));
         var consequent_3 = ($$anchor2) => {
-          var textarea = root_4$1();
+          var textarea = root_4();
           attribute_effect(textarea, () => ({ ...rest }));
           bind_this(textarea, ($$value) => ref2($$value), () => ref2());
           append$1($$anchor2, textarea);
@@ -6692,8 +6692,8 @@ var require_ui_001 = __commonJS({
       "open",
       "unmountOnExit"
     ]);
-    const isFunction = (value) => typeof value === "function";
-    const runIfFn = (valueOrFn, ...args) => isFunction(valueOrFn) ? valueOrFn(...args) : valueOrFn;
+    const isFunction$3 = (value) => typeof value === "function";
+    const runIfFn = (valueOrFn, ...args) => isFunction$3(valueOrFn) ? valueOrFn(...args) : valueOrFn;
     const [EnvironmentContextProvider, useEnvironmentContext] = createContext({
       name: "EnvironmentContext",
       strict: false,
@@ -6703,8 +6703,8 @@ var require_ui_001 = __commonJS({
         getWindow: () => window
       })
     });
-    var root_1$a = /* @__PURE__ */ from_html(`<span hidden=""></span>`);
-    var root$f = /* @__PURE__ */ from_html(`<!> <!>`, 1);
+    var root_1$b = /* @__PURE__ */ from_html(`<span hidden=""></span>`);
+    var root$g = /* @__PURE__ */ from_html(`<!> <!>`, 1);
     function Environment_provider($$anchor, $$props) {
       push($$props, true);
       let spanRef = /* @__PURE__ */ state$1(null);
@@ -6715,13 +6715,13 @@ var require_ui_001 = __commonJS({
         getWindow: () => getWindow(getRootNode())
       }));
       EnvironmentContextProvider(() => get$3(environment));
-      var fragment = root$f();
+      var fragment = root$g();
       var node = first_child(fragment);
       snippet(node, () => $$props.children ?? noop$2);
       var node_1 = sibling(node, 2);
       {
         var consequent = ($$anchor2) => {
-          var span = root_1$a();
+          var span = root_1$b();
           bind_this(span, ($$value) => set$2(spanRef, $$value), () => get$3(spanRef));
           append$1($$anchor2, span);
         };
@@ -6828,13 +6828,13 @@ var require_ui_001 = __commonJS({
     });
     var toKebabCase = (value) => value.replace(/([A-Z])([A-Z])/g, "$1-$2").replace(/([a-z])([A-Z])/g, "$1-$2").replace(/[\s_]+/g, "-").toLowerCase();
     var isEmpty = (v) => v.length === 0;
-    var anatomy$1 = createAnatomy("collapsible").parts("root", "trigger", "content", "indicator");
-    var parts$1 = anatomy$1.build();
-    var getRootId$1 = (ctx) => ctx.ids?.root ?? `collapsible:${ctx.id}`;
-    var getContentId = (ctx) => ctx.ids?.content ?? `collapsible:${ctx.id}:content`;
-    var getTriggerId = (ctx) => ctx.ids?.trigger ?? `collapsible:${ctx.id}:trigger`;
-    var getContentEl = (ctx) => ctx.getById(getContentId(ctx));
-    function connect$1(service, normalize) {
+    var anatomy$3 = createAnatomy("collapsible").parts("root", "trigger", "content", "indicator");
+    var parts$3 = anatomy$3.build();
+    var getRootId$3 = (ctx) => ctx.ids?.root ?? `collapsible:${ctx.id}`;
+    var getContentId$1 = (ctx) => ctx.ids?.content ?? `collapsible:${ctx.id}:content`;
+    var getTriggerId$1 = (ctx) => ctx.ids?.trigger ?? `collapsible:${ctx.id}:trigger`;
+    var getContentEl$1 = (ctx) => ctx.getById(getContentId$1(ctx));
+    function connect$4(service, normalize) {
       const { state: state2, send, context, scope, prop: prop2 } = service;
       const visible = state2.matches("open") || state2.matches("closing");
       const open = state2.matches("open");
@@ -6861,16 +6861,16 @@ var require_ui_001 = __commonJS({
         },
         getRootProps() {
           return normalize.element({
-            ...parts$1.root.attrs,
+            ...parts$3.root.attrs,
             "data-state": open ? "open" : "closed",
             dir: prop2("dir"),
-            id: getRootId$1(scope)
+            id: getRootId$3(scope)
           });
         },
         getContentProps() {
           return normalize.element({
-            ...parts$1.content.attrs,
-            id: getContentId(scope),
+            ...parts$3.content.attrs,
+            id: getContentId$1(scope),
             "data-collapsible": "",
             "data-state": skip ? void 0 : open ? "open" : "closed",
             "data-disabled": dataAttr(disabled),
@@ -6897,13 +6897,13 @@ var require_ui_001 = __commonJS({
         },
         getTriggerProps() {
           return normalize.element({
-            ...parts$1.trigger.attrs,
-            id: getTriggerId(scope),
+            ...parts$3.trigger.attrs,
+            id: getTriggerId$1(scope),
             dir: prop2("dir"),
             type: "button",
             "data-state": open ? "open" : "closed",
             "data-disabled": dataAttr(disabled),
-            "aria-controls": getContentId(scope),
+            "aria-controls": getContentId$1(scope),
             "aria-expanded": visible || false,
             onClick(event2) {
               if (event2.defaultPrevented) return;
@@ -6914,7 +6914,7 @@ var require_ui_001 = __commonJS({
         },
         getIndicatorProps() {
           return normalize.element({
-            ...parts$1.indicator.attrs,
+            ...parts$3.indicator.attrs,
             dir: prop2("dir"),
             "data-state": open ? "open" : "closed",
             "data-disabled": dataAttr(disabled)
@@ -6922,7 +6922,7 @@ var require_ui_001 = __commonJS({
         }
       };
     }
-    var machine$1 = createMachine$1({
+    var machine$4 = createMachine$1({
       initialState({ prop: prop2 }) {
         const open = prop2("open") || prop2("defaultOpen");
         return open ? "open" : "closed";
@@ -7037,7 +7037,7 @@ var require_ui_001 = __commonJS({
           trackEnterAnimation: ({ send, scope }) => {
             let cleanup;
             const rafCleanup = raf(() => {
-              const contentEl = getContentEl(scope);
+              const contentEl = getContentEl$1(scope);
               if (!contentEl) return;
               const animationName = getComputedStyle$1(contentEl).animationName;
               const hasNoAnimation = !animationName || animationName === "none";
@@ -7064,7 +7064,7 @@ var require_ui_001 = __commonJS({
           trackExitAnimation: ({ send, scope }) => {
             let cleanup;
             const rafCleanup = raf(() => {
-              const contentEl = getContentEl(scope);
+              const contentEl = getContentEl$1(scope);
               if (!contentEl) return;
               const animationName = getComputedStyle$1(contentEl).animationName;
               const hasNoAnimation = !animationName || animationName === "none";
@@ -7094,7 +7094,7 @@ var require_ui_001 = __commonJS({
           },
           trackTabbableElements: ({ scope, prop: prop2 }) => {
             if (!prop2("collapsedHeight") && !prop2("collapsedWidth")) return;
-            const contentEl = getContentEl(scope);
+            const contentEl = getContentEl$1(scope);
             if (!contentEl) return;
             const applyInertToTabbables = () => {
               const tabbables = getTabbables(contentEl);
@@ -7129,7 +7129,7 @@ var require_ui_001 = __commonJS({
             refs.set("stylesRef", null);
           },
           measureSize: ({ context, scope }) => {
-            const contentEl = getContentEl(scope);
+            const contentEl = getContentEl$1(scope);
             if (!contentEl) return;
             const { height, width } = contentEl.getBoundingClientRect();
             context.set("size", { height, width });
@@ -7137,7 +7137,7 @@ var require_ui_001 = __commonJS({
           computeSize: ({ refs, scope, context }) => {
             refs.get("cleanup")?.();
             const rafCleanup = raf(() => {
-              const contentEl = getContentEl(scope);
+              const contentEl = getContentEl$1(scope);
               if (!contentEl) return;
               const hidden = contentEl.hidden;
               contentEl.style.animationName = "none";
@@ -7186,8 +7186,8 @@ var require_ui_001 = __commonJS({
           ...collapsibleProps
         };
       });
-      const service = useMachine(machine$1, () => get$3(machineProps));
-      const api = /* @__PURE__ */ user_derived(() => connect$1(service, normalizeProps));
+      const service = useMachine(machine$4, () => get$3(machineProps));
+      const api = /* @__PURE__ */ user_derived(() => connect$4(service, normalizeProps));
       const resolvedProps = /* @__PURE__ */ user_derived(() => runIfFn$1(props));
       user_effect(() => {
         if (get$3(api).visible) {
@@ -7227,7 +7227,7 @@ var require_ui_001 = __commonJS({
       }));
       pop();
     }
-    function connect$4(service, _normalize) {
+    function connect$3(service, _normalize) {
       const { state: state2, send, context } = service;
       const present = state2.matches("mounted", "unmountSuspended");
       return {
@@ -7242,7 +7242,7 @@ var require_ui_001 = __commonJS({
         }
       };
     }
-    var machine$4 = createMachine$1({
+    var machine$3 = createMachine$1({
       props({ props }) {
         return { ...props, present: !!props.present };
       },
@@ -7410,8 +7410,8 @@ var require_ui_001 = __commonJS({
     const usePresence = (props) => {
       const resolvedProps = /* @__PURE__ */ user_derived(() => runIfFn$1(props));
       const $$d = /* @__PURE__ */ user_derived(() => splitRenderStrategyProps(get$3(resolvedProps))), $$array = /* @__PURE__ */ user_derived(() => to_array(get$3($$d), 2)), renderStrategyProps = /* @__PURE__ */ user_derived(() => get$3($$array)[0]), machineProps = /* @__PURE__ */ user_derived(() => get$3($$array)[1]);
-      const service = useMachine(machine$4, () => get$3(machineProps));
-      const api = /* @__PURE__ */ user_derived(() => connect$4(service));
+      const service = useMachine(machine$3, () => get$3(machineProps));
+      const api = /* @__PURE__ */ user_derived(() => connect$3(service));
       let wasEverPresent = /* @__PURE__ */ state$1(false);
       user_effect(() => {
         if (get$3(api).present) {
@@ -7681,9 +7681,9 @@ var require_ui_001 = __commonJS({
                 (index2, removedIndex) => removedIndex < index2 ? index2 - 1 : index2,
                 operation.insertIndex
               );
-              return options.create(node2, splice(updatedChildren, adjustedIndex, 0, ...operation.insertNodes), indexPath);
+              return options.create(node2, splice$1(updatedChildren, adjustedIndex, 0, ...operation.insertNodes), indexPath);
             case "insert":
-              return options.create(node2, splice(children, operation.index, 0, ...operation.nodes), indexPath);
+              return options.create(node2, splice$1(children, operation.index, 0, ...operation.nodes), indexPath);
             case "replace":
               return options.create(node2, children, indexPath);
             default:
@@ -7692,7 +7692,7 @@ var require_ui_001 = __commonJS({
         }
       });
     }
-    function splice(array, start2, deleteCount, ...items) {
+    function splice$1(array, start2, deleteCount, ...items) {
       return [...array.slice(0, start2), ...items, ...array.slice(start2 + deleteCount)];
     }
     function map(node, options) {
@@ -7722,7 +7722,7 @@ var require_ui_001 = __commonJS({
       const operations = getReplaceOperations(options.at, options.node);
       return mutate(node, operations, options);
     }
-    function remove(node, options) {
+    function remove$1(node, options) {
       if (options.indexPaths.length === 0) return node;
       for (const indexPath of options.indexPaths) {
         if (indexPath.length === 0) throw new Error(`Can't remove the root node`);
@@ -7775,7 +7775,7 @@ var require_ui_001 = __commonJS({
         this.options = options;
         __publicField(this, "rootNode");
         __publicField(this, "isEqual", (other) => {
-          return isEqual(this.rootNode, other.rootNode);
+          return isEqual$2(this.rootNode, other.rootNode);
         });
         __publicField(this, "getNodeChildren", (node) => {
           return this.options.nodeToChildren?.(node) ?? fallbackMethods.nodeToChildren(node) ?? [];
@@ -8069,7 +8069,7 @@ var require_ui_001 = __commonJS({
           return this.copy(move(rootNode, { indexPaths, to, getChildren: this.getNodeChildren, create: this._create }));
         });
         __publicField(this, "_remove", (rootNode, indexPaths) => {
-          return this.copy(remove(rootNode, { indexPaths, getChildren: this.getNodeChildren, create: this._create }));
+          return this.copy(remove$1(rootNode, { indexPaths, getChildren: this.getNodeChildren, create: this._create }));
         });
         __publicField(this, "replace", (indexPath, node) => {
           return this._replace(this.rootNode, indexPath, node);
@@ -8130,23 +8130,23 @@ var require_ui_001 = __commonJS({
     var fallbackMethods = {
       nodeToValue(node) {
         if (typeof node === "string") return node;
-        if (isObject(node) && hasProp(node, "value")) return node.value;
+        if (isObject$3(node) && hasProp(node, "value")) return node.value;
         return "";
       },
       nodeToString(node) {
         if (typeof node === "string") return node;
-        if (isObject(node) && hasProp(node, "label")) return node.label;
+        if (isObject$3(node) && hasProp(node, "label")) return node.label;
         return fallbackMethods.nodeToValue(node);
       },
       isNodeDisabled(node) {
-        if (isObject(node) && hasProp(node, "disabled")) return !!node.disabled;
+        if (isObject$3(node) && hasProp(node, "disabled")) return !!node.disabled;
         return false;
       },
       nodeToChildren(node) {
         return node.children;
       },
       nodeToChildrenCount(node) {
-        if (isObject(node) && hasProp(node, "childrenCount")) return node.childrenCount;
+        if (isObject$3(node) && hasProp(node, "childrenCount")) return node.childrenCount;
       }
     };
     const createTreeCollection = (options) => new TreeCollection(options);
@@ -8209,8 +8209,8 @@ var require_ui_001 = __commonJS({
       if (!doc) return null;
       return doc.body.querySelector(`.${CUSTOM_ROOT_CLASS}`) || doc.body;
     }
-    var root_1$9 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
-    var root$e = /* @__PURE__ */ from_html(`<iframe><!></iframe>`);
+    var root_1$a = /* @__PURE__ */ from_html(`<!> <!>`, 1);
+    var root$f = /* @__PURE__ */ from_html(`<iframe><!></iframe>`);
     function Frame($$anchor, $$props) {
       push($$props, true);
       let ref2 = prop($$props, "ref", 15, null), localProps = /* @__PURE__ */ rest_props($$props, [
@@ -8258,13 +8258,13 @@ var require_ui_001 = __commonJS({
       function setFrameNode(node) {
         set$2(frameRef, node, true);
       }
-      var iframe = root$e();
+      var iframe = root$f();
       attribute_effect(iframe, () => ({ ...localProps }));
       var node_1 = child(iframe);
       Environment_provider(node_1, {
         value: () => get$3(frameRef)?.contentDocument ?? document,
         children: ($$anchor2, $$slotProps) => {
-          var fragment = root_1$9();
+          var fragment = root_1$a();
           var node_2 = first_child(fragment);
           {
             var consequent_1 = ($$anchor3) => {
@@ -8547,7 +8547,7 @@ var require_ui_001 = __commonJS({
         "scrollToIndexFn"
       ]);
     }
-    var anatomy = createAnatomy("tree-view").parts(
+    var anatomy$2 = createAnatomy("tree-view").parts(
       "branch",
       "branchContent",
       "branchControl",
@@ -8564,14 +8564,14 @@ var require_ui_001 = __commonJS({
       "root",
       "tree"
     );
-    var parts = anatomy.build();
+    var parts$2 = anatomy$2.build();
     var collection = (options) => {
       return new TreeCollection(options);
     };
     collection.empty = () => {
       return new TreeCollection({ rootNode: { children: [] } });
     };
-    var getRootId = (ctx) => ctx.ids?.root ?? `tree:${ctx.id}:root`;
+    var getRootId$2 = (ctx) => ctx.ids?.root ?? `tree:${ctx.id}:root`;
     var getLabelId = (ctx) => ctx.ids?.label ?? `tree:${ctx.id}:label`;
     var getNodeId = (ctx, value) => ctx.ids?.node?.(value) ?? `tree:${ctx.id}:node:${value}`;
     var getTreeId = (ctx) => ctx.ids?.tree ?? `tree:${ctx.id}:tree`;
@@ -8596,7 +8596,7 @@ var require_ui_001 = __commonJS({
     function toggleBranchChecked(collection2, value, checkedValue) {
       const childValues = collection2.getDescendantValues(value);
       const allChecked = childValues.every((child2) => checkedValue.includes(child2));
-      return uniq(allChecked ? remove$1(checkedValue, ...childValues) : add(checkedValue, ...childValues));
+      return uniq(allChecked ? remove$2(checkedValue, ...childValues) : add(checkedValue, ...childValues));
     }
     function getCheckedValueMap(collection2, checkedValue) {
       const map2 = /* @__PURE__ */ new Map();
@@ -8613,7 +8613,7 @@ var require_ui_001 = __commonJS({
       });
       return map2;
     }
-    function connect(service, normalize) {
+    function connect$2(service, normalize) {
       const { context, scope, computed, prop: prop2, send } = service;
       const collection2 = prop2("collection");
       const expandedValue = Array.from(context.get("expandedValue"));
@@ -8716,21 +8716,21 @@ var require_ui_001 = __commonJS({
         },
         getRootProps() {
           return normalize.element({
-            ...parts.root.attrs,
-            id: getRootId(scope),
+            ...parts$2.root.attrs,
+            id: getRootId$2(scope),
             dir: prop2("dir")
           });
         },
         getLabelProps() {
           return normalize.element({
-            ...parts.label.attrs,
+            ...parts$2.label.attrs,
             id: getLabelId(scope),
             dir: prop2("dir")
           });
         },
         getTreeProps() {
           return normalize.element({
-            ...parts.tree.attrs,
+            ...parts$2.tree.attrs,
             id: getTreeId(scope),
             dir: prop2("dir"),
             role: "tree",
@@ -8839,7 +8839,7 @@ var require_ui_001 = __commonJS({
         getItemProps(props) {
           const nodeState = getNodeState(props);
           return normalize.element({
-            ...parts.item.attrs,
+            ...parts$2.item.attrs,
             id: nodeState.id,
             dir: prop2("dir"),
             "data-ownedby": getTreeId(scope),
@@ -8879,7 +8879,7 @@ var require_ui_001 = __commonJS({
         getItemTextProps(props) {
           const itemState = getNodeState(props);
           return normalize.element({
-            ...parts.itemText.attrs,
+            ...parts$2.itemText.attrs,
             "data-disabled": dataAttr(itemState.disabled),
             "data-selected": dataAttr(itemState.selected),
             "data-focus": dataAttr(itemState.focused)
@@ -8888,7 +8888,7 @@ var require_ui_001 = __commonJS({
         getItemIndicatorProps(props) {
           const itemState = getNodeState(props);
           return normalize.element({
-            ...parts.itemIndicator.attrs,
+            ...parts$2.itemIndicator.attrs,
             "aria-hidden": true,
             "data-disabled": dataAttr(itemState.disabled),
             "data-selected": dataAttr(itemState.selected),
@@ -8899,7 +8899,7 @@ var require_ui_001 = __commonJS({
         getBranchProps(props) {
           const nodeState = getNodeState(props);
           return normalize.element({
-            ...parts.branch.attrs,
+            ...parts$2.branch.attrs,
             "data-depth": nodeState.depth,
             dir: prop2("dir"),
             "data-branch": nodeState.value,
@@ -8924,7 +8924,7 @@ var require_ui_001 = __commonJS({
         getBranchIndicatorProps(props) {
           const nodeState = getNodeState(props);
           return normalize.element({
-            ...parts.branchIndicator.attrs,
+            ...parts$2.branchIndicator.attrs,
             "aria-hidden": true,
             "data-state": nodeState.expanded ? "open" : "closed",
             "data-disabled": dataAttr(nodeState.disabled),
@@ -8936,7 +8936,7 @@ var require_ui_001 = __commonJS({
         getBranchTriggerProps(props) {
           const nodeState = getNodeState(props);
           return normalize.element({
-            ...parts.branchTrigger.attrs,
+            ...parts$2.branchTrigger.attrs,
             role: "button",
             dir: prop2("dir"),
             "data-disabled": dataAttr(nodeState.disabled),
@@ -8954,7 +8954,7 @@ var require_ui_001 = __commonJS({
         getBranchControlProps(props) {
           const nodeState = getNodeState(props);
           return normalize.element({
-            ...parts.branchControl.attrs,
+            ...parts$2.branchControl.attrs,
             role: "button",
             id: nodeState.id,
             dir: prop2("dir"),
@@ -8987,7 +8987,7 @@ var require_ui_001 = __commonJS({
         getBranchTextProps(props) {
           const nodeState = getNodeState(props);
           return normalize.element({
-            ...parts.branchText.attrs,
+            ...parts$2.branchText.attrs,
             dir: prop2("dir"),
             "data-disabled": dataAttr(nodeState.disabled),
             "data-state": nodeState.expanded ? "open" : "closed",
@@ -8997,7 +8997,7 @@ var require_ui_001 = __commonJS({
         getBranchContentProps(props) {
           const nodeState = getNodeState(props);
           return normalize.element({
-            ...parts.branchContent.attrs,
+            ...parts$2.branchContent.attrs,
             role: "group",
             dir: prop2("dir"),
             "data-state": nodeState.expanded ? "open" : "closed",
@@ -9010,7 +9010,7 @@ var require_ui_001 = __commonJS({
         getBranchIndentGuideProps(props) {
           const nodeState = getNodeState(props);
           return normalize.element({
-            ...parts.branchIndentGuide.attrs,
+            ...parts$2.branchIndentGuide.attrs,
             "data-depth": nodeState.depth
           });
         },
@@ -9018,7 +9018,7 @@ var require_ui_001 = __commonJS({
           const nodeState = getNodeState(props);
           const checkedState = nodeState.checked;
           return normalize.element({
-            ...parts.nodeCheckbox.attrs,
+            ...parts$2.nodeCheckbox.attrs,
             tabIndex: -1,
             role: "checkbox",
             "data-state": checkedState === true ? "checked" : checkedState === false ? "unchecked" : "indeterminate",
@@ -9038,7 +9038,7 @@ var require_ui_001 = __commonJS({
         getNodeRenameInputProps(props) {
           const nodeState = getNodeState(props);
           return normalize.input({
-            ...parts.nodeRenameInput.attrs,
+            ...parts$2.nodeRenameInput.attrs,
             id: getRenameInputId(scope, nodeState.value),
             type: "text",
             "aria-label": "Rename tree item",
@@ -9146,7 +9146,7 @@ var require_ui_001 = __commonJS({
       };
     }
     var { and } = createGuards();
-    var machine = createMachine$1({
+    var machine$2 = createMachine$1({
       props({ props }) {
         return {
           selectionMode: "single",
@@ -9166,7 +9166,7 @@ var require_ui_001 = __commonJS({
           expandedValue: bindable2(() => ({
             defaultValue: prop2("defaultExpandedValue"),
             value: prop2("expandedValue"),
-            isEqual,
+            isEqual: isEqual$2,
             onChange(expandedValue) {
               const ctx = getContext2();
               const focusedValue = ctx.get("focusedValue");
@@ -9182,7 +9182,7 @@ var require_ui_001 = __commonJS({
           selectedValue: bindable2(() => ({
             defaultValue: prop2("defaultSelectedValue"),
             value: prop2("selectedValue"),
-            isEqual,
+            isEqual: isEqual$2,
             onChange(selectedValue) {
               const ctx = getContext2();
               const focusedValue = ctx.get("focusedValue");
@@ -9213,7 +9213,7 @@ var require_ui_001 = __commonJS({
           checkedValue: bindable2(() => ({
             defaultValue: prop2("defaultCheckedValue") || [],
             value: prop2("checkedValue"),
-            isEqual,
+            isEqual: isEqual$2,
             onChange(value) {
               prop2("onCheckedChange")?.({ checkedValue: value });
             }
@@ -9433,13 +9433,13 @@ var require_ui_001 = __commonJS({
             const value = event2.id || event2.value;
             context.set("selectedValue", (prev2) => {
               if (value == null) return prev2;
-              if (!event2.isTrusted && isArray(value)) return prev2.concat(...value);
-              return [isArray(value) ? last(value) : value].filter(Boolean);
+              if (!event2.isTrusted && isArray$2(value)) return prev2.concat(...value);
+              return [isArray$2(value) ? last(value) : value].filter(Boolean);
             });
           },
           deselectNode({ context, event: event2 }) {
-            const value = toArray(event2.id || event2.value);
-            context.set("selectedValue", (prev2) => remove$1(prev2, ...value));
+            const value = toArray$1(event2.id || event2.value);
+            context.set("selectedValue", (prev2) => remove$2(prev2, ...value));
           },
           setFocusedNode({ context, event: event2 }) {
             context.set("focusedValue", event2.id);
@@ -9460,26 +9460,26 @@ var require_ui_001 = __commonJS({
           },
           expandBranches(params) {
             const { context, event: event2 } = params;
-            const valuesToExpand = toArray(event2.value);
+            const valuesToExpand = toArray$1(event2.value);
             expandBranches(params, diff(valuesToExpand, context.get("expandedValue")));
           },
           collapseBranch({ context, event: event2 }) {
-            context.set("expandedValue", (prev2) => remove$1(prev2, event2.id));
+            context.set("expandedValue", (prev2) => remove$2(prev2, event2.id));
           },
           collapseBranches(params) {
             const { context, event: event2 } = params;
-            const value = toArray(event2.value);
-            context.set("expandedValue", (prev2) => remove$1(prev2, ...value));
+            const value = toArray$1(event2.value);
+            context.set("expandedValue", (prev2) => remove$2(prev2, ...value));
           },
           setExpanded({ context, event: event2 }) {
-            if (!isArray(event2.value)) return;
+            if (!isArray$2(event2.value)) return;
             context.set("expandedValue", event2.value);
           },
           clearExpanded({ context }) {
             context.set("expandedValue", []);
           },
           setSelected({ context, event: event2 }) {
-            if (!isArray(event2.value)) return;
+            if (!isArray$2(event2.value)) return;
             context.set("selectedValue", event2.value);
           },
           clearSelected({ context }) {
@@ -9787,8 +9787,8 @@ var require_ui_001 = __commonJS({
           ...resolvedProps
         };
       });
-      const service = useMachine(machine, () => get$3(machineProps));
-      const api = /* @__PURE__ */ user_derived(() => connect(service, normalizeProps));
+      const service = useMachine(machine$2, () => get$3(machineProps));
+      const api = /* @__PURE__ */ user_derived(() => connect$2(service, normalizeProps));
       return () => get$3(api);
     };
     function Tree_view_root($$anchor, $$props) {
@@ -9859,13 +9859,13 @@ var require_ui_001 = __commonJS({
       }));
       pop();
     }
-    var anatomy$2 = createAnatomy("splitter").parts("root", "panel", "resizeTrigger", "resizeTriggerIndicator");
-    var parts$2 = anatomy$2.build();
-    var getRootId$2 = (ctx) => ctx.ids?.root ?? `splitter:${ctx.id}`;
+    var anatomy$1 = createAnatomy("splitter").parts("root", "panel", "resizeTrigger", "resizeTriggerIndicator");
+    var parts$1 = anatomy$1.build();
+    var getRootId$1 = (ctx) => ctx.ids?.root ?? `splitter:${ctx.id}`;
     var getResizeTriggerId = (ctx, id) => ctx.ids?.resizeTrigger?.(id) ?? `splitter:${ctx.id}:splitter:${id}`;
     var getPanelId = (ctx, id) => ctx.ids?.panel?.(id) ?? `splitter:${ctx.id}:panel:${id}`;
     var getGlobalCursorId = (ctx) => `splitter:${ctx.id}:global-cursor`;
-    var getRootEl = (ctx) => ctx.getById(getRootId$2(ctx));
+    var getRootEl = (ctx) => ctx.getById(getRootId$1(ctx));
     var getResizeTriggerEl = (ctx, id) => ctx.getById(getResizeTriggerId(ctx, id));
     var getCursor = (state2, x) => {
       let cursor = x ? "col-resize" : "row-resize";
@@ -9874,7 +9874,7 @@ var require_ui_001 = __commonJS({
       return cursor;
     };
     var getResizeTriggerEls = (ctx) => {
-      return queryAll(getRootEl(ctx), `[role=separator][data-ownedby='${CSS.escape(getRootId$2(ctx))}']`);
+      return queryAll(getRootEl(ctx), `[role=separator][data-ownedby='${CSS.escape(getRootId$1(ctx))}']`);
     };
     var setupGlobalCursor = (ctx, state2, x, nonce) => {
       const styleEl = ctx.getById(getGlobalCursorId(ctx));
@@ -10066,7 +10066,7 @@ var require_ui_001 = __commonJS({
       }
       return finalSizes;
     }
-    function connect$2(service, normalize) {
+    function connect$1(service, normalize) {
       const { state: state2, send, prop: prop2, computed, context, scope } = service;
       const horizontal = computed("horizontal");
       const dragging = state2.matches("dragging");
@@ -10162,10 +10162,10 @@ var require_ui_001 = __commonJS({
         },
         getRootProps() {
           return normalize.element({
-            ...parts$2.root.attrs,
+            ...parts$1.root.attrs,
             "data-orientation": orientation,
             "data-dragging": dataAttr(dragging),
-            id: getRootId$2(scope),
+            id: getRootId$1(scope),
             dir: prop2("dir"),
             style: {
               display: "flex",
@@ -10179,14 +10179,14 @@ var require_ui_001 = __commonJS({
         getPanelProps(props) {
           const { id } = props;
           return normalize.element({
-            ...parts$2.panel.attrs,
+            ...parts$1.panel.attrs,
             "data-orientation": orientation,
             "data-dragging": dataAttr(dragging),
             dir: prop2("dir"),
             "data-id": id,
             "data-index": findPanelIndex(prop2("panels"), id),
             id: getPanelId(scope, id),
-            "data-ownedby": getRootId$2(scope),
+            "data-ownedby": getRootId$1(scope),
             style: getPanelStyle(id)
           });
         },
@@ -10194,12 +10194,12 @@ var require_ui_001 = __commonJS({
         getResizeTriggerIndicator(props) {
           const triggerState = getResizeTriggerState(props);
           return normalize.element({
-            ...parts$2.resizeTriggerIndicator.attrs,
+            ...parts$1.resizeTriggerIndicator.attrs,
             "data-orientation": orientation,
             "data-focus": dataAttr(triggerState.focused),
             "data-dragging": dataAttr(triggerState.dragging),
             "data-disabled": dataAttr(triggerState.disabled),
-            "data-ownedby": getRootId$2(scope)
+            "data-ownedby": getRootId$1(scope)
           });
         },
         getResizeTriggerProps(props) {
@@ -10207,12 +10207,12 @@ var require_ui_001 = __commonJS({
           const triggerState = getResizeTriggerState(props);
           const aria = getAriaValue(context.get("size"), prop2("panels"), id);
           return normalize.element({
-            ...parts$2.resizeTrigger.attrs,
+            ...parts$1.resizeTrigger.attrs,
             dir: prop2("dir"),
             id: getResizeTriggerId(scope, id),
             role: "separator",
             "data-id": id,
-            "data-ownedby": getRootId$2(scope),
+            "data-ownedby": getRootId$1(scope),
             tabIndex: triggerState.disabled ? void 0 : 0,
             "aria-valuenow": aria.valueNow,
             "aria-valuemin": aria.valueMin,
@@ -10511,7 +10511,7 @@ var require_ui_001 = __commonJS({
       }
       return nextSize;
     }
-    var machine$2 = createMachine$1({
+    var machine$1 = createMachine$1({
       props({ props }) {
         ensureProps(props, ["panels"]);
         return {
@@ -10699,7 +10699,7 @@ var require_ui_001 = __commonJS({
               size: unsafeSize,
               panels
             });
-            if (!isEqual(prevSize, safeSize)) {
+            if (!isEqual$2(prevSize, safeSize)) {
               setSize(params, safeSize);
             }
           },
@@ -10717,7 +10717,7 @@ var require_ui_001 = __commonJS({
               size: unsafeSize ?? prevSize,
               panels
             });
-            if (!isEqual(prevSize, nextSize)) {
+            if (!isEqual$2(prevSize, nextSize)) {
               context.set("size", nextSize);
             }
           },
@@ -10769,7 +10769,7 @@ var require_ui_001 = __commonJS({
                   prevSize,
                   trigger: "imperative-api"
                 });
-                if (!isEqual(prevSize, nextSize)) {
+                if (!isEqual$2(prevSize, nextSize)) {
                   setSize(params, nextSize);
                 }
               }
@@ -10802,7 +10802,7 @@ var require_ui_001 = __commonJS({
                   prevSize,
                   trigger: "imperative-api"
                 });
-                if (!isEqual(prevSize, nextSize)) {
+                if (!isEqual$2(prevSize, nextSize)) {
                   setSize(params, nextSize);
                 }
               }
@@ -10826,7 +10826,7 @@ var require_ui_001 = __commonJS({
               prevSize,
               trigger: "imperative-api"
             });
-            if (!isEqual(prevSize, nextSize)) {
+            if (!isEqual$2(prevSize, nextSize)) {
               setSize(params, nextSize);
             }
           },
@@ -10854,7 +10854,7 @@ var require_ui_001 = __commonJS({
               prevSize,
               trigger: "mouse-or-touch"
             });
-            if (!isEqual(prevSize, nextSize)) {
+            if (!isEqual$2(prevSize, nextSize)) {
               setSize(params, nextSize);
             }
           },
@@ -10873,7 +10873,7 @@ var require_ui_001 = __commonJS({
               prevSize,
               trigger: "keyboard"
             });
-            if (!isEqual(prevSize, nextSize)) {
+            if (!isEqual$2(prevSize, nextSize)) {
               setSize(params, nextSize);
             }
           },
@@ -10915,7 +10915,7 @@ var require_ui_001 = __commonJS({
                 prevSize: sizes,
                 trigger: "keyboard"
               });
-              if (!isEqual(sizes, nextSize)) {
+              if (!isEqual$2(sizes, nextSize)) {
                 setSize(params, nextSize);
               }
             }
@@ -11044,8 +11044,8 @@ var require_ui_001 = __commonJS({
           ...resolvedProps
         };
       });
-      const service = useMachine(machine$2, () => get$3(machineProps));
-      const api = /* @__PURE__ */ user_derived(() => connect$2(service, normalizeProps));
+      const service = useMachine(machine$1, () => get$3(machineProps));
+      const api = /* @__PURE__ */ user_derived(() => connect$1(service, normalizeProps));
       return () => get$3(api);
     };
     function Splitter_root($$anchor, $$props) {
@@ -11134,16 +11134,16 @@ var require_ui_001 = __commonJS({
       }));
       pop();
     }
-    var anatomy$3 = createAnatomy("tabs").parts("root", "list", "trigger", "content", "indicator");
-    var parts$3 = anatomy$3.build();
-    var getRootId$3 = (ctx) => ctx.ids?.root ?? `tabs:${ctx.id}`;
+    var anatomy = createAnatomy("tabs").parts("root", "list", "trigger", "content", "indicator");
+    var parts = anatomy.build();
+    var getRootId = (ctx) => ctx.ids?.root ?? `tabs:${ctx.id}`;
     var getListId = (ctx) => ctx.ids?.list ?? `tabs:${ctx.id}:list`;
-    var getContentId$1 = (ctx, value) => ctx.ids?.content?.(value) ?? `tabs:${ctx.id}:content-${value}`;
-    var getTriggerId$1 = (ctx, value) => ctx.ids?.trigger?.(value) ?? `tabs:${ctx.id}:trigger-${value}`;
+    var getContentId = (ctx, value) => ctx.ids?.content?.(value) ?? `tabs:${ctx.id}:content-${value}`;
+    var getTriggerId = (ctx, value) => ctx.ids?.trigger?.(value) ?? `tabs:${ctx.id}:trigger-${value}`;
     var getIndicatorId = (ctx) => ctx.ids?.indicator ?? `tabs:${ctx.id}:indicator`;
     var getListEl = (ctx) => ctx.getById(getListId(ctx));
-    var getContentEl$1 = (ctx, value) => ctx.getById(getContentId$1(ctx, value));
-    var getTriggerEl = (ctx, value) => value != null ? ctx.getById(getTriggerId$1(ctx, value)) : null;
+    var getContentEl = (ctx, value) => ctx.getById(getContentId(ctx, value));
+    var getTriggerEl = (ctx, value) => value != null ? ctx.getById(getTriggerId(ctx, value)) : null;
     var getIndicatorEl = (ctx) => ctx.getById(getIndicatorId(ctx));
     var getElements = (ctx) => {
       const ownerId = CSS.escape(getListId(ctx));
@@ -11152,8 +11152,8 @@ var require_ui_001 = __commonJS({
     };
     var getFirstTriggerEl = (ctx) => first(getElements(ctx));
     var getLastTriggerEl = (ctx) => last(getElements(ctx));
-    var getNextTriggerEl = (ctx, opts) => nextById(getElements(ctx), getTriggerId$1(ctx, opts.value), opts.loopFocus);
-    var getPrevTriggerEl = (ctx, opts) => prevById(getElements(ctx), getTriggerId$1(ctx, opts.value), opts.loopFocus);
+    var getNextTriggerEl = (ctx, opts) => nextById(getElements(ctx), getTriggerId(ctx, opts.value), opts.loopFocus);
+    var getPrevTriggerEl = (ctx, opts) => prevById(getElements(ctx), getTriggerId(ctx, opts.value), opts.loopFocus);
     var getOffsetRect = (el) => ({
       x: el?.offsetLeft ?? 0,
       y: el?.offsetTop ?? 0,
@@ -11161,10 +11161,10 @@ var require_ui_001 = __commonJS({
       height: el?.offsetHeight ?? 0
     });
     var getRectByValue = (ctx, value) => {
-      const tab = itemById(getElements(ctx), getTriggerId$1(ctx, value));
+      const tab = itemById(getElements(ctx), getTriggerId(ctx, value));
       return getOffsetRect(tab);
     };
-    function connect$3(service, normalize) {
+    function connect(service, normalize) {
       const { state: state2, send, context, prop: prop2, scope } = service;
       const translations = prop2("translations");
       const focused = state2.matches("focused");
@@ -11188,7 +11188,7 @@ var require_ui_001 = __commonJS({
           send({ type: "CLEAR_VALUE" });
         },
         setIndicatorRect(value) {
-          const id = getTriggerId$1(scope, value);
+          const id = getTriggerId(scope, value);
           send({ type: "SET_INDICATOR_RECT", id });
         },
         syncTabIndex() {
@@ -11209,8 +11209,8 @@ var require_ui_001 = __commonJS({
         },
         getRootProps() {
           return normalize.element({
-            ...parts$3.root.attrs,
-            id: getRootId$3(scope),
+            ...parts.root.attrs,
+            id: getRootId(scope),
             "data-orientation": prop2("orientation"),
             "data-focus": dataAttr(focused),
             dir: prop2("dir")
@@ -11218,7 +11218,7 @@ var require_ui_001 = __commonJS({
         },
         getListProps() {
           return normalize.element({
-            ...parts$3.list.attrs,
+            ...parts.list.attrs,
             id: getListId(scope),
             role: "tablist",
             dir: prop2("dir"),
@@ -11272,7 +11272,7 @@ var require_ui_001 = __commonJS({
           const { value, disabled } = props;
           const triggerState = getTriggerState(props);
           return normalize.button({
-            ...parts$3.trigger.attrs,
+            ...parts.trigger.attrs,
             role: "tab",
             type: "button",
             disabled,
@@ -11284,10 +11284,10 @@ var require_ui_001 = __commonJS({
             "aria-selected": triggerState.selected,
             "data-selected": dataAttr(triggerState.selected),
             "data-focus": dataAttr(triggerState.focused),
-            "aria-controls": triggerState.selected ? getContentId$1(scope, value) : void 0,
+            "aria-controls": triggerState.selected ? getContentId(scope, value) : void 0,
             "data-ownedby": getListId(scope),
             "data-ssr": dataAttr(context.get("ssr")),
-            id: getTriggerId$1(scope, value),
+            id: getTriggerId(scope, value),
             tabIndex: triggerState.selected && composite ? 0 : -1,
             onFocus() {
               send({ type: "TAB_FOCUS", value });
@@ -11313,11 +11313,11 @@ var require_ui_001 = __commonJS({
           const { value } = props;
           const selected = context.get("value") === value;
           return normalize.element({
-            ...parts$3.content.attrs,
+            ...parts.content.attrs,
             dir: prop2("dir"),
-            id: getContentId$1(scope, value),
+            id: getContentId(scope, value),
             tabIndex: composite ? 0 : -1,
-            "aria-labelledby": getTriggerId$1(scope, value),
+            "aria-labelledby": getTriggerId(scope, value),
             role: "tabpanel",
             "data-ownedby": getListId(scope),
             "data-selected": dataAttr(selected),
@@ -11330,7 +11330,7 @@ var require_ui_001 = __commonJS({
           const rectIsEmpty = rect == null || rect.width === 0 && rect.height === 0 && rect.x === 0 && rect.y === 0;
           return normalize.element({
             id: getIndicatorId(scope),
-            ...parts$3.indicator.attrs,
+            ...parts.indicator.attrs,
             dir: prop2("dir"),
             "data-orientation": prop2("orientation"),
             hidden: rectIsEmpty,
@@ -11352,7 +11352,7 @@ var require_ui_001 = __commonJS({
       };
     }
     var { createMachine } = setup();
-    var machine$3 = createMachine({
+    var machine = createMachine({
       props({ props }) {
         return {
           dir: "ltr",
@@ -11554,7 +11554,7 @@ var require_ui_001 = __commonJS({
             raf(() => {
               const value = context.get("value");
               if (!value) return;
-              const contentEl = getContentEl$1(scope, value);
+              const contentEl = getContentEl(scope, value);
               if (!contentEl) return;
               const focusables = getFocusables(contentEl);
               if (focusables.length > 0) {
@@ -11589,7 +11589,7 @@ var require_ui_001 = __commonJS({
               const triggerEl = getTriggerEl(scope, context.get("value"));
               if (!triggerEl) return;
               const rect = getOffsetRect(triggerEl);
-              context.set("indicatorRect", (prev2) => isEqual(prev2, rect) ? prev2 : rect);
+              context.set("indicatorRect", (prev2) => isEqual$2(prev2, rect) ? prev2 : rect);
             };
             exec();
             const triggerEls = getElements(scope);
@@ -11618,8 +11618,8 @@ var require_ui_001 = __commonJS({
           getRootNode: env().getRootNode
         };
       });
-      const service = useMachine(machine$3, () => get$3(machineProps));
-      const api = /* @__PURE__ */ user_derived(() => connect$3(service, normalizeProps));
+      const service = useMachine(machine, () => get$3(machineProps));
+      const api = /* @__PURE__ */ user_derived(() => connect(service, normalizeProps));
       return () => get$3(api);
     };
     function Tabs_root($$anchor, $$props) {
@@ -11685,7 +11685,7 @@ var require_ui_001 = __commonJS({
       pop();
     }
     const defaultWindow = typeof window !== "undefined" ? window : void 0;
-    function getActiveElement$1(document2) {
+    function getActiveElement(document2) {
       let activeElement = document2.activeElement;
       while (activeElement?.shadowRoot) {
         const node = activeElement.shadowRoot.activeElement;
@@ -11715,7 +11715,7 @@ var require_ui_001 = __commonJS({
       get current() {
         this.#subscribe?.();
         if (!this.#document) return null;
-        return getActiveElement$1(this.#document);
+        return getActiveElement(this.#document);
       }
     }
     new ActiveElement();
@@ -11891,6 +11891,500 @@ var require_ui_001 = __commonJS({
         this.#setupStorageListener();
       }
     }
+    var root_1$9 = /* @__PURE__ */ from_html(`<i data-component="icon" class="icon"><!></i>`);
+    function Icon$1($$anchor, $$props) {
+      const IconSvg = prop($$props, "svg", 3, null), size = prop($$props, "size", 3, "md"), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "svg", "size"]);
+      const defaultProps = { size: 16, strokeWidth: 1, absoluteStrokeWidth: true };
+      var fragment = comment();
+      var node = first_child(fragment);
+      {
+        var consequent = ($$anchor2) => {
+          var i = root_1$9();
+          var node_1 = child(i);
+          component(node_1, IconSvg, ($$anchor3, IconSvg_1) => {
+            IconSvg_1($$anchor3, spread_props(() => defaultProps, () => props));
+          });
+          template_effect(() => set_attribute(i, "data-size", size()));
+          append$1($$anchor2, i);
+        };
+        if_block(node, ($$render) => {
+          if (IconSvg()) $$render(consequent);
+        });
+      }
+      append$1($$anchor, fragment);
+    }
+    const defaultAttributes = {
+      xmlns: "http://www.w3.org/2000/svg",
+      width: 24,
+      height: 24,
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": 2,
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round"
+    };
+    const hasA11yProp = (props) => {
+      for (const prop2 in props) {
+        if (prop2.startsWith("aria-") || prop2 === "role" || prop2 === "title") {
+          return true;
+        }
+      }
+      return false;
+    };
+    const mergeClasses = (...classes) => classes.filter((className, index2, array) => {
+      return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index2;
+    }).join(" ").trim();
+    var root$e = /* @__PURE__ */ from_svg(`<svg><!><!></svg>`);
+    function Icon($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const $$restProps = legacy_rest_props($$sanitized_props, [
+        "name",
+        "color",
+        "size",
+        "strokeWidth",
+        "absoluteStrokeWidth",
+        "iconNode"
+      ]);
+      push($$props, false);
+      let name = prop($$props, "name", 8, void 0);
+      let color = prop($$props, "color", 8, "currentColor");
+      let size = prop($$props, "size", 8, 24);
+      let strokeWidth = prop($$props, "strokeWidth", 8, 2);
+      let absoluteStrokeWidth = prop($$props, "absoluteStrokeWidth", 8, false);
+      let iconNode = prop($$props, "iconNode", 24, () => []);
+      init();
+      var svg = root$e();
+      attribute_effect(
+        svg,
+        ($0, $1, $2) => ({
+          ...defaultAttributes,
+          ...$0,
+          ...$$restProps,
+          width: size(),
+          height: size(),
+          stroke: color(),
+          "stroke-width": $1,
+          class: $2
+        }),
+        [
+          () => !hasA11yProp($$restProps) ? { "aria-hidden": "true" } : void 0,
+          () => (deep_read_state(absoluteStrokeWidth()), deep_read_state(strokeWidth()), deep_read_state(size()), untrack(() => absoluteStrokeWidth() ? Number(strokeWidth()) * 24 / Number(size()) : strokeWidth())),
+          () => (deep_read_state(mergeClasses), deep_read_state(name()), deep_read_state($$sanitized_props), untrack(() => mergeClasses("lucide-icon", "lucide", name() ? `lucide-${name()}` : "", $$sanitized_props.class)))
+        ]
+      );
+      var node = child(svg);
+      each(node, 1, iconNode, index, ($$anchor2, $$item) => {
+        var $$array = /* @__PURE__ */ user_derived(() => to_array(get$3($$item), 2));
+        let tag = () => get$3($$array)[0];
+        let attrs = () => get$3($$array)[1];
+        var fragment = comment();
+        var node_1 = first_child(fragment);
+        element(node_1, tag, true, ($$element, $$anchor3) => {
+          attribute_effect($$element, () => ({ ...attrs() }));
+        });
+        append$1($$anchor2, fragment);
+      });
+      var node_2 = sibling(node);
+      slot(node_2, $$props, "default", {});
+      append$1($$anchor, svg);
+      pop();
+    }
+    function File$1($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        [
+          "path",
+          {
+            "d": "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
+          }
+        ],
+        ["path", { "d": "M14 2v5a1 1 0 0 0 1 1h5" }]
+      ];
+      Icon($$anchor, spread_props({ name: "file" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function Folder_open($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        [
+          "path",
+          {
+            "d": "m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"
+          }
+        ]
+      ];
+      Icon($$anchor, spread_props({ name: "folder-open" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function Folder($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        [
+          "path",
+          {
+            "d": "M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"
+          }
+        ]
+      ];
+      Icon($$anchor, spread_props({ name: "folder" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function Layers_2($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        [
+          "path",
+          {
+            "d": "M13 13.74a2 2 0 0 1-2 0L2.5 8.87a1 1 0 0 1 0-1.74L11 2.26a2 2 0 0 1 2 0l8.5 4.87a1 1 0 0 1 0 1.74z"
+          }
+        ],
+        [
+          "path",
+          {
+            "d": "m20 14.285 1.5.845a1 1 0 0 1 0 1.74L13 21.74a2 2 0 0 1-2 0l-8.5-4.87a1 1 0 0 1 0-1.74l1.5-.845"
+          }
+        ]
+      ];
+      Icon($$anchor, spread_props({ name: "layers-2" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function List_filter($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        ["path", { "d": "M2 5h20" }],
+        ["path", { "d": "M6 12h12" }],
+        ["path", { "d": "M9 19h6" }]
+      ];
+      Icon($$anchor, spread_props({ name: "list-filter" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function Move_diagonal_2($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        ["path", { "d": "M19 13v6h-6" }],
+        ["path", { "d": "M5 11V5h6" }],
+        ["path", { "d": "m5 5 14 14" }]
+      ];
+      Icon($$anchor, spread_props({ name: "move-diagonal-2" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function Move_diagonal($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        ["path", { "d": "M11 19H5v-6" }],
+        ["path", { "d": "M13 5h6v6" }],
+        ["path", { "d": "M19 5 5 19" }]
+      ];
+      Icon($$anchor, spread_props({ name: "move-diagonal" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function Panel_bottom_close($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        [
+          "rect",
+          { "width": "18", "height": "18", "x": "3", "y": "3", "rx": "2" }
+        ],
+        ["path", { "d": "M3 15h18" }],
+        ["path", { "d": "m15 8-3 3-3-3" }]
+      ];
+      Icon($$anchor, spread_props({ name: "panel-bottom-close" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function Panel_right_close($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        [
+          "rect",
+          { "width": "18", "height": "18", "x": "3", "y": "3", "rx": "2" }
+        ],
+        ["path", { "d": "M15 3v18" }],
+        ["path", { "d": "m8 9 3 3-3 3" }]
+      ];
+      Icon($$anchor, spread_props({ name: "panel-right-close" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    function Square_dashed_mouse_pointer($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        [
+          "path",
+          {
+            "d": "M12.034 12.681a.498.498 0 0 1 .647-.647l9 3.5a.5.5 0 0 1-.033.943l-3.444 1.068a1 1 0 0 0-.66.66l-1.067 3.443a.5.5 0 0 1-.943.033z"
+          }
+        ],
+        ["path", { "d": "M5 3a2 2 0 0 0-2 2" }],
+        ["path", { "d": "M19 3a2 2 0 0 1 2 2" }],
+        ["path", { "d": "M5 21a2 2 0 0 1-2-2" }],
+        ["path", { "d": "M9 3h1" }],
+        ["path", { "d": "M9 21h2" }],
+        ["path", { "d": "M14 3h1" }],
+        ["path", { "d": "M3 9v1" }],
+        ["path", { "d": "M21 9v2" }],
+        ["path", { "d": "M3 14v1" }]
+      ];
+      Icon($$anchor, spread_props({ name: "square-dashed-mouse-pointer" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
+    var root_1$6 = /* @__PURE__ */ from_html(`<button data-role="viewport:grabber"><!></button>`);
+    var root$8 = /* @__PURE__ */ from_html(`<div data-component="viewport"><div data-role="viewport:background" class="checkerboard-bg"></div> <div data-role="viewport:window"><!> <!></div></div>`);
+    function Viewport($$anchor, $$props) {
+      push($$props, true);
+      const sandbox = [
+        "allow-forms",
+        "allow-modals",
+        "allow-popups",
+        "allow-pointer-lock",
+        "allow-same-origin",
+        "allow-popups-to-escape-sandbox",
+        "allow-scripts",
+        "allow-top-navigation-by-user-activation"
+      ].join(" ");
+      const grabbers = ["east", "west", "southeast", "south", "southwest"];
+      const FULLSIZE = 1e5;
+      const createViewportState = () => {
+        const state2 = new PersistedState(`viewport:${$$props.id}`, { width: FULLSIZE, height: FULLSIZE });
+        return {
+          get width() {
+            return state2.current.width;
+          },
+          set width(value) {
+            state2.current.width = value;
+          },
+          get height() {
+            return state2.current.height;
+          },
+          set height(value) {
+            state2.current.height = value;
+          }
+        };
+      };
+      let viewportState = createViewportState();
+      let initial = /* @__PURE__ */ state$1(null);
+      let activeGrabber = /* @__PURE__ */ state$1(null);
+      let resizer;
+      let container;
+      function startResize(event2) {
+        const rect = resizer.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        set$2(activeGrabber, event2.target, true);
+        set$2(
+          initial,
+          {
+            maxWidth: containerRect.width,
+            maxHeight: containerRect.height,
+            width: rect.width,
+            height: rect.height,
+            x: event2.pageX,
+            y: event2.pageY
+          },
+          true
+        );
+      }
+      function resizing(event2) {
+        if (!get$3(activeGrabber)) return;
+        let delta;
+        const direction = get$3(activeGrabber).dataset.direction;
+        if (direction.match(/east|west/)) {
+          delta = direction.match("east") ? event2.pageX - get$3(initial).x : get$3(initial).x - event2.pageX;
+          viewportState.width = Math.min(get$3(initial).width + delta * 2, get$3(initial).maxWidth);
+          if (viewportState.width === get$3(initial).maxWidth) {
+            viewportState.width = FULLSIZE;
+          }
+        }
+        if (direction.match("south")) {
+          delta = event2.pageY - get$3(initial).y;
+          viewportState.height = Math.min(get$3(initial).height + delta, get$3(initial).maxHeight);
+          if (viewportState.height === get$3(initial).maxHeight) {
+            viewportState.height = FULLSIZE;
+          }
+        }
+      }
+      function endResize() {
+        set$2(activeGrabber, null);
+        set$2(initial, null);
+      }
+      function maximize(event2) {
+        const direction = event2.target.dataset.direction;
+        if (direction.match(/east|west/)) {
+          viewportState.width = FULLSIZE;
+        }
+        if (direction.match("south")) {
+          viewportState.height = FULLSIZE;
+        }
+      }
+      var div = root$8();
+      event("mousemove", $window, resizing);
+      event("mouseup", $window, endResize);
+      let styles;
+      var div_1 = sibling(child(div), 2);
+      var node = child(div_1);
+      {
+        let $0 = /* @__PURE__ */ user_derived(() => get$3(activeGrabber) !== null);
+        Frame(node, {
+          "data-role": "viewport:iframe",
+          get srcdoc() {
+            return $$props.srcdoc;
+          },
+          get title() {
+            return $$props.title;
+          },
+          get sandbox() {
+            return sandbox;
+          },
+          get inert() {
+            return get$3($0);
+          }
+        });
+      }
+      var node_1 = sibling(node, 2);
+      each(node_1, 17, () => grabbers, index, ($$anchor2, direction) => {
+        var button = root_1$6();
+        var node_2 = child(button);
+        {
+          var consequent = ($$anchor3) => {
+            Icon$1($$anchor3, {
+              get svg() {
+                return Move_diagonal;
+              },
+              size: "sm"
+            });
+          };
+          var consequent_1 = ($$anchor3) => {
+            Icon$1($$anchor3, {
+              get svg() {
+                return Move_diagonal_2;
+              },
+              size: "sm"
+            });
+          };
+          var alternate = ($$anchor3) => {
+          };
+          if_block(node_2, ($$render) => {
+            if (get$3(direction) === "southwest") $$render(consequent);
+            else if (get$3(direction) === "southeast") $$render(consequent_1, 1);
+            else $$render(alternate, false);
+          });
+        }
+        template_effect(() => {
+          set_attribute(button, "data-direction", get$3(direction));
+          set_attribute(button, "aria-label", `drag-${get$3(direction)}`);
+        });
+        delegated("mousedown", button, (e) => startResize(e));
+        delegated("dblclick", button, (e) => maximize(e));
+        append$1($$anchor2, button);
+      });
+      bind_this(div_1, ($$value) => resizer = $$value, () => resizer);
+      bind_this(div, ($$value) => container = $$value, () => container);
+      template_effect(() => styles = set_style(div, "", styles, {
+        "--viewport-window-width": viewportState.width,
+        "--viewport-window-height": viewportState.height
+      }));
+      append$1($$anchor, div);
+      pop();
+    }
+    delegate(["mousedown", "dblclick"]);
     var root_1$8 = /* @__PURE__ */ from_html(`<div data-role="toolbar:start"><!></div>`);
     var root_2$3 = /* @__PURE__ */ from_html(`<div data-role="toolbar:end"><!></div>`);
     var root$d = /* @__PURE__ */ from_html(`<div><!> <!></div>`);
@@ -11924,6 +12418,7 @@ var require_ui_001 = __commonJS({
       }
       append$1($$anchor, div);
     }
+    var root_5 = /* @__PURE__ */ from_html(`<span data-role="tabs:label" class="label mark"><span><!></span></span>`);
     var root_1$7 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
     function Tabs_1($$anchor, $$props) {
       push($$props, true);
@@ -11964,14 +12459,15 @@ var require_ui_001 = __commonJS({
                             },
                             "data-role": "tabs:trigger",
                             children: ($$anchor9, $$slotProps3) => {
-                              var fragment_5 = comment();
-                              var node_5 = first_child(fragment_5);
+                              var span = root_5();
+                              var span_1 = child(span);
+                              var node_5 = child(span_1);
                               {
                                 var consequent = ($$anchor10) => {
-                                  var fragment_6 = comment();
-                                  var node_6 = first_child(fragment_6);
+                                  var fragment_5 = comment();
+                                  var node_6 = first_child(fragment_5);
                                   snippet(node_6, () => $$props.label, () => get$3(p));
-                                  append$1($$anchor10, fragment_6);
+                                  append$1($$anchor10, fragment_5);
                                 };
                                 var alternate = ($$anchor10) => {
                                   var text$1 = text();
@@ -11983,7 +12479,7 @@ var require_ui_001 = __commonJS({
                                   else $$render(alternate, false);
                                 });
                               }
-                              append$1($$anchor9, fragment_5);
+                              append$1($$anchor9, span);
                             },
                             $$slots: { default: true }
                           });
@@ -12001,8 +12497,8 @@ var require_ui_001 = __commonJS({
             }
             var node_7 = sibling(node_1, 2);
             each(node_7, 17, panels, (p) => p.id, ($$anchor4, p) => {
-              var fragment_8 = comment();
-              var node_8 = first_child(fragment_8);
+              var fragment_7 = comment();
+              var node_8 = first_child(fragment_7);
               component(node_8, () => Tabs_content, ($$anchor5, Tabs_Content) => {
                 Tabs_Content($$anchor5, {
                   get value() {
@@ -12010,15 +12506,15 @@ var require_ui_001 = __commonJS({
                   },
                   "data-role": "tabs:panel",
                   children: ($$anchor6, $$slotProps2) => {
-                    var fragment_9 = comment();
-                    var node_9 = first_child(fragment_9);
+                    var fragment_8 = comment();
+                    var node_9 = first_child(fragment_8);
                     snippet(node_9, () => $$props.panel, () => get$3(p));
-                    append$1($$anchor6, fragment_9);
+                    append$1($$anchor6, fragment_8);
                   },
                   $$slots: { default: true }
                 });
               });
-              append$1($$anchor4, fragment_8);
+              append$1($$anchor4, fragment_7);
             });
             append$1($$anchor3, fragment_1);
           },
@@ -12060,18 +12556,18 @@ var require_ui_001 = __commonJS({
     }
     var nullTag = "[object Null]", undefinedTag = "[object Undefined]";
     var symToStringTag = Symbol$1 ? Symbol$1.toStringTag : void 0;
-    function baseGetTag$1(value) {
+    function baseGetTag(value) {
       if (value == null) {
         return value === void 0 ? undefinedTag : nullTag;
       }
       return symToStringTag && symToStringTag in Object(value) ? getRawTag(value) : objectToString(value);
     }
-    function isObjectLike$1(value) {
+    function isObjectLike(value) {
       return value != null && typeof value == "object";
     }
     var symbolTag$3 = "[object Symbol]";
     function isSymbol(value) {
-      return typeof value == "symbol" || isObjectLike$1(value) && baseGetTag$1(value) == symbolTag$3;
+      return typeof value == "symbol" || isObjectLike(value) && baseGetTag(value) == symbolTag$3;
     }
     function arrayMap(array, iteratee) {
       var index2 = -1, length = array == null ? 0 : array.length, result = Array(length);
@@ -12080,13 +12576,13 @@ var require_ui_001 = __commonJS({
       }
       return result;
     }
-    var isArray$2 = Array.isArray;
+    var isArray$1 = Array.isArray;
     var symbolProto$2 = Symbol$1 ? Symbol$1.prototype : void 0, symbolToString = symbolProto$2 ? symbolProto$2.toString : void 0;
     function baseToString(value) {
       if (typeof value == "string") {
         return value;
       }
-      if (isArray$2(value)) {
+      if (isArray$1(value)) {
         return arrayMap(value, baseToString) + "";
       }
       if (isSymbol(value)) {
@@ -12095,16 +12591,16 @@ var require_ui_001 = __commonJS({
       var result = value + "";
       return result == "0" && 1 / value == -Infinity ? "-0" : result;
     }
-    function isObject$3(value) {
+    function isObject$1(value) {
       var type2 = typeof value;
       return value != null && (type2 == "object" || type2 == "function");
     }
     var asyncTag = "[object AsyncFunction]", funcTag$2 = "[object Function]", genTag$1 = "[object GeneratorFunction]", proxyTag = "[object Proxy]";
-    function isFunction$3(value) {
-      if (!isObject$3(value)) {
+    function isFunction$2(value) {
+      if (!isObject$1(value)) {
         return false;
       }
-      var tag = baseGetTag$1(value);
+      var tag = baseGetTag(value);
       return tag == funcTag$2 || tag == genTag$1 || tag == asyncTag || tag == proxyTag;
     }
     var coreJsData = root$c["__core-js_shared__"];
@@ -12139,10 +12635,10 @@ var require_ui_001 = __commonJS({
       "^" + funcToString.call(hasOwnProperty$b).replace(reRegExpChar, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$"
     );
     function baseIsNative(value) {
-      if (!isObject$3(value) || isMasked(value)) {
+      if (!isObject$1(value) || isMasked(value)) {
         return false;
       }
-      var pattern = isFunction$3(value) ? reIsNative : reIsHostCtor;
+      var pattern = isFunction$2(value) ? reIsNative : reIsHostCtor;
       return pattern.test(toSource(value));
     }
     function getValue(object, key2) {
@@ -12158,7 +12654,7 @@ var require_ui_001 = __commonJS({
       function object() {
       }
       return function(proto) {
-        if (!isObject$3(proto)) {
+        if (!isObject$1(proto)) {
           return {};
         }
         if (objectCreate) {
@@ -12221,8 +12717,8 @@ var require_ui_001 = __commonJS({
     function isLength(value) {
       return typeof value == "number" && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
     }
-    function isArrayLike$1(value) {
-      return value != null && isLength(value.length) && !isFunction$3(value);
+    function isArrayLike(value) {
+      return value != null && isLength(value.length) && !isFunction$2(value);
     }
     var objectProto$a = Object.prototype;
     function isPrototype(value) {
@@ -12238,7 +12734,7 @@ var require_ui_001 = __commonJS({
     }
     var argsTag$3 = "[object Arguments]";
     function baseIsArguments(value) {
-      return isObjectLike$1(value) && baseGetTag$1(value) == argsTag$3;
+      return isObjectLike(value) && baseGetTag(value) == argsTag$3;
     }
     var objectProto$9 = Object.prototype;
     var hasOwnProperty$9 = objectProto$9.hasOwnProperty;
@@ -12246,7 +12742,7 @@ var require_ui_001 = __commonJS({
     var isArguments = baseIsArguments(/* @__PURE__ */ (function() {
       return arguments;
     })()) ? baseIsArguments : function(value) {
-      return isObjectLike$1(value) && hasOwnProperty$9.call(value, "callee") && !propertyIsEnumerable$1.call(value, "callee");
+      return isObjectLike(value) && hasOwnProperty$9.call(value, "callee") && !propertyIsEnumerable$1.call(value, "callee");
     };
     function stubFalse() {
       return false;
@@ -12263,7 +12759,7 @@ var require_ui_001 = __commonJS({
     typedArrayTags[float32Tag$2] = typedArrayTags[float64Tag$2] = typedArrayTags[int8Tag$2] = typedArrayTags[int16Tag$2] = typedArrayTags[int32Tag$2] = typedArrayTags[uint8Tag$2] = typedArrayTags[uint8ClampedTag$2] = typedArrayTags[uint16Tag$2] = typedArrayTags[uint32Tag$2] = true;
     typedArrayTags[argsTag$2] = typedArrayTags[arrayTag$2] = typedArrayTags[arrayBufferTag$3] = typedArrayTags[boolTag$3] = typedArrayTags[dataViewTag$4] = typedArrayTags[dateTag$3] = typedArrayTags[errorTag$2] = typedArrayTags[funcTag$1] = typedArrayTags[mapTag$5] = typedArrayTags[numberTag$3] = typedArrayTags[objectTag$3] = typedArrayTags[regexpTag$3] = typedArrayTags[setTag$5] = typedArrayTags[stringTag$3] = typedArrayTags[weakMapTag$2] = false;
     function baseIsTypedArray(value) {
-      return isObjectLike$1(value) && isLength(value.length) && !!typedArrayTags[baseGetTag$1(value)];
+      return isObjectLike(value) && isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
     }
     function baseUnary(func) {
       return function(value) {
@@ -12289,7 +12785,7 @@ var require_ui_001 = __commonJS({
     var objectProto$8 = Object.prototype;
     var hasOwnProperty$8 = objectProto$8.hasOwnProperty;
     function arrayLikeKeys(value, inherited) {
-      var isArr = isArray$2(value), isArg = !isArr && isArguments(value), isBuff = !isArr && !isArg && isBuffer$1(value), isType = !isArr && !isArg && !isBuff && isTypedArray$1(value), skipIndexes = isArr || isArg || isBuff || isType, result = skipIndexes ? baseTimes(value.length, String) : [], length = result.length;
+      var isArr = isArray$1(value), isArg = !isArr && isArguments(value), isBuff = !isArr && !isArg && isBuffer$1(value), isType = !isArr && !isArg && !isBuff && isTypedArray$1(value), skipIndexes = isArr || isArg || isBuff || isType, result = skipIndexes ? baseTimes(value.length, String) : [], length = result.length;
       for (var key2 in value) {
         if (hasOwnProperty$8.call(value, key2) && !(skipIndexes && // Safari 9 has enumerable `arguments.length` in strict mode.
         (key2 == "length" || // Node.js 0.10 has enumerable non-index properties on buffers.
@@ -12322,11 +12818,11 @@ var require_ui_001 = __commonJS({
       return result;
     }
     function keys(object) {
-      return isArrayLike$1(object) ? arrayLikeKeys(object) : baseKeys(object);
+      return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
     }
     var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/, reIsPlainProp = /^\w*$/;
     function isKey(value, object) {
-      if (isArray$2(value)) {
+      if (isArray$1(value)) {
         return false;
       }
       var type2 = typeof value;
@@ -12396,7 +12892,7 @@ var require_ui_001 = __commonJS({
       return -1;
     }
     var arrayProto = Array.prototype;
-    var splice$1 = arrayProto.splice;
+    var splice = arrayProto.splice;
     function listCacheDelete(key2) {
       var data = this.__data__, index2 = assocIndexOf(data, key2);
       if (index2 < 0) {
@@ -12406,7 +12902,7 @@ var require_ui_001 = __commonJS({
       if (index2 == lastIndex) {
         data.pop();
       } else {
-        splice$1.call(data, index2, 1);
+        splice.call(data, index2, 1);
       }
       --this.size;
       return true;
@@ -12533,7 +13029,7 @@ var require_ui_001 = __commonJS({
       return value == null ? "" : baseToString(value);
     }
     function castPath(value, object) {
-      if (isArray$2(value)) {
+      if (isArray$1(value)) {
         return value;
       }
       return isKey(value, object) ? [value] : stringToPath(toString$1(value));
@@ -12647,7 +13143,7 @@ var require_ui_001 = __commonJS({
     };
     function baseGetAllKeys(object, keysFunc, symbolsFunc) {
       var result = keysFunc(object);
-      return isArray$2(object) ? result : arrayPush(result, symbolsFunc(object));
+      return isArray$1(object) ? result : arrayPush(result, symbolsFunc(object));
     }
     function getAllKeys(object) {
       return baseGetAllKeys(object, keys, getSymbols);
@@ -12658,10 +13154,10 @@ var require_ui_001 = __commonJS({
     var mapTag$4 = "[object Map]", objectTag$2 = "[object Object]", promiseTag = "[object Promise]", setTag$4 = "[object Set]", weakMapTag$1 = "[object WeakMap]";
     var dataViewTag$3 = "[object DataView]";
     var dataViewCtorString = toSource(DataView$1), mapCtorString = toSource(Map$1), promiseCtorString = toSource(Promise$1), setCtorString = toSource(Set$1), weakMapCtorString = toSource(WeakMap$1);
-    var getTag = baseGetTag$1;
+    var getTag = baseGetTag;
     if (DataView$1 && getTag(new DataView$1(new ArrayBuffer(1))) != dataViewTag$3 || Map$1 && getTag(new Map$1()) != mapTag$4 || Promise$1 && getTag(Promise$1.resolve()) != promiseTag || Set$1 && getTag(new Set$1()) != setTag$4 || WeakMap$1 && getTag(new WeakMap$1()) != weakMapTag$1) {
       getTag = function(value) {
-        var result = baseGetTag$1(value), Ctor = result == objectTag$2 ? value.constructor : void 0, ctorString = Ctor ? toSource(Ctor) : "";
+        var result = baseGetTag(value), Ctor = result == objectTag$2 ? value.constructor : void 0, ctorString = Ctor ? toSource(Ctor) : "";
         if (ctorString) {
           switch (ctorString) {
             case dataViewCtorString:
@@ -12753,13 +13249,13 @@ var require_ui_001 = __commonJS({
     }
     var mapTag$2 = "[object Map]";
     function baseIsMap(value) {
-      return isObjectLike$1(value) && getTag(value) == mapTag$2;
+      return isObjectLike(value) && getTag(value) == mapTag$2;
     }
     var nodeIsMap = nodeUtil && nodeUtil.isMap;
     var isMap = nodeIsMap ? baseUnary(nodeIsMap) : baseIsMap;
     var setTag$2 = "[object Set]";
     function baseIsSet(value) {
-      return isObjectLike$1(value) && getTag(value) == setTag$2;
+      return isObjectLike(value) && getTag(value) == setTag$2;
     }
     var nodeIsSet = nodeUtil && nodeUtil.isSet;
     var isSet = nodeIsSet ? baseUnary(nodeIsSet) : baseIsSet;
@@ -12773,10 +13269,10 @@ var require_ui_001 = __commonJS({
       if (result !== void 0) {
         return result;
       }
-      if (!isObject$3(value)) {
+      if (!isObject$1(value)) {
         return value;
       }
-      var isArr = isArray$2(value);
+      var isArr = isArray$1(value);
       if (isArr) {
         result = initCloneArray(value);
       } else {
@@ -13011,7 +13507,7 @@ var require_ui_001 = __commonJS({
     var objectProto$1 = Object.prototype;
     var hasOwnProperty$2 = objectProto$1.hasOwnProperty;
     function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
-      var objIsArr = isArray$2(object), othIsArr = isArray$2(other), objTag = objIsArr ? arrayTag : getTag(object), othTag = othIsArr ? arrayTag : getTag(other);
+      var objIsArr = isArray$1(object), othIsArr = isArray$1(other), objTag = objIsArr ? arrayTag : getTag(object), othTag = othIsArr ? arrayTag : getTag(other);
       objTag = objTag == argsTag ? objectTag : objTag;
       othTag = othTag == argsTag ? objectTag : othTag;
       var objIsObj = objTag == objectTag, othIsObj = othTag == objectTag, isSameTag = objTag == othTag;
@@ -13044,7 +13540,7 @@ var require_ui_001 = __commonJS({
       if (value === other) {
         return true;
       }
-      if (value == null || other == null || !isObjectLike$1(value) && !isObjectLike$1(other)) {
+      if (value == null || other == null || !isObjectLike(value) && !isObjectLike(other)) {
         return value !== value && other !== other;
       }
       return baseIsEqualDeep(value, other, bitmask, customizer, baseIsEqual, stack);
@@ -13063,7 +13559,7 @@ var require_ui_001 = __commonJS({
         return result;
       }
       length = object == null ? 0 : object.length;
-      return !!length && isLength(length) && isIndex(key2, length) && (isArray$2(object) || isArguments(object));
+      return !!length && isLength(length) && isIndex(key2, length) && (isArray$1(object) || isArguments(object));
     }
     var htmlEscapes = {
       "&": "&amp;",
@@ -13083,14 +13579,14 @@ var require_ui_001 = __commonJS({
     function baseHas(object, key2) {
       return object != null && hasOwnProperty$1.call(object, key2);
     }
-    function has$1(object, path) {
+    function has(object, path) {
       return object != null && hasPath(object, path, baseHas);
     }
-    function isEqual$2(value, other) {
+    function isEqual(value, other) {
       return baseIsEqual(value, other);
     }
     function baseSet(object, path, value, customizer) {
-      if (!isObject$3(object)) {
+      if (!isObject$1(object)) {
         return object;
       }
       path = castPath(path, object);
@@ -13104,7 +13600,7 @@ var require_ui_001 = __commonJS({
           var objValue = nested[key2];
           newValue = void 0;
           if (newValue === void 0) {
-            newValue = isObject$3(objValue) ? objValue : isIndex(path[index2 + 1]) ? [] : {};
+            newValue = isObject$1(objValue) ? objValue : isIndex(path[index2 + 1]) ? [] : {};
           }
         }
         assignValue(nested, key2, newValue);
@@ -15675,10 +16171,10 @@ var require_ui_001 = __commonJS({
       return (thing) => kindOf(thing) === type2;
     };
     const typeOfTest = (type2) => (thing) => typeof thing === type2;
-    const { isArray: isArray$1 } = Array;
+    const { isArray } = Array;
     const isUndefined = typeOfTest("undefined");
     function isBuffer(val) {
-      return val !== null && !isUndefined(val) && val.constructor !== null && !isUndefined(val.constructor) && isFunction$2(val.constructor.isBuffer) && val.constructor.isBuffer(val);
+      return val !== null && !isUndefined(val) && val.constructor !== null && !isUndefined(val.constructor) && isFunction$1(val.constructor.isBuffer) && val.constructor.isBuffer(val);
     }
     const isArrayBuffer = kindOfTest("ArrayBuffer");
     function isArrayBufferView(val) {
@@ -15690,12 +16186,12 @@ var require_ui_001 = __commonJS({
       }
       return result;
     }
-    const isString$1 = typeOfTest("string");
-    const isFunction$2 = typeOfTest("function");
+    const isString = typeOfTest("string");
+    const isFunction$1 = typeOfTest("function");
     const isNumber = typeOfTest("number");
-    const isObject$2 = (thing) => thing !== null && typeof thing === "object";
+    const isObject = (thing) => thing !== null && typeof thing === "object";
     const isBoolean = (thing) => thing === true || thing === false;
-    const isPlainObject$1 = (val) => {
+    const isPlainObject = (val) => {
       if (kindOf(val) !== "object") {
         return false;
       }
@@ -15703,7 +16199,7 @@ var require_ui_001 = __commonJS({
       return (prototype2 === null || prototype2 === Object.prototype || Object.getPrototypeOf(prototype2) === null) && !(toStringTag in val) && !(iterator in val);
     };
     const isEmptyObject = (val) => {
-      if (!isObject$2(val) || isBuffer(val)) {
+      if (!isObject(val) || isBuffer(val)) {
         return false;
       }
       try {
@@ -15720,7 +16216,7 @@ var require_ui_001 = __commonJS({
     const isReactNative = (formData) => formData && typeof formData.getParts !== "undefined";
     const isBlob = kindOfTest("Blob");
     const isFileList = kindOfTest("FileList");
-    const isStream = (val) => isObject$2(val) && isFunction$2(val.pipe);
+    const isStream = (val) => isObject(val) && isFunction$1(val.pipe);
     function getGlobal() {
       if (typeof globalThis !== "undefined") return globalThis;
       if (typeof self !== "undefined") return self;
@@ -15732,8 +16228,8 @@ var require_ui_001 = __commonJS({
     const FormDataCtor = typeof G.FormData !== "undefined" ? G.FormData : void 0;
     const isFormData$1 = (thing) => {
       let kind;
-      return thing && (FormDataCtor && thing instanceof FormDataCtor || isFunction$2(thing.append) && ((kind = kindOf(thing)) === "formdata" || // detect form-data instance
-      kind === "object" && isFunction$2(thing.toString) && thing.toString() === "[object FormData]"));
+      return thing && (FormDataCtor && thing instanceof FormDataCtor || isFunction$1(thing.append) && ((kind = kindOf(thing)) === "formdata" || // detect form-data instance
+      kind === "object" && isFunction$1(thing.toString) && thing.toString() === "[object FormData]"));
     };
     const isURLSearchParams = kindOfTest("URLSearchParams");
     const [isReadableStream, isRequest, isResponse, isHeaders] = [
@@ -15754,7 +16250,7 @@ var require_ui_001 = __commonJS({
       if (typeof obj !== "object") {
         obj = [obj];
       }
-      if (isArray$1(obj)) {
+      if (isArray(obj)) {
         for (i = 0, l = obj.length; i < l; i++) {
           fn.call(null, obj[i], i, obj);
         }
@@ -15800,11 +16296,11 @@ var require_ui_001 = __commonJS({
           return;
         }
         const targetKey = caseless && findKey(result, key2) || key2;
-        if (isPlainObject$1(result[targetKey]) && isPlainObject$1(val)) {
+        if (isPlainObject(result[targetKey]) && isPlainObject(val)) {
           result[targetKey] = merge(result[targetKey], val);
-        } else if (isPlainObject$1(val)) {
+        } else if (isPlainObject(val)) {
           result[targetKey] = merge({}, val);
-        } else if (isArray$1(val)) {
+        } else if (isArray(val)) {
           result[targetKey] = val.slice();
         } else if (!skipUndefined || !isUndefined(val)) {
           result[targetKey] = val;
@@ -15819,7 +16315,7 @@ var require_ui_001 = __commonJS({
       forEach(
         b,
         (val, key2) => {
-          if (thisArg && isFunction$2(val)) {
+          if (thisArg && isFunction$1(val)) {
             Object.defineProperty(a, key2, {
               value: bind(val, thisArg),
               writable: true,
@@ -15888,9 +16384,9 @@ var require_ui_001 = __commonJS({
       const lastIndex = str.indexOf(searchString, position);
       return lastIndex !== -1 && lastIndex === position;
     };
-    const toArray$1 = (thing) => {
+    const toArray = (thing) => {
       if (!thing) return null;
-      if (isArray$1(thing)) return thing;
+      if (isArray(thing)) return thing;
       let i = thing.length;
       if (!isNumber(i)) return null;
       const arr = new Array(i);
@@ -15942,11 +16438,11 @@ var require_ui_001 = __commonJS({
     };
     const freezeMethods = (obj) => {
       reduceDescriptors(obj, (descriptor, name) => {
-        if (isFunction$2(obj) && ["arguments", "caller", "callee"].indexOf(name) !== -1) {
+        if (isFunction$1(obj) && ["arguments", "caller", "callee"].indexOf(name) !== -1) {
           return false;
         }
         const value = obj[name];
-        if (!isFunction$2(value)) return;
+        if (!isFunction$1(value)) return;
         descriptor.enumerable = false;
         if ("writable" in descriptor) {
           descriptor.writable = false;
@@ -15966,21 +16462,21 @@ var require_ui_001 = __commonJS({
           obj[value] = true;
         });
       };
-      isArray$1(arrayOrString) ? define(arrayOrString) : define(String(arrayOrString).split(delimiter));
+      isArray(arrayOrString) ? define(arrayOrString) : define(String(arrayOrString).split(delimiter));
       return obj;
     };
-    const noop$1 = () => {
+    const noop = () => {
     };
     const toFiniteNumber = (value, defaultValue) => {
       return value != null && Number.isFinite(value = +value) ? value : defaultValue;
     };
     function isSpecCompliantForm(thing) {
-      return !!(thing && isFunction$2(thing.append) && thing[toStringTag] === "FormData" && thing[iterator]);
+      return !!(thing && isFunction$1(thing.append) && thing[toStringTag] === "FormData" && thing[iterator]);
     }
     const toJSONObject = (obj) => {
       const stack = new Array(10);
       const visit2 = (source2, i) => {
-        if (isObject$2(source2)) {
+        if (isObject(source2)) {
           if (stack.indexOf(source2) >= 0) {
             return;
           }
@@ -15989,7 +16485,7 @@ var require_ui_001 = __commonJS({
           }
           if (!("toJSON" in source2)) {
             stack[i] = source2;
-            const target = isArray$1(source2) ? [] : {};
+            const target = isArray(source2) ? [] : {};
             forEach(source2, (value, key2) => {
               const reducedValue = visit2(value, i + 1);
               !isUndefined(reducedValue) && (target[key2] = reducedValue);
@@ -16003,7 +16499,7 @@ var require_ui_001 = __commonJS({
       return visit2(obj, 0);
     };
     const isAsyncFn = kindOfTest("AsyncFunction");
-    const isThenable = (thing) => thing && (isObject$2(thing) || isFunction$2(thing)) && isFunction$2(thing.then) && isFunction$2(thing.catch);
+    const isThenable = (thing) => thing && (isObject(thing) || isFunction$1(thing)) && isFunction$1(thing.then) && isFunction$1(thing.catch);
     const _setImmediate = ((setImmediateSupported, postMessageSupported) => {
       if (setImmediateSupported) {
         return setImmediate;
@@ -16023,20 +16519,20 @@ var require_ui_001 = __commonJS({
           _global.postMessage(token, "*");
         };
       })(`axios@${Math.random()}`, []) : (cb) => setTimeout(cb);
-    })(typeof setImmediate === "function", isFunction$2(_global.postMessage));
+    })(typeof setImmediate === "function", isFunction$1(_global.postMessage));
     const asap = typeof queueMicrotask !== "undefined" ? queueMicrotask.bind(_global) : typeof process !== "undefined" && process.nextTick || _setImmediate;
-    const isIterable = (thing) => thing != null && isFunction$2(thing[iterator]);
+    const isIterable = (thing) => thing != null && isFunction$1(thing[iterator]);
     const utils$1 = {
-      isArray: isArray$1,
+      isArray,
       isArrayBuffer,
       isBuffer,
       isFormData: isFormData$1,
       isArrayBufferView,
-      isString: isString$1,
+      isString,
       isNumber,
       isBoolean,
-      isObject: isObject$2,
-      isPlainObject: isPlainObject$1,
+      isObject,
+      isPlainObject,
       isEmptyObject,
       isReadableStream,
       isRequest,
@@ -16049,7 +16545,7 @@ var require_ui_001 = __commonJS({
       isReactNative,
       isBlob,
       isRegExp,
-      isFunction: isFunction$2,
+      isFunction: isFunction$1,
       isStream,
       isURLSearchParams,
       isTypedArray,
@@ -16064,7 +16560,7 @@ var require_ui_001 = __commonJS({
       kindOf,
       kindOfTest,
       endsWith,
-      toArray: toArray$1,
+      toArray,
       forEachEntry,
       matchAll,
       isHTMLForm,
@@ -16075,7 +16571,7 @@ var require_ui_001 = __commonJS({
       freezeMethods,
       toObjectSet,
       toCamelCase,
-      noop: noop$1,
+      noop,
       toFiniteNumber,
       findKey,
       global: _global,
@@ -17473,7 +17969,7 @@ var require_ui_001 = __commonJS({
       );
     };
     const DEFAULT_CHUNK_SIZE = 64 * 1024;
-    const { isFunction: isFunction$1 } = utils$1;
+    const { isFunction } = utils$1;
     const globalFetchAPI = (({ Request: Request2, Response: Response2 }) => ({
       Request: Request2,
       Response: Response2
@@ -17495,13 +17991,13 @@ var require_ui_001 = __commonJS({
         env
       );
       const { fetch: envFetch, Request: Request2, Response: Response2 } = env;
-      const isFetchSupported = envFetch ? isFunction$1(envFetch) : typeof fetch === "function";
-      const isRequestSupported = isFunction$1(Request2);
-      const isResponseSupported = isFunction$1(Response2);
+      const isFetchSupported = envFetch ? isFunction(envFetch) : typeof fetch === "function";
+      const isRequestSupported = isFunction(Request2);
+      const isResponseSupported = isFunction(Response2);
       if (!isFetchSupported) {
         return false;
       }
-      const isReadableStreamSupported = isFetchSupported && isFunction$1(ReadableStream$1);
+      const isReadableStreamSupported = isFetchSupported && isFunction(ReadableStream$1);
       const encodeText = isFetchSupported && (typeof TextEncoder$1 === "function" ? /* @__PURE__ */ ((encoder) => (str) => encoder.encode(str))(new TextEncoder$1()) : async (str) => new Uint8Array(await new Request2(str).arrayBuffer()));
       const supportsRequestStream = isRequestSupported && isReadableStreamSupported && test(() => {
         let duplexAccessed = false;
@@ -18286,7 +18782,7 @@ var require_ui_001 = __commonJS({
         this.config = newConfig;
       }
       get(key2) {
-        return has$1(this.config, key2) ? get$1(this.config, key2) : get$1(this.defaults, key2);
+        return has(this.config, key2) ? get$1(this.config, key2) : get$1(this.defaults, key2);
       }
       set(keyOrValues, value) {
         if (typeof keyOrValues === "string") {
@@ -19349,7 +19845,7 @@ var require_ui_001 = __commonJS({
             if (!window.history.state?.page) {
               return;
             }
-            if (isEqual$2(this.getScrollRegions(), scrollRegions)) {
+            if (isEqual(this.getScrollRegions(), scrollRegions)) {
               return;
             }
             return this.doReplaceState({
@@ -19365,7 +19861,7 @@ var require_ui_001 = __commonJS({
             if (!window.history.state?.page) {
               return;
             }
-            if (isEqual$2(this.getDocumentScrollPosition(), scrollRegion)) {
+            if (isEqual(this.getDocumentScrollPosition(), scrollRegion)) {
               return;
             }
             return this.doReplaceState({
@@ -19382,7 +19878,7 @@ var require_ui_001 = __commonJS({
         return window.history.state?.documentScrollPosition || { top: 0, left: 0 };
       }
       replaceState(page2, cb = null) {
-        if (isEqual$2(this.current, page2)) {
+        if (isEqual(this.current, page2)) {
           cb && cb();
           return;
         }
@@ -20035,7 +20531,7 @@ var require_ui_001 = __commonJS({
           router.flush(page$1.get().url);
         }
         const { flash } = page$1.get();
-        if (Object.keys(flash).length > 0 && (!this.requestParams.isPartial() || !isEqual$2(flash, previousFlash))) {
+        if (Object.keys(flash).length > 0 && (!this.requestParams.isPartial() || !isEqual(flash, previousFlash))) {
           fireFlashEvent(flash);
           this.requestParams.all().onFlash(flash);
         }
@@ -20157,7 +20653,7 @@ var require_ui_001 = __commonJS({
         }
         const currentPageProps = page$1.get().props;
         Object.entries(pageResponse.props).forEach(([key2, value]) => {
-          if (isEqual$2(value, currentPageProps[key2])) {
+          if (isEqual(value, currentPageProps[key2])) {
             pageResponse.props[key2] = currentPageProps[key2];
           }
         });
@@ -20939,7 +21435,7 @@ var require_ui_001 = __commonJS({
           progress3.style.transition = `all ${speed}ms linear`;
           progress3.style.opacity = "0";
           setTimeout(() => {
-            remove$2();
+            remove();
             progress3.style.transition = "";
             progress3.style.opacity = "";
             next2();
@@ -21018,7 +21514,7 @@ var require_ui_001 = __commonJS({
     var getParent = () => {
       return isDOM(settings.parent) ? settings.parent : document.querySelector(settings.parent);
     };
-    var remove$2 = () => {
+    var remove = () => {
       document.documentElement.classList.remove(`${baseComponentSelector}-busy`);
       getParent().classList.remove(`${baseComponentSelector}-custom-parent`);
       progress2?.remove();
@@ -21141,7 +21637,7 @@ var require_ui_001 = __commonJS({
       isStarted,
       done,
       set: set5,
-      remove: remove$2,
+      remove,
       start,
       status,
       show,
@@ -21700,28 +22196,6 @@ var require_ui_001 = __commonJS({
       return { update: update2, destroy };
     }
     const config = config$1.extend({});
-    var root_1$6 = /* @__PURE__ */ from_html(`<i data-component="icon" class="icon"><!></i>`);
-    function Icon$1($$anchor, $$props) {
-      const IconSvg = prop($$props, "svg", 3, null), size = prop($$props, "size", 3, "md"), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "svg", "size"]);
-      const defaultProps = { size: 16, strokeWidth: 1, absoluteStrokeWidth: true };
-      var fragment = comment();
-      var node = first_child(fragment);
-      {
-        var consequent = ($$anchor2) => {
-          var i = root_1$6();
-          var node_1 = child(i);
-          component(node_1, IconSvg, ($$anchor3, IconSvg_1) => {
-            IconSvg_1($$anchor3, spread_props(() => defaultProps, () => props));
-          });
-          template_effect(() => set_attribute(i, "data-size", size()));
-          append$1($$anchor2, i);
-        };
-        if_block(node, ($$render) => {
-          if (IconSvg()) $$render(consequent);
-        });
-      }
-      append$1($$anchor, fragment);
-    }
     var root_1$5 = /* @__PURE__ */ from_html(`<span data-role="button:content"><!> <!></span>`);
     function Button($$anchor, $$props) {
       var fragment = comment();
@@ -21766,7 +22240,7 @@ var require_ui_001 = __commonJS({
       append$1($$anchor, div);
     }
     var root_2$2 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
-    var root$9 = /* @__PURE__ */ from_html(`<div data-component="splitter"><!></div>`);
+    var root$a = /* @__PURE__ */ from_html(`<div data-component="splitter"><!></div>`);
     function Splitter_1($$anchor, $$props) {
       push($$props, true);
       let panel = prop($$props, "panel", 3, null), orientation = prop($$props, "orientation", 3, "horizontal"), panelSnippets = /* @__PURE__ */ rest_props($$props, [
@@ -21781,7 +22255,7 @@ var require_ui_001 = __commonJS({
       ]);
       const createSplitterState = () => new PersistedState(`splitter:${$$props.id}`, { orientation: orientation(), size: [] });
       createSplitterState();
-      var div = root$9();
+      var div = root$a();
       var node = child(div);
       component(node, () => Splitter_root, ($$anchor2, Splitter_Root) => {
         Splitter_Root($$anchor2, {
@@ -21897,7 +22371,7 @@ var require_ui_001 = __commonJS({
       append$1($$anchor, fragment);
     }
     var root_3$1 = /* @__PURE__ */ from_html(`<div data-role="inspector-panel:content"> </div>`);
-    var root$8 = /* @__PURE__ */ from_html(`<div data-component="inspector-panel" class="svelte-1kkjpr5"><!></div>`);
+    var root$9 = /* @__PURE__ */ from_html(`<div data-component="inspector-panel" class="svelte-1kkjpr5"><!></div>`);
     function Inspector_panel($$anchor, $$props) {
       push($$props, true);
       const decodeHTML = (html2) => {
@@ -21905,7 +22379,7 @@ var require_ui_001 = __commonJS({
         txt.innerHTML = html2;
         return txt.value;
       };
-      var div = root$8();
+      var div = root$9();
       var node = child(div);
       {
         var consequent = ($$anchor2) => {
@@ -21937,299 +22411,16 @@ var require_ui_001 = __commonJS({
       append$1($$anchor, div);
       pop();
     }
-    const defaultAttributes = {
-      xmlns: "http://www.w3.org/2000/svg",
-      width: 24,
-      height: 24,
-      viewBox: "0 0 24 24",
-      fill: "none",
-      stroke: "currentColor",
-      "stroke-width": 2,
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round"
-    };
-    const hasA11yProp = (props) => {
-      for (const prop2 in props) {
-        if (prop2.startsWith("aria-") || prop2 === "role" || prop2 === "title") {
-          return true;
-        }
-      }
-      return false;
-    };
-    const mergeClasses = (...classes) => classes.filter((className, index2, array) => {
-      return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index2;
-    }).join(" ").trim();
-    var root$7 = /* @__PURE__ */ from_svg(`<svg><!><!></svg>`);
-    function Icon($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const $$restProps = legacy_rest_props($$sanitized_props, [
-        "name",
-        "color",
-        "size",
-        "strokeWidth",
-        "absoluteStrokeWidth",
-        "iconNode"
-      ]);
-      push($$props, false);
-      let name = prop($$props, "name", 8, void 0);
-      let color = prop($$props, "color", 8, "currentColor");
-      let size = prop($$props, "size", 8, 24);
-      let strokeWidth = prop($$props, "strokeWidth", 8, 2);
-      let absoluteStrokeWidth = prop($$props, "absoluteStrokeWidth", 8, false);
-      let iconNode = prop($$props, "iconNode", 24, () => []);
-      init();
-      var svg = root$7();
-      attribute_effect(
-        svg,
-        ($0, $1, $2) => ({
-          ...defaultAttributes,
-          ...$0,
-          ...$$restProps,
-          width: size(),
-          height: size(),
-          stroke: color(),
-          "stroke-width": $1,
-          class: $2
-        }),
-        [
-          () => !hasA11yProp($$restProps) ? { "aria-hidden": "true" } : void 0,
-          () => (deep_read_state(absoluteStrokeWidth()), deep_read_state(strokeWidth()), deep_read_state(size()), untrack(() => absoluteStrokeWidth() ? Number(strokeWidth()) * 24 / Number(size()) : strokeWidth())),
-          () => (deep_read_state(mergeClasses), deep_read_state(name()), deep_read_state($$sanitized_props), untrack(() => mergeClasses("lucide-icon", "lucide", name() ? `lucide-${name()}` : "", $$sanitized_props.class)))
-        ]
-      );
-      var node = child(svg);
-      each(node, 1, iconNode, index, ($$anchor2, $$item) => {
-        var $$array = /* @__PURE__ */ user_derived(() => to_array(get$3($$item), 2));
-        let tag = () => get$3($$array)[0];
-        let attrs = () => get$3($$array)[1];
-        var fragment = comment();
-        var node_1 = first_child(fragment);
-        element(node_1, tag, true, ($$element, $$anchor3) => {
-          attribute_effect($$element, () => ({ ...attrs() }));
-        });
-        append$1($$anchor2, fragment);
-      });
-      var node_2 = sibling(node);
-      slot(node_2, $$props, "default", {});
-      append$1($$anchor, svg);
-      pop();
-    }
-    function File$1($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [
-        [
-          "path",
-          {
-            "d": "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
-          }
-        ],
-        ["path", { "d": "M14 2v5a1 1 0 0 0 1 1h5" }]
-      ];
-      Icon($$anchor, spread_props({ name: "file" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
-    }
-    function Folder_open($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [
-        [
-          "path",
-          {
-            "d": "m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"
-          }
-        ]
-      ];
-      Icon($$anchor, spread_props({ name: "folder-open" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
-    }
-    function Folder($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [
-        [
-          "path",
-          {
-            "d": "M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"
-          }
-        ]
-      ];
-      Icon($$anchor, spread_props({ name: "folder" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
-    }
-    function Layers_2($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [
-        [
-          "path",
-          {
-            "d": "M13 13.74a2 2 0 0 1-2 0L2.5 8.87a1 1 0 0 1 0-1.74L11 2.26a2 2 0 0 1 2 0l8.5 4.87a1 1 0 0 1 0 1.74z"
-          }
-        ],
-        [
-          "path",
-          {
-            "d": "m20 14.285 1.5.845a1 1 0 0 1 0 1.74L13 21.74a2 2 0 0 1-2 0l-8.5-4.87a1 1 0 0 1 0-1.74l1.5-.845"
-          }
-        ]
-      ];
-      Icon($$anchor, spread_props({ name: "layers-2" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
-    }
-    function List_filter($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [
-        ["path", { "d": "M2 5h20" }],
-        ["path", { "d": "M6 12h12" }],
-        ["path", { "d": "M9 19h6" }]
-      ];
-      Icon($$anchor, spread_props({ name: "list-filter" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
-    }
-    function Panel_bottom_close($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [
-        [
-          "rect",
-          { "width": "18", "height": "18", "x": "3", "y": "3", "rx": "2" }
-        ],
-        ["path", { "d": "M3 15h18" }],
-        ["path", { "d": "m15 8-3 3-3-3" }]
-      ];
-      Icon($$anchor, spread_props({ name: "panel-bottom-close" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
-    }
-    function Panel_right_close($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [
-        [
-          "rect",
-          { "width": "18", "height": "18", "x": "3", "y": "3", "rx": "2" }
-        ],
-        ["path", { "d": "M15 3v18" }],
-        ["path", { "d": "m8 9 3 3-3 3" }]
-      ];
-      Icon($$anchor, spread_props({ name: "panel-right-close" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
-    }
-    function Square_dashed_mouse_pointer($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [
-        [
-          "path",
-          {
-            "d": "M12.034 12.681a.498.498 0 0 1 .647-.647l9 3.5a.5.5 0 0 1-.033.943l-3.444 1.068a1 1 0 0 0-.66.66l-1.067 3.443a.5.5 0 0 1-.943.033z"
-          }
-        ],
-        ["path", { "d": "M5 3a2 2 0 0 0-2 2" }],
-        ["path", { "d": "M19 3a2 2 0 0 1 2 2" }],
-        ["path", { "d": "M5 21a2 2 0 0 1-2-2" }],
-        ["path", { "d": "M9 3h1" }],
-        ["path", { "d": "M9 21h2" }],
-        ["path", { "d": "M14 3h1" }],
-        ["path", { "d": "M3 9v1" }],
-        ["path", { "d": "M21 9v2" }],
-        ["path", { "d": "M3 14v1" }]
-      ];
-      Icon($$anchor, spread_props({ name: "square-dashed-mouse-pointer" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
-    }
     var root_1$3 = /* @__PURE__ */ from_html(`<h4 data-role="inspector:breadcrumb" class="label">Elements / Button / Themes</h4>`);
     var root_3 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
     var root_6 = /* @__PURE__ */ from_html(`<div data-role="inspector:panel"><!></div>`);
     var root_7$1 = /* @__PURE__ */ from_html(`<div data-role="inspector:panel">end</div>`);
     var root_8 = /* @__PURE__ */ from_html(`<div data-role="inspector:panel"><!></div>`);
-    var root$6 = /* @__PURE__ */ from_html(`<div data-component="inspector"><div data-role="inspector:toolbar"><!></div> <div data-role="inspector:panels"><!></div></div>`);
+    var root$7 = /* @__PURE__ */ from_html(`<div data-component="inspector"><div data-role="inspector:toolbar"><!></div> <div data-role="inspector:panels"><!></div></div>`);
     function Inspector($$anchor, $$props) {
       push($$props, true);
-      let panelGroups = /* @__PURE__ */ user_derived(() => $$props.panels.reduce(
-        (grouped, panel) => {
-          const slot2 = panel.defaultSlot;
-          grouped[slot2] = grouped[slot2] || [];
-          grouped[slot2].push(panel);
-          return grouped;
-        },
-        {}
-      ));
-      let drawerPanels = /* @__PURE__ */ user_derived(() => get$3(panelGroups)["drawer"] || []);
-      var div = root$6();
+      let drawerPanels = /* @__PURE__ */ user_derived(() => $$props.panels?.drawer || []);
+      var div = root$7();
       var div_1 = child(div);
       var node = child(div_1);
       {
@@ -22272,11 +22463,7 @@ var require_ui_001 = __commonJS({
             const start2 = ($$anchor3) => {
               var div_3 = root_6();
               var node_4 = child(div_3);
-              Frame(node_4, {
-                get srcdoc() {
-                  return $$props.preview.srcdoc;
-                }
-              });
+              Viewport(node_4, spread_props(() => $$props.preview));
               append$1($$anchor3, div_3);
             };
             const end = ($$anchor3) => {
@@ -22349,13 +22536,13 @@ var require_ui_001 = __commonJS({
       __proto__: null,
       default: Show$2
     }, Symbol.toStringTag, { value: "Module" }));
-    var root$a = /* @__PURE__ */ from_html(`<p> </p> <div>spec</div>`, 1);
+    var root$6 = /* @__PURE__ */ from_html(`<p> </p> <div>spec</div>`, 1);
     function Show$1($$anchor, $$props) {
       push($$props, true);
       const $page = () => store_get(page, "$page", $$stores);
       const [$$stores, $$cleanup] = setup_stores();
       let collection2 = /* @__PURE__ */ user_derived(() => $page().props.collections.find((c) => c.id === $$props.collectionId));
-      var fragment = root$a();
+      var fragment = root$6();
       var p = first_child(fragment);
       var text2 = child(p);
       template_effect(() => set_text(text2, get$3(collection2).label));

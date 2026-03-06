@@ -29,38 +29,39 @@ module Lookbook
 
     # TODO: Build panels list dynamically from config/plugins
     private def panels
-      [
-        {
-          id: "source-tab",
-          label: "Source",
-          defaultSlot: :drawer,
-          component: :snippet,
-          props: {
-            content: helpers.snippet(@scenario.source, lang: @scenario.source.lang),
-            lang: @scenario.source.lang
+      {
+        drawer: [
+          {
+            id: "source-tab",
+            label: "Source",
+            component: :snippet,
+            props: {
+              content: helpers.snippet(@scenario.source, lang: @scenario.source.lang),
+              lang: @scenario.source.lang
+            }
+          },
+          {
+            id: "html-tab",
+            label: "HTML",
+            component: :snippet,
+            props: {
+              content: helpers.snippet(@scenario.call(param_values), lang: :html),
+              lang: :html,
+              output: true
+            }
           }
-        },
-        {
-          id: "html-tab",
-          label: "HTML",
-          defaultSlot: :drawer,
-          component: :snippet,
-          props: {
-            content: helpers.snippet(@scenario.call(param_values), lang: :html),
-            lang: :html,
-            output: true
+        ],
+        sidebar: [
+          {
+            id: "params-tab",
+            label: "Params",
+            component: :params,
+            props: {
+              params: param_controls
+            }
           }
-        },
-        {
-          id: "params-tab",
-          label: "Params",
-          defaultSlot: :sidebar,
-          component: :params,
-          props: {
-            params: param_controls
-          }
-        }
-      ]
+        ]
+      }
     end
 
     private def collection = @scenario.collection
