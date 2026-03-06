@@ -3,7 +3,8 @@ experimental_monorepo_root = true
 [tools]
 node = "25"
 ruby = "3.2"
-
+pitchfork = "latest"
+watchexec = "latest"
 "npm:@herb-tools/formatter" = "latest"
 "npm:@herb-tools/linter" = "latest"
 
@@ -13,18 +14,28 @@ config_roots = ["apps/docs", "apps/dev", "gems/lookbook"]
 [env]
 MISE_EXPERIMENTAL = 1
 _.path = ['{{config_root}}/node_modules/.bin'] # add node modules binaries to the PATH so `npx` isn't needed
+DEV_PORT = 4444
+DOCS_PORT = 8888
 
 [tasks.setup]
 description = "Run setup scripts for all packages"
 run = ["bundle install", "mise //apps/...:setup", "mise //gems/...:setup"]
 
+[tasks.dev]
+description = "Serve the dev app"
+run = "mise //apps/dev:start"
+
 [tasks.docs]
-description = "Start the docs/demo app"
+description = "Serve the docs site"
 run = "mise //apps/docs:start"
 
-[tasks.dev]
-description = "Start the dev app"
-run = "mise //apps/dev:start"
+[tasks.start]
+description = "Serve dev & docs apps"
+run = "mise //apps/...:start && pitchfork tui"
+
+[tasks.stop]
+description = "Stop all daemons"
+run = "mise //apps/...:stop"
 
 [tasks."lint:herb"]
 description = "Lint all ERB files in the monorepo"
@@ -33,3 +44,11 @@ run = "herb-lint"
 [tasks.lint]
 description = "Lint all files in the monorepo"
 run = "mise lint:herb"
+
+[shell_alias]
+setup = "mise setup"
+start = "mise start"
+dev = "mise dev"
+docs = "mise docs"
+stop = "mise stop"
+tui = "pitchfork tui"

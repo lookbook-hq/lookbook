@@ -4,23 +4,30 @@ _WIP monorepo setup for Lookbook v4 development._
 
 ## Development
 
-[Mise](https://mise.jdx.dev) is used to manage tool versions and run tasks across this monorepo.
+[Mise](https://mise.jdx.dev) is used to manage tool versions and run tasks across this monorepo. Process management is handled by [Pitchfork](https://pitchfork.jdx.dev).
 
-Mise monorepo tasks support is still experimental and so requires the `MISE_EXPERIMENTAL=1` environment variable to be set when running any mise tasks.
-See the [Mise monorepo docs](https://mise.jdx.dev/tasks/monorepo.html) for more details.
+> _The `apps/dev` and `apps/docs` Rails apps are configured to use the local version of all Lookbook gems whilst in development._
+
+### Install dependencies
+
+```shell
+mise setup
+```
 
 ### Start the dev app 🛠️
-
-Runs the dev app (`apps/dev`), loading Lookbook gems locally from the `gems` directory.
 
 ```shell
 mise dev
 ```
 
-### Start the doc site app 🔍
-
-Runs the docs site app (`apps/docs`), loading Lookbook gems locally from the `gems` directory.
+### Start the docs/demo app 🔍
 
 ```shell
 mise docs
+```
+
+### Stop all daemons
+
+```shell
+mise stop
 ```

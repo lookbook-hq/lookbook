@@ -1,13 +1,8 @@
 source "https://rubygems.org"
 
-# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.1.2"
-# Use the Puma web server [https://github.com/puma/puma]
+gem "rails", "~> 8.1"
 gem "puma", ">= 5.0"
-# Use Vite.js for asset management [https://vite-ruby.netlify.app/]
-gem "vite_rails"
-
-# Reduces boot times through caching; required in config/boot.rb
+gem "tzinfo-data", platforms: %i[windows jruby]
 gem "bootsnap", require: false
 
 gem "view_component"
@@ -21,10 +16,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "vite_rails"
   gem "listen"
-
-  # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  # Process manager for Procfile-based applications [https://github.com/DarthSim/overmind]
-  gem "overmind"
 end

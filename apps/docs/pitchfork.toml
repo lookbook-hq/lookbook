@@ -1,0 +1,8 @@
+[daemons.rails]
+run = "mise rails"
+
+[daemons.vite]
+run = "mise vite"
+
+[daemons.lookbook]
+run = "mise //gems/lookbook:assets:watch"

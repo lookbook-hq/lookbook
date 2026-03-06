@@ -199,11 +199,6 @@ GEM
       racc (~> 1.4)
     nokogiri (1.19.1-x86_64-linux-musl)
       racc (~> 1.4)
-    overmind (2.5.1)
-    overmind (2.5.1-aarch64-linux)
-    overmind (2.5.1-arm-linux)
-    overmind (2.5.1-arm64-darwin)
-    overmind (2.5.1-x86_64-darwin)
     pp (0.6.3)
       prettyprint
     pretty_please (0.2.0)
@@ -319,11 +314,11 @@ DEPENDENCIES
   listen
   lookbook!
   lookbooklet!
-  overmind
   pretty_please
   puma (>= 5.0)
   puts_debuggerer
-  rails (~> 8.1.2)
+  rails (~> 8.1)
+  tzinfo-data
   view_component
   vite_rails
   web-console
@@ -409,11 +404,6 @@ CHECKSUMS
   nokogiri (1.19.1-x86_64-darwin) sha256=7093896778cc03efb74b85f915a775862730e887f2e58d6921e3fa3d981e68bf
   nokogiri (1.19.1-x86_64-linux-gnu) sha256=1a4902842a186b4f901078e692d12257678e6133858d0566152fe29cdb98456a
   nokogiri (1.19.1-x86_64-linux-musl) sha256=4267f38ad4fc7e52a2e7ee28ed494e8f9d8eb4f4b3320901d55981c7b995fc23
-  overmind (2.5.1) sha256=df4676e787845173c3929029d2b2952055ffaf02fde0106054f98f4c2611ec9a
-  overmind (2.5.1-aarch64-linux) sha256=13a979e61278fb5a214600e844268460a86787a8f1a8ed962dcf6aa018f3f50e
-  overmind (2.5.1-arm-linux) sha256=5e12b5fb973dce118769648cf6549a48a0d424f947b40fbb30012f53308d23e1
-  overmind (2.5.1-arm64-darwin) sha256=8b1c9ea304ef524eaf335b4524d5dbd58e02ed9492397243f61cc49a8bd4eca7
-  overmind (2.5.1-x86_64-darwin) sha256=6db525d57350f78bbee1f9862202eb2ad04416367f956e4e94cb47d7f060bc79
   pp (0.6.3) sha256=2951d514450b93ccfeb1df7d021cae0da16e0a7f95ee1e2273719669d0ab9df6
   pretty_please (0.2.0) sha256=1f00296f946ae8ffd53db25803ed3998d615b9cc07526517dc75fcca6af3a0d3
   prettyprint (0.2.0) sha256=2bc9e15581a94742064a3cc8b0fb9d45aae3d03a1baa6ef80922627a0766f193

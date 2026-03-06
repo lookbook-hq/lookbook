@@ -1,32 +1,27 @@
+[env]
+PORT = "{{env.DEV_PORT | default(value=4444)}}"
+
 [tasks.setup]
 description = "Install dependencies and initial setup tasks"
 run = "bin/setup --skip-server"
 
-[tasks."clean:socket"]
-description = "Remove overmind socket file (if it exists)"
-run = "rm -f ./.overmind.sock"
-
-[tasks.start]
-description = "Start the development server"
-depends = ["clean:socket"]
-run = "bin/dev"
-
-[tasks."restart"]
-description = "Restart all processes"
-run = "bundle exec overmind restart"
-
-[tasks."restart:web"]
-description = "Restart the Rails server"
-run = "bundle exec overmind restart web"
-
-[tasks."restart:vite"]
-description = "Restart the Vite dev server"
-run = "bundle exec overmind restart vite"
-
-[tasks.server]
-description = "Start the Rails server (without Vite dev server)"
+[tasks.rails]
+description = "Start the Rails server"
 run = "bin/rails server"
 
-[tasks.console]
-description = "Start the Rails console"
-run = "bin/rails console"
+[tasks.vite]
+description = "Start the Vite server"
+run = "bin/vite dev"
+
+[tasks.start]
+description = "Start the dev server(s)"
+run = "pitchfork start rails vite lookbook"
+
+[tasks.stop]
+description = "Stop the dev server(s)"
+run = "pitchfork stop rails vite lookbook"
+
+[shell_alias]
+dev = "mise start"
+stop = "mise stop"
+tui = "pitchfork tui"

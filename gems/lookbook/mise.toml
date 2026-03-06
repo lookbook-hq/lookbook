@@ -2,10 +2,14 @@
 description = "Install dependencies"
 run = "bundle install && npm install"
 
-[tasks."assets:watch"]
-description = "Rebuild assets when changed"
-run = "./node_modules/.bin/vite build --watch"
-
 [tasks."assets:build"]
-description = "Build assets for production"
+description = "Build assets"
 run = "./node_modules/.bin/vite build"
+
+[tasks."assets:watch"]
+description = "Watch assets and rebuild on change"
+run = "mise watch assets:build -w app/frontend/lookbook"
+
+[shell_alias]
+build = "mise assets:build"
+watch = "mise assets:watch"
