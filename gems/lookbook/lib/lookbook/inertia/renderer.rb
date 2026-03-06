@@ -29,7 +29,6 @@ module Lookbook
         @component = resolve_component(component)
 
         @controller.instance_variable_set(:@_inertia_rendering, true)
-        controller.inertia_meta.add(options[:meta]) if options[:meta]
       end
 
       def render
@@ -78,10 +77,6 @@ module Lookbook
         end
           .then { |props| deep_transform_props(props) } # Internal hydration/filtering
           .then { |props| @configuration.prop_transformer(props: props) } # Apply user-defined prop transformer
-          .tap do |props|
-            # Add meta tags last (never transformed)
-            props[:_inertia_meta] = meta_tags if meta_tags.present?
-        end
         # rubocop:enable Style/MultilineBlockChain
       end
 
@@ -243,7 +238,6 @@ module Lookbook
       end
 
       def keep_prop?(prop, path)
-        return true if prop.is_a?(AlwaysProp)
         return false if excluded_by_once_cache?(prop, path)
         return false if excluded_by_partial_request?(path)
 
@@ -288,10 +282,6 @@ module Lookbook
 
       def excluded_by_except_partial_keys?(path_with_prefixes)
         partial_except_keys.present? && (path_with_prefixes & partial_except_keys).any?
-      end
-
-      def meta_tags
-        @controller.inertia_meta.meta_tags
       end
     end
   end

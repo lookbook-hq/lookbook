@@ -12,12 +12,8 @@ module Lookbook
           },
 
           collections: {
-            previews: {
+            default: {
               path: "lookbook",
-              watch_extensions: []
-            },
-            pages: {
-              path: "docs",
               watch_extensions: []
             }
           },

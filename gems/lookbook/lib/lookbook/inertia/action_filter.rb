@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-#
 # Based on AbstractController::Callbacks::ActionFilter
 # https://github.com/rails/rails/blob/v7.2.0/actionpack/lib/abstract_controller/callbacks.rb#L39
 module Lookbook

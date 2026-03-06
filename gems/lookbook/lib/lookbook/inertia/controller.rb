@@ -6,8 +6,6 @@ module Lookbook
       extend ActiveSupport::Concern
 
       included do
-        helper Inertia::Helper
-
         after_action do
           cookies["XSRF-TOKEN"] = form_authenticity_token if protect_against_forgery?
         end
@@ -118,10 +116,6 @@ module Lookbook
       def redirect_to(options = {}, response_options = {})
         capture_inertia_session_options(response_options)
         super
-      end
-
-      def inertia_meta
-        @inertia_meta ||= Inertia::MetaTagBuilder.new(self)
       end
 
       private

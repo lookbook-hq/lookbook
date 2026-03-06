@@ -5,9 +5,16 @@ module Lookbook
     class Configuration
       DEFAULTS = {
         deep_merge_shared_data: false,
+
         component_path_resolver: ->(path:, action:) { "#{path.gsub("lookbook/", "")}/#{action}" },
-        prop_transformer: ->(props:) { props },
+
+        prop_transformer: lambda do |props:|
+          props = props.deep_transform_keys { _1.to_s.camelize(:lower) }
+          props.deep_transform_values! { _1.try(:to_inertia) || _1 }
+        end,
+
         encrypt_history: false,
+
         version: Lookbook::VERSION
       }.freeze
 
@@ -15,18 +22,7 @@ module Lookbook
 
       class << self
         def default
-          new(**DEFAULTS, **env_options)
-        end
-
-        private
-
-        def env_options
-          DEFAULTS.keys.each_with_object({}) do |key, hash|
-            value = ENV.fetch("INERTIA_#{key.to_s.upcase}", nil)
-            next if value.nil?
-
-            hash[key] = %w[true false].include?(value) ? value == "true" : value
-          end
+          new(**DEFAULTS)
         end
       end
 

@@ -6,13 +6,6 @@ module Lookbook
     included do
       layout "lookbook/application"
 
-      inertia_config(
-        prop_transformer: lambda do |props:|
-          props = props.deep_transform_keys { _1.to_s.camelize(:lower) }
-          props.deep_transform_values! { _1.try(:to_inertia) || _1 }
-        end
-      )
-
       rescue_from StandardError, with: :inertia_error_page
     end
 

@@ -32,10 +32,6 @@ module Lookbook
       def defer(...)
         DeferProp.new(...)
       end
-
-      def scroll(metadata = nil, **options, &block)
-        ScrollProp.new(metadata: metadata, **options, &block)
-      end
     end
   end
 end
