@@ -156,7 +156,7 @@
       color: var(--demo-neutral-fg);
       --tree-item-gap: var(--lookbook-grid-gap);
       --tree-indentation: 1rem;
-      --tree-padding-inline: var(--lookbook-space-sm);
+      --tree-padding-inline: var(--lookbook-space-base);
       --tree-padding-block: var(--lookbook-space-xs);
       --tree-icon-size: 1rem;
 

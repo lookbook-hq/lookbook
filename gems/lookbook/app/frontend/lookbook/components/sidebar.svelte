@@ -55,7 +55,7 @@
 
 <style>
   :global [data-component="sidebar"] {
-    --sidebar-padding: var(--lookbook-space-base);
+    --sidebar-padding: var(--lookbook-space-xs);
     --sidebar-bg: var(--lookbook-surface-bg);
     --sidebar-fg: var(--lookbook-surface-fg);
     --sidebar-border-color: var(--lookbook-divider-color);
@@ -78,7 +78,7 @@
 
     [data-role="sidebar:section-header"] {
       border-block-end: 1px solid var(--lookbook-divider-color);
-      padding-inline: var(--lookbook-space-base) var(--lookbook-space-xs);
+      padding-inline: var(--lookbook-space-base) var(--sidebar-padding);
     }
 
     [data-role="sidebar:section-label"] {
@@ -86,7 +86,7 @@
     }
 
     [data-role="sidebar:section-content"] {
-      /*padding: var(--lookbook-space-base);*/
+      padding-block: var(--sidebar-padding);
     }
   }
 </style>

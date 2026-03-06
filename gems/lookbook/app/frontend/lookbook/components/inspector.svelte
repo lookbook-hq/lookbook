@@ -51,7 +51,9 @@
             </div>
           {/snippet}
           {#snippet end()}
-            <div data-role="inspector:panel">end</div>
+            <div data-role="inspector:panel">
+              <Tabs id="inspector-sidebar-tabs" panels={sidebarPanels} {panel}></Tabs>
+            </div>
           {/snippet}
         </Splitter>
       {/snippet}

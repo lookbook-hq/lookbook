@@ -3,7 +3,7 @@ var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var require_ui_001 = __commonJS({
-  "lookbook-assets/ui-DBl26Hzy.js"(exports, module) {
+  "lookbook-assets/ui-BoWrwiNd.js"(exports, module) {
     (function polyfill() {
       const relList = document.createElement("link").relList;
       if (relList && relList.supports && relList.supports("modulepreload")) return;
@@ -6568,7 +6568,7 @@ var require_ui_001 = __commonJS({
       append$1($$anchor, fragment);
       pop();
     }
-    var root_4 = /* @__PURE__ */ from_html(`<textarea></textarea>`);
+    var root_4$1 = /* @__PURE__ */ from_html(`<textarea></textarea>`);
     function Factory($$anchor, $$props) {
       push($$props, true);
       let ref2 = prop($$props, "ref", 15, null), rest = /* @__PURE__ */ rest_props($$props, [
@@ -6620,7 +6620,7 @@ var require_ui_001 = __commonJS({
         };
         var d_1 = /* @__PURE__ */ user_derived(() => isVoidHTMLTag($$props.as));
         var consequent_3 = ($$anchor2) => {
-          var textarea = root_4();
+          var textarea = root_4$1();
           attribute_effect(textarea, () => ({ ...rest }));
           bind_this(textarea, ($$value) => ref2($$value), () => ref2());
           append$1($$anchor2, textarea);
@@ -12227,8 +12227,8 @@ var require_ui_001 = __commonJS({
         $$slots: { default: true }
       }));
     }
-    var root_1$6 = /* @__PURE__ */ from_html(`<button data-role="viewport:grabber"><!></button>`);
-    var root$8 = /* @__PURE__ */ from_html(`<div data-component="viewport"><div data-role="viewport:background" class="checkerboard-bg"></div> <div data-role="viewport:window"><!> <!></div></div>`);
+    var root_1$8 = /* @__PURE__ */ from_html(`<button data-role="viewport:grabber"><!></button>`);
+    var root$d = /* @__PURE__ */ from_html(`<div data-component="viewport"><div data-role="viewport:background" class="checkerboard-bg"></div> <div data-role="viewport:window"><!> <!></div></div>`);
     function Viewport($$anchor, $$props) {
       push($$props, true);
       const sandbox = [
@@ -12314,7 +12314,7 @@ var require_ui_001 = __commonJS({
           viewportState.height = FULLSIZE;
         }
       }
-      var div = root$8();
+      var div = root$d();
       event("mousemove", $window, resizing);
       event("mouseup", $window, endResize);
       let styles;
@@ -12340,7 +12340,7 @@ var require_ui_001 = __commonJS({
       }
       var node_1 = sibling(node, 2);
       each(node_1, 17, () => grabbers, index, ($$anchor2, direction) => {
-        var button = root_1$6();
+        var button = root_1$8();
         var node_2 = child(button);
         {
           var consequent = ($$anchor3) => {
@@ -12385,17 +12385,17 @@ var require_ui_001 = __commonJS({
       pop();
     }
     delegate(["mousedown", "dblclick"]);
-    var root_1$8 = /* @__PURE__ */ from_html(`<div data-role="toolbar:start"><!></div>`);
+    var root_1$7 = /* @__PURE__ */ from_html(`<div data-role="toolbar:start"><!></div>`);
     var root_2$3 = /* @__PURE__ */ from_html(`<div data-role="toolbar:end"><!></div>`);
-    var root$d = /* @__PURE__ */ from_html(`<div><!> <!></div>`);
+    var root$c = /* @__PURE__ */ from_html(`<div><!> <!></div>`);
     function Toolbar($$anchor, $$props) {
       let attrs = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "start", "end"]);
-      var div = root$d();
+      var div = root$c();
       attribute_effect(div, () => ({ "data-component": "toolbar", ...attrs }));
       var node = child(div);
       {
         var consequent = ($$anchor2) => {
-          var div_1 = root_1$8();
+          var div_1 = root_1$7();
           var node_1 = child(div_1);
           snippet(node_1, () => $$props.start);
           append$1($$anchor2, div_1);
@@ -12419,7 +12419,7 @@ var require_ui_001 = __commonJS({
       append$1($$anchor, div);
     }
     var root_5 = /* @__PURE__ */ from_html(`<span data-role="tabs:label" class="label mark"><span><!></span></span>`);
-    var root_1$7 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
+    var root_1$6 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
     function Tabs_1($$anchor, $$props) {
       push($$props, true);
       let panels = prop($$props, "panels", 19, () => []);
@@ -12437,7 +12437,7 @@ var require_ui_001 = __commonJS({
             tabs.current.active = $$value;
           },
           children: ($$anchor3, $$slotProps) => {
-            var fragment_1 = root_1$7();
+            var fragment_1 = root_1$6();
             var node_1 = first_child(fragment_1);
             {
               const start2 = ($$anchor4) => {
@@ -12526,8 +12526,8 @@ var require_ui_001 = __commonJS({
     }
     var freeGlobal = typeof global == "object" && global && global.Object === Object && global;
     var freeSelf = typeof self == "object" && self && self.Object === Object && self;
-    var root$c = freeGlobal || freeSelf || Function("return this")();
-    var Symbol$1 = root$c.Symbol;
+    var root$b = freeGlobal || freeSelf || Function("return this")();
+    var Symbol$1 = root$b.Symbol;
     var objectProto$e = Object.prototype;
     var hasOwnProperty$c = objectProto$e.hasOwnProperty;
     var nativeObjectToString$1 = objectProto$e.toString;
@@ -12603,7 +12603,7 @@ var require_ui_001 = __commonJS({
       var tag = baseGetTag(value);
       return tag == funcTag$2 || tag == genTag$1 || tag == asyncTag || tag == proxyTag;
     }
-    var coreJsData = root$c["__core-js_shared__"];
+    var coreJsData = root$b["__core-js_shared__"];
     var maskSrcKey = (function() {
       var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || "");
       return uid ? "Symbol(src)_1." + uid : "";
@@ -12648,7 +12648,7 @@ var require_ui_001 = __commonJS({
       var value = getValue(object, key2);
       return baseIsNative(value) ? value : void 0;
     }
-    var WeakMap$1 = getNative(root$c, "WeakMap");
+    var WeakMap$1 = getNative(root$b, "WeakMap");
     var objectCreate = Object.create;
     var baseCreate = /* @__PURE__ */ (function() {
       function object() {
@@ -12750,7 +12750,7 @@ var require_ui_001 = __commonJS({
     var freeExports$2 = typeof exports == "object" && exports && !exports.nodeType && exports;
     var freeModule$2 = freeExports$2 && typeof module == "object" && module && !module.nodeType && module;
     var moduleExports$2 = freeModule$2 && freeModule$2.exports === freeExports$2;
-    var Buffer$2 = moduleExports$2 ? root$c.Buffer : void 0;
+    var Buffer$2 = moduleExports$2 ? root$b.Buffer : void 0;
     var nativeIsBuffer = Buffer$2 ? Buffer$2.isBuffer : void 0;
     var isBuffer$1 = nativeIsBuffer || stubFalse;
     var argsTag$2 = "[object Arguments]", arrayTag$2 = "[object Array]", boolTag$3 = "[object Boolean]", dateTag$3 = "[object Date]", errorTag$2 = "[object Error]", funcTag$1 = "[object Function]", mapTag$5 = "[object Map]", numberTag$3 = "[object Number]", objectTag$3 = "[object Object]", regexpTag$3 = "[object RegExp]", setTag$5 = "[object Set]", stringTag$3 = "[object String]", weakMapTag$2 = "[object WeakMap]";
@@ -12937,7 +12937,7 @@ var require_ui_001 = __commonJS({
     ListCache.prototype.get = listCacheGet;
     ListCache.prototype.has = listCacheHas;
     ListCache.prototype.set = listCacheSet;
-    var Map$1 = getNative(root$c, "Map");
+    var Map$1 = getNative(root$b, "Map");
     function mapCacheClear() {
       this.size = 0;
       this.__data__ = {
@@ -13109,7 +13109,7 @@ var require_ui_001 = __commonJS({
     var freeExports = typeof exports == "object" && exports && !exports.nodeType && exports;
     var freeModule = freeExports && typeof module == "object" && module && !module.nodeType && module;
     var moduleExports = freeModule && freeModule.exports === freeExports;
-    var Buffer$1 = moduleExports ? root$c.Buffer : void 0;
+    var Buffer$1 = moduleExports ? root$b.Buffer : void 0;
     Buffer$1 ? Buffer$1.allocUnsafe : void 0;
     function cloneBuffer(buffer, isDeep) {
       {
@@ -13148,9 +13148,9 @@ var require_ui_001 = __commonJS({
     function getAllKeys(object) {
       return baseGetAllKeys(object, keys, getSymbols);
     }
-    var DataView$1 = getNative(root$c, "DataView");
-    var Promise$1 = getNative(root$c, "Promise");
-    var Set$1 = getNative(root$c, "Set");
+    var DataView$1 = getNative(root$b, "DataView");
+    var Promise$1 = getNative(root$b, "Promise");
+    var Set$1 = getNative(root$b, "Set");
     var mapTag$4 = "[object Map]", objectTag$2 = "[object Object]", promiseTag = "[object Promise]", setTag$4 = "[object Set]", weakMapTag$1 = "[object WeakMap]";
     var dataViewTag$3 = "[object DataView]";
     var dataViewCtorString = toSource(DataView$1), mapCtorString = toSource(Map$1), promiseCtorString = toSource(Promise$1), setCtorString = toSource(Set$1), weakMapCtorString = toSource(WeakMap$1);
@@ -13185,7 +13185,7 @@ var require_ui_001 = __commonJS({
       }
       return result;
     }
-    var Uint8Array$1 = root$c.Uint8Array;
+    var Uint8Array$1 = root$b.Uint8Array;
     function cloneArrayBuffer(arrayBuffer) {
       var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
       new Uint8Array$1(result).set(new Uint8Array$1(arrayBuffer));
@@ -22230,17 +22230,17 @@ var require_ui_001 = __commonJS({
       });
       append$1($$anchor, fragment);
     }
-    var root$b = /* @__PURE__ */ from_html(`<div data-component="button-group"><!></div>`);
+    var root$a = /* @__PURE__ */ from_html(`<div data-component="button-group"><!></div>`);
     function Button_group($$anchor, $$props) {
       let size = prop($$props, "size", 3, "md");
-      var div = root$b();
+      var div = root$a();
       var node = child(div);
       snippet(node, () => $$props.children);
       template_effect(() => set_attribute(div, "data-size", size()));
       append$1($$anchor, div);
     }
     var root_2$2 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
-    var root$a = /* @__PURE__ */ from_html(`<div data-component="splitter"><!></div>`);
+    var root$9 = /* @__PURE__ */ from_html(`<div data-component="splitter"><!></div>`);
     function Splitter_1($$anchor, $$props) {
       push($$props, true);
       let panel = prop($$props, "panel", 3, null), orientation = prop($$props, "orientation", 3, "horizontal"), panelSnippets = /* @__PURE__ */ rest_props($$props, [
@@ -22255,7 +22255,7 @@ var require_ui_001 = __commonJS({
       ]);
       const createSplitterState = () => new PersistedState(`splitter:${$$props.id}`, { orientation: orientation(), size: [] });
       createSplitterState();
-      var div = root$a();
+      var div = root$9();
       var node = child(div);
       component(node, () => Splitter_root, ($$anchor2, Splitter_Root) => {
         Splitter_Root($$anchor2, {
@@ -22370,8 +22370,8 @@ var require_ui_001 = __commonJS({
       });
       append$1($$anchor, fragment);
     }
-    var root_3$1 = /* @__PURE__ */ from_html(`<div data-role="inspector-panel:content"> </div>`);
-    var root$9 = /* @__PURE__ */ from_html(`<div data-component="inspector-panel" class="svelte-1kkjpr5"><!></div>`);
+    var root_4 = /* @__PURE__ */ from_html(`<div data-role="inspector-panel:content"> </div>`);
+    var root$8 = /* @__PURE__ */ from_html(`<div data-component="inspector-panel" class="svelte-1kkjpr5"><!></div>`);
     function Inspector_panel($$anchor, $$props) {
       push($$props, true);
       const decodeHTML = (html2) => {
@@ -22379,7 +22379,7 @@ var require_ui_001 = __commonJS({
         txt.innerHTML = html2;
         return txt.value;
       };
-      var div = root$9();
+      var div = root$8();
       var node = child(div);
       {
         var consequent = ($$anchor2) => {
@@ -22394,11 +22394,13 @@ var require_ui_001 = __commonJS({
           }));
         };
         var consequent_1 = ($$anchor2) => {
+          var text$1 = text("params here");
+          append$1($$anchor2, text$1);
         };
         var consequent_2 = ($$anchor2) => {
-          var div_1 = root_3$1();
-          var text2 = child(div_1);
-          template_effect(() => set_text(text2, $$props.props.content));
+          var div_1 = root_4();
+          var text_1 = child(div_1);
+          template_effect(() => set_text(text_1, $$props.props.content));
           append$1($$anchor2, div_1);
         };
         if_block(node, ($$render) => {
@@ -22414,11 +22416,12 @@ var require_ui_001 = __commonJS({
     var root_1$3 = /* @__PURE__ */ from_html(`<h4 data-role="inspector:breadcrumb" class="label">Elements / Button / Themes</h4>`);
     var root_3 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
     var root_6 = /* @__PURE__ */ from_html(`<div data-role="inspector:panel"><!></div>`);
-    var root_7$1 = /* @__PURE__ */ from_html(`<div data-role="inspector:panel">end</div>`);
+    var root_7$1 = /* @__PURE__ */ from_html(`<div data-role="inspector:panel"><!></div>`);
     var root_8 = /* @__PURE__ */ from_html(`<div data-role="inspector:panel"><!></div>`);
     var root$7 = /* @__PURE__ */ from_html(`<div data-component="inspector"><div data-role="inspector:toolbar"><!></div> <div data-role="inspector:panels"><!></div></div>`);
     function Inspector($$anchor, $$props) {
       push($$props, true);
+      let sidebarPanels = /* @__PURE__ */ user_derived(() => $$props.panels?.sidebar || []);
       let drawerPanels = /* @__PURE__ */ user_derived(() => $$props.panels?.drawer || []);
       var div = root$7();
       var div_1 = child(div);
@@ -22468,6 +22471,16 @@ var require_ui_001 = __commonJS({
             };
             const end = ($$anchor3) => {
               var div_4 = root_7$1();
+              var node_5 = child(div_4);
+              Tabs_1(node_5, {
+                id: "inspector-sidebar-tabs",
+                get panels() {
+                  return get$3(sidebarPanels);
+                },
+                get panel() {
+                  return panel;
+                }
+              });
               append$1($$anchor3, div_4);
             };
             Splitter_1($$anchor2, {
@@ -22482,8 +22495,8 @@ var require_ui_001 = __commonJS({
         };
         const bottom = ($$anchor2) => {
           var div_5 = root_8();
-          var node_5 = child(div_5);
-          Tabs_1(node_5, {
+          var node_6 = child(div_5);
+          Tabs_1(node_6, {
             id: "inspector-drawer-tabs",
             get panels() {
               return get$3(drawerPanels);

@@ -17,6 +17,7 @@
       {@html decodeHTML(props.content)}
     </Snippet>
   {:else if component === "params"}
+    params here
     <!-- <ParamsEditor {...props}></ParamsEditor> -->
   {:else if props.content}
     <div data-role="inspector-panel:content">
