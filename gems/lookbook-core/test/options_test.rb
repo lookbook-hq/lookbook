@@ -1,6 +1,6 @@
 require "support/test_helper"
 
-module Lookbook::Core
+module Lookbook
   class OptionsTest < Minitest::Test
     context "Options::from" do
       context "nested hash" do

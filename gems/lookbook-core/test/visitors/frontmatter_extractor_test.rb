@@ -1,6 +1,6 @@
 require "support/test_helper"
 
-module Lookbook::Core
+module Lookbook
   class FrontmatterExtractorTest < Minitest::Test
     context "Page without frontmatter" do
       setup do

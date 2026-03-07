@@ -1,5 +1,5 @@
 module Lookbook
-  class Spec < ResourceNode
+  class Spec < Resource
     def icon = "square-dashed-mouse-pointer"
 
     def url_path = spec_path(self)

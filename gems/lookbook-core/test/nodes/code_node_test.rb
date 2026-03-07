@@ -1,6 +1,6 @@
 require "support/test_helper"
 
-module Lookbook::Core
+module Lookbook
   class CodeNodeTest < Minitest::Test
     context "CodeNode" do
       setup do

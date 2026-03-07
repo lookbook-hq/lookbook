@@ -1,8 +1,8 @@
 require "support/test_helper"
 
-module Lookbook::Core
+module Lookbook
   class AnalyzeTest < Minitest::Test
-    context "Lookbook::Core::analyze" do
+    context "Lookbook::analyze" do
       context "with default visitors" do
         setup do
           @root = Fixtures.dir("mixed")

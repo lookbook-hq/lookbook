@@ -1,6 +1,6 @@
 require "support/test_helper"
 
-module Lookbook::Core
+module Lookbook
   class NodeTypeTest < Minitest::Test
     context "NodeType" do
       context "initialization" do

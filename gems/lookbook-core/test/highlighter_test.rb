@@ -1,10 +1,10 @@
 require "support/test_helper"
 
-module Lookbook::Core
+module Lookbook
   class HighlighterTest < Minitest::Test
-    context "Lookbook::Core::highlight" do
+    context "Lookbook::highlight" do
       should "highlight code" do
-        result = Lookbook::Core.highlight("<p>foo</p>", lang: :html, theme: "github-dark-default")
+        result = Lookbook.highlight("<p>foo</p>", lang: :html, theme: "github-dark-default")
         pd result
         assert_kind_of String, result
       end

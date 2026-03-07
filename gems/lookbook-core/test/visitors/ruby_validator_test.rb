@@ -1,7 +1,7 @@
 require "support/test_helper"
 require "prism"
 
-module Lookbook::Core
+module Lookbook
   class RubyValidatorTest < Minitest::Test
     context "ruby file syntax validator" do
       setup do

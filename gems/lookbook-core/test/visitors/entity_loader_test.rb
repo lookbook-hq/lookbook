@@ -1,6 +1,6 @@
 require "support/test_helper"
 
-module Lookbook::Core
+module Lookbook
   class EntityLoaderTest < Minitest::Test
     context "entity loader" do
       setup do

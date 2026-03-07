@@ -1,6 +1,6 @@
 require "support/test_helper"
 
-module Lookbook::Core
+module Lookbook
   class NodeTest < Minitest::Test
     context "instance methods" do
       setup do

@@ -1,5 +1,5 @@
 module Lookbook
-  class Folder < ResourceNode
+  class Folder < Resource
     permit_child_nodes Folder, Page, Spec
 
     def icon
@@ -11,7 +11,7 @@ module Lookbook
     end
 
     def to_json
-      converter = Core::HashConverter.new(props: {
+      converter = HashConverter.new(props: {
         id: true,
         ref: false,
         label: true,

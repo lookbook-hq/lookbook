@@ -21,17 +21,17 @@ module TestUtils
   end
 
   def analyze_fixture(dir, **options)
-    Lookbook::Core.analyze(Fixtures.dir(dir), **options)
+    Lookbook.analyze(Fixtures.dir(dir), **options)
   end
 
-  def spec_from_fixture(path, visitors: [Lookbook::Core::PreviewClassParser, Lookbook::Core::YardTagsHandler])
-    spec = Lookbook::Core::SpecNode.from(Fixtures.file(path))
+  def spec_from_fixture(path, visitors: [Lookbook::PreviewClassParser, Lookbook::YardTagsHandler])
+    spec = Lookbook::SpecNode.from(Fixtures.file(path))
     visitors.each { |v| spec.accept(v.is_a?(Class) ? v.new : v) }
     spec
   end
 
-  def page_from_fixture(path, visitors: [Lookbook::Core::FrontmatterExtractor])
-    page = Lookbook::Core::PageNode.from(Fixtures.file(path))
+  def page_from_fixture(path, visitors: [Lookbook::FrontmatterExtractor])
+    page = Lookbook::PageNode.from(Fixtures.file(path))
     visitors.each { |v| page.accept(v.is_a?(Class) ? v.new : v) }
     page
   end

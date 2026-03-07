@@ -2,7 +2,7 @@ module Lookbook
   class InspectorParam < Lookbook::Object
     include InertiaSerializable
 
-    prop :param, Lookbook::Core::Param, :positional
+    prop :param, Lookbook::Param, :positional
 
     inertia_props :id, :name, :label, :description, :control_type,
       :required, :hidden, :options, :input_choices, :value, :value_type

@@ -1,6 +1,6 @@
 require "support/test_helper"
 
-module Lookbook::Core
+module Lookbook
   class LocatableTest < Minitest::Test
     context "locatable nodes" do
       setup do

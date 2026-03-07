@@ -1,5 +1,5 @@
 module Lookbook
-  class Page < ResourceNode
+  class Page < Resource
     def icon = "file-text"
 
     def url_path = page_path(self)

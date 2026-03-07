@@ -1,6 +1,6 @@
 require "support/test_helper"
 
-module Lookbook::Core
+module Lookbook
   class ScenarioNodeTest < Minitest::Test
     context "ScenarioNode" do
       setup do

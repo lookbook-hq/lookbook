@@ -1,6 +1,6 @@
 require "support/test_helper"
 
-module Lookbook::Core
+module Lookbook
   class ScenarioGrouperTest < Minitest::Test
     context "ScenarioGrouper" do
       setup do

@@ -1,5 +1,5 @@
 module Lookbook
-  class Scenario < ResourceNode
+  class Scenario < Resource
     inertia_props :id, :label, :children, :href, [:leaf, :leaf?]
 
     def icon = "layers-2"

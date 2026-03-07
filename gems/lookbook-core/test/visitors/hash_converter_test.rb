@@ -1,6 +1,6 @@
 require "support/test_helper"
 
-module Lookbook::Core
+module Lookbook
   class HashConverterTest < Minitest::Test
     context "hash converter" do
       setup do

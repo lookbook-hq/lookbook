@@ -1,6 +1,6 @@
 require "support/test_helper"
 
-module Lookbook::Core
+module Lookbook
   class ParamsTest < Minitest::Test
     context "Params" do
       context "value casting" do

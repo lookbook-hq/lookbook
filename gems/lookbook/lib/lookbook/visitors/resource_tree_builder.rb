@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Lookbook
-  class ResourceTreeBuilder < Core::Visitor
-    visit Core::FolderNode do |node|
+  class ResourceTreeBuilder < Visitor
+    visit FolderNode do |node|
       child_resources = node.children.map { visit(_1) }.compact
 
       return nil if child_resources.none?
@@ -12,7 +12,7 @@ module Lookbook
       folder
     end
 
-    visit Core::SpecNode do |node|
+    visit SpecNode do |node|
       child_resources = node.children.map { visit(_1) }.compact
 
       return nil if child_resources.none?
@@ -22,11 +22,11 @@ module Lookbook
       spec
     end
 
-    visit Core::PageNode do |node|
+    visit PageNode do |node|
       Page.new(entity: node)
     end
 
-    visit Core::ScenarioNode do |node|
+    visit ScenarioNode do |node|
       Scenario.new(entity: node)
     end
 

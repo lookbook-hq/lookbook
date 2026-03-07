@@ -1,2 +1,2 @@
-class ExampleBooklet < Lookbook::Core::Spec
+class ExampleBooklet < Lookbook::Spec
 end

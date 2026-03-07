@@ -1,20 +1,17 @@
-$:.push File.expand_path("lib", __dir__)
-
-require "lookbook/version"
+core = Gem::Specification.load File.expand_path("../lookbook-core/lookbook-core.gemspec", __dir__)
 
 Gem::Specification.new do |spec|
   spec.name = "lookbook"
-  spec.version = Lookbook::VERSION
-  spec.authors = ["Mark Perkins"]
-  spec.homepage = "https://github.com/lookbook-hq/lookbook"
   spec.summary = "Lookbook is a UI development environment for Ruby on Rails applications"
-  spec.license = "MIT"
-  spec.metadata = {"rubygems_mfa_required" => "true"}
+
+  spec.version = core.version
+  spec.authors = core.authors
+  spec.homepage = core.homepage
+  spec.license = core.license
+  spec.required_ruby_version = core.required_ruby_version
 
   spec.files = Dir["{app,config,lib,public}/**/*", "LICENSE.txt", "README.md"]
   spec.require_paths = ["lib"]
-
-  spec.required_ruby_version = ">= 3.2"
 
   spec.add_dependency "lookbook-core"
   spec.add_dependency "literal", "~> 1.8"

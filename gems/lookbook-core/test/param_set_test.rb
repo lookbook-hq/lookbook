@@ -1,6 +1,6 @@
 require "support/test_helper"
 
-module Lookbook::Core
+module Lookbook
   class ParamSetTest < Minitest::Test
     context "ParamSet" do
       setup do

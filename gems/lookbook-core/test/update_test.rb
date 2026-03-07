@@ -1,16 +1,16 @@
 require "support/test_helper"
 
-module Lookbook::Core
+module Lookbook
   class UpdateTest < Minitest::Test
-    context "Lookbook::Core::update" do
+    context "Lookbook::update" do
       setup do
         @root = Fixtures.dir("changes")
-        @original_tree = Lookbook::Core.analyze(@root)
+        @original_tree = Lookbook.analyze(@root)
       end
 
       context "return value" do
         setup do
-          @updated_tree = Lookbook::Core.update(@original_tree)
+          @updated_tree = Lookbook.update(@original_tree)
         end
 
         should "be an entity tree instance" do
@@ -18,7 +18,7 @@ module Lookbook::Core
         end
 
         should "not be the same instance as the original tree" do
-          @updated_tree = Lookbook::Core.update(@original_tree)
+          @updated_tree = Lookbook.update(@original_tree)
           refute @updated_tree.equal?(@original_tree)
         end
       end
@@ -30,7 +30,7 @@ module Lookbook::Core
           @updatable_paths = @original_tree.map { _1.path.to_s }.grep(/updated/)
           @updatable_paths.each { TestUtils.replace_string_in_file(_1, "TIMESTAMP", @timestamp) }
 
-          @updated_tree = Lookbook::Core.update(@original_tree)
+          @updated_tree = Lookbook.update(@original_tree)
         end
 
         teardown do
@@ -57,7 +57,7 @@ module Lookbook::Core
             end
           CONTENT
 
-          @updated_tree = Lookbook::Core.update(@original_tree)
+          @updated_tree = Lookbook.update(@original_tree)
         end
 
         teardown do
@@ -84,7 +84,7 @@ module Lookbook::Core
 
             assert 1, spec.scenarios.count
 
-            Lookbook::Core.visitors.flatten.each do |visitor|
+            Lookbook.visitors.flatten.each do |visitor|
               assert spec.visited_by.include?(visitor.is_a?(Class) ? visitor : visitor.class)
             end
           end
@@ -100,7 +100,7 @@ module Lookbook::Core
 
           File.delete(@deleted_preview)
 
-          @updated_tree = Lookbook::Core.update(@original_tree)
+          @updated_tree = Lookbook.update(@original_tree)
         end
 
         teardown do
@@ -121,7 +121,6 @@ module Lookbook::Core
           end
         end
       end
-
     end
   end
 end

@@ -1,7 +1,7 @@
 PATH
   remote: ../../gems/lookbook-core
   specs:
-    lookbook-core (0.0.2)
+    lookbook-core (4.0.0.pre.0)
       activemodel (>= 7.2)
       activesupport (>= 7.2)
       commonmarker (~> 2.2)
@@ -384,7 +384,7 @@ CHECKSUMS
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
   loofah (2.25.0) sha256=df5ed7ac3bac6a4ec802df3877ee5cc86d027299f8952e6243b3dac446b060e6
   lookbook (4.0.0.pre.0)
-  lookbook-core (0.0.2)
+  lookbook-core (4.0.0.pre.0)
   mail (2.9.0) sha256=6fa6673ecd71c60c2d996260f9ee3dd387d4673b8169b502134659ece6d34941
   marcel (1.1.0) sha256=fdcfcfa33cc52e93c4308d40e4090a5d4ea279e160a7f6af988260fa970e0bee
   mini_mime (1.1.5) sha256=8681b7e2e4215f2a159f9400b5816d85e9d8c6c6b491e96a12797e798f8bccef

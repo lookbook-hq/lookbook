@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/lookbook/core/version"
+require_relative "lib/lookbook/version"
 
 Gem::Specification.new do |spec|
   spec.name = "lookbook-core"
-  spec.version = Lookbook::Core::VERSION
+  spec.version = Lookbook::VERSION
   spec.authors = ["Mark Perkins"]
   spec.homepage = "https://github.com/lookbook-hq/lookbook"
   spec.summary = "Parser-analyzer engine for Lookbook and Lookbook-adjacent tooling"
@@ -12,6 +12,8 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["lib/**/*", "LICENSE.txt", "README.md"]
   spec.require_paths = ["lib"]
+
+  # spec.metadata = {"rubygems_mfa_required" => "true"}
 
   spec.required_ruby_version = ">= 3.2"
 

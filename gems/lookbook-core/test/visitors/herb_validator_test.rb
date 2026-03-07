@@ -1,7 +1,7 @@
 require "support/test_helper"
 require "prism"
 
-module Lookbook::Core
+module Lookbook
   class HerbValidatorTest < Minitest::Test
     context "Herb ERB validator" do
       setup do

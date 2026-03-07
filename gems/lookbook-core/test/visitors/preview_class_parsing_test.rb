@@ -1,6 +1,6 @@
 require "support/test_helper"
 
-module Lookbook::Core
+module Lookbook
   class PreviewClassParserTest < Minitest::Test
     context "Preview classes" do
       setup do
