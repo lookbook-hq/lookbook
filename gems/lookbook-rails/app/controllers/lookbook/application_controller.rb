@@ -16,14 +16,13 @@ module Lookbook
     helper_method :asset_tags
 
     inertia_share do
-      pd Collection.all
       {
         lookbook: {
           urlPath: lookbook_path,
           version: Lookbook::VERSION
         },
         project: Lookbook.config.project,
-        collections: Inertia.once(fresh: refresh_request?) { Collection.map(&:to_inertia) },
+        collections: InertiaRails.once(fresh: refresh_request?) { Collection.map(&:to_inertia) },
         collection_id: @collection&.id,
         request: {
           url: request.url

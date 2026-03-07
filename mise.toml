@@ -42,6 +42,7 @@ run = "mise //apps/...:start && pitchfork tui"
 [tasks.stop]
 description = "Stop all daemons"
 run = "mise //apps/...:stop"
+env = { PITCHFORK_LOG = "error" }
 
 [tasks."lint:herb"]
 description = "Lint all ERB files in the monorepo"

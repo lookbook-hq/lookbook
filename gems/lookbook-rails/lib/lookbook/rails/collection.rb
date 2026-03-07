@@ -1,9 +1,7 @@
-require "lookbook-core"
-
 module Lookbook::Rails
   class Collection < Lookbook::Object
     include Engine.routes.url_helpers
-    include InertiaSerializable
+    include Lookbook::InertiaRails::Serializable
     include Configurable
 
     ALWAYS_WATCH_EXTENSIONS = [".rb", ".html.erb", ".erb", ".md"]

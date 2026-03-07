@@ -8,7 +8,7 @@ require "yard"
 
 require "lookbook/logger"
 
-Zeitwerk::Loader.for_gem.tap do |loader|
+Zeitwerk::Loader.for_gem(warn_on_extra_files: false).tap do |loader|
   loader.ignore File.join(__dir__, "lookbook-core.rb")
 
   loader.collapse("#{__dir__}/lookbook/{content,issues,nodes,visitors}")

@@ -1,2 +1,1 @@
-module Lookbook
-end
+require "lookbook/version"

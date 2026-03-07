@@ -1,7 +1,8 @@
-require "lookbook/rails/inertia/middleware"
+require "lookbook/inertia_rails/middleware"
+require "lookbook/inertia_rails/configuration"
 
-module Lookbook::Rails
-  module Inertia
+module Lookbook
+  module InertiaRails
     CONFIGURATION = Configuration.default
 
     class << self

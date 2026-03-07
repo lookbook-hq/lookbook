@@ -1,5 +1,5 @@
-module Lookbook::Rails
-  module InertiaSerializable
+module Lookbook::InertiaRails
+  module Serializable
     extend ActiveSupport::Concern
 
     def to_inertia(deep: true)
@@ -11,7 +11,7 @@ module Lookbook::Rails
 
         value = if deep
           case result
-          when InertiaSerializable
+          when Serializable
             result.to_inertia(deep:)
           when Array
             result.map { _1.respond_to?(:to_inertia) ? _1.to_inertia(deep:) : _1 }

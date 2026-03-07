@@ -1,5 +1,4 @@
 require "literal"
-require "lookbook"
 require "lookbook/loggable"
 
 module Lookbook::Rails
@@ -24,7 +23,7 @@ module Lookbook::Rails
     end
 
     initializer "lookbook.set_autoload_paths", before: :set_autoload_paths do |app|
-      collection_paths = Collection.map(&:path).map(&:to_s)
+      collection_paths = Lookbook::Rails::Collection.map(&:path).map(&:to_s)
 
       paths = collection_paths - app.config.autoload_paths
       app.config.autoload_paths.concat(paths) if paths.any?
@@ -32,7 +31,7 @@ module Lookbook::Rails
 
     initializer "lookbook.inertia.renderer" do |app|
       ActionController::Renderers.add :inertia do |component, options|
-        Inertia::Renderer.new(
+        Lookbook::InertiaRails::Renderer.new(
           component,
           self,
           request,
@@ -44,7 +43,7 @@ module Lookbook::Rails
     end
 
     initializer "lookbook.inertia.middleware" do |app|
-      app.middleware.use Inertia::Middleware
+      app.middleware.use Lookbook::InertiaRails::Middleware
     end
 
     initializer "lookbook.assets.serve" do
@@ -56,8 +55,6 @@ module Lookbook::Rails
     end
 
     initializer "lookbook.file_watchers" do |app|
-      pd app.config.lookbook.collections
-
       if Engine.enabled? && Lookbook::Rails::FileWatcher.watching?
         Rails.application.reloaders.push(*Engine.reloaders)
 

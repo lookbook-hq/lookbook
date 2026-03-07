@@ -1,6 +1,6 @@
 module Lookbook::Rails
   class InspectorParam < Lookbook::Object
-    include Lookbook::Rails::InertiaSerializable
+    include Lookbook::InertiaRails::Serializable
 
     prop :param, Lookbook::Param, :positional
 

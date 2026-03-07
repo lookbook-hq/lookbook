@@ -1,24 +1,14 @@
 require "zeitwerk"
 require "rails"
-require "lookbook"
+require_relative "inertia_rails"
 
-# Lookbook application entry point.
-#
-# @api public
 module Lookbook
   module Rails
     class << self
-      # Returns the installed Lookbook version
-      #
-      # @example :erb
-      #   <p>Using Lookbook v<%= Lookbook.version %></p>
-      #
-      # @return [String] Version number string
       def version
-        VERSION
+        Lookbook.VERSION
       end
 
-      # @api private
       def engine
         Engine
       end
@@ -27,6 +17,7 @@ module Lookbook
 end
 
 Zeitwerk::Loader.for_gem_extension(Lookbook).tap do |loader|
+  loader.push_dir("#{__dir__}/inertia_rails", namespace: Lookbook::InertiaRails)
   loader.push_dir("#{__dir__}/rails", namespace: Lookbook::Rails)
   loader.collapse("#{__dir__}/rails/{concerns,resources,visitors,patches,inspector}")
   loader.ignore("#{__dir__}/rails/{engine}.rb")

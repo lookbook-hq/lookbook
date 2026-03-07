@@ -2,7 +2,7 @@ module Lookbook::Rails
   class Resource < Lookbook::Node
     include Lookbook::Rails::Engine.routes.url_helpers
     include Lookbook::Rails::Engine.helpers
-    include Lookbook::Rails::InertiaSerializable
+    include Lookbook::InertiaRails::Serializable
 
     prop :entity, Lookbook::Node
 
