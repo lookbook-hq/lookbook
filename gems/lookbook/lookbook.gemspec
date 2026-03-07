@@ -10,11 +10,8 @@ Gem::Specification.new do |spec|
   spec.license = core.license
   spec.required_ruby_version = core.required_ruby_version
 
-  spec.files = Dir["{app,config,lib,public}/**/*", "LICENSE.txt", "README.md"]
-  spec.require_paths = ["lib"]
+  spec.files = Dir["lib/**/*", "LICENSE.txt", "README.md"]
+  spec.require_paths = core.require_paths
 
-  spec.add_dependency "lookbook-core"
-  spec.add_dependency "literal", "~> 1.8"
-  spec.add_dependency "railties", ">= 7.2"
-  spec.add_dependency "zeitwerk", "~> 2.7"
+  spec.add_dependency "lookbook-rails", core.version
 end

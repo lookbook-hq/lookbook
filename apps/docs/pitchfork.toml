@@ -5,4 +5,4 @@ run = "mise rails"
 run = "mise vite"
 
 [daemons.lookbook]
-run = "mise //gems/lookbook:assets:watch"
+run = "mise //gems/lookbook-rails:assets:watch"

@@ -1,28 +1,46 @@
 # frozen_string_literal: true
 
+require "zeitwerk"
 require "literal"
 require "active_support"
 require "active_support/core_ext"
 require "yard"
 
+require "lookbook/logger"
+
+Zeitwerk::Loader.for_gem.tap do |loader|
+  loader.ignore File.join(__dir__, "lookbook-core.rb")
+
+  loader.collapse("#{__dir__}/lookbook/{content,issues,nodes,visitors}")
+  loader.collapse("#{__dir__}/lookbook/{content,issues,nodes,visitors}/*")
+  loader.collapse("#{__dir__}/lookbook/yard/concerns")
+  loader.ignore("#{__dir__}/lookbook/{logger}.rb")
+  loader.inflector.inflect("yard" => "YARD")
+  loader.enable_reloading if ENV["LOOKBOOK_ENV"] == "development"
+  loader.setup
+
+  loader.eager_load_dir("#{__dir__}/lookbook/nodes") # `Lookbook::Node#subclasses`
+  loader.eager_load_dir("#{__dir__}/lookbook/yard") # `Lookbook::YARD::Tag#subclasses`
+end
+
 module Lookbook
-  Loader = Zeitwerk::Loader.new
-
-  Loader.push_dir("#{__dir__}/lookbook", namespace: Lookbook)
-  Loader.collapse("#{__dir__}/lookbook/{content,issues,nodes,visitors}")
-  Loader.collapse("#{__dir__}/lookbook/{content,issues,nodes,visitors}/*")
-  Loader.collapse("#{__dir__}/lookbook/yard/concerns")
-  Loader.inflector.inflect("yard" => "YARD")
-  Loader.setup
-
-  Loader.eager_load_dir("#{__dir__}/lookbook/nodes") # `Lookbook::Node#subclasses`
-  Loader.eager_load_dir("#{__dir__}/lookbook/yard") # `Lookbook::YARD::Tag#subclasses`
-
   class << self
     delegate :analyze, :update, to: Analyzer
 
     def version
       Lookbook::VERSION
+    end
+
+    def config
+      Config.current
+    end
+
+    def configure
+      yield config
+    end
+
+    def env
+      @env ||= ActiveSupport::EnvironmentInquirer.new(ENV["LOOKBOOK_ENV"] || "production")
     end
 
     def loader
@@ -64,4 +82,8 @@ module Lookbook
 
     attr_writer :loader, :visitors, :validator_visitors, :spec_visitors, :page_visitors
   end
+
+  logger.info(["Lookbook version", Lookbook.version])
+  logger.info(["Lookbook log level", Logger.level_as_string(logger.level)])
+  logger.info(["Lookbook environment", Lookbook.env])
 end

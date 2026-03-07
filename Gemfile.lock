@@ -1,7 +1,7 @@
 PATH
   remote: gems/lookbook-core
   specs:
-    lookbook-core (0.0.2)
+    lookbook-core (4.0.0.pre.0)
       activemodel (>= 7.2)
       activesupport (>= 7.2)
       commonmarker (~> 2.2)
@@ -14,13 +14,19 @@ PATH
       zeitwerk (~> 2.7)
 
 PATH
+  remote: gems/lookbook-rails
+  specs:
+    lookbook-rails (4.0.0.pre.0)
+      literal (~> 1.8)
+      lookbook-core (= 4.0.0.pre.0)
+      railties (>= 7.2)
+      zeitwerk (~> 2.7)
+
+PATH
   remote: gems/lookbook
   specs:
     lookbook (4.0.0.pre.0)
-      literal (~> 1.8)
-      lookbook-core
-      railties (>= 7.2)
-      zeitwerk (~> 2.7)
+      lookbook-rails (= 4.0.0.pre.0)
 
 GEM
   remote: https://gem.coop/
@@ -191,6 +197,7 @@ PLATFORMS
 DEPENDENCIES
   lookbook!
   lookbook-core!
+  lookbook-rails!
   standard
   yard
 

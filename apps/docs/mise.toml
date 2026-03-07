@@ -3,7 +3,7 @@ PORT = "{{env.DOCS_PORT | default(value=8888)}}"
 
 [tasks.setup]
 description = "Install dependencies and initial setup tasks"
-run = "bin/setup --skip-server"
+run = "bundle install --prefer-local && npm install"
 
 [tasks.rails]
 description = "Start the Rails server"

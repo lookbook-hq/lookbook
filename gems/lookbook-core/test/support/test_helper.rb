@@ -7,7 +7,7 @@ require "shoulda-context"
 require "pretty_please"
 require "pd"
 
-require "lookbook/core"
+require "lookbook-core"
 
 require_relative "fixtures"
 require_relative "test_utils"

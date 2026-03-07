@@ -3,8 +3,4 @@ source "https://gem.coop"
 gemspec
 
 gem "lookbook-core", path: "../lookbook-core"
-
-group :test do
-  gem "shoulda-context"
-  gem "simplecov", require: false
-end
+gem "lookbook-rails", path: "../lookbook-rails"

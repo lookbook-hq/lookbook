@@ -2,13 +2,11 @@ source "https://gem.coop"
 
 gemspec
 
-group :development, :test do
-  gem "puts_debuggerer"
-  gem "pretty_please"
+gem "puts_debuggerer"
+gem "pretty_please"
 
-  gem "view_component"
-  gem "phlex"
-end
+gem "view_component"
+gem "phlex"
 
 group :test do
   gem "minitest"

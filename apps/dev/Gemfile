@@ -1,18 +1,21 @@
-source "https://rubygems.org"
+source "https://gem.coop"
 
 gem "rails", "~> 8.1"
 gem "puma", ">= 5.0"
 gem "tzinfo-data", platforms: %i[windows jruby]
 gem "bootsnap", require: false
 
+gem "pretty_please"
+gem "puts_debuggerer"
+
 gem "view_component"
 
-group :development, :test do
-  gem "pretty_please"
-  gem "puts_debuggerer"
-
+if ENV["RAILS_ENV"] == "production"
+  gem "lookbook", ">= 4.0"
+else
   gem "lookbook-core", path: "../../gems/lookbook-core"
-  gem "lookbook", path: "../../gems/lookbook"
+  gem "lookbook-rails", path: "../../gems/lookbook-rails"
+  # gem "lookbook", path: "../../gems/lookbook"
 end
 
 group :development do

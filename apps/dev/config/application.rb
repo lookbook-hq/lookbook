@@ -24,15 +24,14 @@ module LookbookDev
     config.autoload_lib(ignore: %w[assets tasks])
     config.generators.system_tests = nil
 
-    config.lookbook.collections = {
-      previews: {
+    # config.autoload_paths << root.join("app/components")
+
+    Lookbook.configure do |config|
+      config.collections << {
+        name: "previews",
         path: "lookbook/previews",
         watch_extensions: []
-      },
-      pages: {
-        path: "lookbook/docs",
-        watch_extensions: []
       }
-    }
+    end
   end
 end

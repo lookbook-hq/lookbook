@@ -2,7 +2,7 @@
 
 module Lookbook
   class Options < ActiveSupport::InheritableOptions
-    def initialize(value)
+    def initialize(value = {})
       super(value.to_h.symbolize_keys.transform_values { Options.transform(_1) })
     end
 

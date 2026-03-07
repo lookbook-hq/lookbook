@@ -1,0 +1,15 @@
+[tasks.setup]
+description = "Install dependencies"
+run = "bundle install --prefer-local && npm install"
+
+[tasks."assets:build"]
+description = "Build assets"
+run = "./node_modules/.bin/vite build"
+
+[tasks."assets:watch"]
+description = "Watch assets and rebuild on change"
+run = "mise watch assets:build -w app/frontend/lookbook"
+
+[shell_alias]
+build = "mise assets:build"
+watch = "mise assets:watch"

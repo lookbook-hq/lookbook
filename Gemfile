@@ -1,7 +1,8 @@
 source "https://gem.coop"
 
-gemspec path: "gems/lookbook-core"
-gemspec path: "gems/lookbook"
+gem "lookbook-core", path: "gems/lookbook-core"
+gem "lookbook-rails", path: "gems/lookbook-rails"
+gem "lookbook", path: "gems/lookbook"
 
 gem "yard"
 gem "standard"

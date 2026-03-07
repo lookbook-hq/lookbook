@@ -9,7 +9,13 @@ watchexec = "latest"
 "npm:@herb-tools/linter" = "latest"
 
 [monorepo]
-config_roots = ["apps/docs", "apps/dev", "gems/lookbook"]
+config_roots = [
+  "apps/docs",
+  "apps/dev",
+  "gems/lookbook",
+  "gems/lookbook-core",
+  "gems/lookbook-rails"
+]
 
 [env]
 MISE_EXPERIMENTAL = 1
