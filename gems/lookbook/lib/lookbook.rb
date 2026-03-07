@@ -1,7 +1,7 @@
 require "active_support"
 require "active_support/core_ext"
 require "zeitwerk"
-require "booklet"
+require "lookbook/core"
 
 require "lookbook/logger"
 require "lookbook/errors"

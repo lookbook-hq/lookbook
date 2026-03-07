@@ -66,9 +66,9 @@ module Lookbook
     protected def load!
       @resources = nil
       @entities = if @entities
-        Booklet.update(@entities)
+        Lookbook::Core.update(@entities)
       else
-        Booklet.analyze(path)
+        Lookbook::Core.analyze(path)
       end
     end
 

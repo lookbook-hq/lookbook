@@ -2,7 +2,7 @@ source "https://gem.coop"
 
 gemspec
 
-gem "lookbooklet", path: "../booklet"
+gem "lookbook-core", path: "../lookbook-core"
 
 group :test do
   gem "shoulda-context"

@@ -11,7 +11,7 @@ module Lookbook
     end
 
     def to_json
-      converter = Booklet::HashConverter.new(props: {
+      converter = Core::HashConverter.new(props: {
         id: true,
         ref: false,
         label: true,

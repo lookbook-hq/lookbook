@@ -1,7 +1,7 @@
 PATH
-  remote: gems/booklet
+  remote: gems/lookbook-core
   specs:
-    lookbooklet (0.0.2)
+    lookbook-core (0.0.2)
       activemodel (>= 7.2)
       activesupport (>= 7.2)
       commonmarker (~> 2.2)
@@ -18,7 +18,7 @@ PATH
   specs:
     lookbook (4.0.0.pre.0)
       literal (~> 1.8)
-      lookbooklet
+      lookbook-core
       railties (>= 7.2)
       zeitwerk (~> 2.7)
 
@@ -190,7 +190,7 @@ PLATFORMS
 
 DEPENDENCIES
   lookbook!
-  lookbooklet!
+  lookbook-core!
   standard
   yard
 

@@ -1,10 +1,10 @@
 module Lookbook
-  class ResourceNode < Booklet::Node
+  class ResourceNode < Lookbook::Core::Node
     include Lookbook::Engine.routes.url_helpers
     include Lookbook::Engine.helpers
     include InertiaSerializable
 
-    prop :entity, Booklet::Node
+    prop :entity, Core::Node
 
     delegate :ref, :id, to: :@entity
 

@@ -1,7 +1,7 @@
 module Lookbook
   module ApplicationHelper
     def snippet(code, lang:)
-      Booklet.highlight(code, lang:)
+      Lookbook::Core.highlight(code, lang:)
     end
   end
 end
