@@ -158,7 +158,8 @@
   --lookbook-font-family-code: var(--lookbook-font-family-mono);
 
   --lookbook-grid-spacing: var(--lookbook-size-6); /* 24px */
-  --lookbook-grid-gap: calc(var(--lookbook-grid-spacing) / 3); /* 8px */
+  --lookbook-grid-gap: 12px;
+  /*--lookbook-grid-gap: calc(var(--lookbook-grid-spacing) / 3); */
 }
 
 :root,

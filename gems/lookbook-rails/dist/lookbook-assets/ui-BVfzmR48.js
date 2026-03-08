@@ -3,7 +3,7 @@ var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var require_ui_001 = __commonJS({
-  "lookbook-assets/ui-BoWrwiNd.js"(exports, module) {
+  "lookbook-assets/ui-BVfzmR48.js"(exports, module) {
     (function polyfill() {
       const relList = document.createElement("link").relList;
       if (relList && relList.supports && relList.supports("modulepreload")) return;
@@ -22343,7 +22343,7 @@ var require_ui_001 = __commonJS({
     }
     var root_1$4 = /* @__PURE__ */ from_html(`<code data-role="snippet:code"><pre><!></pre></code>`);
     function Snippet($$anchor, $$props) {
-      let theme = prop($$props, "theme", 3, "github-light"), output = prop($$props, "output", 3, false);
+      let theme = prop($$props, "theme", 3, "min-light"), output = prop($$props, "output", 3, false);
       var fragment = comment();
       var node = first_child(fragment);
       element(node, () => output() ? "output" : "div", false, ($$element, $$anchor2) => {

@@ -14,6 +14,10 @@ export default defineConfig({
         find: /^\@lib\/(.*)$/,
         replacement: resolve(__dirname, "app/frontend/lookbook/lib/$1.svelte.js"),
       },
+      {
+        find: /^\@styles\/(.*)$/,
+        replacement: resolve(__dirname, "app/frontend/lookbook/styles/$1.css"),
+      },
     ],
   },
   build: {

@@ -56,6 +56,8 @@
 
     [data-role="splitter:panel"] {
       position: relative;
+      box-shadow: 0 0 1px 4px
+        color-mix(in oklab, var(--lookbook-neutral-bg-subtle), transparent 30%);
     }
 
     [data-role="splitter:resize-trigger"] {
