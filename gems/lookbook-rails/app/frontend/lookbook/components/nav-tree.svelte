@@ -160,7 +160,7 @@
       --tree-padding-block: var(--lookbook-space-xs);
       --tree-icon-size: 1rem;
 
-      font-size: 14px;
+      font-size: 13px;
 
       display: flex;
       flex-direction: column;

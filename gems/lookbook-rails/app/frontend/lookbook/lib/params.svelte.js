@@ -1,5 +1,5 @@
 import { router } from "@inertiajs/svelte";
-import { getCurrentContext, resolveValue } from "@lib/utils";
+import { getCurrentContext } from "@lib/utils";
 import * as qs from "qs-esm";
 import { SvelteURL } from "svelte/reactivity";
 
@@ -9,7 +9,7 @@ export function queryParams(definedParams = []) {
   const searchParams = urlState.searchParams.toString();
   const params = qs.parse(searchParams)?.params || {};
 
-  definedParams = resolveValue(definedParams);
+  definedParams = typeof definedParams === "function" ? definedParams() : definedParams;
   definedParams.forEach((param) => {
     if (!params[param.name]) {
       params[param.name] = param.value;

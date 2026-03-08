@@ -101,10 +101,12 @@ fieldset {
   font-family: inherit;
 }
 
-input:focus-visible {
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
   outline: none;
-  /*outline: var(--lookbook-focus-ring-size) solid var(--lookbook-focus-ring-color);*/
-  box-shadow: 0 0 0 var(--lookbook-focus-ring-size) var(--lookbook-focus-ring-color);
+  outline: var(--lookbook-focus-ring-size) solid var(--lookbook-focus-ring-color);
+  /*box-shadow: 0 0 0 var(--lookbook-focus-ring-size) var(--lookbook-focus-ring-color);*/
 }
 
 input[type="number"]::-webkit-inner-spin-button,

@@ -143,6 +143,78 @@
   --lookbook-font-size-md: calc(var(--lookbook-size-base-unit) * 4.5); /* 18px */
   --lookbook-font-size-lg: calc(var(--lookbook-size-base-unit) * 5); /* 20px */
 
+  /* Z-index */
+
+  --lookbook-z-hide: -1;
+  --lookbook-z-base: 0;
+  --lookbook-z-docked: 10;
+  --lookbook-z-dropdown: 1000;
+  --lookbook-z-sticky: 1100;
+  --lookbook-z-banner: 1200;
+  --lookbook-z-overlay: 1300;
+  --lookbook-z-modal: 1400;
+  --lookbook-z-popover: 1500;
+  --lookbook-z-skip-link: 1600;
+  --lookbook-z-toast: 1700;
+  --lookbook-z-tooltip: 1800;
+
+  /* Blur and shadows */
+
+  --lookbook-blur-sm: 4px;
+  --lookbook-blur-base: 8px;
+  --lookbook-blur-md: 12px;
+  --lookbook-blur-lg: 16px;
+  --lookbook-blur-xl: 24px;
+
+  --lookbook-shadow-xs:
+    0px 1px 1px var(--colors-black-a12), 0px 0px 1px inset var(--colors-gray-a7);
+  --lookbook-shadow-sm:
+    0px 2px 4px var(--colors-black-a10), 0px 0px 1px inset var(--colors-gray-a7);
+  --lookbook-shadow-md:
+    0px 4px 8px var(--colors-black-a10), 0px 0px 1px inset var(--colors-gray-a7);
+  --lookbook-shadow-lg:
+    0px 8px 16px var(--colors-black-a10), 0px 0px 1px inset var(--colors-gray-a7);
+  --lookbook-shadow-xl:
+    0px 16px 24px var(--colors-black-a10), 0px 0px 1px inset var(--colors-gray-a7);
+  --lookbook-shadow-2xl:
+    0px 24px 40px var(--colors-black-a10), 0px 0px 1px inset var(--colors-gray-a7);
+
+  /* Transitions and animations */
+
+  --lookbook-duration-faster: 100ms;
+  --lookbook-duration-fast: 150ms;
+  --lookbook-duration-normal: 200ms;
+  --lookbook-duration-slow: 300ms;
+  --lookbook-duration-slower: 400ms;
+
+  --lookbook-easing-pulse: cubic-bezier(0.4, 0, 0.6, 1);
+  --lookbook-easing-default: cubic-bezier(0.2, 0, 0, 1);
+  --lookbook-easing-emphasized-in: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --lookbook-easing-emphasized-out: cubic-bezier(0.3, 0, 0.8, 0.15);
+
+  --lookbook-animation-backdrop-in: fade-in 250ms var(--lookbook-easing-emphasized-in);
+  --lookbook-animation-backdrop-out: fade-out 200ms var(--lookbook-easing-emphasized-out);
+  --lookbook-animation-dialog-in: slide-in 400ms var(--lookbook-easing-emphasized-in);
+  --lookbook-animation-dialog-out: slide-out 200ms var(--lookbook-easing-emphasized-out);
+  --lookbook-animation-drawer-in-left: slide-in-left 400ms var(--lookbook-easing-emphasized-in);
+  --lookbook-animation-drawer-out-left: slide-out-left 200ms var(--lookbook-easing-emphasized-out);
+  --lookbook-animation-drawer-in-right: slide-in-right 400ms var(--lookbook-easing-emphasized-in);
+  --lookbook-animation-drawer-out-right: slide-out-right 200ms var(--lookbook-easing-emphasized-out);
+  --lookbook-animation-skeleton-pulse: skeleton-pulse 2s var(--lookbook-easing-pulse) infinite;
+  --lookbook-animation-fade-in: fade-in 400ms var(--lookbook-easing-emphasized-in);
+  --lookbook-animation-collapse-in: collapse-in 250ms var(--lookbook-easing-emphasized-in);
+  --lookbook-animation-collapse-out: collapse-out 200ms var(--lookbook-easing-emphasized-out);
+  --lookbook-animation-spin: spin 1s linear infinite;
+
+  /* Borders */
+
+  --lookbook-radius-none: 0;
+  --lookbook-radius-xs: 0.125rem;
+  --lookbook-radius-sm: 0.25rem;
+  --lookbook-radius-md: 0.375rem;
+  --lookbook-radius-lg: 0.5rem;
+  --lookbook-radius-xl: 0.75rem;
+
   /* Icons */
 
   --lookbook-icon-size-sm: var(--lookbook-size-3);
@@ -158,8 +230,7 @@
   --lookbook-font-family-code: var(--lookbook-font-family-mono);
 
   --lookbook-grid-spacing: var(--lookbook-size-6); /* 24px */
-  --lookbook-grid-gap: 12px;
-  /*--lookbook-grid-gap: calc(var(--lookbook-grid-spacing) / 3); */
+  --lookbook-grid-gap: calc(var(--lookbook-grid-spacing) / 2); /* 12px */
 }
 
 :root,

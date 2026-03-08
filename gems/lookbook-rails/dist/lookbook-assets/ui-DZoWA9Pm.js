@@ -3,7 +3,7 @@ var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var require_ui_001 = __commonJS({
-  "lookbook-assets/ui-BVfzmR48.js"(exports, module) {
+  "lookbook-assets/ui-DZoWA9Pm.js"(exports, module) {
     (function polyfill() {
       const relList = document.createElement("link").relList;
       if (relList && relList.supports && relList.supports("modulepreload")) return;
@@ -4954,10 +4954,10 @@ var require_ui_001 = __commonJS({
         })
       );
     }
-    var root$k = /* @__PURE__ */ from_html(`<div><h1><strong> </strong> collection</h1></div>`);
+    var root$l = /* @__PURE__ */ from_html(`<div><h1><strong> </strong> collection</h1></div>`);
     function Show$4($$anchor, $$props) {
       push($$props, true);
-      var div = root$k();
+      var div = root$l();
       var h1 = child(div);
       var strong = child(h1);
       var text2 = child(strong);
@@ -4969,7 +4969,7 @@ var require_ui_001 = __commonJS({
       __proto__: null,
       default: Show$4
     }, Symbol.toStringTag, { value: "Module" }));
-    var root$j = /* @__PURE__ */ from_html(`<div><h1> </h1></div>`);
+    var root$k = /* @__PURE__ */ from_html(`<div><h1> </h1></div>`);
     function Error$1($$anchor, $$props) {
       const title = {
         503: "503: Service Unavailable",
@@ -4977,7 +4977,7 @@ var require_ui_001 = __commonJS({
         404: "404: Page Not Found",
         403: "403: Forbidden"
       };
-      var div = root$j();
+      var div = root$k();
       var h1 = child(div);
       var text2 = child(h1);
       template_effect(() => set_text(text2, title[$$props.status]));
@@ -4988,19 +4988,19 @@ var require_ui_001 = __commonJS({
       default: Error$1
     }, Symbol.toStringTag, { value: "Module" }));
     enable_legacy_mode_flag();
-    var root$i = /* @__PURE__ */ from_html(`<div><h1>Not found</h1></div>`);
+    var root$j = /* @__PURE__ */ from_html(`<div><h1>Not found</h1></div>`);
     function Not_found($$anchor) {
-      var div = root$i();
+      var div = root$j();
       append$1($$anchor, div);
     }
     const __vite_glob_0_2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
       __proto__: null,
       default: Not_found
     }, Symbol.toStringTag, { value: "Module" }));
-    var root$h = /* @__PURE__ */ from_html(`<h1> </h1> <!>`, 1);
+    var root$i = /* @__PURE__ */ from_html(`<h1> </h1> <!>`, 1);
     function Show$3($$anchor, $$props) {
       push($$props, true);
-      var fragment = root$h();
+      var fragment = root$i();
       var h1 = first_child(fragment);
       var text2 = child(h1);
       var node = sibling(h1, 2);
@@ -5059,7 +5059,7 @@ var require_ui_001 = __commonJS({
     }
     var first = (v) => v[0];
     var last = (v) => v[v.length - 1];
-    var has$1 = (v, t) => v.indexOf(t) !== -1;
+    var has$3 = (v, t) => v.indexOf(t) !== -1;
     var add = (v, ...items) => v.concat(items);
     var remove$2 = (v, ...items) => v.filter((t) => !items.includes(t));
     var uniq = (v) => Array.from(new Set(v));
@@ -5067,7 +5067,7 @@ var require_ui_001 = __commonJS({
       const set2 = new Set(b);
       return a.filter((t) => !set2.has(t));
     };
-    var addOrRemove = (v, item) => has$1(v, item) ? remove$2(v, item) : add(v, item);
+    var addOrRemove = (v, item) => has$3(v, item) ? remove$2(v, item) : add(v, item);
     function nextIndex(v, idx, opts = {}) {
       const { step = 1, loop = true } = opts;
       const next2 = idx + step;
@@ -5131,9 +5131,9 @@ var require_ui_001 = __commonJS({
       }
       return true;
     };
-    var isArray$2 = (v) => Array.isArray(v);
+    var isArray$4 = (v) => Array.isArray(v);
     var isObjectLike$1 = (v) => v != null && typeof v === "object";
-    var isObject$3 = (v) => isObjectLike$1(v) && !isArray$2(v);
+    var isObject$3 = (v) => isObjectLike$1(v) && !isArray$4(v);
     var isString$1 = (v) => typeof v === "string";
     var isFunction$4 = (v) => typeof v === "function";
     var hasProp = (obj, prop2) => Object.prototype.hasOwnProperty.call(obj, prop2);
@@ -5161,14 +5161,14 @@ var require_ui_001 = __commonJS({
       });
     };
     var toPx = (v) => typeof v === "number" ? `${v}px` : v;
-    function compact(obj) {
+    function compact$1(obj) {
       if (!isPlainObject$1(obj) || obj === void 0) return obj;
       const keys2 = Reflect.ownKeys(obj).filter((key2) => typeof key2 === "string");
       const filtered = {};
       for (const key2 of keys2) {
         const value = obj[key2];
         if (value !== void 0) {
-          filtered[key2] = compact(value);
+          filtered[key2] = compact$1(value);
         }
       }
       return filtered;
@@ -5508,6 +5508,7 @@ var require_ui_001 = __commonJS({
     var wrap = (v, idx) => {
       return v.map((_, index2) => v[(Math.max(idx, 0) + index2) % v.length]);
     };
+    var pipe = (...fns) => (arg) => fns.reduce((acc, fn) => fn(acc), arg);
     var noop$1 = () => void 0;
     var isObject$2 = (v) => typeof v === "object" && v !== null;
     var dataAttr = (guard) => guard ? "" : void 0;
@@ -5604,6 +5605,7 @@ var require_ui_001 = __commonJS({
     var isMac = () => pt(/^Mac/i);
     var isSafari = () => isApple() && vn(/apple/i);
     var isFirefox$1 = () => ua(/Firefox/i);
+    var isAndroid = () => ua(/Android/i);
     function getComposedPath(event2) {
       return event2.composedPath?.() ?? event2.nativeEvent?.composedPath?.();
     }
@@ -5626,6 +5628,13 @@ var require_ui_001 = __commonJS({
     function isCtrlOrMetaKey(e) {
       if (isMac()) return e.metaKey;
       return e.ctrlKey;
+    }
+    function isVirtualClick(e) {
+      if (e.pointerType === "" && e.isTrusted) return true;
+      if (isAndroid() && e.pointerType) {
+        return e.type === "click" && e.buttons === 1;
+      }
+      return e.detail === 0 && !e.pointerType;
     }
     var isLeftClick = (e) => e.button === 0;
     var isModifierKey = (e) => e.ctrlKey || e.altKey || e.metaKey;
@@ -5683,6 +5692,62 @@ var require_ui_001 = __commonJS({
         descriptor.set?.call(el, value);
       }
       el.setAttribute(property, value);
+    }
+    function setElementChecked(el, checked) {
+      if (!el) return;
+      const descriptor = getDescriptor(el, { type: "HTMLInputElement", property: "checked" });
+      descriptor.set?.call(el, checked);
+      if (checked) el.setAttribute("checked", "");
+      else el.removeAttribute("checked");
+    }
+    function dispatchInputCheckedEvent(el, options) {
+      const { checked, bubbles = true } = options;
+      if (!el) return;
+      const win = getWindow(el);
+      if (!(el instanceof win.HTMLInputElement)) return;
+      setElementChecked(el, checked);
+      const event2 = new win.Event("click", { bubbles });
+      el.dispatchEvent(markAsInternalChangeEvent(event2));
+    }
+    function isFormElement(el) {
+      return el.matches("textarea, input, select, button");
+    }
+    function trackFormReset(el, callback) {
+      if (!el) return;
+      const form = isFormElement(el) ? el.form : el.closest("form");
+      const onReset = (e) => {
+        if (e.defaultPrevented) return;
+        callback();
+      };
+      form?.addEventListener("reset", onReset, { passive: true });
+      return () => form?.removeEventListener("reset", onReset);
+    }
+    function trackFieldsetDisabled(el, callback) {
+      const fieldset = el?.closest("fieldset");
+      if (!fieldset) return;
+      callback(fieldset.disabled);
+      const win = getWindow(fieldset);
+      const obs = new win.MutationObserver(() => callback(fieldset.disabled));
+      obs.observe(fieldset, {
+        attributes: true,
+        attributeFilter: ["disabled"]
+      });
+      return () => obs.disconnect();
+    }
+    function trackFormControl(el, options) {
+      if (!el) return;
+      const { onFieldsetDisabledChange, onFormReset } = options;
+      const cleanups = [trackFormReset(el, onFormReset), trackFieldsetDisabled(el, onFieldsetDisabledChange)];
+      return () => cleanups.forEach((cleanup) => cleanup?.());
+    }
+    var INTERNAL_CHANGE_EVENT = /* @__PURE__ */ Symbol.for("zag.changeEvent");
+    function isInternalChangeEvent(e) {
+      return Object.prototype.hasOwnProperty.call(e, INTERNAL_CHANGE_EVENT);
+    }
+    function markAsInternalChangeEvent(event2) {
+      if (isInternalChangeEvent(event2)) return event2;
+      Object.defineProperty(event2, INTERNAL_CHANGE_EVENT, { value: true });
+      return event2;
     }
     var isFrame = (el) => isHTMLElement(el) && el.tagName === "IFRAME";
     function parseTabIndex(el) {
@@ -5979,6 +6044,83 @@ var require_ui_001 = __commonJS({
         cleanups.forEach((cleanup) => cleanup());
       };
     }
+    function trackPress(options) {
+      const {
+        pointerNode,
+        keyboardNode = pointerNode,
+        onPress,
+        onPressStart,
+        onPressEnd,
+        isValidKey: isValidKey2 = (e) => e.key === "Enter"
+      } = options;
+      if (!pointerNode) return noop$1;
+      const win = getWindow(pointerNode);
+      let removeStartListeners = noop$1;
+      let removeEndListeners = noop$1;
+      let removeAccessibleListeners = noop$1;
+      const getInfo = (event2) => ({
+        point: getEventPoint(event2),
+        event: event2
+      });
+      function startPress(event2) {
+        onPressStart?.(getInfo(event2));
+      }
+      function cancelPress(event2) {
+        onPressEnd?.(getInfo(event2));
+      }
+      const startPointerPress = (startEvent) => {
+        removeEndListeners();
+        const endPointerPress = (endEvent) => {
+          const target = getEventTarget(endEvent);
+          if (contains(pointerNode, target)) {
+            onPress?.(getInfo(endEvent));
+          } else {
+            onPressEnd?.(getInfo(endEvent));
+          }
+        };
+        const removePointerUpListener = addDomEvent(win, "pointerup", endPointerPress, { passive: !onPress, once: true });
+        const removePointerCancelListener = addDomEvent(win, "pointercancel", cancelPress, {
+          passive: !onPressEnd,
+          once: true
+        });
+        removeEndListeners = pipe(removePointerUpListener, removePointerCancelListener);
+        if (isActiveElement(keyboardNode) && startEvent.pointerType === "mouse") {
+          startEvent.preventDefault();
+        }
+        startPress(startEvent);
+      };
+      const removePointerListener = addDomEvent(pointerNode, "pointerdown", startPointerPress, { passive: !onPressStart });
+      const removeFocusListener = addDomEvent(keyboardNode, "focus", startAccessiblePress);
+      removeStartListeners = pipe(removePointerListener, removeFocusListener);
+      function startAccessiblePress() {
+        const handleKeydown = (keydownEvent) => {
+          if (!isValidKey2(keydownEvent)) return;
+          const handleKeyup = (keyupEvent) => {
+            if (!isValidKey2(keyupEvent)) return;
+            const evt2 = new win.PointerEvent("pointerup");
+            const info = getInfo(evt2);
+            onPress?.(info);
+            onPressEnd?.(info);
+          };
+          removeEndListeners();
+          removeEndListeners = addDomEvent(keyboardNode, "keyup", handleKeyup);
+          const evt = new win.PointerEvent("pointerdown");
+          startPress(evt);
+        };
+        const handleBlur = () => {
+          const evt = new win.PointerEvent("pointercancel");
+          cancelPress(evt);
+        };
+        const removeKeydownListener = addDomEvent(keyboardNode, "keydown", handleKeydown);
+        const removeBlurListener = addDomEvent(keyboardNode, "blur", handleBlur);
+        removeAccessibleListeners = pipe(removeKeydownListener, removeBlurListener);
+      }
+      return () => {
+        removeStartListeners();
+        removeEndListeners();
+        removeAccessibleListeners();
+      };
+    }
     function queryAll(root2, selector) {
       return Array.from(root2?.querySelectorAll(selector) ?? []);
     }
@@ -6131,6 +6273,18 @@ var require_ui_001 = __commonJS({
     function isValidTypeaheadEvent(event2) {
       return event2.key.length === 1 && !event2.ctrlKey && !event2.metaKey;
     }
+    var visuallyHiddenStyle = {
+      border: "0",
+      clip: "rect(0 0 0 0)",
+      height: "1px",
+      margin: "-1px",
+      overflow: "hidden",
+      padding: "0",
+      position: "absolute",
+      width: "1px",
+      whiteSpace: "nowrap",
+      wordWrap: "normal"
+    };
     function createScope(props) {
       const getRootNode = () => props.getRootNode?.() ?? document;
       const getDoc = () => getDocument(getRootNode());
@@ -6333,7 +6487,7 @@ var require_ui_001 = __commonJS({
       const debug = (...args) => {
         if (machine2.debug) console.log(...args);
       };
-      const props = /* @__PURE__ */ user_derived(() => machine2.props?.({ props: compact(access$1(userProps)), scope: get$3(scope) }) ?? access$1(userProps));
+      const props = /* @__PURE__ */ user_derived(() => machine2.props?.({ props: compact$1(access$1(userProps)), scope: get$3(scope) }) ?? access$1(userProps));
       const prop2 = useProp(() => get$3(props));
       const context = machine2.context?.({
         prop: prop2,
@@ -6703,8 +6857,8 @@ var require_ui_001 = __commonJS({
         getWindow: () => window
       })
     });
-    var root_1$b = /* @__PURE__ */ from_html(`<span hidden=""></span>`);
-    var root$g = /* @__PURE__ */ from_html(`<!> <!>`, 1);
+    var root_1$d = /* @__PURE__ */ from_html(`<span hidden=""></span>`);
+    var root$h = /* @__PURE__ */ from_html(`<!> <!>`, 1);
     function Environment_provider($$anchor, $$props) {
       push($$props, true);
       let spanRef = /* @__PURE__ */ state$1(null);
@@ -6715,13 +6869,13 @@ var require_ui_001 = __commonJS({
         getWindow: () => getWindow(getRootNode())
       }));
       EnvironmentContextProvider(() => get$3(environment));
-      var fragment = root$g();
+      var fragment = root$h();
       var node = first_child(fragment);
       snippet(node, () => $$props.children ?? noop$2);
       var node_1 = sibling(node, 2);
       {
         var consequent = ($$anchor2) => {
-          var span = root_1$b();
+          var span = root_1$d();
           bind_this(span, ($$value) => set$2(spanRef, $$value), () => get$3(spanRef));
           append$1($$anchor2, span);
         };
@@ -6828,13 +6982,13 @@ var require_ui_001 = __commonJS({
     });
     var toKebabCase = (value) => value.replace(/([A-Z])([A-Z])/g, "$1-$2").replace(/([a-z])([A-Z])/g, "$1-$2").replace(/[\s_]+/g, "-").toLowerCase();
     var isEmpty = (v) => v.length === 0;
-    var anatomy$3 = createAnatomy("collapsible").parts("root", "trigger", "content", "indicator");
-    var parts$3 = anatomy$3.build();
-    var getRootId$3 = (ctx) => ctx.ids?.root ?? `collapsible:${ctx.id}`;
+    var anatomy$4 = createAnatomy("collapsible").parts("root", "trigger", "content", "indicator");
+    var parts$5 = anatomy$4.build();
+    var getRootId$4 = (ctx) => ctx.ids?.root ?? `collapsible:${ctx.id}`;
     var getContentId$1 = (ctx) => ctx.ids?.content ?? `collapsible:${ctx.id}:content`;
     var getTriggerId$1 = (ctx) => ctx.ids?.trigger ?? `collapsible:${ctx.id}:trigger`;
     var getContentEl$1 = (ctx) => ctx.getById(getContentId$1(ctx));
-    function connect$4(service, normalize) {
+    function connect$5(service, normalize) {
       const { state: state2, send, context, scope, prop: prop2 } = service;
       const visible = state2.matches("open") || state2.matches("closing");
       const open = state2.matches("open");
@@ -6861,15 +7015,15 @@ var require_ui_001 = __commonJS({
         },
         getRootProps() {
           return normalize.element({
-            ...parts$3.root.attrs,
+            ...parts$5.root.attrs,
             "data-state": open ? "open" : "closed",
             dir: prop2("dir"),
-            id: getRootId$3(scope)
+            id: getRootId$4(scope)
           });
         },
         getContentProps() {
           return normalize.element({
-            ...parts$3.content.attrs,
+            ...parts$5.content.attrs,
             id: getContentId$1(scope),
             "data-collapsible": "",
             "data-state": skip ? void 0 : open ? "open" : "closed",
@@ -6897,7 +7051,7 @@ var require_ui_001 = __commonJS({
         },
         getTriggerProps() {
           return normalize.element({
-            ...parts$3.trigger.attrs,
+            ...parts$5.trigger.attrs,
             id: getTriggerId$1(scope),
             dir: prop2("dir"),
             type: "button",
@@ -6914,7 +7068,7 @@ var require_ui_001 = __commonJS({
         },
         getIndicatorProps() {
           return normalize.element({
-            ...parts$3.indicator.attrs,
+            ...parts$5.indicator.attrs,
             dir: prop2("dir"),
             "data-state": open ? "open" : "closed",
             "data-disabled": dataAttr(disabled)
@@ -6922,7 +7076,7 @@ var require_ui_001 = __commonJS({
         }
       };
     }
-    var machine$4 = createMachine$1({
+    var machine$5 = createMachine$1({
       initialState({ prop: prop2 }) {
         const open = prop2("open") || prop2("defaultOpen");
         return open ? "open" : "closed";
@@ -7186,8 +7340,8 @@ var require_ui_001 = __commonJS({
           ...collapsibleProps
         };
       });
-      const service = useMachine(machine$4, () => get$3(machineProps));
-      const api = /* @__PURE__ */ user_derived(() => connect$4(service, normalizeProps));
+      const service = useMachine(machine$5, () => get$3(machineProps));
+      const api = /* @__PURE__ */ user_derived(() => connect$5(service, normalizeProps));
       const resolvedProps = /* @__PURE__ */ user_derived(() => runIfFn$1(props));
       user_effect(() => {
         if (get$3(api).visible) {
@@ -7227,7 +7381,7 @@ var require_ui_001 = __commonJS({
       }));
       pop();
     }
-    function connect$3(service, _normalize) {
+    function connect$4(service, _normalize) {
       const { state: state2, send, context } = service;
       const present = state2.matches("mounted", "unmountSuspended");
       return {
@@ -7242,7 +7396,7 @@ var require_ui_001 = __commonJS({
         }
       };
     }
-    var machine$3 = createMachine$1({
+    var machine$4 = createMachine$1({
       props({ props }) {
         return { ...props, present: !!props.present };
       },
@@ -7410,8 +7564,8 @@ var require_ui_001 = __commonJS({
     const usePresence = (props) => {
       const resolvedProps = /* @__PURE__ */ user_derived(() => runIfFn$1(props));
       const $$d = /* @__PURE__ */ user_derived(() => splitRenderStrategyProps(get$3(resolvedProps))), $$array = /* @__PURE__ */ user_derived(() => to_array(get$3($$d), 2)), renderStrategyProps = /* @__PURE__ */ user_derived(() => get$3($$array)[0]), machineProps = /* @__PURE__ */ user_derived(() => get$3($$array)[1]);
-      const service = useMachine(machine$3, () => get$3(machineProps));
-      const api = /* @__PURE__ */ user_derived(() => connect$3(service));
+      const service = useMachine(machine$4, () => get$3(machineProps));
+      const api = /* @__PURE__ */ user_derived(() => connect$4(service));
       let wasEverPresent = /* @__PURE__ */ state$1(false);
       user_effect(() => {
         if (get$3(api).present) {
@@ -7437,6 +7591,387 @@ var require_ui_001 = __commonJS({
     const [PresenceProvider] = createContext({
       name: "PresenceContext"
     });
+    function isValidKey(e) {
+      return !(e.metaKey || !isMac() && e.altKey || e.ctrlKey || e.key === "Control" || e.key === "Shift" || e.key === "Meta");
+    }
+    var nonTextInputTypes = /* @__PURE__ */ new Set(["checkbox", "radio", "range", "color", "file", "image", "button", "submit", "reset"]);
+    function isKeyboardFocusEvent(isTextInput, modality, e) {
+      const eventTarget = e ? getEventTarget(e) : null;
+      const doc = getDocument(eventTarget);
+      const win = getWindow(eventTarget);
+      const activeElement = getActiveElement$1(doc);
+      isTextInput = isTextInput || activeElement instanceof win.HTMLInputElement && !nonTextInputTypes.has(activeElement?.type) || activeElement instanceof win.HTMLTextAreaElement || activeElement instanceof win.HTMLElement && activeElement.isContentEditable;
+      return !(isTextInput && modality === "keyboard" && e instanceof win.KeyboardEvent && !Reflect.has(FOCUS_VISIBLE_INPUT_KEYS, e.key));
+    }
+    var currentModality = null;
+    var changeHandlers = /* @__PURE__ */ new Set();
+    var listenerMap = /* @__PURE__ */ new Map();
+    var hasEventBeforeFocus = false;
+    var hasBlurredWindowRecently = false;
+    var ignoreFocusEvent = false;
+    var FOCUS_VISIBLE_INPUT_KEYS = {
+      Tab: true,
+      Escape: true
+    };
+    function triggerChangeHandlers(modality, e) {
+      for (let handler of changeHandlers) {
+        handler(modality, e);
+      }
+    }
+    function handleKeyboardEvent(e) {
+      hasEventBeforeFocus = true;
+      if (isValidKey(e)) {
+        currentModality = "keyboard";
+        triggerChangeHandlers("keyboard", e);
+      }
+    }
+    function handlePointerEvent(e) {
+      currentModality = "pointer";
+      if (e.type === "mousedown" || e.type === "pointerdown") {
+        hasEventBeforeFocus = true;
+        triggerChangeHandlers("pointer", e);
+      }
+    }
+    function handleClickEvent(e) {
+      if (isVirtualClick(e)) {
+        hasEventBeforeFocus = true;
+        currentModality = "virtual";
+      }
+    }
+    function handleFocusEvent(e) {
+      const target = getEventTarget(e);
+      if (target === getWindow(target) || target === getDocument(target) || ignoreFocusEvent || !e.isTrusted) {
+        return;
+      }
+      if (!hasEventBeforeFocus && !hasBlurredWindowRecently) {
+        currentModality = "virtual";
+        triggerChangeHandlers("virtual", e);
+      }
+      hasEventBeforeFocus = false;
+      hasBlurredWindowRecently = false;
+    }
+    function handleWindowBlur() {
+      hasEventBeforeFocus = false;
+      hasBlurredWindowRecently = true;
+    }
+    function setupGlobalFocusEvents(root2) {
+      if (typeof window === "undefined" || listenerMap.get(getWindow(root2))) {
+        return;
+      }
+      const win = getWindow(root2);
+      const doc = getDocument(root2);
+      let focus = win.HTMLElement.prototype.focus;
+      function patchedFocus() {
+        hasEventBeforeFocus = true;
+        focus.apply(this, arguments);
+      }
+      try {
+        Object.defineProperty(win.HTMLElement.prototype, "focus", {
+          configurable: true,
+          value: patchedFocus
+        });
+      } catch {
+      }
+      doc.addEventListener("keydown", handleKeyboardEvent, true);
+      doc.addEventListener("keyup", handleKeyboardEvent, true);
+      doc.addEventListener("click", handleClickEvent, true);
+      win.addEventListener("focus", handleFocusEvent, true);
+      win.addEventListener("blur", handleWindowBlur, false);
+      if (typeof win.PointerEvent !== "undefined") {
+        doc.addEventListener("pointerdown", handlePointerEvent, true);
+        doc.addEventListener("pointermove", handlePointerEvent, true);
+        doc.addEventListener("pointerup", handlePointerEvent, true);
+      } else {
+        doc.addEventListener("mousedown", handlePointerEvent, true);
+        doc.addEventListener("mousemove", handlePointerEvent, true);
+        doc.addEventListener("mouseup", handlePointerEvent, true);
+      }
+      win.addEventListener(
+        "beforeunload",
+        () => {
+          tearDownWindowFocusTracking(root2);
+        },
+        { once: true }
+      );
+      listenerMap.set(win, { focus });
+    }
+    var tearDownWindowFocusTracking = (root2, loadListener) => {
+      const win = getWindow(root2);
+      const doc = getDocument(root2);
+      const listenerData = listenerMap.get(win);
+      if (!listenerData) {
+        return;
+      }
+      try {
+        Object.defineProperty(win.HTMLElement.prototype, "focus", {
+          configurable: true,
+          value: listenerData.focus
+        });
+      } catch {
+      }
+      doc.removeEventListener("keydown", handleKeyboardEvent, true);
+      doc.removeEventListener("keyup", handleKeyboardEvent, true);
+      doc.removeEventListener("click", handleClickEvent, true);
+      win.removeEventListener("focus", handleFocusEvent, true);
+      win.removeEventListener("blur", handleWindowBlur, false);
+      if (typeof win.PointerEvent !== "undefined") {
+        doc.removeEventListener("pointerdown", handlePointerEvent, true);
+        doc.removeEventListener("pointermove", handlePointerEvent, true);
+        doc.removeEventListener("pointerup", handlePointerEvent, true);
+      } else {
+        doc.removeEventListener("mousedown", handlePointerEvent, true);
+        doc.removeEventListener("mousemove", handlePointerEvent, true);
+        doc.removeEventListener("mouseup", handlePointerEvent, true);
+      }
+      listenerMap.delete(win);
+    };
+    function isFocusVisible() {
+      return currentModality === "keyboard" || currentModality === "virtual";
+    }
+    function trackFocusVisible(props = {}) {
+      const { isTextInput, autoFocus, onChange, root: root2 } = props;
+      setupGlobalFocusEvents(root2);
+      onChange?.({ isFocusVisible: autoFocus || isFocusVisible(), modality: currentModality });
+      const handler = (modality, e) => {
+        if (!isKeyboardFocusEvent(!!isTextInput, modality, e)) return;
+        onChange?.({ isFocusVisible: isFocusVisible(), modality });
+      };
+      changeHandlers.add(handler);
+      return () => {
+        changeHandlers.delete(handler);
+      };
+    }
+    const [FieldsetProvider, useFieldsetContext] = createContext({
+      name: "FieldsetContext",
+      strict: false
+    });
+    const [FieldProvider, useFieldContext] = createContext({
+      name: "FieldContext",
+      strict: false
+    });
+    function Field_helper_text($$anchor, $$props) {
+      push($$props, true);
+      let ref2 = prop($$props, "ref", 15, null), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "ref"]);
+      const field = useFieldContext();
+      const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(field?.().getHelperTextProps() ?? {}, props));
+      Factory($$anchor, spread_props({ as: "span" }, () => get$3(mergedProps), {
+        get ref() {
+          return ref2();
+        },
+        set ref($$value) {
+          ref2($$value);
+        }
+      }));
+      pop();
+    }
+    function Field_input($$anchor, $$props) {
+      push($$props, true);
+      let ref2 = prop($$props, "ref", 15, null), value = prop($$props, "value", 15), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "ref", "value"]);
+      const field = useFieldContext();
+      const nativeInputProps = /* @__PURE__ */ user_derived(() => ({
+        value: value(),
+        oninput(e) {
+          value(e.currentTarget.value);
+        }
+      }));
+      const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(field?.().getInputProps() ?? {}, get$3(nativeInputProps), props));
+      Factory($$anchor, spread_props({ as: "input" }, () => get$3(mergedProps), {
+        get ref() {
+          return ref2();
+        },
+        set ref($$value) {
+          ref2($$value);
+        }
+      }));
+      pop();
+    }
+    function Field_label($$anchor, $$props) {
+      push($$props, true);
+      let ref2 = prop($$props, "ref", 15, null), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "ref"]);
+      const field = useFieldContext();
+      const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(field?.().getLabelProps() ?? {}, props));
+      Factory($$anchor, spread_props({ as: "label" }, () => get$3(mergedProps), {
+        get ref() {
+          return ref2();
+        },
+        set ref($$value) {
+          ref2($$value);
+        }
+      }));
+      pop();
+    }
+    const fieldAnatomy = createAnatomy("field").parts("root", "errorText", "helperText", "input", "label", "select", "textarea", "requiredIndicator");
+    const parts$4 = fieldAnatomy.build();
+    const useField = (inProps = {}) => {
+      const fieldset = useFieldsetContext();
+      const env = useEnvironmentContext();
+      const props = /* @__PURE__ */ user_derived(() => {
+        const resolvedProps = runIfFn$1(inProps);
+        ensureProps(resolvedProps, ["id"]);
+        return resolvedProps;
+      });
+      const id = /* @__PURE__ */ user_derived(() => get$3(props).id);
+      const ids = /* @__PURE__ */ user_derived(() => get$3(props).ids);
+      const disabled = /* @__PURE__ */ user_derived(() => get$3(props).disabled ?? Boolean(fieldset?.().disabled));
+      const invalid = /* @__PURE__ */ user_derived(() => get$3(props).invalid ?? false);
+      const readOnly = /* @__PURE__ */ user_derived(() => get$3(props).readOnly ?? false);
+      const required = /* @__PURE__ */ user_derived(() => get$3(props).required ?? false);
+      let hasErrorText = /* @__PURE__ */ state$1(false);
+      let hasHelperText = /* @__PURE__ */ state$1(false);
+      let rootRef = /* @__PURE__ */ state$1(null);
+      const setRootRef = (el) => {
+        set$2(rootRef, el, true);
+      };
+      const rootId = /* @__PURE__ */ user_derived(() => get$3(ids)?.root ?? `field::${get$3(id)}`);
+      const controlId = /* @__PURE__ */ user_derived(() => get$3(ids)?.control ?? `field::${get$3(id)}::control`);
+      const errorTextId = /* @__PURE__ */ user_derived(() => get$3(ids)?.errorText ?? `field::${get$3(id)}::error-text`);
+      const helperTextId = /* @__PURE__ */ user_derived(() => get$3(ids)?.helperText ?? `field::${get$3(id)}::helper-text`);
+      const labelId = /* @__PURE__ */ user_derived(() => get$3(ids)?.label ?? `field::${get$3(id)}::label`);
+      const checkTextElements = () => {
+        if (!get$3(rootRef)) return;
+        const docOrShadowRoot = env().getRootNode();
+        set$2(hasErrorText, !!docOrShadowRoot.getElementById(get$3(errorTextId)));
+        set$2(hasHelperText, !!docOrShadowRoot.getElementById(get$3(helperTextId)));
+      };
+      onMount(() => {
+        checkTextElements();
+        if (get$3(rootRef)) {
+          const win = env().getWindow();
+          const observer = new win.MutationObserver(checkTextElements);
+          observer.observe(get$3(rootRef), { childList: true, subtree: true });
+          return () => observer.disconnect();
+        }
+      });
+      const labelIds = /* @__PURE__ */ user_derived(() => () => {
+        const ids2 = [];
+        if (get$3(hasErrorText) && get$3(invalid)) ids2.push(get$3(errorTextId));
+        if (get$3(hasHelperText)) ids2.push(get$3(helperTextId));
+        return ids2.join(" ") || void 0;
+      });
+      const getRootProps = () => ({
+        ...parts$4.root.attrs,
+        id: get$3(rootId),
+        role: "group",
+        "data-disabled": dataAttr(get$3(disabled)),
+        "data-invalid": dataAttr(get$3(invalid)),
+        "data-readonly": dataAttr(get$3(readOnly))
+      });
+      const getLabelProps = () => ({
+        ...parts$4.label.attrs,
+        id: get$3(labelId),
+        "data-disabled": dataAttr(get$3(disabled)),
+        "data-invalid": dataAttr(get$3(invalid)),
+        "data-readonly": dataAttr(get$3(readOnly)),
+        "data-required": dataAttr(get$3(required)),
+        for: get$3(controlId)
+      });
+      const getControlProps = () => ({
+        "aria-describedby": get$3(labelIds)(),
+        "aria-invalid": ariaAttr(get$3(invalid)),
+        "data-invalid": dataAttr(get$3(invalid)),
+        "data-required": dataAttr(get$3(required)),
+        "data-readonly": dataAttr(get$3(readOnly)),
+        id: get$3(controlId),
+        required: get$3(required),
+        disabled: get$3(disabled),
+        readOnly: get$3(readOnly)
+      });
+      const getInputProps = () => ({ ...getControlProps(), ...parts$4.input.attrs });
+      const getTextareaProps = () => ({ ...getControlProps(), ...parts$4.textarea.attrs });
+      const getSelectProps = () => ({ ...getControlProps(), ...parts$4.select.attrs });
+      const getHelperTextProps = () => ({
+        id: get$3(helperTextId),
+        ...parts$4.helperText.attrs,
+        "data-disabled": dataAttr(get$3(disabled))
+      });
+      const getErrorTextProps = () => ({
+        id: get$3(errorTextId),
+        ...parts$4.errorText.attrs,
+        "aria-live": "polite"
+      });
+      const getRequiredIndicatorProps = () => ({ "aria-hidden": true, ...parts$4.requiredIndicator.attrs });
+      const api = /* @__PURE__ */ user_derived(() => ({
+        setRootRef,
+        ariaDescribedby: get$3(labelIds)(),
+        ids: {
+          root: get$3(rootId),
+          control: get$3(controlId),
+          label: get$3(labelId),
+          errorText: get$3(errorTextId),
+          helperText: get$3(helperTextId)
+        },
+        disabled: get$3(disabled),
+        invalid: get$3(invalid),
+        readOnly: get$3(readOnly),
+        required: get$3(required),
+        getRootProps,
+        getLabelProps,
+        getInputProps,
+        getTextareaProps,
+        getSelectProps,
+        getHelperTextProps,
+        getErrorTextProps,
+        getRequiredIndicatorProps
+      }));
+      return () => get$3(api);
+    };
+    function Field_root($$anchor, $$props) {
+      const providedId = props_id();
+      push($$props, true);
+      let ref2 = prop($$props, "ref", 15, null), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "ref"]);
+      const $$d = /* @__PURE__ */ user_derived(() => createSplitProps()(props, ["id", "ids", "disabled", "invalid", "readOnly", "required"])), $$array = /* @__PURE__ */ user_derived(() => to_array(get$3($$d), 2)), useFieldProps = /* @__PURE__ */ user_derived(() => get$3($$array)[0]), localProps = /* @__PURE__ */ user_derived(() => get$3($$array)[1]);
+      const machineProps = /* @__PURE__ */ user_derived(() => {
+        return {
+          ...get$3(useFieldProps),
+          id: get$3(useFieldProps).id ?? providedId
+        };
+      });
+      const field = useField(() => get$3(machineProps));
+      const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(field().getRootProps(), get$3(localProps)));
+      FieldProvider(field);
+      function setNode(node) {
+        field().setRootRef(node);
+      }
+      Factory($$anchor, spread_props({ as: "div" }, () => get$3(mergedProps), {
+        [createAttachmentKey()]: setNode,
+        get ref() {
+          return ref2();
+        },
+        set ref($$value) {
+          ref2($$value);
+        }
+      }));
+      pop();
+    }
+    function Field_select($$anchor, $$props) {
+      push($$props, true);
+      let ref2 = prop($$props, "ref", 15, null), value = prop($$props, "value", 15), props = /* @__PURE__ */ rest_props($$props, [
+        "$$slots",
+        "$$events",
+        "$$legacy",
+        "ref",
+        "value",
+        "multiple"
+      ]);
+      const field = useFieldContext();
+      const nativeSelectProps = /* @__PURE__ */ user_derived(() => ({
+        value: value(),
+        multiple: $$props.multiple,
+        oninput(e) {
+          value($$props.multiple ? Array.from(e.currentTarget.selectedOptions).map((option) => option.value) : e.currentTarget.value);
+        }
+      }));
+      const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(field?.().getSelectProps() ?? {}, get$3(nativeSelectProps), props));
+      Factory($$anchor, spread_props({ as: "select" }, () => get$3(mergedProps), {
+        get ref() {
+          return ref2();
+        },
+        set ref($$value) {
+          ref2($$value);
+        }
+      }));
+      pop();
+    }
     var __defProp = Object.defineProperty;
     var __defNormalProp = (obj, key2, value) => key2 in obj ? __defProp(obj, key2, { enumerable: true, configurable: true, writable: true, value }) : obj[key2] = value;
     var __publicField = (obj, key2, value) => __defNormalProp(obj, typeof key2 !== "symbol" ? key2 + "" : key2, value);
@@ -8209,8 +8744,8 @@ var require_ui_001 = __commonJS({
       if (!doc) return null;
       return doc.body.querySelector(`.${CUSTOM_ROOT_CLASS}`) || doc.body;
     }
-    var root_1$a = /* @__PURE__ */ from_html(`<!> <!>`, 1);
-    var root$f = /* @__PURE__ */ from_html(`<iframe><!></iframe>`);
+    var root_1$c = /* @__PURE__ */ from_html(`<!> <!>`, 1);
+    var root$g = /* @__PURE__ */ from_html(`<iframe><!></iframe>`);
     function Frame($$anchor, $$props) {
       push($$props, true);
       let ref2 = prop($$props, "ref", 15, null), localProps = /* @__PURE__ */ rest_props($$props, [
@@ -8258,13 +8793,13 @@ var require_ui_001 = __commonJS({
       function setFrameNode(node) {
         set$2(frameRef, node, true);
       }
-      var iframe = root$f();
+      var iframe = root$g();
       attribute_effect(iframe, () => ({ ...localProps }));
       var node_1 = child(iframe);
       Environment_provider(node_1, {
         value: () => get$3(frameRef)?.contentDocument ?? document,
         children: ($$anchor2, $$slotProps) => {
-          var fragment = root_1$a();
+          var fragment = root_1$c();
           var node_2 = first_child(fragment);
           {
             var consequent_1 = ($$anchor3) => {
@@ -8547,7 +9082,7 @@ var require_ui_001 = __commonJS({
         "scrollToIndexFn"
       ]);
     }
-    var anatomy$2 = createAnatomy("tree-view").parts(
+    var anatomy$3 = createAnatomy("tree-view").parts(
       "branch",
       "branchContent",
       "branchControl",
@@ -8564,15 +9099,15 @@ var require_ui_001 = __commonJS({
       "root",
       "tree"
     );
-    var parts$2 = anatomy$2.build();
+    var parts$3 = anatomy$3.build();
     var collection = (options) => {
       return new TreeCollection(options);
     };
     collection.empty = () => {
       return new TreeCollection({ rootNode: { children: [] } });
     };
-    var getRootId$2 = (ctx) => ctx.ids?.root ?? `tree:${ctx.id}:root`;
-    var getLabelId = (ctx) => ctx.ids?.label ?? `tree:${ctx.id}:label`;
+    var getRootId$3 = (ctx) => ctx.ids?.root ?? `tree:${ctx.id}:root`;
+    var getLabelId$1 = (ctx) => ctx.ids?.label ?? `tree:${ctx.id}:label`;
     var getNodeId = (ctx, value) => ctx.ids?.node?.(value) ?? `tree:${ctx.id}:node:${value}`;
     var getTreeId = (ctx) => ctx.ids?.tree ?? `tree:${ctx.id}:tree`;
     var focusNode = (ctx, value) => {
@@ -8613,7 +9148,7 @@ var require_ui_001 = __commonJS({
       });
       return map2;
     }
-    function connect$2(service, normalize) {
+    function connect$3(service, normalize) {
       const { context, scope, computed, prop: prop2, send } = service;
       const collection2 = prop2("collection");
       const expandedValue = Array.from(context.get("expandedValue"));
@@ -8716,26 +9251,26 @@ var require_ui_001 = __commonJS({
         },
         getRootProps() {
           return normalize.element({
-            ...parts$2.root.attrs,
-            id: getRootId$2(scope),
+            ...parts$3.root.attrs,
+            id: getRootId$3(scope),
             dir: prop2("dir")
           });
         },
         getLabelProps() {
           return normalize.element({
-            ...parts$2.label.attrs,
-            id: getLabelId(scope),
+            ...parts$3.label.attrs,
+            id: getLabelId$1(scope),
             dir: prop2("dir")
           });
         },
         getTreeProps() {
           return normalize.element({
-            ...parts$2.tree.attrs,
+            ...parts$3.tree.attrs,
             id: getTreeId(scope),
             dir: prop2("dir"),
             role: "tree",
             "aria-label": "Tree View",
-            "aria-labelledby": getLabelId(scope),
+            "aria-labelledby": getLabelId$1(scope),
             "aria-multiselectable": prop2("selectionMode") === "multiple" || void 0,
             tabIndex: -1,
             onKeyDown(event2) {
@@ -8839,7 +9374,7 @@ var require_ui_001 = __commonJS({
         getItemProps(props) {
           const nodeState = getNodeState(props);
           return normalize.element({
-            ...parts$2.item.attrs,
+            ...parts$3.item.attrs,
             id: nodeState.id,
             dir: prop2("dir"),
             "data-ownedby": getTreeId(scope),
@@ -8879,7 +9414,7 @@ var require_ui_001 = __commonJS({
         getItemTextProps(props) {
           const itemState = getNodeState(props);
           return normalize.element({
-            ...parts$2.itemText.attrs,
+            ...parts$3.itemText.attrs,
             "data-disabled": dataAttr(itemState.disabled),
             "data-selected": dataAttr(itemState.selected),
             "data-focus": dataAttr(itemState.focused)
@@ -8888,7 +9423,7 @@ var require_ui_001 = __commonJS({
         getItemIndicatorProps(props) {
           const itemState = getNodeState(props);
           return normalize.element({
-            ...parts$2.itemIndicator.attrs,
+            ...parts$3.itemIndicator.attrs,
             "aria-hidden": true,
             "data-disabled": dataAttr(itemState.disabled),
             "data-selected": dataAttr(itemState.selected),
@@ -8899,7 +9434,7 @@ var require_ui_001 = __commonJS({
         getBranchProps(props) {
           const nodeState = getNodeState(props);
           return normalize.element({
-            ...parts$2.branch.attrs,
+            ...parts$3.branch.attrs,
             "data-depth": nodeState.depth,
             dir: prop2("dir"),
             "data-branch": nodeState.value,
@@ -8924,7 +9459,7 @@ var require_ui_001 = __commonJS({
         getBranchIndicatorProps(props) {
           const nodeState = getNodeState(props);
           return normalize.element({
-            ...parts$2.branchIndicator.attrs,
+            ...parts$3.branchIndicator.attrs,
             "aria-hidden": true,
             "data-state": nodeState.expanded ? "open" : "closed",
             "data-disabled": dataAttr(nodeState.disabled),
@@ -8936,7 +9471,7 @@ var require_ui_001 = __commonJS({
         getBranchTriggerProps(props) {
           const nodeState = getNodeState(props);
           return normalize.element({
-            ...parts$2.branchTrigger.attrs,
+            ...parts$3.branchTrigger.attrs,
             role: "button",
             dir: prop2("dir"),
             "data-disabled": dataAttr(nodeState.disabled),
@@ -8954,7 +9489,7 @@ var require_ui_001 = __commonJS({
         getBranchControlProps(props) {
           const nodeState = getNodeState(props);
           return normalize.element({
-            ...parts$2.branchControl.attrs,
+            ...parts$3.branchControl.attrs,
             role: "button",
             id: nodeState.id,
             dir: prop2("dir"),
@@ -8987,7 +9522,7 @@ var require_ui_001 = __commonJS({
         getBranchTextProps(props) {
           const nodeState = getNodeState(props);
           return normalize.element({
-            ...parts$2.branchText.attrs,
+            ...parts$3.branchText.attrs,
             dir: prop2("dir"),
             "data-disabled": dataAttr(nodeState.disabled),
             "data-state": nodeState.expanded ? "open" : "closed",
@@ -8997,7 +9532,7 @@ var require_ui_001 = __commonJS({
         getBranchContentProps(props) {
           const nodeState = getNodeState(props);
           return normalize.element({
-            ...parts$2.branchContent.attrs,
+            ...parts$3.branchContent.attrs,
             role: "group",
             dir: prop2("dir"),
             "data-state": nodeState.expanded ? "open" : "closed",
@@ -9010,7 +9545,7 @@ var require_ui_001 = __commonJS({
         getBranchIndentGuideProps(props) {
           const nodeState = getNodeState(props);
           return normalize.element({
-            ...parts$2.branchIndentGuide.attrs,
+            ...parts$3.branchIndentGuide.attrs,
             "data-depth": nodeState.depth
           });
         },
@@ -9018,7 +9553,7 @@ var require_ui_001 = __commonJS({
           const nodeState = getNodeState(props);
           const checkedState = nodeState.checked;
           return normalize.element({
-            ...parts$2.nodeCheckbox.attrs,
+            ...parts$3.nodeCheckbox.attrs,
             tabIndex: -1,
             role: "checkbox",
             "data-state": checkedState === true ? "checked" : checkedState === false ? "unchecked" : "indeterminate",
@@ -9038,7 +9573,7 @@ var require_ui_001 = __commonJS({
         getNodeRenameInputProps(props) {
           const nodeState = getNodeState(props);
           return normalize.input({
-            ...parts$2.nodeRenameInput.attrs,
+            ...parts$3.nodeRenameInput.attrs,
             id: getRenameInputId(scope, nodeState.value),
             type: "text",
             "aria-label": "Rename tree item",
@@ -9146,7 +9681,7 @@ var require_ui_001 = __commonJS({
       };
     }
     var { and } = createGuards();
-    var machine$2 = createMachine$1({
+    var machine$3 = createMachine$1({
       props({ props }) {
         return {
           selectionMode: "single",
@@ -9433,8 +9968,8 @@ var require_ui_001 = __commonJS({
             const value = event2.id || event2.value;
             context.set("selectedValue", (prev2) => {
               if (value == null) return prev2;
-              if (!event2.isTrusted && isArray$2(value)) return prev2.concat(...value);
-              return [isArray$2(value) ? last(value) : value].filter(Boolean);
+              if (!event2.isTrusted && isArray$4(value)) return prev2.concat(...value);
+              return [isArray$4(value) ? last(value) : value].filter(Boolean);
             });
           },
           deselectNode({ context, event: event2 }) {
@@ -9472,14 +10007,14 @@ var require_ui_001 = __commonJS({
             context.set("expandedValue", (prev2) => remove$2(prev2, ...value));
           },
           setExpanded({ context, event: event2 }) {
-            if (!isArray$2(event2.value)) return;
+            if (!isArray$4(event2.value)) return;
             context.set("expandedValue", event2.value);
           },
           clearExpanded({ context }) {
             context.set("expandedValue", []);
           },
           setSelected({ context, event: event2 }) {
-            if (!isArray$2(event2.value)) return;
+            if (!isArray$4(event2.value)) return;
             context.set("selectedValue", event2.value);
           },
           clearSelected({ context }) {
@@ -9787,8 +10322,8 @@ var require_ui_001 = __commonJS({
           ...resolvedProps
         };
       });
-      const service = useMachine(machine$2, () => get$3(machineProps));
-      const api = /* @__PURE__ */ user_derived(() => connect$2(service, normalizeProps));
+      const service = useMachine(machine$3, () => get$3(machineProps));
+      const api = /* @__PURE__ */ user_derived(() => connect$3(service, normalizeProps));
       return () => get$3(api);
     };
     function Tree_view_root($$anchor, $$props) {
@@ -9859,13 +10394,13 @@ var require_ui_001 = __commonJS({
       }));
       pop();
     }
-    var anatomy$1 = createAnatomy("splitter").parts("root", "panel", "resizeTrigger", "resizeTriggerIndicator");
-    var parts$1 = anatomy$1.build();
-    var getRootId$1 = (ctx) => ctx.ids?.root ?? `splitter:${ctx.id}`;
+    var anatomy$2 = createAnatomy("splitter").parts("root", "panel", "resizeTrigger", "resizeTriggerIndicator");
+    var parts$2 = anatomy$2.build();
+    var getRootId$2 = (ctx) => ctx.ids?.root ?? `splitter:${ctx.id}`;
     var getResizeTriggerId = (ctx, id) => ctx.ids?.resizeTrigger?.(id) ?? `splitter:${ctx.id}:splitter:${id}`;
     var getPanelId = (ctx, id) => ctx.ids?.panel?.(id) ?? `splitter:${ctx.id}:panel:${id}`;
     var getGlobalCursorId = (ctx) => `splitter:${ctx.id}:global-cursor`;
-    var getRootEl = (ctx) => ctx.getById(getRootId$1(ctx));
+    var getRootEl$1 = (ctx) => ctx.getById(getRootId$2(ctx));
     var getResizeTriggerEl = (ctx, id) => ctx.getById(getResizeTriggerId(ctx, id));
     var getCursor = (state2, x) => {
       let cursor = x ? "col-resize" : "row-resize";
@@ -9874,7 +10409,7 @@ var require_ui_001 = __commonJS({
       return cursor;
     };
     var getResizeTriggerEls = (ctx) => {
-      return queryAll(getRootEl(ctx), `[role=separator][data-ownedby='${CSS.escape(getRootId$1(ctx))}']`);
+      return queryAll(getRootEl$1(ctx), `[role=separator][data-ownedby='${CSS.escape(getRootId$2(ctx))}']`);
     };
     var setupGlobalCursor = (ctx, state2, x, nonce) => {
       const styleEl = ctx.getById(getGlobalCursorId(ctx));
@@ -10066,7 +10601,7 @@ var require_ui_001 = __commonJS({
       }
       return finalSizes;
     }
-    function connect$1(service, normalize) {
+    function connect$2(service, normalize) {
       const { state: state2, send, prop: prop2, computed, context, scope } = service;
       const horizontal = computed("horizontal");
       const dragging = state2.matches("dragging");
@@ -10162,10 +10697,10 @@ var require_ui_001 = __commonJS({
         },
         getRootProps() {
           return normalize.element({
-            ...parts$1.root.attrs,
+            ...parts$2.root.attrs,
             "data-orientation": orientation,
             "data-dragging": dataAttr(dragging),
-            id: getRootId$1(scope),
+            id: getRootId$2(scope),
             dir: prop2("dir"),
             style: {
               display: "flex",
@@ -10179,14 +10714,14 @@ var require_ui_001 = __commonJS({
         getPanelProps(props) {
           const { id } = props;
           return normalize.element({
-            ...parts$1.panel.attrs,
+            ...parts$2.panel.attrs,
             "data-orientation": orientation,
             "data-dragging": dataAttr(dragging),
             dir: prop2("dir"),
             "data-id": id,
             "data-index": findPanelIndex(prop2("panels"), id),
             id: getPanelId(scope, id),
-            "data-ownedby": getRootId$1(scope),
+            "data-ownedby": getRootId$2(scope),
             style: getPanelStyle(id)
           });
         },
@@ -10194,12 +10729,12 @@ var require_ui_001 = __commonJS({
         getResizeTriggerIndicator(props) {
           const triggerState = getResizeTriggerState(props);
           return normalize.element({
-            ...parts$1.resizeTriggerIndicator.attrs,
+            ...parts$2.resizeTriggerIndicator.attrs,
             "data-orientation": orientation,
             "data-focus": dataAttr(triggerState.focused),
             "data-dragging": dataAttr(triggerState.dragging),
             "data-disabled": dataAttr(triggerState.disabled),
-            "data-ownedby": getRootId$1(scope)
+            "data-ownedby": getRootId$2(scope)
           });
         },
         getResizeTriggerProps(props) {
@@ -10207,12 +10742,12 @@ var require_ui_001 = __commonJS({
           const triggerState = getResizeTriggerState(props);
           const aria = getAriaValue(context.get("size"), prop2("panels"), id);
           return normalize.element({
-            ...parts$1.resizeTrigger.attrs,
+            ...parts$2.resizeTrigger.attrs,
             dir: prop2("dir"),
             id: getResizeTriggerId(scope, id),
             role: "separator",
             "data-id": id,
-            "data-ownedby": getRootId$1(scope),
+            "data-ownedby": getRootId$2(scope),
             tabIndex: triggerState.disabled ? void 0 : 0,
             "aria-valuenow": aria.valueNow,
             "aria-valuemin": aria.valueMin,
@@ -10511,7 +11046,7 @@ var require_ui_001 = __commonJS({
       }
       return nextSize;
     }
-    var machine$1 = createMachine$1({
+    var machine$2 = createMachine$1({
       props({ props }) {
         ensureProps(props, ["panels"]);
         return {
@@ -10725,7 +11260,7 @@ var require_ui_001 = __commonJS({
             const orientation = prop2("orientation");
             const size = context.get("size");
             const resizeTriggerId = event2.id;
-            const panelGroupEl = getRootEl(scope);
+            const panelGroupEl = getRootEl$1(scope);
             if (!panelGroupEl) return;
             const handleElement = getResizeTriggerEl(scope, resizeTriggerId);
             ensure(handleElement, () => `Drag handle element not found for id "${resizeTriggerId}"`);
@@ -10836,7 +11371,7 @@ var require_ui_001 = __commonJS({
             if (!dragState) return;
             const { resizeTriggerId, initialSize, initialCursorPosition } = dragState;
             const panels = prop2("panels");
-            const panelGroupElement = getRootEl(scope);
+            const panelGroupElement = getRootEl$1(scope);
             ensure(panelGroupElement, () => `Panel group element not found`);
             const pivotIndices = resizeTriggerId.split(":").map((id) => panels.findIndex((panel) => panel.id === id));
             const horizontal = prop2("orientation") === "horizontal";
@@ -11044,8 +11579,8 @@ var require_ui_001 = __commonJS({
           ...resolvedProps
         };
       });
-      const service = useMachine(machine$1, () => get$3(machineProps));
-      const api = /* @__PURE__ */ user_derived(() => connect$1(service, normalizeProps));
+      const service = useMachine(machine$2, () => get$3(machineProps));
+      const api = /* @__PURE__ */ user_derived(() => connect$2(service, normalizeProps));
       return () => get$3(api);
     };
     function Splitter_root($$anchor, $$props) {
@@ -11066,6 +11601,400 @@ var require_ui_001 = __commonJS({
       const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(splitter().getRootProps(), get$3(localProps)));
       SplitterProvider(splitter);
       Factory($$anchor, spread_props({ as: "div" }, () => get$3(mergedProps), {
+        get ref() {
+          return ref2();
+        },
+        set ref($$value) {
+          ref2($$value);
+        }
+      }));
+      pop();
+    }
+    const [SwitchProvider, useSwitchContext] = createContext({
+      name: "SwitchContext",
+      hookName: "useSwitchContext",
+      providerName: "<SwitchProvider />"
+    });
+    function Switch_control($$anchor, $$props) {
+      push($$props, true);
+      let ref2 = prop($$props, "ref", 15, null), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "ref"]);
+      const switchMachine = useSwitchContext();
+      const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(switchMachine().getControlProps(), props));
+      Factory($$anchor, spread_props({ as: "span" }, () => get$3(mergedProps), {
+        get ref() {
+          return ref2();
+        },
+        set ref($$value) {
+          ref2($$value);
+        }
+      }));
+      pop();
+    }
+    function Switch_hidden_input($$anchor, $$props) {
+      push($$props, true);
+      let ref2 = prop($$props, "ref", 15, null), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "ref"]);
+      const switchMachine = useSwitchContext();
+      const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(switchMachine().getHiddenInputProps(), props));
+      Factory($$anchor, spread_props({ as: "input" }, () => get$3(mergedProps), {
+        get ref() {
+          return ref2();
+        },
+        set ref($$value) {
+          ref2($$value);
+        }
+      }));
+      pop();
+    }
+    function Switch_label($$anchor, $$props) {
+      push($$props, true);
+      let ref2 = prop($$props, "ref", 15, null), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "ref"]);
+      const switchMachine = useSwitchContext();
+      const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(switchMachine().getLabelProps(), props));
+      Factory($$anchor, spread_props({ as: "span" }, () => get$3(mergedProps), {
+        get ref() {
+          return ref2();
+        },
+        set ref($$value) {
+          ref2($$value);
+        }
+      }));
+      pop();
+    }
+    var anatomy$1 = createAnatomy("switch").parts("root", "label", "control", "thumb");
+    var parts$1 = anatomy$1.build();
+    var getRootId$1 = (ctx) => ctx.ids?.root ?? `switch:${ctx.id}`;
+    var getLabelId = (ctx) => ctx.ids?.label ?? `switch:${ctx.id}:label`;
+    var getThumbId = (ctx) => ctx.ids?.thumb ?? `switch:${ctx.id}:thumb`;
+    var getControlId = (ctx) => ctx.ids?.control ?? `switch:${ctx.id}:control`;
+    var getHiddenInputId = (ctx) => ctx.ids?.hiddenInput ?? `switch:${ctx.id}:input`;
+    var getRootEl = (ctx) => ctx.getById(getRootId$1(ctx));
+    var getHiddenInputEl = (ctx) => ctx.getById(getHiddenInputId(ctx));
+    function connect$1(service, normalize) {
+      const { context, send, prop: prop2, scope } = service;
+      const disabled = !!prop2("disabled");
+      const readOnly = !!prop2("readOnly");
+      const required = !!prop2("required");
+      const checked = !!context.get("checked");
+      const focused = !disabled && context.get("focused");
+      const focusVisible = !disabled && context.get("focusVisible");
+      const active = !disabled && context.get("active");
+      const dataAttrs = {
+        "data-active": dataAttr(active),
+        "data-focus": dataAttr(focused),
+        "data-focus-visible": dataAttr(focusVisible),
+        "data-readonly": dataAttr(readOnly),
+        "data-hover": dataAttr(context.get("hovered")),
+        "data-disabled": dataAttr(disabled),
+        "data-state": checked ? "checked" : "unchecked",
+        "data-invalid": dataAttr(prop2("invalid")),
+        "data-required": dataAttr(required)
+      };
+      return {
+        checked,
+        disabled,
+        focused,
+        setChecked(checked2) {
+          send({ type: "CHECKED.SET", checked: checked2, isTrusted: false });
+        },
+        toggleChecked() {
+          send({ type: "CHECKED.TOGGLE", checked, isTrusted: false });
+        },
+        getRootProps() {
+          return normalize.label({
+            ...parts$1.root.attrs,
+            ...dataAttrs,
+            dir: prop2("dir"),
+            id: getRootId$1(scope),
+            htmlFor: getHiddenInputId(scope),
+            onPointerMove() {
+              if (disabled) return;
+              send({ type: "CONTEXT.SET", context: { hovered: true } });
+            },
+            onPointerLeave() {
+              if (disabled) return;
+              send({ type: "CONTEXT.SET", context: { hovered: false } });
+            },
+            onClick(event2) {
+              if (disabled) return;
+              const target = getEventTarget(event2);
+              if (target === getHiddenInputEl(scope)) {
+                event2.stopPropagation();
+              }
+              if (isSafari()) {
+                getHiddenInputEl(scope)?.focus();
+              }
+            }
+          });
+        },
+        getLabelProps() {
+          return normalize.element({
+            ...parts$1.label.attrs,
+            ...dataAttrs,
+            dir: prop2("dir"),
+            id: getLabelId(scope)
+          });
+        },
+        getThumbProps() {
+          return normalize.element({
+            ...parts$1.thumb.attrs,
+            ...dataAttrs,
+            dir: prop2("dir"),
+            id: getThumbId(scope),
+            "aria-hidden": true
+          });
+        },
+        getControlProps() {
+          return normalize.element({
+            ...parts$1.control.attrs,
+            ...dataAttrs,
+            dir: prop2("dir"),
+            id: getControlId(scope),
+            "aria-hidden": true
+          });
+        },
+        getHiddenInputProps() {
+          return normalize.input({
+            id: getHiddenInputId(scope),
+            type: "checkbox",
+            required: prop2("required"),
+            defaultChecked: checked,
+            disabled,
+            "aria-labelledby": getLabelId(scope),
+            "aria-invalid": prop2("invalid"),
+            name: prop2("name"),
+            form: prop2("form"),
+            value: prop2("value"),
+            style: visuallyHiddenStyle,
+            onFocus() {
+              const focusVisible2 = isFocusVisible();
+              send({ type: "CONTEXT.SET", context: { focused: true, focusVisible: focusVisible2 } });
+            },
+            onBlur() {
+              send({ type: "CONTEXT.SET", context: { focused: false, focusVisible: false } });
+            },
+            onClick(event2) {
+              if (readOnly) {
+                event2.preventDefault();
+                return;
+              }
+              const checked2 = event2.currentTarget.checked;
+              send({ type: "CHECKED.SET", checked: checked2, isTrusted: true });
+            }
+          });
+        }
+      };
+    }
+    var { not } = createGuards();
+    var machine$1 = createMachine$1({
+      props({ props }) {
+        return {
+          defaultChecked: false,
+          label: "switch",
+          value: "on",
+          ...props
+        };
+      },
+      initialState() {
+        return "ready";
+      },
+      context({ prop: prop2, bindable: bindable2 }) {
+        return {
+          checked: bindable2(() => ({
+            defaultValue: prop2("defaultChecked"),
+            value: prop2("checked"),
+            onChange(value) {
+              prop2("onCheckedChange")?.({ checked: value });
+            }
+          })),
+          fieldsetDisabled: bindable2(() => ({
+            defaultValue: false
+          })),
+          focusVisible: bindable2(() => ({
+            defaultValue: false
+          })),
+          active: bindable2(() => ({
+            defaultValue: false
+          })),
+          focused: bindable2(() => ({
+            defaultValue: false
+          })),
+          hovered: bindable2(() => ({
+            defaultValue: false
+          }))
+        };
+      },
+      computed: {
+        isDisabled: ({ context, prop: prop2 }) => prop2("disabled") || context.get("fieldsetDisabled")
+      },
+      watch({ track: track2, prop: prop2, context, action: action2 }) {
+        track2([() => prop2("disabled")], () => {
+          action2(["removeFocusIfNeeded"]);
+        });
+        track2([() => context.get("checked")], () => {
+          action2(["syncInputElement"]);
+        });
+      },
+      effects: ["trackFormControlState", "trackPressEvent", "trackFocusVisible"],
+      on: {
+        "CHECKED.TOGGLE": [
+          {
+            guard: not("isTrusted"),
+            actions: ["toggleChecked", "dispatchChangeEvent"]
+          },
+          {
+            actions: ["toggleChecked"]
+          }
+        ],
+        "CHECKED.SET": [
+          {
+            guard: not("isTrusted"),
+            actions: ["setChecked", "dispatchChangeEvent"]
+          },
+          {
+            actions: ["setChecked"]
+          }
+        ],
+        "CONTEXT.SET": {
+          actions: ["setContext"]
+        }
+      },
+      states: {
+        ready: {}
+      },
+      implementations: {
+        guards: {
+          isTrusted: ({ event: event2 }) => !!event2.isTrusted
+        },
+        effects: {
+          trackPressEvent({ computed, scope, context }) {
+            if (computed("isDisabled")) return;
+            return trackPress({
+              pointerNode: getRootEl(scope),
+              keyboardNode: getHiddenInputEl(scope),
+              isValidKey: (event2) => event2.key === " ",
+              onPress: () => context.set("active", false),
+              onPressStart: () => context.set("active", true),
+              onPressEnd: () => context.set("active", false)
+            });
+          },
+          trackFocusVisible({ computed, scope }) {
+            if (computed("isDisabled")) return;
+            return trackFocusVisible({ root: scope.getRootNode() });
+          },
+          trackFormControlState({ context, send, scope }) {
+            return trackFormControl(getHiddenInputEl(scope), {
+              onFieldsetDisabledChange(disabled) {
+                context.set("fieldsetDisabled", disabled);
+              },
+              onFormReset() {
+                const checked = context.initial("checked");
+                send({ type: "CHECKED.SET", checked: !!checked, src: "form-reset" });
+              }
+            });
+          }
+        },
+        actions: {
+          setContext({ context, event: event2 }) {
+            for (const key2 in event2.context) {
+              context.set(key2, event2.context[key2]);
+            }
+          },
+          syncInputElement({ context, scope }) {
+            const inputEl = getHiddenInputEl(scope);
+            if (!inputEl) return;
+            setElementChecked(inputEl, !!context.get("checked"));
+          },
+          removeFocusIfNeeded({ context, prop: prop2 }) {
+            if (prop2("disabled")) {
+              context.set("focused", false);
+            }
+          },
+          setChecked({ context, event: event2 }) {
+            context.set("checked", event2.checked);
+          },
+          toggleChecked({ context }) {
+            context.set("checked", !context.get("checked"));
+          },
+          dispatchChangeEvent({ context, scope }) {
+            queueMicrotask(() => {
+              const inputEl = getHiddenInputEl(scope);
+              dispatchInputCheckedEvent(inputEl, { checked: context.get("checked") });
+            });
+          }
+        }
+      }
+    });
+    const useSwitch = (props) => {
+      const env = useEnvironmentContext();
+      const locale = useLocaleContext();
+      const field = useFieldContext();
+      const machineProps = /* @__PURE__ */ user_derived(() => {
+        const resolvedProps = runIfFn$1(props);
+        return {
+          dir: locale().dir,
+          getRootNode: env().getRootNode,
+          ids: {
+            label: field?.().ids.label,
+            hiddenInput: field?.().ids.control
+          },
+          disabled: field?.().disabled,
+          readOnly: field?.().readOnly,
+          invalid: field?.().invalid,
+          required: field?.().required,
+          ...resolvedProps
+        };
+      });
+      const service = useMachine(machine$1, () => get$3(machineProps));
+      const api = /* @__PURE__ */ user_derived(() => connect$1(service, normalizeProps));
+      return () => get$3(api);
+    };
+    function Switch_root($$anchor, $$props) {
+      const providedId = props_id();
+      push($$props, true);
+      let ref2 = prop($$props, "ref", 15, null), checked = prop($$props, "checked", 15), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "ref", "checked"]);
+      const $$d = /* @__PURE__ */ user_derived(() => createSplitProps()(props, [
+        "checked",
+        "defaultChecked",
+        "disabled",
+        "form",
+        "id",
+        "ids",
+        "invalid",
+        "label",
+        "name",
+        "onCheckedChange",
+        "readOnly",
+        "required",
+        "value"
+      ])), $$array = /* @__PURE__ */ user_derived(() => to_array(get$3($$d), 2)), useSwitchProps = /* @__PURE__ */ user_derived(() => get$3($$array)[0]), localProps = /* @__PURE__ */ user_derived(() => get$3($$array)[1]);
+      const resolvedProps = /* @__PURE__ */ user_derived(() => ({
+        ...get$3(useSwitchProps),
+        id: get$3(useSwitchProps).id ?? providedId,
+        checked: checked(),
+        onCheckedChange(details) {
+          get$3(useSwitchProps).onCheckedChange?.(details);
+          if (checked() !== void 0) checked(details.checked);
+        }
+      }));
+      const switchMachine = useSwitch(() => get$3(resolvedProps));
+      const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(switchMachine().getRootProps(), get$3(localProps)));
+      SwitchProvider(switchMachine);
+      Factory($$anchor, spread_props({ as: "label" }, () => get$3(mergedProps), {
+        get ref() {
+          return ref2();
+        },
+        set ref($$value) {
+          ref2($$value);
+        }
+      }));
+      pop();
+    }
+    function Switch_thumb($$anchor, $$props) {
+      push($$props, true);
+      let ref2 = prop($$props, "ref", 15, null), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "ref"]);
+      const switchMachine = useSwitchContext();
+      const mergedProps = /* @__PURE__ */ user_derived(() => mergeProps(switchMachine().getThumbProps(), props));
+      Factory($$anchor, spread_props({ as: "span" }, () => get$3(mergedProps), {
         get ref() {
           return ref2();
         },
@@ -11696,6 +12625,255 @@ var require_ui_001 = __commonJS({
       }
       return activeElement;
     }
+    const REPLACE = /* @__PURE__ */ Symbol();
+    class SvelteURLSearchParams extends URLSearchParams {
+      #version = /* @__PURE__ */ state$1(0);
+      #url = get_current_url();
+      #updating = false;
+      #update_url() {
+        if (!this.#url || this.#updating) return;
+        this.#updating = true;
+        const search = this.toString();
+        this.#url.search = search && `?${search}`;
+        this.#updating = false;
+      }
+      /**
+       * @param {URLSearchParams} params
+       * @internal
+       */
+      [REPLACE](params) {
+        if (this.#updating) return;
+        this.#updating = true;
+        for (const key2 of [...super.keys()]) {
+          super.delete(key2);
+        }
+        for (const [key2, value] of params) {
+          super.append(key2, value);
+        }
+        increment(this.#version);
+        this.#updating = false;
+      }
+      /**
+       * @param {string} name
+       * @param {string} value
+       * @returns {void}
+       */
+      append(name, value) {
+        super.append(name, value);
+        this.#update_url();
+        increment(this.#version);
+      }
+      /**
+       * @param {string} name
+       * @param {string=} value
+       * @returns {void}
+       */
+      delete(name, value) {
+        var has_value = super.has(name, value);
+        super.delete(name, value);
+        if (has_value) {
+          this.#update_url();
+          increment(this.#version);
+        }
+      }
+      /**
+       * @param {string} name
+       * @returns {string|null}
+       */
+      get(name) {
+        get$3(this.#version);
+        return super.get(name);
+      }
+      /**
+       * @param {string} name
+       * @returns {string[]}
+       */
+      getAll(name) {
+        get$3(this.#version);
+        return super.getAll(name);
+      }
+      /**
+       * @param {string} name
+       * @param {string=} value
+       * @returns {boolean}
+       */
+      has(name, value) {
+        get$3(this.#version);
+        return super.has(name, value);
+      }
+      keys() {
+        get$3(this.#version);
+        return super.keys();
+      }
+      /**
+       * @param {string} name
+       * @param {string} value
+       * @returns {void}
+       */
+      set(name, value) {
+        var previous = super.getAll(name).join("");
+        super.set(name, value);
+        if (previous !== super.getAll(name).join("")) {
+          this.#update_url();
+          increment(this.#version);
+        }
+      }
+      sort() {
+        super.sort();
+        this.#update_url();
+        increment(this.#version);
+      }
+      toString() {
+        get$3(this.#version);
+        return super.toString();
+      }
+      values() {
+        get$3(this.#version);
+        return super.values();
+      }
+      entries() {
+        get$3(this.#version);
+        return super.entries();
+      }
+      [Symbol.iterator]() {
+        return this.entries();
+      }
+      get size() {
+        get$3(this.#version);
+        return super.size;
+      }
+    }
+    let current_url = null;
+    function get_current_url() {
+      return current_url;
+    }
+    class SvelteURL extends URL {
+      #protocol = /* @__PURE__ */ state$1(super.protocol);
+      #username = /* @__PURE__ */ state$1(super.username);
+      #password = /* @__PURE__ */ state$1(super.password);
+      #hostname = /* @__PURE__ */ state$1(super.hostname);
+      #port = /* @__PURE__ */ state$1(super.port);
+      #pathname = /* @__PURE__ */ state$1(super.pathname);
+      #hash = /* @__PURE__ */ state$1(super.hash);
+      #search = /* @__PURE__ */ state$1(super.search);
+      #searchParams;
+      /**
+       * @param {string | URL} url
+       * @param {string | URL} [base]
+       */
+      constructor(url, base) {
+        url = new URL(url, base);
+        super(url);
+        current_url = this;
+        this.#searchParams = new SvelteURLSearchParams(url.searchParams);
+        current_url = null;
+      }
+      get hash() {
+        return get$3(this.#hash);
+      }
+      set hash(value) {
+        super.hash = value;
+        set$2(this.#hash, super.hash);
+      }
+      get host() {
+        get$3(this.#hostname);
+        get$3(this.#port);
+        return super.host;
+      }
+      set host(value) {
+        super.host = value;
+        set$2(this.#hostname, super.hostname);
+        set$2(this.#port, super.port);
+      }
+      get hostname() {
+        return get$3(this.#hostname);
+      }
+      set hostname(value) {
+        super.hostname = value;
+        set$2(this.#hostname, super.hostname);
+      }
+      get href() {
+        get$3(this.#protocol);
+        get$3(this.#username);
+        get$3(this.#password);
+        get$3(this.#hostname);
+        get$3(this.#port);
+        get$3(this.#pathname);
+        get$3(this.#hash);
+        get$3(this.#search);
+        return super.href;
+      }
+      set href(value) {
+        super.href = value;
+        set$2(this.#protocol, super.protocol);
+        set$2(this.#username, super.username);
+        set$2(this.#password, super.password);
+        set$2(this.#hostname, super.hostname);
+        set$2(this.#port, super.port);
+        set$2(this.#pathname, super.pathname);
+        set$2(this.#hash, super.hash);
+        set$2(this.#search, super.search);
+        this.#searchParams[REPLACE](super.searchParams);
+      }
+      get password() {
+        return get$3(this.#password);
+      }
+      set password(value) {
+        super.password = value;
+        set$2(this.#password, super.password);
+      }
+      get pathname() {
+        return get$3(this.#pathname);
+      }
+      set pathname(value) {
+        super.pathname = value;
+        set$2(this.#pathname, super.pathname);
+      }
+      get port() {
+        return get$3(this.#port);
+      }
+      set port(value) {
+        super.port = value;
+        set$2(this.#port, super.port);
+      }
+      get protocol() {
+        return get$3(this.#protocol);
+      }
+      set protocol(value) {
+        super.protocol = value;
+        set$2(this.#protocol, super.protocol);
+      }
+      get search() {
+        return get$3(this.#search);
+      }
+      set search(value) {
+        super.search = value;
+        set$2(this.#search, super.search);
+        this.#searchParams[REPLACE](super.searchParams);
+      }
+      get username() {
+        return get$3(this.#username);
+      }
+      set username(value) {
+        super.username = value;
+        set$2(this.#username, super.username);
+      }
+      get origin() {
+        get$3(this.#protocol);
+        get$3(this.#hostname);
+        get$3(this.#port);
+        return super.origin;
+      }
+      get searchParams() {
+        return this.#searchParams;
+      }
+      toString() {
+        return this.href;
+      }
+      toJSON() {
+        return this.href;
+      }
+    }
     class ActiveElement {
       #document;
       #subscribe;
@@ -11891,7 +13069,7 @@ var require_ui_001 = __commonJS({
         this.#setupStorageListener();
       }
     }
-    var root_1$9 = /* @__PURE__ */ from_html(`<i data-component="icon" class="icon"><!></i>`);
+    var root_1$b = /* @__PURE__ */ from_html(`<i data-component="icon" class="icon"><!></i>`);
     function Icon$1($$anchor, $$props) {
       const IconSvg = prop($$props, "svg", 3, null), size = prop($$props, "size", 3, "md"), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "svg", "size"]);
       const defaultProps = { size: 16, strokeWidth: 1, absoluteStrokeWidth: true };
@@ -11899,7 +13077,7 @@ var require_ui_001 = __commonJS({
       var node = first_child(fragment);
       {
         var consequent = ($$anchor2) => {
-          var i = root_1$9();
+          var i = root_1$b();
           var node_1 = child(i);
           component(node_1, IconSvg, ($$anchor3, IconSvg_1) => {
             IconSvg_1($$anchor3, spread_props(() => defaultProps, () => props));
@@ -11935,7 +13113,7 @@ var require_ui_001 = __commonJS({
     const mergeClasses = (...classes) => classes.filter((className, index2, array) => {
       return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index2;
     }).join(" ").trim();
-    var root$e = /* @__PURE__ */ from_svg(`<svg><!><!></svg>`);
+    var root$f = /* @__PURE__ */ from_svg(`<svg><!><!></svg>`);
     function Icon($$anchor, $$props) {
       const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
       const $$restProps = legacy_rest_props($$sanitized_props, [
@@ -11954,7 +13132,7 @@ var require_ui_001 = __commonJS({
       let absoluteStrokeWidth = prop($$props, "absoluteStrokeWidth", 8, false);
       let iconNode = prop($$props, "iconNode", 24, () => []);
       init();
-      var svg = root$e();
+      var svg = root$f();
       attribute_effect(
         svg,
         ($0, $1, $2) => ({
@@ -12227,8 +13405,8 @@ var require_ui_001 = __commonJS({
         $$slots: { default: true }
       }));
     }
-    var root_1$8 = /* @__PURE__ */ from_html(`<button data-role="viewport:grabber"><!></button>`);
-    var root$d = /* @__PURE__ */ from_html(`<div data-component="viewport"><div data-role="viewport:background" class="checkerboard-bg"></div> <div data-role="viewport:window"><!> <!></div></div>`);
+    var root_1$a = /* @__PURE__ */ from_html(`<button data-role="viewport:grabber"><!></button>`);
+    var root$e = /* @__PURE__ */ from_html(`<div data-component="viewport"><div data-role="viewport:background" class="checkerboard-bg"></div> <div data-role="viewport:window"><!> <!></div></div>`);
     function Viewport($$anchor, $$props) {
       push($$props, true);
       const sandbox = [
@@ -12314,7 +13492,7 @@ var require_ui_001 = __commonJS({
           viewportState.height = FULLSIZE;
         }
       }
-      var div = root$d();
+      var div = root$e();
       event("mousemove", $window, resizing);
       event("mouseup", $window, endResize);
       let styles;
@@ -12340,7 +13518,7 @@ var require_ui_001 = __commonJS({
       }
       var node_1 = sibling(node, 2);
       each(node_1, 17, () => grabbers, index, ($$anchor2, direction) => {
-        var button = root_1$8();
+        var button = root_1$a();
         var node_2 = child(button);
         {
           var consequent = ($$anchor3) => {
@@ -12385,17 +13563,17 @@ var require_ui_001 = __commonJS({
       pop();
     }
     delegate(["mousedown", "dblclick"]);
-    var root_1$7 = /* @__PURE__ */ from_html(`<div data-role="toolbar:start"><!></div>`);
+    var root_1$9 = /* @__PURE__ */ from_html(`<div data-role="toolbar:start"><!></div>`);
     var root_2$3 = /* @__PURE__ */ from_html(`<div data-role="toolbar:end"><!></div>`);
-    var root$c = /* @__PURE__ */ from_html(`<div><!> <!></div>`);
+    var root$d = /* @__PURE__ */ from_html(`<div><!> <!></div>`);
     function Toolbar($$anchor, $$props) {
       let attrs = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "start", "end"]);
-      var div = root$c();
+      var div = root$d();
       attribute_effect(div, () => ({ "data-component": "toolbar", ...attrs }));
       var node = child(div);
       {
         var consequent = ($$anchor2) => {
-          var div_1 = root_1$7();
+          var div_1 = root_1$9();
           var node_1 = child(div_1);
           snippet(node_1, () => $$props.start);
           append$1($$anchor2, div_1);
@@ -12418,8 +13596,8 @@ var require_ui_001 = __commonJS({
       }
       append$1($$anchor, div);
     }
-    var root_5 = /* @__PURE__ */ from_html(`<span data-role="tabs:label" class="label mark"><span><!></span></span>`);
-    var root_1$6 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
+    var root_5$1 = /* @__PURE__ */ from_html(`<span data-role="tabs:label" class="label mark"><span><!></span></span>`);
+    var root_1$8 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
     function Tabs_1($$anchor, $$props) {
       push($$props, true);
       let panels = prop($$props, "panels", 19, () => []);
@@ -12437,7 +13615,7 @@ var require_ui_001 = __commonJS({
             tabs.current.active = $$value;
           },
           children: ($$anchor3, $$slotProps) => {
-            var fragment_1 = root_1$6();
+            var fragment_1 = root_1$8();
             var node_1 = first_child(fragment_1);
             {
               const start2 = ($$anchor4) => {
@@ -12459,7 +13637,7 @@ var require_ui_001 = __commonJS({
                             },
                             "data-role": "tabs:trigger",
                             children: ($$anchor9, $$slotProps3) => {
-                              var span = root_5();
+                              var span = root_5$1();
                               var span_1 = child(span);
                               var node_5 = child(span_1);
                               {
@@ -12526,8 +13704,8 @@ var require_ui_001 = __commonJS({
     }
     var freeGlobal = typeof global == "object" && global && global.Object === Object && global;
     var freeSelf = typeof self == "object" && self && self.Object === Object && self;
-    var root$b = freeGlobal || freeSelf || Function("return this")();
-    var Symbol$1 = root$b.Symbol;
+    var root$c = freeGlobal || freeSelf || Function("return this")();
+    var Symbol$1 = root$c.Symbol;
     var objectProto$e = Object.prototype;
     var hasOwnProperty$c = objectProto$e.hasOwnProperty;
     var nativeObjectToString$1 = objectProto$e.toString;
@@ -12576,13 +13754,13 @@ var require_ui_001 = __commonJS({
       }
       return result;
     }
-    var isArray$1 = Array.isArray;
+    var isArray$3 = Array.isArray;
     var symbolProto$2 = Symbol$1 ? Symbol$1.prototype : void 0, symbolToString = symbolProto$2 ? symbolProto$2.toString : void 0;
     function baseToString(value) {
       if (typeof value == "string") {
         return value;
       }
-      if (isArray$1(value)) {
+      if (isArray$3(value)) {
         return arrayMap(value, baseToString) + "";
       }
       if (isSymbol(value)) {
@@ -12603,7 +13781,7 @@ var require_ui_001 = __commonJS({
       var tag = baseGetTag(value);
       return tag == funcTag$2 || tag == genTag$1 || tag == asyncTag || tag == proxyTag;
     }
-    var coreJsData = root$b["__core-js_shared__"];
+    var coreJsData = root$c["__core-js_shared__"];
     var maskSrcKey = (function() {
       var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || "");
       return uid ? "Symbol(src)_1." + uid : "";
@@ -12648,7 +13826,7 @@ var require_ui_001 = __commonJS({
       var value = getValue(object, key2);
       return baseIsNative(value) ? value : void 0;
     }
-    var WeakMap$1 = getNative(root$b, "WeakMap");
+    var WeakMap$1 = getNative(root$c, "WeakMap");
     var objectCreate = Object.create;
     var baseCreate = /* @__PURE__ */ (function() {
       function object() {
@@ -12750,7 +13928,7 @@ var require_ui_001 = __commonJS({
     var freeExports$2 = typeof exports == "object" && exports && !exports.nodeType && exports;
     var freeModule$2 = freeExports$2 && typeof module == "object" && module && !module.nodeType && module;
     var moduleExports$2 = freeModule$2 && freeModule$2.exports === freeExports$2;
-    var Buffer$2 = moduleExports$2 ? root$b.Buffer : void 0;
+    var Buffer$2 = moduleExports$2 ? root$c.Buffer : void 0;
     var nativeIsBuffer = Buffer$2 ? Buffer$2.isBuffer : void 0;
     var isBuffer$1 = nativeIsBuffer || stubFalse;
     var argsTag$2 = "[object Arguments]", arrayTag$2 = "[object Array]", boolTag$3 = "[object Boolean]", dateTag$3 = "[object Date]", errorTag$2 = "[object Error]", funcTag$1 = "[object Function]", mapTag$5 = "[object Map]", numberTag$3 = "[object Number]", objectTag$3 = "[object Object]", regexpTag$3 = "[object RegExp]", setTag$5 = "[object Set]", stringTag$3 = "[object String]", weakMapTag$2 = "[object WeakMap]";
@@ -12785,7 +13963,7 @@ var require_ui_001 = __commonJS({
     var objectProto$8 = Object.prototype;
     var hasOwnProperty$8 = objectProto$8.hasOwnProperty;
     function arrayLikeKeys(value, inherited) {
-      var isArr = isArray$1(value), isArg = !isArr && isArguments(value), isBuff = !isArr && !isArg && isBuffer$1(value), isType = !isArr && !isArg && !isBuff && isTypedArray$1(value), skipIndexes = isArr || isArg || isBuff || isType, result = skipIndexes ? baseTimes(value.length, String) : [], length = result.length;
+      var isArr = isArray$3(value), isArg = !isArr && isArguments(value), isBuff = !isArr && !isArg && isBuffer$1(value), isType = !isArr && !isArg && !isBuff && isTypedArray$1(value), skipIndexes = isArr || isArg || isBuff || isType, result = skipIndexes ? baseTimes(value.length, String) : [], length = result.length;
       for (var key2 in value) {
         if (hasOwnProperty$8.call(value, key2) && !(skipIndexes && // Safari 9 has enumerable `arguments.length` in strict mode.
         (key2 == "length" || // Node.js 0.10 has enumerable non-index properties on buffers.
@@ -12822,7 +14000,7 @@ var require_ui_001 = __commonJS({
     }
     var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/, reIsPlainProp = /^\w*$/;
     function isKey(value, object) {
-      if (isArray$1(value)) {
+      if (isArray$3(value)) {
         return false;
       }
       var type2 = typeof value;
@@ -12937,7 +14115,7 @@ var require_ui_001 = __commonJS({
     ListCache.prototype.get = listCacheGet;
     ListCache.prototype.has = listCacheHas;
     ListCache.prototype.set = listCacheSet;
-    var Map$1 = getNative(root$b, "Map");
+    var Map$1 = getNative(root$c, "Map");
     function mapCacheClear() {
       this.size = 0;
       this.__data__ = {
@@ -13029,7 +14207,7 @@ var require_ui_001 = __commonJS({
       return value == null ? "" : baseToString(value);
     }
     function castPath(value, object) {
-      if (isArray$1(value)) {
+      if (isArray$3(value)) {
         return value;
       }
       return isKey(value, object) ? [value] : stringToPath(toString$1(value));
@@ -13109,7 +14287,7 @@ var require_ui_001 = __commonJS({
     var freeExports = typeof exports == "object" && exports && !exports.nodeType && exports;
     var freeModule = freeExports && typeof module == "object" && module && !module.nodeType && module;
     var moduleExports = freeModule && freeModule.exports === freeExports;
-    var Buffer$1 = moduleExports ? root$b.Buffer : void 0;
+    var Buffer$1 = moduleExports ? root$c.Buffer : void 0;
     Buffer$1 ? Buffer$1.allocUnsafe : void 0;
     function cloneBuffer(buffer, isDeep) {
       {
@@ -13143,14 +14321,14 @@ var require_ui_001 = __commonJS({
     };
     function baseGetAllKeys(object, keysFunc, symbolsFunc) {
       var result = keysFunc(object);
-      return isArray$1(object) ? result : arrayPush(result, symbolsFunc(object));
+      return isArray$3(object) ? result : arrayPush(result, symbolsFunc(object));
     }
     function getAllKeys(object) {
       return baseGetAllKeys(object, keys, getSymbols);
     }
-    var DataView$1 = getNative(root$b, "DataView");
-    var Promise$1 = getNative(root$b, "Promise");
-    var Set$1 = getNative(root$b, "Set");
+    var DataView$1 = getNative(root$c, "DataView");
+    var Promise$1 = getNative(root$c, "Promise");
+    var Set$1 = getNative(root$c, "Set");
     var mapTag$4 = "[object Map]", objectTag$2 = "[object Object]", promiseTag = "[object Promise]", setTag$4 = "[object Set]", weakMapTag$1 = "[object WeakMap]";
     var dataViewTag$3 = "[object DataView]";
     var dataViewCtorString = toSource(DataView$1), mapCtorString = toSource(Map$1), promiseCtorString = toSource(Promise$1), setCtorString = toSource(Set$1), weakMapCtorString = toSource(WeakMap$1);
@@ -13185,7 +14363,7 @@ var require_ui_001 = __commonJS({
       }
       return result;
     }
-    var Uint8Array$1 = root$b.Uint8Array;
+    var Uint8Array$1 = root$c.Uint8Array;
     function cloneArrayBuffer(arrayBuffer) {
       var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
       new Uint8Array$1(result).set(new Uint8Array$1(arrayBuffer));
@@ -13272,7 +14450,7 @@ var require_ui_001 = __commonJS({
       if (!isObject$1(value)) {
         return value;
       }
-      var isArr = isArray$1(value);
+      var isArr = isArray$3(value);
       if (isArr) {
         result = initCloneArray(value);
       } else {
@@ -13507,7 +14685,7 @@ var require_ui_001 = __commonJS({
     var objectProto$1 = Object.prototype;
     var hasOwnProperty$2 = objectProto$1.hasOwnProperty;
     function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
-      var objIsArr = isArray$1(object), othIsArr = isArray$1(other), objTag = objIsArr ? arrayTag : getTag(object), othTag = othIsArr ? arrayTag : getTag(other);
+      var objIsArr = isArray$3(object), othIsArr = isArray$3(other), objTag = objIsArr ? arrayTag : getTag(object), othTag = othIsArr ? arrayTag : getTag(other);
       objTag = objTag == argsTag ? objectTag : objTag;
       othTag = othTag == argsTag ? objectTag : othTag;
       var objIsObj = objTag == objectTag, othIsObj = othTag == objectTag, isSameTag = objTag == othTag;
@@ -13559,7 +14737,7 @@ var require_ui_001 = __commonJS({
         return result;
       }
       length = object == null ? 0 : object.length;
-      return !!length && isLength(length) && isIndex(key2, length) && (isArray$1(object) || isArguments(object));
+      return !!length && isLength(length) && isIndex(key2, length) && (isArray$3(object) || isArguments(object));
     }
     var htmlEscapes = {
       "&": "&amp;",
@@ -13579,7 +14757,7 @@ var require_ui_001 = __commonJS({
     function baseHas(object, key2) {
       return object != null && hasOwnProperty$1.call(object, key2);
     }
-    function has(object, path) {
+    function has$2(object, path) {
       return object != null && hasPath(object, path, baseHas);
     }
     function isEqual(value, other) {
@@ -15301,19 +16479,19 @@ var require_ui_001 = __commonJS({
       var getSideChannel = requireSideChannel();
       var has2 = Object.prototype.hasOwnProperty;
       var isArray2 = Array.isArray;
-      var overflowChannel = getSideChannel();
-      var markOverflow = function markOverflow2(obj, maxIndex) {
-        overflowChannel.set(obj, maxIndex);
+      var overflowChannel2 = getSideChannel();
+      var markOverflow2 = function markOverflow3(obj, maxIndex) {
+        overflowChannel2.set(obj, maxIndex);
         return obj;
       };
-      var isOverflow = function isOverflow2(obj) {
-        return overflowChannel.has(obj);
+      var isOverflow2 = function isOverflow3(obj) {
+        return overflowChannel2.has(obj);
       };
-      var getMaxIndex = function getMaxIndex2(obj) {
-        return overflowChannel.get(obj);
+      var getMaxIndex2 = function getMaxIndex3(obj) {
+        return overflowChannel2.get(obj);
       };
-      var setMaxIndex = function setMaxIndex2(obj, maxIndex) {
-        overflowChannel.set(obj, maxIndex);
+      var setMaxIndex2 = function setMaxIndex3(obj, maxIndex) {
+        overflowChannel2.set(obj, maxIndex);
       };
       var hexTable = (function() {
         var array = [];
@@ -15322,7 +16500,7 @@ var require_ui_001 = __commonJS({
         }
         return array;
       })();
-      var compactQueue = function compactQueue2(queue3) {
+      var compactQueue2 = function compactQueue3(queue3) {
         while (queue3.length > 1) {
           var item = queue3.pop();
           var obj = item.obj[item.prop];
@@ -15354,14 +16532,14 @@ var require_ui_001 = __commonJS({
           if (isArray2(target)) {
             var nextIndex2 = target.length;
             if (options && typeof options.arrayLimit === "number" && nextIndex2 > options.arrayLimit) {
-              return markOverflow(arrayToObject2(target.concat(source2), options), nextIndex2);
+              return markOverflow2(arrayToObject2(target.concat(source2), options), nextIndex2);
             }
             target[nextIndex2] = source2;
           } else if (target && typeof target === "object") {
-            if (isOverflow(target)) {
-              var newIndex = getMaxIndex(target) + 1;
+            if (isOverflow2(target)) {
+              var newIndex = getMaxIndex2(target) + 1;
               target[newIndex] = source2;
-              setMaxIndex(target, newIndex);
+              setMaxIndex2(target, newIndex);
             } else if (options && options.strictMerge) {
               return [target, source2];
             } else if (options && (options.plainObjects || options.allowPrototypes) || !has2.call(Object.prototype, source2)) {
@@ -15373,18 +16551,18 @@ var require_ui_001 = __commonJS({
           return target;
         }
         if (!target || typeof target !== "object") {
-          if (isOverflow(source2)) {
+          if (isOverflow2(source2)) {
             var sourceKeys = Object.keys(source2);
             var result = options && options.plainObjects ? { __proto__: null, 0: target } : { 0: target };
             for (var m = 0; m < sourceKeys.length; m++) {
               var oldKey = parseInt(sourceKeys[m], 10);
               result[oldKey + 1] = source2[sourceKeys[m]];
             }
-            return markOverflow(result, getMaxIndex(source2) + 1);
+            return markOverflow2(result, getMaxIndex2(source2) + 1);
           }
           var combined = [target].concat(source2);
           if (options && typeof options.arrayLimit === "number" && combined.length > options.arrayLimit) {
-            return markOverflow(arrayToObject2(combined, options), combined.length - 1);
+            return markOverflow2(arrayToObject2(combined, options), combined.length - 1);
           }
           return combined;
         }
@@ -15414,13 +16592,13 @@ var require_ui_001 = __commonJS({
           } else {
             acc[key2] = value;
           }
-          if (isOverflow(source2) && !isOverflow(acc)) {
-            markOverflow(acc, getMaxIndex(source2));
+          if (isOverflow2(source2) && !isOverflow2(acc)) {
+            markOverflow2(acc, getMaxIndex2(source2));
           }
-          if (isOverflow(acc)) {
+          if (isOverflow2(acc)) {
             var keyNum = parseInt(key2, 10);
-            if (String(keyNum) === key2 && keyNum >= 0 && keyNum > getMaxIndex(acc)) {
-              setMaxIndex(acc, keyNum);
+            if (String(keyNum) === key2 && keyNum >= 0 && keyNum > getMaxIndex2(acc)) {
+              setMaxIndex2(acc, keyNum);
             }
           }
           return acc;
@@ -15432,7 +16610,7 @@ var require_ui_001 = __commonJS({
           return acc;
         }, target);
       };
-      var decode = function(str, defaultDecoder, charset) {
+      var decode2 = function(str, defaultDecoder, charset) {
         var strWithoutPlus = str.replace(/\+/g, " ");
         if (charset === "iso-8859-1") {
           return strWithoutPlus.replace(/%[0-9a-f]{2}/gi, unescape);
@@ -15505,7 +16683,7 @@ var require_ui_001 = __commonJS({
             }
           }
         }
-        compactQueue(queue3);
+        compactQueue2(queue3);
         return value;
       };
       var isRegExp2 = function isRegExp3(obj) {
@@ -15517,20 +16695,20 @@ var require_ui_001 = __commonJS({
         }
         return !!(obj.constructor && obj.constructor.isBuffer && obj.constructor.isBuffer(obj));
       };
-      var combine = function combine2(a, b, arrayLimit, plainObjects) {
-        if (isOverflow(a)) {
-          var newIndex = getMaxIndex(a) + 1;
+      var combine2 = function combine3(a, b, arrayLimit, plainObjects) {
+        if (isOverflow2(a)) {
+          var newIndex = getMaxIndex2(a) + 1;
           a[newIndex] = b;
-          setMaxIndex(a, newIndex);
+          setMaxIndex2(a, newIndex);
           return a;
         }
         var result = [].concat(a, b);
         if (result.length > arrayLimit) {
-          return markOverflow(arrayToObject2(result, { plainObjects }), result.length - 1);
+          return markOverflow2(arrayToObject2(result, { plainObjects }), result.length - 1);
         }
         return result;
       };
-      var maybeMap = function maybeMap2(val, fn) {
+      var maybeMap2 = function maybeMap3(val, fn) {
         if (isArray2(val)) {
           var mapped = [];
           for (var i = 0; i < val.length; i += 1) {
@@ -15543,15 +16721,15 @@ var require_ui_001 = __commonJS({
       utils$2 = {
         arrayToObject: arrayToObject2,
         assign,
-        combine,
+        combine: combine2,
         compact: compact2,
-        decode,
+        decode: decode2,
         encode: encode2,
         isBuffer: isBuffer2,
-        isOverflow,
+        isOverflow: isOverflow2,
         isRegExp: isRegExp2,
-        markOverflow,
-        maybeMap,
+        markOverflow: markOverflow2,
+        maybeMap: maybeMap2,
         merge: merge2
       };
       return utils$2;
@@ -15839,10 +17017,10 @@ var require_ui_001 = __commonJS({
       };
       return stringify_1;
     }
-    var parse;
+    var parse$1;
     var hasRequiredParse;
     function requireParse() {
-      if (hasRequiredParse) return parse;
+      if (hasRequiredParse) return parse$1;
       hasRequiredParse = 1;
       var utils2 = /* @__PURE__ */ requireUtils();
       var has2 = Object.prototype.hasOwnProperty;
@@ -15871,12 +17049,12 @@ var require_ui_001 = __commonJS({
         strictNullHandling: false,
         throwOnLimitExceeded: false
       };
-      var interpretNumericEntities = function(str) {
+      var interpretNumericEntities2 = function(str) {
         return str.replace(/&#(\d+);/g, function($0, numberStr) {
           return String.fromCharCode(parseInt(numberStr, 10));
         });
       };
-      var parseArrayValue = function(val, options, currentArrayLength) {
+      var parseArrayValue2 = function(val, options, currentArrayLength) {
         if (val && typeof val === "string" && options.comma && val.indexOf(",") > -1) {
           return val.split(",");
         }
@@ -15885,9 +17063,9 @@ var require_ui_001 = __commonJS({
         }
         return val;
       };
-      var isoSentinel = "utf8=%26%2310003%3B";
-      var charsetSentinel = "utf8=%E2%9C%93";
-      var parseValues = function parseQueryStringValues(str, options) {
+      var isoSentinel2 = "utf8=%26%2310003%3B";
+      var charsetSentinel2 = "utf8=%E2%9C%93";
+      var parseValues2 = function parseQueryStringValues(str, options) {
         var obj = { __proto__: null };
         var cleanStr = options.ignoreQueryPrefix ? str.replace(/^\?/, "") : str;
         cleanStr = cleanStr.replace(/%5B/gi, "[").replace(/%5D/gi, "]");
@@ -15905,9 +17083,9 @@ var require_ui_001 = __commonJS({
         if (options.charsetSentinel) {
           for (i = 0; i < parts2.length; ++i) {
             if (parts2[i].indexOf("utf8=") === 0) {
-              if (parts2[i] === charsetSentinel) {
+              if (parts2[i] === charsetSentinel2) {
                 charset = "utf-8";
-              } else if (parts2[i] === isoSentinel) {
+              } else if (parts2[i] === isoSentinel2) {
                 charset = "iso-8859-1";
               }
               skipIndex = i;
@@ -15931,7 +17109,7 @@ var require_ui_001 = __commonJS({
             key2 = options.decoder(part.slice(0, pos), defaults2.decoder, charset, "key");
             if (key2 !== null) {
               val = utils2.maybeMap(
-                parseArrayValue(
+                parseArrayValue2(
                   part.slice(pos + 1),
                   options,
                   isArray2(obj[key2]) ? obj[key2].length : 0
@@ -15943,7 +17121,7 @@ var require_ui_001 = __commonJS({
             }
           }
           if (val && options.interpretNumericEntities && charset === "iso-8859-1") {
-            val = interpretNumericEntities(String(val));
+            val = interpretNumericEntities2(String(val));
           }
           if (part.indexOf("[]=") > -1) {
             val = isArray2(val) ? [val] : val;
@@ -15970,13 +17148,13 @@ var require_ui_001 = __commonJS({
         }
         return obj;
       };
-      var parseObject = function(chain, val, options, valuesParsed) {
+      var parseObject2 = function(chain, val, options, valuesParsed) {
         var currentArrayLength = 0;
         if (chain.length > 0 && chain[chain.length - 1] === "[]") {
           var parentKey = chain.slice(0, -1).join("");
           currentArrayLength = Array.isArray(val) && val[parentKey] ? val[parentKey].length : 0;
         }
-        var leaf = valuesParsed ? val : parseArrayValue(val, options, currentArrayLength);
+        var leaf = valuesParsed ? val : parseArrayValue2(val, options, currentArrayLength);
         for (var i = chain.length - 1; i >= 0; --i) {
           var obj;
           var root2 = chain[i];
@@ -16057,7 +17235,7 @@ var require_ui_001 = __commonJS({
         }
         return keys2;
       };
-      var parseKeys = function parseQueryStringKeys(givenKey, val, options, valuesParsed) {
+      var parseKeys2 = function parseQueryStringKeys(givenKey, val, options, valuesParsed) {
         if (!givenKey) {
           return;
         }
@@ -16065,9 +17243,9 @@ var require_ui_001 = __commonJS({
         if (!keys2) {
           return;
         }
-        return parseObject(keys2, val, options, valuesParsed);
+        return parseObject2(keys2, val, options, valuesParsed);
       };
-      var normalizeParseOptions = function normalizeParseOptions2(opts) {
+      var normalizeParseOptions2 = function normalizeParseOptions3(opts) {
         if (!opts) {
           return defaults2;
         }
@@ -16118,17 +17296,17 @@ var require_ui_001 = __commonJS({
           throwOnLimitExceeded: typeof opts.throwOnLimitExceeded === "boolean" ? opts.throwOnLimitExceeded : false
         };
       };
-      parse = function(str, opts) {
-        var options = normalizeParseOptions(opts);
+      parse$1 = function(str, opts) {
+        var options = normalizeParseOptions2(opts);
         if (str === "" || str === null || typeof str === "undefined") {
           return options.plainObjects ? { __proto__: null } : {};
         }
-        var tempObj = typeof str === "string" ? parseValues(str, options) : str;
+        var tempObj = typeof str === "string" ? parseValues2(str, options) : str;
         var obj = options.plainObjects ? { __proto__: null } : {};
         var keys2 = Object.keys(tempObj);
         for (var i = 0; i < keys2.length; ++i) {
           var key2 = keys2[i];
-          var newObj = parseKeys(key2, tempObj[key2], options, typeof str === "string");
+          var newObj = parseKeys2(key2, tempObj[key2], options, typeof str === "string");
           obj = utils2.merge(obj, newObj, options);
         }
         if (options.allowSparse === true) {
@@ -16136,7 +17314,7 @@ var require_ui_001 = __commonJS({
         }
         return utils2.compact(obj);
       };
-      return parse;
+      return parse$1;
     }
     var lib;
     var hasRequiredLib;
@@ -16171,7 +17349,7 @@ var require_ui_001 = __commonJS({
       return (thing) => kindOf(thing) === type2;
     };
     const typeOfTest = (type2) => (thing) => typeof thing === type2;
-    const { isArray } = Array;
+    const { isArray: isArray$2 } = Array;
     const isUndefined = typeOfTest("undefined");
     function isBuffer(val) {
       return val !== null && !isUndefined(val) && val.constructor !== null && !isUndefined(val.constructor) && isFunction$1(val.constructor.isBuffer) && val.constructor.isBuffer(val);
@@ -16250,7 +17428,7 @@ var require_ui_001 = __commonJS({
       if (typeof obj !== "object") {
         obj = [obj];
       }
-      if (isArray(obj)) {
+      if (isArray$2(obj)) {
         for (i = 0, l = obj.length; i < l; i++) {
           fn.call(null, obj[i], i, obj);
         }
@@ -16288,7 +17466,7 @@ var require_ui_001 = __commonJS({
       return typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : global;
     })();
     const isContextDefined = (context) => !isUndefined(context) && context !== _global;
-    function merge() {
+    function merge$1() {
       const { caseless, skipUndefined } = isContextDefined(this) && this || {};
       const result = {};
       const assignValue2 = (val, key2) => {
@@ -16297,10 +17475,10 @@ var require_ui_001 = __commonJS({
         }
         const targetKey = caseless && findKey(result, key2) || key2;
         if (isPlainObject(result[targetKey]) && isPlainObject(val)) {
-          result[targetKey] = merge(result[targetKey], val);
+          result[targetKey] = merge$1(result[targetKey], val);
         } else if (isPlainObject(val)) {
-          result[targetKey] = merge({}, val);
-        } else if (isArray(val)) {
+          result[targetKey] = merge$1({}, val);
+        } else if (isArray$2(val)) {
           result[targetKey] = val.slice();
         } else if (!skipUndefined || !isUndefined(val)) {
           result[targetKey] = val;
@@ -16386,7 +17564,7 @@ var require_ui_001 = __commonJS({
     };
     const toArray = (thing) => {
       if (!thing) return null;
-      if (isArray(thing)) return thing;
+      if (isArray$2(thing)) return thing;
       let i = thing.length;
       if (!isNumber(i)) return null;
       const arr = new Array(i);
@@ -16462,7 +17640,7 @@ var require_ui_001 = __commonJS({
           obj[value] = true;
         });
       };
-      isArray(arrayOrString) ? define(arrayOrString) : define(String(arrayOrString).split(delimiter));
+      isArray$2(arrayOrString) ? define(arrayOrString) : define(String(arrayOrString).split(delimiter));
       return obj;
     };
     const noop = () => {
@@ -16485,7 +17663,7 @@ var require_ui_001 = __commonJS({
           }
           if (!("toJSON" in source2)) {
             stack[i] = source2;
-            const target = isArray(source2) ? [] : {};
+            const target = isArray$2(source2) ? [] : {};
             forEach(source2, (value, key2) => {
               const reducedValue = visit2(value, i + 1);
               !isUndefined(reducedValue) && (target[key2] = reducedValue);
@@ -16523,7 +17701,7 @@ var require_ui_001 = __commonJS({
     const asap = typeof queueMicrotask !== "undefined" ? queueMicrotask.bind(_global) : typeof process !== "undefined" && process.nextTick || _setImmediate;
     const isIterable = (thing) => thing != null && isFunction$1(thing[iterator]);
     const utils$1 = {
-      isArray,
+      isArray: isArray$2,
       isArrayBuffer,
       isBuffer,
       isFormData: isFormData$1,
@@ -16551,7 +17729,7 @@ var require_ui_001 = __commonJS({
       isTypedArray,
       isFileList,
       forEach,
-      merge,
+      merge: merge$1,
       extend,
       trim,
       stripBOM,
@@ -16946,7 +18124,7 @@ var require_ui_001 = __commonJS({
         return match2[0] === "[]" ? "" : match2[1] || match2[0];
       });
     }
-    function arrayToObject(arr) {
+    function arrayToObject$1(arr) {
       const obj = {};
       const keys2 = Object.keys(arr);
       let i;
@@ -16978,7 +18156,7 @@ var require_ui_001 = __commonJS({
         }
         const result = buildPath(path, value, target[name], index2);
         if (result && utils$1.isArray(target[name])) {
-          target[name] = arrayToObject(target[name]);
+          target[name] = arrayToObject$1(target[name]);
         }
         return !isNumericKey;
       }
@@ -17004,7 +18182,7 @@ var require_ui_001 = __commonJS({
       }
       return (encoder || JSON.stringify)(rawValue);
     }
-    const defaults = {
+    const defaults$1 = {
       transitional: transitionalDefaults,
       adapter: ["xhr", "http", "fetch"],
       transformRequest: [
@@ -17052,7 +18230,7 @@ var require_ui_001 = __commonJS({
       ],
       transformResponse: [
         function transformResponse(data) {
-          const transitional = this.transitional || defaults.transitional;
+          const transitional = this.transitional || defaults$1.transitional;
           const forcedJSONParsing = transitional && transitional.forcedJSONParsing;
           const JSONRequested = this.responseType === "json";
           if (utils$1.isResponse(data) || utils$1.isReadableStream(data)) {
@@ -17099,7 +18277,7 @@ var require_ui_001 = __commonJS({
       }
     };
     utils$1.forEach(["delete", "get", "head", "post", "put", "patch"], (method) => {
-      defaults.headers[method] = {};
+      defaults$1.headers[method] = {};
     });
     const ignoreDuplicateOf = utils$1.toObjectSet([
       "age",
@@ -17378,7 +18556,7 @@ var require_ui_001 = __commonJS({
     });
     utils$1.freezeMethods(AxiosHeaders$1);
     function transformData(fns, response) {
-      const config2 = this || defaults;
+      const config2 = this || defaults$1;
       const context = response || config2;
       const headers = AxiosHeaders$1.from(context.headers);
       let data = context.data;
@@ -18266,7 +19444,7 @@ var require_ui_001 = __commonJS({
       if (["post", "put", "patch"].indexOf(config2.method) !== -1) {
         config2.headers.setContentType("application/x-www-form-urlencoded", false);
       }
-      const adapter = adapters.getAdapter(config2.adapter || defaults.adapter, config2);
+      const adapter = adapters.getAdapter(config2.adapter || defaults$1.adapter, config2);
       return adapter(config2).then(
         function onAdapterResolution(response) {
           throwIfCancellationRequested(config2);
@@ -18729,7 +19907,7 @@ var require_ui_001 = __commonJS({
       };
       return instance;
     }
-    const axios = createInstance(defaults);
+    const axios = createInstance(defaults$1);
     axios.Axios = Axios$1;
     axios.CanceledError = CanceledError$1;
     axios.CancelToken = CancelToken$1;
@@ -18782,7 +19960,7 @@ var require_ui_001 = __commonJS({
         this.config = newConfig;
       }
       get(key2) {
-        return has(this.config, key2) ? get$1(this.config, key2) : get$1(this.defaults, key2);
+        return has$2(this.config, key2) ? get$1(this.config, key2) : get$1(this.defaults, key2);
       }
       set(keyOrValues, value) {
         if (typeof keyOrValues === "string") {
@@ -22196,7 +23374,7 @@ var require_ui_001 = __commonJS({
       return { update: update2, destroy };
     }
     const config = config$1.extend({});
-    var root_1$5 = /* @__PURE__ */ from_html(`<span data-role="button:content"><!> <!></span>`);
+    var root_1$7 = /* @__PURE__ */ from_html(`<span data-role="button:content"><!> <!></span>`);
     function Button($$anchor, $$props) {
       var fragment = comment();
       var node = first_child(fragment);
@@ -22207,7 +23385,7 @@ var require_ui_001 = __commonJS({
           class: "button",
           "data-size": $$props.size
         }));
-        var span = root_1$5();
+        var span = root_1$7();
         var node_1 = child(span);
         {
           var consequent = ($$anchor3) => {
@@ -22230,17 +23408,17 @@ var require_ui_001 = __commonJS({
       });
       append$1($$anchor, fragment);
     }
-    var root$a = /* @__PURE__ */ from_html(`<div data-component="button-group"><!></div>`);
+    var root$b = /* @__PURE__ */ from_html(`<div data-component="button-group"><!></div>`);
     function Button_group($$anchor, $$props) {
       let size = prop($$props, "size", 3, "md");
-      var div = root$a();
+      var div = root$b();
       var node = child(div);
       snippet(node, () => $$props.children);
       template_effect(() => set_attribute(div, "data-size", size()));
       append$1($$anchor, div);
     }
     var root_2$2 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
-    var root$9 = /* @__PURE__ */ from_html(`<div data-component="splitter"><!></div>`);
+    var root$a = /* @__PURE__ */ from_html(`<div data-component="splitter"><!></div>`);
     function Splitter_1($$anchor, $$props) {
       push($$props, true);
       let panel = prop($$props, "panel", 3, null), orientation = prop($$props, "orientation", 3, "horizontal"), panelSnippets = /* @__PURE__ */ rest_props($$props, [
@@ -22255,7 +23433,7 @@ var require_ui_001 = __commonJS({
       ]);
       const createSplitterState = () => new PersistedState(`splitter:${$$props.id}`, { orientation: orientation(), size: [] });
       createSplitterState();
-      var div = root$9();
+      var div = root$a();
       var node = child(div);
       component(node, () => Splitter_root, ($$anchor2, Splitter_Root) => {
         Splitter_Root($$anchor2, {
@@ -22341,7 +23519,7 @@ var require_ui_001 = __commonJS({
       append$1($$anchor, div);
       pop();
     }
-    var root_1$4 = /* @__PURE__ */ from_html(`<code data-role="snippet:code"><pre><!></pre></code>`);
+    var root_1$6 = /* @__PURE__ */ from_html(`<code data-role="snippet:code"><pre><!></pre></code>`);
     function Snippet($$anchor, $$props) {
       let theme = prop($$props, "theme", 3, "min-light"), output = prop($$props, "output", 3, false);
       var fragment = comment();
@@ -22361,7 +23539,7 @@ var require_ui_001 = __commonJS({
           void 0,
           "svelte-1ba9mvy"
         );
-        var code = root_1$4();
+        var code = root_1$6();
         var pre = child(code);
         var node_1 = child(pre);
         snippet(node_1, () => $$props.children);
@@ -22369,6 +23547,649 @@ var require_ui_001 = __commonJS({
         append$1($$anchor2, code);
       });
       append$1($$anchor, fragment);
+    }
+    var root_1$5 = /* @__PURE__ */ from_html(`<!> <!> <!>`, 1);
+    function Switch_1($$anchor, $$props) {
+      push($$props, true);
+      let checked = prop($$props, "checked", 15);
+      var fragment = comment();
+      var node = first_child(fragment);
+      component(node, () => Switch_root, ($$anchor2, Switch_Root) => {
+        Switch_Root($$anchor2, {
+          "data-component": "switch",
+          value: "true",
+          get checked() {
+            return checked();
+          },
+          set checked($$value) {
+            checked($$value);
+          },
+          children: ($$anchor3, $$slotProps) => {
+            var fragment_1 = root_1$5();
+            var node_1 = first_child(fragment_1);
+            component(node_1, () => Switch_label, ($$anchor4, Switch_Label) => {
+              Switch_Label($$anchor4, {
+                "data-role": "switch:label",
+                children: ($$anchor5, $$slotProps2) => {
+                  var text$1 = text();
+                  template_effect(() => set_text(text$1, $$props.label));
+                  append$1($$anchor5, text$1);
+                },
+                $$slots: { default: true }
+              });
+            });
+            var node_2 = sibling(node_1, 2);
+            component(node_2, () => Switch_control, ($$anchor4, Switch_Control) => {
+              Switch_Control($$anchor4, {
+                "data-role": "switch:control",
+                children: ($$anchor5, $$slotProps2) => {
+                  var fragment_3 = comment();
+                  var node_3 = first_child(fragment_3);
+                  component(node_3, () => Switch_thumb, ($$anchor6, Switch_Thumb) => {
+                    Switch_Thumb($$anchor6, { "data-role": "switch:thumb" });
+                  });
+                  append$1($$anchor5, fragment_3);
+                },
+                $$slots: { default: true }
+              });
+            });
+            var node_4 = sibling(node_2, 2);
+            component(node_4, () => Switch_hidden_input, ($$anchor4, Switch_HiddenInput) => {
+              Switch_HiddenInput($$anchor4, {
+                get name() {
+                  return $$props.name;
+                },
+                "data-role": "switch:hidden-input"
+              });
+            });
+            append$1($$anchor3, fragment_1);
+          },
+          $$slots: { default: true }
+        });
+      });
+      append$1($$anchor, fragment);
+      pop();
+    }
+    function getCurrentContext() {
+      return getContext("current")();
+    }
+    const has$1 = Object.prototype.hasOwnProperty;
+    const isArray$1 = Array.isArray;
+    const overflowChannel = /* @__PURE__ */ new WeakMap();
+    var markOverflow = function markOverflow2(obj, maxIndex) {
+      overflowChannel.set(obj, maxIndex);
+      return obj;
+    };
+    function isOverflow(obj) {
+      return overflowChannel.has(obj);
+    }
+    var getMaxIndex = function getMaxIndex2(obj) {
+      return overflowChannel.get(obj);
+    };
+    var setMaxIndex = function setMaxIndex2(obj, maxIndex) {
+      overflowChannel.set(obj, maxIndex);
+    };
+    (function() {
+      const array = [];
+      for (let i = 0; i < 256; ++i) {
+        array.push("%" + ((i < 16 ? "0" : "") + i.toString(16)).toUpperCase());
+      }
+      return array;
+    })();
+    const compactQueue = function compactQueue2(queue3) {
+      while (queue3.length > 1) {
+        const item = queue3.pop();
+        const obj = item.obj[item.prop];
+        if (isArray$1(obj)) {
+          const compacted = [];
+          for (let j = 0; j < obj.length; ++j) {
+            if (typeof obj[j] !== "undefined") {
+              compacted.push(obj[j]);
+            }
+          }
+          item.obj[item.prop] = compacted;
+        }
+      }
+    };
+    const arrayToObject = function arrayToObject2(source2, options) {
+      const obj = options && options.plainObjects ? /* @__PURE__ */ Object.create(null) : {};
+      for (let i = 0; i < source2.length; ++i) {
+        if (typeof source2[i] !== "undefined") {
+          obj[i] = source2[i];
+        }
+      }
+      return obj;
+    };
+    const merge = function merge2(target, source2, options) {
+      if (!source2) {
+        return target;
+      }
+      if (typeof source2 !== "object") {
+        if (isArray$1(target)) {
+          target.push(source2);
+        } else if (target && typeof target === "object") {
+          if (isOverflow(target)) {
+            var newIndex = getMaxIndex(target) + 1;
+            target[newIndex] = source2;
+            setMaxIndex(target, newIndex);
+          } else if (options && (options.plainObjects || options.allowPrototypes) || !has$1.call(Object.prototype, source2)) {
+            target[source2] = true;
+          }
+        } else {
+          return [target, source2];
+        }
+        return target;
+      }
+      if (!target || typeof target !== "object") {
+        if (isOverflow(source2)) {
+          var sourceKeys = Object.keys(source2);
+          var result = options && options.plainObjects ? { __proto__: null, 0: target } : { 0: target };
+          for (var m = 0; m < sourceKeys.length; m++) {
+            var oldKey = parseInt(sourceKeys[m], 10);
+            result[oldKey + 1] = source2[sourceKeys[m]];
+          }
+          return markOverflow(result, getMaxIndex(source2) + 1);
+        }
+        return [target].concat(source2);
+      }
+      let mergeTarget = target;
+      if (isArray$1(target) && !isArray$1(source2)) {
+        mergeTarget = arrayToObject(target, options);
+      }
+      if (isArray$1(target) && isArray$1(source2)) {
+        source2.forEach(function(item, i) {
+          if (has$1.call(target, i)) {
+            const targetItem = target[i];
+            if (targetItem && typeof targetItem === "object" && item && typeof item === "object") {
+              target[i] = merge2(targetItem, item, options);
+            } else {
+              target.push(item);
+            }
+          } else {
+            target[i] = item;
+          }
+        });
+        return target;
+      }
+      return Object.keys(source2).reduce(function(acc, key2) {
+        const value = source2[key2];
+        if (has$1.call(acc, key2)) {
+          acc[key2] = merge2(acc[key2], value, options);
+        } else {
+          acc[key2] = value;
+        }
+        return acc;
+      }, mergeTarget);
+    };
+    const decode = function(str, decoder, charset) {
+      const strWithoutPlus = str.replace(/\+/g, " ");
+      if (charset === "iso-8859-1") {
+        return strWithoutPlus.replace(/%[0-9a-f]{2}/gi, unescape);
+      }
+      try {
+        return decodeURIComponent(strWithoutPlus);
+      } catch (e) {
+        return strWithoutPlus;
+      }
+    };
+    const compact = function compact2(value) {
+      const queue3 = [{ obj: { o: value }, prop: "o" }];
+      const refs = [];
+      for (let i = 0; i < queue3.length; ++i) {
+        const item = queue3[i];
+        const obj = item.obj[item.prop];
+        const keys2 = Object.keys(obj);
+        for (let j = 0; j < keys2.length; ++j) {
+          const key2 = keys2[j];
+          const val = obj[key2];
+          if (typeof val === "object" && val !== null && refs.indexOf(val) === -1) {
+            queue3.push({ obj, prop: key2 });
+            refs.push(val);
+          }
+        }
+      }
+      compactQueue(queue3);
+      return value;
+    };
+    const combine = function combine2(a, b, arrayLimit, plainObjects) {
+      if (isOverflow(a)) {
+        var newIndex = getMaxIndex(a) + 1;
+        a[newIndex] = b;
+        setMaxIndex(a, newIndex);
+        return a;
+      }
+      var result = [].concat(a, b);
+      if (result.length > arrayLimit) {
+        return markOverflow(arrayToObject(result, { plainObjects }), result.length - 1);
+      }
+      return result;
+    };
+    const maybeMap = function maybeMap2(val, fn) {
+      if (isArray$1(val)) {
+        const mapped = [];
+        for (let i = 0; i < val.length; i += 1) {
+          mapped.push(fn(val[i]));
+        }
+        return mapped;
+      }
+      return fn(val);
+    };
+    const has = Object.prototype.hasOwnProperty;
+    const isArray = Array.isArray;
+    const defaults = {
+      allowDots: false,
+      allowEmptyArrays: false,
+      allowPrototypes: false,
+      allowSparse: false,
+      arrayLimit: 20,
+      charset: "utf-8",
+      charsetSentinel: false,
+      comma: false,
+      decodeDotInKeys: false,
+      decoder: decode,
+      delimiter: "&",
+      depth: 5,
+      duplicates: "combine",
+      ignoreQueryPrefix: false,
+      interpretNumericEntities: false,
+      parameterLimit: 1e3,
+      parseArrays: true,
+      plainObjects: false,
+      strictNullHandling: false
+    };
+    const interpretNumericEntities = function(str) {
+      return str.replace(/&#(\d+);/g, function($0, numberStr) {
+        return String.fromCharCode(parseInt(numberStr, 10));
+      });
+    };
+    const parseArrayValue = function(val, options) {
+      if (val && typeof val === "string" && options.comma && val.indexOf(",") > -1) {
+        return val.split(",");
+      }
+      return val;
+    };
+    const isoSentinel = "utf8=%26%2310003%3B";
+    const charsetSentinel = "utf8=%E2%9C%93";
+    const parseValues = function parseQueryStringValues(str, options) {
+      const obj = { __proto__: null };
+      const cleanStr = options.ignoreQueryPrefix ? str.replace(/^\?/, "") : str;
+      const limit = options.parameterLimit === Infinity ? void 0 : options.parameterLimit;
+      const parts2 = cleanStr.split(options.delimiter, limit);
+      let skipIndex = -1;
+      let i;
+      let charset = options.charset;
+      if (options.charsetSentinel) {
+        for (i = 0; i < parts2.length; ++i) {
+          if (parts2[i].indexOf("utf8=") === 0) {
+            if (parts2[i] === charsetSentinel) {
+              charset = "utf-8";
+            } else if (parts2[i] === isoSentinel) {
+              charset = "iso-8859-1";
+            }
+            skipIndex = i;
+            i = parts2.length;
+          }
+        }
+      }
+      for (i = 0; i < parts2.length; ++i) {
+        if (i === skipIndex) {
+          continue;
+        }
+        const part = parts2[i];
+        const bracketEqualsPos = part.indexOf("]=");
+        const pos = bracketEqualsPos === -1 ? part.indexOf("=") : bracketEqualsPos + 1;
+        let key2, val;
+        if (pos === -1) {
+          key2 = options.decoder(part, defaults.decoder, charset, "key");
+          val = options.strictNullHandling ? null : "";
+        } else {
+          key2 = options.decoder(part.slice(0, pos), defaults.decoder, charset, "key");
+          val = maybeMap(parseArrayValue(part.slice(pos + 1), options), function(encodedVal) {
+            return options.decoder(encodedVal, defaults.decoder, charset, "value");
+          });
+        }
+        if (val && options.interpretNumericEntities && charset === "iso-8859-1") {
+          val = interpretNumericEntities(val);
+        }
+        if (part.indexOf("[]=") > -1) {
+          val = isArray(val) ? [val] : val;
+        }
+        const existing = has.call(obj, key2);
+        if (existing && options.duplicates === "combine") {
+          obj[key2] = combine(obj[key2], val, options.arrayLimit, options.plainObjects);
+        } else if (!existing || options.duplicates === "last") {
+          obj[key2] = val;
+        }
+      }
+      return obj;
+    };
+    const parseObject = function(chain, val, options, valuesParsed) {
+      let leaf = valuesParsed ? val : parseArrayValue(val, options);
+      for (let i = chain.length - 1; i >= 0; --i) {
+        let obj;
+        const root2 = chain[i];
+        if (root2 === "[]" && options.parseArrays) {
+          if (isOverflow(leaf)) {
+            obj = leaf;
+          } else {
+            obj = options.allowEmptyArrays && (leaf === "" || options.strictNullHandling && leaf === null) ? [] : combine([], leaf, options.arrayLimit, options.plainObjects);
+          }
+        } else {
+          obj = options.plainObjects ? /* @__PURE__ */ Object.create(null) : {};
+          const cleanRoot = root2.charAt(0) === "[" && root2.charAt(root2.length - 1) === "]" ? root2.slice(1, -1) : root2;
+          const decodedRoot = options.decodeDotInKeys ? cleanRoot.replace(/%2E/g, ".") : cleanRoot;
+          const index2 = parseInt(decodedRoot, 10);
+          if (!options.parseArrays && decodedRoot === "") {
+            obj = { 0: leaf };
+          } else if (!isNaN(index2) && root2 !== decodedRoot && String(index2) === decodedRoot && index2 >= 0 && options.parseArrays && index2 <= options.arrayLimit) {
+            obj = [];
+            obj[index2] = leaf;
+          } else if (decodedRoot !== "__proto__") {
+            obj[decodedRoot] = leaf;
+          }
+        }
+        leaf = obj;
+      }
+      return leaf;
+    };
+    const parseKeys = function parseQueryStringKeys(givenKey, val, options, valuesParsed) {
+      if (!givenKey) {
+        return;
+      }
+      const key2 = options.allowDots ? givenKey.replace(/\.([^.[]+)/g, "[$1]") : givenKey;
+      const brackets = /(\[[^[\]]*])/;
+      const child2 = /(\[[^[\]]*])/g;
+      let segment = options.depth > 0 && brackets.exec(key2);
+      const parent = segment ? key2.slice(0, segment.index) : key2;
+      const keys2 = [];
+      if (parent) {
+        if (!options.plainObjects && has.call(Object.prototype, parent)) {
+          if (!options.allowPrototypes) {
+            return;
+          }
+        }
+        keys2.push(parent);
+      }
+      let i = 0;
+      while (options.depth > 0 && (segment = child2.exec(key2)) !== null && i < options.depth) {
+        i += 1;
+        if (!options.plainObjects && has.call(Object.prototype, segment[1].slice(1, -1))) {
+          if (!options.allowPrototypes) {
+            return;
+          }
+        }
+        keys2.push(segment[1]);
+      }
+      if (segment) {
+        keys2.push("[" + key2.slice(segment.index) + "]");
+      }
+      return parseObject(keys2, val, options, valuesParsed);
+    };
+    const normalizeParseOptions = function normalizeParseOptions2(opts) {
+      {
+        return defaults;
+      }
+    };
+    function parse(str, opts) {
+      const options = normalizeParseOptions();
+      if (str === "" || str === null || typeof str === "undefined") {
+        return options.plainObjects ? /* @__PURE__ */ Object.create(null) : {};
+      }
+      const tempObj = typeof str === "string" ? parseValues(str, options) : str;
+      let obj = options.plainObjects ? /* @__PURE__ */ Object.create(null) : {};
+      const keys2 = Object.keys(tempObj);
+      for (let i = 0; i < keys2.length; ++i) {
+        const key2 = keys2[i];
+        const newObj = parseKeys(key2, tempObj[key2], options, typeof str === "string");
+        obj = merge(obj, newObj, options);
+      }
+      if (options.allowSparse === true) {
+        return obj;
+      }
+      return compact(obj);
+    }
+    function queryParams(definedParams = []) {
+      const request = getCurrentContext().request;
+      const urlState = new SvelteURL(request.url);
+      const searchParams = urlState.searchParams.toString();
+      const params = parse(searchParams)?.params || {};
+      definedParams = typeof definedParams === "function" ? definedParams() : definedParams;
+      definedParams.forEach((param) => {
+        if (!params[param.name]) {
+          params[param.name] = param.value;
+        }
+      });
+      const getParam = (name) => definedParams.find((p) => p.name === name);
+      return {
+        get(name) {
+          const param = getParam(name);
+          if (param.valueType === "boolean") {
+            return params[name] === "true";
+          } else {
+            return params[name];
+          }
+        },
+        set(name, value) {
+          const param = getParam(name);
+          if (value === null) {
+            delete params[name];
+          } else if (param.valueType === "boolean") {
+            params[name] = value ? "true" : "false";
+          } else {
+            params[name] = value;
+          }
+          urlState.searchParams.set(`params[${name}]`, value);
+          router.get(urlState.href, {}, { replace: true, preserveState: true, viewTransition: false });
+        }
+      };
+    }
+    var root_9$1 = /* @__PURE__ */ from_html(`<option> </option>`);
+    var root_5 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
+    var root_3$1 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
+    var root_1$4 = /* @__PURE__ */ from_html(`<div data-role="params-editor:controls"></div>`);
+    var root_12 = /* @__PURE__ */ from_html(`<div data-role="params-editor:blank-state">No params have been defined for this scenario.</div>`);
+    var root$9 = /* @__PURE__ */ from_html(`<div data-component="params-editor"><!></div>`);
+    function Params_editor($$anchor, $$props) {
+      const id = props_id();
+      push($$props, true);
+      let params = prop($$props, "params", 19, () => []);
+      const searchParams = queryParams(() => params());
+      const controlId = (param) => `control-${id}-${param.id}`;
+      var div = root$9();
+      var node = child(div);
+      {
+        var consequent_2 = ($$anchor2) => {
+          var div_1 = root_1$4();
+          each(div_1, 23, params, (param) => controlId(param), ($$anchor3, param, index$1) => {
+            const computed_const = /* @__PURE__ */ user_derived(() => {
+              const {
+                label,
+                controlType: type2 = "",
+                name,
+                value,
+                description,
+                inputChoices,
+                hidden
+              } = get$3(param);
+              return { label, type: type2, name, value, description, inputChoices, hidden };
+            });
+            const getter = /* @__PURE__ */ user_derived(() => () => searchParams.get(get$3(computed_const).name));
+            const setter = /* @__PURE__ */ user_derived(() => (value) => searchParams.set(get$3(computed_const).name, value));
+            var fragment = comment();
+            var node_1 = first_child(fragment);
+            component(node_1, () => Field_root, ($$anchor4, Field_Root) => {
+              Field_Root($$anchor4, {
+                get id() {
+                  return get$3(index$1);
+                },
+                "data-role": "params-editor:field",
+                get "data-type"() {
+                  return get$3(computed_const).type;
+                },
+                get hidden() {
+                  return get$3(computed_const).hidden;
+                },
+                children: ($$anchor5, $$slotProps) => {
+                  var fragment_1 = root_3$1();
+                  var node_2 = first_child(fragment_1);
+                  {
+                    var consequent = ($$anchor6) => {
+                      var bind_get = () => searchParams.get(get$3(computed_const).name);
+                      var bind_set = (checked) => searchParams.set(get$3(computed_const).name, checked);
+                      {
+                        let $0 = /* @__PURE__ */ user_derived(() => `params[${get$3(computed_const).name}]`);
+                        Switch_1($$anchor6, {
+                          get name() {
+                            return get$3($0);
+                          },
+                          get label() {
+                            return get$3(computed_const).label;
+                          },
+                          get checked() {
+                            return bind_get();
+                          },
+                          set checked($$value) {
+                            bind_set($$value);
+                          },
+                          "data-role": "params-editor:field-switch"
+                        });
+                      }
+                    };
+                    var alternate_1 = ($$anchor6) => {
+                      var fragment_3 = root_5();
+                      var node_3 = first_child(fragment_3);
+                      component(node_3, () => Field_label, ($$anchor7, Field_Label) => {
+                        Field_Label($$anchor7, {
+                          "data-role": "params-editor:label",
+                          children: ($$anchor8, $$slotProps2) => {
+                            var text$1 = text();
+                            template_effect(() => set_text(text$1, get$3(computed_const).label));
+                            append$1($$anchor8, text$1);
+                          },
+                          $$slots: { default: true }
+                        });
+                      });
+                      var node_4 = sibling(node_3, 2);
+                      {
+                        var consequent_1 = ($$anchor7) => {
+                          var fragment_5 = comment();
+                          var node_5 = first_child(fragment_5);
+                          var bind_get_1 = get$3(getter);
+                          var bind_set_1 = get$3(setter);
+                          {
+                            let $0 = /* @__PURE__ */ user_derived(() => `params[${get$3(computed_const).name}]`);
+                            component(node_5, () => Field_select, ($$anchor8, Field_Select) => {
+                              Field_Select($$anchor8, {
+                                get name() {
+                                  return get$3($0);
+                                },
+                                get value() {
+                                  return bind_get_1();
+                                },
+                                set value($$value) {
+                                  bind_set_1($$value);
+                                },
+                                get defaultValue() {
+                                  return get$3(computed_const).value;
+                                },
+                                "data-role": "params-editor:field-select",
+                                children: ($$anchor9, $$slotProps2) => {
+                                  var fragment_6 = comment();
+                                  var node_6 = first_child(fragment_6);
+                                  each(node_6, 17, () => get$3(computed_const).inputChoices, index, ($$anchor10, choice) => {
+                                    var option = root_9$1();
+                                    var text_1 = child(option);
+                                    var option_value = {};
+                                    template_effect(() => {
+                                      set_text(text_1, get$3(choice)[0]);
+                                      if (option_value !== (option_value = get$3(choice)[1])) {
+                                        option.value = (option.__value = get$3(choice)[1]) ?? "";
+                                      }
+                                    });
+                                    append$1($$anchor10, option);
+                                  });
+                                  append$1($$anchor9, fragment_6);
+                                },
+                                $$slots: { default: true }
+                              });
+                            });
+                          }
+                          append$1($$anchor7, fragment_5);
+                        };
+                        var alternate = ($$anchor7) => {
+                          var fragment_7 = comment();
+                          var node_7 = first_child(fragment_7);
+                          var bind_get_2 = get$3(getter);
+                          var bind_set_2 = get$3(setter);
+                          {
+                            let $0 = /* @__PURE__ */ user_derived(() => `params[${get$3(computed_const).name}]`);
+                            component(node_7, () => Field_input, ($$anchor8, Field_Input) => {
+                              Field_Input($$anchor8, {
+                                get type() {
+                                  return get$3(computed_const).type;
+                                },
+                                get name() {
+                                  return get$3($0);
+                                },
+                                get value() {
+                                  return bind_get_2();
+                                },
+                                set value($$value) {
+                                  bind_set_2($$value);
+                                },
+                                get defaultValue() {
+                                  return get$3(computed_const).value;
+                                },
+                                "data-role": "params-editor:field-input"
+                              });
+                            });
+                          }
+                          append$1($$anchor7, fragment_7);
+                        };
+                        if_block(node_4, ($$render) => {
+                          if (get$3(computed_const).type === "select") $$render(consequent_1);
+                          else $$render(alternate, false);
+                        });
+                      }
+                      append$1($$anchor6, fragment_3);
+                    };
+                    if_block(node_2, ($$render) => {
+                      if (get$3(computed_const).type === "toggle") $$render(consequent);
+                      else $$render(alternate_1, false);
+                    });
+                  }
+                  var node_8 = sibling(node_2, 2);
+                  component(node_8, () => Field_helper_text, ($$anchor6, Field_HelperText) => {
+                    Field_HelperText($$anchor6, {
+                      "data-role": "params-editor:hint",
+                      children: ($$anchor7, $$slotProps2) => {
+                        var text_2 = text();
+                        template_effect(() => set_text(text_2, get$3(computed_const).description));
+                        append$1($$anchor7, text_2);
+                      },
+                      $$slots: { default: true }
+                    });
+                  });
+                  append$1($$anchor5, fragment_1);
+                },
+                $$slots: { default: true }
+              });
+            });
+            append$1($$anchor3, fragment);
+          });
+          append$1($$anchor2, div_1);
+        };
+        var alternate_2 = ($$anchor2) => {
+          var div_2 = root_12();
+          append$1($$anchor2, div_2);
+        };
+        if_block(node, ($$render) => {
+          if (params().length) $$render(consequent_2);
+          else $$render(alternate_2, false);
+        });
+      }
+      append$1($$anchor, div);
+      pop();
     }
     var root_4 = /* @__PURE__ */ from_html(`<div data-role="inspector-panel:content"> </div>`);
     var root$8 = /* @__PURE__ */ from_html(`<div data-component="inspector-panel" class="svelte-1kkjpr5"><!></div>`);
@@ -22394,13 +24215,12 @@ var require_ui_001 = __commonJS({
           }));
         };
         var consequent_1 = ($$anchor2) => {
-          var text$1 = text("params here");
-          append$1($$anchor2, text$1);
+          Params_editor($$anchor2, spread_props(() => $$props.props));
         };
         var consequent_2 = ($$anchor2) => {
           var div_1 = root_4();
-          var text_1 = child(div_1);
-          template_effect(() => set_text(text_1, $$props.props.content));
+          var text2 = child(div_1);
+          template_effect(() => set_text(text2, $$props.props.content));
           append$1($$anchor2, div_1);
         };
         if_block(node, ($$render) => {
@@ -22519,9 +24339,6 @@ var require_ui_001 = __commonJS({
       }
       append$1($$anchor, div);
       pop();
-    }
-    function getCurrentContext() {
-      return getContext("current")();
     }
     function Show$2($$anchor, $$props) {
       push($$props, true);

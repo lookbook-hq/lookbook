@@ -1,6 +1,6 @@
 <script>
   import Snippet from "@components/snippet";
-  // import ParamsEditor from "@components/params-editor";
+  import ParamsEditor from "@components/params-editor";
 
   let { component, props } = $props();
 
@@ -17,8 +17,7 @@
       {@html decodeHTML(props.content)}
     </Snippet>
   {:else if component === "params"}
-    params here
-    <!-- <ParamsEditor {...props}></ParamsEditor> -->
+    <ParamsEditor {...props}></ParamsEditor>
   {:else if props.content}
     <div data-role="inspector-panel:content">
       {props.content}
