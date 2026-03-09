@@ -11,14 +11,10 @@ module Lookbook
           src: @scenario.preview_path(**param_values),
           srcdoc: @scenario.call(param_values)
         },
+        ancestors:,
         spec:,
         panels:
       }
-    end
-
-    private def spec
-      spec_id = @scenario.spec.id
-      collection.specs.find { _1.id == spec_id }
     end
 
     private def param_controls
@@ -62,6 +58,15 @@ module Lookbook
           }
         ]
       }
+    end
+
+    private def ancestors
+      @scenario.ancestors.map { _1.to_inertia(include_children: false) }.reverse
+    end
+
+    private def spec
+      spec_id = @scenario.spec.id
+      collection.specs.find { _1.id == spec_id }
     end
 
     private def collection = @scenario.collection

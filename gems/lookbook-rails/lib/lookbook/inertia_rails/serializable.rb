@@ -2,7 +2,7 @@ module Lookbook::InertiaRails
   module Serializable
     extend ActiveSupport::Concern
 
-    def to_inertia(deep: true)
+    def to_inertia(deep: true, **kwargs)
       _inertia_props.map do |prop|
         key, getter = Array.wrap(prop)
         getter ||= key
@@ -12,11 +12,11 @@ module Lookbook::InertiaRails
         value = if deep
           case result
           when Serializable
-            result.to_inertia(deep:)
+            result.to_inertia(deep:, **kwargs)
           when Array
-            result.map { _1.respond_to?(:to_inertia) ? _1.to_inertia(deep:) : _1 }
+            result.map { _1.respond_to?(:to_inertia) ? _1.to_inertia(deep:, **kwargs) : _1 }
           when Hash
-            result.transform_values { _1.respond_to?(:to_inertia) ? _1.to_inertia(deep:) : _1 }
+            result.transform_values { _1.respond_to?(:to_inertia) ? _1.to_inertia(deep:, **kwargs) : _1 }
           else
             result
           end

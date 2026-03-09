@@ -1,25 +1,28 @@
 <script>
-  import Viewport from "@components/viewport";
   import Tabs from "@components/tabs";
-  import Toolbar from "@components/toolbar";
   import Button from "@components/button";
-  import ButtonGroup from "@components/button-group";
+  import Toolbar from "@components/toolbar";
   import Splitter from "@components/splitter";
+  import Viewport from "@components/viewport";
+  import Breadcrumb from "@components/breadcrumb";
+  import ButtonGroup from "@components/button-group";
   import InspectorPanel from "@components/inspector-panel";
 
   import { PanelBottomCloseIcon, PanelRightCloseIcon } from "lucide-svelte";
 
-  let { scenario, panels, preview } = $props();
+  let { scenario, panels, preview, ancestors } = $props();
 
   let sidebarPanels = $derived.by(() => panels?.sidebar || []);
   let drawerPanels = $derived.by(() => panels?.drawer || []);
+
+  let crumbs = $derived.by(() => [...ancestors, scenario]);
 </script>
 
 <div data-component="inspector">
   <div data-role="inspector:toolbar">
     <Toolbar>
       {#snippet start()}
-        <h4 data-role="inspector:breadcrumb" class="label">Elements / Button / Themes</h4>
+        <Breadcrumb data-role="inspector:breadcrumb" {crumbs}></Breadcrumb>
       {/snippet}
       {#snippet end()}
         <ButtonGroup size="lg">

@@ -19,6 +19,11 @@ module Lookbook::Rails
       @entity.call(view_context, **locals.to_h)&.html_safe
     end
 
+    def to_inertia(include_children: true, **kwargs)
+      data = super(**kwargs)
+      include_children ? data : data.except(:children)
+    end
+
     private def path_params(params)
       params.key?(:params) ? params : {params:}
     end

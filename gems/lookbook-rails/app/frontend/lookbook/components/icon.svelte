@@ -4,7 +4,7 @@
   const defaultProps = {
     size: 16,
     strokeWidth: 1,
-    absoluteStrokeWidth: true,
+    absoluteStrokeWidth: false,
   };
 </script>
 
