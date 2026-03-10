@@ -1,11 +1,12 @@
 <script>
-  import { getContext } from "svelte";
-  import { PersistedState } from "runed";
   import { Link } from "@inertiajs/svelte";
   import { createTreeCollection } from "@ark-ui/svelte/collection";
   import { TreeView } from "@ark-ui/svelte/tree-view";
   import { useFilter } from "@ark-ui/svelte/locale";
-  import { getCurrentContext } from "@lib/utils";
+
+  import { getAppState } from "@lib/utils";
+
+  import Icon from "@components/icon";
   import {
     ChevronRightIcon,
     FileIcon,
@@ -14,7 +15,6 @@
     Layers2Icon,
     SquareDashedMousePointerIcon,
   } from "lucide-svelte";
-  import Icon from "@components/icon";
 
   const iconMap = {
     page: FileIcon,
@@ -28,6 +28,10 @@
 
   let { id, tree } = $props();
 
+  let app = getAppState();
+  // svelte-ignore state_referenced_locally
+  let treeState = app.getTreeState(id);
+
   const initialCollection = $derived.by(() =>
     createTreeCollection({
       nodeToValue: (node) => node.id,
@@ -38,57 +42,6 @@
 
   let collection = $derived.by(() => initialCollection);
   let branchIds = $derived.by(() => collection.getBranchValues());
-
-  const createNavTreeState = () => {
-    const state = new PersistedState(`nav-tree:${id}`, {
-      expandedItems: [],
-      filter: "",
-      selected: [],
-    });
-
-    return {
-      get expandedItems() {
-        return state.current.expandedItems;
-      },
-
-      set expandedItems(value) {
-        state.current.expandedItems = value;
-      },
-
-      get filter() {
-        return state.current.filter;
-      },
-
-      set filter(value) {
-        state.current.filter = value;
-      },
-
-      get selected() {
-        return state.current.selected;
-      },
-
-      set selected(value) {
-        value = Array.isArray(value) ? value : [value];
-        if (!branchIds.includes(value[0])) {
-          state.current.selected = value;
-        }
-      },
-    };
-  };
-
-  let navTreeState = createNavTreeState();
-  navTreeState.selected = [getCurrentContext().resourceId];
-
-  const filter = (value) => {
-    const filtered =
-      value.length > 0
-        ? initialCollection.filter((node) => filterFn().contains(node.label, value))
-        : initialCollection;
-    collection = filtered;
-    navTreeState.filter = value;
-  };
-
-  filter(navTreeState.filter);
 </script>
 
 <div data-component="nav-tree">
@@ -98,9 +51,13 @@
     bind:value={() => navTreeState.filter, (value) => filter(value)}
   /> -->
 
-  <TreeView.Root {collection} selectionMode="single" data-role="nav-tree:tree">
-    <!-- bind:expandedValue={navTreeState.expandedItems}
-    bind:selectedValue={navTreeState.selected} -->
+  <TreeView.Root
+    {collection}
+    selectionMode="single"
+    data-role="nav-tree:tree"
+    bind:expandedValue={treeState.expanded}
+    bind:selectedValue={treeState.selected}
+  >
     <TreeView.Tree>
       {#each collection.rootNode?.children ?? [] as node, index (node.id)}
         {@render renderNode(node, [index])}
@@ -172,7 +129,6 @@
       font-size: 0.875rem;
       line-height: 1.25rem;
       font-weight: 500;
-      /*color: var(--demo-neutral-fg);*/
       user-select: none;
     }
 
@@ -180,8 +136,6 @@
       display: flex;
       flex-direction: column;
       line-height: 1.25rem;
-      /*font-size: 0.875rem;
-      line-height: 1.25rem;*/
 
       & svg {
         flex-shrink: 0;
@@ -196,7 +150,6 @@
       display: flex;
       align-items: center;
       gap: var(--tree-item-gap);
-      /*border-radius: 0.375rem;*/
       user-select: none;
       position: relative;
       cursor: pointer;
@@ -204,7 +157,6 @@
       border: none;
       background: transparent;
       font: inherit;
-      /*color: var(--demo-neutral-fg);*/
       text-align: start;
 
       --tree-depth: calc(var(--depth) - 1);

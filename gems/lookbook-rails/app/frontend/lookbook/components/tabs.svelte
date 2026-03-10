@@ -1,16 +1,22 @@
 <script>
-  import { PersistedState } from "runed";
   import { Tabs } from "@ark-ui/svelte/tabs";
+  import { getAppState } from "@lib/utils";
+
   import Toolbar from "@components/toolbar";
 
   let { id, panels = [], label, panel } = $props();
 
-  const createTabState = () => new PersistedState(`tabs:${id}`, { active: panels[0]?.id });
+  let app = getAppState();
+  // svelte-ignore state_referenced_locally
+  let tabsState = app.getTabsState(id);
 
-  let tabs = createTabState();
+  if (!tabsState.active) {
+    // svelte-ignore state_referenced_locally
+    tabsState.active = panels[0]?.id;
+  }
 </script>
 
-<Tabs.Root bind:value={tabs.current.active} data-component="tabs">
+<Tabs.Root defaultValue={panels[0]?.id} bind:value={tabsState.active} data-component="tabs">
   <Toolbar data-role="tabs:toolbar">
     {#snippet start()}
       <Tabs.List data-role="tabs:list">

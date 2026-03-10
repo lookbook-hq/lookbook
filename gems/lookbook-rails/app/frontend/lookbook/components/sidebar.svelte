@@ -55,7 +55,7 @@
 
 <style>
   :global [data-component="sidebar"] {
-    --sidebar-padding: var(--lookbook-space-xs);
+    --sidebar-padding: var(--lookbook-space-sm);
     --sidebar-bg: var(--lookbook-surface-bg);
     --sidebar-fg: var(--lookbook-surface-fg);
     --sidebar-border-color: var(--lookbook-divider-color);

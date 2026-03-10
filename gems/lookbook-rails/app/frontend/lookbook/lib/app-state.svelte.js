@@ -8,18 +8,18 @@ class AppState {
         width: 300,
       },
     },
-
     inspector: {
       drawer: {
         orientation: "vertical",
         height: 300,
       },
-
       sidebar: {
         orientation: "horizontal",
         width: 200,
       },
     },
+    trees: {},
+    tabs: {},
   });
 
   get workbench() {
@@ -28,6 +28,40 @@ class AppState {
 
   get inspector() {
     return this.#currentState.inspector;
+  }
+
+  // Tabs
+
+  getTabsState(id) {
+    let tabs = this.#currentState.tabs;
+
+    tabs[id] = tabs[id] || { active: null };
+
+    return tabs[id];
+  }
+
+  setTabState(id, state) {
+    const currentState = this.getTabsState(id);
+    Object.assign(currentState, state);
+  }
+
+  // Trees
+
+  getTreeState(id) {
+    let trees = this.#currentState.trees;
+
+    trees[id] = trees[id] || {
+      filter: "",
+      expanded: [],
+      selected: [],
+    };
+
+    return trees[id];
+  }
+
+  setTreeState(id, state) {
+    const currentState = this.getTreeState(id);
+    Object.assign(currentState, state);
   }
 
   get #currentState() {

@@ -3,7 +3,7 @@ var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var require_ui_001 = __commonJS({
-  "lookbook-assets/ui-Dh-ceYG6.js"(exports, module) {
+  "lookbook-assets/ui-KbINuEBn.js"(exports, module) {
     (function polyfill() {
       const relList = document.createElement("link").relList;
       if (relList && relList.supports && relList.supports("modulepreload")) return;
@@ -5080,462 +5080,6 @@ var require_ui_001 = __commonJS({
     function toRelativeSize(absoluteSize, maxSize) {
       return absoluteSize / maxSize * 100;
     }
-    const defaultWindow = typeof window !== "undefined" ? window : void 0;
-    function getActiveElement$1(document2) {
-      let activeElement = document2.activeElement;
-      while (activeElement?.shadowRoot) {
-        const node = activeElement.shadowRoot.activeElement;
-        if (node === activeElement)
-          break;
-        else
-          activeElement = node;
-      }
-      return activeElement;
-    }
-    const REPLACE = /* @__PURE__ */ Symbol();
-    class SvelteURLSearchParams extends URLSearchParams {
-      #version = /* @__PURE__ */ state$1(0);
-      #url = get_current_url();
-      #updating = false;
-      #update_url() {
-        if (!this.#url || this.#updating) return;
-        this.#updating = true;
-        const search = this.toString();
-        this.#url.search = search && `?${search}`;
-        this.#updating = false;
-      }
-      /**
-       * @param {URLSearchParams} params
-       * @internal
-       */
-      [REPLACE](params) {
-        if (this.#updating) return;
-        this.#updating = true;
-        for (const key2 of [...super.keys()]) {
-          super.delete(key2);
-        }
-        for (const [key2, value] of params) {
-          super.append(key2, value);
-        }
-        increment(this.#version);
-        this.#updating = false;
-      }
-      /**
-       * @param {string} name
-       * @param {string} value
-       * @returns {void}
-       */
-      append(name, value) {
-        super.append(name, value);
-        this.#update_url();
-        increment(this.#version);
-      }
-      /**
-       * @param {string} name
-       * @param {string=} value
-       * @returns {void}
-       */
-      delete(name, value) {
-        var has_value = super.has(name, value);
-        super.delete(name, value);
-        if (has_value) {
-          this.#update_url();
-          increment(this.#version);
-        }
-      }
-      /**
-       * @param {string} name
-       * @returns {string|null}
-       */
-      get(name) {
-        get$3(this.#version);
-        return super.get(name);
-      }
-      /**
-       * @param {string} name
-       * @returns {string[]}
-       */
-      getAll(name) {
-        get$3(this.#version);
-        return super.getAll(name);
-      }
-      /**
-       * @param {string} name
-       * @param {string=} value
-       * @returns {boolean}
-       */
-      has(name, value) {
-        get$3(this.#version);
-        return super.has(name, value);
-      }
-      keys() {
-        get$3(this.#version);
-        return super.keys();
-      }
-      /**
-       * @param {string} name
-       * @param {string} value
-       * @returns {void}
-       */
-      set(name, value) {
-        var previous = super.getAll(name).join("");
-        super.set(name, value);
-        if (previous !== super.getAll(name).join("")) {
-          this.#update_url();
-          increment(this.#version);
-        }
-      }
-      sort() {
-        super.sort();
-        this.#update_url();
-        increment(this.#version);
-      }
-      toString() {
-        get$3(this.#version);
-        return super.toString();
-      }
-      values() {
-        get$3(this.#version);
-        return super.values();
-      }
-      entries() {
-        get$3(this.#version);
-        return super.entries();
-      }
-      [Symbol.iterator]() {
-        return this.entries();
-      }
-      get size() {
-        get$3(this.#version);
-        return super.size;
-      }
-    }
-    let current_url = null;
-    function get_current_url() {
-      return current_url;
-    }
-    class SvelteURL extends URL {
-      #protocol = /* @__PURE__ */ state$1(super.protocol);
-      #username = /* @__PURE__ */ state$1(super.username);
-      #password = /* @__PURE__ */ state$1(super.password);
-      #hostname = /* @__PURE__ */ state$1(super.hostname);
-      #port = /* @__PURE__ */ state$1(super.port);
-      #pathname = /* @__PURE__ */ state$1(super.pathname);
-      #hash = /* @__PURE__ */ state$1(super.hash);
-      #search = /* @__PURE__ */ state$1(super.search);
-      #searchParams;
-      /**
-       * @param {string | URL} url
-       * @param {string | URL} [base]
-       */
-      constructor(url, base) {
-        url = new URL(url, base);
-        super(url);
-        current_url = this;
-        this.#searchParams = new SvelteURLSearchParams(url.searchParams);
-        current_url = null;
-      }
-      get hash() {
-        return get$3(this.#hash);
-      }
-      set hash(value) {
-        super.hash = value;
-        set$2(this.#hash, super.hash);
-      }
-      get host() {
-        get$3(this.#hostname);
-        get$3(this.#port);
-        return super.host;
-      }
-      set host(value) {
-        super.host = value;
-        set$2(this.#hostname, super.hostname);
-        set$2(this.#port, super.port);
-      }
-      get hostname() {
-        return get$3(this.#hostname);
-      }
-      set hostname(value) {
-        super.hostname = value;
-        set$2(this.#hostname, super.hostname);
-      }
-      get href() {
-        get$3(this.#protocol);
-        get$3(this.#username);
-        get$3(this.#password);
-        get$3(this.#hostname);
-        get$3(this.#port);
-        get$3(this.#pathname);
-        get$3(this.#hash);
-        get$3(this.#search);
-        return super.href;
-      }
-      set href(value) {
-        super.href = value;
-        set$2(this.#protocol, super.protocol);
-        set$2(this.#username, super.username);
-        set$2(this.#password, super.password);
-        set$2(this.#hostname, super.hostname);
-        set$2(this.#port, super.port);
-        set$2(this.#pathname, super.pathname);
-        set$2(this.#hash, super.hash);
-        set$2(this.#search, super.search);
-        this.#searchParams[REPLACE](super.searchParams);
-      }
-      get password() {
-        return get$3(this.#password);
-      }
-      set password(value) {
-        super.password = value;
-        set$2(this.#password, super.password);
-      }
-      get pathname() {
-        return get$3(this.#pathname);
-      }
-      set pathname(value) {
-        super.pathname = value;
-        set$2(this.#pathname, super.pathname);
-      }
-      get port() {
-        return get$3(this.#port);
-      }
-      set port(value) {
-        super.port = value;
-        set$2(this.#port, super.port);
-      }
-      get protocol() {
-        return get$3(this.#protocol);
-      }
-      set protocol(value) {
-        super.protocol = value;
-        set$2(this.#protocol, super.protocol);
-      }
-      get search() {
-        return get$3(this.#search);
-      }
-      set search(value) {
-        super.search = value;
-        set$2(this.#search, super.search);
-        this.#searchParams[REPLACE](super.searchParams);
-      }
-      get username() {
-        return get$3(this.#username);
-      }
-      set username(value) {
-        super.username = value;
-        set$2(this.#username, super.username);
-      }
-      get origin() {
-        get$3(this.#protocol);
-        get$3(this.#hostname);
-        get$3(this.#port);
-        return super.origin;
-      }
-      get searchParams() {
-        return this.#searchParams;
-      }
-      toString() {
-        return this.href;
-      }
-      toJSON() {
-        return this.href;
-      }
-    }
-    class ActiveElement {
-      #document;
-      #subscribe;
-      constructor(options = {}) {
-        const { window: window2 = defaultWindow, document: document2 = window2?.document } = options;
-        if (window2 === void 0) return;
-        this.#document = document2;
-        this.#subscribe = createSubscriber((update2) => {
-          const cleanupFocusIn = on(window2, "focusin", update2);
-          const cleanupFocusOut = on(window2, "focusout", update2);
-          return () => {
-            cleanupFocusIn();
-            cleanupFocusOut();
-          };
-        });
-      }
-      get current() {
-        this.#subscribe?.();
-        if (!this.#document) return null;
-        return getActiveElement$1(this.#document);
-      }
-    }
-    new ActiveElement();
-    function getStorage(storageType, window2) {
-      switch (storageType) {
-        case "local":
-          return window2.localStorage;
-        case "session":
-          return window2.sessionStorage;
-      }
-    }
-    function proxy(value, root2, proxies, subscribe2, update2, serialize2) {
-      if (value === null || typeof value !== "object") {
-        return value;
-      }
-      const proto = Object.getPrototypeOf(value);
-      if (proto !== null && proto !== Object.prototype && !Array.isArray(value)) {
-        return value;
-      }
-      let p = proxies.get(value);
-      if (!p) {
-        p = new Proxy(value, {
-          get: (target, property) => {
-            subscribe2?.();
-            return proxy(Reflect.get(target, property), root2, proxies, subscribe2, update2, serialize2);
-          },
-          set: (target, property, value2) => {
-            update2?.();
-            Reflect.set(target, property, value2);
-            serialize2(root2);
-            return true;
-          }
-        });
-        proxies.set(value, p);
-      }
-      return p;
-    }
-    class PersistedState {
-      #current;
-      #key;
-      #serializer;
-      #storage;
-      #subscribe;
-      #update;
-      #proxies = /* @__PURE__ */ new WeakMap();
-      #connected;
-      #storageCleanup;
-      #window;
-      #syncTabs;
-      #storageType;
-      constructor(key2, initialValue, options = {}) {
-        const {
-          storage: storageType = "local",
-          serializer = { serialize: JSON.stringify, deserialize: JSON.parse },
-          syncTabs = true,
-          connected = true
-        } = options;
-        const window2 = "window" in options ? options.window : defaultWindow;
-        this.#current = initialValue;
-        this.#key = key2;
-        this.#serializer = serializer;
-        this.#connected = connected;
-        this.#window = window2;
-        this.#syncTabs = syncTabs;
-        this.#storageType = storageType;
-        if (window2 === void 0) return;
-        const storage = getStorage(storageType, window2);
-        this.#storage = storage;
-        const existingValue = storage.getItem(key2);
-        if (existingValue !== null) {
-          this.#current = this.#deserialize(existingValue);
-        } else if (connected) {
-          this.#serialize(initialValue);
-        }
-        this.#setupStorageListener();
-      }
-      get current() {
-        this.#subscribe?.();
-        let root2;
-        if (this.#connected) {
-          const storageItem = this.#storage?.getItem(this.#key);
-          root2 = storageItem ? this.#deserialize(storageItem) : this.#current;
-        } else {
-          root2 = this.#current;
-        }
-        return proxy(root2, root2, this.#proxies, this.#subscribe?.bind(this), this.#update?.bind(this), this.#serialize.bind(this));
-      }
-      set current(newValue) {
-        this.#serialize(newValue);
-        this.#update?.();
-      }
-      #handleStorageEvent = (event2) => {
-        if (event2.key !== this.#key || event2.newValue === null) return;
-        this.#current = this.#deserialize(event2.newValue);
-        this.#update?.();
-      };
-      #deserialize(value) {
-        try {
-          return this.#serializer.deserialize(value);
-        } catch (error) {
-          console.error(`Error when parsing "${value}" from persisted store "${this.#key}"`, error);
-          return;
-        }
-      }
-      #serialize(value) {
-        if (!this.#connected) {
-          this.#current = value;
-          return;
-        }
-        try {
-          if (value !== void 0) {
-            this.#storage?.setItem(this.#key, this.#serializer.serialize(value));
-          }
-        } catch (error) {
-          console.error(`Error when writing value from persisted store "${this.#key}" to ${this.#storage}`, error);
-        }
-      }
-      #setupStorageListener() {
-        if (!this.#window || !this.#connected) return;
-        this.#subscribe = createSubscriber((update2) => {
-          this.#update = update2;
-          this.#storageCleanup = this.#connected && this.#syncTabs && this.#storageType === "local" ? on(this.#window, "storage", this.#handleStorageEvent) : void 0;
-          return () => {
-            this.#storageCleanup?.();
-            this.#storageCleanup = void 0;
-            this.#update = void 0;
-          };
-        });
-      }
-      #teardownStorageListener() {
-        this.#storageCleanup?.();
-        this.#storageCleanup = void 0;
-        this.#subscribe = void 0;
-      }
-      /**
-       * Returns whether the state is currently connected to storage.
-       *
-       * When `connected` is `false`, the state is not connected to storage and any
-       * changes to the state will not be persisted to storage and any changes to storage
-       * will not be reflected in the state.
-       */
-      get connected() {
-        return this.#connected;
-      }
-      /**
-       * Disconnects the state from storage, preventing updates to storage and stopping
-       * cross-tab synchronization. The current value in storage is removed.
-       *
-       * Call `.connect()` to re-enable storage persistence.
-       */
-      disconnect() {
-        if (!this.#connected) return;
-        const storageItem = this.#storage?.getItem(this.#key);
-        if (storageItem) {
-          this.#current = this.#deserialize(storageItem);
-        }
-        this.#connected = false;
-        this.#storage?.removeItem(this.#key);
-        this.#teardownStorageListener();
-      }
-      /**
-       * Reconnects the state to storage, enabling storage persistence and cross-tab
-       * synchronization. The current value is immediately persisted to storage.
-       *
-       * **NOTE**: By default, the state is already connected to storage and this method is
-       * only useful to re-enable storage persistence after calling `disconnect()`
-       * or starting with `connected: false` as an option.
-       */
-      connect() {
-        if (this.#connected) return;
-        this.#connected = true;
-        this.#serialize(this.#current);
-        this.#setupStorageListener();
-      }
-    }
     const createSplitProps = () => (props, keys2) => keys2.reduce((previousValue, currentValue) => {
       const [target, source2] = previousValue;
       const key2 = currentValue;
@@ -6053,7 +5597,7 @@ var require_ui_001 = __commonJS({
     function isActiveElement(element2) {
       if (!element2) return false;
       const rootNode = element2.getRootNode();
-      return getActiveElement(rootNode) === element2;
+      return getActiveElement$1(rootNode) === element2;
     }
     var TEXTAREA_SELECT_REGEX = /(textarea|select)/;
     function isEditableElement(el) {
@@ -6090,7 +5634,7 @@ var require_ui_001 = __commonJS({
       if (isHTMLElement(el)) return el.ownerDocument?.defaultView ?? window;
       return window;
     }
-    function getActiveElement(rootNode) {
+    function getActiveElement$1(rootNode) {
       let activeElement = rootNode.activeElement;
       while (activeElement?.shadowRoot) {
         const el = activeElement.shadowRoot.activeElement;
@@ -6812,7 +6356,7 @@ var require_ui_001 = __commonJS({
       const getRootNode = () => props.getRootNode?.() ?? document;
       const getDoc = () => getDocument(getRootNode());
       const getWin = () => getDoc().defaultView ?? window;
-      const getActiveElementFn = () => getActiveElement(getRootNode());
+      const getActiveElementFn = () => getActiveElement$1(getRootNode());
       const getById = (id) => getRootNode().getElementById(id);
       return {
         ...props,
@@ -8319,104 +7863,113 @@ var require_ui_001 = __commonJS({
     function Tabs_1($$anchor, $$props) {
       push($$props, true);
       let panels = prop($$props, "panels", 19, () => []);
-      const createTabState = () => new PersistedState(`tabs:${$$props.id}`, { active: panels()[0]?.id });
-      let tabs = createTabState();
+      let app = getAppState();
+      let tabsState = app.getTabsState($$props.id);
+      if (!tabsState.active) {
+        tabsState.active = panels()[0]?.id;
+      }
       var fragment = comment();
       var node = first_child(fragment);
-      component(node, () => Tabs_root, ($$anchor2, Tabs_Root) => {
-        Tabs_Root($$anchor2, {
-          "data-component": "tabs",
-          get value() {
-            return tabs.current.active;
-          },
-          set value($$value) {
-            tabs.current.active = $$value;
-          },
-          children: ($$anchor3, $$slotProps) => {
-            var fragment_1 = root_1$a();
-            var node_1 = first_child(fragment_1);
-            {
-              const start2 = ($$anchor4) => {
-                var fragment_2 = comment();
-                var node_2 = first_child(fragment_2);
-                component(node_2, () => Tabs_list, ($$anchor5, Tabs_List) => {
-                  Tabs_List($$anchor5, {
-                    "data-role": "tabs:list",
-                    children: ($$anchor6, $$slotProps2) => {
-                      var fragment_3 = comment();
-                      var node_3 = first_child(fragment_3);
-                      each(node_3, 17, panels, (p) => p.id, ($$anchor7, p) => {
-                        var fragment_4 = comment();
-                        var node_4 = first_child(fragment_4);
-                        component(node_4, () => Tabs_trigger, ($$anchor8, Tabs_Trigger) => {
-                          Tabs_Trigger($$anchor8, {
-                            get value() {
-                              return get$3(p).id;
-                            },
-                            "data-role": "tabs:trigger",
-                            children: ($$anchor9, $$slotProps3) => {
-                              var span = root_5$1();
-                              var span_1 = child(span);
-                              var node_5 = child(span_1);
-                              {
-                                var consequent = ($$anchor10) => {
-                                  var fragment_5 = comment();
-                                  var node_6 = first_child(fragment_5);
-                                  snippet(node_6, () => $$props.label, () => get$3(p));
-                                  append$1($$anchor10, fragment_5);
-                                };
-                                var alternate = ($$anchor10) => {
-                                  var text$1 = text();
-                                  template_effect(() => set_text(text$1, get$3(p).label));
-                                  append$1($$anchor10, text$1);
-                                };
-                                if_block(node_5, ($$render) => {
-                                  if ($$props.label) $$render(consequent);
-                                  else $$render(alternate, false);
-                                });
-                              }
-                              append$1($$anchor9, span);
-                            },
-                            $$slots: { default: true }
+      {
+        let $0 = /* @__PURE__ */ user_derived(() => panels()[0]?.id);
+        component(node, () => Tabs_root, ($$anchor2, Tabs_Root) => {
+          Tabs_Root($$anchor2, {
+            get defaultValue() {
+              return get$3($0);
+            },
+            "data-component": "tabs",
+            get value() {
+              return tabsState.active;
+            },
+            set value($$value) {
+              tabsState.active = $$value;
+            },
+            children: ($$anchor3, $$slotProps) => {
+              var fragment_1 = root_1$a();
+              var node_1 = first_child(fragment_1);
+              {
+                const start2 = ($$anchor4) => {
+                  var fragment_2 = comment();
+                  var node_2 = first_child(fragment_2);
+                  component(node_2, () => Tabs_list, ($$anchor5, Tabs_List) => {
+                    Tabs_List($$anchor5, {
+                      "data-role": "tabs:list",
+                      children: ($$anchor6, $$slotProps2) => {
+                        var fragment_3 = comment();
+                        var node_3 = first_child(fragment_3);
+                        each(node_3, 17, panels, (p) => p.id, ($$anchor7, p) => {
+                          var fragment_4 = comment();
+                          var node_4 = first_child(fragment_4);
+                          component(node_4, () => Tabs_trigger, ($$anchor8, Tabs_Trigger) => {
+                            Tabs_Trigger($$anchor8, {
+                              get value() {
+                                return get$3(p).id;
+                              },
+                              "data-role": "tabs:trigger",
+                              children: ($$anchor9, $$slotProps3) => {
+                                var span = root_5$1();
+                                var span_1 = child(span);
+                                var node_5 = child(span_1);
+                                {
+                                  var consequent = ($$anchor10) => {
+                                    var fragment_5 = comment();
+                                    var node_6 = first_child(fragment_5);
+                                    snippet(node_6, () => $$props.label, () => get$3(p));
+                                    append$1($$anchor10, fragment_5);
+                                  };
+                                  var alternate = ($$anchor10) => {
+                                    var text$1 = text();
+                                    template_effect(() => set_text(text$1, get$3(p).label));
+                                    append$1($$anchor10, text$1);
+                                  };
+                                  if_block(node_5, ($$render) => {
+                                    if ($$props.label) $$render(consequent);
+                                    else $$render(alternate, false);
+                                  });
+                                }
+                                append$1($$anchor9, span);
+                              },
+                              $$slots: { default: true }
+                            });
                           });
+                          append$1($$anchor7, fragment_4);
                         });
-                        append$1($$anchor7, fragment_4);
-                      });
-                      append$1($$anchor6, fragment_3);
+                        append$1($$anchor6, fragment_3);
+                      },
+                      $$slots: { default: true }
+                    });
+                  });
+                  append$1($$anchor4, fragment_2);
+                };
+                Toolbar(node_1, { "data-role": "tabs:toolbar", start: start2, $$slots: { start: true } });
+              }
+              var node_7 = sibling(node_1, 2);
+              each(node_7, 17, panels, (p) => p.id, ($$anchor4, p) => {
+                var fragment_7 = comment();
+                var node_8 = first_child(fragment_7);
+                component(node_8, () => Tabs_content, ($$anchor5, Tabs_Content) => {
+                  Tabs_Content($$anchor5, {
+                    get value() {
+                      return get$3(p).id;
+                    },
+                    "data-role": "tabs:panel",
+                    children: ($$anchor6, $$slotProps2) => {
+                      var fragment_8 = comment();
+                      var node_9 = first_child(fragment_8);
+                      snippet(node_9, () => $$props.panel, () => get$3(p));
+                      append$1($$anchor6, fragment_8);
                     },
                     $$slots: { default: true }
                   });
                 });
-                append$1($$anchor4, fragment_2);
-              };
-              Toolbar(node_1, { "data-role": "tabs:toolbar", start: start2, $$slots: { start: true } });
-            }
-            var node_7 = sibling(node_1, 2);
-            each(node_7, 17, panels, (p) => p.id, ($$anchor4, p) => {
-              var fragment_7 = comment();
-              var node_8 = first_child(fragment_7);
-              component(node_8, () => Tabs_content, ($$anchor5, Tabs_Content) => {
-                Tabs_Content($$anchor5, {
-                  get value() {
-                    return get$3(p).id;
-                  },
-                  "data-role": "tabs:panel",
-                  children: ($$anchor6, $$slotProps2) => {
-                    var fragment_8 = comment();
-                    var node_9 = first_child(fragment_8);
-                    snippet(node_9, () => $$props.panel, () => get$3(p));
-                    append$1($$anchor6, fragment_8);
-                  },
-                  $$slots: { default: true }
-                });
+                append$1($$anchor4, fragment_7);
               });
-              append$1($$anchor4, fragment_7);
-            });
-            append$1($$anchor3, fragment_1);
-          },
-          $$slots: { default: true }
+              append$1($$anchor3, fragment_1);
+            },
+            $$slots: { default: true }
+          });
         });
-      });
+      }
       append$1($$anchor, fragment);
       pop();
     }
@@ -19924,7 +19477,7 @@ var require_ui_001 = __commonJS({
       const eventTarget = e ? getEventTarget(e) : null;
       const doc = getDocument(eventTarget);
       const win = getWindow(eventTarget);
-      const activeElement = getActiveElement(doc);
+      const activeElement = getActiveElement$1(doc);
       isTextInput = isTextInput || activeElement instanceof win.HTMLInputElement && !nonTextInputTypes.has(activeElement?.type) || activeElement instanceof win.HTMLTextAreaElement || activeElement instanceof win.HTMLElement && activeElement.isContentEditable;
       return !(isTextInput && modality === "keyboard" && e instanceof win.KeyboardEvent && !Reflect.has(FOCUS_VISIBLE_INPUT_KEYS, e.key));
     }
@@ -23113,6 +22666,462 @@ var require_ui_001 = __commonJS({
       }));
       pop();
     }
+    const defaultWindow = typeof window !== "undefined" ? window : void 0;
+    function getActiveElement(document2) {
+      let activeElement = document2.activeElement;
+      while (activeElement?.shadowRoot) {
+        const node = activeElement.shadowRoot.activeElement;
+        if (node === activeElement)
+          break;
+        else
+          activeElement = node;
+      }
+      return activeElement;
+    }
+    const REPLACE = /* @__PURE__ */ Symbol();
+    class SvelteURLSearchParams extends URLSearchParams {
+      #version = /* @__PURE__ */ state$1(0);
+      #url = get_current_url();
+      #updating = false;
+      #update_url() {
+        if (!this.#url || this.#updating) return;
+        this.#updating = true;
+        const search = this.toString();
+        this.#url.search = search && `?${search}`;
+        this.#updating = false;
+      }
+      /**
+       * @param {URLSearchParams} params
+       * @internal
+       */
+      [REPLACE](params) {
+        if (this.#updating) return;
+        this.#updating = true;
+        for (const key2 of [...super.keys()]) {
+          super.delete(key2);
+        }
+        for (const [key2, value] of params) {
+          super.append(key2, value);
+        }
+        increment(this.#version);
+        this.#updating = false;
+      }
+      /**
+       * @param {string} name
+       * @param {string} value
+       * @returns {void}
+       */
+      append(name, value) {
+        super.append(name, value);
+        this.#update_url();
+        increment(this.#version);
+      }
+      /**
+       * @param {string} name
+       * @param {string=} value
+       * @returns {void}
+       */
+      delete(name, value) {
+        var has_value = super.has(name, value);
+        super.delete(name, value);
+        if (has_value) {
+          this.#update_url();
+          increment(this.#version);
+        }
+      }
+      /**
+       * @param {string} name
+       * @returns {string|null}
+       */
+      get(name) {
+        get$3(this.#version);
+        return super.get(name);
+      }
+      /**
+       * @param {string} name
+       * @returns {string[]}
+       */
+      getAll(name) {
+        get$3(this.#version);
+        return super.getAll(name);
+      }
+      /**
+       * @param {string} name
+       * @param {string=} value
+       * @returns {boolean}
+       */
+      has(name, value) {
+        get$3(this.#version);
+        return super.has(name, value);
+      }
+      keys() {
+        get$3(this.#version);
+        return super.keys();
+      }
+      /**
+       * @param {string} name
+       * @param {string} value
+       * @returns {void}
+       */
+      set(name, value) {
+        var previous = super.getAll(name).join("");
+        super.set(name, value);
+        if (previous !== super.getAll(name).join("")) {
+          this.#update_url();
+          increment(this.#version);
+        }
+      }
+      sort() {
+        super.sort();
+        this.#update_url();
+        increment(this.#version);
+      }
+      toString() {
+        get$3(this.#version);
+        return super.toString();
+      }
+      values() {
+        get$3(this.#version);
+        return super.values();
+      }
+      entries() {
+        get$3(this.#version);
+        return super.entries();
+      }
+      [Symbol.iterator]() {
+        return this.entries();
+      }
+      get size() {
+        get$3(this.#version);
+        return super.size;
+      }
+    }
+    let current_url = null;
+    function get_current_url() {
+      return current_url;
+    }
+    class SvelteURL extends URL {
+      #protocol = /* @__PURE__ */ state$1(super.protocol);
+      #username = /* @__PURE__ */ state$1(super.username);
+      #password = /* @__PURE__ */ state$1(super.password);
+      #hostname = /* @__PURE__ */ state$1(super.hostname);
+      #port = /* @__PURE__ */ state$1(super.port);
+      #pathname = /* @__PURE__ */ state$1(super.pathname);
+      #hash = /* @__PURE__ */ state$1(super.hash);
+      #search = /* @__PURE__ */ state$1(super.search);
+      #searchParams;
+      /**
+       * @param {string | URL} url
+       * @param {string | URL} [base]
+       */
+      constructor(url, base) {
+        url = new URL(url, base);
+        super(url);
+        current_url = this;
+        this.#searchParams = new SvelteURLSearchParams(url.searchParams);
+        current_url = null;
+      }
+      get hash() {
+        return get$3(this.#hash);
+      }
+      set hash(value) {
+        super.hash = value;
+        set$2(this.#hash, super.hash);
+      }
+      get host() {
+        get$3(this.#hostname);
+        get$3(this.#port);
+        return super.host;
+      }
+      set host(value) {
+        super.host = value;
+        set$2(this.#hostname, super.hostname);
+        set$2(this.#port, super.port);
+      }
+      get hostname() {
+        return get$3(this.#hostname);
+      }
+      set hostname(value) {
+        super.hostname = value;
+        set$2(this.#hostname, super.hostname);
+      }
+      get href() {
+        get$3(this.#protocol);
+        get$3(this.#username);
+        get$3(this.#password);
+        get$3(this.#hostname);
+        get$3(this.#port);
+        get$3(this.#pathname);
+        get$3(this.#hash);
+        get$3(this.#search);
+        return super.href;
+      }
+      set href(value) {
+        super.href = value;
+        set$2(this.#protocol, super.protocol);
+        set$2(this.#username, super.username);
+        set$2(this.#password, super.password);
+        set$2(this.#hostname, super.hostname);
+        set$2(this.#port, super.port);
+        set$2(this.#pathname, super.pathname);
+        set$2(this.#hash, super.hash);
+        set$2(this.#search, super.search);
+        this.#searchParams[REPLACE](super.searchParams);
+      }
+      get password() {
+        return get$3(this.#password);
+      }
+      set password(value) {
+        super.password = value;
+        set$2(this.#password, super.password);
+      }
+      get pathname() {
+        return get$3(this.#pathname);
+      }
+      set pathname(value) {
+        super.pathname = value;
+        set$2(this.#pathname, super.pathname);
+      }
+      get port() {
+        return get$3(this.#port);
+      }
+      set port(value) {
+        super.port = value;
+        set$2(this.#port, super.port);
+      }
+      get protocol() {
+        return get$3(this.#protocol);
+      }
+      set protocol(value) {
+        super.protocol = value;
+        set$2(this.#protocol, super.protocol);
+      }
+      get search() {
+        return get$3(this.#search);
+      }
+      set search(value) {
+        super.search = value;
+        set$2(this.#search, super.search);
+        this.#searchParams[REPLACE](super.searchParams);
+      }
+      get username() {
+        return get$3(this.#username);
+      }
+      set username(value) {
+        super.username = value;
+        set$2(this.#username, super.username);
+      }
+      get origin() {
+        get$3(this.#protocol);
+        get$3(this.#hostname);
+        get$3(this.#port);
+        return super.origin;
+      }
+      get searchParams() {
+        return this.#searchParams;
+      }
+      toString() {
+        return this.href;
+      }
+      toJSON() {
+        return this.href;
+      }
+    }
+    class ActiveElement {
+      #document;
+      #subscribe;
+      constructor(options = {}) {
+        const { window: window2 = defaultWindow, document: document2 = window2?.document } = options;
+        if (window2 === void 0) return;
+        this.#document = document2;
+        this.#subscribe = createSubscriber((update2) => {
+          const cleanupFocusIn = on(window2, "focusin", update2);
+          const cleanupFocusOut = on(window2, "focusout", update2);
+          return () => {
+            cleanupFocusIn();
+            cleanupFocusOut();
+          };
+        });
+      }
+      get current() {
+        this.#subscribe?.();
+        if (!this.#document) return null;
+        return getActiveElement(this.#document);
+      }
+    }
+    new ActiveElement();
+    function getStorage(storageType, window2) {
+      switch (storageType) {
+        case "local":
+          return window2.localStorage;
+        case "session":
+          return window2.sessionStorage;
+      }
+    }
+    function proxy(value, root2, proxies, subscribe2, update2, serialize2) {
+      if (value === null || typeof value !== "object") {
+        return value;
+      }
+      const proto = Object.getPrototypeOf(value);
+      if (proto !== null && proto !== Object.prototype && !Array.isArray(value)) {
+        return value;
+      }
+      let p = proxies.get(value);
+      if (!p) {
+        p = new Proxy(value, {
+          get: (target, property) => {
+            subscribe2?.();
+            return proxy(Reflect.get(target, property), root2, proxies, subscribe2, update2, serialize2);
+          },
+          set: (target, property, value2) => {
+            update2?.();
+            Reflect.set(target, property, value2);
+            serialize2(root2);
+            return true;
+          }
+        });
+        proxies.set(value, p);
+      }
+      return p;
+    }
+    class PersistedState {
+      #current;
+      #key;
+      #serializer;
+      #storage;
+      #subscribe;
+      #update;
+      #proxies = /* @__PURE__ */ new WeakMap();
+      #connected;
+      #storageCleanup;
+      #window;
+      #syncTabs;
+      #storageType;
+      constructor(key2, initialValue, options = {}) {
+        const {
+          storage: storageType = "local",
+          serializer = { serialize: JSON.stringify, deserialize: JSON.parse },
+          syncTabs = true,
+          connected = true
+        } = options;
+        const window2 = "window" in options ? options.window : defaultWindow;
+        this.#current = initialValue;
+        this.#key = key2;
+        this.#serializer = serializer;
+        this.#connected = connected;
+        this.#window = window2;
+        this.#syncTabs = syncTabs;
+        this.#storageType = storageType;
+        if (window2 === void 0) return;
+        const storage = getStorage(storageType, window2);
+        this.#storage = storage;
+        const existingValue = storage.getItem(key2);
+        if (existingValue !== null) {
+          this.#current = this.#deserialize(existingValue);
+        } else if (connected) {
+          this.#serialize(initialValue);
+        }
+        this.#setupStorageListener();
+      }
+      get current() {
+        this.#subscribe?.();
+        let root2;
+        if (this.#connected) {
+          const storageItem = this.#storage?.getItem(this.#key);
+          root2 = storageItem ? this.#deserialize(storageItem) : this.#current;
+        } else {
+          root2 = this.#current;
+        }
+        return proxy(root2, root2, this.#proxies, this.#subscribe?.bind(this), this.#update?.bind(this), this.#serialize.bind(this));
+      }
+      set current(newValue) {
+        this.#serialize(newValue);
+        this.#update?.();
+      }
+      #handleStorageEvent = (event2) => {
+        if (event2.key !== this.#key || event2.newValue === null) return;
+        this.#current = this.#deserialize(event2.newValue);
+        this.#update?.();
+      };
+      #deserialize(value) {
+        try {
+          return this.#serializer.deserialize(value);
+        } catch (error) {
+          console.error(`Error when parsing "${value}" from persisted store "${this.#key}"`, error);
+          return;
+        }
+      }
+      #serialize(value) {
+        if (!this.#connected) {
+          this.#current = value;
+          return;
+        }
+        try {
+          if (value !== void 0) {
+            this.#storage?.setItem(this.#key, this.#serializer.serialize(value));
+          }
+        } catch (error) {
+          console.error(`Error when writing value from persisted store "${this.#key}" to ${this.#storage}`, error);
+        }
+      }
+      #setupStorageListener() {
+        if (!this.#window || !this.#connected) return;
+        this.#subscribe = createSubscriber((update2) => {
+          this.#update = update2;
+          this.#storageCleanup = this.#connected && this.#syncTabs && this.#storageType === "local" ? on(this.#window, "storage", this.#handleStorageEvent) : void 0;
+          return () => {
+            this.#storageCleanup?.();
+            this.#storageCleanup = void 0;
+            this.#update = void 0;
+          };
+        });
+      }
+      #teardownStorageListener() {
+        this.#storageCleanup?.();
+        this.#storageCleanup = void 0;
+        this.#subscribe = void 0;
+      }
+      /**
+       * Returns whether the state is currently connected to storage.
+       *
+       * When `connected` is `false`, the state is not connected to storage and any
+       * changes to the state will not be persisted to storage and any changes to storage
+       * will not be reflected in the state.
+       */
+      get connected() {
+        return this.#connected;
+      }
+      /**
+       * Disconnects the state from storage, preventing updates to storage and stopping
+       * cross-tab synchronization. The current value in storage is removed.
+       *
+       * Call `.connect()` to re-enable storage persistence.
+       */
+      disconnect() {
+        if (!this.#connected) return;
+        const storageItem = this.#storage?.getItem(this.#key);
+        if (storageItem) {
+          this.#current = this.#deserialize(storageItem);
+        }
+        this.#connected = false;
+        this.#storage?.removeItem(this.#key);
+        this.#teardownStorageListener();
+      }
+      /**
+       * Reconnects the state to storage, enabling storage persistence and cross-tab
+       * synchronization. The current value is immediately persisted to storage.
+       *
+       * **NOTE**: By default, the state is already connected to storage and this method is
+       * only useful to re-enable storage persistence after calling `disconnect()`
+       * or starting with `connected: false` as an option.
+       */
+      connect() {
+        if (this.#connected) return;
+        this.#connected = true;
+        this.#serialize(this.#current);
+        this.#setupStorageListener();
+      }
+    }
     const defaultAttributes = {
       xmlns: "http://www.w3.org/2000/svg",
       width: 24,
@@ -24618,13 +24627,35 @@ var require_ui_001 = __commonJS({
         inspector: {
           drawer: { orientation: "vertical", height: 300 },
           sidebar: { orientation: "horizontal", width: 200 }
-        }
+        },
+        trees: {},
+        tabs: {}
       });
       get workbench() {
         return this.#currentState.workbench;
       }
       get inspector() {
         return this.#currentState.inspector;
+      }
+      // Tabs
+      getTabsState(id) {
+        let tabs = this.#currentState.tabs;
+        tabs[id] = tabs[id] || { active: null };
+        return tabs[id];
+      }
+      setTabState(id, state2) {
+        const currentState = this.getTabsState(id);
+        Object.assign(currentState, state2);
+      }
+      // Trees
+      getTreeState(id) {
+        let trees = this.#currentState.trees;
+        trees[id] = trees[id] || { filter: "", expanded: [], selected: [] };
+        return trees[id];
+      }
+      setTreeState(id, state2) {
+        const currentState = this.getTreeState(id);
+        Object.assign(currentState, state2);
       }
       get #currentState() {
         return this.storedState.current;
@@ -24680,48 +24711,15 @@ var require_ui_001 = __commonJS({
         folder: Folder,
         folderOpen: Folder_open
       };
-      const filterFn = useFilter({ sensitivity: "base" });
+      useFilter({ sensitivity: "base" });
+      let app = getAppState();
+      let treeState = app.getTreeState($$props.id);
       const initialCollection = /* @__PURE__ */ user_derived(() => createTreeCollection({
         nodeToValue: (node) => node.id,
         nodeToString: (node) => node.label,
         rootNode: $$props.tree
       }));
       let collection2 = /* @__PURE__ */ user_derived(() => get$3(initialCollection));
-      let branchIds = /* @__PURE__ */ user_derived(() => get$3(collection2).getBranchValues());
-      const createNavTreeState = () => {
-        const state2 = new PersistedState(`nav-tree:${$$props.id}`, { expandedItems: [], filter: "", selected: [] });
-        return {
-          get expandedItems() {
-            return state2.current.expandedItems;
-          },
-          set expandedItems(value) {
-            state2.current.expandedItems = value;
-          },
-          get filter() {
-            return state2.current.filter;
-          },
-          set filter(value) {
-            state2.current.filter = value;
-          },
-          get selected() {
-            return state2.current.selected;
-          },
-          set selected(value) {
-            value = Array.isArray(value) ? value : [value];
-            if (!get$3(branchIds).includes(value[0])) {
-              state2.current.selected = value;
-            }
-          }
-        };
-      };
-      let navTreeState = createNavTreeState();
-      navTreeState.selected = [getCurrentContext().resourceId];
-      const filter2 = (value) => {
-        const filtered = value.length > 0 ? get$3(initialCollection).filter((node) => filterFn().contains(node.label, value)) : get$3(initialCollection);
-        set$2(collection2, filtered);
-        navTreeState.filter = value;
-      };
-      filter2(navTreeState.filter);
       var div = root$3();
       {
         const renderNode = ($$anchor2, node = noop$2, indexPath = noop$2) => {
@@ -24910,6 +24908,18 @@ var require_ui_001 = __commonJS({
             },
             selectionMode: "single",
             "data-role": "nav-tree:tree",
+            get expandedValue() {
+              return treeState.expanded;
+            },
+            set expandedValue($$value) {
+              treeState.expanded = $$value;
+            },
+            get selectedValue() {
+              return treeState.selected;
+            },
+            set selectedValue($$value) {
+              treeState.selected = $$value;
+            },
             children: ($$anchor3, $$slotProps) => {
               var fragment_15 = comment();
               var node_15 = first_child(fragment_15);
