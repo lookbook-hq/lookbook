@@ -3,7 +3,7 @@ var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var require_ui_001 = __commonJS({
-  "lookbook-assets/ui-KbINuEBn.js"(exports, module) {
+  "lookbook-assets/ui-CArUacVR.js"(exports, module) {
     (function polyfill() {
       const relList = document.createElement("link").relList;
       if (relList && relList.supports && relList.supports("modulepreload")) return;
@@ -22666,462 +22666,6 @@ var require_ui_001 = __commonJS({
       }));
       pop();
     }
-    const defaultWindow = typeof window !== "undefined" ? window : void 0;
-    function getActiveElement(document2) {
-      let activeElement = document2.activeElement;
-      while (activeElement?.shadowRoot) {
-        const node = activeElement.shadowRoot.activeElement;
-        if (node === activeElement)
-          break;
-        else
-          activeElement = node;
-      }
-      return activeElement;
-    }
-    const REPLACE = /* @__PURE__ */ Symbol();
-    class SvelteURLSearchParams extends URLSearchParams {
-      #version = /* @__PURE__ */ state$1(0);
-      #url = get_current_url();
-      #updating = false;
-      #update_url() {
-        if (!this.#url || this.#updating) return;
-        this.#updating = true;
-        const search = this.toString();
-        this.#url.search = search && `?${search}`;
-        this.#updating = false;
-      }
-      /**
-       * @param {URLSearchParams} params
-       * @internal
-       */
-      [REPLACE](params) {
-        if (this.#updating) return;
-        this.#updating = true;
-        for (const key2 of [...super.keys()]) {
-          super.delete(key2);
-        }
-        for (const [key2, value] of params) {
-          super.append(key2, value);
-        }
-        increment(this.#version);
-        this.#updating = false;
-      }
-      /**
-       * @param {string} name
-       * @param {string} value
-       * @returns {void}
-       */
-      append(name, value) {
-        super.append(name, value);
-        this.#update_url();
-        increment(this.#version);
-      }
-      /**
-       * @param {string} name
-       * @param {string=} value
-       * @returns {void}
-       */
-      delete(name, value) {
-        var has_value = super.has(name, value);
-        super.delete(name, value);
-        if (has_value) {
-          this.#update_url();
-          increment(this.#version);
-        }
-      }
-      /**
-       * @param {string} name
-       * @returns {string|null}
-       */
-      get(name) {
-        get$3(this.#version);
-        return super.get(name);
-      }
-      /**
-       * @param {string} name
-       * @returns {string[]}
-       */
-      getAll(name) {
-        get$3(this.#version);
-        return super.getAll(name);
-      }
-      /**
-       * @param {string} name
-       * @param {string=} value
-       * @returns {boolean}
-       */
-      has(name, value) {
-        get$3(this.#version);
-        return super.has(name, value);
-      }
-      keys() {
-        get$3(this.#version);
-        return super.keys();
-      }
-      /**
-       * @param {string} name
-       * @param {string} value
-       * @returns {void}
-       */
-      set(name, value) {
-        var previous = super.getAll(name).join("");
-        super.set(name, value);
-        if (previous !== super.getAll(name).join("")) {
-          this.#update_url();
-          increment(this.#version);
-        }
-      }
-      sort() {
-        super.sort();
-        this.#update_url();
-        increment(this.#version);
-      }
-      toString() {
-        get$3(this.#version);
-        return super.toString();
-      }
-      values() {
-        get$3(this.#version);
-        return super.values();
-      }
-      entries() {
-        get$3(this.#version);
-        return super.entries();
-      }
-      [Symbol.iterator]() {
-        return this.entries();
-      }
-      get size() {
-        get$3(this.#version);
-        return super.size;
-      }
-    }
-    let current_url = null;
-    function get_current_url() {
-      return current_url;
-    }
-    class SvelteURL extends URL {
-      #protocol = /* @__PURE__ */ state$1(super.protocol);
-      #username = /* @__PURE__ */ state$1(super.username);
-      #password = /* @__PURE__ */ state$1(super.password);
-      #hostname = /* @__PURE__ */ state$1(super.hostname);
-      #port = /* @__PURE__ */ state$1(super.port);
-      #pathname = /* @__PURE__ */ state$1(super.pathname);
-      #hash = /* @__PURE__ */ state$1(super.hash);
-      #search = /* @__PURE__ */ state$1(super.search);
-      #searchParams;
-      /**
-       * @param {string | URL} url
-       * @param {string | URL} [base]
-       */
-      constructor(url, base) {
-        url = new URL(url, base);
-        super(url);
-        current_url = this;
-        this.#searchParams = new SvelteURLSearchParams(url.searchParams);
-        current_url = null;
-      }
-      get hash() {
-        return get$3(this.#hash);
-      }
-      set hash(value) {
-        super.hash = value;
-        set$2(this.#hash, super.hash);
-      }
-      get host() {
-        get$3(this.#hostname);
-        get$3(this.#port);
-        return super.host;
-      }
-      set host(value) {
-        super.host = value;
-        set$2(this.#hostname, super.hostname);
-        set$2(this.#port, super.port);
-      }
-      get hostname() {
-        return get$3(this.#hostname);
-      }
-      set hostname(value) {
-        super.hostname = value;
-        set$2(this.#hostname, super.hostname);
-      }
-      get href() {
-        get$3(this.#protocol);
-        get$3(this.#username);
-        get$3(this.#password);
-        get$3(this.#hostname);
-        get$3(this.#port);
-        get$3(this.#pathname);
-        get$3(this.#hash);
-        get$3(this.#search);
-        return super.href;
-      }
-      set href(value) {
-        super.href = value;
-        set$2(this.#protocol, super.protocol);
-        set$2(this.#username, super.username);
-        set$2(this.#password, super.password);
-        set$2(this.#hostname, super.hostname);
-        set$2(this.#port, super.port);
-        set$2(this.#pathname, super.pathname);
-        set$2(this.#hash, super.hash);
-        set$2(this.#search, super.search);
-        this.#searchParams[REPLACE](super.searchParams);
-      }
-      get password() {
-        return get$3(this.#password);
-      }
-      set password(value) {
-        super.password = value;
-        set$2(this.#password, super.password);
-      }
-      get pathname() {
-        return get$3(this.#pathname);
-      }
-      set pathname(value) {
-        super.pathname = value;
-        set$2(this.#pathname, super.pathname);
-      }
-      get port() {
-        return get$3(this.#port);
-      }
-      set port(value) {
-        super.port = value;
-        set$2(this.#port, super.port);
-      }
-      get protocol() {
-        return get$3(this.#protocol);
-      }
-      set protocol(value) {
-        super.protocol = value;
-        set$2(this.#protocol, super.protocol);
-      }
-      get search() {
-        return get$3(this.#search);
-      }
-      set search(value) {
-        super.search = value;
-        set$2(this.#search, super.search);
-        this.#searchParams[REPLACE](super.searchParams);
-      }
-      get username() {
-        return get$3(this.#username);
-      }
-      set username(value) {
-        super.username = value;
-        set$2(this.#username, super.username);
-      }
-      get origin() {
-        get$3(this.#protocol);
-        get$3(this.#hostname);
-        get$3(this.#port);
-        return super.origin;
-      }
-      get searchParams() {
-        return this.#searchParams;
-      }
-      toString() {
-        return this.href;
-      }
-      toJSON() {
-        return this.href;
-      }
-    }
-    class ActiveElement {
-      #document;
-      #subscribe;
-      constructor(options = {}) {
-        const { window: window2 = defaultWindow, document: document2 = window2?.document } = options;
-        if (window2 === void 0) return;
-        this.#document = document2;
-        this.#subscribe = createSubscriber((update2) => {
-          const cleanupFocusIn = on(window2, "focusin", update2);
-          const cleanupFocusOut = on(window2, "focusout", update2);
-          return () => {
-            cleanupFocusIn();
-            cleanupFocusOut();
-          };
-        });
-      }
-      get current() {
-        this.#subscribe?.();
-        if (!this.#document) return null;
-        return getActiveElement(this.#document);
-      }
-    }
-    new ActiveElement();
-    function getStorage(storageType, window2) {
-      switch (storageType) {
-        case "local":
-          return window2.localStorage;
-        case "session":
-          return window2.sessionStorage;
-      }
-    }
-    function proxy(value, root2, proxies, subscribe2, update2, serialize2) {
-      if (value === null || typeof value !== "object") {
-        return value;
-      }
-      const proto = Object.getPrototypeOf(value);
-      if (proto !== null && proto !== Object.prototype && !Array.isArray(value)) {
-        return value;
-      }
-      let p = proxies.get(value);
-      if (!p) {
-        p = new Proxy(value, {
-          get: (target, property) => {
-            subscribe2?.();
-            return proxy(Reflect.get(target, property), root2, proxies, subscribe2, update2, serialize2);
-          },
-          set: (target, property, value2) => {
-            update2?.();
-            Reflect.set(target, property, value2);
-            serialize2(root2);
-            return true;
-          }
-        });
-        proxies.set(value, p);
-      }
-      return p;
-    }
-    class PersistedState {
-      #current;
-      #key;
-      #serializer;
-      #storage;
-      #subscribe;
-      #update;
-      #proxies = /* @__PURE__ */ new WeakMap();
-      #connected;
-      #storageCleanup;
-      #window;
-      #syncTabs;
-      #storageType;
-      constructor(key2, initialValue, options = {}) {
-        const {
-          storage: storageType = "local",
-          serializer = { serialize: JSON.stringify, deserialize: JSON.parse },
-          syncTabs = true,
-          connected = true
-        } = options;
-        const window2 = "window" in options ? options.window : defaultWindow;
-        this.#current = initialValue;
-        this.#key = key2;
-        this.#serializer = serializer;
-        this.#connected = connected;
-        this.#window = window2;
-        this.#syncTabs = syncTabs;
-        this.#storageType = storageType;
-        if (window2 === void 0) return;
-        const storage = getStorage(storageType, window2);
-        this.#storage = storage;
-        const existingValue = storage.getItem(key2);
-        if (existingValue !== null) {
-          this.#current = this.#deserialize(existingValue);
-        } else if (connected) {
-          this.#serialize(initialValue);
-        }
-        this.#setupStorageListener();
-      }
-      get current() {
-        this.#subscribe?.();
-        let root2;
-        if (this.#connected) {
-          const storageItem = this.#storage?.getItem(this.#key);
-          root2 = storageItem ? this.#deserialize(storageItem) : this.#current;
-        } else {
-          root2 = this.#current;
-        }
-        return proxy(root2, root2, this.#proxies, this.#subscribe?.bind(this), this.#update?.bind(this), this.#serialize.bind(this));
-      }
-      set current(newValue) {
-        this.#serialize(newValue);
-        this.#update?.();
-      }
-      #handleStorageEvent = (event2) => {
-        if (event2.key !== this.#key || event2.newValue === null) return;
-        this.#current = this.#deserialize(event2.newValue);
-        this.#update?.();
-      };
-      #deserialize(value) {
-        try {
-          return this.#serializer.deserialize(value);
-        } catch (error) {
-          console.error(`Error when parsing "${value}" from persisted store "${this.#key}"`, error);
-          return;
-        }
-      }
-      #serialize(value) {
-        if (!this.#connected) {
-          this.#current = value;
-          return;
-        }
-        try {
-          if (value !== void 0) {
-            this.#storage?.setItem(this.#key, this.#serializer.serialize(value));
-          }
-        } catch (error) {
-          console.error(`Error when writing value from persisted store "${this.#key}" to ${this.#storage}`, error);
-        }
-      }
-      #setupStorageListener() {
-        if (!this.#window || !this.#connected) return;
-        this.#subscribe = createSubscriber((update2) => {
-          this.#update = update2;
-          this.#storageCleanup = this.#connected && this.#syncTabs && this.#storageType === "local" ? on(this.#window, "storage", this.#handleStorageEvent) : void 0;
-          return () => {
-            this.#storageCleanup?.();
-            this.#storageCleanup = void 0;
-            this.#update = void 0;
-          };
-        });
-      }
-      #teardownStorageListener() {
-        this.#storageCleanup?.();
-        this.#storageCleanup = void 0;
-        this.#subscribe = void 0;
-      }
-      /**
-       * Returns whether the state is currently connected to storage.
-       *
-       * When `connected` is `false`, the state is not connected to storage and any
-       * changes to the state will not be persisted to storage and any changes to storage
-       * will not be reflected in the state.
-       */
-      get connected() {
-        return this.#connected;
-      }
-      /**
-       * Disconnects the state from storage, preventing updates to storage and stopping
-       * cross-tab synchronization. The current value in storage is removed.
-       *
-       * Call `.connect()` to re-enable storage persistence.
-       */
-      disconnect() {
-        if (!this.#connected) return;
-        const storageItem = this.#storage?.getItem(this.#key);
-        if (storageItem) {
-          this.#current = this.#deserialize(storageItem);
-        }
-        this.#connected = false;
-        this.#storage?.removeItem(this.#key);
-        this.#teardownStorageListener();
-      }
-      /**
-       * Reconnects the state to storage, enabling storage persistence and cross-tab
-       * synchronization. The current value is immediately persisted to storage.
-       *
-       * **NOTE**: By default, the state is already connected to storage and this method is
-       * only useful to re-enable storage persistence after calling `disconnect()`
-       * or starting with `connected: false` as an option.
-       */
-      connect() {
-        if (this.#connected) return;
-        this.#connected = true;
-        this.#serialize(this.#current);
-        this.#setupStorageListener();
-      }
-    }
     const defaultAttributes = {
       xmlns: "http://www.w3.org/2000/svg",
       width: 24,
@@ -23452,24 +22996,8 @@ var require_ui_001 = __commonJS({
       ].join(" ");
       const grabbers = ["east", "west", "southeast", "south", "southwest"];
       const FULLSIZE = 1e5;
-      const createViewportState = () => {
-        const state2 = new PersistedState(`viewport:${$$props.id}`, { width: FULLSIZE, height: FULLSIZE });
-        return {
-          get width() {
-            return state2.current.width;
-          },
-          set width(value) {
-            state2.current.width = value;
-          },
-          get height() {
-            return state2.current.height;
-          },
-          set height(value) {
-            state2.current.height = value;
-          }
-        };
-      };
-      let viewportState = createViewportState();
+      let app = getAppState();
+      let viewportState = /* @__PURE__ */ user_derived(() => app.viewport);
       let initial = /* @__PURE__ */ state$1(null);
       let activeGrabber = /* @__PURE__ */ state$1(null);
       let resizer;
@@ -23497,16 +23025,16 @@ var require_ui_001 = __commonJS({
         const direction = get$3(activeGrabber).dataset.direction;
         if (direction.match(/east|west/)) {
           delta = direction.match("east") ? event2.pageX - get$3(initial).x : get$3(initial).x - event2.pageX;
-          viewportState.width = Math.min(get$3(initial).width + delta * 2, get$3(initial).maxWidth);
-          if (viewportState.width === get$3(initial).maxWidth) {
-            viewportState.width = FULLSIZE;
+          get$3(viewportState).width = Math.min(get$3(initial).width + delta * 2, get$3(initial).maxWidth);
+          if (get$3(viewportState).width === get$3(initial).maxWidth) {
+            get$3(viewportState).width = FULLSIZE;
           }
         }
         if (direction.match("south")) {
           delta = event2.pageY - get$3(initial).y;
-          viewportState.height = Math.min(get$3(initial).height + delta, get$3(initial).maxHeight);
-          if (viewportState.height === get$3(initial).maxHeight) {
-            viewportState.height = FULLSIZE;
+          get$3(viewportState).height = Math.min(get$3(initial).height + delta, get$3(initial).maxHeight);
+          if (get$3(viewportState).height === get$3(initial).maxHeight) {
+            get$3(viewportState).height = FULLSIZE;
           }
         }
       }
@@ -23517,10 +23045,10 @@ var require_ui_001 = __commonJS({
       function maximize(event2) {
         const direction = event2.target.dataset.direction;
         if (direction.match(/east|west/)) {
-          viewportState.width = FULLSIZE;
+          get$3(viewportState).width = FULLSIZE;
         }
         if (direction.match("south")) {
-          viewportState.height = FULLSIZE;
+          get$3(viewportState).height = FULLSIZE;
         }
       }
       var div = root$d();
@@ -23587,8 +23115,8 @@ var require_ui_001 = __commonJS({
       bind_this(div_1, ($$value) => resizer = $$value, () => resizer);
       bind_this(div, ($$value) => container = $$value, () => container);
       template_effect(() => styles = set_style(div, "", styles, {
-        "--viewport-window-width": viewportState.width,
-        "--viewport-window-height": viewportState.height
+        "--viewport-window-width": get$3(viewportState).width,
+        "--viewport-window-height": get$3(viewportState).height
       }));
       append$1($$anchor, div);
       pop();
@@ -24067,6 +23595,255 @@ var require_ui_001 = __commonJS({
         return obj;
       }
       return compact(obj);
+    }
+    const REPLACE = /* @__PURE__ */ Symbol();
+    class SvelteURLSearchParams extends URLSearchParams {
+      #version = /* @__PURE__ */ state$1(0);
+      #url = get_current_url();
+      #updating = false;
+      #update_url() {
+        if (!this.#url || this.#updating) return;
+        this.#updating = true;
+        const search = this.toString();
+        this.#url.search = search && `?${search}`;
+        this.#updating = false;
+      }
+      /**
+       * @param {URLSearchParams} params
+       * @internal
+       */
+      [REPLACE](params) {
+        if (this.#updating) return;
+        this.#updating = true;
+        for (const key2 of [...super.keys()]) {
+          super.delete(key2);
+        }
+        for (const [key2, value] of params) {
+          super.append(key2, value);
+        }
+        increment(this.#version);
+        this.#updating = false;
+      }
+      /**
+       * @param {string} name
+       * @param {string} value
+       * @returns {void}
+       */
+      append(name, value) {
+        super.append(name, value);
+        this.#update_url();
+        increment(this.#version);
+      }
+      /**
+       * @param {string} name
+       * @param {string=} value
+       * @returns {void}
+       */
+      delete(name, value) {
+        var has_value = super.has(name, value);
+        super.delete(name, value);
+        if (has_value) {
+          this.#update_url();
+          increment(this.#version);
+        }
+      }
+      /**
+       * @param {string} name
+       * @returns {string|null}
+       */
+      get(name) {
+        get$3(this.#version);
+        return super.get(name);
+      }
+      /**
+       * @param {string} name
+       * @returns {string[]}
+       */
+      getAll(name) {
+        get$3(this.#version);
+        return super.getAll(name);
+      }
+      /**
+       * @param {string} name
+       * @param {string=} value
+       * @returns {boolean}
+       */
+      has(name, value) {
+        get$3(this.#version);
+        return super.has(name, value);
+      }
+      keys() {
+        get$3(this.#version);
+        return super.keys();
+      }
+      /**
+       * @param {string} name
+       * @param {string} value
+       * @returns {void}
+       */
+      set(name, value) {
+        var previous = super.getAll(name).join("");
+        super.set(name, value);
+        if (previous !== super.getAll(name).join("")) {
+          this.#update_url();
+          increment(this.#version);
+        }
+      }
+      sort() {
+        super.sort();
+        this.#update_url();
+        increment(this.#version);
+      }
+      toString() {
+        get$3(this.#version);
+        return super.toString();
+      }
+      values() {
+        get$3(this.#version);
+        return super.values();
+      }
+      entries() {
+        get$3(this.#version);
+        return super.entries();
+      }
+      [Symbol.iterator]() {
+        return this.entries();
+      }
+      get size() {
+        get$3(this.#version);
+        return super.size;
+      }
+    }
+    let current_url = null;
+    function get_current_url() {
+      return current_url;
+    }
+    class SvelteURL extends URL {
+      #protocol = /* @__PURE__ */ state$1(super.protocol);
+      #username = /* @__PURE__ */ state$1(super.username);
+      #password = /* @__PURE__ */ state$1(super.password);
+      #hostname = /* @__PURE__ */ state$1(super.hostname);
+      #port = /* @__PURE__ */ state$1(super.port);
+      #pathname = /* @__PURE__ */ state$1(super.pathname);
+      #hash = /* @__PURE__ */ state$1(super.hash);
+      #search = /* @__PURE__ */ state$1(super.search);
+      #searchParams;
+      /**
+       * @param {string | URL} url
+       * @param {string | URL} [base]
+       */
+      constructor(url, base) {
+        url = new URL(url, base);
+        super(url);
+        current_url = this;
+        this.#searchParams = new SvelteURLSearchParams(url.searchParams);
+        current_url = null;
+      }
+      get hash() {
+        return get$3(this.#hash);
+      }
+      set hash(value) {
+        super.hash = value;
+        set$2(this.#hash, super.hash);
+      }
+      get host() {
+        get$3(this.#hostname);
+        get$3(this.#port);
+        return super.host;
+      }
+      set host(value) {
+        super.host = value;
+        set$2(this.#hostname, super.hostname);
+        set$2(this.#port, super.port);
+      }
+      get hostname() {
+        return get$3(this.#hostname);
+      }
+      set hostname(value) {
+        super.hostname = value;
+        set$2(this.#hostname, super.hostname);
+      }
+      get href() {
+        get$3(this.#protocol);
+        get$3(this.#username);
+        get$3(this.#password);
+        get$3(this.#hostname);
+        get$3(this.#port);
+        get$3(this.#pathname);
+        get$3(this.#hash);
+        get$3(this.#search);
+        return super.href;
+      }
+      set href(value) {
+        super.href = value;
+        set$2(this.#protocol, super.protocol);
+        set$2(this.#username, super.username);
+        set$2(this.#password, super.password);
+        set$2(this.#hostname, super.hostname);
+        set$2(this.#port, super.port);
+        set$2(this.#pathname, super.pathname);
+        set$2(this.#hash, super.hash);
+        set$2(this.#search, super.search);
+        this.#searchParams[REPLACE](super.searchParams);
+      }
+      get password() {
+        return get$3(this.#password);
+      }
+      set password(value) {
+        super.password = value;
+        set$2(this.#password, super.password);
+      }
+      get pathname() {
+        return get$3(this.#pathname);
+      }
+      set pathname(value) {
+        super.pathname = value;
+        set$2(this.#pathname, super.pathname);
+      }
+      get port() {
+        return get$3(this.#port);
+      }
+      set port(value) {
+        super.port = value;
+        set$2(this.#port, super.port);
+      }
+      get protocol() {
+        return get$3(this.#protocol);
+      }
+      set protocol(value) {
+        super.protocol = value;
+        set$2(this.#protocol, super.protocol);
+      }
+      get search() {
+        return get$3(this.#search);
+      }
+      set search(value) {
+        super.search = value;
+        set$2(this.#search, super.search);
+        this.#searchParams[REPLACE](super.searchParams);
+      }
+      get username() {
+        return get$3(this.#username);
+      }
+      set username(value) {
+        super.username = value;
+        set$2(this.#username, super.username);
+      }
+      get origin() {
+        get$3(this.#protocol);
+        get$3(this.#hostname);
+        get$3(this.#port);
+        return super.origin;
+      }
+      get searchParams() {
+        return this.#searchParams;
+      }
+      toString() {
+        return this.href;
+      }
+      toJSON() {
+        return this.href;
+      }
     }
     function queryParams(definedParams = []) {
       const request = getCurrentContext().request;
@@ -24621,6 +24398,213 @@ var require_ui_001 = __commonJS({
         this.broadcastChannel.postMessage(JSON.stringify({ type: "event-source-start" }));
       }
     }
+    const defaultWindow = typeof window !== "undefined" ? window : void 0;
+    function getActiveElement(document2) {
+      let activeElement = document2.activeElement;
+      while (activeElement?.shadowRoot) {
+        const node = activeElement.shadowRoot.activeElement;
+        if (node === activeElement)
+          break;
+        else
+          activeElement = node;
+      }
+      return activeElement;
+    }
+    class ActiveElement {
+      #document;
+      #subscribe;
+      constructor(options = {}) {
+        const { window: window2 = defaultWindow, document: document2 = window2?.document } = options;
+        if (window2 === void 0) return;
+        this.#document = document2;
+        this.#subscribe = createSubscriber((update2) => {
+          const cleanupFocusIn = on(window2, "focusin", update2);
+          const cleanupFocusOut = on(window2, "focusout", update2);
+          return () => {
+            cleanupFocusIn();
+            cleanupFocusOut();
+          };
+        });
+      }
+      get current() {
+        this.#subscribe?.();
+        if (!this.#document) return null;
+        return getActiveElement(this.#document);
+      }
+    }
+    new ActiveElement();
+    function getStorage(storageType, window2) {
+      switch (storageType) {
+        case "local":
+          return window2.localStorage;
+        case "session":
+          return window2.sessionStorage;
+      }
+    }
+    function proxy(value, root2, proxies, subscribe2, update2, serialize2) {
+      if (value === null || typeof value !== "object") {
+        return value;
+      }
+      const proto = Object.getPrototypeOf(value);
+      if (proto !== null && proto !== Object.prototype && !Array.isArray(value)) {
+        return value;
+      }
+      let p = proxies.get(value);
+      if (!p) {
+        p = new Proxy(value, {
+          get: (target, property) => {
+            subscribe2?.();
+            return proxy(Reflect.get(target, property), root2, proxies, subscribe2, update2, serialize2);
+          },
+          set: (target, property, value2) => {
+            update2?.();
+            Reflect.set(target, property, value2);
+            serialize2(root2);
+            return true;
+          }
+        });
+        proxies.set(value, p);
+      }
+      return p;
+    }
+    class PersistedState {
+      #current;
+      #key;
+      #serializer;
+      #storage;
+      #subscribe;
+      #update;
+      #proxies = /* @__PURE__ */ new WeakMap();
+      #connected;
+      #storageCleanup;
+      #window;
+      #syncTabs;
+      #storageType;
+      constructor(key2, initialValue, options = {}) {
+        const {
+          storage: storageType = "local",
+          serializer = { serialize: JSON.stringify, deserialize: JSON.parse },
+          syncTabs = true,
+          connected = true
+        } = options;
+        const window2 = "window" in options ? options.window : defaultWindow;
+        this.#current = initialValue;
+        this.#key = key2;
+        this.#serializer = serializer;
+        this.#connected = connected;
+        this.#window = window2;
+        this.#syncTabs = syncTabs;
+        this.#storageType = storageType;
+        if (window2 === void 0) return;
+        const storage = getStorage(storageType, window2);
+        this.#storage = storage;
+        const existingValue = storage.getItem(key2);
+        if (existingValue !== null) {
+          this.#current = this.#deserialize(existingValue);
+        } else if (connected) {
+          this.#serialize(initialValue);
+        }
+        this.#setupStorageListener();
+      }
+      get current() {
+        this.#subscribe?.();
+        let root2;
+        if (this.#connected) {
+          const storageItem = this.#storage?.getItem(this.#key);
+          root2 = storageItem ? this.#deserialize(storageItem) : this.#current;
+        } else {
+          root2 = this.#current;
+        }
+        return proxy(root2, root2, this.#proxies, this.#subscribe?.bind(this), this.#update?.bind(this), this.#serialize.bind(this));
+      }
+      set current(newValue) {
+        this.#serialize(newValue);
+        this.#update?.();
+      }
+      #handleStorageEvent = (event2) => {
+        if (event2.key !== this.#key || event2.newValue === null) return;
+        this.#current = this.#deserialize(event2.newValue);
+        this.#update?.();
+      };
+      #deserialize(value) {
+        try {
+          return this.#serializer.deserialize(value);
+        } catch (error) {
+          console.error(`Error when parsing "${value}" from persisted store "${this.#key}"`, error);
+          return;
+        }
+      }
+      #serialize(value) {
+        if (!this.#connected) {
+          this.#current = value;
+          return;
+        }
+        try {
+          if (value !== void 0) {
+            this.#storage?.setItem(this.#key, this.#serializer.serialize(value));
+          }
+        } catch (error) {
+          console.error(`Error when writing value from persisted store "${this.#key}" to ${this.#storage}`, error);
+        }
+      }
+      #setupStorageListener() {
+        if (!this.#window || !this.#connected) return;
+        this.#subscribe = createSubscriber((update2) => {
+          this.#update = update2;
+          this.#storageCleanup = this.#connected && this.#syncTabs && this.#storageType === "local" ? on(this.#window, "storage", this.#handleStorageEvent) : void 0;
+          return () => {
+            this.#storageCleanup?.();
+            this.#storageCleanup = void 0;
+            this.#update = void 0;
+          };
+        });
+      }
+      #teardownStorageListener() {
+        this.#storageCleanup?.();
+        this.#storageCleanup = void 0;
+        this.#subscribe = void 0;
+      }
+      /**
+       * Returns whether the state is currently connected to storage.
+       *
+       * When `connected` is `false`, the state is not connected to storage and any
+       * changes to the state will not be persisted to storage and any changes to storage
+       * will not be reflected in the state.
+       */
+      get connected() {
+        return this.#connected;
+      }
+      /**
+       * Disconnects the state from storage, preventing updates to storage and stopping
+       * cross-tab synchronization. The current value in storage is removed.
+       *
+       * Call `.connect()` to re-enable storage persistence.
+       */
+      disconnect() {
+        if (!this.#connected) return;
+        const storageItem = this.#storage?.getItem(this.#key);
+        if (storageItem) {
+          this.#current = this.#deserialize(storageItem);
+        }
+        this.#connected = false;
+        this.#storage?.removeItem(this.#key);
+        this.#teardownStorageListener();
+      }
+      /**
+       * Reconnects the state to storage, enabling storage persistence and cross-tab
+       * synchronization. The current value is immediately persisted to storage.
+       *
+       * **NOTE**: By default, the state is already connected to storage and this method is
+       * only useful to re-enable storage persistence after calling `disconnect()`
+       * or starting with `connected: false` as an option.
+       */
+      connect() {
+        if (this.#connected) return;
+        this.#connected = true;
+        this.#serialize(this.#current);
+        this.#setupStorageListener();
+      }
+    }
     class AppState {
       storedState = new PersistedState("lookbook:app", {
         workbench: { sidebar: { orientation: "horizontal", width: 300 } },
@@ -24628,15 +24612,10 @@ var require_ui_001 = __commonJS({
           drawer: { orientation: "vertical", height: 300 },
           sidebar: { orientation: "horizontal", width: 200 }
         },
+        viewport: { width: 1e5, height: 1e5 },
         trees: {},
         tabs: {}
       });
-      get workbench() {
-        return this.#currentState.workbench;
-      }
-      get inspector() {
-        return this.#currentState.inspector;
-      }
       // Tabs
       getTabsState(id) {
         let tabs = this.#currentState.tabs;
@@ -24656,6 +24635,16 @@ var require_ui_001 = __commonJS({
       setTreeState(id, state2) {
         const currentState = this.getTreeState(id);
         Object.assign(currentState, state2);
+      }
+      // Other
+      get workbench() {
+        return this.#currentState.workbench;
+      }
+      get inspector() {
+        return this.#currentState.inspector;
+      }
+      get viewport() {
+        return this.#currentState.viewport;
       }
       get #currentState() {
         return this.storedState.current;

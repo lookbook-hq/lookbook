@@ -1,6 +1,8 @@
 <script>
   import { Frame } from "@ark-ui/svelte";
-  import { PersistedState } from "runed";
+
+  import { getAppState } from "@lib/utils";
+
   import Icon from "@components/icon";
   import { MoveDiagonalIcon, MoveDiagonal2Icon } from "lucide-svelte";
 
@@ -19,32 +21,10 @@
 
   let { srcdoc, title, id } = $props();
 
-  const createViewportState = () => {
-    const state = new PersistedState(`viewport:${id}`, {
-      width: FULLSIZE,
-      height: FULLSIZE,
-    });
+  let app = getAppState();
+  // svelte-ignore state_referenced_locally
+  let viewportState = $derived.by(() => app.viewport);
 
-    return {
-      get width() {
-        return state.current.width;
-      },
-
-      set width(value) {
-        state.current.width = value;
-      },
-
-      get height() {
-        return state.current.height;
-      },
-
-      set height(value) {
-        state.current.height = value;
-      },
-    };
-  };
-
-  let viewportState = createViewportState();
   let initial = $state(null);
   let activeGrabber = $state(null);
 
@@ -169,13 +149,6 @@
       position: absolute;
       inset: 0;
       z-index: 0;
-
-      /*&::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle, #0000000f, #0001 50%, #0000002d 80%);
-      }*/
     }
 
     [data-role="viewport:window"] {
@@ -207,11 +180,8 @@
       min-height: 100px;
       min-width: 150px;
       z-index: 2;
-      left: calc(var(--viewport-handle-size) * -1);
-      right: calc(var(--viewport-handle-size) * -1);
-      bottom: calc(var(--viewport-handle-size) * -1);
-      height: calc(100% + var(--viewport-handle-size));
-      width: calc(100% + (var(--viewport-handle-size) * 2));
+      height: 100%;
+      width: 100%;
       border: 0;
       view-transition-name: viewport;
     }

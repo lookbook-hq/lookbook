@@ -8,6 +8,7 @@ class AppState {
         width: 300,
       },
     },
+
     inspector: {
       drawer: {
         orientation: "vertical",
@@ -18,17 +19,15 @@ class AppState {
         width: 200,
       },
     },
+
+    viewport: {
+      width: 100000,
+      height: 100000,
+    },
+
     trees: {},
     tabs: {},
   });
-
-  get workbench() {
-    return this.#currentState.workbench;
-  }
-
-  get inspector() {
-    return this.#currentState.inspector;
-  }
 
   // Tabs
 
@@ -36,7 +35,6 @@ class AppState {
     let tabs = this.#currentState.tabs;
 
     tabs[id] = tabs[id] || { active: null };
-
     return tabs[id];
   }
 
@@ -62,6 +60,20 @@ class AppState {
   setTreeState(id, state) {
     const currentState = this.getTreeState(id);
     Object.assign(currentState, state);
+  }
+
+  // Other
+
+  get workbench() {
+    return this.#currentState.workbench;
+  }
+
+  get inspector() {
+    return this.#currentState.inspector;
+  }
+
+  get viewport() {
+    return this.#currentState.viewport;
   }
 
   get #currentState() {
