@@ -3,7 +3,7 @@ var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var require_ui_001 = __commonJS({
-  "lookbook-assets/ui-cpIiygcW.js"(exports, module) {
+  "lookbook-assets/ui-Dh-ceYG6.js"(exports, module) {
     (function polyfill() {
       const relList = document.createElement("link").relList;
       if (relList && relList.supports && relList.supports("modulepreload")) return;
@@ -4453,6 +4453,61 @@ var require_ui_001 = __commonJS({
       }
       return setters;
     }
+    class ResizeObserverSingleton {
+      /** */
+      #listeners = /* @__PURE__ */ new WeakMap();
+      /** @type {ResizeObserver | undefined} */
+      #observer;
+      /** @type {ResizeObserverOptions} */
+      #options;
+      /** @static */
+      static entries = /* @__PURE__ */ new WeakMap();
+      /** @param {ResizeObserverOptions} options */
+      constructor(options) {
+        this.#options = options;
+      }
+      /**
+       * @param {Element} element
+       * @param {(entry: ResizeObserverEntry) => any} listener
+       */
+      observe(element2, listener) {
+        var listeners2 = this.#listeners.get(element2) || /* @__PURE__ */ new Set();
+        listeners2.add(listener);
+        this.#listeners.set(element2, listeners2);
+        this.#getObserver().observe(element2, this.#options);
+        return () => {
+          var listeners3 = this.#listeners.get(element2);
+          listeners3.delete(listener);
+          if (listeners3.size === 0) {
+            this.#listeners.delete(element2);
+            this.#observer.unobserve(element2);
+          }
+        };
+      }
+      #getObserver() {
+        return this.#observer ?? (this.#observer = new ResizeObserver(
+          /** @param {any} entries */
+          (entries) => {
+            for (var entry of entries) {
+              ResizeObserverSingleton.entries.set(entry.target, entry);
+              for (var listener of this.#listeners.get(entry.target) || []) {
+                listener(entry);
+              }
+            }
+          }
+        ));
+      }
+    }
+    var resize_observer_border_box = /* @__PURE__ */ new ResizeObserverSingleton({
+      box: "border-box"
+    });
+    function bind_element_size(element2, type2, set2) {
+      var unsub = resize_observer_border_box.observe(element2, () => set2(element2[type2]));
+      effect(() => {
+        untrack(() => set2(element2[type2]));
+        return unsub;
+      });
+    }
     function is_bound_this(bound_value, element_or_component) {
       return bound_value === element_or_component || bound_value?.[STATE_SYMBOL] === element_or_component;
     }
@@ -4954,10 +5009,10 @@ var require_ui_001 = __commonJS({
         })
       );
     }
-    var root$m = /* @__PURE__ */ from_html(`<div><h1><strong> </strong> collection</h1></div>`);
+    var root$n = /* @__PURE__ */ from_html(`<div><h1><strong> </strong> collection</h1></div>`);
     function Show$4($$anchor, $$props) {
       push($$props, true);
-      var div = root$m();
+      var div = root$n();
       var h1 = child(div);
       var strong = child(h1);
       var text2 = child(strong);
@@ -4969,7 +5024,7 @@ var require_ui_001 = __commonJS({
       __proto__: null,
       default: Show$4
     }, Symbol.toStringTag, { value: "Module" }));
-    var root$l = /* @__PURE__ */ from_html(`<div><h1> </h1></div>`);
+    var root$m = /* @__PURE__ */ from_html(`<div><h1> </h1></div>`);
     function Error$1($$anchor, $$props) {
       const title = {
         503: "503: Service Unavailable",
@@ -4977,7 +5032,7 @@ var require_ui_001 = __commonJS({
         404: "404: Page Not Found",
         403: "403: Forbidden"
       };
-      var div = root$l();
+      var div = root$m();
       var h1 = child(div);
       var text2 = child(h1);
       template_effect(() => set_text(text2, title[$$props.status]));
@@ -4988,19 +5043,19 @@ var require_ui_001 = __commonJS({
       default: Error$1
     }, Symbol.toStringTag, { value: "Module" }));
     enable_legacy_mode_flag();
-    var root$k = /* @__PURE__ */ from_html(`<div><h1>Not found</h1></div>`);
+    var root$l = /* @__PURE__ */ from_html(`<div><h1>Not found</h1></div>`);
     function Not_found($$anchor) {
-      var div = root$k();
+      var div = root$l();
       append$1($$anchor, div);
     }
     const __vite_glob_0_2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
       __proto__: null,
       default: Not_found
     }, Symbol.toStringTag, { value: "Module" }));
-    var root$j = /* @__PURE__ */ from_html(`<h1> </h1> <!>`, 1);
+    var root$k = /* @__PURE__ */ from_html(`<h1> </h1> <!>`, 1);
     function Show$3($$anchor, $$props) {
       push($$props, true);
-      var fragment = root$j();
+      var fragment = root$k();
       var h1 = first_child(fragment);
       var text2 = child(h1);
       var node = sibling(h1, 2);
@@ -5013,6 +5068,18 @@ var require_ui_001 = __commonJS({
       __proto__: null,
       default: Show$3
     }, Symbol.toStringTag, { value: "Module" }));
+    function getCurrentContext() {
+      return getContext("current")();
+    }
+    function getAppState() {
+      return getContext("appState")();
+    }
+    function toAbsoluteSize(relativeSize, maxSize) {
+      return relativeSize / 100 * maxSize;
+    }
+    function toRelativeSize(absoluteSize, maxSize) {
+      return absoluteSize / maxSize * 100;
+    }
     const defaultWindow = typeof window !== "undefined" ? window : void 0;
     function getActiveElement$1(document2) {
       let activeElement = document2.activeElement;
@@ -7539,8 +7606,8 @@ var require_ui_001 = __commonJS({
         getWindow: () => window
       })
     });
-    var root_1$d = /* @__PURE__ */ from_html(`<span hidden=""></span>`);
-    var root$i = /* @__PURE__ */ from_html(`<!> <!>`, 1);
+    var root_1$c = /* @__PURE__ */ from_html(`<span hidden=""></span>`);
+    var root$j = /* @__PURE__ */ from_html(`<!> <!>`, 1);
     function Environment_provider($$anchor, $$props) {
       push($$props, true);
       let spanRef = /* @__PURE__ */ state$1(null);
@@ -7551,13 +7618,13 @@ var require_ui_001 = __commonJS({
         getWindow: () => getWindow(getRootNode())
       }));
       EnvironmentContextProvider(() => get$3(environment));
-      var fragment = root$i();
+      var fragment = root$j();
       var node = first_child(fragment);
       snippet(node, () => $$props.children ?? noop$2);
       var node_1 = sibling(node, 2);
       {
         var consequent = ($$anchor2) => {
-          var span = root_1$d();
+          var span = root_1$c();
           bind_this(span, ($$value) => set$2(spanRef, $$value), () => get$3(spanRef));
           append$1($$anchor2, span);
         };
@@ -8214,17 +8281,17 @@ var require_ui_001 = __commonJS({
       }));
       pop();
     }
-    var root_1$c = /* @__PURE__ */ from_html(`<div data-role="toolbar:start"><!></div>`);
+    var root_1$b = /* @__PURE__ */ from_html(`<div data-role="toolbar:start"><!></div>`);
     var root_2$3 = /* @__PURE__ */ from_html(`<div data-role="toolbar:end"><!></div>`);
-    var root$h = /* @__PURE__ */ from_html(`<div><!> <!></div>`);
+    var root$i = /* @__PURE__ */ from_html(`<div><!> <!></div>`);
     function Toolbar($$anchor, $$props) {
       let attrs = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "start", "end"]);
-      var div = root$h();
+      var div = root$i();
       attribute_effect(div, () => ({ "data-component": "toolbar", ...attrs }));
       var node = child(div);
       {
         var consequent = ($$anchor2) => {
-          var div_1 = root_1$c();
+          var div_1 = root_1$b();
           var node_1 = child(div_1);
           snippet(node_1, () => $$props.start);
           append$1($$anchor2, div_1);
@@ -8248,7 +8315,7 @@ var require_ui_001 = __commonJS({
       append$1($$anchor, div);
     }
     var root_5$1 = /* @__PURE__ */ from_html(`<span data-role="tabs:label" class="label mark"><span><!></span></span>`);
-    var root_1$b = /* @__PURE__ */ from_html(`<!> <!>`, 1);
+    var root_1$a = /* @__PURE__ */ from_html(`<!> <!>`, 1);
     function Tabs_1($$anchor, $$props) {
       push($$props, true);
       let panels = prop($$props, "panels", 19, () => []);
@@ -8266,7 +8333,7 @@ var require_ui_001 = __commonJS({
             tabs.current.active = $$value;
           },
           children: ($$anchor3, $$slotProps) => {
-            var fragment_1 = root_1$b();
+            var fragment_1 = root_1$a();
             var node_1 = first_child(fragment_1);
             {
               const start2 = ($$anchor4) => {
@@ -8355,8 +8422,8 @@ var require_ui_001 = __commonJS({
     }
     var freeGlobal = typeof global == "object" && global && global.Object === Object && global;
     var freeSelf = typeof self == "object" && self && self.Object === Object && self;
-    var root$g = freeGlobal || freeSelf || Function("return this")();
-    var Symbol$1 = root$g.Symbol;
+    var root$h = freeGlobal || freeSelf || Function("return this")();
+    var Symbol$1 = root$h.Symbol;
     var objectProto$e = Object.prototype;
     var hasOwnProperty$c = objectProto$e.hasOwnProperty;
     var nativeObjectToString$1 = objectProto$e.toString;
@@ -8432,7 +8499,7 @@ var require_ui_001 = __commonJS({
       var tag = baseGetTag(value);
       return tag == funcTag$2 || tag == genTag$1 || tag == asyncTag || tag == proxyTag;
     }
-    var coreJsData = root$g["__core-js_shared__"];
+    var coreJsData = root$h["__core-js_shared__"];
     var maskSrcKey = (function() {
       var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || "");
       return uid ? "Symbol(src)_1." + uid : "";
@@ -8477,7 +8544,7 @@ var require_ui_001 = __commonJS({
       var value = getValue(object, key2);
       return baseIsNative(value) ? value : void 0;
     }
-    var WeakMap$1 = getNative(root$g, "WeakMap");
+    var WeakMap$1 = getNative(root$h, "WeakMap");
     var objectCreate = Object.create;
     var baseCreate = /* @__PURE__ */ (function() {
       function object() {
@@ -8579,7 +8646,7 @@ var require_ui_001 = __commonJS({
     var freeExports$2 = typeof exports == "object" && exports && !exports.nodeType && exports;
     var freeModule$2 = freeExports$2 && typeof module == "object" && module && !module.nodeType && module;
     var moduleExports$2 = freeModule$2 && freeModule$2.exports === freeExports$2;
-    var Buffer$2 = moduleExports$2 ? root$g.Buffer : void 0;
+    var Buffer$2 = moduleExports$2 ? root$h.Buffer : void 0;
     var nativeIsBuffer = Buffer$2 ? Buffer$2.isBuffer : void 0;
     var isBuffer$1 = nativeIsBuffer || stubFalse;
     var argsTag$2 = "[object Arguments]", arrayTag$2 = "[object Array]", boolTag$3 = "[object Boolean]", dateTag$3 = "[object Date]", errorTag$2 = "[object Error]", funcTag$1 = "[object Function]", mapTag$5 = "[object Map]", numberTag$3 = "[object Number]", objectTag$3 = "[object Object]", regexpTag$3 = "[object RegExp]", setTag$5 = "[object Set]", stringTag$3 = "[object String]", weakMapTag$2 = "[object WeakMap]";
@@ -8766,7 +8833,7 @@ var require_ui_001 = __commonJS({
     ListCache.prototype.get = listCacheGet;
     ListCache.prototype.has = listCacheHas;
     ListCache.prototype.set = listCacheSet;
-    var Map$1 = getNative(root$g, "Map");
+    var Map$1 = getNative(root$h, "Map");
     function mapCacheClear() {
       this.size = 0;
       this.__data__ = {
@@ -8938,7 +9005,7 @@ var require_ui_001 = __commonJS({
     var freeExports = typeof exports == "object" && exports && !exports.nodeType && exports;
     var freeModule = freeExports && typeof module == "object" && module && !module.nodeType && module;
     var moduleExports = freeModule && freeModule.exports === freeExports;
-    var Buffer$1 = moduleExports ? root$g.Buffer : void 0;
+    var Buffer$1 = moduleExports ? root$h.Buffer : void 0;
     Buffer$1 ? Buffer$1.allocUnsafe : void 0;
     function cloneBuffer(buffer, isDeep) {
       {
@@ -8977,9 +9044,9 @@ var require_ui_001 = __commonJS({
     function getAllKeys(object) {
       return baseGetAllKeys(object, keys, getSymbols);
     }
-    var DataView$1 = getNative(root$g, "DataView");
-    var Promise$1 = getNative(root$g, "Promise");
-    var Set$1 = getNative(root$g, "Set");
+    var DataView$1 = getNative(root$h, "DataView");
+    var Promise$1 = getNative(root$h, "Promise");
+    var Set$1 = getNative(root$h, "Set");
     var mapTag$4 = "[object Map]", objectTag$2 = "[object Object]", promiseTag = "[object Promise]", setTag$4 = "[object Set]", weakMapTag$1 = "[object WeakMap]";
     var dataViewTag$3 = "[object DataView]";
     var dataViewCtorString = toSource(DataView$1), mapCtorString = toSource(Map$1), promiseCtorString = toSource(Promise$1), setCtorString = toSource(Set$1), weakMapCtorString = toSource(WeakMap$1);
@@ -9014,7 +9081,7 @@ var require_ui_001 = __commonJS({
       }
       return result;
     }
-    var Uint8Array$1 = root$g.Uint8Array;
+    var Uint8Array$1 = root$h.Uint8Array;
     function cloneArrayBuffer(arrayBuffer) {
       var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
       new Uint8Array$1(result).set(new Uint8Array$1(arrayBuffer));
@@ -18025,7 +18092,7 @@ var require_ui_001 = __commonJS({
       return { update: update2, destroy };
     }
     const config = config$1.extend({});
-    var root_1$a = /* @__PURE__ */ from_html(`<i data-component="icon" class="icon"><!></i>`);
+    var root_1$9 = /* @__PURE__ */ from_html(`<i data-component="icon" class="icon"><!></i>`);
     function Icon$1($$anchor, $$props) {
       const IconSvg = prop($$props, "svg", 3, null), size = prop($$props, "size", 3, "md"), props = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "svg", "size"]);
       const defaultProps = { size: 16, strokeWidth: 1, absoluteStrokeWidth: false };
@@ -18033,7 +18100,7 @@ var require_ui_001 = __commonJS({
       var node = first_child(fragment);
       {
         var consequent = ($$anchor2) => {
-          var i = root_1$a();
+          var i = root_1$9();
           var node_1 = child(i);
           component(node_1, IconSvg, ($$anchor3, IconSvg_1) => {
             IconSvg_1($$anchor3, spread_props(() => defaultProps, () => props));
@@ -18047,7 +18114,7 @@ var require_ui_001 = __commonJS({
       }
       append$1($$anchor, fragment);
     }
-    var root_1$9 = /* @__PURE__ */ from_html(`<span data-role="button:content"><!> <!></span>`);
+    var root_1$8 = /* @__PURE__ */ from_html(`<span data-role="button:content"><!> <!></span>`);
     function Button($$anchor, $$props) {
       var fragment = comment();
       var node = first_child(fragment);
@@ -18058,7 +18125,7 @@ var require_ui_001 = __commonJS({
           class: "button",
           "data-size": $$props.size
         }));
-        var span = root_1$9();
+        var span = root_1$8();
         var node_1 = child(span);
         {
           var consequent = ($$anchor3) => {
@@ -19298,22 +19365,21 @@ var require_ui_001 = __commonJS({
       pop();
     }
     var root_2$2 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
-    var root$f = /* @__PURE__ */ from_html(`<div data-component="splitter"><!></div>`);
+    var root$g = /* @__PURE__ */ from_html(`<div data-component="splitter"><!></div>`);
     function Splitter_1($$anchor, $$props) {
       push($$props, true);
-      let panel = prop($$props, "panel", 3, null), orientation = prop($$props, "orientation", 3, "horizontal"), panelSnippets = /* @__PURE__ */ rest_props($$props, [
+      let size = prop($$props, "size", 15), orientation = prop($$props, "orientation", 15, "horizontal"), panel = prop($$props, "panel", 3, null), panelSnippets = /* @__PURE__ */ rest_props($$props, [
         "$$slots",
         "$$events",
         "$$legacy",
         "id",
         "defaultSize",
         "panels",
-        "panel",
-        "orientation"
+        "size",
+        "orientation",
+        "panel"
       ]);
-      const createSplitterState = () => new PersistedState(`splitter:${$$props.id}`, { orientation: orientation(), size: [] });
-      createSplitterState();
-      var div = root$f();
+      var div = root$g();
       var node = child(div);
       component(node, () => Splitter_root, ($$anchor2, Splitter_Root) => {
         Splitter_Root($$anchor2, {
@@ -19323,10 +19389,19 @@ var require_ui_001 = __commonJS({
           get panels() {
             return $$props.panels;
           },
+          "data-role": "splitter:root",
           get orientation() {
             return orientation();
           },
-          "data-role": "splitter:root",
+          set orientation($$value) {
+            orientation($$value);
+          },
+          get size() {
+            return size();
+          },
+          set size($$value) {
+            size($$value);
+          },
           children: ($$anchor3, $$slotProps) => {
             var fragment = comment();
             var node_1 = first_child(fragment);
@@ -20994,8 +21069,8 @@ var require_ui_001 = __commonJS({
       if (!doc) return null;
       return doc.body.querySelector(`.${CUSTOM_ROOT_CLASS}`) || doc.body;
     }
-    var root_1$8 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
-    var root$e = /* @__PURE__ */ from_html(`<iframe><!></iframe>`);
+    var root_1$7 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
+    var root$f = /* @__PURE__ */ from_html(`<iframe><!></iframe>`);
     function Frame($$anchor, $$props) {
       push($$props, true);
       let ref2 = prop($$props, "ref", 15, null), localProps = /* @__PURE__ */ rest_props($$props, [
@@ -21043,13 +21118,13 @@ var require_ui_001 = __commonJS({
       function setFrameNode(node) {
         set$2(frameRef, node, true);
       }
-      var iframe = root$e();
+      var iframe = root$f();
       attribute_effect(iframe, () => ({ ...localProps }));
       var node_1 = child(iframe);
       Environment_provider(node_1, {
         value: () => get$3(frameRef)?.contentDocument ?? document,
         children: ($$anchor2, $$slotProps) => {
-          var fragment = root_1$8();
+          var fragment = root_1$7();
           var node_2 = first_child(fragment);
           {
             var consequent_1 = ($$anchor3) => {
@@ -23060,7 +23135,7 @@ var require_ui_001 = __commonJS({
     const mergeClasses = (...classes) => classes.filter((className, index2, array) => {
       return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index2;
     }).join(" ").trim();
-    var root$d = /* @__PURE__ */ from_svg(`<svg><!><!></svg>`);
+    var root$e = /* @__PURE__ */ from_svg(`<svg><!><!></svg>`);
     function Icon($$anchor, $$props) {
       const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
       const $$restProps = legacy_rest_props($$sanitized_props, [
@@ -23079,7 +23154,7 @@ var require_ui_001 = __commonJS({
       let absoluteStrokeWidth = prop($$props, "absoluteStrokeWidth", 8, false);
       let iconNode = prop($$props, "iconNode", 24, () => []);
       init();
-      var svg = root$d();
+      var svg = root$e();
       attribute_effect(
         svg,
         ($0, $1, $2) => ({
@@ -23352,8 +23427,8 @@ var require_ui_001 = __commonJS({
         $$slots: { default: true }
       }));
     }
-    var root_1$7 = /* @__PURE__ */ from_html(`<button data-role="viewport:grabber"><!></button>`);
-    var root$c = /* @__PURE__ */ from_html(`<div data-component="viewport"><div data-role="viewport:background" class="checkerboard-bg"></div> <div data-role="viewport:window"><!> <!></div></div>`);
+    var root_1$6 = /* @__PURE__ */ from_html(`<button data-role="viewport:grabber"><!></button>`);
+    var root$d = /* @__PURE__ */ from_html(`<div data-component="viewport"><div data-role="viewport:background" class="checkerboard-bg"></div> <div data-role="viewport:window"><!> <!></div></div>`);
     function Viewport($$anchor, $$props) {
       push($$props, true);
       const sandbox = [
@@ -23439,7 +23514,7 @@ var require_ui_001 = __commonJS({
           viewportState.height = FULLSIZE;
         }
       }
-      var div = root$c();
+      var div = root$d();
       event("mousemove", $window, resizing);
       event("mouseup", $window, endResize);
       let styles;
@@ -23465,7 +23540,7 @@ var require_ui_001 = __commonJS({
       }
       var node_1 = sibling(node, 2);
       each(node_1, 17, () => grabbers, index, ($$anchor2, direction) => {
-        var button = root_1$7();
+        var button = root_1$6();
         var node_2 = child(button);
         {
           var consequent = ($$anchor3) => {
@@ -23511,14 +23586,14 @@ var require_ui_001 = __commonJS({
     }
     delegate(["mousedown", "dblclick"]);
     var root_4$1 = /* @__PURE__ */ from_html(`<span> </span>`);
-    var root_1$6 = /* @__PURE__ */ from_html(`<li data-role="breadcrumb:item" class="label"><!></li>`);
-    var root$b = /* @__PURE__ */ from_html(`<nav data-component="breadcrumb"><ol data-role="breadcrumb:items"></ol></nav>`);
+    var root_1$5 = /* @__PURE__ */ from_html(`<li data-role="breadcrumb:item" class="label"><!></li>`);
+    var root$c = /* @__PURE__ */ from_html(`<nav data-component="breadcrumb"><ol data-role="breadcrumb:items"></ol></nav>`);
     function Breadcrumb($$anchor, $$props) {
       let crumbs = prop($$props, "crumbs", 19, () => []);
-      var nav = root$b();
+      var nav = root$c();
       var ol = child(nav);
       each(ol, 21, crumbs, (crumb) => crumb.id, ($$anchor2, crumb) => {
-        var li = root_1$6();
+        var li = root_1$5();
         var node = child(li);
         {
           var consequent = ($$anchor3) => {
@@ -23549,16 +23624,16 @@ var require_ui_001 = __commonJS({
       });
       append$1($$anchor, nav);
     }
-    var root$a = /* @__PURE__ */ from_html(`<div data-component="button-group"><!></div>`);
+    var root$b = /* @__PURE__ */ from_html(`<div data-component="button-group"><!></div>`);
     function Button_group($$anchor, $$props) {
       let size = prop($$props, "size", 3, "md");
-      var div = root$a();
+      var div = root$b();
       var node = child(div);
       snippet(node, () => $$props.children);
       template_effect(() => set_attribute(div, "data-size", size()));
       append$1($$anchor, div);
     }
-    var root_1$5 = /* @__PURE__ */ from_html(`<code data-role="snippet:code"><pre><!></pre></code>`);
+    var root_1$4 = /* @__PURE__ */ from_html(`<code data-role="snippet:code"><pre><!></pre></code>`);
     function Snippet($$anchor, $$props) {
       let theme = prop($$props, "theme", 3, "min-light"), output = prop($$props, "output", 3, false);
       var fragment = comment();
@@ -23578,7 +23653,7 @@ var require_ui_001 = __commonJS({
           void 0,
           "svelte-1ba9mvy"
         );
-        var code = root_1$5();
+        var code = root_1$4();
         var pre = child(code);
         var node_1 = child(pre);
         snippet(node_1, () => $$props.children);
@@ -23587,7 +23662,7 @@ var require_ui_001 = __commonJS({
       });
       append$1($$anchor, fragment);
     }
-    var root_1$4 = /* @__PURE__ */ from_html(`<!> <!> <!>`, 1);
+    var root_1$3 = /* @__PURE__ */ from_html(`<!> <!> <!>`, 1);
     function Switch_1($$anchor, $$props) {
       push($$props, true);
       let checked = prop($$props, "checked", 15);
@@ -23604,7 +23679,7 @@ var require_ui_001 = __commonJS({
             checked($$value);
           },
           children: ($$anchor3, $$slotProps) => {
-            var fragment_1 = root_1$4();
+            var fragment_1 = root_1$3();
             var node_1 = first_child(fragment_1);
             component(node_1, () => Switch_label, ($$anchor4, Switch_Label) => {
               Switch_Label($$anchor4, {
@@ -23648,9 +23723,6 @@ var require_ui_001 = __commonJS({
       });
       append$1($$anchor, fragment);
       pop();
-    }
-    function getCurrentContext() {
-      return getContext("current")();
     }
     const has$1 = Object.prototype.hasOwnProperty;
     const isArray$1 = Array.isArray;
@@ -24025,20 +24097,20 @@ var require_ui_001 = __commonJS({
     var root_9$1 = /* @__PURE__ */ from_html(`<option> </option>`);
     var root_5 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
     var root_3$1 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
-    var root_1$3 = /* @__PURE__ */ from_html(`<div data-role="params-editor:controls"></div>`);
+    var root_1$2 = /* @__PURE__ */ from_html(`<div data-role="params-editor:controls"></div>`);
     var root_12 = /* @__PURE__ */ from_html(`<div data-role="params-editor:blank-state">No params have been defined for this scenario.</div>`);
-    var root$9 = /* @__PURE__ */ from_html(`<div data-component="params-editor"><!></div>`);
+    var root$a = /* @__PURE__ */ from_html(`<div data-component="params-editor"><!></div>`);
     function Params_editor($$anchor, $$props) {
       const id = props_id();
       push($$props, true);
       let params = prop($$props, "params", 19, () => []);
       const searchParams = queryParams(() => params());
       const controlId = (param) => `control-${id}-${param.id}`;
-      var div = root$9();
+      var div = root$a();
       var node = child(div);
       {
         var consequent_2 = ($$anchor2) => {
-          var div_1 = root_1$3();
+          var div_1 = root_1$2();
           each(div_1, 23, params, (param) => controlId(param), ($$anchor3, param, index$1) => {
             const computed_const = /* @__PURE__ */ user_derived(() => {
               const {
@@ -24231,7 +24303,7 @@ var require_ui_001 = __commonJS({
       pop();
     }
     var root_4 = /* @__PURE__ */ from_html(`<div data-role="inspector-panel:content"> </div>`);
-    var root$8 = /* @__PURE__ */ from_html(`<div data-component="inspector-panel" class="svelte-1kkjpr5"><!></div>`);
+    var root$9 = /* @__PURE__ */ from_html(`<div data-component="inspector-panel" class="svelte-1kkjpr5"><!></div>`);
     function Inspector_panel($$anchor, $$props) {
       push($$props, true);
       const decodeHTML = (html2) => {
@@ -24239,7 +24311,7 @@ var require_ui_001 = __commonJS({
         txt.innerHTML = html2;
         return txt.value;
       };
-      var div = root$8();
+      var div = root$9();
       var node = child(div);
       {
         var consequent = ($$anchor2) => {
@@ -24276,13 +24348,38 @@ var require_ui_001 = __commonJS({
     var root_6 = /* @__PURE__ */ from_html(`<div data-role="inspector:panel"><!></div>`);
     var root_7$1 = /* @__PURE__ */ from_html(`<div data-role="inspector:panel"><!></div>`);
     var root_8 = /* @__PURE__ */ from_html(`<div data-role="inspector:panel"><!></div>`);
-    var root$7 = /* @__PURE__ */ from_html(`<div data-component="inspector"><div data-role="inspector:toolbar"><!></div> <div data-role="inspector:panels"><!></div></div>`);
+    var root$8 = /* @__PURE__ */ from_html(`<div id="inspector"><div data-role="inspector:toolbar"><!></div> <div data-role="inspector:panels"><!></div></div>`);
     function Inspector($$anchor, $$props) {
       push($$props, true);
-      let sidebarPanels = /* @__PURE__ */ user_derived(() => $$props.panels?.sidebar || []);
-      let drawerPanels = /* @__PURE__ */ user_derived(() => $$props.panels?.drawer || []);
+      let maxWidth = /* @__PURE__ */ state$1(void 0);
+      let maxHeight = /* @__PURE__ */ state$1(void 0);
+      let app = getAppState();
       let crumbs = /* @__PURE__ */ user_derived(() => [...$$props.ancestors, $$props.scenario]);
-      var div = root$7();
+      let mainPanels = [{ id: "previewPane" }, { id: "drawerPane" }];
+      let drawer = /* @__PURE__ */ user_derived(() => app.inspector.drawer);
+      let drawerTabs = /* @__PURE__ */ user_derived(() => $$props.panels?.drawer || []);
+      const mainSplit = /* @__PURE__ */ user_derived(() => {
+        const drawerHeight = get$3(drawer).height ? toRelativeSize(get$3(drawer).height, get$3(maxHeight)) : 40;
+        return [100 - drawerHeight, drawerHeight];
+      });
+      function setDrawerHeight(relativeHeight) {
+        if (relativeHeight) {
+          get$3(drawer).height = toAbsoluteSize(relativeHeight, get$3(maxHeight));
+        }
+      }
+      let previewPanels = [{ id: "viewportPane" }, { id: "sidebarPane" }];
+      let sidebar = /* @__PURE__ */ user_derived(() => app.inspector.sidebar);
+      let sidebarTabs = /* @__PURE__ */ user_derived(() => $$props.panels?.sidebar || []);
+      const previewSplit = /* @__PURE__ */ user_derived(() => {
+        const sidebarWidth = get$3(sidebar).width ? toRelativeSize(get$3(sidebar).width, get$3(maxWidth)) : 25;
+        return [100 - sidebarWidth, sidebarWidth];
+      });
+      function setSidebarWidth(relativeWidth) {
+        if (relativeWidth) {
+          get$3(sidebar).width = toAbsoluteSize(relativeWidth, get$3(maxWidth));
+        }
+      }
+      var div = root$8();
       var div_1 = child(div);
       var node = child(div_1);
       {
@@ -24320,25 +24417,29 @@ var require_ui_001 = __commonJS({
       }
       var div_2 = sibling(div_1, 2);
       var node_3 = child(div_2);
+      var bind_get = () => get$3(mainSplit);
+      var bind_set = (sizes) => setDrawerHeight(sizes[1]);
       {
         const panel = ($$anchor2, panel2 = noop$2) => {
           Inspector_panel($$anchor2, spread_props(panel2));
         };
-        const top = ($$anchor2) => {
+        const previewPane = ($$anchor2) => {
+          var bind_get_1 = () => get$3(previewSplit);
+          var bind_set_1 = (sizes) => setSidebarWidth(sizes[1]);
           {
-            const start2 = ($$anchor3) => {
+            const viewportPane = ($$anchor3) => {
               var div_3 = root_6();
               var node_4 = child(div_3);
               Viewport(node_4, spread_props(() => $$props.preview));
               append$1($$anchor3, div_3);
             };
-            const end = ($$anchor3) => {
+            const sidebarPane = ($$anchor3) => {
               var div_4 = root_7$1();
               var node_5 = child(div_4);
               Tabs_1(node_5, {
                 id: "inspector-sidebar-tabs",
                 get panels() {
-                  return get$3(sidebarPanels);
+                  return get$3(sidebarTabs);
                 },
                 get panel() {
                   return panel;
@@ -24347,22 +24448,31 @@ var require_ui_001 = __commonJS({
               append$1($$anchor3, div_4);
             };
             Splitter_1($$anchor2, {
-              panels: [{ id: "start" }, { id: "end" }],
-              orientation: "horizontal",
-              defaultSize: [70, 30],
-              start: start2,
-              end,
-              $$slots: { start: true, end: true }
+              get orientation() {
+                return get$3(sidebar).orientation;
+              },
+              get panels() {
+                return previewPanels;
+              },
+              get size() {
+                return bind_get_1();
+              },
+              set size($$value) {
+                bind_set_1($$value);
+              },
+              viewportPane,
+              sidebarPane,
+              $$slots: { viewportPane: true, sidebarPane: true }
             });
           }
         };
-        const bottom = ($$anchor2) => {
+        const drawerPane = ($$anchor2) => {
           var div_5 = root_8();
           var node_6 = child(div_5);
           Tabs_1(node_6, {
             id: "inspector-drawer-tabs",
             get panels() {
-              return get$3(drawerPanels);
+              return get$3(drawerTabs);
             },
             get panel() {
               return panel;
@@ -24371,15 +24481,26 @@ var require_ui_001 = __commonJS({
           append$1($$anchor2, div_5);
         };
         Splitter_1(node_3, {
-          panels: [{ id: "top" }, { id: "bottom" }],
-          orientation: "vertical",
-          defaultSize: [65, 35],
+          get orientation() {
+            return get$3(drawer).orientation;
+          },
+          get panels() {
+            return mainPanels;
+          },
+          get size() {
+            return bind_get();
+          },
+          set size($$value) {
+            bind_set($$value);
+          },
           panel,
-          top,
-          bottom,
-          $$slots: { panel: true, top: true, bottom: true }
+          previewPane,
+          drawerPane,
+          $$slots: { panel: true, previewPane: true, drawerPane: true }
         });
       }
+      bind_element_size(div, "offsetWidth", ($$value) => set$2(maxWidth, $$value));
+      bind_element_size(div, "offsetHeight", ($$value) => set$2(maxHeight, $$value));
       append$1($$anchor, div);
       pop();
     }
@@ -24401,13 +24522,13 @@ var require_ui_001 = __commonJS({
       __proto__: null,
       default: Show$2
     }, Symbol.toStringTag, { value: "Module" }));
-    var root$6 = /* @__PURE__ */ from_html(`<p> </p> <div>spec</div>`, 1);
+    var root$7 = /* @__PURE__ */ from_html(`<p> </p> <div>spec</div>`, 1);
     function Show$1($$anchor, $$props) {
       push($$props, true);
       const $page = () => store_get(page, "$page", $$stores);
       const [$$stores, $$cleanup] = setup_stores();
       let collection2 = /* @__PURE__ */ user_derived(() => $page().props.collections.find((c) => c.id === $$props.collectionId));
-      var fragment = root$6();
+      var fragment = root$7();
       var p = first_child(fragment);
       var text2 = child(p);
       template_effect(() => set_text(text2, get$3(collection2).label));
@@ -24419,20 +24540,102 @@ var require_ui_001 = __commonJS({
       __proto__: null,
       default: Show$1
     }, Symbol.toStringTag, { value: "Module" }));
-    var root$5 = /* @__PURE__ */ from_html(`<div>Welcome!</div>`);
+    var root$6 = /* @__PURE__ */ from_html(`<div>Welcome!</div>`);
     function Show($$anchor) {
-      var div = root$5();
+      var div = root$6();
       append$1($$anchor, div);
     }
     const __vite_glob_0_6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
       __proto__: null,
       default: Show
     }, Symbol.toStringTag, { value: "Module" }));
-    var root_1$2 = /* @__PURE__ */ from_html(`<span> </span>`);
-    var root$4 = /* @__PURE__ */ from_html(`<header data-component="header"><!></header>`);
+    class ServerEventsListener {
+      constructor(endpoint) {
+        this.endpoint = endpoint;
+        this.source = null;
+        this.broadcastChannel = this.initBroadCastChannel();
+        this.handlers = [];
+        window.addEventListener("visibilitychange", () => {
+          if (document.hidden) {
+            this.stop();
+          } else {
+            this.start();
+          }
+        });
+      }
+      start() {
+        if (!this.source) {
+          this.source = this.initSource();
+          this.broadcastStart();
+        }
+      }
+      stop() {
+        if (this.source) {
+          this.source.close();
+          this.source = null;
+        }
+      }
+      on(type2, callback) {
+        this.handlers.push({ type: type2, callback });
+      }
+      initSource() {
+        const source2 = new EventSource(this.endpoint);
+        source2.addEventListener("message", (event2) => {
+          const data = JSON.parse(event2.data);
+          this.broadcastChannel.postMessage(JSON.stringify(data));
+          this.handlers.forEach((handler) => {
+            if (data.type === handler.type) {
+              handler.callback.call(null, data);
+            }
+          });
+        });
+        source2.addEventListener("error", () => {
+          console.error(`Event source error`);
+          this.stop();
+        });
+        window.onbeforeunload = () => this.stop();
+        return source2;
+      }
+      initBroadCastChannel() {
+        const bc = new BroadcastChannel("lookbook_events");
+        bc.addEventListener("message", (event2) => {
+          const data = JSON.parse(event2.data);
+          this.handlers.forEach((handler) => {
+            if (data.type === handler.type) {
+              handler.callback.call(null, data);
+            }
+          });
+        });
+        return bc;
+      }
+      broadcastStart() {
+        this.broadcastChannel.postMessage(JSON.stringify({ type: "event-source-start" }));
+      }
+    }
+    class AppState {
+      storedState = new PersistedState("lookbook:app", {
+        workbench: { sidebar: { orientation: "horizontal", width: 300 } },
+        inspector: {
+          drawer: { orientation: "vertical", height: 300 },
+          sidebar: { orientation: "horizontal", width: 200 }
+        }
+      });
+      get workbench() {
+        return this.#currentState.workbench;
+      }
+      get inspector() {
+        return this.#currentState.inspector;
+      }
+      get #currentState() {
+        return this.storedState.current;
+      }
+    }
+    const appState = proxy$1(new AppState());
+    var root_1$1 = /* @__PURE__ */ from_html(`<span> </span>`);
+    var root$5 = /* @__PURE__ */ from_html(`<header data-component="header"><!></header>`);
     function Header($$anchor, $$props) {
       push($$props, true);
-      var header = root$4();
+      var header = root$5();
       var node = child(header);
       Link(node, {
         get href() {
@@ -24441,7 +24644,7 @@ var require_ui_001 = __commonJS({
         class: "mark green",
         "data-role": "header:branding",
         children: ($$anchor2, $$slotProps) => {
-          var span = root_1$2();
+          var span = root_1$1();
           var text2 = child(span);
           template_effect(() => set_text(text2, $$props.project.name));
           append$1($$anchor2, span);
@@ -24451,10 +24654,10 @@ var require_ui_001 = __commonJS({
       append$1($$anchor, header);
       pop();
     }
-    var root$3 = /* @__PURE__ */ from_html(`<footer data-component="statusbar" class="surface svelte-f294i8"><div data-role="statusbar:section statusbar:section-start" class="svelte-f294i8"></div> <div data-role="statusbar:section statusbar:section-end" class="svelte-f294i8"><span data-role="statusbar:label" class="svelte-f294i8">LOOKBOOK_v<em data-role="statusbar:version" class="svelte-f294i8"> </em></span></div></footer>`);
+    var root$4 = /* @__PURE__ */ from_html(`<footer data-component="statusbar" class="surface svelte-f294i8"><div data-role="statusbar:section statusbar:section-start" class="svelte-f294i8"></div> <div data-role="statusbar:section statusbar:section-end" class="svelte-f294i8"><span data-role="statusbar:label" class="svelte-f294i8">LOOKBOOK_v<em data-role="statusbar:version" class="svelte-f294i8"> </em></span></div></footer>`);
     function Statusbar($$anchor, $$props) {
       push($$props, true);
-      var footer = root$3();
+      var footer = root$4();
       var div = sibling(child(footer), 2);
       var span = child(div);
       var em = sibling(child(span));
@@ -24467,7 +24670,7 @@ var require_ui_001 = __commonJS({
     var root_11 = /* @__PURE__ */ from_html(`<!> <span data-role="nav-tree:branch-label"> </span>`, 1);
     var root_14 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
     var root_9 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
-    var root$2 = /* @__PURE__ */ from_html(`<div data-component="nav-tree"><!></div>`);
+    var root$3 = /* @__PURE__ */ from_html(`<div data-component="nav-tree"><!></div>`);
     function Nav_tree($$anchor, $$props) {
       push($$props, true);
       const iconMap = {
@@ -24519,7 +24722,7 @@ var require_ui_001 = __commonJS({
         navTreeState.filter = value;
       };
       filter2(navTreeState.filter);
-      var div = root$2();
+      var div = root$3();
       {
         const renderNode = ($$anchor2, node = noop$2, indexPath = noop$2) => {
           var fragment = comment();
@@ -24733,16 +24936,16 @@ var require_ui_001 = __commonJS({
       pop();
     }
     var root_2$1 = /* @__PURE__ */ from_html(`<h3 data-role="sidebar:section-label" class="label"><!></h3>`);
-    var root_1$1 = /* @__PURE__ */ from_html(`<section data-role="sidebar:section"><header data-role="sidebar:section-header"><!></header> <div data-role="sidebar:section-content"><!></div></section>`);
-    var root$1 = /* @__PURE__ */ from_html(`<div data-component="sidebar"><!></div>`);
+    var root_1 = /* @__PURE__ */ from_html(`<section data-role="sidebar:section"><header data-role="sidebar:section-header"><!></header> <div data-role="sidebar:section-content"><!></div></section>`);
+    var root$2 = /* @__PURE__ */ from_html(`<div data-component="sidebar"><!></div>`);
     function Sidebar($$anchor, $$props) {
       push($$props, true);
       new PersistedState(`sidebar`, { expandedSections: [] });
-      var div = root$1();
+      var div = root$2();
       var node = child(div);
       {
         const panel = ($$anchor2, collection2 = noop$2) => {
-          var section = root_1$1();
+          var section = root_1();
           let styles;
           var header = child(section);
           var node_1 = child(header);
@@ -24804,72 +25007,62 @@ var require_ui_001 = __commonJS({
       append$1($$anchor, div);
       pop();
     }
-    class ServerEventsListener {
-      constructor(endpoint) {
-        this.endpoint = endpoint;
-        this.source = null;
-        this.broadcastChannel = this.initBroadCastChannel();
-        this.handlers = [];
-        window.addEventListener("visibilitychange", () => {
-          if (document.hidden) {
-            this.stop();
-          } else {
-            this.start();
-          }
-        });
-      }
-      start() {
-        if (!this.source) {
-          this.source = this.initSource();
-          this.broadcastStart();
+    var root_2 = /* @__PURE__ */ from_html(`<div data-role="workbench:main" class="svelte-10k5gwm"><!></div>`);
+    var root$1 = /* @__PURE__ */ from_html(`<div id="workbench" class="svelte-10k5gwm"><!></div>`);
+    function Workbench($$anchor, $$props) {
+      push($$props, true);
+      let panels = [{ id: "sidebar" }, { id: "main" }];
+      let maxWidth = /* @__PURE__ */ state$1(void 0);
+      let app = getAppState();
+      let sidebar = /* @__PURE__ */ user_derived(() => app.workbench.sidebar);
+      const split = /* @__PURE__ */ user_derived(() => {
+        const sidebarWidth = toRelativeSize(get$3(sidebar).width, get$3(maxWidth));
+        return [sidebarWidth, 100 - sidebarWidth];
+      });
+      function setSidebarWidth(relativeWidth) {
+        if (relativeWidth) {
+          get$3(sidebar).width = toAbsoluteSize(relativeWidth, get$3(maxWidth));
         }
       }
-      stop() {
-        if (this.source) {
-          this.source.close();
-          this.source = null;
-        }
-      }
-      on(type2, callback) {
-        this.handlers.push({ type: type2, callback });
-      }
-      initSource() {
-        const source2 = new EventSource(this.endpoint);
-        source2.addEventListener("message", (event2) => {
-          const data = JSON.parse(event2.data);
-          this.broadcastChannel.postMessage(JSON.stringify(data));
-          this.handlers.forEach((handler) => {
-            if (data.type === handler.type) {
-              handler.callback.call(null, data);
+      var div = root$1();
+      var node = child(div);
+      var bind_get = () => get$3(split);
+      var bind_set = (sizes) => setSidebarWidth(sizes[0]);
+      {
+        const sidebar2 = ($$anchor2) => {
+          Sidebar($$anchor2, {
+            get collections() {
+              return $$props.collections;
             }
           });
+        };
+        const main = ($$anchor2) => {
+          var div_1 = root_2();
+          var node_1 = child(div_1);
+          snippet(node_1, () => $$props.children);
+          append$1($$anchor2, div_1);
+        };
+        Splitter_1(node, {
+          get panels() {
+            return panels;
+          },
+          get size() {
+            return bind_get();
+          },
+          set size($$value) {
+            bind_set($$value);
+          },
+          "data-role": "workbench:sidebar",
+          sidebar: sidebar2,
+          main,
+          $$slots: { sidebar: true, main: true }
         });
-        source2.addEventListener("error", () => {
-          console.error(`Event source error`);
-          this.stop();
-        });
-        window.onbeforeunload = () => this.stop();
-        return source2;
       }
-      initBroadCastChannel() {
-        const bc = new BroadcastChannel("lookbook_events");
-        bc.addEventListener("message", (event2) => {
-          const data = JSON.parse(event2.data);
-          this.handlers.forEach((handler) => {
-            if (data.type === handler.type) {
-              handler.callback.call(null, data);
-            }
-          });
-        });
-        return bc;
-      }
-      broadcastStart() {
-        this.broadcastChannel.postMessage(JSON.stringify({ type: "event-source-start" }));
-      }
+      bind_element_size(div, "offsetWidth", ($$value) => set$2(maxWidth, $$value));
+      append$1($$anchor, div);
+      pop();
     }
-    var root_1 = /* @__PURE__ */ from_html(`<div data-role="app:sidebar" class="svelte-uh556k"><!></div>`);
-    var root_2 = /* @__PURE__ */ from_html(`<main data-role="app:main" class="svelte-uh556k"><!></main>`);
-    var root = /* @__PURE__ */ from_html(`<div id="app" data-component="app" class="svelte-uh556k"><!> <div data-role="app:body" class="svelte-uh556k"><!></div> <div data-role="app:footer" class="svelte-uh556k"><!></div></div>`);
+    var root = /* @__PURE__ */ from_html(`<div id="app" class="svelte-uh556k"><!> <!> <!></div>`);
     function App($$anchor, $$props) {
       push($$props, true);
       let collectionId = prop($$props, "collectionId", 3, null), resourceId = prop($$props, "resourceId", 3, null);
@@ -24882,9 +25075,10 @@ var require_ui_001 = __commonJS({
         };
       });
       setContext("current", () => get$3(current));
+      setContext("appState", () => appState);
       let updateRequested = /* @__PURE__ */ state$1(false);
       onMount(() => {
-        const serverEventsListener = new ServerEventsListener("/lookbook/events");
+        const serverEventsListener = new ServerEventsListener($$props.lookbook.ssePath);
         serverEventsListener.on("update", () => set$2(updateRequested, true));
         serverEventsListener.start();
         onDestroy(() => serverEventsListener.stop());
@@ -24905,37 +25099,17 @@ var require_ui_001 = __commonJS({
           return $$props.project;
         }
       });
-      var div_1 = sibling(node, 2);
-      var node_1 = child(div_1);
-      {
-        const sidebar = ($$anchor2) => {
-          var div_2 = root_1();
-          var node_2 = child(div_2);
-          Sidebar(node_2, {
-            get collections() {
-              return $$props.collections;
-            }
-          });
-          append$1($$anchor2, div_2);
-        };
-        const main = ($$anchor2) => {
-          var main_1 = root_2();
-          var node_3 = child(main_1);
-          snippet(node_3, () => $$props.children);
-          append$1($$anchor2, main_1);
-        };
-        Splitter_1(node_1, {
-          id: "app-layout",
-          panels: [{ id: "sidebar" }, { id: "main" }],
-          defaultSize: [30, 70],
-          sidebar,
-          main,
-          $$slots: { sidebar: true, main: true }
-        });
-      }
-      var div_3 = sibling(div_1, 2);
-      var node_4 = child(div_3);
-      Statusbar(node_4, {
+      var node_1 = sibling(node, 2);
+      Workbench(node_1, {
+        get collections() {
+          return $$props.collections;
+        },
+        get children() {
+          return $$props.children;
+        }
+      });
+      var node_2 = sibling(node_1, 2);
+      Statusbar(node_2, {
         get project() {
           return $$props.project;
         },

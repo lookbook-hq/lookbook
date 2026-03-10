@@ -1,4 +1,6 @@
 <script>
+  import { getAppState, toRelativeSize, toAbsoluteSize } from "@lib/utils";
+
   import Tabs from "@components/tabs";
   import Button from "@components/button";
   import Toolbar from "@components/toolbar";
@@ -12,13 +14,48 @@
 
   let { scenario, panels, preview, ancestors } = $props();
 
-  let sidebarPanels = $derived.by(() => panels?.sidebar || []);
-  let drawerPanels = $derived.by(() => panels?.drawer || []);
+  let maxWidth = $state();
+  let maxHeight = $state();
 
+  let app = getAppState();
   let crumbs = $derived.by(() => [...ancestors, scenario]);
+
+  // Main
+
+  let mainPanels = [{ id: "previewPane" }, { id: "drawerPane" }];
+  let drawer = $derived.by(() => app.inspector.drawer);
+  let drawerTabs = $derived.by(() => panels?.drawer || []);
+
+  const mainSplit = $derived.by(() => {
+    const drawerHeight = drawer.height ? toRelativeSize(drawer.height, maxHeight) : 40;
+    return [100 - drawerHeight, drawerHeight];
+  });
+
+  function setDrawerHeight(relativeHeight) {
+    if (relativeHeight) {
+      drawer.height = toAbsoluteSize(relativeHeight, maxHeight);
+    }
+  }
+
+  // Preview
+
+  let previewPanels = [{ id: "viewportPane" }, { id: "sidebarPane" }];
+  let sidebar = $derived.by(() => app.inspector.sidebar);
+  let sidebarTabs = $derived.by(() => panels?.sidebar || []);
+
+  const previewSplit = $derived.by(() => {
+    const sidebarWidth = sidebar.width ? toRelativeSize(sidebar.width, maxWidth) : 25;
+    return [100 - sidebarWidth, sidebarWidth];
+  });
+
+  function setSidebarWidth(relativeWidth) {
+    if (relativeWidth) {
+      sidebar.width = toAbsoluteSize(relativeWidth, maxWidth);
+    }
+  }
 </script>
 
-<div data-component="inspector">
+<div id="inspector" bind:offsetWidth={maxWidth} bind:offsetHeight={maxHeight}>
   <div data-role="inspector:toolbar">
     <Toolbar>
       {#snippet start()}
@@ -34,35 +71,37 @@
   </div>
   <div data-role="inspector:panels">
     <Splitter
-      panels={[{ id: "top" }, { id: "bottom" }]}
-      orientation="vertical"
-      defaultSize={[65, 35]}
+      orientation={drawer.orientation}
+      panels={mainPanels}
+      bind:size={() => mainSplit, (sizes) => setDrawerHeight(sizes[1])}
     >
       {#snippet panel(panel)}
         <InspectorPanel {...panel}></InspectorPanel>
       {/snippet}
 
-      {#snippet top()}
+      {#snippet previewPane()}
         <Splitter
-          panels={[{ id: "start" }, { id: "end" }]}
-          orientation="horizontal"
-          defaultSize={[70, 30]}
+          orientation={sidebar.orientation}
+          panels={previewPanels}
+          bind:size={() => previewSplit, (sizes) => setSidebarWidth(sizes[1])}
         >
-          {#snippet start()}
+          {#snippet viewportPane()}
             <div data-role="inspector:panel">
               <Viewport {...preview}></Viewport>
             </div>
           {/snippet}
-          {#snippet end()}
+
+          {#snippet sidebarPane()}
             <div data-role="inspector:panel">
-              <Tabs id="inspector-sidebar-tabs" panels={sidebarPanels} {panel}></Tabs>
+              <Tabs id="inspector-sidebar-tabs" panels={sidebarTabs} {panel}></Tabs>
             </div>
           {/snippet}
         </Splitter>
       {/snippet}
-      {#snippet bottom()}
+
+      {#snippet drawerPane()}
         <div data-role="inspector:panel">
-          <Tabs id="inspector-drawer-tabs" panels={drawerPanels} {panel}></Tabs>
+          <Tabs id="inspector-drawer-tabs" panels={drawerTabs} {panel}></Tabs>
         </div>
       {/snippet}
     </Splitter>
@@ -70,7 +109,7 @@
 </div>
 
 <style>
-  :global [data-component="inspector"] {
+  :global #inspector {
     --inspector-panel-padding: var(--lookbook-space-base);
     --inspector-panel-bg: var(--lookbook-surface-bg);
     --inspector-panel-fg: var(--lookbook-surface-fg);

@@ -1,11 +1,13 @@
 <script>
   import { setContext, onDestroy, onMount } from "svelte";
-  import { page, router } from "@inertiajs/svelte";
+  import { router } from "@inertiajs/svelte";
+
+  import { ServerEventsListener } from "@lib/sse-listener";
+  import { appState } from "@lib/app-state";
+
   import Header from "@components/header";
   import StatusBar from "@components/statusbar";
-  import Sidebar from "@components/sidebar";
-  import Splitter from "@components/splitter";
-  import { ServerEventsListener } from "@lib/sse-listener";
+  import Workbench from "@components/workbench";
 
   let {
     request,
@@ -27,13 +29,14 @@
   });
 
   setContext("current", () => current);
+  setContext("appState", () => appState);
 
   // Listen for update events
 
   let updateRequested = $state(false);
 
   onMount(() => {
-    const serverEventsListener = new ServerEventsListener("/lookbook/events");
+    const serverEventsListener = new ServerEventsListener(lookbook.ssePath);
     serverEventsListener.on("update", () => (updateRequested = true));
     serverEventsListener.start();
 
@@ -42,38 +45,16 @@
 
   $effect(() => {
     if (updateRequested) {
-      router.reload({
-        headers: {
-          "X-Lookbook-Refresh": "true",
-        },
-      });
+      router.reload({ headers: { "X-Lookbook-Refresh": "true" } });
       updateRequested = false;
     }
   });
 </script>
 
-<div id="app" data-component="app">
+<div id="app">
   <Header {lookbook} {project}></Header>
-
-  <div data-role="app:body">
-    <Splitter id="app-layout" panels={[{ id: "sidebar" }, { id: "main" }]} defaultSize={[30, 70]}>
-      {#snippet sidebar()}
-        <div data-role="app:sidebar">
-          <Sidebar {collections} />
-        </div>
-      {/snippet}
-
-      {#snippet main()}
-        <main data-role="app:main">
-          {@render children()}
-        </main>
-      {/snippet}
-    </Splitter>
-  </div>
-
-  <div data-role="app:footer">
-    <StatusBar {project} {lookbook} {collections}></StatusBar>
-  </div>
+  <Workbench {collections} {children}></Workbench>
+  <StatusBar {project} {lookbook} {collections}></StatusBar>
 </div>
 
 <style>
@@ -83,7 +64,7 @@
     --app-grid-marker-offset: calc((var(--app-grid-marker-spacing) / 2) * -1);
 
     position: relative;
-    height: calc(100dvh);
+    height: 100dvh;
 
     display: grid;
     grid-template-rows: min-content 1fr min-content;
@@ -92,22 +73,5 @@
     background-image: radial-gradient(var(--app-grid-marker-fill) 1px, transparent 1px);
     background-size: var(--app-grid-marker-spacing) var(--app-grid-marker-spacing);
     background-position: var(--app-grid-marker-offset) var(--app-grid-marker-offset);
-
-    [data-role="app:body"],
-    [data-role="app:main"],
-    [data-role="app:sidebar"] {
-      height: 100%;
-      overflow: hidden;
-    }
-
-    [data-role="app:main"] {
-      padding-inline-end: var(--lookbook-grid-gap);
-      padding-block-end: var(--lookbook-grid-gap);
-    }
-
-    [data-role="app:footer"] {
-      height: min-content;
-      overflow: hidden;
-    }
   }
 </style>

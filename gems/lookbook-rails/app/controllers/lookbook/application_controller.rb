@@ -18,8 +18,9 @@ module Lookbook
     inertia_share do
       {
         lookbook: {
+          version: Lookbook::VERSION,
           urlPath: lookbook_path,
-          version: Lookbook::VERSION
+          ssePath: events_path
         },
         project: Lookbook.config.project,
         collections: InertiaRails.once(fresh: refresh_request?) { Collection.map(&:to_inertia) },

@@ -1,29 +1,19 @@
 <script>
   import { Splitter } from "@ark-ui/svelte/splitter";
-  import { PersistedState } from "runed";
 
   let {
     id,
     defaultSize,
     panels,
+    size = $bindable(),
+    orientation = $bindable("horizontal"),
     panel = null,
-    orientation = "horizontal",
     ...panelSnippets
   } = $props();
-
-  const createSplitterState = () =>
-    new PersistedState(`splitter:${id}`, {
-      orientation,
-      size: [],
-    });
-
-  let splitterState = createSplitterState();
 </script>
 
 <div data-component="splitter">
-  <Splitter.Root {defaultSize} {panels} {orientation} data-role="splitter:root">
-    <!-- bind:orientation={splitterState.current.orientation}
-    bind:size={splitterState.current.size} -->
+  <Splitter.Root {defaultSize} {panels} bind:orientation bind:size data-role="splitter:root">
     {#each panels as panelData, index (panelData.id)}
       {#if index > 0}
         <Splitter.ResizeTrigger
