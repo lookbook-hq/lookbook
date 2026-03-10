@@ -32,6 +32,7 @@ class AppState {
   // Tabs
 
   getTabsState(id) {
+    id = id();
     let tabs = this.#currentState.tabs;
 
     tabs[id] = tabs[id] || { active: null };
@@ -46,6 +47,7 @@ class AppState {
   // Trees
 
   getTreeState(id) {
+    id = id();
     let trees = this.#currentState.trees;
 
     trees[id] = trees[id] || {

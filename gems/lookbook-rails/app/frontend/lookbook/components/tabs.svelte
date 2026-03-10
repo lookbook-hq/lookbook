@@ -7,8 +7,7 @@
   let { id, panels = [], label, panel } = $props();
 
   let app = getAppState();
-  // svelte-ignore state_referenced_locally
-  let tabsState = app.getTabsState(id);
+  let tabsState = app.getTabsState(() => id);
 
   if (!tabsState.active) {
     // svelte-ignore state_referenced_locally

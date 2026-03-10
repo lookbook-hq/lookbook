@@ -29,8 +29,7 @@
   let { id, tree } = $props();
 
   let app = getAppState();
-  // svelte-ignore state_referenced_locally
-  let treeState = app.getTreeState(id);
+  let treeState = app.getTreeState(() => id);
 
   const initialCollection = $derived.by(() =>
     createTreeCollection({

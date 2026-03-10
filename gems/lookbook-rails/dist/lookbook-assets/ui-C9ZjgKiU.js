@@ -3,7 +3,7 @@ var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var require_ui_001 = __commonJS({
-  "lookbook-assets/ui-CArUacVR.js"(exports, module) {
+  "lookbook-assets/ui-C9ZjgKiU.js"(exports, module) {
     (function polyfill() {
       const relList = document.createElement("link").relList;
       if (relList && relList.supports && relList.supports("modulepreload")) return;
@@ -7864,7 +7864,7 @@ var require_ui_001 = __commonJS({
       push($$props, true);
       let panels = prop($$props, "panels", 19, () => []);
       let app = getAppState();
-      let tabsState = app.getTabsState($$props.id);
+      let tabsState = app.getTabsState(() => $$props.id);
       if (!tabsState.active) {
         tabsState.active = panels()[0]?.id;
       }
@@ -24618,6 +24618,7 @@ var require_ui_001 = __commonJS({
       });
       // Tabs
       getTabsState(id) {
+        id = id();
         let tabs = this.#currentState.tabs;
         tabs[id] = tabs[id] || { active: null };
         return tabs[id];
@@ -24628,6 +24629,7 @@ var require_ui_001 = __commonJS({
       }
       // Trees
       getTreeState(id) {
+        id = id();
         let trees = this.#currentState.trees;
         trees[id] = trees[id] || { filter: "", expanded: [], selected: [] };
         return trees[id];
@@ -24702,7 +24704,7 @@ var require_ui_001 = __commonJS({
       };
       useFilter({ sensitivity: "base" });
       let app = getAppState();
-      let treeState = app.getTreeState($$props.id);
+      let treeState = app.getTreeState(() => $$props.id);
       const initialCollection = /* @__PURE__ */ user_derived(() => createTreeCollection({
         nodeToValue: (node) => node.id,
         nodeToString: (node) => node.label,

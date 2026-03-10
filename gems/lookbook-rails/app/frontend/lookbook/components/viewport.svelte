@@ -19,7 +19,7 @@
   const grabbers = ["east", "west", "southeast", "south", "southwest"];
   const FULLSIZE = 100000;
 
-  let { srcdoc, title, id } = $props();
+  let { srcdoc, title } = $props();
 
   let app = getAppState();
   // svelte-ignore state_referenced_locally
