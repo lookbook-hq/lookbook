@@ -33,13 +33,13 @@
       display: inline-flex;
 
       &:not(:first-child) {
-        margin-inline-start: var(--lookbook-space-base);
+        margin-inline-start: var(--lookbook-space-md);
 
         &:before {
           content: "/";
           display: inline-flex;
           position: relative;
-          left: calc((var(--lookbook-space-base) / 2) * -1);
+          left: calc((var(--lookbook-space-md) / 2) * -1);
         }
       }
 

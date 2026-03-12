@@ -20,20 +20,20 @@ textarea {
   display: block;
   width: 100%;
   min-width: 0;
-  padding: var(--lookbook-space-sm) var(--lookbook-space-base);
+  padding: var(--lookbook-space-sm) var(--lookbook-space-md);
   font-family: var(--lookbook-font-family-ui);
   font-size: var(--lookbook-font-size-sm);
-  line-height: 1.25rem;
+  line-height: 1.5;
   background: transparent;
-  border: 1px solid var(--lookbook-divider-color);
+  border: 1px solid var(--lookbook-panel-border);
   border-radius: var(--lookbook-radius-xs);
-  color: var(--lookbook-neutral-fg);
+  color: var(--lookbook-panel-fg);
   transition:
-    border-color 0.15s ease,
-    box-shadow 0.15s ease;
+    border-color var(--lookbook-duration-fast) ease,
+    box-shadow var(--lookbook-duration-fast) ease;
 
   &::placeholder {
-    color: var(--lookbook-neutral-fg);
+    color: color-mix(in oklab, var(--lookbook-panel-fg), var(--lookbook-mix-quieter) 50%);
   }
 }
 

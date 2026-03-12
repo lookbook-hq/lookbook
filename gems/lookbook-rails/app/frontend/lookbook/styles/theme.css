@@ -1,0 +1,52 @@
+:root,
+html.light,
+html.dark {
+  /* Setup */
+
+  --lookbook-scale: 1;
+
+  /* Colors */
+
+  --lookbook-accent: var(--lookbook-neutral-7);
+
+  --lookbook-bg: var(--lookbook-neutral-2);
+  --lookbook-bg-hover: var(--lookbook-neutral-4);
+  --lookbook-fg: var(--lookbook-neutral-12);
+
+  --lookbook-panel-bg: var(--lookbook-neutral-1);
+  --lookbook-panel-bg: #fff;
+  --lookbook-panel-fg: var(--lookbook-neutral-12);
+  --lookbook-panel-fg-muted: var(--lookbook-neutral-10);
+  --lookbook-panel-border: var(--lookbook-neutral-6);
+
+  --lookbook-block-bg: var(--lookbook-neutral-3);
+  --lookbook-block-bg-hover: var(--lookbook-neutral-4);
+  --lookbook-block-bg-active: var(--lookbook-neutral-5);
+
+  --lookbook-focus-ring: var(--lookbook-accent);
+
+  --lookbook-selection-bg: var(--lookbook-accent);
+  --lookbook-selection-fg: var(--lookbook-fg);
+
+  --lookbook-scrollbar-bg: transparent;
+  --lookbook-scrollbar-fg: var(--lookbook-neutral-solid);
+
+  --lookbook-error-bg: var(--lookbook-error-2);
+  --lookbook-error-fg: var(--lookbook-error-11);
+  --lookbook-error-border: var(--lookbook-error-6);
+
+  --lookbook-warning-bg: var(--lookbook-warning-2);
+  --lookbook-warning-fg: var(--lookbook-warning-11);
+  --lookbook-warning-border: var(--lookbook-warning-6);
+
+  /* Typography */
+
+  --lookbook-font-family-ui: var(--lookbook-font-family-mono);
+  --lookbook-font-family-prose: var(--lookbook-font-family-mono);
+  --lookbook-font-family-code: var(--lookbook-font-family-mono);
+}
+
+html.dark {
+  --lookbook-bg: var(--lookbook-neutral-1);
+  --lookbook-panel-bg: var(--lookbook-neutral-2);
+}

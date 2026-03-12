@@ -22,14 +22,14 @@
 
 <style>
   :global [data-component="button"] {
-    --button-padding: var(--lookbook-size-2);
+    --button-padding: var(--lookbook-space-sm);
     --button-spacing: var(--lookbook-space-xs);
     --button-height: var(--lookbook-size-7);
 
     --button-bg: transparent;
-    --button-bg-hover: var(--lookbook-neutral-bg);
-    --button-fg: var(--lookbook-neutral-text);
-    --button-fg-hover: var(--lookbook-brand-text-contrast);
+    /*--button-bg-hover: var(--lookbook-neutral-11);*/
+    --button-fg: var(--lookbook-neutral-11);
+    /*--button-fg-hover: var(--lookbook-brand-text-contrast);*/
 
     display: inline-flex;
     align-items: stretch;
@@ -38,30 +38,30 @@
     height: var(--button-height);
     background-color: var(--button-bg);
     color: var(--button-fg);
-    border-radius: 4px;
+    border-radius: var(--lookbook-radius-sm);
 
     transition:
-      color 150ms ease-in,
-      background-color 150ms ease-in;
+      color var(--lookbook-duration-fast) ease-in,
+      background-color var(--lookbook-duration-fast) ease-in;
 
     [data-role="button:content"] {
       display: inline-flex;
       align-items: center;
       column-gap: var(--button-spacing);
-      margin: 0 -2px;
+      margin: 0 calc((var(--lookbook-space-xs) / 2) * -1);
     }
 
     &[data-size="md"],
     [data-component="button-group"][data-size="md"] & {
       [data-role="button:content"] {
-        margin: 0 -2px;
+        margin: 0 calc((var(--lookbook-space-xs) / 2) * -1);
       }
     }
 
     &[data-size="lg"],
     [data-component="button-group"][data-size="lg"] & {
       [data-role="button:content"] {
-        margin: 0 -3px;
+        margin: 0 calc((var(--lookbook-space-xs) * 3 / 4) * -1);
       }
     }
 

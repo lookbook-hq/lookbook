@@ -21,7 +21,7 @@
       <Tabs.List data-role="tabs:list">
         {#each panels as p (p.id)}
           <Tabs.Trigger value={p.id} data-role="tabs:trigger">
-            <span data-role="tabs:label" class="label mark">
+            <span data-role="tabs:label" class="label">
               <span>
                 {#if label}
                   {@render label(p)}
@@ -45,10 +45,14 @@
 
 <style>
   :global [data-component="tabs"] {
-    --tab-border: transparent;
+    --tab-bg: tranparent;
     --tab-fg: var(--lookbook-fg);
-    /*--tab-border-active: var(--lookbook-accent-bg);*/
-    /*--tab-fg-active: var(--tab-fg);*/
+    --tab-fg-active: var(--lookbook-accent);
+    --tab-label-font-size: var(--lookbook-font-size-2xs);
+    --tab-border: transparent;
+    --tab-border-hover: var(--lookbook-block-bg-hover);
+    --tab-border-active: var(--lookbook-accent);
+    --tab-padding: var(--lookbook-space-lg);
 
     display: grid;
     grid-template-rows: min-content 1fr;
@@ -57,7 +61,7 @@
 
     [data-role="tabs:toolbar"] {
       align-items: stretch;
-      border-block-end: 1px solid var(--lookbook-divider-color);
+      border-block-end: 1px solid var(--lookbook-panel-border);
     }
 
     [data-role="tabs:list"] {
@@ -70,24 +74,22 @@
     }
 
     [data-role="tabs:trigger"] {
+      padding: 0 var(--tab-padding);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0 var(--lookbook-space-md);
       white-space: nowrap;
       user-select: none;
+      border-block-start: 2px solid transparent;
       border-block-end: 2px solid transparent;
-      height: 100%;
 
-      &:not([data-selected]) {
-        .mark {
-          --lookbook-accent: transparent;
-        }
+      &:hover {
+        border-bottom-color: var(--tab-border-hover);
+      }
 
-        &:hover .mark {
-          --lookbook-accent: #eee;
-        }
+      &[data-selected] {
+        border-bottom-color: var(--tab-border-active);
       }
 
       &[data-disabled] {
@@ -98,9 +100,7 @@
     }
 
     [data-role="tabs:label"] {
-      font-size: var(--lookbook-font-size-sm);
-      letter-spacing: 0.06em;
-      font-weight: 500;
+      font-size: var(--tab-label-font-size);
     }
 
     [data-role="tabs:panel"] {

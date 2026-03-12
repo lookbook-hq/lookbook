@@ -1,11 +1,11 @@
 {
   "app/frontend/lookbook/entrypoints/ui.html": {
-    "file": "lookbook-assets/ui-C9ZjgKiU.js",
+    "file": "lookbook-assets/ui-DmcO4q4m.js",
     "name": "ui",
     "src": "app/frontend/lookbook/entrypoints/ui.html",
     "isEntry": true,
     "css": [
-      "lookbook-assets/ui-DDDfu8Hx.css"
+      "lookbook-assets/ui-B8QirP1V.css"
     ],
     "assets": [
       "lookbook-assets/IoskeleyMono-Light-Dg6YjsQm.woff2",

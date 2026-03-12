@@ -5,21 +5,22 @@
 </script>
 
 <header data-component="header">
-  <Link href={lookbook.urlPath} class="mark green" data-role="header:branding">
+  <Link href={lookbook.urlPath} data-role="header:branding">
     <span>{project.name}</span>
   </Link>
 </header>
 
 <style>
   :global [data-component="header"] {
-    --header-height: var(--lookbook-size-xl);
-    --header-branding-font-size: var(--lookbook-font-size-base);
-    --header-padding: var(--lookbook-space-base);
-    --header-bg: var(--lookbook-surface-bg);
-    --header-fg: var(--lookbook-surface-fg);
-    --header-border-color: var(--lookbook-divider-color);
+    --header-height: var(--lookbook-size-11);
+    --header-branding-font-size: var(--lookbook-font-size-md);
+    --header-padding: var(--lookbook-space-md);
+    --header-bg: var(--lookbook-panel-bg);
+    --header-fg: var(--lookbook-panel-fg);
+    --header-border-color: var(--lookbook-panel-border);
 
     background-color: var(--header-bg);
+    box-sizing: border-box;
     color: var(--header-fg);
     border-block-end: 1px solid var(--header-border-color);
     height: var(--header-height);

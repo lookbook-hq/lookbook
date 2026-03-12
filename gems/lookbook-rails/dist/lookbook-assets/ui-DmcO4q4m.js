@@ -3,7 +3,7 @@ var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var require_ui_001 = __commonJS({
-  "lookbook-assets/ui-C9ZjgKiU.js"(exports, module) {
+  "lookbook-assets/ui-DmcO4q4m.js"(exports, module) {
     (function polyfill() {
       const relList = document.createElement("link").relList;
       if (relList && relList.supports && relList.supports("modulepreload")) return;
@@ -3991,9 +3991,6 @@ var require_ui_001 = __commonJS({
     const whitespace = [..." 	\n\r\f \v\uFEFF"];
     function to_class(value, hash, directives) {
       var classname = value == null ? "" : "" + value;
-      if (hash) {
-        classname = classname ? classname + " " + hash : hash;
-      }
       if (directives) {
         for (var key2 of Object.keys(directives)) {
           if (directives[key2]) {
@@ -4257,7 +4254,7 @@ var require_ui_001 = __commonJS({
       }
       if (next2.class) {
         next2.class = clsx$1(next2.class);
-      } else if (css_hash || next2[CLASS]) {
+      } else if (next2[CLASS]) {
         next2.class = null;
       }
       if (next2[STYLE]) {
@@ -7825,40 +7822,53 @@ var require_ui_001 = __commonJS({
       }));
       pop();
     }
-    var root_1$b = /* @__PURE__ */ from_html(`<div data-role="toolbar:start"><!></div>`);
-    var root_2$3 = /* @__PURE__ */ from_html(`<div data-role="toolbar:end"><!></div>`);
+    var root_2$3 = /* @__PURE__ */ from_html(`<div data-role="toolbar:label"><!></div>`);
+    var root_1$b = /* @__PURE__ */ from_html(`<div data-role="toolbar:start"><!> <!></div>`);
+    var root_3$2 = /* @__PURE__ */ from_html(`<div data-role="toolbar:end"><!></div>`);
     var root$i = /* @__PURE__ */ from_html(`<div><!> <!></div>`);
     function Toolbar($$anchor, $$props) {
-      let attrs = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "start", "end"]);
+      let attrs = /* @__PURE__ */ rest_props($$props, ["$$slots", "$$events", "$$legacy", "label", "start", "end"]);
       var div = root$i();
       attribute_effect(div, () => ({ "data-component": "toolbar", ...attrs }));
       var node = child(div);
       {
-        var consequent = ($$anchor2) => {
+        var consequent_1 = ($$anchor2) => {
           var div_1 = root_1$b();
           var node_1 = child(div_1);
-          snippet(node_1, () => $$props.start);
+          {
+            var consequent = ($$anchor3) => {
+              var div_2 = root_2$3();
+              var node_2 = child(div_2);
+              snippet(node_2, () => $$props.label);
+              append$1($$anchor3, div_2);
+            };
+            if_block(node_1, ($$render) => {
+              if ($$props.label) $$render(consequent);
+            });
+          }
+          var node_3 = sibling(node_1, 2);
+          snippet(node_3, () => $$props.start ?? noop$2);
           append$1($$anchor2, div_1);
         };
         if_block(node, ($$render) => {
-          if ($$props.start) $$render(consequent);
+          if ($$props.start || $$props.label) $$render(consequent_1);
         });
       }
-      var node_2 = sibling(node, 2);
+      var node_4 = sibling(node, 2);
       {
-        var consequent_1 = ($$anchor2) => {
-          var div_2 = root_2$3();
-          var node_3 = child(div_2);
-          snippet(node_3, () => $$props.end);
-          append$1($$anchor2, div_2);
+        var consequent_2 = ($$anchor2) => {
+          var div_3 = root_3$2();
+          var node_5 = child(div_3);
+          snippet(node_5, () => $$props.end);
+          append$1($$anchor2, div_3);
         };
-        if_block(node_2, ($$render) => {
-          if ($$props.end) $$render(consequent_1);
+        if_block(node_4, ($$render) => {
+          if ($$props.end) $$render(consequent_2);
         });
       }
       append$1($$anchor, div);
     }
-    var root_5$1 = /* @__PURE__ */ from_html(`<span data-role="tabs:label" class="label mark"><span><!></span></span>`);
+    var root_5$1 = /* @__PURE__ */ from_html(`<span data-role="tabs:label" class="label"><span><!></span></span>`);
     var root_1$a = /* @__PURE__ */ from_html(`<!> <!>`, 1);
     function Tabs_1($$anchor, $$props) {
       push($$props, true);
@@ -22813,6 +22823,29 @@ var require_ui_001 = __commonJS({
         $$slots: { default: true }
       }));
     }
+    function Grip_horizontal($$anchor, $$props) {
+      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
+      const iconNode = [
+        ["circle", { "cx": "12", "cy": "9", "r": "1" }],
+        ["circle", { "cx": "19", "cy": "9", "r": "1" }],
+        ["circle", { "cx": "5", "cy": "9", "r": "1" }],
+        ["circle", { "cx": "12", "cy": "15", "r": "1" }],
+        ["circle", { "cx": "19", "cy": "15", "r": "1" }],
+        ["circle", { "cx": "5", "cy": "15", "r": "1" }]
+      ];
+      Icon($$anchor, spread_props({ name: "grip-horizontal" }, () => $$sanitized_props, {
+        get iconNode() {
+          return iconNode;
+        },
+        children: ($$anchor2, $$slotProps) => {
+          var fragment_1 = comment();
+          var node = first_child(fragment_1);
+          slot(node, $$props, "default", {});
+          append$1($$anchor2, fragment_1);
+        },
+        $$slots: { default: true }
+      }));
+    }
     function Layers_2($$anchor, $$props) {
       const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
       const iconNode = [
@@ -22850,46 +22883,6 @@ var require_ui_001 = __commonJS({
         ["path", { "d": "M9 19h6" }]
       ];
       Icon($$anchor, spread_props({ name: "list-filter" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
-    }
-    function Move_diagonal_2($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [
-        ["path", { "d": "M19 13v6h-6" }],
-        ["path", { "d": "M5 11V5h6" }],
-        ["path", { "d": "m5 5 14 14" }]
-      ];
-      Icon($$anchor, spread_props({ name: "move-diagonal-2" }, () => $$sanitized_props, {
-        get iconNode() {
-          return iconNode;
-        },
-        children: ($$anchor2, $$slotProps) => {
-          var fragment_1 = comment();
-          var node = first_child(fragment_1);
-          slot(node, $$props, "default", {});
-          append$1($$anchor2, fragment_1);
-        },
-        $$slots: { default: true }
-      }));
-    }
-    function Move_diagonal($$anchor, $$props) {
-      const $$sanitized_props = legacy_rest_props($$props, ["children", "$$slots", "$$events", "$$legacy"]);
-      const iconNode = [
-        ["path", { "d": "M11 19H5v-6" }],
-        ["path", { "d": "M13 5h6v6" }],
-        ["path", { "d": "M19 5 5 19" }]
-      ];
-      Icon($$anchor, spread_props({ name: "move-diagonal" }, () => $$sanitized_props, {
         get iconNode() {
           return iconNode;
         },
@@ -22980,8 +22973,8 @@ var require_ui_001 = __commonJS({
         $$slots: { default: true }
       }));
     }
-    var root_1$6 = /* @__PURE__ */ from_html(`<button data-role="viewport:grabber"><!></button>`);
-    var root$d = /* @__PURE__ */ from_html(`<div data-component="viewport"><div data-role="viewport:background" class="checkerboard-bg"></div> <div data-role="viewport:window"><!> <!></div></div>`);
+    var root_1$6 = /* @__PURE__ */ from_html(`<button data-role="viewport:handle"><!></button>`);
+    var root$d = /* @__PURE__ */ from_html(`<div data-component="viewport"><div data-role="viewport:background"></div> <div data-role="viewport:window"><!> <!></div></div>`);
     function Viewport($$anchor, $$props) {
       push($$props, true);
       const sandbox = [
@@ -22994,18 +22987,18 @@ var require_ui_001 = __commonJS({
         "allow-scripts",
         "allow-top-navigation-by-user-activation"
       ].join(" ");
-      const grabbers = ["east", "west", "southeast", "south", "southwest"];
+      const handles = ["east", "west", "southeast", "south", "southwest"];
       const FULLSIZE = 1e5;
       let app = getAppState();
       let viewportState = /* @__PURE__ */ user_derived(() => app.viewport);
       let initial = /* @__PURE__ */ state$1(null);
-      let activeGrabber = /* @__PURE__ */ state$1(null);
+      let activeHandle = /* @__PURE__ */ state$1(null);
       let resizer;
       let container;
       function startResize(event2) {
         const rect = resizer.getBoundingClientRect();
         const containerRect = container.getBoundingClientRect();
-        set$2(activeGrabber, event2.target, true);
+        set$2(activeHandle, event2.target, true);
         set$2(
           initial,
           {
@@ -23020,9 +23013,9 @@ var require_ui_001 = __commonJS({
         );
       }
       function resizing(event2) {
-        if (!get$3(activeGrabber)) return;
+        if (!get$3(activeHandle)) return;
         let delta;
-        const direction = get$3(activeGrabber).dataset.direction;
+        const direction = get$3(activeHandle).dataset.direction;
         if (direction.match(/east|west/)) {
           delta = direction.match("east") ? event2.pageX - get$3(initial).x : get$3(initial).x - event2.pageX;
           get$3(viewportState).width = Math.min(get$3(initial).width + delta * 2, get$3(initial).maxWidth);
@@ -23039,7 +23032,7 @@ var require_ui_001 = __commonJS({
         }
       }
       function endResize() {
-        set$2(activeGrabber, null);
+        set$2(activeHandle, null);
         set$2(initial, null);
       }
       function maximize(event2) {
@@ -23058,7 +23051,7 @@ var require_ui_001 = __commonJS({
       var div_1 = sibling(child(div), 2);
       var node = child(div_1);
       {
-        let $0 = /* @__PURE__ */ user_derived(() => get$3(activeGrabber) !== null);
+        let $0 = /* @__PURE__ */ user_derived(() => get$3(activeHandle) !== null);
         Frame(node, {
           "data-role": "viewport:iframe",
           get srcdoc() {
@@ -23076,34 +23069,15 @@ var require_ui_001 = __commonJS({
         });
       }
       var node_1 = sibling(node, 2);
-      each(node_1, 17, () => grabbers, index, ($$anchor2, direction) => {
+      each(node_1, 17, () => handles, index, ($$anchor2, direction) => {
         var button = root_1$6();
         var node_2 = child(button);
-        {
-          var consequent = ($$anchor3) => {
-            Icon$1($$anchor3, {
-              get svg() {
-                return Move_diagonal;
-              },
-              size: "sm"
-            });
-          };
-          var consequent_1 = ($$anchor3) => {
-            Icon$1($$anchor3, {
-              get svg() {
-                return Move_diagonal_2;
-              },
-              size: "sm"
-            });
-          };
-          var alternate = ($$anchor3) => {
-          };
-          if_block(node_2, ($$render) => {
-            if (get$3(direction) === "southwest") $$render(consequent);
-            else if (get$3(direction) === "southeast") $$render(consequent_1, 1);
-            else $$render(alternate, false);
-          });
-        }
+        Icon$1(node_2, {
+          get svg() {
+            return Grip_horizontal;
+          },
+          size: "sm"
+        });
         template_effect(() => {
           set_attribute(button, "data-direction", get$3(direction));
           set_attribute(button, "aria-label", `drag-${get$3(direction)}`);
@@ -23176,20 +23150,12 @@ var require_ui_001 = __commonJS({
       var fragment = comment();
       var node = first_child(fragment);
       element(node, () => output() ? "output" : "div", false, ($$element, $$anchor2) => {
-        attribute_effect(
-          $$element,
-          () => ({
-            "data-component": "snippet",
-            role: "region",
-            "aria-live": "polite",
-            "aria-roledescription": "code block",
-            class: ""
-          }),
-          void 0,
-          void 0,
-          void 0,
-          "svelte-1ba9mvy"
-        );
+        attribute_effect($$element, () => ({
+          "data-component": "snippet",
+          role: "region",
+          "aria-live": "polite",
+          "aria-roledescription": "code block"
+        }));
         var code = root_1$4();
         var pre = child(code);
         var node_1 = child(pre);
@@ -23884,7 +23850,7 @@ var require_ui_001 = __commonJS({
     var root_5 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
     var root_3$1 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
     var root_1$2 = /* @__PURE__ */ from_html(`<div data-role="params-editor:controls"></div>`);
-    var root_12 = /* @__PURE__ */ from_html(`<div data-role="params-editor:blank-state">No params have been defined for this scenario.</div>`);
+    var root_12 = /* @__PURE__ */ from_html(`<div data-role="params-editor:blank-state"><div data-role="params-editor:blank-state-content">No params have been defined for this scenario</div></div>`);
     var root$a = /* @__PURE__ */ from_html(`<div data-component="params-editor"><!></div>`);
     function Params_editor($$anchor, $$props) {
       const id = props_id();
@@ -24663,7 +24629,6 @@ var require_ui_001 = __commonJS({
         get href() {
           return $$props.lookbook.urlPath;
         },
-        class: "mark green",
         "data-role": "header:branding",
         children: ($$anchor2, $$slotProps) => {
           var span = root_1$1();
@@ -24936,7 +24901,7 @@ var require_ui_001 = __commonJS({
       append$1($$anchor, div);
       pop();
     }
-    var root_2$1 = /* @__PURE__ */ from_html(`<h3 data-role="sidebar:section-label" class="label"><!></h3>`);
+    var root_2$1 = /* @__PURE__ */ from_html(`<h3 class="label"><!></h3>`);
     var root_1 = /* @__PURE__ */ from_html(`<section data-role="sidebar:section"><header data-role="sidebar:section-header"><!></header> <div data-role="sidebar:section-content"><!></div></section>`);
     var root$2 = /* @__PURE__ */ from_html(`<div data-component="sidebar"><!></div>`);
     function Sidebar($$anchor, $$props) {
@@ -24951,7 +24916,7 @@ var require_ui_001 = __commonJS({
           var header = child(section);
           var node_1 = child(header);
           {
-            const start2 = ($$anchor3) => {
+            const label = ($$anchor3) => {
               var h3 = root_2$1();
               var node_2 = child(h3);
               Link(node_2, {
@@ -24974,7 +24939,7 @@ var require_ui_001 = __commonJS({
                 }
               });
             };
-            Toolbar(node_1, { start: start2, end, $$slots: { start: true, end: true } });
+            Toolbar(node_1, { label, end, $$slots: { label: true, end: true } });
           }
           var div_1 = sibling(header, 2);
           var node_3 = child(div_1);

@@ -4,7 +4,7 @@
   import { getAppState } from "@lib/utils";
 
   import Icon from "@components/icon";
-  import { MoveDiagonalIcon, MoveDiagonal2Icon } from "lucide-svelte";
+  import { GripHorizontalIcon } from "lucide-svelte";
 
   const sandbox = [
     "allow-forms",
@@ -16,7 +16,7 @@
     "allow-scripts",
     "allow-top-navigation-by-user-activation",
   ].join(" ");
-  const grabbers = ["east", "west", "southeast", "south", "southwest"];
+  const handles = ["east", "west", "southeast", "south", "southwest"];
   const FULLSIZE = 100000;
 
   let { srcdoc, title } = $props();
@@ -26,7 +26,7 @@
   let viewportState = $derived.by(() => app.viewport);
 
   let initial = $state(null);
-  let activeGrabber = $state(null);
+  let activeHandle = $state(null);
 
   let resizer, container;
 
@@ -34,7 +34,7 @@
     const rect = resizer.getBoundingClientRect();
     const containerRect = container.getBoundingClientRect();
 
-    activeGrabber = event.target;
+    activeHandle = event.target;
 
     initial = {
       maxWidth: containerRect.width,
@@ -47,10 +47,10 @@
   }
 
   function resizing(event) {
-    if (!activeGrabber) return;
+    if (!activeHandle) return;
 
     let delta;
-    const direction = activeGrabber.dataset.direction;
+    const direction = activeHandle.dataset.direction;
 
     if (direction.match(/east|west/)) {
       delta = direction.match("east") ? event.pageX - initial.x : initial.x - event.pageX;
@@ -72,7 +72,7 @@
   }
 
   function endResize() {
-    activeGrabber = null;
+    activeHandle = null;
     initial = null;
   }
 
@@ -97,24 +97,20 @@
   style:--viewport-window-height={viewportState.height}
   bind:this={container}
 >
-  <div data-role="viewport:background" class="checkerboard-bg"></div>
+  <div data-role="viewport:background"></div>
   <div data-role="viewport:window" bind:this={resizer}>
-    <Frame data-role="viewport:iframe" {srcdoc} {title} {sandbox} inert={activeGrabber !== null}
+    <Frame data-role="viewport:iframe" {srcdoc} {title} {sandbox} inert={activeHandle !== null}
     ></Frame>
 
-    {#each grabbers as direction}
+    {#each handles as direction}
       <button
-        data-role="viewport:grabber"
+        data-role="viewport:handle"
         data-direction={direction}
         aria-label={`drag-${direction}`}
         onmousedown={(e) => startResize(e)}
         ondblclick={(e) => maximize(e)}
       >
-        {#if direction === "southwest"}
-          <Icon svg={MoveDiagonalIcon} size="sm" />
-        {:else if direction === "southeast"}
-          <Icon svg={MoveDiagonal2Icon} size="sm" />
-        {:else}{/if}
+        <Icon svg={GripHorizontalIcon} size="sm" />
       </button>
     {/each}
   </div>
@@ -122,10 +118,32 @@
 
 <style>
   :global [data-component="viewport"] {
-    --viewport-bg-even: var(--lookbook-accent-yellow);
-    --viewport-bg-odd: var(--lookbook-accent-green);
-    --viewport-bg-size: var(--lookbook-size-xs);
-    --viewport-handle-size: var(--lookbook-size-2xs);
+    --viewport-bg: var(--lookbook-block-bg);
+    --viewport-bg-check-even: var(--lookbook-accent);
+    --viewport-bg-check-odd: color-mix(
+      in oklab,
+      var(--lookbook-accent),
+      var(--lookbook-mix-quieter) 40%
+    );
+    --viewport-bg-check-size: var(--lookbook-size-3);
+
+    --viewport-window-bg: var(--lookbook-panel-bg);
+    --viewport-window-outline: color-mix(
+      in oklab,
+      var(--viewport-bg-check-odd),
+      var(--lookbook-mix-louder) 5%
+    );
+    --viewport-window-shadow: var(--lookbook-shadow-lg);
+    --viewport-window-width: 100000;
+    --viewport-window-height: 100000;
+
+    --viewport-handle-size: var(--lookbook-size-3);
+    --viewport-handle-bg: var(--lookbook-panel-bg);
+    --viewport-handle-bg-hover: color-mix(in oklab, var(--lookbook-block-bg), transparent 50%);
+    --viewport-handle-border: var(--lookbook-panel-border);
+    --viewport-corner-handle-bg: var(--lookbook-panel-bg);
+    --viewport-corner-handle-bg-hover: var(--viewport-handle-bg-hover);
+    --viewport-corner-handle-fg: var(--lookbook-panel-fg);
 
     position: relative;
     display: flex;
@@ -135,31 +153,34 @@
 
     width: calc(100%);
     height: calc(100%);
-    background-color: var(--lookbook-surface-bg);
+    background-color: var(--viewport-bg);
 
     .icon {
       pointer-events: none;
     }
 
     [data-role="viewport:background"] {
-      --checkerboard-bg-even: var(--viewport-bg-even);
-      --checkerboard-bg-odd: var(--viewport-bg-odd);
-      --checkerboard-bg-size: 16px;
-
       position: absolute;
       inset: 0;
       z-index: 0;
+
+      background-repeat: repeat;
+      background-size: var(--viewport-bg-check-size) var(--viewport-bg-check-size);
+      background-position: top left;
+      background-image: conic-gradient(
+        var(--viewport-bg-check-even) 90deg,
+        var(--viewport-bg-check-odd) 90deg 180deg,
+        var(--viewport-bg-check-even) 180deg 270deg,
+        var(--viewport-bg-check-odd) 270deg
+      );
     }
 
     [data-role="viewport:window"] {
-      --outline-color: color-mix(in oklab, var(--viewport-bg-odd), black 5%);
-      --shadow-color: color-mix(in oklab, var(--viewport-bg-odd), black 80%);
-
-      background-color: var(--lookbook-surface-bg);
-      outline: 1px solid var(--outline-color);
+      background-color: var(--viewport-window-bg);
+      outline: 1px solid var(--viewport-window-outline);
       outline-offset: 0px;
-      min-height: 116px;
-      min-width: 182px;
+      min-height: 100px;
+      min-width: 100px;
       display: grid;
       grid-template-areas:
         "w content e"
@@ -167,11 +188,26 @@
       grid-template-columns: var(--viewport-handle-size) 1fr var(--viewport-handle-size);
       grid-template-rows: 1fr var(--viewport-handle-size);
 
-      width: min(100%, (var(--viewport-window-width, 100000) * 1px));
-      height: min(100%, (var(--viewport-window-height, 100000) * 1px));
+      width: min(100%, (var(--viewport-window-width) * 1px));
+      height: min(100%, (var(--viewport-window-height) * 1px));
       position: relative;
       z-index: 1;
-      box-shadow: 0 4px 14px color-mix(in oklab, var(--shadow-color), transparent 75%);
+      box-shadow: var(--viewport-window-shadow);
+
+      &:hover {
+        [data-role="viewport:handle"] {
+          background-color: var(--viewport-handle-bg-hover);
+
+          .icon {
+            opacity: 1;
+          }
+
+          &[data-direction="southeast"],
+          &[data-direction="southwest"] {
+            background-color: var(--viewport-corner-handle-bg-hover);
+          }
+        }
+      }
     }
 
     [data-role="viewport:iframe"] {
@@ -186,63 +222,82 @@
       view-transition-name: viewport;
     }
 
-    [data-role="viewport:grabber"] {
+    [data-role="viewport:handle"] {
       position: relative;
       z-index: 3;
       width: 100%;
       height: 100%;
-      pointer-events: none;
-      opacity: 0;
-      background-color: var(--lookbook-neutral-solid);
-      transition: opacity 150ms ease-in;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background-color: var(--viewport-handle-bg);
+      transition:
+        background-color var(--lookbook-duration-fast) ease-in,
+        border-color var(--lookbook-duration-fast) ease-in;
+      border: 0px dashed var(--viewport-handle-border);
 
       .icon {
-        color: white;
-        transition: opacity 150ms ease-in;
-        opacity: 0;
+        transition: opacity var(--lookbook-duration-fast) ease-in;
+        width: var(--viewport-handle-size);
+        height: var(--viewport-handle-size);
+        position: relative;
+        transform-origin: center center;
       }
 
       &[data-direction="west"] {
         grid-area: w;
         cursor: ew-resize;
+        border-inline-end-width: 1px;
+
+        .icon {
+          transform: rotate(90deg);
+        }
       }
 
       &[data-direction="east"] {
         grid-area: e;
         cursor: ew-resize;
+        border-inline-start-width: 1px;
+
+        .icon {
+          transform: rotate(90deg);
+        }
       }
 
       &[data-direction="southwest"] {
         grid-area: sw;
-        background-color: #1d5f57;
+        background-color: var(--viewport-corner-handle-bg);
         cursor: nesw-resize;
+
+        .icon {
+          top: -1px;
+          right: -1px;
+          transform: rotate(45deg);
+        }
       }
 
       &[data-direction="south"] {
         grid-area: s;
         cursor: ns-resize;
+        border-block-start-width: 1px;
+
+        .icon {
+          transform: rotate(0);
+        }
       }
 
       &[data-direction="southeast"] {
         grid-area: se;
-        background-color: #1d5f57;
+        background-color: var(--viewport-corner-handle-bg);
         cursor: nwse-resize;
-      }
-    }
 
-    [data-role="viewport:window"]:hover {
-      [data-role="viewport:grabber"] {
-        pointer-events: all;
-        opacity: 0.1;
-      }
-
-      [data-role="viewport:grabber"][data-direction="southwest"],
-      [data-role="viewport:grabber"][data-direction="southeast"] {
-        opacity: 0.9;
-      }
-
-      .icon {
-        opacity: 0.9;
+        .icon {
+          top: -1px;
+          left: -1px;
+          transform-origin: center center;
+          transform: rotate(-45deg);
+        }
       }
     }
   }

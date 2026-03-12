@@ -59,8 +59,8 @@
 
 <style>
   #app {
-    --app-grid-marker-fill: var(--lookbook-neutral-8);
-    --app-grid-marker-spacing: var(--lookbook-grid-spacing);
+    --app-grid-marker-fill: var(--lookbook-panel-border);
+    --app-grid-marker-spacing: var(--lookbook-size-6);
     --app-grid-marker-offset: calc((var(--app-grid-marker-spacing) / 2) * -1);
 
     position: relative;

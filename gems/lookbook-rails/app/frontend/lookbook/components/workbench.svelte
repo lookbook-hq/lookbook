@@ -48,8 +48,8 @@
     overflow: hidden;
 
     [data-role="workbench:main"] {
-      padding-inline-end: var(--lookbook-grid-gap);
-      padding-block-end: var(--lookbook-grid-gap);
+      padding-inline-end: var(--lookbook-space-md);
+      padding-block-end: var(--lookbook-space-md);
       height: 100%;
       overflow: hidden;
     }

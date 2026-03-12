@@ -16,7 +16,7 @@ html {
   box-sizing: border-box;
 
   font-family: var(--lookbook-font-family-ui);
-  font-size: var(--lookbook-font-size-base);
+  font-size: var(--lookbook-font-size-md);
   line-height: 1.1;
 
   background-color: var(--lookbook-bg);
@@ -48,7 +48,7 @@ h5,
 h6,
 p {
   margin: 0;
-  font-size: var(--lookbook-font-size-base);
+  font-size: var(--lookbook-font-size-md);
   font-weight: 400;
 }
 
@@ -68,9 +68,8 @@ i {
 
 a:focus-visible,
 button:focus-visible {
-  outline: var(--lookbook-focus-ring-size) solid var(--lookbook-focus-ring-color);
+  outline: 2px solid var(--lookbook-focus-ring);
   outline-offset: -2px;
-  /*box-shadow: inset 0 0 0 var(--lookbook-focus-ring-size) var(--lookbook-focus-ring-color);*/
 }
 
 button {
@@ -104,9 +103,8 @@ fieldset {
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: none;
-  outline: var(--lookbook-focus-ring-size) solid var(--lookbook-focus-ring-color);
-  /*box-shadow: 0 0 0 var(--lookbook-focus-ring-size) var(--lookbook-focus-ring-color);*/
+  outline: 2px solid var(--lookbook-focus-ring);
+  outline-offset: -2px;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -153,9 +151,7 @@ body {
 }
 
 .light,
-.light-theme,
-.dark,
-.dark-theme {
+.dark {
   background-color: var(--lookbook-bg);
   color: var(--lookbook-fg);
 }

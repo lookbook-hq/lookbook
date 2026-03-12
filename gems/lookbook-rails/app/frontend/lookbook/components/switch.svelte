@@ -16,11 +16,16 @@
 
 <style>
   :global [data-component="switch"] {
+    --switch-bg: var(--lookbook-panel-bg);
+    --switch-bg-active: var(--lookbook-accent);
+    --switch-fg: var(--lookbook-panel-fg);
+    --switch-gap: var(--lookbook-space-sm);
+
+    color: var(--switch-fg);
+    gap: var(--switch-gap);
     cursor: pointer;
-    color: var(--lookbook-neutral-fg);
     display: inline-flex;
     align-items: center;
-    gap: var(--lookbook-space-sm);
     position: relative;
 
     &[data-disabled] {
@@ -29,38 +34,37 @@
     }
 
     [data-role="switch:control"] {
+      background: var(--switch-bg);
       display: inline-flex;
       align-items: center;
       flex-shrink: 0;
       width: 2.5rem;
       height: 1.5rem;
       padding: 0.125rem;
-      background: var(--lookbook-neutral-5);
       border-radius: 9999px;
-
       transition:
         background-color 0.05s ease,
         box-shadow 0.05s ease;
 
       &[data-state="checked"] {
-        background: var(--lookbook-accent);
+        background: var(--switch-bg-active);
       }
 
       &[data-focus-visible] {
-        outline: var(--lookbook-focus-ring-size) solid var(--lookbook-focus-ring-color);
-        outline-offset: var(--lookbook-focus-ring-size);
+        outline: 2px solid var(--lookbook-focus-ring);
+        outline-offset: -2px;
       }
     }
 
     [data-role="switch:thumb"] {
+      background: var(--switch-bg);
+      box-shadow: var(--lookbook-shadow-sm);
       display: flex;
       align-items: center;
       justify-content: center;
       width: 1.25rem;
       height: 1.25rem;
-      background: var(--lookbook-neutral-1);
       border-radius: 9999px;
-      box-shadow: var(--lookbook-shadow-sm);
       transition: transform 0.15s ease;
 
       &[data-state="checked"] {

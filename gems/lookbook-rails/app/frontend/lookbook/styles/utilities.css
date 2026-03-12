@@ -30,7 +30,7 @@ mark,
   }
 }
 
-.checkerboard-bg {
+/*.checkerboard-bg {
   --checkerboard-bg-even: var(--lookbook-accent-yellow);
   --checkerboard-bg-odd: var(--lookbook-accent-green);
   --checkerboard-bg-size: 16px;
@@ -44,7 +44,7 @@ mark,
     var(--checkerboard-bg-even) 180deg 270deg,
     var(--checkerboard-bg-odd) 270deg
   );
-}
+}*/
 
 .vh {
   position: absolute;

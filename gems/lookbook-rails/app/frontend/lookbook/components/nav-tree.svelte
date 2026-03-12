@@ -108,16 +108,26 @@
 
 <style>
   :global [data-component="nav-tree"] {
+    --tree-indentation: 1rem;
+    --tree-padding-inline: var(--lookbook-space-md);
+    --tree-padding-block: var(--lookbook-space-xs);
+    --tree-icon-size: 1rem;
+    --tree-indentation-guide-color: color-mix(
+      in oklab,
+      var(--lookbook-panel-border),
+      transparent 30%
+    );
+
+    --tree-item-gap: var(--lookbook-space-sm);
+    --tree-item-font-size: round(calc(var(--lookbook-font-size-sm) * 0.925));
+    --tree-item-bg: var(--lookbook-panel-bg);
+    --tree-item-bg-active: var(--lookbook-block-bg);
+    --tree-item-fg: var(--lookbook-panel-fg);
+    --tree-item-fg-active: var(--lookbook-panel-fg);
+    --tree-item-fg-hover: var(--lookbook-panel-fg);
+
     [data-role="nav-tree:tree"] {
-      color: var(--demo-neutral-fg);
-      --tree-item-gap: var(--lookbook-grid-gap);
-      --tree-indentation: 1rem;
-      --tree-padding-inline: var(--lookbook-space-base);
-      --tree-padding-block: var(--lookbook-space-xs);
-      --tree-icon-size: 1rem;
-
-      font-size: 13px;
-
+      font-size: var(--tree-item-font-size);
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
@@ -125,8 +135,8 @@
     }
 
     [data-role="nav-tree:label"] {
-      font-size: 0.875rem;
-      line-height: 1.25rem;
+      font-size: var(--tree-item-font-size);
+      line-height: 1.5;
       font-weight: 500;
       user-select: none;
     }
@@ -134,7 +144,7 @@
     [data-role="nav-tree:tree"] {
       display: flex;
       flex-direction: column;
-      line-height: 1.25rem;
+      line-height: 1.5;
 
       & svg {
         flex-shrink: 0;
@@ -157,6 +167,7 @@
       background: transparent;
       font: inherit;
       text-align: start;
+      color: var(--tree-item-fg);
 
       --tree-depth: calc(var(--depth) - 1);
       --tree-indentation-offset: calc(var(--tree-indentation) * var(--tree-depth));
@@ -170,17 +181,17 @@
       padding-block: var(--tree-padding-block);
 
       &:hover {
-        /*background: var(--demo-neutral-subtle);*/
+        background: var(--tree-item-bg-active);
       }
 
       &:focus-visible {
-        /*outline: 2px solid var(--demo-coral-focus-ring);*/
-        /*outline-offset: -2px;*/
+        outline: 2px solid var(--lookbook-focus-ring);
+        outline-offset: -2px;
       }
 
       &[data-selected] {
-        background: var(--lookbook-neutral-bg);
-        /*color: var(--demo-coral-fg);*/
+        background: var(--tree-item-bg-active);
+        color: var(--tree-item-fg-active);
       }
 
       &[data-disabled] {
@@ -195,21 +206,21 @@
 
       &[data-state="open"] {
         animation:
-          expand-height 150ms ease-out,
-          fade-in 150ms ease-out;
+          expand-height var(--lookbook-duration-fast) ease-out,
+          fade-in var(--lookbook-duration-fast) ease-out;
       }
 
       &[data-state="closed"] {
         animation:
-          collapse-height 150ms ease-out,
-          fade-out 150ms ease-out;
+          collapse-height var(--lookbook-duration-fast) ease-out,
+          fade-out var(--lookbook-duration-fast) ease-out;
       }
     }
 
     [data-role="nav-tree:branch-indent-guide"] {
       height: 100%;
       width: 1px;
-      background: var(--lookbook-divider-color);
+      background: var(--tree-indentation-guide-color);
       position: absolute;
       z-index: 1;
 
@@ -219,30 +230,6 @@
       --tree-icon-offset: calc(var(--tree-icon-size) * 0.5 * var(--depth));
 
       inset-inline-start: calc(var(--tree-offset) + var(--tree-icon-offset) - 1px);
-    }
-
-    [data-role="nav-tree:branch-indicator"] {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--demo-neutral-emphasized);
-      transform-origin: center;
-      transition: transform 150ms ease;
-
-      &[data-state="open"] {
-        transform: rotate(90deg);
-      }
-
-      & svg {
-        width: 0.875rem;
-        height: 0.875rem;
-      }
-    }
-
-    [data-role="nav-tree:branch-trigger"] {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
     }
 
     [data-role="nav-tree:branch-text"] {
@@ -259,7 +246,6 @@
       display: flex;
       align-items: center;
       gap: var(--tree-item-gap);
-      border-radius: 0.375rem;
       user-select: none;
       position: relative;
       cursor: pointer;
@@ -267,7 +253,7 @@
       border: none;
       background: transparent;
       font: inherit;
-      /*color: var(--demo-neutral-fg);*/
+      color: var(--tree-item-fg);
       text-align: start;
       text-decoration: none;
 
@@ -283,36 +269,23 @@
       padding-block: var(--tree-padding-block);
 
       &:hover {
-        /*background: var(--demo-neutral-subtle);*/
+        background: var(--tree-item-bg-active);
       }
 
       &:focus-visible {
-        /*outline: 2px solid var(--demo-coral-focus-ring);*/
+        outline: 2px solid var(--lookbook-focus-ring);
         outline-offset: -2px;
       }
 
       &[data-selected] {
-        background: var(--lookbook-neutral-bg);
-        /*color: var(--demo-coral-fg);*/
+        background: var(--tree-item-bg-active);
+        color: var(--tree-item-fg-active);
       }
 
       &[data-disabled] {
         opacity: 0.5;
         filter: grayscale(100%);
         cursor: not-allowed;
-      }
-    }
-
-    [data-role="nav-tree:item-indicator"] {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      /*color: var(--demo-coral-solid);*/
-      flex-shrink: 0;
-
-      & svg {
-        width: 0.875rem;
-        height: 0.875rem;
       }
     }
 

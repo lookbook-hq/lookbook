@@ -35,8 +35,8 @@
       >
         <header data-role="sidebar:section-header">
           <Toolbar>
-            {#snippet start()}
-              <h3 data-role="sidebar:section-label" class="label">
+            {#snippet label()}
+              <h3 class="label">
                 <Link href={collection.href}>{collection.label}</Link>
               </h3>
             {/snippet}
@@ -56,9 +56,9 @@
 <style>
   :global [data-component="sidebar"] {
     --sidebar-padding: var(--lookbook-space-sm);
-    --sidebar-bg: var(--lookbook-surface-bg);
-    --sidebar-fg: var(--lookbook-surface-fg);
-    --sidebar-border-color: var(--lookbook-divider-color);
+    --sidebar-bg: var(--lookbook-panel-bg);
+    --sidebar-fg: var(--lookbook-panel-fg);
+    --sidebar-border-color: var(--lookbook-panel-border);
 
     background-color: var(--sidebar-bg);
     color: var(--sidebar-fg);
@@ -67,9 +67,8 @@
     height: 100%;
     font-size: var(--lookbook-font-size-sm);
     display: grid;
-    height: 100%;
     grid-template-rows: auto;
-    row-gap: var(--lookbook-grid-gap);
+    row-gap: var(--lookbook-space-md);
 
     [data-role="sidebar:section"] {
       height: 100%;
@@ -77,12 +76,8 @@
     }
 
     [data-role="sidebar:section-header"] {
-      border-block-end: 1px solid var(--lookbook-divider-color);
+      border-block-end: 1px solid var(--lookbook-panel-border);
       padding-inline: var(--lookbook-space-base) var(--sidebar-padding);
-    }
-
-    [data-role="sidebar:section-label"] {
-      font-size: 13px;
     }
 
     [data-role="sidebar:section-content"] {

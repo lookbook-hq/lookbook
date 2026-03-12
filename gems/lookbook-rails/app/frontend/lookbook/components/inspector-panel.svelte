@@ -27,6 +27,6 @@
 
 <style>
   [data-component="inspector-panel"] {
-    padding: 1rem;
+    /*padding: 1rem;*/
   }
 </style>

@@ -27,224 +27,228 @@
 </svelte:element>
 
 <style>
-  [data-component="snippet"] {
+  :global [data-component="snippet"] {
+    --snippet-line-height: 1.4rem;
+    --snippet-padding: var(--lookbook-space-md);
+
     view-transition-name: snippet;
+    padding: var(--snippet-padding);
 
-    :global code[data-role="snippet:code"] {
+    code[data-theme] {
       display: block;
-      line-height: 1.4;
+      line-height: var(--snippet-line-height);
 
-      background: var(--background);
-      color: var(--foreground);
+      background: var(--snippet-bg);
+      color: var(--snippet-fg);
 
       .hll {
-        background-color: var(--highlight-line);
+        background-color: var(--snippet-highlight-line);
       }
       .c {
-        color: var(--comment);
+        color: var(--snippet-comment);
       }
       .err {
-        color: var(--error);
+        color: var(--snippet-error);
       }
       .esc {
-        color: var(--escape);
+        color: var(--snippet-escape);
       }
       .k {
-        color: var(--keyword);
+        color: var(--snippet-keyword);
       }
       .l {
-        color: var(--literal);
+        color: var(--snippet-literal);
       }
       .o {
-        color: var(--operator);
+        color: var(--snippet-operator);
       }
       .ch {
-        color: var(--comment-hashbang);
+        color: var(--snippet-comment-hashbang);
       }
       .cm {
-        color: var(--comment-multiline);
+        color: var(--snippet-comment-multiline);
       }
       .cp {
-        color: var(--comment-preproc);
+        color: var(--snippet-comment-preproc);
       }
       .cpf {
-        color: var(--comment-preproc-file);
+        color: var(--snippet-comment-preproc-file);
       }
       .c1 {
-        color: var(--comment-single);
+        color: var(--snippet-comment-single);
       }
       .cs {
-        color: var(--comment-special);
+        color: var(--snippet-comment-special);
       }
       .gd {
-        color: var(--generic-deleted);
+        color: var(--snippet-generic-deleted);
       }
       .ge {
-        color: var(--generic-emph);
+        color: var(--snippet-generic-emph);
         font-style: italic;
       }
       .ges {
-        color: var(--generic-emph-strong);
+        color: var(--snippet-generic-emph-strong);
         font-weight: bold;
         font-style: italic;
       }
       .gr {
-        color: var(--generic-error);
+        color: var(--snippet-generic-error);
       }
       .gh {
-        color: var(--generic-heading);
+        color: var(--snippet-generic-heading);
         font-weight: bold;
       }
       .gi {
-        color: var(--generic-inserted);
+        color: var(--snippet-generic-inserted);
       }
       .go {
-        color: var(--generic-output);
+        color: var(--snippet-generic-output);
       }
       .gp {
-        color: var(--generic-prompt);
+        color: var(--snippet-generic-prompt);
       }
       .gs {
-        color: var(--generic-strong);
+        color: var(--snippet-generic-strong);
         font-weight: bold;
       }
       .gu {
-        color: var(--generic-subheading);
+        color: var(--snippet-generic-subheading);
       }
       .gt {
-        color: var(--generic-traceback);
+        color: var(--snippet-generic-traceback);
       }
       .kc {
-        color: var(--keyword-constant);
+        color: var(--snippet-keyword-constant);
       }
       .kd {
-        color: var(--keyword-declaration);
+        color: var(--snippet-keyword-declaration);
       }
       .kn {
-        color: var(--keyword-namespace);
+        color: var(--snippet-keyword-namespace);
       }
       .kp {
-        color: var(--keyword-pseudo);
+        color: var(--snippet-keyword-pseudo);
       }
       .kr {
-        color: var(--keyword-reserved);
+        color: var(--snippet-keyword-reserved);
       }
       .kt {
-        color: var(--keyword-type);
+        color: var(--snippet-keyword-type);
       }
       .ld {
-        color: var(--literal-date);
+        color: var(--snippet-literal-date);
       }
       .m {
-        color: var(--literal-number);
+        color: var(--snippet-literal-number);
       }
       .s {
-        color: var(--literal-string);
+        color: var(--snippet-literal-string);
       }
       .na {
-        color: var(--name-attribute);
+        color: var(--snippet-name-attribute);
       }
       .nb {
-        color: var(--name-builtin);
+        color: var(--snippet-name-builtin);
       }
       .nc {
-        color: var(--name-class);
+        color: var(--snippet-name-class);
       }
       .no {
-        color: var(--name-constant);
+        color: var(--snippet-name-constant);
       }
       .nd {
-        color: var(--name-decorator);
+        color: var(--snippet-name-decorator);
       }
       .ni {
-        color: var(--name-entity);
+        color: var(--snippet-name-entity);
       }
       .ne {
-        color: var(--name-exception);
+        color: var(--snippet-name-exception);
       }
       .nf {
-        color: var(--name-function);
+        color: var(--snippet-name-function);
       }
       .nl {
-        color: var(--name-label);
+        color: var(--snippet-name-label);
       }
       .py {
-        color: var(--name-property);
+        color: var(--snippet-name-property);
       }
       .nt {
-        color: var(--name-tag);
+        color: var(--snippet-name-tag);
       }
       .ow {
-        color: var(--operator-word);
+        color: var(--snippet-operator-word);
       }
       .w {
-        color: var(--text-whitespace);
+        color: var(--snippet-text-whitespace);
       }
       .mb {
-        color: var(--literal-number-bin);
+        color: var(--snippet-literal-number-bin);
       }
       .mf {
-        color: var(--literal-number-float);
+        color: var(--snippet-literal-number-float);
       }
       .mh {
-        color: var(--literal-number-hex);
+        color: var(--snippet-literal-number-hex);
       }
       .mi {
-        color: var(--literal-number-integer);
+        color: var(--snippet-literal-number-integer);
       }
       .mo {
-        color: var(--literal-number-oct);
+        color: var(--snippet-literal-number-oct);
       }
       .sa {
-        color: var(--literal-string-affix);
+        color: var(--snippet-literal-string-affix);
       }
       .sb {
-        color: var(--literal-string-backtick);
+        color: var(--snippet-literal-string-backtick);
       }
       .sc {
-        color: var(--literal-string-char);
+        color: var(--snippet-literal-string-char);
       }
       .dl {
-        color: var(--literal-string-delimiter);
+        color: var(--snippet-literal-string-delimiter);
       }
       .sd {
-        color: var(--literal-string-doc);
+        color: var(--snippet-literal-string-doc);
       }
       .s2 {
-        color: var(--literal-string-double);
+        color: var(--snippet-literal-string-double);
       }
       .se {
-        color: var(--literal-string-escape);
+        color: var(--snippet-literal-string-escape);
       }
       .sh {
-        color: var(--literal-string-heredoc);
+        color: var(--snippet-literal-string-heredoc);
       }
       .si {
-        color: var(--literal-string-interpol);
+        color: var(--snippet-literal-string-interpol);
       }
       .sx {
-        color: var(--literal-string-other);
+        color: var(--snippet-literal-string-other);
       }
       .sr {
-        color: var(--literal-string-regex);
+        color: var(--snippet-literal-string-regex);
       }
       .s1 {
-        color: var(--literal-string-single);
+        color: var(--snippet-literal-string-single);
       }
       .ss {
-        color: var(--literal-string-symbol);
+        color: var(--snippet-literal-string-symbol);
       }
       .bp {
-        color: var(--name-builtin-pseudo);
+        color: var(--snippet-name-builtin-pseudo);
       }
       .fm {
-        color: var(--name-function-magic);
+        color: var(--snippet-name-function-magic);
       }
       .vc {
-        color: var(--name-variable-class);
+        color: var(--snippet-name-variable-class);
       }
       .il {
-        color: var(--literal-number-integer-long);
+        color: var(--snippet-literal-number-integer-long);
       }
     }
   }

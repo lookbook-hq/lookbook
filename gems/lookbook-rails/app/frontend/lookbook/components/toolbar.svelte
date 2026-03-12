@@ -1,11 +1,17 @@
 <script>
-  let { start, end, ...attrs } = $props();
+  let { label, start, end, ...attrs } = $props();
 </script>
 
 <div data-component="toolbar" {...attrs}>
-  {#if start}
+  {#if start || label}
     <div data-role="toolbar:start">
-      {@render start()}
+      {#if label}
+        <div data-role="toolbar:label">
+          {@render label()}
+        </div>
+      {/if}
+
+      {@render start?.()}
     </div>
   {/if}
   {#if end}
@@ -17,20 +23,25 @@
 
 <style>
   :global [data-component="toolbar"] {
-    --toolbar-height: var(--lookbook-size-lg);
+    --toolbar-height: var(--lookbook-size-10);
     --toolbar-padding: var(--lookbook-space-sm);
-    --toolbar-border-color: var(--lookbook-divider-color);
+    --toolbar-border: var(--lookbook-panel-border);
+    --toolbar-label-font-size: var(--lookbook-font-size-2xs);
 
     height: var(--toolbar-height);
+    box-sizing: content-box;
     display: flex;
     align-items: center;
 
     .label {
-      font-size: var(--lookbook-font-size-xs);
+      font-size: var(--toolbar-label-font-size);
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-weight: 500;
+      letter-spacing: 0.03em;
     }
+
+    /*[data-role="toolbar:label"] {
+      padding-inline-start: calc(var(--toolbar-padding) + (var(--toolbar-padding) / 2));
+    }*/
 
     [data-role="toolbar:start"],
     [data-role="toolbar:end"] {
@@ -39,15 +50,26 @@
     }
 
     [data-role="toolbar:start"] {
-      margin-right: auto;
+      margin-inline-end: auto;
+      padding-inline-start: var(--toolbar-padding);
+
+      & > [data-role="tabs:list"]:first-child {
+        margin-inline-start: calc(var(--toolbar-padding) * -1);
+      }
+
+      [data-role="toolbar:label"]:first-child {
+        padding-inline-start: calc((var(--toolbar-padding) / 2));
+      }
     }
 
     [data-role="toolbar:end"] {
-      margin-left: auto;
+      margin-inline-start: auto;
+
+      padding-inline-end: var(--toolbar-padding);
     }
 
     [data-component="button-group"] + [data-component="button-group"] {
-      border-inline-start: 1px solid var(--toolbar-border-color);
+      border-inline-start: 1px solid var(--toolbar-border);
       padding-inline-start: var(--toolbar-padding);
       margin-inline-start: var(--toolbar-padding);
     }

@@ -1,12 +1,17 @@
-@layer lookbook.theme,
-  lookbook.tokens,
+@layer lookbook.tokens,
+  lookbook.theme,
   lookbook.base,
   lookbook.components,
   lookbook.utilities;
 
-@import "../styles/fonts.css" layer(lookbook.theme);
+@import "../styles/fonts.css" layer(lookbook.tokens);
 @import "../styles/tokens.css" layer(lookbook.tokens);
+@import "../styles/theme.css" layer(lookbook.tokens);
+
+@import "../styles/themes/default.css" layer(lookbook.theme);
+
 @import "../styles/reset.css" layer(lookbook.base);
 @import "../styles/forms.css" layer(lookbook.base);
 @import "../styles/animations.css" layer(lookbook.base);
+
 @import "../styles/utilities.css" layer(lookbook.utilities);

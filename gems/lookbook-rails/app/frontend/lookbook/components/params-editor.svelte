@@ -70,20 +70,33 @@
       {/each}
     </div>
   {:else}
-    <div data-role="params-editor:blank-state">No params have been defined for this scenario.</div>
+    <div data-role="params-editor:blank-state">
+      <div data-role="params-editor:blank-state-content">
+        No params have been defined for this scenario
+      </div>
+    </div>
   {/if}
 </div>
 
 <style>
   :global [data-component="params-editor"] {
+    --params-label-font-size: var(--lookbook-font-size-2xs);
+    --params-hint-font-size: var(--lookbook-font-size-2xs);
+    --params-field-spacing: var(--lookbook-space-lg);
+    --params-padding: var(--lookbook-space-md);
+
     view-transition-name: params-editor;
 
+    [data-role="params-editor:controls"] {
+      padding: var(--params-padding);
+    }
+
     [data-role="params-editor:field"] + [data-role="params-editor:field"] {
-      margin-top: var(--lookbook-space-lg);
+      margin-top: var(--params-field-spacing);
     }
 
     [data-role="params-editor:label"] {
-      font-size: var(--lookbook-font-size-xs);
+      font-size: var(--params-label-font-size);
       text-transform: uppercase;
       letter-spacing: 0.06em;
       font-weight: 500;
@@ -93,10 +106,23 @@
     [data-role="params-editor:hint"] {
       display: block;
       margin-top: var(--lookbook-space-xs);
-      font-size: var(--lookbook-font-size-xs);
+      font-size: var(--params-hint-font-size);
       font-style: italic;
       opacity: 0.5;
-      line-height: 1.25rem;
+      line-height: 1.5;
+    }
+
+    [data-role="params-editor:blank-state"] {
+      padding: var(--params-padding);
+    }
+
+    [data-role="params-editor:blank-state-content"] {
+      padding: var(--params-padding);
+      line-height: 1.5;
+      text-align: center;
+      max-width: 280px;
+      margin: 0 auto;
+      background-color: var(--lookbook-block-bg);
     }
   }
 

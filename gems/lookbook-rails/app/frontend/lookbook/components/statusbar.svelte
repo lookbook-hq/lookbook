@@ -35,13 +35,13 @@
 
 <style>
   [data-component="statusbar"] {
-    --statusbar-height: var(--lookbook-size-xl);
-    --statusbar-branding-font-size: var(--lookbook-font-size-base);
-    --statusbar-padding: var(--lookbook-space-base);
-    --statusbar-bg: var(--lookbook-surface-bg);
-    --statusbar-fg: var(--lookbook-neutral-text-muted);
-    --statusbar-fg-hover: var(--lookbook-neutral-text-contrast);
-    --statusbar-border-color: var(--lookbook-divider-color);
+    --statusbar-height: var(--lookbook-size-8);
+    --statusbar-font-size: var(--lookbook-font-size-2xs);
+    --statusbar-padding: var(--lookbook-space-md);
+    --statusbar-bg: var(--lookbook-panel-bg);
+    --statusbar-fg: var(--lookbook-panel-fg);
+    /*--statusbar-fg-hover: var(--lookbook-neutral-text-contrast);*/
+    --statusbar-border-color: var(--lookbook-panel-border);
 
     background-color: var(--statusbar-bg);
     color: var(--statusbar-fg);
@@ -52,15 +52,15 @@
     display: flex;
     align-items: center;
     column-gap: var(--lookbook-space-sm);
-    height: var(--lookbook-size-md);
+    height: var(--statusbar-height);
     padding-inline: var(--statusbar-padding);
 
-    font-size: var(--lookbook-font-size-xs);
+    font-size: var(--statusbar-font-size);
 
     [data-role~="statusbar:section"] {
       display: flex;
       align-items: center;
-      column-gap: 1rem;
+      column-gap: var(--lookbook-space-sm);
     }
 
     [data-role~="statusbar:section-start"] {
@@ -73,7 +73,7 @@
 
     [data-role="statusbar:label"] {
       color: var(--statusbar-fg);
-      transition: color 150ms ease-in;
+      transition: color var(--lookbook-duration-fast) ease-in;
 
       &:hover {
         color: var(--statusbar-fg-hover);

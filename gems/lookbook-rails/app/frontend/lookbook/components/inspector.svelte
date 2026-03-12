@@ -110,11 +110,13 @@
 
 <style>
   :global #inspector {
-    --inspector-panel-padding: var(--lookbook-space-base);
-    --inspector-panel-bg: var(--lookbook-surface-bg);
-    --inspector-panel-fg: var(--lookbook-surface-fg);
+    --inspector-panel-padding: var(--lookbook-space-md);
+    --inspector-panel-bg: var(--lookbook-panel-bg);
+    --inspector-panel-fg: var(--lookbook-panel-fg);
     --inspector-panel-font-size: var(--lookbook-font-size-sm);
-    --inspector-panel-border-color: var(--lookbook-divider-color);
+    --inspector-panel-border-color: var(--lookbook-panel-border);
+
+    --inspector-toolbar-padding: var(--lookbook-space-sm);
 
     display: grid;
     grid-template-rows: min-content 1fr;
@@ -122,20 +124,12 @@
     overflow: hidden;
     font-size: var(--inspector-panel-font-size);
 
-    [data-role="inspector:toolbar"] {
-      padding-inline-start: var(--lookbook-space-sm);
-      font-size: var(--lookbook-font-size-xs);
-
-      [data-role="toolbar:end"] {
-        background-color: var(--lookbook-neutral-bg-subtle);
-        box-shadow: 0px 0px 4px 6px var(--lookbook-neutral-bg-subtle);
-      }
+    [data-role="inspector:toolbar"] [data-component="toolbar"] {
+      --toolbar-padding: 0;
     }
 
     [data-role="inspector:breadcrumb"] {
       display: inline-block;
-      background-color: var(--lookbook-neutral-bg-subtle);
-      box-shadow: 0px 0px 4px 12px var(--lookbook-neutral-bg-subtle);
     }
 
     [data-role="inspector:panel"] {
@@ -144,5 +138,8 @@
       border: 1px solid var(--inspector-panel-border-color);
       height: 100%;
     }
+
+    /*background-color: var(--lookbook-neutral-bg-subtle);
+    box-shadow: 0px 0px 4px 6px var(--lookbook-neutral-bg-subtle);*/
   }
 </style>
