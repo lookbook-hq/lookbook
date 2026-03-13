@@ -140,6 +140,7 @@
     --viewport-handle-size: var(--lookbook-size-3);
     --viewport-handle-bg: var(--lookbook-panel-bg);
     --viewport-handle-bg-hover: color-mix(in oklab, var(--lookbook-block-bg), transparent 50%);
+    --viewport-handle-fg: var(--lookbook-panel-fg);
     --viewport-handle-border: var(--lookbook-panel-border);
     --viewport-corner-handle-bg: var(--lookbook-panel-bg);
     --viewport-corner-handle-bg-hover: var(--viewport-handle-bg-hover);
@@ -223,6 +224,13 @@
     }
 
     [data-role="viewport:handle"] {
+      color: var(--viewport-handle-fg);
+      background-color: var(--viewport-handle-bg);
+      transition:
+        background-color var(--lookbook-duration-fast) ease-in,
+        border-color var(--lookbook-duration-fast) ease-in;
+      border: 0px dashed var(--viewport-handle-border);
+
       position: relative;
       z-index: 3;
       width: 100%;
@@ -230,12 +238,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
-      background-color: var(--viewport-handle-bg);
-      transition:
-        background-color var(--lookbook-duration-fast) ease-in,
-        border-color var(--lookbook-duration-fast) ease-in;
-      border: 0px dashed var(--viewport-handle-border);
 
       .icon {
         transition: opacity var(--lookbook-duration-fast) ease-in;

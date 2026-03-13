@@ -13,6 +13,7 @@
 <style>
   :global [data-component="header"] {
     --header-height: var(--lookbook-size-11);
+    --header-branding-fg: var(--lookbook-accent);
     --header-branding-font-size: var(--lookbook-font-size-md);
     --header-padding: var(--lookbook-space-md);
     --header-bg: var(--lookbook-panel-bg);
@@ -30,8 +31,9 @@
     align-items: center;
 
     [data-role="header:branding"] {
+      color: var(--header-branding-fg);
       font-size: var(--header-branding-font-size);
-      font-weight: 500;
+      font-weight: 700;
       display: inline-flex;
       text-transform: uppercase;
       letter-spacing: 0.03em;

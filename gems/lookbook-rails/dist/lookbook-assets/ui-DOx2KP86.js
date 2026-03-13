@@ -3,7 +3,7 @@ var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var require_ui_001 = __commonJS({
-  "lookbook-assets/ui-DmcO4q4m.js"(exports, module) {
+  "lookbook-assets/ui-DOx2KP86.js"(exports, module) {
     (function polyfill() {
       const relList = document.createElement("link").relList;
       if (relList && relList.supports && relList.supports("modulepreload")) return;
@@ -7868,7 +7868,7 @@ var require_ui_001 = __commonJS({
       }
       append$1($$anchor, div);
     }
-    var root_5$1 = /* @__PURE__ */ from_html(`<span data-role="tabs:label" class="label"><span><!></span></span>`);
+    var root_5$1 = /* @__PURE__ */ from_html(`<span data-role="tabs:label" class="label"><!></span>`);
     var root_1$a = /* @__PURE__ */ from_html(`<!> <!>`, 1);
     function Tabs_1($$anchor, $$props) {
       push($$props, true);
@@ -7918,8 +7918,7 @@ var require_ui_001 = __commonJS({
                               "data-role": "tabs:trigger",
                               children: ($$anchor9, $$slotProps3) => {
                                 var span = root_5$1();
-                                var span_1 = child(span);
-                                var node_5 = child(span_1);
+                                var node_5 = child(span);
                                 {
                                   var consequent = ($$anchor10) => {
                                     var fragment_5 = comment();
@@ -23146,7 +23145,7 @@ var require_ui_001 = __commonJS({
     }
     var root_1$4 = /* @__PURE__ */ from_html(`<code data-role="snippet:code"><pre><!></pre></code>`);
     function Snippet($$anchor, $$props) {
-      let theme = prop($$props, "theme", 3, "min-light"), output = prop($$props, "output", 3, false);
+      let theme = prop($$props, "theme", 3, "min"), output = prop($$props, "output", 3, false);
       var fragment = comment();
       var node = first_child(fragment);
       element(node, () => output() ? "output" : "div", false, ($$element, $$anchor2) => {

@@ -7,17 +7,16 @@ html.dark {
 
   /* Colors */
 
-  --lookbook-accent: var(--lookbook-neutral-7);
+  --lookbook-accent: var(--lookbook-accent-9);
 
   --lookbook-bg: var(--lookbook-neutral-2);
   --lookbook-bg-hover: var(--lookbook-neutral-4);
   --lookbook-fg: var(--lookbook-neutral-12);
 
   --lookbook-panel-bg: var(--lookbook-neutral-1);
-  --lookbook-panel-bg: #fff;
   --lookbook-panel-fg: var(--lookbook-neutral-12);
   --lookbook-panel-fg-muted: var(--lookbook-neutral-10);
-  --lookbook-panel-border: var(--lookbook-neutral-6);
+  --lookbook-panel-border: var(--lookbook-neutral-5);
 
   --lookbook-block-bg: var(--lookbook-neutral-3);
   --lookbook-block-bg-hover: var(--lookbook-neutral-4);
@@ -47,6 +46,7 @@ html.dark {
 }
 
 html.dark {
-  --lookbook-bg: var(--lookbook-neutral-1);
+  --lookbook-bg: var(--lookbook-accent-1);
   --lookbook-panel-bg: var(--lookbook-neutral-2);
+  --lookbook-panel-border: var(--lookbook-neutral-4);
 }

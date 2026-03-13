@@ -22,13 +22,11 @@
         {#each panels as p (p.id)}
           <Tabs.Trigger value={p.id} data-role="tabs:trigger">
             <span data-role="tabs:label" class="label">
-              <span>
-                {#if label}
-                  {@render label(p)}
-                {:else}
-                  {p.label}
-                {/if}
-              </span>
+              {#if label}
+                {@render label(p)}
+              {:else}
+                {p.label}
+              {/if}
             </span>
           </Tabs.Trigger>
         {/each}
@@ -45,15 +43,22 @@
 
 <style>
   :global [data-component="tabs"] {
-    --tab-bg: tranparent;
-    --tab-fg: var(--lookbook-fg);
-    --tab-fg-active: var(--lookbook-accent);
-    --tab-label-font-size: var(--lookbook-font-size-2xs);
-    --tab-border: transparent;
-    --tab-border-hover: var(--lookbook-block-bg-hover);
-    --tab-border-active: var(--lookbook-accent);
-    --tab-padding: var(--lookbook-space-lg);
+    --tabs-bg: var(--lookbook-panel-bg);
+    --tabs-fg: var(--lookbook-panel-fg);
+    --tabs-gap: var(0);
 
+    --tabs-tab-bg: var(--lookbook-panel-bg);
+    --tabs-tab-fg: var(--lookbook-panel-fg);
+    --tabs-tab-fg-hover: var(--lookbook-accent);
+    --tabs-tab-fg-active: var(--lookbook-accent);
+    --tabs-tab-label-size: var(--lookbook-font-size-xs);
+    --tabs-tab-marker: transparent;
+    --tabs-tab-marker-hover: var(--lookbook-block-bg-hover);
+    --tabs-tab-marker-active: var(--lookbook-accent);
+    --tabs-tab-padding: var(--lookbook-space-md);
+
+    background-color: var(--tabs-bg);
+    color: var(--tabs-fg);
     display: grid;
     grid-template-rows: min-content 1fr;
     height: 100%;
@@ -68,13 +73,15 @@
       display: flex;
       position: relative;
       isolation: isolate;
-      gap: 0;
+      gap: var(--tabs-gap);
       height: 100%;
       align-items: stretch;
     }
 
     [data-role="tabs:trigger"] {
-      padding: 0 var(--tab-padding);
+      padding: 0 var(--tabs-tab-padding);
+      background-color: var(--tabs-tab-bg);
+      color: var(--tabs-tab-fg);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
@@ -83,13 +90,29 @@
       user-select: none;
       border-block-start: 2px solid transparent;
       border-block-end: 2px solid transparent;
+      transition: border-color var(--lookbook-duration-fast) ease-in;
+
+      [data-role="tabs:label"] {
+        font-size: var(--tabs-tab-label-size);
+        color: var(--tabs-tab-fg);
+        transition: color var(--lookbook-duration-fast) ease-in;
+      }
 
       &:hover {
-        border-bottom-color: var(--tab-border-hover);
+        color: var(--tabs-tab-fg-hover);
+        border-bottom-color: var(--tabs-tab-marker-hover);
+
+        [data-role="tabs:label"] {
+          color: var(--tabs-tab-fg-hover);
+        }
       }
 
       &[data-selected] {
-        border-bottom-color: var(--tab-border-active);
+        border-bottom-color: var(--tabs-tab-marker-active);
+
+        [data-role="tabs:label"] {
+          color: var(--tabs-tab-fg-active);
+        }
       }
 
       &[data-disabled] {
@@ -97,10 +120,6 @@
         cursor: not-allowed;
         filter: grayscale(100%);
       }
-    }
-
-    [data-role="tabs:label"] {
-      font-size: var(--tab-label-font-size);
     }
 
     [data-role="tabs:panel"] {

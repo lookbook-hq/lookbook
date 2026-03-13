@@ -118,14 +118,15 @@
 
     --inspector-toolbar-padding: var(--lookbook-space-sm);
 
+    font-size: var(--inspector-panel-font-size);
     display: grid;
     grid-template-rows: min-content 1fr;
     height: 100%;
     overflow: hidden;
-    font-size: var(--inspector-panel-font-size);
 
     [data-role="inspector:toolbar"] [data-component="toolbar"] {
       --toolbar-padding: 0;
+      --toolbar-bg: transparent;
     }
 
     [data-role="inspector:breadcrumb"] {

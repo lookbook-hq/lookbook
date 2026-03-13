@@ -23,11 +23,15 @@
 
 <style>
   :global [data-component="toolbar"] {
+    --toolbar-bg: var(--lookbook-panel-bg);
+    --toolbar-fg: var(--lookbook-panel-fg);
     --toolbar-height: var(--lookbook-size-10);
     --toolbar-padding: var(--lookbook-space-sm);
     --toolbar-border: var(--lookbook-panel-border);
-    --toolbar-label-font-size: var(--lookbook-font-size-2xs);
+    --toolbar-label-font-size: var(--lookbook-font-size-xs);
 
+    background-color: var(--toolbar-bg);
+    color: var(--toolbar-fg);
     height: var(--toolbar-height);
     box-sizing: content-box;
     display: flex;
@@ -35,13 +39,10 @@
 
     .label {
       font-size: var(--toolbar-label-font-size);
+      color: var(--toolbar-fg);
       text-transform: uppercase;
       letter-spacing: 0.03em;
     }
-
-    /*[data-role="toolbar:label"] {
-      padding-inline-start: calc(var(--toolbar-padding) + (var(--toolbar-padding) / 2));
-    }*/
 
     [data-role="toolbar:start"],
     [data-role="toolbar:end"] {

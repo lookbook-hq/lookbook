@@ -5,13 +5,14 @@
   import "@styles/highlight/github-dark-dimmed";
   import "@styles/highlight/github-dark-high-contrast";
 
-  import "@styles/highlight/min-light";
-  import "@styles/highlight/min-dark";
+  // import "@styles/highlight/min-light";
+  // import "@styles/highlight/min-dark";
+  import "@styles/highlight/min";
 
   import "@styles/highlight/one-light";
   import "@styles/highlight/one-dark";
 
-  let { children, theme = "min-light", output = false } = $props();
+  let { children, theme = "min", output = false } = $props();
 </script>
 
 <svelte:element
@@ -38,7 +39,8 @@
       display: block;
       line-height: var(--snippet-line-height);
 
-      background: var(--snippet-bg);
+      /*background: var(--snippet-bg);*/
+      background: transparent !important;
       color: var(--snippet-fg);
 
       .hll {

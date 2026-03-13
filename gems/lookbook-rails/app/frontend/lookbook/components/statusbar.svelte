@@ -36,11 +36,10 @@
 <style>
   [data-component="statusbar"] {
     --statusbar-height: var(--lookbook-size-8);
-    --statusbar-font-size: var(--lookbook-font-size-2xs);
+    --statusbar-font-size: var(--lookbook-font-size-min);
     --statusbar-padding: var(--lookbook-space-md);
     --statusbar-bg: var(--lookbook-panel-bg);
     --statusbar-fg: var(--lookbook-panel-fg);
-    /*--statusbar-fg-hover: var(--lookbook-neutral-text-contrast);*/
     --statusbar-border-color: var(--lookbook-panel-border);
 
     background-color: var(--statusbar-bg);
@@ -76,7 +75,7 @@
       transition: color var(--lookbook-duration-fast) ease-in;
 
       &:hover {
-        color: var(--statusbar-fg-hover);
+        /*color: var(--statusbar-fg-hover);*/
       }
     }
 
