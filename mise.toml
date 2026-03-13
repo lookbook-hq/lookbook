@@ -18,10 +18,11 @@ config_roots = [
 ]
 
 [env]
-MISE_EXPERIMENTAL = 1
 _.path = ['{{config_root}}/node_modules/.bin'] # add node modules binaries to the PATH so `npx` isn't needed
+MISE_EXPERIMENTAL = 1
 DEV_PORT = 4444
 DOCS_PORT = 8888
+PITCHFORK_LOG = "error"
 
 [tasks.setup]
 description = "Run setup scripts for all packages"
@@ -42,7 +43,10 @@ run = "mise //apps/...:start && pitchfork tui"
 [tasks.stop]
 description = "Stop all daemons"
 run = "mise //apps/...:stop"
-env = { PITCHFORK_LOG = "error" }
+
+[tasks.restart]
+description = "Restart all daemons"
+run = "mise //apps/...:restart"
 
 [tasks."lint:herb"]
 description = "Lint all ERB files in the monorepo"
@@ -56,6 +60,7 @@ run = "mise lint:herb"
 setup = "mise setup"
 start = "mise start"
 dev = "mise dev"
+"dev!" = "mise dev && pitchfork tui"
 docs = "mise docs"
 stop = "mise stop"
 tui = "pitchfork tui"

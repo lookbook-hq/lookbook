@@ -6,7 +6,7 @@
 [data-theme="default"] {
   &.dark,
   &.light {
-    --lookbook-accent-1: var(--crimson-1);
+    /*--lookbook-accent-1: var(--crimson-1);
     --lookbook-accent-2: var(--crimson-2);
     --lookbook-accent-3: var(--crimson-3);
     --lookbook-accent-4: var(--crimson-4);
@@ -30,9 +30,9 @@
     --lookbook-neutral-9: var(--crimson-9);
     --lookbook-neutral-10: var(--crimson-10);
     --lookbook-neutral-11: var(--crimson-11);
-    --lookbook-neutral-12: var(--crimson-12);
+    --lookbook-neutral-12: var(--crimson-12);*/
 
-    /*--lookbook-accent-1: var(--crimson-1);
+    --lookbook-accent-1: var(--crimson-1);
     --lookbook-accent-2: var(--crimson-2);
     --lookbook-accent-3: var(--crimson-3);
     --lookbook-accent-4: var(--crimson-4);
@@ -56,6 +56,6 @@
     --lookbook-neutral-9: var(--mauve-9);
     --lookbook-neutral-10: var(--mauve-10);
     --lookbook-neutral-11: var(--mauve-11);
-    --lookbook-neutral-12: var(--mauve-12);*/
+    --lookbook-neutral-12: var(--mauve-12);
   }
 }

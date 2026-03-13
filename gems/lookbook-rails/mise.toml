@@ -4,11 +4,11 @@ run = "bundle install --prefer-local && npm install"
 
 [tasks."assets:build"]
 description = "Build assets"
-run = "./node_modules/.bin/vite build"
+run = "npx vite build"
 
 [tasks."assets:watch"]
 description = "Watch assets and rebuild on change"
-run = "mise watch assets:build -w app/frontend/lookbook"
+run = "npx vite build --watch"
 
 [shell_alias]
 build = "mise assets:build"

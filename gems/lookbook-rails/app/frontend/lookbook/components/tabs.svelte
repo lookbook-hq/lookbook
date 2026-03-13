@@ -45,7 +45,7 @@
   :global [data-component="tabs"] {
     --tabs-bg: var(--lookbook-panel-bg);
     --tabs-fg: var(--lookbook-panel-fg);
-    --tabs-gap: var(0);
+    --tabs-gap: 0;
 
     --tabs-tab-bg: var(--lookbook-panel-bg);
     --tabs-tab-fg: var(--lookbook-panel-fg);

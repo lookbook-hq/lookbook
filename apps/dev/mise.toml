@@ -11,17 +11,22 @@ run = "bin/rails server"
 
 [tasks.vite]
 description = "Start the Vite server"
-run = "bin/vite dev"
+run = "npx vite"
 
 [tasks.start]
-description = "Start the dev server(s)"
-run = "pitchfork start rails vite lookbook"
+description = "Start the dev servers"
+run = "pitchfork start rails vite"
 
 [tasks.stop]
-description = "Stop the dev server(s)"
-run = "pitchfork stop rails vite lookbook"
+description = "Stop the dev servers"
+run = "pitchfork stop rails vite"
+
+[tasks.restart]
+description = "Restart the dev servers"
+run = "pitchfork restart rails vite"
 
 [shell_alias]
 dev = "mise start"
+restart = "mise restart"
 stop = "mise stop"
 tui = "pitchfork tui"

@@ -9,7 +9,6 @@
 @import "../styles/theme.css" layer(lookbook.tokens);
 
 @import "../styles/themes/default.css" layer(lookbook.theme);
-@import "../styles/themes/grass.css" layer(lookbook.theme);
 
 @import "../styles/base.css" layer(lookbook.base);
 @import "../styles/forms.css" layer(lookbook.base);

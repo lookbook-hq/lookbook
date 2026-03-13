@@ -19,7 +19,7 @@ else
 end
 
 group :development do
-  gem "vite_rails"
+  gem "rails_vite"
   gem "listen"
   gem "web-console"
 end

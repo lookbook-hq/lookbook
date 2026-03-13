@@ -18,7 +18,7 @@ const config = {
   useTabs: false,
   organizeImportsSkipDestructiveCodeActions: true,
   singleAttributePerLine: false,
-  plugins: ["prettier-plugin-organize-imports", "prettier-plugin-svelte"],
+  // plugins: ["prettier-plugin-organize-imports", "prettier-plugin-svelte"],
   overrides: [{ files: "*.svelte", options: { parser: "svelte" } }],
 };
 

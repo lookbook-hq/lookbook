@@ -16,7 +16,7 @@
     {#if icon}
       <Icon svg={icon} {size} />
     {/if}
-    {@render children()}
+    {@render children?.()}
   </span>
 </svelte:element>
 

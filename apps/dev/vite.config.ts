@@ -1,8 +1,10 @@
-import { defineConfig } from 'vite'
-import RubyPlugin from 'vite-plugin-ruby'
+import { defineConfig } from "vite";
+import rails from "rails-vite-plugin";
 
 export default defineConfig({
   plugins: [
-    RubyPlugin(),
+    rails({
+      sourceDir: "app/frontend",
+    }),
   ],
-})
+});

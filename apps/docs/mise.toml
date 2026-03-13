@@ -14,14 +14,19 @@ description = "Start the Vite server"
 run = "bin/vite dev"
 
 [tasks.start]
-description = "Start the dev server(s)"
+description = "Start the dev servers"
 run = "pitchfork start rails vite lookbook"
 
 [tasks.stop]
-description = "Stop the dev server(s)"
+description = "Stop the dev servers"
 run = "pitchfork stop rails vite lookbook"
+
+[tasks.restart]
+description = "Restart the dev servers"
+run = "pitchfork restart rails vite lookbook"
 
 [shell_alias]
 dev = "mise start"
+restart = "mise restart"
 stop = "mise stop"
 tui = "pitchfork tui"
