@@ -1,0 +1,52 @@
+:root {
+  --brand: oklch(0.4 0.3 265.71);
+
+  --l-increment: 0.075; /* UP: Lighter*/
+  --c-increment: 0.028; /* UP: LESS saturated*/
+
+  /*--bg-brand-1: oklch(
+    from var(--brand) calc(l + calc(var(--l-increment) * 8)) calc(c - calc(var(--c-increment) * 8))
+      h / 1
+  );
+  --bg-brand-2: oklch(
+    from var(--brand) calc(l + calc(var(--l-increment) * 7)) calc(c - calc(var(--c-increment) * 7))
+      h / 1
+  );
+  --bg-brand-3: oklch(
+    from var(--brand) calc(l + calc(var(--l-increment) * 6)) calc(c - calc(var(--c-increment) * 6))
+      h / 1
+  );
+  --bg-brand-4: oklch(
+    from var(--brand) calc(l + calc(var(--l-increment) * 5)) calc(c - calc(var(--c-increment) * 5))
+      h / 1
+  );
+  --bg-brand-5: oklch(
+    from var(--brand) calc(l + calc(var(--l-increment) * 4)) calc(c - calc(var(--c-increment) * 4))
+      h / 1
+  );
+  --bg-brand-6: oklch(
+    from var(--brand) calc(l + calc(var(--l-increment) * 3)) calc(c - calc(var(--c-increment) * 3))
+      h / 1
+  );
+  --bg-brand-7: oklch(
+    from var(--brand) calc(l + calc(var(--l-increment) * 2)) calc(c - calc(var(--c-increment) * 2))
+      h / 1
+  );
+  --bg-brand-8: oklch(
+    from var(--brand) calc(l + calc(var(--l-increment) * 1)) calc(c - calc(var(--c-increment) * 1))
+      h / 1
+  );
+  --bg-brand-9: oklch(from var(--brand) l c h / 1);
+  --bg-brand-10: oklch(
+    from var(--brand) calc(l - calc(var(--l-increment) * 1)) calc(c - calc(var(--c-increment) * 1))
+      h / 1
+  );
+  --bg-brand-11: oklch(
+    from var(--brand) calc(l - calc(var(--l-increment) * 2)) calc(c - calc(var(--c-increment) * 2))
+      h / 1
+  );
+  --bg-brand-12: oklch(
+    from var(--brand) calc(l - calc(var(--l-increment) * 3)) calc(c - calc(var(--c-increment) * 2))
+      h / 1
+  );*/
+}

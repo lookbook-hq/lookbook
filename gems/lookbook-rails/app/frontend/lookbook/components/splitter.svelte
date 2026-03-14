@@ -46,9 +46,6 @@
 
     [data-role="splitter:panel"] {
       position: relative;
-      /*box-shadow: var(--lookbook-shadow-md);*/
-      /*box-shadow: 0 0 1px 4px
-        color-mix(in oklab, var(--lookbook-neutral-bg-subtle), transparent 30%);*/
     }
 
     [data-role="splitter:resize-trigger"] {
@@ -56,14 +53,13 @@
       display: grid;
 
       position: relative;
-      /*background-color: var(--lookbook-splitter-handle-bg);*/
+
       border: none;
       padding: 0;
       cursor: col-resize;
       transition: background-color 2500ms ease-in-out;
 
       &:hover {
-        /*background-color: var(--lookbook-splitter-handle-bg-hover);*/
       }
 
       &[data-orientation="horizontal"] {

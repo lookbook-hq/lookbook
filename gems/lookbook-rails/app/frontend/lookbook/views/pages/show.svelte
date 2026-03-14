@@ -1,9 +1,9 @@
 <script>
-  // import Prose from "@components/prose";
+  import Page from "@components/page";
 
   let { page, content } = $props();
 </script>
 
-<h1>{page.label}</h1>
-
-{@html content}
+<Page {page}>
+  {@html content}
+</Page>

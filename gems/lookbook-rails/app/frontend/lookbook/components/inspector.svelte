@@ -73,6 +73,7 @@
     <Splitter
       orientation={drawer.orientation}
       panels={mainPanels}
+      defaultSize={mainSplit}
       bind:size={() => mainSplit, (sizes) => setDrawerHeight(sizes[1])}
     >
       {#snippet panel(panel)}
@@ -83,6 +84,7 @@
         <Splitter
           orientation={sidebar.orientation}
           panels={previewPanels}
+          defaultSize={previewSplit}
           bind:size={() => previewSplit, (sizes) => setSidebarWidth(sizes[1])}
         >
           {#snippet viewportPane()}
@@ -139,8 +141,5 @@
       border: 1px solid var(--inspector-panel-border-color);
       height: 100%;
     }
-
-    /*background-color: var(--lookbook-neutral-bg-subtle);
-    box-shadow: 0px 0px 4px 6px var(--lookbook-neutral-bg-subtle);*/
   }
 </style>
