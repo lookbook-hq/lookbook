@@ -8843,7 +8843,7 @@ function Tabs_trigger($$anchor, $$props) {
 //#region app/frontend/lookbook/components/toolbar.svelte
 var root_2$3 = /* @__PURE__ */ from_html(`<div data-role="toolbar:label"><!></div>`);
 var root_1$12 = /* @__PURE__ */ from_html(`<div data-role="toolbar:start"><!> <!></div>`);
-var root_3$2 = /* @__PURE__ */ from_html(`<div data-role="toolbar:end"><!></div>`);
+var root_3$3 = /* @__PURE__ */ from_html(`<div data-role="toolbar:end"><!></div>`);
 var root$21 = /* @__PURE__ */ from_html(`<div><!> <!></div>`);
 function Toolbar($$anchor, $$props) {
 	let attrs = /* @__PURE__ */ rest_props($$props, [
@@ -8881,7 +8881,7 @@ function Toolbar($$anchor, $$props) {
 	});
 	var node_4 = sibling(node, 2);
 	var consequent_2 = ($$anchor) => {
-		var div_3 = root_3$2();
+		var div_3 = root_3$3();
 		snippet(child(div_3), () => $$props.end);
 		reset(div_3);
 		append$1($$anchor, div_3);
@@ -25715,7 +25715,8 @@ function Square_dashed_mouse_pointer($$anchor, $$props) {
 }
 //#endregion
 //#region app/frontend/lookbook/components/viewport.svelte
-var root_1$6 = /* @__PURE__ */ from_html(`<button data-role="viewport:handle"><!></button>`);
+var root_1$6 = /* @__PURE__ */ from_html(`<iframe data-role="viewport:iframe"></iframe>`);
+var root_3$2 = /* @__PURE__ */ from_html(`<button data-role="viewport:handle"><!></button>`);
 var root$13 = /* @__PURE__ */ from_html(`<div data-component="viewport"><div data-role="viewport:background"></div> <div data-role="viewport:window"><!> <!></div></div>`);
 function Viewport($$anchor, $$props) {
 	push($$props, true);
@@ -25786,26 +25787,42 @@ function Viewport($$anchor, $$props) {
 	let styles;
 	var div_1 = sibling(child(div), 2);
 	var node = child(div_1);
-	{
-		let $0 = /* @__PURE__ */ user_derived(() => get$1(activeHandle) !== null);
-		Frame(node, {
-			"data-role": "viewport:iframe",
-			get srcdoc() {
-				return $$props.srcdoc;
-			},
-			get title() {
-				return $$props.title;
-			},
-			get sandbox() {
-				return sandbox;
-			},
-			get inert() {
-				return get$1($0);
-			}
+	var consequent = ($$anchor) => {
+		var iframe = root_1$6();
+		template_effect(() => {
+			set_attribute(iframe, "src", $$props.src);
+			set_attribute(iframe, "title", $$props.title);
+			set_attribute(iframe, "sandbox", sandbox);
+			iframe.inert = get$1(activeHandle) !== null;
 		});
-	}
+		append$1($$anchor, iframe);
+	};
+	var alternate = ($$anchor) => {
+		{
+			let $0 = /* @__PURE__ */ user_derived(() => get$1(activeHandle) !== null);
+			Frame($$anchor, {
+				"data-role": "viewport:iframe",
+				get srcdoc() {
+					return $$props.srcdoc;
+				},
+				get title() {
+					return $$props.title;
+				},
+				get sandbox() {
+					return sandbox;
+				},
+				get inert() {
+					return get$1($0);
+				}
+			});
+		}
+	};
+	if_block(node, ($$render) => {
+		if ($$props.src) $$render(consequent);
+		else $$render(alternate, -1);
+	});
 	each(sibling(node, 2), 17, () => handles, index, ($$anchor, direction) => {
-		var button = root_1$6();
+		var button = root_3$2();
 		Icon$1(child(button), {
 			get svg() {
 				return Grip_horizontal;
@@ -25836,7 +25853,7 @@ delegate(["mousedown", "dblclick"]);
 //#endregion
 //#region app/frontend/lookbook/components/breadcrumb.svelte
 var root_4$1 = /* @__PURE__ */ from_html(`<span> </span>`);
-var root_1$5 = /* @__PURE__ */ from_html(`<li data-role="breadcrumb:item" class="label"><!></li>`);
+var root_1$5 = /* @__PURE__ */ from_html(`<li data-role="breadcrumb:item"><!></li>`);
 var root$12 = /* @__PURE__ */ from_html(`<nav data-component="breadcrumb"><ol data-role="breadcrumb:items"></ol></nav>`);
 function Breadcrumb($$anchor, $$props) {
 	let crumbs = prop($$props, "crumbs", 19, () => []);

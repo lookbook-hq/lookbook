@@ -36,7 +36,7 @@ module Lookbook
     end
 
     protected def prepend_collection_view_paths
-      prepend_view_path Collection.map(&:path)
+      prepend_view_path Lookbook::Rails::Collection.map(&:path)
     end
   end
 end

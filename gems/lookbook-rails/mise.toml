@@ -1,3 +1,6 @@
+[env]
+_.path = ['{{config_root}}/node_modules/.bin'] # add node modules binaries to the PATH so `npx` isn't needed
+
 [tasks.setup]
 description = "Install dependencies"
 run = "bundle install --prefer-local && npm install"
@@ -8,7 +11,7 @@ run = "npx vite build"
 
 [tasks."assets:watch"]
 description = "Watch assets and rebuild on change"
-run = "npx vite build --watch"
+run = "mise watch assets:build -w app/frontend/lookbook"
 
 [shell_alias]
 build = "mise assets:build"

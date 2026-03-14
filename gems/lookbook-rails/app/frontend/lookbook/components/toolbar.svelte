@@ -41,7 +41,7 @@
       font-size: var(--toolbar-label-font-size);
       color: var(--toolbar-fg);
       text-transform: uppercase;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
     }
 
     [data-role="toolbar:start"],

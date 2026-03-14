@@ -24,13 +24,16 @@ module Lookbook
       raise "Cannot render a scenario without a view context" unless view_context
 
       locals = resolve_params(locals)
-      render_in_view_context(view_context, locals)
+      locals = params.to_values_hash(locals)
+
+      # opts = opts.is_a?(Proc) ? view_context.exec(opts) : opts
+      render_in_view_context(view_context, **locals)
     end
 
-    private def render_in_view_context(view_context, locals = {})
+    private def render_in_view_context(view_context, **locals)
       if source.lang == :ruby
         view_context.define_singleton_method(:method_missing) do |name, *args|
-          locals.key?(name) ? locals[name] : super
+          locals.key?(name) ? locals[name] : ""
         end
         view_context.instance_eval(source)
       else

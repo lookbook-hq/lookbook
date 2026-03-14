@@ -117,14 +117,20 @@
       var(--lookbook-panel-border),
       transparent 30%
     );
-
     --tree-item-gap: var(--lookbook-space-sm);
     --tree-item-font-size: round(calc(var(--lookbook-font-size-sm) * 0.925));
-    --tree-item-bg: var(--lookbook-panel-bg);
-    --tree-item-bg-active: var(--lookbook-block-bg);
+    --tree-item-bg: transparent;
+    --tree-item-bg-active: color-mix(
+      in oklab,
+      var(--lookbook-neutral-2),
+      var(--lookbook-neutral-3) 50%
+    );
+    --tree-item-bg-hover: var(--tree-item-bg-active);
     --tree-item-fg: var(--lookbook-panel-fg);
     --tree-item-fg-active: var(--lookbook-panel-fg);
     --tree-item-fg-hover: var(--lookbook-panel-fg);
+    --tree-item-border-hover: var(--lookbook-accent);
+    --tree-item-border-active: var(--lookbook-accent);
 
     [data-role="nav-tree:tree"] {
       font-size: var(--tree-item-font-size);
@@ -163,11 +169,11 @@
       position: relative;
       cursor: pointer;
       width: 100%;
-      border: none;
       background: transparent;
       font: inherit;
       text-align: start;
       color: var(--tree-item-fg);
+      border-inline-end: 2px solid transparent;
 
       --tree-depth: calc(var(--depth) - 1);
       --tree-indentation-offset: calc(var(--tree-indentation) * var(--tree-depth));
@@ -180,8 +186,9 @@
       padding-inline-end: var(--tree-padding-inline);
       padding-block: var(--tree-padding-block);
 
-      &:hover {
-        background: var(--tree-item-bg-active);
+      &:hover,
+      &[data-selected]:hover {
+        background: var(--tree-item-bg-hover);
       }
 
       &:focus-visible {
@@ -192,6 +199,7 @@
       &[data-selected] {
         background: var(--tree-item-bg-active);
         color: var(--tree-item-fg-active);
+        border-inline-end-color: var(--tree-item-border-active);
       }
 
       &[data-disabled] {
@@ -243,19 +251,19 @@
     }
 
     [data-role="nav-tree:item"] {
+      gap: var(--tree-item-gap);
+      color: var(--tree-item-fg);
       display: flex;
       align-items: center;
-      gap: var(--tree-item-gap);
       user-select: none;
       position: relative;
       cursor: pointer;
       width: 100%;
-      border: none;
       background: transparent;
       font: inherit;
-      color: var(--tree-item-fg);
       text-align: start;
       text-decoration: none;
+      border-inline-end: 2px solid transparent;
 
       --tree-depth: calc(var(--depth) - 1);
       --tree-indentation-offset: calc(var(--tree-indentation) * var(--tree-depth));
@@ -268,8 +276,9 @@
       padding-inline-end: var(--tree-padding-inline);
       padding-block: var(--tree-padding-block);
 
-      &:hover {
-        background: var(--tree-item-bg-active);
+      &:hover,
+      &[data-selected]:hover {
+        background: var(--tree-item-bg-hover);
       }
 
       &:focus-visible {
@@ -280,6 +289,7 @@
       &[data-selected] {
         background: var(--tree-item-bg-active);
         color: var(--tree-item-fg-active);
+        border-inline-end-color: var(--tree-item-border-active);
       }
 
       &[data-disabled] {

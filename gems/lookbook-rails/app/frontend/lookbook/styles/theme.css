@@ -11,10 +11,10 @@ html.dark {
 
   --lookbook-bg: var(--lookbook-neutral-2);
   --lookbook-bg-hover: var(--lookbook-neutral-4);
-  --lookbook-fg: var(--lookbook-neutral-12);
+  --lookbook-fg: var(--lookbook-neutral-11);
 
   --lookbook-panel-bg: var(--lookbook-neutral-1);
-  --lookbook-panel-fg: var(--lookbook-neutral-12);
+  --lookbook-panel-fg: var(--lookbook-neutral-11);
   --lookbook-panel-fg-muted: var(--lookbook-neutral-10);
   --lookbook-panel-border: var(--lookbook-neutral-5);
 
@@ -46,7 +46,7 @@ html.dark {
 }
 
 html.dark {
-  --lookbook-bg: var(--lookbook-accent-1);
+  --lookbook-bg: var(--lookbook-neutral-1);
   --lookbook-panel-bg: var(--lookbook-neutral-2);
   --lookbook-panel-border: var(--lookbook-neutral-4);
 }

@@ -1,6 +1,6 @@
 require "rails/application_controller"
 
-class LookbookScenarioController < Rails::ApplicationController
+class LookbookScenarioController < ::ApplicationController
   include Lookbook::RenderActions
   include Lookbook::Unannotatable
   include Lookbook::WithScenario
@@ -9,7 +9,7 @@ class LookbookScenarioController < Rails::ApplicationController
     render "lookbook/preview", render_options
   end
 
-  private def default_preview_layout
+  protected def default_preview_layout
     Lookbook.config.scenarios.default_layout
   end
 end

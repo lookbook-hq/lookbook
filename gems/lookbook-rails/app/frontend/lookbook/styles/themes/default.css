@@ -1,61 +1,55 @@
-@import "@radix-ui/colors/crimson.css";
-@import "@radix-ui/colors/crimson-dark.css";
-@import "@radix-ui/colors/mauve.css";
-@import "@radix-ui/colors/mauve-dark.css";
+@import "@radix-ui/colors/indigo.css";
+@import "@radix-ui/colors/indigo-dark.css";
+@import "@radix-ui/colors/slate.css";
+@import "@radix-ui/colors/slate-dark.css";
 
-[data-theme="default"] {
+[data-theme^="default"],
+[data-theme^="indigo"] {
   &.dark,
   &.light {
-    /*--lookbook-accent-1: var(--crimson-1);
-    --lookbook-accent-2: var(--crimson-2);
-    --lookbook-accent-3: var(--crimson-3);
-    --lookbook-accent-4: var(--crimson-4);
-    --lookbook-accent-5: var(--crimson-5);
-    --lookbook-accent-6: var(--crimson-6);
-    --lookbook-accent-7: var(--crimson-7);
-    --lookbook-accent-8: var(--crimson-8);
-    --lookbook-accent-9: var(--crimson-9);
-    --lookbook-accent-10: var(--crimson-10);
-    --lookbook-accent-11: var(--crimson-11);
-    --lookbook-accent-12: var(--crimson-12);
+    --lookbook-accent-1: var(--indigo-1);
+    --lookbook-accent-2: var(--indigo-2);
+    --lookbook-accent-3: var(--indigo-3);
+    --lookbook-accent-4: var(--indigo-4);
+    --lookbook-accent-5: var(--indigo-5);
+    --lookbook-accent-6: var(--indigo-6);
+    --lookbook-accent-7: var(--indigo-7);
+    --lookbook-accent-8: var(--indigo-8);
+    --lookbook-accent-9: var(--indigo-9);
+    --lookbook-accent-10: var(--indigo-10);
+    --lookbook-accent-11: var(--indigo-11);
+    --lookbook-accent-12: var(--indigo-12);
 
-    --lookbook-neutral-1: var(--crimson-1);
-    --lookbook-neutral-2: var(--crimson-2);
-    --lookbook-neutral-3: var(--crimson-3);
-    --lookbook-neutral-4: var(--crimson-4);
-    --lookbook-neutral-5: var(--crimson-5);
-    --lookbook-neutral-6: var(--crimson-6);
-    --lookbook-neutral-7: var(--crimson-7);
-    --lookbook-neutral-8: var(--crimson-8);
-    --lookbook-neutral-9: var(--crimson-9);
-    --lookbook-neutral-10: var(--crimson-10);
-    --lookbook-neutral-11: var(--crimson-11);
-    --lookbook-neutral-12: var(--crimson-12);*/
+    --lookbook-neutral-1: var(--slate-1);
+    --lookbook-neutral-2: var(--slate-2);
+    --lookbook-neutral-3: var(--slate-3);
+    --lookbook-neutral-4: var(--slate-4);
+    --lookbook-neutral-5: var(--slate-5);
+    --lookbook-neutral-6: var(--slate-6);
+    --lookbook-neutral-7: var(--slate-7);
+    --lookbook-neutral-8: var(--slate-8);
+    --lookbook-neutral-9: var(--slate-9);
+    --lookbook-neutral-10: var(--slate-10);
+    --lookbook-neutral-11: var(--slate-11);
+    --lookbook-neutral-12: var(--slate-12);
+  }
+}
 
-    --lookbook-accent-1: var(--crimson-1);
-    --lookbook-accent-2: var(--crimson-2);
-    --lookbook-accent-3: var(--crimson-3);
-    --lookbook-accent-4: var(--crimson-4);
-    --lookbook-accent-5: var(--crimson-5);
-    --lookbook-accent-6: var(--crimson-6);
-    --lookbook-accent-7: var(--crimson-7);
-    --lookbook-accent-8: var(--crimson-8);
-    --lookbook-accent-9: var(--crimson-9);
-    --lookbook-accent-10: var(--crimson-10);
-    --lookbook-accent-11: var(--crimson-11);
-    --lookbook-accent-12: var(--crimson-12);
-
-    --lookbook-neutral-1: var(--mauve-1);
-    --lookbook-neutral-2: var(--mauve-2);
-    --lookbook-neutral-3: var(--mauve-3);
-    --lookbook-neutral-4: var(--mauve-4);
-    --lookbook-neutral-5: var(--mauve-5);
-    --lookbook-neutral-6: var(--mauve-6);
-    --lookbook-neutral-7: var(--mauve-7);
-    --lookbook-neutral-8: var(--mauve-8);
-    --lookbook-neutral-9: var(--mauve-9);
-    --lookbook-neutral-10: var(--mauve-10);
-    --lookbook-neutral-11: var(--mauve-11);
-    --lookbook-neutral-12: var(--mauve-12);
+[data-theme="default:vivid"],
+[data-theme="indigo:vivid"] {
+  &.dark,
+  &.light {
+    --lookbook-neutral-1: var(--lookbook-accent-1);
+    --lookbook-neutral-2: var(--lookbook-accent-2);
+    --lookbook-neutral-3: var(--lookbook-accent-3);
+    --lookbook-neutral-4: var(--lookbook-accent-4);
+    --lookbook-neutral-5: var(--lookbook-accent-5);
+    --lookbook-neutral-6: var(--lookbook-accent-6);
+    --lookbook-neutral-7: var(--lookbook-accent-7);
+    --lookbook-neutral-8: var(--lookbook-accent-8);
+    --lookbook-neutral-9: var(--lookbook-accent-9);
+    --lookbook-neutral-10: var(--lookbook-accent-10);
+    --lookbook-neutral-11: var(--lookbook-accent-11);
+    --lookbook-neutral-12: var(--lookbook-accent-12);
   }
 }

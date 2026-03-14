@@ -19,7 +19,7 @@
   const handles = ["east", "west", "southeast", "south", "southwest"];
   const FULLSIZE = 100000;
 
-  let { srcdoc, title } = $props();
+  let { src, srcdoc, title } = $props();
 
   let app = getAppState();
   // svelte-ignore state_referenced_locally
@@ -99,8 +99,13 @@
 >
   <div data-role="viewport:background"></div>
   <div data-role="viewport:window" bind:this={resizer}>
-    <Frame data-role="viewport:iframe" {srcdoc} {title} {sandbox} inert={activeHandle !== null}
-    ></Frame>
+    {#if src}
+      <iframe data-role="viewport:iframe" {src} {title} {sandbox} inert={activeHandle !== null}
+      ></iframe>
+    {:else}
+      <Frame data-role="viewport:iframe" {srcdoc} {title} {sandbox} inert={activeHandle !== null}
+      ></Frame>
+    {/if}
 
     {#each handles as direction}
       <button
@@ -221,6 +226,7 @@
       width: 100%;
       border: 0;
       view-transition-name: viewport;
+      border: 0;
     }
 
     [data-role="viewport:handle"] {

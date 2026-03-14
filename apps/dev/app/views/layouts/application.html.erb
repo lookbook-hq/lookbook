@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html data-theme="dark">
   <head>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="application-name" content="Lookbook Dev">
@@ -11,6 +11,8 @@
     <title><%= content_for(:title) || "Lookbook Dev" %></title>
 
     <%= yield :head %>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
 
     <%= vite_stylesheet_tag "application" %>
     <%= vite_javascript_tag "application" %>

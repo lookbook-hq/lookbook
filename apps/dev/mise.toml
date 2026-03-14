@@ -15,15 +15,15 @@ run = "npx vite"
 
 [tasks.start]
 description = "Start the dev servers"
-run = "pitchfork start rails vite"
+run = "pitchfork start lookbook rails vite"
 
 [tasks.stop]
 description = "Stop the dev servers"
-run = "pitchfork stop rails vite"
+run = "pitchfork stop lookbook rails vite"
 
 [tasks.restart]
 description = "Restart the dev servers"
-run = "pitchfork restart rails vite"
+run = "pitchfork restart lookbook rails vite"
 
 [shell_alias]
 dev = "mise start"

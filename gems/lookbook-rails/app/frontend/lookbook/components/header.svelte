@@ -21,7 +21,6 @@
     --header-border-color: var(--lookbook-panel-border);
 
     background-color: var(--header-bg);
-    box-sizing: border-box;
     color: var(--header-fg);
     border-block-end: 1px solid var(--header-border-color);
     height: var(--header-height);
@@ -36,7 +35,7 @@
       font-weight: 700;
       display: inline-flex;
       text-transform: uppercase;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.02em;
     }
   }
 </style>
