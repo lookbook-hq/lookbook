@@ -38,6 +38,7 @@
   :global [data-component="splitter"] {
     height: 100%;
     width: 100%;
+    overflow: hidden;
 
     [data-role="splitter:root"] {
       display: flex;

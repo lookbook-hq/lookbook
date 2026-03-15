@@ -1,8 +1,8 @@
 <script>
-  let { label, start, end, ...attrs } = $props();
+  let { label, start, end, variant = "default", ...attrs } = $props();
 </script>
 
-<div data-component="toolbar" {...attrs}>
+<div data-component="toolbar" data-variant={variant} {...attrs}>
   {#if start || label}
     <div data-role="toolbar:start">
       {#if label}
@@ -36,6 +36,11 @@
     box-sizing: content-box;
     display: flex;
     align-items: center;
+
+    &[data-variant="transparent"] {
+      --toolbar-padding: 0;
+      --toolbar-bg: transparent;
+    }
 
     .label {
       font-size: var(--toolbar-label-font-size);

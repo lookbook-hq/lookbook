@@ -7,9 +7,6 @@
   import Splitter from "@components/splitter";
   import NavTree from "@components/nav-tree";
 
-  // import Icon from "@components/icon";
-  // import { ChevronDownIcon } from "lucide-svelte";
-
   let { collections } = $props();
 
   const sidebarState = new PersistedState(`sidebar`, {
@@ -77,7 +74,6 @@
 
     [data-role="sidebar:section-header"] {
       border-block-end: 1px solid var(--lookbook-panel-border);
-      padding-inline: var(--lookbook-space-base) var(--sidebar-padding);
     }
 
     [data-role="sidebar:section-content"] {

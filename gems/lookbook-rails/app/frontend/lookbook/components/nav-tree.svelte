@@ -3,8 +3,9 @@
   import { createTreeCollection } from "@ark-ui/svelte/collection";
   import { TreeView } from "@ark-ui/svelte/tree-view";
   import { useFilter } from "@ark-ui/svelte/locale";
-
-  import { getAppState } from "@lib/utils";
+  import { PersistedState } from "runed";
+  import { onMount } from "svelte";
+  import { getCurrentContext } from "@lib/utils";
 
   import Icon from "@components/icon";
   import {
@@ -12,6 +13,7 @@
     FileIcon,
     FolderIcon,
     FolderOpenIcon,
+    LayersIcon,
     Layers2Icon,
     SquareDashedMousePointerIcon,
   } from "lucide-svelte";
@@ -19,7 +21,8 @@
   const iconMap = {
     page: FileIcon,
     scenario: SquareDashedMousePointerIcon,
-    spec: Layers2Icon,
+    spec: LayersIcon,
+    specOpen: Layers2Icon,
     folder: FolderIcon,
     folderOpen: FolderOpenIcon,
   };
@@ -27,9 +30,6 @@
   const filterFn = useFilter({ sensitivity: "base" });
 
   let { id, tree } = $props();
-
-  let app = getAppState();
-  let treeState = app.getTreeState(() => id);
 
   const initialCollection = $derived.by(() =>
     createTreeCollection({
@@ -41,21 +41,51 @@
 
   let collection = $derived.by(() => initialCollection);
   let branchIds = $derived.by(() => collection.getBranchValues());
+
+  let treeState = $derived.by(
+    () =>
+      new PersistedState(`nav-tree:${id}`, {
+        filter: "",
+        expanded: [],
+        selected: [getCurrentContext().resourceId],
+      })
+  );
+
+  let expanded = $derived.by(() =>
+    treeState.current.filter.length ? branchIds : treeState.current.expanded
+  );
+
+  function filter(value) {
+    collection =
+      value.length > 0
+        ? initialCollection.filter((node) => filterFn().contains(node.label, value))
+        : initialCollection;
+    treeState.current.filter = value;
+  }
+
+  function setSelected(value) {
+    value = Array.isArray(value) ? value : [value];
+    if (!branchIds.includes(value[0])) {
+      treeState.current.selected = value;
+    }
+  }
+
+  onMount(() => filter(treeState.current.filter));
 </script>
 
 <div data-component="nav-tree">
-  <!-- <input
+  <input
     data-role="nav-tree:filter"
     placeholder="Search"
-    bind:value={() => navTreeState.filter, (value) => filter(value)}
-  /> -->
+    bind:value={() => treeState.current.filter, (value) => filter(value)}
+  />
 
   <TreeView.Root
     {collection}
     selectionMode="single"
     data-role="nav-tree:tree"
-    bind:expandedValue={treeState.expanded}
-    bind:selectedValue={treeState.selected}
+    bind:expandedValue={() => expanded, (value) => (treeState.current.expanded = value)}
+    bind:selectedValue={() => treeState.current.selected, (value) => setSelected(value)}
   >
     <TreeView.Tree>
       {#each collection.rootNode?.children ?? [] as node, index (node.id)}
@@ -84,11 +114,7 @@
             <TreeView.Branch data-role="nav-tree:branch">
               <TreeView.BranchControl data-role="nav-tree:branch-control">
                 <TreeView.BranchText data-role="nav-tree:branch-text">
-                  {#if nodeState().expanded}
-                    <Icon svg={iconMap["folderOpen"]} />
-                  {:else}
-                    <Icon svg={iconMap["folder"]} />
-                  {/if}
+                  <Icon svg={iconMap[`${node.type}${nodeState().expanded ? "Open" : ""}`]} />
                   <span data-role="nav-tree:branch-label">{node.label}</span>
                 </TreeView.BranchText>
               </TreeView.BranchControl>
@@ -112,11 +138,7 @@
     --tree-padding-inline: var(--lookbook-space-md);
     --tree-padding-block: var(--lookbook-space-xs);
     --tree-icon-size: 1rem;
-    --tree-indentation-guide-color: color-mix(
-      in oklab,
-      var(--lookbook-panel-border),
-      transparent 30%
-    );
+    --tree-indentation-guide-color: var(--lookbook-panel-border);
     --tree-item-gap: var(--lookbook-space-sm);
     --tree-item-font-size: round(calc(var(--lookbook-font-size-sm) * 0.925));
     --tree-item-bg: transparent;
@@ -227,8 +249,9 @@
 
     [data-role="nav-tree:branch-indent-guide"] {
       height: 100%;
-      width: 1px;
-      background: var(--tree-indentation-guide-color);
+      width: 0;
+      border-inline-end: 1px dashed var(--tree-indentation-guide-color);
+
       position: absolute;
       z-index: 1;
 

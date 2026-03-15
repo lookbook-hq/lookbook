@@ -1,6 +1,6 @@
 .prose {
   --prose-font-family: var(--lookbook-font-family-prose);
-  --prose-leading: 1.2;
+  --prose-leading: 1.5;
   --prose-font-size-sm: var(--lookbook-font-size-sm);
   --prose-font-size-md: var(--lookbook-font-size-md);
   --prose-font-size-lg: var(--lookbook-font-size-lg);

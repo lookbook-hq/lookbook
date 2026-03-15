@@ -16,7 +16,7 @@ html.dark {
   --lookbook-panel-bg: var(--lookbook-neutral-1);
   --lookbook-panel-fg: var(--lookbook-neutral-11);
   --lookbook-panel-fg-muted: var(--lookbook-neutral-10);
-  --lookbook-panel-border: var(--lookbook-neutral-5);
+  --lookbook-panel-border: var(--lookbook-neutral-6);
 
   --lookbook-block-bg: var(--lookbook-neutral-3);
   --lookbook-block-bg-hover: var(--lookbook-neutral-4);
@@ -24,11 +24,11 @@ html.dark {
 
   --lookbook-focus-ring: var(--lookbook-accent);
 
-  --lookbook-selection-bg: var(--lookbook-accent);
+  --lookbook-selection-bg: var(--lookbook-accent-4);
   --lookbook-selection-fg: var(--lookbook-fg);
 
   --lookbook-scrollbar-bg: transparent;
-  --lookbook-scrollbar-fg: var(--lookbook-neutral-solid);
+  --lookbook-scrollbar-fg: var(--lookbook-accent);
 
   --lookbook-error-bg: var(--lookbook-error-2);
   --lookbook-error-fg: var(--lookbook-error-11);
@@ -41,7 +41,7 @@ html.dark {
   /* Typography */
 
   --lookbook-font-family-ui: var(--lookbook-font-family-mono);
-  --lookbook-font-family-prose: var(--lookbook-font-family-mono);
+  --lookbook-font-family-prose: var(--lookbook-font-family-sans);
   --lookbook-font-family-code: var(--lookbook-font-family-mono);
 }
 

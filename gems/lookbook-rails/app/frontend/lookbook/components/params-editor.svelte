@@ -80,15 +80,15 @@
 
 <style>
   :global [data-component="params-editor"] {
-    --params-label-font-size: var(--lookbook-font-size-2xs);
+    --params-label-font-size: var(--lookbook-font-size-xs);
     --params-hint-font-size: var(--lookbook-font-size-2xs);
-    --params-field-spacing: var(--lookbook-space-lg);
-    --params-padding: var(--lookbook-space-md);
+    --params-field-spacing: var(--lookbook-space-xl);
+    --params-padding: var(--lookbook-space-lg);
 
     view-transition-name: params-editor;
 
     [data-role="params-editor:controls"] {
-      padding: var(--params-padding);
+      padding: calc(1.5 * var(--params-padding)) var(--params-padding);
     }
 
     [data-role="params-editor:field"] + [data-role="params-editor:field"] {

@@ -1,5 +1,6 @@
 <script>
-  import { getAppState, toRelativeSize, toAbsoluteSize } from "@lib/utils";
+  import { PersistedState } from "runed";
+  import { toRelativeSize, toAbsoluteSize } from "@lib/utils";
 
   import Tabs from "@components/tabs";
   import Button from "@components/button";
@@ -17,47 +18,61 @@
   let maxWidth = $state();
   let maxHeight = $state();
 
-  let app = getAppState();
   let crumbs = $derived.by(() => [...ancestors, scenario]);
+  let inspector = new PersistedState("inspector", {
+    drawer: {
+      orientation: "vertical",
+      height: 300,
+      activeTab: panels?.drawer?.[0].id,
+    },
+
+    sidebar: {
+      orientation: "horizontal",
+      width: 300,
+      activeTab: panels?.sidebar?.[0].id,
+    },
+  });
 
   // Main
 
   let mainPanels = [{ id: "previewPane" }, { id: "drawerPane" }];
-  let drawer = $derived.by(() => app.inspector.drawer);
   let drawerTabs = $derived.by(() => panels?.drawer || []);
 
   const mainSplit = $derived.by(() => {
-    const drawerHeight = drawer.height ? toRelativeSize(drawer.height, maxHeight) : 40;
+    const drawerHeight = inspector.current.drawer.height
+      ? toRelativeSize(inspector.current.drawer.height, maxHeight)
+      : 40;
     return [100 - drawerHeight, drawerHeight];
   });
 
   function setDrawerHeight(relativeHeight) {
     if (relativeHeight) {
-      drawer.height = toAbsoluteSize(relativeHeight, maxHeight);
+      inspector.current.drawer.height = toAbsoluteSize(relativeHeight, maxHeight);
     }
   }
 
   // Preview
 
   let previewPanels = [{ id: "viewportPane" }, { id: "sidebarPane" }];
-  let sidebar = $derived.by(() => app.inspector.sidebar);
   let sidebarTabs = $derived.by(() => panels?.sidebar || []);
 
   const previewSplit = $derived.by(() => {
-    const sidebarWidth = sidebar.width ? toRelativeSize(sidebar.width, maxWidth) : 25;
+    const sidebarWidth = inspector.current.sidebar.width
+      ? toRelativeSize(inspector.current.sidebar.width, maxWidth)
+      : 25;
     return [100 - sidebarWidth, sidebarWidth];
   });
 
   function setSidebarWidth(relativeWidth) {
     if (relativeWidth) {
-      sidebar.width = toAbsoluteSize(relativeWidth, maxWidth);
+      inspector.current.sidebar.width = toAbsoluteSize(relativeWidth, maxWidth);
     }
   }
 </script>
 
 <div id="inspector" bind:offsetWidth={maxWidth} bind:offsetHeight={maxHeight}>
   <div data-role="inspector:toolbar">
-    <Toolbar>
+    <Toolbar variant="transparent">
       {#snippet start()}
         <Breadcrumb data-role="inspector:breadcrumb" {crumbs}></Breadcrumb>
       {/snippet}
@@ -71,9 +86,8 @@
   </div>
   <div data-role="inspector:panels">
     <Splitter
-      orientation={drawer.orientation}
+      orientation={inspector.current.drawer.orientation}
       panels={mainPanels}
-      defaultSize={mainSplit}
       bind:size={() => mainSplit, (sizes) => setDrawerHeight(sizes[1])}
     >
       {#snippet panel(panel)}
@@ -82,9 +96,8 @@
 
       {#snippet previewPane()}
         <Splitter
-          orientation={sidebar.orientation}
+          orientation={inspector.current.sidebar.orientation}
           panels={previewPanels}
-          defaultSize={previewSplit}
           bind:size={() => previewSplit, (sizes) => setSidebarWidth(sizes[1])}
         >
           {#snippet viewportPane()}
@@ -95,7 +108,12 @@
 
           {#snippet sidebarPane()}
             <div data-role="inspector:panel">
-              <Tabs id="inspector-sidebar-tabs" panels={sidebarTabs} {panel}></Tabs>
+              <Tabs
+                id="inspector-sidebar-tabs"
+                panels={sidebarTabs}
+                {panel}
+                bind:active={inspector.current.sidebar.activeTab}
+              ></Tabs>
             </div>
           {/snippet}
         </Splitter>
@@ -103,7 +121,12 @@
 
       {#snippet drawerPane()}
         <div data-role="inspector:panel">
-          <Tabs id="inspector-drawer-tabs" panels={drawerTabs} {panel}></Tabs>
+          <Tabs
+            id="inspector-drawer-tabs"
+            panels={drawerTabs}
+            {panel}
+            bind:active={inspector.current.drawer.activeTab}
+          ></Tabs>
         </div>
       {/snippet}
     </Splitter>
@@ -117,7 +140,6 @@
     --inspector-panel-fg: var(--lookbook-panel-fg);
     --inspector-panel-font-size: var(--lookbook-font-size-sm);
     --inspector-panel-border-color: var(--lookbook-panel-border);
-
     --inspector-toolbar-padding: var(--lookbook-space-sm);
 
     font-size: var(--inspector-panel-font-size);
@@ -125,11 +147,7 @@
     grid-template-rows: min-content 1fr;
     height: 100%;
     overflow: hidden;
-
-    [data-role="inspector:toolbar"] [data-component="toolbar"] {
-      --toolbar-padding: 0;
-      --toolbar-bg: transparent;
-    }
+    padding-bottom: var(--lookbook-space-md);
 
     [data-role="inspector:breadcrumb"] {
       display: inline-block;

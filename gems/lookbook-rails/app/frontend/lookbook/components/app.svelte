@@ -3,7 +3,6 @@
   import { router } from "@inertiajs/svelte";
 
   import { ServerEventsListener } from "@lib/sse-listener";
-  import { appState } from "@lib/app-state";
 
   import Header from "@components/header";
   import StatusBar from "@components/statusbar";
@@ -29,7 +28,6 @@
   });
 
   setContext("current", () => current);
-  setContext("appState", () => appState);
 
   // Listen for update events
 

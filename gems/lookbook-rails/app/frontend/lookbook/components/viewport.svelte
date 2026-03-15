@@ -1,7 +1,6 @@
 <script>
+  import { PersistedState } from "runed";
   import { Frame } from "@ark-ui/svelte";
-
-  import { getAppState } from "@lib/utils";
 
   import Icon from "@components/icon";
   import { GripHorizontalIcon } from "lucide-svelte";
@@ -21,9 +20,10 @@
 
   let { src, srcdoc, title } = $props();
 
-  let app = getAppState();
-  // svelte-ignore state_referenced_locally
-  let viewportState = $derived.by(() => app.viewport);
+  let viewportState = new PersistedState("viewport", {
+    width: FULLSIZE,
+    height: FULLSIZE,
+  });
 
   let initial = $state(null);
   let activeHandle = $state(null);
@@ -55,18 +55,18 @@
     if (direction.match(/east|west/)) {
       delta = direction.match("east") ? event.pageX - initial.x : initial.x - event.pageX;
 
-      viewportState.width = Math.min(initial.width + delta * 2, initial.maxWidth);
-      if (viewportState.width === initial.maxWidth) {
-        viewportState.width = FULLSIZE;
+      viewportState.current.width = Math.min(initial.width + delta * 2, initial.maxWidth);
+      if (viewportState.current.width === initial.maxWidth) {
+        viewportState.current.width = FULLSIZE;
       }
     }
 
     if (direction.match("south")) {
       delta = event.pageY - initial.y;
 
-      viewportState.height = Math.min(initial.height + delta, initial.maxHeight);
-      if (viewportState.height === initial.maxHeight) {
-        viewportState.height = FULLSIZE;
+      viewportState.current.height = Math.min(initial.height + delta, initial.maxHeight);
+      if (viewportState.current.height === initial.maxHeight) {
+        viewportState.current.height = FULLSIZE;
       }
     }
   }
@@ -80,11 +80,11 @@
     const direction = event.target.dataset.direction;
 
     if (direction.match(/east|west/)) {
-      viewportState.width = FULLSIZE;
+      viewportState.current.width = FULLSIZE;
     }
 
     if (direction.match("south")) {
-      viewportState.height = FULLSIZE;
+      viewportState.current.height = FULLSIZE;
     }
   }
 </script>
@@ -93,8 +93,8 @@
 
 <div
   data-component="viewport"
-  style:--viewport-window-width={viewportState.width}
-  style:--viewport-window-height={viewportState.height}
+  style:--viewport-window-width={viewportState.current.width}
+  style:--viewport-window-height={viewportState.current.height}
   bind:this={container}
 >
   <div data-role="viewport:background"></div>

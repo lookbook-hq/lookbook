@@ -11,9 +11,9 @@
   let crumbs = $derived.by(() => [...ancestors, page]);
 </script>
 
-<article data-component="page">
+<div data-component="page">
   <div data-role="page:toolbar">
-    <Toolbar>
+    <Toolbar variant="transparent">
       {#snippet start()}
         <Breadcrumb data-role="page:breadcrumb" {crumbs}></Breadcrumb>
       {/snippet}
@@ -21,75 +21,86 @@
     </Toolbar>
   </div>
 
-  <div data-role="page:body">
-    <header data-role="page:header">
-      <h1 data-role="page:title">{page.title}</h1>
-    </header>
-
-    <Splitter
-      orientation="horizontal"
-      panels={[{ id: "contentPane" }, { id: "tocPane" }]}
-      defaultSize={[75, 25]}
-    >
-      <!-- bind:size={() => previewSplit, (sizes) => setSidebarWidth(sizes[1])} -->
-      {#snippet contentPane()}
-        <div data-role="page:content">
+  <Splitter
+    orientation="horizontal"
+    panels={[{ id: "contentPane" }, { id: "tocPane" }]}
+    defaultSize={[75, 25]}
+  >
+    <!-- bind:size={() => previewSplit, (sizes) => setSidebarWidth(sizes[1])} -->
+    {#snippet contentPane()}
+      <div data-role="page:body">
+        <!-- <header data-role="page:header">
+          <h1 data-role="page:title">{page.label}</h1>
+        </header> -->
+        <article data-role="page:article">
           <Prose>
             {@render children?.()}
           </Prose>
-        </div>
-      {/snippet}
+        </article>
 
-      {#snippet tocPane()}
-        <aside data-role="page:toc">toc</aside>
-      {/snippet}
-    </Splitter>
-  </div>
+        <footer data-role="page:footer">footer</footer>
+      </div>
+    {/snippet}
 
-  <footer data-role="page:footer">footer</footer>
-</article>
+    {#snippet tocPane()}
+      <aside data-role="page:toc">toc</aside>
+    {/snippet}
+  </Splitter>
+</div>
 
 <style>
   [data-component="page"] {
     --page-bg: var(--lookbook-panel-bg);
     --page-border: var(--lookbook-panel-border);
-    --page-padding: var(--lookbook-space-md);
+    --page-padding: var(--lookbook-space-lg);
 
-    --page-header-height: var(--lookbook-size-12);
-    --page-footer-height: var(--lookbook-size-8);
+    /*--page-header-height: var(--lookbook-size-12);*/
+    --page-footer-height: var(--lookbook-size-10);
 
     view-transition-name: page;
 
     height: 100%;
     display: grid;
-    grid-template-rows: min-content 1fr min-content;
+    grid-template-rows: min-content 1fr;
+
+    [data-role="page:body"] {
+      display: grid;
+      height: 100%;
+      grid-template-rows: 1fr min-content;
+      overflow: hidden;
+    }
+
+    [data-role="page:toc"] {
+      background-color: var(--page-bg);
+      border: 1px solid var(--page-border);
+    }
+
+    [data-role="page:article"] {
+      background-color: var(--page-bg);
+      border: 1px solid var(--page-border);
+      padding: var(--page-padding);
+      height: 100%;
+      overflow: auto;
+    }
 
     [data-role="page:header"] {
-      height: var(--page-header-height);
+      border-bottom: 1px solid var(--page-border);
+      padding: var(--page-padding);
     }
 
     [data-role="page:title"] {
     }
 
-    [data-role="page:body"] {
+    [data-role="page:toc"] {
+      padding: var(--page-padding);
     }
-
-    [data-role="page:toc"],
-    [data-role="page:content"] {
-      background-color: var(--page-bg);
-      border: 1px solid var(--page-border);
-      padding: 1px solid var(--page-padding);
-    }
-
-    [data-role="page:content"] {
-      height: 100%;
-    }
-
-    /*[data-role="page:toc"] {
-    }*/
 
     [data-role="page:footer"] {
+      border-top: 1px solid var(--page-border);
       height: var(--page-footer-height);
+      padding-inline: var(--page-padding);
+      display: flex;
+      align-items: center;
     }
   }
 

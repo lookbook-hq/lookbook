@@ -16,10 +16,17 @@
 
 <style>
   :global [data-component="switch"] {
-    --switch-bg: var(--lookbook-panel-bg);
+    --switch-bg: var(--lookbook-neutral-5);
+    --switch-border: var(--lookbook-neutral-6);
+    --switch-bg-active: var(--lookbook-accent);
+    --switch-thumb-bg: var(--lookbook-panel-bg);
     --switch-bg-active: var(--lookbook-accent);
     --switch-fg: var(--lookbook-panel-fg);
-    --switch-gap: var(--lookbook-space-sm);
+    --switch-label-font-size: var(--lookbook-font-size-xs);
+    --switch-gap: var(--lookbook-space-md);
+
+    --switch-height: 1.6rem;
+    --switch-width: 0.8;
 
     color: var(--switch-fg);
     gap: var(--switch-gap);
@@ -33,18 +40,20 @@
       filter: grayscale(100%);
     }
 
+    [data-role="switch:label"] {
+      font-size: var(--switch-label-font-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 500;
+    }
+
     [data-role="switch:control"] {
-      background: var(--switch-bg);
-      display: inline-flex;
-      align-items: center;
-      flex-shrink: 0;
-      width: 2.5rem;
-      height: 1.5rem;
-      padding: 0.125rem;
-      border-radius: 9999px;
-      transition:
-        background-color 0.05s ease,
-        box-shadow 0.05s ease;
+      background-color: var(--switch-bg);
+      height: var(--switch-height);
+      width: calc(var(--switch-height) * calc(1 + var(--switch-width)));
+      border: 0;
+      border-radius: 100em;
+      display: inline-block;
 
       &[data-state="checked"] {
         background: var(--switch-bg-active);
@@ -58,23 +67,19 @@
 
     [data-role="switch:thumb"] {
       background: var(--switch-bg);
-      box-shadow: var(--lookbook-shadow-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 1.25rem;
-      height: 1.25rem;
-      border-radius: 9999px;
-      transition: transform 0.15s ease;
+      content: "";
+      display: block;
+      aspect-ratio: 1;
+      background-color: white;
+      border: 2px solid var(--switch-border);
+      height: 100%;
+      border-radius: 50%;
+      transition: translate var(--lookbook-duration-fast) ease;
 
       &[data-state="checked"] {
-        transform: translateX(1rem);
+        border-color: var(--switch-bg-active);
+        translate: calc(var(--switch-height) * var(--switch-width)) 0;
       }
-    }
-
-    [data-role="switch:label"] {
-      display: inline-block;
-      font-weight: bold;
     }
   }
 </style>

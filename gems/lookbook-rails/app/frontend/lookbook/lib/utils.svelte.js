@@ -4,10 +4,6 @@ export function getCurrentContext() {
   return getContext("current")();
 }
 
-export function getAppState() {
-  return getContext("appState")();
-}
-
 export function toAbsoluteSize(relativeSize, maxSize) {
   return (relativeSize / 100) * maxSize;
 }

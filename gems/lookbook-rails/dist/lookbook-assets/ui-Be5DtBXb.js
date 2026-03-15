@@ -842,6 +842,11 @@ var batches = /* @__PURE__ */ new Set();
 /** @type {Batch | null} */
 var current_batch = null;
 /**
+* This is needed to avoid overwriting inputs
+* @type {Batch | null}
+*/
+var previous_batch = null;
+/**
 * When time travelling (i.e. working in one batch, while other batches
 * still have ongoing work), we ignore the real values of affected
 * signals in favour of their values within the batch
@@ -1002,8 +1007,10 @@ var Batch = class Batch {
 			this.#maybe_dirty_effects.clear();
 			for (const fn of this.#commit_callbacks) fn(this);
 			this.#commit_callbacks.clear();
+			previous_batch = this;
 			flush_queued_effects(render_effects);
 			flush_queued_effects(effects);
+			previous_batch = null;
 			this.#deferred?.resolve();
 		}
 		var next_batch = current_batch;
@@ -2620,6 +2627,24 @@ function without_reactive_context(fn) {
 		set_active_reaction(previous_reaction);
 		set_active_effect(previous_effect);
 	}
+}
+/**
+* Listen to the given event, and then instantiate a global form reset listener if not already done,
+* to notify all bindings when the form is reset
+* @param {HTMLElement} element
+* @param {string} event
+* @param {(is_reset?: true) => void} handler
+* @param {(is_reset?: true) => void} [on_reset]
+*/
+function listen_to_event_and_reset_event(element, event, handler, on_reset = handler) {
+	element.addEventListener(event, () => without_reactive_context(handler));
+	const prev = element.__on_r;
+	if (prev) element.__on_r = () => {
+		prev();
+		on_reset(true);
+	};
+	else element.__on_r = () => on_reset(true);
+	add_form_reset_listener();
 }
 //#endregion
 //#region node_modules/svelte/src/internal/client/reactivity/effects.js
@@ -5531,6 +5556,69 @@ function get_setters(element) {
 * @param {string} value
 */
 function check_src_in_dev_hydration(element, attribute, value) {}
+//#endregion
+//#region node_modules/svelte/src/internal/client/dom/elements/bindings/input.js
+/** @import { Batch } from '../../../reactivity/batch.js' */
+/**
+* @param {HTMLInputElement} input
+* @param {() => unknown} get
+* @param {(value: unknown) => void} set
+* @returns {void}
+*/
+function bind_value(input, get, set = get) {
+	var batches = /* @__PURE__ */ new WeakSet();
+	listen_to_event_and_reset_event(input, "input", async (is_reset) => {
+		/** @type {any} */
+		var value = is_reset ? input.defaultValue : input.value;
+		value = is_numberlike_input(input) ? to_number(value) : value;
+		set(value);
+		if (current_batch !== null) batches.add(current_batch);
+		await tick();
+		if (value !== (value = get())) {
+			var start = input.selectionStart;
+			var end = input.selectionEnd;
+			var length = input.value.length;
+			input.value = value ?? "";
+			if (end !== null) {
+				var new_length = input.value.length;
+				if (start === end && end === length && new_length > length) {
+					input.selectionStart = new_length;
+					input.selectionEnd = new_length;
+				} else {
+					input.selectionStart = start;
+					input.selectionEnd = Math.min(end, new_length);
+				}
+			}
+		}
+	});
+	if (hydrating && input.defaultValue !== input.value || untrack(get) == null && input.value) {
+		set(is_numberlike_input(input) ? to_number(input.value) : input.value);
+		if (current_batch !== null) batches.add(current_batch);
+	}
+	render_effect(() => {
+		var value = get();
+		if (input === document.activeElement) {
+			var batch = async_mode_flag ? previous_batch : current_batch;
+			if (batches.has(batch)) return;
+		}
+		if (is_numberlike_input(input) && value === to_number(input.value)) return;
+		if (input.type === "date" && !value && !input.value) return;
+		if (value !== input.value) input.value = value ?? "";
+	});
+}
+/**
+* @param {HTMLInputElement} input
+*/
+function is_numberlike_input(input) {
+	var type = input.type;
+	return type === "number" || type === "range";
+}
+/**
+* @param {string} value
+*/
+function to_number(value) {
+	return value === "" ? null : +value;
+}
 var resize_observer_border_box = /* @__PURE__ */ new class ResizeObserverSingleton {
 	/** */
 	#listeners = /* @__PURE__ */ new WeakMap();
@@ -16664,17 +16752,19 @@ var root_1$10 = /* @__PURE__ */ from_html(`<div data-role="toolbar:start"><!> <!
 var root_3$3 = /* @__PURE__ */ from_html(`<div data-role="toolbar:end"><!></div>`);
 var root$19 = /* @__PURE__ */ from_html(`<div><!> <!></div>`);
 function Toolbar($$anchor, $$props) {
-	let attrs = /* @__PURE__ */ rest_props($$props, [
+	let variant = prop($$props, "variant", 3, "default"), attrs = /* @__PURE__ */ rest_props($$props, [
 		"$$slots",
 		"$$events",
 		"$$legacy",
 		"label",
 		"start",
-		"end"
+		"end",
+		"variant"
 	]);
 	var div = root$19();
 	attribute_effect(div, () => ({
 		"data-component": "toolbar",
+		"data-variant": variant(),
 		...attrs
 	}));
 	var node = child(div);
@@ -20012,15 +20102,14 @@ function Button_group($$anchor, $$props) {
 }
 //#endregion
 //#region app/frontend/lookbook/components/page.svelte
-var root_2$2 = /* @__PURE__ */ from_html(`<div data-role="page:content" class="svelte-1kmy0z6"><!></div>`);
+var root_2$2 = /* @__PURE__ */ from_html(`<div data-role="page:body" class="svelte-1kmy0z6"><article data-role="page:article" class="svelte-1kmy0z6"><!></article> <footer data-role="page:footer" class="svelte-1kmy0z6">footer</footer></div>`);
 var root_4$1 = /* @__PURE__ */ from_html(`<aside data-role="page:toc" class="svelte-1kmy0z6">toc</aside>`);
-var root$14 = /* @__PURE__ */ from_html(`<article data-component="page" class="svelte-1kmy0z6"><div data-role="page:toolbar"><!></div> <div data-role="page:body" class="svelte-1kmy0z6"><header data-role="page:header" class="svelte-1kmy0z6"><h1 data-role="page:title" class="svelte-1kmy0z6"> </h1></header> <!></div> <footer data-role="page:footer" class="svelte-1kmy0z6">footer</footer></article>`);
+var root$14 = /* @__PURE__ */ from_html(`<div data-component="page" class="svelte-1kmy0z6"><div data-role="page:toolbar"><!></div> <!></div>`);
 function Page($$anchor, $$props) {
-	push($$props, true);
 	let crumbs = /* @__PURE__ */ user_derived(() => [...$$props.ancestors, $$props.page]);
-	var article = root$14();
-	var div = child(article);
-	var node = child(div);
+	var div = root$14();
+	var div_1 = child(div);
+	var node = child(div_1);
 	{
 		const start = ($$anchor) => {
 			Breadcrumb($$anchor, {
@@ -20032,6 +20121,7 @@ function Page($$anchor, $$props) {
 		};
 		const end = ($$anchor) => {};
 		Toolbar(node, {
+			variant: "transparent",
 			start,
 			end,
 			$$slots: {
@@ -20040,18 +20130,13 @@ function Page($$anchor, $$props) {
 			}
 		});
 	}
-	reset(div);
-	var div_1 = sibling(div, 2);
-	var header = child(div_1);
-	var h1 = child(header);
-	var text = child(h1, true);
-	reset(h1);
-	reset(header);
-	var node_1 = sibling(header, 2);
+	reset(div_1);
+	var node_1 = sibling(div_1, 2);
 	{
 		const contentPane = ($$anchor) => {
 			var div_2 = root_2$2();
-			Prose(child(div_2), {
+			var article = child(div_2);
+			Prose(child(article), {
 				children: ($$anchor, $$slotProps) => {
 					var fragment_1 = comment();
 					snippet(first_child(fragment_1), () => $$props.children ?? noop$2);
@@ -20059,6 +20144,8 @@ function Page($$anchor, $$props) {
 				},
 				$$slots: { default: true }
 			});
+			reset(article);
+			next$1(2);
 			reset(div_2);
 			append$1($$anchor, div_2);
 		};
@@ -20077,12 +20164,8 @@ function Page($$anchor, $$props) {
 			}
 		});
 	}
-	reset(div_1);
-	next$1(2);
-	reset(article);
-	template_effect(() => set_text(text, $$props.page.title));
-	append$1($$anchor, article);
-	pop();
+	reset(div);
+	append$1($$anchor, div);
 }
 //#endregion
 //#region app/frontend/lookbook/views/pages/show.svelte
@@ -20091,6 +20174,9 @@ function Show$3($$anchor, $$props) {
 	Page($$anchor, {
 		get page() {
 			return $$props.page;
+		},
+		get ancestors() {
+			return $$props.ancestors;
 		},
 		children: ($$anchor, $$slotProps) => {
 			var fragment_1 = comment();
@@ -20101,12 +20187,699 @@ function Show$3($$anchor, $$props) {
 	});
 }
 //#endregion
+//#region node_modules/runed/dist/internal/configurable-globals.js
+var defaultWindow = typeof window !== "undefined" ? window : void 0;
+typeof window !== "undefined" && window.document;
+typeof window !== "undefined" && window.navigator;
+typeof window !== "undefined" && window.location;
+//#endregion
+//#region node_modules/runed/dist/internal/utils/dom.js
+/**
+* Handles getting the active element in a document or shadow root.
+* If the active element is within a shadow root, it will traverse the shadow root
+* to find the active element.
+* If not, it will return the active element in the document.
+*
+* @param document A document or shadow root to get the active element from.
+* @returns The active element in the document or shadow root.
+*/
+function getActiveElement(document) {
+	let activeElement = document.activeElement;
+	while (activeElement?.shadowRoot) {
+		const node = activeElement.shadowRoot.activeElement;
+		if (node === activeElement) break;
+		else activeElement = node;
+	}
+	return activeElement;
+}
+//#endregion
+//#region node_modules/svelte/src/reactivity/url-search-params.js
+var REPLACE = Symbol();
+/**
+* A reactive version of the built-in [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) object.
+* Reading its contents (by iterating, or by calling `params.get(...)` or `params.getAll(...)` as in the [example](https://svelte.dev/playground/b3926c86c5384bab9f2cf993bc08c1c8) below) in an [effect](https://svelte.dev/docs/svelte/$effect) or [derived](https://svelte.dev/docs/svelte/$derived)
+* will cause it to be re-evaluated as necessary when the params are updated.
+*
+* ```svelte
+* <script>
+* 	import { SvelteURLSearchParams } from 'svelte/reactivity';
+*
+* 	const params = new SvelteURLSearchParams('message=hello');
+*
+* 	let key = $state('key');
+* 	let value = $state('value');
+* <\/script>
+*
+* <input bind:value={key} />
+* <input bind:value={value} />
+* <button onclick={() => params.append(key, value)}>append</button>
+*
+* <p>?{params.toString()}</p>
+*
+* {#each params as [key, value]}
+* 	<p>{key}: {value}</p>
+* {/each}
+* ```
+*/
+var SvelteURLSearchParams = class extends URLSearchParams {
+	#version = /* @__PURE__ */ state$1(0);
+	#url = get_current_url();
+	#updating = false;
+	#update_url() {
+		if (!this.#url || this.#updating) return;
+		this.#updating = true;
+		const search = this.toString();
+		this.#url.search = search && `?${search}`;
+		this.#updating = false;
+	}
+	/**
+	* @param {URLSearchParams} params
+	* @internal
+	*/
+	[REPLACE](params) {
+		if (this.#updating) return;
+		this.#updating = true;
+		for (const key of [...super.keys()]) super.delete(key);
+		for (const [key, value] of params) super.append(key, value);
+		increment(this.#version);
+		this.#updating = false;
+	}
+	/**
+	* @param {string} name
+	* @param {string} value
+	* @returns {void}
+	*/
+	append(name, value) {
+		super.append(name, value);
+		this.#update_url();
+		increment(this.#version);
+	}
+	/**
+	* @param {string} name
+	* @param {string=} value
+	* @returns {void}
+	*/
+	delete(name, value) {
+		var has_value = super.has(name, value);
+		super.delete(name, value);
+		if (has_value) {
+			this.#update_url();
+			increment(this.#version);
+		}
+	}
+	/**
+	* @param {string} name
+	* @returns {string|null}
+	*/
+	get(name) {
+		get$1(this.#version);
+		return super.get(name);
+	}
+	/**
+	* @param {string} name
+	* @returns {string[]}
+	*/
+	getAll(name) {
+		get$1(this.#version);
+		return super.getAll(name);
+	}
+	/**
+	* @param {string} name
+	* @param {string=} value
+	* @returns {boolean}
+	*/
+	has(name, value) {
+		get$1(this.#version);
+		return super.has(name, value);
+	}
+	keys() {
+		get$1(this.#version);
+		return super.keys();
+	}
+	/**
+	* @param {string} name
+	* @param {string} value
+	* @returns {void}
+	*/
+	set(name, value) {
+		var previous = super.getAll(name).join("");
+		super.set(name, value);
+		if (previous !== super.getAll(name).join("")) {
+			this.#update_url();
+			increment(this.#version);
+		}
+	}
+	sort() {
+		super.sort();
+		this.#update_url();
+		increment(this.#version);
+	}
+	toString() {
+		get$1(this.#version);
+		return super.toString();
+	}
+	values() {
+		get$1(this.#version);
+		return super.values();
+	}
+	entries() {
+		get$1(this.#version);
+		return super.entries();
+	}
+	[Symbol.iterator]() {
+		return this.entries();
+	}
+	get size() {
+		get$1(this.#version);
+		return super.size;
+	}
+};
+//#endregion
+//#region node_modules/svelte/src/reactivity/url.js
+/** @type {SvelteURL | null} */
+var current_url = null;
+function get_current_url() {
+	return current_url;
+}
+/**
+* A reactive version of the built-in [`URL`](https://developer.mozilla.org/en-US/docs/Web/API/URL) object.
+* Reading properties of the URL (such as `url.href` or `url.pathname`) in an [effect](https://svelte.dev/docs/svelte/$effect) or [derived](https://svelte.dev/docs/svelte/$derived)
+* will cause it to be re-evaluated as necessary when the URL changes.
+*
+* The `searchParams` property is an instance of [SvelteURLSearchParams](https://svelte.dev/docs/svelte/svelte-reactivity#SvelteURLSearchParams).
+*
+* [Example](https://svelte.dev/playground/5a694758901b448c83dc40dc31c71f2a):
+*
+* ```svelte
+* <script>
+* 	import { SvelteURL } from 'svelte/reactivity';
+*
+* 	const url = new SvelteURL('https://example.com/path');
+* <\/script>
+*
+* <!-- changes to these... -->
+* <input bind:value={url.protocol} />
+* <input bind:value={url.hostname} />
+* <input bind:value={url.pathname} />
+*
+* <hr />
+*
+* <!-- will update `href` and vice versa -->
+* <input bind:value={url.href} size="65" />
+* ```
+*/
+var SvelteURL = class extends URL {
+	#protocol = /* @__PURE__ */ state$1(super.protocol);
+	#username = /* @__PURE__ */ state$1(super.username);
+	#password = /* @__PURE__ */ state$1(super.password);
+	#hostname = /* @__PURE__ */ state$1(super.hostname);
+	#port = /* @__PURE__ */ state$1(super.port);
+	#pathname = /* @__PURE__ */ state$1(super.pathname);
+	#hash = /* @__PURE__ */ state$1(super.hash);
+	#search = /* @__PURE__ */ state$1(super.search);
+	#searchParams;
+	/**
+	* @param {string | URL} url
+	* @param {string | URL} [base]
+	*/
+	constructor(url, base) {
+		url = new URL(url, base);
+		super(url);
+		current_url = this;
+		this.#searchParams = new SvelteURLSearchParams(url.searchParams);
+		current_url = null;
+	}
+	get hash() {
+		return get$1(this.#hash);
+	}
+	set hash(value) {
+		super.hash = value;
+		set$2(this.#hash, super.hash);
+	}
+	get host() {
+		get$1(this.#hostname);
+		get$1(this.#port);
+		return super.host;
+	}
+	set host(value) {
+		super.host = value;
+		set$2(this.#hostname, super.hostname);
+		set$2(this.#port, super.port);
+	}
+	get hostname() {
+		return get$1(this.#hostname);
+	}
+	set hostname(value) {
+		super.hostname = value;
+		set$2(this.#hostname, super.hostname);
+	}
+	get href() {
+		get$1(this.#protocol);
+		get$1(this.#username);
+		get$1(this.#password);
+		get$1(this.#hostname);
+		get$1(this.#port);
+		get$1(this.#pathname);
+		get$1(this.#hash);
+		get$1(this.#search);
+		return super.href;
+	}
+	set href(value) {
+		super.href = value;
+		set$2(this.#protocol, super.protocol);
+		set$2(this.#username, super.username);
+		set$2(this.#password, super.password);
+		set$2(this.#hostname, super.hostname);
+		set$2(this.#port, super.port);
+		set$2(this.#pathname, super.pathname);
+		set$2(this.#hash, super.hash);
+		set$2(this.#search, super.search);
+		this.#searchParams[REPLACE](super.searchParams);
+	}
+	get password() {
+		return get$1(this.#password);
+	}
+	set password(value) {
+		super.password = value;
+		set$2(this.#password, super.password);
+	}
+	get pathname() {
+		return get$1(this.#pathname);
+	}
+	set pathname(value) {
+		super.pathname = value;
+		set$2(this.#pathname, super.pathname);
+	}
+	get port() {
+		return get$1(this.#port);
+	}
+	set port(value) {
+		super.port = value;
+		set$2(this.#port, super.port);
+	}
+	get protocol() {
+		return get$1(this.#protocol);
+	}
+	set protocol(value) {
+		super.protocol = value;
+		set$2(this.#protocol, super.protocol);
+	}
+	get search() {
+		return get$1(this.#search);
+	}
+	set search(value) {
+		super.search = value;
+		set$2(this.#search, super.search);
+		this.#searchParams[REPLACE](super.searchParams);
+	}
+	get username() {
+		return get$1(this.#username);
+	}
+	set username(value) {
+		super.username = value;
+		set$2(this.#username, super.username);
+	}
+	get origin() {
+		get$1(this.#protocol);
+		get$1(this.#hostname);
+		get$1(this.#port);
+		return super.origin;
+	}
+	get searchParams() {
+		return this.#searchParams;
+	}
+	toString() {
+		return this.href;
+	}
+	toJSON() {
+		return this.href;
+	}
+};
+//#endregion
+//#region node_modules/runed/dist/utilities/active-element/active-element.svelte.js
+var ActiveElement = class {
+	#document;
+	#subscribe;
+	constructor(options = {}) {
+		const { window = defaultWindow, document = window?.document } = options;
+		if (window === void 0) return;
+		this.#document = document;
+		this.#subscribe = createSubscriber((update) => {
+			const cleanupFocusIn = on(window, "focusin", update);
+			const cleanupFocusOut = on(window, "focusout", update);
+			return () => {
+				cleanupFocusIn();
+				cleanupFocusOut();
+			};
+		});
+	}
+	get current() {
+		this.#subscribe?.();
+		if (!this.#document) return null;
+		return getActiveElement(this.#document);
+	}
+};
+new ActiveElement();
+//#endregion
+//#region node_modules/runed/dist/utilities/watch/watch.svelte.js
+function runEffect(flush, effect) {
+	switch (flush) {
+		case "post":
+			user_effect(effect);
+			break;
+		case "pre":
+			user_pre_effect(effect);
+			break;
+	}
+}
+function runWatcher(sources, flush, effect, options = {}) {
+	const { lazy = false } = options;
+	let active = !lazy;
+	let previousValues = Array.isArray(sources) ? [] : void 0;
+	runEffect(flush, () => {
+		const values = Array.isArray(sources) ? sources.map((source) => source()) : sources();
+		if (!active) {
+			active = true;
+			previousValues = values;
+			return;
+		}
+		const cleanup = untrack(() => effect(values, previousValues));
+		previousValues = values;
+		return cleanup;
+	});
+}
+function runWatcherOnce(sources, flush, effect) {
+	const cleanupRoot = effect_root(() => {
+		let stop = false;
+		runWatcher(sources, flush, (values, previousValues) => {
+			if (stop) {
+				cleanupRoot();
+				return;
+			}
+			const cleanup = effect(values, previousValues);
+			stop = true;
+			return cleanup;
+		}, { lazy: true });
+	});
+	user_effect(() => {
+		return cleanupRoot;
+	});
+}
+function watch(sources, effect, options) {
+	runWatcher(sources, "post", effect, options);
+}
+function watchPre(sources, effect, options) {
+	runWatcher(sources, "pre", effect, options);
+}
+watch.pre = watchPre;
+function watchOnce(source, effect) {
+	runWatcherOnce(source, "post", effect);
+}
+function watchOncePre(source, effect) {
+	runWatcherOnce(source, "pre", effect);
+}
+watchOnce.pre = watchOncePre;
+//#endregion
+//#region node_modules/runed/dist/utilities/persisted-state/persisted-state.svelte.js
+function getStorage(storageType, window) {
+	switch (storageType) {
+		case "local": return window.localStorage;
+		case "session": return window.sessionStorage;
+	}
+}
+function proxy(value, root, proxies, subscribe, update, serialize) {
+	if (value === null || typeof value !== "object") return value;
+	const proto = Object.getPrototypeOf(value);
+	if (proto !== null && proto !== Object.prototype && !Array.isArray(value)) return value;
+	let p = proxies.get(value);
+	if (!p) {
+		p = new Proxy(value, {
+			get: (target, property) => {
+				subscribe?.();
+				return proxy(Reflect.get(target, property), root, proxies, subscribe, update, serialize);
+			},
+			set: (target, property, value) => {
+				update?.();
+				Reflect.set(target, property, value);
+				serialize(root);
+				return true;
+			}
+		});
+		proxies.set(value, p);
+	}
+	return p;
+}
+/**
+* Creates reactive state that is persisted and synchronized across browser sessions and tabs using Web Storage.
+* @param key The unique key used to store the state in the storage.
+* @param initialValue The initial value of the state if not already present in the storage.
+* @param options Configuration options including storage type, serializer for complex data types, and whether to sync state changes across tabs.
+*
+* @see {@link https://runed.dev/docs/utilities/persisted-state}
+*/
+var PersistedState = class {
+	#current;
+	#key;
+	#serializer;
+	#storage;
+	#subscribe;
+	#update;
+	#proxies = /* @__PURE__ */ new WeakMap();
+	#connected;
+	#storageCleanup;
+	#window;
+	#syncTabs;
+	#storageType;
+	constructor(key, initialValue, options = {}) {
+		const { storage: storageType = "local", serializer = {
+			serialize: JSON.stringify,
+			deserialize: JSON.parse
+		}, syncTabs = true, connected = true } = options;
+		const window = "window" in options ? options.window : defaultWindow;
+		this.#current = initialValue;
+		this.#key = key;
+		this.#serializer = serializer;
+		this.#connected = connected;
+		this.#window = window;
+		this.#syncTabs = syncTabs;
+		this.#storageType = storageType;
+		if (window === void 0) return;
+		const storage = getStorage(storageType, window);
+		this.#storage = storage;
+		const existingValue = storage.getItem(key);
+		if (existingValue !== null) this.#current = this.#deserialize(existingValue);
+		else if (connected) this.#serialize(initialValue);
+		this.#setupStorageListener();
+	}
+	get current() {
+		this.#subscribe?.();
+		let root;
+		if (this.#connected) {
+			const storageItem = this.#storage?.getItem(this.#key);
+			root = storageItem ? this.#deserialize(storageItem) : this.#current;
+		} else root = this.#current;
+		return proxy(root, root, this.#proxies, this.#subscribe?.bind(this), this.#update?.bind(this), this.#serialize.bind(this));
+	}
+	set current(newValue) {
+		this.#serialize(newValue);
+		this.#update?.();
+	}
+	#handleStorageEvent = (event) => {
+		if (event.key !== this.#key || event.newValue === null) return;
+		this.#current = this.#deserialize(event.newValue);
+		this.#update?.();
+	};
+	#deserialize(value) {
+		try {
+			return this.#serializer.deserialize(value);
+		} catch (error) {
+			console.error(`Error when parsing "${value}" from persisted store "${this.#key}"`, error);
+			return;
+		}
+	}
+	#serialize(value) {
+		if (!this.#connected) {
+			this.#current = value;
+			return;
+		}
+		try {
+			if (value !== void 0) this.#storage?.setItem(this.#key, this.#serializer.serialize(value));
+		} catch (error) {
+			console.error(`Error when writing value from persisted store "${this.#key}" to ${this.#storage}`, error);
+		}
+	}
+	#setupStorageListener() {
+		if (!this.#window || !this.#connected) return;
+		this.#subscribe = createSubscriber((update) => {
+			this.#update = update;
+			this.#storageCleanup = this.#connected && this.#syncTabs && this.#storageType === "local" ? on(this.#window, "storage", this.#handleStorageEvent) : void 0;
+			return () => {
+				this.#storageCleanup?.();
+				this.#storageCleanup = void 0;
+				this.#update = void 0;
+			};
+		});
+	}
+	#teardownStorageListener() {
+		this.#storageCleanup?.();
+		this.#storageCleanup = void 0;
+		this.#subscribe = void 0;
+	}
+	/**
+	* Returns whether the state is currently connected to storage.
+	*
+	* When `connected` is `false`, the state is not connected to storage and any
+	* changes to the state will not be persisted to storage and any changes to storage
+	* will not be reflected in the state.
+	*/
+	get connected() {
+		return this.#connected;
+	}
+	/**
+	* Disconnects the state from storage, preventing updates to storage and stopping
+	* cross-tab synchronization. The current value in storage is removed.
+	*
+	* Call `.connect()` to re-enable storage persistence.
+	*/
+	disconnect() {
+		if (!this.#connected) return;
+		const storageItem = this.#storage?.getItem(this.#key);
+		if (storageItem) this.#current = this.#deserialize(storageItem);
+		this.#connected = false;
+		this.#storage?.removeItem(this.#key);
+		this.#teardownStorageListener();
+	}
+	/**
+	* Reconnects the state to storage, enabling storage persistence and cross-tab
+	* synchronization. The current value is immediately persisted to storage.
+	*
+	* **NOTE**: By default, the state is already connected to storage and this method is
+	* only useful to re-enable storage persistence after calling `disconnect()`
+	* or starting with `connected: false` as an option.
+	*/
+	connect() {
+		if (this.#connected) return;
+		this.#connected = true;
+		this.#serialize(this.#current);
+		this.#setupStorageListener();
+	}
+};
+//#endregion
+//#region node_modules/runed/dist/utilities/resource/resource.svelte.js
+function debounce(fn, delay) {
+	let timeoutId;
+	let lastResolve = null;
+	return (...args) => {
+		return new Promise((resolve) => {
+			if (lastResolve) lastResolve(void 0);
+			lastResolve = resolve;
+			clearTimeout(timeoutId);
+			timeoutId = setTimeout(async () => {
+				const result = await fn(...args);
+				if (lastResolve) {
+					lastResolve(result);
+					lastResolve = null;
+				}
+			}, delay);
+		});
+	};
+}
+function throttle(fn, delay) {
+	let lastRun = 0;
+	let lastPromise = null;
+	return (...args) => {
+		const now = Date.now();
+		if (lastRun && now - lastRun < delay) return lastPromise ?? Promise.resolve(void 0);
+		lastRun = now;
+		lastPromise = fn(...args);
+		return lastPromise;
+	};
+}
+function runResource(source, fetcher, options = {}, effectFn) {
+	const { lazy = false, once = false, initialValue, debounce: debounceTime, throttle: throttleTime } = options;
+	let current = /* @__PURE__ */ state$1(proxy$1(initialValue));
+	let loading = /* @__PURE__ */ state$1(proxy$1(initialValue === void 0 && !lazy));
+	let error = /* @__PURE__ */ state$1(void 0);
+	let cleanupFns = /* @__PURE__ */ state$1(proxy$1([]));
+	const runCleanup = () => {
+		get$1(cleanupFns).forEach((fn) => fn());
+		set$2(cleanupFns, [], true);
+	};
+	const onCleanup = (fn) => {
+		set$2(cleanupFns, [...get$1(cleanupFns), fn], true);
+	};
+	const baseFetcher = async (value, previousValue, refetching = false) => {
+		try {
+			set$2(loading, true);
+			set$2(error, void 0);
+			runCleanup();
+			const controller = new AbortController();
+			onCleanup(() => controller.abort());
+			const result = await fetcher(value, previousValue, {
+				data: get$1(current),
+				refetching,
+				onCleanup,
+				signal: controller.signal
+			});
+			set$2(current, result, true);
+			return result;
+		} catch (e) {
+			if (!(e instanceof DOMException && e.name === "AbortError")) set$2(error, e, true);
+			return;
+		} finally {
+			set$2(loading, false);
+		}
+	};
+	const runFetcher = debounceTime ? debounce(baseFetcher, debounceTime) : throttleTime ? throttle(baseFetcher, throttleTime) : baseFetcher;
+	const sources = Array.isArray(source) ? source : [source];
+	let prevValues;
+	effectFn((values, previousValues) => {
+		if (once && prevValues) return;
+		prevValues = values;
+		runFetcher(Array.isArray(source) ? values : values[0], Array.isArray(source) ? previousValues : previousValues?.[0]);
+	}, { lazy });
+	return {
+		get current() {
+			return get$1(current);
+		},
+		get loading() {
+			return get$1(loading);
+		},
+		get error() {
+			return get$1(error);
+		},
+		mutate: (value) => {
+			set$2(current, value, true);
+		},
+		refetch: (info) => {
+			const values = sources.map((s) => s());
+			return runFetcher(Array.isArray(source) ? values : values[0], Array.isArray(source) ? values : values[0], info ?? true);
+		}
+	};
+}
+function resource(source, fetcher, options) {
+	return runResource(source, fetcher, options, (fn, options) => {
+		const sources = Array.isArray(source) ? source : [source];
+		const getters = () => sources.map((s) => s());
+		watch(getters, (values, previousValues) => {
+			fn(values, previousValues ?? []);
+		}, options);
+	});
+}
+function resourcePre(source, fetcher, options) {
+	return runResource(source, fetcher, options, (fn, options) => {
+		const sources = Array.isArray(source) ? source : [source];
+		const getter = () => sources.map((s) => s());
+		watch.pre(getter, (values, previousValues) => {
+			fn(values, previousValues ?? []);
+		}, options);
+	});
+}
+resource.pre = resourcePre;
+//#endregion
 //#region app/frontend/lookbook/lib/utils.svelte.js
 function getCurrentContext() {
 	return getContext("current")();
-}
-function getAppState() {
-	return getContext("appState")();
 }
 function toAbsoluteSize(relativeSize, maxSize) {
 	return relativeSize / 100 * maxSize;
@@ -20962,13 +21735,11 @@ function Tabs_trigger($$anchor, $$props) {
 }
 //#endregion
 //#region app/frontend/lookbook/components/tabs.svelte
-var root_5$1 = /* @__PURE__ */ from_html(`<span data-role="tabs:label" class="label"><!></span>`);
+var root_5$1 = /* @__PURE__ */ from_html(`<span data-role="tabs:label"><!></span>`);
 var root_1$7 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
 function Tabs_1($$anchor, $$props) {
 	push($$props, true);
-	let panels = prop($$props, "panels", 19, () => []);
-	let tabsState = getAppState().getTabsState(() => $$props.id);
-	if (!tabsState.active) tabsState.active = panels()[0]?.id;
+	let panels = prop($$props, "panels", 19, () => []), active = prop($$props, "active", 31, () => proxy$1(panels()[0]?.id));
 	var fragment = comment();
 	var node = first_child(fragment);
 	{
@@ -20980,10 +21751,10 @@ function Tabs_1($$anchor, $$props) {
 				},
 				"data-component": "tabs",
 				get value() {
-					return tabsState.active;
+					return active();
 				},
 				set value($$value) {
-					tabsState.active = $$value;
+					active($$value);
 				},
 				children: ($$anchor, $$slotProps) => {
 					var fragment_1 = root_1$7();
@@ -25512,6 +26283,87 @@ function Layers_2($$anchor, $$props) {
 	}));
 }
 //#endregion
+//#region node_modules/lucide-svelte/dist/icons/layers.svelte
+function Layers($$anchor, $$props) {
+	const $$sanitized_props = legacy_rest_props($$props, [
+		"children",
+		"$$slots",
+		"$$events",
+		"$$legacy"
+	]);
+	/**
+	* @license lucide-svelte v0.563.0 - ISC
+	*
+	* ISC License
+	*
+	* Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2026 as part of Feather (MIT). All other copyright (c) for Lucide are held by Lucide Contributors 2026.
+	*
+	* Permission to use, copy, modify, and/or distribute this software for any
+	* purpose with or without fee is hereby granted, provided that the above
+	* copyright notice and this permission notice appear in all copies.
+	*
+	* THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+	* WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+	* MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+	* ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+	* WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+	* ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+	* OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+	*
+	* ---
+	*
+	* The MIT License (MIT) (for portions derived from Feather)
+	*
+	* Copyright (c) 2013-2026 Cole Bemis
+	*
+	* Permission is hereby granted, free of charge, to any person obtaining a copy
+	* of this software and associated documentation files (the "Software"), to deal
+	* in the Software without restriction, including without limitation the rights
+	* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	* copies of the Software, and to permit persons to whom the Software is
+	* furnished to do so, subject to the following conditions:
+	*
+	* The above copyright notice and this permission notice shall be included in all
+	* copies or substantial portions of the Software.
+	*
+	* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+	* SOFTWARE.
+	*
+	*/
+	const iconNode = [
+		["path", { "d": "M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" }],
+		["path", { "d": "M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" }],
+		["path", { "d": "M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" }]
+	];
+	/**
+	* @component @name Layers
+	* @description Lucide SVG icon component, renders SVG Element with children.
+	*
+	* @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8cGF0aCBkPSJNMTIuODMgMi4xOGEyIDIgMCAwIDAtMS42NiAwTDIuNiA2LjA4YTEgMSAwIDAgMCAwIDEuODNsOC41OCAzLjkxYTIgMiAwIDAgMCAxLjY2IDBsOC41OC0zLjlhMSAxIDAgMCAwIDAtMS44M3oiIC8+CiAgPHBhdGggZD0iTTIgMTJhMSAxIDAgMCAwIC41OC45MWw4LjYgMy45MWEyIDIgMCAwIDAgMS42NSAwbDguNTgtMy45QTEgMSAwIDAgMCAyMiAxMiIgLz4KICA8cGF0aCBkPSJNMiAxN2ExIDEgMCAwIDAgLjU4LjkxbDguNiAzLjkxYTIgMiAwIDAgMCAxLjY1IDBsOC41OC0zLjlBMSAxIDAgMCAwIDIyIDE3IiAvPgo8L3N2Zz4K) - https://lucide.dev/icons/layers
+	* @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
+	*
+	* @param {Object} props - Lucide icons props and any valid SVG attribute
+	* @returns {FunctionalComponent} Svelte component
+	*
+	*/
+	Icon($$anchor, spread_props({ name: "layers" }, () => $$sanitized_props, {
+		get iconNode() {
+			return iconNode;
+		},
+		children: ($$anchor, $$slotProps) => {
+			var fragment_1 = comment();
+			slot(first_child(fragment_1), $$props, "default", {}, null);
+			append$1($$anchor, fragment_1);
+		},
+		$$slots: { default: true }
+	}));
+}
+//#endregion
 //#region node_modules/lucide-svelte/dist/icons/list-filter.svelte
 function List_filter($$anchor, $$props) {
 	const $$sanitized_props = legacy_rest_props($$props, [
@@ -25879,8 +26731,10 @@ function Viewport($$anchor, $$props) {
 		"southwest"
 	];
 	const FULLSIZE = 1e5;
-	let app = getAppState();
-	let viewportState = /* @__PURE__ */ user_derived(() => app.viewport);
+	let viewportState = new PersistedState("viewport", {
+		width: FULLSIZE,
+		height: FULLSIZE
+	});
 	let initial = /* @__PURE__ */ state$1(null);
 	let activeHandle = /* @__PURE__ */ state$1(null);
 	let resizer;
@@ -25904,13 +26758,13 @@ function Viewport($$anchor, $$props) {
 		const direction = get$1(activeHandle).dataset.direction;
 		if (direction.match(/east|west/)) {
 			delta = direction.match("east") ? event.pageX - get$1(initial).x : get$1(initial).x - event.pageX;
-			get$1(viewportState).width = Math.min(get$1(initial).width + delta * 2, get$1(initial).maxWidth);
-			if (get$1(viewportState).width === get$1(initial).maxWidth) get$1(viewportState).width = FULLSIZE;
+			viewportState.current.width = Math.min(get$1(initial).width + delta * 2, get$1(initial).maxWidth);
+			if (viewportState.current.width === get$1(initial).maxWidth) viewportState.current.width = FULLSIZE;
 		}
 		if (direction.match("south")) {
 			delta = event.pageY - get$1(initial).y;
-			get$1(viewportState).height = Math.min(get$1(initial).height + delta, get$1(initial).maxHeight);
-			if (get$1(viewportState).height === get$1(initial).maxHeight) get$1(viewportState).height = FULLSIZE;
+			viewportState.current.height = Math.min(get$1(initial).height + delta, get$1(initial).maxHeight);
+			if (viewportState.current.height === get$1(initial).maxHeight) viewportState.current.height = FULLSIZE;
 		}
 	}
 	function endResize() {
@@ -25919,8 +26773,8 @@ function Viewport($$anchor, $$props) {
 	}
 	function maximize(event) {
 		const direction = event.target.dataset.direction;
-		if (direction.match(/east|west/)) get$1(viewportState).width = FULLSIZE;
-		if (direction.match("south")) get$1(viewportState).height = FULLSIZE;
+		if (direction.match(/east|west/)) viewportState.current.width = FULLSIZE;
+		if (direction.match("south")) viewportState.current.height = FULLSIZE;
 	}
 	var div = root$11();
 	event("mousemove", $window, resizing);
@@ -25984,8 +26838,8 @@ function Viewport($$anchor, $$props) {
 	reset(div);
 	bind_this(div, ($$value) => container = $$value, () => container);
 	template_effect(() => styles = set_style(div, "", styles, {
-		"--viewport-window-width": get$1(viewportState).width,
-		"--viewport-window-height": get$1(viewportState).height
+		"--viewport-window-width": viewportState.current.width,
+		"--viewport-window-height": viewportState.current.height
 	}));
 	append$1($$anchor, div);
 	pop();
@@ -26386,309 +27240,6 @@ function parse(str, opts) {
 	return compact(obj);
 }
 //#endregion
-//#region node_modules/svelte/src/reactivity/url-search-params.js
-var REPLACE = Symbol();
-/**
-* A reactive version of the built-in [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) object.
-* Reading its contents (by iterating, or by calling `params.get(...)` or `params.getAll(...)` as in the [example](https://svelte.dev/playground/b3926c86c5384bab9f2cf993bc08c1c8) below) in an [effect](https://svelte.dev/docs/svelte/$effect) or [derived](https://svelte.dev/docs/svelte/$derived)
-* will cause it to be re-evaluated as necessary when the params are updated.
-*
-* ```svelte
-* <script>
-* 	import { SvelteURLSearchParams } from 'svelte/reactivity';
-*
-* 	const params = new SvelteURLSearchParams('message=hello');
-*
-* 	let key = $state('key');
-* 	let value = $state('value');
-* <\/script>
-*
-* <input bind:value={key} />
-* <input bind:value={value} />
-* <button onclick={() => params.append(key, value)}>append</button>
-*
-* <p>?{params.toString()}</p>
-*
-* {#each params as [key, value]}
-* 	<p>{key}: {value}</p>
-* {/each}
-* ```
-*/
-var SvelteURLSearchParams = class extends URLSearchParams {
-	#version = /* @__PURE__ */ state$1(0);
-	#url = get_current_url();
-	#updating = false;
-	#update_url() {
-		if (!this.#url || this.#updating) return;
-		this.#updating = true;
-		const search = this.toString();
-		this.#url.search = search && `?${search}`;
-		this.#updating = false;
-	}
-	/**
-	* @param {URLSearchParams} params
-	* @internal
-	*/
-	[REPLACE](params) {
-		if (this.#updating) return;
-		this.#updating = true;
-		for (const key of [...super.keys()]) super.delete(key);
-		for (const [key, value] of params) super.append(key, value);
-		increment(this.#version);
-		this.#updating = false;
-	}
-	/**
-	* @param {string} name
-	* @param {string} value
-	* @returns {void}
-	*/
-	append(name, value) {
-		super.append(name, value);
-		this.#update_url();
-		increment(this.#version);
-	}
-	/**
-	* @param {string} name
-	* @param {string=} value
-	* @returns {void}
-	*/
-	delete(name, value) {
-		var has_value = super.has(name, value);
-		super.delete(name, value);
-		if (has_value) {
-			this.#update_url();
-			increment(this.#version);
-		}
-	}
-	/**
-	* @param {string} name
-	* @returns {string|null}
-	*/
-	get(name) {
-		get$1(this.#version);
-		return super.get(name);
-	}
-	/**
-	* @param {string} name
-	* @returns {string[]}
-	*/
-	getAll(name) {
-		get$1(this.#version);
-		return super.getAll(name);
-	}
-	/**
-	* @param {string} name
-	* @param {string=} value
-	* @returns {boolean}
-	*/
-	has(name, value) {
-		get$1(this.#version);
-		return super.has(name, value);
-	}
-	keys() {
-		get$1(this.#version);
-		return super.keys();
-	}
-	/**
-	* @param {string} name
-	* @param {string} value
-	* @returns {void}
-	*/
-	set(name, value) {
-		var previous = super.getAll(name).join("");
-		super.set(name, value);
-		if (previous !== super.getAll(name).join("")) {
-			this.#update_url();
-			increment(this.#version);
-		}
-	}
-	sort() {
-		super.sort();
-		this.#update_url();
-		increment(this.#version);
-	}
-	toString() {
-		get$1(this.#version);
-		return super.toString();
-	}
-	values() {
-		get$1(this.#version);
-		return super.values();
-	}
-	entries() {
-		get$1(this.#version);
-		return super.entries();
-	}
-	[Symbol.iterator]() {
-		return this.entries();
-	}
-	get size() {
-		get$1(this.#version);
-		return super.size;
-	}
-};
-//#endregion
-//#region node_modules/svelte/src/reactivity/url.js
-/** @type {SvelteURL | null} */
-var current_url = null;
-function get_current_url() {
-	return current_url;
-}
-/**
-* A reactive version of the built-in [`URL`](https://developer.mozilla.org/en-US/docs/Web/API/URL) object.
-* Reading properties of the URL (such as `url.href` or `url.pathname`) in an [effect](https://svelte.dev/docs/svelte/$effect) or [derived](https://svelte.dev/docs/svelte/$derived)
-* will cause it to be re-evaluated as necessary when the URL changes.
-*
-* The `searchParams` property is an instance of [SvelteURLSearchParams](https://svelte.dev/docs/svelte/svelte-reactivity#SvelteURLSearchParams).
-*
-* [Example](https://svelte.dev/playground/5a694758901b448c83dc40dc31c71f2a):
-*
-* ```svelte
-* <script>
-* 	import { SvelteURL } from 'svelte/reactivity';
-*
-* 	const url = new SvelteURL('https://example.com/path');
-* <\/script>
-*
-* <!-- changes to these... -->
-* <input bind:value={url.protocol} />
-* <input bind:value={url.hostname} />
-* <input bind:value={url.pathname} />
-*
-* <hr />
-*
-* <!-- will update `href` and vice versa -->
-* <input bind:value={url.href} size="65" />
-* ```
-*/
-var SvelteURL = class extends URL {
-	#protocol = /* @__PURE__ */ state$1(super.protocol);
-	#username = /* @__PURE__ */ state$1(super.username);
-	#password = /* @__PURE__ */ state$1(super.password);
-	#hostname = /* @__PURE__ */ state$1(super.hostname);
-	#port = /* @__PURE__ */ state$1(super.port);
-	#pathname = /* @__PURE__ */ state$1(super.pathname);
-	#hash = /* @__PURE__ */ state$1(super.hash);
-	#search = /* @__PURE__ */ state$1(super.search);
-	#searchParams;
-	/**
-	* @param {string | URL} url
-	* @param {string | URL} [base]
-	*/
-	constructor(url, base) {
-		url = new URL(url, base);
-		super(url);
-		current_url = this;
-		this.#searchParams = new SvelteURLSearchParams(url.searchParams);
-		current_url = null;
-	}
-	get hash() {
-		return get$1(this.#hash);
-	}
-	set hash(value) {
-		super.hash = value;
-		set$2(this.#hash, super.hash);
-	}
-	get host() {
-		get$1(this.#hostname);
-		get$1(this.#port);
-		return super.host;
-	}
-	set host(value) {
-		super.host = value;
-		set$2(this.#hostname, super.hostname);
-		set$2(this.#port, super.port);
-	}
-	get hostname() {
-		return get$1(this.#hostname);
-	}
-	set hostname(value) {
-		super.hostname = value;
-		set$2(this.#hostname, super.hostname);
-	}
-	get href() {
-		get$1(this.#protocol);
-		get$1(this.#username);
-		get$1(this.#password);
-		get$1(this.#hostname);
-		get$1(this.#port);
-		get$1(this.#pathname);
-		get$1(this.#hash);
-		get$1(this.#search);
-		return super.href;
-	}
-	set href(value) {
-		super.href = value;
-		set$2(this.#protocol, super.protocol);
-		set$2(this.#username, super.username);
-		set$2(this.#password, super.password);
-		set$2(this.#hostname, super.hostname);
-		set$2(this.#port, super.port);
-		set$2(this.#pathname, super.pathname);
-		set$2(this.#hash, super.hash);
-		set$2(this.#search, super.search);
-		this.#searchParams[REPLACE](super.searchParams);
-	}
-	get password() {
-		return get$1(this.#password);
-	}
-	set password(value) {
-		super.password = value;
-		set$2(this.#password, super.password);
-	}
-	get pathname() {
-		return get$1(this.#pathname);
-	}
-	set pathname(value) {
-		super.pathname = value;
-		set$2(this.#pathname, super.pathname);
-	}
-	get port() {
-		return get$1(this.#port);
-	}
-	set port(value) {
-		super.port = value;
-		set$2(this.#port, super.port);
-	}
-	get protocol() {
-		return get$1(this.#protocol);
-	}
-	set protocol(value) {
-		super.protocol = value;
-		set$2(this.#protocol, super.protocol);
-	}
-	get search() {
-		return get$1(this.#search);
-	}
-	set search(value) {
-		super.search = value;
-		set$2(this.#search, super.search);
-		this.#searchParams[REPLACE](super.searchParams);
-	}
-	get username() {
-		return get$1(this.#username);
-	}
-	set username(value) {
-		super.username = value;
-		set$2(this.#username, super.username);
-	}
-	get origin() {
-		get$1(this.#protocol);
-		get$1(this.#hostname);
-		get$1(this.#port);
-		return super.origin;
-	}
-	get searchParams() {
-		return this.#searchParams;
-	}
-	toString() {
-		return this.href;
-	}
-	toJSON() {
-		return this.href;
-	}
-};
-//#endregion
 //#region app/frontend/lookbook/lib/params.svelte.js
 function queryParams(definedParams = []) {
 	const request = getCurrentContext().request;
@@ -26724,7 +27275,7 @@ var root_9$1 = /* @__PURE__ */ from_html(`<option> </option>`);
 var root_5 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
 var root_3$1 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
 var root_1$2 = /* @__PURE__ */ from_html(`<div data-role="params-editor:controls"></div>`);
-var root_12 = /* @__PURE__ */ from_html(`<div data-role="params-editor:blank-state"><div data-role="params-editor:blank-state-content">No params have been defined for this scenario</div></div>`);
+var root_12$1 = /* @__PURE__ */ from_html(`<div data-role="params-editor:blank-state"><div data-role="params-editor:blank-state-content">No params have been defined for this scenario</div></div>`);
 var root$10 = /* @__PURE__ */ from_html(`<div data-component="params-editor"><!></div>`);
 function Params_editor($$anchor, $$props) {
 	const id = props_id();
@@ -26911,7 +27462,7 @@ function Params_editor($$anchor, $$props) {
 		append$1($$anchor, div_1);
 	};
 	var alternate_2 = ($$anchor) => {
-		append$1($$anchor, root_12());
+		append$1($$anchor, root_12$1());
 	};
 	if_block(node, ($$render) => {
 		if (params().length) $$render(consequent_2);
@@ -26975,27 +27526,36 @@ function Inspector($$anchor, $$props) {
 	push($$props, true);
 	let maxWidth = /* @__PURE__ */ state$1(void 0);
 	let maxHeight = /* @__PURE__ */ state$1(void 0);
-	let app = getAppState();
 	let crumbs = /* @__PURE__ */ user_derived(() => [...$$props.ancestors, $$props.scenario]);
+	let inspector = new PersistedState("inspector", {
+		drawer: {
+			orientation: "vertical",
+			height: 300,
+			activeTab: $$props.panels?.drawer?.[0].id
+		},
+		sidebar: {
+			orientation: "horizontal",
+			width: 300,
+			activeTab: $$props.panels?.sidebar?.[0].id
+		}
+	});
 	let mainPanels = [{ id: "previewPane" }, { id: "drawerPane" }];
-	let drawer = /* @__PURE__ */ user_derived(() => app.inspector.drawer);
 	let drawerTabs = /* @__PURE__ */ user_derived(() => $$props.panels?.drawer || []);
 	const mainSplit = /* @__PURE__ */ user_derived(() => {
-		const drawerHeight = get$1(drawer).height ? toRelativeSize(get$1(drawer).height, get$1(maxHeight)) : 40;
+		const drawerHeight = inspector.current.drawer.height ? toRelativeSize(inspector.current.drawer.height, get$1(maxHeight)) : 40;
 		return [100 - drawerHeight, drawerHeight];
 	});
 	function setDrawerHeight(relativeHeight) {
-		if (relativeHeight) get$1(drawer).height = toAbsoluteSize(relativeHeight, get$1(maxHeight));
+		if (relativeHeight) inspector.current.drawer.height = toAbsoluteSize(relativeHeight, get$1(maxHeight));
 	}
 	let previewPanels = [{ id: "viewportPane" }, { id: "sidebarPane" }];
-	let sidebar = /* @__PURE__ */ user_derived(() => app.inspector.sidebar);
 	let sidebarTabs = /* @__PURE__ */ user_derived(() => $$props.panels?.sidebar || []);
 	const previewSplit = /* @__PURE__ */ user_derived(() => {
-		const sidebarWidth = get$1(sidebar).width ? toRelativeSize(get$1(sidebar).width, get$1(maxWidth)) : 25;
+		const sidebarWidth = inspector.current.sidebar.width ? toRelativeSize(inspector.current.sidebar.width, get$1(maxWidth)) : 25;
 		return [100 - sidebarWidth, sidebarWidth];
 	});
 	function setSidebarWidth(relativeWidth) {
-		if (relativeWidth) get$1(sidebar).width = toAbsoluteSize(relativeWidth, get$1(maxWidth));
+		if (relativeWidth) inspector.current.sidebar.width = toAbsoluteSize(relativeWidth, get$1(maxWidth));
 	}
 	var div = root$8();
 	var div_1 = child(div);
@@ -27027,6 +27587,7 @@ function Inspector($$anchor, $$props) {
 			});
 		};
 		Toolbar(node, {
+			variant: "transparent",
 			start,
 			end,
 			$$slots: {
@@ -27063,6 +27624,12 @@ function Inspector($$anchor, $$props) {
 						},
 						get panel() {
 							return panel;
+						},
+						get active() {
+							return inspector.current.sidebar.activeTab;
+						},
+						set active($$value) {
+							inspector.current.sidebar.activeTab = $$value;
 						}
 					});
 					reset(div_4);
@@ -27070,13 +27637,10 @@ function Inspector($$anchor, $$props) {
 				};
 				Splitter_1($$anchor, {
 					get orientation() {
-						return get$1(sidebar).orientation;
+						return inspector.current.sidebar.orientation;
 					},
 					get panels() {
 						return previewPanels;
-					},
-					get defaultSize() {
-						return get$1(previewSplit);
 					},
 					get size() {
 						return bind_get_1();
@@ -27102,6 +27666,12 @@ function Inspector($$anchor, $$props) {
 				},
 				get panel() {
 					return panel;
+				},
+				get active() {
+					return inspector.current.drawer.activeTab;
+				},
+				set active($$value) {
+					inspector.current.drawer.activeTab = $$value;
 				}
 			});
 			reset(div_5);
@@ -27109,13 +27679,10 @@ function Inspector($$anchor, $$props) {
 		};
 		Splitter_1(node_3, {
 			get orientation() {
-				return get$1(drawer).orientation;
+				return inspector.current.drawer.orientation;
 			},
 			get panels() {
 				return mainPanels;
-			},
-			get defaultSize() {
-				return get$1(mainSplit);
 			},
 			get size() {
 				return bind_get();
@@ -27244,456 +27811,6 @@ var ServerEventsListener = class {
 	}
 };
 //#endregion
-//#region node_modules/runed/dist/internal/configurable-globals.js
-var defaultWindow = typeof window !== "undefined" ? window : void 0;
-typeof window !== "undefined" && window.document;
-typeof window !== "undefined" && window.navigator;
-typeof window !== "undefined" && window.location;
-//#endregion
-//#region node_modules/runed/dist/internal/utils/dom.js
-/**
-* Handles getting the active element in a document or shadow root.
-* If the active element is within a shadow root, it will traverse the shadow root
-* to find the active element.
-* If not, it will return the active element in the document.
-*
-* @param document A document or shadow root to get the active element from.
-* @returns The active element in the document or shadow root.
-*/
-function getActiveElement(document) {
-	let activeElement = document.activeElement;
-	while (activeElement?.shadowRoot) {
-		const node = activeElement.shadowRoot.activeElement;
-		if (node === activeElement) break;
-		else activeElement = node;
-	}
-	return activeElement;
-}
-//#endregion
-//#region node_modules/runed/dist/utilities/active-element/active-element.svelte.js
-var ActiveElement = class {
-	#document;
-	#subscribe;
-	constructor(options = {}) {
-		const { window = defaultWindow, document = window?.document } = options;
-		if (window === void 0) return;
-		this.#document = document;
-		this.#subscribe = createSubscriber((update) => {
-			const cleanupFocusIn = on(window, "focusin", update);
-			const cleanupFocusOut = on(window, "focusout", update);
-			return () => {
-				cleanupFocusIn();
-				cleanupFocusOut();
-			};
-		});
-	}
-	get current() {
-		this.#subscribe?.();
-		if (!this.#document) return null;
-		return getActiveElement(this.#document);
-	}
-};
-new ActiveElement();
-//#endregion
-//#region node_modules/runed/dist/utilities/watch/watch.svelte.js
-function runEffect(flush, effect) {
-	switch (flush) {
-		case "post":
-			user_effect(effect);
-			break;
-		case "pre":
-			user_pre_effect(effect);
-			break;
-	}
-}
-function runWatcher(sources, flush, effect, options = {}) {
-	const { lazy = false } = options;
-	let active = !lazy;
-	let previousValues = Array.isArray(sources) ? [] : void 0;
-	runEffect(flush, () => {
-		const values = Array.isArray(sources) ? sources.map((source) => source()) : sources();
-		if (!active) {
-			active = true;
-			previousValues = values;
-			return;
-		}
-		const cleanup = untrack(() => effect(values, previousValues));
-		previousValues = values;
-		return cleanup;
-	});
-}
-function runWatcherOnce(sources, flush, effect) {
-	const cleanupRoot = effect_root(() => {
-		let stop = false;
-		runWatcher(sources, flush, (values, previousValues) => {
-			if (stop) {
-				cleanupRoot();
-				return;
-			}
-			const cleanup = effect(values, previousValues);
-			stop = true;
-			return cleanup;
-		}, { lazy: true });
-	});
-	user_effect(() => {
-		return cleanupRoot;
-	});
-}
-function watch(sources, effect, options) {
-	runWatcher(sources, "post", effect, options);
-}
-function watchPre(sources, effect, options) {
-	runWatcher(sources, "pre", effect, options);
-}
-watch.pre = watchPre;
-function watchOnce(source, effect) {
-	runWatcherOnce(source, "post", effect);
-}
-function watchOncePre(source, effect) {
-	runWatcherOnce(source, "pre", effect);
-}
-watchOnce.pre = watchOncePre;
-//#endregion
-//#region node_modules/runed/dist/utilities/persisted-state/persisted-state.svelte.js
-function getStorage(storageType, window) {
-	switch (storageType) {
-		case "local": return window.localStorage;
-		case "session": return window.sessionStorage;
-	}
-}
-function proxy(value, root, proxies, subscribe, update, serialize) {
-	if (value === null || typeof value !== "object") return value;
-	const proto = Object.getPrototypeOf(value);
-	if (proto !== null && proto !== Object.prototype && !Array.isArray(value)) return value;
-	let p = proxies.get(value);
-	if (!p) {
-		p = new Proxy(value, {
-			get: (target, property) => {
-				subscribe?.();
-				return proxy(Reflect.get(target, property), root, proxies, subscribe, update, serialize);
-			},
-			set: (target, property, value) => {
-				update?.();
-				Reflect.set(target, property, value);
-				serialize(root);
-				return true;
-			}
-		});
-		proxies.set(value, p);
-	}
-	return p;
-}
-/**
-* Creates reactive state that is persisted and synchronized across browser sessions and tabs using Web Storage.
-* @param key The unique key used to store the state in the storage.
-* @param initialValue The initial value of the state if not already present in the storage.
-* @param options Configuration options including storage type, serializer for complex data types, and whether to sync state changes across tabs.
-*
-* @see {@link https://runed.dev/docs/utilities/persisted-state}
-*/
-var PersistedState = class {
-	#current;
-	#key;
-	#serializer;
-	#storage;
-	#subscribe;
-	#update;
-	#proxies = /* @__PURE__ */ new WeakMap();
-	#connected;
-	#storageCleanup;
-	#window;
-	#syncTabs;
-	#storageType;
-	constructor(key, initialValue, options = {}) {
-		const { storage: storageType = "local", serializer = {
-			serialize: JSON.stringify,
-			deserialize: JSON.parse
-		}, syncTabs = true, connected = true } = options;
-		const window = "window" in options ? options.window : defaultWindow;
-		this.#current = initialValue;
-		this.#key = key;
-		this.#serializer = serializer;
-		this.#connected = connected;
-		this.#window = window;
-		this.#syncTabs = syncTabs;
-		this.#storageType = storageType;
-		if (window === void 0) return;
-		const storage = getStorage(storageType, window);
-		this.#storage = storage;
-		const existingValue = storage.getItem(key);
-		if (existingValue !== null) this.#current = this.#deserialize(existingValue);
-		else if (connected) this.#serialize(initialValue);
-		this.#setupStorageListener();
-	}
-	get current() {
-		this.#subscribe?.();
-		let root;
-		if (this.#connected) {
-			const storageItem = this.#storage?.getItem(this.#key);
-			root = storageItem ? this.#deserialize(storageItem) : this.#current;
-		} else root = this.#current;
-		return proxy(root, root, this.#proxies, this.#subscribe?.bind(this), this.#update?.bind(this), this.#serialize.bind(this));
-	}
-	set current(newValue) {
-		this.#serialize(newValue);
-		this.#update?.();
-	}
-	#handleStorageEvent = (event) => {
-		if (event.key !== this.#key || event.newValue === null) return;
-		this.#current = this.#deserialize(event.newValue);
-		this.#update?.();
-	};
-	#deserialize(value) {
-		try {
-			return this.#serializer.deserialize(value);
-		} catch (error) {
-			console.error(`Error when parsing "${value}" from persisted store "${this.#key}"`, error);
-			return;
-		}
-	}
-	#serialize(value) {
-		if (!this.#connected) {
-			this.#current = value;
-			return;
-		}
-		try {
-			if (value !== void 0) this.#storage?.setItem(this.#key, this.#serializer.serialize(value));
-		} catch (error) {
-			console.error(`Error when writing value from persisted store "${this.#key}" to ${this.#storage}`, error);
-		}
-	}
-	#setupStorageListener() {
-		if (!this.#window || !this.#connected) return;
-		this.#subscribe = createSubscriber((update) => {
-			this.#update = update;
-			this.#storageCleanup = this.#connected && this.#syncTabs && this.#storageType === "local" ? on(this.#window, "storage", this.#handleStorageEvent) : void 0;
-			return () => {
-				this.#storageCleanup?.();
-				this.#storageCleanup = void 0;
-				this.#update = void 0;
-			};
-		});
-	}
-	#teardownStorageListener() {
-		this.#storageCleanup?.();
-		this.#storageCleanup = void 0;
-		this.#subscribe = void 0;
-	}
-	/**
-	* Returns whether the state is currently connected to storage.
-	*
-	* When `connected` is `false`, the state is not connected to storage and any
-	* changes to the state will not be persisted to storage and any changes to storage
-	* will not be reflected in the state.
-	*/
-	get connected() {
-		return this.#connected;
-	}
-	/**
-	* Disconnects the state from storage, preventing updates to storage and stopping
-	* cross-tab synchronization. The current value in storage is removed.
-	*
-	* Call `.connect()` to re-enable storage persistence.
-	*/
-	disconnect() {
-		if (!this.#connected) return;
-		const storageItem = this.#storage?.getItem(this.#key);
-		if (storageItem) this.#current = this.#deserialize(storageItem);
-		this.#connected = false;
-		this.#storage?.removeItem(this.#key);
-		this.#teardownStorageListener();
-	}
-	/**
-	* Reconnects the state to storage, enabling storage persistence and cross-tab
-	* synchronization. The current value is immediately persisted to storage.
-	*
-	* **NOTE**: By default, the state is already connected to storage and this method is
-	* only useful to re-enable storage persistence after calling `disconnect()`
-	* or starting with `connected: false` as an option.
-	*/
-	connect() {
-		if (this.#connected) return;
-		this.#connected = true;
-		this.#serialize(this.#current);
-		this.#setupStorageListener();
-	}
-};
-//#endregion
-//#region node_modules/runed/dist/utilities/resource/resource.svelte.js
-function debounce(fn, delay) {
-	let timeoutId;
-	let lastResolve = null;
-	return (...args) => {
-		return new Promise((resolve) => {
-			if (lastResolve) lastResolve(void 0);
-			lastResolve = resolve;
-			clearTimeout(timeoutId);
-			timeoutId = setTimeout(async () => {
-				const result = await fn(...args);
-				if (lastResolve) {
-					lastResolve(result);
-					lastResolve = null;
-				}
-			}, delay);
-		});
-	};
-}
-function throttle(fn, delay) {
-	let lastRun = 0;
-	let lastPromise = null;
-	return (...args) => {
-		const now = Date.now();
-		if (lastRun && now - lastRun < delay) return lastPromise ?? Promise.resolve(void 0);
-		lastRun = now;
-		lastPromise = fn(...args);
-		return lastPromise;
-	};
-}
-function runResource(source, fetcher, options = {}, effectFn) {
-	const { lazy = false, once = false, initialValue, debounce: debounceTime, throttle: throttleTime } = options;
-	let current = /* @__PURE__ */ state$1(proxy$1(initialValue));
-	let loading = /* @__PURE__ */ state$1(proxy$1(initialValue === void 0 && !lazy));
-	let error = /* @__PURE__ */ state$1(void 0);
-	let cleanupFns = /* @__PURE__ */ state$1(proxy$1([]));
-	const runCleanup = () => {
-		get$1(cleanupFns).forEach((fn) => fn());
-		set$2(cleanupFns, [], true);
-	};
-	const onCleanup = (fn) => {
-		set$2(cleanupFns, [...get$1(cleanupFns), fn], true);
-	};
-	const baseFetcher = async (value, previousValue, refetching = false) => {
-		try {
-			set$2(loading, true);
-			set$2(error, void 0);
-			runCleanup();
-			const controller = new AbortController();
-			onCleanup(() => controller.abort());
-			const result = await fetcher(value, previousValue, {
-				data: get$1(current),
-				refetching,
-				onCleanup,
-				signal: controller.signal
-			});
-			set$2(current, result, true);
-			return result;
-		} catch (e) {
-			if (!(e instanceof DOMException && e.name === "AbortError")) set$2(error, e, true);
-			return;
-		} finally {
-			set$2(loading, false);
-		}
-	};
-	const runFetcher = debounceTime ? debounce(baseFetcher, debounceTime) : throttleTime ? throttle(baseFetcher, throttleTime) : baseFetcher;
-	const sources = Array.isArray(source) ? source : [source];
-	let prevValues;
-	effectFn((values, previousValues) => {
-		if (once && prevValues) return;
-		prevValues = values;
-		runFetcher(Array.isArray(source) ? values : values[0], Array.isArray(source) ? previousValues : previousValues?.[0]);
-	}, { lazy });
-	return {
-		get current() {
-			return get$1(current);
-		},
-		get loading() {
-			return get$1(loading);
-		},
-		get error() {
-			return get$1(error);
-		},
-		mutate: (value) => {
-			set$2(current, value, true);
-		},
-		refetch: (info) => {
-			const values = sources.map((s) => s());
-			return runFetcher(Array.isArray(source) ? values : values[0], Array.isArray(source) ? values : values[0], info ?? true);
-		}
-	};
-}
-function resource(source, fetcher, options) {
-	return runResource(source, fetcher, options, (fn, options) => {
-		const sources = Array.isArray(source) ? source : [source];
-		const getters = () => sources.map((s) => s());
-		watch(getters, (values, previousValues) => {
-			fn(values, previousValues ?? []);
-		}, options);
-	});
-}
-function resourcePre(source, fetcher, options) {
-	return runResource(source, fetcher, options, (fn, options) => {
-		const sources = Array.isArray(source) ? source : [source];
-		const getter = () => sources.map((s) => s());
-		watch.pre(getter, (values, previousValues) => {
-			fn(values, previousValues ?? []);
-		}, options);
-	});
-}
-resource.pre = resourcePre;
-//#endregion
-//#region app/frontend/lookbook/lib/app-state.svelte.js
-var AppState = class {
-	storedState = new PersistedState("lookbook:app", {
-		workbench: { sidebar: {
-			orientation: "horizontal",
-			width: 300
-		} },
-		inspector: {
-			drawer: {
-				orientation: "vertical",
-				height: 300
-			},
-			sidebar: {
-				orientation: "horizontal",
-				width: 200
-			}
-		},
-		viewport: {
-			width: 1e5,
-			height: 1e5
-		},
-		trees: {},
-		tabs: {}
-	});
-	getTabsState(id) {
-		id = id();
-		let tabs = this.#currentState.tabs;
-		tabs[id] = tabs[id] || { active: null };
-		return tabs[id];
-	}
-	setTabState(id, state) {
-		const currentState = this.getTabsState(id);
-		Object.assign(currentState, state);
-	}
-	getTreeState(id) {
-		id = id();
-		let trees = this.#currentState.trees;
-		trees[id] = trees[id] || {
-			filter: "",
-			expanded: [],
-			selected: []
-		};
-		return trees[id];
-	}
-	setTreeState(id, state) {
-		const currentState = this.getTreeState(id);
-		Object.assign(currentState, state);
-	}
-	get workbench() {
-		return this.#currentState.workbench;
-	}
-	get inspector() {
-		return this.#currentState.inspector;
-	}
-	get viewport() {
-		return this.#currentState.viewport;
-	}
-	get #currentState() {
-		return this.storedState.current;
-	}
-};
-var appState = proxy$1(new AppState());
-//#endregion
 //#region app/frontend/lookbook/components/header.svelte
 var root_1$1 = /* @__PURE__ */ from_html(`<span> </span>`);
 var root$5 = /* @__PURE__ */ from_html(`<header data-component="header"><!></header>`);
@@ -27740,26 +27857,42 @@ function Statusbar($$anchor, $$props) {
 //#region app/frontend/lookbook/components/nav-tree.svelte
 var root_7 = /* @__PURE__ */ from_html(`<!> <span data-role="nav-tree:item-label"> </span>`, 1);
 var root_11 = /* @__PURE__ */ from_html(`<!> <span data-role="nav-tree:branch-label"> </span>`, 1);
-var root_14 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
+var root_12 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
 var root_9 = /* @__PURE__ */ from_html(`<!> <!>`, 1);
-var root$3 = /* @__PURE__ */ from_html(`<div data-component="nav-tree"><!></div>`);
+var root$3 = /* @__PURE__ */ from_html(`<div data-component="nav-tree"><input data-role="nav-tree:filter" placeholder="Search"/> <!></div>`);
 function Nav_tree($$anchor, $$props) {
 	push($$props, true);
 	const iconMap = {
 		page: File$1,
 		scenario: Square_dashed_mouse_pointer,
-		spec: Layers_2,
+		spec: Layers,
+		specOpen: Layers_2,
 		folder: Folder,
 		folderOpen: Folder_open
 	};
-	useFilter({ sensitivity: "base" });
-	let treeState = getAppState().getTreeState(() => $$props.id);
+	const filterFn = useFilter({ sensitivity: "base" });
 	const initialCollection = /* @__PURE__ */ user_derived(() => createTreeCollection({
 		nodeToValue: (node) => node.id,
 		nodeToString: (node) => node.label,
 		rootNode: $$props.tree
 	}));
 	let collection = /* @__PURE__ */ user_derived(() => get$1(initialCollection));
+	let branchIds = /* @__PURE__ */ user_derived(() => get$1(collection).getBranchValues());
+	let treeState = /* @__PURE__ */ user_derived(() => new PersistedState(`nav-tree:${$$props.id}`, {
+		filter: "",
+		expanded: [],
+		selected: [getCurrentContext().resourceId]
+	}));
+	let expanded = /* @__PURE__ */ user_derived(() => get$1(treeState).current.filter.length ? get$1(branchIds) : get$1(treeState).current.expanded);
+	function filter(value) {
+		set$2(collection, value.length > 0 ? get$1(initialCollection).filter((node) => filterFn().contains(node.label, value)) : get$1(initialCollection));
+		get$1(treeState).current.filter = value;
+	}
+	function setSelected(value) {
+		value = Array.isArray(value) ? value : [value];
+		if (!get$1(branchIds).includes(value[0])) get$1(treeState).current.selected = value;
+	}
+	onMount(() => filter(get$1(treeState).current.filter));
 	var div = root$3();
 	{
 		const renderNode = ($$anchor, node = noop$2, indexPath = noop$2) => {
@@ -27828,7 +27961,7 @@ function Nav_tree($$anchor, $$props) {
 									}
 									append$1($$anchor, fragment_3);
 								};
-								var alternate_1 = ($$anchor) => {
+								var alternate = ($$anchor) => {
 									var fragment_7 = comment();
 									component(first_child(fragment_7), () => Tree_view_branch, ($$anchor, TreeView_Branch) => {
 										TreeView_Branch($$anchor, {
@@ -27847,21 +27980,12 @@ function Nav_tree($$anchor, $$props) {
 																	children: ($$anchor, $$slotProps) => {
 																		var fragment_10 = root_11();
 																		var node_10 = first_child(fragment_10);
-																		var consequent_1 = ($$anchor) => {
-																			Icon$1($$anchor, { get svg() {
-																				return iconMap["folderOpen"];
+																		{
+																			let $0 = /* @__PURE__ */ user_derived(() => iconMap[`${node().type}${nodeState()().expanded ? "Open" : ""}`]);
+																			Icon$1(node_10, { get svg() {
+																				return get$1($0);
 																			} });
-																		};
-																		var d = /* @__PURE__ */ user_derived(() => nodeState()().expanded);
-																		var alternate = ($$anchor) => {
-																			Icon$1($$anchor, { get svg() {
-																				return iconMap["folder"];
-																			} });
-																		};
-																		if_block(node_10, ($$render) => {
-																			if (get$1(d)) $$render(consequent_1);
-																			else $$render(alternate, -1);
-																		});
+																		}
 																		var span_1 = sibling(node_10, 2);
 																		var text_1 = child(span_1, true);
 																		reset(span_1);
@@ -27880,8 +28004,8 @@ function Nav_tree($$anchor, $$props) {
 													TreeView_BranchContent($$anchor, {
 														"data-role": "nav-tree:branch-content",
 														children: ($$anchor, $$slotProps) => {
-															var fragment_13 = root_14();
-															var node_12 = first_child(fragment_13);
+															var fragment_11 = root_12();
+															var node_12 = first_child(fragment_11);
 															component(node_12, () => Tree_view_branch_indent_guide, ($$anchor, TreeView_BranchIndentGuide) => {
 																TreeView_BranchIndentGuide($$anchor, { "data-role": "nav-tree:branch-indent-guide" });
 															});
@@ -27891,7 +28015,7 @@ function Nav_tree($$anchor, $$props) {
 																	renderNode($$anchor, () => get$1(child), () => get$1($0));
 																}
 															});
-															append$1($$anchor, fragment_13);
+															append$1($$anchor, fragment_11);
 														},
 														$$slots: { default: true }
 													});
@@ -27905,7 +28029,7 @@ function Nav_tree($$anchor, $$props) {
 								};
 								if_block(node_3, ($$render) => {
 									if (node().leaf) $$render(consequent);
-									else $$render(alternate_1, -1);
+									else $$render(alternate, -1);
 								});
 								append$1($$anchor, fragment_2);
 							};
@@ -27923,7 +28047,14 @@ function Nav_tree($$anchor, $$props) {
 			});
 			append$1($$anchor, fragment);
 		};
-		component(child(div), () => Tree_view_root, ($$anchor, TreeView_Root) => {
+		var input = child(div);
+		remove_input_defaults(input);
+		var node_14 = sibling(input, 2);
+		var bind_get = () => get$1(expanded);
+		var bind_set = (value) => get$1(treeState).current.expanded = value;
+		var bind_get_1 = () => get$1(treeState).current.selected;
+		var bind_set_1 = (value) => setSelected(value);
+		component(node_14, () => Tree_view_root, ($$anchor, TreeView_Root) => {
 			TreeView_Root($$anchor, {
 				get collection() {
 					return get$1(collection);
@@ -27931,37 +28062,38 @@ function Nav_tree($$anchor, $$props) {
 				selectionMode: "single",
 				"data-role": "nav-tree:tree",
 				get expandedValue() {
-					return treeState.expanded;
+					return bind_get();
 				},
 				set expandedValue($$value) {
-					treeState.expanded = $$value;
+					bind_set($$value);
 				},
 				get selectedValue() {
-					return treeState.selected;
+					return bind_get_1();
 				},
 				set selectedValue($$value) {
-					treeState.selected = $$value;
+					bind_set_1($$value);
 				},
 				children: ($$anchor, $$slotProps) => {
-					var fragment_15 = comment();
-					component(first_child(fragment_15), () => Tree_view_tree, ($$anchor, TreeView_Tree) => {
+					var fragment_13 = comment();
+					component(first_child(fragment_13), () => Tree_view_tree, ($$anchor, TreeView_Tree) => {
 						TreeView_Tree($$anchor, {
 							children: ($$anchor, $$slotProps) => {
-								var fragment_16 = comment();
-								each(first_child(fragment_16), 19, () => get$1(collection).rootNode?.children ?? [], (node) => node.id, ($$anchor, node, index) => {
+								var fragment_14 = comment();
+								each(first_child(fragment_14), 19, () => get$1(collection).rootNode?.children ?? [], (node) => node.id, ($$anchor, node, index) => {
 									renderNode($$anchor, () => get$1(node), () => [get$1(index)]);
 								});
-								append$1($$anchor, fragment_16);
+								append$1($$anchor, fragment_14);
 							},
 							$$slots: { default: true }
 						});
 					});
-					append$1($$anchor, fragment_15);
+					append$1($$anchor, fragment_13);
 				},
 				$$slots: { default: true }
 			});
 		});
 		reset(div);
+		bind_value(input, () => get$1(treeState).current.filter, (value) => filter(value));
 	}
 	append$1($$anchor, div);
 	pop();
@@ -28055,14 +28187,16 @@ function Workbench($$anchor, $$props) {
 	push($$props, true);
 	let panels = [{ id: "sidebar" }, { id: "main" }];
 	let maxWidth = /* @__PURE__ */ state$1(void 0);
-	let app = getAppState();
-	let sidebar = /* @__PURE__ */ user_derived(() => app.workbench.sidebar);
+	let workbench = new PersistedState("workbench", { sidebar: {
+		orientation: "horizontal",
+		width: 300
+	} });
 	const split = /* @__PURE__ */ user_derived(() => {
-		const sidebarWidth = toRelativeSize(get$1(sidebar).width, get$1(maxWidth));
+		const sidebarWidth = toRelativeSize(workbench.current.sidebar.width, get$1(maxWidth));
 		return [sidebarWidth, 100 - sidebarWidth];
 	});
 	function setSidebarWidth(relativeWidth) {
-		if (relativeWidth) get$1(sidebar).width = toAbsoluteSize(relativeWidth, get$1(maxWidth));
+		if (relativeWidth) workbench.current.sidebar.width = toAbsoluteSize(relativeWidth, get$1(maxWidth));
 	}
 	var div = root$1();
 	var node = child(div);
@@ -28083,6 +28217,9 @@ function Workbench($$anchor, $$props) {
 		Splitter_1(node, {
 			get panels() {
 				return panels;
+			},
+			get defaultSize() {
+				return get$1(split);
 			},
 			get size() {
 				return bind_get();
@@ -28119,7 +28256,6 @@ function App($$anchor, $$props) {
 		};
 	});
 	setContext("current", () => get$1(current));
-	setContext("appState", () => appState);
 	let updateRequested = /* @__PURE__ */ state$1(false);
 	onMount(() => {
 		const serverEventsListener = new ServerEventsListener($$props.lookbook.ssePath);

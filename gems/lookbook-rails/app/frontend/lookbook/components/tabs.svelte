@@ -1,27 +1,18 @@
 <script>
   import { Tabs } from "@ark-ui/svelte/tabs";
-  import { getAppState } from "@lib/utils";
 
   import Toolbar from "@components/toolbar";
 
-  let { id, panels = [], label, panel } = $props();
-
-  let app = getAppState();
-  let tabsState = app.getTabsState(() => id);
-
-  if (!tabsState.active) {
-    // svelte-ignore state_referenced_locally
-    tabsState.active = panels[0]?.id;
-  }
+  let { id, panels = [], label, panel, active = $bindable(panels[0]?.id) } = $props();
 </script>
 
-<Tabs.Root defaultValue={panels[0]?.id} bind:value={tabsState.active} data-component="tabs">
+<Tabs.Root defaultValue={panels[0]?.id} bind:value={active} data-component="tabs">
   <Toolbar data-role="tabs:toolbar">
     {#snippet start()}
       <Tabs.List data-role="tabs:list">
         {#each panels as p (p.id)}
           <Tabs.Trigger value={p.id} data-role="tabs:trigger">
-            <span data-role="tabs:label" class="label">
+            <span data-role="tabs:label">
               {#if label}
                 {@render label(p)}
               {:else}
@@ -51,7 +42,7 @@
     --tabs-tab-fg: var(--lookbook-panel-fg);
     --tabs-tab-fg-hover: var(--lookbook-accent);
     --tabs-tab-fg-active: var(--lookbook-accent);
-    --tabs-tab-label-size: var(--lookbook-font-size-xs);
+    --tabs-tab-label-size: var(--lookbook-font-size-sm);
     --tabs-tab-marker: transparent;
     --tabs-tab-marker-hover: var(--lookbook-block-bg-hover);
     --tabs-tab-marker-active: var(--lookbook-accent);
