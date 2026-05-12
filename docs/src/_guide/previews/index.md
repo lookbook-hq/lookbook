@@ -164,12 +164,12 @@ title: Previews Overview
     Extend previews to add authentication, authorization, before actions, etc. using the `lookbook.preview_controller` [config option](<%= guide_url :config_reference %>#preview_controller):
 
     ```rb
-    config.lookbook.previews.controller = "MyPreviewController"
+    config.lookbook.preview_controller = "MyPreviewController"
     ```
   <% end %>
 
   <% s.with_block_note :tip do %>
-    Note that if you are using ViewComponent, this option should be set via the `view_component.preview_controller` config option instead, as per the ViewComponent docs:
+    Note that if you are using ViewComponent, this option should be set via the `view_component.previews.controller` config option instead, as per the ViewComponent docs:
 
     ```rb
     config.view_component.previews.controller = "MyPreviewController"
