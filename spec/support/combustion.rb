@@ -1,21 +1,38 @@
-Combustion.path = "spec/dummy"
+require 'phlex-rails'
+
+module Views
+end
+
+module Components
+  extend Phlex::Kit
+end
+
+Combustion.path = 'spec/dummy'
 Combustion.initialize! :action_controller, :action_view do
   config.autoloader = :zeitwerk
 
   ActiveSupport::Deprecation.silenced = true if ActiveSupport::Deprecation.respond_to?(:silenced=)
   ActiveSupport::Dependencies.autoload_paths << "#{root}/app"
 
+  Rails.autoloaders.main.push_dir(
+    Rails.root.join('app/views/phlex'), namespace: Views
+  )
+
+  Rails.autoloaders.main.push_dir(
+    Rails.root.join('app/components/phlex'), namespace: Components
+  )
+
   if config.view_component.preview_paths.present?
-    config.view_component.preview_paths << "test/components/previews"
+    config.view_component.preview_paths << 'test/components/previews'
   elsif config.view_component.previews&.paths.present?
-    config.view_component.previews.paths << "test/components/previews"
+    config.view_component.previews.paths << 'test/components/previews'
   end
 
-  config.lookbook.project_name = "Lookbook Test App"
+  config.lookbook.project_name = 'Lookbook Test App'
   config.lookbook.listen = false
   config.lookbook.using_view_component = true
 
-  config.action_controller.default_url_options = {host: "localhost"}
+  config.action_controller.default_url_options = { host: 'localhost' }
 
   Lookbook.add_tag(:customtag)
 
