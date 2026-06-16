@@ -17,4 +17,5 @@ group :test do
   gem "selenium-webdriver", "4.17.0"
   gem "puma", "~> 6"
   gem "rspec-rails", "~> 6"
+  gem "sprockets-rails", "~> 3.5" # For asset pipeline testing
 end

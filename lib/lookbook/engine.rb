@@ -6,6 +6,27 @@ module Lookbook
 
     config.autoload_paths << File.expand_path(root.join("app/components"))
 
+    # Add Lookbook assets to asset pipeline early, before Sprockets initializes
+    initializer "lookbook.assets.precompile", before: "sprockets.environment" do |app|
+      if app.config.respond_to?(:assets)
+        # Add pre-built assets directory to asset pipeline paths
+        app.config.assets.paths << root.join("public", "lookbook-assets").to_s
+
+        # Register Lookbook assets for precompilation
+        app.config.assets.precompile += %w[
+          css/lookbook.css
+          css/themes/blue.css
+          css/themes/green.css
+          css/themes/indigo.css
+          css/themes/rose.css
+          css/themes/zinc.css
+          js/index.js
+          js/lookbook.js
+          js/iframe.js
+        ]
+      end
+    end
+
     initializer "lookbook.assets.serve" do
       config.app_middleware.use(
         Rack::Static,

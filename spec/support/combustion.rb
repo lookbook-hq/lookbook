@@ -1,9 +1,14 @@
 Combustion.path = "spec/dummy"
-Combustion.initialize! :action_controller, :action_view do
+Combustion.initialize! :action_controller, :action_view, :sprockets do
   config.autoloader = :zeitwerk
 
   ActiveSupport::Deprecation.silenced = true if ActiveSupport::Deprecation.respond_to?(:silenced=)
   ActiveSupport::Dependencies.autoload_paths << "#{root}/app"
+
+  # Configure asset pipeline for testing
+  config.assets.enabled = true
+  config.assets.paths = []
+  config.assets.precompile = []
 
   if config.view_component.preview_paths.present?
     config.view_component.preview_paths << "test/components/previews"
