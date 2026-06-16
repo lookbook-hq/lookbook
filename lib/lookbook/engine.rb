@@ -6,25 +6,13 @@ module Lookbook
 
     config.autoload_paths << File.expand_path(root.join("app/components"))
 
-    # Add Lookbook assets to asset pipeline early, before Sprockets initializes
-    initializer "lookbook.assets.precompile", before: "sprockets.environment" do |app|
-      if app.config.respond_to?(:assets)
-        # Add pre-built assets directory to asset pipeline paths
-        app.config.assets.paths << root.join("public", "lookbook-assets").to_s
+    # Note: Lookbook assets are pre-built and contain modern CSS that Sprockets/Sass cannot process.
+    # Instead of adding them to the asset pipeline, we copy them to public/ during deployment.
+    # See lib/tasks/lookbook_assets.rake for the copy task.
 
-        # Register Lookbook assets for precompilation
-        app.config.assets.precompile += %w[
-          css/lookbook.css
-          css/themes/blue.css
-          css/themes/green.css
-          css/themes/indigo.css
-          css/themes/rose.css
-          css/themes/zinc.css
-          js/index.js
-          js/lookbook.js
-          js/iframe.js
-        ]
-      end
+    # Load rake tasks from the gem
+    rake_tasks do
+      load root.join("lib", "tasks", "lookbook_assets.rake")
     end
 
     initializer "lookbook.assets.serve" do
