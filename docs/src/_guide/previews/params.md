@@ -382,6 +382,8 @@ title: Dynamic Params
     - `Hash` - _value string converted to Hash using the Ruby YAML parser_
     - `Array` - _value string converted to Array using the Ruby YAML parser_
 
+    Type casting is applied whenever a preview is rendered, including via ViewComponent's `render_preview` test helper. This means preview methods can rely on receiving the declared type in their own tests, and downstream `.to_sym`/manual-cast workarounds are no longer required.
+
   <% end %>
 <% end %>
 

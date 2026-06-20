@@ -44,4 +44,20 @@ class ParamsComponentPreview < ViewComponent::Preview
       body_text
     end
   end
+
+  # @param my_param [Symbol] select [foo, bar]
+  def coerce_symbol(my_param: :foo)
+    render StandardComponent.new do
+      "my_param=#{my_param} class=#{my_param.class}"
+    end
+  end
+
+  # @param sym [Symbol] select [foo, bar]
+  # @param flag [Boolean] toggle
+  # @param num number
+  def coerce_mixed(sym: :foo, flag: false, num: 1)
+    render StandardComponent.new do
+      "sym=#{sym.class} flag=#{flag.class} num=#{num.class}"
+    end
+  end
 end
