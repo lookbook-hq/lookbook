@@ -1,11 +1,10 @@
 module Lookbook
   module ApplicationHelper
     def lookbook_asset_path(file, version: true)
-      # In production with asset_host configured, serve from CDN
-      # Assets are copied to public/assets/lookbook-assets/ during precompilation
-      if Rails.env.production? &&
-         Rails.application.config.action_controller.respond_to?(:asset_host) &&
-         Rails.application.config.action_controller.asset_host.present?
+      # When the host app has an asset_host configured, assets are being served from
+      # a CDN. Assets are copied to public/assets/lookbook-assets/ during precompilation
+      if Rails.application.config.action_controller.respond_to?(:asset_host) &&
+          Rails.application.config.action_controller.asset_host.present?
 
         asset_host = Rails.application.config.action_controller.asset_host
         file_path = file.to_s.sub(%r{^/}, "")
