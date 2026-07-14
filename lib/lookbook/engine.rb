@@ -10,11 +10,6 @@ module Lookbook
     # Instead of adding them to the asset pipeline, we copy them to public/ during deployment.
     # See lib/tasks/lookbook_assets.rake for the copy task.
 
-    # Load rake tasks from the gem
-    rake_tasks do
-      load root.join("lib", "tasks", "lookbook_assets.rake")
-    end
-
     initializer "lookbook.assets.serve" do
       config.app_middleware.use(
         Rack::Static,
