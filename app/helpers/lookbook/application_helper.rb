@@ -2,16 +2,18 @@ module Lookbook
   module ApplicationHelper
     def lookbook_asset_path(file, version: true)
       # When the host app has an asset_host configured, assets are being served from
-      # a CDN. Assets are copied to public/assets/lookbook-assets/ during precompilation
+      # a CDN. Assets are copied alongside the host app's precompiled assets (under
+      # config.assets.prefix) during precompilation.
       if Rails.application.config.action_controller.respond_to?(:asset_host) &&
           Rails.application.config.action_controller.asset_host.present?
 
         asset_host = Rails.application.config.action_controller.asset_host
+        assets_prefix = Rails.application.config.assets.prefix
         file_path = file.to_s.sub(%r{^/}, "")
 
         # Build CDN URL: asset_host already includes release path
         # e.g., https://cdn.example.com/eureka/{release}/assets/lookbook-assets/css/lookbook.css
-        "#{asset_host}/assets/lookbook-assets/#{file_path}#{version ? "?v=#{Lookbook::VERSION}" : ""}"
+        "#{asset_host}#{assets_prefix}/lookbook-assets/#{file_path}#{version ? "?v=#{Lookbook::VERSION}" : ""}"
       else
         # Development: use middleware path
         middleware_path(file, version)

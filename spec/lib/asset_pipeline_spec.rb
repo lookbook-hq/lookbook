@@ -41,6 +41,13 @@ RSpec.describe "Asset Pipeline Integration" do
         result = helper.lookbook_asset_path("/css/lookbook.css", version: false)
         expect(result).to eq("https://cdn.example.com/eureka/release-123/assets/lookbook-assets/css/lookbook.css")
       end
+
+      it "respects a custom config.assets.prefix" do
+        allow(Rails.application.config.assets).to receive(:prefix).and_return("/connect/assets")
+
+        result = helper.lookbook_asset_path("/css/lookbook.css")
+        expect(result).to eq("https://cdn.example.com/eureka/release-123/connect/assets/lookbook-assets/css/lookbook.css?v=#{Lookbook::VERSION}")
+      end
     end
   end
 end

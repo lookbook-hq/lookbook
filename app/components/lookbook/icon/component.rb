@@ -14,5 +14,13 @@ module Lookbook
     def size_rems
       "#{@size * 0.25}rem"
     end
+
+    def sprite_path
+      if defined? helpers.lookbook_asset_path
+        helpers.lookbook_asset_path("img/lucide-sprite.svg")
+      else
+        "/lookbook-assets/img/lucide-sprite.svg"
+      end
+    end
   end
 end
