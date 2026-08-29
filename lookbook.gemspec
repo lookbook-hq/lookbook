@@ -26,5 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "yard", "~> 0.9"
   spec.add_dependency "htmlbeautifier", "~> 1.3"
   spec.add_dependency "htmlentities", "~> 4.3"
-  spec.add_dependency "marcel", "~> 1.0"
+  spec.add_dependency "marcel", ">= 1.0"
 end
