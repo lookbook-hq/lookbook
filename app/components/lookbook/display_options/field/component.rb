@@ -17,9 +17,7 @@ module Lookbook
       protected
 
       def alpine_data
-        escaped_name = html_escape(json_escape(name.to_s))
-        escaped_value = html_escape(json_escape(value.to_s).gsub("\n", '\n'))
-        "{name: \"#{escaped_name}\", value: \"#{escaped_value}\"}"
+        alpine_encode({name: name, value: value.to_s})
       end
 
       def alpine_component
