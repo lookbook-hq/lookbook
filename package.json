@@ -39,7 +39,8 @@
   "scripts": {
     "dev": "npm run watch",
     "watch": "npm run parcel:clean && concurrently npm:parcel:watch",
-    "build": "npm run assets:clean && npm run parcel:clean && npm run themes:generate && npm run parcel:build",
+    "build": "npm run assets:clean && npm run build:assets",
+    "build:assets": "npm run parcel:clean && npm run themes:generate && npm run parcel:build",
     "assets:clean": "rm -rf public/lookbook-assets/css public/lookbook-assets/js public/lookbook-assets/*.woff2 public/lookbook-assets/*.otf",
     "parcel:clean": "rm -rf .parcel-cache",
     "parcel:watch": "parcel watch -p 5111",
@@ -102,7 +103,7 @@
   "lint-staged": {
     "!(docs/**/*)": [
       "prettier --write --ignore-unknown",
-      "npm run build"
+      "npm run build:assets"
     ],
     "**/*.rb": [
       "bundle exec standardrb --fix"
