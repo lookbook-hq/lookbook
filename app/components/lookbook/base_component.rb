@@ -33,12 +33,21 @@ module Lookbook
       nil
     end
 
+    # Serialise `data` (a String, Hash, Array, …) for embedding in an Alpine
+    # `x-data` attribute.
+    #
+    # `to_json` is what makes this safe: any string inside `data` is emitted as
+    # a JSON string literal, so quotes become `\"` and backslashes `\\`. Those
+    # escapes survive the browser's HTML-entity decoding of the attribute, so a
+    # crafted value can't break out of the JS string and inject an expression
+    # (see spec/components/alpine_encode_spec.rb). `json_escape` additionally
+    # neutralises `<`, `>`, `&` and the U+2028/U+2029 line separators.
+    #
+    # Do NOT wrap this in `html_escape`: the tag builder already escapes the
+    # attribute, and pre-escaping double-encodes into literal `&quot;` inside
+    # the JSON, breaking the payload.
     def alpine_encode(data)
-      if data.is_a? String
-        "'#{json_escape data}'"
-      else
-        json_escape data.to_json.tr("\"", "'")
-      end
+      json_escape(data.to_json)
     end
 
     def prepare_alpine_data(x_data = nil)
