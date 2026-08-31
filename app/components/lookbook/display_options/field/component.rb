@@ -17,7 +17,7 @@ module Lookbook
       protected
 
       def alpine_data
-        "{name: '#{name}', value: '#{value}'}"
+        alpine_encode({name: name, value: value.to_s})
       end
 
       def alpine_component
