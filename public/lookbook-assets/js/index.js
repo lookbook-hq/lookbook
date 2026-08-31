@@ -390,7 +390,14 @@ function $caa9439642c6336c$var$tryCatch(el, expression, callback, ...args) {
         $caa9439642c6336c$var$handleError(e, el, expression);
     }
 }
-function $caa9439642c6336c$var$handleError(error2, el, expression) {
+function $caa9439642c6336c$var$handleError(...args) {
+    return $caa9439642c6336c$var$errorHandler(...args);
+}
+var $caa9439642c6336c$var$errorHandler = $caa9439642c6336c$var$normalErrorHandler;
+function $caa9439642c6336c$var$setErrorHandler(handler4) {
+    $caa9439642c6336c$var$errorHandler = handler4;
+}
+function $caa9439642c6336c$var$normalErrorHandler(error2, el, expression) {
     error2 = Object.assign(error2 ?? {
         message: "No error message given."
     }, {
@@ -425,6 +432,10 @@ var $caa9439642c6336c$var$theEvaluatorFunction = $caa9439642c6336c$var$normalEva
 function $caa9439642c6336c$var$setEvaluator(newEvaluator) {
     $caa9439642c6336c$var$theEvaluatorFunction = newEvaluator;
 }
+var $caa9439642c6336c$var$theRawEvaluatorFunction;
+function $caa9439642c6336c$var$setRawEvaluator(newEvaluator) {
+    $caa9439642c6336c$var$theRawEvaluatorFunction = newEvaluator;
+}
 function $caa9439642c6336c$var$normalEvaluator(el, expression) {
     let overriddenMagics = {};
     $caa9439642c6336c$var$injectMagics(overriddenMagics, el);
@@ -436,7 +447,14 @@ function $caa9439642c6336c$var$normalEvaluator(el, expression) {
     return $caa9439642c6336c$var$tryCatch.bind(null, el, expression, evaluator);
 }
 function $caa9439642c6336c$var$generateEvaluatorFromFunction(dataStack, func) {
-    return (receiver = ()=>{}, { scope: scope2 = {}, params: params = [] } = {})=>{
+    return (receiver = ()=>{}, { scope: scope2 = {}, params: params = [], context: context } = {})=>{
+        if (!$caa9439642c6336c$var$shouldAutoEvaluateFunctions) {
+            $caa9439642c6336c$var$runIfTypeOfFunction(receiver, func, $caa9439642c6336c$var$mergeProxies([
+                scope2,
+                ...dataStack
+            ]), params);
+            return;
+        }
         let result = func.apply($caa9439642c6336c$var$mergeProxies([
             scope2,
             ...dataStack
@@ -470,7 +488,7 @@ function $caa9439642c6336c$var$generateFunctionFromString(expression, el) {
 }
 function $caa9439642c6336c$var$generateEvaluatorFromString(dataStack, expression, el) {
     let func = $caa9439642c6336c$var$generateFunctionFromString(expression, el);
-    return (receiver = ()=>{}, { scope: scope2 = {}, params: params = [] } = {})=>{
+    return (receiver = ()=>{}, { scope: scope2 = {}, params: params = [], context: context } = {})=>{
         func.result = void 0;
         func.finished = false;
         let completeScope = $caa9439642c6336c$var$mergeProxies([
@@ -478,7 +496,7 @@ function $caa9439642c6336c$var$generateEvaluatorFromString(dataStack, expression
             ...dataStack
         ]);
         if (typeof func === "function") {
-            let promise = func(func, completeScope).catch((error2)=>$caa9439642c6336c$var$handleError(error2, el, expression));
+            let promise = func.call(context, func, completeScope).catch((error2)=>$caa9439642c6336c$var$handleError(error2, el, expression));
             if (func.finished) {
                 $caa9439642c6336c$var$runIfTypeOfFunction(receiver, func.result, completeScope, params, el);
                 func.result = void 0;
@@ -495,6 +513,39 @@ function $caa9439642c6336c$var$runIfTypeOfFunction(receiver, value, scope2, para
         else receiver(result);
     } else if (typeof value === "object" && value instanceof Promise) value.then((i)=>receiver(i));
     else receiver(value);
+}
+function $caa9439642c6336c$var$evaluateRaw(...args) {
+    return $caa9439642c6336c$var$theRawEvaluatorFunction(...args);
+}
+function $caa9439642c6336c$var$normalRawEvaluator(el, expression, extras = {}) {
+    let overriddenMagics = {};
+    $caa9439642c6336c$var$injectMagics(overriddenMagics, el);
+    let dataStack = [
+        overriddenMagics,
+        ...$caa9439642c6336c$var$closestDataStack(el)
+    ];
+    let scope2 = $caa9439642c6336c$var$mergeProxies([
+        extras.scope ?? {},
+        ...dataStack
+    ]);
+    let params = extras.params ?? [];
+    if (expression.includes("await")) {
+        let AsyncFunction = Object.getPrototypeOf(async function() {}).constructor;
+        let rightSideSafeExpression = /^[\n\s]*if.*\(.*\)/.test(expression.trim()) || /^(let|const)\s/.test(expression.trim()) ? `(async()=>{ ${expression} })()` : expression;
+        let func = new AsyncFunction([
+            "scope"
+        ], `with (scope) { let __result = ${rightSideSafeExpression}; return __result }`);
+        let result = func.call(extras.context, scope2);
+        return result;
+    } else {
+        let rightSideSafeExpression = /^[\n\s]*if.*\(.*\)/.test(expression.trim()) || /^(let|const)\s/.test(expression.trim()) ? `(()=>{ ${expression} })()` : expression;
+        let func = new Function([
+            "scope"
+        ], `with (scope) { let __result = ${rightSideSafeExpression}; return __result }`);
+        let result = func.call(extras.context, scope2);
+        if (typeof result === "function" && $caa9439642c6336c$var$shouldAutoEvaluateFunctions) return result.apply(scope2, params);
+        return result;
+    }
 }
 // packages/alpinejs/src/directives.js
 var $caa9439642c6336c$var$prefixAsString = "x-";
@@ -743,6 +794,7 @@ function $caa9439642c6336c$var$findClosest(el, callback) {
     if (!el) return;
     if (callback(el)) return el;
     if (el._x_teleportBack) el = el._x_teleportBack;
+    if (el.parentNode instanceof ShadowRoot) return $caa9439642c6336c$var$findClosest(el.parentNode.host, callback);
     if (!el.parentElement) return;
     return $caa9439642c6336c$var$findClosest(el.parentElement, callback);
 }
@@ -1405,10 +1457,10 @@ function $caa9439642c6336c$var$isRadio(el) {
 }
 // packages/alpinejs/src/utils/debounce.js
 function $caa9439642c6336c$var$debounce(func, wait) {
-    var timeout;
+    let timeout;
     return function() {
-        var context = this, args = arguments;
-        var later = function() {
+        const context = this, args = arguments;
+        const later = function() {
             timeout = null;
             func.apply(context, args);
         };
@@ -1553,7 +1605,7 @@ var $caa9439642c6336c$var$Alpine = {
     get raw () {
         return $caa9439642c6336c$var$raw;
     },
-    version: "3.14.9",
+    version: "3.15.3",
     flushAndStopDeferringMutations: $caa9439642c6336c$var$flushAndStopDeferringMutations,
     dontAutoEvaluateFunctions: $caa9439642c6336c$var$dontAutoEvaluateFunctions,
     disableEffectScheduling: $caa9439642c6336c$var$disableEffectScheduling,
@@ -1567,13 +1619,17 @@ var $caa9439642c6336c$var$Alpine = {
     onlyDuringClone: $caa9439642c6336c$var$onlyDuringClone,
     addRootSelector: $caa9439642c6336c$var$addRootSelector,
     addInitSelector: $caa9439642c6336c$var$addInitSelector,
+    setErrorHandler: $caa9439642c6336c$var$setErrorHandler,
     interceptClone: $caa9439642c6336c$var$interceptClone,
     addScopeToNode: $caa9439642c6336c$var$addScopeToNode,
     deferMutations: $caa9439642c6336c$var$deferMutations,
     mapAttributes: $caa9439642c6336c$var$mapAttributes,
     evaluateLater: $caa9439642c6336c$var$evaluateLater,
     interceptInit: $caa9439642c6336c$var$interceptInit,
+    initInterceptors: $caa9439642c6336c$var$initInterceptors,
+    injectMagics: $caa9439642c6336c$var$injectMagics,
     setEvaluator: $caa9439642c6336c$var$setEvaluator,
+    setRawEvaluator: $caa9439642c6336c$var$setRawEvaluator,
     mergeProxies: $caa9439642c6336c$var$mergeProxies,
     extractProp: $caa9439642c6336c$var$extractProp,
     findClosest: $caa9439642c6336c$var$findClosest,
@@ -1592,6 +1648,7 @@ var $caa9439642c6336c$var$Alpine = {
     throttle: $caa9439642c6336c$var$throttle,
     debounce: $caa9439642c6336c$var$debounce,
     evaluate: $caa9439642c6336c$var$evaluate,
+    evaluateRaw: $caa9439642c6336c$var$evaluateRaw,
     initTree: $caa9439642c6336c$var$initTree,
     nextTick: $caa9439642c6336c$var$nextTick,
     prefixed: $caa9439642c6336c$var$prefix,
@@ -2453,7 +2510,8 @@ function $caa9439642c6336c$var$isListeningForASpecificKeyThatHasntBeenPressed(e,
             "self",
             "away",
             "outside",
-            "passive"
+            "passive",
+            "preserve-scroll"
         ].includes(i);
     });
     if (keyModifiers.includes("debounce")) {
@@ -2540,7 +2598,7 @@ $caa9439642c6336c$var$directive("model", (el, { modifiers: modifiers, expression
     if (typeof expression === "string" && el.type === "radio") $caa9439642c6336c$var$mutateDom(()=>{
         if (!el.hasAttribute("name")) el.setAttribute("name", expression);
     });
-    var event = el.tagName.toLowerCase() === "select" || [
+    let event = el.tagName.toLowerCase() === "select" || [
         "checkbox",
         "radio"
     ].includes(el.type) || modifiers.includes("lazy") ? "change" : "input";
@@ -3031,6 +3089,7 @@ function $caa9439642c6336c$var$warnMissingPluginDirective(name, directiveName, s
 }
 // packages/alpinejs/src/index.js
 $caa9439642c6336c$var$alpine_default.setEvaluator($caa9439642c6336c$var$normalEvaluator);
+$caa9439642c6336c$var$alpine_default.setRawEvaluator($caa9439642c6336c$var$normalRawEvaluator);
 $caa9439642c6336c$var$alpine_default.setReactivityEngine({
     reactive: $caa9439642c6336c$var$reactive2,
     effect: $caa9439642c6336c$var$effect2,
@@ -3130,7 +3189,10 @@ function $512e3a9270ec7803$var$createMorphContext(options = {}) {
         let toAttributes = Array.from(to.attributes);
         for(let i = domAttributes.length - 1; i >= 0; i--){
             let name = domAttributes[i].name;
-            if (!to.hasAttribute(name)) from.removeAttribute(name);
+            if (!to.hasAttribute(name)) {
+                if (name === "open" && from.nodeName === "DIALOG" && from.open) from.close();
+                else from.removeAttribute(name);
+            }
         }
         for(let i = toAttributes.length - 1; i >= 0; i--){
             let name = toAttributes[i].name;
@@ -3254,6 +3316,7 @@ function $512e3a9270ec7803$var$createMorphContext(options = {}) {
             }
             let currentFromNext = currentFrom && $512e3a9270ec7803$var$getNextSibling(from, currentFrom);
             context.patch(currentFrom, currentTo);
+            if (currentFrom._x_lastRenderedEl) currentFromNext = $512e3a9270ec7803$var$getNextSibling(from, currentFrom._x_lastRenderedEl);
             currentTo = currentTo && $512e3a9270ec7803$var$getNextSibling(to, currentTo);
             currentFrom = currentFromNext;
         }
@@ -3359,7 +3422,8 @@ function $512e3a9270ec7803$var$monkeyPatchDomSetAttributeToAllowAtSymbols() {
     let hostDiv = document.createElement("div");
     Element.prototype.setAttribute = function newSetAttribute(name, value) {
         if (!name.includes("@")) return original.call(this, name, value);
-        hostDiv.innerHTML = `<span ${name}="${value}"></span>`;
+        let escapedValue = value.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
+        hostDiv.innerHTML = `<span ${name}="${escapedValue}"></span>`;
         let attr = hostDiv.firstElementChild.getAttributeNode(name);
         hostDiv.firstElementChild.removeAttributeNode(attr);
         this.setAttributeNode(attr);
@@ -3435,7 +3499,7 @@ function $a5acee56471cec18$var$storageHas(key, storage) {
     return storage.getItem(key) !== null;
 }
 function $a5acee56471cec18$var$storageGet(key, storage) {
-    let value = storage.getItem(key, storage);
+    let value = storage.getItem(key);
     if (value === void 0) return;
     return JSON.parse(value);
 }
@@ -12693,7 +12757,7 @@ $c9dfaeb25bf110ce$exports = {
 };
 
 
-var $5d1c9207cb730903$exports = {};
+var $6178ee12f80cbf68$exports = {};
 var $6a9b69d9cc7f810f$exports = {};
 
 $parcel$defineInteropFlag($6a9b69d9cc7f810f$exports);
@@ -13722,38 +13786,6 @@ function $c299e36fa9e271bc$export$2e2bcd8739ae039(id, embedStore) {
 }
 
 
-var $1a7a7298eec5b755$exports = {};
-
-$parcel$defineInteropFlag($1a7a7298eec5b755$exports);
-
-$parcel$export($1a7a7298eec5b755$exports, "default", () => $1a7a7298eec5b755$export$2e2bcd8739ae039);
-
-function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
-    return {
-        narrow: false,
-        init () {
-            (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$el, ({ width: width })=>{
-                this.narrow = width < 500;
-            });
-        }
-    };
-}
-
-
-var $e773f8ef556b41ff$exports = {};
-
-$parcel$defineInteropFlag($e773f8ef556b41ff$exports);
-
-$parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
-function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
-    return {
-        get isNarrowLayout () {
-            return this.narrow || false;
-        }
-    };
-}
-
-
 var $9b24cbeb3a465447$exports = {};
 
 $parcel$defineInteropFlag($9b24cbeb3a465447$exports);
@@ -13811,19 +13843,51 @@ function $9b24cbeb3a465447$export$2e2bcd8739ae039({ id: id, matchers: matchers }
 }
 
 
-$5d1c9207cb730903$exports = {
+var $1a7a7298eec5b755$exports = {};
+
+$parcel$defineInteropFlag($1a7a7298eec5b755$exports);
+
+$parcel$export($1a7a7298eec5b755$exports, "default", () => $1a7a7298eec5b755$export$2e2bcd8739ae039);
+
+function $1a7a7298eec5b755$export$2e2bcd8739ae039() {
+    return {
+        narrow: false,
+        init () {
+            (0, $7ecd1fc3a6b35e5c$export$a2214cc2adb2dc44)(this.$el, ({ width: width })=>{
+                this.narrow = width < 500;
+            });
+        }
+    };
+}
+
+
+var $e773f8ef556b41ff$exports = {};
+
+$parcel$defineInteropFlag($e773f8ef556b41ff$exports);
+
+$parcel$export($e773f8ef556b41ff$exports, "default", () => $e773f8ef556b41ff$export$2e2bcd8739ae039);
+function $e773f8ef556b41ff$export$2e2bcd8739ae039() {
+    return {
+        get isNarrowLayout () {
+            return this.narrow || false;
+        }
+    };
+}
+
+
+$6178ee12f80cbf68$exports = {
     "display_options": {
         "field": $6a9b69d9cc7f810f$exports
     },
     "embed": {
         "inspector": $c299e36fa9e271bc$exports
     },
+    "nav": {
+        "item": $9b24cbeb3a465447$exports
+    },
     "params": {
         "editor": $1a7a7298eec5b755$exports,
         "field": $e773f8ef556b41ff$exports
-    },
-    "nav": {
-        "item": $9b24cbeb3a465447$exports
     }
 };
 
@@ -13892,7 +13956,7 @@ const $22969b543678f572$var$prefix = window.APP_NAME;
 (0, $caa9439642c6336c$export$2e2bcd8739ae039).data("app", (0, $5792afa4170ed552$export$2e2bcd8739ae039));
 [
     $c9dfaeb25bf110ce$exports,
-    $5d1c9207cb730903$exports,
+    $6178ee12f80cbf68$exports,
     $d56e5cced44001d2$exports
 ].forEach((scripts)=>{
     const components = (0, $12b7aa006b8a97e1$export$4e811121b221213b)(scripts);
