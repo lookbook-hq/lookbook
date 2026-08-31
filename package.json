@@ -39,7 +39,9 @@
   "scripts": {
     "dev": "npm run watch",
     "watch": "npm run parcel:clean && concurrently npm:parcel:watch",
-    "build": "npm run parcel:clean && npm run themes:generate && npm run parcel:build",
+    "build": "npm run assets:clean && npm run build:assets",
+    "build:assets": "npm run parcel:clean && npm run themes:generate && npm run parcel:build",
+    "assets:clean": "rm -rf public/lookbook-assets/css public/lookbook-assets/js public/lookbook-assets/*.woff2 public/lookbook-assets/*.otf",
     "parcel:clean": "rm -rf .parcel-cache",
     "parcel:watch": "parcel watch -p 5111",
     "parcel:build": "parcel build --no-cache --no-optimize",
@@ -53,8 +55,8 @@
   "author": "Mark Perkins",
   "license": "MIT",
   "dependencies": {
-    "@alpinejs/collapse": "^3.14.9",
-    "@alpinejs/morph": "^3.15.9",
+    "@alpinejs/collapse": "^3.15.10",
+    "@alpinejs/morph": "^3.16.3",
     "@alpinejs/persist": "^3.15.8",
     "@rails/actioncable": "^6.1.4",
     "@ryangjchandler/alpine-tooltip": "^2.0.0",
@@ -66,7 +68,7 @@
     "js-cookie": "^3.0.5",
     "loglevel": "^1.9.2",
     "loglevel-plugin-prefix": "^0.8.4",
-    "lucide-static": "^0.274.0",
+    "lucide-static": "^1.7.0",
     "split-grid": "^1.0.11",
     "svgo": "^4.0.0",
     "tailwindcss": "^3.4.19",
@@ -83,8 +85,8 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.29.1",
     "husky": "^9.1.7",
-    "lint-staged": "^16.2.7",
-    "parcel": "^2.16.3",
+    "lint-staged": "^17.4.1",
+    "parcel": "^2.16.4",
     "postcss": "^8.4.23",
     "postcss-import": "^16.1.0",
     "postcss-import-ext-glob": "^2.0.1",
@@ -101,7 +103,7 @@
   "lint-staged": {
     "!(docs/**/*)": [
       "prettier --write --ignore-unknown",
-      "npm run build"
+      "npm run build:assets"
     ],
     "**/*.rb": [
       "bundle exec standardrb --fix"

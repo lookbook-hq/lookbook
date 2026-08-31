@@ -41,4 +41,24 @@ async function generateIcons(sourcePath, destPath) {
   );
 }
 
-generateIcons("./node_modules/lucide-static/icons", "./assets/icons");
+// Vendored icons that are not (or no longer) part of lucide-static — e.g. the
+// `github` brand icon, which lucide removed in its 1.0 release. Copied verbatim
+// after the lucide set so a full regeneration (including `rm -rf assets/icons`
+// to prune removed icons) can't silently drop them.
+async function copyCustomIcons(sourcePath, destPath) {
+  if (!existsSync(sourcePath)) return;
+  if (!existsSync(destPath)) mkdirSync(destPath);
+
+  const files = await fs.readdir(sourcePath);
+  await Promise.all(
+    files
+      .filter((fileName) => fileName.endsWith(".svg"))
+      .map((fileName) =>
+        fs.copyFile(`${sourcePath}/${fileName}`, `${destPath}/${fileName}`)
+      )
+  );
+}
+
+generateIcons("./node_modules/lucide-static/icons", "./assets/icons").then(() =>
+  copyCustomIcons("./assets/custom-icons", "./assets/icons")
+);
