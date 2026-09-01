@@ -52,7 +52,10 @@ module Lookbook
         klass = code_object.path.constantize
         if preview_class?(klass)
           preview = PreviewEntity.new(code_object)
-          preview if preview.scenarios.any?
+          if preview.scenarios.any?
+            PreviewParamCoercion.install(klass, preview)
+            preview
+          end
         end
       rescue => exception
         Lookbook.logger.error exception.to_s
