@@ -36,5 +36,23 @@ RSpec.describe Lookbook::PreviewParamCoercion do
       }.not_to raise_error
       expect(result["num"]).to eq(0)
     end
+
+    context "when a value cannot be cast to the declared type" do
+      let(:params) { {"config" => "not-a-yaml-hash"} }
+
+      it "passes the raw value through unchanged" do
+        result = described_class.coerce(ParamsComponentPreview, "coerce_hash", params)
+        expect(result["config"]).to eq("not-a-yaml-hash")
+      end
+
+      it "logs a warning so the misconfiguration is diagnosable" do
+        logger = instance_double(Logger, debug: nil, warn: nil)
+        allow(Lookbook).to receive(:logger).and_return(logger)
+
+        described_class.coerce(ParamsComponentPreview, "coerce_hash", params)
+
+        expect(logger).to have_received(:warn).with(/Param coercion failed for 'config'/)
+      end
+    end
   end
 end

@@ -52,6 +52,13 @@ class ParamsComponentPreview < ViewComponent::Preview
     end
   end
 
+  # @param config [Hash] textarea
+  def coerce_hash(config: {})
+    render StandardComponent.new do
+      "config=#{config.class}"
+    end
+  end
+
   # @param sym [Symbol] select [foo, bar]
   # @param flag [Boolean] toggle
   # @param num number

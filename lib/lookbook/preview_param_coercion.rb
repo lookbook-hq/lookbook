@@ -53,7 +53,10 @@ module Lookbook
         begin
           coerced[key] = Param.from_tag(tag, value: value).cast_value
         rescue => exception
-          Lookbook.logger.debug("Param coercion skipped for '#{tag.name}': #{exception.message}")
+          # Warn rather than debug: a failure here usually means a malformed
+          # `@param` tag, and the value silently passing through uncoerced makes
+          # the resulting test failure point somewhere else entirely.
+          Lookbook.logger.warn("Param coercion failed for '#{tag.name}' (value passed through uncoerced): #{exception.message}")
         end
       end
       coerced
