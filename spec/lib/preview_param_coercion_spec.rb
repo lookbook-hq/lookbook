@@ -37,6 +37,19 @@ RSpec.describe Lookbook::PreviewParamCoercion do
       expect(result["num"]).to eq(0)
     end
 
+    it "casts scenarios declared inside an @!group" do
+      result = described_class.coerce(GroupComponentPreview, "grouped_coerce", {"my_param" => "bar"})
+      expect(result["my_param"]).to eq(:bar)
+    end
+
+    it "does not consult the preview registry on the render path" do
+      allow(Lookbook::Engine).to receive(:previews).and_call_original
+
+      ParamsComponentPreview.render_args("coerce_symbol", params: {"my_param" => "bar"})
+
+      expect(Lookbook::Engine).not_to have_received(:previews)
+    end
+
     context "when a value cannot be cast to the declared type" do
       let(:params) { {"config" => "not-a-yaml-hash"} }
 
@@ -53,6 +66,20 @@ RSpec.describe Lookbook::PreviewParamCoercion do
 
         expect(logger).to have_received(:warn).with(/Param coercion failed for 'config'/)
       end
+    end
+  end
+
+  describe ".install" do
+    it "is installed on preview classes in the registry" do
+      expect(ParamsComponentPreview.singleton_class).to include(described_class)
+    end
+
+    it "is not installed on the ViewComponent::Preview base class" do
+      expect(ViewComponent::Preview.singleton_class).not_to include(described_class)
+    end
+
+    it "is not installed on the Lookbook::Preview base class" do
+      expect(Lookbook::Preview.singleton_class).not_to include(described_class)
     end
   end
 end

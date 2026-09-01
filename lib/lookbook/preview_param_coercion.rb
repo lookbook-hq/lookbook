@@ -2,81 +2,69 @@ module Lookbook
   # Applies `@param` type coercion to preview parameters at render time.
   #
   # Coercion historically lived only in Lookbook's controller (`set_params`),
-  # so entry paths that bypass it — notably ViewComponent's `render_preview`
-  # test helper — received raw string params. This module is prepended to the
-  # singleton class of each preview base class so coercion happens inside
-  # `render_args`, which every entry path funnels through.
+  # so entry paths that bypass it - notably ViewComponent's `render_preview`
+  # test helper - received raw string params. Prepending this module onto a
+  # preview class moves the coercion inside `render_args`, which every entry
+  # path funnels through.
   #
-  # Coercion is idempotent: only raw String values are cast, so values already
-  # coerced upstream (e.g. by `set_params`) are passed through unchanged.
+  # It is installed on each preview class as that preview is added to the
+  # registry, rather than onto `ViewComponent::Preview` itself, so previews
+  # outside Lookbook's `preview_paths` and other callers of
+  # `Preview.render_args` are left alone. Installing also caches a coercer per
+  # scenario, so the render path never consults the preview registry and never
+  # triggers a YARD parse of its own.
+  #
+  # Note that previews are only registered once the preview registry has
+  # loaded, which happens during boot unless `lazy_load_previews_and_pages` is
+  # enabled. Under that option a preview rendered before anything has touched
+  # the registry is not yet installed, and its params are not coerced.
   module PreviewParamCoercion
     def render_args(scenario, params: {})
       super(scenario, params: PreviewParamCoercion.coerce(self, scenario, params))
     end
 
-    def self.find_scenario(preview, scenario)
-      name = scenario.to_s
-      preview.scenarios.each do |entity|
-        if entity.is_a?(ScenarioGroupEntity)
-          found = entity.scenarios.find { |s| s.name == name }
-          return found if found
-        elsif entity.name == name
-          return entity
+    class << self
+      # Prepend coercion onto a preview class and cache a coercer for each of
+      # its scenarios.
+      def install(preview_class, preview_entity)
+        unless preview_class.singleton_class.include?(PreviewParamCoercion)
+          preview_class.singleton_class.prepend(PreviewParamCoercion)
+        end
+        preview_class.instance_variable_set(:@_lookbook_param_coercers, coercers_for(preview_entity))
+      end
+
+      def coerce(preview_class, scenario, params)
+        return params if params.nil? || params.empty?
+
+        coercer = coercers(preview_class)[scenario.to_s]
+        return params if coercer.nil? || coercer.param_tags.empty?
+
+        coercer.coerce(params)
+      rescue => exception
+        # Coercion must never raise out of `render_args`: fall back to the
+        # original params if anything unexpectedly fails.
+        Lookbook.logger.debug("Param coercion skipped: #{exception.message}")
+        params
+      end
+
+      private
+
+      def coercers(preview_class)
+        preview_class.instance_variable_get(:@_lookbook_param_coercers) || {}
+      end
+
+      def coercers_for(preview_entity)
+        scenario_entities(preview_entity).each_with_object({}) do |scenario, coercers|
+          coercers[scenario.name] = ParamsCoercer.new(scenario)
         end
       end
-      nil
-    end
 
-    def self.coerce(preview_class, scenario, params)
-      return params if params.nil? || params.empty?
-
-      # First access to `Engine.previews` triggers the YARD parse of all preview
-      # files (memoized in `@_previews` for the rest of the process). In a host
-      # app's component test suite that never touched the preview registry
-      # before, that one-off cost now lands here - but only for previews that
-      # are actually rendered with params, thanks to the early return above.
-      preview = Engine.previews.find_by_preview_class(preview_class)
-      return params unless preview
-
-      scenario_entity = find_scenario(preview, scenario)
-      return params unless scenario_entity
-
-      param_tags = scenario_entity.tags("param").uniq(&:name)
-      return params if param_tags.empty?
-
-      coerced = params.dup
-      param_tags.each do |tag|
-        # Match the param key whether it was provided as a String or a Symbol,
-        # preserving the original key type so the downstream `render_args`
-        # slice (by symbol, or via indifferent access) still finds it.
-        key = param_key(coerced, tag.name)
-        next if key.nil?
-
-        value = coerced[key]
-        next unless value.is_a?(String) # idempotent: only cast raw strings
-
-        begin
-          coerced[key] = Param.from_tag(tag, value: value).cast_value
-        rescue => exception
-          # Warn rather than debug: a failure here usually means a malformed
-          # `@param` tag, and the value silently passing through uncoerced makes
-          # the resulting test failure point somewhere else entirely.
-          Lookbook.logger.warn("Param coercion failed for '#{tag.name}' (value passed through uncoerced): #{exception.message}")
+      # Scenarios declared inside an `@!group` are nested one level down in the
+      # preview's scenario collection.
+      def scenario_entities(preview_entity)
+        preview_entity.scenarios.flat_map do |entity|
+          entity.is_a?(ScenarioGroupEntity) ? entity.scenarios.to_a : [entity]
         end
-      end
-      coerced
-    rescue => exception
-      # Coercion must never raise out of `render_args`: fall back to the
-      # original params if entity lookup or tag access fails unexpectedly.
-      Lookbook.logger.debug("Param coercion skipped: #{exception.message}")
-      params
-    end
-
-    def self.param_key(params, name)
-      if params.key?(name)
-        name
-      elsif params.key?(name.to_sym)
-        name.to_sym
       end
     end
   end

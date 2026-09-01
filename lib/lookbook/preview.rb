@@ -82,6 +82,4 @@ module Lookbook
       end
     end
   end
-
-  Preview.singleton_class.prepend(PreviewParamCoercion)
 end

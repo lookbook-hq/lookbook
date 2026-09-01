@@ -84,7 +84,6 @@ module Lookbook
         end
 
         ViewComponent::Preview.extend(Lookbook::PreviewAfterRender)
-        ViewComponent::Preview.singleton_class.prepend(Lookbook::PreviewParamCoercion)
       end
 
       if opts.reload_on_change.nil?
