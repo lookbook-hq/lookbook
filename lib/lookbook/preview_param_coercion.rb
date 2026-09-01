@@ -30,6 +30,11 @@ module Lookbook
     def self.coerce(preview_class, scenario, params)
       return params if params.nil? || params.empty?
 
+      # First access to `Engine.previews` triggers the YARD parse of all preview
+      # files (memoized in `@_previews` for the rest of the process). In a host
+      # app's component test suite that never touched the preview registry
+      # before, that one-off cost now lands here - but only for previews that
+      # are actually rendered with params, thanks to the early return above.
       preview = Engine.previews.find_by_preview_class(preview_class)
       return params unless preview
 
