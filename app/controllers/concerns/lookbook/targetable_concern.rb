@@ -66,20 +66,8 @@ module Lookbook
       @params = []
 
       if @target
-        param_tags = @target.tags("param").uniq(&:name)
-        @params = param_tags.map do |param_tag|
-          Param.from_tag(
-            param_tag,
-            value: preview_controller.params[param_tag.name]
-          )
-        end
-
         # cast known param values to correct type
-        @params.each do |param|
-          if preview_controller.params.key?(param.name)
-            preview_controller.params[param.name] = param.cast_value
-          end
-        end
+        @params = ParamsCoercer.new(@target).apply!(preview_controller.params)
 
         # set display and data params for use in preview layouts
         preview_controller.params[:lookbook] = {
