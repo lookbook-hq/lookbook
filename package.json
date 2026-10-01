@@ -92,7 +92,7 @@
     "postcss-import-ext-glob": "^2.0.1",
     "prettier": "3.8.1",
     "release-it": "^19.2.4",
-    "watch": "^0.13.0"
+    "watch": "^1.0.2"
   },
   "prettier": {
     "tabWidth": 2,
