@@ -14,6 +14,7 @@ Combustion.initialize! :action_controller, :action_view do
   config.lookbook.project_name = "Lookbook Test App"
   config.lookbook.listen = false
   config.lookbook.using_view_component = true
+  config.lookbook.lazy_load_previews_and_pages = ENV["LOOKBOOK_LAZY_LOAD"] == "1"
 
   config.action_controller.default_url_options = {host: "localhost"}
 
