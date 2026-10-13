@@ -41,8 +41,23 @@ RSpec.describe "previews", type: :request do
       it "renders builder-style components" do
         get lookbook_preview_path("phlex_example/builder")
 
+        expect(html.has_css?("ul")).to be true
         expect(html.has_css?("li", text: "Hello")).to be true
         expect(html.has_css?("li", text: "World")).to be true
+      end
+
+      it "renders nested components" do
+        get lookbook_preview_path("phlex_example/nested_render")
+
+        expect(html).to have_css "button > svg"
+        expect(html).to have_content "A simple button"
+      end
+
+      it "renders uninitialized nested component classes" do
+        get lookbook_preview_path("phlex_example/nested_render_class")
+
+        expect(html).to have_css "button > svg"
+        expect(html).to have_content "A simple button"
       end
     end
   end
