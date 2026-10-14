@@ -9,6 +9,10 @@ appraise "rails-6.1" do
   gem "net-pop", require: false
 
   gem "view_component", "3.23.2"
+
+  # ActiveSupport 6.1 passes `quirks_mode` to `JSON.generate`, which json 3 rejects
+  # (unknown options raise since 3.0). Rails 6.1 is EOL, so this won't be fixed upstream.
+  gem "json", "< 3"
 end
 
 appraise "rails-7.0" do
@@ -29,6 +33,10 @@ end
 appraise "rails-8.0" do
   gem "rails", "~> 8.0"
   gem "view_component", "4.0.0.alpha6"
+
+  # ActiveSupport 8.0.5.1 passes `quirks_mode` to `JSON.generate`, which json 3 rejects
+  # (unknown options raise since 3.0). Fixed on 8-0-stable: remove once a newer 8.0 release is out.
+  gem "json", "< 3"
 end
 
 # appraise "rails-head" do
