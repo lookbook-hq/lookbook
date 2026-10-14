@@ -35,3 +35,6 @@ gem "puma", "~> 6.0"
 gem "view_component", "2.74.1"
 gem "bridgetown-view-component", "~> 1.0", group: :bridgetown_plugins
 gem "bridgetown-routes", group: :bridgetown_plugins
+
+gem "csv"
+gem "base64"
