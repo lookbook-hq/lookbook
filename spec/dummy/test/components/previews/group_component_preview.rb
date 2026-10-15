@@ -37,4 +37,15 @@ class GroupComponentPreview < ViewComponent::Preview
   end
 
   # @!endgroup
+
+  # @!group Coercion
+
+  # @param my_param [Symbol] select [foo, bar]
+  def grouped_coerce(my_param: :foo)
+    render StandardComponent.new do
+      "my_param=#{my_param} class=#{my_param.class}"
+    end
+  end
+
+  # @!endgroup
 end
