@@ -74,9 +74,9 @@ module Lookbook
 
     # @api private
     def component_class(ref)
+      ref = ref.to_s.tr("-", "_")
       klass = COMPONENT_CLASSES[ref]
       if klass.nil?
-        ref = ref.to_s.tr("-", "_")
         class_namespace = ref.camelize
         begin
           klass = "Lookbook::#{class_namespace}::Component".constantize
