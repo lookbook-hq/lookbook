@@ -11,7 +11,7 @@ gem "yard-activesupport-concern"
 
 group :test do
   gem "appraisal"
-  gem "phlex-rails", "~> 1.2.2", require: false
+  gem "phlex-rails"
   gem "factory_bot", require: false
   gem "capybara", "~> 3.39"
   gem "selenium-webdriver", "4.17.0"
