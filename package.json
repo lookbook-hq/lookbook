@@ -57,7 +57,7 @@
   "dependencies": {
     "@alpinejs/collapse": "^3.17.4",
     "@alpinejs/morph": "^3.16.3",
-    "@alpinejs/persist": "^3.15.8",
+    "@alpinejs/persist": "^3.17.5",
     "@rails/actioncable": "^6.1.4",
     "@ryangjchandler/alpine-tooltip": "^2.0.0",
     "@tailwindcss/forms": "^0.5.11",
@@ -78,21 +78,21 @@
   "devDependencies": {
     "@parcel/resolver-glob": "^2.16.0",
     "commitizen": "^4.3.2",
-    "concurrently": "^9.2.1",
+    "concurrently": "^10.0.6",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.29.1",
     "husky": "^9.1.7",
-    "lint-staged": "^17.4.1",
+    "lint-staged": "^17.6.0",
     "parcel": "^2.16.4",
     "postcss": "^8.4.23",
     "postcss-import": "^16.1.0",
     "postcss-import-ext-glob": "^2.0.1",
     "prettier": "3.8.1",
     "release-it": "^19.2.4",
-    "watch": "^0.13.0"
+    "watch": "^1.0.2"
   },
   "prettier": {
     "tabWidth": 2,
