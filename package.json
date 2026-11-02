@@ -57,7 +57,7 @@
   "dependencies": {
     "@alpinejs/collapse": "^3.17.4",
     "@alpinejs/morph": "^3.16.3",
-    "@alpinejs/persist": "^3.15.8",
+    "@alpinejs/persist": "^3.17.5",
     "@rails/actioncable": "^6.1.4",
     "@ryangjchandler/alpine-tooltip": "^2.0.0",
     "@tailwindcss/forms": "^0.5.11",
@@ -85,7 +85,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.29.1",
     "husky": "^9.1.7",
-    "lint-staged": "^17.4.1",
+    "lint-staged": "^17.6.0",
     "parcel": "^2.16.4",
     "postcss": "^8.4.23",
     "postcss-import": "^16.1.0",
