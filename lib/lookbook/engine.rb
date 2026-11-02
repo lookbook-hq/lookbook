@@ -33,6 +33,11 @@ module Lookbook
       end
     end
 
+    # Cached component classes go stale when Rails reloads app/components.
+    config.to_prepare do
+      UiElementsHelper::COMPONENT_CLASSES.clear
+    end
+
     config.after_initialize do
       if opts.using_view_component
         vc_config = Engine.host_config.view_component

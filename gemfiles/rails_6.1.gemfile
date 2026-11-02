@@ -10,6 +10,7 @@ gem "yard-activesupport-concern"
 gem "net-smtp", require: false
 gem "net-imap", require: false
 gem "net-pop", require: false
+gem "json", "< 3"
 
 group :test do
   gem "appraisal"
