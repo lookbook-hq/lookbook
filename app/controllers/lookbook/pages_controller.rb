@@ -10,7 +10,7 @@ module Lookbook
       landing = Engine.pages.find(&:landing?) || Engine.pages.first
       raise_not_found("Page not found") unless landing.present?
 
-      redirect_to lookbook_page_path(landing.path)
+      redirect_to lookbook_page_path(landing.lookup_path)
     end
 
     def show
