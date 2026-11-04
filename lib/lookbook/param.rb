@@ -1,15 +1,28 @@
 module Lookbook
   class Param
-    attr_reader :name, :options, :value_default, :description
+    attr_reader :name, :options, :description
 
-    def initialize(name:, input: nil, description: nil, value_type: nil, value_default: nil, value: nil, options: {})
+    def initialize(name:, input: nil, description: nil, value_type: nil, value_default: nil, value_default_resolver: nil, value: nil, options: {})
       @name = name
       @input = input
       @description = description
       @value_type = value_type
       @value_default = value_default
+      @value_default_resolver = value_default_resolver
       @value = value
       @options = options
+    end
+
+    # Resolved on first access, so building a Param never evaluates the scenario
+    # method's default expression unless something needs it: type inference when
+    # the tag declares no type, or the UI falling back to it when no value was
+    # given.
+    def value_default
+      if @value_default_resolver
+        @value_default = @value_default_resolver.call
+        @value_default_resolver = nil
+      end
+      @value_default
     end
 
     def label
@@ -55,13 +68,15 @@ module Lookbook
       StringValueCaster.call(value, value_type)
     end
 
-    def self.from_tag(tag, value: nil)
+    # @param value_default_resolver [#call] overrides how the scenario default is
+    #   resolved, so several Params built from one tag can share one evaluation
+    def self.from_tag(tag, value: nil, value_default_resolver: -> { tag.value_default })
       new(
         name: tag.name,
         input: tag.input || tag.options.input,
         description: tag.description || tag.options.description,
         value_type: tag.value_type || tag.options.value_type,
-        value_default: tag.value_default,
+        value_default_resolver: value_default_resolver,
         options: tag.options,
         value: value
       )
