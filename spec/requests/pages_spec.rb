@@ -24,6 +24,17 @@ RSpec.describe "pages", type: :request do
     end
   end
 
+  context "index" do
+    it "redirects to the landing page without deprecation warnings" do
+      expect(Lookbook::Deprecation).not_to receive(:deprecation_warning)
+
+      get lookbook_page_index_path
+
+      landing = Lookbook::Engine.pages.find(&:landing?) || Lookbook::Engine.pages.first
+      expect(response).to redirect_to(landing.url_path)
+    end
+  end
+
   context "with tabs" do
     it "should display the tabs" do
       get Lookbook::Engine.pages.find_by_path("sections").url_path
