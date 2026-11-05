@@ -15,4 +15,11 @@ RSpec.describe Lookbook::CodeHighlighter do
     expect(html_result).to include "data-lang='html'"
     expect(js_result).to include "data-lang='js'"
   end
+
+  it "decodes the entities ERB escaped in the source before highlighting it" do
+    source = ERB::Util.html_escape(%(<a href="/posts?page=2&sort=asc">Alice's posts</a>))
+    result = Nokogiri::HTML5.fragment(described_class.call(source, :html)).text
+
+    expect(result).to eq %(<a href="/posts?page=2&sort=asc">Alice's posts</a>)
+  end
 end
