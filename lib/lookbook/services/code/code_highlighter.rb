@@ -1,5 +1,5 @@
 require "rouge"
-require "htmlentities"
+require "cgi/escape"
 
 module Lookbook
   class CodeHighlighter < Service
@@ -15,8 +15,7 @@ module Lookbook
     end
 
     def call
-      coder = HTMLEntities.new
-      decoded_source = coder.decode(source)
+      decoded_source = CGI.unescapeHTML(source)
       language = opts.fetch(:language, "ruby")
       formatter = LookbookFormatter.new(language: language, **opts)
       lexer = Rouge::Lexer.find(language.to_s) || Rouge::Lexer.find("plaintext")
