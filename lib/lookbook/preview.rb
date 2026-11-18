@@ -15,11 +15,23 @@ module Lookbook
           block: block
         }
       else
+        rendered = if is_phlex?(component) && block
+          component = component.new if component.is_a?(Class)
+
+          wrapper = Class.new(Phlex::SGML)
+          wrapper.define_method(:view_template) do
+            instance_exec(component, &block)
+          end
+
+          component.call { wrapper.new.call.html_safe }
+        end
+
         {
           type: component.is_a?(String) ? :view : :component,
           args: args,
           block: block,
           component: component,
+          rendered: rendered,
           locals: {},
           template: Lookbook.config.preview_template
         }
@@ -35,6 +47,10 @@ module Lookbook
     end
 
     alias_method :render_component, :render
+
+    protected def is_phlex?(obj)
+      defined?(Phlex) && ((obj.is_a?(Class) && obj < Phlex::SGML) || obj.is_a?(Phlex::SGML))
+    end
 
     class << self
       def preview_name

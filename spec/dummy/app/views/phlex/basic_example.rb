@@ -1,7 +1,7 @@
-module Views::Phlex
-  class BasicExample < Phlex::HTML
+module Views
+  class BasicExample < Views::Base
     def view_template
-      p { "phlex component" }
+      p { 'phlex component' }
     end
   end
 end
