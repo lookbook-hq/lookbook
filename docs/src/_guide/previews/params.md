@@ -382,6 +382,15 @@ title: Dynamic Params
     - `Hash` - _value string converted to Hash using the Ruby YAML parser_
     - `Array` - _value string converted to Array using the Ruby YAML parser_
 
+    Type casting is applied whenever a preview is rendered, including via ViewComponent's `render_preview` test helper. This means preview methods can rely on receiving the declared type in their own tests, and downstream `.to_sym`/manual-cast workarounds are no longer required.
+
+  <% end %>
+
+  <% s.with_block_note :warn do %>
+    **Upgrade note:** In earlier versions type casting only happened when rendering through the Lookbook UI, so previews rendered
+    via `render_preview` received raw strings. Previews that worked around this with **raw string comparisons** (`value == "true"`,
+    hand-rolled `coerce_bool` helpers and similar) will now see the cast value in their tests and need updating.
+    `.to_sym`-style workarounds are unaffected, as `Symbol#to_sym` is a no-op.
   <% end %>
 <% end %>
 

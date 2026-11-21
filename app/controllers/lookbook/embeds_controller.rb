@@ -92,19 +92,10 @@ module Lookbook
       @passed_params = req_params.select { |key, value| !key.to_s.start_with?("_") }
 
       if @target
-        @params = @target.tags("param").map do |param_tag|
-          Param.from_tag(
-            param_tag,
-            value: @passed_params[param_tag.name.to_sym]
-          )
-        end
-
+        coercer = ParamsCoercer.new(@target)
+        @params = coercer.params_list(@passed_params)
         # cast known param values to correct type
-        @params.each do |param|
-          if @passed_params.key?(param.name.to_sym)
-            @passed_params[param.name.to_sym] = param.cast_value
-          end
-        end
+        coercer.cast!(@passed_params)
       end
     end
 
